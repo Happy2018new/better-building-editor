@@ -475,6 +475,18 @@ def poll_clipboard(host):
                 if not result.get("ok"):
                     resp["pyreact_ack"] = False
                     resp["error"] = result.get("error")
+        elif cmd == "native_control":
+            fiber = find_fiber_by_id(host._root_fiber, node_id)
+            if fiber is None or not fiber.native_path:
+                raise ValueError('native_control requires a primitive id')
+            control = host.GetBaseUIControl(fiber.native_path)
+            result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
+            if _type_name(fiber) == 'Image':
+                image = control.asImage()
+                result['angle'] = image.GetRotateAngle()
+                result['pivot'] = image.GetRotatePivot()
+                result['rect'] = image.GetRotateRect()
+            resp['result'] = result
         elif cmd == "pointer":
             resp["result"] = dispatch_pointer(host, host._root_fiber, node_id, req.get("value"))
         elif cmd == "set_input":

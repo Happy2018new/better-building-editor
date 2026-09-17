@@ -83,7 +83,8 @@ def Scene(session=None, revision=0, width=400, height=300):
             b[axis] = hi[axis]
             sx, sy = camera.project(a, session.editor.document.size, width * Theme.scale, height * Theme.scale, unit())
             ex, ey = camera.project(b, session.editor.document.size, width * Theme.scale, height * Theme.scale, unit())
-            angle = math.degrees(math.atan2(ey - sy, ex - sx))
+            # UI Y grows downward, while native positive rotation is counterclockwise.
+            angle = -math.degrees(math.atan2(ey - sy, ex - sx))
             ref.current.SetPosition((sx, sy))
             ref.current.SetSize((max(.1, math.hypot(ex - sx, ey - sy)), max(.5, Theme.scale)))
             # Native Rotate assigns the absolute angle (it does not accumulate).

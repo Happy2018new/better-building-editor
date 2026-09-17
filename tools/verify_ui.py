@@ -82,6 +82,7 @@ def main():
     check('preview created on first mount', len(nodes('PaperDoll')) == 1)
     before = tuple(nodes('PaperDoll')[0]['props'].get(k, 0) for k in ('initRotX', 'initRotY', 'initRotZ'))
     click('右转')
+    click('浏览')  # Publish the settled native camera pose into the UI snapshot.
     after = tuple(nodes('PaperDoll')[0]['props'].get(k, 0) for k in ('initRotX', 'initRotY', 'initRotZ'))
     check('rotation updates rendered model', after != before)
     click('逐层')
@@ -95,6 +96,9 @@ def main():
     click('撤销')
     check('undo creates redo action', any(n['props'].get('onClick') for n in _resolve_label(tree(), '重做')))
     click('参数')
+    # Tool parameters are contextual; shell exposes the integer thickness range.
+    from verify_interaction import category
+    category('cube'); click('空心长方体')
     sliders = nodes('Slider')
     call('set_slider', sliders[0]['id'], .5); time.sleep(.5)
     check('slider feeds controlled state', .4 < nodes('Slider')[0]['props']['value'] < .7)

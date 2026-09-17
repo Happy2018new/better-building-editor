@@ -13,6 +13,8 @@ def frame(node):
 
 results = []
 ui.click('工作台')
+reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
+ui.call('click', ui.nodes('Button', reset)[0]['id'])
 for preset in ('20:9', '4:3', '16:10', '16:9'):
     process = subprocess.run([sys.executable, str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/resize_window.py'),
                               '--preset', preset], capture_output=True, check=True, encoding='utf8')
@@ -31,4 +33,9 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
                  box['x'] >= 0 and box['y'] >= 0 and box['x'] + box['width'] <= width + .5 and
                  box['y'] + box['height'] <= height + .5)
     results.append({'preset': preset, 'client': result['actualClient'], 'ui': root, 'columns': columns})
+    # Hit coordinates must continue to agree with the fitted native model after resize.
+    import verify_interaction as interaction
+    ui.click('浏览'); ui.click('俯视'); time.sleep(.6)
+    interaction.tap(*interaction.point((8.5, 11., 14.5)))
+    ui.check(preset + ' resized viewport picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
 (ui.OUT / 'layout_checks.json').write_text(json.dumps(results, indent=2), encoding='utf8')
