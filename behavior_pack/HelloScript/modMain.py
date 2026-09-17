@@ -5,12 +5,12 @@ import mod.client.extraClientApi as clientApi
 import mod.server.extraServerApi as serverApi
 
 
-@Mod.Binding(name="HelloMod", version="1.0.0")
+@Mod.Binding(name="ModernProjection", version="0.1.0")
 class HelloClient(object):
     @Mod.InitClient()
     def HelloClientInit(self):
         clientApi.RegisterSystem(
-            "HelloMod",
+            "ModernProjection",
             "HelloClientSystem",
             "HelloScript.HelloClientSystem.HelloClientSystem",
         )
@@ -23,7 +23,7 @@ class HelloClient(object):
     @Mod.InitServer()
     def HelloServerInit(self):
         serverApi.RegisterSystem(
-            "HelloMod",
+            "ModernProjection",
             "HelloServerSystem",
             "HelloScript.HelloServerSystem.HelloServerSystem",
         )

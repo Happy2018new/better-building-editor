@@ -1,0 +1,146 @@
+{
+  "namespace": "ModernProjection",
+  "label@PyreactBase.label": {
+    "font_type": "smooth",
+    "backup_font_type": "smooth"
+  },
+  "type_image@PyreactBase.image": {
+    "bilinear": true
+  },
+  "doll@PyreactBase.paperDoll": {
+    "rotation": "freedom_gesture"
+  },
+  "input_background": {
+    "type": "image",
+    "texture": "textures/modern_projection/input_bg",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "keep_ratio": false,
+    "nineslice_size": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "bilinear": true
+  },
+  "input_hover@ModernProjection.input_background": {
+    "texture": "textures/modern_projection/input_hover"
+  },
+  "input@PyreactBase.input": {
+    "$text_background_default": "ModernProjection.input_background",
+    "$text_background_hover": "ModernProjection.input_hover",
+    "$edit_box_default_texture": "textures/modern_projection/input_bg",
+    "$edit_box_hover_texture": "textures/modern_projection/input_hover",
+    "$font_scale_factor": 0.8,
+    "$place_holder_text": "",
+    "$text_box_text_color": [
+      0.15,
+      0.22,
+      0.3
+    ]
+  },
+  "invisible": {
+    "type": "image",
+    "texture": "textures/modern_projection/transparent",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "alpha": 0
+  },
+  "scroll_thumb": {
+    "type": "image",
+    "texture": "textures/ui/white",
+    "size": [
+      2,
+      "100%"
+    ],
+    "color": [
+      0.65,
+      0.73,
+      0.85
+    ],
+    "layer": 4
+  },
+  "scroll@PyreactBase.scrollBase": {
+    "$scroll_size": [
+      3,
+      "100%"
+    ],
+    "$scroll_track_image_control": "common.empty_panel",
+    "$scroll_box_mouse_image_control": "ModernProjection.scroll_thumb",
+    "$scroll_box_touch_image_control": "ModernProjection.scroll_thumb"
+  },
+  "slider_bar_default": {
+    "type": "image",
+    "texture": "textures/modern_projection/transparent",
+    "controls": [
+      {
+        "sizing_panel": {
+          "type": "panel",
+          "controls": [
+            {
+              "slider_background@ModernProjection.invisible": {}
+            },
+            {
+              "slider_progress@ModernProjection.invisible": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "slider_bar_hover": {
+    "type": "image",
+    "texture": "textures/modern_projection/transparent",
+    "controls": [
+      {
+        "sizing_panel": {
+          "type": "panel",
+          "controls": [
+            {
+              "slider_background_hover@ModernProjection.invisible": {}
+            },
+            {
+              "slider_progress_hover@ModernProjection.invisible": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "slider@PyreactBase.slider": {
+    "$slider_box_size": [
+      4,
+      10
+    ],
+    "$background_default_control": "ModernProjection.invisible",
+    "$progress_default_control": "ModernProjection.invisible",
+    "$background_hover_control": "ModernProjection.invisible",
+    "$progress_hover_control": "ModernProjection.invisible",
+    "$slider_box_layout": "common.empty_panel",
+    "$slider_box_hover_layout": "common.empty_panel",
+    "$slider_box_locked_layout": "common.empty_panel",
+    "$slider_box_indent_layout": "common.empty_panel",
+    "controls": [
+      {
+        "slider_box@common.slider_box": {
+          "$slider_box_layout": "$slider_box_layout",
+          "$slider_box_size": "$slider_box_size",
+          "$slider_track_button": "$slider_name"
+        }
+      },
+      {
+        "slider_bar_default@ModernProjection.slider_bar_default": {}
+      },
+      {
+        "slider_bar_hover@ModernProjection.slider_bar_hover": {
+          "visible": false
+        }
+      }
+    ]
+  }
+}

@@ -123,9 +123,14 @@ class EditorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             Document((64, 64, 64))
 
-    def test_palette_flattening_matches_sdk_x_y_z_order(self):
+    def test_palette_layout_matches_native_asymmetric_probe(self):
+        # Native GetLocalPosListOfBlocks, volume (2,3,4): 1 -> (0,0,1),
+        # 4 -> (2,0,0), 6 -> (0,1,0). Native volume order is Z, X, Y.
+        doc = Document((3, 4, 2), {(2, 0, 0): STONE, (0, 1, 0): STONE})
+        self.assertEqual((2, 3, 4), doc.palette_data()['volume'])
+        self.assertEqual([4, 6], sorted(doc.palette_data()['common'][STONE]))
         doc = Document((3, 4, 5), {(2, 1, 3): STONE})
-        self.assertEqual([48], doc.palette_data()['common'][STONE])
+        self.assertEqual([28], doc.palette_data()['common'][STONE])
 
     def test_directional_blocks_cannot_silently_rotate_with_wrong_metadata(self):
         e = Editor(Document((3, 3, 3), {(1, 1, 1): ('minecraft:oak_stairs', 0)}))

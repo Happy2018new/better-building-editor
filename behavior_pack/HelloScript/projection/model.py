@@ -109,10 +109,11 @@ class Document(object):
         sx, sy, sz = self.size
         for pos, value in self.blocks.items():
             if visible is None or visible(pos):
-                # SDK palette ordering: x-major, then y, z contiguous.
-                index = pos[0] * sy * sz + pos[1] * sz + pos[2]
+                # Native SDK volume is (z, x, y), with z contiguous, then x, then y.
+                # Verified by GetLocalPosListOfBlocks on asymmetric (2, 3, 4) palettes.
+                index = pos[1] * sx * sz + pos[0] * sz + pos[2]
                 common.setdefault(value, []).append(index)
-        return {'extra': {}, 'actor': {}, 'void': False, 'volume': self.size,
+        return {'extra': {}, 'actor': {}, 'void': False, 'volume': (sz, sx, sy),
                 'common': common, 'eliminateAir': True}
 
 
