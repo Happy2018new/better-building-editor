@@ -75,6 +75,31 @@ TOOLS = [
 ]
 BY_ID = dict((item[0], item) for item in TOOLS)
 
+
+def tool_parameters(identity):
+    """Only expose parameters actually consumed by this operation."""
+    group = BY_ID[identity][1]
+    values = set()
+    if group in ('shape', 'pattern') or identity in ('fill', 'replace', 'fill_air', 'paint', 'flood', 'swap', 'fill_holes'):
+        values.add('material')
+    if group == 'pattern':
+        values.add('secondary')
+    if identity in ('replace', 'swap', 'select_material'):
+        values.add('source')
+    if identity in ('select_box', 'line'):
+        values.update(('start', 'end'))
+    if identity in ('paste', 'paste_airless', 'flood'):
+        values.add('start')
+    if identity in ('shell', 'walls', 'frame', 'sphere_shell', 'tube', 'dome', 'arch'):
+        values.add('thickness')
+    if identity.startswith(('move_', 'stripe_')) or identity in ('checker', 'brick', 'lattice'):
+        values.add('step')
+    if identity == 'noise':
+        values.add('ratio')
+    if identity in ('noise', 'gradient'):
+        values.add('seed')
+    return values
+
 MATERIALS = [
     ('minecraft:quartz_block', 0, '石英', 'F0EDE5'),
     ('minecraft:concrete', 0, '白色混凝土', 'DFE3DF'),

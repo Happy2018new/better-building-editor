@@ -2,7 +2,7 @@
 """Application state, local building library, and coalesced preview generation."""
 from __future__ import unicode_literals
 import time
-from .model import Document, Editor, demo_document
+from .model import AIR, Document, Editor, demo_document
 
 
 def as_text(value):
@@ -33,6 +33,11 @@ class Session(object):
         self.zoom = 1.
         self.view = '3d'
         self.paint_mode = 'paint'
+        self.direct_mode = 'browse'
+        self.focused = None
+        self.box_anchor = None
+        self.camera_pose = (35., 25., 1.)
+        self.camera_revision = 0
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
@@ -89,6 +94,7 @@ class Session(object):
 
     def choose_tool(self, tool):
         self.tool = tool
+        self.direct_mode = 'browse'
         self.inspector = 'params'
         self.emit()
 
@@ -166,6 +172,59 @@ class Session(object):
         else:
             self.action(self.editor.paint_at, pos, self.paint_mode == 'erase')
 
+    def choose_mode(self, mode):
+        self.direct_mode = mode
+        self.box_anchor = None
+        self.inspector = 'params'
+        self.emit()
+
+    def camera_view(self, yaw=None, pitch=None, zoom=None):
+        actual_yaw, actual_pitch, actual_zoom = self.camera_pose
+        self.camera_yaw = actual_yaw if yaw is None else yaw
+        self.camera_pitch = actual_pitch if pitch is None else pitch
+        self.zoom = actual_zoom if zoom is None else zoom
+        self.camera_revision += 1
+        self.emit()
+
+    def point_action(self, pos, normal=(0, 0, 0)):
+        """One click, one undo record. Dragging never reaches this method."""
+        e = self.editor
+        if not e.document.contains(pos):
+            return False
+        self.focused = pos
+        mode = self.direct_mode
+        if mode == 'place':
+            target = tuple(pos[i] + normal[i] for i in range(3))
+            if not e.document.contains(target):
+                e.message = '目标超出建筑范围'
+            elif target[1] in e.hidden_layers or (self.solo_layer and target[1] != e.layer):
+                e.message = '目标图层不可见，请先显示该图层'
+            else:
+                self.focused = target
+                return self.action(e.paint_at, target)
+        elif mode in ('paint', 'erase'):
+            return self.action(e.paint_at, pos, mode == 'erase')
+        elif mode == 'pick':
+            if e.document.get(pos) != AIR:
+                e.material = e.document.get(pos)
+                e.message = '已吸取材质：' + e.material[0]
+        elif mode == 'select':
+            e.select_box(pos, pos)
+            e.layer = pos[1]
+            self.refresh_preview()
+        elif mode == 'box':
+            if self.box_anchor is None:
+                self.box_anchor = e.start = pos
+                e.message = '起点已设置，请点击框选终点'
+            else:
+                e.start, e.end = self.box_anchor, pos
+                self.box_anchor = None
+                e.select_box(e.start, e.end)
+        else:
+            e.message = '方块坐标：%d, %d, %d' % pos
+        self.emit()
+        return True
+
     def save(self):
         name = as_text(self.name).strip()
         if not name or len(name) > 64:
@@ -189,6 +248,7 @@ class Session(object):
         if entry is None:
             raise ValueError('找不到这份配置')
         self.editor = Editor(Document.from_data(entry['data']))
+        self.focused = self.box_anchor = None
         self.name = self.editor.document.name
         self.page = 'workspace'
         self.editor.message = '已载入建筑配置'
@@ -229,11 +289,13 @@ class Session(object):
 
     def demo(self):
         self.editor = Editor(demo_document())
+        self.focused = self.box_anchor = None
         self.name = self.editor.document.name
         self.refresh_preview()
 
     def empty(self):
         self.editor = Editor(Document(self.new_size))
+        self.focused = self.box_anchor = None
         self.name = '未命名建筑'
         self.canvas_x = self.canvas_z = 0
         self.page = 'workspace'

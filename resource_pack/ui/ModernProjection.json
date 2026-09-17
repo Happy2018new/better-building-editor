@@ -8,7 +8,8 @@
     "bilinear": true
   },
   "doll@PyreactBase.paperDoll": {
-    "rotation": "freedom_gesture"
+    "rotation": "none",
+    "enable_scissor_test": true
   },
   "input_background": {
     "type": "image",
@@ -71,8 +72,10 @@
       "100%"
     ],
     "$scroll_track_image_control": "common.empty_panel",
-    "$scroll_box_mouse_image_control": "ModernProjection.scroll_thumb",
-    "$scroll_box_touch_image_control": "ModernProjection.scroll_thumb"
+    "$scroll_box_visible": false,
+    "$scroll_box_visible_touch": false,
+    "$scroll_box_mouse_image_control": "ModernProjection.invisible",
+    "$scroll_box_touch_image_control": "ModernProjection.invisible"
   },
   "slider_bar_default": {
     "type": "image",

@@ -191,6 +191,7 @@ python3 simulate.py scroll --node-id ID [--position PIXELS] [--timeout N]
 - `input`：游戏侧调用目标 Input 的 `SetEditText`，再走正式的 `onChange` 文本 diff 分发；受控 Input 会在下一帧把新 `value` 写回 UI 树。
 - `slider`：游戏侧更新目标 Slider 的 `#slider_value` property bag 并调用 `SetSliderValue`，再走正式的 `onChange` 数值 diff 分发；原生会按 `steps` 对数值取整或裁剪，受控 Slider 会在下一帧把新 `value` 写回 UI 树。
 - `scroll`：游戏侧确认目标是 ScrollView，调用 `SetScrollViewPos` 设置像素位置，并在响应中返回 `before` / `position`；省略 `--position` 时通过 `GetScrollViewPos` 只读当前位置。
+- 自定义指针 Primitive 可通过 `_protocol.request('pointer', node_id=ID, value={'phase': 'down|move|up|cancel|enter|leave', 'x': X, 'y': Y})` 调试；坐标为相对该原生控件左上角的 UI 单位，调用正式 `onDown/onMove/onUp/onCancel/onEnter/onLeave` 回调。拖动使用 down → 若干 move → up；与 Win32 实际鼠标输入测试配合验证绑定。
 - `--settle S`：交互后等 S 秒让 UI 重渲染再返回（配合后续 dump）。**默认 `0.0`**；如需配合后续 `get_ui_tree` 抓稳定态，请显式传 `--settle 1` 等。
 
 ### print_ui_tree.py

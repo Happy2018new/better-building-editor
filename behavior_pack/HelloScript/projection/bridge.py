@@ -155,6 +155,7 @@ class ClientBridge(object):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
         elif action == 'capture':
             s.editor = Editor(Document.from_data(args['document']))
+            s.focused = s.box_anchor = None
             s.name = s.editor.document.name
             s.origin = tuple(sent['origin'])
             s.canvas_x = s.canvas_z = 0

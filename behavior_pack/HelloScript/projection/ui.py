@@ -10,6 +10,7 @@ from .widgets import JellyButton as Button, PageMotion
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color
 from .catalog import GROUPS, TOOLS, BY_ID
 from .model import AIR
+from .scene import Scene, MODES, HINTS
 
 
 @Component
@@ -22,7 +23,7 @@ def ToolList(session=None, revision=0, height=440):
         Input(value=session.query, onChange=partial(session.set, 'query'), style=S(width=150, height=27, marginTop=12)),
         text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, marginTop=5, marginBottom=12),
         text('搜索结果' if query else title + '工具', 10, Theme.muted, marginBottom=7),
-        Scroll(style=S(width=154, flex=1), children=Panel(style=S(width=148, gap=5), children=[
+        Scroll(resetKey=(session.group, query), style=S(width=154, flex=1), children=Panel(style=S(width=144, gap=5), children=[
             Action(key=t[0], label=t[2], height=32, selected=session.tool == t[0],
                    onClick=partial(session.choose_tool, t[0]), compact=True)
             for t in items] or [text('没有匹配的工具', 11, Theme.muted)])),
@@ -68,16 +69,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
     viewport_children = []
     if session.grid:
         viewport_children.append(Image(src=TEX + 'viewport_grid', style=S(width='100%', height='100%', opacity=.6)))
-    if session.model_name:
-        # The native block PaperDoll starts looking along the document Y axis.
-        # Convert editor pitch/yaw so reset, front and top views share Y-up semantics.
-        viewport_children.append(Doll(key='scene_model',
-            renderKey=(width, height, Theme.scale, session.page, session.view),
-            renderType=PaperDollRenderType.block_geometry, blockGeometryModelName=session.model_name,
-            scale=session.zoom * 10. / max(doc.size), initRotX=-90. - session.camera_pitch,
-            initRotY=0., initRotZ=session.camera_yaw, rotationAxis=(0, 0, 1),
-            style=S(position=Position.absolute, width='100%', height='100%', zIndex=2)))
-    else:
+    viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h))
+    if not session.model_name:
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or '正在构建方块预览…', 12, Theme.muted)]))
@@ -85,13 +78,18 @@ def Viewport(session=None, revision=0, width=430, height=440):
         viewport_children.append(LayerCanvas(session=session, revision=session.ui_revision, width=width - 2, height=area_h))
     viewport_children.extend([
         surface(position=Position.absolute, left=12, top=12, paddingHorizontal=9, height=24,
-                justifyContent=JustifyContent.center, color=Theme.white, children=text('Y %02d' % e.layer if session.view == 'layer' else '透视 · 实时模型', 10, Theme.muted)),
+                justifyContent=JustifyContent.center, color=Theme.white, children=text('Y %02d' % e.layer if session.view == 'layer' else
+                    ('X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑'), 10, Theme.muted)),
         Image(src=TEX + 'axes', style=S(position=Position.absolute, right=13, bottom=13, width=50, height=50)),
     ])
     view_controls = [
-        Action(glyph='minus', width=28, height=26, onClick=partial(session.set, 'zoom', max(.25, session.zoom - .15))),
+        Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom - .15))),
         text('%d%%' % int(round(session.zoom * 100)), 10, Theme.muted, width=35, center=True),
-        Action(glyph='plus', width=28, height=26, onClick=partial(session.set, 'zoom', min(3., session.zoom + .15))),
+        Action(glyph='plus', width=28, height=26, onClick=partial(session.camera_view, zoom=min(3., session.zoom + .15))),
+        Action(label='左转', height=26, compact=True, onClick=partial(turn_camera, session, -30)),
+        Action(label='右转', height=26, compact=True, onClick=partial(turn_camera, session, 30)),
+        Action(label='俯视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=90.)),
+        Action(label='正视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=0.)),
         Panel(style=S(flex=1)),
         Action(glyph='grid', width=28, height=26, selected=session.grid, onClick=partial(session.set, 'grid', not session.grid)),
         Action(glyph='home', width=28, height=26, onClick=partial(reset_camera, session)),
@@ -114,19 +112,18 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Panel(style=S(paddingHorizontal=12, gap=4), children=[
             (Segments(items=[('paint', '绘制'), ('erase', '擦除'), ('pick', '吸管'), ('start', '起点'), ('end', '终点')],
                       value=session.paint_mode, onChange=partial(session.set, 'paint_mode'), width=width - 24)
-             if session.view == 'layer' else row([
-                Action(label='左转', glyph='orbit', onClick=partial(session.set, 'camera_yaw', (session.camera_yaw - 30) % 360), height=27, compact=True),
-                Action(label='右转', onClick=partial(session.set, 'camera_yaw', (session.camera_yaw + 30) % 360), height=27, compact=True),
-                Action(label='俯视', selected=session.camera_pitch == 90, onClick=partial(session.set, 'camera_pitch', 90.), height=27, compact=True),
-                Action(label='正视', selected=session.camera_pitch == 0, onClick=partial(session.set, 'camera_pitch', 0.), height=27, compact=True),
-             ], gap=4)),
-            text('点击格子编辑 · X / Z 为文档相对坐标' if session.view == 'layer' else '拖动模型旋转 · 用 + / − 调整缩放', 10, Theme.muted, marginTop=2),
+             if session.view == 'layer' else Segments(items=MODES, value=session.direct_mode,
+                 onChange=session.choose_mode, width=width - 24)),
+            text('点击格子编辑 · X / Z 为文档相对坐标' if session.view == 'layer' else HINTS[session.direct_mode], 10, Theme.muted, marginTop=2),
         ])])
 
 
 def reset_camera(session):
-    session.zoom, session.camera_pitch, session.camera_yaw = 1., 25., 35.
-    session.emit()
+    session.camera_view(35., 25., 1.)
+
+
+def turn_camera(session, amount):
+    session.camera_view(yaw=session.camera_pose[0] + amount)
 
 
 @Component
@@ -141,8 +138,9 @@ def Inspector(session=None, revision=0, height=440):
                          Panel(style=S(height=10))])
     children.append(pane)
     if session.page != 'projection':
-        children.extend([Panel(style=S(height=8)), Action(label='执行 · ' + BY_ID[session.tool][2], glyph='play',
-            accent=True, height=37, onClick=session.run, enabled=not session.busy)])
+        direct = session.view == '3d' and session.direct_mode != 'browse'
+        children.extend([Panel(style=S(height=8)), Action(label='返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2], glyph='play',
+            accent=True, height=37, onClick=partial(session.choose_mode, 'browse') if direct else session.run, enabled=not session.busy)])
     return surface(width=240, height=height, padding=12, children=children)
 
 

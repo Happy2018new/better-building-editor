@@ -19,6 +19,7 @@ import traceback as _tb
 # 检测 log_server 日志中的该信号即退出等待（避免 60s 超时 fallback）。
 READY_SIGNAL = '=====> PyreactRuntime AppReady:'
 _LAST_REQUEST_SEQ = [None]
+_LAST_RESPONSE = [None]
 
 
 def notify_ready():
@@ -162,6 +163,23 @@ def dispatch_click(host, root_fiber, node_id):
         return {"ok": True, "error": None}
     except Exception as e:
         return {"ok": False, "error": str(e)}
+
+
+def dispatch_pointer(host, root_fiber, node_id, value):
+    """Dispatch a local-coordinate gesture through a primitive's pointer callbacks."""
+    fiber = find_fiber_by_id(root_fiber, node_id)
+    if fiber is None or not isinstance(value, dict):
+        raise ValueError('pointer requires a native node and {phase, x, y}')
+    phases = {'down': 'onDown', 'move': 'onMove', 'up': 'onUp', 'cancel': 'onCancel',
+              'enter': 'onEnter', 'leave': 'onLeave'}
+    callback = (fiber.props or {}).get(phases.get(value.get('phase')))
+    if not callable(callback):
+        raise ValueError('this node does not support the requested pointer phase')
+    control = host.GetBaseUIControl(fiber.native_path)
+    x, y = control.GetGlobalPosition()
+    callback({'TouchPosX': x + float(value.get('x', 0.)),
+              'TouchPosY': y + float(value.get('y', 0.)), 'ButtonPath': fiber.native_path})
+    return {'ok': True}
 
 
 def dispatch_input(host, root_fiber, node_id, value):
@@ -417,9 +435,18 @@ def poll_clipboard(host):
     # push/pop 可在当前回调尚未写响应时同步创建新 Screen。先认领 seq，
     # 防止新 host 重入轮询同一请求并覆盖原 host 的正确响应。
     if seq is not None and _LAST_REQUEST_SEQ[0] == seq:
+        # Clipboard readers can briefly lock the Windows clipboard. Retry the
+        # cached acknowledgement, never the action (which may edit the world).
+        cached = _LAST_RESPONSE[0]
+        if cached is not None and cached[0] == seq:
+            try:
+                game.SetClipboardContent(cached[1])
+            except Exception:
+                pass
         return
     if seq is not None:
         _LAST_REQUEST_SEQ[0] = seq
+        _LAST_RESPONSE[0] = None
     node_id = req.get("id")
     resp = {"pyreact_ack": True, "seq": seq}
     try:
@@ -448,6 +475,8 @@ def poll_clipboard(host):
                 if not result.get("ok"):
                     resp["pyreact_ack"] = False
                     resp["error"] = result.get("error")
+        elif cmd == "pointer":
+            resp["result"] = dispatch_pointer(host, host._root_fiber, node_id, req.get("value"))
         elif cmd == "set_input":
             if not node_id:
                 resp["pyreact_ack"] = False
@@ -513,6 +542,8 @@ def poll_clipboard(host):
         resp["error"] = str(e)
         _tb.print_exc()
     try:
-        game.SetClipboardContent(json.dumps(resp))
+        encoded = json.dumps(resp)
+        _LAST_RESPONSE[0] = (seq, encoded)
+        game.SetClipboardContent(encoded)
     except Exception:
         pass

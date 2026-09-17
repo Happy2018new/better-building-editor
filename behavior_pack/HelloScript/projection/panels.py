@@ -6,7 +6,7 @@ from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
 from .widgets import JellyButton as Button
-from .catalog import BY_ID, MATERIALS
+from .catalog import BY_ID, MATERIALS, tool_parameters
 from .model import AIR
 
 
@@ -45,22 +45,23 @@ def Coordinates(label='', value=(0, 0, 0), onChange=None):
 
 
 @Component
-def MaterialPicker(session=None, revision=0):
+def MaterialPicker(session=None, revision=0, channels=None):
     channel, set_channel = use_state('material')
     custom, set_custom = use_state('minecraft:stone')
     custom_aux, set_custom_aux = use_state('0')
     e = session.editor
+    channels = channels or [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')]
+    active = channel if channel in [pair[0] for pair in channels] else channels[0][0]
 
     def choose(value):
-        session.set_editor(channel, value)
+        session.set_editor(active, value)
 
     def custom_apply():
         from .model import block
         choose(block((custom.strip(), int(custom_aux))))
-    current = getattr(e, channel)
+    current = getattr(e, active)
     return Panel(style=S(gap=7), children=[
-        Segments(items=[('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')],
-                 value=channel, onChange=set_channel, width=216),
+        Segments(items=channels, value=active, onChange=set_channel, width=216),
         row([Item(identifier=current[0], aux=current[1], style=S(width=30, height=30)),
              Panel(style=S(flex=1), children=[text(material_name(current), 12), text('方块附加值  %d' % current[1], 10, Theme.muted)])]),
         Panel(style=S(flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5, height=159, flexShrink=0), children=[
@@ -83,27 +84,38 @@ def material_background(selected, state):
 def Parameters(session=None, revision=0):
     e = session.editor
     tool = BY_ID[session.tool]
-    return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=6), children=[
-        text('工具参数', 10, Theme.muted, marginTop=6),
+    options = tool_parameters(session.tool)
+    if session.view == '3d' and session.direct_mode != 'browse':
+        from .scene import MODES, HINTS
+        tool = ('direct', 'edit', dict(MODES)[session.direct_mode], HINTS[session.direct_mode])
+        options = set(['material']) if session.direct_mode in ('place', 'paint', 'pick') else set()
+    channels = [pair for pair in [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')] if pair[0] in options]
+    if e.mask == 'material' and 'source' not in options:
+        channels.append(('source', '蒙版来源'))
+    return Scroll(resetKey=(session.tool, session.direct_mode), style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=6), children=[
+        text('视图操作' if tool[0] == 'direct' else '工具参数', 10, Theme.muted, marginTop=6),
         text(tool[2], 20),
         # Split help by sentence length into readable, deliberate lines.
         text(tool[3], 11, Theme.muted, width=216),
-        line(), MaterialPicker(session=session, revision=session.ui_revision), line(),
+        line(), MaterialPicker(session=session, revision=session.ui_revision, channels=channels) if channels else None,
+        line() if channels else None,
         text('作用范围', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
+        Action(label='恢复全选区域', compact=True, height=26,
+               onClick=partial(session.action, e.run, 'select_all')) if tool[0] == 'direct' else None,
         Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '来源')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
-        Coordinates(label='起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')),
-        Coordinates(label='终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end')),
+        Coordinates(label='起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')) if 'start' in options else None,
+        Coordinates(label='终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end')) if 'end' in options else None,
         Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
-              onChange=partial(session.set_editor, 'thickness'), unit=' 格'),
+              onChange=partial(session.set_editor, 'thickness'), unit=' 格') if 'thickness' in options else None,
         Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
-              onChange=partial(session.set_editor, 'step'), unit=' 格'),
+              onChange=partial(session.set_editor, 'step'), unit=' 格') if 'step' in options else None,
         Range(label='副材质比例', value=e.ratio, minimum=0, maximum=1,
-              onChange=partial(session.set_editor, 'ratio')),
+              onChange=partial(session.set_editor, 'ratio')) if 'ratio' in options else None,
         row([text('随机种子', 11, Theme.muted, flex=1),
-             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)]),
-        text('点击种子切换可复现的随机图案', 10, Theme.muted),
+             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)]) if 'seed' in options else None,
+        text('点击种子切换可复现的随机图案', 10, Theme.muted) if 'seed' in options else None,
         Panel(style=S(height=8)),
     ]))
 
@@ -216,8 +228,8 @@ def ProjectionSettings(session=None, revision=0):
 @Component
 def Guide(session=None, revision=0, width=760, height=440):
     sections = [
-        ('01', '先认识你的工作台', '中间是实时三维模型。拖动旋转，用缩放按钮看清细节。', 'orbit'),
-        ('02', '从一个小范围开始', '切换到逐层视图，用起点和终点框选。所有编辑只作用于选区。', 'cursor'),
+        ('01', '先认识你的工作台', '拖动模型自由旋转，滚轮缩放。切换放置、涂装、擦除，直接点击三维方块。', 'orbit'),
+        ('02', '从一个小范围开始', '三维视图选择框选，依次点击两个角点。也可以切换逐层视图精细编辑。', 'cursor'),
         ('03', '选工具，再确认参数', '左侧找到工具，右侧选择材质、蒙版和尺寸，点击执行。', 'brush'),
         ('04', '放心试验，随时撤销', '撤销 / 重做保存你的探索。锁定图层，可以保护已经完成的部分。', 'undo'),
         ('05', '保存作品，带走灵感', '建筑库可以保存多个配置。载入后可以继续编辑，也可以生成投影。', 'library'),

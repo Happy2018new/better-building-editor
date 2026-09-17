@@ -54,6 +54,7 @@ def graphics():
     (OUT / 'icons').mkdir(exist_ok=True)
     shape('rounded', (64, 64), lambda d, s: d.rounded_rectangle((0, 0, 64*s-1, 64*s-1), 24*s, fill='white'))
     shape('dot', (16, 16), lambda d, s: d.ellipse((1*s, 1*s, 15*s, 15*s), fill='white'))
+    shape('scroll_thumb', (12, 72), lambda d, s: d.rounded_rectangle((0, 0, 12*s-1, 72*s-1), 6*s, fill='white'))
     shape('knob', (36, 36), lambda d, s: (d.ellipse((2*s, 3*s, 34*s, 35*s), fill='#CCD8EE'),
         d.ellipse((3*s, 2*s, 33*s, 32*s), fill='white'), d.ellipse((13*s, 12*s, 23*s, 22*s), fill='#477AF4')))
     Image.new('RGBA', (2, 2)).save(OUT / 'transparent.png')
@@ -116,7 +117,7 @@ def native_skin():
     skin={'namespace':ns,
         'label@PyreactBase.label':{'font_type':'smooth','backup_font_type':'smooth'},
         'type_image@PyreactBase.image':{'bilinear':True},
-        'doll@PyreactBase.paperDoll':{'rotation':'freedom_gesture'},
+        'doll@PyreactBase.paperDoll':{'rotation':'none', 'enable_scissor_test':True},
         'input_background':{'type':'image','texture':tex+'input_bg','size':['100%','100%'],'keep_ratio':False,'nineslice_size':[4,4,4,4],'bilinear':True},
         'input_hover@ModernProjection.input_background':{'texture':tex+'input_hover'},
         'input@PyreactBase.input':{'$text_background_default':ns+'.input_background', '$text_background_hover':ns+'.input_hover',
@@ -126,7 +127,8 @@ def native_skin():
         'scroll_thumb':{'type':'image','texture':'textures/ui/white','size':[2,'100%'],
                         'color':[.65,.73,.85],'layer':4},
         'scroll@PyreactBase.scrollBase':{'$scroll_size':[3,'100%'],'$scroll_track_image_control':'common.empty_panel',
-            '$scroll_box_mouse_image_control':ns+'.scroll_thumb','$scroll_box_touch_image_control':ns+'.scroll_thumb'},
+            '$scroll_box_visible':False,'$scroll_box_visible_touch':False,
+            '$scroll_box_mouse_image_control':ns+'.invisible','$scroll_box_touch_image_control':ns+'.invisible'},
     }
     slider={'$slider_box_size':[4,10]}
     for state in ('default','hover'):

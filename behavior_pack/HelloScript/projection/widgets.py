@@ -4,11 +4,12 @@
 from __future__ import unicode_literals
 import math
 import time
+import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
-from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive
+from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive
 from .type_assets import ASSETS
 
 TEX = 'textures/modern_projection/'
@@ -65,8 +66,147 @@ Slider = SliderPrimitive()
 Slider.template_path = '/root/mp_slider_tmpl'
 Doll = PaperDollPrimitive()
 Doll.template_path = '/root/mp_doll_tmpl'
-Scroll = ScrollViewPrimitive()
-Scroll.template_path = '/root/mp_scroll_tmpl'
+NativeScroll = ScrollViewPrimitive()
+NativeScroll.template_path = '/root/mp_scroll_tmpl'
+
+
+class PointerPrimitive(ButtonPrimitive):
+    """App-local pointer surface; callbacks receive native UI coordinates."""
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        ButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        tracker = fiber.primitive_state.get('pointer_tracker')
+        if tracker is None:
+            tracker = PointerTracker(host, fiber)
+            fiber.primitive_state['pointer_tracker'] = tracker
+        tracker.props = next_props
+        button = control.asButton()
+        if prev_props is None:
+            button.AddHoverEventParams()
+            for name, method in (('down', 'SetButtonTouchDownCallback'), ('move', 'SetButtonTouchMoveCallback'),
+                                 ('up', 'SetButtonTouchUpCallback'), ('cancel', 'SetButtonTouchCancelCallback'),
+                                 ('enter', 'SetButtonHoverInCallback'), ('leave', 'SetButtonHoverOutCallback')):
+                getattr(button, method)(getattr(tracker, name))
+
+    def unmount(self, host, fiber):
+        tracker = fiber.primitive_state.get('pointer_tracker')
+        if tracker:
+            tracker.stop()
+        ButtonPrimitive.unmount(self, host, fiber)
+
+
+class PointerTracker(object):
+    """PC has no touch-move events. Poll only while a native button is held."""
+    def __init__(self, host, fiber):
+        self.host, self.props = host, {}
+        self.motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
+        self.slot = {'fiber': fiber, 'active': False, 'callback': self.tick}
+        self.origin = self.previous = None
+        self.args = None
+
+    def send(self, name, args):
+        callback = self.props.get(name)
+        if callable(callback):
+            callback(args)
+
+    def down(self, args):
+        self.origin = self.previous = self.motion.GetMousePosition()
+        self.args = dict(args)
+        self.send('onDown', args)
+        if self.origin is not None:
+            self.slot['active'] = True
+            self.host.pyreact_register_animation_frame(self.slot)
+
+    def tick(self, unused):
+        current = self.motion.GetMousePosition()
+        if current is not None and current != self.previous:
+            self.previous = current
+            args = dict(self.args)
+            args['TouchPosX'] += current[0] - self.origin[0]
+            args['TouchPosY'] += current[1] - self.origin[1]
+            self.send('onMove', args)
+
+    def stop(self):
+        self.slot['active'] = False
+        self.host.pyreact_unregister_animation_frame(self.slot)
+
+    def up(self, args):
+        if self.slot['active']:
+            self.tick(0.)
+        self.stop()
+        self.send('onUp', args)
+
+    def cancel(self, args):
+        self.stop()
+        self.send('onCancel', args)
+
+    def move(self, args):
+        self.send('onMove', args)
+
+    def enter(self, args):
+        self.send('onEnter', args)
+
+    def leave(self, args):
+        self.send('onLeave', args)
+
+
+Pointer = PointerPrimitive()
+
+
+@Component
+def Scroll(style=None, children=None, resetKey=None):
+    """Native wheel/touch scrolling with a proportional, draggable app thumb."""
+    view, content, rail, thumb = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
+    metrics = use_ref((0., 0., 0., 0.))
+    drag = use_ref(None)
+
+    def reset():
+        if view.current:
+            NativeScroll.scroll_to_top(view.current)
+    use_effect(reset, [resetKey])
+
+    def tick(unused):
+        if not all(r.current for r in (view, content, rail, thumb)):
+            return
+        height = view.current.GetSize()[1]
+        total = content.current.GetSize()[1]
+        pos = NativeScroll.get_scroll_position(view.current) or 0.
+        length = min(height, max(24 * Theme.scale, height * height / max(height, total, 1.)))
+        offset = max(0., min(height - length, pos * (height - length) / max(1., total - height)))
+        metrics.current = (height, total, length, pos)
+        rail.current.SetVisible(total > height + 1)
+        thumb.current.SetSize((4 * Theme.scale, length))
+        thumb.current.SetPosition((3 * Theme.scale, offset))
+
+    def move(args):
+        if drag.current is None:
+            return
+        height, total, length, unused = metrics.current
+        y, initial = drag.current
+        pos = initial + (args['TouchPosY'] - y) * (total - height) / max(1., height - length)
+        NativeScroll.scroll_to(view.current, max(0., min(total - height, pos)))
+
+    def down(args):
+        height, total, length, pos = metrics.current
+        y = args['TouchPosY'] - rail.current.GetGlobalPosition()[1]
+        top = pos * (height - length) / max(1., total - height)
+        if not top <= y <= top + length:
+            pos = max(0., min(total - height, (y - length / 2.) * (total - height) / max(1., height - length)))
+            NativeScroll.scroll_to(view.current, pos)
+        drag.current = (args['TouchPosY'], pos)
+
+    def up(unused):
+        drag.current = None
+
+    use_animation_frame(tick)
+    return Panel(style=style, children=[
+        NativeScroll(ref=view, showScrollbar=False, style=NativeStyle(width='100%', height='100%'),
+            children=Panel(ref=content, style=NativeStyle(width='100%'), children=children)),
+        Pointer(ref=rail, onDown=down, onMove=move, onUp=up, onCancel=up,
+            buttonBuilder=transparent,
+            style=S(position=Position.absolute, right=0, top=0, width=10, height='100%', zIndex=10),
+            children=Image(ref=thumb, color=Color(0xAAB8CCFF),
+                style=S(position=Position.absolute, left=3, top=0, width=4, height=24))),
+    ])
 
 
 def text(value, size=12, color=None, center=False, **style):
@@ -209,7 +349,8 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     ink = Theme.white if accent else (Theme.red if danger else (Theme.blue if selected else Theme.ink))
 
     def background(state):
-        return Image(color=Colors.transparent)
+        return Image(src=TEX + 'rounded', color=(Color(0x477AF414) if state == ButtonState.hover
+                     else Color(0x26374B22) if state == ButtonState.pressed else Colors.transparent))
     contents = []
     if glyph:
         contents.append(icon(glyph, ink, 15 if compact else 17))
@@ -233,12 +374,12 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
 @Component
 def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', integer=False):
     pulse, set_pulse = use_state(False)
-    normalized = (value - minimum) / float(maximum - minimum)
+    normalized = max(0., min(1., (value - minimum) / float(maximum - minimum)))
 
     def change(v):
         val = minimum + v * (maximum - minimum)
         if integer:
-            val = int(round(val))
+            val = int(math.floor(val + .5))
         set_pulse(True)
         if onChange:
             onChange(val)
@@ -247,7 +388,8 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
         set_pulse(False)
     return Panel(style=S(height=49, width='100%'), children=[
         row([text(label, 11, Theme.muted, flex=1), text(('%d' % value if integer else '%.2f' % value) + unit, 11)]),
-        Panel(style=S(height=26, width='100%', marginTop=3), children=[
+        Panel(style=S(height=26, width='100%', marginTop=3, paddingHorizontal=10), children=[
+          Panel(style=S(height=26, width='100%'), children=[
             surface(color=Theme.line, position=Position.absolute, top=11, height=4, width='100%'),
             surface(color=Theme.blue, position=Position.absolute, top=11, height=4,
                     width='%.3f%%' % (100 * max(0., min(1., normalized)))),
@@ -257,7 +399,7 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
                      transitionEasing=Easing.back_out, duration=.16, onTransitionComplete=release,
                      children=Image(src=TEX + 'knob', style=S(width=15, height=15, marginLeft=-7.5))),
             Slider(value=normalized, steps=1, onChange=change, style=S(width='100%', height=26, zIndex=4)),
-        ])])
+          ])])])
 
 
 @Component
@@ -272,4 +414,5 @@ def Segments(items=None, value=None, onChange=None, width=216):
                  children=surface(color=Theme.white, width='100%', height='100%')),
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
                     style=S(width=cell, height=26),
-                    children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted)) for pair in items], gap=0)])
+                    children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted,
+                                  center=True, width=cell)) for pair in items], gap=0)])
