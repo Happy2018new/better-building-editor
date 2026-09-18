@@ -72,8 +72,8 @@ def MaterialPicker(session=None, revision=0, channels=None):
                    style=S(width=49, height=36), children=Item(identifier=m[0], aux=m[1], style=S(width=25, height=25)))
             for i, m in enumerate(MATERIALS)]),
         text('自定义方块标识符 / 附加值', 10, Theme.muted),
-        row([Input(value=custom, onChange=set_custom, style=S(flex=1, height=25)),
-             Input(value=custom_aux, onChange=set_custom_aux, style=S(width=34, height=25))]),
+        row([Input(value=custom, onChange=set_custom, style=S(flex=1, height=27)),
+             Input(value=custom_aux, onChange=set_custom_aux, style=S(width=44, height=27))]),
         Action(label='使用自定义材质', onClick=partial(session.action, custom_apply), height=26, compact=True),
     ])
 

@@ -491,6 +491,20 @@ def poll_clipboard(host):
                 raise ValueError('font_batch requires a boolean')
             _get_game(host).EnableFontBatchRender(value)
             resp['result'] = {'requested': value}
+        elif cmd == "input_font_scale":
+            # Bounded, debug-only same-control glyph comparison. Reopening the
+            # screen restores the template's scale; never changes the font face.
+            fiber = find_fiber_by_id(host._root_fiber, node_id)
+            from .primitives import InputPrimitive
+            if fiber is None or not isinstance(fiber.comp_type, InputPrimitive):
+                raise ValueError('input_font_scale requires an Input id')
+            scale = float(req.get('value'))
+            if not .5 <= scale <= 2.:
+                raise ValueError('input_font_scale must be between 0.5 and 2')
+            label = host.GetBaseUIControl(fiber.native_path +
+                '/centering_panel/clipper_panel/display_text').asLabel()
+            label.SetTextFontSize(scale)
+            resp['result'] = {'requested': scale}
         elif cmd == "native_control":
             fiber = find_fiber_by_id(host._root_fiber, node_id)
             if fiber is None or not fiber.native_path:
@@ -502,6 +516,11 @@ def poll_clipboard(host):
                 result['text'] = control.asLabel().GetText()
             elif _type_name(fiber) == 'Input':
                 result['text'] = control.asTextEditBox().GetEditText()
+                for name, suffix in [('clipper', '/centering_panel/clipper_panel'),
+                                     ('displayText', '/centering_panel/clipper_panel/display_text')]:
+                    child = host.GetBaseUIControl(fiber.native_path + suffix)
+                    if child is not None:
+                        result[name] = {'global': child.GetGlobalPosition(), 'size': child.GetSize()}
             if _type_name(fiber) == 'Image':
                 image = control.asImage()
                 result['angle'] = image.GetRotateAngle()
