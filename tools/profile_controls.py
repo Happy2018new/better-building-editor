@@ -16,7 +16,7 @@ def main():
         ui.click('取消')
     if '还原视图' in ui.labels():
         ui.click('还原视图')
-    ui.click('工作台'); ui.click('浏览')
+    ui.click('工作台'); ui.click('三维'); ui.click('浏览'); ui.click('参数')
     if scenario == 'slider':
         interaction.category('cube'); ui.click('空心长方体')
         offset = ui.call('scroll', ui.nodes('ScrollView')[-1]['id'], 10000)['result']['position']
@@ -24,7 +24,9 @@ def main():
         points = [(box['x'] + box['width'] * v, box['y'] - offset + box['height'] / 2.) for v in (.1, .9)]
     else:
         current = ui.tree()
-        labels = ('选取', '浏览') if scenario == 'segments' else ('建筑库', '工作台')
+        labels = {'segments': ('选取', '浏览'), 'pages': ('建筑库', '工作台'),
+                  'inspector': ('图层', '参数'), 'history': ('历史', '参数'),
+                  'views': ('逐层', '三维')}[scenario]
         points = []
         for label_text in labels:
             target = next(n for n in _resolve_label(current, label_text) if label_text in ui.labels(n))

@@ -113,3 +113,10 @@ Python 3、Pillow、requests、psutil、pyperclip；游戏内代码兼容 ModSDK
 - 实机像素检查发现原生圆角九宫片的分数切点使半透明颜色在接缝重复混合。仅悬停层启用 `snapEdges`，共用整数内部切点、保留外部尺寸，消除细线；原有不透明外壳继续使用原几何。
 - 2026-09-18，真实鼠标检查参数、图层、历史、工作台、建筑库、浏览、放置、本地草稿：53 项悬停进入/离开、实际像素变化、选中值不变、尺寸不变、按压、原生点击和减少动态效果断言通过。对比图 `.runtime/hover_comparison.png` 左列为默认、右列为悬停，已实际打开检查。
 - 最终代码另通过 `verify_motion.py` 的 14 项对齐、位移、反向选择与弹窗检查，以及 `verify_resize.py` 的 31 项多尺寸文字、顶部对齐与预览检查。1920×1080 连续切换 10 秒平均 50.6 FPS，数据与限制见 `CONTROLS_PERFORMANCE.md`；最终游戏日志没有本轮代码的 traceback 或未知 JsonUI 属性。
+
+## 阶段 8：属性面板与三维 / 逐层切换
+
+- 本次按用户截图单独测量属性面板和视图模式，而非以“浏览 / 选取”代替。旧 Inspector 每次切换都会卸载并重建面板，旧 LayerCanvas 每次进入逐层模式都会创建 144 个格子。10 秒属性切换产生 4604 次 primitive mount、29332 次 layout.apply；视图切换的 RemoveChildControl 自身耗时 531.599 ms。
+- Session 增加字段通知与 content_revision：inspector/view 只通知所属组件，常规数据变更仍广播。Workspace 不订阅这两个局部通知；相同字段值不重复发布。单元测试检查通知范围、数据立即更新与退订。
+- RetainedPane 复用原生面板、滚动位置和逐层格子，切换只改变可见性；隐藏内容在重新进入时按内容版本刷新。三维模型和两套工具栏始终保持挂载，隐藏的网格与三维指针不参与点击。主题缩放仍通过 use_theme 刷新。
+- 44 项单元测试通过；`verify_panes.py` 的 9 项检查确认面板/格子/预览身份、滚动位置、隐藏指针、历史更新与撤销。`verify_motion.py` 的 14 项对齐、位移和弹窗检查通过。性能场景新增 inspector/history/views，数据见 `CONTROLS_PERFORMANCE.md`。

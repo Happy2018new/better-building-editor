@@ -22,6 +22,7 @@ class Session(object):
         self.new_size = (24, 16, 24)
         self.listeners = []
         self.ui_revision = 0
+        self.content_revision = 0
         self.library = []
         self.library_serial = 0
         self.model_name = None
@@ -56,18 +57,22 @@ class Session(object):
         self.ready = False
         self.parameter_serial = 0
 
-    def subscribe(self, callback):
-        self.listeners.append(callback)
+    def subscribe(self, callback, fields=None):
+        entry = (callback, fields)
+        self.listeners.append(entry)
 
         def remove():
-            if callback in self.listeners:
-                self.listeners.remove(callback)
+            if entry in self.listeners:
+                self.listeners.remove(entry)
         return remove
 
-    def emit(self):
+    def emit(self, field=None):
         self.ui_revision += 1
-        for callback in list(self.listeners):
-            callback()
+        if field is None:
+            self.content_revision += 1
+        for callback, fields in list(self.listeners):
+            if field is None or fields is None or field in fields:
+                callback()
 
     def initialize(self):
         data = self.bridge.load_library()
@@ -86,10 +91,14 @@ class Session(object):
 
     def set(self, field, value):
         value = as_text(value)
+        if getattr(self, field) == value:
+            return
         setattr(self, field, value)
         if field == 'origin':
             self.progress = None
-        self.emit()
+        # Pane navigation only invalidates its owners. Document edits still
+        # broadcast so retained panes refresh before becoming interactive.
+        self.emit(field if field in ('inspector', 'view') else None)
 
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:

@@ -16,6 +16,26 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_pane_navigation_only_notifies_owners_without_invalidating_content(self):
+        s = Session(Bridge())
+        calls = []
+        s.subscribe(lambda: calls.append('workspace'), ())
+        s.subscribe(lambda: calls.append('viewport'), ('view',))
+        remove = s.subscribe(lambda: calls.append('inspector'), ('view', 'inspector'))
+        s.set('inspector', 'layers')
+        self.assertEqual(calls, ['inspector'])
+        calls[:] = []
+        s.set('view', 'layer')
+        self.assertEqual(calls, ['viewport', 'inspector'])
+        self.assertEqual(s.content_revision, 0)
+        calls[:] = []
+        s.set('view', 'layer')
+        self.assertEqual(calls, [])
+        remove()
+        s.set_editor('thickness', 3)
+        self.assertEqual(calls, ['workspace', 'viewport'])
+        self.assertEqual(s.content_revision, 1)
+
     def test_slider_changes_store_immediately_but_publish_once_after_settle(self):
         b = Bridge()
         timers = []
