@@ -562,7 +562,10 @@ def Segments(items=None, value=None, onChange=None, width=216):
         set_destination(index)
     use_effect(travel, [index])
     cell = (width - 6) / max(1, len(items))
-    return surface(color=Theme.pale, radius=5, width=width, height=32, padding=3, children=[
+    # The moving fill and hit targets share an unpadded coordinate system.
+    # Nesting absolute insets inside surface(padding=3) applied the inset twice.
+    return Panel(style=S(width=width, height=32), children=[
+        rounded_skin(Theme.pale, 5),
         Animated(style=S(position=Position.absolute, left=4, top=3, width=cell - 2, height=26),
                  transition=NativeStyle(transform=[Translate(destination * cell * Theme.scale, 0)]),
                  duration=.30 if Theme.motion else 0., transitionEasing=Easing.cubic_in_out,
@@ -572,4 +575,5 @@ def Segments(items=None, value=None, onChange=None, width=216):
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
                     style=S(width=cell, height=26),
                     children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted,
-                                  center=True, width=cell)) for pair in items], gap=0)])
+                                  center=True, width=cell)) for pair in items], gap=0,
+            position=Position.absolute, left=3, top=3, width=width - 6, height=26)])

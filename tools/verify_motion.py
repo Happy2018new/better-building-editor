@@ -34,10 +34,32 @@ def press(label):
     fast('click', matches[0]['id'])
 
 
+def check_segments():
+    """The animated ink must be centered on the actual selected hit target."""
+    current = ui.tree()
+    for segment in ui.nodes('Segments', current):
+        items = segment['props']['items']
+        index = next((i for i, pair in enumerate(items) if pair[0] == segment['props'].get('value')), 0)
+        rail = ui.nodes('Panel', segment)[0]
+        highlight = ui.nodes('Panel', ui.nodes('Animated', segment)[0])[0]
+        button = ui.nodes('Button', segment)[index]
+        r, h, b = [ui.call('native_control', node['id'])['result'] for node in (rail, highlight, button)]
+        label = items[index][1]
+        ui.check(label + ' highlight is centered on its hit target', all(
+            abs(h['global'][axis] + h['size'][axis] / 2. - b['global'][axis] - b['size'][axis] / 2.) < .01
+            for axis in (0, 1)))
+        top = h['global'][1] - r['global'][1]
+        bottom = r['global'][1] + r['size'][1] - h['global'][1] - h['size'][1]
+        ui.check(label + ' highlight has equal positive vertical insets', top > 0 and abs(top - bottom) < .01)
+
+
 def main():
     if '取消' in ui.labels():
         ui.click('取消')
     ui.click('工作台'); ui.click('浏览')
+    ui.click('历史')
+    check_segments()
+    ui.click('参数')
     segments = next(n for n in ui.nodes('Segments') if ['select', '选取'] in n['props'].get('items', []))
     highlight = ui.nodes('Panel', ui.nodes('Animated', segments)[0])[0]['id']
     start = ui.call('native_control', highlight)['result']['position'][0]
