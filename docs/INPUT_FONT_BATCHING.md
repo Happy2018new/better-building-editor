@@ -79,3 +79,11 @@ python -X utf8 tools/verify_input_scale.py
 - 最终日志无本轮脚本 traceback 或未知 JsonUI 属性；已有启动阶段的引擎错误不作为本轮 UI 回归。
 
 诊断文件均位于忽略的 `.runtime/`：`font_scale_probe.json`、`font_scale_0.8.png` / `1.0.png` / `2.0.png`、`input_scale_checks.json`、`input_1x_1920x1080.png`、`input_1x_1280x720.png`、`input_aux_1280x720.png`、`input_long_caret.png`、`input_1x_final.png` 和 `input_integer_final.log`。这些截图没有进入资源包。生产改动只涉及原生模板及两个输入框尺寸，没有增加动画帧回调、逐帧字体设置或图片节点。
+
+## 参考原版设置表单后的紧凑字号
+
+用户反馈 1 倍仍然太大，并指定参考 `nemc-form-script/resource_pack/ui/`。核对 `modal_component.custom_input → future.option_text_edit → settings_common.option_text_edit_control → common.text_edit_box`，参考项目使用原生字体，没有额外抗锯齿开关或输入文字贴图。原版设置控件高度为 30 UI 单位；本编辑器的 30 是设计单位，1080p 下实际只有 12.65625 UI 单位，不能把相同的原生 1 倍字号直接放进缩小后的布局。
+
+同控件比较 0.5 / 0.625 / 0.75 后，采用模板 `$font_scale_factor: 0.5`，保留原生 default 字形与完整裁剪高度。该值比上一阶段缩小一半，在本轮 1080p GUI 倍率下与正文大小更协调；不宣称消除了原字体的点阵边缘，也不再要求 Label 参数本身必须为整数。没有更换字体或新增 UI 图片。模板初次创建就应用该字号，确保原生行高和垂直居中一起更新。
+
+五种尺寸及真实中文输入法 / 删除 / 滚动 / 重开仍共 87 项通过。已查看 `.runtime/input_current_1920x1080.png`、`input_current_1280x720.png` 和小窗口属性面板截图。验证脚本从模板读取应恢复的字号，避免实验 finally 把正式字号改回 1。日志为 `.runtime/input_compact_final.log`。

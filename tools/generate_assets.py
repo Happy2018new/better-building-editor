@@ -208,8 +208,9 @@ def native_skin():
         'input_background':{'type':'image','texture':tex+'input_bg','size':['100%','100%'],'keep_ratio':False,'nineslice_size':[4,4,4,4],'bilinear':True},
         'input_hover@ModernProjection.input_background':{'texture':tex+'input_hover'},
         'input@PyreactBase.input':{'$text_background_default':ns+'.invisible', '$text_background_hover':ns+'.invisible',
-            '$edit_box_default_texture':tex+'transparent', '$edit_box_hover_texture':tex+'transparent', '$font_scale_factor':1.,
-            # Undo common.text_edit_box's 4px vertical inset for native 1x glyphs.
+            '$edit_box_default_texture':tex+'transparent', '$edit_box_hover_texture':tex+'transparent', '$font_scale_factor':.5,
+            # Native settings-form font, sized for this editor's compact layout.
+            # Undo common.text_edit_box's 4px vertical inset.
             # Keep horizontal clipping/caret scrolling inside the padded field.
             '$text_edit_clipping_panel_size':['100%', '100% + 4px'],
             '$place_holder_text':'', '$text_box_text_color':[.15,.22,.30]},
