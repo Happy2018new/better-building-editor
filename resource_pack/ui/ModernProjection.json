@@ -11,6 +11,18 @@
     "rotation": "none",
     "enable_scissor_test": true
   },
+  "click_observer@PyreactBase.panel": {
+    "type": "input_panel",
+    "consume_hover_events": false,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "#modern_projection_pointer_down",
+        "mapping_type": "global",
+        "consume_event": false
+      }
+    ]
+  },
   "round@PyreactBase.panel": {
     "controls": [
       {

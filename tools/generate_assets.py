@@ -60,12 +60,20 @@ def graphics():
     Image.new('RGBA', (2, 2)).save(OUT / 'transparent.png')
     for i in range(16):
         progress = i / 15.
-        particle = Image.new('RGBA', (180, 144))
+        particle = Image.new('RGBA', (224, 224))
         draw = ImageDraw.Draw(particle)
-        for j in range(6):
-            angle = j * math.pi / 3.
-            x, y = 90 + math.cos(angle) * 81 * progress, 72 + math.sin(angle) * 60 * progress
-            draw.ellipse((x - 4, y - 4, x + 4, y + 4), fill=(71, 122, 244, int(255 * (1 - progress) ** 2)))
+        spread = 1 - (1 - progress) ** 2
+        radius = 9 + 62 * spread
+        alpha = int(230 * (1 - progress) ** 1.2)
+        draw.ellipse((112-radius, 112-radius, 112+radius, 112+radius),
+                     outline=(71, 122, 244, int(alpha * .5)), width=3)
+        for j in range(10):
+            angle = j * math.pi / 5.
+            distance = 12 + (82 if j % 2 else 94) * spread
+            x, y = 112 + math.cos(angle) * distance, 112 + math.sin(angle) * distance
+            r = (5 if j % 2 else 7) * (1 - .55 * progress)
+            color = (41, 160, 167, alpha) if j % 3 == 0 else (71, 122, 244, alpha)
+            draw.ellipse((x-r, y-r, x+r, y+r), fill=color)
         particle.save(OUT / ('burst_%02d.png' % i))
     for name, color in [('input_bg', '#F0F4FA'), ('input_hover', '#E6EDFA')]:
         shape(name, (32, 32), lambda d, s, c=color: d.rounded_rectangle((0, 0, 32*s-1, 32*s-1), 6*s, fill=c))
@@ -127,6 +135,10 @@ def native_skin():
         'label@PyreactBase.label':{'font_type':'smooth','backup_font_type':'smooth'},
         'type_image@PyreactBase.image':{'bilinear':True},
         'doll@PyreactBase.paperDoll':{'rotation':'none', 'enable_scissor_test':True},
+        'click_observer@PyreactBase.panel': {'type': 'input_panel',
+            'consume_hover_events': False,
+            'button_mappings': [{'from_button_id': 'button.menu_select',
+                'to_button_id': '#modern_projection_pointer_down', 'mapping_type': 'global', 'consume_event': False}]},
         'round@PyreactBase.panel': {'controls': [
             {'p%d' % (r * 3 + c): {'type': 'image', 'texture': tex + 'rounded', 'bilinear': True,
                 'anchor_from': 'top_left', 'anchor_to': 'top_left', 'keep_ratio': False, 'layer': 2,
@@ -165,7 +177,7 @@ def native_skin():
     base_path=ROOT/'resource_pack/ui/PyreactBase.json'
     base=json.loads(base_path.read_text(encoding='utf8'))
     controls=base['rootBase']['controls']
-    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round')]:
+    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round'),('click_observer','click_observer')]:
         key='mp_%s_tmpl@ModernProjection.%s'%(suffix,target)
         if not any(key in c for c in controls):
             controls.append({key:{}})

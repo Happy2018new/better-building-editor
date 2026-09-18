@@ -21,7 +21,9 @@ class OrbitCamera(object):
         self.velocity = (0., 0.)
 
     def drag(self, dx, dy, dt):
-        yaw = dx * .42
+        # Grab the model: a rightward pointer movement brings its front to the
+        # right. Camera azimuth has the opposite sign; inertia uses this delta too.
+        yaw = -dx * .42
         pitch = dy * .42
         self.yaw += yaw
         self.pitch = clamp(self.pitch + pitch, -85., 90.)

@@ -36,3 +36,17 @@ python -X utf8 tools/profile_controls.py slider label
 python -X utf8 tools/profile_controls.py segments label
 python -X utf8 tools/profile_controls.py pages label
 ```
+
+## 2026-09-18 全页反馈与缩放修复回归
+
+继续使用 1920×1080、庭院示例、10 秒 Tracy 捕获和同一套实际鼠标负载，开启动画及全页点击特效：
+
+| 负载 | 上阶段 final | 本轮 polish | 捕获 ID |
+| --- | ---: | ---: | --- |
+| 拖横滑条 | 60.2 FPS | 60.1 FPS | `cap-20260918-134008-332014` |
+| 浏览 / 选取 | 52.9 FPS | 51.2 FPS | `cap-20260918-133923-2c4851` |
+| 工作台 / 建筑库 | 53.3 FPS | 51.5 FPS | `cap-20260918-134034-557b77` |
+
+帧数分别为 601、512、515；这是整个捕获窗口的平均值，不能说明每一帧都稳定。页面/选项切换仍有刷新开销，本轮没有声称提升这两项帧率，新增反馈后保持在约 51 FPS。不同运行时间的后台负载也会影响结果。
+
+按钮不再各自持有粒子控件，页面统一复用 6 个 Image。点击只写原生位置、可见性和贴图，不调 session.emit、不新增 UI 节点。主题订阅仅在 scale/motion 改变时触发，平时仍保留组件复用和原生 transform 提交路径。

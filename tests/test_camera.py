@@ -15,6 +15,21 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_horizontal_grab_and_release_follow_pointer(self):
+        for yaw in (0, 90, 180, 270, 359):
+            for dx in (-20, 20):
+                c = OrbitCamera(yaw, 0)
+                # A point on the currently facing side must follow the hand.
+                toward = c.basis()[2]
+                point = tuple(5 + 3 * v for v in toward)
+                before = c.project(point, (10, 10, 10), 400, 300, 10)[0]
+                c.drag(dx, 0, .05)
+                dragged = c.project(point, (10, 10, 10), 400, 300, 10)[0]
+                c.advance(1 / 60.)
+                released = c.project(point, (10, 10, 10), 400, 300, 10)[0]
+                self.assertGreater((dragged - before) * dx, 0)
+                self.assertGreater((released - dragged) * dx, 0)
+
     def test_preset_takes_shortest_path_and_converges(self):
         c = OrbitCamera(350, 25, 1)
         c.aim(10, 90, 2)

@@ -18,6 +18,7 @@ TEX = 'textures/modern_projection/'
 class Theme(object):
     scale = 1.
     motion = True
+    listeners = set()
     bg = Color(0xF1F4F8FF)
     white = Color(0xFFFFFFFF)
     ink = Color(0x26374BFF)
@@ -29,6 +30,31 @@ class Theme(object):
     mint = Color(0x178C7EFF)
     green = Color(0xE9F7F1FF)
     red = Color(0xD35C72FF)
+
+    @classmethod
+    def configure(cls, scale, motion):
+        if (cls.scale, cls.motion) == (scale, motion):
+            return
+        cls.scale, cls.motion = scale, motion
+        for listener in tuple(cls.listeners):
+            listener((scale, motion))
+
+
+def use_theme():
+    """Invalidate otherwise memoized app components only when theme changes.
+
+    Theme.scale is read by S/text, so ordinary prop equality cannot see it.
+    Keep native controls mounted while recomputing all their design dimensions.
+    """
+    unused, update = use_state((Theme.scale, Theme.motion))
+
+    def subscribe():
+        Theme.listeners.add(update)
+
+        def cleanup():
+            Theme.listeners.discard(update)
+        return cleanup
+    use_effect(subscribe, [])
 
 
 def S(**values):
@@ -43,10 +69,12 @@ def S(**values):
 
 class LabelPrimitive(BaseLabelPrimitive):
     def apply_props(self, host, fiber, control, prev_props, next_props):
-        BaseLabelPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
-        if control is not None and next_props.get('rasterText') and (
-                prev_props is None or prev_props.get('content') != next_props.get('content')):
-            control.asLabel().SetText('', False)
+        # Typography changes (including resize) make the base primitive reapply
+        # text. Keep its native content empty whenever the glyph atlas owns ink.
+        # Preserve the logical text on the fiber for accessibility/debugging.
+        native_next = dict(next_props, content='') if next_props.get('rasterText') else next_props
+        native_prev = dict(prev_props, content='') if prev_props and prev_props.get('rasterText') else prev_props
+        BaseLabelPrimitive.apply_props(self, host, fiber, control, native_prev, native_next)
 
 
 class PaperDollPrimitive(BasePaperDollPrimitive):
@@ -125,6 +153,7 @@ Rounded = RoundedPrimitive()
 
 @Component
 def Field(value=None, onChange=None, style=None):
+    use_theme()
     # The native edit box already reserves text/caret padding; adding another
     # inset would clip digits in compact auxiliary-value fields.
     return Panel(style=style, children=[
@@ -248,6 +277,7 @@ Pointer = PointerPrimitive()
 @Component
 def Scroll(style=None, children=None, resetKey=None):
     """Native wheel/touch scrolling with a proportional, draggable app thumb."""
+    use_theme()
     view, content, rail, thumb = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
     metrics = use_ref((0., 0., 0., 0.))
     drag = use_ref(None)
@@ -353,9 +383,9 @@ def rounded_skin(color, radius=7):
                    style=S(position=Position.absolute, left=0, top=0, width='100%', height='100%', zIndex=-3))
 
 
-def surface(children=None, color=None, **style):
+def surface(children=None, color=None, radius=7, **style):
     content = list(children) if isinstance(children, (list, tuple)) else ([children] if children is not None else [])
-    radius = min(7, style.get('height', 32) / 2.) if isinstance(style.get('height', 32), (int, float)) else 7
+    radius = min(radius, style.get('height', 32) / 2.) if isinstance(style.get('height', 32), (int, float)) else radius
     inset = dict((k, style.pop(k)) for k in list(style) if k.startswith('padding') or k in ('gap', 'alignItems', 'justifyContent'))
     inset['width'] = '100%'
     if style.get('height') is not None:
@@ -377,6 +407,7 @@ def transparent(unused):
 
 @Component
 def PageMotion(page=None, children=None, width=760, height=440):
+    use_theme()
     progress, set_progress = use_state(1.)
     started = use_ref(0.)
 
@@ -399,6 +430,7 @@ def PageMotion(page=None, children=None, width=760, height=440):
 
 @Component
 def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
+    use_theme()
     progress, set_progress = use_state(1.)
     started = use_ref(0.)
 
@@ -422,6 +454,7 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
 @Component
 def Action(label='', onClick=None, width=None, height=32, accent=False, selected=False,
            enabled=True, glyph=None, danger=False, compact=False):
+    use_theme()
     progress, set_progress = use_state(1.)
     feedback, set_feedback = use_state(ButtonState.default)
     stable_feedback = use_callback(set_feedback, [])
@@ -453,12 +486,6 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
             contents.append(text(label, 11 if compact else 12, ink))
         return [rounded_skin(base), row(contents, justifyContent=JustifyContent.center, paddingHorizontal=9)]
     children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, Theme.scale]))
-    # One permanent sprite replaces six separately laid-out particle controls.
-    children.append(Image(key='burst', src=TEX + 'transparent', frames=BURST_FRAMES,
-        frameDuration=.0275, playing=progress < 1. and Theme.motion, loop=False,
-        style=S(position=Position.absolute, left='50%', top='50%', width=60, height=48,
-                opacity=1 if progress < 1. and Theme.motion else 0., zIndex=20,
-                transform=[Translate(-30 * Theme.scale, -24 * Theme.scale)])))
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1 if enabled else .38,
@@ -470,6 +497,7 @@ BURST_FRAMES = tuple(TEX + 'burst_%02d' % i for i in range(16))
 
 @Component
 def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', integer=False):
+    use_theme()
     current, set_current = use_state(value)
     track, fill, knob = use_ref(None), use_ref(None), use_ref(None)
     pulse = use_ref(0.)
@@ -523,6 +551,7 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
 
 @Component
 def Segments(items=None, value=None, onChange=None, width=216):
+    use_theme()
     items = items or []
     index = next((i for i, pair in enumerate(items) if pair[0] == value), 0)
     destination, set_destination = use_state(index)
@@ -533,11 +562,13 @@ def Segments(items=None, value=None, onChange=None, width=216):
         set_destination(index)
     use_effect(travel, [index])
     cell = (width - 6) / max(1, len(items))
-    return surface(color=Theme.pale, width=width, height=32, padding=3, children=[
-        Animated(style=S(position=Position.absolute, left=3, top=3, width=cell, height=26),
+    return surface(color=Theme.pale, radius=5, width=width, height=32, padding=3, children=[
+        Animated(style=S(position=Position.absolute, left=4, top=3, width=cell - 2, height=26),
                  transition=NativeStyle(transform=[Translate(destination * cell * Theme.scale, 0)]),
                  duration=.30 if Theme.motion else 0., transitionEasing=Easing.cubic_in_out,
-                 children=surface(color=Theme.white, width='100%', height='100%')),
+                 children=surface(color=Theme.tint, radius=4, width='100%', height='100%', children=[
+                     Image(color=Theme.blue, style=S(position=Position.absolute,
+                         left=8, right=8, bottom=0, height=2))])),
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
                     style=S(width=cell, height=26),
                     children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted,

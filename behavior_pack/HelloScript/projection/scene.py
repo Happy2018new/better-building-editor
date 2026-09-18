@@ -6,7 +6,7 @@ import math
 import time
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
-from .widgets import Theme, S, Doll, Pointer, transparent
+from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
 from .camera import OrbitCamera, raycast, layer_hit
 from .model import bounds
 from .preview import PreviewBuffer
@@ -25,6 +25,7 @@ HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击查看坐标',
 
 @Component
 def Scene(session=None, revision=0, width=400, height=300):
+    use_theme()
     dolls = [use_ref(None), use_ref(None)]
     surfaces = [use_ref(None), use_ref(None)]
     pointer, canvas = use_ref(None), use_ref(None)

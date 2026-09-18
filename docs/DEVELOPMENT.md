@@ -87,3 +87,15 @@ Python 3、Pillow、requests、psutil、pyperclip；游戏内代码兼容 ModSDK
 - 输入框使用透明原生编辑控件与固定圆角外壳；按钮悬停/按下改变同一外壳颜色。选项在父页面提交后启动完整位移，确认弹窗保留进入/退出阶段。
 - 三维独立裁剪框对齐整数 UI 坐标，模型容器反向补偿原点，解决遮罩下的白边；不关闭 scissor，大倍率仍保留裁剪。`verify_layout.py` 增加原生边界与模型原点检查，四种比例共 52 项。
 - `tools/profile_controls.py slider|segments|pages LABEL` 运行 10 秒真实鼠标负载；`tools/verify_motion.py` 采集实际原生中间位置，检查反向选择和弹窗出入场。性能数据、环境和适用范围见 `docs/CONTROLS_PERFORMANCE.md`。
+
+## 阶段 7：缩放重影、跟手旋转与全页反馈
+
+- 字体重影来自字号改变时 Base Label 重新写入原生文字，而字形贴图仍在显示。应用 Label 现在把传给原生实现的 content 始终设为空，保留 fiber 上的逻辑内容，原生字体回退仍正常。调试协议 `native_control` 可读取实际 text/visible。
+- 部分组件 props 没变化，缩放时被复用，导致关闭按钮、分段框等留在旧尺寸。应用组件通过 `use_theme` 订阅 scale/motion 变化，只在主题改变时更新；不重建 Scene 或 PaperDoll。窗口尺寸通知合并到 50 ms 内，跳过相同尺寸。
+- 分段框改成 4 格圆角的淡蓝底与细下划线，沿用父组件提交后开始的 300 ms 移动动画。顶部草稿状态、保存、关闭统一为 32 格高度。
+- 水平拖动按“抓住建筑”方向旋转，惯性使用相同符号。新增五个朝向、左右两种拖动及松手后的投影方向测试；原生鼠标验证明确检查右拖后的负 yaw 增量。
+- 点击反馈改成独立的 `ClickEffects`，全页共用 6 个常驻 Image，每次点击在实际指针处播放 112×112 设计单位、480 ms 的环与十个粒子。按帧更新贴图，不通过 Workspace state 重排；尺寸变化、减少动态效果和卸载均清理活动特效。
+- 全局点击监听采用原生 `input_panel` 的 `button.menu_select` global mapping，mapping 上 `consume_event=false`。普通 `OnKeyPressInGame` 不能覆盖 UI 点击，覆盖页面的 Button 会抢点击；input_panel 与 ScreenNode binding 组合已验证页面切换、输入框、三维点选/拖动、滑条、滚动条和弹窗。SDK 对同一次 down 有重复派发，20 ms 内同坐标同触点去重。
+- `tools/verify_resize.py` 改变窗口宽高和实际字体缩放，覆盖 1280×720、1600×900、1440×1080、1920×1080、1366×768 后还原，共 31 项文字/回退/预览身份/可见性/顶部对齐检查。此前只改变宽高比、固定高度的测试无法稳定触发此次错误。
+- `tools/verify_click_effects.py` 用真实鼠标检查空白处、页签、输入框打字、弹窗、连点、减少动态效果，并读取原生特效位置与实际像素。480 ms 特效不能依赖 6 次串行剪贴板请求之后的 visible 值判断，截图先于坐标采样。
+- 本轮单元测试 43 项、实际鼠标 7 项、位移/弹窗动画 6 项、全页特效 9 项通过；特效测试包含关闭工作台后用 P 重新打开，检查原生绑定清理与重新绑定。最终游戏日志没有本轮代码的 traceback 或未知 JsonUI 属性。Windows PC 实机验证；移动触控坐标已有回退，尚未在移动设备实测。

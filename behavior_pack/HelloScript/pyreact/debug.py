@@ -489,6 +489,9 @@ def poll_clipboard(host):
                 raise ValueError('native_control requires a primitive id')
             control = host.GetBaseUIControl(fiber.native_path)
             result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
+            result['visible'] = control.GetVisible()
+            if _type_name(fiber) == 'Label':
+                result['text'] = control.asLabel().GetText()
             if _type_name(fiber) == 'Image':
                 image = control.asImage()
                 result['angle'] = image.GetRotateAngle()

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
-from .widgets import JellyButton as Button
+from .widgets import JellyButton as Button, use_theme
 from .catalog import BY_ID, MATERIALS, tool_parameters
 from .model import AIR
 
@@ -21,6 +21,7 @@ def material_color(value):
 
 @Component
 def Coordinates(label='', value=(0, 0, 0), onChange=None):
+    use_theme()
     draft, set_draft = use_state(', '.join(str(v) for v in value))
     valid, set_valid = use_state(True)
 
@@ -46,6 +47,7 @@ def Coordinates(label='', value=(0, 0, 0), onChange=None):
 
 @Component
 def MaterialPicker(session=None, revision=0, channels=None):
+    use_theme()
     channel, set_channel = use_state('material')
     custom, set_custom = use_state('minecraft:stone')
     custom_aux, set_custom_aux = use_state('0')
@@ -86,6 +88,7 @@ def optional(identity, visible, children):
 
 @Component
 def Parameters(session=None, revision=0):
+    use_theme()
     e = session.editor
     tool = BY_ID[session.tool]
     options = tool_parameters(session.tool)
@@ -126,6 +129,7 @@ def Parameters(session=None, revision=0):
 
 @Component
 def Layers(session=None, revision=0):
+    use_theme()
     e = session.editor
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=7), children=[
         row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
@@ -144,6 +148,7 @@ def Layers(session=None, revision=0):
 
 @Component
 def History(session=None, revision=0):
+    use_theme()
     e = session.editor
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=8), children=[
         text('操作历史', 18), text('最多保留 50 步 · 修改可逐步撤销', 10, Theme.muted),
@@ -160,6 +165,7 @@ def History(session=None, revision=0):
 
 @Component
 def Library(session=None, revision=0, width=760, height=440):
+    use_theme()
     e = session.editor
     cards = []
     for entry in session.library:
@@ -196,6 +202,7 @@ def Library(session=None, revision=0, width=760, height=440):
 
 @Component
 def ProjectionSettings(session=None, revision=0):
+    use_theme()
     e = session.editor
     stats = session.progress
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=8), children=[
@@ -231,6 +238,7 @@ def ProjectionSettings(session=None, revision=0):
 
 @Component
 def Guide(session=None, revision=0, width=760, height=440):
+    use_theme()
     sections = [
         ('01', '先认识你的工作台', '拖动模型自由旋转，滚轮缩放。切换放置、涂装、擦除，直接点击三维方块。', 'orbit'),
         ('02', '从一个小范围开始', '三维视图选择框选，依次点击两个角点。也可以切换逐层视图精细编辑。', 'cursor'),

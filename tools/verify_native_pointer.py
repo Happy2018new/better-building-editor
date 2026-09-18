@@ -36,6 +36,8 @@ def main():
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     ui.click('俯视'); time.sleep(.7)
+    ui.click('浏览')
+    initial_yaw = ui.nodes('PaperDoll')[0]['props']['initRotZ']
     box = interaction.pointer()['layout']
     x, y = interaction.point((20.5, 6., 3.5))
     click_at(box['x'] + x, box['y'] + y)
@@ -58,6 +60,8 @@ def main():
     props = ui.nodes('PaperDoll')[0]['props']
     print('Settled native drag angles:', props['initRotZ'], props['initRotX'])
     ui.check('native drag orbits in two axes', 5 < abs(props['initRotZ']) < 60 and props['initRotX'] < -2)
+    delta = (props['initRotZ'] - initial_yaw + 180.) % 360. - 180.
+    ui.check('rightward native drag rotates the model with the hand', delta < -5.)
     move(x, y)
     time.sleep(.12)
     assert capture.user32.GetForegroundWindow() == hwnd

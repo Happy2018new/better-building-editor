@@ -8,15 +8,17 @@ from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
-from .widgets import JellyButton as Button, PageMotion
+from .widgets import JellyButton as Button, PageMotion, use_theme
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID
 from .model import AIR
 from .scene import Scene, MODES, HINTS
+from .effects import ClickEffects
 
 
 @Component
 def ToolList(session=None, revision=0, height=440):
+    use_theme()
     query = session.query.strip().lower()
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == session.group)]
     title = next(g[1] for g in GROUPS if g[0] == session.group)
@@ -36,6 +38,7 @@ def ToolList(session=None, revision=0, height=440):
 
 @Component
 def LayerCanvas(session=None, revision=0, width=380, height=300):
+    use_theme()
     e = session.editor
     sx, unused_sy, sz = e.document.size
     ox, oz = min(session.canvas_x, sx - 1), min(session.canvas_z, sz - 1)
@@ -65,6 +68,7 @@ def cell_bg(color, state):
 
 @Component
 def Viewport(session=None, revision=0, width=430, height=440):
+    use_theme()
     e = session.editor
     doc = e.document
     focus = session.focus_view
@@ -139,6 +143,7 @@ def turn_camera(session, amount):
 
 @Component
 def Inspector(session=None, revision=0, height=440):
+    use_theme()
     pane = (ProjectionSettings(session=session, revision=session.ui_revision) if session.page == 'projection' else
             Layers(session=session, revision=session.ui_revision) if session.inspector == 'layers' else
             History(session=session, revision=session.ui_revision) if session.inspector == 'history' else Parameters(session=session, revision=session.ui_revision))
@@ -157,6 +162,7 @@ def Inspector(session=None, revision=0, height=440):
 
 @Component
 def Confirmation(session=None, revision=0):
+    use_theme()
     progress, set_progress = use_state(0.)
     motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
     message = use_ref('')
@@ -192,6 +198,8 @@ def Confirmation(session=None, revision=0):
 def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
+    measured_screen = use_ref(screen)
+    resize_pending = use_ref(False)
 
     def refresh():
         set_revision(lambda previous: previous + 1)
@@ -201,13 +209,19 @@ def Workspace(session=None, revision=0):
     use_effect(subscribe, [session])
 
     def resized(unused):
+        if resize_pending.current:
+            return
+        resize_pending.current = True
+
         def settle():
-            set_screen(get_screen_size())
-            session.emit()
+            resize_pending.current = False
+            current = get_screen_size()
+            if current != measured_screen.current:
+                measured_screen.current = current
+                set_screen(current)
         session.bridge.later(.05, settle)
     use_event('ScreenSizeChangedClientEvent', resized)
-    Theme.scale = min(screen[1] / 640., screen[0] / 980.)
-    Theme.motion = not session.reduced_motion
+    Theme.configure(min(screen[1] / 640., screen[0] / 980.), not session.reduced_motion)
     width, height = screen[0] / Theme.scale, screen[1] / Theme.scale
     page = session.page
     focus = session.focus_view and page in ('workspace', 'projection')
@@ -246,9 +260,9 @@ def Workspace(session=None, revision=0):
             Panel(style=S(gap=1), children=[text('现代化投影', 16 if focus else 20),
                 text('MODERN PROJECTION', 8, Theme.muted, display=Display.none if focus else Display.flex)]),
             Panel(style=S(flex=1)),
-            surface(color=Theme.green, height=25, paddingHorizontal=10, justifyContent=JustifyContent.center,
+            surface(color=Theme.green, height=32, paddingHorizontal=12, justifyContent=JustifyContent.center,
                     children=text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿', 10, Theme.mint)),
-            Action(label='保存配置', glyph='save', accent=True, width=115, height=33, onClick=partial(session.action, session.save)),
+            Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=navigator.pop),
         ], height=48 if focus else 65, paddingHorizontal=18, gap=12)),
         row([
@@ -282,7 +296,7 @@ def Workspace(session=None, revision=0):
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[main,
-        Confirmation(session=session, revision=session.ui_revision)])
+        Confirmation(session=session, revision=session.ui_revision), ClickEffects()])
 
 
 def category(session, identity):
