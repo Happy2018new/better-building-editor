@@ -483,6 +483,14 @@ def poll_clipboard(host):
                 if not result.get("ok"):
                     resp["pyreact_ack"] = False
                     resp["error"] = result.get("error")
+        elif cmd == "font_batch":
+            # Diagnostic only: this is a client-wide SDK switch, not an input
+            # font or antialiasing setting. The SDK has no return value/getter.
+            value = req.get('value')
+            if type(value) is not bool:
+                raise ValueError('font_batch requires a boolean')
+            _get_game(host).EnableFontBatchRender(value)
+            resp['result'] = {'requested': value}
         elif cmd == "native_control":
             fiber = find_fiber_by_id(host._root_fiber, node_id)
             if fiber is None or not fiber.native_path:
@@ -492,6 +500,8 @@ def poll_clipboard(host):
             result['visible'] = control.GetVisible()
             if _type_name(fiber) == 'Label':
                 result['text'] = control.asLabel().GetText()
+            elif _type_name(fiber) == 'Input':
+                result['text'] = control.asTextEditBox().GetEditText()
             if _type_name(fiber) == 'Image':
                 image = control.asImage()
                 result['angle'] = image.GetRotateAngle()

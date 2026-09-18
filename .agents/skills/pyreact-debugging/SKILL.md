@@ -193,6 +193,8 @@ python3 simulate.py scroll --node-id ID [--position PIXELS] [--timeout N]
 - `scroll`：游戏侧确认目标是 ScrollView，调用 `SetScrollViewPos` 设置像素位置，并在响应中返回 `before` / `position`；省略 `--position` 时通过 `GetScrollViewPos` 只读当前位置。
 - 自定义指针 Primitive 可通过 `_protocol.request('pointer', node_id=ID, value={'phase': 'down|move|up|cancel|enter|leave', 'x': X, 'y': Y})` 调试；坐标为相对该原生控件左上角的 UI 单位，调用正式 `onDown/onMove/onUp/onCancel/onEnter/onLeave` 回调。拖动使用 down → 若干 move → up；与 Win32 实际鼠标输入测试配合验证绑定。
 - `native_control` 额外返回原生 `visible`；Label 返回实际绘制的 `text`，可与逻辑 content 对比，检查字形贴图与原生文字叠加等重影问题。
+- `native_control` 对 Input 也返回 `GetEditText()` 的实际 `text`，可核对中文输入和受控值同步。
+- `_protocol.request('font_batch', value=False)` 调用客户端 `EnableFontBatchRender(False)`，用于字体合批对照实验；`True` 恢复 SDK 默认开启状态。只接受布尔值，返回 `requested` 表示已调用，SDK 无返回值及状态读取接口。该设置作用于整个客户端，实验必须在 finally 恢复 `True`；它不是字体或抗锯齿开关。可运行 `python tools/verify_input_font.py` 和 `--remount` 比较现有 / 重建输入框的同尺寸像素。输出位于 `.runtime`，不要把诊断截图当成 UI 资源。
 - `_protocol.request('native_control', node_id=ID)` 只读原生控件的位置、全局位置和大小；Image 还返回旋转角、锚点及四角坐标，可核对逐帧命令式更新与 Pyreact 布局快照的差异。
 - `--settle S`：交互后等 S 秒让 UI 重渲染再返回（配合后续 dump）。**默认 `0.0`**；如需配合后续 `get_ui_tree` 抓稳定态，请显式传 `--settle 1` 等。
 
