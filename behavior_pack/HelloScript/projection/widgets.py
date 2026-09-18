@@ -132,12 +132,18 @@ class RoundedPrimitive(PanelPrimitive):
         if state.get('rounded_paint') == signature:
             return
         old = state.get('rounded_paint')
+        xs, ys = (0., rx, width - rx, width), (0., ry, height - ry, height)
+        if fiber.props.get('snapEdges'):
+            # The native image renderer rounds each patch separately. Shared
+            # integral cuts keep translucent patches from overlapping at joins.
+            xs = (0., round(rx), round(width - rx), width)
+            ys = (0., round(ry), round(height - ry), height)
         for i, patch in enumerate(state['patches']):
             row_index, col = i // 3, i % 3
             if old is None or old[:4] != signature[:4]:
-                patch.SetPosition(((0., rx, width - rx)[col], (0., ry, height - ry)[row_index]))
-                patch.SetSize(((rx, max(0., width - 2 * rx), rx)[col],
-                               (ry, max(0., height - 2 * ry), ry)[row_index]))
+                patch.SetPosition((xs[col], ys[row_index]))
+                patch.SetSize((max(0., xs[col + 1] - xs[col]),
+                               max(0., ys[row_index + 1] - ys[row_index])))
             if old is None or old[4] != signature[4]:
                 patch.SetAlpha(signature[4])
         state['rounded_paint'] = signature
@@ -429,9 +435,12 @@ def PageMotion(page=None, children=None, width=760, height=440):
 
 
 @Component
-def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
+def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
+                backgroundColor=None, hoverColor=None, radius=4, inset=0):
     use_theme()
     progress, set_progress = use_state(1.)
+    feedback, set_feedback = use_state(ButtonState.default)
+    stable_feedback = use_callback(set_feedback, [])
     started = use_ref(0.)
 
     def clicked():
@@ -446,9 +455,25 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
         set_progress(min(1., (now - started.current) / .36))
     use_animation_frame(tick, progress < 1.)
     wobble = math.exp(-6 * progress) * math.sin(3 * math.pi * progress) if progress < 1. else 0.
-    return Button(onClick=stable_click, buttonBuilder=buttonBuilder,
+    content = list(children) if isinstance(children, (list, tuple)) else ([children] if children is not None else [])
+    skins = []
+    if backgroundColor is not None:
+        skins.append(rounded_skin(backgroundColor, radius))
+    if hoverColor is not None:
+        # A local overlay fades above the moving selection, below the text.
+        # Hover never updates the selection or schedules a Workspace render.
+        strength = 0. if feedback == ButtonState.default else (1. if feedback == ButtonState.pressed else .55)
+        skins.append(Animated(key='hover', style=S(position=Position.absolute, left=inset,
+            right=inset, top=0, height='100%', zIndex=-1),
+            transition=NativeStyle(opacity=strength), duration=.12 if Theme.motion else 0.,
+            transitionEasing=Easing.cubic_out,
+            children=Rounded(color=hoverColor, radius=radius * Theme.scale, snapEdges=True,
+                style=S(width='100%', height='100%'))))
+    control = FeedbackButton if hoverColor is not None else Button
+    extra = {'onFeedback': stable_feedback} if hoverColor is not None else {}
+    return control(onClick=stable_click, buttonBuilder=buttonBuilder,
                   style=(style or NativeStyle()).merge(NativeStyle(transform=[Scale(1 + .06 * wobble, 1 - .08 * wobble)])),
-                  children=children)
+                  children=skins + content, **extra)
 
 
 @Component
@@ -573,6 +598,7 @@ def Segments(items=None, value=None, onChange=None, width=216):
                      Image(color=Theme.blue, style=S(position=Position.absolute,
                          left=8, right=8, bottom=0, height=2))])),
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
+                    hoverColor=Color(0x477AF42E), radius=4, inset=1,
                     style=S(width=cell, height=26),
                     children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted,
                                   center=True, width=cell)) for pair in items], gap=0,
