@@ -7,7 +7,7 @@ from ..pyreact import *
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
 from .widgets import JellyButton as Button, PageMotion
-from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color
+from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID
 from .model import AIR
 from .scene import Scene, MODES, HINTS
@@ -65,7 +65,8 @@ def cell_bg(color, state):
 def Viewport(session=None, revision=0, width=430, height=440):
     e = session.editor
     doc = e.document
-    area_h = max(130, height - 148)
+    focus = session.focus_view
+    area_h = max(130, height - (136 if focus else 148))
     viewport_children = []
     if session.grid:
         viewport_children.append(Image(src=TEX + 'viewport_grid', style=S(width='100%', height='100%', opacity=.6)))
@@ -103,9 +104,17 @@ def Viewport(session=None, revision=0, width=430, height=440):
             text('X %d · Z %d' % (session.canvas_x, session.canvas_z), 10, Theme.muted),
         ]
     return surface(width=width, height=height, children=[
-        row([Panel(style=S(flex=1, gap=3), children=[text('场景视图', 14), text('%d × %d × %d' % doc.size, 10, Theme.muted)]),
+        row([Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
+                text(('%d × %d × %d' % doc.size) + (' · ' + material_name(e.material) if focus else ''), 10, Theme.muted)]),
+             Panel(style=S(display=Display.flex if focus else Display.none, flexDirection=FlexDirection.row, gap=5), children=[
+                 Action(glyph='undo', width=28, height=26, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
+                 Action(glyph='redo', width=28, height=26, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
+                 Action(label='材质与属性', height=27, compact=True, selected=session.focus_inspector,
+                        onClick=partial(session.set, 'focus_inspector', not session.focus_inspector))]),
              Segments(items=[('3d', '三维'), ('layer', '逐层')], value=session.view,
-                      onChange=partial(session.set, 'view'), width=112)], padding=12, height=57),
+                      onChange=partial(session.set, 'view'), width=112),
+             Action(label='还原视图' if focus else '展开视图', height=28, compact=True, accent=focus,
+                    onClick=partial(session.set, 'focus_view', not focus))], paddingHorizontal=12, height=45 if focus else 57),
         Image(color=Theme.line, style=S(height=1, width='100%')),
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
         row(view_controls, paddingHorizontal=12, height=36, gap=4),
@@ -165,19 +174,23 @@ def Workspace(session=None, revision=0):
     Theme.scale = min(screen[1] / 640., screen[0] / 980.)
     Theme.motion = not session.reduced_motion
     width, height = screen[0] / Theme.scale, screen[1] / Theme.scale
-    main_h = height - 181
-    content_w = width - 100
     page = session.page
+    focus = session.focus_view and page in ('workspace', 'projection')
+    main_h = height - (115 if focus else 181)
+    content_w = width - (24 if focus else 100)
     e = session.editor
     page_names = [('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'), ('guide', '入门指南')]
     middle_width = content_w - 434 if page != 'projection' else content_w - 250
+    if focus:
+        middle_width = content_w - (250 if session.focus_inspector else 0)
     # Keep the native block-model renderer alive across tabs and layer mode.
     # Removing it while its render job is pending can terminate the game process.
     editor_body = row([
-        Panel(style=S(display=Display.none if page == 'projection' else Display.flex),
+        Panel(style=S(display=Display.none if focus or page == 'projection' else Display.flex),
               children=ToolList(session=session, revision=session.ui_revision, height=main_h)),
         Viewport(session=session, revision=session.ui_revision, width=middle_width, height=main_h),
-        Inspector(session=session, revision=session.ui_revision, height=main_h),
+        Panel(style=S(display=Display.flex if not focus or session.focus_inspector else Display.none),
+              children=Inspector(session=session, revision=session.ui_revision, height=main_h)),
     ], gap=10, alignItems=AlignItems.stretch,
        display=Display.flex if page in ('workspace', 'projection') else Display.none)
     body = Panel(style=S(width=content_w, height=main_h), children=[editor_body,
@@ -193,15 +206,16 @@ def Workspace(session=None, revision=0):
                    onClick=partial(category, session, identity)),
             text(title, 10, Theme.blue if session.group == identity and page == 'workspace' else Theme.muted)]))
     main = Image(color=Theme.bg, style=S(width='100%', height='100%'), children=[
-        Image(color=Theme.white, style=S(width='100%', height=65), children=row([
-            Image(src=TEX + 'logo', style=S(width=37, height=37)),
-            Panel(style=S(gap=1), children=[text('现代化投影', 20), text('MODERN PROJECTION', 8, Theme.muted)]),
+        Image(color=Theme.white, style=S(width='100%', height=48 if focus else 65), children=row([
+            Image(src=TEX + 'logo', style=S(width=29 if focus else 37, height=29 if focus else 37)),
+            Panel(style=S(gap=1), children=[text('现代化投影', 16 if focus else 20),
+                text('MODERN PROJECTION', 8, Theme.muted, display=Display.none if focus else Display.flex)]),
             Panel(style=S(flex=1)),
             surface(color=Theme.green, height=25, paddingHorizontal=10, justifyContent=JustifyContent.center,
                     children=text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿', 10, Theme.mint)),
             Action(label='保存配置', glyph='save', accent=True, width=115, height=33, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=navigator.pop),
-        ], height=65, paddingHorizontal=18, gap=12)),
+        ], height=48 if focus else 65, paddingHorizontal=18, gap=12)),
         row([
             Segments(items=page_names, value=page, onChange=partial(session.set, 'page'), width=340),
             Panel(style=S(flex=1)),
@@ -209,9 +223,10 @@ def Workspace(session=None, revision=0):
             Action(glyph='undo', width=29, height=28, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
             Action(glyph='redo', width=29, height=28, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
             Action(label='读取选区', glyph='cursor', width=100, height=28, onClick=partial(session.confirm, '读取世界选区将替换当前草稿，继续吗？', session.bridge.capture), enabled=not session.busy),
-        ], paddingHorizontal=18, height=49, gap=8),
+        ], paddingHorizontal=18, height=49, gap=8, display=Display.none if focus else Display.flex),
         row([
-            surface(width=64, height=main_h, paddingTop=12, gap=13, alignItems=AlignItems.center, children=categories),
+            surface(width=64, height=main_h, paddingTop=12, gap=13, alignItems=AlignItems.center,
+                    display=Display.none if focus else Display.flex, children=categories),
             PageMotion(page=page, width=content_w, height=main_h, children=body),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
         row([

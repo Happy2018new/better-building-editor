@@ -9,6 +9,7 @@ from ..pyreact.hooks import use_animation_frame
 from .widgets import Theme, S, Doll, Pointer, transparent
 from .camera import OrbitCamera, raycast, layer_hit
 from .model import bounds
+from .preview import PreviewBuffer
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '涂装'),
@@ -24,10 +25,14 @@ HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击查看坐标',
 
 @Component
 def Scene(session=None, revision=0, width=400, height=300):
-    doll, pointer, canvas = use_ref(None), use_ref(None), use_ref(None)
+    dolls = [use_ref(None), use_ref(None)]
+    surfaces = [use_ref(None), use_ref(None)]
+    pointer, canvas = use_ref(None), use_ref(None)
+    preview = use_ref(lambda: PreviewBuffer()).current
     camera = use_ref(lambda: OrbitCamera(session.camera_yaw, session.camera_pitch, session.zoom)).current
     frame = use_ref(time.time())
-    rendered = use_ref(None)
+    outline = use_ref(None)
+    wheel_time = use_ref(None)
     drag = use_ref(None)
     hovering = use_ref(False)
     edge_refs = [use_ref(None) for unused in range(12)]
@@ -49,25 +54,41 @@ def Scene(session=None, revision=0, width=400, height=300):
     def tick(now):
         dt = now - frame.current
         frame.current = now
-        if not active or not doll.current:
+        if not active or not all(ref.current for ref in dolls + surfaces):
             drag.current = None
             camera.dragging = False
             camera.velocity = (0., 0.)
             return
         camera.advance(dt, Theme.motion)
         session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
+        if wheel_time.current is not None and now - wheel_time.current >= .18:
+            wheel_time.current = None
+            # A drag may have started since the last wheel event. Publish its
+            # current pose too, so the delayed UI refresh cannot rewind it.
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            session.zoom = camera.target[2]
+            session.emit()
         signature = (session.model_name, camera.yaw, camera.pitch, camera.zoom, width, height, Theme.scale)
-        if signature != rendered.current and session.model_name:
-            doll.current.asNeteasePaperDoll().RenderBlockGeometryModel({
-                'block_geometry_model_name': session.model_name,
-                'scale': unit() / 10.,
-                'init_rot_x': -90. + camera.pitch, 'init_rot_y': 0., 'init_rot_z': camera.yaw})
-            rendered.current = signature
+        def draw(slot, name, pose):
+            return dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
+                'block_geometry_model_name': name, 'scale': pose[0],
+                'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
+
+        def show(slot, visible, front):
+            # Warm the transparent renderer while the previous image remains
+            # visible. Hidden renderers defer initialization until made visible.
+            surfaces[slot].current.SetVisible(visible, False)
+
+        preview.update(session.model_name, (unit() / 10., -90. + camera.pitch, camera.yaw), now, draw, show)
         focused = session.focused
         lo, hi = focused, tuple(v + 1 for v in focused) if focused is not None else None
         if focused is not None and session.direct_mode == 'box' and session.box_anchor is None:
             lo, upper = bounds([session.editor.start, session.editor.end])
             hi = tuple(v + 1 for v in upper)
+        edge_signature = (signature, lo, hi, focused, active)
+        if edge_signature == outline.current:
+            return
+        outline.current = edge_signature
         for index, ref in enumerate(edge_refs):
             if not ref.current:
                 continue
@@ -125,7 +146,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                 camera.velocity = (0., 0.)
             return
         camera.velocity = (0., 0.)
-        if session.preview_pending:
+        if session.preview_pending or not preview.ready(session.model_name):
             session.editor.message = '预览更新中，请稍后点击'
             session.emit()
             return
@@ -157,16 +178,21 @@ def Scene(session=None, revision=0, width=400, height=300):
     def wheel(args):
         if active and hovering.current:
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
-            session.set('zoom', max(.25, min(3., camera.target[2] * (1.12 if args['direction'] else 1. / 1.12))))
+            session.zoom = max(.25, min(3., camera.target[2] * (1.12 if args['direction'] else 1. / 1.12)))
+            camera.aim(camera.yaw, camera.pitch, session.zoom)
+            wheel_time.current = time.time()
 
     use_event('MouseWheelClientEvent', wheel, active)
     use_animation_frame(tick)
     return Panel(ref=canvas, style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
-        Doll(ref=doll, renderType=PaperDollRenderType.block_geometry,
-             blockGeometryModelName=session.model_name,
-             scale=unit() / 10.,
-             initRotX=-90. + camera.pitch, initRotY=0., initRotZ=camera.yaw,
-             style=S(position=Position.absolute, width='100%', height='100%', visible=bool(session.model_name))),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%'), children=[
+            Panel(ref=surfaces[i], key='surface%d' % i,
+                  style=S(position=Position.absolute, width='100%', height='100%'), children=[
+                Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
+                     blockGeometryModelName=session.model_name, scale=unit() / 10.,
+                     initRotX=-90. + camera.pitch, initRotY=0., initRotZ=camera.yaw,
+                     style=S(position=Position.absolute, width='100%', height='100%', zIndex=1))])
+            for i in range(2)]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=4, visible=active), children=[
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(0., 0.),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))

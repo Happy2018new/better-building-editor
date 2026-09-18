@@ -50,6 +50,8 @@ class LabelPrimitive(BaseLabelPrimitive):
 
 class PaperDollPrimitive(BasePaperDollPrimitive):
     def apply_props(self, host, fiber, control, prev_props, next_props):
+        if next_props.get('managed'):
+            return  # Scene owns native submissions; props remain inspectable.
         if prev_props and prev_props.get('renderKey') != next_props.get('renderKey'):
             prev_props = None
         BasePaperDollPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
@@ -158,6 +160,7 @@ def Scroll(style=None, children=None, resetKey=None):
     view, content, rail, thumb = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
     metrics = use_ref((0., 0., 0., 0.))
     drag = use_ref(None)
+    rendered = use_ref(None)
 
     def reset():
         if view.current:
@@ -173,6 +176,10 @@ def Scroll(style=None, children=None, resetKey=None):
         length = min(height, max(24 * Theme.scale, height * height / max(height, total, 1.)))
         offset = max(0., min(height - length, pos * (height - length) / max(1., total - height)))
         metrics.current = (height, total, length, pos)
+        signature = (height, total, length, offset, Theme.scale)
+        if signature == rendered.current:
+            return
+        rendered.current = signature
         rail.current.SetVisible(total > height + 1)
         thumb.current.SetSize((4 * Theme.scale, length))
         thumb.current.SetPosition((3 * Theme.scale, offset))

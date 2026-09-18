@@ -38,4 +38,22 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
     ui.click('浏览'); ui.click('俯视'); time.sleep(.6)
     interaction.tap(*interaction.point((8.5, 11., 14.5)))
     ui.check(preset + ' resized viewport picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    before = interaction.pointer()
+    ui.click('展开视图')
+    expanded = interaction.pointer()
+    ui.check(preset + ' focus enlarges viewport and retains native input', expanded['id'] == before['id'] and
+             expanded['layout']['width'] > before['layout']['width'] * 1.5 and
+             expanded['layout']['height'] > before['layout']['height'] * 1.15)
+    ui.check(preset + ' focus collapses tool panels', not ui.nodes('ToolList') and not ui.nodes('Inspector'))
+    interaction.tap(*interaction.point((8.5, 11., 14.5)))
+    ui.check(preset + ' focus viewport still picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    ui.click('材质与属性')
+    ui.check(preset + ' focus inspector fits', frame(ui.nodes('Inspector')[0])['x'] +
+             frame(ui.nodes('Inspector')[0])['width'] <= width + .5)
+    interaction.tap(*interaction.point((8.5, 11., 14.5)))
+    ui.check(preset + ' docked focus viewport still picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    ui.click('材质与属性'); ui.click('还原视图')
+    restored = interaction.pointer()
+    ui.check(preset + ' restore preserves native renderer and exact viewport size', restored['id'] == before['id'] and
+             restored['layout'] == before['layout'])
 (ui.OUT / 'layout_checks.json').write_text(json.dumps(results, indent=2), encoding='utf8')

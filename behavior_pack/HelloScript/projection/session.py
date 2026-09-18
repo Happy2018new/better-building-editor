@@ -32,6 +32,8 @@ class Session(object):
         self.camera_pitch = 25.
         self.zoom = 1.
         self.view = '3d'
+        self.focus_view = False
+        self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
         self.focused = None

@@ -62,6 +62,7 @@ def verify_outline():
 
 def main():
     ui.click('入门指南'); ui.click('载入庭院示例'); ui.click('确认继续'); ui.click('工作台')
+    ui.click('浏览')
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     ui.click('俯视'); time.sleep(.7)

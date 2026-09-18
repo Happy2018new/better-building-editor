@@ -79,7 +79,7 @@ def main():
                 click('确认继续')
                 break
     click('工作台')
-    check('preview created on first mount', len(nodes('PaperDoll')) == 1)
+    check('both persistent preview buffers created on first mount', len(nodes('PaperDoll')) == 2)
     before = tuple(nodes('PaperDoll')[0]['props'].get(k, 0) for k in ('initRotX', 'initRotY', 'initRotZ'))
     click('右转')
     click('浏览')  # Publish the settled native camera pose into the UI snapshot.
