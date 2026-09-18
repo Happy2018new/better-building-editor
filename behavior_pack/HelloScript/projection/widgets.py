@@ -11,6 +11,7 @@ from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
 from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
+from .catalog import ACTION_ICONS, SEGMENT_ICONS
 
 TEX = 'textures/modern_projection/'
 
@@ -478,8 +479,9 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
 
 @Component
 def Action(label='', onClick=None, width=None, height=32, accent=False, selected=False,
-           enabled=True, glyph=None, danger=False, compact=False):
+           enabled=True, glyph=None, danger=False, compact=False, leading=False):
     use_theme()
+    glyph = glyph or ACTION_ICONS.get(label)
     progress, set_progress = use_state(1.)
     feedback, set_feedback = use_state(ButtonState.default)
     stable_feedback = use_callback(set_feedback, [])
@@ -509,22 +511,20 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
             contents.append(icon(glyph, ink, 15 if compact else 17))
         if label:
             contents.append(text(label, 11 if compact else 12, ink))
-        return [rounded_skin(base), row(contents, justifyContent=JustifyContent.center, paddingHorizontal=9)]
-    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, Theme.scale]))
+        return [rounded_skin(base), row(contents, width='100%' if leading else None,
+            justifyContent=JustifyContent.flex_start if leading else JustifyContent.center, paddingHorizontal=9)]
+    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, leading, Theme.scale]))
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1 if enabled else .38,
                           transform=[Scale(1 + .07 * wobble, 1 - .10 * wobble)]), children=children)
 
 
-BURST_FRAMES = tuple(TEX + 'burst_%02d' % i for i in range(16))
-
-
 @Component
 def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', integer=False):
     use_theme()
     current, set_current = use_state(value)
-    track, fill, knob = use_ref(None), use_ref(None), use_ref(None)
+    track, knob = use_ref(None), use_ref(None)
     pulse = use_ref(0.)
     applied = use_ref(None)
 
@@ -545,7 +545,7 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
             onChange(val)
 
     def tick(now):
-        if not all(r.current for r in (track, fill, knob)):
+        if not all(r.current for r in (track, knob)):
             return
         width = track.current.GetSize()[0]
         age = max(0., now - pulse.current)
@@ -555,7 +555,6 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
         if applied.current == signature:
             return
         applied.current = signature
-        fill.current.SetSize((width * normalized, 4 * Theme.scale))
         knob.current.SetSize((size, size))
         knob.current.SetPosition((width * normalized - size / 2., 13 * Theme.scale - size / 2.))
     use_animation_frame(tick)
@@ -567,9 +566,10 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
                         textAlign=TextAlignment.right, style=S(width=66, height=15))]),
         Panel(style=S(height=26, width='100%', marginTop=3, paddingHorizontal=10), children=[
           Panel(ref=track, style=S(height=26, width='100%'), children=[
-            Image(color=Theme.line, style=S(position=Position.absolute, top=11, height=4, width='100%')),
-            Image(ref=fill, color=Theme.blue, style=S(position=Position.absolute, top=11, height=4, width=0)),
-            Image(ref=knob, src=TEX + 'knob', style=S(position=Position.absolute, width=15, height=15)),
+            Image(color=Theme.line, style=S(position=Position.absolute, top=11, height=4, width='100%', zIndex=1)),
+            Image(color=Theme.blue, style=S(position=Position.absolute, left=0, top=11, height=4, width='100%', zIndex=2,
+                transform=[Scale(normalized, 1., origin=(0., 0.))])),
+            Image(ref=knob, src=TEX + 'knob', style=S(position=Position.absolute, width=15, height=15, zIndex=3)),
             Slider(value=normalized, steps=1, onChange=stable_change, style=S(width='100%', height=26, zIndex=4)),
           ])])])
 
@@ -600,6 +600,8 @@ def Segments(items=None, value=None, onChange=None, width=216):
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
                     hoverColor=Color(0x477AF42E), radius=4, inset=1,
                     style=S(width=cell, height=26),
-                    children=text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted,
-                                  center=True, width=cell)) for pair in items], gap=0,
+                    children=row(([icon(SEGMENT_ICONS[pair[1]], Theme.blue if pair[0] == value else Theme.muted, 13)]
+                                  if pair[1] in SEGMENT_ICONS else []) +
+                                 [text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted)],
+                                 width='100%', gap=5, justifyContent=JustifyContent.center)) for pair in items], gap=0,
             position=Position.absolute, left=3, top=3, width=width - 6, height=26)])

@@ -10,7 +10,7 @@ from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
 from .widgets import JellyButton as Button, PageMotion, use_theme
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
-from .catalog import GROUPS, TOOLS, BY_ID
+from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
 from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
@@ -48,7 +48,7 @@ def ToolList(session=None, revision=0, height=440):
         text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, marginTop=5, marginBottom=12),
         text('搜索结果' if query else title + '工具', 10, Theme.muted, marginBottom=7),
         Scroll(resetKey=(session.group, query), style=S(width=154, flex=1), children=Panel(style=S(width=144, gap=5), children=[
-            Action(key=t[0], label=t[2], height=32, selected=session.tool == t[0],
+            Action(key=t[0], label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32, selected=session.tool == t[0],
                    onClick=partial(session.choose_tool, t[0]), compact=True)
             for t in items] or [text('没有匹配的工具', 11, Theme.muted)])),
         Panel(style=S(height=8)),
@@ -149,7 +149,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
         Panel(style=S(width='100%', height=36), children=[
             Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == '3d'),
-                  children=row(view_controls, paddingHorizontal=12, height=36, gap=4)),
+                  children=row(view_controls, paddingHorizontal=10, height=36, gap=3)),
             Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == 'layer'),
                   children=row(layer_controls, paddingHorizontal=12, height=36, gap=4))]),
         Panel(style=S(paddingHorizontal=12, gap=4), children=[
@@ -303,7 +303,8 @@ def Workspace(session=None, revision=0):
             Panel(style=S(flex=1)),
             Button(buttonBuilder=transparent, backgroundColor=Theme.green,
                    hoverColor=Color(0x178C7E2E), radius=7, style=S(height=32),
-                   children=row([text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿',
+                   children=row([icon('check' if e.saved_revision == e.revision and session.library else 'draft', Theme.mint, 15),
+                                 text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿',
                                       10, Theme.mint)], paddingHorizontal=12)),
             Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=navigator.pop),
@@ -326,7 +327,7 @@ def Workspace(session=None, revision=0):
             Action(glyph='minus', width=27, height=25, onClick=partial(session.layer, e.layer - 1)),
             text('%02d' % e.layer, 12, width=25, center=True),
             Action(glyph='plus', width=27, height=25, onClick=partial(session.layer, e.layer + 1)),
-            Action(label='隔离图层', selected=session.solo_layer, width=78, height=26, compact=True, onClick=session.toggle_solo),
+            Action(label='隔离图层', selected=session.solo_layer, width=92, height=26, compact=True, onClick=session.toggle_solo),
             Panel(style=S(flex=1)),
             text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
             text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),

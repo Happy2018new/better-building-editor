@@ -75,6 +75,43 @@ TOOLS = [
 ]
 BY_ID = dict((item[0], item) for item in TOOLS)
 
+# Stable semantic icons shared by tool lists and compact controls.
+TOOL_ICONS = {
+    'select_all': 'select_all', 'select_nonair': 'cube', 'select_air': 'box_outline',
+    'select_material': 'pick', 'select_layer': 'layers', 'select_invert': 'invert',
+    'select_expand': 'expand', 'select_contract': 'contract', 'select_surface': 'surface', 'select_box': 'select_box',
+    'fill': 'fill', 'erase': 'erase', 'replace': 'replace', 'fill_air': 'fill', 'paint': 'brush',
+    'copy': 'copy', 'cut': 'cut', 'paste': 'paste', 'paste_airless': 'paste', 'flood': 'drop', 'swap': 'replace',
+    'rotate_y90': 'rotate_right', 'rotate_y180': 'rotate_right', 'rotate_y270': 'rotate_left',
+    'mirror_x': 'mirror_x', 'mirror_y': 'mirror_y', 'mirror_z': 'mirror_x',
+    'move_xp': 'arrow_right', 'move_xn': 'arrow_left', 'move_yp': 'arrow_up', 'move_yn': 'arrow_down',
+    'move_zp': 'arrow_down', 'move_zn': 'arrow_up', 'stack_x': 'array', 'stack_z': 'array',
+    'box': 'cube', 'shell': 'box_outline', 'walls': 'walls', 'frame': 'select_box',
+    'sphere': 'sphere', 'sphere_shell': 'sphere', 'cylinder': 'cylinder', 'tube': 'cylinder',
+    'pyramid': 'pyramid', 'dome': 'dome', 'arch': 'arch', 'stairs': 'stairs', 'line': 'line', 'floor': 'floor', 'roof': 'roof',
+    'checker': 'invert', 'stripe_x': 'stripes_x', 'stripe_y': 'stripes_y', 'stripe_z': 'stripes_z',
+    'noise': 'noise', 'gradient': 'gradient', 'brick': 'brick', 'lattice': 'grid',
+    'hollow': 'box_outline', 'clean_isolated': 'spark', 'fill_holes': 'repair',
+    'gravity': 'gravity', 'foundation': 'foundation', 'heightmap': 'surface',
+}
+ACTION_ICONS = {
+    '左转': 'rotate_left', '右转': 'rotate_right', '俯视': 'top_view', '正视': 'front_view',
+    '展开视图': 'expand', '还原视图': 'contract', '材质与属性': 'sliders', '隔离图层': 'layers',
+    '恢复全选区域': 'select_all', '使用自定义材质': 'check',
+    '仅显示当前层': 'layers', '显示全部图层': 'layers', '显示全部层': 'layers', '逐层投影': 'layers',
+    '载入': 'folder', '重命名': 'edit', '删除': 'trash', '仅显示缺失方块': 'box_outline',
+    '关闭投影': 'close', '同步空气（会清除对应位置）': 'erase', '撤销世界写入': 'undo',
+    '减少动态效果': 'motion', '取消': 'close', '确认继续': 'check',
+}
+SEGMENT_ICONS = {
+    '工作台': 'home', '建筑库': 'library', '投影': 'projection', '入门指南': 'info',
+    '三维': 'cube', '逐层': 'layers', '参数': 'sliders', '图层': 'layers', '历史': 'history',
+    '浏览': 'orbit', '选取': 'cursor', '放置': 'cube', '涂装': 'brush', '绘制': 'brush',
+    '擦除': 'erase', '吸管': 'pick', '框选': 'select_box', '起点': 'pin', '终点': 'pin',
+    '主材质': 'cube', '副材质': 'copy', '替换来源': 'replace', '蒙版来源': 'replace',
+    '全部': 'select_all', '实体': 'cube', '空气': 'box_outline', '来源': 'pick',
+}
+
 
 def tool_parameters(identity):
     """Only expose parameters actually consumed by this operation."""

@@ -2,7 +2,7 @@
 import json
 import time
 import mss
-from PIL import Image
+from PIL import Image, ImageChops
 import verify_ui as ui
 import capture_screen as capture
 from verify_motion import fast
@@ -31,12 +31,16 @@ def main():
     screen = mss.MSS()
 
     def native_click(x, y, inspect=True, require_visible=True):
+        assert capture._activate_window(hwnd)
         assert capture.user32.GetForegroundWindow() == hwnd
         point = (int(left + x * scale), int(top + y * scale))
         hit = capture.user32.WindowFromPoint(capture.POINT(*point))
         assert capture.user32.GetAncestor(hit, 2) == hwnd, 'Another window covers the click'
         capture.user32.SetCursorPos(*point)
         time.sleep(.035)
+        region = dict(left=max(left, point[0]-65), top=max(top, point[1]-65), width=130, height=130)
+        before = screen.grab(region)
+        before = Image.frombytes('RGB', before.size, before.bgra, 'raw', 'BGRX')
         capture.user32.mouse_event(2, 0, 0, 0, 0)
         try:
             time.sleep(.05)
@@ -44,18 +48,25 @@ def main():
             capture.user32.mouse_event(4, 0, 0, 0, 0)
         if not inspect:
             return
-        # Six clipboard round trips can exceed a 480 ms burst. Capture pixels
+        # Six clipboard round trips can exceed a 320 ms burst. Capture pixels
         # first, then read retained emission coordinates without timing races.
-        raw = screen.grab(dict(left=max(left, point[0]-95), top=max(top, point[1]-95),
-                              width=190, height=190))
-        pixels = Image.frombytes('RGB', raw.size, raw.bgra, 'raw', 'BGRX')
-        ink = sum(1 for r, g, b in pixels.getdata() if (b-r > 60 and b-g > 30) or (g-r > 60 and b-r > 60))
+        ink = 0
+        for unused in range(6):
+            raw = screen.grab(region)
+            pixels = Image.frombytes('RGB', raw.size, raw.bgra, 'raw', 'BGRX')
+            changed = ImageChops.difference(before, pixels)
+            count = sum(1 for delta, (r, g, b) in zip(changed.getdata(), pixels.getdata())
+                        if max(delta) > 12 and b - r > 12 and b - g > 5)
+            if count > ink:
+                ink = count
+                pixels.save(ui.OUT / 'click_flecks_detail.png')
+            time.sleep(.02)
         states = [fast('native_control', n['id'])['result'] for n in refs]
         hit = [s for s in states if abs(s['global'][0] + s['size'][0] / 2. - x) < 1 and
                abs(s['global'][1] + s['size'][1] / 2. - y) < 1]
         assert hit, (x, y, states)
-        assert not require_visible or ink > 30, (x, y, ink)
-        assert hit[0]['size'][0] * scale > 140, hit[0]
+        assert not require_visible or ink > 20, (x, y, ink)
+        assert 80 < hit[0]['size'][0] * scale < 115, hit[0]
         return hit[0]
 
     def click_label(label, require_visible=False):
@@ -67,7 +78,7 @@ def main():
 
     x, y = root['width'] * .46, 13.
     native_click(x, y)
-    ui.check('blank header produces a large burst at the actual pointer', True)
+    ui.check('blank header produces restrained flecks at the actual pointer', True)
     click_label('建筑库')
     ui.check('global feedback does not swallow page buttons', bool(ui.nodes('Library')))
     click_label('工作台')
@@ -87,10 +98,10 @@ def main():
     typed = ''
     while time.monotonic() < until:
         typed = ui.nodes('Input', ui.nodes('ToolList')[0])[0]['props']['value']
-        if typed == 'fill':
+        if typed.lower() == 'fill':
             break
         time.sleep(.1)
-    ui.check('global feedback preserves native input focus and typing', typed == 'fill')
+    ui.check('global feedback preserves native input focus and typing', typed.lower() == 'fill')
     ui.call('set_input', field['id'], '')
     # Creating the modal can exceed one burst lifetime on a cold first mount.
     # Inspect its emission coordinates, then sample a live burst over the modal.

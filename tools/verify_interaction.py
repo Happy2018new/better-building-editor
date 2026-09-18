@@ -30,7 +30,8 @@ def tap(x, y):
 
 
 def category(glyph):
-    action = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == glyph)
+    action = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == glyph
+                  and n['props'].get('width') == 40 and n['props'].get('height') == 37)
     ui.call('click', ui.nodes('Button', action)[0]['id'])
     time.sleep(.25)
 

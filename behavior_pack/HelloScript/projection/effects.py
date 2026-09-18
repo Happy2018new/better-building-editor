@@ -6,7 +6,9 @@ import mod.client.extraClientApi as clientApi
 from ..pyreact import Component, Panel, Position, use_ref
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.primitives import PanelPrimitive
-from .widgets import Theme, S, Image, TEX, BURST_FRAMES, use_theme
+from .widgets import Theme, S, Image, TEX, use_theme
+
+FRAME_UVS = tuple(((i % 4) * 112, (i // 4) * 112) for i in range(16))
 
 
 class ClickObserverPrimitive(PanelPrimitive):
@@ -73,22 +75,22 @@ def ClickEffects():
         control = sprites[slot].current
         if control is None:
             return
-        size = 112 * Theme.scale
+        size = 56 * Theme.scale
         control.SetSize((size, size))
         control.SetPosition((x - size / 2., y - size / 2.))
-        control.asImage().SetSprite(BURST_FRAMES[0])
+        control.asImage().SetSpriteUV(FRAME_UVS[0])
         control.SetVisible(True)
         live.current[slot] = (time.time(), 0, Theme.scale)
 
     def tick(now):
         for slot, (started, previous, scale) in list(live.current.items()):
-            frame = int((now - started) / .03)
+            frame = int((now - started) / .02)
             control = sprites[slot].current
-            if frame >= len(BURST_FRAMES) or not Theme.motion or scale != Theme.scale:
+            if frame >= len(FRAME_UVS) or not Theme.motion or scale != Theme.scale:
                 control.SetVisible(False)
                 del live.current[slot]
             elif frame != previous:
-                control.asImage().SetSprite(BURST_FRAMES[frame])
+                control.asImage().SetSpriteUV(FRAME_UVS[frame])
                 live.current[slot] = (started, frame, scale)
 
     use_animation_frame(tick)
@@ -96,6 +98,6 @@ def ClickEffects():
     return Panel(ref=overlay, style=S(position=Position.absolute, left=0, top=0,
         width='100%', height='100%', clipsChildren=True, zIndex=200), children=[
         ClickObserver(onPointer=burst, style=S(position=Position.absolute, width='100%', height='100%'))] + [
-        Image(ref=ref, key='click%d' % i, src=TEX + 'transparent',
+        Image(ref=ref, key='click%d' % i, src=TEX + 'click_flecks', uv=FRAME_UVS[0], uvSize=(112, 112),
             style=S(position=Position.absolute, width=0, height=0, visible=False))
         for i, ref in enumerate(sprites)])

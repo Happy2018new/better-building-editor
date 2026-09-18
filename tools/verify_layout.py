@@ -33,6 +33,15 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
                  box['x'] >= 0 and box['y'] >= 0 and box['x'] + box['width'] <= width + .5 and
                  box['y'] + box['height'] <= height + .5)
     results.append({'preset': preset, 'client': result['actualClient'], 'ui': root, 'columns': columns})
+    viewport = columns['Viewport']
+    actions = ui.nodes('Action', ui.nodes('Viewport', tree)[0])
+    ui.check(preset + ' icon toolbars stay inside the viewport', all(
+        frame(action)['x'] >= viewport['x'] - .5 and
+        frame(action)['x'] + frame(action)['width'] <= viewport['x'] + viewport['width'] + .5
+        for action in actions))
+    tools = ui.nodes('Action', ui.nodes('ToolList', tree)[0])
+    ui.check(preset + ' visible tool entries have icons and aligned labels', bool(tools) and all(
+        action['props'].get('glyph') and action['props'].get('leading') for action in tools))
     # Hit coordinates must continue to agree with the fitted native model after resize.
     import verify_interaction as interaction
     ui.click('浏览'); ui.click('俯视'); time.sleep(.6)
