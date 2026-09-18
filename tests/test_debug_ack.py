@@ -39,3 +39,11 @@ class DebugAckTests(unittest.TestCase):
         self.assertEqual(host._debug_game.writes, 2)
         self.assertEqual(json.loads(host._debug_game.content)['seq'], 51)
         self.assertTrue(json.loads(host._debug_game.content)['result']['ok'])
+        # Reading our large response again must not enter the JSON parser.
+        original = debug.json.loads
+        try:
+            debug.json.loads = lambda value: self.fail('parsed an unchanged acknowledgement')
+            debug.poll_clipboard(host)
+            debug.poll_clipboard(host)
+        finally:
+            debug.json.loads = original

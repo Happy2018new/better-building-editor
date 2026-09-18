@@ -20,6 +20,7 @@ import traceback as _tb
 READY_SIGNAL = '=====> PyreactRuntime AppReady:'
 _LAST_REQUEST_SEQ = [None]
 _LAST_RESPONSE = [None]
+_LAST_IGNORED_CONTENT = [None]
 
 
 def notify_ready():
@@ -423,12 +424,19 @@ def poll_clipboard(host):
         return
     if not content:
         return
+    # dump_tree responses can be several MB. They remain on the clipboard
+    # between requests: parsing our own response every tick stalls the UI.
+    cached = _LAST_RESPONSE[0]
+    if (cached is not None and content == cached[1]) or content == _LAST_IGNORED_CONTENT[0]:
+        return
     try:
         data = json.loads(content)
     except Exception:
+        _LAST_IGNORED_CONTENT[0] = content
         return  # 非 JSON，忽略（不干扰其他剪贴板用途）
     req = data.get("pyreact_debug") if isinstance(data, dict) else None
     if not isinstance(req, dict):
+        _LAST_IGNORED_CONTENT[0] = content
         return  # 非 debug 请求，不处理
     cmd = req.get("cmd")
     seq = req.get("seq")
