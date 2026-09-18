@@ -100,7 +100,7 @@ def main():
                         snapshot(native, 'input_current_' + size)
                 ui.click('工作台'); ui.click('放置'); ui.click('参数')
                 scroll = ui.nodes('ScrollView', ui.nodes('Parameters')[0])[0]
-                ui.call('scroll', scroll['id'], 150)
+                ui.call('scroll', scroll['id'], 10000)
                 time.sleep(.3)
                 picker = ui.nodes('MaterialPicker')[0]
                 aux = ui.nodes('Input', picker)[1]

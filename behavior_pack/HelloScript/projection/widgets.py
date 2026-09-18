@@ -39,7 +39,7 @@ class Theme(object):
         gui = max(1., round(game.GetScreenViewInfo()[0] / game.GetScreenSize()[0]))
         # Keep the original bitmap glyphs at whole screen magnifications. A
         # fixed .5 becomes too small when the engine changes GUI scale to 2.
-        font = max(2., round(scale * 1.25 * gui / 2.) * 2.) / gui
+        font = max(3., round(scale * 1.7 * gui)) / gui
         if (cls.scale, cls.motion, cls.input_font_scale) == (scale, motion, font):
             return
         cls.scale, cls.motion, cls.input_font_scale = scale, motion, font

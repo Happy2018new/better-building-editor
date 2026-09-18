@@ -154,6 +154,7 @@ class Editor(object):
         self.material = ('minecraft:quartz_block', 0)
         self.secondary = ('minecraft:planks', 1)
         self.source = ('minecraft:stone', 0)
+        self.filter_material = ('minecraft:stone', 0)
         self.start = (0, 0, 0)
         self.end = tuple(v - 1 for v in self.document.size)
         self.layer = 0
@@ -177,7 +178,7 @@ class Editor(object):
         return ((not respect_selection or pos in self.selection) and pos[1] not in self.locked_layers and
                 (self.mask == 'all' or (self.mask == 'solid' and value != AIR) or
                  (self.mask == 'air' and value == AIR) or
-                 (self.mask == 'material' and value == self.source)))
+                 (self.mask == 'material' and value == self.filter_material)))
 
     def _commit(self, name, changes, respect_selection=True):
         delta = {}
@@ -244,8 +245,13 @@ class Editor(object):
         if not self.document.contains(start) or not self.document.contains(end):
             raise ValueError('选区起终点必须位于建筑范围内')
         lo, hi = bounds((start, end))
+        self.start, self.end = tuple(start), tuple(end)
         self.selection = Selection.box(lo, hi)
         self.selection_revision += 1
+
+    def sync_selection_bounds(self):
+        if self.selection:
+            self.start, self.end = bounds(self.selection)
 
     def surface(self, pos):
         return self.document.get(pos) != AIR and any(self.document.get(add(pos, d)) == AIR for d in DIRECTIONS)
@@ -276,6 +282,7 @@ class Editor(object):
         elif tool == 'select_box':
             self.select_box(self.start, self.end)
         self.selection_revision += 1
+        self.sync_selection_bounds()
         self.message = '已选择 %d 格' % len(self.selection)
         return len(self.selection)
 
@@ -339,6 +346,7 @@ class Editor(object):
         count = self._commit(BY_ID[tool][2], changes, False)
         self.selection = set(mapping)
         self.selection_revision += 1
+        self.sync_selection_bounds()
         return count
 
     def _shape(self, tool, lo, hi):

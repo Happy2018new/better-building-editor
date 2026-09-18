@@ -73,6 +73,7 @@ class EditJob(object):
         if self.result_selection is not None:
             e.selection = self.result_selection
             e.selection_revision += 1
+            e.sync_selection_bounds()
         if self.result_clipboard is not None:
             e.clipboard = self.result_clipboard
         if self.changed:

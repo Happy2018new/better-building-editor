@@ -89,25 +89,37 @@ def optional(identity, visible, children):
 @Component
 def Parameters(session=None, revision=0):
     use_theme()
+    coordinates_open, set_coordinates_open = use_state(False)
     e = session.editor
     tool = BY_ID[session.tool]
     options = tool_parameters(session.tool)
-    if session.view == '3d' and session.direct_mode != 'browse':
+    if session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select'):
         from .scene import MODES, HINTS
         tool = ('direct', 'edit', dict(MODES)[session.direct_mode], HINTS[session.direct_mode])
         options = set(['material']) if session.direct_mode in ('place', 'paint', 'pick') else set()
     channels = [pair for pair in [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')] if pair[0] in options]
-    if e.mask == 'material' and 'source' not in options:
-        channels.append(('source', '蒙版来源'))
+    if e.mask == 'material':
+        channels.append(('filter_material', '匹配材质'))
     return Scroll(resetKey=(session.tool, session.direct_mode), style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=6), children=[
         text('视图操作' if tool[0] == 'direct' else '工具参数', 10, Theme.muted, marginTop=6),
         text(tool[2], 20),
         # Split help by sentence length into readable, deliberate lines.
         text(tool[3], 11, Theme.muted, width=216),
-        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=revision, channels=channels)),
-        optional('material_line', bool(channels), line()),
-        text('作用范围', 12),
+        line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
+        text('所有工具使用当前选区', 10, Theme.muted),
+        row([Action(label='三维框选', glyph='cursor', compact=True, height=27, selected=session.direct_mode == 'box',
+                    onClick=partial(session.choose_mode, 'box')),
+             Action(label='全选', glyph='grid', compact=True, height=27,
+                    onClick=partial(session.action, e.run, 'select_all'))]),
+        Action(label='坐标设置', glyph='sliders', compact=True, height=26, selected=coordinates_open,
+               onClick=partial(set_coordinates_open, not coordinates_open)),
+        optional('box_pending', session.box_anchor is not None, Panel(children=[
+            text('起点已设置，请点击终点', 10, Theme.blue),
+            Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),
+        optional('corners', coordinates_open or 'start' in options or 'end' in options, [
+            Coordinates(label='选区起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')),
+            Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))]),
         optional('local_focus', e.document.volume > SMALL_VOLUME, Coordinates(
             label='精细视图中心  X, Y, Z', value=session.preview_center,
             onChange=partial(session.action, session.focus_preview))),
@@ -115,12 +127,13 @@ def Parameters(session=None, revision=0):
             label='限制在选区内' if session.direct_selection else '允许编辑整个建筑',
             glyph='cursor', compact=True, height=26, selected=session.direct_selection,
             onClick=partial(session.set, 'direct_selection', not session.direct_selection))),
-        optional('restore', tool[0] == 'direct', Action(label='恢复全选区域', compact=True, height=26,
-               onClick=partial(session.action, e.run, 'select_all'))),
-        Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '来源')],
+        line(), text('选区内方块条件', 12),
+        Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
-        optional('start', 'start' in options, Coordinates(label='起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start'))),
-        optional('end', 'end' in options, Coordinates(label='终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))),
+        text({'all': '修改选区内全部方块', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
+              'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted),
+        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=revision, channels=channels)),
+        optional('material_line', bool(channels), line()),
         optional('thickness', 'thickness' in options, Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
               onChange=partial(session.range_value, 'thickness'), unit=' 格')),
         optional('step', 'step' in options, Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
