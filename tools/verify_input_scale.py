@@ -38,8 +38,6 @@ def inspect(field, name):
 
 
 def main():
-    skin = json.loads((ui.ROOT / 'resource_pack/ui/ModernProjection.json').read_text(encoding='utf8'))
-    font_scale = skin['input@PyreactBase.input']['$font_scale_factor']
     capture.user32.SetProcessDPIAware()
     report = {'checks': ui.checks, 'cases': []}
     with mss.MSS() as screen:
@@ -79,6 +77,11 @@ def main():
                 frame = frame.crop((int(x * scale), int(y * scale), int((x + w) * scale), int((y + h) * scale)))
             frame.save(ui.OUT / (name + '.png'))
 
+        # Drop any prior diagnostic SetTextFontSize override. Its runtime scale
+        # can compose with the template factor in this engine.
+        ui.call('navigator', value={'action': 'close'})
+        time.sleep(.5)
+        key(hwnd, 80)
         ui.click('建筑库')
         original = ui.nodes('Input', ui.nodes('Library')[0])[0]['props']['value']
         try:
@@ -95,14 +98,6 @@ def main():
                     report['cases'].append({'size': size, 'field': 'library%d' % index, 'native': native})
                     if index == 0 and size in ('1920x1080', '1280x720'):
                         snapshot(native, 'input_current_' + size)
-                if size == '1920x1080':
-                    field = fields[0]
-                    try:
-                        ui.call('input_font_scale', field['id'], .8)
-                        time.sleep(.3)
-                        snapshot(ui.call('native_control', field['id'])['result'], 'input_08x_comparison')
-                    finally:
-                        ui.call('input_font_scale', field['id'], font_scale)
                 ui.click('工作台'); ui.click('放置'); ui.click('参数')
                 scroll = ui.nodes('ScrollView', ui.nodes('Parameters')[0])[0]
                 ui.call('scroll', scroll['id'], 150)
@@ -180,7 +175,6 @@ def main():
             ui.click('建筑库')
             field = ui.nodes('Input', ui.nodes('Library')[0])[0]
             ui.call('set_input', field['id'], original)
-            ui.call('input_font_scale', field['id'], font_scale)
             resize('1920x1080')
             (ui.OUT / 'input_scale_checks.json').write_text(
                 json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')

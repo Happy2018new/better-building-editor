@@ -84,6 +84,6 @@ python -X utf8 tools/verify_input_scale.py
 
 用户反馈 1 倍仍然太大，并指定参考 `nemc-form-script/resource_pack/ui/`。核对 `modal_component.custom_input → future.option_text_edit → settings_common.option_text_edit_control → common.text_edit_box`，参考项目使用原生字体，没有额外抗锯齿开关或输入文字贴图。原版设置控件高度为 30 UI 单位；本编辑器的 30 是设计单位，1080p 下实际只有 12.65625 UI 单位，不能把相同的原生 1 倍字号直接放进缩小后的布局。
 
-同控件比较 0.5 / 0.625 / 0.75 后，采用模板 `$font_scale_factor: 0.5`，保留原生 default 字形与完整裁剪高度。该值比上一阶段缩小一半，在本轮 1080p GUI 倍率下与正文大小更协调；不宣称消除了原字体的点阵边缘，也不再要求 Label 参数本身必须为整数。没有更换字体或新增 UI 图片。模板初次创建就应用该字号，确保原生行高和垂直居中一起更新。
+同控件比较 0.5 / 0.625 / 0.75 后，1080p 下 0.5 更协调，但固定 0.5 在 720p 的 GUI 倍率 2 下变成过小的字。最终模板恢复基准 1.0，应用层在挂载和窗口缩放时根据 `GetScreenViewInfo / GetScreenSize` 求出 GUI 倍率，再调用内部 Label 的 `SetTextFontSize`。目前 1080p、GUI 倍率 4 时使用 0.5，720p、GUI 倍率 2 时使用 1.0；两者保持原位图字形的 2 倍物理放大。更大的设计比例按偶数档递增。保留原生 default 字形与完整裁剪高度，不新增字体或 UI 图片，不宣称消除了原字体的点阵边缘。
 
-五种尺寸及真实中文输入法 / 删除 / 滚动 / 重开仍共 87 项通过。已查看 `.runtime/input_current_1920x1080.png`、`input_current_1280x720.png` 和小窗口属性面板截图。验证脚本从模板读取应恢复的字号，避免实验 finally 把正式字号改回 1。日志为 `.runtime/input_compact_final.log`。
+五种尺寸及真实中文输入法 / 删除 / 滚动 / 重开仍共 87 项通过。已查看 `.runtime/input_current_1920x1080.png`、`input_current_1280x720.png` 和 `input_current_final.png`。验证脚本先重开工作台清除旧实验覆盖，不再调用字号实验命令或在 finally 覆盖正式字号。字体只在挂载或缩放变化时更新，没有逐帧字号设置。

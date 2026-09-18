@@ -9,7 +9,7 @@ from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
-from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
+from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
 from .catalog import ACTION_ICONS, SEGMENT_ICONS
 
@@ -19,6 +19,7 @@ TEX = 'textures/modern_projection/'
 class Theme(object):
     scale = 1.
     motion = True
+    input_font_scale = 1.
     listeners = set()
     bg = Color(0xF1F4F8FF)
     white = Color(0xFFFFFFFF)
@@ -34,11 +35,16 @@ class Theme(object):
 
     @classmethod
     def configure(cls, scale, motion):
-        if (cls.scale, cls.motion) == (scale, motion):
+        game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
+        gui = max(1., round(game.GetScreenViewInfo()[0] / game.GetScreenSize()[0]))
+        # Keep the original bitmap glyphs at whole screen magnifications. A
+        # fixed .5 becomes too small when the engine changes GUI scale to 2.
+        font = max(2., round(scale * 1.25 * gui / 2.) * 2.) / gui
+        if (cls.scale, cls.motion, cls.input_font_scale) == (scale, motion, font):
             return
-        cls.scale, cls.motion = scale, motion
+        cls.scale, cls.motion, cls.input_font_scale = scale, motion, font
         for listener in tuple(cls.listeners):
-            listener((scale, motion))
+            listener((scale, motion, font))
 
 
 def use_theme():
@@ -47,7 +53,7 @@ def use_theme():
     Theme.scale is read by S/text, so ordinary prop equality cannot see it.
     Keep native controls mounted while recomputing all their design dimensions.
     """
-    unused, update = use_state((Theme.scale, Theme.motion))
+    unused, update = use_state((Theme.scale, Theme.motion, Theme.input_font_scale))
 
     def subscribe():
         Theme.listeners.add(update)
@@ -85,6 +91,15 @@ class PaperDollPrimitive(BasePaperDollPrimitive):
         if prev_props and prev_props.get('renderKey') != next_props.get('renderKey'):
             prev_props = None
         BasePaperDollPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+
+
+class InputPrimitive(BaseInputPrimitive):
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        BaseInputPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        scale = next_props.get('fontScale', 1.)
+        if prev_props is None or prev_props.get('fontScale') != scale:
+            label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
+            label.asLabel().SetTextFontSize(scale)
 
 
 NativeText = LabelPrimitive()
@@ -165,7 +180,8 @@ def Field(value=None, onChange=None, style=None):
     # inset would clip digits in compact auxiliary-value fields.
     return Panel(style=style, children=[
         rounded_skin(Theme.tint, 5),
-        NativeInput(value=value, onChange=onChange, style=S(width='100%', height='100%', zIndex=2))])
+        NativeInput(value=value, onChange=onChange, fontScale=Theme.input_font_scale,
+                    style=S(width='100%', height='100%', zIndex=2))])
 
 
 Input = Field
