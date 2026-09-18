@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 import mod.server.extraServerApi as serverApi
 from .projection.model import AIR, Document, add, block
 from .projection.world import WorldJob, coordinate
+from .projection.transfer import Receiver, packets
+import time
 
 ServerSystem = serverApi.GetServerSystemCls()
 
@@ -15,6 +17,27 @@ class WorldAdapter(object):
         self.dimension = self.factory.CreateDimension(player).GetEntityDimensionId()
         self.info = self.factory.CreateBlockInfo(self.level)
         self.validity = {}
+        self.loading = {}
+
+    def ensure(self, pos):
+        key = (pos[0] // 16, pos[2] // 16)
+        state = self.loading.get(key)
+        now = time.time()
+        if state is not None:
+            status, started = state
+            if status is None:
+                return False if now - started > 20. else None
+            if now - started < 1.:
+                return False
+        self.loading[key] = (None, now)
+        def ready(data):
+            self.loading[key] = (data.get('code') == 1, time.time())
+        start = (key[0] * 16, 0, key[1] * 16)
+        end = (start[0] + 15, 1, start[2] + 15)
+        if not self.factory.CreateChunkSource(self.level).DoTaskOnChunkAsync(self.dimension, start, end, ready):
+            self.loading[key] = (False, now)
+            return False
+        return None
 
     def allowed(self):
         return (self.factory.CreateGame(self.level).GetPlayerGameType(self.player) == 1 and
@@ -48,6 +71,7 @@ class HelloServerSystem(ServerSystem):
         ServerSystem.__init__(self, namespace, systemName)
         self.jobs = {}
         self.undo_records = {}
+        self.uploads = {}
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'OnScriptTickServer', self, self.tick)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent', self, self.leave)
@@ -56,10 +80,44 @@ class HelloServerSystem(ServerSystem):
         data['request'] = request
         self.NotifyToClient(player, 'ProjectionResponse', data)
 
-    def request(self, args):
+    def request(self, args, transferred=None):
         # Use engine-injected identity, never a client-selected player id.
         player, request = args.get('__id__'), args.get('request')
         if not player:
+            return
+        if args.get('action') == 'cancel':
+            upload = self.uploads.pop(player, None)
+            entry = self.jobs.get(player)
+            if entry and entry[0] == request:
+                if isinstance(entry[2], WorldJob):
+                    entry[2].fail('操作已取消，正在恢复本次修改')
+                else:
+                    self.jobs.pop(player, None)
+                    self.reply(player, request, done=True, error='世界读取已取消')
+            elif upload:
+                self.reply(player, upload[0], done=True, error='建筑传输已取消')
+            return
+        if args.get('action') == 'upload' or args.get('stream') is not None:
+            try:
+                if args.get('action') != 'upload':
+                    if player in self.jobs or player in self.uploads or args.get('action') not in ('apply', 'check'):
+                        raise ValueError('已有世界操作正在进行')
+                    self.uploads[player] = (request, dict(args), Receiver(), time.time())
+                entry = self.uploads.get(player)
+                if entry is None or entry[0] != request:
+                    raise ValueError('建筑上传请求已失效')
+                unused, initial, receiver, unused_time = entry
+                packet = args.get('stream')
+                result = receiver.feed(packet)
+                self.uploads[player] = (request, initial, receiver, time.time())
+                self.reply(player, request, done=False, uploadAck=packet['seq'])
+                if result is not None:
+                    self.uploads.pop(player, None)
+                    initial.pop('stream', None)
+                    self.request(initial, result)
+            except (ValueError, TypeError, KeyError) as error:
+                self.uploads.pop(player, None)
+                self.reply(player, request, done=True, error=str(error))
             return
         if player in self.jobs:
             self.reply(player, request, done=True, error='已有世界操作正在进行')
@@ -78,11 +136,11 @@ class HelloServerSystem(ServerSystem):
                 job = WorldJob(adapter, None, (0, 0, 0), record[1])
             else:
                 origin = coordinate(args.get('origin'))
-                doc = Document(tuple(args.get('size', ()))) if action == 'capture' else Document.from_data(args.get('document'))
-                if origin[1] < -64 or origin[1] + doc.size[1] > (320 if adapter.dimension == 0 else 256):
+                doc = Document(tuple(args.get('size', ()))) if action == 'capture' else transferred or Document.from_data(args.get('document'))
+                if origin[1] < (-64 if adapter.dimension == 0 else 0) or origin[1] + doc.size[1] > (320 if adapter.dimension == 0 else 256):
                     raise ValueError('选区超出维度建造高度')
                 foot = adapter.factory.CreatePos(player).GetFootPos()
-                if foot is None or any(abs(origin[i] - foot[i]) > 128 for i in range(3)):
+                if foot is None or any(max(origin[i] - foot[i], foot[i] - (origin[i] + doc.size[i] - 1)) > 128 for i in range(3)):
                     raise ValueError('请移动到目标区域附近（128 格以内）')
                 if action == 'apply':
                     if not adapter.allowed():
@@ -96,9 +154,21 @@ class HelloServerSystem(ServerSystem):
 
     def read_job(self, player, request, action, adapter, doc, origin):
         stats = {'total': len(doc.blocks), 'correct': 0, 'missing': 0, 'wrong': 0}
-        points = doc.points() if action == 'capture' else sorted(doc.blocks)
+        points = doc.points() if action == 'capture' else iter(doc.blocks)
+        deadline = time.time() + .006
+        batch = 0
+        previous_chunk = None
         for index, pos in enumerate(points):
+            if action == 'capture':
+                key = tuple(v >> 4 for v in pos)
+                if previous_chunk is not None and key != previous_chunk:
+                    doc.blocks.compact(previous_chunk)
+                previous_chunk = key
             value = adapter.read(add(origin, pos))
+            while value is None and adapter.ensure(add(origin, pos)) is None:
+                yield None
+                value = adapter.read(add(origin, pos))
+                deadline = time.time() + .006
             if value is None:
                 self.reply(player, request, done=True, error='区域尚未加载，请靠近后重试')
                 return
@@ -111,15 +181,27 @@ class HelloServerSystem(ServerSystem):
                 stats['missing'] += 1
             else:
                 stats['wrong'] += 1
-            if index % 128 == 127:
+            batch += 1
+            if batch >= 2048 or time.time() >= deadline:
                 yield None
+                batch = 0
+                deadline = time.time() + .006
         if action == 'capture':
+            if previous_chunk is not None:
+                doc.blocks.compact(previous_chunk)
             doc.name = '世界选区'
-            self.reply(player, request, done=True, document=doc.to_data())
+            for packet in packets(doc):
+                self.reply(player, request, done=False, documentPacket=packet)
+                yield None
+            self.reply(player, request, done=True, streamed=True)
         else:
             self.reply(player, request, done=True, progress=stats)
 
     def tick(self, unused=None):
+        for player, entry in list(self.uploads.items()):
+            if time.time() - entry[3] > 60.:
+                self.uploads.pop(player, None)
+                self.reply(player, entry[0], done=True, error='建筑传输超时，请重试')
         for player, entry in list(self.jobs.items()):
             request, action, job, adapter, ticks = entry
             self.jobs[player] = (request, action, job, adapter, ticks + 1)
@@ -143,12 +225,16 @@ class HelloServerSystem(ServerSystem):
                     next(job)
                 except StopIteration:
                     self.jobs.pop(player, None)
+                except (ValueError, TypeError, KeyError, RuntimeError) as error:
+                    self.jobs.pop(player, None)
+                    self.reply(player, request, done=True, error=str(error))
             if ticks % 20 == 0 and player in self.jobs:
                 self.reply(player, request, done=False, message='正在%s · 已处理 %d 批' %
                            ('检查 / 写入' if action in ('apply', 'undo') else '读取世界', ticks + 1))
 
     def leave(self, args):
         player = args.get('id')
+        self.uploads.pop(player, None)
         entry = self.jobs.get(player)
         if entry and isinstance(entry[2], WorldJob):
             entry[2].fail('玩家已离开，恢复本次修改')

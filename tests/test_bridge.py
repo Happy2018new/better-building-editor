@@ -9,6 +9,8 @@ for name in ('mod', 'mod.client', 'mod.client.extraClientApi'):
     sys.modules.setdefault(name, types.ModuleType(name))
 from projection import bridge as boundary
 from projection.session import Session
+from projection.model import Document, Editor, AIR
+from projection.transfer import Receiver
 
 
 class Runtime:
@@ -18,6 +20,10 @@ class Runtime:
         self.destroyed = []
         self.attached = []
         self.success = True
+        self.sent = []
+
+    def NotifyToServer(self, event, data):
+        self.sent.append(data)
 
     def CreateClientEntityByTypeStr(self, identifier, pos, rotation):
         entity = 'actor_%d' % len(self.created)
@@ -97,3 +103,40 @@ class ProjectionLifecycleTests(unittest.TestCase):
             callback()
         self.assertEqual(['actor_1'], self.runtime.attached)
         self.assertEqual('actor_1', self.bridge.entity)
+
+    def test_stream_upload_is_snapshot_and_ack_driven(self):
+        b = self.bridge
+        b.session.editor = Editor(Document((256, 384, 256), {(0, 0, 0): ('minecraft:stone', 0)}))
+        b.request('check', {'origin': (0, 0, 0), 'document': b.session.editor.document})
+        b.session.editor.document.blocks[(0, 0, 0)] = AIR
+        receiver = Receiver()
+        for unused in range(12):
+            self.assertEqual(1, len(self.runtime.sent))
+            data = self.runtime.sent.pop()
+            packet = data['stream']
+            receiver.feed(packet)
+            if receiver.result is not None:
+                break
+            b.receive({'request': b.pending, 'done': False, 'uploadAck': packet['seq']})
+            self.runtime.timers.pop()()
+        self.assertEqual(('minecraft:stone', 0), receiver.result.get((0, 0, 0)))
+
+    def test_large_projection_snapshot_and_stop_cancel_all_future_actors(self):
+        b = self.bridge
+        b.player_origin = lambda: (0, 0, 0)
+        b.session.editor = Editor(Document((256, 384, 256), {(0, 0, 0): ('minecraft:stone', 0)}))
+        observed = []
+        b.geometry = lambda doc: observed.append(doc.get((0, 0, 0))) or 'model'
+        b.project_large((0, 0, 0))
+        b.session.editor.document.blocks[(0, 0, 0)] = AIR
+        for unused in range(20):
+            self.runtime.timers.pop(0)()
+            if self.runtime.created:
+                break
+        self.assertEqual([('minecraft:stone', 0)], observed)
+        b.stop_projection()
+        callbacks, self.runtime.timers = self.runtime.timers, []
+        for callback in callbacks:
+            callback()
+        self.assertEqual([], self.runtime.timers)
+        self.assertTrue(all(actor in self.runtime.destroyed for actor in self.runtime.created))

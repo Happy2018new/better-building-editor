@@ -121,7 +121,7 @@ class EditorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             Document.from_data(bad)
         with self.assertRaises(ValueError):
-            Document((64, 64, 64))
+            Document((257, 384, 256))
 
     def test_palette_layout_matches_native_asymmetric_probe(self):
         # Native GetLocalPosListOfBlocks, volume (2,3,4): 1 -> (0,0,1),

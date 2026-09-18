@@ -5,10 +5,13 @@ import math
 import random
 from collections import Counter, deque
 from .catalog import BY_ID
+from .storage import BlockStore, Selection
 
 AIR = ('minecraft:air', 0)
-MAX_VOLUME = 32768
-MAX_AXIS = 64
+MAX_VOLUME = 256 * 384 * 256
+MAX_AXES = (256, 384, 256)
+MAX_AXIS = 384
+SMALL_VOLUME = 32768
 MAX_HISTORY_CELLS = 262144
 DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
 
@@ -18,6 +21,8 @@ def add(a, b):
 
 
 def bounds(points):
+    if isinstance(points, Selection):
+        return points.bounds()
     points = list(points)
     if not points:
         raise ValueError('选区为空，请先选择方块')
@@ -49,12 +54,12 @@ def block(value):
 
 class Document(object):
     def __init__(self, size=(24, 16, 24), blocks=None, name='未命名建筑'):
-        if len(size) != 3 or any(type(v) is not int or v < 1 or v > MAX_AXIS for v in size):
-            raise ValueError('每个轴须为 1–64 格')
+        if len(size) != 3 or any(type(v) is not int or v < 1 or v > MAX_AXES[i] for i, v in enumerate(size)):
+            raise ValueError('X/Z 须为 1–256 格，Y 须为 1–384 格')
         if size[0] * size[1] * size[2] > MAX_VOLUME:
-            raise ValueError('建筑范围最多 32768 格')
+            raise ValueError('建筑范围最多 256 × 384 × 256 格')
         self.size = tuple(size)
-        self.blocks = {}
+        self.blocks = BlockStore()
         self.name = name
         for pos, value in (blocks or {}).items():
             if not self.contains(pos):
@@ -70,18 +75,33 @@ class Document(object):
         return self.blocks.get(tuple(pos), AIR)
 
     def points(self):
-        return box_points((0, 0, 0), tuple(v - 1 for v in self.size))
+        return iter(Selection.box((0, 0, 0), tuple(v - 1 for v in self.size)))
 
     def to_data(self):
+        if self.volume > SMALL_VOLUME:
+            from .codec import to_data
+            return to_data(self)
         return {'version': 1, 'name': self.name, 'size': list(self.size),
                 'blocks': [[p[0], p[1], p[2], b[0], b[1]] for p, b in sorted(self.blocks.items())]}
 
     @classmethod
     def from_data(cls, data):
-        if not isinstance(data, dict) or data.get('version') != 1:
+        if not isinstance(data, dict) or data.get('version') not in (1, 2):
             raise ValueError('不支持的建筑配置版本')
+        name = data.get('name', '未命名建筑')
+        if isinstance(name, bytes):
+            name = name.decode('utf8')
+        if not isinstance(name, type('')) or not 1 <= len(name) <= 64:
+            raise ValueError('名称长度须为 1–64 字')
+        if data.get('version') == 2:
+            from .codec import load_steps
+            result = None
+            for step in load_steps(data):
+                if step is not None:
+                    result = step
+            return result
         entries = data.get('blocks', [])
-        if not isinstance(entries, list) or len(entries) > MAX_VOLUME:
+        if not isinstance(entries, list) or len(entries) > SMALL_VOLUME:
             raise ValueError('配置方块数量超限')
         values = {}
         for row in entries:
@@ -102,7 +122,14 @@ class Document(object):
         return cls(data.get('size', ()), values, name)
 
     def materials(self):
-        return Counter(self.blocks.values()).most_common()
+        return [(v, count) for v, count in self.blocks.counts.most_common() if count > 0]
+
+    @property
+    def volume(self):
+        return self.size[0] * self.size[1] * self.size[2]
+
+    def layer_count(self, y):
+        return self.blocks.layers.get(y, 0)
 
     def palette_data(self, visible=None):
         common = {}
@@ -123,7 +150,7 @@ class Document(object):
 class Editor(object):
     def __init__(self, document=None):
         self.document = document or Document()
-        self.selection = set(self.document.points())
+        self.selection = Selection.box((0, 0, 0), tuple(v - 1 for v in self.document.size))
         self.material = ('minecraft:quartz_block', 0)
         self.secondary = ('minecraft:planks', 1)
         self.source = ('minecraft:stone', 0)
@@ -168,14 +195,24 @@ class Editor(object):
             self.message = '没有方块改变 · 请检查选区、蒙版和图层锁定'
             return 0
         self._apply(delta, 1)
-        self.undo_stack.append((name, delta))
-        self.redo_stack = []
-        while len(self.undo_stack) > 50 or sum(len(item[1]) for item in self.undo_stack) > MAX_HISTORY_CELLS:
-            self.undo_stack.pop(0)
+        self._remember(name, delta)
         self.message = '%s · 已修改 %d 格' % (name, len(delta))
         return len(delta)
 
+    def _remember(self, name, delta):
+        self.undo_stack.append((name, delta))
+        self.redo_stack = []
+        def cost(item):
+            value = item[1]
+            return value.memory_bytes() if hasattr(value, 'memory_bytes') else len(value) * 96
+        while len(self.undo_stack) > 1 and (len(self.undo_stack) > 50 or sum(cost(item) for item in self.undo_stack) > 64 * 1024 * 1024):
+            self.undo_stack.pop(0)
+
     def _apply(self, delta, side):
+        if hasattr(delta, 'stores'):
+            self.document.blocks = delta.stores[side].copy()
+            self.revision += 1
+            return
         for pos, pair in delta.items():
             if pair[side] == AIR:
                 self.document.blocks.pop(pos, None)
@@ -207,7 +244,7 @@ class Editor(object):
         if not self.document.contains(start) or not self.document.contains(end):
             raise ValueError('选区起终点必须位于建筑范围内')
         lo, hi = bounds((start, end))
-        self.selection = set(box_points(lo, hi))
+        self.selection = Selection.box(lo, hi)
         self.selection_revision += 1
 
     def surface(self, pos):
@@ -215,23 +252,23 @@ class Editor(object):
 
     def _select(self, tool):
         doc = self.document
-        all_points = set(doc.points())
+        all_points = Selection.box((0, 0, 0), tuple(v - 1 for v in doc.size))
         if tool == 'select_all':
             self.selection = all_points
         elif tool == 'select_nonair':
             self.selection = set(doc.blocks)
         elif tool == 'select_air':
-            self.selection = all_points - set(doc.blocks)
+            self.selection = all_points.difference(doc.blocks)
         elif tool == 'select_material':
             self.selection = set(p for p, b in doc.blocks.items() if b == self.source)
             if self.source == AIR:
-                self.selection = all_points - set(doc.blocks)
+                self.selection = all_points.difference(doc.blocks)
         elif tool == 'select_layer':
-            self.selection = set(p for p in all_points if p[1] == self.layer)
+            self.selection = Selection.box((0, self.layer, 0), (doc.size[0] - 1, self.layer, doc.size[2] - 1))
         elif tool == 'select_invert':
-            self.selection = all_points - self.selection
+            self.selection = all_points.difference(self.selection)
         elif tool == 'select_expand':
-            self.selection |= set(add(p, d) for p in self.selection for d in DIRECTIONS if doc.contains(add(p, d)))
+            self.selection = set(self.selection) | set(add(p, d) for p in self.selection for d in DIRECTIONS if doc.contains(add(p, d)))
         elif tool == 'select_contract':
             self.selection = set(p for p in self.selection if all(add(p, d) in self.selection for d in DIRECTIONS))
         elif tool == 'select_surface':
@@ -423,6 +460,14 @@ class Editor(object):
         return out
 
     def run(self, tool):
+        if self.document.volume > SMALL_VOLUME:
+            from .jobs import EditJob
+            job = EditJob(self, tool)
+            while not job.done:
+                job.step()
+            if job.error:
+                raise ValueError(job.error)
+            return job.changed
         if tool not in BY_ID:
             raise ValueError('未知工具')
         group = BY_ID[tool][1]

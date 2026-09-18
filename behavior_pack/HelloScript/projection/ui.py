@@ -12,6 +12,7 @@ from .widgets import JellyButton as Button, PageMotion, use_theme
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
+from .model import SMALL_VOLUME
 from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
@@ -128,7 +129,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
                                children=text('Y %02d' % e.layer, 10, Theme.muted))),
         Panel(style=S(position=Position.absolute, left=12, top=12, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
-                  children=text('X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
+                  children=text('总览 · 点击进入精细视图' if session.scene_scale > 1 else
+                      'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=12),
               children=OrientationGizmo(session=session)),
     ])
@@ -161,6 +163,9 @@ def Viewport(session=None, revision=0, width=430, height=440):
                         onClick=partial(session.set, 'focus_inspector', not session.focus_inspector))]),
              Segments(items=[('3d', '三维'), ('layer', '逐层')], value=session.view,
                       onChange=partial(session.set, 'view'), width=112),
+             Panel(style=S(display=Display.flex if doc.volume > SMALL_VOLUME else Display.none), children=
+                 Action(label='总览' if session.preview_detail else '精细', glyph='cube', width=62, height=28, compact=True,
+                        onClick=session.toggle_preview_detail)),
              Action(label='还原视图' if focus else '展开视图', height=28, compact=True, accent=focus,
                     onClick=partial(session.set, 'focus_view', not focus))], paddingHorizontal=12, height=45 if focus else 57),
         Image(color=Theme.line, style=S(height=1, width='100%')),
@@ -216,8 +221,10 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
     ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
-                Action(label='返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2], glyph='play',
-                    accent=True, height=37, onClick=partial(session.choose_mode, 'browse') if direct else session.run, enabled=not session.busy)),
+                Action(label='取消编辑' if session.edit_job else '返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2],
+                    glyph='close' if session.edit_job else 'play', accent=True, height=37,
+                    onClick=session.cancel_edit if session.edit_job else partial(session.choose_mode, 'browse') if direct else session.run,
+                    enabled=not session.busy)),
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=projecting), children=
                 Action(label='返回工作台', glyph='brush', height=37, onClick=partial(session.set, 'page', 'workspace'))),
         ])]
@@ -409,12 +416,21 @@ def Workspace(session=None, revision=0):
         ], height=38, paddingHorizontal=22, gap=10),
         Image(color=Theme.white, style=S(width='100%', height=29), children=row([
             Image(src=TEX + 'dot', color=Theme.mint, style=S(width=5, height=5)),
-            text(('处理中… ' if session.busy else '') + e.message[:80], 10, Theme.muted, flex=1),
+            TaskStatus(session=session),
+            Panel(style=S(display=Display.flex if session.busy else Display.none), children=
+                Action(label='取消', glyph='close', compact=True, height=22, onClick=session.bridge.cancel_world)),
             text('P 打开  ·  F6 / F7 两点选区', 9, Theme.muted),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[main,
         Confirmation(session=session, revision=session.ui_revision), ClickEffects()])
+
+
+@Component
+def TaskStatus(session=None):
+    use_theme()
+    use_session_fields(session, ('edit_progress',))
+    return text(('处理中… ' if session.busy else '') + session.editor.message[:80], 10, Theme.muted, flex=1)
 
 
 def category(session, identity):

@@ -2,6 +2,7 @@
 import json
 import time
 import verify_ui as ui
+from verify_interaction import category
 from simulate import _walk
 
 
@@ -21,6 +22,7 @@ def main():
     inputs = ui.nodes('Input')
     ui.call('set_input', inputs[-1]['id'], '3, 3, 3'); time.sleep(.4)
     ui.click('新建空白'); ui.click('确认继续')
+    ui.click('三维'); ui.click('浏览'); category('brush'); ui.click('填充方块')
     for node, ancestors in _walk(ui.tree()):
         if node.get('type') == 'Item' and node.get('props', {}).get('identifier') == 'minecraft:stone':
             button = next(parent for parent in reversed(ancestors) if parent['type'] == 'Button')

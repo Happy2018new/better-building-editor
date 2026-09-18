@@ -3,9 +3,14 @@
 from __future__ import unicode_literals
 import math
 import sys
+import zlib
+import json
+import time
 import mod.client.extraClientApi as clientApi
 from .model import AIR, Document, Editor, add, bounds
 from .world import coordinate
+from .transfer import Receiver, packets
+from .model import SMALL_VOLUME
 
 
 def native(value):
@@ -29,6 +34,11 @@ class ClientBridge(object):
         self.pending_state = None
         self.models = {}
         self.alive = True
+        self.upload = None
+        self.upload_sequence = None
+        self.download = None
+        self.projection_serial = 0
+        self.projection_entities = {}
 
     def later(self, delay, callback):
         def invoke():
@@ -41,6 +51,21 @@ class ClientBridge(object):
 
     def save_library(self, value):
         return self.factory.CreateConfigClient(self.level).SetConfigData('modern_projection_library', value, True)
+
+    def load_archive_page(self, identity, part):
+        key = native('modern_projection_building_%d_%d' % (identity, part))
+        return self.factory.CreateConfigClient(self.level).GetConfigData(key, True)
+
+    def save_archive_page(self, identity, part, value):
+        key = native('modern_projection_building_%d_%d' % (identity, part))
+        return self.factory.CreateConfigClient(self.level).SetConfigData(key, value, True)
+
+    def clear_archive(self, identity, parts):
+        def clear(part=0):
+            if part < parts:
+                self.save_archive_page(identity, part, {})
+                self.later(0., lambda: clear(part + 1))
+        self.later(0., clear)
 
     def player_origin(self):
         pos = self.factory.CreatePos(self.player).GetFootPos()
@@ -58,7 +83,9 @@ class ClientBridge(object):
         data = document.palette_data(visible)
         if not data['common']:
             return None
-        fingerprint = (document.size, tuple(sorted((k, tuple(sorted(v))) for k, v in data['common'].items())))
+        # The embedded Python omits hashlib.sha256. An exact compressed key
+        # avoids collisions and retains no second Python list of voxel indices.
+        fingerprint = zlib.compress(repr((document.size, sorted(data['common'].items()))).encode('utf8'), 1)
         if fingerprint in self.models:
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
@@ -105,6 +132,8 @@ class ClientBridge(object):
                         self.outline.append(shape)
 
     def request(self, action, data):
+        if self.session.edit_job is not None or self.session.io_job is not None:
+            raise ValueError('请等待编辑任务完成')
         if self.pending is not None:
             raise ValueError('请等待当前世界操作完成')
         self.request_id += 1
@@ -113,6 +142,16 @@ class ClientBridge(object):
         self.pending_state = (id(self.session.editor), self.session.editor.revision, tuple(self.session.origin))
         data = dict(data, action=action, request=self.request_id)
         self.session.busy = True
+        self.download = Receiver() if action == 'capture' else None
+        document = data.get('document')
+        if isinstance(document, Document):
+            data.pop('document')
+            snapshot = Document(document.size, name=document.name)
+            snapshot.blocks = document.blocks.copy()
+            self.upload = packets(snapshot)
+            packet = next(self.upload)
+            self.upload_sequence = packet['seq']
+            data['stream'] = packet
         self.system.NotifyToServer('ProjectionRequest', data)
         self.session.emit()
 
@@ -126,20 +165,51 @@ class ClientBridge(object):
 
     def check_progress(self):
         s = self.session
-        self.request('check', {'origin': coordinate(s.origin), 'document': s.editor.document.to_data()})
+        self.request('check', {'origin': coordinate(s.origin), 'document': s.editor.document})
 
     def apply_world(self):
         s = self.session
-        self.request('apply', {'origin': coordinate(s.origin), 'document': s.editor.document.to_data(), 'includeAir': s.apply_air})
+        self.request('apply', {'origin': coordinate(s.origin), 'document': s.editor.document, 'includeAir': s.apply_air})
 
     def undo_world(self):
         self.request('undo', {})
+
+    def cancel_world(self):
+        if self.pending is not None:
+            self.upload = None
+            self.system.NotifyToServer('ProjectionRequest', {'request': self.pending, 'action': 'cancel'})
 
     def receive(self, args):
         if args.get('request') != self.pending:
             return
         s = self.session
         if not args.get('done'):
+            if 'uploadAck' in args:
+                if self.upload is not None and args['uploadAck'] == self.upload_sequence:
+                    request = self.pending
+                    def send_next():
+                        if self.pending != request or self.upload is None:
+                            return
+                        try:
+                            packet = next(self.upload)
+                        except StopIteration:
+                            self.upload = None
+                            return
+                        self.upload_sequence = packet['seq']
+                        self.system.NotifyToServer('ProjectionRequest', {'request': request, 'action': 'upload', 'stream': packet})
+                    self.later(0., send_next)
+                return
+            if 'documentPacket' in args:
+                try:
+                    self.download.feed(args['documentPacket'])
+                except (ValueError, TypeError, KeyError) as error:
+                    self.cancel_world()
+                    s.editor.message = str(error)
+                    self.pending = self.pending_data = self.pending_state = None
+                    self.download = None
+                    s.busy = False
+                    s.emit()
+                return
             s.editor.message = args.get('message', '正在处理世界数据')
             if isinstance(s.editor.message, bytes):
                 s.editor.message = s.editor.message.decode('utf8')
@@ -147,14 +217,21 @@ class ClientBridge(object):
             return
         action, sent = self.pending_data
         state = self.pending_state
-        self.pending = self.pending_data = None
+        self.pending = self.pending_data = self.pending_state = None
+        self.upload = None
         s.busy = False
         if args.get('error'):
             s.editor.message = args['error']
         elif action in ('capture', 'check') and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
         elif action == 'capture':
-            s.editor = Editor(Document.from_data(args['document']))
+            document = self.download.result if args.get('streamed') and self.download else Document.from_data(args['document'])
+            if document is None:
+                s.editor.message = '建筑传输不完整，请重新读取'
+                s.emit()
+                return
+            s.editor = Editor(document)
+            s.preview_detail = False
             s.focused = s.box_anchor = None
             s.name = s.editor.document.name
             s.origin = tuple(sent['origin'])
@@ -174,6 +251,10 @@ class ClientBridge(object):
     def project(self):
         s = self.session
         origin = coordinate(s.origin)
+        if s.editor.document.volume > SMALL_VOLUME:
+            return self.project_large(origin)
+        if self.projection_entities:
+            self.stop_projection()
         info = self.factory.CreateBlockInfo(self.level)
 
         def visible(pos):
@@ -221,6 +302,10 @@ class ClientBridge(object):
         self.later(.2, attach)
 
     def stop_projection(self):
+        self.projection_serial += 1
+        for entity in self.projection_entities.values():
+            self.system.DestroyClientEntity(entity)
+        self.projection_entities = {}
         if self.preparing_entity:
             self.system.DestroyClientEntity(self.preparing_entity)
         self.preparing_entity = None
@@ -229,6 +314,98 @@ class ClientBridge(object):
         self.entity = None
         self.session.projection_active = False
         self.session.editor.message = '投影已关闭'
+
+    def project_large(self, origin):
+        """Stream exact nearby 16-cubed ghosts as the builder moves around."""
+        self.stop_projection()
+        self.projection_serial += 1
+        serial = self.projection_serial
+        s = self.session
+        document = Document(s.editor.document.size)
+        document.blocks = s.editor.document.blocks.copy()
+        hidden, solo, layer = set(s.editor.hidden_layers), s.solo_layer, s.editor.layer
+        opacity, missing = s.opacity, s.projection_missing
+        s.projection_active = True
+        s.editor.message = '投影已开启 · 随玩家位置加载附近方块'
+        info = self.factory.CreateBlockInfo(self.level)
+        preparing = set()
+        empty = set()
+
+        def active():
+            return self.alive and serial == self.projection_serial
+
+        def update():
+            if not active():
+                return
+            player = self.player_origin()
+            center = tuple((player[i] - origin[i]) // 16 for i in range(3))
+            candidates = []
+            for key in document.blocks.chunks:
+                if max(abs(key[i] - center[i]) for i in range(3)) <= 3 and any(
+                        key[1] * 16 + y not in hidden and (not solo or key[1] * 16 + y == layer) for y in range(16)):
+                    candidates.append(key)
+            desired = set(sorted(candidates, key=lambda k: sum((k[i] - center[i]) ** 2 for i in range(3)))[:32])
+            empty.intersection_update(desired)
+            for key in list(self.projection_entities):
+                if key not in desired:
+                    self.system.DestroyClientEntity(self.projection_entities.pop(key))
+            todo = [key for key in desired if key not in self.projection_entities and key not in preparing and key not in empty]
+            if todo:
+                key = min(todo, key=lambda k: sum((k[i] - center[i]) ** 2 for i in range(3)))
+                preparing.add(key)
+                local = Document((16, 16, 16))
+                start = tuple(v * 16 for v in key)
+                def build():
+                    if not active():
+                        return
+                    try:
+                        for y in range(16):
+                            if start[1] + y in hidden or (solo and start[1] + y != layer):
+                                continue
+                            for z in range(16):
+                                for x in range(16):
+                                    pos = (start[0] + x, start[1] + y, start[2] + z)
+                                    value = document.get(pos)
+                                    if value != AIR:
+                                        actual = info.GetBlock(add(origin, pos)) if missing else None
+                                        if not missing or (actual is not None and tuple(actual) != value):
+                                            local.blocks[(x, y, z)] = value
+                            yield None
+                        name = self.geometry(local)
+                        if name:
+                            world = add(origin, start)
+                            entity = self.system.CreateClientEntityByTypeStr(native('modern_projection:anchor'), tuple(float(v) for v in world), (0., 0.))
+                            if entity:
+                                self.projection_entities[key] = entity
+                                def attach():
+                                    if active() and self.projection_entities.get(key) == entity:
+                                        render = self.factory.CreateActorRender(entity)
+                                        if render.AddActorBlockGeometry(name):
+                                            render.EnableActorBlockGeometryTransparent(name, True)
+                                            render.SetActorBlockGeometryTransparency(name, opacity)
+                                self.later(.2, attach)
+                        else:
+                            empty.add(key)
+                    finally:
+                        preparing.discard(key)
+                iterator = build()
+                def advance():
+                    if not active():
+                        return
+                    deadline = time.time() + .004
+                    try:
+                        while time.time() < deadline:
+                            next(iterator)
+                    except StopIteration:
+                        return
+                    except (ValueError, TypeError, RuntimeError) as error:
+                        preparing.discard(key)
+                        s.editor.message = str(error)
+                        return
+                    self.later(0., advance)
+                self.later(0., advance)
+            self.later(.1, update)
+        self.later(0., update)
 
     def dimension_changed(self, unused):
         self.stop_projection()

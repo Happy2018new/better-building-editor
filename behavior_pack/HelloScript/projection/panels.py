@@ -7,7 +7,7 @@ from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
 from .widgets import JellyButton as Button, use_theme
 from .catalog import BY_ID, MATERIALS, tool_parameters
-from .model import AIR
+from .model import AIR, SMALL_VOLUME
 
 
 def material_name(value):
@@ -108,6 +108,9 @@ def Parameters(session=None, revision=0):
         optional('material_line', bool(channels), line()),
         text('作用范围', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
+        optional('local_focus', e.document.volume > SMALL_VOLUME, Coordinates(
+            label='精细视图中心  X, Y, Z', value=session.preview_center,
+            onChange=partial(session.action, session.focus_preview))),
         optional('direct_selection', tool[0] == 'direct', Action(
             label='限制在选区内' if session.direct_selection else '允许编辑整个建筑',
             glyph='cursor', compact=True, height=26, selected=session.direct_selection,
@@ -135,19 +138,28 @@ def Parameters(session=None, revision=0):
 def Layers(session=None, revision=0):
     use_theme()
     e = session.editor
+    page, set_page = use_state(e.layer // 16)
+    def follow_layer():
+        set_page(e.layer // 16)
+    use_effect(follow_layer, [e.layer, e.document.size])
+    page = min(page, (e.document.size[1] - 1) // 16)
+    low, high = page * 16, min(e.document.size[1], (page + 1) * 16)
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=7), children=[
         row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
         text('锁定保护编辑 · 隐藏仅影响预览', 10, Theme.muted),
         Action(label='仅显示当前层' if not session.solo_layer else '显示全部图层', onClick=session.toggle_solo, selected=session.solo_layer),
+        row([Action(glyph='minus', width=28, height=26, enabled=page > 0, onClick=partial(set_page, max(0, page - 1))),
+             text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
+             Action(glyph='plus', width=28, height=26, enabled=high < e.document.size[1], onClick=partial(set_page, page + 1))]),
         line(),
     ] + [surface(color=Theme.tint if y == e.layer else Theme.pale, height=39, padding=5, children=row([
         Action(label='Y %02d' % y, onClick=partial(session.layer, y), selected=y == e.layer, height=28, width=60),
-        text('%d 格' % sum(1 for p in e.document.blocks if p[1] == y), 10, Theme.muted, flex=1),
+        text('%d 格' % e.document.layer_count(y), 10, Theme.muted, flex=1),
         Action(glyph='lock' if y in e.locked_layers else 'unlock', width=27, height=27,
                selected=y in e.locked_layers, onClick=partial(session.toggle_layer, 'lock', y)),
         Action(glyph='eye', width=27, height=27, selected=y not in e.hidden_layers,
                onClick=partial(session.toggle_layer, 'hide', y)),
-    ], gap=3)) for y in reversed(range(e.document.size[1]))]))
+    ], gap=3)) for y in reversed(range(low, high))]))
 
 
 @Component
@@ -179,7 +191,7 @@ def Library(session=None, revision=0, width=760, height=440):
             row([surface(color=Theme.tint, width=40, height=40, justifyContent=JustifyContent.center,
                          alignItems=AlignItems.center, children=icon('cube', Theme.blue, 24)),
                  Panel(style=S(flex=1, gap=4), children=[text(data['name'][:18], 15),
-                     text('%d × %d × %d  ·  %d 方块' % tuple(data['size'] + [len(data['blocks'])]), 11, Theme.muted)])]),
+                     text('%d × %d × %d  ·  %d 方块' % tuple(data['size'] + [data.get('blockCount', len(data.get('blocks', [])))]), 11, Theme.muted)])]),
             text('本机配置  #%03d' % identity, 10, Theme.muted, marginTop=12, marginBottom=12),
             row([Action(label='载入', accent=True, onClick=partial(session.confirm, '载入将替换当前草稿，继续吗？', partial(session.load, identity))),
                  Action(label='重命名', onClick=partial(session.action, session.rename, identity)),
@@ -193,7 +205,7 @@ def Library(session=None, revision=0, width=760, height=440):
             Action(label='另存为新配置', glyph='save', accent=True, width=145, height=40, onClick=partial(session.action, session.save))
         ], gap=14)),
         row([text('我的建筑库', 17, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)]),
-        row([Panel(style=S(flex=1), children=Coordinates(label='新建尺寸  X, Y, Z（每轴 1–64）', value=session.new_size,
+        row([Panel(style=S(flex=1), children=Coordinates(label='新建尺寸  X, Y, Z（256, 384, 256）', value=session.new_size,
                     onChange=partial(session.set, 'new_size'))),
              Action(label='新建空白', glyph='plus', width=120, onClick=partial(session.confirm,
                     '新建将替换当前草稿，请先保存需要保留的作品。', session.empty))]),
@@ -263,6 +275,6 @@ def Guide(session=None, revision=0, width=760, height=440):
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
         text('快捷入口：P 打开工作台 · F6 / F7 标记脚下两点', 12, Theme.muted),
-        text('当前范围：单轴最多 64 格，总体积最多 32768 格。', 11, Theme.muted),
+        text('范围上限：256 × 384 × 256 格。', 11, Theme.muted),
         text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
     ]))

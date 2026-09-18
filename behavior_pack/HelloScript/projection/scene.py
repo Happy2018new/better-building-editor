@@ -61,7 +61,7 @@ def Scene(session=None, revision=0, width=400, height=300):
 
     def unit():
         # Native PaperDoll is orthographic; calibrated against block face corners.
-        return min(width, height) * Theme.scale * camera.zoom * .72 / max(session.editor.document.size)
+        return min(width, height) * Theme.scale * camera.zoom * .72 / max(session.scene_size)
 
     def tick(now):
         dt = now - frame.current
@@ -105,7 +105,7 @@ def Scene(session=None, revision=0, width=400, height=300):
             # visible. Hidden renderers defer initialization until made visible.
             surfaces[slot].current.SetVisible(visible, False)
 
-        preview.update(session.model_name, (unit() / 10., -90. + camera.pitch, camera.yaw), now, draw, show)
+        preview.update(session.model_name, (unit() * session.scene_scale / 10., -90. + camera.pitch, camera.yaw), now, draw, show)
         focused = session.focused
         lo, hi = focused, tuple(v + 1 for v in focused) if focused is not None else None
         if focused is not None and session.direct_mode == 'box' and session.box_anchor is None:
@@ -128,8 +128,10 @@ def Scene(session=None, revision=0, width=400, height=300):
             a[other[1]] = (lo, hi)[corner % 2][other[1]]
             b = list(a)
             b[axis] = hi[axis]
-            sx, sy = camera.project(a, session.editor.document.size, width * Theme.scale, height * Theme.scale, unit())
-            ex, ey = camera.project(b, session.editor.document.size, width * Theme.scale, height * Theme.scale, unit())
+            a = tuple(a[i] - session.scene_origin[i] for i in range(3))
+            b = tuple(b[i] - session.scene_origin[i] for i in range(3))
+            sx, sy = camera.project(a, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
+            ex, ey = camera.project(b, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
             # UI Y grows downward, while native positive rotation is counterclockwise.
             angle = -math.degrees(math.atan2(ey - sy, ex - sx))
             ref.current.SetPosition((sx, sy))
@@ -179,13 +181,18 @@ def Scene(session=None, revision=0, width=400, height=300):
         px, py = pointer.current.GetGlobalPosition()
         x, y = args.get('TouchPosX', x) - px, args.get('TouchPosY', y) - py
         doc = session.editor.document
-        origin, direction = camera.ray(x, y, doc.size, width * Theme.scale, height * Theme.scale, unit())
+        origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
+        origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
 
         def visible(pos):
-            return pos[1] not in session.editor.hidden_layers and (not session.solo_layer or pos[1] == session.editor.layer)
+            return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
+                    pos[1] not in session.editor.hidden_layers and (not session.solo_layer or pos[1] == session.editor.layer))
         hit = raycast(doc, origin, direction, visible)
         if hit:
-            session.point_action(hit[0], hit[1])
+            if session.scene_scale > 1:
+                session.focus_preview(hit[0])
+            else:
+                session.point_action(hit[0], hit[1])
         elif session.direct_mode == 'place':
             pos = layer_hit(doc, origin, direction, session.editor.layer)
             if pos is not None:

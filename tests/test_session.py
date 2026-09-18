@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
 from projection.session import Session
+from projection.model import Document, Editor
 
 
 class Bridge:
@@ -16,6 +17,76 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_restart_normalizes_native_utf8_large_archive_titles(self):
+        b = Bridge()
+        title = '自动验证 · 大范围建筑'
+        b.load_library = lambda: {'serial': 12, 'buildings': [{'id': 9, 'data': {
+            'version': 3, 'name': title.encode('utf8'), 'size': [256, 384, 256], 'parts': 13, 'blockCount': 25165824}}]}
+        b.player_origin = lambda: (0, 64, 0)
+        s = Session(b)
+        s.initialize()
+        self.assertEqual(title, s.library[0]['data']['name'])
+        self.assertIsInstance(s.library[0]['data']['name'], str)
+        self.assertEqual(12, s.library_serial)
+
+    def test_detail_camera_center_does_not_follow_each_picked_block(self):
+        s = Session(Bridge())
+        s.editor = Editor(Document((256, 384, 256)))
+        s.focus_preview((120, 120, 120))
+        signature = s.preview_signature()
+        s.focused = (125, 125, 125)
+        self.assertEqual(signature, s.preview_signature())
+        self.assertEqual((120, 120, 120), s.preview_center)
+        s.layer(200)
+        self.assertEqual((120, 200, 120), s.preview_center)
+
+    def test_failed_async_load_retains_current_draft_and_releases_ui(self):
+        b = Bridge()
+        timers = []
+        b.later = lambda delay, callback: timers.append(callback)
+        b.load_archive_page = lambda identity, part: None
+        s = Session(b)
+        before = s.editor
+        s.library = [{'id': 3, 'data': {'version': 3, 'name': 'missing', 'size': [256, 384, 256], 'parts': 2, 'blockCount': 5}}]
+        s.load(3)
+        self.assertIs(s.editor, before)
+        self.assertIsNotNone(s.io_job)
+        self.assertFalse(s.action(s.demo))
+        timers.pop(0)()
+        self.assertIsNone(s.io_job)
+        self.assertIs(s.editor, before)
+        self.assertIn('缺失', s.editor.message)
+
+    def test_async_large_save_load_and_delete_preserve_small_index(self):
+        b = Bridge()
+        timers, pages = [], {}
+        b.later = lambda delay, callback: timers.append(callback)
+        def write(identity, part, value):
+            pages[identity, part] = value
+            return True
+        b.save_archive_page = write
+        b.load_archive_page = lambda identity, part: pages.get((identity, part))
+        cleared = []
+        b.clear_archive = lambda identity, parts: cleared.append((identity, parts))
+        s = Session(b)
+        s.editor = Editor(Document((256, 384, 256)))
+        s.editor.run('fill')
+        s.save()
+        while s.io_job is not None:
+            timers.pop(0)()
+        self.assertEqual(1, len(s.library))
+        self.assertNotIn('chunks', b.data['buildings'][0]['data'])
+        identity = s.library[0]['id']
+        self.assertEqual(3, s.library[0]['data']['version'])
+        s.editor = Editor(Document())
+        s.load(identity)
+        while s.io_job is not None:
+            timers.pop(0)()
+        self.assertEqual(25165824, len(s.editor.document.blocks))
+        s.delete(identity)
+        self.assertEqual([], s.library)
+        self.assertEqual(identity, cleared[0][0])
+
     def test_pane_navigation_only_notifies_owners_without_invalidating_content(self):
         s = Session(Bridge())
         calls = []

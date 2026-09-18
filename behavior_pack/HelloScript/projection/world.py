@@ -2,6 +2,8 @@
 """Bounded world jobs. Preflight every cell; preserve a recovery journal on failure."""
 from __future__ import unicode_literals
 from .model import AIR, Document, add, block
+from .journal import Journal
+import time
 
 
 def coordinate(value):
@@ -18,15 +20,16 @@ class WorldJob(object):
         self.adapter = adapter
         self.origin = coordinate(origin)
         self.document = document
-        self.source = list(undo) if undo is not None else [
+        self.source = iter(undo) if undo is not None else (
             (add(self.origin, p), None, document.get(p)) for p in
-            (document.points() if include_air else sorted(document.blocks))]
+            (document.points() if include_air else document.blocks))
+        self.next_source = None
         self.undoing = undo is not None
         self.phase = 'preflight'
         self.cursor = 0
-        self.plan = []
-        self.journal = []
-        self.recovery = []
+        self.plan = Journal()
+        self.journal = Journal()
+        self.recovery = Journal()
         self.skipped = 0
         self.error = ''
         self.done = False
@@ -36,19 +39,27 @@ class WorldJob(object):
         self.phase = 'rollback'
         self.cursor = len(self.journal) - 1
 
-    def step(self, budget=128):
+    def step(self, budget=2048):
         if self.done:
             return
+        deadline = time.time() + .006
         for unused in range(budget):
+            if unused and time.time() >= deadline:
+                return
             if self.phase == 'preflight':
                 if not self.adapter.allowed():
                     self.error, self.done = '仅创造模式可写入世界', True
                     return
-                if self.cursor == len(self.source):
-                    self.phase, self.cursor = 'write', 0
-                    continue
-                pos, before, after = self.source[self.cursor]
+                if self.next_source is None:
+                    try:
+                        self.next_source = next(self.source)
+                    except StopIteration:
+                        self.phase, self.cursor = 'write', 0
+                        continue
+                pos, before, after = self.next_source
                 current = self.adapter.read(pos)
+                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
+                    return
                 desired = before if self.undoing else after
                 if current is None:
                     self.error, self.done = '区域尚未加载，请靠近后重试；未写入方块', True
@@ -61,12 +72,16 @@ class WorldJob(object):
                         return
                     self.plan.append((pos, current, desired))
                 self.cursor += 1
+                self.next_source = None
             elif self.phase == 'write':
                 if self.cursor == len(self.plan):
                     self.done = True
                     return
                 pos, before, after = self.plan[self.cursor]
-                if not self.adapter.allowed() or self.adapter.read(pos) != before or self.adapter.protected(pos, before):
+                current = self.adapter.read(pos)
+                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
+                    return
+                if not self.adapter.allowed() or current != before or self.adapter.protected(pos, before):
                     self.fail('目标或权限发生变化，正在回滚本次写入')
                     continue
                 changed = self.adapter.write(pos, after)
@@ -81,13 +96,15 @@ class WorldJob(object):
                 self.cursor += 1
             else:
                 if self.cursor < 0:
-                    self.journal = list(self.recovery)
+                    self.journal = self.recovery
                     if self.recovery:
                         self.error += '；仍有 %d 格需要重试撤销' % len(self.recovery)
                     self.done = True
                     return
                 pos, before, after = self.journal[self.cursor]
                 current = self.adapter.read(pos)
+                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
+                    return
                 if current == after and not self.adapter.protected(pos, current):
                     self.adapter.write(pos, before)
                     if self.adapter.read(pos) != before:
