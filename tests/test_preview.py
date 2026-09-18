@@ -56,14 +56,33 @@ class PreviewTests(unittest.TestCase):
             self.tick('latest', now)
         self.assertEqual(self.preview.names[self.preview.front], 'old')
         self.fail = False
-        self.settle('latest', .5)
+        self.settle('latest', .7)
         self.assertTrue(self.preview.ready('latest'))
 
     def test_empty_scene_clears_both_surfaces_and_undo_cancels_pending(self):
         self.settle('old')
         self.tick('new', .1)
         self.tick('old', .2)
+        self.assertFalse(self.preview.ready('old'))
+        self.tick('old', .22)
         self.assertTrue(self.preview.ready('old'))
         self.tick(None, .3)
         self.assertTrue(self.preview.ready(None))
         self.assertEqual(self.preview.names, [None, None])
+
+    def test_rapid_replacement_and_orbit_never_overwrite_warming_surface(self):
+        self.settle('old')
+        self.tick('stale', .1)
+        self.draws[:] = []
+        self.tick('latest', .12, (2., -40., 60.))
+        self.tick('latest', .14, (2., -40., 70.))
+        self.assertTrue(all(name == 'old' for slot, name, pose in self.draws))
+        self.assertFalse(self.preview.ready('latest'))
+        self.settle('latest', .2)
+        self.assertTrue(self.preview.ready('latest'))
+
+    def test_failed_native_submission_is_throttled(self):
+        self.fail = True
+        for frame in range(60):
+            self.tick('bad', frame / 60.)
+        self.assertLessEqual(len(self.draws), 4)

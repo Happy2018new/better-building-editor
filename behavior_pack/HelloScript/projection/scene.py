@@ -165,7 +165,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                 camera.velocity = (0., 0.)
             return
         camera.velocity = (0., 0.)
-        if session.preview_pending or not preview.ready(session.model_name):
+        if session.preview_pending or session.model_revision is None or not preview.ready(session.model_name):
             session.editor.message = '预览更新中，请稍后点击'
             session.emit()
             return

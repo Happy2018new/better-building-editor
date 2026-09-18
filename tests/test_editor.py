@@ -132,6 +132,13 @@ class EditorTests(unittest.TestCase):
         doc = Document((3, 4, 5), {(2, 1, 3): STONE})
         self.assertEqual([28], doc.palette_data()['common'][STONE])
 
+    def test_palette_rejects_corrupt_coordinates_before_native_submission(self):
+        doc = Document((3, 4, 5))
+        for pos in ((-1, 0, 0), (3, 0, 0), (0, 4, 0), (0, 0, 5)):
+            doc.blocks = {pos: STONE}
+            with self.assertRaises(ValueError):
+                doc.palette_data()
+
     def test_directional_blocks_cannot_silently_rotate_with_wrong_metadata(self):
         e = Editor(Document((3, 3, 3), {(1, 1, 1): ('minecraft:oak_stairs', 0)}))
         with self.assertRaises(ValueError):

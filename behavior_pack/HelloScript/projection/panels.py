@@ -108,6 +108,10 @@ def Parameters(session=None, revision=0):
         optional('material_line', bool(channels), line()),
         text('作用范围', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
+        optional('direct_selection', tool[0] == 'direct', Action(
+            label='限制在选区内' if session.direct_selection else '允许编辑整个建筑',
+            glyph='cursor', compact=True, height=26, selected=session.direct_selection,
+            onClick=partial(session.set, 'direct_selection', not session.direct_selection))),
         optional('restore', tool[0] == 'direct', Action(label='恢复全选区域', compact=True, height=26,
                onClick=partial(session.action, e.run, 'select_all'))),
         Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '来源')],

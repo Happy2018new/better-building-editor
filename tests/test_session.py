@@ -69,3 +69,18 @@ class SessionTests(unittest.TestCase):
         s.set('camera_yaw', 90)
         s.set('page', 'library')
         self.assertEqual(observed, [1, 2])
+
+    def test_failed_preview_preserves_last_model_and_can_retry(self):
+        b = Bridge()
+        s = Session(b)
+        s.model_name = 'last_good'
+        def failure(*unused):
+            raise ValueError('invalid geometry')
+        b.geometry = failure
+        s._build_preview()
+        self.assertEqual(s.model_name, 'last_good')
+        self.assertIsNone(s.model_revision)
+        b.geometry = lambda *unused: 'recovered'
+        s._build_preview()
+        self.assertEqual(s.model_name, 'recovered')
+        self.assertIsNotNone(s.model_revision)

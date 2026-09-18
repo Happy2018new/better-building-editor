@@ -37,6 +37,7 @@ class Session(object):
         self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
+        self.direct_selection = False
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
@@ -158,16 +159,18 @@ class Session(object):
     def _build_preview(self):
         self.preview_pending = False
         editor = self.editor
-        self.model_revision = (id(editor), editor.revision, tuple(sorted(editor.hidden_layers)),
-                               self.solo_layer, editor.layer if self.solo_layer else -1)
+        signature = (id(editor), editor.revision, tuple(sorted(editor.hidden_layers)),
+                     self.solo_layer, editor.layer if self.solo_layer else -1)
 
         def visible(pos):
             return pos[1] not in editor.hidden_layers and (not self.solo_layer or pos[1] == editor.layer)
         try:
             self.model_name = self.bridge.geometry(editor.document, visible)
+            self.model_revision = signature
             self.preview_error = '' if self.model_name else '当前可见图层没有可显示的方块'
-        except ValueError as error:
-            self.model_name = None
+        except (ValueError, TypeError, RuntimeError) as error:
+            # Keep the last usable preview, but permit the next action to retry.
+            self.model_revision = None
             self.preview_error = str(error).decode('utf8') if isinstance(str(error), bytes) else str(error)
         self.emit()
 
@@ -231,14 +234,15 @@ class Session(object):
                 e.message = '目标图层不可见，请先显示该图层'
             else:
                 self.focused = target
-                return self.action(e.paint_at, target)
+                return self.action(e.paint_at, target, False, self.direct_selection)
         elif mode in ('paint', 'erase'):
-            return self.action(e.paint_at, pos, mode == 'erase')
+            return self.action(e.paint_at, pos, mode == 'erase', self.direct_selection)
         elif mode == 'pick':
             if e.document.get(pos) != AIR:
                 e.material = e.document.get(pos)
                 e.message = '已吸取材质：' + e.material[0]
         elif mode == 'select':
+            e.start = e.end = pos
             e.select_box(pos, pos)
             e.layer = pos[1]
             self.refresh_preview()

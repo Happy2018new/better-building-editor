@@ -134,6 +134,36 @@ class DirectEditingTests(unittest.TestCase):
         self.assertEqual(len(s.editor.undo_stack), 0)
         self.assertEqual(len(s.editor.document.blocks), 1)
 
+    def test_selection_then_place_preserves_selection_and_allows_adjacent_edit(self):
+        s = self.s
+        for mode in ('select', 'box', 'erase', 'pick', 'browse'):
+            s.choose_mode(mode)
+            if mode == 'select':
+                s.point_action((1, 1, 1))
+            elif mode == 'box':
+                s.point_action((1, 1, 1))
+                s.point_action((1, 1, 1))
+            s.choose_mode('place')
+            self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 1)
+            self.assertEqual(s.editor.selection, {(1, 1, 1)})
+            s.editor.undo()
+        s.direct_selection = True
+        self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 0)
+        self.assertIn('选区', s.editor.message)
+
+    def test_each_outer_boundary_is_rejected_without_history_or_preview_job(self):
+        s = self.s
+        s.choose_mode('place')
+        for axis in range(3):
+            for sign in (-1, 1):
+                pos = [1, 1, 1]
+                pos[axis] = 0 if sign < 0 else 3
+                normal = tuple(sign if i == axis else 0 for i in range(3))
+                s.point_action(tuple(pos), normal)
+                self.assertIn('超出', s.editor.message)
+                self.assertFalse(s.preview_pending)
+                self.assertFalse(s.editor.undo_stack)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -108,6 +108,9 @@ class Document(object):
         common = {}
         sx, sy, sz = self.size
         for pos, value in self.blocks.items():
+            if not self.contains(pos):
+                raise ValueError('方块超出建筑范围，已停止生成预览')
+            value = block(value)
             if visible is None or visible(pos):
                 # Native SDK volume is (z, x, y), with z contiguous, then x, then y.
                 # Verified by GetLocalPosListOfBlocks on asymmetric (2, 3, 4) palettes.
@@ -142,9 +145,9 @@ class Editor(object):
         self.saved_revision = 0
         self.message = '工作台已就绪'
 
-    def _writable(self, pos):
+    def _writable(self, pos, respect_selection=True):
         value = self.document.get(pos)
-        return (pos in self.selection and pos[1] not in self.locked_layers and
+        return ((not respect_selection or pos in self.selection) and pos[1] not in self.locked_layers and
                 (self.mask == 'all' or (self.mask == 'solid' and value != AIR) or
                  (self.mask == 'air' and value == AIR) or
                  (self.mask == 'material' and value == self.source)))
@@ -239,8 +242,16 @@ class Editor(object):
         self.message = '已选择 %d 格' % len(self.selection)
         return len(self.selection)
 
-    def paint_at(self, pos, erase=False):
-        return self._commit('擦除单格' if erase else '绘制单格', {pos: AIR if erase else self.material})
+    def paint_at(self, pos, erase=False, respect_selection=True):
+        if not self.document.contains(pos):
+            raise ValueError('目标超出建筑范围')
+        if not self._writable(pos, respect_selection):
+            self.message = ('目标图层已锁定' if pos[1] in self.locked_layers else
+                            '目标不在选区内' if respect_selection and pos not in self.selection else
+                            '目标不符合当前蒙版')
+            return 0
+        return self._commit('擦除单格' if erase else '绘制单格',
+                            {pos: AIR if erase else block(self.material)}, respect_selection=False)
 
     def _copy(self):
         lo, hi = bounds(self.selection)
