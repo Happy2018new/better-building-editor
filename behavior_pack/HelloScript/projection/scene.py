@@ -28,6 +28,8 @@ def Scene(session=None, revision=0, width=400, height=300):
     dolls = [use_ref(None), use_ref(None)]
     surfaces = [use_ref(None), use_ref(None)]
     pointer, canvas = use_ref(None), use_ref(None)
+    clipping = use_ref(None)
+    clip_geometry = use_ref(None)
     preview = use_ref(lambda: PreviewBuffer()).current
     camera = use_ref(lambda: OrbitCamera(session.camera_yaw, session.camera_pitch, session.zoom)).current
     frame = use_ref(time.time())
@@ -41,6 +43,8 @@ def Scene(session=None, revision=0, width=400, height=300):
     def clip():
         if canvas.current:
             canvas.current.SetClipsChildren(True)
+        if clipping.current:
+            clipping.current.SetClipsChildren(True)
     use_effect(clip, [])
 
     def aim():
@@ -54,6 +58,20 @@ def Scene(session=None, revision=0, width=400, height=300):
     def tick(now):
         dt = now - frame.current
         frame.current = now
+        if canvas.current and clipping.current and all(ref.current for ref in surfaces):
+            x, y = canvas.current.GetGlobalPosition()
+            cw, ch = canvas.current.GetSize()
+            # The native scissor rounds fractional bottom/right edges differently
+            # from JsonUI. Use integral UI bounds and preserve the model's origin.
+            dx, dy = math.ceil(x) - x, math.ceil(y) - y
+            geometry = (dx, dy, max(0., math.floor(x + cw) - math.ceil(x)),
+                        max(0., math.floor(y + ch) - math.ceil(y)))
+            if geometry != clip_geometry.current:
+                clip_geometry.current = geometry
+                clipping.current.SetPosition((dx, dy))
+                clipping.current.SetSize(geometry[2:])
+                for surface in surfaces:
+                    surface.current.SetPosition((-dx, -dy))
         if not active or not all(ref.current for ref in dolls + surfaces):
             drag.current = None
             camera.dragging = False
@@ -185,7 +203,7 @@ def Scene(session=None, revision=0, width=400, height=300):
     use_event('MouseWheelClientEvent', wheel, active)
     use_animation_frame(tick)
     return Panel(ref=canvas, style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
-        Panel(style=S(position=Position.absolute, width='100%', height='100%'), children=[
+        Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
             Panel(ref=surfaces[i], key='surface%d' % i,
                   style=S(position=Position.absolute, width='100%', height='100%'), children=[
                 Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,

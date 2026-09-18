@@ -9,7 +9,7 @@ from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
-from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive, PanelPrimitive
+from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
 
 TEX = 'textures/modern_projection/'
@@ -63,8 +63,8 @@ NativeText.template_path = '/root/mp_label_tmpl'
 TypeImage = ImagePrimitive()
 TypeImage.template_path = '/root/mp_type_tmpl'
 Image = TypeImage
-Input = InputPrimitive()
-Input.template_path = '/root/mp_input_tmpl'
+NativeInput = InputPrimitive()
+NativeInput.template_path = '/root/mp_input_tmpl'
 Slider = SliderPrimitive()
 Slider.template_path = '/root/mp_slider_tmpl'
 Doll = PaperDollPrimitive()
@@ -123,10 +123,50 @@ class RoundedPrimitive(PanelPrimitive):
 Rounded = RoundedPrimitive()
 
 
-class PointerPrimitive(ButtonPrimitive):
+@Component
+def Field(value=None, onChange=None, style=None):
+    # The native edit box already reserves text/caret padding; adding another
+    # inset would clip digits in compact auxiliary-value fields.
+    return Panel(style=style, children=[
+        rounded_skin(Theme.tint, 5),
+        NativeInput(value=value, onChange=onChange, style=S(width='100%', height='100%', zIndex=2))])
+
+
+Input = Field
+
+
+class ButtonPrimitive(BaseButtonPrimitive):
+    """Native hit testing; feedback recolors the existing fixed-corner surface."""
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        if prev_props is not None:
+            return
+        button = control.asButton()
+        button.AddHoverEventParams()
+
+        def feedback(value, unused):
+            callback = fiber.props.get('onFeedback')
+            if callback:
+                callback(value)
+
+        def released(args):
+            feedback(ButtonState.hover, args)
+            host._pyreact_dispatch_touch_up(args)
+
+        button.SetButtonHoverInCallback(partial(feedback, ButtonState.hover))
+        button.SetButtonHoverOutCallback(partial(feedback, ButtonState.default))
+        button.SetButtonTouchDownCallback(partial(feedback, ButtonState.pressed))
+        button.SetButtonTouchCancelCallback(partial(feedback, ButtonState.default))
+        button.SetButtonTouchUpCallback(released)
+
+
+FeedbackButton = ButtonPrimitive()
+
+
+class PointerPrimitive(BaseButtonPrimitive):
     """App-local pointer surface; callbacks receive native UI coordinates."""
     def apply_props(self, host, fiber, control, prev_props, next_props):
-        ButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker is None:
             tracker = PointerTracker(host, fiber)
@@ -144,7 +184,7 @@ class PointerPrimitive(ButtonPrimitive):
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker:
             tracker.stop()
-        ButtonPrimitive.unmount(self, host, fiber)
+        BaseButtonPrimitive.unmount(self, host, fiber)
 
 
 class PointerTracker(object):
@@ -383,6 +423,8 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
 def Action(label='', onClick=None, width=None, height=32, accent=False, selected=False,
            enabled=True, glyph=None, danger=False, compact=False):
     progress, set_progress = use_state(1.)
+    feedback, set_feedback = use_state(ButtonState.default)
+    stable_feedback = use_callback(set_feedback, [])
     started = use_ref(0.)
 
     def click():
@@ -399,6 +441,8 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     use_animation_frame(tick, progress < 1.)
     wobble = math.exp(-6 * progress) * math.sin(3.5 * math.pi * progress) if progress < 1. else 0
     base = Theme.blue if accent else (Theme.tint if selected else Theme.pale)
+    if enabled and feedback != ButtonState.default:
+        base = base.darken(.10 if feedback == ButtonState.pressed else .035)
     ink = Theme.white if accent else (Theme.red if danger else (Theme.blue if selected else Theme.ink))
 
     def content():
@@ -408,22 +452,17 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
         if label:
             contents.append(text(label, 11 if compact else 12, ink))
         return [rounded_skin(base), row(contents, justifyContent=JustifyContent.center, paddingHorizontal=9)]
-    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, Theme.scale]))
+    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, Theme.scale]))
     # One permanent sprite replaces six separately laid-out particle controls.
     children.append(Image(key='burst', src=TEX + 'transparent', frames=BURST_FRAMES,
         frameDuration=.0275, playing=progress < 1. and Theme.motion, loop=False,
         style=S(position=Position.absolute, left='50%', top='50%', width=60, height=48,
                 opacity=1 if progress < 1. and Theme.motion else 0., zIndex=20,
                 transform=[Translate(-30 * Theme.scale, -24 * Theme.scale)])))
-    return Button(buttonBuilder=action_background, onClick=stable_click if enabled else None,
+    return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1 if enabled else .38,
                           transform=[Scale(1 + .07 * wobble, 1 - .10 * wobble)]), children=children)
-
-
-def action_background(state):
-    return Image(src=TEX + 'rounded', color=(Color(0x477AF414) if state == ButtonState.hover
-                 else Color(0x26374B22) if state == ButtonState.pressed else Colors.transparent))
 
 
 BURST_FRAMES = tuple(TEX + 'burst_%02d' % i for i in range(16))
@@ -486,11 +525,18 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
 def Segments(items=None, value=None, onChange=None, width=216):
     items = items or []
     index = next((i for i, pair in enumerate(items) if pair[0] == value), 0)
+    destination, set_destination = use_state(index)
+
+    def travel():
+        # Begin after the parent has committed its new page/parameters. Otherwise
+        # their layout work consumes the first half of this short transition.
+        set_destination(index)
+    use_effect(travel, [index])
     cell = (width - 6) / max(1, len(items))
     return surface(color=Theme.pale, width=width, height=32, padding=3, children=[
         Animated(style=S(position=Position.absolute, left=3, top=3, width=cell, height=26),
-                 transition=NativeStyle(transform=[Translate(index * cell * Theme.scale, 0)]),
-                 duration=.25 if Theme.motion else 0., transitionEasing=Easing.back_out,
+                 transition=NativeStyle(transform=[Translate(destination * cell * Theme.scale, 0)]),
+                 duration=.30 if Theme.motion else 0., transitionEasing=Easing.cubic_in_out,
                  children=surface(color=Theme.white, width='100%', height='100%')),
         row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
                     style=S(width=cell, height=26),

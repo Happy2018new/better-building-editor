@@ -2,8 +2,10 @@
 # pylint: disable=unexpected-keyword-arg,E1123
 """Modern Projection professional workspace, entirely native Pyreact JsonUI."""
 from __future__ import unicode_literals
+import time
 from functools import partial
 from ..pyreact import *
+from ..pyreact.hooks import use_animation_frame
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
 from .widgets import JellyButton as Button, PageMotion
@@ -154,6 +156,39 @@ def Inspector(session=None, revision=0, height=440):
 
 
 @Component
+def Confirmation(session=None, revision=0):
+    progress, set_progress = use_state(0.)
+    motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
+    message = use_ref('')
+    opened = bool(session.pending_confirm)
+    if opened:
+        message.current = session.pending_confirm[0]
+    if motion['target'] != opened:
+        motion.update(target=opened, start=time.time(), **{'from': progress})
+
+    def tick(now):
+        fraction = min(1., (now - motion['start']) / (.28 if opened else .18)) if Theme.motion else 1.
+        eased = 1. - (1. - fraction) ** 3
+        set_progress(motion['from'] + (float(opened) - motion['from']) * eased)
+    use_animation_frame(tick, progress != float(opened))
+
+    def content():
+        return surface(width=420, padding=24, gap=18, children=[
+            icon('info', Theme.blue, 28), text('请确认这次操作', 21),
+            text(message.current, 13, Theme.muted, width=372),
+            row([Action(label='取消', enabled=opened, onClick=partial(session.set, 'pending_confirm', None)),
+                 Action(label='确认继续', enabled=opened, accent=True, onClick=session.accept)])])
+    card = use_memo(content, [message.current, opened, Theme.scale])
+    # Retain the modal through exit; its scrim continues swallowing background input.
+    return Modal(visible=opened or progress > 0., style=Style(zIndex=100), children=[
+        Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
+              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
+            Panel(style=S(opacity=progress, transform=[Translate(0, (1. - progress) * 18 * Theme.scale),
+                Scale(.97 + .03 * progress)]), children=card))])
+
+
+@Component
 def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
@@ -246,17 +281,8 @@ def Workspace(session=None, revision=0):
             text('P 打开  ·  F6 / F7 两点选区', 9, Theme.muted),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
-    dialog = None
-    if session.pending_confirm:
-        dialog = surface(width=420, padding=24, gap=18, children=[
-        icon('info', Theme.blue, 28), text('请确认这次操作', 21),
-        text(session.pending_confirm[0], 13, Theme.muted, width=372),
-        row([Action(label='取消', onClick=partial(session.set, 'pending_confirm', None)),
-             Action(label='确认继续', accent=True, onClick=session.accept)])])
     return SafeArea(style=S(width='100%', height='100%'), children=[main,
-        Modal(style=Style(zIndex=100), children=Image(color=Color(0x172B4D77),
-              style=S(position=Position.absolute, width='100%', height='100%',
-              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=dialog)) if dialog else None])
+        Confirmation(session=session, revision=session.ui_revision)])
 
 
 def category(session, identity):

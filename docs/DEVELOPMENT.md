@@ -79,3 +79,11 @@ Python 3、Pillow、requests、psutil、pyperclip；游戏内代码兼容 ModSDK
 - 专注编辑保留相同 Scene 和两个 PaperDoll，收起工具箱/分类/页签，支持独立展开属性面板。1920×1080 下三维操作区从约 1019×525 像素扩大为 1880×656 像素，面积为 2.31 倍；还原后尺寸和原生指针 ID 不变。
 - 验证工具：`tools/profile_viewport.py LABEL` 在已确认前台的 Minecraft 窗口制造 10 秒真实拖动和滚轮负载并采集 Tracy；`tools/verify_preview_frames.py LABEL` 使用 `mss`/Pillow 连续采样游戏视图，检查四次真实放置及模型像素覆盖，输出帧序列拼图和 JSON。调用前会载入庭院示例以建立确定的基线，适用于开发测试世界。
 - `tools/verify_focus.py` 检查展开后的直接放置、撤销、材质、图层、历史、逐层网格和还原；`tools/verify_layout.py` 扩展为四种比例下共 44 项布局/命中检查。测试报告、Tracy 采样、日志和连续帧图片保存在 `.runtime/`，下载的 Tracy 二进制不提交。
+
+## 阶段 6：控件帧率、皮肤与过渡
+
+- 优先处理拖滑条、切换选项和切换页面的整树重排/透明度继承开销，原生圆角背景合并成一个布局节点，点击粒子用序列帧图片绘制。数据即时写入，界面通知合并，不延迟执行工具所读的参数。
+- 纯 transform/opacity 使用直接原生绘制提交；不可变 Element 的干净子树可以跳过 reconcile。已更新 UI skill 的样式性能说明。
+- 输入框使用透明原生编辑控件与固定圆角外壳；按钮悬停/按下改变同一外壳颜色。选项在父页面提交后启动完整位移，确认弹窗保留进入/退出阶段。
+- 三维独立裁剪框对齐整数 UI 坐标，模型容器反向补偿原点，解决遮罩下的白边；不关闭 scissor，大倍率仍保留裁剪。`verify_layout.py` 增加原生边界与模型原点检查，四种比例共 52 项。
+- `tools/profile_controls.py slider|segments|pages LABEL` 运行 10 秒真实鼠标负载；`tools/verify_motion.py` 采集实际原生中间位置，检查反向选择和弹窗出入场。性能数据、环境和适用范围见 `docs/CONTROLS_PERFORMANCE.md`。

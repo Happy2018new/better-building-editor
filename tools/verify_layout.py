@@ -38,6 +38,15 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
     ui.click('浏览'); ui.click('俯视'); time.sleep(.6)
     interaction.tap(*interaction.point((8.5, 11., 14.5)))
     ui.check(preset + ' resized viewport picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    canvas = ui.nodes('Scene')[0]['children'][0]
+    clip = canvas['children'][0]
+    native_clip = ui.call('native_control', clip['id'])['result']
+    ui.check(preset + ' native scissor has integral boundaries',
+             all(abs(v - round(v)) < .001 for v in native_clip['global'] + native_clip['size']))
+    native_canvas = ui.call('native_control', canvas['id'])['result']
+    native_model = ui.call('native_control', ui.nodes('PaperDoll')[0]['id'])['result']
+    ui.check(preset + ' clip snapping preserves the model origin',
+             all(abs(a - b) < .001 for a, b in zip(native_canvas['global'], native_model['global'])))
     before = interaction.pointer()
     ui.click('展开视图')
     expanded = interaction.pointer()

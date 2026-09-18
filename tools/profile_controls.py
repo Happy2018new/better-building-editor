@@ -38,6 +38,13 @@ def main():
     left, top, width, unused = capture._window_rect(hwnd)
     scale = width / root['width']
     points = [(int(left + x * scale), int(top + y * scale)) for x, y in points]
+    capture.user32.WindowFromPoint.argtypes = [capture.POINT]
+    capture.user32.WindowFromPoint.restype = capture.wintypes.HWND
+    capture.user32.GetAncestor.argtypes = [capture.wintypes.HWND, capture.wintypes.UINT]
+    capture.user32.GetAncestor.restype = capture.wintypes.HWND
+    for point in points:
+        hit_window = capture.user32.WindowFromPoint(capture.POINT(*point))
+        assert capture.user32.GetAncestor(hit_window, 2) == hwnd, 'Another window covers the workload target'
     output = ui.OUT / ('controls_%s_%s.json' % (scenario, label))
     with output.open('w', encoding='utf8') as stream:
         process = subprocess.Popen([sys.executable, '-X', 'utf8', str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/tracy.py'),
