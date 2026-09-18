@@ -26,6 +26,13 @@ HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击查看坐标',
 @Component
 def Scene(session=None, revision=0, width=400, height=300):
     use_theme()
+    unused, refresh = use_state(0)
+
+    def subscribe():
+        def changed():
+            refresh(lambda previous: previous + 1)
+        return session.subscribe(changed, ('page', 'view'))
+    use_effect(subscribe, [session])
     dolls = [use_ref(None), use_ref(None)]
     surfaces = [use_ref(None), use_ref(None)]
     pointer, canvas = use_ref(None), use_ref(None)

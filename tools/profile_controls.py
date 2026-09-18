@@ -12,6 +12,11 @@ from simulate import _resolve_label
 
 def main():
     scenario, label = sys.argv[1:3]
+    resize = subprocess.run([sys.executable, '-X', 'utf8',
+        str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/resize_window.py'), '--preset', '16:9'],
+        capture_output=True, check=True, encoding='utf8')
+    dimensions = json.loads(resize.stdout)
+    assert dimensions['ok'] and dimensions['actualClient'] == [1920, 1080], dimensions
     if '取消' in ui.labels():
         ui.click('取消')
     if '还原视图' in ui.labels():
@@ -22,9 +27,18 @@ def main():
         offset = ui.call('scroll', ui.nodes('ScrollView')[-1]['id'], 10000)['result']['position']
         box = ui.nodes('Slider')[0]['layout']
         points = [(box['x'] + box['width'] * v, box['y'] - offset + box['height'] / 2.) for v in (.1, .9)]
+    elif scenario == 'categories':
+        current = ui.tree()
+        points = []
+        for glyph in ('cube', 'brush'):
+            target = next(n for n in ui.nodes('Action', current) if n['props'].get('glyph') == glyph
+                          and n['props'].get('width') == 40 and n['props'].get('height') == 37)
+            box = ui.nodes('Button', target)[0]['layout']
+            points.append((box['x'] + box['width'] / 2., box['y'] + box['height'] / 2.))
     else:
         current = ui.tree()
         labels = {'segments': ('选取', '浏览'), 'pages': ('建筑库', '工作台'),
+                  'pages_all': ('建筑库', '入门指南', '投影', '工作台'),
                   'inspector': ('图层', '参数'), 'history': ('历史', '参数'),
                   'views': ('逐层', '三维')}[scenario]
         points = []
@@ -67,7 +81,7 @@ def main():
                     x = points[0][0] + (points[1][0] - points[0][0]) * fraction
                     capture.user32.SetCursorPos(int(x), points[0][1]); time.sleep(1. / 90.)
                 elif elapsed >= index * .65:
-                    capture.user32.SetCursorPos(*points[index % 2]); time.sleep(.035)
+                    capture.user32.SetCursorPos(*points[index % len(points)]); time.sleep(.035)
                     capture.user32.mouse_event(2, 0, 0, 0, 0); held = True; time.sleep(.06)
                     capture.user32.mouse_event(4, 0, 0, 0, 0); held = False
                     index += 1
@@ -77,7 +91,11 @@ def main():
             if held:
                 capture.user32.mouse_event(4, 0, 0, 0, 0)
         process.wait(timeout=35)
-    print(output.read_text(encoding='utf8'))
+    result = json.loads(output.read_text(encoding='utf8'))
+    result['workload'] = {'scenario': scenario, 'actualClient': dimensions['actualClient'],
+                          'clickIntervalSeconds': .65, 'activeSeconds': 8.}
+    output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf8')
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':

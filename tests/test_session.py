@@ -84,3 +84,18 @@ class SessionTests(unittest.TestCase):
         s._build_preview()
         self.assertEqual(s.model_name, 'recovered')
         self.assertIsNotNone(s.model_revision)
+
+    def test_page_and_category_navigation_do_not_broadcast_document_changes(self):
+        s = Session(Bridge())
+        calls = []
+        s.subscribe(lambda: calls.append('root'), ())
+        s.subscribe(lambda: calls.append('page'), ('page',))
+        s.subscribe(lambda: calls.append('tools'), ('group', 'query'))
+        s.set('page', 'library')
+        s.set('query', '填充')
+        s.choose_group('shape')
+        self.assertEqual(calls, ['page', 'tools', 'tools'])
+        self.assertEqual(s.content_revision, 0)
+        self.assertEqual(s.query, '')
+        s.choose_group('shape')
+        self.assertEqual(len(calls), 3)

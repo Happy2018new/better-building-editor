@@ -14,6 +14,7 @@ from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
 from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
+from .gizmo import OrientationGizmo
 
 
 def use_session_fields(session, fields):
@@ -39,6 +40,7 @@ def RetainedPane(active=True, children=None, style=None):
 @Component
 def ToolList(session=None, revision=0, height=440):
     use_theme()
+    use_session_fields(session, ('group', 'query'))
     query = session.query.strip().lower()
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == session.group)]
     title = next(g[1] for g in GROUPS if g[0] == session.group)
@@ -47,13 +49,28 @@ def ToolList(session=None, revision=0, height=440):
         Input(value=session.query, onChange=partial(session.set, 'query'), style=S(width=150, height=27, marginTop=12)),
         text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, marginTop=5, marginBottom=12),
         text('搜索结果' if query else title + '工具', 10, Theme.muted, marginBottom=7),
-        Scroll(resetKey=(session.group, query), style=S(width=154, flex=1), children=Panel(style=S(width=144, gap=5), children=[
-            Action(key=t[0], label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32, selected=session.tool == t[0],
-                   onClick=partial(session.choose_tool, t[0]), compact=True)
-            for t in items] or [text('没有匹配的工具', 11, Theme.muted)])),
+        Panel(style=S(width=154, flex=1), children=[
+            RetainedPane(key=identity, active=not query and session.group == identity,
+                style=S(position=Position.absolute, width='100%', height='100%'),
+                children=ToolGroup(session=session, group=identity, selected=session.tool))
+            for identity, unused_title, unused_icon in GROUPS] + [
+            RetainedPane(key='search', active=bool(query),
+                style=S(position=Position.absolute, width='100%', height='100%'),
+                children=ToolGroup(session=session, query=query, selected=session.tool))]),
         Panel(style=S(height=8)),
         surface(color=Theme.pale, padding=9, gap=3, children=[text('草稿内编辑', 11, Theme.blue), text('试验后再保存或应用', 10, Theme.muted)]),
     ])
+
+
+@Component
+def ToolGroup(session=None, group=None, query='', selected=None):
+    use_theme()
+    items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == group)]
+    return Scroll(resetKey=query, style=S(width=154, height='100%'),
+        children=Panel(style=S(width=144, gap=5), children=[
+            Action(key=t[0], label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
+                   selected=selected == t[0], onClick=partial(session.choose_tool, t[0]), compact=True)
+            for t in items] or [text('没有匹配的工具', 11, Theme.muted)]))
 
 
 @Component
@@ -112,7 +129,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Panel(style=S(position=Position.absolute, left=12, top=12, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                   children=text('X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
-        Image(src=TEX + 'axes', style=S(position=Position.absolute, right=13, bottom=13, width=50, height=50)),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=12),
+              children=OrientationGizmo(session=session)),
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom - .15))),
@@ -176,10 +194,11 @@ def turn_camera(session, amount):
 
 
 @Component
-def Inspector(session=None, revision=0, height=440):
+def Inspector(session=None, revision=0, height=440, page='workspace'):
     use_theme()
     use_session_fields(session, ('inspector', 'view'))
-    active = 'projection' if session.page == 'projection' else session.inspector
+    projecting = page == 'projection'
+    active = 'projection' if projecting else session.inspector
     panes = []
     for name, component in (('params', Parameters), ('layers', Layers), ('history', History), ('projection', ProjectionSettings)):
         content_revision = session.content_revision
@@ -188,16 +207,20 @@ def Inspector(session=None, revision=0, height=440):
         panes.append(RetainedPane(key=name, active=active == name,
             style=S(position=Position.absolute, width='100%', height='100%'),
             children=component(session=session, revision=content_revision)))
-    children = []
-    if session.page != 'projection':
-        children.extend([Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],
-                                   value=session.inspector, onChange=partial(session.set, 'inspector'), width=216),
-                         Panel(style=S(height=10))])
-    children.append(Panel(style=S(width='100%', flex=1), children=panes))
-    if session.page != 'projection':
-        direct = session.view == '3d' and session.direct_mode != 'browse'
-        children.extend([Panel(style=S(height=8)), Action(label='返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2], glyph='play',
-            accent=True, height=37, onClick=partial(session.choose_mode, 'browse') if direct else session.run, enabled=not session.busy)])
+    direct = session.view == '3d' and session.direct_mode != 'browse'
+    children = [Panel(key='header', style=S(width='100%', height=42), children=[
+        Panel(style=S(position=Position.absolute, visible=not projecting), children=
+            Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],
+                     value=session.inspector, onChange=partial(session.set, 'inspector'), width=216)),
+        Panel(style=S(position=Position.absolute, visible=projecting), children=text('世界坐标与显示', 12, Theme.muted)),
+    ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
+        Panel(key='footer', style=S(width='100%', height=45), children=[
+            Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
+                Action(label='返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2], glyph='play',
+                    accent=True, height=37, onClick=partial(session.choose_mode, 'browse') if direct else session.run, enabled=not session.busy)),
+            Panel(style=S(position=Position.absolute, top=8, width='100%', visible=projecting), children=
+                Action(label='返回工作台', glyph='brush', height=37, onClick=partial(session.set, 'page', 'workspace'))),
+        ])]
     return surface(width=240, height=height, padding=12, children=children)
 
 
@@ -236,6 +259,91 @@ def Confirmation(session=None, revision=0):
 
 
 @Component
+def PageNavigation(session=None, revision=0, focus=False):
+    use_theme()
+    use_session_fields(session, ('page',))
+    e = session.editor
+    return row([
+        Segments(items=[('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'), ('guide', '入门指南')],
+                 value=session.page, onChange=partial(session.set, 'page'), width=340),
+        Panel(style=S(flex=1)), text(e.document.name[:24], 11, Theme.muted),
+        Action(glyph='undo', width=29, height=28, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
+        Action(glyph='redo', width=29, height=28, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
+        Action(label='读取选区', glyph='cursor', width=100, height=28,
+               onClick=partial(session.confirm, '读取世界选区将替换当前草稿，继续吗？', session.bridge.capture), enabled=not session.busy),
+    ], paddingHorizontal=18, height=49, gap=8, display=Display.none if focus else Display.flex)
+
+
+@Component
+def CategoryRail(session=None, height=440, focus=False):
+    use_theme()
+    use_session_fields(session, ('group', 'page'))
+    return surface(width=64, height=height, paddingTop=12, gap=13, alignItems=AlignItems.center,
+        display=Display.none if focus else Display.flex, children=[
+        Panel(style=S(gap=4, alignItems=AlignItems.center), children=[
+            Action(glyph=glyph, width=40, height=37, selected=session.group == identity and session.page == 'workspace',
+                   onClick=partial(category, session, identity)),
+            text(title, 10, Theme.blue if session.group == identity and session.page == 'workspace' else Theme.muted)])
+        for identity, title, glyph in GROUPS])
+
+
+@Component
+def EditorPane(session=None, revision=0, page='workspace', width=760, height=440, focus=False):
+    use_theme()
+    middle_width = width - 434
+    if focus:
+        middle_width = width - (250 if session.focus_inspector else 0)
+    return row([
+        Panel(style=S(width=174, height=height, display=Display.none if focus else Display.flex), children=[
+            Panel(style=S(position=Position.absolute, visible=page != 'projection'),
+                  children=ToolList(session=session, revision=(session.tool, Theme.scale), height=height)),
+            Panel(style=S(position=Position.absolute, visible=page == 'projection'),
+                  children=ProjectionHelp(height=height)),
+        ]),
+        Viewport(session=session, revision=revision, width=middle_width, height=height),
+        Panel(style=S(display=Display.flex if not focus or session.focus_inspector else Display.none),
+              children=Inspector(session=session, revision=revision, height=height, page=page)),
+    ], width=width, height=height, gap=10, alignItems=AlignItems.stretch)
+
+
+@Component
+def ProjectionHelp(height=440):
+    use_theme()
+    return surface(width=174, height=height, padding=12, gap=14, children=[
+        text('投影工作流', 15),
+        text('先预览，再逐层搭建', 10, Theme.muted),
+        line(),
+    ] + [Panel(style=S(gap=6), children=[
+        row([icon(glyph, Theme.blue, 16), text(title, 12)]), text(hint, 11, Theme.muted, width=150)])
+        for glyph, title, hint in [('cursor', '确定原点', '站到建造位置，将玩家脚下设为投影原点。'),
+                                   ('layers', '准备材料', '根据右侧清单准备建材，投影不会消耗方块。'),
+                                   ('cube', '逐层搭建', '对照半透明投影放置方块，随时检查完成进度。')]])
+
+
+@Component
+def PageContent(session=None, revision=0, width=760, height=440, focus=False):
+    use_theme()
+    use_session_fields(session, ('page',))
+    page = session.page
+    editor_page = use_ref('workspace')
+    if page in ('workspace', 'projection'):
+        editor_page.current = page
+    panes = [
+        RetainedPane(key='editor', active=page in ('workspace', 'projection'),
+            style=S(position=Position.absolute, width=width, height=height),
+            children=EditorPane(session=session, revision=revision, page=editor_page.current,
+                                width=width, height=height, focus=focus)),
+        RetainedPane(key='library', active=page == 'library',
+            style=S(position=Position.absolute, width=width, height=height),
+            children=Library(session=session, revision=revision, width=width, height=height)),
+        RetainedPane(key='guide', active=page == 'guide',
+            style=S(position=Position.absolute, width=width, height=height),
+            children=Guide(session=session, revision=session.reduced_motion, width=width, height=height)),
+    ]
+    return PageMotion(page=page, width=width, height=height, children=panes)
+
+
+@Component
 def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
@@ -269,32 +377,6 @@ def Workspace(session=None, revision=0):
     main_h = height - (115 if focus else 181)
     content_w = width - (24 if focus else 100)
     e = session.editor
-    page_names = [('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'), ('guide', '入门指南')]
-    middle_width = content_w - 434 if page != 'projection' else content_w - 250
-    if focus:
-        middle_width = content_w - (250 if session.focus_inspector else 0)
-    # Keep the native block-model renderer alive across tabs and layer mode.
-    # Removing it while its render job is pending can terminate the game process.
-    editor_body = row([
-        Panel(style=S(display=Display.none if focus or page == 'projection' else Display.flex),
-              children=ToolList(session=session, revision=(session.group, session.query, session.tool, Theme.scale), height=main_h)),
-        Viewport(session=session, revision=session.ui_revision, width=middle_width, height=main_h),
-        Panel(style=S(display=Display.flex if not focus or session.focus_inspector else Display.none),
-              children=Inspector(session=session, revision=session.ui_revision, height=main_h)),
-    ], gap=10, alignItems=AlignItems.stretch,
-       display=Display.flex if page in ('workspace', 'projection') else Display.none)
-    body = Panel(style=S(width=content_w, height=main_h), children=[editor_body,
-        Panel(style=S(display=Display.flex if page == 'library' else Display.none),
-              children=Library(session=session, revision=session.ui_revision if page == 'library' else None, width=content_w, height=main_h)),
-        Panel(style=S(display=Display.flex if page == 'guide' else Display.none),
-              children=Guide(session=session, revision=session.reduced_motion, width=content_w, height=main_h)),
-    ])
-    categories = []
-    for identity, title, glyph in GROUPS:
-        categories.append(Panel(style=S(gap=4, alignItems=AlignItems.center), children=[
-            Action(glyph=glyph, width=40, height=37, selected=session.group == identity and page == 'workspace',
-                   onClick=partial(category, session, identity)),
-            text(title, 10, Theme.blue if session.group == identity and page == 'workspace' else Theme.muted)]))
     main = Image(color=Theme.bg, style=S(width='100%', height='100%'), children=[
         Image(color=Theme.white, style=S(width='100%', height=48 if focus else 65), children=row([
             Image(src=TEX + 'logo', style=S(width=29 if focus else 37, height=29 if focus else 37)),
@@ -309,18 +391,10 @@ def Workspace(session=None, revision=0):
             Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=navigator.pop),
         ], height=48 if focus else 65, paddingHorizontal=18, gap=12)),
+        PageNavigation(session=session, revision=session.content_revision, focus=focus),
         row([
-            Segments(items=page_names, value=page, onChange=partial(session.set, 'page'), width=340),
-            Panel(style=S(flex=1)),
-            text(e.document.name[:24], 11, Theme.muted),
-            Action(glyph='undo', width=29, height=28, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
-            Action(glyph='redo', width=29, height=28, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
-            Action(label='读取选区', glyph='cursor', width=100, height=28, onClick=partial(session.confirm, '读取世界选区将替换当前草稿，继续吗？', session.bridge.capture), enabled=not session.busy),
-        ], paddingHorizontal=18, height=49, gap=8, display=Display.none if focus else Display.flex),
-        row([
-            surface(width=64, height=main_h, paddingTop=12, gap=13, alignItems=AlignItems.center,
-                    display=Display.none if focus else Display.flex, children=categories),
-            PageMotion(page=page, width=content_w, height=main_h, children=body),
+            CategoryRail(session=session, height=main_h, focus=focus),
+            PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
         row([
             text('Y', 12, Theme.blue, width=20),
@@ -344,5 +418,5 @@ def Workspace(session=None, revision=0):
 
 
 def category(session, identity):
-    session.page = 'workspace'
+    session.set('page', 'workspace')
     session.choose_group(identity)

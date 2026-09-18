@@ -99,7 +99,7 @@ class Session(object):
             self.progress = None
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
-        self.emit(field if field in ('inspector', 'view') else None)
+        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query') else None)
 
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:
@@ -130,9 +130,11 @@ class Session(object):
         self.emit()
 
     def choose_group(self, group):
+        if self.group == group and not self.query:
+            return
         self.group = group
         self.query = ''
-        self.emit()
+        self.emit('group')
 
     def action(self, callback, *args):
         try:
