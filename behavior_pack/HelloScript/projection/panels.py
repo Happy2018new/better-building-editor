@@ -80,6 +80,10 @@ def material_background(selected, state):
     return Image(color=Theme.tint if selected or state != ButtonState.default else Theme.pale)
 
 
+def optional(identity, visible, children):
+    return Panel(key=identity, style=S(width='100%', display=Display.flex if visible else Display.none), children=children)
+
+
 @Component
 def Parameters(session=None, revision=0):
     e = session.editor
@@ -97,25 +101,25 @@ def Parameters(session=None, revision=0):
         text(tool[2], 20),
         # Split help by sentence length into readable, deliberate lines.
         text(tool[3], 11, Theme.muted, width=216),
-        line(), MaterialPicker(session=session, revision=session.ui_revision, channels=channels) if channels else None,
-        line() if channels else None,
+        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=revision, channels=channels)),
+        optional('material_line', bool(channels), line()),
         text('作用范围', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
-        Action(label='恢复全选区域', compact=True, height=26,
-               onClick=partial(session.action, e.run, 'select_all')) if tool[0] == 'direct' else None,
+        optional('restore', tool[0] == 'direct', Action(label='恢复全选区域', compact=True, height=26,
+               onClick=partial(session.action, e.run, 'select_all'))),
         Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '来源')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
-        Coordinates(label='起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')) if 'start' in options else None,
-        Coordinates(label='终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end')) if 'end' in options else None,
-        Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
-              onChange=partial(session.set_editor, 'thickness'), unit=' 格') if 'thickness' in options else None,
-        Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
-              onChange=partial(session.set_editor, 'step'), unit=' 格') if 'step' in options else None,
-        Range(label='副材质比例', value=e.ratio, minimum=0, maximum=1,
-              onChange=partial(session.set_editor, 'ratio')) if 'ratio' in options else None,
-        row([text('随机种子', 11, Theme.muted, flex=1),
-             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)]) if 'seed' in options else None,
-        text('点击种子切换可复现的随机图案', 10, Theme.muted) if 'seed' in options else None,
+        optional('start', 'start' in options, Coordinates(label='起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start'))),
+        optional('end', 'end' in options, Coordinates(label='终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))),
+        optional('thickness', 'thickness' in options, Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
+              onChange=partial(session.range_value, 'thickness'), unit=' 格')),
+        optional('step', 'step' in options, Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
+              onChange=partial(session.range_value, 'step'), unit=' 格')),
+        optional('ratio', 'ratio' in options, Range(label='副材质比例', value=e.ratio, minimum=0, maximum=1,
+              onChange=partial(session.range_value, 'ratio'))),
+        optional('seed', 'seed' in options, row([text('随机种子', 11, Theme.muted, flex=1),
+             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)])),
+        optional('seed_help', 'seed' in options, text('点击种子切换可复现的随机图案', 10, Theme.muted)),
         Panel(style=S(height=8)),
     ]))
 
@@ -201,10 +205,10 @@ def ProjectionSettings(session=None, revision=0):
         Coordinates(label='投影原点  X, Y, Z', value=session.origin, onChange=partial(session.set, 'origin')),
         Action(label='使用脚下坐标', glyph='pin', onClick=partial(session.bridge.use_player_origin)),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
-              onChange=partial(session.set, 'opacity')),
+              onChange=partial(session.range_value, 'opacity', editor=False)),
         Action(label='逐层投影' if not session.solo_layer else '显示全部层', selected=session.solo_layer, onClick=session.toggle_solo),
         Range(label='当前建造层', value=e.layer, minimum=0, maximum=max(1, e.document.size[1] - 1),
-              integer=True, onChange=session.layer),
+              integer=True, onChange=partial(session.range_value, 'layer')),
         Action(label='仅显示缺失方块', selected=session.projection_missing,
                onClick=partial(session.set, 'projection_missing', not session.projection_missing)),
         Action(label='更新 / 生成投影', glyph='projection', accent=True, onClick=partial(session.action, session.bridge.project)),

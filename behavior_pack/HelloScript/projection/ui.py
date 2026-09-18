@@ -187,7 +187,7 @@ def Workspace(session=None, revision=0):
     # Removing it while its render job is pending can terminate the game process.
     editor_body = row([
         Panel(style=S(display=Display.none if focus or page == 'projection' else Display.flex),
-              children=ToolList(session=session, revision=session.ui_revision, height=main_h)),
+              children=ToolList(session=session, revision=(session.group, session.query, session.tool, Theme.scale), height=main_h)),
         Viewport(session=session, revision=session.ui_revision, width=middle_width, height=main_h),
         Panel(style=S(display=Display.flex if not focus or session.focus_inspector else Display.none),
               children=Inspector(session=session, revision=session.ui_revision, height=main_h)),
@@ -195,9 +195,9 @@ def Workspace(session=None, revision=0):
        display=Display.flex if page in ('workspace', 'projection') else Display.none)
     body = Panel(style=S(width=content_w, height=main_h), children=[editor_body,
         Panel(style=S(display=Display.flex if page == 'library' else Display.none),
-              children=Library(session=session, revision=session.ui_revision, width=content_w, height=main_h)),
+              children=Library(session=session, revision=session.ui_revision if page == 'library' else None, width=content_w, height=main_h)),
         Panel(style=S(display=Display.flex if page == 'guide' else Display.none),
-              children=Guide(session=session, revision=session.ui_revision, width=content_w, height=main_h)),
+              children=Guide(session=session, revision=session.reduced_motion, width=content_w, height=main_h)),
     ])
     categories = []
     for identity, title, glyph in GROUPS:

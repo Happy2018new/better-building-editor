@@ -16,6 +16,23 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_slider_changes_store_immediately_but_publish_once_after_settle(self):
+        b = Bridge()
+        timers = []
+        b.later = lambda delay, callback: timers.append(callback)
+        s = Session(b)
+        published = []
+        s.subscribe(lambda: published.append(s.editor.thickness))
+        for value in (2, 3, 4, 4, 5):
+            s.range_value('thickness', value)
+        self.assertEqual(s.editor.thickness, 5)
+        self.assertEqual(published, [])
+        for timer in timers:
+            timer()
+        self.assertEqual(published, [5])
+        s.range_value('opacity', .35, editor=False)
+        self.assertEqual(s.opacity, .35)
+
     def test_native_utf8_input_can_be_saved_and_reloaded(self):
         b = Bridge()
         s = Session(b)

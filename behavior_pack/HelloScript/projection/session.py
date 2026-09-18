@@ -54,6 +54,7 @@ class Session(object):
         self.pending_confirm = None
         self.busy = False
         self.ready = False
+        self.parameter_serial = 0
 
     def subscribe(self, callback):
         self.listeners.append(callback)
@@ -91,8 +92,26 @@ class Session(object):
         self.emit()
 
     def set_editor(self, field, value):
+        if getattr(self.editor, field) == value:
+            return
         setattr(self.editor, field, value)
         self.emit()
+
+    def range_value(self, field, value, editor=True):
+        """Store every slider change now; publish expensive panels after release."""
+        target = self.editor if editor else self
+        if getattr(target, field) == value:
+            return
+        setattr(target, field, value)
+        self.parameter_serial += 1
+        serial = self.parameter_serial
+        if field == 'layer':
+            self.refresh_preview()
+
+        def settled():
+            if serial == self.parameter_serial:
+                self.emit()
+        self.bridge.later(.16, settled)
 
     def choose_tool(self, tool):
         self.tool = tool

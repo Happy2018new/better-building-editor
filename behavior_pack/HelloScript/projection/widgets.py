@@ -9,7 +9,7 @@ from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
-from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive
+from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
 
 TEX = 'textures/modern_projection/'
@@ -44,7 +44,8 @@ def S(**values):
 class LabelPrimitive(BaseLabelPrimitive):
     def apply_props(self, host, fiber, control, prev_props, next_props):
         BaseLabelPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
-        if control is not None and next_props.get('rasterText'):
+        if control is not None and next_props.get('rasterText') and (
+                prev_props is None or prev_props.get('content') != next_props.get('content')):
             control.asLabel().SetText('', False)
 
 
@@ -70,6 +71,56 @@ Doll = PaperDollPrimitive()
 Doll.template_path = '/root/mp_doll_tmpl'
 NativeScroll = ScrollViewPrimitive()
 NativeScroll.template_path = '/root/mp_scroll_tmpl'
+
+
+class RoundedPrimitive(PanelPrimitive):
+    """Nine native patches, one layout node; fixed corners never become ellipses."""
+    template_path = '/root/mp_round_tmpl'
+
+    def props_affect_layout(self, prev_props, next_props, style):
+        return False
+
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        state = fiber.primitive_state
+        if 'patches' not in state:
+            state['patches'] = [host.GetBaseUIControl(fiber.native_path + '/p%d' % i) for i in range(9)]
+        color = next_props.get('color') or Theme.white
+        rgb = color.to_rgb_tuple()
+        if state.get('rgb') != rgb:
+            for patch in state['patches']:
+                patch.asImage().SetSpriteColor(rgb)
+            state['rgb'] = rgb
+        if state.get('_layout_applied'):
+            self.paint(fiber, state['_layout_applied'][:2], state.get('_inherited_opacity', 1.))
+
+    def paint(self, fiber, size, alpha):
+        state = fiber.primitive_state
+        width, height = size
+        scale = state.get('_visual_scale', (1., 1.))
+        radius = fiber.props.get('radius', 7 * Theme.scale)
+        rx, ry = min(radius * scale[0], width / 2.), min(radius * scale[1], height / 2.)
+        color = fiber.props.get('color') or Theme.white
+        signature = (width, height, rx, ry, alpha * color.a)
+        if state.get('rounded_paint') == signature:
+            return
+        old = state.get('rounded_paint')
+        for i, patch in enumerate(state['patches']):
+            row_index, col = i // 3, i % 3
+            if old is None or old[:4] != signature[:4]:
+                patch.SetPosition(((0., rx, width - rx)[col], (0., ry, height - ry)[row_index]))
+                patch.SetSize(((rx, max(0., width - 2 * rx), rx)[col],
+                               (ry, max(0., height - 2 * ry), ry)[row_index]))
+            if old is None or old[4] != signature[4]:
+                patch.SetAlpha(signature[4])
+        state['rounded_paint'] = signature
+
+    def apply_layout(self, host, node):
+        # _layout_applied includes visual scaling; frame_w/h are logical during layout.
+        size = node.fiber.primitive_state.get('_layout_applied', (node.frame_w, node.frame_h))[:2]
+        self.paint(node.fiber, size, node.inherited_opacity)
+
+
+Rounded = RoundedPrimitive()
 
 
 class PointerPrimitive(ButtonPrimitive):
@@ -258,18 +309,8 @@ def row(children, **style):
 
 
 def rounded_skin(color, radius=7):
-    # Explicit high-resolution corners avoid GUI-scale dependent native nine-slicing.
-    rows = []
-    for r, v in enumerate((0, 24, 40)):
-        vh = 16 if r == 1 else 24
-        cells = []
-        for c, u in enumerate((0, 24, 40)):
-            uw = 16 if c == 1 else 24
-            cells.append(Image(src=TEX + 'rounded', color=color, uv=(u, v), uvSize=(uw, vh),
-                style=S(width=radius if c != 1 else None, flex=1 if c == 1 else 0, height='100%')))
-        rows.append(Panel(style=S(flexDirection=FlexDirection.row, width='100%',
-                                 height=radius if r != 1 else None, flex=1 if r == 1 else 0), children=cells))
-    return Panel(style=S(position=Position.absolute, left=0, top=0, width='100%', height='100%', zIndex=-3), children=rows)
+    return Rounded(color=color, radius=radius * Theme.scale,
+                   style=S(position=Position.absolute, left=0, top=0, width='100%', height='100%', zIndex=-3))
 
 
 def surface(children=None, color=None, **style):
@@ -309,8 +350,11 @@ def PageMotion(page=None, children=None, width=760, height=440):
         set_progress(min(1., (now - started.current) / .28))
     use_animation_frame(tick, progress < 1.)
     eased = 1 - (1 - progress) ** 3 if Theme.motion else 1.
-    return Panel(style=S(width=width, height=height, opacity=.4 + .6 * eased,
-                        transform=[Translate(12 * (1 - eased) * Theme.scale, 0)]), children=children)
+    # Translate one parent and fade one cover; never fade thousands of children.
+    return Panel(style=S(width=width, height=height,
+                        transform=[Translate(12 * (1 - eased) * Theme.scale, 0)]), children=[children,
+        Image(color=Theme.bg, style=S(position=Position.absolute, width='100%', height='100%',
+                                     zIndex=40, opacity=.65 * (1 - eased)))])
 
 
 @Component
@@ -324,12 +368,13 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None):
             set_progress(0.)
         if onClick:
             onClick()
+    stable_click = use_callback(clicked, [onClick])
 
     def tick(now):
         set_progress(min(1., (now - started.current) / .36))
     use_animation_frame(tick, progress < 1.)
     wobble = math.exp(-6 * progress) * math.sin(3 * math.pi * progress) if progress < 1. else 0.
-    return Button(onClick=clicked, buttonBuilder=buttonBuilder,
+    return Button(onClick=stable_click, buttonBuilder=buttonBuilder,
                   style=(style or NativeStyle()).merge(NativeStyle(transform=[Scale(1 + .06 * wobble, 1 - .08 * wobble)])),
                   children=children)
 
@@ -347,6 +392,7 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
             started.current = time.time()
             set_progress(0.)
         onClick()
+    stable_click = use_callback(click, [onClick, enabled])
 
     def tick(now):
         set_progress(min(1., (now - started.current) / .44))
@@ -355,57 +401,84 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     base = Theme.blue if accent else (Theme.tint if selected else Theme.pale)
     ink = Theme.white if accent else (Theme.red if danger else (Theme.blue if selected else Theme.ink))
 
-    def background(state):
-        return Image(src=TEX + 'rounded', color=(Color(0x477AF414) if state == ButtonState.hover
-                     else Color(0x26374B22) if state == ButtonState.pressed else Colors.transparent))
-    contents = []
-    if glyph:
-        contents.append(icon(glyph, ink, 15 if compact else 17))
-    if label:
-        contents.append(text(label, 11 if compact else 12, ink))
-    children = [rounded_skin(base), row(contents, justifyContent=JustifyContent.center, paddingHorizontal=9)]
-    if 0 <= progress < 1. and Theme.motion:
-        for i in range(6):
-            angle = i * math.pi / 3.
-            children.append(Image(key='burst%d' % i, src=TEX + 'dot', color=Theme.blue,
-                style=S(position=Position.absolute, left='50%', top='50%', width=3, height=3,
-                        opacity=(1. - progress) ** 2, zIndex=20,
-                        transform=[Translate(math.cos(angle) * 27 * progress * Theme.scale,
-                                             math.sin(angle) * 20 * progress * Theme.scale)])))
-    return Button(buttonBuilder=background, onClick=click if enabled else None,
+    def content():
+        contents = []
+        if glyph:
+            contents.append(icon(glyph, ink, 15 if compact else 17))
+        if label:
+            contents.append(text(label, 11 if compact else 12, ink))
+        return [rounded_skin(base), row(contents, justifyContent=JustifyContent.center, paddingHorizontal=9)]
+    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, Theme.scale]))
+    # One permanent sprite replaces six separately laid-out particle controls.
+    children.append(Image(key='burst', src=TEX + 'transparent', frames=BURST_FRAMES,
+        frameDuration=.0275, playing=progress < 1. and Theme.motion, loop=False,
+        style=S(position=Position.absolute, left='50%', top='50%', width=60, height=48,
+                opacity=1 if progress < 1. and Theme.motion else 0., zIndex=20,
+                transform=[Translate(-30 * Theme.scale, -24 * Theme.scale)])))
+    return Button(buttonBuilder=action_background, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1 if enabled else .38,
                           transform=[Scale(1 + .07 * wobble, 1 - .10 * wobble)]), children=children)
 
 
+def action_background(state):
+    return Image(src=TEX + 'rounded', color=(Color(0x477AF414) if state == ButtonState.hover
+                 else Color(0x26374B22) if state == ButtonState.pressed else Colors.transparent))
+
+
+BURST_FRAMES = tuple(TEX + 'burst_%02d' % i for i in range(16))
+
+
 @Component
 def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', integer=False):
-    pulse, set_pulse = use_state(False)
-    normalized = max(0., min(1., (value - minimum) / float(maximum - minimum)))
+    current, set_current = use_state(value)
+    track, fill, knob = use_ref(None), use_ref(None), use_ref(None)
+    pulse = use_ref(0.)
+    applied = use_ref(None)
+
+    def sync():
+        set_current(value)
+    use_effect(sync, [value])
+    normalized = max(0., min(1., (current - minimum) / float(maximum - minimum)))
 
     def change(v):
         val = minimum + v * (maximum - minimum)
         if integer:
             val = int(math.floor(val + .5))
-        set_pulse(True)
+        if val == current:
+            return
+        pulse.current = time.time()
+        set_current(val)
         if onChange:
             onChange(val)
 
-    def release():
-        set_pulse(False)
+    def tick(now):
+        if not all(r.current for r in (track, fill, knob)):
+            return
+        width = track.current.GetSize()[0]
+        age = max(0., now - pulse.current)
+        swell = 1 + .16 * math.exp(-18 * age) if Theme.motion and age < .4 else 1.
+        size = 15 * Theme.scale * swell
+        signature = (width, normalized, size, Theme.scale)
+        if applied.current == signature:
+            return
+        applied.current = signature
+        fill.current.SetSize((width * normalized, 4 * Theme.scale))
+        knob.current.SetSize((size, size))
+        knob.current.SetPosition((width * normalized - size / 2., 13 * Theme.scale - size / 2.))
+    use_animation_frame(tick)
+    stable_change = use_callback(change, [current, minimum, maximum, integer, onChange])
     return Panel(style=S(height=49, width='100%'), children=[
-        row([text(label, 11, Theme.muted, flex=1), text(('%d' % value if integer else '%.2f' % value) + unit, 11)]),
+        row([text(label, 11, Theme.muted, flex=1),
+             NativeText(content=('%d' % current if integer else '%.2f' % current) + unit,
+                        fontSize=11 * Theme.scale, color=Theme.ink, shadow=False,
+                        textAlign=TextAlignment.right, style=S(width=66, height=15))]),
         Panel(style=S(height=26, width='100%', marginTop=3, paddingHorizontal=10), children=[
-          Panel(style=S(height=26, width='100%'), children=[
-            surface(color=Theme.line, position=Position.absolute, top=11, height=4, width='100%'),
-            surface(color=Theme.blue, position=Position.absolute, top=11, height=4,
-                    width='%.3f%%' % (100 * max(0., min(1., normalized)))),
-            Animated(style=S(position=Position.absolute, left='%.3f%%' % (100 * max(0., min(1., normalized))),
-                             top=5, width=15, height=15),
-                     transition=NativeStyle(transform=[Scale(1.2 if pulse and Theme.motion else 1.)]),
-                     transitionEasing=Easing.back_out, duration=.16, onTransitionComplete=release,
-                     children=Image(src=TEX + 'knob', style=S(width=15, height=15, marginLeft=-7.5))),
-            Slider(value=normalized, steps=1, onChange=change, style=S(width='100%', height=26, zIndex=4)),
+          Panel(ref=track, style=S(height=26, width='100%'), children=[
+            Image(color=Theme.line, style=S(position=Position.absolute, top=11, height=4, width='100%')),
+            Image(ref=fill, color=Theme.blue, style=S(position=Position.absolute, top=11, height=4, width=0)),
+            Image(ref=knob, src=TEX + 'knob', style=S(position=Position.absolute, width=15, height=15)),
+            Slider(value=normalized, steps=1, onChange=stable_change, style=S(width='100%', height=26, zIndex=4)),
           ])])])
 
 

@@ -11,6 +11,217 @@
     "rotation": "none",
     "enable_scissor_test": true
   },
+  "round@PyreactBase.panel": {
+    "controls": [
+      {
+        "p0": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            24,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p1": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            24,
+            0
+          ],
+          "uv_size": [
+            16,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p2": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            40,
+            0
+          ],
+          "uv_size": [
+            24,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p3": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            0,
+            24
+          ],
+          "uv_size": [
+            24,
+            16
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p4": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            24,
+            24
+          ],
+          "uv_size": [
+            16,
+            16
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p5": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            40,
+            24
+          ],
+          "uv_size": [
+            24,
+            16
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p6": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            0,
+            40
+          ],
+          "uv_size": [
+            24,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p7": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            24,
+            40
+          ],
+          "uv_size": [
+            16,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "p8": {
+          "type": "image",
+          "texture": "textures/modern_projection/rounded",
+          "bilinear": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "keep_ratio": false,
+          "layer": 2,
+          "uv": [
+            40,
+            40
+          ],
+          "uv_size": [
+            24,
+            24
+          ],
+          "size": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
   "input_background": {
     "type": "image",
     "texture": "textures/modern_projection/input_bg",

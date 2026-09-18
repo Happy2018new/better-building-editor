@@ -13,6 +13,8 @@
 
 内部实现将 Style 字段分为 **layout** 与 **visual**。layout 变更会触发完整 measure/layout；仅 `opacity` / `transform` 等 paint 类 visual 变更会走快速路径，直接写 native alpha/位置，跳过整树布局。
 
+快速路径直接调用原生 SetPosition / SetSize / SetAlpha，不再请求整屏 UpdateScreen；结构、显隐和层级变更仍按正常提交刷新。动画应复用未变化的 children Element，reconciler 会跳过同一不可变 Element 的干净子树（独立变脏的组件仍更新）。大页面优先移动容器、淡出单个遮罩；父级 opacity 继承需要逐个更新后代，成本与子树大小成正比。
+
 `transform` 支持 `Translate`（设计像素平移）与 `Scale`（缩放），不参与布局流，叠加在 layout frame 之外：
 
 注：对于简单动画尽量使用 visual 过渡，避免频繁触发 layout。

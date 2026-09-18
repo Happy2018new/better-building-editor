@@ -210,6 +210,10 @@ def _attach_ref(fiber, control):
 
 def update_fiber(fiber, element, host):
     """用新 element 更新已挂载的 fiber（同类型）。"""
+    # Elements are immutable. Animation wrappers retain their children between
+    # frames; walking that unchanged subtree defeats the visual-only path.
+    if fiber.element is element and not fiber.dirty:
+        return
     fiber.element = element
     fiber.props = element.props
     fiber.style = element.style
@@ -234,12 +238,11 @@ def _update_component(fiber, host):
 def _update_primitive(fiber, host):
     from . import renderer
     from .style import (
-        style_layout_changed, style_visual_changed, style_paint_changed,
+        style_layout_changed, style_paint_changed,
     )
     props_changed = _props_changed(fiber.last_props, fiber.props)
     style_changed = _style_changed(fiber.last_style, fiber.style)
     layout_changed = style_layout_changed(fiber.last_style, fiber.style)
-    visual_changed = style_visual_changed(fiber.last_style, fiber.style)
     # opacity / transform：可走 visual-fast 而不触发 measure/layout
     paint_changed = style_paint_changed(fiber.last_style, fiber.style)
     visible = renderer.resolve_visible(fiber.style)
@@ -248,7 +251,9 @@ def _update_primitive(fiber, host):
         control = native.get_control(host, fiber.native_path)
     else:
         control = None
-    if visibility_changed or visual_changed:
+    layer_changed = (fiber.last_style.get('zIndex') if fiber.last_style else None) != (
+        fiber.style.get('zIndex') if fiber.style else None)
+    if visibility_changed or layer_changed:
         # visible / zIndex 走 apply_style；opacity / transform 见 paint 路径
         renderer.apply_style(host, fiber, control, fiber.style, visible)
         host._commit_native_dirty = True

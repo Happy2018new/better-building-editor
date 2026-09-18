@@ -150,7 +150,8 @@ def apply_visual_fast(host, fiber):
     if old_visual_scale != visual_scale:
         _refresh_subtree_transform(host, fiber, visual_scale[0], visual_scale[1])
 
-    host._commit_native_dirty = True
+    # Position/size/alpha setters already update native drawing immediately.
+    # Structural changes still request UpdateScreen at the commit boundary.
     return True
 
 

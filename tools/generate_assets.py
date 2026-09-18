@@ -58,6 +58,15 @@ def graphics():
     shape('knob', (36, 36), lambda d, s: (d.ellipse((2*s, 3*s, 34*s, 35*s), fill='#CCD8EE'),
         d.ellipse((3*s, 2*s, 33*s, 32*s), fill='white'), d.ellipse((13*s, 12*s, 23*s, 22*s), fill='#477AF4')))
     Image.new('RGBA', (2, 2)).save(OUT / 'transparent.png')
+    for i in range(16):
+        progress = i / 15.
+        particle = Image.new('RGBA', (180, 144))
+        draw = ImageDraw.Draw(particle)
+        for j in range(6):
+            angle = j * math.pi / 3.
+            x, y = 90 + math.cos(angle) * 81 * progress, 72 + math.sin(angle) * 60 * progress
+            draw.ellipse((x - 4, y - 4, x + 4, y + 4), fill=(71, 122, 244, int(255 * (1 - progress) ** 2)))
+        particle.save(OUT / ('burst_%02d.png' % i))
     for name, color in [('input_bg', '#F0F4FA'), ('input_hover', '#E6EDFA')]:
         shape(name, (32, 32), lambda d, s, c=color: d.rounded_rectangle((0, 0, 32*s-1, 32*s-1), 6*s, fill=c))
     grid = Image.new('RGBA', (800, 800), '#F7F9FC')
@@ -118,6 +127,12 @@ def native_skin():
         'label@PyreactBase.label':{'font_type':'smooth','backup_font_type':'smooth'},
         'type_image@PyreactBase.image':{'bilinear':True},
         'doll@PyreactBase.paperDoll':{'rotation':'none', 'enable_scissor_test':True},
+        'round@PyreactBase.panel': {'controls': [
+            {'p%d' % (r * 3 + c): {'type': 'image', 'texture': tex + 'rounded', 'bilinear': True,
+                'anchor_from': 'top_left', 'anchor_to': 'top_left', 'keep_ratio': False, 'layer': 2,
+                'uv': [u, v], 'uv_size': [16 if c == 1 else 24, 16 if r == 1 else 24],
+                'size': [0, 0]}}
+            for r, v in enumerate((0, 24, 40)) for c, u in enumerate((0, 24, 40))]},
         'input_background':{'type':'image','texture':tex+'input_bg','size':['100%','100%'],'keep_ratio':False,'nineslice_size':[4,4,4,4],'bilinear':True},
         'input_hover@ModernProjection.input_background':{'texture':tex+'input_hover'},
         'input@PyreactBase.input':{'$text_background_default':ns+'.input_background', '$text_background_hover':ns+'.input_hover',
@@ -150,7 +165,7 @@ def native_skin():
     base_path=ROOT/'resource_pack/ui/PyreactBase.json'
     base=json.loads(base_path.read_text(encoding='utf8'))
     controls=base['rootBase']['controls']
-    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll')]:
+    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round')]:
         key='mp_%s_tmpl@ModernProjection.%s'%(suffix,target)
         if not any(key in c for c in controls):
             controls.append({key:{}})
