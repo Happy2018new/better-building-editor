@@ -15,11 +15,12 @@ results = []
 if '还原视图' in ui.labels():
     ui.click('还原视图')
 ui.click('工作台')
-from verify_selection_scope import diagnostic, wait_preview
-diagnostic({'fixture': 'demo'}); wait_preview()
+from verify_selection_scope import diagnostic, wait_preview, click_point
+large = '--large' in sys.argv
+diagnostic({'fixture': 'demo_large' if large else 'demo'}); wait_preview()
 reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
 ui.call('click', ui.nodes('Button', reset)[0]['id'])
-for preset in (sys.argv[1:] or ('20:9', '4:3', '16:10', '16:9')):
+for preset in ([a for a in sys.argv[1:] if a != '--large'] or ('20:9', '4:3', '16:10', '16:9')):
     process = subprocess.run([sys.executable, str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/resize_window.py'),
                               '--preset', preset], capture_output=True, check=True, encoding='utf8')
     result = json.loads(process.stdout)
@@ -49,8 +50,8 @@ for preset in (sys.argv[1:] or ('20:9', '4:3', '16:10', '16:9')):
     # Hit coordinates must continue to agree with the fitted native model after resize.
     import verify_interaction as interaction
     ui.click('浏览'); ui.click('俯视'); time.sleep(.6)
-    interaction.tap(*interaction.point((8.5, 11., 14.5)))
-    ui.check(preset + ' resized viewport picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    click_point((8.5, 11., 14.5))
+    ui.check(preset + ' resized viewport picks roof', diagnostic()['focused'] == [8, 10, 14])
     canvas = ui.nodes('Scene')[0]['children'][0]
     clip = next(child for child in canvas['children'] if ui.nodes('PaperDoll', child))
     native_clip = ui.call('native_control', clip['id'])['result']
@@ -71,13 +72,13 @@ for preset in (sys.argv[1:] or ('20:9', '4:3', '16:10', '16:9')):
              expanded['layout']['width'] > before['layout']['width'] * 1.5 and
              expanded['layout']['height'] > before['layout']['height'] * 1.15)
     ui.check(preset + ' focus collapses tool panels', not ui.nodes('ToolList') and not ui.nodes('Inspector'))
-    interaction.tap(*interaction.point((8.5, 11., 14.5)))
-    ui.check(preset + ' focus viewport still picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    click_point((8.5, 11., 14.5))
+    ui.check(preset + ' focus viewport still picks roof', diagnostic()['focused'] == [8, 10, 14])
     ui.click('材质与属性')
     ui.check(preset + ' focus inspector fits', frame(ui.nodes('Inspector')[0])['x'] +
              frame(ui.nodes('Inspector')[0])['width'] <= width + .5)
-    interaction.tap(*interaction.point((8.5, 11., 14.5)))
-    ui.check(preset + ' docked focus viewport still picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
+    click_point((8.5, 11., 14.5))
+    ui.check(preset + ' docked focus viewport still picks roof', diagnostic()['focused'] == [8, 10, 14])
     ui.click('材质与属性'); ui.click('还原视图')
     restored = interaction.pointer()
     ui.check(preset + ' restore preserves native renderer and exact viewport size', restored['id'] == before['id'] and

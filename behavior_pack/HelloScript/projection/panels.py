@@ -7,7 +7,8 @@ from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
 from .widgets import JellyButton as Button, use_theme
 from .catalog import BY_ID, MATERIALS, tool_parameters
-from .model import AIR, SMALL_VOLUME, MAX_AXES, bounds
+from .model import AIR, MAX_AXES, bounds
+from .chunks import needs_chunk_view
 from .coordinates import parse_coordinates
 
 
@@ -159,9 +160,9 @@ def Parameters(session=None, revision=0):
         optional('corners', coordinates_open or 'start' in options or 'end' in options, [
             Coordinates(label='选区起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')),
             Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))]),
-        optional('local_focus', e.document.volume > SMALL_VOLUME, Coordinates(
-            label='精细视图中心  X, Y, Z', value=session.preview_center,
-            onChange=partial(session.action, session.focus_preview))),
+        optional('local_focus', needs_chunk_view(e.document.size), [
+            text('批量工具作用于正式选区，可跨多个分块', 10, Theme.muted),
+            Action(label='选中当前分块', glyph='select_box', height=28, onClick=session.select_chunk)]),
         line(), text('方块修改条件', 12),
         Segments(items=[('all', '全部'), ('solid', '方块'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),

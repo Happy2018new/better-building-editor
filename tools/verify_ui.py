@@ -13,6 +13,12 @@ from check_native_dialogs import assert_clear
 OUT = ROOT / '.runtime'
 checks = []
 
+# Keep the display producing frames during a live test. This is scoped to this
+# Python process and does not change the user's system power configuration.
+if sys.platform == 'win32':
+    import ctypes
+    ctypes.windll.kernel32.SetThreadExecutionState(0x80000003)
+
 
 def call(command, node=None, value=None):
     assert_clear()
@@ -26,6 +32,12 @@ def call(command, node=None, value=None):
         result = request('ping', timeout=5)
     if not result or result.get('error'):
         raise AssertionError(result or 'IPC timed out')
+    if command in ('dump_tree', 'dump_subtree'):
+        # The in-game debugger polls the clipboard. Leaving a multi-megabyte
+        # tree reply there would make every idle frame copy that entire reply
+        # and distort native performance tests. Keep the parsed reply locally.
+        acknowledgement = request('ping', timeout=5)
+        assert acknowledgement and not acknowledgement.get('error'), acknowledgement
     return result
 
 

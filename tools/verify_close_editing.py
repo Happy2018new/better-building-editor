@@ -23,6 +23,7 @@ def main():
     ui.click('工作台'); ui.click('完整'); ui.click('选取')
     diagnostic({'fixture': 'solid', 'camera': [35, 25, 1.42], 'pan': [0, 0]})
     wait_preview()
+    ui.click('整栋总览'); wait_preview()
     builds = diagnostic()['previewBuilds']
     images, report = [], []
     for yaw, pitch, zoom in ((35,25,8.72), (35,25,19.2763), (35,25,100),
@@ -40,7 +41,7 @@ def main():
         ui.check('solid surface stays visible at %s' % ((yaw,pitch,zoom),), coverage > .98)
         state = diagnostic(); box = pointer()['layout']
         camera = OrbitCamera(*state['pose']); camera.pan = tuple(state['pan'])
-        unit = min(box['width'],box['height']) * .72 * state['pose'][2] / 100.
+        unit = min(box['width'],box['height']) * .72 * state['pose'][2] / max(state['sceneSize'])
         ray = camera.ray(box['width']/2.,box['height']/2.,state['sceneSize'],box['width'],box['height'],unit)
         expected = raycast(SimpleNamespace(size=state['size'], blocks=Solid(), contains=lambda p: all(0<=p[i]<state['size'][i] for i in range(3))), *ray)[0]
         tap(box['width']/2.,box['height']/2.)
@@ -53,14 +54,12 @@ def main():
     diagnostic({'camera':[35,25,1.42], 'pan':[0,0]});time.sleep(1)
     click_point((40.5,72.5,64.))
     ui.check('overview picks far wall voxel',diagnostic()['focused']==[40,72,63])
-    ui.click('定位选中');time.sleep(.9)
+    ui.click('定位选中');wait_preview();time.sleep(.9)
     state=diagnostic();box=pointer()['layout']
     camera=OrbitCamera(*state['pose']);camera.pan=tuple(state['pan'])
-    unit=min(box['width'],box['height'])*.72*state['pose'][2]/100.
-    screen=camera.project((40.5,72.5,63.5),state['sceneSize'],box['width'],box['height'],unit)
-    ui.check('locate centers selected voxel without cropping the document',
-             abs(screen[0]-box['width']/2.)<.02 and abs(screen[1]-box['height']/2.)<.02 and state['sceneSize']==[64,100,64])
-    ui.check('locate gives 20 design pixels per block',abs(unit / (box['width']/ui.nodes('Scene')[0]['props']['width']) - 20.)<.01)
+    ui.check('locate opens the selected 16-cube while preserving the entire draft',
+             state['sceneSize']==[16,16,16] and state['origin']==[32,64,48] and state['size']==[64,128,64])
+    ui.check('locate returns to practical 100 percent magnification',state['pose'][2]==1.)
     before=state['blocks'];ui.click('擦除');ui.click('单格');tap(box['width']/2.,box['height']/2.);wait_preview()
     ui.check('located voxel can be erased',diagnostic()['blocks']==before-1)
     ui.click('历史');ui.click('撤销');wait_preview();ui.click('参数');ui.click('选取')

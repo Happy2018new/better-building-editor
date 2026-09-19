@@ -11,6 +11,8 @@ from verify_interaction import pointer
 def main():
     capture.user32.SetProcessDPIAware()
     ui.new_region((25,64,25)); wait_preview()
+    if '整栋总览' in ui.labels():
+        ui.click('整栋总览'); wait_preview()
     diagnostic({'camera':[0,90,2], 'pan':[0,0]}); time.sleep(.5)
     ui.click('放置'); click_point((12.5,0,12.5)); wait_preview()
     before = diagnostic(); assert before['blocks']==1,before
@@ -40,7 +42,7 @@ def main():
     (ui.OUT/'rapid_native_trace.json').write_text(json.dumps({'before':native_before,'after':native_after},ensure_ascii=False,indent=2),encoding='utf8')
     print('native input counts', native_before.get('globalClickCounts'),native_after.get('globalClickCounts'),flush=True)
     print('rapid result', seconds, before, after, flush=True)
-    ui.check('forty native clicks all place across five tile boundaries', after['blocks']==41)
+    ui.check('forty native clicks all place across 16-cube boundaries', after['blocks']==41)
     ui.check('latest selected cell matches the complete stack', after['start']==after['end']==[12,40,12])
     ui.click('历史'); ui.click('撤销'); wait_preview()
     ui.check('last rapid placement has its own undo', diagnostic()['blocks']==40)

@@ -10,8 +10,19 @@ from projection.camera import OrbitCamera
 
 
 def diagnostic(value=None):
-    node = next(n for n in ui.nodes('Panel') if n['props'].get('onDebug'))
-    return ui.call('debug_component',node['id'],value)['result']
+    # A complete 128-renderer tree dump can dominate the operation being timed.
+    # The scene stays mounted across draft changes; cache its diagnostic target.
+    identity = getattr(diagnostic, 'identity', None)
+    if identity is None:
+        identity = next(n['id'] for n in ui.nodes('Panel') if n['props'].get('onDebug'))
+        diagnostic.identity = identity
+    try:
+        return ui.call('debug_component', identity, value)['result']
+    except AssertionError as error:
+        if 'component has no diagnostic callback' not in str(error):
+            raise
+        diagnostic.identity = None
+        return diagnostic(value)
 
 
 def wait_preview(timeout=120):

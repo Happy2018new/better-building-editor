@@ -80,8 +80,8 @@ class EditNavigationTests(unittest.TestCase):
             toward=OrbitCamera(*angles).basis()[2]
             plane=(toward,sum((abs(toward[i])+toward[i])*e.document.size[i]/2. for i in range(3))-depth)
             for focus in (None,(30,30,30)):
-                origin=(0,0,0) if focus is None else (3,2,1)
-                size=e.document.size if focus is None else (32,32,32)
+                origin=(0,0,0) if focus is None else (16,16,16)
+                size=e.document.size if focus is None else (16,16,16)
                 def visible(p):
                     return all(origin[i]<=p[i]<origin[i]+size[i] for i in range(3)) and p[1]!=17 and behind_plane(p,plane)
                 expected={p:value for p,value in e.document.blocks.items() if visible(p) and

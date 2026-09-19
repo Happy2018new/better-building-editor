@@ -27,8 +27,8 @@ class ExactPreviewTests(unittest.TestCase):
         e.document.blocks[(17, 16, 16)] = GLASS
         for hidden, layer, focus in (((), None, None), ((17,), None, None), (tuple(range(17,34)), None, None),
                                      ((), 20, None), ((), None, (30,30,30))):
-            size = e.document.size if focus is None else (32,32,32)
-            origin = (0,0,0) if focus is None else (3,2,1)
+            size = e.document.size if focus is None else (16,16,16)
+            origin = (0,0,0) if focus is None else (16,16,16)
             def visible(p):
                 return all(origin[i] <= p[i] < origin[i]+size[i] for i in range(3)) and p[1] not in hidden and (layer is None or p[1] == layer)
             expected = {p: value for p, value in e.document.blocks.items() if visible(p) and

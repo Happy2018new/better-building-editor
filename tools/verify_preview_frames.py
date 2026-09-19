@@ -17,6 +17,9 @@ def main():
     if '还原视图' in ui.labels():
         ui.click('还原视图')
     ui.click('入门指南'); ui.click('载入庭院示例'); ui.click('确认继续'); ui.click('工作台')
+    if '--large' in sys.argv:
+        diagnostic({'fixture':'demo_large'})
+        wait_preview()
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     ui.click('俯视'); ui.click('放置')
@@ -34,7 +37,9 @@ def main():
     scale = width / root['width']
     region = dict(left=int(left + box['x'] * scale), top=int(top + box['y'] * scale),
                   width=int(box['width'] * scale), height=int(box['height'] * scale))
-    x, y = interaction.point((8.5, 11., 14.5))
+    size=before['sceneSize']
+    x,y=interaction.OrbitCamera(0,90).project((8.5,11.,14.5),size,box['width'],box['height'],
+        min(box['width'],box['height'])*.72/max(size))
     capture.user32.SetCursorPos(int(region['left'] + x * scale), int(region['top'] + y * scale))
     time.sleep(.15)
     frames, counts, quartz_counts, times = [], [], [], []

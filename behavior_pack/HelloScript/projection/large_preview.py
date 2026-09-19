@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from .storage import integer_types
 from .camera import behind_plane
+from .chunks import view_bounds
 
 # Unknown/custom/transparent/non-cubic blocks never conceal their neighbours.
 OPAQUE = frozenset('stone stonebrick planks concrete wool quartz_block dirt grass '
@@ -30,15 +31,14 @@ class SurfacePalette(object):
                 'common': self.common, 'eliminateAir': True}
 
 
-def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None):
+def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None, local=False):
     hidden = set(hidden)
-    size = document.size if focus is None else tuple(min(32, v) for v in document.size)
-    origin = (0, 0, 0) if focus is None else tuple(
-        max(0, min(document.size[i] - size[i], focus[i] - size[i] // 2)) for i in range(3))
+    origin, size = view_bounds(document.size, focus)
     end = tuple(origin[i] + size[i] for i in range(3))
     scan_lo = origin if region is None else tuple(max(origin[i], region[0][i]) for i in range(3))
     scan_hi = end if region is None else tuple(min(end[i], region[1][i]) for i in range(3))
-    out = SurfacePalette(size)
+    palette_origin = scan_lo if local else origin
+    out = SurfacePalette(tuple(scan_hi[i]-scan_lo[i] for i in range(3)) if local else size)
     store = document.blocks
     opaque = [value[0].startswith('minecraft:') and value[0].split(':')[-1] in OPAQUE for value in store.palette]
     ys = set(y for y in range(origin[1], end[1]) if y not in hidden and (layer is None or y == layer))
@@ -118,7 +118,7 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
                     for x in (range(low[0], high[0]+1) if exposed_layer or z in zs else xs):
                         if simple or not (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and
                                 conceals(x, y+1, z) and conceals(x, y, z-1) and conceals(x, y, z+1)):
-                            out.add((x-origin[0], y-origin[1], z-origin[2]), store.palette[chunk])
+                            out.add((x-palette_origin[0], y-palette_origin[1], z-palette_origin[2]), store.palette[chunk])
                     yield None
             continue
         for y in range(max(base[1], scan_lo[1]), min(base[1] + 16, scan_hi[1])):
@@ -137,6 +137,6 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
                     if interior or (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and
                                     conceals(x, y+1, z) and conceals(x, y, z-1) and conceals(x, y, z+1)):
                         continue
-                    out.add((x-origin[0], y-origin[1], z-origin[2]), store.palette[identity])
+                    out.add((x-palette_origin[0], y-palette_origin[1], z-palette_origin[2]), store.palette[identity])
                 yield None
-    yield out, origin, 1
+    yield out, palette_origin, 1

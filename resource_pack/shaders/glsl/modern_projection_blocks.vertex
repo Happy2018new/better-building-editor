@@ -47,15 +47,19 @@ void main()
 
     // PaperDoll scales XYZ together but retains a fixed orthographic depth
     // range. At close editing distances this clips otherwise visible faces.
-    // Use one affine depth mapping for the whole draw: local block coordinates
-    // are bounded by 100 on each axis (128 also covers native centering).
-    // Unlike a per-vertex clamp/nonlinear mapping this preserves interpolation,
-    // opaque/glass occlusion and the exact screen-space block grid.
+    // Preserve each UI control's centre depth while bounding its local depth
+    // span. Normalizing the entire Z value erased the separation between
+    // independently positioned chunk renderers and exposed internal faces.
+    // This mapping is affine within each draw, so it preserves interpolation
+    // and within-chunk depth order. XY and world perspective are untouched.
     bool preview = abs(PROJ[3][3]) > 0.5;
     if (preview) {
         float depthRange = 1.0 + abs(WORLDVIEWPROJ[3][2]) + 128.0 *
             (abs(WORLDVIEWPROJ[0][2]) + abs(WORLDVIEWPROJ[1][2]) + abs(WORLDVIEWPROJ[2][2]));
-        pos.z /= depthRange;
+        float centerDepth = WORLDVIEWPROJ[3][2];
+        float localDepth = (pos.z - centerDepth) / depthRange;
+        pos.z = (centerDepth + localDepth * abs(PROJ[2][2]) * 0.25) /
+            (1.0 + abs(centerDepth));
     }
     gl_Position = pos;
 

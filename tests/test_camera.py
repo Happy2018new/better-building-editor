@@ -48,8 +48,8 @@ class CameraTests(unittest.TestCase):
                 self.assertEqual(extent/2.+pan[axis],position[axis]+size[axis]/2.)
 
     def test_document_cap_rejects_each_oversized_axis(self):
-        self.assertEqual(409600,Document((64,100,64)).volume)
-        for size in ((65,100,64),(64,101,64),(64,100,65)):
+        self.assertEqual(524288,Document((64,128,64)).volume)
+        for size in ((65,128,64),(64,129,64),(64,128,65)):
             with self.assertRaises(ValueError):
                 Document(size)
 

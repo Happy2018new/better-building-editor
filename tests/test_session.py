@@ -29,7 +29,7 @@ class SessionTests(unittest.TestCase):
         s = Session(b); s.initialize()
         before = s.editor
         for identity in (1, 2):
-            with self.assertRaisesRegex(ValueError, '64 × 100 × 64'):
+            with self.assertRaisesRegex(ValueError, '64 × 128 × 64'):
                 s.load(identity)
             self.assertIs(before, s.editor)
             self.assertIsNone(s.io_job)
@@ -89,6 +89,22 @@ class SessionTests(unittest.TestCase):
             self.assertIsNone(s.placement_intent)
             self.assertFalse(s.confirm_placement())
         self.assertEqual(0, len(s.editor.document.blocks))
+
+    def test_touch_erase_and_paint_require_explicit_confirmation(self):
+        s=Session(Bridge());s.editor=Editor(Document((8,8,8)))
+        s.editor.document.blocks[(3,2,3)]=('minecraft:stone',0)
+        s.set('touch_mode',True);s.choose_mode('paint')
+        s.propose_placement((3,2,3),(0,1,0))
+        self.assertEqual(((3,2,3),None),s.placement_proposal())
+        self.assertEqual(('minecraft:stone',0),s.editor.document.get((3,2,3)))
+        s.confirm_placement()
+        self.assertEqual(s.editor.material,s.editor.document.get((3,2,3)))
+        s.choose_mode('erase');s.erase_scope='single'
+        s.propose_placement((3,2,3),(0,1,0))
+        self.assertEqual(1,len(s.editor.document.blocks))
+        s.confirm_placement()
+        self.assertEqual(0,len(s.editor.document.blocks))
+        self.assertFalse(s.confirm_placement())
 
     def test_dimensions_accept_native_utf8_and_common_separators(self):
         for text in ('3, 8, 3', '3，8，3', '３，８，３', '3×8×3', '3 * 8 * 3', '3 8 3', '3、8、3'):

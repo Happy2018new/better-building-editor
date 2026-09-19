@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import time
 from .model import AIR, Document, Editor, RegionSizeError, demo_document, SMALL_VOLUME, bounds
+from .chunks import view_bounds, needs_chunk_view
 
 
 def as_text(value):
@@ -368,7 +369,8 @@ class Session(object):
         return None
 
     def visible_position(self, pos):
-        return self.visible_layer(pos[1])
+        origin, size = view_bounds(self.editor.document.size, self.preview_center if self.preview_detail else None)
+        return self.visible_layer(pos[1]) and all(origin[i] <= pos[i] < origin[i]+size[i] for i in range(3))
 
     def move_depth(self, direction):
         # Orthographic approach/recede changes apparent distance by scaling.
@@ -405,18 +407,36 @@ class Session(object):
         self.preview_detail = not self.preview_detail
         if self.preview_detail:
             self.preview_center = self.focused or (self.canvas_x, self.editor.layer, self.canvas_z)
+            self.editor.layer = self.preview_center[1]
+        self.camera_pan = (0., 0.)
+        self.camera_view(zoom=1.)
+        self.placement_intent = None
         self.refresh_preview()
         self.emit()
 
     def focus_preview(self, pos):
         if not self.editor.document.contains(pos):
-            raise ValueError('精细视图中心必须位于建筑范围内')
+            raise ValueError('编辑分块必须位于建筑范围内')
         self.focused = tuple(pos)
         self.preview_center = tuple(pos)
         self.canvas_x, self.editor.layer, self.canvas_z = pos
         self.preview_detail = True
         self.view = '3d'
+        self.camera_pan = (0., 0.)
+        self.camera_view(zoom=1.)
+        self.placement_intent = None
         self.refresh_preview()
+        self.emit()
+
+    def move_chunk(self, axis, delta):
+        pos = list(self.preview_center)
+        pos[axis] = max(0, min(self.editor.document.size[axis]-1, (pos[axis]//16+delta)*16))
+        self.focus_preview(tuple(pos))
+
+    def select_chunk(self):
+        origin, size = view_bounds(self.editor.document.size, self.preview_center)
+        self.box_anchor = None
+        self.editor.select_box(origin, tuple(origin[i]+size[i]-1 for i in range(3)))
         self.emit()
 
     def toggle_layer(self, kind, layer):
@@ -474,6 +494,9 @@ class Session(object):
     def locate_selected(self):
         if self.focused is None:
             return
+        if needs_chunk_view(self.editor.document.size):
+            self.focus_preview(self.focused)
+            return
         self.camera_focus_request = tuple(v + .5 for v in self.focused)
         self.emit('view')
 
@@ -492,11 +515,19 @@ class Session(object):
             return target, '放置条件不匹配，请检查材质与方块条件'
         return target, None
 
+    def cursor_target(self, pos, normal=(0, 0, 0)):
+        if self.direct_mode == 'place':
+            return self.placement_target(pos, normal)
+        if self.direct_mode in ('erase', 'paint'):
+            if not self.editor._writable(pos, False):
+                return pos, '此位置受图层或方块条件限制'
+        return pos, None
+
     def propose_placement(self, pos, normal):
         """Touch selects a destination; the explicit button commits it later."""
-        target, error = self.placement_target(pos, normal)
+        target, error = self.cursor_target(pos, normal)
         self.placement_intent = (id(self.editor), self.editor.revision, tuple(pos), tuple(normal))
-        self.editor.message = error or '位置已选择，请确认放置'
+        self.editor.message = error or '位置已选择，请确认操作'
         self.emit()
         return target, error
 
@@ -506,7 +537,7 @@ class Session(object):
             return None, None
         if intent[:2] != (id(self.editor), self.editor.revision):
             return None, '建筑已更新，请重新选择位置'
-        return self.placement_target(intent[2], intent[3])
+        return self.cursor_target(intent[2], intent[3])
 
     def cancel_placement(self):
         self.placement_intent = None
@@ -515,7 +546,7 @@ class Session(object):
     def confirm_placement(self):
         target, error = self.placement_proposal()
         if target is None or error:
-            self.editor.message = error or '请先点击选择放置位置'
+            self.editor.message = error or '请先点击选择操作位置'
             self.emit()
             return False
         intent = self.placement_intent
@@ -617,7 +648,10 @@ class Session(object):
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
         self.canvas_x = self.canvas_z = 0
-        self.preview_detail = False
+        self.preview_detail = needs_chunk_view(document.size)
+        self.preview_center = (0, 0, 0)
+        self.zoom = 1.
+        self.camera_revision += 1
         self.focused = self.box_anchor = None
         self.name = self.editor.document.name
         self.page = 'workspace'

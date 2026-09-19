@@ -13,11 +13,11 @@ from .widgets import JellyButton as Button, PageMotion, use_theme
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
-from .model import SMALL_VOLUME
 from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
 from .camera import zoom_label
+from .chunks import view_bounds, needs_chunk_view
 
 
 def use_session_fields(session, fields):
@@ -103,6 +103,44 @@ def LocateSelected(session=None):
 
 
 @Component
+def ChunkNavigation(session=None, width=430, revision=0):
+    use_theme()
+    controls = []
+    for axis, label in enumerate(('X', 'Y', 'Z')):
+        index = session.preview_center[axis]//16
+        total = (session.editor.document.size[axis]+15)//16
+        controls.append(row([
+            Action(glyph='minus', width=25, height=26, enabled=index > 0,
+                   onClick=partial(session.move_chunk, axis, -1)),
+            text('%s %d/%d' % (label, index+1, total), 10, center=True, flex=1),
+            Action(glyph='plus', width=25, height=26, enabled=index < total-1,
+                   onClick=partial(session.move_chunk, axis, 1)),
+        ], flex=1, gap=2))
+    controls.append(Action(label='选中本块', glyph='select_box', compact=True, height=26,
+                           onClick=session.select_chunk))
+    return row(controls, height=34, paddingHorizontal=8, gap=5)
+
+
+@Component
+def PreviewProgress(session=None, width=400):
+    use_theme()
+    use_session_fields(session, ('edit_progress', 'preview_status', 'preview'))
+    job = session.edit_job
+    visible = job is not None or (session.preview_pending and session.tiles.report_progress)
+    done, total = (min(job.processed, job.total), job.total) if job else session.tiles.progress()
+    ratio = min(1., done/float(max(1, total)))
+    label = ('正在修改方块' if job else '正在更新分块') + ' · %d / %d' % (done, total)
+    return Panel(style=S(position=Position.absolute, top=42, left=12, width=min(250, width-24),
+                         zIndex=410, visible=visible), children=surface(padding=8, gap=6, children=[
+        row([text(label, 10, Theme.muted, flex=1),
+             Action(label='取消', compact=True, height=23, onClick=session.cancel_edit,
+                    enabled=job is not None)]),
+        Image(color=Theme.line, style=S(width='100%', height=4), children=
+              Image(color=Theme.blue, style=S(width='%g%%' % (ratio*100), height=4))),
+    ]))
+
+
+@Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
     use_session_fields(session, ('view', 'preview', 'preview_visible'))
@@ -110,7 +148,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
     e = session.editor
     doc = e.document
     focus = session.focus_view
-    area_h = max(130, height - (191 if focus else 203))
+    chunked = needs_chunk_view(doc.size)
+    area_h = max(130, height - (191 if focus else 203) - (34 if chunked else 0))
     viewport_children = []
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation))
     if not session.model_name:
@@ -119,15 +158,16 @@ def Viewport(session=None, revision=0, width=430, height=440):
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
                      '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
     viewport_children.extend([
-        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == '3d'),
+        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=400, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                   children=SceneStatus(session=session))),
-        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=bool(session.preview_error)),
+        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=bool(session.preview_error)),
               children=text(session.preview_error, 11, Theme.red, width=width-24)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=200),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=400),
               children=OrientationGizmo(session=session)),
-        Panel(ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=session.view == '3d'),
+        Panel(ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),
               children=ViewNavigation(session=session, width=width, revision=revision)),
+        PreviewProgress(session=session, width=width),
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),
@@ -150,8 +190,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
                  Action(label='材质与属性', height=27, compact=True, selected=session.focus_inspector,
                         onClick=partial(session.set, 'focus_inspector', not session.focus_inspector))]),
              LocateSelected(session=session),
-             Panel(style=S(display=Display.flex if doc.volume > SMALL_VOLUME else Display.none), children=
-                 Action(label='总览' if session.preview_detail else '精细', glyph='cube', width=62, height=28, compact=True,
+             Panel(style=S(display=Display.flex if chunked else Display.none), children=
+                 Action(label='整栋总览' if session.preview_detail else '分块编辑', glyph='cube', width=86, height=28, compact=True,
                         onClick=session.toggle_preview_detail)),
              Action(label='还原视图' if focus else '展开视图', height=28, compact=True, accent=focus,
                     onClick=partial(session.set, 'focus_view', not focus))], paddingHorizontal=12, height=45 if focus else 57),
@@ -164,6 +204,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
              Input(value=str(e.layer), onChange=partial(set_view_layer, session), style=S(width=44, height=27)),
              Action(glyph='plus', width=27, height=27, enabled=e.layer < doc.size[1]-1,
                     onClick=partial(session.layer, e.layer+1))], paddingHorizontal=8, height=34, gap=4),
+        Panel(style=S(display=Display.flex if chunked else Display.none), children=ChunkNavigation(session=session, width=width,
+              revision=(doc.size, session.preview_center, session.preview_detail))),
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
         row(view_controls, paddingHorizontal=6 if width < 480 else 10,
             height=36, gap=1 if width < 480 else 3),
@@ -178,27 +220,33 @@ def Viewport(session=None, revision=0, width=430, height=440):
 def SceneStatus(session=None):
     use_theme()
     use_session_fields(session, ('preview_status', 'view', 'point_edit'))
-    return text('正在构建方块预览…' if session.preview_pending else
-                'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted)
+    if session.preview_detail:
+        origin, size = view_bounds(session.editor.document.size, session.preview_center)
+        label = '分块 X%d–%d  Y%d–%d  Z%d–%d' % tuple(v for i in range(3) for v in (origin[i],origin[i]+size[i]-1))
+    else:
+        label = 'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑'
+    return text(label, 10, Theme.muted)
 
 
 @Component
 def PlacementControls(session=None, revision=0, width=400):
     use_theme()
     use_session_fields(session, ('point_edit',))
-    placing = session.direct_mode == 'place'
+    placing = session.direct_mode in ('place', 'paint', 'erase') and not (
+        session.direct_mode == 'erase' and session.erase_scope == 'selection')
+    action_label = {'place': '放置', 'paint': '换材质', 'erase': '擦除'}.get(session.direct_mode, '')
     target, error = session.placement_proposal()
-    controls = [text(('点击选择位置，再确认放置' if target is None else
+    controls = [text(('点选位置，再确认' + action_label if target is None else
                      error or 'X %d · Y %d · Z %d' % target) if placing and session.touch_mode else
                     HINTS[session.direct_mode], 10, Theme.muted, flex=1)]
     if placing:
-        controls.append(Action(label='触控放置', glyph='cursor', compact=True, width=78, height=32,
+        controls.append(Action(label='触控放置' if session.direct_mode == 'place' else '触控确认', glyph='cursor', compact=True, width=78, height=32,
             selected=session.touch_mode, onClick=partial(session.set, 'touch_mode', not session.touch_mode)))
         if session.touch_mode:
             controls.extend([
                 Action(label='取消', glyph='close', compact=True, width=52, height=32,
                     enabled=session.placement_intent is not None, onClick=session.cancel_placement),
-                Action(label='确认放置', glyph='cube', compact=True, width=86, height=32, accent=True,
+                Action(label='确认' + action_label, glyph='cube', compact=True, width=86, height=32, accent=True,
                     enabled=target is not None and not error, onClick=session.confirm_placement)])
     return row(controls, width=width, height=34, gap=4)
 
@@ -468,8 +516,11 @@ def Workspace(session=None, revision=0):
 @Component
 def TaskStatus(session=None):
     use_theme()
-    use_session_fields(session, ('edit_progress',))
-    return text(('处理中… ' if session.busy else '') + session.editor.message[:80], 10, Theme.muted, flex=1)
+    use_session_fields(session, ('edit_progress', 'preview_status'))
+    message = ('处理中… ' if session.busy else '') + session.editor.message[:80]
+    if session.preview_pending and session.tiles.report_progress:
+        message += ' · 更新分块 %d / %d' % session.tiles.progress()
+    return text(message, 10, Theme.muted, flex=1)
 
 
 def category(session, identity):

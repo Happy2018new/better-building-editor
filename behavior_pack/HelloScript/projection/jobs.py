@@ -13,6 +13,8 @@ class SnapshotDelta(object):
     def __init__(self, before, after, count):
         self.stores = (before.copy(), after.copy())
         self.count = count
+        self.changed_chunks = set(k for k in set(before.chunks) | set(after.chunks)
+                                  if before.chunks.get(k, 0) != after.chunks.get(k, 0))
 
     def __len__(self):
         return self.count
@@ -79,6 +81,7 @@ class EditJob(object):
         if self.changed:
             delta = SnapshotDelta(self.source.blocks, self.staged, self.changed)
             self.source.blocks = self.staged
+            e.last_changed_chunks = delta.changed_chunks
             e.revision += 1
             e._remember(BY_ID[self.tool][2], delta)
         e.message = ('已选择 %d 格' % len(e.selection) if BY_ID[self.tool][1] == 'select' else

@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """Bounded editor fixtures, reachable only through the enabled debug protocol."""
-from .model import Document, Editor, MAX_AXES
+from .model import Document, Editor, MAX_AXES, demo_document
 
 
 def inspect(session, value):
     value = value or {}
+    if value.get('reloadShaders') is True:
+        import mod.client.extraClientApi as clientApi
+        clientApi.ReloadAllShaders()
     fixture = value.get('fixture')
     if fixture:
-        if fixture not in ('landmarks', 'offset', 'offset_odd', 'solid', 'demo'):
+        if fixture not in ('landmarks', 'offset', 'offset_odd', 'solid', 'demo', 'demo_large'):
             raise ValueError('unknown editor fixture')
         if fixture == 'demo':
             session.demo()
@@ -16,7 +19,9 @@ def inspect(session, value):
             if fixture == 'solid' and 'size' in value:
                 size = tuple(value['size'])
             doc = Document(size)
-            if fixture == 'solid':
+            if fixture == 'demo_large':
+                doc.blocks = demo_document().blocks.copy()
+            elif fixture == 'solid':
                 editor = Editor(doc); editor.run('fill')
             elif fixture.startswith('offset'):
                 for x in range(2, 6):
@@ -37,6 +42,8 @@ def inspect(session, value):
     if 'focus' in value:
         session.focused = tuple(value['focus'])
         session.emit()
+    if 'chunk' in value:
+        session.focus_preview(tuple(value['chunk']))
     if 'selection' in value:
         session.editor.select_box(*[tuple(p) for p in value['selection']])
         session.emit()
@@ -56,6 +63,10 @@ def inspect(session, value):
             'touch': session.touch_mode, 'placementTarget': session.placement_proposal()[0],
             'previewBuilds': session.tiles.builds, 'previewSeconds': session.tiles.seconds,
             'previewTiles': len(session.tiles.parts), 'previewDirty': len(session.tiles.dirty),
+            'previewSlots': len(session.tiles.slots), 'previewProgress': session.tiles.progress(),
+            'chunkMode': session.preview_detail, 'chunkFocus': session.preview_center,
+            'cursorCell': getattr(session, 'cursor_cell', None),
+            'nativeCells': sum(p['size'][0]*p['size'][1]*p['size'][2] for k,p in session.tiles.parts.items() if k in session.tiles.slots),
             'pointerStats': getattr(session, 'pointer_stats', None),
             'layer': e.layer, 'section': session.section, 'mask': e.mask,
             'brightness': session.brightness, 'displayMode': session.current_display_mode()}

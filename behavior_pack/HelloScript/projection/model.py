@@ -8,9 +8,9 @@ from .catalog import BY_ID
 from .storage import BlockStore, Selection
 
 AIR = ('minecraft:air', 0)
-MAX_VOLUME = 64 * 100 * 64
-MAX_AXES = (64, 100, 64)
-MAX_AXIS = 100
+MAX_VOLUME = 64 * 128 * 64
+MAX_AXES = (64, 128, 64)
+MAX_AXIS = 128
 SMALL_VOLUME = 32768
 MAX_HISTORY_CELLS = 262144
 DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
@@ -59,9 +59,9 @@ class RegionSizeError(ValueError):
 class Document(object):
     def __init__(self, size=(24, 16, 24), blocks=None, name='未命名建筑'):
         if len(size) != 3 or any(type(v) is not int or v < 1 for v in size):
-            raise ValueError('X/Z 须为 1–64 格，Y 须为 1–100 格')
+            raise ValueError('X/Z 须为 1–64 格，Y 须为 1–128 格')
         if any(v > MAX_AXES[i] for i, v in enumerate(size)):
-            raise RegionSizeError('建筑范围最多 64 × 100 × 64 格；原配置保留，不会截断')
+            raise RegionSizeError('建筑范围最多 64 × 128 × 64 格；原配置保留，不会截断')
         self.size = tuple(size)
         self.blocks = BlockStore()
         self.name = name
@@ -214,6 +214,8 @@ class Editor(object):
             self.undo_stack.pop(0)
 
     def _apply(self, delta, side):
+        self.last_changed_chunks = (delta.changed_chunks if hasattr(delta, 'changed_chunks') else
+                                    set(tuple(v//16 for v in pos) for pos in delta))
         if hasattr(delta, 'stores'):
             self.document.blocks = delta.stores[side].copy()
             self.revision += 1

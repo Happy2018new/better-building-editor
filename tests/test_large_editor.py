@@ -203,8 +203,8 @@ class LargeEditorTests(unittest.TestCase):
         e.material = WOOD
         e.paint_at((63, 99, 63))
         detail = [v for v in build_preview(e.document, focus=(63, 99, 63)) if v is not None][0]
-        self.assertEqual((32, 68, 32), detail[1])
-        self.assertIn(32767, detail[0].common[WOOD])
+        self.assertEqual((48, 96, 48), detail[1])
+        self.assertIn(1023, detail[0].common[WOOD])
         self.assertEqual(1, detail[2])
 
     def test_compressed_world_journal_supports_rollback_order(self):

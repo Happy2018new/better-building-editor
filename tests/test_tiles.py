@@ -7,6 +7,9 @@ from projection.session import Session
 from projection.tiles import tile_edge
 import projection.tiles as tiles
 from projection.large_preview import build_preview
+from projection.chunks import painter_order
+import math
+import itertools
 
 
 def cells(palette):
@@ -14,7 +17,17 @@ def cells(palette):
 
 
 def scene_cells(session):
-    return {(material,index) for part in session.tiles.parts.values() for material,values in part['data'].items() for index in values}
+    result = set()
+    dx, unused, dz = session.editor.document.size
+    for key in session.tiles.slots:
+        part = session.tiles.parts[key]
+        sx, unused, sz = part['size']
+        ox, oy, oz = part['origin']
+        for material, values in part['data'].items():
+            for index in values:
+                x, y, z = index//sz%sx+ox, index//(sx*sz)+oy, index%sz+oz
+                result.add((material,y*dx*dz+x*dz+z))
+    return result
 
 
 class Bridge:
@@ -27,9 +40,8 @@ class Bridge:
         return name if palette.common else None
     def settle(self, session):
         for _ in range(10000):
-            session.tiles.next_submit = 0.
-            if session.tiles.surface:
-                session.tiles.surface['pending'] = False
+            for part in session.tiles.parts.values():
+                part['pending'] = False
             if not self.queue:
                 return
             self.queue.pop(0)()
@@ -37,6 +49,23 @@ class Bridge:
 
 
 class TileTests(unittest.TestCase):
+    def test_painter_order_agrees_with_ray_traversal_and_is_stable_within_octant(self):
+        keys = list(itertools.product(range(4), range(8), range(4)))
+        for signs in itertools.product((-1,1), repeat=3):
+            toward = tuple(signs[i]*v for i,v in enumerate((.31,.77,.42)))
+            order = painter_order(keys,toward)
+            self.assertEqual(order,painter_order(keys,tuple(signs[i]*v for i,v in enumerate((.8,.1,.9)))))
+            for center in ((1.5,3.5,1.5),(.3,6.7,2.9),(3.9,.1,.2)):
+                visited = []
+                for step in range(-200,201):
+                    point = tuple(center[i]+step*.05*toward[i] for i in range(3))
+                    key = tuple(int(math.floor(v)) for v in point)
+                    if key in order and (not visited or visited[-1] != key):
+                        visited.append(key)
+                # Marching toward the observer must only move forward in depth.
+                ranks = [order[key] for key in visited]
+                self.assertEqual(sorted(ranks),ranks)
+
     def test_tile_budget_includes_maximum_dimensions(self):
         for size in ((24,16,24), (23,15,21), (64,100,64)):
             edge = tile_edge(size)
@@ -76,8 +105,8 @@ class TileTests(unittest.TestCase):
         self.assertEqual(builds+1,len(b.builds))
         self.assertEqual(1,len(calls))
         self.assertTrue(all(p is before[k] for k,p in s.tiles.parts.items() if k!=(0,0,0)))
-        self.assertEqual(set().union(*(cells for name,cells in b.builds[-1:])), scene_cells(s))
-        self.assertEqual(((0,0,0),),s.tiles.slots)
+        self.assertEqual(cells(list(build_preview(s.editor.document))[-1][0]), scene_cells(s))
+        self.assertEqual(4,len(s.tiles.slots))
         for _ in range(6): s.action(s.editor.undo)
         b.settle(s)
         self.assertEqual(576,len(s.editor.document.blocks))
@@ -85,14 +114,34 @@ class TileTests(unittest.TestCase):
     def test_pending_upload_is_never_overwritten_by_next_edit(self):
         b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)
         s.choose_mode('place'); s.point_action((3,0,3)); b.settle(s)
-        part = s.tiles.surface; part['pending'] = True
+        part = s.tiles.parts[(0,0,0)]; part['pending'] = True
         builds = len(b.builds)
         s.point_action((3,0,3),(0,1,0))
         s.tiles.advance()
         self.assertEqual(builds,len(b.builds))
         part['pending'] = False; b.settle(s)
         self.assertEqual(builds+1,len(b.builds))
-        self.assertNotEqual(part['name'],s.tiles.surface['name'])
+        self.assertNotEqual(part['name'],s.tiles.parts[(0,0,0)]['name'])
+
+    def test_rapid_overview_edits_do_not_publish_blocking_progress(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((25,64,25)))
+        b.settle(s); s.toggle_preview_detail()
+        self.assertTrue(s.tiles.report_progress)
+        b.settle(s)
+        notifications = []
+        original = s.emit
+        def observed(field=None):
+            if field == 'preview_status':
+                notifications.append(field)
+            original(field)
+        s.emit = observed
+        s.choose_mode('place')
+        for y in range(41):
+            s.point_action((12,max(0,y-1),12),(0,int(y>0),0))
+            b.settle(s)
+            self.assertFalse(s.tiles.report_progress)
+        self.assertEqual(41,len(s.editor.document.blocks))
+        self.assertEqual([],notifications)
 
     def test_clipping_boundary_rebuilds_exposed_neighbours_and_retains_far_tiles(self):
         b = Bridge(); s = Session(b); s._loaded(Document((24,32,24)))
@@ -109,12 +158,52 @@ class TileTests(unittest.TestCase):
         actual = scene_cells(s)
         self.assertEqual(cells(list(build_preview(s.editor.document,plane=s.depth_plane()))[-1][0]), actual)
 
-    def test_cpu_tiles_are_bounded_with_a_single_native_pair(self):
-        for size in ((24,16,24),(64,96,64),(64,100,64)):
+    def test_native_palettes_are_at_most_4096_cells_and_128_pairs(self):
+        for size in ((24,16,24),(64,96,64),(64,128,64)):
             edge=tile_edge(size)
             count=((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge)
             self.assertLessEqual(count,128)
-        self.assertEqual(16,tile_edge((64,100,64)))
+            self.assertEqual(16,edge)
+
+    def test_large_default_focus_uses_one_exact_chunk_and_undo_reuses_mesh(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((64,128,64)))
+        self.assertTrue(s.preview_detail)
+        s.editor.run('fill'); s.refresh_preview(); b.settle(s)
+        self.assertEqual((16,16,16),s.scene_size)
+        self.assertEqual(((0,0,0),),s.tiles.slots)
+        s.focus_preview((63,127,63)); b.settle(s)
+        self.assertEqual((48,112,48),s.scene_origin)
+        s.choose_mode('erase');s.erase_scope='single';s.point_action((63,127,63));b.settle(s)
+        builds=len(b.builds)
+        s.action(s.editor.undo);b.settle(s)
+        self.assertEqual(builds,len(b.builds))
+        self.assertEqual(524288,len(s.editor.document.blocks))
+
+    def test_wide_flat_draft_also_opens_in_a_full_scale_chunk(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((64,1,64))); b.settle(s)
+        self.assertTrue(s.preview_detail)
+        self.assertEqual((16,1,16),s.scene_size)
+        s.toggle_preview_detail(); b.settle(s)
+        self.assertEqual((64,1,64),s.scene_size)
+        s.focused = (63,0,63); s.locate_selected(); b.settle(s)
+        self.assertEqual((48,0,48),s.scene_origin)
+
+    def test_return_to_overview_reuses_unchanged_surface_extraction(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((48,32,32)))
+        s.editor.run('fill'); s.toggle_preview_detail(); b.settle(s)
+        expected = scene_cells(s)
+        s.focus_preview((0,0,0)); b.settle(s)
+        original, calls = tiles.build_preview, []
+        def counted(*args):
+            calls.append(args[-2])
+            return original(*args)
+        try:
+            tiles.build_preview = counted
+            s.toggle_preview_detail(); b.settle(s)
+        finally:
+            tiles.build_preview = original
+        self.assertEqual(1,len(calls))
+        self.assertEqual(expected,scene_cells(s))
 
     def test_surface_budget_applies_across_tiles_and_preserves_draft(self):
         budget = tiles.MAX_SURFACE_BLOCKS
