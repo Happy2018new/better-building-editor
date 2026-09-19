@@ -213,22 +213,8 @@ def native_skin():
             # Undo common.text_edit_box's 4px vertical inset.
             # Keep horizontal clipping/caret scrolling inside the padded field.
             '$text_edit_clipping_panel_size':['100%', '100% + 4px'],
-            '$place_holder_text':'', '$text_box_text_color':[.07,.12,.20],
-            'controls':[
-                {'centering_panel':{'type':'panel','size':['100% - 6px','100% - 4px'],'controls':[
-                    {'clipper_panel':{'type':'panel','size':'$text_edit_clipping_panel_size',
-                        'anchor_from':'left_middle','anchor_to':'left_middle','clips_children':True,'controls':[
-                        {'display_text@common.text_edit_box_label':{'layer':2,'size':['default','default'],
-                            'min_size':['100%',0],'anchor_from':'right_middle','anchor_to':'right_middle'}},
-                        {'active_background@ModernProjection.round':{'layer':0,'$mp_patch_layer':0,'size':['100%','100%'],
-                            'bindings':[{'binding_type':'view','source_control_name':'display_text',
-                                'resolve_sibling_scope':True,'source_property_name':'#text_edit_selected',
-                                'target_property_name':'#visible'}]}}
-                    ]}}
-                ]}},
-                {'default@ModernProjection.invisible':{}}, {'hover@ModernProjection.invisible':{}},
-                {'pressed@ModernProjection.invisible':{}}, {'locked@ModernProjection.invisible':{}}
-            ]},
+            # Inherit all native controls, including place_holder_control.
+            '$place_holder_text':'', '$text_box_text_color':[.07,.12,.20]},
         'invisible':{'type':'image','texture':tex+'transparent','size':['100%','100%'],'alpha':0},
         'scroll_thumb':{'type':'image','texture':'textures/ui/white','size':[2,'100%'],
                         'color':[.65,.73,.85],'layer':4},

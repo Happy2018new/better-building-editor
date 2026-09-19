@@ -1,4 +1,4 @@
-"""Native focus and blinking caret pixel strip; does not save document data."""
+"""Native input/placeholder checks and diagnostic caret strip; no world writes."""
 import sys
 import time
 import json
@@ -55,15 +55,16 @@ def inspect_field(field,name,long_text,sample):
     for i,frame in enumerate(frames):strip.paste(frame,(0,i*frame.height))
     path=ui.OUT/(name+'.png');strip.save(path);print(path)
     focused=ui.call('native_control',field['id'])['result']
-    ui.check('native focus background remains active after the mouse leaves',focused['focusBackgroundVisible'])
+    ui.check('native placeholder child remains present',focused['placeholderPresent'])
     others=[n for n in ui.nodes('Input',ui.nodes('Library')[0]) if n['id']!=field['id']]
-    ui.check('unfocused inputs keep their pale background',all(not ui.call('native_control',n['id'])['result']['focusBackgroundVisible'] for n in others))
+    ui.check('all input templates retain native placeholder children',all(ui.call('native_control',n['id'])['result']['placeholderPresent'] for n in others))
+    ui.check('focused field retains pale background',all(frame.getpixel((frame.width-20,frame.height//2))[0]>200 for frame in frames))
     columns=[]
     for frame in frames:
         columns.append([x for x in range(18,frame.width-int(3*scale)-1)
                         if sum(all(c>220 for c in frame.getpixel((x,y))) for y in range(8,frame.height-8))>=frame.height*.3])
-    ui.check('white insertion caret is visible against blue in captured frames',any(columns))
-    ui.check('native insertion caret still blinks',any(not c for c in columns))
+    # Pale backgrounds cannot distinguish the white native caret reliably.
+    # Keep pixels as diagnostics; do not claim a dark caret or contrast pass.
     ui.check('native keyboard editing remains active',focused['text'].endswith('1'))
     (ui.OUT/(name+'.json')).write_text(json.dumps({'checks':ui.checks,'caretColumns':columns},ensure_ascii=False,indent=2),encoding='utf8')
 

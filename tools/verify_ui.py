@@ -8,13 +8,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
 from _protocol import request
 from simulate import _walk, _resolve_label
+from check_native_dialogs import assert_clear
 
 OUT = ROOT / '.runtime'
 checks = []
 
 
 def call(command, node=None, value=None):
+    assert_clear()
     result = request(command, node_id=node, value=value, timeout=15)
+    assert_clear()
     if result is None and command in ('dump_tree', 'ping'):
         result = request(command, node_id=node, value=value, timeout=15)
     elif result is None and command == 'click':

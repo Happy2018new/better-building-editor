@@ -94,7 +94,7 @@ python -X utf8 tools/verify_input_scale.py
 
 本次再次通过五种窗口尺寸与真实键盘输入的 87 项检查，并查看 1080p/720p 中文混排截图。属性面板重构后，验证脚本滚到材质输入区域再检查附加值可见性。
 
-## 输入焦点与光标对比度
+## 输入焦点与光标对比度（已撤回）
 
 继续使用原字形、3 倍物理放大，不新增图片。ModSDK TextEditBox 只有文本与长度接口，普通 `color` 在 edit_box 上被引擎报告为未知属性；文字颜色也不会改变插入光标。最终使用原生 `display_text.#text_edit_selected` 绑定驱动蓝色焦点背景，文字改为深蓝，保留白色光标。焦点背景使用已有 rounded 纹理，九块尺寸只在布局变化时更新，没有 Python 每帧焦点轮询。
 
@@ -103,3 +103,11 @@ python -X utf8 tools/verify_input_scale.py
 短文本的实际像素检查能检测到约 22 物理像素高的白色插入竖线及闪烁，鼠标移开后焦点背景保持，其他输入框不变；真实键盘继续编辑。当前 87 项输入几何/键盘检查全部通过，但它们读取原生文本和几何，不能替代下面的长文本视觉限制。
 
 **已知原生限制：** 额外 480 字符混排文本滚动到末尾时，内容读回完整，但原生文字或光标可能被裁掉。文字阴影、禁用字体合批和偏移 Label 均未解决，正式代码不保留这些实验。`tools/verify_input_caret.py --long` 保留为复现诊断，当前这一额外像素断言不通过；不能将“文本数据完整”误报为“超长光标正常”。普通名称、尺寸和坐标输入的焦点对比度已改善，超长文本裁剪仍需后续解决。
+
+## 恢复原生结构并监测断言窗口
+
+用户反馈焦点底色影响外观，并报告 `Control name could not be resolved: place_holder_control` 原生断言。根因是上面的自定义 `controls` 覆盖了 `common.text_edit_box` 完整子树，遗漏引擎依赖的 `centering_panel/clipper_panel/visibility_panel/place_holder_control`。即使 placeholder 文本为空，仍须保留此控件。现已移除整个子树覆盖和蓝色焦点背景，完整继承原生输入结构；保留字号、文字颜色和垂直裁剪参数，不新增图片或更换字体。
+
+新启动游戏后，五种尺寸及真实键盘/中文输入/删除/重开共 87 项通过，另有 4 项原生占位节点、浅色背景和键盘检查通过。实际查看 `.runtime/input_native_restored.png` 多帧截图，蓝色背景已消失。`verify_ui.call` 在剪贴板请求前后检查原生 Assert 弹窗，`tools/check_native_dialogs.py` 可单独读取弹窗标题和正文，不自动忽略或关闭断言。此次检查未检测到弹窗；这不代表所有未执行的交互路径都已验证。
+
+当前光标仍为原生白色，浅色背景下对比度不足尚未解决。文档接口和原版 JsonUI 定义均未发现可独立设置其颜色的属性；Cocos TextField 的 setCursorColor 不等于网易 JsonUI 接口。`verify_input_caret.py --long` 现仅保留像素诊断和输入结构检查，不再通过浅色像素数量推断光标可读性，也不声称超长文本裁剪已解决。

@@ -101,28 +101,6 @@ class InputPrimitive(BaseInputPrimitive):
             label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
             label.asLabel().SetTextFontSize(scale)
 
-    def apply_layout(self, host, node):
-        state = node.fiber.primitive_state
-        path = node.fiber.native_path + '/centering_panel/clipper_panel/active_background'
-        if 'input_patches' not in state:
-            state['input_patches'] = [host.GetBaseUIControl(path + '/p%d' % i) for i in range(9)]
-            for patch in state['input_patches']:
-                patch.asImage().SetSpriteColor((.43, .55, .76))
-        # Hidden native backgrounds have not resolved their percent size yet.
-        # Use the committed input layout, so the first focus needs no relayout.
-        width, height = state.get('_layout_applied', (node.frame_w, node.frame_h))[:2]
-        width = max(0., width - 6.)
-        signature = (width, height, Theme.scale)
-        if state.get('input_patch_size') == signature:
-            return
-        state['input_patch_size'] = signature
-        radius = min(4 * Theme.scale, width / 2., height / 2.)
-        xs, ys = (0., radius, width-radius, width), (0., radius, height-radius, height)
-        for i, patch in enumerate(state['input_patches']):
-            r, c = i // 3, i % 3
-            patch.SetPosition((xs[c], ys[r]))
-            patch.SetSize((xs[c+1]-xs[c], ys[r+1]-ys[r]))
-
 
 NativeText = LabelPrimitive()
 NativeText.template_path = '/root/mp_label_tmpl'
