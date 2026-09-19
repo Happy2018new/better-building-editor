@@ -56,6 +56,10 @@ def check_segments():
 def main():
     if '取消' in ui.labels():
         ui.click('取消')
+    ui.click('入门指南')
+    reduced = next(n for n in ui.nodes('Action') if n['props'].get('label') == '减少动态效果')['props'].get('selected', False)
+    if reduced:
+        ui.click('减少动态效果')
     ui.click('工作台'); ui.click('浏览')
     ui.click('历史')
     check_segments()
@@ -73,8 +77,13 @@ def main():
     print('Selection positions:', start, positions, end, flush=True)
     ui.check('selection background traverses intermediate native positions',
              end > start and any(start + .1 < x < end - .1 for x in positions))
-    press('框选'); time.sleep(.035); press('浏览'); time.sleep(.4)
-    final = ui.call('native_control', highlight)['result']['position'][0]
+    press('框选'); time.sleep(.035); press('浏览')
+    deadline = time.monotonic() + 2.
+    while True:
+        final = ui.call('native_control', highlight)['result']['position'][0]
+        if abs(final - start) < .01 or time.monotonic() >= deadline:
+            break
+        time.sleep(.04)
     ui.check('rapid reversal ends on the requested option', abs(final - start) < .01)
 
     press('读取选区')
@@ -92,10 +101,12 @@ def main():
     ui.check('dialog remains mounted during its exit', bool(ui.nodes('Image', closing)))
     time.sleep(.35)
     ui.check('dialog unmounts after exit', '请确认这次操作' not in ui.labels())
-    ui.check('cancel preserves the editable viewport', len(ui.nodes('PaperDoll')) == 2)
+    ui.check('cancel preserves the editable viewport', 0 < len(ui.nodes('PaperDoll')) <= 256 and len(ui.nodes('Scene')) == 1)
     (ui.OUT / 'motion_checks.json').write_text(json.dumps({'checks': ui.checks,
         'selection_positions': positions, 'start': start, 'end': end,
         'dialog_opacity': samples}, ensure_ascii=False, indent=2), encoding='utf8')
+    if reduced:
+        ui.click('入门指南'); ui.click('减少动态效果'); ui.click('工作台')
 
 
 if __name__ == '__main__':

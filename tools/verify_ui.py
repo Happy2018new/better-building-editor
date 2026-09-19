@@ -95,20 +95,19 @@ def main():
                 click('确认继续')
                 break
     click('工作台')
-    check('both persistent preview buffers created on first mount', len(nodes('PaperDoll')) == 2)
-    before = tuple(nodes('PaperDoll')[0]['props'].get(k, 0) for k in ('initRotX', 'initRotY', 'initRotZ'))
+    from verify_selection_scope import diagnostic, wait_preview, click_point
+    diagnostic({'fixture': 'offset_odd', 'selection': [[3, 1, 4], [3, 1, 4]]}); wait_preview()
+    check('bounded pairs of persistent preview buffers created', 0 < len(nodes('PaperDoll')) <= 256 and len(nodes('PaperDoll')) % 2 == 0)
+    before = diagnostic()['pose']
     click('右转')
     click('浏览')  # Publish the settled native camera pose into the UI snapshot.
-    after = tuple(nodes('PaperDoll')[0]['props'].get(k, 0) for k in ('initRotX', 'initRotY', 'initRotZ'))
+    after = diagnostic()['pose']
     check('rotation updates rendered model', after != before)
-    click('逐层')
-    canvas = nodes('LayerCanvas')[0]
-    cells = nodes('Button', canvas)
-    check('layer canvas offers bounded interactive cells', len(cells) == 144)
-    cell = cells[0]
-    call('click', cell['id']); time.sleep(.5)
+    diagnostic({'layer': 1}); click('单层'); wait_preview(); click('俯视')
+    check('single layer shares the editable 3D canvas', diagnostic()['displayMode'] == 'single' and len(nodes('Scene')) == 1)
+    click('擦除'); click_point((3.5, 2., 4.5)); wait_preview()
     click('历史')
-    check('layer painting creates undo entry', any('绘制' in s for s in labels()))
+    check('single layer editing creates undo entry', diagnostic()['blocks'] == 71 and any('擦除' in s for s in labels()))
     click('撤销')
     check('undo creates redo action', any(n['props'].get('onClick') for n in _resolve_label(tree(), '重做')))
     click('参数')
@@ -121,7 +120,7 @@ def main():
     scrolls = nodes('ScrollView')
     result = call('scroll', scrolls[-1]['id'], 100)
     check('inspector scroll accepts movement', result.get('error') is None)
-    click('三维')
+    click('完整'); wait_preview()
     click('建筑库')
     entry = nodes('Input')[0]
     call('set_input', entry['id'], '自动验证 · 建筑样本'); time.sleep(.4)
@@ -135,6 +134,7 @@ def main():
     check('beginner guide renders six steps', '06' in labels())
     click('减少动态效果')
     save('ui_guide')
+    click('减少动态效果')  # Restore the user's motion preference.
     click('投影')
     check('projection has controls and material counts', '所需材料' in labels())
     click('检查建造进度')

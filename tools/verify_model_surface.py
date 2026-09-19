@@ -13,6 +13,8 @@ import capture_screen as capture
 from verify_selection_scope import diagnostic, wait_preview
 from verify_interaction import pointer
 from projection.camera import OrbitCamera
+from projection.scene_lines import grid_lines
+from verify_large_editor import snapshot
 
 
 def pixels(name):
@@ -62,7 +64,8 @@ def main():
     capture.user32.SetProcessDPIAware()
     ui.click('工作台'); ui.click('浏览')
     diagnostic({'fixture':'offset_odd', 'selection':[[2,1,3],[5,3,8]],
-                'camera':[35.9,25.9,3], 'pan':[.15,-.1]})
+                # Keep the measured silhouette above the navigation overlay.
+                'camera':[35.9,25.9,3], 'pan':[.15,-.18]})
     wait_preview()
     if diagnostic()['grid']: ui.click('网格')
     images, report = [], []
@@ -82,6 +85,31 @@ def main():
     sheet=Image.new('RGB',(440*3,340*3),'white')
     for i,im in enumerate(images):sheet.paste(im,((i%3)*440,(i//3)*340))
     sheet.save(ui.OUT/'model_surface_contact.png')
+    diagnostic({'layer':1})
+    if not diagnostic()['grid']: ui.click('网格')
+    time.sleep(.4)
+    # Overlay visibility is updated natively; the declarative style stays
+    # hidden. Inspect the raw tree so those persistent line slots are retained.
+    scene=ui.nodes('Scene',ui.call('dump_tree')['tree'])[0]
+    lines=[n for n in ui.nodes('Image',scene) if 'rotatePivot' in n['props']][:52]
+    state=diagnostic();box=pointer()['layout']
+    camera=OrbitCamera(*state['pose']);camera.pan=tuple(state['pan'])
+    unit=min(box['width'],box['height'])*.72*state['pose'][2]/max(state['sceneSize'])
+    corners=list(itertools.product((2,6),(1,),(3,9)))
+    for axis in (0,2):
+        segments=grid_lines(state['origin'],state['sceneSize'],1)
+        for point in corners:
+            index=next(i for i,(a,b) in enumerate(segments) if a[axis]==b[axis]==point[axis])
+            native=ui.call('native_control',lines[index]['id'])['result']
+            assert native['visible'],native
+            center=np.mean(native['rect'],axis=0)
+            direction=np.array(native['rect'][1])-np.array(native['rect'][0])
+            direction/=np.linalg.norm(direction)
+            projected=np.array(camera.project(point,state['sceneSize'],box['width'],box['height'],unit))+(box['x'],box['y'])
+            delta=projected-center
+            error=abs(delta[0]*direction[1]-delta[1]*direction[0])
+            ui.check('coplanar quartz corner lies on native grid line '+str((axis,point)),error<.1)
+    snapshot('quartz_coplanar_grid')
     (ui.OUT/'model_surface_checks.json').write_text(json.dumps({'checks':ui.checks,'pixels':report},ensure_ascii=False,indent=2),encoding='utf8')
 
 

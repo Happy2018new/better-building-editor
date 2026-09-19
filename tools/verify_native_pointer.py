@@ -4,6 +4,7 @@ import time
 import verify_interaction as interaction
 import verify_ui as ui
 import capture_screen as capture
+from verify_selection_scope import diagnostic, wait_preview
 
 
 def main():
@@ -33,11 +34,12 @@ def main():
         time.sleep(.3)
 
     ui.click('工作台'); ui.click('浏览')
+    diagnostic({'fixture': 'demo'}); wait_preview()
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     ui.click('俯视'); time.sleep(.7)
     ui.click('浏览')
-    initial_yaw = ui.nodes('PaperDoll')[0]['props']['initRotZ']
+    initial_yaw = diagnostic()['pose'][0]
     box = interaction.pointer()['layout']
     x, y = interaction.point((20.5, 6., 3.5))
     click_at(box['x'] + x, box['y'] + y)
@@ -57,10 +59,10 @@ def main():
         capture.user32.mouse_event(4, 0, 0, 0, 0)
     time.sleep(.6)
     ui.click('浏览')
-    props = ui.nodes('PaperDoll')[0]['props']
-    print('Settled native drag angles:', props['initRotZ'], props['initRotX'])
-    ui.check('native drag orbits in two axes', 5 < abs(props['initRotZ']) < 60 and props['initRotX'] < -2)
-    delta = (props['initRotZ'] - initial_yaw + 180.) % 360. - 180.
+    yaw, pitch, unused = diagnostic()['pose']
+    print('Settled native drag angles:', yaw, pitch)
+    ui.check('native drag orbits in two axes', 5 < abs(yaw) < 60 and pitch < 88)
+    delta = (yaw - initial_yaw + 180.) % 360. - 180.
     ui.check('rightward native drag rotates the model with the hand', delta < -5.)
     move(x, y)
     time.sleep(.12)

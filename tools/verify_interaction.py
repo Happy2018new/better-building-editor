@@ -107,8 +107,9 @@ def main():
     time.sleep(.3)
     ui.check('drag in erase mode never paints', before == [x for x in ui.labels() if x.startswith('方块 ')])
     ui.click('浏览')
-    props = ui.nodes('PaperDoll')[0]['props']
-    ui.check('drag changes both orbit axes', abs(props['initRotZ']) > 5 and props['initRotX'] < -2)
+    from verify_selection_scope import diagnostic
+    pose = diagnostic()['pose']
+    ui.check('drag changes both orbit axes', abs(pose[0]) > 5 and pose[1] < 88)
     ui.click('俯视'); time.sleep(.7)
     tap(*point((8.5, 11., 14.5)))
     ui.check('preset after drag remains accurate', 'X 8 · Y 10 · Z 14' in ui.labels())

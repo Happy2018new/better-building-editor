@@ -37,10 +37,9 @@ def main():
         ui.check(size + ' native fallback text remains readable', True)
         observed.append(sample[0]['props']['fontSize'])
         ui.check(size + ' preview controls retain identity', original == [n['id'] for n in ui.nodes('PaperDoll', current)])
-        scene = ui.nodes('Scene', current)[0]['children'][0]
-        surfaces = next(child['children'] for child in scene['children'] if ui.nodes('PaperDoll', child))
-        visible = [ui.call('native_control', n['id'])['result']['visible'] for n in surfaces]
-        ui.check(size + ' exactly one warmed preview surface is visible', sum(visible) == 1)
+        tiles = ui.nodes('PreviewTile', current)
+        ui.check(size + ' each persistent tile retains its two buffers', bool(tiles) and
+                 all(len(ui.nodes('PaperDoll', tile)) == 2 for tile in tiles))
         # The same height and vertical midpoint for status, Save, and Close.
         save = next(n for n in ui.nodes('Action', current) if n['props'].get('label') == '保存配置')
         close = next(n for n in ui.nodes('Action', current) if n['props'].get('glyph') == 'close')

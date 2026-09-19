@@ -13,6 +13,10 @@ def cells(palette):
     return {(material, index) for material, values in palette.common.items() for index in values}
 
 
+def scene_cells(session):
+    return {(material,index) for part in session.tiles.parts.values() for material,values in part['data'].items() for index in values}
+
+
 class Bridge:
     def __init__(self):
         self.queue, self.builds = [], []
@@ -92,15 +96,22 @@ class TileTests(unittest.TestCase):
         s.editor.run('fill'); s.refresh_preview(); b.settle(s)
         for mode, layer in (('section', 15), ('section', 16), ('single', 8), ('full', 8)):
             s.editor.layer = layer; s.display_mode(mode); b.settle(s)
-            actual = set((material,index) for p in s.tiles.parts.values() for material,values in p['data'].items() for index in values)
+            actual = scene_cells(s)
             expected = cells(list(build_preview(s.editor.document, s.preview_hidden(),
                 layer if s.solo_layer else None))[-1][0])
             self.assertEqual(expected, actual, (mode,layer))
         before = dict((key,p['name']) for key,p in s.tiles.parts.items())
         s.camera_pose = (0,0,1); s.move_depth(1); b.settle(s)
         self.assertTrue(all(p['name'] == before[key] for key,p in s.tiles.parts.items() if key[2] == 0))
-        actual = set((material,index) for p in s.tiles.parts.values() for material,values in p['data'].items() for index in values)
+        actual = scene_cells(s)
         self.assertEqual(cells(list(build_preview(s.editor.document,plane=s.depth_plane()))[-1][0]), actual)
+
+    def test_native_declared_volume_is_bounded_as_documents_grow(self):
+        for size in ((24,16,24),(64,96,64),(128,128,128),(256,384,256)):
+            edge=tile_edge(size)
+            count=((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge)
+            self.assertLessEqual(count*size[0]*size[1]*size[2],32*1024*1024)
+        self.assertEqual(512,tile_edge((256,384,256)))
 
     def test_surface_budget_applies_across_tiles_and_preserves_draft(self):
         budget = tiles.MAX_SURFACE_BLOCKS

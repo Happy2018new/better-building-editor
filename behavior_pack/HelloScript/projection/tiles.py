@@ -11,9 +11,15 @@ except NameError:
 
 def tile_edge(size):
     edge = 8
-    while ((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge) > 128:
+    volume = size[0]*size[1]*size[2]
+    while True:
+        count = ((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge)
+        # Each native mesh retains its declared palette volume, even when only
+        # surface blocks are populated. Keep a common 3D origin for correct
+        # depth, but bound declared cells per buffer bank as documents grow.
+        if count <= 128 and (count == 1 or count*volume <= 32*1024*1024):
+            return edge
         edge *= 2
-    return edge
 
 
 def visibility_key(context, low, high):

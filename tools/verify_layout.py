@@ -55,7 +55,7 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
     native_canvas = ui.call('native_control', canvas['id'])['result']
     native_model = ui.call('native_control', ui.nodes('PaperDoll')[0]['id'])['result']
     ui.check(preset + ' clip snapping preserves the model origin',
-             all(abs(a - b) < .001 for a, b in zip(native_canvas['global'], native_model['global'])))
+             all(abs(a - (b-p)) < .001 for a, b, p in zip(native_canvas['global'], native_model['global'], native_model['position'])))
     before = interaction.pointer()
     ui.click('展开视图')
     expanded = interaction.pointer()

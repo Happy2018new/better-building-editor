@@ -37,7 +37,8 @@ def main():
     elapsed = time.perf_counter() - started
     ui.check('all 25,165,824 cells filled in game', '方块 25,165,824' in ui.labels())
     wait_preview()
-    ui.check('overview has native geometry', any(n['props'].get('blockGeometryModelName') for n in ui.nodes('PaperDoll')))
+    from verify_selection_scope import diagnostic
+    ui.check('overview has native geometry', bool(diagnostic()['model']) and bool(ui.nodes('PaperDoll')))
     snapshot('large_overview')
     ui.click('历史'); ui.click('撤销'); wait_for('方块 0')
     ui.check('maximum fill undo works', '方块 0' in ui.labels())

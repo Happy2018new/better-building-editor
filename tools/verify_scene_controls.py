@@ -33,7 +33,7 @@ def main():
     ui.call('set_input', field['id'], '2');wait_preview()
     ui.check('changing Y updates single layer without changing the draft',
              diagnostic()['layer']==2 and diagnostic()['blocks']==72 and diagnostic()['model'])
-    ui.click('剖切');wait_preview();click_point((3.5,4.,4.5))
+    ui.click('切面');wait_preview();click_point((3.5,4.,4.5))
     ui.check('cut height uses the same Y and exposes the correct top voxel', diagnostic()['focused']==[3,2,4])
     ui.click('完整');wait_preview();click_point((3.5,4.,4.5))
     ui.check('full view restores upper voxels and preserves workplane height',
