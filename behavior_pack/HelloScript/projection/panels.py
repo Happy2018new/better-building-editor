@@ -7,7 +7,7 @@ from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
 from .widgets import JellyButton as Button, use_theme
 from .catalog import BY_ID, MATERIALS, tool_parameters
-from .model import AIR, SMALL_VOLUME, bounds
+from .model import AIR, SMALL_VOLUME, MAX_AXES, bounds
 from .coordinates import parse_coordinates
 
 
@@ -255,10 +255,12 @@ def Library(session=None, revision=0, width=760, height=440):
             Action(label='另存为新配置', glyph='save', accent=True, width=145, height=40, onClick=partial(session.action, session.save))
         ], gap=14)),
         row([text('我的建筑库', 17, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)]),
-        row([Panel(style=S(flex=1), children=Coordinates(label='新建尺寸  X, Y, Z（256, 384, 256）', value=session.new_size,
+        row([Panel(style=S(flex=1), children=Coordinates(label='新建尺寸  X, Y, Z（64, 100, 64）', value=session.new_size,
                     onChange=partial(session.set, 'new_size'), onValidityChange=partial(session.set, 'new_size_valid'))),
              Action(label='新建空白', glyph='plus', width=120, enabled=session.new_size_valid, onClick=partial(session.confirm,
-                    '新建将替换当前草稿，请先保存需要保留的作品。', session.empty))]),
+                    '新建将替换当前草稿，请先保存需要保留的作品。', session.empty)),
+             Action(label='新建最大区域', glyph='grid', width=126, onClick=partial(session.confirm,
+                    '新建 64 × 100 × 64 将替换当前草稿，请先保存需要保留的作品。', partial(session.empty, MAX_AXES)))]),
         Scroll(style=S(width='100%', flex=1), children=Panel(style=S(width=width - 36, flexDirection=FlexDirection.row,
             flexWrap=FlexWrap.wrap, gap=12, height=max(170, ((len(cards) + 1) // 2) * 172)), children=cards or [surface(width=width - 40, height=170,
                 alignItems=AlignItems.center, justifyContent=JustifyContent.center, gap=10, children=[
@@ -325,6 +327,6 @@ def Guide(session=None, revision=0, width=760, height=440):
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
         text('快捷入口：P 打开工作台 · F6 / F7 标记脚下两点', 12, Theme.muted),
-        text('范围上限：256 × 384 × 256 格。', 11, Theme.muted),
+        text('范围上限：64 × 100 × 64 格。', 11, Theme.muted),
         text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
     ]))

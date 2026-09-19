@@ -12,6 +12,12 @@ def behind_plane(pos, plane):
     return plane is None or sum((pos[i] + .5) * plane[0][i] for i in range(3)) <= plane[1] + 1e-7
 
 
+def render_bounds(width, height, pan):
+    """Move the native centre without allowing its UI rectangle to be culled."""
+    px, py = pan
+    return ((px-abs(px), py-abs(py)), (width+2*abs(px), height+2*abs(py)))
+
+
 class OrbitCamera(object):
     def __init__(self, yaw=35., pitch=25., zoom=1.):
         self.yaw, self.pitch, self.zoom = yaw, pitch, zoom

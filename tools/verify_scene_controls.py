@@ -43,10 +43,10 @@ def main():
     time.sleep(.8);ui.click('放置')
     before=diagnostic()
     native_click('前移');wait_preview();after=diagnostic()
-    ui.check('first forward click crosses empty front margin', after['depth']>=13)
+    ui.check('forward smoothly approaches without rebuilding geometry',after['pose'][2]>1.19 and after['previewBuilds']==before['previewBuilds'])
     ui.check('navigation cannot place a block through its button', after['blocks']==before['blocks'])
     native_click('后移');wait_preview()
-    ui.check('back returns to the preceding view depth', diagnostic()['depth']==0)
+    ui.check('back restores apparent distance without cutting the model',abs(diagnostic()['pose'][2]-1)<.002 and diagnostic()['depthPlane'] is None)
     ui.click('图层');before=diagnostic()
     brightness=next(n for n in ui.nodes('Range') if n['props']['label']=='场景亮度')
     slider=ui.nodes('Slider',brightness)[0]['id']

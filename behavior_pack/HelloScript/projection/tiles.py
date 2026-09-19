@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Bounded native preview tiles. Only edited tiles and their halo are rebuilt."""
+"""Incremental surface extraction with one coherent native depth buffer."""
 from __future__ import unicode_literals
 import time
-from .large_preview import build_preview, MAX_SURFACE_BLOCKS
+from .large_preview import build_preview, MAX_SURFACE_BLOCKS, SurfacePalette
 try:
     text_type = unicode
 except NameError:
@@ -11,13 +11,9 @@ except NameError:
 
 def tile_edge(size):
     edge = 8
-    volume = size[0]*size[1]*size[2]
     while True:
         count = ((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge)
-        # Each native mesh retains its declared palette volume, even when only
-        # surface blocks are populated. Keep a common 3D origin for correct
-        # depth, but bound declared cells per buffer bank as documents grow.
-        if count <= 128 and (count == 1 or count*volume <= 32*1024*1024):
+        if count <= 128:
             return edge
         edge *= 2
 
@@ -43,7 +39,10 @@ class TiledPreview(object):
         self.context = None
         self.edge = 8
         self.parts = {}
-        self.slots = ()
+        self.slots = ((0, 0, 0),)
+        self.surface = None
+        self.upload_dirty = False
+        self.next_submit = 0.
         self.dirty = set()
         self.versions = {}
         self.running = False
@@ -67,12 +66,13 @@ class TiledPreview(object):
             # different origin/size and must never retain old coordinate frames.
             if s.model_revision is None or s.model_revision[0] != signature[0]:
                 self.parts = {}
+                self.surface = None
+                self.upload_dirty = True
             keys = set((x, y, z) for x in range((size[0]+self.edge-1)//self.edge)
                        for y in range((size[1]+self.edge-1)//self.edge)
                        for z in range((size[2]+self.edge-1)//self.edge))
             if previous is None or previous[0] != context[0]:
                 self.dirty = keys
-                self.slots = tuple(sorted(keys))
                 s.emit('preview')
             else:
                 if hasattr(self, 'key'):
@@ -118,18 +118,23 @@ class TiledPreview(object):
         started = time.time()
         try:
             if self.iterator is None:
-                available = [key for key in self.dirty if not self.parts.get(key, {}).get('pending')]
-                if not available:
-                    if self.dirty:
+                if not self.dirty:
+                    if self.surface and self.surface['pending']:
                         s.bridge.later(.016, self.advance)
-                    else:
-                        self.running = s.preview_pending = False
-                        s.model_revision = s.preview_signature()
-                        self.publish_visibility()
-                        s.preview_error = ''
-                        s.emit('preview_status')
+                        return
+                    if self.upload_dirty:
+                        if time.time() < self.next_submit:
+                            s.bridge.later(.016, self.advance)
+                            return
+                        self.submit_surface()
+                        s.bridge.later(.016, self.advance)
+                        return
+                    self.running = s.preview_pending = False
+                    s.model_revision = s.preview_signature()
+                    s.preview_error = ''
+                    s.emit('preview_status')
                     return
-                self.key = min(available)
+                self.key = min(self.dirty)
                 self.dirty.discard(self.key)
                 self.version = self.versions[self.key]
                 low = tuple(v*self.edge for v in self.key)
@@ -151,14 +156,8 @@ class TiledPreview(object):
                     total = palette.count + sum(p.get('count', 0) for k,p in self.parts.items() if k != self.key)
                     if total > MAX_SURFACE_BLOCKS:
                         raise ValueError('可见方块过多，请使用单层或精细视图；草稿完整保留')
-                    bank = 1-part['bank'] if part else 0
-                    name = 'modern_projection_tile_%d_%d_%d_%d' % (self.key+(bank,))
-                    model = s.bridge.geometry(palette, name=name)
-                    # Two names per tile bound native mesh allocations during
-                    # long editing sessions. Never overwrite a warming surface.
-                    self.parts[self.key] = {'name': model, 'bank': bank, 'data': data, 'count': palette.count, 'pending': bool(model)}
-                    self.builds += 1
-                    self.publish_visibility()
+                    self.parts[self.key] = {'data': data, 'count': palette.count, 'version': self.version}
+                    self.upload_dirty = True
                 if self.versions.get(self.key) != self.version:
                     self.dirty.add(self.key)
             s.bridge.later(0., self.advance)
@@ -170,9 +169,28 @@ class TiledPreview(object):
         finally:
             self.seconds += time.time()-started
 
-    def publish_visibility(self):
+    def submit_surface(self):
+        # Separate PaperDolls do not sort translucent faces across renderers.
+        # Keep incremental CPU extraction, then submit one complete palette so
+        # opaque walls and glass share the engine's native depth ordering.
         s = self.session
-        name = 'tiled_preview' if any(p['name'] for p in self.parts.values()) else None
-        if name != s.model_name:
+        palette = SurfacePalette(s.scene_size)
+        for key in sorted(self.parts):
+            part = self.parts[key]
+            palette.count += part['count']
+            for material, indices in part['data'].items():
+                palette.common.setdefault(material, []).extend(indices)
+        self.upload_dirty = False
+        if self.surface is not None and palette.common == self.surface['data']:
+            return
+        bank = 1-self.surface['bank'] if self.surface else 0
+        name = s.bridge.geometry(palette, name='modern_projection_surface_%d' % bank)
+        self.surface = {'name': name, 'bank': bank, 'data': palette.common,
+                        'count': palette.count, 'pending': bool(name)}
+        self.builds += 1
+        self.next_submit = time.time() + .08
+        if bool(name) != bool(s.model_name):
             s.model_name = name
             s.emit('preview_visible')
+        else:
+            s.model_name = name

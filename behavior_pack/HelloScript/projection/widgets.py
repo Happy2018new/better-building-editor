@@ -500,6 +500,8 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     if enabled and feedback != ButtonState.default:
         base = base.darken(.10 if feedback == ButtonState.pressed else .035)
     ink = Theme.white if accent else (Theme.red if danger else (Theme.blue if selected else Theme.ink))
+    if not enabled:
+        base, ink = Theme.pale, Color(0xA8B1BEFF)
 
     def content():
         contents = []
@@ -513,7 +515,7 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, leading, Theme.scale]))
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
-                          opacity=1 if enabled else .38,
+                          opacity=1,
                           transform=[Scale(1 + .07 * wobble, 1 - .10 * wobble)]), children=children)
 
 

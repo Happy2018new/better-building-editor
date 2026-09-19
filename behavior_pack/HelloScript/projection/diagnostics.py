@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Bounded editor fixtures, reachable only through the enabled debug protocol."""
-from .model import Document, Editor
+from .model import Document, Editor, MAX_AXES
 
 
 def inspect(session, value):
@@ -12,7 +12,7 @@ def inspect(session, value):
         if fixture == 'demo':
             session.demo()
         else:
-            size = (23, 15, 21) if fixture == 'offset_odd' else (24, 16, 24) if fixture == 'offset' else (256, 384, 256)
+            size = (23, 15, 21) if fixture == 'offset_odd' else (24, 16, 24) if fixture == 'offset' else MAX_AXES
             if fixture == 'solid' and 'size' in value:
                 size = tuple(value['size'])
             doc = Document(size)
@@ -24,12 +24,12 @@ def inspect(session, value):
                         for z in range(3, 9):
                             doc.blocks[(x, y, z)] = ('minecraft:quartz_block', 0)
             else:
-                for x in range(256):
-                    for z in range(256):
-                        if x % 16 in (0, 1) or z % 16 in (0, 1) or x == 255 or z == 255:
+                for x in range(size[0]):
+                    for z in range(size[2]):
+                        if x % 16 in (0, 1) or z % 16 in (0, 1) or x == size[0]-1 or z == size[2]-1:
                             doc.blocks[(x, 0, z)] = ('minecraft:concrete', 14 if x % 32 == 0 else 3)
-                for y in range(384):
-                    for x, z in ((0, 0), (255, 0), (255, 255)):
+                for y in range(size[1]):
+                    for x, z in ((0, 0), (size[0]-1, 0), (size[0]-1, size[2]-1)):
                         doc.blocks[(x, y, z)] = ('minecraft:concrete', (y // 16) % 16)
             session._loaded(doc)
             session.camera_view(35., 25., 1.)
@@ -52,7 +52,7 @@ def inspect(session, value):
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
-            'depth': session.camera_depth, 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
+            'depth': 0., 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
             'touch': session.touch_mode, 'placementTarget': session.placement_proposal()[0],
             'previewBuilds': session.tiles.builds, 'previewSeconds': session.tiles.seconds,
             'previewTiles': len(session.tiles.parts), 'previewDirty': len(session.tiles.dirty),

@@ -12,10 +12,14 @@ def frame(node):
 
 
 results = []
+if '还原视图' in ui.labels():
+    ui.click('还原视图')
 ui.click('工作台')
+from verify_selection_scope import diagnostic, wait_preview
+diagnostic({'fixture': 'demo'}); wait_preview()
 reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
 ui.call('click', ui.nodes('Button', reset)[0]['id'])
-for preset in ('20:9', '4:3', '16:10', '16:9'):
+for preset in (sys.argv[1:] or ('20:9', '4:3', '16:10', '16:9')):
     process = subprocess.run([sys.executable, str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/resize_window.py'),
                               '--preset', preset], capture_output=True, check=True, encoding='utf8')
     result = json.loads(process.stdout)
@@ -53,7 +57,11 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
     ui.check(preset + ' native scissor has integral boundaries',
              all(abs(v - round(v)) < .001 for v in native_clip['global'] + native_clip['size']))
     native_canvas = ui.call('native_control', canvas['id'])['result']
-    native_model = ui.call('native_control', ui.nodes('PaperDoll')[0]['id'])['result']
+    # The unused buffer can have no model and a zero-size hidden parent. Check
+    # the displayed renderer, whose parent owns native visibility.
+    surfaces = [n for n in ui.nodes('Panel', clip) if n['id'].startswith('surface')]
+    visible_surface = next(n for n in surfaces if ui.call('native_control', n['id'])['result']['visible'])
+    native_model = ui.call('native_control', ui.nodes('PaperDoll', visible_surface)[0]['id'])['result']
     ui.check(preset + ' clip snapping preserves the model origin',
              all(abs(a - (b-p)) < .001 for a, b, p in zip(native_canvas['global'], native_model['global'], native_model['position'])))
     before = interaction.pointer()

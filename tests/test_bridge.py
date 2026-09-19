@@ -106,7 +106,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
 
     def test_stream_upload_is_snapshot_and_ack_driven(self):
         b = self.bridge
-        b.session.editor = Editor(Document((256, 384, 256), {(0, 0, 0): ('minecraft:stone', 0)}))
+        b.session.editor = Editor(Document((64, 100, 64), {(0, 0, 0): ('minecraft:stone', 0)}))
         b.request('check', {'origin': (0, 0, 0), 'document': b.session.editor.document})
         b.session.editor.document.blocks[(0, 0, 0)] = AIR
         receiver = Receiver()
@@ -124,7 +124,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_large_projection_snapshot_and_stop_cancel_all_future_actors(self):
         b = self.bridge
         b.player_origin = lambda: (0, 0, 0)
-        b.session.editor = Editor(Document((256, 384, 256), {(0, 0, 0): ('minecraft:stone', 0)}))
+        b.session.editor = Editor(Document((64, 100, 64), {(0, 0, 0): ('minecraft:stone', 0)}))
         observed = []
         b.geometry = lambda doc: observed.append(doc.get((0, 0, 0))) or 'model'
         b.project_large((0, 0, 0))

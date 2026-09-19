@@ -23,7 +23,7 @@ class ServerStreamTests(unittest.TestCase):
         self.host.reply = lambda player, request, **data: self.replies.append((player, request, data))
 
     def test_upload_cancellation_and_timeout_release_state(self):
-        first = next(packets(Document((256, 384, 256))))
+        first = next(packets(Document((64, 100, 64))))
         self.host.request({'__id__': 'real_player', 'player': 'forged', 'request': 12, 'action': 'check', 'stream': first})
         self.assertIn('real_player', self.host.uploads)
         self.assertNotIn('forged', self.host.uploads)

@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
-from projection.camera import OrbitCamera, raycast, layer_hit
+from projection.camera import OrbitCamera, raycast, layer_hit, render_bounds
 from projection.model import Document, Editor, AIR
 from projection.session import Session
 
@@ -15,6 +15,20 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_panned_native_rectangle_still_covers_viewport_with_exact_centre(self):
+        for pan in ((0,0),(-1200,-900),(1200,900),(-150,70)):
+            position,size=render_bounds(600,400,pan)
+            for axis,extent in enumerate((600,400)):
+                self.assertLessEqual(position[axis],0)
+                self.assertGreaterEqual(position[axis]+size[axis],extent)
+                self.assertEqual(extent/2.+pan[axis],position[axis]+size[axis]/2.)
+
+    def test_document_cap_rejects_each_oversized_axis(self):
+        self.assertEqual(409600,Document((64,100,64)).volume)
+        for size in ((65,100,64),(64,101,64),(64,100,65)):
+            with self.assertRaises(ValueError):
+                Document(size)
+
     def test_fractional_pose_uses_same_native_angles_for_project_and_pick(self):
         for yaw, pitch in ((35.375,25.825), (395.9,25.9), (-13.7,-8.9)):
             camera = OrbitCamera(yaw, pitch)

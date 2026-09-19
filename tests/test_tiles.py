@@ -27,8 +27,9 @@ class Bridge:
         return name if palette.common else None
     def settle(self, session):
         for _ in range(10000):
-            for part in session.tiles.parts.values():
-                part['pending'] = False
+            session.tiles.next_submit = 0.
+            if session.tiles.surface:
+                session.tiles.surface['pending'] = False
             if not self.queue:
                 return
             self.queue.pop(0)()
@@ -37,7 +38,7 @@ class Bridge:
 
 class TileTests(unittest.TestCase):
     def test_tile_budget_includes_maximum_dimensions(self):
-        for size in ((24,16,24), (23,15,21), (256,384,256)):
+        for size in ((24,16,24), (23,15,21), (64,100,64)):
             edge = tile_edge(size)
             self.assertLessEqual(((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge), 128)
 
@@ -63,7 +64,7 @@ class TileTests(unittest.TestCase):
         s._loaded(Document((24,16,24)))
         s.editor.select_box((0,0,0),(23,0,23)); s.editor.run('fill')
         s.refresh_preview(); b.settle(s)
-        before = dict((k,p['name']) for k,p in s.tiles.parts.items())
+        before = dict(s.tiles.parts)
         builds = len(b.builds)
         s.choose_mode('place')
         calls = []; s.subscribe(lambda: calls.append('root'), ())
@@ -74,7 +75,9 @@ class TileTests(unittest.TestCase):
         b.settle(s)
         self.assertEqual(builds+1,len(b.builds))
         self.assertEqual(1,len(calls))
-        self.assertTrue(all(p['name']==before[k] for k,p in s.tiles.parts.items() if k!=(0,0,0)))
+        self.assertTrue(all(p is before[k] for k,p in s.tiles.parts.items() if k!=(0,0,0)))
+        self.assertEqual(set().union(*(cells for name,cells in b.builds[-1:])), scene_cells(s))
+        self.assertEqual(((0,0,0),),s.tiles.slots)
         for _ in range(6): s.action(s.editor.undo)
         b.settle(s)
         self.assertEqual(576,len(s.editor.document.blocks))
@@ -82,14 +85,14 @@ class TileTests(unittest.TestCase):
     def test_pending_upload_is_never_overwritten_by_next_edit(self):
         b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)
         s.choose_mode('place'); s.point_action((3,0,3)); b.settle(s)
-        part = s.tiles.parts[(0,0,0)]; part['pending'] = True
+        part = s.tiles.surface; part['pending'] = True
         builds = len(b.builds)
         s.point_action((3,0,3),(0,1,0))
         s.tiles.advance()
         self.assertEqual(builds,len(b.builds))
         part['pending'] = False; b.settle(s)
         self.assertEqual(builds+1,len(b.builds))
-        self.assertNotEqual(part['name'],s.tiles.parts[(0,0,0)]['name'])
+        self.assertNotEqual(part['name'],s.tiles.surface['name'])
 
     def test_clipping_boundary_rebuilds_exposed_neighbours_and_retains_far_tiles(self):
         b = Bridge(); s = Session(b); s._loaded(Document((24,32,24)))
@@ -100,18 +103,18 @@ class TileTests(unittest.TestCase):
             expected = cells(list(build_preview(s.editor.document, s.preview_hidden(),
                 layer if s.solo_layer else None))[-1][0])
             self.assertEqual(expected, actual, (mode,layer))
-        before = dict((key,p['name']) for key,p in s.tiles.parts.items())
+        before = len(b.builds)
         s.camera_pose = (0,0,1); s.move_depth(1); b.settle(s)
-        self.assertTrue(all(p['name'] == before[key] for key,p in s.tiles.parts.items() if key[2] == 0))
+        self.assertEqual(before,len(b.builds))
         actual = scene_cells(s)
         self.assertEqual(cells(list(build_preview(s.editor.document,plane=s.depth_plane()))[-1][0]), actual)
 
-    def test_native_declared_volume_is_bounded_as_documents_grow(self):
-        for size in ((24,16,24),(64,96,64),(128,128,128),(256,384,256)):
+    def test_cpu_tiles_are_bounded_with_a_single_native_pair(self):
+        for size in ((24,16,24),(64,96,64),(64,100,64)):
             edge=tile_edge(size)
             count=((size[0]+edge-1)//edge)*((size[1]+edge-1)//edge)*((size[2]+edge-1)//edge)
-            self.assertLessEqual(count*size[0]*size[1]*size[2],32*1024*1024)
-        self.assertEqual(512,tile_edge((256,384,256)))
+            self.assertLessEqual(count,128)
+        self.assertEqual(16,tile_edge((64,100,64)))
 
     def test_surface_budget_applies_across_tiles_and_preserves_draft(self):
         budget = tiles.MAX_SURFACE_BLOCKS

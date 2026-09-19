@@ -38,7 +38,7 @@ class EditNavigationTests(unittest.TestCase):
         s.editor.locked_layers.add(4)
         self.assertIsNotNone(s.placement_target((3,3,3),(0,1,0))[1])
         self.assertIsNotNone(s.placement_target((3,3,3),(0,0,0))[1])
-        s.camera_pose=(0,0,1); s.move_depth(1)
+        s.editor.hidden_layers.add(3)
         self.assertIsNotNone(s.placement_target((3,3,6),(0,0,1))[1])
 
     def test_erase_region_survives_click_and_undo_respects_masks_and_locks(self):
@@ -57,28 +57,28 @@ class EditNavigationTests(unittest.TestCase):
         s.set('erase_scope','single'); s.point_action((1,1,2))
         self.assertEqual(1,len(e.selection))
 
-    def test_depth_enters_along_view_without_changing_zoom_or_document(self):
+    def test_approach_and_recede_change_scale_without_filtering_or_rebuilding(self):
         s=self.session();e=s.editor;e.material=STONE;e.run('fill')
         s.camera_pose=(0,0,2);s.zoom=2
-        before=(len(e.selection),e.revision,len(e.undo_stack))
+        before=(len(e.selection),e.revision,len(e.undo_stack),s.preview_signature())
         s.move_depth(1)
-        self.assertFalse(s.visible_position((3,3,7)))
+        self.assertAlmostEqual(2.4,s.zoom)
+        self.assertTrue(s.visible_position((3,3,7)))
         self.assertTrue(s.visible_position((3,3,6)))
         origin,direction=OrbitCamera(0,0).ray(200,150,e.document.size,400,300,20)
-        self.assertEqual(6,raycast(e.document,origin,direction,s.visible_position)[0][2])
-        s.settle_depth_direction((90,0))
-        self.assertFalse(s.visible_position((7,3,3)))
+        self.assertEqual(7,raycast(e.document,origin,direction,s.visible_position)[0][2])
         s.move_depth(-1)
         self.assertIsNone(s.depth_plane())
         self.assertEqual(2,s.zoom)
-        self.assertEqual(before,(len(e.selection),e.revision,len(e.undo_stack)))
+        self.assertEqual(before,(len(e.selection),e.revision,len(e.undo_stack),s.preview_signature()))
 
     def test_oblique_cut_exposes_chunk_interiors_and_matches_brute_force(self):
         s=self.session((35,34,33));e=s.editor;e.material=STONE;e.run('fill')
         e.document.blocks[(16,16,16)]=GLASS
         e.document.blocks[(15,16,15)]=AIR
         for angles, depth in (((0,0),1),((0,0),16),((37,29),22),((217,-23),25)):
-            s.depth_angles=angles;s.camera_depth=depth;plane=s.depth_plane()
+            toward=OrbitCamera(*angles).basis()[2]
+            plane=(toward,sum((abs(toward[i])+toward[i])*e.document.size[i]/2. for i in range(3))-depth)
             for focus in (None,(30,30,30)):
                 origin=(0,0,0) if focus is None else (3,2,1)
                 size=e.document.size if focus is None else (32,32,32)
@@ -89,25 +89,29 @@ class EditNavigationTests(unittest.TestCase):
                 self.assertEqual(expected,preview_cells(e.document,hidden=(17,),plane=plane,focus=focus))
 
     def test_large_region_erase_uses_cancellable_job(self):
-        s=self.session((256,384,256));e=s.editor;e.material=STONE
-        e.document.blocks[(0,0,0)]=STONE;e.document.blocks[(255,383,255)]=STONE
+        s=self.session((64,100,64));e=s.editor;e.material=STONE
+        e.document.blocks[(0,0,0)]=STONE;e.document.blocks[(63,99,63)]=STONE
         s.choose_mode('erase');self.assertTrue(s.erase_selection())
         self.assertIsNotNone(s.edit_job)
         s.cancel_edit();s.edit_job.step()
         self.assertEqual(2,len(e.document.blocks))
         self.assertFalse(e.undo_stack)
 
-    def test_forward_skips_empty_front_margin_and_back_restores_previous_position(self):
+    def test_approach_preserves_sparse_content_and_recede_stops_at_minimum(self):
         s = self.session((24,16,24))
         s.editor.document.blocks[(12,8,3)] = STONE
         s.editor.document.blocks[(12,8,2)] = STONE
         s.camera_pose = (0,0,1)
         s.move_depth(1)
-        self.assertFalse(s.visible_position((12,8,3)))
+        self.assertTrue(s.visible_position((12,8,3)))
         self.assertTrue(s.visible_position((12,8,2)))
         s.move_depth(-1)
-        self.assertEqual(0,s.camera_depth)
+        self.assertIsNone(s.depth_plane())
         self.assertTrue(s.visible_position((12,8,3)))
+        for unused in range(100):
+            s.move_depth(-1)
+        self.assertEqual(.25,s.zoom)
+        self.assertFalse(s.preview_pending)
 
     def test_unified_view_modes_share_layer_and_do_not_stack_filters(self):
         s = self.session(); s.layer(3)

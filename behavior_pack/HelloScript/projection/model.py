@@ -8,9 +8,9 @@ from .catalog import BY_ID
 from .storage import BlockStore, Selection
 
 AIR = ('minecraft:air', 0)
-MAX_VOLUME = 256 * 384 * 256
-MAX_AXES = (256, 384, 256)
-MAX_AXIS = 384
+MAX_VOLUME = 64 * 100 * 64
+MAX_AXES = (64, 100, 64)
+MAX_AXIS = 100
 SMALL_VOLUME = 32768
 MAX_HISTORY_CELLS = 262144
 DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
@@ -52,12 +52,16 @@ def block(value):
     return (name, aux)
 
 
+class RegionSizeError(ValueError):
+    """An intact saved document can exceed the current editing limit."""
+
+
 class Document(object):
     def __init__(self, size=(24, 16, 24), blocks=None, name='未命名建筑'):
-        if len(size) != 3 or any(type(v) is not int or v < 1 or v > MAX_AXES[i] for i, v in enumerate(size)):
-            raise ValueError('X/Z 须为 1–256 格，Y 须为 1–384 格')
-        if size[0] * size[1] * size[2] > MAX_VOLUME:
-            raise ValueError('建筑范围最多 256 × 384 × 256 格')
+        if len(size) != 3 or any(type(v) is not int or v < 1 for v in size):
+            raise ValueError('X/Z 须为 1–64 格，Y 须为 1–100 格')
+        if any(v > MAX_AXES[i] for i, v in enumerate(size)):
+            raise RegionSizeError('建筑范围最多 64 × 100 × 64 格；原配置保留，不会截断')
         self.size = tuple(size)
         self.blocks = BlockStore()
         self.name = name

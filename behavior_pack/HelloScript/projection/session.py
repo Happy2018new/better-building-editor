@@ -2,7 +2,7 @@
 """Application state, local building library, and coalesced preview generation."""
 from __future__ import unicode_literals
 import time
-from .model import AIR, Document, Editor, demo_document, SMALL_VOLUME, bounds
+from .model import AIR, Document, Editor, RegionSizeError, demo_document, SMALL_VOLUME, bounds
 
 
 def as_text(value):
@@ -46,10 +46,6 @@ class Session(object):
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
         self.camera_pan = (0., 0.)
-        self.camera_depth = 0.
-        self.depth_history = []
-        self.view_ray = None
-        self.depth_angles = (35, 25)
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
@@ -108,6 +104,16 @@ class Session(object):
                         entry['data'] = Document.from_data(entry['data']).to_data()
                     if type(entry['id']) is int:
                         self.library.append(entry)
+                except RegionSizeError:
+                    # A reduced editing cap must never erase older archives
+                    # when another configuration is saved or renamed.
+                    saved = entry['data']
+                    name = as_text(saved.get('name', ''))
+                    if (type(entry.get('id')) is int and saved.get('version') in (1, 2, 3)
+                            and isinstance(name, type('')) and 1 <= len(name) <= 64):
+                        saved['name'] = name
+                        self.library.append(entry)
+                        self.editor.message = '超出当前尺寸上限的旧配置已保留'
                 except (ValueError, TypeError, KeyError):
                     self.editor.message = '已跳过损坏的本地配置'
             self.library_serial = max([0] + [entry['id'] for entry in self.library])
@@ -358,52 +364,15 @@ class Session(object):
                 self.depth_plane())
 
     def depth_plane(self):
-        if self.camera_depth <= 0:
-            return None
-        from .camera import OrbitCamera
-        toward = OrbitCamera(*self.depth_angles).basis()[2]
-        size = self.editor.document.size
-        # Position measured from the front of the document towards its back.
-        limit = sum(abs(toward[i]) * size[i] / 2. for i in range(3)) - self.camera_depth
-        return toward, limit + sum(toward[i] * size[i] / 2. for i in range(3))
+        return None
 
     def visible_position(self, pos):
-        from .camera import behind_plane
-        return self.visible_layer(pos[1]) and behind_plane(pos, self.depth_plane())
+        return self.visible_layer(pos[1])
 
     def move_depth(self, direction):
-        from .camera import OrbitCamera, raycast
-        self.depth_angles = OrbitCamera(*self.camera_pose).render_angles()
-        toward = OrbitCamera(*self.depth_angles).basis()[2]
-        span = sum(abs(toward[i]) * self.editor.document.size[i] for i in range(3))
-        step = max(1., round(max(self.scene_size) / 24.))
-        previous = self.camera_depth
-        if direction < 0 and self.depth_history:
-            self.camera_depth = self.depth_history.pop()
-        else:
-            target = self.camera_depth + direction*step
-            if direction > 0:
-                size = self.editor.document.size
-                origin, ray = self.view_ray or (tuple(size[i]/2. + (sum(size)+4)*toward[i] for i in range(3)),
-                                               tuple(-v for v in toward))
-                hit = raycast(self.editor.document, origin, ray, self.visible_position)
-                if hit:
-                    front = sum(abs(toward[i])*size[i]/2. + toward[i]*size[i]/2. for i in range(3))
-                    # Enter the first visible surface even when the document
-                    # contains a large empty margin in front of the building.
-                    target = max(target, front-sum((hit[0][i]+.5)*toward[i] for i in range(3))+.5)
-                self.depth_history.append(previous)
-            self.camera_depth = max(0., min(span, target))
-        if self.camera_depth == previous:
-            return
-        self.refresh_preview()
-        self.emit('view')
-
-    def settle_depth_direction(self, angles):
-        if self.camera_depth and self.depth_angles != angles:
-            self.depth_angles = angles
-            self.refresh_preview()
-            self.emit('view')
+        # Orthographic approach/recede changes apparent distance by scaling.
+        # Share the camera's smooth interpolation; never remove voxels or mesh.
+        self.camera_view(zoom=max(.25, self.zoom * (1.2 if direction > 0 else 1./1.2)))
 
     def visible_layer(self, y):
         return (y not in self.editor.hidden_layers and
@@ -495,7 +464,7 @@ class Session(object):
         self.camera_pitch = actual_pitch if pitch is None else pitch
         self.zoom = actual_zoom if zoom is None else zoom
         self.camera_revision += 1
-        self.emit()
+        self.emit('view')
 
     def pan_view(self, x, y):
         self.camera_pan = (self.camera_pan[0] + x, self.camera_pan[1] + y)
@@ -624,6 +593,7 @@ class Session(object):
         if entry is None:
             raise ValueError('找不到这份配置')
         data = entry['data']
+        Document(data.get('size', ()))
         if data.get('version') == 3:
             from .archive import load_steps
             self._start_io(load_steps(self.bridge, identity, data), self._loaded, '正在载入建筑')
@@ -638,9 +608,6 @@ class Session(object):
         self.editor = Editor(document)
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
-        self.camera_depth = 0.
-        self.depth_history = []
-        self.view_ray = None
         self.canvas_x = self.canvas_z = 0
         self.preview_detail = False
         self.focused = self.box_anchor = None
@@ -712,10 +679,10 @@ class Session(object):
     def demo(self):
         self._loaded(demo_document())
 
-    def empty(self):
-        if not self.new_size_valid:
+    def empty(self, size=None):
+        if size is None and not self.new_size_valid:
             raise ValueError('请先输入有效的新建尺寸')
-        self._loaded(Document(self.new_size))
+        self._loaded(Document(self.new_size if size is None else size))
         self.name = '未命名建筑'
         self.canvas_x = self.canvas_z = 0
         self.page = 'workspace'

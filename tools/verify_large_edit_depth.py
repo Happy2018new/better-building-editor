@@ -1,4 +1,4 @@
-"""Maximum-volume region erase/undo and camera-depth picking in the real game."""
+"""Maximum-volume erase/undo and camera distance without geometry updates."""
 import json
 import time
 import verify_ui as ui
@@ -13,22 +13,24 @@ def main():
     state, unused = wait_preview()
     initial_seconds = time.perf_counter() - started
     ui.check('maximum structure retains every block and exact preview dimensions',
-             state['blocks'] == 25165824 and state['sceneSize'] == [256, 384, 256] and state['sceneScale'] == 1)
+             state['blocks'] == 409600 and state['sceneSize'] == [64, 100, 64] and state['sceneScale'] == 1)
     ui.click('擦除')
     ui.check('maximum cuboid selects region erase', diagnostic()['eraseScope'] == 'selection')
     ui.click('擦除选区'); wait_for('方块 0'); wait_preview()
     ui.check('whole-volume erase clears blocks and preserves selection',
-             diagnostic()['blocks'] == 0 and diagnostic()['selection'] == 25165824)
-    ui.click('历史'); ui.click('撤销'); wait_for('方块 25,165,824'); wait_preview(); ui.click('参数')
-    ui.check('single undo restores the entire maximum volume', diagnostic()['blocks'] == 25165824)
+             diagnostic()['blocks'] == 0 and diagnostic()['selection'] == 409600)
+    ui.click('历史'); ui.click('撤销'); wait_for('方块 409,600'); wait_preview(); ui.click('参数')
+    ui.check('single undo restores the entire maximum volume', diagnostic()['blocks'] == 409600)
     ui.click('浏览')
     started = time.perf_counter()
+    before = diagnostic()
     ui.click('前移'); state, unused = wait_preview()
     depth_seconds = time.perf_counter() - started
-    ui.check('forward depth keeps native dimensions and all draft blocks',
-             state['depth'] == 16 and state['blocks'] == 25165824 and state['sceneSize'] == [256, 384, 256])
-    click_point((128.5, 192.5, 240.))
-    ui.check('maximum preview picks the exposed interior at its real coordinate', diagnostic()['focused'] == [128, 192, 239])
+    ui.check('forward distance keeps native dimensions and reuses all geometry',
+             state['pose'][2] > 1.19 and state['blocks'] == 409600 and state['sceneSize'] == [64, 100, 64]
+             and state['previewBuilds'] == before['previewBuilds'])
+    click_point((32.5, 50.5, 64.))
+    ui.check('maximum preview still picks the intact front wall', diagnostic()['focused'] == [32, 50, 63])
     report = {'initialPreviewSeconds': initial_seconds, 'depthPreviewSeconds': depth_seconds, 'checks': ui.checks}
     (ui.OUT / 'large_edit_depth_checks.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
     print(json.dumps(report, ensure_ascii=False), flush=True)

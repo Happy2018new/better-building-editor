@@ -8,8 +8,8 @@ import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
-from .camera import OrbitCamera, raycast, layer_hit, behind_plane
-from .model import bounds
+from .camera import OrbitCamera, raycast, layer_hit, behind_plane, render_bounds
+from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
@@ -73,9 +73,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     mouse = use_ref(lambda: clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())).current
     hover_preview = use_ref(None)
     placed_pointer = use_ref(None)
-    depth_settled = use_ref((None, 0.))
     edge_refs = [use_ref(None) for unused in range(12)]
-    grid_refs = [use_ref(None) for unused in range(52)]
+    grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
     selected_bounds = use_ref((None, None))
     active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
 
@@ -155,16 +154,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         camera.pan_target = session.camera_pan
         camera.advance(dt, Theme.motion)
         pan = (camera.pan[0] * width * Theme.scale, camera.pan[1] * height * Theme.scale)
-        if pan != pan_geometry.current:
-            pan_geometry.current = pan
+        native_position, native_size = render_bounds(width*Theme.scale, height*Theme.scale, pan)
+        if (native_position, native_size) != pan_geometry.current:
+            pan_geometry.current = (native_position, native_size)
             for dolls, surfaces, preview in registry.values():
                 for ref in dolls:
                     if ref.current:
-                        ref.current.SetPosition(pan)
+                        ref.current.SetPosition(native_position)
+                        ref.current.SetSize(native_size)
         session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
-        ray_origin, ray_direction = camera.ray(width*Theme.scale/2., height*Theme.scale/2., session.scene_size,
-                                              width*Theme.scale, height*Theme.scale, unit())
-        session.view_ray = (tuple(ray_origin[i]+session.scene_origin[i] for i in range(3)), ray_direction)
         if wheel_time.current is not None and now - wheel_time.current >= .18:
             wheel_time.current = None
             # A drag may have started since the last wheel event. Publish its
@@ -173,23 +171,19 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.zoom = camera.target[2]
             session.emit()
         rendered_yaw, rendered_pitch = camera.render_angles()
-        angles = (rendered_yaw, rendered_pitch)
-        if angles != depth_settled.current[0]:
-            depth_settled.current = (angles, now)
-        elif not camera.dragging and now - depth_settled.current[1] > .2:
-            session.settle_depth_direction(angles)
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
                      session.scene_origin, session.scene_size)
         pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
         for key, controls in list(registry.items()):
-            part = session.tiles.parts.get(key)
+            part = session.tiles.surface
             dolls, surfaces, preview = controls
             if part is None or not all(ref.current for ref in dolls+surfaces):
                 continue
             def draw(slot, name, pose):
                 dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
                 surfaces[slot].current.SetPosition((-dx, -dy))
-                dolls[slot].current.SetPosition(pan)
+                dolls[slot].current.SetPosition(native_position)
+                dolls[slot].current.SetSize(native_size)
                 result = dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
                     'block_geometry_model_name': name, 'scale': pose[0],
                     'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})

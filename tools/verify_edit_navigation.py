@@ -86,18 +86,19 @@ def main():
     ui.check('single erase remains available',diagnostic()['blocks']==71 and diagnostic()['selection']==1)
 
     diagnostic({'fixture':'solid','size':[8,8,8],'camera':[0,0,1],'pan':[0,0]});wait_preview();ui.click('浏览')
-    zoom=diagnostic()['pose'][2]
+    before=diagnostic();zoom=before['pose'][2]
     for label,expected in [('左移',[.12,0]),('右移',[0,0]),('上移',[0,.12]),('下移',[0,0])]:
         ui.click(label);time.sleep(.4);ui.check(label+' moves the viewpoint',diagnostic()['pan']==expected)
     click_point((3.5,3.5,8));ui.check('front face initially picked',diagnostic()['focused']==[3,3,7])
-    ui.click('前移');wait_preview();click_point((3.5,3.5,7))
-    ui.check('forward enters structure and picks the newly exposed layer',diagnostic()['focused']==[3,3,6])
-    ui.check('depth changes preserve document and zoom',diagnostic()['blocks']==512 and diagnostic()['pose'][2]==zoom)
-    snapshot('view_depth_inside')
+    ui.click('前移');wait_preview();click_point((3.5,3.5,8))
+    ui.check('forward approaches while retaining the front wall',diagnostic()['focused']==[3,3,7])
+    ui.check('distance preserves document without mesh builds',diagnostic()['blocks']==512 and
+             diagnostic()['pose'][2]>zoom*1.19 and diagnostic()['previewBuilds']==before['previewBuilds'])
+    snapshot('view_distance_near')
     ui.click('后移');wait_preview();click_point((3.5,3.5,8))
     ui.check('backward restores the front wall',diagnostic()['focused']==[3,3,7] and diagnostic()['depth']==0)
     ui.click('前移');wait_preview();diagnostic({'camera':[90,0,1]});time.sleep(.9);wait_preview()
-    click_point((7,3.5,3.5));ui.check('depth follows settled viewing direction',diagnostic()['focused']==[6,3,3])
+    click_point((8,3.5,3.5));ui.check('rotation retains the side wall',diagnostic()['focused']==[7,3,3])
     action(glyph='home');wait_preview()
     ui.check('home restores all depths and view offsets',diagnostic()['depth']==0 and diagnostic()['pan']==[0,0])
     ui.check('all six navigation buttons and section have icons and text',all(

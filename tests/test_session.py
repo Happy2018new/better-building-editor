@@ -18,6 +18,40 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_smaller_editing_cap_preserves_old_library_entries(self):
+        b = Bridge()
+        entries = [{'id': 1, 'data': {'version': 1, 'name': 'legacy',
+                   'size': [256, 384, 256], 'blocks': []}},
+                   {'id': 2, 'data': {'version': 3, 'name': 'archive',
+                   'size': [256, 384, 256], 'blockCount': 25165824, 'parts': 50}}]
+        b.load_library = lambda: {'serial': 2, 'buildings': entries}
+        b.player_origin = lambda: (0, 64, 0)
+        s = Session(b); s.initialize()
+        before = s.editor
+        for identity in (1, 2):
+            with self.assertRaisesRegex(ValueError, '64 × 100 × 64'):
+                s.load(identity)
+            self.assertIs(before, s.editor)
+            self.assertIsNone(s.io_job)
+        s.save()
+        self.assertEqual(entries, b.data['buildings'][:2])
+        self.assertEqual(3, b.data['serial'])
+
+    def test_size_preset_works_when_native_text_input_is_invalid(self):
+        s = Session(Bridge()); s.new_size_valid = False
+        s.empty((64, 100, 64))
+        self.assertEqual((64, 100, 64), s.editor.document.size)
+        self.assertEqual(409600, len(s.editor.selection))
+
+    def test_camera_buttons_only_invalidate_view_owners(self):
+        s = Session(Bridge()); calls = []
+        s.subscribe(lambda: calls.append('workspace'), ())
+        s.subscribe(lambda: calls.append('view'), ('view',))
+        revision = s.content_revision
+        s.move_depth(1)
+        self.assertEqual(['view'], calls)
+        self.assertEqual(revision, s.content_revision)
+
     def test_touch_proposal_waits_for_confirmation_and_commits_once(self):
         s = Session(Bridge())
         s.editor = Editor(Document((8, 8, 8)))
@@ -66,7 +100,7 @@ class SessionTests(unittest.TestCase):
 
     def test_new_size_never_silently_uses_previous_document(self):
         s = Session(Bridge())
-        for size in ((3, 8, 3), (37, 13, 65), (256, 384, 256)):
+        for size in ((3, 8, 3), (37, 13, 63), (64, 100, 64)):
             s.new_size = size
             s.empty()
             self.assertEqual(size, s.editor.document.size)
@@ -126,7 +160,7 @@ class SessionTests(unittest.TestCase):
         b = Bridge()
         title = '自动验证 · 大范围建筑'
         b.load_library = lambda: {'serial': 12, 'buildings': [{'id': 9, 'data': {
-            'version': 3, 'name': title.encode('utf8'), 'size': [256, 384, 256], 'parts': 13, 'blockCount': 25165824}}]}
+            'version': 3, 'name': title.encode('utf8'), 'size': [64, 100, 64], 'parts': 13, 'blockCount': 409600}}]}
         b.player_origin = lambda: (0, 64, 0)
         s = Session(b)
         s.initialize()
@@ -136,14 +170,14 @@ class SessionTests(unittest.TestCase):
 
     def test_detail_camera_center_does_not_follow_each_picked_block(self):
         s = Session(Bridge())
-        s.editor = Editor(Document((256, 384, 256)))
-        s.focus_preview((120, 120, 120))
+        s.editor = Editor(Document((64, 100, 64)))
+        s.focus_preview((40, 40, 40))
         signature = s.preview_signature()
-        s.focused = (125, 125, 125)
+        s.focused = (45, 45, 45)
         self.assertEqual(signature, s.preview_signature())
-        self.assertEqual((120, 120, 120), s.preview_center)
-        s.layer(200)
-        self.assertEqual((120, 200, 120), s.preview_center)
+        self.assertEqual((40, 40, 40), s.preview_center)
+        s.layer(80)
+        self.assertEqual((40, 80, 40), s.preview_center)
 
     def test_failed_async_load_retains_current_draft_and_releases_ui(self):
         b = Bridge()
@@ -152,7 +186,7 @@ class SessionTests(unittest.TestCase):
         b.load_archive_page = lambda identity, part: None
         s = Session(b)
         before = s.editor
-        s.library = [{'id': 3, 'data': {'version': 3, 'name': 'missing', 'size': [256, 384, 256], 'parts': 2, 'blockCount': 5}}]
+        s.library = [{'id': 3, 'data': {'version': 3, 'name': 'missing', 'size': [64, 100, 64], 'parts': 2, 'blockCount': 5}}]
         s.load(3)
         self.assertIs(s.editor, before)
         self.assertIsNotNone(s.io_job)
@@ -174,7 +208,7 @@ class SessionTests(unittest.TestCase):
         cleared = []
         b.clear_archive = lambda identity, parts: cleared.append((identity, parts))
         s = Session(b)
-        s.editor = Editor(Document((256, 384, 256)))
+        s.editor = Editor(Document((64, 100, 64)))
         s.editor.run('fill')
         s.save()
         while s.io_job is not None:
@@ -187,7 +221,7 @@ class SessionTests(unittest.TestCase):
         s.load(identity)
         while s.io_job is not None:
             timers.pop(0)()
-        self.assertEqual(25165824, len(s.editor.document.blocks))
+        self.assertEqual(409600, len(s.editor.document.blocks))
         s.delete(identity)
         self.assertEqual([], s.library)
         self.assertEqual(identity, cleared[0][0])

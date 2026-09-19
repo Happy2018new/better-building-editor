@@ -21,7 +21,7 @@ from test_world import World
 
 STONE = ('minecraft:stone', 0)
 WOOD = ('minecraft:planks', 1)
-SIZE = (256, 384, 256)
+SIZE = (64, 100, 64)
 
 
 class LargeEditorTests(unittest.TestCase):
@@ -35,9 +35,9 @@ class LargeEditorTests(unittest.TestCase):
             def load_archive_page(self, identity, part):
                 return self.pages.get((identity, part))
         d = Document(SIZE)
-        for key in [(x, 0, z) for x in range(16) for z in range(16)]:
+        for key in [(x, y, z) for x in range(4) for y in range(3) for z in range(4)]:
             d.blocks.fill_chunk(key, STONE)
-            d.blocks[(key[0] * 16, 0, key[2] * 16)] = WOOD
+            d.blocks[tuple(v*16 for v in key)] = WOOD
         pages = Pages()
         metadata = [v for v in save_steps(pages, d, 9) if v is not None][0]
         self.assertGreater(metadata['parts'], 1)
@@ -94,29 +94,29 @@ class LargeEditorTests(unittest.TestCase):
 
     def test_full_world_height_fill_undo_redo_and_compact_config(self):
         e = Editor(Document(SIZE))
-        self.assertEqual(25165824, len(e.selection))
-        self.assertEqual(6144, len(e.selection.chunks))
+        self.assertEqual(409600, len(e.selection))
+        self.assertEqual(112, len(e.selection.chunks))
         e.material = STONE
-        self.assertEqual(25165824, e.run('fill'))
-        self.assertTrue(all(isinstance(c, int) for c in e.document.blocks.chunks.values()))
+        self.assertEqual(409600, e.run('fill'))
+        self.assertTrue(all(isinstance(c, int) for k,c in e.document.blocks.chunks.items() if k[1]<6))
         self.assertLess(e.document.blocks.memory_bytes(), 1024 * 1024)
-        self.assertEqual([(STONE, 25165824)], e.document.materials())
-        self.assertEqual(65536, e.document.layer_count(383))
+        self.assertEqual([(STONE, 409600)], e.document.materials())
+        self.assertEqual(4096, e.document.layer_count(99))
         payload = e.document.to_data()
         encoded = json.dumps(payload)
         self.assertLess(len(encoded), 200000)
         restored = Document.from_data(json.loads(encoded))
         self.assertEqual(e.document.blocks, restored.blocks)
-        self.assertEqual(STONE, restored.get((255, 383, 255)))
+        self.assertEqual(STONE, restored.get((63, 99, 63)))
         self.assertTrue(e.undo())
         self.assertEqual(0, len(e.document.blocks))
         self.assertTrue(e.redo())
-        self.assertEqual(25165824, len(e.document.blocks))
-        e.paint_at((255, 383, 255), True)
-        self.assertEqual(25165823, len(e.document.blocks))
-        self.assertEqual(STONE, restored.get((255, 383, 255)))
+        self.assertEqual(409600, len(e.document.blocks))
+        e.paint_at((63, 99, 63), True)
+        self.assertEqual(409599, len(e.document.blocks))
+        self.assertEqual(STONE, restored.get((63, 99, 63)))
         e.undo()
-        self.assertEqual(STONE, e.document.get((255, 383, 255)))
+        self.assertEqual(STONE, e.document.get((63, 99, 63)))
 
     def test_job_is_atomic_and_cancel_does_not_create_history(self):
         e = Editor(Document(SIZE))
@@ -134,12 +134,12 @@ class LargeEditorTests(unittest.TestCase):
         e.select_box((0, 0, 0), (31, 31, 31))
         e.material = STONE; e.run('fill')
         e.run('select_air')
-        self.assertEqual(25165824 - 32768, len(e.selection))
+        self.assertEqual(409600 - 32768, len(e.selection))
         e.run('select_invert')
         self.assertEqual(((0, 0, 0), (31, 31, 31)), bounds(e.selection))
         e.run('select_all')
         e.run('rotate_y90')
-        self.assertEqual(STONE, e.document.get((255, 0, 0)))
+        self.assertEqual(STONE, e.document.get((63, 0, 0)))
         self.assertEqual(AIR, e.document.get((0, 0, 0)))
         self.assertEqual(32768, len(e.document.blocks))
         e.undo()
@@ -181,7 +181,7 @@ class LargeEditorTests(unittest.TestCase):
         e = Editor(Document(SIZE))
         e.run('fill')
         data = list(packets(e.document))
-        self.assertGreater(len(data), 90)
+        self.assertGreater(len(data), 3)
         self.assertLess(max(len(json.dumps(p)) for p in data), 20000)
         receiver = Receiver()
         for packet in data:
@@ -198,12 +198,12 @@ class LargeEditorTests(unittest.TestCase):
         e.run('fill')
         overview = [v for v in build_preview(e.document) if v is not None][0]
         self.assertEqual(SIZE, overview[0].size)
-        self.assertEqual(256*384*256 - 254*382*254, overview[0].count)
+        self.assertEqual(64*100*64 - 62*98*62, overview[0].count)
         self.assertEqual(1, overview[2])
         e.material = WOOD
-        e.paint_at((255, 383, 255))
-        detail = [v for v in build_preview(e.document, focus=(255, 383, 255)) if v is not None][0]
-        self.assertEqual((224, 352, 224), detail[1])
+        e.paint_at((63, 99, 63))
+        detail = [v for v in build_preview(e.document, focus=(63, 99, 63)) if v is not None][0]
+        self.assertEqual((32, 68, 32), detail[1])
         self.assertIn(32767, detail[0].common[WOOD])
         self.assertEqual(1, detail[2])
 
@@ -225,7 +225,7 @@ class LargeEditorTests(unittest.TestCase):
         e.mask = 'air'
         self.assertEqual(0, e.run('fill'))
         e.locked_layers.clear(); e.mask = 'all'; e.run('copy')
-        e.start = (255, 383, 255)
+        e.start = (63, 99, 63)
         before = e.document.to_data()
         with self.assertRaises(ValueError):
             e.run('paste')

@@ -1,5 +1,4 @@
 """Camera-space overlay geometry, shared by the native scene and tests."""
-import math
 
 
 def cuboid(lo, hi):
@@ -16,13 +15,11 @@ def cuboid(lo, hi):
 def grid_lines(origin, size, layer):
     if not origin[1] <= layer < origin[1] + size[1]:
         return []
-    step = max(1, int(math.ceil(max(size[0], size[2]) / 24.)))
     result = []
     for axis in (0, 2):
         other = 2 if axis == 0 else 0
         start, end = origin[axis], origin[axis] + size[axis]
-        values = sorted(set([start, end] + list(range(((start + step - 1) // step) * step, end, step))))
-        for value in values:
+        for value in range(start, end+1):
             a = list(origin); a[1] = layer; a[axis] = value
             b = list(a); b[other] += size[other]
             result.append((tuple(a), tuple(b)))

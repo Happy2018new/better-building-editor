@@ -36,10 +36,10 @@ class ExactPreviewTests(unittest.TestCase):
             self.assertEqual(expected, preview_cells(e.document, hidden=hidden, layer=layer, focus=focus))
 
     def test_thin_landmarks_and_material_aux_keep_exact_far_coordinates(self):
-        doc = Document((256,384,256))
-        for i in range(256):
-            doc.blocks[(i,0,255)] = ('minecraft:concrete', i%16)
-        doc.blocks[(255,383,0)] = GLASS
+        doc = Document((64,100,64))
+        for i in range(64):
+            doc.blocks[(i,0,63)] = ('minecraft:concrete', i%16)
+        doc.blocks[(63,99,0)] = GLASS
         self.assertEqual(dict(doc.blocks.items()), preview_cells(doc))
 
     def test_selection_fields_and_two_click_box_drive_same_batch_scope(self):
@@ -63,9 +63,10 @@ class ExactPreviewTests(unittest.TestCase):
         e.run('select_material'); self.assertEqual(8,len(e.selection))
 
     def test_grid_is_bounded_and_uses_same_current_layer_as_empty_picking(self):
-        for origin,size in (((0,0,0),(256,384,256)),((224,352,224),(32,32,32))):
+        for origin,size in (((0,0,0),(64,100,64)),((32,68,32),(32,32,32))):
             lines = grid_lines(origin,size,origin[1])
-            self.assertLessEqual(len(lines),52)
+            self.assertEqual(len(lines), size[0]+size[2]+2)
+            self.assertEqual(list(range(origin[0],origin[0]+size[0]+1)),[a[0] for a,b in lines if a[0]==b[0]])
             for a,b in lines:
                 self.assertEqual(origin[1],a[1]); self.assertEqual(a[1],b[1])
         self.assertEqual([],grid_lines((0,32,0),(32,32,32),0))

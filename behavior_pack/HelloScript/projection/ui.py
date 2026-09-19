@@ -88,7 +88,7 @@ def ViewNavigation(session=None, width=430, revision=0):
         Action(label='前移', glyph='front_view', compact=True, width=54, height=27,
                onClick=partial(session.move_depth, 1)),
         Action(label='后移', glyph='undo', compact=True, width=54, height=27,
-               enabled=session.camera_depth > 0, onClick=partial(session.move_depth, -1))])
+               enabled=session.zoom > .25, onClick=partial(session.move_depth, -1))])
     return Panel(style=S(gap=3), children=[row(controls[:4], gap=3), row(controls[4:], gap=3)] if width < 520
                  else [row(controls, gap=3)])
 
@@ -108,7 +108,6 @@ def Viewport(session=None, revision=0, width=430, height=440):
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
-                     '当前深度没有方块 · 点击后移' if session.camera_depth else
                      '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
     viewport_children.extend([
         Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == '3d'),
@@ -131,7 +130,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Action(label='正视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=0.)),
         Panel(style=S(flex=1)),
         Action(label='网格', glyph='grid', compact=True, height=26, selected=session.grid, onClick=partial(session.set, 'grid', not session.grid)),
-        Action(glyph='home', width=28, height=26, onClick=partial(reset_camera, session)),
+        Action(label='复位', glyph='home', compact=True, height=26, onClick=partial(reset_camera, session)),
     ]
     return surface(width=width, height=height, children=[
         row([Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
@@ -170,7 +169,6 @@ def SceneStatus(session=None):
     use_theme()
     use_session_fields(session, ('preview_status', 'view', 'point_edit'))
     return text('正在构建方块预览…' if session.preview_pending else
-                '视线深入 %g 格' % session.camera_depth if session.camera_depth else
                 'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted)
 
 
@@ -197,9 +195,6 @@ def PlacementControls(session=None, revision=0, width=400):
 
 def reset_camera(session):
     session.camera_pan = (0., 0.)
-    session.camera_depth = 0.
-    session.depth_history = []
-    session.refresh_preview()
     session.camera_view(35., 25., 1.)
 
 
