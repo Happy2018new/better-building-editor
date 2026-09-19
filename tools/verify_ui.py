@@ -65,10 +65,23 @@ def save(name):
     return current
 
 
+def library_action(name, action):
+    entries = [(node, parents) for node, parents in _walk(nodes('Library')[0])
+               if node.get('type') == 'Label' and node.get('props', {}).get('content') == name]
+    assert len(entries) == 1, (name, len(entries))
+    for ancestor in reversed(entries[0][1]):
+        targets = _resolve_label(ancestor, action)
+        if len(targets) == 1:
+            call('click', targets[0]['id'])
+            time.sleep(.5)
+            return
+    raise AssertionError((name, action))
+
+
 def main():
     click('建筑库')
     for unused in range(32):
-        entries = [(n, parents) for n, parents in _walk(tree()) if n.get('type') == 'Label' and
+        entries = [(n, parents) for n, parents in _walk(nodes('Library')[0]) if n.get('type') == 'Label' and
                    n.get('props', {}).get('content') == '自动验证 · 建筑样本']
         if not entries:
             break
@@ -111,7 +124,7 @@ def main():
     call('set_input', entry['id'], '自动验证 · 建筑样本'); time.sleep(.4)
     click('另存为新配置')
     check('library saves and displays a building', '自动验证 · 建筑样本' in labels())
-    click('载入')
+    library_action('自动验证 · 建筑样本', '载入')
     check('load requires a confirmation dialog', '请确认这次操作' in labels())
     click('确认继续')
     check('load returns to workspace', '场景视图' in labels())
@@ -134,7 +147,7 @@ def main():
     check('projection can be removed', any('投影已关闭' in s for s in labels()))
     save('ui_projection')
     click('建筑库')
-    click('删除'); click('确认继续')
+    library_action('自动验证 · 建筑样本', '删除'); click('确认继续')
     check('temporary configuration removed', '自动验证 · 建筑样本' not in labels(nodes('Library')[0]))
     click('工作台')
     save('ui_verified_workspace')

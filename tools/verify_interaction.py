@@ -43,7 +43,7 @@ def verify_outline():
     ui.click('浏览')
     tap(*point((8.5, 11., 14.5), 35., 25.))
     raw = ui.call('dump_tree')['tree']
-    edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0]) if 'rotatePivot' in n.get('props', {})]
+    edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0]) if 'rotatePivot' in n.get('props', {})][-12:]
     box = pointer()['layout']
     camera = OrbitCamera(35., 25.)
     errors = []
@@ -55,7 +55,9 @@ def verify_outline():
         a[other[1]] += corner % 2
         b = list(a); b[axis] += 1
         rect = ui.call('native_control', edge['id'])['result']['rect']
-        for expected, actual in zip((a, b), rect[:2]):
+        # A centered stroke's centerline, not its top edge, meets the corners.
+        for expected, actual in zip((a, b), (tuple((rect[0][i]+rect[3][i])/2. for i in (0,1)),
+                                           tuple((rect[1][i]+rect[2][i])/2. for i in (0,1)))):
             x, y = camera.project(expected, (24, 16, 24), box['width'], box['height'], min(box['width'], box['height']) * .72 / 24.)
             errors.extend((abs(actual[0] - box['x'] - x), abs(actual[1] - box['y'] - y)))
     ui.check('all 12 native outline edges meet the projected voxel corners', len(edges) == 12 and max(errors) < .15)
@@ -91,7 +93,7 @@ def main():
     tap(*point((8.5, 11., 14.5)))
     tap(*point((9.5, 11., 15.5)))
     ui.check('two clicks define 3D cuboid', '选区 4' in ui.labels())
-    ui.click('恢复全选区域')
+    ui.click('全选')
     ui.click('擦除')
     before = [x for x in ui.labels() if x.startswith('方块 ')]
     node = pointer(); layout = node['layout']

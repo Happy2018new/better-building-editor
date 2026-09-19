@@ -197,14 +197,14 @@ class LargeEditorTests(unittest.TestCase):
         e = Editor(Document(SIZE))
         e.run('fill')
         overview = [v for v in build_preview(e.document) if v is not None][0]
-        self.assertEqual((16, 24, 16), overview[0].size)
-        self.assertEqual(6144, len(overview[0].blocks))
-        self.assertEqual(16, overview[2])
+        self.assertEqual(SIZE, overview[0].size)
+        self.assertEqual(256*384*256 - 254*382*254, overview[0].count)
+        self.assertEqual(1, overview[2])
         e.material = WOOD
         e.paint_at((255, 383, 255))
         detail = [v for v in build_preview(e.document, focus=(255, 383, 255)) if v is not None][0]
         self.assertEqual((224, 352, 224), detail[1])
-        self.assertEqual(WOOD, detail[0].get((31, 31, 31)))
+        self.assertIn(32767, detail[0].common[WOOD])
         self.assertEqual(1, detail[2])
 
     def test_compressed_world_journal_supports_rollback_order(self):

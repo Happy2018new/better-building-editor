@@ -113,8 +113,6 @@ def Viewport(session=None, revision=0, width=430, height=440):
     focus = session.focus_view
     area_h = max(130, height - (136 if focus else 148))
     viewport_children = []
-    if session.grid:
-        viewport_children.append(Image(src=TEX + 'viewport_grid', style=S(width='100%', height='100%', opacity=.6)))
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h))
     if not session.model_name:
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
@@ -129,8 +127,10 @@ def Viewport(session=None, revision=0, width=430, height=440):
                                children=text('Y %02d' % e.layer, 10, Theme.muted))),
         Panel(style=S(position=Position.absolute, left=12, top=12, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
-                  children=text('总览 · 点击进入精细视图' if session.scene_scale > 1 else
+                  children=text('正在构建方块预览…' if session.preview_pending else
                       'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
+        Panel(style=S(position=Position.absolute, left=12, bottom=12, visible=bool(session.preview_error)),
+              children=text(session.preview_error, 11, Theme.red, width=width-24)),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=12),
               children=OrientationGizmo(session=session)),
     ])
@@ -143,7 +143,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Action(label='俯视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=90.)),
         Action(label='正视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=0.)),
         Panel(style=S(flex=1)),
-        Action(glyph='grid', width=28, height=26, selected=session.grid, onClick=partial(session.set, 'grid', not session.grid)),
+        Action(label='网格', glyph='grid', compact=True, height=26, selected=session.grid, onClick=partial(session.set, 'grid', not session.grid)),
         Action(glyph='home', width=28, height=26, onClick=partial(reset_camera, session)),
     ]
     layer_controls = [
@@ -172,7 +172,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
         Panel(style=S(width='100%', height=36), children=[
             Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == '3d'),
-                  children=row(view_controls, paddingHorizontal=10, height=36, gap=3)),
+                  children=row(view_controls, paddingHorizontal=6 if width < 480 else 10,
+                               height=36, gap=1 if width < 480 else 3)),
             Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == 'layer'),
                   children=row(layer_controls, paddingHorizontal=12, height=36, gap=4))]),
         Panel(style=S(paddingHorizontal=12, gap=4), children=[
@@ -212,7 +213,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
         panes.append(RetainedPane(key=name, active=active == name,
             style=S(position=Position.absolute, width='100%', height='100%'),
             children=component(session=session, revision=content_revision)))
-    direct = session.view == '3d' and session.direct_mode != 'browse'
+    direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
     children = [Panel(key='header', style=S(width='100%', height=42), children=[
         Panel(style=S(position=Position.absolute, visible=not projecting), children=
             Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],

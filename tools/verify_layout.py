@@ -48,7 +48,7 @@ for preset in ('20:9', '4:3', '16:10', '16:9'):
     interaction.tap(*interaction.point((8.5, 11., 14.5)))
     ui.check(preset + ' resized viewport picks roof', 'X 8 · Y 10 · Z 14' in ui.labels())
     canvas = ui.nodes('Scene')[0]['children'][0]
-    clip = canvas['children'][0]
+    clip = next(child for child in canvas['children'] if ui.nodes('PaperDoll', child))
     native_clip = ui.call('native_control', clip['id'])['result']
     ui.check(preset + ' native scissor has integral boundaries',
              all(abs(v - round(v)) < .001 for v in native_clip['global'] + native_clip['size']))

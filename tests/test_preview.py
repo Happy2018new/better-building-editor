@@ -48,6 +48,17 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(len(self.draws), 1)
         self.assertEqual(self.draws[0][1], 'old')
 
+    def test_promotion_resubmits_after_visibility_and_depth_without_camera_motion(self):
+        self.settle('old')
+        old_count = len(self.draws)
+        self.tick('new', .1)
+        self.tick('new', .14)
+        self.tick('new', .18)
+        self.assertEqual(old_count+2, len(self.draws))
+        self.assertEqual('new', self.draws[-1][1])
+        self.tick('new', .2)
+        self.assertEqual(old_count+2, len(self.draws))
+
     def test_superseded_and_failed_replacement_never_becomes_front(self):
         self.settle('old')
         self.tick('stale', .1)

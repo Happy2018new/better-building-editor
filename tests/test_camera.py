@@ -144,6 +144,9 @@ class DirectEditingTests(unittest.TestCase):
                 s.point_action((1, 1, 1))
                 s.point_action((1, 1, 1))
             s.choose_mode('place')
+            s.direct_selection = True
+            self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 0)
+            s.direct_selection = False
             self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 1)
             self.assertEqual(s.editor.selection, {(1, 1, 1)})
             s.editor.undo()

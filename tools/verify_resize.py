@@ -38,7 +38,7 @@ def main():
         observed.append(sample[0]['props']['fontSize'])
         ui.check(size + ' preview controls retain identity', original == [n['id'] for n in ui.nodes('PaperDoll', current)])
         scene = ui.nodes('Scene', current)[0]['children'][0]
-        surfaces = scene['children'][0]['children']
+        surfaces = next(child['children'] for child in scene['children'] if ui.nodes('PaperDoll', child))
         visible = [ui.call('native_control', n['id'])['result']['visible'] for n in surfaces]
         ui.check(size + ' exactly one warmed preview surface is visible', sum(visible) == 1)
         # The same height and vertical midpoint for status, Save, and Close.

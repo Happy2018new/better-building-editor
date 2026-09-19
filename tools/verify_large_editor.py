@@ -22,6 +22,7 @@ def wait_for(fragment, timeout=60):
 
 
 def main():
+    from verify_selection_scope import wait_preview
     capture.user32.SetProcessDPIAware()
     ui.click('建筑库')
     fields = ui.nodes('Input', ui.nodes('Library')[0])
@@ -35,7 +36,7 @@ def main():
     wait_for('填充方块 · 已修改 25165824 格')
     elapsed = time.perf_counter() - started
     ui.check('all 25,165,824 cells filled in game', '方块 25,165,824' in ui.labels())
-    time.sleep(2)
+    wait_preview()
     ui.check('overview has native geometry', any(n['props'].get('blockGeometryModelName') for n in ui.nodes('PaperDoll')))
     snapshot('large_overview')
     ui.click('历史'); ui.click('撤销'); wait_for('方块 0')

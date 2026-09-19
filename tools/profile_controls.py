@@ -64,7 +64,8 @@ def main():
     output = ui.OUT / ('controls_%s_%s.json' % (scenario, label))
     with output.open('w', encoding='utf8') as stream:
         process = subprocess.Popen([sys.executable, '-X', 'utf8', str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/tracy.py'),
-                                    'capture', '--seconds', '10', '--label', scenario + '_' + label, '--top', '8'], stdout=stream)
+                                    'capture', '--seconds', '10', '--label', scenario + '_' + label, '--top', '8'], stdout=stream,
+                                   creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0)
         time.sleep(1.)
         capture.user32.SetCursorPos(*points[0]); time.sleep(.15)
         start = time.perf_counter()

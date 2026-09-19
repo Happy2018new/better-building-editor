@@ -37,7 +37,7 @@ class Session(object):
         self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
-        self.direct_selection = False
+        self.direct_selection = True
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
@@ -121,6 +121,11 @@ class Session(object):
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:
             return
+        if field in ('start', 'end'):
+            start = value if field == 'start' else self.editor.start
+            end = value if field == 'end' else self.editor.end
+            self.box_anchor = None
+            return self.action(self.editor.select_box, start, end)
         setattr(self.editor, field, value)
         self.emit()
 
@@ -145,6 +150,7 @@ class Session(object):
     def choose_tool(self, tool):
         self.tool = tool
         self.direct_mode = 'browse'
+        self.box_anchor = None
         self.inspector = 'params'
         self.emit()
 
@@ -157,17 +163,19 @@ class Session(object):
 
     def action(self, callback, *args):
         if self.io_job is not None:
-            self.editor.message = '建筑存取进行中，请稍候'
+            self.editor.message = '建筑存取进行中，请稍后'
             self.emit('edit_progress')
             return False
         if self.edit_job is not None:
-            self.editor.message = '编辑任务进行中，可点击取消'
+            self.editor.message = '正在编辑，可点击取消'
             self.emit()
             return False
         try:
             if callback == self.editor.run and self.editor.document.volume > SMALL_VOLUME:
                 return self.start_edit(args[0])
             result = callback(*args)
+            if callback == self.editor.run and args and args[0].startswith('select_'):
+                self.box_anchor = None
         except (ValueError, TypeError) as error:
             self.editor.message = str(error).decode('utf8') if isinstance(str(error), bytes) else str(error)
             self.emit()
@@ -177,6 +185,10 @@ class Session(object):
         return result
 
     def run(self):
+        if self.box_anchor is not None:
+            self.editor.message = '请先点击框选终点，或取消框选'
+            self.emit()
+            return False
         return self.action(self.editor.run, self.tool)
 
     def start_edit(self, tool):
@@ -195,6 +207,8 @@ class Session(object):
             now = time.time()
             if job.done:
                 self.edit_job = None
+                if job.tool.startswith('select_'):
+                    self.box_anchor = None
                 if job.error:
                     self.editor.message = as_text(job.error)
                 self.refresh_preview()
@@ -226,7 +240,15 @@ class Session(object):
         if editor.document.volume > SMALL_VOLUME:
             from .large_preview import build_preview
             focus = self.preview_center if self.preview_detail else None
-            iterator = build_preview(editor.document, editor.hidden_layers, editor.layer if self.solo_layer else None, focus)
+            def prepare():
+                for result in build_preview(editor.document, editor.hidden_layers, editor.layer if self.solo_layer else None, focus):
+                    if result is None:
+                        yield None
+                        continue
+                    doc, origin, scale = result
+                    yield self.bridge.geometry(doc), origin, doc.size, scale
+                    return
+            iterator = prepare()
             def advance():
                 if signature != self.preview_signature():
                     self.preview_pending = False
@@ -237,9 +259,9 @@ class Session(object):
                     while time.time() < deadline:
                         result = next(iterator)
                         if result is not None:
-                            doc, origin, scale = result
-                            self.model_name = self.bridge.geometry(doc)
-                            self.scene_origin, self.scene_size, self.scene_scale = origin, tuple(v * scale for v in doc.size), scale
+                            name, origin, size, scale = result
+                            self.model_name = name
+                            self.scene_origin, self.scene_size, self.scene_scale = origin, size, scale
                             self.model_revision = signature
                             self.preview_pending = False
                             self.preview_error = '' if self.model_name else '当前范围没有可显示的方块'
@@ -282,7 +304,7 @@ class Session(object):
 
     def focus_preview(self, pos):
         if not self.editor.document.contains(pos):
-            raise ValueError('局部中心必须位于建筑范围内')
+            raise ValueError('精细视图中心必须位于建筑范围内')
         self.focused = tuple(pos)
         self.preview_center = tuple(pos)
         self.canvas_x, self.editor.layer, self.canvas_z = pos
@@ -369,12 +391,13 @@ class Session(object):
             self.refresh_preview()
         elif mode == 'box':
             if self.box_anchor is None:
-                self.box_anchor = e.start = pos
+                self.box_anchor = pos
                 e.message = '起点已设置，请点击框选终点'
             else:
-                e.start, e.end = self.box_anchor, pos
+                start = self.box_anchor
                 self.box_anchor = None
-                e.select_box(e.start, e.end)
+                e.select_box(start, pos)
+                e.message = '已选择 %d 格 · 所有批量工具使用此选区' % len(e.selection)
         else:
             e.message = '方块坐标：%d, %d, %d' % pos
         self.emit()

@@ -483,6 +483,12 @@ def poll_clipboard(host):
                 if not result.get("ok"):
                     resp["pyreact_ack"] = False
                     resp["error"] = result.get("error")
+        elif cmd == "debug_component":
+            fiber = find_fiber_by_id(host._root_fiber, node_id)
+            callback = (fiber.props or {}).get('onDebug') if fiber else None
+            if not callable(callback):
+                raise ValueError('component has no diagnostic callback')
+            resp['result'] = callback(req.get('value'))
         elif cmd == "font_batch":
             # Diagnostic only: this is a client-wide SDK switch, not an input
             # font or antialiasing setting. The SDK has no return value/getter.
