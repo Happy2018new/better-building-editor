@@ -28,25 +28,45 @@ HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
 
 
 @Component
-def Scene(session=None, revision=0, width=400, height=300):
+def PreviewTile(identity=None, registry=None):
+    dolls = [use_ref(None), use_ref(None)]
+    surfaces = [use_ref(None), use_ref(None)]
+    buffer = use_ref(lambda: PreviewBuffer()).current
+    def register():
+        entry = (dolls, surfaces, buffer)
+        registry[identity] = entry
+        def cleanup():
+            if registry.get(identity) is entry:
+                registry.pop(identity, None)
+        return cleanup
+    use_effect(register, [identity])
+    return Panel(style=Style(position=Position.absolute, width='100%', height='100%'), children=[
+        Panel(ref=surfaces[i], key='surface%d' % i,
+              style=Style(position=Position.absolute, width='100%', height='100%'), children=[
+            Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=Style(position=Position.absolute, width='100%', height='100%', zIndex=50))]) for i in range(2)])
+
+
+@Component
+def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     use_theme()
     unused, refresh = use_state(0)
 
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view'))
+        return session.subscribe(changed, ('page', 'view', 'preview'))
     use_effect(subscribe, [session])
-    dolls = [use_ref(None), use_ref(None)]
-    surfaces = [use_ref(None), use_ref(None)]
+    registry = use_ref({}).current
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
     pan_geometry = use_ref(None)
-    preview = use_ref(lambda: PreviewBuffer()).current
     camera = use_ref(lambda: OrbitCamera(session.camera_yaw, session.camera_pitch, session.zoom)).current
     frame = use_ref(time.time())
     outline = use_ref(None)
+    dimmer = use_ref(None)
+    dim_alpha = use_ref(None)
     wheel_time = use_ref(None)
     drag = use_ref(None)
     hovering = use_ref(False)
@@ -76,7 +96,8 @@ def Scene(session=None, revision=0, width=400, height=300):
         pan_geometry.current = None
         outline.current = None
         if active:
-            preview.invalidate()
+            for dolls, surfaces, preview in registry.values():
+                preview.invalidate()
     use_effect(restore_view, [active, width, height, Theme.scale, session.page])
 
     def aim():
@@ -106,7 +127,11 @@ def Scene(session=None, revision=0, width=400, height=300):
     def tick(now):
         dt = now - frame.current
         frame.current = now
-        if canvas.current and clipping.current and all(ref.current for ref in surfaces):
+        alpha = max(0., min(.8, 1.-session.brightness))
+        if dimmer.current and dim_alpha.current != alpha:
+            dimmer.current.SetAlpha(alpha)
+            dim_alpha.current = alpha
+        if canvas.current and clipping.current:
             x, y = canvas.current.GetGlobalPosition()
             cw, ch = canvas.current.GetSize()
             # The native scissor rounds fractional bottom/right edges differently
@@ -118,9 +143,11 @@ def Scene(session=None, revision=0, width=400, height=300):
                 clip_geometry.current = geometry
                 clipping.current.SetPosition((dx, dy))
                 clipping.current.SetSize(geometry[2:])
-                for surface in surfaces:
-                    surface.current.SetPosition((-dx, -dy))
-        if not active or not all(ref.current for ref in dolls + surfaces):
+                for dolls, surfaces, preview in registry.values():
+                    for surface in surfaces:
+                        if surface.current:
+                            surface.current.SetPosition((-dx, -dy))
+        if not active:
             drag.current = None
             camera.dragging = False
             camera.velocity = (0., 0.)
@@ -130,9 +157,14 @@ def Scene(session=None, revision=0, width=400, height=300):
         pan = (camera.pan[0] * width * Theme.scale, camera.pan[1] * height * Theme.scale)
         if pan != pan_geometry.current:
             pan_geometry.current = pan
-            for ref in dolls:
-                ref.current.SetPosition(pan)
+            for dolls, surfaces, preview in registry.values():
+                for ref in dolls:
+                    if ref.current:
+                        ref.current.SetPosition(pan)
         session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
+        ray_origin, ray_direction = camera.ray(width*Theme.scale/2., height*Theme.scale/2., session.scene_size,
+                                              width*Theme.scale, height*Theme.scale, unit())
+        session.view_ray = (tuple(ray_origin[i]+session.scene_origin[i] for i in range(3)), ray_direction)
         if wheel_time.current is not None and now - wheel_time.current >= .18:
             wheel_time.current = None
             # A drag may have started since the last wheel event. Publish its
@@ -147,29 +179,30 @@ def Scene(session=None, revision=0, width=400, height=300):
         elif not camera.dragging and now - depth_settled.current[1] > .2:
             session.settle_depth_direction(angles)
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
-                     session.scene_origin, session.scene_size, preview.ready(session.model_name))
-        def draw(slot, name, pose):
-            return dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
-                'block_geometry_model_name': name, 'scale': pose[0],
-                'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
-
-        def show(slot, visible, front):
-            # Warm the transparent renderer while the previous image remains
-            # visible. Hidden renderers defer initialization until made visible.
-            surfaces[slot].current.SetVisible(visible, False)
-            if visible and front:
-                # The native renderer initializes its depth after the first
-                # model submission. Reapply once when warming finishes; the
-                # declarative mount layer alone precedes that initialization.
-                dolls[slot].current.SetLayer(50)
-                name = preview.names[slot]
-                def settled():
-                    if dolls[slot].current and preview.ready(name) and preview.front == slot:
-                        dolls[slot].current.SetLayer(49, False, False)
+                     session.scene_origin, session.scene_size)
+        pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
+        for key, controls in list(registry.items()):
+            part = session.tiles.parts.get(key)
+            dolls, surfaces, preview = controls
+            if part is None or not all(ref.current for ref in dolls+surfaces):
+                continue
+            def draw(slot, name, pose):
+                dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
+                surfaces[slot].current.SetPosition((-dx, -dy))
+                dolls[slot].current.SetPosition(pan)
+                result = dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
+                    'block_geometry_model_name': name, 'scale': pose[0],
+                    'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
+                return result
+            def show(slot, visible, front):
+                if preview.visible[slot] != visible:
+                    surfaces[slot].current.SetVisible(visible, False)
+                    preview.visible[slot] = visible
+                    if visible:
                         dolls[slot].current.SetLayer(50)
-                session.bridge.later(.2, settled)
-
-        preview.update(session.model_name, (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw), now, draw, show)
+            preview.update(part['name'], pose, now, draw, show)
+            if preview.ready(part['name']):
+                part['pending'] = False
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
@@ -197,8 +230,7 @@ def Scene(session=None, revision=0, width=400, height=300):
         if edge_signature == outline.current:
             return
         outline.current = edge_signature
-        ready = (preview.ready(session.model_name) and not session.preview_pending and
-                 session.model_revision == session.preview_signature())
+        ready = True
         lines = []
         selected = selected_bounds.current[1]
         if preview_cell is not None:
@@ -231,6 +263,7 @@ def Scene(session=None, revision=0, width=400, height=300):
         draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
 
     def down(args):
+        session.pointer_stats[0] += 1
         if not active:
             return
         if (args.get('pointerKind') == 'touch' or mouse.GetMousePosition() is None) and not session.touch_mode:
@@ -239,6 +272,15 @@ def Scene(session=None, revision=0, width=400, height=300):
         camera.target = (camera.yaw, camera.pitch, camera.zoom)
         camera.dragging = True
         drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False]
+
+    def screen_hit(point):
+        def contains(control):
+            if control is None:
+                return False
+            x, y = control.GetGlobalPosition()
+            w, h = control.GetSize()
+            return x <= point[0] < x+w and y <= point[1] < y+h
+        return active and contains(pointer.current) and not (navigation and contains(navigation.current))
 
     def move(args):
         if drag.current is None:
@@ -257,17 +299,20 @@ def Scene(session=None, revision=0, width=400, height=300):
         camera.velocity = (0., 0.)
 
     def up(args):
+        session.pointer_stats[1] += 1
         if drag.current is None:
             return
         x, y, unused_x, unused_y, then, moved = drag.current
         drag.current = None
         camera.dragging = False
         if moved:
+            session.pointer_stats[2] += 1
             if time.time() - then > .08 or not Theme.motion:
                 camera.velocity = (0., 0.)
             return
         camera.velocity = (0., 0.)
-        if session.preview_pending or session.model_revision != session.preview_signature() or not preview.ready(session.model_name):
+        signature = session.preview_signature()
+        if session.tiles.context != signature[:1] + signature[2:] or session.preview_error:
             session.editor.message = '预览更新中，请稍后点击'
             session.emit()
             return
@@ -280,6 +325,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                 return
             before_revision = session.editor.revision
             session.point_action(hit[0], hit[1])
+            session.pointer_stats[3] += int(session.editor.revision != before_revision)
             point = mouse.GetMousePosition()
             placed_pointer.current = (tuple(point) if session.direct_mode == 'place' and point is not None and
                                       session.editor.revision != before_revision else None)
@@ -311,17 +357,14 @@ def Scene(session=None, revision=0, width=400, height=300):
             Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
-            Panel(ref=surfaces[i], key='surface%d' % i,
-                  style=S(position=Position.absolute, width='100%', height='100%'), children=[
-                Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
-                     blockGeometryModelName=session.model_name, scale=unit() / 10.,
-                     initRotX=-90. + camera.pitch, initRotY=0., initRotZ=camera.yaw,
-                     style=S(position=Position.absolute, width='100%', height='100%', zIndex=50))])
-            for i in range(2)]),
+            PreviewTile(key='tile_%d_%d_%d_%d' % ((id(session.editor),)+key), identity=key, registry=registry)
+            for key in session.tiles.slots]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=100, visible=active), children=[
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
-        Pointer(ref=pointer, enabled=active, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
+        Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
+              zIndex=75, opacity=max(0., 1.-session.brightness), visible=active)),
+        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
                 buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=110, visible=active)),
     ])

@@ -3,6 +3,7 @@
 """Modern Projection professional workspace, entirely native Pyreact JsonUI."""
 from __future__ import unicode_literals
 import time
+import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
@@ -75,38 +76,9 @@ def ToolGroup(session=None, group=None, query='', selected=None):
 
 
 @Component
-def LayerCanvas(session=None, revision=0, width=380, height=300):
-    use_theme()
-    e = session.editor
-    sx, unused_sy, sz = e.document.size
-    ox, oz = min(session.canvas_x, sx - 1), min(session.canvas_z, sz - 1)
-    nx, nz = min(12, sx - ox), min(12, sz - oz)
-    cell = min((width - 36) / nx, (height - 48) / nz)
-    left = (width - cell * nx) / 2.
-    top = (height - cell * nz) / 2.
-    controls = []
-    for z in range(oz, oz + nz):
-        for x in range(ox, ox + nx):
-            pos = (x, e.layer, z)
-            value = e.document.get(pos)
-            color = material_color(value)
-            if pos not in e.selection:
-                color = color.lighten(.35)
-            controls.append(Button(key='cell_%d_%d' % (x, z), buttonBuilder=partial(cell_bg, color),
-                onClick=partial(session.paint, x, z), style=S(position=Position.absolute,
-                    left=left + cell * (x - ox), top=top + cell * (z - oz), width=max(.5, cell - .7), height=max(.5, cell - .7))))
-    controls.extend([text('Z', 11, Theme.muted, position=Position.absolute, left=max(2, left - 16), top=top),
-                     text('X', 11, Theme.muted, position=Position.absolute, left=width - 20, top=height - 20)])
-    return Image(color=Color(0xF7F9FCFF), style=S(position=Position.absolute, left=0, top=0, width=width, height=height, zIndex=5), children=controls)
-
-
-def cell_bg(color, state):
-    return Image(color=color if state == ButtonState.default else Theme.blue)
-
-
-@Component
 def ViewNavigation(session=None, width=430, revision=0):
     use_theme()
+    use_session_fields(session, ('view',))
     # These move the viewpoint, so the model moves in the opposite direction.
     controls = [Action(label=label, glyph=glyph, compact=True, width=54, height=27,
                        onClick=partial(session.pan_view, x, y)) for label, glyph, x, y in (
@@ -116,9 +88,7 @@ def ViewNavigation(session=None, width=430, revision=0):
         Action(label='前移', glyph='front_view', compact=True, width=54, height=27,
                onClick=partial(session.move_depth, 1)),
         Action(label='后移', glyph='undo', compact=True, width=54, height=27,
-               enabled=session.camera_depth > 0, onClick=partial(session.move_depth, -1)),
-        Action(label='切面', glyph='layers', compact=True, width=54, height=27,
-               selected=session.section, onClick=session.toggle_section)])
+               enabled=session.camera_depth > 0, onClick=partial(session.move_depth, -1))])
     return Panel(style=S(gap=3), children=[row(controls[:4], gap=3), row(controls[4:], gap=3)] if width < 520
                  else [row(controls, gap=3)])
 
@@ -126,36 +96,29 @@ def ViewNavigation(session=None, width=430, revision=0):
 @Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
-    use_session_fields(session, ('view',))
+    use_session_fields(session, ('view', 'preview', 'preview_visible'))
+    navigation = use_ref(None)
     e = session.editor
     doc = e.document
     focus = session.focus_view
-    area_h = max(130, height - (157 if focus else 169))
+    area_h = max(130, height - (191 if focus else 203))
     viewport_children = []
-    viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h))
+    viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation))
     if not session.model_name:
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
                      '当前深度没有方块 · 点击后移' if session.camera_depth else
                      '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
-    viewport_children.append(RetainedPane(key='layer_canvas', active=session.view == 'layer',
-        style=S(position=Position.absolute, width=width, height=area_h, zIndex=5),
-        children=LayerCanvas(session=session, revision=session.content_revision, width=width - 2, height=area_h)))
     viewport_children.extend([
-        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == 'layer'),
-              children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
-                               children=text('Y %02d' % e.layer, 10, Theme.muted))),
         Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
-                  children=text('正在构建方块预览…' if session.preview_pending else
-                      '视线深入 %g 格' % session.camera_depth if session.camera_depth else
-                      'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
+                  children=SceneStatus(session=session))),
         Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=bool(session.preview_error)),
               children=text(session.preview_error, 11, Theme.red, width=width-24)),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=200),
               children=OrientationGizmo(session=session)),
-        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=session.view == '3d'),
+        Panel(ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=session.view == '3d'),
               children=ViewNavigation(session=session, width=width, revision=revision)),
     ])
     view_controls = [
@@ -170,13 +133,6 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Action(label='网格', glyph='grid', compact=True, height=26, selected=session.grid, onClick=partial(session.set, 'grid', not session.grid)),
         Action(glyph='home', width=28, height=26, onClick=partial(reset_camera, session)),
     ]
-    layer_controls = [
-        Action(label='X−', width=34, height=26, onClick=partial(session.set, 'canvas_x', max(0, session.canvas_x - 12))),
-        Action(label='X+', width=34, height=26, onClick=partial(session.set, 'canvas_x', min(((doc.size[0] - 1) // 12) * 12, session.canvas_x + 12))),
-        Action(label='Z−', width=34, height=26, onClick=partial(session.set, 'canvas_z', max(0, session.canvas_z - 12))),
-        Action(label='Z+', width=34, height=26, onClick=partial(session.set, 'canvas_z', min(((doc.size[2] - 1) // 12) * 12, session.canvas_z + 12))),
-        text('X %d · Z %d' % (session.canvas_x, session.canvas_z), 10, Theme.muted),
-    ]
     return surface(width=width, height=height, children=[
         row([Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
                 text(('%d × %d × %d' % doc.size) + (' · ' + material_name(e.material) if focus else ''), 10, Theme.muted)]),
@@ -185,39 +141,43 @@ def Viewport(session=None, revision=0, width=430, height=440):
                  Action(glyph='redo', width=28, height=26, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
                  Action(label='材质与属性', height=27, compact=True, selected=session.focus_inspector,
                         onClick=partial(session.set, 'focus_inspector', not session.focus_inspector))]),
-             Segments(items=[('3d', '三维'), ('layer', '逐层')], value=session.view,
-                      onChange=partial(session.set, 'view'), width=112),
              Panel(style=S(display=Display.flex if doc.volume > SMALL_VOLUME else Display.none), children=
                  Action(label='总览' if session.preview_detail else '精细', glyph='cube', width=62, height=28, compact=True,
                         onClick=session.toggle_preview_detail)),
              Action(label='还原视图' if focus else '展开视图', height=28, compact=True, accent=focus,
                     onClick=partial(session.set, 'focus_view', not focus))], paddingHorizontal=12, height=45 if focus else 57),
         Image(color=Theme.line, style=S(height=1, width='100%')),
+        row([Segments(items=[('full', '完整'), ('section', '剖切'), ('single', '单层')],
+                      value=session.current_display_mode(), onChange=session.display_mode, width=178),
+             Panel(style=S(flex=1)),
+             text('Y', 11, Theme.blue),
+             Action(glyph='minus', width=27, height=27, enabled=e.layer > 0, onClick=partial(session.layer, e.layer-1)),
+             Input(value=str(e.layer), onChange=partial(set_view_layer, session), style=S(width=44, height=27)),
+             Action(glyph='plus', width=27, height=27, enabled=e.layer < doc.size[1]-1,
+                    onClick=partial(session.layer, e.layer+1))], paddingHorizontal=8, height=34, gap=4),
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
-        Panel(style=S(width='100%', height=36), children=[
-            Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == '3d'),
-                  children=row(view_controls, paddingHorizontal=6 if width < 480 else 10,
-                               height=36, gap=1 if width < 480 else 3)),
-            Panel(style=S(position=Position.absolute, width='100%', height=36, visible=session.view == 'layer'),
-                  children=row(layer_controls, paddingHorizontal=12, height=36, gap=4))]),
+        row(view_controls, paddingHorizontal=6 if width < 480 else 10,
+            height=36, gap=1 if width < 480 else 3),
         Panel(style=S(paddingHorizontal=12, gap=4), children=[
-            Panel(style=S(width='100%', height=32), children=[
-                Panel(style=S(position=Position.absolute, width='100%', height=32, visible=session.view == 'layer'),
-                      children=Segments(items=[('paint', '绘制'), ('erase', '擦除'), ('pick', '吸管'), ('start', '起点'), ('end', '终点')],
-                          value=session.paint_mode, onChange=partial(session.set, 'paint_mode'), width=width - 24)),
-                Panel(style=S(position=Position.absolute, width='100%', height=32, visible=session.view == '3d'),
-                      children=Segments(items=MODES, value=session.direct_mode, onChange=session.choose_mode, width=width - 24))]),
-            Panel(style=S(width='100%', height=36, marginTop=2), children=[
-                Panel(style=S(position=Position.absolute, visible=session.view == 'layer'),
-                      children=text('点击格子编辑 · X / Z 为文档相对坐标', 10, Theme.muted)),
-                Panel(style=S(position=Position.absolute, width='100%', visible=session.view == '3d'),
-                      children=PlacementControls(session=session, revision=revision, width=width-24))]),
+            Segments(items=MODES, value=session.direct_mode, onChange=session.choose_mode, width=width-24),
+            Panel(style=S(width='100%', height=36, marginTop=2),
+                  children=PlacementControls(session=session, revision=revision, width=width-24)),
         ])])
+
+
+@Component
+def SceneStatus(session=None):
+    use_theme()
+    use_session_fields(session, ('preview_status', 'view', 'point_edit'))
+    return text('正在构建方块预览…' if session.preview_pending else
+                '视线深入 %g 格' % session.camera_depth if session.camera_depth else
+                'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted)
 
 
 @Component
 def PlacementControls(session=None, revision=0, width=400):
     use_theme()
+    use_session_fields(session, ('point_edit',))
     placing = session.direct_mode == 'place'
     target, error = session.placement_proposal()
     controls = [text(('点击选择位置，再确认放置' if target is None else
@@ -238,8 +198,17 @@ def PlacementControls(session=None, revision=0, width=400):
 def reset_camera(session):
     session.camera_pan = (0., 0.)
     session.camera_depth = 0.
+    session.depth_history = []
     session.refresh_preview()
     session.camera_view(35., 25., 1.)
+
+
+def set_view_layer(session, value):
+    try:
+        layer = int(value)
+    except (ValueError, TypeError):
+        return
+    session.layer(layer)
 
 
 def turn_camera(session, amount):
@@ -406,6 +375,7 @@ def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
     measured_screen = use_ref(screen)
+    measured_pixels = use_ref(None)
     resize_pending = use_ref(False)
 
     def refresh():
@@ -420,12 +390,24 @@ def Workspace(session=None, revision=0):
             return
         resize_pending.current = True
 
-        def settle():
-            resize_pending.current = False
+        def settle(final=False):
+            if final:
+                resize_pending.current = False
             current = get_screen_size()
+            game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
+            pixels = tuple(game.GetScreenViewInfo()[:2])
+            pixels_changed = pixels != measured_pixels.current
+            measured_pixels.current = pixels
             if current != measured_screen.current:
                 measured_screen.current = current
                 set_screen(current)
+            elif pixels_changed:
+                refresh()
+            if not final:
+                # The engine's physical viewport can settle after the logical
+                # UI size. Recheck once so integer glyph scaling does not keep
+                # a transient width from the native resize notification.
+                session.bridge.later(.25, partial(settle, True))
         session.bridge.later(.05, settle)
     use_event('ScreenSizeChangedClientEvent', resized)
     Theme.configure(min(screen[1] / 640., screen[0] / 980.), not session.reduced_motion)
@@ -459,7 +441,8 @@ def Workspace(session=None, revision=0):
             Action(glyph='minus', width=27, height=25, onClick=partial(session.layer, e.layer - 1)),
             text('%02d' % e.layer, 12, width=25, center=True),
             Action(glyph='plus', width=27, height=25, onClick=partial(session.layer, e.layer + 1)),
-            Action(label='隔离图层', selected=session.solo_layer, width=92, height=26, compact=True, onClick=session.toggle_solo),
+            text('网格高度' if not (session.solo_layer or session.section) else
+                 '仅显示 Y 层' if session.solo_layer else '显示 Y 层及以下', 10, Theme.muted),
             Panel(style=S(flex=1)),
             text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
             text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),

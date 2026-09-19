@@ -2,11 +2,14 @@
 import json
 import sys
 import time
+import threading
+import numpy as np
 import mss
 from PIL import Image, ImageDraw
 import verify_ui as ui
 import verify_interaction as interaction
 import capture_screen as capture
+from verify_selection_scope import diagnostic, wait_preview
 
 
 def main():
@@ -17,7 +20,10 @@ def main():
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     ui.click('俯视'); ui.click('放置')
+    wait_preview()
+    diagnostic({'camera':[0,90,1], 'pan':[0,0]})
     time.sleep(.8)
+    before=diagnostic()
     box = interaction.pointer()['layout']
     root = ui.nodes('SafeArea')[0]['children'][0]['layout']
     capture.user32.SetProcessDPIAware()
@@ -31,28 +37,37 @@ def main():
     x, y = interaction.point((8.5, 11., 14.5))
     capture.user32.SetCursorPos(int(region['left'] + x * scale), int(region['top'] + y * scale))
     time.sleep(.15)
-    frames, counts, times = [], [], []
+    frames, counts, quartz_counts, times = [], [], [], []
     pressed = False
     start = time.perf_counter()
     epoch = time.time()
+    def clicks():
+        for at in (.3,.9,1.5,2.1):
+            time.sleep(max(0.,start+at-time.perf_counter()))
+            capture.user32.mouse_event(2,0,0,0,0)
+            time.sleep(.12)
+            capture.user32.mouse_event(4,0,0,0,0)
+    worker=threading.Thread(target=clicks);worker.start()
     with mss.MSS() as screen:
         try:
             while time.perf_counter() - start < 3.0:
                 assert capture.user32.GetForegroundWindow() == hwnd
                 t = time.perf_counter() - start
-                down = any(a <= t < a + .12 for a in (.3, .9, 1.5, 2.1))
-                if down != pressed:
-                    capture.user32.mouse_event(2 if down else 4, 0, 0, 0, 0)
-                    pressed = down
                 raw = screen.grab(region)
                 frame = Image.frombytes('RGB', raw.size, raw.bgra, 'raw', 'BGRX').resize((320, 200))
                 # Model pixels are dark/saturated; the near-white grid is excluded.
-                count = sum(1 for r, g, b in frame.getdata() if max(r, g, b) < 180)
-                frames.append(frame); counts.append(count); times.append(round(t, 4))
+                frames.append(frame); times.append(round(t, 4))
                 time.sleep(.003)
         finally:
-            if pressed:
-                capture.user32.mouse_event(4, 0, 0, 0, 0)
+            worker.join(); capture.user32.mouse_event(4, 0, 0, 0, 0)
+    arrays=[np.array(frame).astype('int16') for frame in frames]
+    reference=arrays[0]
+    # Roof-only mask is independent of world brightness; wood revealed by a
+    # missing tile differs strongly from the baseline roof color.
+    roof=(reference.max(2)-reference.min(2)<55)&(reference.max(2)<220)
+    for pixels in arrays:
+        counts.append(int((pixels.max(2)<180).sum()))
+        quartz_counts.append(int((roof & (np.abs(pixels-reference).max(2)<35)).sum()))
     baseline = max(counts[:max(1, sum(t < .25 for t in times))])
     blank = [i for i, c in enumerate(counts) if c < baseline * .5]
     # Include the lowest coverage frame and its neighbours plus evenly spaced frames.
@@ -68,10 +83,13 @@ def main():
     sheet.save(ui.OUT / ('frames_' + label + '.png'))
     result = dict(epoch=epoch, samples=len(frames), seconds=times[-1], baseline=baseline, minimum=min(counts),
                   blank_samples=len(blank), times=times, model_pixels=counts)
+    result['minimumRoofCoverage'] = min(quartz_counts)/float(max(quartz_counts[:max(1, sum(t<.25 for t in times))]))
     (ui.OUT / ('frames_' + label + '.json')).write_text(json.dumps(result, indent=2), encoding='utf8')
     print(json.dumps({k: v for k, v in result.items() if k not in ('times', 'model_pixels')}, indent=2))
-    ui.check('four placements select the final block at Y14', 'X 8 · Y 14 · Z 14' in ui.labels())
+    after=diagnostic()
+    ui.check('four native placements are accepted', after['blocks']==before['blocks']+4)
     ui.check('model remains visible in every sampled frame', not blank)
+    ui.check('individual roof tiles remain visible during replacement', result['minimumRoofCoverage']>.9)
 
 
 if __name__ == '__main__':

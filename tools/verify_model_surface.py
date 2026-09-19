@@ -41,12 +41,20 @@ def pixels(name):
     # Actual quartz pixels; saturated blue selection edges are excluded.
     mask = ((rgb.max(2)-rgb.min(2)<55) & (rgb[:,:,2]<235) & (rgb[:,:,0]>15)).astype('uint8')
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((3,3),'uint8'))
+    # A navigation label may enter the margin in narrow aspect ratios. Measure
+    # the connected quartz surface, not unrelated dark text below the model.
+    count, components, stats, unused = cv2.connectedComponentsWithStats(mask)
+    assert count > 1
+    mask = components == (1 + np.argmax(stats[1:, cv2.CC_STAT_AREA]))
     ys, xs = np.where(mask)
     ui.check(name + ': model is actually drawn', len(xs)>1000)
     observed = np.array([[xs.min(), ys.min()], [xs.max()+1, ys.max()+1]]) + a
     error = float(np.max(np.abs(observed-np.array([lo,hi]))))
-    ui.check(name + ': model silhouette agrees with overlay within 3 screen pixels', error<=3.)
     print('pixel bound error', round(error,3), flush=True)
+    if error>3.:
+        crop.save(ui.OUT/'model_surface_failure.png')
+        print('expected', [lo.tolist(),hi.tolist()], 'actual',observed.tolist(), 'state',state, flush=True)
+    ui.check(name + ': model silhouette agrees with overlay within 3 screen pixels', error<=3.)
     return crop, {'name':name, 'errorPixels':error, 'modelPixels':len(xs)}
 
 
@@ -64,7 +72,7 @@ def main():
     sample('fractional camera')
     for page in ('建筑库','入门指南','投影'):
         ui.click(page); ui.click('工作台'); sample('return from '+page)
-    ui.click('逐层'); ui.click('三维'); sample('return from layer view')
+    ui.click('单层'); wait_preview(); ui.click('完整'); wait_preview(); sample('return from single layer')
     for preset in ('20:9','4:3','16:10','16:9'):
         result = subprocess.run([sys.executable, str(ui.ROOT/'.agents/skills/pyreact-debugging/scripts/resize_window.py'),
                                  '--preset',preset],capture_output=True,text=True,encoding='utf8',check=True)

@@ -37,7 +37,7 @@ class Theme(object):
     @classmethod
     def configure(cls, scale, motion):
         game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
-        gui = max(1., round(game.GetScreenViewInfo()[0] / game.GetScreenSize()[0]))
+        gui = max(1., float(game.GetScreenViewInfo()[0]) / game.GetScreenSize()[0])
         # Keep the original bitmap glyphs at whole screen magnifications. A
         # fixed .5 becomes too small when the engine changes GUI scale to 2.
         font = max(3., round(scale * 1.7 * gui)) / gui
@@ -225,6 +225,9 @@ class PointerPrimitive(BaseButtonPrimitive):
             motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
             tracker = PointerTracker(host, fiber, motion)
             fiber.primitive_state['pointer_tracker'] = tracker
+            if not hasattr(host, '_projection_pointer_surfaces'):
+                host._projection_pointer_surfaces = set()
+            host._projection_pointer_surfaces.add(tracker)
         tracker.props = next_props
         if next_props.get('enabled') is False:
             tracker.cancel({})
@@ -241,6 +244,7 @@ class PointerPrimitive(BaseButtonPrimitive):
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker:
             tracker.cancel({})
+            host._projection_pointer_surfaces.discard(tracker)
         BaseButtonPrimitive.unmount(self, host, fiber)
 
 

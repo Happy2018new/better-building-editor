@@ -64,7 +64,7 @@ def _sanitize(value):
             and hasattr(value, "b") and hasattr(value, "a")):
         return {"r": value.r, "g": value.g, "b": value.b, "a": value.a}
     if isinstance(value, dict):
-        return {k: _sanitize(v) for k, v in value.items()}
+        return {(k if isinstance(k, basestring) else unicode(k)): _sanitize(v) for k, v in value.items()}
     if isinstance(value, (list, tuple)):
         return [_sanitize(v) for v in value]
     # 枚举/其他对象：repr 截断
@@ -520,6 +520,7 @@ def poll_clipboard(host):
             result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
             result['visible'] = control.GetVisible()
             tracker = fiber.primitive_state.get('pointer_tracker')
+            result['globalClickCounts'] = getattr(host, '_projection_click_counts', None)
             if tracker is not None:
                 result['pointerPressed'] = tracker.pressed
                 result['pointerPolling'] = tracker.slot['active']

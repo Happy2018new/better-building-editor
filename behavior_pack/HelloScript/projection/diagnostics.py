@@ -54,4 +54,8 @@ def inspect(session, value):
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
             'depth': session.camera_depth, 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
             'touch': session.touch_mode, 'placementTarget': session.placement_proposal()[0],
-            'layer': e.layer, 'section': session.section, 'mask': e.mask}
+            'previewBuilds': session.tiles.builds, 'previewSeconds': session.tiles.seconds,
+            'previewTiles': len(session.tiles.parts), 'previewDirty': len(session.tiles.dirty),
+            'pointerStats': getattr(session, 'pointer_stats', None),
+            'layer': e.layer, 'section': session.section, 'mask': e.mask,
+            'brightness': session.brightness, 'displayMode': session.current_display_mode()}

@@ -34,6 +34,12 @@ def inspect(field, name):
              abs(cy - native['global'][1]) < .01 and abs(ch - native['size'][1]) < .01 and
              clip['size'][0] <= native['size'][0])
     ui.check(name + ': native text matches controlled value', native['text'] == field['props']['value'])
+    root = ui.nodes('SafeArea')[0]['children'][0]['layout']
+    window = capture._find_game_window(capture._list_windows(), process_name='Minecraft.Windows.exe')
+    physical = field['props']['fontScale'] * capture._window_rect(window['hwnd'])[2] / root['width']
+    native['physicalFontScale'] = physical
+    ui.check(name + ': original glyph physical magnification is an integer (%0.6f)' % physical,
+             physical >= 3 - .0001 and abs(physical-round(physical)) < .0001)
     return native
 
 

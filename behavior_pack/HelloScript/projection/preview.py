@@ -17,6 +17,7 @@ class PreviewBuffer(object):
         self.initialized = False
         self.retry_at = 0.
         self.restore = False
+        self.visible = [None, None]
 
     def invalidate(self):
         """Visibility/layout changes can discard the native render submission."""
@@ -57,9 +58,9 @@ class PreviewBuffer(object):
                 self.front = 1 - previous
                 show(self.front, True, True)
                 show(previous, False, False)
-                # Promotion changes native depth/visibility. Re-submit the
-                # settled model once even if the camera stayed completely still.
-                self.poses[self.front] = None
+                # The warming renderer was already visible at its final depth.
+                # Re-submitting it here can clear its just-uploaded native mesh
+                # for one frame. Promotion only hides the previous surface.
             else:
                 show(1 - self.front, False, False)
             self.pending = None

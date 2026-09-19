@@ -96,3 +96,27 @@ class EditNavigationTests(unittest.TestCase):
         s.cancel_edit();s.edit_job.step()
         self.assertEqual(2,len(e.document.blocks))
         self.assertFalse(e.undo_stack)
+
+    def test_forward_skips_empty_front_margin_and_back_restores_previous_position(self):
+        s = self.session((24,16,24))
+        s.editor.document.blocks[(12,8,3)] = STONE
+        s.editor.document.blocks[(12,8,2)] = STONE
+        s.camera_pose = (0,0,1)
+        s.move_depth(1)
+        self.assertFalse(s.visible_position((12,8,3)))
+        self.assertTrue(s.visible_position((12,8,2)))
+        s.move_depth(-1)
+        self.assertEqual(0,s.camera_depth)
+        self.assertTrue(s.visible_position((12,8,3)))
+
+    def test_unified_view_modes_share_layer_and_do_not_stack_filters(self):
+        s = self.session(); s.layer(3)
+        s.display_mode('single')
+        self.assertEqual([3],[y for y in range(8) if s.visible_layer(y)])
+        s.display_mode('section')
+        self.assertEqual([0,1,2,3],[y for y in range(8) if s.visible_layer(y)])
+        s.layer(5)
+        self.assertEqual(list(range(6)),[y for y in range(8) if s.visible_layer(y)])
+        s.display_mode('full')
+        self.assertEqual(list(range(8)),[y for y in range(8) if s.visible_layer(y)])
+        self.assertEqual(5,s.editor.layer)

@@ -47,12 +47,15 @@ class Session(object):
         self.camera_revision = 0
         self.camera_pan = (0., 0.)
         self.camera_depth = 0.
+        self.depth_history = []
+        self.view_ray = None
         self.depth_angles = (35, 25)
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
         self.section = False
         self.grid = True
+        self.brightness = 1.
         self.reduced_motion = False
         self.origin = (0, 64, 0)
         self.opacity = .45
@@ -71,6 +74,10 @@ class Session(object):
         self.scene_origin = (0, 0, 0)
         self.scene_size = self.editor.document.size
         self.scene_scale = 1
+        from .tiles import TiledPreview
+        self.tiles = TiledPreview(self)
+        self.point_publish = 0
+        self.pointer_stats = [0, 0, 0, 0]
 
     def subscribe(self, callback, fields=None):
         entry = (callback, fields)
@@ -260,11 +267,30 @@ class Session(object):
             self.edit_job.cancel()
 
     def refresh_preview(self):
+        if hasattr(self.bridge, 'geometry'):
+            self.tiles.refresh()
+            return
         signature = self.preview_signature()
         if signature == self.model_revision or self.preview_pending:
             return
         self.preview_pending = True
         self.bridge.later(.08, self._build_preview)
+
+    def point_edit(self, pos, erase=False):
+        result = self.editor.paint_at(pos, erase, False)
+        if result:
+            self.tiles.refresh([pos])
+        # The cursor and native tiles read current data every frame. Inspector,
+        # history and document statistics only need one update after a burst.
+        self.point_publish += 1
+        serial = self.point_publish
+        if self.touch_mode:
+            self.emit('point_edit')
+        def settled():
+            if serial == self.point_publish:
+                self.emit()
+        self.bridge.later(.4, settled)
+        return result
 
     def _build_preview(self):
         editor = self.editor
@@ -346,20 +372,38 @@ class Session(object):
         return self.visible_layer(pos[1]) and behind_plane(pos, self.depth_plane())
 
     def move_depth(self, direction):
-        from .camera import OrbitCamera
+        from .camera import OrbitCamera, raycast
         self.depth_angles = OrbitCamera(*self.camera_pose).render_angles()
         toward = OrbitCamera(*self.depth_angles).basis()[2]
         span = sum(abs(toward[i]) * self.editor.document.size[i] for i in range(3))
         step = max(1., round(max(self.scene_size) / 24.))
-        self.camera_depth = max(0., min(span, self.camera_depth + direction * step))
+        previous = self.camera_depth
+        if direction < 0 and self.depth_history:
+            self.camera_depth = self.depth_history.pop()
+        else:
+            target = self.camera_depth + direction*step
+            if direction > 0:
+                size = self.editor.document.size
+                origin, ray = self.view_ray or (tuple(size[i]/2. + (sum(size)+4)*toward[i] for i in range(3)),
+                                               tuple(-v for v in toward))
+                hit = raycast(self.editor.document, origin, ray, self.visible_position)
+                if hit:
+                    front = sum(abs(toward[i])*size[i]/2. + toward[i]*size[i]/2. for i in range(3))
+                    # Enter the first visible surface even when the document
+                    # contains a large empty margin in front of the building.
+                    target = max(target, front-sum((hit[0][i]+.5)*toward[i] for i in range(3))+.5)
+                self.depth_history.append(previous)
+            self.camera_depth = max(0., min(span, target))
+        if self.camera_depth == previous:
+            return
         self.refresh_preview()
-        self.emit()
+        self.emit('view')
 
     def settle_depth_direction(self, angles):
         if self.camera_depth and self.depth_angles != angles:
             self.depth_angles = angles
             self.refresh_preview()
-            self.emit()
+            self.emit('view')
 
     def visible_layer(self, y):
         return (y not in self.editor.hidden_layers and
@@ -373,9 +417,19 @@ class Session(object):
         return hidden
 
     def toggle_section(self):
-        self.section = not self.section
+        self.display_mode('full' if self.section else 'section')
+
+    def display_mode(self, mode):
+        if mode not in ('full', 'section', 'single'):
+            raise ValueError('unknown scene display mode')
+        self.view = '3d'
+        self.section, self.solo_layer = mode == 'section', mode == 'single'
+        self.placement_intent = None
         self.refresh_preview()
         self.emit()
+
+    def current_display_mode(self):
+        return 'single' if self.solo_layer else 'section' if self.section else 'full'
 
     def toggle_preview_detail(self):
         self.preview_detail = not self.preview_detail
@@ -412,9 +466,7 @@ class Session(object):
         self.emit()
 
     def toggle_solo(self):
-        self.solo_layer = not self.solo_layer
-        self.refresh_preview()
-        self.emit()
+        self.display_mode('full' if self.solo_layer else 'single')
 
     def paint(self, x, z):
         pos = (x, self.editor.layer, z)
@@ -514,10 +566,11 @@ class Session(object):
             else:
                 e.select_box(target, target)
                 self.focused = target
-                return self.action(e.paint_at, target, False, False)
+                self.placement_intent = None
+                return self.point_edit(target)
         elif mode in ('paint', 'erase'):
             e.select_box(pos, pos)
-            return self.action(e.paint_at, pos, mode == 'erase', False)
+            return self.point_edit(pos, mode == 'erase')
         elif mode == 'pick':
             e.select_box(pos, pos)
             if e.document.get(pos) != AIR:
@@ -586,6 +639,8 @@ class Session(object):
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
         self.camera_depth = 0.
+        self.depth_history = []
+        self.view_ray = None
         self.canvas_x = self.canvas_z = 0
         self.preview_detail = False
         self.focused = self.box_anchor = None

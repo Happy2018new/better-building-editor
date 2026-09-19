@@ -22,20 +22,26 @@ class ClickObserverPrimitive(PanelPrimitive):
         motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
 
         def down(screen, args):
+            host._projection_click_counts = getattr(host, '_projection_click_counts', [0, 0])
+            host._projection_click_counts[0] += 1
             # Native input_panel can deliver the same down through two routes.
             # PC pointer coordinates also stay correct after moving the window.
             point = motion.GetMousePosition()
             if point is None:
                 point = (args['TouchPosX'], args['TouchPosY'])
-            contact = (args.get('TouchId'), point)
-            now = time.time()
-            previous = fiber.primitive_state.get('last_contact')
-            if previous and previous[0] == contact and now - previous[1] < .02:
+            contact = args.get('TouchId')
+            contacts = fiber.primitive_state.setdefault('contacts', set())
+            if contact in contacts:
                 return False
-            fiber.primitive_state['last_contact'] = (contact, now)
+            contacts.add(contact)
+            for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
+                tracker.screen_down(args, point if args.get('TouchId') == -1 else motion.GetMousePosition())
             fiber.props['onPointer'](point)
             return False
         def up(screen, args):
+            fiber.primitive_state.setdefault('contacts', set()).discard(args.get('TouchId'))
+            host._projection_click_counts = getattr(host, '_projection_click_counts', [0, 0])
+            host._projection_click_counts[1] += 1
             release_pointers(host, args)
             return False
 

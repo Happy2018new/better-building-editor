@@ -72,6 +72,36 @@ class PointerTests(unittest.TestCase):
         self.assertEqual(('onUp', {'TouchId': 0, 'TouchPosX': 102, 'TouchPosY': 204}), self.events[-1])
         self.assertFalse(self.host._projection_pointers)
 
+    def test_global_press_recovers_missing_native_down_without_double_edit(self):
+        self.tracker.props['globalCapture'] = True
+        self.tracker.enter({})
+        for native_first in (False, True):
+            self.events[:] = []
+            if native_first:
+                self.down()
+            self.tracker.screen_down({}, (100, 200))
+            if not native_first:
+                self.down()
+            release_pointers(self.host, {})
+            self.tracker.up({})
+            self.assertEqual(['onDown', 'onUp'], [n for n, unused in self.events])
+        self.events[:] = []
+        for unused in range(40):
+            self.tracker.screen_down({}, (100, 200))
+            release_pointers(self.host, {})
+        self.assertEqual(40, sum(n == 'onUp' for n, unused in self.events))
+
+    def test_global_press_respects_native_hit_testing_and_disabled_view(self):
+        self.tracker.props['globalCapture'] = True
+        self.tracker.screen_down({}, (100, 200))
+        self.assertFalse(self.events)
+        self.tracker.enter({}); self.tracker.props['enabled'] = False
+        self.tracker.screen_down({}, (100, 200))
+        self.assertFalse(self.events)
+        self.tracker.props['enabled'] = True
+        self.tracker.screen_down({}, None)
+        self.assertFalse(self.events)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -30,12 +30,14 @@ class SurfacePalette(object):
                 'common': self.common, 'eliminateAir': True}
 
 
-def build_preview(document, hidden=(), layer=None, focus=None, plane=None):
+def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None):
     hidden = set(hidden)
     size = document.size if focus is None else tuple(min(32, v) for v in document.size)
     origin = (0, 0, 0) if focus is None else tuple(
         max(0, min(document.size[i] - size[i], focus[i] - size[i] // 2)) for i in range(3))
     end = tuple(origin[i] + size[i] for i in range(3))
+    scan_lo = origin if region is None else tuple(max(origin[i], region[0][i]) for i in range(3))
+    scan_hi = end if region is None else tuple(min(end[i], region[1][i]) for i in range(3))
     out = SurfacePalette(size)
     store = document.blocks
     opaque = [value[0].startswith('minecraft:') and value[0].split(':')[-1] in OPAQUE for value in store.palette]
@@ -52,7 +54,7 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None):
 
     for key in sorted(store.chunks):
         base = tuple(v * 16 for v in key)
-        if any(base[i] >= end[i] or base[i] + 16 <= origin[i] for i in range(3)):
+        if any(base[i] >= scan_hi[i] or base[i] + 16 <= scan_lo[i] for i in range(3)):
             continue
         uncut = True
         fully_visible = True
@@ -81,8 +83,8 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None):
             yield None
             continue
         if fully_visible and uniform and opaque[chunk]:
-            low = tuple(max(base[i], origin[i]) for i in range(3))
-            high = tuple(min(base[i] + 16, end[i]) - 1 for i in range(3))
+            low = tuple(max(base[i], scan_lo[i]) for i in range(3))
+            high = tuple(min(base[i] + 16, scan_hi[i]) - 1 for i in range(3))
             def blocked(axis, delta):
                 edge = low[axis] if delta < 0 else high[axis]
                 if (delta < 0 and edge == origin[axis]) or (delta > 0 and edge == end[axis]-1):
@@ -119,11 +121,11 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None):
                             out.add((x-origin[0], y-origin[1], z-origin[2]), store.palette[chunk])
                     yield None
             continue
-        for y in range(max(base[1], origin[1]), min(base[1] + 16, end[1])):
+        for y in range(max(base[1], scan_lo[1]), min(base[1] + 16, scan_hi[1])):
             if y not in ys:
                 continue
-            for z in range(max(base[2], origin[2]), min(base[2] + 16, end[2])):
-                for x in range(max(base[0], origin[0]), min(base[0] + 16, end[0])):
+            for z in range(max(base[2], scan_lo[2]), min(base[2] + 16, scan_hi[2])):
+                for x in range(max(base[0], scan_lo[0]), min(base[0] + 16, scan_hi[0])):
                     identity = chunk if uniform else chunk[((y & 15) << 8) | ((z & 15) << 4) | (x & 15)]
                     if not identity:
                         continue

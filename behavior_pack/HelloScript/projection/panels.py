@@ -195,7 +195,9 @@ def Layers(session=None, revision=0):
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=7), children=[
         row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
         text('锁定保护编辑 · 隐藏仅影响预览', 10, Theme.muted),
-        Action(label='仅显示当前层' if not session.solo_layer else '显示全部图层', onClick=session.toggle_solo, selected=session.solo_layer),
+        Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
+              onChange=partial(session.range_value, 'brightness', editor=False)),
+        text('在场景上方选择完整 / 剖切 / 单层', 10, Theme.muted),
         row([Action(glyph='minus', width=28, height=26, enabled=page > 0, onClick=partial(set_page, max(0, page - 1))),
              text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
              Action(glyph='plus', width=28, height=26, enabled=high < e.document.size[1], onClick=partial(set_page, page + 1))]),
@@ -277,7 +279,7 @@ def ProjectionSettings(session=None, revision=0):
         Action(label='使用脚下坐标', glyph='pin', onClick=partial(session.bridge.use_player_origin)),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
               onChange=partial(session.range_value, 'opacity', editor=False)),
-        Action(label='逐层投影' if not session.solo_layer else '显示全部层', selected=session.solo_layer, onClick=session.toggle_solo),
+        text('可见范围与场景的完整 / 剖切 / 单层一致', 10, Theme.muted),
         Range(label='当前建造层', value=e.layer, minimum=0, maximum=max(1, e.document.size[1] - 1),
               integer=True, onChange=partial(session.range_value, 'layer')),
         Action(label='仅显示缺失方块', selected=session.projection_missing,
@@ -305,7 +307,7 @@ def Guide(session=None, revision=0, width=760, height=440):
     use_theme()
     sections = [
         ('01', '先认识你的工作台', '拖动模型自由旋转，滚轮缩放。切换放置、换材质、擦除，直接点击三维方块。', 'orbit'),
-        ('02', '从一个小范围开始', '三维视图选择框选，依次点击两个角点。也可以切换逐层视图精细编辑。', 'cursor'),
+        ('02', '从一个小范围开始', '框选依次点击两个角点。场景上方切换完整、剖切或单层，调整 Y 查看内部。', 'cursor'),
         ('03', '选工具，再确认参数', '左侧找到工具，右侧选择材质、蒙版和尺寸，点击执行。', 'brush'),
         ('04', '放心试验，随时撤销', '撤销 / 重做保存你的探索。锁定图层，可以保护已经完成的部分。', 'undo'),
         ('05', '保存作品，带走灵感', '建筑库可以保存多个配置。载入后可以继续编辑，也可以生成投影。', 'library'),

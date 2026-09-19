@@ -79,24 +79,24 @@ class ClientBridge(object):
         self.session.editor.message = '已将投影原点设为玩家脚下'
         self.session.emit()
 
-    def geometry(self, document, visible=None):
+    def geometry(self, document, visible=None, name=None):
         data = document.palette_data(visible)
         if not data['common']:
             return None
         # The embedded Python omits hashlib.sha256. An exact compressed key
         # avoids collisions and retains no second Python list of voxel indices.
-        fingerprint = zlib.compress(repr((document.size, sorted(data['common'].items()))).encode('utf8'), 1)
-        if fingerprint in self.models:
+        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()))).encode('utf8'), 1)
+        if fingerprint is not None and fingerprint in self.models:
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
-        name = native('modern_projection_%d' % len(self.models))
+        name = native(name or 'modern_projection_%d' % len(self.models))
         data['common'] = dict(((native(k[0]), k[1]), v) for k, v in data['common'].items())
         data = dict((native(k), v) for k, v in data.items())
         palette = self.factory.CreateBlock(self.level).GetBlankBlockPalette()
         if palette is None or not palette.DeserializeBlockPalette(data):
             raise ValueError('方块调色板生成失败')
         result = self.factory.CreateBlockGeometry(self.level).CombineBlockPaletteToGeometry(palette, name, 0)
-        if result:
+        if result and fingerprint is not None:
             self.models[fingerprint] = result
         return result
 
@@ -258,7 +258,7 @@ class ClientBridge(object):
         info = self.factory.CreateBlockInfo(self.level)
 
         def visible(pos):
-            if pos[1] in s.editor.hidden_layers or (s.solo_layer and pos[1] != s.editor.layer):
+            if not s.visible_layer(pos[1]):
                 return False
             if s.projection_missing:
                 actual = info.GetBlock(add(origin, pos))
@@ -323,7 +323,7 @@ class ClientBridge(object):
         s = self.session
         document = Document(s.editor.document.size)
         document.blocks = s.editor.document.blocks.copy()
-        hidden, solo, layer = set(s.editor.hidden_layers), s.solo_layer, s.editor.layer
+        hidden, solo, layer = s.preview_hidden(), s.solo_layer, s.editor.layer
         opacity, missing = s.opacity, s.projection_missing
         s.projection_active = True
         s.editor.message = '投影已开启 · 随玩家位置加载附近方块'

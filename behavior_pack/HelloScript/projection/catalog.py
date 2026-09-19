@@ -104,6 +104,7 @@ ACTION_ICONS = {
     '减少动态效果': 'motion', '取消': 'close', '确认继续': 'check',
 }
 SEGMENT_ICONS = {
+    '完整': 'cube', '剖切': 'cut', '单层': 'layers',
     '工作台': 'home', '建筑库': 'library', '投影': 'projection', '入门指南': 'info',
     '三维': 'cube', '逐层': 'layers', '参数': 'sliders', '图层': 'layers', '历史': 'history',
     '浏览': 'orbit', '选取': 'cursor', '放置': 'cube', '换材质': 'brush', '绘制': 'brush',
