@@ -195,7 +195,7 @@ python3 simulate.py scroll --node-id ID [--position PIXELS] [--timeout N]
 - 指针请求可加 `touch: true`，模拟触控操作方式（例如点选后通过确认按钮放置）。它仍是回调模拟，不能替代手机硬件的触摸事件测试。
 - `native_control` 额外返回原生 `visible`；Label 返回实际绘制的 `text`，可与逻辑 content 对比，检查字形贴图与原生文字叠加等重影问题。
 - `native_control` 对本项目 Pointer 额外返回 `pointerPressed` 和 `pointerPolling`，可用真实鼠标检查快速点击、离开视口和页面切换后是否仍保留拖拽。`tools/verify_pointer_release.py` 覆盖这些路径；指针 debug 模拟回调不能替代原生鼠标绑定测试。
-- `native_control` 对 Input 也返回 `GetEditText()` 的实际 `text`，可核对中文输入和受控值同步。
+- `native_control` 对 Input 也返回 `GetEditText()` 的实际 `text`，可核对中文输入和受控值同步；`screenMetrics.logical` / `physical` 分别来自 `GetScreenSize()` / `GetScreenViewInfo()`，用于核对整数 GUI 字形倍率。后者是按 GUI 步长补齐的画布，原始宽度比值不能直接当作连续字体倍率。
 - Input 的 `placeholderPresent` 核对继承结构中的 `place_holder_control`。即使占位文本为空，引擎仍引用该名称，覆盖原生子树时不能遗漏。原生 Assert 弹窗可能没有写入 Python 日志；`tools/check_native_dialogs.py` 单独枚举并读取断言窗口正文，`tools/verify_ui.py` 在调试请求前后执行此检查，不自动忽略弹窗。
 - `debug_component` 仅调用目标组件显式提供的 `onDebug(value)`，没有任意代码执行能力。现代化投影 Scene 的 Panel 提供有界的草稿测试样例和状态读取（`projection/diagnostics.py`）；样例替换当前未保存草稿，不写入世界或建筑库。`tools/verify_selection_scope.py` 和 `tools/verify_exact_large_render.py` 使用此接口核对真实文档坐标和大范围预览。普通组件没有该回调时命令拒绝执行。
 - 对继承 `common.text_edit_box` 的 Input，`native_control` 还返回内部 `clipper` / `displayText` 的全局位置和尺寸，可检查字号变大后文字行是否被垂直裁剪。

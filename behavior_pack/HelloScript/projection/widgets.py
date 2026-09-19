@@ -37,7 +37,10 @@ class Theme(object):
     @classmethod
     def configure(cls, scale, motion):
         game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
-        gui = max(1., float(game.GetScreenViewInfo()[0]) / game.GetScreenSize()[0])
+        # GetScreenViewInfo rounds its canvas up to a whole GUI-scale step.
+        # GetScreenSize truncates the logical width; their raw ratio therefore
+        # is not a fractional GUI scale (e.g. a 1600px window at 3x).
+        gui = max(1., round(float(game.GetScreenViewInfo()[0]) / game.GetScreenSize()[0]))
         # Keep the original bitmap glyphs at whole screen magnifications. A
         # fixed .5 becomes too small when the engine changes GUI scale to 2.
         font = max(3., round(scale * 1.7 * gui)) / gui
@@ -101,6 +104,25 @@ class InputPrimitive(BaseInputPrimitive):
         if prev_props is None or prev_props.get('fontScale') != scale:
             label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
             label.asLabel().SetTextFontSize(scale)
+
+    def apply_layout(self, host, node):
+        state = node.fiber.primitive_state
+        if 'focus_patches' not in state:
+            path = node.fiber.native_path + '/centering_panel/clipper_panel/active_background'
+            state['focus_patches'] = [host.GetBaseUIControl(path + '/p%d' % i) for i in range(9)]
+            for patch in state['focus_patches']:
+                patch.asImage().SetSpriteColor((.25, .27, .30))
+        width, height = state.get('_layout_applied', (node.frame_w, node.frame_h))[:2]
+        signature = (width, height, Theme.scale)
+        if state.get('focus_patch_size') == signature:
+            return
+        state['focus_patch_size'] = signature
+        radius = min(5*Theme.scale, width/2., height/2.)
+        xs, ys = (0., radius, width-radius, width), (0., radius, height-radius, height)
+        for i, patch in enumerate(state['focus_patches']):
+            row, col = i//3, i%3
+            patch.SetPosition((xs[col], ys[row]))
+            patch.SetSize((xs[col+1]-xs[col], ys[row+1]-ys[row]))
 
 
 NativeText = LabelPrimitive()
@@ -345,7 +367,11 @@ def text(value, size=12, color=None, center=False, **style):
         props['rasterText'] = True
         props['style'] = NativeStyle(width=advance, height=total_height).merge(S(**style))
     else:
-        props['style'] = S(**style)
+        # Newly introduced labels may contain a glyph absent from the existing
+        # atlas. Give native fallback text a real box even before its first
+        # engine measurement; zero-width row children otherwise draw no ink.
+        advance = sum(.62 if ord(char) < 128 else 1. for char in value) * font
+        props['style'] = NativeStyle(width=advance+1., height=font*1.4).merge(S(**style))
     return NativeText(**props)
 
 

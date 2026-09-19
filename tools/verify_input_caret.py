@@ -79,13 +79,27 @@ def inspect_field(field,name,long_text,sample):
     ui.check('native placeholder child remains present',focused['placeholderPresent'])
     others=[n for n in ui.nodes('Input',ui.nodes('Library')[0]) if n['id']!=field['id']]
     ui.check('all input templates retain native placeholder children',all(ui.call('native_control',n['id'])['result']['placeholderPresent'] for n in others))
-    ui.check('focused field retains pale background',all(frame.getpixel((frame.width-20,frame.height//2))[0]>200 for frame in frames))
+    ui.check('only focused field uses a neutral dark background',all(
+        all(55<=c<=90 for c in frame.getpixel((frame.width-20,frame.height//2))) for frame in frames))
+    focused_pixels=np.array(frames[-1])
+    ui.check('focused text remains readable in a light color',
+             int(((focused_pixels[:,:,0]>230)&(focused_pixels[:,:,1]>230)&(focused_pixels[:,:,2]>230)).sum())>80)
     contrast=caret_contrast(frames)
     ui.check('native keyboard editing remains active',focused['text'].endswith('1'))
     (ui.OUT/(name+'.json')).write_text(json.dumps({'checks':ui.checks,'caret':contrast},ensure_ascii=False,indent=2),encoding='utf8')
     print('CARET '+json.dumps(contrast),flush=True)
     if '--require-visible' in sys.argv:
         ui.check('native caret has at least 3:1 contrast',contrast['readable'])
+    capture.user32.mouse_event(2,0,0,0,0);time.sleep(.08)
+    capture.user32.mouse_event(4,0,0,0,0);time.sleep(.3)
+    with mss.MSS() as screen:
+        raw=screen.grab(dict(left=left,top=top,width=width,height=height))
+        blurred=Image.frombytes('RGB',raw.size,raw.bgra,'raw','BGRX')
+    sample_pixel=blurred.getpixel((int((x+min(w,260)-20/scale)*scale),int((y+h/2)*scale)))
+    ui.check('blur restores the original pale input background', min(sample_pixel)>200)
+    blurred_pixels=np.array(blurred.crop((int(x*scale),int(y*scale),int((x+min(w,260))*scale),int((y+h)*scale))))
+    ui.check('blur restores dark original-font text',int((blurred_pixels.max(axis=2)<100).sum())>80)
+    (ui.OUT/(name+'.json')).write_text(json.dumps({'checks':ui.checks,'caret':contrast},ensure_ascii=False,indent=2),encoding='utf8')
 
 
 if __name__=='__main__':main()

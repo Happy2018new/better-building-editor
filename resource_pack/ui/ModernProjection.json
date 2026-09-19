@@ -269,6 +269,143 @@
       0.07,
       0.12,
       0.2
+    ],
+    "controls": [
+      {
+        "centering_panel": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100% - 4px"
+          ],
+          "controls": [
+            {
+              "clipper_panel": {
+                "type": "panel",
+                "size": "$text_edit_clipping_panel_size",
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "clips_children": true,
+                "controls": [
+                  {
+                    "display_text@common.text_edit_box_label": {
+                      "layer": 1,
+                      "size": [
+                        "default",
+                        "default"
+                      ],
+                      "min_size": [
+                        "100% - 6px",
+                        0
+                      ],
+                      "offset": [
+                        -3,
+                        0
+                      ],
+                      "anchor_from": "right_middle",
+                      "anchor_to": "right_middle",
+                      "locked_color": [
+                        0.95,
+                        0.96,
+                        0.98
+                      ],
+                      "locked_alpha": 1.0,
+                      "bindings": [
+                        {
+                          "binding_type": "$text_edit_box_content_binding_type",
+                          "binding_condition": "$text_edit_box_binding_condition",
+                          "binding_collection_name": "$text_edit_box_grid_collection_name",
+                          "binding_name": "$text_edit_box_content_binding_name",
+                          "binding_name_override": "#item_name"
+                        },
+                        {
+                          "binding_type": "$text_color_binding_type",
+                          "binding_name": "$text_color_binding_name",
+                          "binding_name_override": "#color"
+                        },
+                        {
+                          "binding_name": "#newline_refresh"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(not #text_edit_selected)",
+                          "target_property_name": "#enabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "visibility_panel": {
+                      "type": "panel",
+                      "controls": [
+                        {
+                          "place_holder_control@common.text_edit_box_place_holder_label": {
+                            "layer": 1,
+                            "size": [
+                              "default",
+                              "default"
+                            ],
+                            "min_size": [
+                              "100% - 6px",
+                              0
+                            ],
+                            "offset": [
+                              -3,
+                              0
+                            ],
+                            "anchor_from": "right_middle",
+                            "anchor_to": "right_middle"
+                          }
+                        }
+                      ],
+                      "bindings": [
+                        {
+                          "binding_type": "view",
+                          "source_control_name": "display_text",
+                          "source_property_name": "(#item_name = '')",
+                          "target_property_name": "#visible",
+                          "resolve_sibling_scope": true
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "active_background@ModernProjection.round": {
+                      "layer": 0,
+                      "$mp_patch_layer": 0,
+                      "size": [
+                        "100%",
+                        "100%"
+                      ],
+                      "bindings": [
+                        {
+                          "binding_type": "view",
+                          "source_control_name": "display_text",
+                          "resolve_sibling_scope": true,
+                          "source_property_name": "#text_edit_selected",
+                          "target_property_name": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "default@ModernProjection.invisible": {}
+      },
+      {
+        "hover@ModernProjection.invisible": {}
+      },
+      {
+        "pressed@ModernProjection.invisible": {}
+      },
+      {
+        "locked@ModernProjection.invisible": {}
+      }
     ]
   },
   "invisible": {

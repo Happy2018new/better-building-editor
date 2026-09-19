@@ -527,7 +527,10 @@ def poll_clipboard(host):
             if _type_name(fiber) == 'Label':
                 result['text'] = control.asLabel().GetText()
             elif _type_name(fiber) == 'Input':
+                import mod.client.extraClientApi as clientApi
                 result['text'] = control.asTextEditBox().GetEditText()
+                game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
+                result['screenMetrics'] = {'logical': game.GetScreenSize(), 'physical': game.GetScreenViewInfo()}
                 for name, suffix in [('clipper', '/centering_panel/clipper_panel'),
                                      ('displayText', '/centering_panel/clipper_panel/display_text')]:
                     child = host.GetBaseUIControl(fiber.native_path + suffix)

@@ -12,6 +12,16 @@ from PIL import Image
 import verify_ui as ui
 import capture_screen as capture
 from verify_entry import key
+from _protocol import request
+
+
+def close_workspace():
+    # Popping the last screen can stop its clipboard poller before the close
+    # acknowledgement is visible. The subsequent reopen and field checks
+    # verify the actual lifecycle, including a possible lost acknowledgement.
+    result = request('navigator', value={'action': 'close'}, timeout=3.)
+    if result and result.get('error'):
+        raise AssertionError(result)
 
 
 def resize(size):
@@ -34,12 +44,17 @@ def inspect(field, name):
              abs(cy - native['global'][1]) < .01 and abs(ch - native['size'][1]) < .01 and
              clip['size'][0] <= native['size'][0])
     ui.check(name + ': native text matches controlled value', native['text'] == field['props']['value'])
-    root = ui.nodes('SafeArea')[0]['children'][0]['layout']
-    window = capture._find_game_window(capture._list_windows(), process_name='Minecraft.Windows.exe')
-    physical = field['props']['fontScale'] * capture._window_rect(window['hwnd'])[2] / root['width']
+    metrics = native['screenMetrics']
+    # SDK viewport dimensions are padded to a whole GUI step, while logical
+    # screen dimensions are truncated. A Win32-width/root-width ratio is not
+    # the native bitmap magnification for non-divisible widths such as 1600.
+    gui = round(metrics['physical'][0] / metrics['logical'][0])
+    physical = field['props']['fontScale'] * gui
     native['physicalFontScale'] = physical
     ui.check(name + ': original glyph physical magnification is an integer (%0.6f)' % physical,
              physical >= 3 - .0001 and abs(physical-round(physical)) < .0001)
+    ui.check(name + ': native label uses the requested integer glyph height',
+             abs(label['size'][1]*gui-10*physical)<.01)
     return native
 
 
@@ -85,7 +100,7 @@ def main():
 
         # Drop any prior diagnostic SetTextFontSize override. Its runtime scale
         # can compose with the template factor in this engine.
-        ui.call('navigator', value={'action': 'close'})
+        close_workspace()
         time.sleep(.5)
         key(hwnd, 80)
         ui.click('建筑库')
@@ -169,7 +184,7 @@ def main():
             snapshot(native, 'input_long_caret')
             ui.call('set_input', field['id'], original)
             blur()
-            ui.call('navigator', value={'action': 'close'})
+            close_workspace()
             time.sleep(.5)
             key(hwnd, 80)
             ui.click('建筑库')

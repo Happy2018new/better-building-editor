@@ -147,7 +147,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
              Action(label='还原视图' if focus else '展开视图', height=28, compact=True, accent=focus,
                     onClick=partial(session.set, 'focus_view', not focus))], paddingHorizontal=12, height=45 if focus else 57),
         Image(color=Theme.line, style=S(height=1, width='100%')),
-        row([Segments(items=[('full', '完整'), ('section', '剖切'), ('single', '单层')],
+        row([Segments(items=[('full', '完整'), ('section', '切面'), ('single', '单层')],
                       value=session.current_display_mode(), onChange=session.display_mode, width=178),
              Panel(style=S(flex=1)),
              text('Y', 11, Theme.blue),
@@ -442,7 +442,7 @@ def Workspace(session=None, revision=0):
             text('%02d' % e.layer, 12, width=25, center=True),
             Action(glyph='plus', width=27, height=25, onClick=partial(session.layer, e.layer + 1)),
             text('网格高度' if not (session.solo_layer or session.section) else
-                 '仅显示 Y 层' if session.solo_layer else '显示 Y 层及以下', 10, Theme.muted),
+                 '仅显示 Y 层' if session.solo_layer else '显示 Y 层和下方', 10, Theme.muted),
             Panel(style=S(flex=1)),
             text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
             text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),
