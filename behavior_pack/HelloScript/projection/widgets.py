@@ -328,7 +328,7 @@ def Scroll(style=None, children=None, resetKey=None):
     return Panel(style=style, children=[
         NativeScroll(ref=view, showScrollbar=False, style=NativeStyle(width='100%', height='100%'),
             children=Panel(ref=content, style=NativeStyle(width='100%'), children=children)),
-        Pointer(ref=rail, onDown=down, onMove=move, onUp=up, onCancel=up,
+        Pointer(ref=rail, retainCapture=True, onDown=down, onMove=move, onUp=up, onCancel=up,
             buttonBuilder=transparent,
             style=S(position=Position.absolute, right=0, top=0, width=10, height='100%', zIndex=10),
             children=Image(ref=thumb, color=Color(0xAAB8CCFF),

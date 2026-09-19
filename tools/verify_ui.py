@@ -81,6 +81,18 @@ def library_action(name, action):
     raise AssertionError((name, action))
 
 
+def new_region(size):
+    """Use the three integer controls, without entering filtered text."""
+    click('建筑库')
+    for axis, value in enumerate(size):
+        control = next(n for n in nodes('DimensionAxis') if n['props']['axis'] == axis)
+        maximum = control['props']['maximum']
+        assert 1 <= value <= maximum
+        call('set_slider', nodes('Slider',control)[0]['id'], (value-1.)/(maximum-1.))
+        time.sleep(.15)
+    click('新建空白'); click('确认继续')
+
+
 def main():
     click('建筑库')
     for unused in range(32):

@@ -10,10 +10,7 @@ from verify_interaction import pointer
 
 def main():
     capture.user32.SetProcessDPIAware()
-    ui.click('建筑库')
-    field = next(n for n in ui.nodes('Coordinates') if n['props']['label'].startswith('新建尺寸'))
-    ui.call('set_input', ui.nodes('Input',field)[0]['id'], '25,64,25')
-    time.sleep(.3); ui.click('新建空白'); ui.click('确认继续'); wait_preview()
+    ui.new_region((25,64,25)); wait_preview()
     diagnostic({'camera':[0,90,2], 'pan':[0,0]}); time.sleep(.5)
     ui.click('放置'); click_point((12.5,0,12.5)); wait_preview()
     before = diagnostic(); assert before['blocks']==1,before

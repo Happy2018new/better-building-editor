@@ -24,8 +24,7 @@ def wait_for(fragment, timeout=60):
 def main():
     from verify_selection_scope import wait_preview
     capture.user32.SetProcessDPIAware()
-    ui.click('建筑库')
-    ui.click('新建最大区域'); ui.click('确认继续')
+    ui.new_region((64,100,64))
     ui.check('maximum draft selection is compact and interactive', '选区 409,600' in ui.labels())
     category('brush'); ui.click('填充方块')
     started = time.perf_counter()

@@ -63,8 +63,7 @@ def main():
 
 
 def verify_grid():
-    ui.click('建筑库')
-    ui.click('新建最大区域');ui.click('确认继续');wait_preview()
+    ui.new_region((64,100,64));wait_preview()
     diagnostic({'camera':[0,90,1],'pan':[0,0]});time.sleep(.7)
     if not diagnostic()['grid']:ui.click('网格')
     raw=ui.call('dump_tree')['tree']; scene=ui.nodes('Scene',raw)[0]

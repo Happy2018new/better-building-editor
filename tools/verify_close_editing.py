@@ -32,7 +32,10 @@ def main():
         im, coverage = centre_pixels()
         rgb = np.asarray(im).astype('int16')
         # Side-face mortar is neutral gray; the empty viewport is blue-white.
-        coverage = float((rgb[:,:,0] >= rgb[:,:,2]).mean())
+        # A previous ray-pick leaves a saturated blue selection wire in this
+        # crop. Exclude that known overlay, not the pale empty background.
+        wire = (rgb[:,:,2]-rgb[:,:,0] > 30) & (rgb[:,:,2]-rgb[:,:,1] > 20)
+        coverage = float((rgb[:,:,0] >= rgb[:,:,2])[~wire].mean())
         im.thumbnail((320,200)); images.append(im)
         ui.check('solid surface stays visible at %s' % ((yaw,pitch,zoom),), coverage > .98)
         state = diagnostic(); box = pointer()['layout']

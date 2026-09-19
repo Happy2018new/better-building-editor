@@ -93,12 +93,12 @@ class PointerTracker(object):
     def move_out(self, args):
         # ModSDK also emits this on a normal touch-screen release. Only PC
         # needs cancellation here; touch retains its up/cancel callbacks.
-        if self.origin is not None:
+        if self.origin is not None and not self.props.get('retainCapture'):
             self.cancel(args)
 
     def leave(self, args):
         self.hovered = False
-        if self.origin is not None:
+        if self.origin is not None and not self.props.get('retainCapture'):
             self.cancel(args)
         self.send('onLeave', args)
 

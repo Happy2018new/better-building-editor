@@ -50,6 +50,30 @@ class PointerTests(unittest.TestCase):
         self.assertEqual(['onDown', 'onCancel', 'onLeave'], [n for n, args in self.events])
         self.assertFalse(self.frames)
 
+    def test_scrollbar_capture_tracks_outside_rail_until_global_release(self):
+        self.tracker.props['retainCapture'] = True
+        self.down()
+        self.tracker.move_out({})
+        self.tracker.leave({})
+        self.pos = (230, 80)
+        self.tracker.tick(0)
+        self.assertTrue(self.tracker.pressed)
+        self.assertEqual(('onMove', {'TouchPosX':310, 'TouchPosY':250, 'TouchId':0}), self.events[-1])
+        release_pointers(self.host, {})
+        self.assertFalse(self.frames)
+        self.assertFalse(self.tracker.pressed)
+        count = len(self.events)
+        self.pos = (300, 150)
+        self.tracker.tick(0)
+        self.assertEqual(count, len(self.events))
+
+    def test_retained_capture_still_cancels_when_mouse_or_control_is_lost(self):
+        self.tracker.props['retainCapture'] = True
+        self.down(); self.pos = None
+        self.tracker.tick(0)
+        self.assertFalse(self.tracker.pressed)
+        self.assertFalse(self.frames)
+
     def test_capture_loss_and_duplicate_down_do_not_leak_pollers(self):
         self.down()
         self.down()
