@@ -18,6 +18,16 @@ def render_bounds(width, height, pan):
     return ((px-abs(px), py-abs(py)), (width+2*abs(px), height+2*abs(py)))
 
 
+def zoom_label(zoom):
+    if zoom < 10:
+        return '%d%%' % int(round(zoom * 100))
+    if zoom < 100:
+        return u'%.1f\u00d7' % zoom
+    if zoom < 10000:
+        return u'%.0f\u00d7' % zoom
+    return u'%.0e\u00d7' % zoom
+
+
 class OrbitCamera(object):
     def __init__(self, yaw=35., pitch=25., zoom=1.):
         self.yaw, self.pitch, self.zoom = yaw, pitch, zoom
@@ -31,6 +41,20 @@ class OrbitCamera(object):
         self.target = (self.yaw + (yaw - self.yaw + 180.) % 360. - 180.,
                        clamp(pitch, -85., 90.), max(.25, zoom))
         self.velocity = (0., 0.)
+
+    def zoom_at(self, zoom, x, y, width, height):
+        """Keep the ray under the cursor fixed throughout smooth zooming."""
+        zoom = max(.25, zoom)
+        anchor = (x / width - .5, y / height - .5)
+        ratio = zoom / self.zoom
+        self.pan_target = tuple(anchor[i] + (self.pan[i] - anchor[i]) * ratio for i in range(2))
+        self.aim(self.yaw, self.pitch, zoom)
+
+    def centered_pan(self, point, size, width, height, unit):
+        right, up, unused = self.basis()
+        delta = [point[i] - size[i] / 2. for i in range(3)]
+        return (-unit * sum(delta[i] * right[i] for i in range(3)) / width,
+                unit * sum(delta[i] * up[i] for i in range(3)) / height)
 
     def drag(self, dx, dy, dt):
         # Grab the model: a rightward pointer movement brings its front to the

@@ -45,10 +45,22 @@ void main()
 	POS4 pos = WORLDVIEWPROJ * POSITION;
 	worldPos = pos;
 
+    // PaperDoll scales XYZ together but retains a fixed orthographic depth
+    // range. At close editing distances this clips otherwise visible faces.
+    // Use one affine depth mapping for the whole draw: local block coordinates
+    // are bounded by 100 on each axis (128 also covers native centering).
+    // Unlike a per-vertex clamp/nonlinear mapping this preserves interpolation,
+    // opaque/glass occlusion and the exact screen-space block grid.
+    bool preview = abs(PROJ[3][3]) > 0.5;
+    if (preview) {
+        float depthRange = 1.0 + abs(WORLDVIEWPROJ[3][2]) + 128.0 *
+            (abs(WORLDVIEWPROJ[0][2]) + abs(WORLDVIEWPROJ[1][2]) + abs(WORLDVIEWPROJ[2][2]));
+        pos.z /= depthRange;
+    }
     gl_Position = pos;
 
 	// UI uses an orthographic projection. World geometry keeps engine lighting.
-	light = abs(PROJ[3][3]) > 0.5 ? vec4(1.0) : vec4(TILE_LIGHT_COLOR.xyz, 1.0);
+	light = preview ? vec4(1.0) : vec4(TILE_LIGHT_COLOR.xyz, 1.0);
 
 #ifndef BYPASS_PIXEL_SHADER
     uv0 = TEXCOORD_0;

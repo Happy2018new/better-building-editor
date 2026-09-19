@@ -17,6 +17,7 @@ from .model import SMALL_VOLUME
 from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
+from .camera import zoom_label
 
 
 def use_session_fields(session, fields):
@@ -94,6 +95,14 @@ def ViewNavigation(session=None, width=430, revision=0):
 
 
 @Component
+def LocateSelected(session=None):
+    use_theme()
+    use_session_fields(session, ('point_edit', 'view'))
+    return Action(label='定位选中', glyph='pin', height=28, compact=True,
+                  enabled=session.focused is not None, onClick=session.locate_selected)
+
+
+@Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
     use_session_fields(session, ('view', 'preview', 'preview_visible'))
@@ -122,7 +131,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),
-        text(('%g×' % session.zoom) if session.zoom >= 10 else '%d%%' % int(round(session.zoom * 100)), 10, Theme.muted, width=40, center=True),
+        text(zoom_label(session.zoom), 10, Theme.muted, width=44, center=True),
         Action(glyph='plus', width=28, height=26, onClick=partial(session.camera_view, zoom=session.zoom * 1.2)),
         Action(label='左转', height=26, compact=True, onClick=partial(turn_camera, session, -30)),
         Action(label='右转', height=26, compact=True, onClick=partial(turn_camera, session, 30)),
@@ -140,6 +149,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
                  Action(glyph='redo', width=28, height=26, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
                  Action(label='材质与属性', height=27, compact=True, selected=session.focus_inspector,
                         onClick=partial(session.set, 'focus_inspector', not session.focus_inspector))]),
+             LocateSelected(session=session),
              Panel(style=S(display=Display.flex if doc.volume > SMALL_VOLUME else Display.none), children=
                  Action(label='总览' if session.preview_detail else '精细', glyph='cube', width=62, height=28, compact=True,
                         onClick=session.toggle_preview_detail)),

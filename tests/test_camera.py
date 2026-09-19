@@ -15,6 +15,30 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_pointer_anchor_survives_every_frame_of_zoom(self):
+        camera = OrbitCamera(35, 25, 1.7)
+        camera.pan = camera.pan_target = (.12, -.23)
+        point = (40.5, 72.5, 64.)
+        size = (64, 100, 64)
+        width, height = 600., 400.
+        base = min(width, height) * .72 / max(size)
+        anchor = camera.project(point, size, width, height, base * camera.zoom)
+        camera.zoom_at(25., anchor[0], anchor[1], width, height)
+        for unused in range(160):
+            camera.advance(1. / 60.)
+            actual = camera.project(point, size, width, height, base * camera.zoom)
+            for a, b in zip(actual, anchor):
+                self.assertAlmostEqual(a, b, delta=.005)
+
+    def test_locating_voxel_uses_consistent_scale_across_document_sizes(self):
+        for size in ((24, 16, 24), (64, 100, 64)):
+            camera = OrbitCamera(35, 25)
+            point = (size[0]-.5, size[1]-.5, size[2]-.5)
+            camera.pan = camera.centered_pan(point, size, 600., 400., 20.)
+            actual = camera.project(point, size, 600., 400., 20.)
+            for a, b in zip(actual, (300., 200.)):
+                self.assertAlmostEqual(a, b)
+
     def test_panned_native_rectangle_still_covers_viewport_with_exact_centre(self):
         for pan in ((0,0),(-1200,-900),(1200,900),(-150,70)):
             position,size=render_bounds(600,400,pan)

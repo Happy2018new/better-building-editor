@@ -100,6 +100,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     use_effect(restore_view, [active, width, height, Theme.scale, session.page])
 
     def aim():
+        if (abs(session.zoom - camera.target[2]) > .00001 and session.camera_focus_request is None
+                and session.camera_pan == camera.pan_target):
+            camera.zoom_at(session.zoom, width / 2., height / 2., width, height)
+            session.camera_pan = camera.pan_target
         camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
     use_effect(aim, [session.camera_yaw, session.camera_pitch, session.zoom, session.camera_revision])
 
@@ -151,6 +155,17 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             camera.dragging = False
             camera.velocity = (0., 0.)
             return
+        if session.camera_focus_request is not None:
+            point = tuple(session.camera_focus_request[i] - session.scene_origin[i] for i in range(3))
+            session.camera_focus_request = None
+            # A selected voxel has the same useful editing size in a small
+            # draft and a maximum-size building; retain the complete mesh.
+            session.zoom = 20. * max(session.scene_size) / (min(width, height) * .72)
+            camera.aim(camera.yaw, camera.pitch, session.zoom)
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
+            session.camera_pan = camera.centered_pan(point, session.scene_size,
+                width * Theme.scale, height * Theme.scale, 20. * Theme.scale)
+            session.emit('view')
         camera.pan_target = session.camera_pan
         camera.advance(dt, Theme.motion)
         pan = (camera.pan[0] * width * Theme.scale, camera.pan[1] * height * Theme.scale)
@@ -169,7 +184,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             # current pose too, so the delayed UI refresh cannot rewind it.
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             session.zoom = camera.target[2]
-            session.emit()
+            session.emit('view')
         rendered_yaw, rendered_pitch = camera.render_angles()
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
                      session.scene_origin, session.scene_size)
@@ -341,7 +356,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         if active and hovering.current:
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             session.zoom = max(.25, camera.target[2] * (1.12 if args['direction'] else 1. / 1.12))
-            camera.aim(camera.yaw, camera.pitch, session.zoom)
+            point = mouse.GetMousePosition()
+            if point is not None and pointer.current:
+                px, py = pointer.current.GetGlobalPosition()
+                camera.zoom_at(session.zoom, point[0] - px, point[1] - py, width * Theme.scale, height * Theme.scale)
+                session.camera_pan = camera.pan_target
+            else:
+                camera.aim(camera.yaw, camera.pitch, session.zoom)
             wheel_time.current = time.time()
 
     use_event('MouseWheelClientEvent', wheel, active)

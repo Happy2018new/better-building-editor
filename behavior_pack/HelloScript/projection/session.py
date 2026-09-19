@@ -46,6 +46,7 @@ class Session(object):
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
         self.camera_pan = (0., 0.)
+        self.camera_focus_request = None
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
@@ -470,6 +471,12 @@ class Session(object):
         self.camera_pan = (self.camera_pan[0] + x, self.camera_pan[1] + y)
         self.emit('camera_pan')
 
+    def locate_selected(self):
+        if self.focused is None:
+            return
+        self.camera_focus_request = tuple(v + .5 for v in self.focused)
+        self.emit('view')
+
     def placement_target(self, pos, normal):
         target = tuple(pos[i] + normal[i] for i in range(3))
         e = self.editor
@@ -605,6 +612,7 @@ class Session(object):
 
     def _loaded(self, document):
         self.placement_intent = None
+        self.camera_focus_request = None
         self.editor = Editor(document)
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
