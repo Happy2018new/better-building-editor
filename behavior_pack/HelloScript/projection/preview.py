@@ -16,12 +16,32 @@ class PreviewBuffer(object):
         self.frames = 0
         self.initialized = False
         self.retry_at = 0.
+        self.restore = False
+
+    def invalidate(self):
+        """Visibility/layout changes can discard the native render submission."""
+        self.poses = [None, None]
+        self.restore = True
 
     def update(self, name, pose, now, draw, show):
         if not self.initialized:
             show(0, False, True)
             show(1, False, False)
             self.initialized = True
+        if self.restore:
+            self.restore = False
+            show(self.front, bool(self.names[self.front]), True)
+            if self.pending is not None:
+                # Restart the warm-up after a hidden/reshaped renderer returns.
+                back = 1 - self.front
+                show(back, True, False)
+                if draw(back, self.pending, pose) is not False:
+                    self.poses[back] = pose
+                else:
+                    show(back, False, False)
+                    self.pending, self.names[back] = None, None
+                    self.retry_at = now + .25
+                self.started, self.frames = now, 0
         if self.pending is not None:
             # Do not replace a surface or resubmit its pose while a native model
             # upload is warming. Undo, filtering and a second edit may arrive

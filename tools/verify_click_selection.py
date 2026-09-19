@@ -23,13 +23,13 @@ def main():
     ui.click('工作台')
     diagnostic({'fixture': 'offset_odd', 'camera': [0, 90, 1]})
     wait_preview(); time.sleep(.5)
-    for mode in ('浏览', '选取', '吸管', '涂装', '擦除', '放置'):
+    for mode in ('浏览', '选取', '吸管', '换材质', '擦除', '放置'):
         diagnostic({'selection': [[2, 1, 3], [5, 3, 8]]})
         ui.click(mode)
         click_point((3.5, 4, 5.5))
         wait_preview()
-        # Erase removes Y3; placing on the exposed Y2 restores the same cell.
-        shared_cell([3, 3, 5])
+        # Erase removes Y3; placement highlights the exposed Y2 it clicked.
+        shared_cell([3, 2 if mode == '放置' else 3, 5])
 
     diagnostic({'selection': [[2, 1, 3], [5, 3, 8]]})
     ui.click('框选')

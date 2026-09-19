@@ -97,3 +97,38 @@ class PreviewTests(unittest.TestCase):
         for frame in range(60):
             self.tick('bad', frame / 60.)
         self.assertLessEqual(len(self.draws), 4)
+
+    def test_reactivation_resubmits_same_model_without_hiding_front(self):
+        self.settle('old')
+        self.draws[:], self.shows[:] = [], []
+        self.preview.invalidate()
+        self.tick('old', .2)
+        self.assertEqual(len(self.draws), 1)
+        self.assertEqual(self.shows, [(self.preview.front, True, True)])
+        self.tick('old', .3)
+        self.assertEqual(len(self.draws), 1)
+
+    def test_resize_during_upload_restarts_warming_before_promotion(self):
+        self.settle('old')
+        front = self.preview.front
+        self.tick('new', .1)
+        self.preview.invalidate()
+        self.tick('new', .2)
+        self.tick('new', .24)
+        self.assertEqual(self.preview.front, front)
+        self.tick('new', .28)
+        self.assertTrue(self.preview.ready('new'))
+
+    def test_failed_restore_never_promotes_an_empty_surface(self):
+        self.settle('old')
+        front = self.preview.front
+        self.tick('new', .1)
+        self.fail = True
+        self.preview.invalidate()
+        self.tick('new', .2)
+        self.tick('new', .3)
+        self.assertEqual(self.preview.front, front)
+        self.assertFalse(self.preview.ready('new'))
+        self.fail = False
+        self.settle('new', .6)
+        self.assertTrue(self.preview.ready('new'))

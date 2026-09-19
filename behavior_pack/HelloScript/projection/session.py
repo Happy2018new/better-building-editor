@@ -406,14 +406,14 @@ class Session(object):
         self.focused = pos
         mode = self.direct_mode
         if mode == 'place':
+            # Highlight the clicked source even if its adjacent target is blocked.
+            e.select_box(pos, pos)
             target = tuple(pos[i] + normal[i] for i in range(3))
             if not e.document.contains(target):
                 e.message = '目标超出建筑范围'
             elif not self.visible_layer(target[1]):
                 e.message = '目标图层不可见，请先显示该图层'
             else:
-                self.focused = target
-                e.select_box(target, target)
                 return self.action(e.paint_at, target, False, False)
         elif mode in ('paint', 'erase'):
             e.select_box(pos, pos)

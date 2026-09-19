@@ -15,12 +15,12 @@ from functools import partial
 from .scene_lines import cuboid, grid_lines, clip_line
 
 
-MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '涂装'),
+MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
          ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
 HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
          'select': '点击选择单个方块 · 拖动仍可旋转',
          'place': '点击方块表面向外放置 · 空白处放在当前 Y 层',
-         'paint': '点击方块更换主材质 · 拖动旋转',
+         'paint': '仅替换点击格的材质 · 保持方块位置',
          'erase': '点击擦除可见方块 · 支持撤销',
          'pick': '点击吸取材质 · 不改变建筑',
          'box': '点击两点框选 · 空白处选择当前 Y 层 · 拖动旋转'}
@@ -60,6 +60,14 @@ def Scene(session=None, revision=0, width=400, height=300):
         if clipping.current:
             clipping.current.SetClipsChildren(True)
     use_effect(clip, [])
+
+    def restore_view():
+        clip_geometry.current = None
+        pan_geometry.current = None
+        outline.current = None
+        if active:
+            preview.invalidate()
+    use_effect(restore_view, [active, width, height, Theme.scale, session.page])
 
     def aim():
         camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
@@ -106,7 +114,8 @@ def Scene(session=None, revision=0, width=400, height=300):
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             session.zoom = camera.target[2]
             session.emit()
-        signature = (session.model_name, camera.yaw, camera.pitch, camera.zoom, camera.pan, width, height, Theme.scale,
+        rendered_yaw, rendered_pitch = camera.render_angles()
+        signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
                      session.scene_origin, session.scene_size, preview.ready(session.model_name))
         def draw(slot, name, pose):
             return dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
@@ -129,7 +138,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                         dolls[slot].current.SetLayer(50)
                 session.bridge.later(.2, settled)
 
-        preview.update(session.model_name, (unit() * session.scene_scale / 10., -90. + camera.pitch, camera.yaw), now, draw, show)
+        preview.update(session.model_name, (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw), now, draw, show)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:

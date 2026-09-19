@@ -60,8 +60,14 @@ class OrbitCamera(object):
                 self.yaw, self.pitch, self.zoom = self.target
         return before != (self.yaw, self.pitch, self.zoom)
 
+    def render_angles(self):
+        # Netease 3.9 accepts floats but truncates native init_rot_* to integers.
+        # Round once here, then use those exact angles for rendering and picking.
+        # Keep the continuous pose/velocity for smooth drag and zoom integration.
+        return (int(math.floor(self.yaw + .5)), int(math.floor(self.pitch + .5)))
+
     def basis(self):
-        yaw, pitch = math.radians(self.yaw), math.radians(self.pitch)
+        yaw, pitch = [math.radians(v) for v in self.render_angles()]
         cy, sy, cp, sp = math.cos(yaw), math.sin(yaw), math.cos(pitch), math.sin(pitch)
         return ((cy, 0., -sy), (-sy * sp, cp, -cy * sp), (sy * cp, sp, cy * cp))
 

@@ -106,7 +106,7 @@ ACTION_ICONS = {
 SEGMENT_ICONS = {
     '工作台': 'home', '建筑库': 'library', '投影': 'projection', '入门指南': 'info',
     '三维': 'cube', '逐层': 'layers', '参数': 'sliders', '图层': 'layers', '历史': 'history',
-    '浏览': 'orbit', '选取': 'cursor', '放置': 'cube', '涂装': 'brush', '绘制': 'brush',
+    '浏览': 'orbit', '选取': 'cursor', '放置': 'cube', '换材质': 'brush', '绘制': 'brush',
     '擦除': 'erase', '吸管': 'pick', '框选': 'select_box', '起点': 'pin', '终点': 'pin',
     '主材质': 'cube', '副材质': 'copy', '替换来源': 'replace', '蒙版来源': 'replace', '匹配材质': 'replace', '材质': 'cube',
     '全部': 'select_all', '方块': 'cube', '空气': 'box_outline', '来源': 'pick',
