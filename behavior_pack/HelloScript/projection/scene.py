@@ -17,7 +17,7 @@ from .scene_lines import cuboid, grid_lines, clip_line
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '涂装'),
          ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
-HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击查看坐标',
+HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
          'select': '点击选择单个方块 · 拖动仍可旋转',
          'place': '点击方块表面向外放置 · 空白处放在当前 Y 层',
          'paint': '点击方块更换主材质 · 拖动旋转',
@@ -233,6 +233,7 @@ def Scene(session=None, revision=0, width=400, height=300):
 
     def leave(unused):
         hovering.current = False
+        cancel(unused)
 
     def wheel(args):
         if active and hovering.current:
@@ -259,6 +260,6 @@ def Scene(session=None, revision=0, width=400, height=300):
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
-        Pointer(ref=pointer, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
+        Pointer(ref=pointer, enabled=active, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
                 buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=110, visible=active)),
     ])

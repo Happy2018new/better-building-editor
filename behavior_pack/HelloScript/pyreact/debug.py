@@ -518,6 +518,10 @@ def poll_clipboard(host):
             control = host.GetBaseUIControl(fiber.native_path)
             result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
             result['visible'] = control.GetVisible()
+            tracker = fiber.primitive_state.get('pointer_tracker')
+            if tracker is not None:
+                result['pointerPressed'] = tracker.pressed
+                result['pointerPolling'] = tracker.slot['active']
             if _type_name(fiber) == 'Label':
                 result['text'] = control.asLabel().GetText()
             elif _type_name(fiber) == 'Input':

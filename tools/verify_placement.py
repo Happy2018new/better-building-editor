@@ -3,6 +3,7 @@ import json
 import time
 import verify_ui as ui
 import verify_interaction as interaction
+from verify_selection_scope import diagnostic
 
 
 def main():
@@ -21,14 +22,12 @@ def main():
         interaction.tap(x, y)
         ui.check('placement works after ' + mode,
                  any('绘制单格 · 已修改 1 格' in label for label in ui.labels()))
+        state = diagnostic()
+        ui.check('one shared selection marks the placed cell after ' + mode,
+                 state['selection'] == 1 and state['start'] == state['end'] == [8, 11, 14])
         # Real document undo through the inspector; then return to direct mode.
         ui.click('历史'); ui.click('撤销'); ui.click('参数')
-    ui.check('direct edits preserved the small selection', '选区 1' in ui.labels())
-    ui.click('允许编辑整个建筑')
-    interaction.tap(x, y)
-    ui.check('explicit selection constraint rejects adjacent placement',
-             any('目标不在选区内' in label for label in ui.labels()))
-    ui.click('限制在选区内')
+    ui.check('direct edits retain one shared selection', '选区 1' in ui.labels())
     for height in range(11, 16):
         interaction.tap(x, y)
         ui.check('place at Y=%d' % height, 'X 8 · Y %d · Z 14' % height in ui.labels())

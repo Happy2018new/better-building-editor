@@ -124,7 +124,7 @@ def Parameters(session=None, revision=0):
     e = session.editor
     tool = BY_ID[session.tool]
     options = tool_parameters(session.tool)
-    if session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select'):
+    if session.view == '3d' and session.direct_mode != 'browse':
         from .scene import MODES, HINTS
         tool = ('direct', 'edit', dict(MODES)[session.direct_mode], HINTS[session.direct_mode])
         options = set(['material']) if session.direct_mode in ('place', 'paint', 'pick') else set()
@@ -138,12 +138,11 @@ def Parameters(session=None, revision=0):
         text(tool[3], 11, Theme.muted, width=216),
         line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
-        text('所有工具使用当前选区', 10, Theme.muted),
-        row([Action(label='三维框选', glyph='cursor', compact=True, width=78, height=27, selected=session.direct_mode == 'box',
-                    onClick=partial(session.choose_mode, 'box')),
-             Action(label='全选', glyph='grid', compact=True, width=54, height=27,
+        text('点击编辑更新为单格 · 批量工具使用蓝框', 10, Theme.muted),
+        text('两点选区：视图下方的框选', 10, Theme.muted),
+        row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),
-             Action(label='坐标设置', glyph='sliders', compact=True, width=76, height=27, selected=coordinates_open,
+             Action(label='坐标设置', glyph='sliders', compact=True, width=108, height=27, selected=coordinates_open,
                     onClick=partial(set_coordinates_open, not coordinates_open))], gap=4),
         SelectionBounds(session=session, revision=revision),
         optional('box_pending', session.box_anchor is not None, Panel(children=[
@@ -155,14 +154,10 @@ def Parameters(session=None, revision=0):
         optional('local_focus', e.document.volume > SMALL_VOLUME, Coordinates(
             label='精细视图中心  X, Y, Z', value=session.preview_center,
             onChange=partial(session.action, session.focus_preview))),
-        optional('direct_selection', tool[0] == 'direct', Action(
-            label='限制在选区内' if session.direct_selection else '允许编辑整个建筑',
-            glyph='cursor', compact=True, height=26, selected=session.direct_selection,
-            onClick=partial(session.set, 'direct_selection', not session.direct_selection))),
-        line(), text('选区内方块条件', 12),
+        line(), text('方块修改条件', 12),
         Segments(items=[('all', '全部'), ('solid', '方块'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
-        text({'all': '修改选区内全部方块', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
+        text({'all': '允许修改方块和空气格', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
               'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted),
         line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=revision, channels=channels)),
         optional('material_line', bool(channels), line()),

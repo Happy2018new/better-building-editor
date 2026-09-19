@@ -7,6 +7,7 @@ from ..pyreact import Component, Panel, Position, use_ref
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.primitives import PanelPrimitive
 from .widgets import Theme, S, Image, TEX, use_theme
+from .pointer import release_pointers
 
 FRAME_UVS = tuple(((i % 4) * 112, (i // 4) * 112) for i in range(16))
 
@@ -34,20 +35,31 @@ class ClickObserverPrimitive(PanelPrimitive):
             fiber.primitive_state['last_contact'] = (contact, now)
             fiber.props['onPointer'](point)
             return False
-        # Use the same ScreenNode dynamic binding lifecycle as Pyreact inputs.
-        name = '__projection_pointer_%s' % id(fiber)
-        down.__name__ = name
-        down.binding_flags = clientApi.GetViewBinderCls().BF_ButtonClickDown
-        down.binding_name = '#modern_projection_pointer_down'
-        setattr(host.__class__, name, down)
-        host._process_default(getattr(host, name), host.screen_name)
-        fiber.primitive_state['binding_method'] = name
+        def up(screen, args):
+            release_pointers(host, args)
+            return False
+
+        # Both bindings observe the same non-consuming global input mapping.
+        # A lost control-local up must not leave PC mouse polling enabled.
+        names = []
+        binder = clientApi.GetViewBinderCls()
+        for phase, callback, flag in (('down', down, binder.BF_ButtonClickDown),
+                                       ('up', up, binder.BF_ButtonClickUp)):
+            name = '__projection_pointer_%s_%s' % (phase, id(fiber))
+            callback.__name__ = name
+            callback.binding_flags = flag
+            callback.binding_name = '#modern_projection_pointer_down'
+            setattr(host.__class__, name, callback)
+            host._process_default(getattr(host, name), host.screen_name)
+            names.append(name)
+        fiber.primitive_state['binding_methods'] = names
 
     def unmount(self, host, fiber):
-        name = fiber.primitive_state.pop('binding_method', None)
-        if name:
+        for name in fiber.primitive_state.pop('binding_methods', []):
             host._process_default_unregister(getattr(host, name), host.screen_name)
             delattr(host.__class__, name)
+        for tracker in tuple(getattr(host, '_projection_pointers', ())):
+            tracker.cancel({})
         PanelPrimitive.unmount(self, host, fiber)
 
 

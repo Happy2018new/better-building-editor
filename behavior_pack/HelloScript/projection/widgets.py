@@ -12,6 +12,7 @@ from ..pyreact.style import Style as NativeStyle
 from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
 from .catalog import ACTION_ICONS, SEGMENT_ICONS
+from .pointer import PointerTracker
 
 TEX = 'textures/modern_projection/'
 
@@ -221,77 +222,26 @@ class PointerPrimitive(BaseButtonPrimitive):
         BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker is None:
-            tracker = PointerTracker(host, fiber)
+            motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
+            tracker = PointerTracker(host, fiber, motion)
             fiber.primitive_state['pointer_tracker'] = tracker
         tracker.props = next_props
+        if next_props.get('enabled') is False:
+            tracker.cancel({})
         button = control.asButton()
         if prev_props is None:
             button.AddHoverEventParams()
             for name, method in (('down', 'SetButtonTouchDownCallback'), ('move', 'SetButtonTouchMoveCallback'),
                                  ('up', 'SetButtonTouchUpCallback'), ('cancel', 'SetButtonTouchCancelCallback'),
+                                 ('move_out', 'SetButtonTouchMoveOutCallback'),
                                  ('enter', 'SetButtonHoverInCallback'), ('leave', 'SetButtonHoverOutCallback')):
                 getattr(button, method)(getattr(tracker, name))
 
     def unmount(self, host, fiber):
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker:
-            tracker.stop()
+            tracker.cancel({})
         BaseButtonPrimitive.unmount(self, host, fiber)
-
-
-class PointerTracker(object):
-    """PC has no touch-move events. Poll only while a native button is held."""
-    def __init__(self, host, fiber):
-        self.host, self.props = host, {}
-        self.motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
-        self.slot = {'fiber': fiber, 'active': False, 'callback': self.tick}
-        self.origin = self.previous = None
-        self.args = None
-
-    def send(self, name, args):
-        callback = self.props.get(name)
-        if callable(callback):
-            callback(args)
-
-    def down(self, args):
-        self.origin = self.previous = self.motion.GetMousePosition()
-        self.args = dict(args)
-        self.send('onDown', args)
-        if self.origin is not None:
-            self.slot['active'] = True
-            self.host.pyreact_register_animation_frame(self.slot)
-
-    def tick(self, unused):
-        current = self.motion.GetMousePosition()
-        if current is not None and current != self.previous:
-            self.previous = current
-            args = dict(self.args)
-            args['TouchPosX'] += current[0] - self.origin[0]
-            args['TouchPosY'] += current[1] - self.origin[1]
-            self.send('onMove', args)
-
-    def stop(self):
-        self.slot['active'] = False
-        self.host.pyreact_unregister_animation_frame(self.slot)
-
-    def up(self, args):
-        if self.slot['active']:
-            self.tick(0.)
-        self.stop()
-        self.send('onUp', args)
-
-    def cancel(self, args):
-        self.stop()
-        self.send('onCancel', args)
-
-    def move(self, args):
-        self.send('onMove', args)
-
-    def enter(self, args):
-        self.send('onEnter', args)
-
-    def leave(self, args):
-        self.send('onLeave', args)
 
 
 Pointer = PointerPrimitive()

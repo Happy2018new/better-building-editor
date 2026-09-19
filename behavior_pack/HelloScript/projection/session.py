@@ -38,7 +38,6 @@ class Session(object):
         self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
-        self.direct_selection = True
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
@@ -414,19 +413,22 @@ class Session(object):
                 e.message = '目标图层不可见，请先显示该图层'
             else:
                 self.focused = target
-                return self.action(e.paint_at, target, False, self.direct_selection)
+                e.select_box(target, target)
+                return self.action(e.paint_at, target, False, False)
         elif mode in ('paint', 'erase'):
-            return self.action(e.paint_at, pos, mode == 'erase', self.direct_selection)
+            e.select_box(pos, pos)
+            return self.action(e.paint_at, pos, mode == 'erase', False)
         elif mode == 'pick':
+            e.select_box(pos, pos)
             if e.document.get(pos) != AIR:
                 e.material = e.document.get(pos)
                 e.message = '已吸取材质：' + e.material[0]
         elif mode == 'select':
-            e.start = e.end = pos
             e.select_box(pos, pos)
         elif mode == 'box':
             if self.box_anchor is None:
                 self.box_anchor = pos
+                e.select_box(pos, pos)
                 e.message = '起点已设置，请点击框选终点'
             else:
                 start = self.box_anchor
@@ -434,6 +436,7 @@ class Session(object):
                 e.select_box(start, pos)
                 e.message = '已选择 %d 格 · 所有批量工具使用此选区' % len(e.selection)
         else:
+            e.select_box(pos, pos)
             e.message = '方块坐标：%d, %d, %d' % pos
         self.emit()
         return True

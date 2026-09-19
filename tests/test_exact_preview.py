@@ -45,8 +45,8 @@ class ExactPreviewTests(unittest.TestCase):
     def test_selection_fields_and_two_click_box_drive_same_batch_scope(self):
         s = Session(Bridge()); s.editor = Editor(Document((8,8,8)))
         s.set_editor('end',(3,3,3)); self.assertEqual(64,len(s.editor.selection))
-        s.choose_tool('fill'); s.choose_mode('box'); before = s.editor.selection
-        s.point_action((1,1,1)); self.assertEqual(before,s.editor.selection)
+        s.choose_tool('fill'); s.choose_mode('box')
+        s.point_action((1,1,1)); self.assertEqual({(1,1,1)},s.editor.selection)
         self.assertFalse(s.run())
         s.point_action((2,2,2)); self.assertEqual(8,len(s.editor.selection))
         self.assertEqual((1,1,1),s.editor.start)

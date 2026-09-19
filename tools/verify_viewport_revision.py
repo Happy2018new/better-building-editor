@@ -29,7 +29,7 @@ def main():
     ui.click('浏览'); click_point((3.5,4,5.5))
     edges=outline_edges()
     ui.check('exactly twelve edges, with no extra clicked-cell box',len(edges)==12)
-    ui.check('browsing leaves the shared selection intact',diagnostic()['selection']==72)
+    ui.check('browsing locates a single cell in the shared selection',diagnostic()['selection']==1)
     snapshot('viewport_aligned_odd')
     ui.click('选取');click_point((3.5,4,5.5))
     ui.check('selection does not move the Y workplane',diagnostic()['layer']==0)

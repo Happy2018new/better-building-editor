@@ -151,7 +151,7 @@ class DirectEditingTests(unittest.TestCase):
         self.assertEqual(len(s.editor.undo_stack), 0)
         self.assertEqual(len(s.editor.document.blocks), 1)
 
-    def test_selection_then_place_preserves_selection_and_allows_adjacent_edit(self):
+    def test_selection_then_place_moves_shared_selection_to_adjacent_edit(self):
         s = self.s
         for mode in ('select', 'box', 'erase', 'pick', 'browse'):
             s.choose_mode(mode)
@@ -161,15 +161,38 @@ class DirectEditingTests(unittest.TestCase):
                 s.point_action((1, 1, 1))
                 s.point_action((1, 1, 1))
             s.choose_mode('place')
-            s.direct_selection = True
-            self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 0)
-            s.direct_selection = False
             self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 1)
-            self.assertEqual(s.editor.selection, {(1, 1, 1)})
+            self.assertEqual(s.editor.selection, {(1, 2, 1)})
+            self.assertEqual(s.editor.start, s.editor.end)
             s.editor.undo()
-        s.direct_selection = True
-        self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 0)
-        self.assertIn('选区', s.editor.message)
+
+    def test_every_click_mode_uses_one_selection_and_preserves_workplane(self):
+        s = self.s
+        s.editor.layer = 3
+        for mode in ('browse', 'select', 'pick', 'paint', 'erase'):
+            s.editor.select_box((0, 0, 0), (3, 3, 3))
+            s.choose_mode(mode)
+            s.point_action((1, 1, 1))
+            self.assertEqual({(1, 1, 1)}, s.editor.selection)
+            self.assertEqual((1, 1, 1), s.editor.start)
+            self.assertEqual(s.editor.start, s.editor.end)
+            self.assertEqual(3, s.editor.layer)
+
+    def test_repeated_box_starts_replace_old_box_immediately(self):
+        s = self.s
+        s.choose_mode('box')
+        for start, end, count in (((1, 1, 1), (2, 2, 2), 8), ((3, 3, 3), (0, 0, 0), 64)):
+            s.point_action(start)
+            self.assertEqual({start}, s.editor.selection)
+            self.assertEqual(start, s.box_anchor)
+            self.assertFalse(s.run())
+            s.point_action(end)
+            self.assertIsNone(s.box_anchor)
+            self.assertEqual(count, len(s.editor.selection))
+        s.point_action((2, 1, 0))
+        s.choose_mode('paint')
+        self.assertIsNone(s.box_anchor)
+        self.assertEqual({(2, 1, 0)}, s.editor.selection)
 
     def test_each_outer_boundary_is_rejected_without_history_or_preview_job(self):
         s = self.s
