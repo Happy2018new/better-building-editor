@@ -527,6 +527,11 @@ def poll_clipboard(host):
                     child = host.GetBaseUIControl(fiber.native_path + suffix)
                     if child is not None:
                         result[name] = {'global': child.GetGlobalPosition(), 'size': child.GetSize()}
+                        if name == 'displayText':
+                            result[name]['properties'] = child.GetPropertyBag()
+                background = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/active_background')
+                if background is not None:
+                    result['focusBackgroundVisible'] = background.GetVisible()
             if _type_name(fiber) == 'Image':
                 image = control.asImage()
                 result['angle'] = image.GetRotateAngle()

@@ -101,6 +101,28 @@ class InputPrimitive(BaseInputPrimitive):
             label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
             label.asLabel().SetTextFontSize(scale)
 
+    def apply_layout(self, host, node):
+        state = node.fiber.primitive_state
+        path = node.fiber.native_path + '/centering_panel/clipper_panel/active_background'
+        if 'input_patches' not in state:
+            state['input_patches'] = [host.GetBaseUIControl(path + '/p%d' % i) for i in range(9)]
+            for patch in state['input_patches']:
+                patch.asImage().SetSpriteColor((.43, .55, .76))
+        # Hidden native backgrounds have not resolved their percent size yet.
+        # Use the committed input layout, so the first focus needs no relayout.
+        width, height = state.get('_layout_applied', (node.frame_w, node.frame_h))[:2]
+        width = max(0., width - 6.)
+        signature = (width, height, Theme.scale)
+        if state.get('input_patch_size') == signature:
+            return
+        state['input_patch_size'] = signature
+        radius = min(4 * Theme.scale, width / 2., height / 2.)
+        xs, ys = (0., radius, width-radius, width), (0., radius, height-radius, height)
+        for i, patch in enumerate(state['input_patches']):
+            r, c = i // 3, i % 3
+            patch.SetPosition((xs[c], ys[r]))
+            patch.SetSize((xs[c+1]-xs[c], ys[r+1]-ys[r]))
+
 
 NativeText = LabelPrimitive()
 NativeText.template_path = '/root/mp_label_tmpl'
@@ -528,7 +550,8 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
         if label:
             contents.append(text(label, 11 if compact else 12, ink))
         return [rounded_skin(base), row(contents, width='100%' if leading else None,
-            justifyContent=JustifyContent.flex_start if leading else JustifyContent.center, paddingHorizontal=9)]
+            justifyContent=JustifyContent.flex_start if leading else JustifyContent.center,
+            paddingHorizontal=4 if compact else 9, gap=4 if compact else 6)]
     children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, leading, Theme.scale]))
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,

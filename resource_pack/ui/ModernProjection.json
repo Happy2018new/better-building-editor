@@ -24,6 +24,7 @@
     ]
   },
   "round@PyreactBase.panel": {
+    "$mp_patch_layer|default": 2,
     "controls": [
       {
         "p0": {
@@ -33,7 +34,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             0,
             0
@@ -56,7 +57,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             24,
             0
@@ -79,7 +80,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             40,
             0
@@ -102,7 +103,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             0,
             24
@@ -125,7 +126,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             24,
             24
@@ -148,7 +149,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             40,
             24
@@ -171,7 +172,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             0,
             40
@@ -194,7 +195,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             24,
             40
@@ -217,7 +218,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "keep_ratio": false,
-          "layer": 2,
+          "layer": "$mp_patch_layer",
           "uv": [
             40,
             40
@@ -265,9 +266,79 @@
     ],
     "$place_holder_text": "",
     "$text_box_text_color": [
-      0.15,
-      0.22,
-      0.3
+      0.07,
+      0.12,
+      0.2
+    ],
+    "controls": [
+      {
+        "centering_panel": {
+          "type": "panel",
+          "size": [
+            "100% - 6px",
+            "100% - 4px"
+          ],
+          "controls": [
+            {
+              "clipper_panel": {
+                "type": "panel",
+                "size": "$text_edit_clipping_panel_size",
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "clips_children": true,
+                "controls": [
+                  {
+                    "display_text@common.text_edit_box_label": {
+                      "layer": 2,
+                      "size": [
+                        "default",
+                        "default"
+                      ],
+                      "min_size": [
+                        "100%",
+                        0
+                      ],
+                      "anchor_from": "right_middle",
+                      "anchor_to": "right_middle"
+                    }
+                  },
+                  {
+                    "active_background@ModernProjection.round": {
+                      "layer": 0,
+                      "$mp_patch_layer": 0,
+                      "size": [
+                        "100%",
+                        "100%"
+                      ],
+                      "bindings": [
+                        {
+                          "binding_type": "view",
+                          "source_control_name": "display_text",
+                          "resolve_sibling_scope": true,
+                          "source_property_name": "#text_edit_selected",
+                          "target_property_name": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "default@ModernProjection.invisible": {}
+      },
+      {
+        "hover@ModernProjection.invisible": {}
+      },
+      {
+        "pressed@ModernProjection.invisible": {}
+      },
+      {
+        "locked@ModernProjection.invisible": {}
+      }
     ]
   },
   "invisible": {
