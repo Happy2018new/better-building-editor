@@ -64,6 +64,7 @@ class PointerTests(unittest.TestCase):
         self.pos = None
         self.down()
         self.tracker.move_out({})
+        self.tracker.leave({})
         self.assertTrue(self.tracker.pressed)
         release_pointers(self.host, {'TouchId': 1})
         self.assertTrue(self.tracker.pressed)

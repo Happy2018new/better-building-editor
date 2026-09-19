@@ -179,7 +179,8 @@ def dispatch_pointer(host, root_fiber, node_id, value):
     control = host.GetBaseUIControl(fiber.native_path)
     x, y = control.GetGlobalPosition()
     callback({'TouchPosX': x + float(value.get('x', 0.)),
-              'TouchPosY': y + float(value.get('y', 0.)), 'ButtonPath': fiber.native_path})
+              'TouchPosY': y + float(value.get('y', 0.)), 'ButtonPath': fiber.native_path,
+              'pointerKind': 'touch' if value.get('touch') is True else 'mouse'})
     return {'ok': True}
 
 

@@ -90,7 +90,8 @@ class PointerTracker(object):
             self.cancel(args)
 
     def leave(self, args):
-        self.cancel(args)
+        if self.origin is not None:
+            self.cancel(args)
         self.send('onLeave', args)
 
 

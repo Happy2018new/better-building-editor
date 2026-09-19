@@ -130,7 +130,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
     e = session.editor
     doc = e.document
     focus = session.focus_view
-    area_h = max(130, height - (136 if focus else 148))
+    area_h = max(130, height - (157 if focus else 169))
     viewport_children = []
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h))
     if not session.model_name:
@@ -207,12 +207,32 @@ def Viewport(session=None, revision=0, width=430, height=440):
                           value=session.paint_mode, onChange=partial(session.set, 'paint_mode'), width=width - 24)),
                 Panel(style=S(position=Position.absolute, width='100%', height=32, visible=session.view == '3d'),
                       children=Segments(items=MODES, value=session.direct_mode, onChange=session.choose_mode, width=width - 24))]),
-            Panel(style=S(width='100%', height=15, marginTop=2), children=[
+            Panel(style=S(width='100%', height=36, marginTop=2), children=[
                 Panel(style=S(position=Position.absolute, visible=session.view == 'layer'),
                       children=text('点击格子编辑 · X / Z 为文档相对坐标', 10, Theme.muted)),
-                Panel(style=S(position=Position.absolute, visible=session.view == '3d'),
-                      children=text(HINTS[session.direct_mode], 10, Theme.muted))]),
+                Panel(style=S(position=Position.absolute, width='100%', visible=session.view == '3d'),
+                      children=PlacementControls(session=session, revision=revision, width=width-24))]),
         ])])
+
+
+@Component
+def PlacementControls(session=None, revision=0, width=400):
+    use_theme()
+    placing = session.direct_mode == 'place'
+    target, error = session.placement_proposal()
+    controls = [text(('点击选择位置，再确认放置' if target is None else
+                     error or 'X %d · Y %d · Z %d' % target) if placing and session.touch_mode else
+                    HINTS[session.direct_mode], 10, Theme.muted, flex=1)]
+    if placing:
+        controls.append(Action(label='触控放置', glyph='cursor', compact=True, width=78, height=32,
+            selected=session.touch_mode, onClick=partial(session.set, 'touch_mode', not session.touch_mode)))
+        if session.touch_mode:
+            controls.extend([
+                Action(label='取消', glyph='close', compact=True, width=52, height=32,
+                    enabled=session.placement_intent is not None, onClick=session.cancel_placement),
+                Action(label='确认放置', glyph='cube', compact=True, width=86, height=32, accent=True,
+                    enabled=target is not None and not error, onClick=session.confirm_placement)])
+    return row(controls, width=width, height=34, gap=4)
 
 
 def reset_camera(session):

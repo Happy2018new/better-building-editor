@@ -174,9 +174,8 @@ def Scene(session=None, revision=0, width=400, height=300):
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
             selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
-        preview_cell = None
-        preview_error = None
-        if (active and session.direct_mode == 'place' and hovering.current and
+        preview_cell, preview_error = session.placement_proposal() if session.touch_mode else (None, None)
+        if (active and not session.touch_mode and session.direct_mode == 'place' and hovering.current and
                 (drag.current is None or not drag.current[-1])):
             point = mouse.GetMousePosition()
             if point is not None:
@@ -234,6 +233,8 @@ def Scene(session=None, revision=0, width=400, height=300):
     def down(args):
         if not active:
             return
+        if (args.get('pointerKind') == 'touch' or mouse.GetMousePosition() is None) and not session.touch_mode:
+            session.set('touch_mode', True)
         camera.velocity = (0., 0.)
         camera.target = (camera.yaw, camera.pitch, camera.zoom)
         camera.dragging = True
@@ -274,6 +275,9 @@ def Scene(session=None, revision=0, width=400, height=300):
         x, y = args.get('TouchPosX', x) - px, args.get('TouchPosY', y) - py
         hit = hit_at(x, y)
         if hit:
+            if session.touch_mode and session.direct_mode == 'place':
+                session.propose_placement(hit[0], hit[1])
+                return
             before_revision = session.editor.revision
             session.point_action(hit[0], hit[1])
             point = mouse.GetMousePosition()
@@ -290,7 +294,8 @@ def Scene(session=None, revision=0, width=400, height=300):
     def leave(unused):
         hovering.current = False
         hover_preview.current = None
-        cancel(unused)
+        if not session.touch_mode:
+            cancel(unused)
 
     def wheel(args):
         if active and hovering.current:

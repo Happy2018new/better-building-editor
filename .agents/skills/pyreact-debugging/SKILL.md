@@ -192,6 +192,7 @@ python3 simulate.py scroll --node-id ID [--position PIXELS] [--timeout N]
 - `slider`：游戏侧更新目标 Slider 的 `#slider_value` property bag 并调用 `SetSliderValue`，再走正式的 `onChange` 数值 diff 分发；原生会按 `steps` 对数值取整或裁剪，受控 Slider 会在下一帧把新 `value` 写回 UI 树。
 - `scroll`：游戏侧确认目标是 ScrollView，调用 `SetScrollViewPos` 设置像素位置，并在响应中返回 `before` / `position`；省略 `--position` 时通过 `GetScrollViewPos` 只读当前位置。
 - 自定义指针 Primitive 可通过 `_protocol.request('pointer', node_id=ID, value={'phase': 'down|move|up|cancel|enter|leave', 'x': X, 'y': Y})` 调试；坐标为相对该原生控件左上角的 UI 单位，调用正式 `onDown/onMove/onUp/onCancel/onEnter/onLeave` 回调。拖动使用 down → 若干 move → up；与 Win32 实际鼠标输入测试配合验证绑定。
+- 指针请求可加 `touch: true`，模拟触控操作方式（例如点选后通过确认按钮放置）。它仍是回调模拟，不能替代手机硬件的触摸事件测试。
 - `native_control` 额外返回原生 `visible`；Label 返回实际绘制的 `text`，可与逻辑 content 对比，检查字形贴图与原生文字叠加等重影问题。
 - `native_control` 对本项目 Pointer 额外返回 `pointerPressed` 和 `pointerPolling`，可用真实鼠标检查快速点击、离开视口和页面切换后是否仍保留拖拽。`tools/verify_pointer_release.py` 覆盖这些路径；指针 debug 模拟回调不能替代原生鼠标绑定测试。
 - `native_control` 对 Input 也返回 `GetEditText()` 的实际 `text`，可核对中文输入和受控值同步。

@@ -38,6 +38,8 @@ class Session(object):
         self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
+        self.touch_mode = False
+        self.placement_intent = None
         self.erase_scope = 'single'
         self.focused = None
         self.box_anchor = None
@@ -113,6 +115,8 @@ class Session(object):
         if getattr(self, field) == value:
             return
         setattr(self, field, value)
+        if field in ('page', 'view', 'touch_mode'):
+            self.placement_intent = None
         if field in ('canvas_x', 'canvas_z') and self.preview_detail:
             self.focused = None
             self.preview_center = (self.canvas_x, self.editor.layer, self.canvas_z)
@@ -167,6 +171,7 @@ class Session(object):
         return True
 
     def choose_tool(self, tool):
+        self.placement_intent = None
         self.tool = tool
         self.direct_mode = 'browse'
         self.box_anchor = None
@@ -189,6 +194,7 @@ class Session(object):
             self.editor.message = '正在编辑，可点击取消'
             self.emit()
             return False
+        self.placement_intent = None
         try:
             if callback == self.editor.run and self.editor.document.volume > SMALL_VOLUME:
                 return self.start_edit(args[0])
@@ -423,6 +429,7 @@ class Session(object):
             self.action(self.editor.paint_at, pos, self.paint_mode == 'erase')
 
     def choose_mode(self, mode):
+        self.placement_intent = None
         if mode == 'erase' and self.direct_mode != 'erase':
             self.erase_scope = 'selection' if len(self.editor.selection) > 1 else 'single'
         self.direct_mode = mode
@@ -456,6 +463,36 @@ class Session(object):
         if not e._writable(target, False) or e.material == AIR:
             return target, '放置条件不匹配，请检查材质与方块条件'
         return target, None
+
+    def propose_placement(self, pos, normal):
+        """Touch selects a destination; the explicit button commits it later."""
+        target, error = self.placement_target(pos, normal)
+        self.placement_intent = (id(self.editor), self.editor.revision, tuple(pos), tuple(normal))
+        self.editor.message = error or '位置已选择，请确认放置'
+        self.emit()
+        return target, error
+
+    def placement_proposal(self):
+        intent = self.placement_intent
+        if intent is None:
+            return None, None
+        if intent[:2] != (id(self.editor), self.editor.revision):
+            return None, '建筑已更新，请重新选择位置'
+        return self.placement_target(intent[2], intent[3])
+
+    def cancel_placement(self):
+        self.placement_intent = None
+        self.emit()
+
+    def confirm_placement(self):
+        target, error = self.placement_proposal()
+        if target is None or error:
+            self.editor.message = error or '请先点击选择放置位置'
+            self.emit()
+            return False
+        intent = self.placement_intent
+        self.placement_intent = None
+        return self.point_action(intent[2], intent[3])
 
     def point_action(self, pos, normal=(0, 0, 0)):
         """One click, one undo record. Dragging never reaches this method."""
@@ -544,6 +581,7 @@ class Session(object):
             self._loaded(Document.from_data(data))
 
     def _loaded(self, document):
+        self.placement_intent = None
         self.editor = Editor(document)
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)

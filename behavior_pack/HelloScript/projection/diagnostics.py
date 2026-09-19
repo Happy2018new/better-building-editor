@@ -53,4 +53,5 @@ def inspect(session, value):
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
             'depth': session.camera_depth, 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
+            'touch': session.touch_mode, 'placementTarget': session.placement_proposal()[0],
             'layer': e.layer, 'section': session.section, 'mask': e.mask}

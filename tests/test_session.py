@@ -18,6 +18,44 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_touch_proposal_waits_for_confirmation_and_commits_once(self):
+        s = Session(Bridge())
+        s.editor = Editor(Document((8, 8, 8)))
+        s.choose_mode('place')
+        s.set('touch_mode', True)
+        original = s.editor.selection
+        self.assertEqual(((3, 0, 3), None), s.propose_placement((3, 0, 3), (0, 0, 0)))
+        self.assertIs(original, s.editor.selection)
+        self.assertEqual(0, len(s.editor.document.blocks))
+        self.assertFalse(s.editor.undo_stack)
+        self.assertTrue(s.confirm_placement())
+        self.assertEqual(1, len(s.editor.document.blocks))
+        self.assertEqual(1, len(s.editor.undo_stack))
+        self.assertEqual((3, 0, 3), s.editor.start)
+        self.assertFalse(s.confirm_placement())
+        self.assertEqual(1, len(s.editor.undo_stack))
+
+    def test_touch_cancel_stale_and_invalid_targets_never_place(self):
+        s = Session(Bridge())
+        s.editor = Editor(Document((8, 8, 8)))
+        s.choose_mode('place')
+        s.propose_placement((3, 7, 3), (0, 1, 0))
+        self.assertFalse(s.confirm_placement())
+        s.propose_placement((3, 0, 3), (0, 0, 0))
+        s.editor.locked_layers.add(0)
+        self.assertFalse(s.confirm_placement())
+        s.editor.locked_layers.clear()
+        s.propose_placement((3, 0, 3), (0, 0, 0))
+        s.editor.revision += 1
+        self.assertFalse(s.confirm_placement())
+        for cancel in (s.cancel_placement, lambda: s.choose_mode('browse'),
+                       lambda: s.set('page', 'library')):
+            s.propose_placement((3, 0, 3), (0, 0, 0))
+            cancel()
+            self.assertIsNone(s.placement_intent)
+            self.assertFalse(s.confirm_placement())
+        self.assertEqual(0, len(s.editor.document.blocks))
+
     def test_dimensions_accept_native_utf8_and_common_separators(self):
         for text in ('3, 8, 3', '3，8，3', '３，８，３', '3×8×3', '3 * 8 * 3', '3 8 3', '3、8、3'):
             for raw in (text, text.encode('utf8')):
