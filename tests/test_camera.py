@@ -162,7 +162,7 @@ class DirectEditingTests(unittest.TestCase):
         self.assertEqual(len(s.editor.undo_stack), 0)
         self.assertEqual(len(s.editor.document.blocks), 1)
 
-    def test_selection_then_place_keeps_clicked_cell_and_edits_its_neighbor(self):
+    def test_selection_then_place_selects_the_previewed_destination(self):
         s = self.s
         for mode in ('select', 'box', 'erase', 'pick', 'browse'):
             s.choose_mode(mode)
@@ -173,8 +173,8 @@ class DirectEditingTests(unittest.TestCase):
                 s.point_action((1, 1, 1))
             s.choose_mode('place')
             self.assertEqual(s.point_action((1, 1, 1), (0, 1, 0)), 1)
-            self.assertEqual(s.editor.selection, {(1, 1, 1)})
-            self.assertEqual(s.focused, (1, 1, 1))
+            self.assertEqual(s.editor.selection, {(1, 2, 1)})
+            self.assertEqual(s.focused, (1, 2, 1))
             self.assertEqual(s.editor.start, s.editor.end)
             s.editor.undo()
 
@@ -184,6 +184,7 @@ class DirectEditingTests(unittest.TestCase):
         for mode in ('browse', 'select', 'pick', 'paint', 'erase'):
             s.editor.select_box((0, 0, 0), (3, 3, 3))
             s.choose_mode(mode)
+            s.erase_scope = 'single'
             s.point_action((1, 1, 1))
             self.assertEqual({(1, 1, 1)}, s.editor.selection)
             self.assertEqual((1, 1, 1), s.editor.start)
@@ -218,7 +219,7 @@ class DirectEditingTests(unittest.TestCase):
                 self.assertIn('超出', s.editor.message)
                 self.assertFalse(s.preview_pending)
                 self.assertFalse(s.editor.undo_stack)
-                self.assertEqual({tuple(pos)}, s.editor.selection)
+                self.assertEqual(64, len(s.editor.selection))
 
 
 if __name__ == '__main__':

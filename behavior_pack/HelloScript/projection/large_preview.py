@@ -2,6 +2,7 @@
 """Exact surface palettes. Chunking schedules work; it never rescales voxels."""
 from __future__ import unicode_literals
 from .storage import integer_types
+from .camera import behind_plane
 
 # Unknown/custom/transparent/non-cubic blocks never conceal their neighbours.
 OPAQUE = frozenset('stone stonebrick planks concrete wool quartz_block dirt grass '
@@ -29,7 +30,7 @@ class SurfacePalette(object):
                 'common': self.common, 'eliminateAir': True}
 
 
-def build_preview(document, hidden=(), layer=None, focus=None):
+def build_preview(document, hidden=(), layer=None, focus=None, plane=None):
     hidden = set(hidden)
     size = document.size if focus is None else tuple(min(32, v) for v in document.size)
     origin = (0, 0, 0) if focus is None else tuple(
@@ -43,6 +44,8 @@ def build_preview(document, hidden=(), layer=None, focus=None):
     def conceals(x, y, z):
         if not (origin[0] <= x < end[0] and origin[2] <= z < end[2] and y in ys):
             return False
+        if not behind_plane((x, y, z), plane):
+            return False
         chunk = store.chunks.get((x >> 4, y >> 4, z >> 4), 0)
         value = chunk if isinstance(chunk, integer_types) else chunk[((y & 15) << 8) | ((z & 15) << 4) | (x & 15)]
         return opaque[value]
@@ -51,9 +54,20 @@ def build_preview(document, hidden=(), layer=None, focus=None):
         base = tuple(v * 16 for v in key)
         if any(base[i] >= end[i] or base[i] + 16 <= origin[i] for i in range(3)):
             continue
+        uncut = True
+        fully_visible = True
+        if plane is not None:
+            near = tuple(base[i] + (0 if plane[0][i] >= 0 else 15) for i in range(3))
+            last = tuple(base[i] + (15 if plane[0][i] >= 0 else 0) for i in range(3))
+            far = tuple(base[i] + (16 if plane[0][i] >= 0 else -1) for i in range(3))
+            if not behind_plane(near, plane):
+                yield None
+                continue
+            uncut = behind_plane(far, plane)
+            fully_visible = behind_plane(last, plane)
         chunk = store.chunks[key]
         uniform = isinstance(chunk, integer_types)
-        enclosed = (uniform and opaque[chunk] and
+        enclosed = (uncut and uniform and opaque[chunk] and
                     all(origin[i] < base[i] and base[i] + 16 < end[i] for i in (0, 2)) and
                     all(base[1] + y in ys for y in range(-1, 17)))
         if enclosed:
@@ -66,13 +80,20 @@ def build_preview(document, hidden=(), layer=None, focus=None):
         if enclosed:
             yield None
             continue
-        if uniform and opaque[chunk]:
+        if fully_visible and uniform and opaque[chunk]:
             low = tuple(max(base[i], origin[i]) for i in range(3))
             high = tuple(min(base[i] + 16, end[i]) - 1 for i in range(3))
             def blocked(axis, delta):
                 edge = low[axis] if delta < 0 else high[axis]
                 if (delta < 0 and edge == origin[axis]) or (delta > 0 and edge == end[axis]-1):
                     return False
+                if not uncut:
+                    # A full chunk may border a clipped neighbour. Include that
+                    # face, then test its voxels, without scanning the interior.
+                    face = [high[i] if plane[0][i] >= 0 else low[i] for i in range(3)]
+                    face[axis] = edge + delta
+                    if not behind_plane(face, plane):
+                        return False
                 if base[axis] < edge + delta < base[axis] + 16:
                     return True
                 neighbour = list(key); neighbour[axis] += delta
@@ -81,7 +102,7 @@ def build_preview(document, hidden=(), layer=None, focus=None):
             xs = [edge for delta, edge in ((-1, low[0]), (1, high[0])) if not blocked(0, delta)]
             zs = [edge for delta, edge in ((-1, low[2]), (1, high[2])) if not blocked(2, delta)]
             bottom, top = blocked(1, -1), blocked(1, 1)
-            simple = True
+            simple = uncut
             for axis in range(3):
                 for delta in (-1, 1):
                     neighbour = list(key); neighbour[axis] += delta
@@ -90,9 +111,9 @@ def build_preview(document, hidden=(), layer=None, focus=None):
             for y in range(low[1], high[1]+1):
                 if y not in ys:
                     continue
-                plane = y-1 not in ys or y+1 not in ys or (y == low[1] and not bottom) or (y == high[1] and not top)
+                exposed_layer = y-1 not in ys or y+1 not in ys or (y == low[1] and not bottom) or (y == high[1] and not top)
                 for z in range(low[2], high[2]+1):
-                    for x in (range(low[0], high[0]+1) if plane or z in zs else xs):
+                    for x in (range(low[0], high[0]+1) if exposed_layer or z in zs else xs):
                         if simple or not (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and
                                 conceals(x, y+1, z) and conceals(x, y, z-1) and conceals(x, y, z+1)):
                             out.add((x-origin[0], y-origin[1], z-origin[2]), store.palette[chunk])
@@ -106,7 +127,9 @@ def build_preview(document, hidden=(), layer=None, focus=None):
                     identity = chunk if uniform else chunk[((y & 15) << 8) | ((z & 15) << 4) | (x & 15)]
                     if not identity:
                         continue
-                    interior = (uniform and opaque[identity] and base[0] < x < base[0] + 15 and
+                    if not behind_plane((x, y, z), plane):
+                        continue
+                    interior = (uncut and uniform and opaque[identity] and base[0] < x < base[0] + 15 and
                                 base[2] < z < base[2] + 15 and base[1] < y < base[1] + 15 and
                                 origin[0] < x < end[0] - 1 and origin[2] < z < end[2] - 1 and y-1 in ys and y+1 in ys)
                     if interior or (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and

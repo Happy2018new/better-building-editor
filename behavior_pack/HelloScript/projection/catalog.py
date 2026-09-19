@@ -110,6 +110,7 @@ SEGMENT_ICONS = {
     '擦除': 'erase', '吸管': 'pick', '框选': 'select_box', '起点': 'pin', '终点': 'pin',
     '主材质': 'cube', '副材质': 'copy', '替换来源': 'replace', '蒙版来源': 'replace', '匹配材质': 'replace', '材质': 'cube',
     '全部': 'select_all', '方块': 'cube', '空气': 'box_outline', '来源': 'pick',
+    '单格': 'cube', '选区': 'select_box',
 }
 
 

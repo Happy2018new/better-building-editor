@@ -25,7 +25,7 @@ def main():
     ui.check('cutaway picks Y191 inside a maximum solid',diagnostic()['focused']==[128,191,128])
     ui.check('cutaway preserves original full solid data',diagnostic()['blocks']==25165824)
     diagnostic({'camera':[0,90,20]});time.sleep(1.)
-    action(glyph='arrow_right',width=27,height=27);time.sleep(.7)
+    action(label='右移');time.sleep(.7)
     click_point((128.5,192,128.5))
     ui.check('20x zoom and panning still pick exact interior voxel',diagnostic()['focused']==[128,191,128])
     snapshot('maximum_navigation_cutaway')

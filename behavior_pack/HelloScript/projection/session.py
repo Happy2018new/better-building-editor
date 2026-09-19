@@ -38,11 +38,14 @@ class Session(object):
         self.focus_inspector = False
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
+        self.erase_scope = 'single'
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
         self.camera_pan = (0., 0.)
+        self.camera_depth = 0.
+        self.depth_angles = (35, 25)
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
@@ -207,6 +210,13 @@ class Session(object):
             return False
         return self.action(self.editor.run, self.tool)
 
+    def erase_selection(self):
+        if self.box_anchor is not None or not self.editor.selection:
+            self.editor.message = '请先完成框选，再擦除选区'
+            self.emit()
+            return False
+        return self.action(self.editor.run, 'erase')
+
     def start_edit(self, tool):
         if self.busy:
             self.editor.message = '请等待世界操作完成'
@@ -257,7 +267,8 @@ class Session(object):
             from .large_preview import build_preview
             focus = self.preview_center if self.preview_detail else None
             def prepare():
-                for result in build_preview(editor.document, self.preview_hidden(), editor.layer if self.solo_layer else None, focus):
+                for result in build_preview(editor.document, self.preview_hidden(), editor.layer if self.solo_layer else None, focus,
+                                            self.depth_plane()):
                     if result is None:
                         yield None
                         continue
@@ -293,8 +304,10 @@ class Session(object):
             return
         self.preview_pending = False
 
+        from .camera import behind_plane
+        plane = self.depth_plane()
         def visible(pos):
-            return self.visible_layer(pos[1])
+            return self.visible_layer(pos[1]) and behind_plane(pos, plane)
         try:
             self.model_name = self.bridge.geometry(editor.document, visible)
             self.model_revision = signature
@@ -309,7 +322,38 @@ class Session(object):
     def preview_signature(self):
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
                 self.editor.layer if self.solo_layer or self.section else -1, self.preview_detail,
-                self.preview_center if self.preview_detail else None, self.section)
+                self.preview_center if self.preview_detail else None, self.section,
+                self.depth_plane())
+
+    def depth_plane(self):
+        if self.camera_depth <= 0:
+            return None
+        from .camera import OrbitCamera
+        toward = OrbitCamera(*self.depth_angles).basis()[2]
+        size = self.editor.document.size
+        # Position measured from the front of the document towards its back.
+        limit = sum(abs(toward[i]) * size[i] / 2. for i in range(3)) - self.camera_depth
+        return toward, limit + sum(toward[i] * size[i] / 2. for i in range(3))
+
+    def visible_position(self, pos):
+        from .camera import behind_plane
+        return self.visible_layer(pos[1]) and behind_plane(pos, self.depth_plane())
+
+    def move_depth(self, direction):
+        from .camera import OrbitCamera
+        self.depth_angles = OrbitCamera(*self.camera_pose).render_angles()
+        toward = OrbitCamera(*self.depth_angles).basis()[2]
+        span = sum(abs(toward[i]) * self.editor.document.size[i] for i in range(3))
+        step = max(1., round(max(self.scene_size) / 24.))
+        self.camera_depth = max(0., min(span, self.camera_depth + direction * step))
+        self.refresh_preview()
+        self.emit()
+
+    def settle_depth_direction(self, angles):
+        if self.camera_depth and self.depth_angles != angles:
+            self.depth_angles = angles
+            self.refresh_preview()
+            self.emit()
 
     def visible_layer(self, y):
         return (y not in self.editor.hidden_layers and
@@ -379,6 +423,8 @@ class Session(object):
             self.action(self.editor.paint_at, pos, self.paint_mode == 'erase')
 
     def choose_mode(self, mode):
+        if mode == 'erase' and self.direct_mode != 'erase':
+            self.erase_scope = 'selection' if len(self.editor.selection) > 1 else 'single'
         self.direct_mode = mode
         self.box_anchor = None
         self.inspector = 'params'
@@ -396,6 +442,21 @@ class Session(object):
         self.camera_pan = (self.camera_pan[0] + x, self.camera_pan[1] + y)
         self.emit('camera_pan')
 
+    def placement_target(self, pos, normal):
+        target = tuple(pos[i] + normal[i] for i in range(3))
+        e = self.editor
+        if not e.document.contains(target):
+            return target, '目标超出建筑范围'
+        if not self.visible_position(target):
+            return target, '目标位置不可见，请先后退或显示该图层'
+        if target[1] in e.locked_layers:
+            return target, '目标图层已锁定'
+        if e.document.get(target) != AIR:
+            return target, '放置位置已有方块，请使用换材质'
+        if not e._writable(target, False) or e.material == AIR:
+            return target, '放置条件不匹配，请检查材质与方块条件'
+        return target, None
+
     def point_action(self, pos, normal=(0, 0, 0)):
         """One click, one undo record. Dragging never reaches this method."""
         if self.edit_job is not None or self.io_job is not None:
@@ -403,17 +464,19 @@ class Session(object):
         e = self.editor
         if not e.document.contains(pos):
             return False
-        self.focused = pos
         mode = self.direct_mode
+        if mode == 'erase' and self.erase_scope == 'selection':
+            self.editor.message = '选区已保留，请点击擦除选区'
+            self.emit()
+            return False
+        self.focused = pos
         if mode == 'place':
-            # Highlight the clicked source even if its adjacent target is blocked.
-            e.select_box(pos, pos)
-            target = tuple(pos[i] + normal[i] for i in range(3))
-            if not e.document.contains(target):
-                e.message = '目标超出建筑范围'
-            elif not self.visible_layer(target[1]):
-                e.message = '目标图层不可见，请先显示该图层'
+            target, error = self.placement_target(pos, normal)
+            if error:
+                e.message = error
             else:
+                e.select_box(target, target)
+                self.focused = target
                 return self.action(e.paint_at, target, False, False)
         elif mode in ('paint', 'erase'):
             e.select_box(pos, pos)
@@ -484,6 +547,7 @@ class Session(object):
         self.editor = Editor(document)
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
+        self.camera_depth = 0.
         self.canvas_x = self.canvas_z = 0
         self.preview_detail = False
         self.focused = self.box_anchor = None

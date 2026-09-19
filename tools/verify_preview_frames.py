@@ -70,7 +70,7 @@ def main():
                   blank_samples=len(blank), times=times, model_pixels=counts)
     (ui.OUT / ('frames_' + label + '.json')).write_text(json.dumps(result, indent=2), encoding='utf8')
     print(json.dumps({k: v for k, v in result.items() if k not in ('times', 'model_pixels')}, indent=2))
-    ui.check('four placements highlight the final clicked source at Y13', 'X 8 · Y 13 · Z 14' in ui.labels())
+    ui.check('four placements select the final block at Y14', 'X 8 · Y 14 · Z 14' in ui.labels())
     ui.check('model remains visible in every sampled frame', not blank)
 
 

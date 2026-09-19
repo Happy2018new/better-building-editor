@@ -4,10 +4,11 @@
 from __future__ import unicode_literals
 import math
 import time
+import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
-from .camera import OrbitCamera, raycast, layer_hit
+from .camera import OrbitCamera, raycast, layer_hit, behind_plane
 from .model import bounds
 from .preview import PreviewBuffer
 from .diagnostics import inspect
@@ -19,9 +20,9 @@ MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('pain
          ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
 HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
          'select': '点击选择单个方块 · 拖动仍可旋转',
-         'place': '点击方块表面向外放置 · 空白处放在当前 Y 层',
+         'place': '蓝框预览放置位置 · 红框不可放置 · 点击确认',
          'paint': '仅替换点击格的材质 · 保持方块位置',
-         'erase': '点击擦除可见方块 · 支持撤销',
+         'erase': '单格点击擦除 · 框选后可擦除整个选区 · 支持撤销',
          'pick': '点击吸取材质 · 不改变建筑',
          'box': '点击两点框选 · 空白处选择当前 Y 层 · 拖动旋转'}
 
@@ -49,10 +50,19 @@ def Scene(session=None, revision=0, width=400, height=300):
     wheel_time = use_ref(None)
     drag = use_ref(None)
     hovering = use_ref(False)
+    mouse = use_ref(lambda: clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())).current
+    hover_preview = use_ref(None)
+    placed_pointer = use_ref(None)
+    depth_settled = use_ref((None, 0.))
     edge_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(52)]
     selected_bounds = use_ref((None, None))
     active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
+
+    def reset_cursor():
+        hover_preview.current = None
+        placed_pointer.current = None
+    use_effect(reset_cursor, [session.direct_mode, active])
 
     def clip():
         if canvas.current:
@@ -76,6 +86,22 @@ def Scene(session=None, revision=0, width=400, height=300):
     def unit():
         # Native PaperDoll is orthographic; calibrated against block face corners.
         return min(width, height) * Theme.scale * camera.zoom * .72 / max(session.scene_size)
+
+    def hit_at(x, y):
+        origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
+        origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
+        plane = session.depth_plane()
+        def visible(pos):
+            return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
+                    session.visible_layer(pos[1]) and behind_plane(pos, plane))
+        hit = raycast(session.editor.document, origin, direction, visible)
+        if hit:
+            return hit
+        if session.direct_mode in ('place', 'box', 'select'):
+            pos = layer_hit(session.editor.document, origin, direction, session.editor.layer)
+            if pos is not None and visible(pos):
+                return pos, (0, 0, 0)
+        return None
 
     def tick(now):
         dt = now - frame.current
@@ -115,6 +141,11 @@ def Scene(session=None, revision=0, width=400, height=300):
             session.zoom = camera.target[2]
             session.emit()
         rendered_yaw, rendered_pitch = camera.render_angles()
+        angles = (rendered_yaw, rendered_pitch)
+        if angles != depth_settled.current[0]:
+            depth_settled.current = (angles, now)
+        elif not camera.dragging and now - depth_settled.current[1] > .2:
+            session.settle_depth_direction(angles)
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
                      session.scene_origin, session.scene_size, preview.ready(session.model_name))
         def draw(slot, name, pose):
@@ -143,8 +174,27 @@ def Scene(session=None, revision=0, width=400, height=300):
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
             selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
+        preview_cell = None
+        preview_error = None
+        if (active and session.direct_mode == 'place' and hovering.current and
+                (drag.current is None or not drag.current[-1])):
+            point = mouse.GetMousePosition()
+            if point is not None:
+                # Keep the just-placed result under a stationary mouse. Otherwise
+                # rebuilding the model immediately advances the cursor one cell.
+                if placed_pointer.current is not None and tuple(point) != placed_pointer.current:
+                    placed_pointer.current = None
+                if placed_pointer.current is None:
+                    key = (tuple(point), signature, e.revision, e.layer, e.material, e.mask,
+                           e.filter_material, tuple(sorted(e.locked_layers)), session.preview_signature())
+                    if hover_preview.current is None or hover_preview.current[0] != key:
+                        px, py = pointer.current.GetGlobalPosition()
+                        hit = hit_at(point[0] - px, point[1] - py)
+                        target, error = session.placement_target(*hit) if hit else (None, None)
+                        hover_preview.current = (key, target, error)
+                    unused_key, preview_cell, preview_error = hover_preview.current
         edge_signature = (signature, selection_key, active, session.grid, e.layer, session.preview_pending,
-                          session.model_revision)
+                          session.model_revision, preview_cell, preview_error)
         if edge_signature == outline.current:
             return
         outline.current = edge_signature
@@ -152,16 +202,20 @@ def Scene(session=None, revision=0, width=400, height=300):
                  session.model_revision == session.preview_signature())
         lines = []
         selected = selected_bounds.current[1]
+        if preview_cell is not None:
+            selected = (preview_cell, preview_cell)
         if selected:
             lo, upper = selected
             lines = list(cuboid(lo, tuple(v + 1 for v in upper)))
 
-        def draw_lines(refs, segments, thickness):
+        def draw_lines(refs, segments, thickness, color=None):
             for index, ref in enumerate(refs):
                 if not ref.current:
                     continue
                 segment = segments[index] if ready and index < len(segments) else None
                 if segment:
+                    if color is not None:
+                        ref.current.asImage().SetSpriteColor(color.to_rgb_tuple())
                     a, b = [tuple(p[i] - session.scene_origin[i] for i in range(3)) for p in segment]
                     a, b = [camera.project(p, session.scene_size, width * Theme.scale, height * Theme.scale, unit()) for p in (a, b)]
                     segment = clip_line(a, b, width * Theme.scale, height * Theme.scale)
@@ -174,7 +228,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                     ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
                     ref.current.SetSize((length, thickness))
                     ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
-        draw_lines(edge_refs, lines, max(.35, Theme.scale * .75))
+        draw_lines(edge_refs, lines, max(.35, Theme.scale * .75), Theme.red if preview_error else Theme.blue)
         draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
 
     def down(args):
@@ -218,20 +272,13 @@ def Scene(session=None, revision=0, width=400, height=300):
             return
         px, py = pointer.current.GetGlobalPosition()
         x, y = args.get('TouchPosX', x) - px, args.get('TouchPosY', y) - py
-        doc = session.editor.document
-        origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
-        origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
-
-        def visible(pos):
-            return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
-                    session.visible_layer(pos[1]))
-        hit = raycast(doc, origin, direction, visible)
+        hit = hit_at(x, y)
         if hit:
+            before_revision = session.editor.revision
             session.point_action(hit[0], hit[1])
-        elif session.direct_mode in ('place', 'box', 'select'):
-            pos = layer_hit(doc, origin, direction, session.editor.layer)
-            if pos is not None:
-                session.point_action(pos, (0, 0, 0))
+            point = mouse.GetMousePosition()
+            placed_pointer.current = (tuple(point) if session.direct_mode == 'place' and point is not None and
+                                      session.editor.revision != before_revision else None)
         else:
             session.focused = None
             session.editor.message = '没有命中可见方块'
@@ -242,6 +289,7 @@ def Scene(session=None, revision=0, width=400, height=300):
 
     def leave(unused):
         hovering.current = False
+        hover_preview.current = None
         cancel(unused)
 
     def wheel(args):

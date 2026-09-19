@@ -52,4 +52,5 @@ def inspect(session, value):
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
+            'depth': session.camera_depth, 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
             'layer': e.layer, 'section': session.section, 'mask': e.mask}

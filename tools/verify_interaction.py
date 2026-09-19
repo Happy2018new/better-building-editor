@@ -78,7 +78,7 @@ def main():
     ui.check('eyedropper gets visible leaves', any('minecraft:leaves' in x for x in ui.labels()))
     ui.click('放置')
     tap(*point((8.5, 11., 14.5)))
-    ui.check('placement retains the clicked face', 'X 8 · Y 10 · Z 14' in ui.labels())
+    ui.check('placement selects the new destination', 'X 8 · Y 11 · Z 14' in ui.labels())
     ui.click('擦除')
     tap(*point((8.5, 12., 14.5)))
     ui.check('erase removes one visible voxel', any('擦除单格 · 已修改 1 格' in x for x in ui.labels()))

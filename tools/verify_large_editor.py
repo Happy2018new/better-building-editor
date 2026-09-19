@@ -50,7 +50,7 @@ def main():
     time.sleep(3)
     ui.check('far corner can be located precisely', 'X 255 · Y 383 · Z 255' in ui.labels())
     snapshot('large_detail')
-    ui.click('擦除'); ui.click('俯视'); time.sleep(.7)
+    ui.click('擦除'); ui.click('单格'); ui.click('俯视'); time.sleep(.7)
     node = pointer(); layout = node['layout']
     x, y = layout['width'] / 2., layout['height'] / 2.
     gesture('down', x, y, node); gesture('up', x, y, node)

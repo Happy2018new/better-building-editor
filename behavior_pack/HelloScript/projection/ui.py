@@ -105,6 +105,25 @@ def cell_bg(color, state):
 
 
 @Component
+def ViewNavigation(session=None, width=430, revision=0):
+    use_theme()
+    # These move the viewpoint, so the model moves in the opposite direction.
+    controls = [Action(label=label, glyph=glyph, compact=True, width=54, height=27,
+                       onClick=partial(session.pan_view, x, y)) for label, glyph, x, y in (
+        ('左移', 'arrow_left', .12, 0.), ('右移', 'arrow_right', -.12, 0.),
+        ('上移', 'arrow_up', 0., .12), ('下移', 'arrow_down', 0., -.12))]
+    controls.extend([
+        Action(label='前移', glyph='front_view', compact=True, width=54, height=27,
+               onClick=partial(session.move_depth, 1)),
+        Action(label='后移', glyph='undo', compact=True, width=54, height=27,
+               enabled=session.camera_depth > 0, onClick=partial(session.move_depth, -1)),
+        Action(label='切面', glyph='layers', compact=True, width=54, height=27,
+               selected=session.section, onClick=session.toggle_section)])
+    return Panel(style=S(gap=3), children=[row(controls[:4], gap=3), row(controls[4:], gap=3)] if width < 520
+                 else [row(controls, gap=3)])
+
+
+@Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
     use_session_fields(session, ('view',))
@@ -118,6 +137,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
+                     '当前深度没有方块 · 点击后移' if session.camera_depth else
                      '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
     viewport_children.append(RetainedPane(key='layer_canvas', active=session.view == 'layer',
         style=S(position=Position.absolute, width=width, height=area_h, zIndex=5),
@@ -129,19 +149,14 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                   children=text('正在构建方块预览…' if session.preview_pending else
+                      '视线深入 %g 格' % session.camera_depth if session.camera_depth else
                       'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
         Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=bool(session.preview_error)),
               children=text(session.preview_error, 11, Theme.red, width=width-24)),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=200),
               children=OrientationGizmo(session=session)),
         Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=session.view == '3d'),
-              children=row([
-                  Action(glyph='arrow_left', width=27, height=27, onClick=partial(session.pan_view, -.12, 0.)),
-                  Action(glyph='arrow_right', width=27, height=27, onClick=partial(session.pan_view, .12, 0.)),
-                  Action(glyph='arrow_up', width=27, height=27, onClick=partial(session.pan_view, 0., -.12)),
-                  Action(glyph='arrow_down', width=27, height=27, onClick=partial(session.pan_view, 0., .12)),
-                  Action(label='切面', glyph='layers', compact=True, height=27, selected=session.section,
-                         onClick=session.toggle_section)], gap=3)),
+              children=ViewNavigation(session=session, width=width, revision=revision)),
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),
@@ -202,6 +217,8 @@ def Viewport(session=None, revision=0, width=430, height=440):
 
 def reset_camera(session):
     session.camera_pan = (0., 0.)
+    session.camera_depth = 0.
+    session.refresh_preview()
     session.camera_view(35., 25., 1.)
 
 
@@ -224,6 +241,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
             style=S(position=Position.absolute, width='100%', height='100%'),
             children=component(session=session, revision=content_revision)))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
+    erase_selection = direct and session.direct_mode == 'erase' and session.erase_scope == 'selection'
     children = [Panel(key='header', style=S(width='100%', height=42), children=[
         Panel(style=S(position=Position.absolute, visible=not projecting), children=
             Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],
@@ -232,10 +250,12 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
     ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
-                Action(label='取消编辑' if session.edit_job else '返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2],
-                    glyph='close' if session.edit_job else 'play', accent=True, height=37,
-                    onClick=session.cancel_edit if session.edit_job else partial(session.choose_mode, 'browse') if direct else session.run,
-                    enabled=not session.busy)),
+                Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2],
+                    glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37,
+                    onClick=session.cancel_edit if session.edit_job else session.erase_selection if erase_selection else
+                            partial(session.choose_mode, 'browse') if direct else session.run,
+                    enabled=not session.busy and (session.edit_job is not None or not erase_selection or
+                            (bool(session.editor.selection) and session.box_anchor is None)))),
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=projecting), children=
                 Action(label='返回工作台', glyph='brush', height=37, onClick=partial(session.set, 'page', 'workspace'))),
         ])]

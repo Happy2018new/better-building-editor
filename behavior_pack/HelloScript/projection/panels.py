@@ -136,9 +136,17 @@ def Parameters(session=None, revision=0):
         text(tool[2], 20),
         # Split help by sentence length into readable, deliberate lines.
         text(tool[3], 11, Theme.muted, width=216),
+        optional('erase_scope', session.direct_mode == 'erase', [
+            text('擦除范围', 12),
+            Segments(items=[('single', '单格'), ('selection', '选区')], value=session.erase_scope,
+                     onChange=partial(session.set, 'erase_scope'), width=216),
+            text('点击方块擦除一格' if session.erase_scope == 'single' else
+                 '保留蓝框范围 · 点击下方擦除选区', 10, Theme.muted)]),
         line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
-        text('点击编辑更新为单格 · 批量工具使用蓝框', 10, Theme.muted),
+        text('放置前预览新格 · 放下后选中新格' if session.direct_mode == 'place' else
+             '选区擦除保留范围 · 可一次撤销' if session.direct_mode == 'erase' and session.erase_scope == 'selection' else
+             '点击编辑更新为单格 · 批量工具使用蓝框', 10, Theme.muted),
         text('两点选区：视图下方的框选', 10, Theme.muted),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),
@@ -296,7 +304,7 @@ def ProjectionSettings(session=None, revision=0):
 def Guide(session=None, revision=0, width=760, height=440):
     use_theme()
     sections = [
-        ('01', '先认识你的工作台', '拖动模型自由旋转，滚轮缩放。切换放置、涂装、擦除，直接点击三维方块。', 'orbit'),
+        ('01', '先认识你的工作台', '拖动模型自由旋转，滚轮缩放。切换放置、换材质、擦除，直接点击三维方块。', 'orbit'),
         ('02', '从一个小范围开始', '三维视图选择框选，依次点击两个角点。也可以切换逐层视图精细编辑。', 'cursor'),
         ('03', '选工具，再确认参数', '左侧找到工具，右侧选择材质、蒙版和尺寸，点击执行。', 'brush'),
         ('04', '放心试验，随时撤销', '撤销 / 重做保存你的探索。锁定图层，可以保护已经完成的部分。', 'undo'),
