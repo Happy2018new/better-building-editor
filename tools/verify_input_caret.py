@@ -3,9 +3,30 @@ import sys
 import time
 import json
 import mss
+import numpy as np
 from PIL import Image
 import verify_ui as ui
 import capture_screen as capture
+
+
+def caret_contrast(frames):
+    # Ignore the initial hover transition. Detect blinking pixels, rather than
+    # treating every pale background column as a visible white caret.
+    samples = np.array([np.array(frame) for frame in frames[3:]])
+    changed = np.ptp(samples.astype('int16'), axis=0).max(axis=2) >= 6
+    changed[:8] = False; changed[-8:] = False
+    changed[:,:18] = False; changed[:,-8:] = False
+    column = int(changed.sum(axis=0).argmax())
+    rows = np.where(changed[:,column])[0]
+    if len(rows) < frames[0].height * .25:
+        return {'detected':False, 'readable':False}
+    colors = samples[:,int(rows[len(rows)//2]),column].astype(float)/255.
+    linear = np.where(colors<=.04045, colors/12.92, ((colors+.055)/1.055)**2.4)
+    luminance = linear @ np.array([.2126,.7152,.0722])
+    contrast = float((luminance.max()+.05)/(luminance.min()+.05))
+    return {'detected':True, 'column':column, 'height':len(rows),
+            'colors':(colors*255).astype(int).tolist(), 'contrast':contrast,
+            'readable':contrast>=3.}
 
 
 def main():
@@ -59,14 +80,12 @@ def inspect_field(field,name,long_text,sample):
     others=[n for n in ui.nodes('Input',ui.nodes('Library')[0]) if n['id']!=field['id']]
     ui.check('all input templates retain native placeholder children',all(ui.call('native_control',n['id'])['result']['placeholderPresent'] for n in others))
     ui.check('focused field retains pale background',all(frame.getpixel((frame.width-20,frame.height//2))[0]>200 for frame in frames))
-    columns=[]
-    for frame in frames:
-        columns.append([x for x in range(18,frame.width-int(3*scale)-1)
-                        if sum(all(c>220 for c in frame.getpixel((x,y))) for y in range(8,frame.height-8))>=frame.height*.3])
-    # Pale backgrounds cannot distinguish the white native caret reliably.
-    # Keep pixels as diagnostics; do not claim a dark caret or contrast pass.
+    contrast=caret_contrast(frames)
     ui.check('native keyboard editing remains active',focused['text'].endswith('1'))
-    (ui.OUT/(name+'.json')).write_text(json.dumps({'checks':ui.checks,'caretColumns':columns},ensure_ascii=False,indent=2),encoding='utf8')
+    (ui.OUT/(name+'.json')).write_text(json.dumps({'checks':ui.checks,'caret':contrast},ensure_ascii=False,indent=2),encoding='utf8')
+    print('CARET '+json.dumps(contrast),flush=True)
+    if '--require-visible' in sys.argv:
+        ui.check('native caret has at least 3:1 contrast',contrast['readable'])
 
 
 if __name__=='__main__':main()
