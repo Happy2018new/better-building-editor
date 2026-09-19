@@ -14,10 +14,12 @@ class OrbitCamera(object):
         self.target = (yaw, pitch, zoom)
         self.velocity = (0., 0.)
         self.dragging = False
+        self.pan = (0., 0.)
+        self.pan_target = self.pan
 
     def aim(self, yaw, pitch, zoom):
         self.target = (self.yaw + (yaw - self.yaw + 180.) % 360. - 180.,
-                       clamp(pitch, -85., 90.), clamp(zoom, .25, 3.))
+                       clamp(pitch, -85., 90.), max(.25, zoom))
         self.velocity = (0., 0.)
 
     def drag(self, dx, dy, dt):
@@ -33,6 +35,9 @@ class OrbitCamera(object):
 
     def advance(self, dt, motion=True):
         dt = clamp(dt, 0., .05)
+        alpha = 1. - math.exp(-16. * dt) if motion else 1.
+        self.pan = tuple(b if abs(b-a) < .00001 else a + (b-a)*alpha
+                         for a, b in zip(self.pan, self.pan_target))
         before = (self.yaw, self.pitch, self.zoom)
         if not self.dragging:
             if not motion:
@@ -63,12 +68,12 @@ class OrbitCamera(object):
     def project(self, point, size, width, height, unit):
         right, up, unused = self.basis()
         delta = [point[i] - size[i] / 2. for i in range(3)]
-        return (width / 2. + unit * sum(delta[i] * right[i] for i in range(3)),
-                height / 2. - unit * sum(delta[i] * up[i] for i in range(3)))
+        return (width * (.5 + self.pan[0]) + unit * sum(delta[i] * right[i] for i in range(3)),
+                height * (.5 + self.pan[1]) - unit * sum(delta[i] * up[i] for i in range(3)))
 
     def ray(self, x, y, size, width, height, unit):
         right, up, toward = self.basis()
-        u, v = (x - width / 2.) / unit, (height / 2. - y) / unit
+        u, v = (x - width * (.5 + self.pan[0])) / unit, (height * (.5 + self.pan[1]) - y) / unit
         distance = sum(size) + 4.
         origin = tuple(size[i] / 2. + u * right[i] + v * up[i] + distance * toward[i] for i in range(3))
         return origin, tuple(-a for a in toward)
@@ -115,7 +120,7 @@ def raycast(document, origin, direction, visible=None):
 def layer_hit(document, origin, direction, layer):
     if abs(direction[1]) < 1e-8:
         return None
-    distance = (layer + .5 - origin[1]) / direction[1]
+    distance = (layer - origin[1]) / direction[1]
     if distance < 0:
         return None
     point = tuple(int(math.floor(origin[i] + distance * direction[i])) for i in range(3))

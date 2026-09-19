@@ -29,6 +29,7 @@ def wait_preview(timeout=120):
 def click_point(pos):
     state=diagnostic()
     camera=OrbitCamera(*state['pose'])
+    camera.pan=tuple(state.get('pan',(0,0)))
     box=pointer()['layout']; size=state['sceneSize']
     p=tuple(pos[i]-state['origin'][i] for i in range(3))
     tap(*camera.project(p,size,box['width'],box['height'],min(box['width'],box['height'])*.72*state['pose'][2]/max(size)))

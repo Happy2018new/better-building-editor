@@ -41,6 +41,7 @@ def Scene(session=None, revision=0, width=400, height=300):
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
+    pan_geometry = use_ref(None)
     preview = use_ref(lambda: PreviewBuffer()).current
     camera = use_ref(lambda: OrbitCamera(session.camera_yaw, session.camera_pitch, session.zoom)).current
     frame = use_ref(time.time())
@@ -48,7 +49,7 @@ def Scene(session=None, revision=0, width=400, height=300):
     wheel_time = use_ref(None)
     drag = use_ref(None)
     hovering = use_ref(False)
-    edge_refs = [use_ref(None) for unused in range(24)]
+    edge_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(52)]
     selected_bounds = use_ref((None, None))
     active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
@@ -90,7 +91,13 @@ def Scene(session=None, revision=0, width=400, height=300):
             camera.dragging = False
             camera.velocity = (0., 0.)
             return
+        camera.pan_target = session.camera_pan
         camera.advance(dt, Theme.motion)
+        pan = (camera.pan[0] * width * Theme.scale, camera.pan[1] * height * Theme.scale)
+        if pan != pan_geometry.current:
+            pan_geometry.current = pan
+            for ref in dolls:
+                ref.current.SetPosition(pan)
         session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
         if wheel_time.current is not None and now - wheel_time.current >= .18:
             wheel_time.current = None
@@ -99,7 +106,7 @@ def Scene(session=None, revision=0, width=400, height=300):
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             session.zoom = camera.target[2]
             session.emit()
-        signature = (session.model_name, camera.yaw, camera.pitch, camera.zoom, width, height, Theme.scale,
+        signature = (session.model_name, camera.yaw, camera.pitch, camera.zoom, camera.pan, width, height, Theme.scale,
                      session.scene_origin, session.scene_size, preview.ready(session.model_name))
         def draw(slot, name, pose):
             return dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
@@ -123,12 +130,11 @@ def Scene(session=None, revision=0, width=400, height=300):
                 session.bridge.later(.2, settled)
 
         preview.update(session.model_name, (unit() * session.scene_scale / 10., -90. + camera.pitch, camera.yaw), now, draw, show)
-        focused = session.box_anchor or session.focused
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
             selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
-        edge_signature = (signature, selection_key, focused, active, session.grid, e.layer, session.preview_pending,
+        edge_signature = (signature, selection_key, active, session.grid, e.layer, session.preview_pending,
                           session.model_revision)
         if edge_signature == outline.current:
             return
@@ -139,14 +145,7 @@ def Scene(session=None, revision=0, width=400, height=300):
         selected = selected_bounds.current[1]
         if selected:
             lo, upper = selected
-            # Crop the outline to the displayed range in precise view.
-            lo = tuple(max(lo[i], session.scene_origin[i]) for i in range(3))
-            hi = tuple(min(upper[i] + 1, session.scene_origin[i] + session.scene_size[i]) for i in range(3))
-            if all(lo[i] < hi[i] for i in range(3)):
-                lines = list(cuboid(lo, hi))
-        lines += [None] * (12 - len(lines))
-        if focused is not None and e.document.contains(focused):
-            lines.extend(cuboid(focused, tuple(v + 1 for v in focused)))
+            lines = list(cuboid(lo, tuple(v + 1 for v in upper)))
 
         def draw_lines(refs, segments, thickness):
             for index, ref in enumerate(refs):
@@ -161,9 +160,9 @@ def Scene(session=None, revision=0, width=400, height=300):
                 if segment:
                     (sx, sy), (ex, ey) = segment
                     length = max(.001, math.hypot(ex - sx, ey - sy))
-                    # Center stroke on the exact projected edge, rather than
-                    # placing the top side of a rotated rectangle on it.
-                    ref.current.SetPosition((sx + (ey-sy)*thickness/length/2., sy - (ex-sx)*thickness/length/2.))
+                    # Native JsonUI culls the unrotated rectangle first. Keep
+                    # its centre inside the viewport, including vertical edges.
+                    ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
                     ref.current.SetSize((length, thickness))
                     ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
         draw_lines(edge_refs, lines, max(.35, Theme.scale * .75))
@@ -216,7 +215,7 @@ def Scene(session=None, revision=0, width=400, height=300):
 
         def visible(pos):
             return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
-                    pos[1] not in session.editor.hidden_layers and (not session.solo_layer or pos[1] == session.editor.layer))
+                    session.visible_layer(pos[1]))
         hit = raycast(doc, origin, direction, visible)
         if hit:
             session.point_action(hit[0], hit[1])
@@ -238,7 +237,7 @@ def Scene(session=None, revision=0, width=400, height=300):
     def wheel(args):
         if active and hovering.current:
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
-            session.zoom = max(.25, min(3., camera.target[2] * (1.12 if args['direction'] else 1. / 1.12)))
+            session.zoom = max(.25, camera.target[2] * (1.12 if args['direction'] else 1. / 1.12))
             camera.aim(camera.yaw, camera.pitch, session.zoom)
             wheel_time.current = time.time()
 
@@ -246,7 +245,7 @@ def Scene(session=None, revision=0, width=400, height=300):
     use_animation_frame(tick)
     return Panel(ref=canvas, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=-1, visible=active), children=[
-            Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(0., 0.),
+            Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
             Panel(ref=surfaces[i], key='surface%d' % i,
@@ -257,7 +256,7 @@ def Scene(session=None, revision=0, width=400, height=300):
                      style=S(position=Position.absolute, width='100%', height='100%', zIndex=50))])
             for i in range(2)]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=100, visible=active), children=[
-            Image(ref=ref, key='edge%d' % i, color=Color(0x477AF498) if i < 12 else Theme.blue, rotatePivot=(0., 0.),
+            Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
         Pointer(ref=pointer, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,

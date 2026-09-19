@@ -15,6 +15,23 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_unbounded_zoom_and_panned_ray_keep_voxel_accuracy(self):
+        doc = Document((13, 9, 11))
+        pos = (6, 4, 5)
+        doc.blocks[pos] = STONE
+        for zoom in (4., 50., 10000.):
+            c = OrbitCamera(35, 25)
+            c.aim(35, 25, zoom)
+            c.pan_target = (.3, -.2)
+            c.advance(.05, False)
+            self.assertEqual(zoom, c.zoom)
+            screen = c.project(tuple(v+.5 for v in pos), doc.size, 600, 400, zoom)
+            origin, direction = c.ray(*screen, doc.size, 600, 400, zoom)
+            self.assertEqual(pos, raycast(doc, origin, direction)[0])
+        c.aim(0, 0, .001)
+        c.advance(.05, False)
+        self.assertEqual(.25, c.zoom)
+
     def test_horizontal_grab_and_release_follow_pointer(self):
         for yaw in (0, 90, 180, 270, 359):
             for dx in (-20, 20):

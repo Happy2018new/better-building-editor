@@ -40,7 +40,7 @@ def verify_outline():
     reset = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'home')
     ui.call('click', ui.nodes('Button', reset)[0]['id'])
     time.sleep(.8)
-    ui.click('浏览')
+    ui.click('选取')
     tap(*point((8.5, 11., 14.5), 35., 25.))
     raw = ui.call('dump_tree')['tree']
     edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0]) if 'rotatePivot' in n.get('props', {})][-12:]
@@ -61,6 +61,7 @@ def verify_outline():
             x, y = camera.project(expected, (24, 16, 24), box['width'], box['height'], min(box['width'], box['height']) * .72 / 24.)
             errors.extend((abs(actual[0] - box['x'] - x), abs(actual[1] - box['y'] - y)))
     ui.check('all 12 native outline edges meet the projected voxel corners', len(edges) == 12 and max(errors) < .15)
+    ui.click('浏览')
 
 
 def main():

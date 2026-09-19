@@ -40,9 +40,16 @@ def inspect(session, value):
     if 'selection' in value:
         session.editor.select_box(*[tuple(p) for p in value['selection']])
         session.emit()
+    if 'camera' in value:
+        session.camera_view(*value['camera'])
+    if 'pan' in value:
+        session.camera_pan = tuple(value['pan'])
+    if 'layer' in value:
+        session.layer(value['layer'])
     e = session.editor
     return {'size': e.document.size, 'sceneSize': session.scene_size, 'origin': session.scene_origin,
             'sceneScale': session.scene_scale, 'pending': session.preview_pending, 'error': session.preview_error,
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
-            'pose': session.camera_pose, 'grid': session.grid}
+            'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
+            'layer': e.layer, 'section': session.section, 'mask': e.mask}

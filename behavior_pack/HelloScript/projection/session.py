@@ -2,7 +2,7 @@
 """Application state, local building library, and coalesced preview generation."""
 from __future__ import unicode_literals
 import time
-from .model import AIR, Document, Editor, demo_document, SMALL_VOLUME
+from .model import AIR, Document, Editor, demo_document, SMALL_VOLUME, bounds
 
 
 def as_text(value):
@@ -20,6 +20,7 @@ class Session(object):
         self.inspector = 'params'
         self.name = self.editor.document.name
         self.new_size = (24, 16, 24)
+        self.new_size_valid = True
         self.listeners = []
         self.ui_revision = 0
         self.content_revision = 0
@@ -42,9 +43,11 @@ class Session(object):
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
+        self.camera_pan = (0., 0.)
         self.canvas_x = 0
         self.canvas_z = 0
         self.solo_layer = False
+        self.section = False
         self.grid = True
         self.reduced_motion = False
         self.origin = (0, 64, 0)
@@ -147,6 +150,20 @@ class Session(object):
                 self.emit()
         self.bridge.later(.16, settled)
 
+    def adjust_boundary(self, axis, side, delta):
+        e = self.editor
+        if not e.selection:
+            e.select_box(e.start, e.end)
+        lo, hi = [list(p) for p in bounds(e.selection)]
+        edge = lo if side == 0 else hi
+        edge[axis] = max(0, min(e.document.size[axis] - 1, edge[axis] + delta))
+        if lo[axis] > hi[axis]:
+            return False
+        self.box_anchor = None
+        e.select_box(tuple(lo), tuple(hi))
+        self.emit()
+        return True
+
     def choose_tool(self, tool):
         self.tool = tool
         self.direct_mode = 'browse'
@@ -241,7 +258,7 @@ class Session(object):
             from .large_preview import build_preview
             focus = self.preview_center if self.preview_detail else None
             def prepare():
-                for result in build_preview(editor.document, editor.hidden_layers, editor.layer if self.solo_layer else None, focus):
+                for result in build_preview(editor.document, self.preview_hidden(), editor.layer if self.solo_layer else None, focus):
                     if result is None:
                         yield None
                         continue
@@ -264,7 +281,7 @@ class Session(object):
                             self.scene_origin, self.scene_size, self.scene_scale = origin, size, scale
                             self.model_revision = signature
                             self.preview_pending = False
-                            self.preview_error = '' if self.model_name else '当前范围没有可显示的方块'
+                            self.preview_error = ''
                             self.emit()
                             return
                 except (ValueError, TypeError, RuntimeError) as error:
@@ -278,12 +295,12 @@ class Session(object):
         self.preview_pending = False
 
         def visible(pos):
-            return pos[1] not in editor.hidden_layers and (not self.solo_layer or pos[1] == editor.layer)
+            return self.visible_layer(pos[1])
         try:
             self.model_name = self.bridge.geometry(editor.document, visible)
             self.model_revision = signature
             self.scene_origin, self.scene_size, self.scene_scale = (0, 0, 0), editor.document.size, 1
-            self.preview_error = '' if self.model_name else '当前可见图层没有可显示的方块'
+            self.preview_error = ''
         except (ValueError, TypeError, RuntimeError) as error:
             # Keep the last usable preview, but permit the next action to retry.
             self.model_revision = None
@@ -292,8 +309,24 @@ class Session(object):
 
     def preview_signature(self):
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
-                self.editor.layer if self.solo_layer else -1, self.preview_detail,
-                self.preview_center if self.preview_detail else None)
+                self.editor.layer if self.solo_layer or self.section else -1, self.preview_detail,
+                self.preview_center if self.preview_detail else None, self.section)
+
+    def visible_layer(self, y):
+        return (y not in self.editor.hidden_layers and
+                (not self.solo_layer or y == self.editor.layer) and
+                (not self.section or y <= self.editor.layer))
+
+    def preview_hidden(self):
+        hidden = set(self.editor.hidden_layers)
+        if self.section:
+            hidden.update(range(self.editor.layer + 1, self.editor.document.size[1]))
+        return hidden
+
+    def toggle_section(self):
+        self.section = not self.section
+        self.refresh_preview()
+        self.emit()
 
     def toggle_preview_detail(self):
         self.preview_detail = not self.preview_detail
@@ -360,6 +393,10 @@ class Session(object):
         self.camera_revision += 1
         self.emit()
 
+    def pan_view(self, x, y):
+        self.camera_pan = (self.camera_pan[0] + x, self.camera_pan[1] + y)
+        self.emit('camera_pan')
+
     def point_action(self, pos, normal=(0, 0, 0)):
         """One click, one undo record. Dragging never reaches this method."""
         if self.edit_job is not None or self.io_job is not None:
@@ -373,7 +410,7 @@ class Session(object):
             target = tuple(pos[i] + normal[i] for i in range(3))
             if not e.document.contains(target):
                 e.message = '目标超出建筑范围'
-            elif target[1] in e.hidden_layers or (self.solo_layer and target[1] != e.layer):
+            elif not self.visible_layer(target[1]):
                 e.message = '目标图层不可见，请先显示该图层'
             else:
                 self.focused = target
@@ -387,8 +424,6 @@ class Session(object):
         elif mode == 'select':
             e.start = e.end = pos
             e.select_box(pos, pos)
-            e.layer = pos[1]
-            self.refresh_preview()
         elif mode == 'box':
             if self.box_anchor is None:
                 self.box_anchor = pos
@@ -444,6 +479,9 @@ class Session(object):
 
     def _loaded(self, document):
         self.editor = Editor(document)
+        self.section = self.solo_layer = False
+        self.camera_pan = (0., 0.)
+        self.canvas_x = self.canvas_z = 0
         self.preview_detail = False
         self.focused = self.box_anchor = None
         self.name = self.editor.document.name
@@ -512,18 +550,14 @@ class Session(object):
             self.action(callback)
 
     def demo(self):
-        self.editor = Editor(demo_document())
-        self.preview_detail = False
-        self.focused = self.box_anchor = None
-        self.name = self.editor.document.name
-        self.refresh_preview()
+        self._loaded(demo_document())
 
     def empty(self):
-        self.editor = Editor(Document(self.new_size))
-        self.preview_detail = False
-        self.focused = self.box_anchor = None
+        if not self.new_size_valid:
+            raise ValueError('请先输入有效的新建尺寸')
+        self._loaded(Document(self.new_size))
         self.name = '未命名建筑'
         self.canvas_x = self.canvas_z = 0
         self.page = 'workspace'
         self.progress = None
-        self.refresh_preview()
+        self.editor.message = '已新建 %d × %d × %d 的空白建筑' % self.editor.document.size

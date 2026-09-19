@@ -7,7 +7,8 @@ from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
 from .widgets import JellyButton as Button, use_theme
 from .catalog import BY_ID, MATERIALS, tool_parameters
-from .model import AIR, SMALL_VOLUME
+from .model import AIR, SMALL_VOLUME, bounds
+from .coordinates import parse_coordinates
 
 
 def material_name(value):
@@ -20,25 +21,33 @@ def material_color(value):
 
 
 @Component
-def Coordinates(label='', value=(0, 0, 0), onChange=None):
+def Coordinates(label='', value=(0, 0, 0), onChange=None, onValidityChange=None):
     use_theme()
     draft, set_draft = use_state(', '.join(str(v) for v in value))
     valid, set_valid = use_state(True)
 
     def sync():
+        try:
+            if parse_coordinates(draft) == tuple(value):
+                return
+        except (ValueError, TypeError):
+            pass
         set_draft(', '.join(str(v) for v in value))
+        set_valid(True)
     use_effect(sync, [value])
 
     def change(raw):
         set_draft(raw)
         try:
-            values = tuple(int(v.strip()) for v in raw.split(','))
-            if len(values) != 3:
-                raise ValueError('three coordinates required')
+            values = parse_coordinates(raw)
         except (ValueError, TypeError):
             set_valid(False)
+            if onValidityChange:
+                onValidityChange(False)
             return
         set_valid(True)
+        if onValidityChange:
+            onValidityChange(True)
         onChange(values)
     return Panel(style=S(gap=4, marginBottom=7), children=[
         text(label if valid else '格式：X, Y, Z · 整数', 10, Theme.muted if valid else Theme.red),
@@ -87,6 +96,28 @@ def optional(identity, visible, children):
 
 
 @Component
+def SelectionBounds(session=None, revision=0):
+    use_theme()
+    e = session.editor
+    lo, hi = bounds(e.selection) if e.selection else (e.start, e.end)
+    rows = [row([text('轴', 10, Theme.muted, width=16), text('下界', 10, Theme.muted, width=94, center=True),
+                 text('上界', 10, Theme.muted, width=94, center=True)], gap=6)]
+    for axis, name in enumerate('XYZ'):
+        children = [text(name, 11, Theme.blue, width=16)]
+        for side, point in enumerate((lo, hi)):
+            children.append(row([
+                Action(glyph='minus', width=25, height=25,
+                       enabled=point[axis] > (0 if side == 0 else lo[axis]),
+                       onClick=partial(session.adjust_boundary, axis, side, -1)),
+                text(str(point[axis]), 10, width=36, center=True),
+                Action(glyph='plus', width=25, height=25,
+                       enabled=point[axis] < (hi[axis] if side == 0 else e.document.size[axis]-1),
+                       onClick=partial(session.adjust_boundary, axis, side, 1))], gap=4))
+        rows.append(row(children, gap=6))
+    return Panel(style=S(width=216, gap=5), children=rows)
+
+
+@Component
 def Parameters(session=None, revision=0):
     use_theme()
     coordinates_open, set_coordinates_open = use_state(False)
@@ -108,12 +139,13 @@ def Parameters(session=None, revision=0):
         line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
         text('所有工具使用当前选区', 10, Theme.muted),
-        row([Action(label='三维框选', glyph='cursor', compact=True, height=27, selected=session.direct_mode == 'box',
+        row([Action(label='三维框选', glyph='cursor', compact=True, width=78, height=27, selected=session.direct_mode == 'box',
                     onClick=partial(session.choose_mode, 'box')),
-             Action(label='全选', glyph='grid', compact=True, height=27,
-                    onClick=partial(session.action, e.run, 'select_all'))]),
-        Action(label='坐标设置', glyph='sliders', compact=True, height=26, selected=coordinates_open,
-               onClick=partial(set_coordinates_open, not coordinates_open)),
+             Action(label='全选', glyph='grid', compact=True, width=54, height=27,
+                    onClick=partial(session.action, e.run, 'select_all')),
+             Action(label='坐标设置', glyph='sliders', compact=True, width=76, height=27, selected=coordinates_open,
+                    onClick=partial(set_coordinates_open, not coordinates_open))], gap=4),
+        SelectionBounds(session=session, revision=revision),
         optional('box_pending', session.box_anchor is not None, Panel(children=[
             text('起点已设置，请点击终点', 10, Theme.blue),
             Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),
@@ -128,7 +160,7 @@ def Parameters(session=None, revision=0):
             glyph='cursor', compact=True, height=26, selected=session.direct_selection,
             onClick=partial(session.set, 'direct_selection', not session.direct_selection))),
         line(), text('选区内方块条件', 12),
-        Segments(items=[('all', '全部'), ('solid', '实体'), ('air', '空气'), ('material', '材质')],
+        Segments(items=[('all', '全部'), ('solid', '方块'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
         text({'all': '修改选区内全部方块', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
               'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted),
@@ -219,8 +251,8 @@ def Library(session=None, revision=0, width=760, height=440):
         ], gap=14)),
         row([text('我的建筑库', 17, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)]),
         row([Panel(style=S(flex=1), children=Coordinates(label='新建尺寸  X, Y, Z（256, 384, 256）', value=session.new_size,
-                    onChange=partial(session.set, 'new_size'))),
-             Action(label='新建空白', glyph='plus', width=120, onClick=partial(session.confirm,
+                    onChange=partial(session.set, 'new_size'), onValidityChange=partial(session.set, 'new_size_valid'))),
+             Action(label='新建空白', glyph='plus', width=120, enabled=session.new_size_valid, onClick=partial(session.confirm,
                     '新建将替换当前草稿，请先保存需要保留的作品。', session.empty))]),
         Scroll(style=S(width='100%', flex=1), children=Panel(style=S(width=width - 36, flexDirection=FlexDirection.row,
             flexWrap=FlexWrap.wrap, gap=12, height=max(170, ((len(cards) + 1) // 2) * 172)), children=cards or [surface(width=width - 40, height=170,
@@ -258,7 +290,7 @@ def ProjectionSettings(session=None, revision=0):
                onClick=partial(session.set, 'apply_air', not session.apply_air), compact=True),
         Action(label='应用到世界', glyph='cube', onClick=partial(session.confirm,
                '将整个长方体同步到世界？草稿中的空气会清除对应位置的方块。' if session.apply_air else
-               '将草稿中的实体方块写入目标位置？仅创造模式可用。', session.bridge.apply_world), enabled=not session.busy),
+               '将草稿中的非空气方块写入目标位置？仅创造模式可用。', session.bridge.apply_world), enabled=not session.busy),
         Action(label='撤销世界写入', onClick=partial(session.confirm, '撤销最近一次世界写入？被他人修改的方块会保留。', session.bridge.undo_world), enabled=not session.busy),
         line(), text('所需材料', 15),
     ] + [row([Item(identifier=b[0], aux=b[1], style=S(width=22, height=22)),

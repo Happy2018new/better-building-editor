@@ -25,7 +25,8 @@ class ExactPreviewTests(unittest.TestCase):
         e = Editor(Document((35, 34, 33))); e.material = STONE; e.run('fill')
         e.document.blocks[(15, 16, 15)] = AIR
         e.document.blocks[(17, 16, 16)] = GLASS
-        for hidden, layer, focus in (((), None, None), ((17,), None, None), ((), 20, None), ((), None, (30,30,30))):
+        for hidden, layer, focus in (((), None, None), ((17,), None, None), (tuple(range(17,34)), None, None),
+                                     ((), 20, None), ((), None, (30,30,30))):
             size = e.document.size if focus is None else (32,32,32)
             origin = (0,0,0) if focus is None else (3,2,1)
             def visible(p):
@@ -66,7 +67,7 @@ class ExactPreviewTests(unittest.TestCase):
             lines = grid_lines(origin,size,origin[1])
             self.assertLessEqual(len(lines),52)
             for a,b in lines:
-                self.assertEqual(origin[1]+.5,a[1]); self.assertEqual(a[1],b[1])
+                self.assertEqual(origin[1],a[1]); self.assertEqual(a[1],b[1])
         self.assertEqual([],grid_lines((0,32,0),(32,32,32),0))
         self.assertEqual(((0.,5.),(10.,5.)),clip_line((-5,5),(15,5),10,10))
         self.assertIsNone(clip_line((-5,-5),(15,-5),10,10))

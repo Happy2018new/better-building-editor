@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
 from projection.session import Session
 from projection.model import Document, Editor
+from projection.coordinates import parse_coordinates
 
 
 class Bridge:
@@ -17,6 +18,72 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_dimensions_accept_native_utf8_and_common_separators(self):
+        for text in ('3, 8, 3', '3，8，3', '３，８，３', '3×8×3', '3 * 8 * 3', '3 8 3', '3、8、3'):
+            for raw in (text, text.encode('utf8')):
+                self.assertEqual((3, 8, 3), parse_coordinates(raw))
+        for raw in ('3,8', '3,,8,3', '3.5,8,3', '3,8,', ''):
+            with self.assertRaises(ValueError):
+                parse_coordinates(raw)
+
+    def test_new_size_never_silently_uses_previous_document(self):
+        s = Session(Bridge())
+        for size in ((3, 8, 3), (37, 13, 65), (256, 384, 256)):
+            s.new_size = size
+            s.empty()
+            self.assertEqual(size, s.editor.document.size)
+            self.assertEqual(size[0]*size[1]*size[2], len(s.editor.selection))
+        previous = s.editor
+        for size in ((0, 8, 3), (257, 8, 3)):
+            s.new_size = size
+            with self.assertRaises(ValueError):
+                s.empty()
+            self.assertIs(previous, s.editor)
+        s.new_size_valid = False
+        with self.assertRaises(ValueError):
+            s.empty()
+        self.assertIs(previous, s.editor)
+
+    def test_empty_space_boundary_controls_modify_one_shared_selection(self):
+        s = Session(Bridge())
+        s.editor = Editor(Document((5, 5, 5)))
+        s.editor.select_box((2, 2, 2), (2, 2, 2))
+        s.box_anchor = (1, 1, 1)
+        for axis in range(3):
+            s.adjust_boundary(axis, 0, -1)
+            s.adjust_boundary(axis, 1, 1)
+        self.assertEqual((1, 1, 1), s.editor.start)
+        self.assertEqual((3, 3, 3), s.editor.end)
+        self.assertEqual(27, len(s.editor.selection))
+        self.assertIsNone(s.box_anchor)
+        self.assertEqual(0, len(s.editor.document.blocks))
+        self.assertFalse(s.editor.undo_stack)
+        for unused in range(8):
+            s.adjust_boundary(0, 0, -1)
+            s.adjust_boundary(0, 1, 1)
+        self.assertEqual(0, s.editor.start[0])
+        self.assertEqual(4, s.editor.end[0])
+
+    def test_picking_does_not_move_workplane_and_section_preserves_data(self):
+        s = Session(Bridge())
+        s.editor.layer = 3
+        before = s.editor.document.to_data()
+        s.choose_mode('select')
+        s.point_action((2, 8, 2))
+        self.assertEqual(3, s.editor.layer)
+        signature = s.preview_signature()
+        s.toggle_section()
+        self.assertNotEqual(signature, s.preview_signature())
+        self.assertTrue(s.visible_layer(3))
+        self.assertFalse(s.visible_layer(4))
+        self.assertIn(4, s.preview_hidden())
+        self.assertEqual(before, s.editor.document.to_data())
+        s.layer(8)
+        self.assertTrue(s.visible_layer(8))
+        s.choose_mode('place')
+        s.point_action((2, 8, 2), (0, 1, 0))
+        self.assertFalse(s.editor.undo_stack)
+
     def test_restart_normalizes_native_utf8_large_archive_titles(self):
         b = Bridge()
         title = '自动验证 · 大范围建筑'

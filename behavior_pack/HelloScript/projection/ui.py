@@ -117,27 +117,36 @@ def Viewport(session=None, revision=0, width=430, height=440):
     if not session.model_name:
         viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
-                text(session.preview_error or '正在构建方块预览…', 12, Theme.muted)]))
+                text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
+                     '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
     viewport_children.append(RetainedPane(key='layer_canvas', active=session.view == 'layer',
         style=S(position=Position.absolute, width=width, height=area_h, zIndex=5),
         children=LayerCanvas(session=session, revision=session.content_revision, width=width - 2, height=area_h)))
     viewport_children.extend([
-        Panel(style=S(position=Position.absolute, left=12, top=12, visible=session.view == 'layer'),
+        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == 'layer'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                                children=text('Y %02d' % e.layer, 10, Theme.muted))),
-        Panel(style=S(position=Position.absolute, left=12, top=12, visible=session.view == '3d'),
+        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=200, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                   children=text('正在构建方块预览…' if session.preview_pending else
                       'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑', 10, Theme.muted))),
-        Panel(style=S(position=Position.absolute, left=12, bottom=12, visible=bool(session.preview_error)),
+        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=bool(session.preview_error)),
               children=text(session.preview_error, 11, Theme.red, width=width-24)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=12),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=200),
               children=OrientationGizmo(session=session)),
+        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=200, visible=session.view == '3d'),
+              children=row([
+                  Action(glyph='arrow_left', width=27, height=27, onClick=partial(session.pan_view, -.12, 0.)),
+                  Action(glyph='arrow_right', width=27, height=27, onClick=partial(session.pan_view, .12, 0.)),
+                  Action(glyph='arrow_up', width=27, height=27, onClick=partial(session.pan_view, 0., -.12)),
+                  Action(glyph='arrow_down', width=27, height=27, onClick=partial(session.pan_view, 0., .12)),
+                  Action(label='切面', glyph='layers', compact=True, height=27, selected=session.section,
+                         onClick=session.toggle_section)], gap=3)),
     ])
     view_controls = [
-        Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom - .15))),
-        text('%d%%' % int(round(session.zoom * 100)), 10, Theme.muted, width=35, center=True),
-        Action(glyph='plus', width=28, height=26, onClick=partial(session.camera_view, zoom=min(3., session.zoom + .15))),
+        Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),
+        text(('%g×' % session.zoom) if session.zoom >= 10 else '%d%%' % int(round(session.zoom * 100)), 10, Theme.muted, width=40, center=True),
+        Action(glyph='plus', width=28, height=26, onClick=partial(session.camera_view, zoom=session.zoom * 1.2)),
         Action(label='左转', height=26, compact=True, onClick=partial(turn_camera, session, -30)),
         Action(label='右转', height=26, compact=True, onClick=partial(turn_camera, session, 30)),
         Action(label='俯视', height=26, compact=True, onClick=partial(session.camera_view, yaw=0., pitch=90.)),
@@ -192,6 +201,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
 
 
 def reset_camera(session):
+    session.camera_pan = (0., 0.)
     session.camera_view(35., 25., 1.)
 
 
@@ -405,7 +415,7 @@ def Workspace(session=None, revision=0):
             PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
         row([
-            text('Y', 12, Theme.blue, width=20),
+            text('工作层 Y', 11, Theme.blue, width=55),
             Action(glyph='minus', width=27, height=25, onClick=partial(session.layer, e.layer - 1)),
             text('%02d' % e.layer, 12, width=25, center=True),
             Action(glyph='plus', width=27, height=25, onClick=partial(session.layer, e.layer + 1)),

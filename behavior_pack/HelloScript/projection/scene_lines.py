@@ -23,7 +23,7 @@ def grid_lines(origin, size, layer):
         start, end = origin[axis], origin[axis] + size[axis]
         values = sorted(set([start, end] + list(range(((start + step - 1) // step) * step, end, step))))
         for value in values:
-            a = list(origin); a[1] = layer + .5; a[axis] = value
+            a = list(origin); a[1] = layer; a[axis] = value
             b = list(a); b[other] += size[other]
             result.append((tuple(a), tuple(b)))
     return result

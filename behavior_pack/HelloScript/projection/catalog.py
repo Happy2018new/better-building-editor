@@ -9,14 +9,14 @@ GROUPS = [('select', '选区', 'cursor'), ('edit', '编辑', 'brush'),
 # id, group, title, hint. Every entry is dispatched by Editor.run.
 TOOLS = [
     ('select_all', 'select', '全选区域', '选择整个建筑范围。'),
-    ('select_nonair', 'select', '选择实体', '仅选择已有方块的位置。'),
+    ('select_nonair', 'select', '选择方块', '仅选择已有方块的位置。'),
     ('select_air', 'select', '选择空气', '仅选择空白位置。'),
     ('select_material', 'select', '同类材质', '选择与替换来源相同的方块。'),
     ('select_layer', 'select', '当前图层', '选择当前 Y 层。'),
     ('select_invert', 'select', '反向选择', '反转当前选择的格子。'),
     ('select_expand', 'select', '扩展选区', '沿六个方向扩展一个方块。'),
     ('select_contract', 'select', '收缩选区', '沿六个方向收缩一个方块。'),
-    ('select_surface', 'select', '选择表面', '选取与空气接触的实体表面。'),
+    ('select_surface', 'select', '选择表面', '选取与空气接触的方块表面。'),
     ('select_box', 'select', '坐标框选', '使用参数中的起点与终点框选。'),
     ('fill', 'edit', '填充方块', '用主材质填满选区。'),
     ('erase', 'edit', '清空选区', '删除选区内的方块，可以撤销。'),
@@ -68,7 +68,7 @@ TOOLS = [
     ('lattice', 'pattern', '网格镂空', '生成主材质框架和副材质连接点。'),
     ('hollow', 'finish', '掏空内部', '删除未与空气接触的内部方块。'),
     ('clean_isolated', 'finish', '清理孤点', '移除六个方向均为空气的孤立方块。'),
-    ('fill_holes', 'finish', '修补孔洞', '填充六个方向均为实体的单格孔洞。'),
+    ('fill_holes', 'finish', '修补孔洞', '填充六个方向均为方块的单格孔洞。'),
     ('gravity', 'finish', '垂直压实', '按列将方块从选区底部向上紧密排列。'),
     ('foundation', 'finish', '向下打基', '将每列已有最低方块向下延伸到选区底。'),
     ('heightmap', 'finish', '保留顶面', '每列仅保留最高的方块。'),
@@ -109,7 +109,7 @@ SEGMENT_ICONS = {
     '浏览': 'orbit', '选取': 'cursor', '放置': 'cube', '涂装': 'brush', '绘制': 'brush',
     '擦除': 'erase', '吸管': 'pick', '框选': 'select_box', '起点': 'pin', '终点': 'pin',
     '主材质': 'cube', '副材质': 'copy', '替换来源': 'replace', '蒙版来源': 'replace', '匹配材质': 'replace', '材质': 'cube',
-    '全部': 'select_all', '实体': 'cube', '空气': 'box_outline', '来源': 'pick',
+    '全部': 'select_all', '方块': 'cube', '空气': 'box_outline', '来源': 'pick',
 }
 
 
