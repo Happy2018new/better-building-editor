@@ -121,6 +121,26 @@ class ProjectionLifecycleTests(unittest.TestCase):
             self.runtime.timers.pop()()
         self.assertEqual(('minecraft:stone', 0), receiver.result.get((0, 0, 0)))
 
+    def test_capture_replaces_old_orbit_center_and_pending_focus(self):
+        b = self.bridge
+        s = b.session
+        s.camera_pivot = (50., 90., 55.)
+        s.camera_pan = (4., -3.)
+        s.camera_view(70., 30., 25.)
+        s.focused = (50, 90, 55)
+        s.locate_selected()
+        previous_reset = s.camera_reset_revision
+        b.request('capture', {'origin': (10, 20, 30)})
+        doc = Document((4, 5, 6), {(2, 3, 4): ('minecraft:stone', 0)})
+        b.receive({'request': b.pending, 'done': True, 'document': doc.to_data()})
+        self.assertEqual((4, 5, 6), s.editor.document.size)
+        self.assertEqual((10, 20, 30), s.origin)
+        self.assertIsNone(s.camera_pivot)
+        self.assertIsNone(s.camera_focus_request)
+        self.assertEqual((0., 0.), s.camera_pan)
+        self.assertEqual((35., 25., 1.), s.camera_pose)
+        self.assertEqual(previous_reset + 1, s.camera_reset_revision)
+
     def test_large_projection_snapshot_and_stop_cancel_all_future_actors(self):
         b = self.bridge
         b.player_origin = lambda: (0, 0, 0)

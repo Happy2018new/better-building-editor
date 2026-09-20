@@ -52,59 +52,25 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(['view'], calls)
         self.assertEqual(revision, s.content_revision)
 
-    def test_touch_proposal_waits_for_confirmation_and_commits_once(self):
-        s = Session(Bridge())
-        s.editor = Editor(Document((8, 8, 8)))
-        s.choose_mode('place')
-        s.set('touch_mode', True)
-        original = s.editor.selection
-        self.assertEqual(((3, 0, 3), None), s.propose_placement((3, 0, 3), (0, 0, 0)))
-        self.assertIs(original, s.editor.selection)
-        self.assertEqual(0, len(s.editor.document.blocks))
-        self.assertFalse(s.editor.undo_stack)
-        self.assertTrue(s.confirm_placement())
-        self.assertEqual(1, len(s.editor.document.blocks))
-        self.assertEqual(1, len(s.editor.undo_stack))
-        self.assertEqual((3, 0, 3), s.editor.start)
-        self.assertFalse(s.confirm_placement())
-        self.assertEqual(1, len(s.editor.undo_stack))
-
-    def test_touch_cancel_stale_and_invalid_targets_never_place(self):
-        s = Session(Bridge())
-        s.editor = Editor(Document((8, 8, 8)))
-        s.choose_mode('place')
-        s.propose_placement((3, 7, 3), (0, 1, 0))
-        self.assertFalse(s.confirm_placement())
-        s.propose_placement((3, 0, 3), (0, 0, 0))
-        s.editor.locked_layers.add(0)
-        self.assertFalse(s.confirm_placement())
-        s.editor.locked_layers.clear()
-        s.propose_placement((3, 0, 3), (0, 0, 0))
-        s.editor.revision += 1
-        self.assertFalse(s.confirm_placement())
-        for cancel in (s.cancel_placement, lambda: s.choose_mode('browse'),
-                       lambda: s.set('page', 'library')):
-            s.propose_placement((3, 0, 3), (0, 0, 0))
-            cancel()
-            self.assertIsNone(s.placement_intent)
-            self.assertFalse(s.confirm_placement())
-        self.assertEqual(0, len(s.editor.document.blocks))
-
-    def test_touch_erase_and_paint_require_explicit_confirmation(self):
-        s=Session(Bridge());s.editor=Editor(Document((8,8,8)))
-        s.editor.document.blocks[(3,2,3)]=('minecraft:stone',0)
-        s.set('touch_mode',True);s.choose_mode('paint')
-        s.propose_placement((3,2,3),(0,1,0))
-        self.assertEqual(((3,2,3),None),s.placement_proposal())
-        self.assertEqual(('minecraft:stone',0),s.editor.document.get((3,2,3)))
-        s.confirm_placement()
-        self.assertEqual(s.editor.material,s.editor.document.get((3,2,3)))
-        s.choose_mode('erase');s.erase_scope='single'
-        s.propose_placement((3,2,3),(0,1,0))
+    def test_touch_direct_actions_commit_without_confirmation(self):
+        s = Session(Bridge()); s.editor = Editor(Document((8,8,8))); s.touch_mode = True
+        s.choose_mode('place'); self.assertTrue(s.point_action((3,0,3)))
         self.assertEqual(1,len(s.editor.document.blocks))
-        s.confirm_placement()
-        self.assertEqual(0,len(s.editor.document.blocks))
-        self.assertFalse(s.confirm_placement())
+        s.choose_mode('erase'); s.erase_scope = 'single'
+        self.assertTrue(s.point_action((3,0,3)))
+        self.assertFalse(s.editor.document.blocks)
+        s.editor.undo(); self.assertEqual(1,len(s.editor.document.blocks))
+
+    def test_reset_cancels_pending_locate_and_all_camera_targets(self):
+        s = Session(Bridge()); s.camera_pivot = (50.,70.,60.)
+        s.focused = (40,50,30); s.locate_selected()
+        s.camera_pan = (7.,-5.); s.zoom = 80.
+        serial=s.camera_reset_revision; s.reset_camera()
+        self.assertIsNone(s.camera_focus_request)
+        self.assertIsNone(s.camera_pivot)
+        self.assertEqual((0.,0.),s.camera_pan)
+        self.assertEqual((35.,25.,1.),(s.camera_yaw,s.camera_pitch,s.zoom))
+        self.assertEqual(serial+1,s.camera_reset_revision)
 
     def test_dimensions_accept_native_utf8_and_common_separators(self):
         for text in ('3, 8, 3', '3，8，3', '３，８，３', '3×8×3', '3 * 8 * 3', '3 8 3', '3、8、3'):
@@ -184,16 +150,13 @@ class SessionTests(unittest.TestCase):
         self.assertIsInstance(s.library[0]['data']['name'], str)
         self.assertEqual(12, s.library_serial)
 
-    def test_detail_camera_center_does_not_follow_each_picked_block(self):
-        s = Session(Bridge())
-        s.editor = Editor(Document((64, 100, 64)))
-        s.focus_preview((40, 40, 40))
-        signature = s.preview_signature()
-        s.focused = (45, 45, 45)
-        self.assertEqual(signature, s.preview_signature())
-        self.assertEqual((40, 40, 40), s.preview_center)
-        s.layer(80)
-        self.assertEqual((40, 80, 40), s.preview_center)
+    def test_locate_is_camera_only_and_never_hides_other_blocks(self):
+        s = Session(Bridge()); s.editor = Editor(Document((64,128,64)))
+        s.focused = (55,95,63); before=s.preview_signature(); s.locate_selected()
+        self.assertEqual((55.5,95.5,63.5),s.camera_focus_request)
+        self.assertEqual(before,s.preview_signature())
+        self.assertTrue(s.visible_position((0,0,0)))
+        self.assertTrue(s.visible_position((63,127,63)))
 
     def test_failed_async_load_retains_current_draft_and_releases_ui(self):
         b = Bridge()

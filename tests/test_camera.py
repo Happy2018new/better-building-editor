@@ -15,6 +15,53 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_rebasing_orbit_preserves_every_point_during_zoom(self):
+        size, width, height, base = (64, 128, 64), 600., 400., 2.25
+        for yaw, pitch in ((35.4, 25.8), (225.8, -40.3), (0, 90)):
+            camera = OrbitCamera(yaw, pitch, 20.)
+            camera.pan = camera.pan_target = (.4, -.25)
+            camera.zoom_at(40., 210., 180., width, height)
+            reference = OrbitCamera(yaw, pitch, camera.zoom)
+            reference.pan, reference.pan_target, reference.target = camera.pan, camera.pan_target, camera.target
+            camera.set_pivot((60.5, 110.5, 63.), size, width, height, base*camera.zoom)
+            for unused in range(90):
+                camera.advance(1/60.); reference.advance(1/60.)
+                for point in ((0, 0, 0), (64, 128, 64), (60.5, 110.5, 63.)):
+                    expected = reference.project(point, size, width, height, base*reference.zoom)
+                    actual = camera.project(point, size, width, height, base*camera.zoom)
+                    for a, b in zip(actual, expected):
+                        self.assertAlmostEqual(a, b, delta=.02)
+
+    def test_close_orbit_anchor_stays_fixed_and_picking_agrees(self):
+        camera = OrbitCamera(35., 25., 100.)
+        size, width, height, unit = (64, 128, 64), 600., 400., 200.
+        point = (63.5, 127.5, 63.5)
+        camera.set_pivot(point, size, width, height, unit)
+        expected = camera.project(point, size, width, height, unit)
+        doc = Document(size); doc.blocks[(63,127,63)] = STONE
+        for unused in range(60):
+            camera.drag(2., .3, 1/60., .25)
+            actual = camera.project(point, size, width, height, unit)
+            self.assertEqual(expected, actual)
+            ray = camera.ray(*actual, size, width, height, unit)
+            self.assertEqual((63,127,63), raycast(doc, *ray)[0])
+
+    def test_reset_clears_all_in_flight_camera_state(self):
+        camera = OrbitCamera(210., -40., 50.)
+        camera.pivot = (60., 120., 60.)
+        camera.pan, camera.pan_target = (2., -8.), (4., -16.)
+        camera.target, camera.velocity, camera.dragging = (215., 70., 100.), (40., -80.), True
+        camera.reset()
+        for unused in range(120):
+            camera.advance(1/60.)
+        self.assertEqual((35., 25., 1.), (camera.yaw, camera.pitch, camera.zoom))
+        self.assertEqual((35., 25., 1.), camera.target)
+        self.assertEqual((0.,0.), camera.pan)
+        self.assertEqual((0.,0.), camera.pan_target)
+        self.assertEqual((0.,0.), camera.velocity)
+        self.assertIsNone(camera.pivot)
+        self.assertFalse(camera.dragging)
+
     def test_pointer_anchor_survives_every_frame_of_zoom(self):
         camera = OrbitCamera(35, 25, 1.7)
         camera.pan = camera.pan_target = (.12, -.23)

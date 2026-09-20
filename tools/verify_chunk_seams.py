@@ -33,7 +33,6 @@ def coverage(path, state, box, root):
 def main():
     ui.click('工作台'); ui.click('浏览')
     diagnostic({'fixture':'solid'}); wait_preview()
-    ui.click('整栋总览'); wait_preview()
     diagnostic({'camera':[35,25,4],'pan':[0,1.305]}); time.sleep(1)
     snapshot('chunk_roof_continuity')
     state=diagnostic(); box=pointer()['layout']; root=ui.nodes('SafeArea')[0]['children'][0]['layout']

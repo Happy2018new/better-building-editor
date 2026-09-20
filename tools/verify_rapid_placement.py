@@ -11,8 +11,6 @@ from verify_interaction import pointer
 def main():
     capture.user32.SetProcessDPIAware()
     ui.new_region((25,64,25)); wait_preview()
-    if '整栋总览' in ui.labels():
-        ui.click('整栋总览'); wait_preview()
     diagnostic({'camera':[0,90,2], 'pan':[0,0]}); time.sleep(.5)
     ui.click('放置'); click_point((12.5,0,12.5)); wait_preview()
     before = diagnostic(); assert before['blocks']==1,before

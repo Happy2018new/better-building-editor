@@ -36,6 +36,30 @@ class OrbitCamera(object):
         self.dragging = False
         self.pan = (0., 0.)
         self.pan_target = self.pan
+        self.pivot = None
+
+    def center(self, size):
+        return self.pivot if self.pivot is not None else tuple(v / 2. for v in size)
+
+    def set_pivot(self, point, size, width, height, unit):
+        """Rebase the orbit without moving any displayed point, even mid-zoom."""
+        old = self.center(size)
+        self.pivot = tuple(point) if point is not None else None
+        new = self.center(size)
+        right, up, unused = self.basis()
+        delta = tuple(new[i] - old[i] for i in range(3))
+        shift = (unit * sum(delta[i] * right[i] for i in range(3)) / width,
+                 -unit * sum(delta[i] * up[i] for i in range(3)) / height)
+        self.pan = tuple(self.pan[i] + shift[i] for i in range(2))
+        self.pan_target = tuple(self.pan_target[i] + shift[i] * self.target[2] / self.zoom for i in range(2))
+
+    def reset(self):
+        self.yaw, self.pitch, self.zoom = 35., 25., 1.
+        self.target = (35., 25., 1.)
+        self.pan = self.pan_target = (0., 0.)
+        self.pivot = None
+        self.velocity = (0., 0.)
+        self.dragging = False
 
     def aim(self, yaw, pitch, zoom):
         self.target = (self.yaw + (yaw - self.yaw + 180.) % 360. - 180.,
@@ -52,15 +76,16 @@ class OrbitCamera(object):
 
     def centered_pan(self, point, size, width, height, unit):
         right, up, unused = self.basis()
-        delta = [point[i] - size[i] / 2. for i in range(3)]
+        center = self.center(size)
+        delta = [point[i] - center[i] for i in range(3)]
         return (-unit * sum(delta[i] * right[i] for i in range(3)) / width,
                 unit * sum(delta[i] * up[i] for i in range(3)) / height)
 
-    def drag(self, dx, dy, dt):
+    def drag(self, dx, dy, dt, sensitivity=1.):
         # Grab the model: a rightward pointer movement brings its front to the
         # right. Camera azimuth has the opposite sign; inertia uses this delta too.
-        yaw = -dx * .42
-        pitch = dy * .42
+        yaw = -dx * .42 * sensitivity
+        pitch = dy * .42 * sensitivity
         self.yaw += yaw
         self.pitch = clamp(self.pitch + pitch, -85., 90.)
         self.target = (self.yaw, self.pitch, self.zoom)
@@ -107,7 +132,8 @@ class OrbitCamera(object):
 
     def project(self, point, size, width, height, unit):
         right, up, unused = self.basis()
-        delta = [point[i] - size[i] / 2. for i in range(3)]
+        center = self.center(size)
+        delta = [point[i] - center[i] for i in range(3)]
         return (width * (.5 + self.pan[0]) + unit * sum(delta[i] * right[i] for i in range(3)),
                 height * (.5 + self.pan[1]) - unit * sum(delta[i] * up[i] for i in range(3)))
 
@@ -115,7 +141,8 @@ class OrbitCamera(object):
         right, up, toward = self.basis()
         u, v = (x - width * (.5 + self.pan[0])) / unit, (height * (.5 + self.pan[1]) - y) / unit
         distance = sum(size) + 4.
-        origin = tuple(size[i] / 2. + u * right[i] + v * up[i] + distance * toward[i] for i in range(3))
+        center = self.center(size)
+        origin = tuple(center[i] + u * right[i] + v * up[i] + distance * toward[i] for i in range(3))
         return origin, tuple(-a for a in toward)
 
 

@@ -23,6 +23,20 @@ class PointerTests(unittest.TestCase):
     def down(self):
         self.tracker.down({'TouchPosX': 100, 'TouchPosY': 200, 'TouchId': 0})
 
+    def test_phone_touch_ignores_desktop_cursor_and_does_not_double_release(self):
+        self.tracker.touch_mode=lambda: True
+        self.down()
+        self.assertIsNone(self.tracker.origin)
+        self.assertFalse(self.frames)
+        self.tracker.leave({});self.tracker.move_out({})
+        self.assertTrue(self.tracker.pressed)
+        self.tracker.move({'TouchPosX':140,'TouchPosY':240,'TouchId':0})
+        self.tracker.up({'TouchPosX':140,'TouchPosY':240,'TouchId':0})
+        self.tracker.up({})
+        self.assertEqual(1,sum(n=='onUp' for n,a in self.events))
+        self.assertEqual(140,self.events[-1][1]['TouchPosX'])
+        self.assertEqual('touch',self.events[-1][1]['pointerKind'])
+
     def test_global_release_finishes_lost_local_up_exactly_once(self):
         for global_first in (True, False):
             self.events[:] = []
@@ -58,7 +72,7 @@ class PointerTests(unittest.TestCase):
         self.pos = (230, 80)
         self.tracker.tick(0)
         self.assertTrue(self.tracker.pressed)
-        self.assertEqual(('onMove', {'TouchPosX':310, 'TouchPosY':250, 'TouchId':0}), self.events[-1])
+        self.assertEqual(('onMove', {'TouchPosX':310, 'TouchPosY':250, 'TouchId':0, 'pointerKind':'mouse'}), self.events[-1])
         release_pointers(self.host, {})
         self.assertFalse(self.frames)
         self.assertFalse(self.tracker.pressed)
@@ -92,8 +106,8 @@ class PointerTests(unittest.TestCase):
         self.assertTrue(self.tracker.pressed)
         release_pointers(self.host, {'TouchId': 1})
         self.assertTrue(self.tracker.pressed)
-        release_pointers(self.host, {'TouchId': 0, 'TouchPosX': 102, 'TouchPosY': 204})
-        self.assertEqual(('onUp', {'TouchId': 0, 'TouchPosX': 102, 'TouchPosY': 204}), self.events[-1])
+        release_pointers(self.host, {'TouchId': 0, 'TouchPosX': 102, 'TouchPosY': 204, 'pointerKind':'mouse'})
+        self.assertEqual(('onUp', {'TouchId': 0, 'TouchPosX': 102, 'TouchPosY': 204, 'pointerKind':'mouse'}), self.events[-1])
         self.assertFalse(self.host._projection_pointers)
 
     def test_global_press_recovers_missing_native_down_without_double_edit(self):

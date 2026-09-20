@@ -13,6 +13,7 @@ from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrim
 from .type_assets import ASSETS
 from .catalog import ACTION_ICONS, SEGMENT_ICONS
 from .pointer import PointerTracker
+from .input_mode import is_touch
 
 TEX = 'textures/modern_projection/'
 
@@ -245,7 +246,7 @@ class PointerPrimitive(BaseButtonPrimitive):
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker is None:
             motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
-            tracker = PointerTracker(host, fiber, motion)
+            tracker = PointerTracker(host, fiber, motion, is_touch)
             fiber.primitive_state['pointer_tracker'] = tracker
             if not hasattr(host, '_projection_pointer_surfaces'):
                 host._projection_pointer_surfaces = set()

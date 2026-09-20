@@ -125,7 +125,7 @@ class TileTests(unittest.TestCase):
 
     def test_rapid_overview_edits_do_not_publish_blocking_progress(self):
         b = Bridge(); s = Session(b); s._loaded(Document((25,64,25)))
-        b.settle(s); s.toggle_preview_detail()
+
         self.assertTrue(s.tiles.report_progress)
         b.settle(s)
         notifications = []
@@ -165,45 +165,24 @@ class TileTests(unittest.TestCase):
             self.assertLessEqual(count,128)
             self.assertEqual(16,edge)
 
-    def test_large_default_focus_uses_one_exact_chunk_and_undo_reuses_mesh(self):
-        b = Bridge(); s = Session(b); s._loaded(Document((64,128,64)))
-        self.assertTrue(s.preview_detail)
-        s.editor.run('fill'); s.refresh_preview(); b.settle(s)
-        self.assertEqual((16,16,16),s.scene_size)
-        self.assertEqual(((0,0,0),),s.tiles.slots)
-        s.focus_preview((63,127,63)); b.settle(s)
-        self.assertEqual((48,112,48),s.scene_origin)
+    def test_full_building_uses_independent_tiles_and_undo_reuses_mesh(self):
+        b=Bridge();s=Session(b);s._loaded(Document((64,128,64)))
+        s.editor.run('fill');s.refresh_preview();b.settle(s)
+        self.assertEqual((64,128,64),s.scene_size)
+        self.assertEqual(128,len(s.tiles.slots))
         s.choose_mode('erase');s.erase_scope='single';s.point_action((63,127,63));b.settle(s)
-        builds=len(b.builds)
-        s.action(s.editor.undo);b.settle(s)
+        builds=len(b.builds);s.action(s.editor.undo);b.settle(s)
         self.assertEqual(builds,len(b.builds))
         self.assertEqual(524288,len(s.editor.document.blocks))
 
-    def test_wide_flat_draft_also_opens_in_a_full_scale_chunk(self):
-        b = Bridge(); s = Session(b); s._loaded(Document((64,1,64))); b.settle(s)
-        self.assertTrue(s.preview_detail)
-        self.assertEqual((16,1,16),s.scene_size)
-        s.toggle_preview_detail(); b.settle(s)
+    def test_camera_focus_never_extracts_or_clips_geometry(self):
+        b=Bridge();s=Session(b);s._loaded(Document((64,1,64)))
+        s.editor.run('fill');s.refresh_preview();b.settle(s)
+        before=scene_cells(s);builds=len(b.builds)
+        s.focused=(63,0,63);s.locate_selected();b.settle(s)
         self.assertEqual((64,1,64),s.scene_size)
-        s.focused = (63,0,63); s.locate_selected(); b.settle(s)
-        self.assertEqual((48,0,48),s.scene_origin)
-
-    def test_return_to_overview_reuses_unchanged_surface_extraction(self):
-        b = Bridge(); s = Session(b); s._loaded(Document((48,32,32)))
-        s.editor.run('fill'); s.toggle_preview_detail(); b.settle(s)
-        expected = scene_cells(s)
-        s.focus_preview((0,0,0)); b.settle(s)
-        original, calls = tiles.build_preview, []
-        def counted(*args):
-            calls.append(args[-2])
-            return original(*args)
-        try:
-            tiles.build_preview = counted
-            s.toggle_preview_detail(); b.settle(s)
-        finally:
-            tiles.build_preview = original
-        self.assertEqual(1,len(calls))
-        self.assertEqual(expected,scene_cells(s))
+        self.assertEqual(before,scene_cells(s))
+        self.assertEqual(builds,len(b.builds))
 
     def test_surface_budget_applies_across_tiles_and_preserves_draft(self):
         budget = tiles.MAX_SURFACE_BLOCKS

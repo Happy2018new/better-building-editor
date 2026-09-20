@@ -23,11 +23,11 @@ def main():
     ui.click('工作台'); ui.click('完整'); ui.click('选取')
     diagnostic({'fixture': 'solid', 'camera': [35, 25, 1.42], 'pan': [0, 0]})
     wait_preview()
-    ui.click('整栋总览'); wait_preview()
     builds = diagnostic()['previewBuilds']
     images, report = [], []
     for yaw, pitch, zoom in ((35,25,8.72), (35,25,19.2763), (35,25,100),
                              (35,25,1000), (125,40,25), (225,-25,25)):
+        ui.click('复位')
         diagnostic({'camera': [yaw,pitch,zoom], 'pan': [0,0]})
         time.sleep(1.1)
         im, coverage = centre_pixels()
@@ -41,6 +41,7 @@ def main():
         ui.check('solid surface stays visible at %s' % ((yaw,pitch,zoom),), coverage > .98)
         state = diagnostic(); box = pointer()['layout']
         camera = OrbitCamera(*state['pose']); camera.pan = tuple(state['pan'])
+        camera.pivot = state.get('cameraPivot')
         unit = min(box['width'],box['height']) * .72 * state['pose'][2] / max(state['sceneSize'])
         ray = camera.ray(box['width']/2.,box['height']/2.,state['sceneSize'],box['width'],box['height'],unit)
         expected = raycast(SimpleNamespace(size=state['size'], blocks=Solid(), contains=lambda p: all(0<=p[i]<state['size'][i] for i in range(3))), *ray)[0]
@@ -51,15 +52,18 @@ def main():
     sheet=Image.new('RGB',(960,400),'white')
     for i,im in enumerate(images):sheet.paste(im,((i%3)*320,(i//3)*200))
     sheet.save(ui.OUT/'close_editing_surfaces.png')
-    diagnostic({'camera':[35,25,1.42], 'pan':[0,0]});time.sleep(1)
+    ui.click('复位'); diagnostic({'camera':[35,25,1.42], 'pan':[0,0]});time.sleep(1)
     click_point((40.5,72.5,64.))
     ui.check('overview picks far wall voxel',diagnostic()['focused']==[40,72,63])
     ui.click('定位选中');wait_preview();time.sleep(.9)
     state=diagnostic();box=pointer()['layout']
     camera=OrbitCamera(*state['pose']);camera.pan=tuple(state['pan'])
-    ui.check('locate opens the selected 16-cube while preserving the entire draft',
-             state['sceneSize']==[16,16,16] and state['origin']==[32,64,48] and state['size']==[64,128,64])
-    ui.check('locate returns to practical 100 percent magnification',state['pose'][2]==1.)
+    camera.pivot=state.get('cameraPivot')
+    ui.check('locate preserves all 128 native pieces of the whole building',
+             state['sceneSize']==[64,128,64] and state['origin']==[0,0,0] and state['previewSlots']==128)
+    unit=min(box['width'],box['height'])*.72*state['pose'][2]/max(state['sceneSize'])
+    scale=box['width']/ui.nodes('Scene')[0]['props']['width']
+    ui.check('locate gives a consistent useful cell size',abs(unit/scale-20.)<.01)
     before=state['blocks'];ui.click('擦除');ui.click('单格');tap(box['width']/2.,box['height']/2.);wait_preview()
     ui.check('located voxel can be erased',diagnostic()['blocks']==before-1)
     ui.click('历史');ui.click('撤销');wait_preview();ui.click('参数');ui.click('选取')

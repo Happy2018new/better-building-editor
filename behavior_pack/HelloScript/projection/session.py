@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 import time
 from .model import AIR, Document, Editor, RegionSizeError, demo_document, SMALL_VOLUME, bounds
-from .chunks import view_bounds, needs_chunk_view
 
 
 def as_text(value):
@@ -40,12 +39,13 @@ class Session(object):
         self.paint_mode = 'paint'
         self.direct_mode = 'browse'
         self.touch_mode = False
-        self.placement_intent = None
         self.erase_scope = 'single'
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
+        self.camera_reset_revision = 0
+        self.camera_pivot = None
         self.camera_pan = (0., 0.)
         self.camera_focus_request = None
         self.canvas_x = 0
@@ -67,8 +67,6 @@ class Session(object):
         self.parameter_serial = 0
         self.edit_job = None
         self.io_job = None
-        self.preview_detail = False
-        self.preview_center = (0, 0, 0)
         self.scene_origin = (0, 0, 0)
         self.scene_size = self.editor.document.size
         self.scene_scale = 1
@@ -130,12 +128,6 @@ class Session(object):
         if getattr(self, field) == value:
             return
         setattr(self, field, value)
-        if field in ('page', 'view', 'touch_mode'):
-            self.placement_intent = None
-        if field in ('canvas_x', 'canvas_z') and self.preview_detail:
-            self.focused = None
-            self.preview_center = (self.canvas_x, self.editor.layer, self.canvas_z)
-            self.refresh_preview()
         if field == 'origin':
             self.progress = None
         # Pane navigation only invalidates its owners. Document edits still
@@ -162,8 +154,6 @@ class Session(object):
         self.parameter_serial += 1
         serial = self.parameter_serial
         if field == 'layer':
-            if self.preview_detail:
-                self.preview_center = (self.preview_center[0], value, self.preview_center[2])
             self.refresh_preview()
 
         def settled():
@@ -186,7 +176,6 @@ class Session(object):
         return True
 
     def choose_tool(self, tool):
-        self.placement_intent = None
         self.tool = tool
         self.direct_mode = 'browse'
         self.box_anchor = None
@@ -209,7 +198,6 @@ class Session(object):
             self.editor.message = '正在编辑，可点击取消'
             self.emit()
             return False
-        self.placement_intent = None
         try:
             if callback == self.editor.run and self.editor.document.volume > SMALL_VOLUME:
                 return self.start_edit(args[0])
@@ -292,8 +280,6 @@ class Session(object):
         # history and document statistics only need one update after a burst.
         self.point_publish += 1
         serial = self.point_publish
-        if self.touch_mode:
-            self.emit('point_edit')
         def settled():
             if serial == self.point_publish:
                 self.emit()
@@ -305,7 +291,7 @@ class Session(object):
         signature = self.preview_signature()
         if editor.document.volume > SMALL_VOLUME:
             from .large_preview import build_preview
-            focus = self.preview_center if self.preview_detail else None
+            focus = None
             def prepare():
                 for result in build_preview(editor.document, self.preview_hidden(), editor.layer if self.solo_layer else None, focus,
                                             self.depth_plane()):
@@ -361,16 +347,14 @@ class Session(object):
 
     def preview_signature(self):
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
-                self.editor.layer if self.solo_layer or self.section else -1, self.preview_detail,
-                self.preview_center if self.preview_detail else None, self.section,
+                self.editor.layer if self.solo_layer or self.section else -1, self.section,
                 self.depth_plane())
 
     def depth_plane(self):
         return None
 
     def visible_position(self, pos):
-        origin, size = view_bounds(self.editor.document.size, self.preview_center if self.preview_detail else None)
-        return self.visible_layer(pos[1]) and all(origin[i] <= pos[i] < origin[i]+size[i] for i in range(3))
+        return self.editor.document.contains(pos) and self.visible_layer(pos[1])
 
     def move_depth(self, direction):
         # Orthographic approach/recede changes apparent distance by scaling.
@@ -396,48 +380,11 @@ class Session(object):
             raise ValueError('unknown scene display mode')
         self.view = '3d'
         self.section, self.solo_layer = mode == 'section', mode == 'single'
-        self.placement_intent = None
         self.refresh_preview()
         self.emit()
 
     def current_display_mode(self):
         return 'single' if self.solo_layer else 'section' if self.section else 'full'
-
-    def toggle_preview_detail(self):
-        self.preview_detail = not self.preview_detail
-        if self.preview_detail:
-            self.preview_center = self.focused or (self.canvas_x, self.editor.layer, self.canvas_z)
-            self.editor.layer = self.preview_center[1]
-        self.camera_pan = (0., 0.)
-        self.camera_view(zoom=1.)
-        self.placement_intent = None
-        self.refresh_preview()
-        self.emit()
-
-    def focus_preview(self, pos):
-        if not self.editor.document.contains(pos):
-            raise ValueError('编辑分块必须位于建筑范围内')
-        self.focused = tuple(pos)
-        self.preview_center = tuple(pos)
-        self.canvas_x, self.editor.layer, self.canvas_z = pos
-        self.preview_detail = True
-        self.view = '3d'
-        self.camera_pan = (0., 0.)
-        self.camera_view(zoom=1.)
-        self.placement_intent = None
-        self.refresh_preview()
-        self.emit()
-
-    def move_chunk(self, axis, delta):
-        pos = list(self.preview_center)
-        pos[axis] = max(0, min(self.editor.document.size[axis]-1, (pos[axis]//16+delta)*16))
-        self.focus_preview(tuple(pos))
-
-    def select_chunk(self):
-        origin, size = view_bounds(self.editor.document.size, self.preview_center)
-        self.box_anchor = None
-        self.editor.select_box(origin, tuple(origin[i]+size[i]-1 for i in range(3)))
-        self.emit()
 
     def toggle_layer(self, kind, layer):
         target = self.editor.locked_layers if kind == 'lock' else self.editor.hidden_layers
@@ -450,8 +397,6 @@ class Session(object):
 
     def layer(self, value):
         self.editor.layer = max(0, min(self.editor.document.size[1] - 1, int(round(value))))
-        if self.preview_detail:
-            self.preview_center = (self.preview_center[0], self.editor.layer, self.preview_center[2])
         self.refresh_preview()
         self.emit()
 
@@ -471,7 +416,6 @@ class Session(object):
             self.action(self.editor.paint_at, pos, self.paint_mode == 'erase')
 
     def choose_mode(self, mode):
-        self.placement_intent = None
         if mode == 'erase' and self.direct_mode != 'erase':
             self.erase_scope = 'selection' if len(self.editor.selection) > 1 else 'single'
         self.direct_mode = mode
@@ -487,15 +431,22 @@ class Session(object):
         self.camera_revision += 1
         self.emit('view')
 
+    def reset_camera(self):
+        self.camera_focus_request = None
+        self.camera_pivot = None
+        self.camera_pan = (0., 0.)
+        self.camera_yaw, self.camera_pitch, self.zoom = 35., 25., 1.
+        self.camera_pose = (35., 25., 1.)
+        self.camera_reset_revision += 1
+        self.camera_revision += 1
+        self.emit('view')
+
     def pan_view(self, x, y):
         self.camera_pan = (self.camera_pan[0] + x, self.camera_pan[1] + y)
         self.emit('camera_pan')
 
     def locate_selected(self):
         if self.focused is None:
-            return
-        if needs_chunk_view(self.editor.document.size):
-            self.focus_preview(self.focused)
             return
         self.camera_focus_request = tuple(v + .5 for v in self.focused)
         self.emit('view')
@@ -523,36 +474,6 @@ class Session(object):
                 return pos, '此位置受图层或方块条件限制'
         return pos, None
 
-    def propose_placement(self, pos, normal):
-        """Touch selects a destination; the explicit button commits it later."""
-        target, error = self.cursor_target(pos, normal)
-        self.placement_intent = (id(self.editor), self.editor.revision, tuple(pos), tuple(normal))
-        self.editor.message = error or '位置已选择，请确认操作'
-        self.emit()
-        return target, error
-
-    def placement_proposal(self):
-        intent = self.placement_intent
-        if intent is None:
-            return None, None
-        if intent[:2] != (id(self.editor), self.editor.revision):
-            return None, '建筑已更新，请重新选择位置'
-        return self.cursor_target(intent[2], intent[3])
-
-    def cancel_placement(self):
-        self.placement_intent = None
-        self.emit()
-
-    def confirm_placement(self):
-        target, error = self.placement_proposal()
-        if target is None or error:
-            self.editor.message = error or '请先点击选择操作位置'
-            self.emit()
-            return False
-        intent = self.placement_intent
-        self.placement_intent = None
-        return self.point_action(intent[2], intent[3])
-
     def point_action(self, pos, normal=(0, 0, 0)):
         """One click, one undo record. Dragging never reaches this method."""
         if self.edit_job is not None or self.io_job is not None:
@@ -573,7 +494,6 @@ class Session(object):
             else:
                 e.select_box(target, target)
                 self.focused = target
-                self.placement_intent = None
                 return self.point_edit(target)
         elif mode in ('paint', 'erase'):
             e.select_box(pos, pos)
@@ -642,16 +562,12 @@ class Session(object):
             self._loaded(Document.from_data(data))
 
     def _loaded(self, document):
-        self.placement_intent = None
         self.camera_focus_request = None
         self.editor = Editor(document)
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
         self.canvas_x = self.canvas_z = 0
-        self.preview_detail = needs_chunk_view(document.size)
-        self.preview_center = (0, 0, 0)
-        self.zoom = 1.
-        self.camera_revision += 1
+        self.reset_camera()
         self.focused = self.box_anchor = None
         self.name = self.editor.document.name
         self.page = 'workspace'

@@ -25,6 +25,8 @@ def main():
     ui.click('俯视'); ui.click('放置')
     wait_preview()
     diagnostic({'camera':[0,90,1], 'pan':[0,0]})
+    if '--large' in sys.argv:
+        diagnostic({'focus':[8,10,14]});ui.click('定位选中')
     time.sleep(.8)
     before=diagnostic()
     box = interaction.pointer()['layout']
@@ -38,8 +40,9 @@ def main():
     region = dict(left=int(left + box['x'] * scale), top=int(top + box['y'] * scale),
                   width=int(box['width'] * scale), height=int(box['height'] * scale))
     size=before['sceneSize']
-    x,y=interaction.OrbitCamera(0,90).project((8.5,11.,14.5),size,box['width'],box['height'],
-        min(box['width'],box['height'])*.72/max(size))
+    cam=interaction.OrbitCamera(*before['pose']);cam.pan=before['pan'];cam.pivot=before['cameraPivot']
+    x,y=cam.project((8.5,11.,14.5),size,box['width'],box['height'],
+        min(box['width'],box['height'])*.72*before['pose'][2]/max(size))
     capture.user32.SetCursorPos(int(region['left'] + x * scale), int(region['top'] + y * scale))
     time.sleep(.15)
     frames, counts, quartz_counts, times = [], [], [], []

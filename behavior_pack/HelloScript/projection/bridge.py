@@ -231,12 +231,12 @@ class ClientBridge(object):
                 s.emit()
                 return
             s.editor = Editor(document)
-            s.preview_detail = False
             s.focused = s.box_anchor = None
             s.name = s.editor.document.name
             s.origin = tuple(sent['origin'])
             s.canvas_x = s.canvas_z = 0
             s.progress = None
+            s.reset_camera()
             s.editor.message = '已读取世界选区 · 方块实体内容不包含在草稿中'
             s.refresh_preview()
         elif action == 'check':

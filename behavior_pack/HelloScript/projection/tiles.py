@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import time
 from .large_preview import build_preview, MAX_SURFACE_BLOCKS
-from .chunks import EDGE, view_bounds, tile_bounds, keys_in
+from .chunks import EDGE, tile_bounds, keys_in
 try:
     text_type = unicode
 except NameError:
@@ -48,7 +48,7 @@ class TiledPreview(object):
             if previous is None or previous[0] != context[0]:
                 self.parts = {}
                 self.generation = 1-self.generation
-            origin, size = view_bounds(s.editor.document.size, s.preview_center if s.preview_detail else None)
+            origin, size = (0, 0, 0), s.editor.document.size
             s.scene_origin, s.scene_size, s.scene_scale = origin, size, 1
             self.slots = keys_in(origin, size)
             self.pool_size = max(self.pool_size, len(self.slots))
@@ -138,7 +138,7 @@ class TiledPreview(object):
                 high = tuple(low[i]+size[i] for i in range(3))
                 self.iterator = build_preview(s.editor.document, s.preview_hidden(),
                     s.editor.layer if s.solo_layer else None,
-                    s.preview_center if s.preview_detail else None, s.depth_plane(), (low, high), True)
+                    None, s.depth_plane(), (low, high), True)
             result = None
             while time.time()-started < .003:
                 result = next(self.iterator)
@@ -171,7 +171,7 @@ class TiledPreview(object):
             return
         total = palette.count + sum(p['count'] for k,p in self.parts.items() if k != key and k in self.slots)
         if total > MAX_SURFACE_BLOCKS:
-            raise ValueError('可见方块过多，请使用分块编辑或单层；草稿完整保留')
+            raise ValueError('可见方块过多，请使用切面或单层；草稿完整保留')
         bank = 1-part['bank'] if part else 0
         cache = part['cache'] if part else {}
         reused = next((slot for slot, entry in cache.items() if entry[0] == palette.common), None)

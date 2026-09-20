@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Bounded editor fixtures, reachable only through the enabled debug protocol."""
 from .model import Document, Editor, MAX_AXES, demo_document
+from .input_mode import current_mode
 
 
 def inspect(session, value):
@@ -42,8 +43,6 @@ def inspect(session, value):
     if 'focus' in value:
         session.focused = tuple(value['focus'])
         session.emit()
-    if 'chunk' in value:
-        session.focus_preview(tuple(value['chunk']))
     if 'selection' in value:
         session.editor.select_box(*[tuple(p) for p in value['selection']])
         session.emit()
@@ -60,11 +59,11 @@ def inspect(session, value):
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
             'depth': 0., 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
-            'touch': session.touch_mode, 'placementTarget': session.placement_proposal()[0],
+            'touch': session.touch_mode, 'inputMode': current_mode(), 'cameraPivot': session.camera_pivot,
+            'cameraReset': session.camera_reset_revision,
             'previewBuilds': session.tiles.builds, 'previewSeconds': session.tiles.seconds,
             'previewTiles': len(session.tiles.parts), 'previewDirty': len(session.tiles.dirty),
             'previewSlots': len(session.tiles.slots), 'previewProgress': session.tiles.progress(),
-            'chunkMode': session.preview_detail, 'chunkFocus': session.preview_center,
             'cursorCell': getattr(session, 'cursor_cell', None),
             'nativeCells': sum(p['size'][0]*p['size'][1]*p['size'][2] for k,p in session.tiles.parts.items() if k in session.tiles.slots),
             'pointerStats': getattr(session, 'pointer_stats', None),

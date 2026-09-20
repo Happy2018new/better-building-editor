@@ -15,6 +15,7 @@ from .diagnostics import inspect
 from functools import partial
 from .scene_lines import cuboid, grid_lines, clip_line
 from .chunks import painter_order
+from .input_mode import is_touch
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
@@ -62,7 +63,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
-    camera = use_ref(lambda: OrbitCamera(session.camera_yaw, session.camera_pitch, session.zoom)).current
+    def create_camera():
+        result = OrbitCamera(*session.camera_pose)
+        result.pivot = session.camera_pivot
+        result.pan = result.pan_target = session.camera_pan
+        return result
+    camera = use_ref(create_camera).current
+    reset_revision = use_ref(session.camera_reset_revision)
+    input_check = use_ref(0.)
     frame = use_ref(time.time())
     outline = use_ref(None)
     dimmer = use_ref(None)
@@ -99,6 +107,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     use_effect(restore_view, [active, width, height, Theme.scale, session.page])
 
     def aim():
+        if reset_revision.current != session.camera_reset_revision:
+            return
         if (abs(session.zoom - camera.target[2]) > .00001 and session.camera_focus_request is None
                 and session.camera_pan == camera.pan_target):
             camera.zoom_at(session.zoom, width / 2., height / 2., width, height)
@@ -125,6 +135,22 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             if pos is not None and visible(pos):
                 return pos, (0, 0, 0)
         return None
+
+    def orbit_anchor(x, y):
+        hit = hit_at(x, y)
+        if hit is None:
+            return
+        origin, direction = camera.ray(x, y, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+        pos, normal = hit
+        axis = next((i for i in range(3) if normal[i]), 1)
+        if abs(direction[axis]) < 1e-8:
+            return
+        face = pos[axis] + int(normal[axis] > 0)
+        distance = (face-origin[axis]) / direction[axis]
+        point = tuple(origin[i]+distance*direction[i] for i in range(3))
+        camera.set_pivot(point, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+        session.camera_pivot = camera.pivot
+        session.camera_pan = camera.pan_target
 
     def tick(now):
         dt = now - frame.current
@@ -155,16 +181,33 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             camera.dragging = False
             camera.velocity = (0., 0.)
             return
+        if now >= input_check.current and drag.current is None:
+            input_check.current = now + .25
+            touch = is_touch()
+            if session.touch_mode != touch:
+                session.touch_mode = touch
+                hover_preview.current = None
+                session.emit('input_mode')
+        if reset_revision.current != session.camera_reset_revision:
+            reset_revision.current = session.camera_reset_revision
+            camera.reset()
+            camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
+            drag.current = None
+            wheel_time.current = None
+            placed_pointer.current = None
+            hover_preview.current = None
+            outline.current = None
         if session.camera_focus_request is not None:
             point = tuple(session.camera_focus_request[i] - session.scene_origin[i] for i in range(3))
             session.camera_focus_request = None
             # A selected voxel has the same useful editing size in a small
             # draft and a maximum-size building; retain the complete mesh.
+            camera.set_pivot(point, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+            session.camera_pivot = camera.pivot
             session.zoom = 20. * max(session.scene_size) / (min(width, height) * .72)
             camera.aim(camera.yaw, camera.pitch, session.zoom)
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
-            session.camera_pan = camera.centered_pan(point, session.scene_size,
-                width * Theme.scale, height * Theme.scale, 20. * Theme.scale)
+            session.camera_pan = (0., 0.)
             session.emit('view')
         camera.pan_target = session.camera_pan
         camera.advance(dt, Theme.motion)
@@ -178,7 +221,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.emit('view')
         rendered_yaw, rendered_pitch = camera.render_angles()
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
-                     session.scene_origin, session.scene_size)
+                     session.scene_origin, session.scene_size, camera.pivot)
         pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
         toward = camera.basis()[2]
         order = painter_order(session.tiles.slots, toward)
@@ -248,7 +291,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
             selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
-        preview_cell, preview_error = session.placement_proposal() if session.touch_mode else (None, None)
+        preview_cell, preview_error = (None, None)
+        if session.touch_mode and drag.current is not None and not drag.current[-1]:
+            px, py = pointer.current.GetGlobalPosition()
+            hit = hit_at(drag.current[2]-px, drag.current[3]-py)
+            if hit:
+                preview_cell, preview_error = session.cursor_target(*hit)
         if (active and not session.touch_mode and hovering.current and
                 (drag.current is None or not drag.current[-1])):
             point = mouse.GetMousePosition()
@@ -278,10 +326,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         if preview_cell is not None:
             selected = (bounds((session.box_anchor, preview_cell)) if session.direct_mode == 'box' and
                         session.box_anchor is not None else (preview_cell, preview_cell))
-        if selected and session.preview_detail:
-            lo = tuple(max(selected[0][i], session.scene_origin[i]) for i in range(3))
-            hi = tuple(min(selected[1][i], session.scene_origin[i]+session.scene_size[i]-1) for i in range(3))
-            selected = (lo, hi) if all(lo[i] <= hi[i] for i in range(3)) else None
         if selected:
             lo, upper = selected
             lines = list(cuboid(lo, tuple(v + 1 for v in upper)))
@@ -313,10 +357,21 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         session.pointer_stats[0] += 1
         if not active:
             return
-        if (args.get('pointerKind') == 'touch' or mouse.GetMousePosition() is None) and not session.touch_mode:
-            session.set('touch_mode', True)
+        session.touch_mode = args.get('pointerKind') == 'touch' or is_touch()
+        # Taking hold of the scene stops pending wheel/pan motion at its actual
+        # pose, before rebasing the orbit. Otherwise an old zoom target can
+        # continue translating the new pivot after the finger has stopped.
         camera.velocity = (0., 0.)
         camera.target = (camera.yaw, camera.pitch, camera.zoom)
+        camera.pan_target = camera.pan
+        session.camera_pan = camera.pan
+        session.camera_yaw, session.camera_pitch, session.zoom = camera.target
+        wheel_time.current = None
+        # At close range rotate about the surface under the hand. The full
+        # building remains rendered; rebasing preserves every screen position.
+        if camera.zoom > 1.2:
+            px, py = pointer.current.GetGlobalPosition()
+            orbit_anchor(args['TouchPosX']-px, args['TouchPosY']-py)
         camera.dragging = True
         drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False]
 
@@ -337,7 +392,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         nx, ny = args['TouchPosX'], args['TouchPosY']
         moved = moved or math.hypot(nx - x, ny - y) > 4 * Theme.scale
         if moved:
-            camera.drag((nx - last_x) / Theme.scale, (ny - last_y) / Theme.scale, now - then)
+            sensitivity = min(1., math.sqrt(12.*Theme.scale/max(12.*Theme.scale, unit())))
+            camera.drag((nx - last_x) / Theme.scale, (ny - last_y) / Theme.scale, now - then, sensitivity)
         drag.current = [x, y, nx, ny, now, moved]
 
     def cancel(unused):
@@ -349,6 +405,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         session.pointer_stats[1] += 1
         if drag.current is None:
             return
+        # A dropped native move must never turn a displaced release into an edit.
+        if ('TouchPosX' in args and 'TouchPosY' in args and
+                (args['TouchPosX'], args['TouchPosY']) != tuple(drag.current[2:4])):
+            move(args)
         x, y, unused_x, unused_y, then, moved = drag.current
         drag.current = None
         camera.dragging = False
@@ -356,6 +416,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.pointer_stats[2] += 1
             if time.time() - then > .08 or not Theme.motion:
                 camera.velocity = (0., 0.)
+            session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             return
         camera.velocity = (0., 0.)
         signature = session.preview_signature()
@@ -367,10 +428,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         x, y = args.get('TouchPosX', x) - px, args.get('TouchPosY', y) - py
         hit = hit_at(x, y)
         if hit:
-            if session.touch_mode and session.direct_mode in ('place', 'paint', 'erase') and not (
-                    session.direct_mode == 'erase' and session.erase_scope == 'selection'):
-                session.propose_placement(hit[0], hit[1])
-                return
             before_revision = session.editor.revision
             session.point_action(hit[0], hit[1])
             session.pointer_stats[3] += int(session.editor.revision != before_revision)

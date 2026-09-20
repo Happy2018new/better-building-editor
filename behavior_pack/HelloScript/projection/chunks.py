@@ -3,11 +3,6 @@
 EDGE = 16
 
 
-def needs_chunk_view(size):
-    # A wide single-layer build needs the same editing scale as a tall one.
-    return max(size) > EDGE * 2
-
-
 def tile_bounds(size, key):
     origin = tuple(v * EDGE for v in key)
     extent = tuple(min(EDGE, size[i] - origin[i]) for i in range(3))
