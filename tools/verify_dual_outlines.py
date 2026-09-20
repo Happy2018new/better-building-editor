@@ -1,4 +1,4 @@
-"""Real mouse/gradient pixels and scoped simulated touch outline regression."""
+"""Real mouse/gradient pixels and F11 native touch outline regression."""
 import json
 import sys
 import time
@@ -10,9 +10,9 @@ import capture_screen as capture
 from verify_selection_scope import diagnostic, wait_preview
 from verify_selection_outline import outline, same_outline, click_voxel
 from verify_global_cursor import hover
-from verify_global_cursor import touch
+from verify_native_touch import touch
+from native_input_mode import set_touch, state as input_state, key as native_key
 from verify_large_editor import snapshot
-from mcdk import Client, return_value
 
 
 def visible(lines):
@@ -32,11 +32,7 @@ def main():
 
     def key(code):
         assert capture.user32.GetForegroundWindow() == hwnd
-        capture.user32.keybd_event(code, 0, 0, 0)
-        try:
-            time.sleep(.08)
-        finally:
-            capture.user32.keybd_event(code, 0, 2, 0)
+        native_key(chr(code).lower())
 
     def close_open():
         action = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'close')
@@ -76,10 +72,19 @@ def main():
     leave()
     ui.check('leaving hides only the cursor', not visible(outline('cursor')) and same_outline(next_single, outline()))
 
-    ui.click('框选'); click_voxel((2.5, 2.5, 8)); click_voxel((5.5, 5.5, 8))
+    ui.click('框选'); click_voxel((2.5, 2.5, 8))
+    first_corner = outline('cursor')
+    ui.check('first desktop corner has only one spectrum cube', not visible(outline()) and visible(first_corner))
+    hover((5.5, 5.5, 8)); pending = outline('cursor')
+    ui.check('pending desktop box replaces the small cursor with one spectrum cuboid', not visible(outline()) and
+             visible(pending) and not same_outline(first_corner, pending) and diagnostic()['selection'] == 1)
+    snapshot('spectrum_pending_desktop')
+    click_voxel((5.5, 5.5, 8))
     region = outline(); hover((3.5, 3.5, 8))
     ui.check('completed region and independent hovered cube are both visible', diagnostic()['selection'] == 16 and
              same_outline(region, outline()) and visible(outline('cursor')) and not same_outline(region, outline('cursor')))
+    ui.check('blue and spectrum edges use the same thickness',
+             all(abs(a['size'][1] - b['size'][1]) < .001 for a, b in zip(region, outline('cursor'))))
     snapshot('dual_outlines_region')
     before = diagnostic()
     for mode in ('浏览', '选取', '换材质', '擦除', '吸管', '框选'):
@@ -127,44 +132,35 @@ def finish(window, close_open, leave):
                  len(np.unique(pa[mask], axis=0))>30 and float(np.abs(pa-pb)[mask].mean())>8)
         Image.fromarray(np.asarray(b.crop(crop))).resize((600, 600)).save(ui.OUT / 'cursor_gradient_detail.png')
 
-    # Windows callback coverage with a scoped simulated input-mode query. This
-    # does not claim that the OS mouse is Android/iOS touch hardware.
-    leave(); ui.click('选取'); switched = False
+    # Real native mouse-as-touch events via F11; no patched mode or callbacks.
+    leave(); ui.click('选取')
     try:
-        with Client() as client:
-            return_value(client.call('execute_code', {'code': '''
-from HelloScript.projection import input_mode
-assert not hasattr(input_mode, '_dual_original_mode')
-input_mode._dual_original_mode = input_mode.current_mode
-input_mode.current_mode = lambda: 1
-_result = True
-''', 'is_client': True, 'direct_return': True}))
-        switched = True
+        set_touch(True)
         time.sleep(.4)
-        ui.check('simulated Touch setting selects the automatic touch branch', diagnostic()['touch'])
+        ui.check('F11 selects the automatic touch branch before the first contact', input_state()['simulated'] and diagnostic()['touch'])
         diagnostic({'fixture': 'interior', 'size': [8, 8, 8], 'camera': [0, 0, 1]}); wait_preview()
         hover((3.5, 3.5, 8))
-        ui.check('touch mode never shows the colorful mouse cube', not visible(outline('cursor')))
-        touch((2.5, 2.5, 8)); single = outline()
-        ui.check('touch callback selects one blue cell immediately', diagnostic()['selection']==1 and visible(single) and not visible(outline('cursor')))
-        ui.click('框选'); touch((1.5, 1.5, 8)); touch((4.5, 4.5, 8))
-        ui.check('touch region replaces its cell with one blue box', diagnostic()['selection']==16 and
-                 diagnostic()['anchor'] is None and len(outline())==12 and not same_outline(single, outline()) and not visible(outline('cursor')))
+        ui.check('native touch has no independent mouse hover', not visible(outline('cursor')) and visible(outline()))
+        touch((2.5, 2.5, 8)); single = outline('cursor')
+        ui.check('native tap selects one colorful cell immediately', input_state()['mode']==1 and
+                 diagnostic()['selection']==1 and visible(single) and not visible(outline()))
+        hover((5.5, 5.5, 8))
+        ui.check('touch selected cell stays fixed when the simulated pointer moves', same_outline(single, outline('cursor')))
+        snapshot('spectrum_touch_single')
+        ui.click('框选'); touch((1.5, 1.5, 8)); anchor = outline('cursor'); hover((4.5, 4.5, 8))
+        ui.check('touch first corner stays as one fixed colorful cube', diagnostic()['anchor']==[1,1,7] and
+                 same_outline(anchor, outline('cursor')) and not visible(outline()))
+        snapshot('spectrum_touch_anchor')
+        touch((4.5, 4.5, 8))
+        ui.check('native touch second corner replaces the spectrum with one blue region', diagnostic()['selection']==16 and
+                 diagnostic()['anchor'] is None and visible(outline()) and not visible(outline('cursor')))
         snapshot('dual_outlines_touch')
         ui.click('选取'); touch((6.5, 6.5, 8))
-        ui.check('touch single selection replaces the region', diagnostic()['selection']==1 and
-                 diagnostic()['focused']==[6,6,7] and not visible(outline('cursor')))
+        ui.check('native touch single selection replaces the blue region with spectrum', diagnostic()['selection']==1 and
+                 diagnostic()['focused']==[6,6,7] and visible(outline('cursor')) and not visible(outline()))
     finally:
-        if switched:
-            with Client() as client:
-                return_value(client.call('execute_code', {'code': '''
-from HelloScript.projection import input_mode
-input_mode.current_mode = input_mode._dual_original_mode
-del input_mode._dual_original_mode
-_result = True
-''', 'is_client': True, 'direct_return': True}))
-            time.sleep(.4)
-    ui.check('original input-mode query restored after touch test', not diagnostic()['touch'])
+        set_touch(False)
+    ui.check('native mouse mode restored after touch test', not input_state()['simulated'] and not diagnostic()['touch'])
     leave()
 
 

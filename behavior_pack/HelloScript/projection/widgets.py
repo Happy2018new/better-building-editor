@@ -241,6 +241,9 @@ FeedbackButton = ButtonPrimitive()
 
 class PointerPrimitive(BaseButtonPrimitive):
     """App-local pointer surface; callbacks receive native UI coordinates."""
+    # SDK move callbacks also require is_handle_button_move_event in JSON.
+    template_path = '/root/mp_pointer_tmpl'
+
     def apply_props(self, host, fiber, control, prev_props, next_props):
         BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
         tracker = fiber.primitive_state.get('pointer_tracker')

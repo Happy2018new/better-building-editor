@@ -90,11 +90,12 @@ def main():
     snapshot('selection_outline_preserved')
 
     ui.click('框选'); click_voxel((1.5, 1.5, 8))
-    first = outline()
+    first = outline('cursor')
     ui.check('new first corner immediately replaces the old region',
-             diagnostic()['selection'] == 1 and diagnostic()['anchor'] == [1, 1, 7] and not same_outline(completed, first))
+             diagnostic()['selection'] == 1 and diagnostic()['anchor'] == [1, 1, 7] and
+             not any(e['visible'] for e in outline()) and any(e['visible'] for e in first))
     hover((3.5, 3.5, 8))
-    ui.check('unfinished box follows the next corner', not same_outline(first, outline()))
+    ui.check('unfinished spectrum box follows the next corner', not same_outline(first, outline('cursor')))
     click_voxel((3.5, 3.5, 8))
     leave(); next_region = outline(); hover((2.5, 2.5, 8))
     ui.check('new completed region stays visible', diagnostic()['selection'] == 9 and same_outline(next_region, outline()))

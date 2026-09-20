@@ -372,8 +372,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         def box_lines(target):
             return list(cuboid(target[0], tuple(v + 1 for v in target[1]))) if target else []
 
-        def draw_lines(refs, segments, thickness, gradient_origin=None):
+        def draw_lines(refs, segments, thickness, gradient_bounds=None):
             ranges = []
+            gradient_size = tuple(gradient_bounds[1][i] - gradient_bounds[0][i] + 1 for i in range(3)) if gradient_bounds else None
             for index, ref in enumerate(refs):
                 ranges.append(None)
                 if not ref.current:
@@ -382,7 +383,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 if segment:
                     segment = clip_depth(segment[0], segment[1], plane)
                 if segment:
-                    hues = [cursor_hue(p, gradient_origin) for p in segment] if gradient_origin is not None else None
+                    hues = [cursor_hue(p, gradient_bounds[0], gradient_size) for p in segment] if gradient_bounds is not None else None
                     a, b = [tuple(p[i] - session.scene_origin[i] for i in range(3)) for p in segment]
                     a, b = [camera.project(p, session.scene_size, width * Theme.scale, height * Theme.scale, unit()) for p in (a, b)]
                     segment = clip_line(a, b, width * Theme.scale, height * Theme.scale)
@@ -398,16 +399,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     ref.current.SetSize((length, thickness))
                     ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
             return ranges
+        thickness = max(.3, Theme.scale * .65)
         edge_signature = (signature, selected)
         if edge_signature != outline.current:
             outline.current = edge_signature
-            # The blue border remains visible under the thinner color stroke
-            # when the hovered voxel is also the selected voxel.
-            draw_lines(edge_refs, box_lines(selected), max(.65, Theme.scale * 1.3))
+            draw_lines(edge_refs, box_lines(selected), thickness)
         cursor_signature = (signature, hovered)
         if cursor_signature != cursor_outline.current:
             cursor_outline.current = cursor_signature
-            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), max(.3, Theme.scale * .65), hovered[0] if hovered else None)
+            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), thickness, hovered)
             cursor_color.current = None
         grid_signature = (signature, session.grid, e.layer)
         if grid_signature != grid_outline.current:
@@ -416,13 +416,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         # Sliding twelve UV windows preserves a continuous gradient on each edge
         # and at every corner. No projection, layout, grid or mesh work here.
         if hovered is not None:
-            color_key = (int(now * 30) if Theme.motion and not preview_error else 0, bool(preview_error))
+            invalid = bool(preview_error) and not session.touch_mode and session.box_anchor is None
+            color_key = (int(now * 30) if Theme.motion and not invalid else 0, invalid)
             if color_key != cursor_color.current:
                 resized = cursor_color.current is None
                 cursor_color.current = color_key
                 for ref, hues in zip(cursor_refs, cursor_ranges.current):
                     if ref.current and hues is not None:
-                        uv, uv_size = cursor_uv(hues[0], hues[1], now, Theme.motion, bool(preview_error))
+                        uv, uv_size = cursor_uv(hues[0], hues[1], now, Theme.motion, invalid)
                         ref.current.asImage().SetSpriteUV(uv)
                         if resized:
                             ref.current.asImage().SetSpriteUVSize(uv_size)

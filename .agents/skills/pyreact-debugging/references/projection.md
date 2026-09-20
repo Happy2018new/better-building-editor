@@ -4,11 +4,12 @@
 
 - 自定义指针 Primitive 可通过 `_protocol.request('pointer', node_id=ID, value={'phase': 'down|move|up|cancel|enter|leave', 'x': X, 'y': Y})` 调试；坐标为相对该原生控件左上角的 UI 单位，调用正式 `onDown/onMove/onUp/onCancel/onEnter/onLeave` 回调。拖动使用 down → 若干 move → up；与 Win32 实际鼠标输入测试配合验证绑定。
 - 指针请求可加 `touch: true`，模拟触控操作方式（例如轻触直接放置、拖动只旋转）。它仍是回调模拟，不能替代手机硬件的触摸事件测试。
-- 原生输入模式用 `PlayerView.GetToggleOption(OptionId.INPUT_MODE)` 读取，并与 `InputMode.Touch` 比较；`IsTouchWithMouse()` 是另一项模拟开关，不能单独代替当前输入模式。`tools/verify_native_touch.py` 要求先进入原生触屏模式再打开工作台，使用真实输入事件检查轻触和拖动；脚本不会切换游戏设置或反复发送开发快捷键。
+- 开发客户端关闭 UI 后按 **F11** 切换原生触屏模拟，F12 无效。使用实例绑定的 MCDK `mc_input /key` 发送 scan code；本机 `keybd_event` 的虚拟功能键曾无效，不能只凭投递成功判断切换。`tools/native_input_mode.py` 读回 `IsTouchWithMouse()` 确认开关，在真正触点后再核对 `PlayerView.GetToggleOption(OptionId.INPUT_MODE) == InputMode.Touch`；首个触点前 INPUT_MODE 可能仍为 Mouse。业务在 Windows 同时识别模拟开关，手机依原生模式判定。`verify_native_touch.py` 必须在按住未松手时多次检查角度连续变化，只检查松手后有转动会漏报缺失 move 事件。
 - `native_control` 额外返回原生 `visible`；Label 返回实际绘制的 `text`，可与逻辑 content 对比，检查字形贴图与原生文字叠加等重影问题。
 - `native_control` 对本项目 Pointer 额外返回 `pointerPressed` 和 `pointerPolling`，可用真实鼠标检查快速点击、离开视口和页面切换后是否仍保留拖拽。`tools/verify_pointer_release.py` 覆盖这些路径；指针 debug 模拟回调不能替代原生鼠标绑定测试。
 - `tools/verify_native_buttons.py` 根据原生按钮的位置发送真实鼠标点击，覆盖六向移动、右栏页签、坐标设置、选区边界加减和全选，并核对禁用边界与模型输入隔离。游戏 Python 2 中另检验控件名称及路径均为 `str`，防止 Unicode key 的容器能显示却无法点击。语义 `click` 直接调用回调，不能发现这种原生命中问题。
-- Scene 线框通过 Image 的 key 区分：`edge0..11` 是单格/长方体共用的蓝色选区，`cursor0..11` 是 PC 的连续渐变悬停框，`grid*` 是工作网格。检查某个框时按 key 筛选，不能再取全部图片的最后 12 个。`verify_dual_outlines.py` 要求新实例且尚未点击过模型，覆盖初次悬停、选取后不离开模型、双框同时显示与实际渐变像素；触控项临时模拟 Touch 输入模式查询并发送触控回调，在 finally 恢复原查询，不改游戏设置。它不是手机硬件或原生触摸事件验证。
+- Scene 线框通过 Image 的 key 区分：`edge0..11` 是蓝框，`cursor0..11` 是渐变框，`grid*` 是工作网格；蓝/彩用相同线宽。PC 已选内容用蓝框，鼠标候选用彩框；第一点已确定时只显示渐变长方体。触屏单格和第一点用固定彩框，完成的区域用蓝框。检查时按 key 筛选，不能取全部图片的最后 12 个。`verify_dual_outlines.py` 要求新实例且尚未点击模型，覆盖初次悬停、双框、待定长方体与实际渐变像素；触控项经 F11 发送真实原生输入并读回模式，finally 切回鼠标，不再 mock 输入查询。仍不代表 Android/iOS 硬件验证。
+- 原生 `SetButtonTouchMoveCallback` 还要求 JSON 的 `is_handle_button_move_event: true`。现代化投影使用 `ModernProjection.pointer` 专用模板，由 `mp_pointer_tmpl` 注册，服务于三维视口和自定义滑条。普通按钮沿用原模板，避免无关 move 回调。未来同步模板时必须保留这个注册。
 - `native_control` 对 Input 也返回 `GetEditText()` 的实际 `text`，可核对中文输入和受控值同步；`screenMetrics.logical` / `physical` 分别来自 `GetScreenSize()` / `GetScreenViewInfo()`，用于核对整数 GUI 字形倍率。后者是按 GUI 步长补齐的画布，原始宽度比值不能直接当作连续字体倍率。
 - Input 的 `placeholderPresent` 核对继承结构中的 `place_holder_control`。即使占位文本为空，引擎仍引用该名称，覆盖原生子树时不能遗漏。原生 Assert 弹窗可能没有写入 Python 日志；`tools/check_native_dialogs.py` 单独枚举并读取断言窗口正文，`tools/verify_ui.py` 在调试请求前后执行此检查，不自动忽略弹窗。
 - `debug_component` 仅调用目标组件显式提供的 `onDebug(value)`，没有任意代码执行能力。现代化投影 Scene 的 Panel 提供有界的草稿测试样例和状态读取（`projection/diagnostics.py`）；样例替换当前未保存草稿，不写入世界或建筑库。`tools/verify_selection_scope.py` 和 `tools/verify_exact_large_render.py` 使用此接口核对真实文档坐标和大范围预览。普通组件没有该回调时命令拒绝执行。

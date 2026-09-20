@@ -54,8 +54,8 @@ class SelectionOutlineTests(unittest.TestCase):
     def test_next_box_replaces_region_and_follows_second_corner(self):
         s = self.session
         s.point_action((6, 6, 6))
-        self.assertEqual((((6, 6, 6), (6, 6, 6)), None), self.target())
-        self.assertEqual((((3, 2, 1), (6, 6, 6)), ((3, 2, 1), (3, 2, 1))), self.target((3, 2, 1)))
+        self.assertEqual((None, ((6, 6, 6), (6, 6, 6))), self.target())
+        self.assertEqual((None, ((3, 2, 1), (6, 6, 6))), self.target((3, 2, 1)))
         self.assertEqual(1, len(s.editor.selection))
         s.point_action((3, 2, 1))
         self.assertIsNone(s.box_anchor)
@@ -96,16 +96,38 @@ class SelectionOutlineTests(unittest.TestCase):
                 self.assertEqual((pos, pos), self.target(cursor)[0])
                 self.assertEqual(1, len(s.editor.selection))
 
-    def test_touch_has_one_blue_cell_or_region_and_never_a_hover_box(self):
+    def test_touch_has_one_colored_cell_or_blue_region_and_never_a_hover_box(self):
         s = self.session
         for mode in ('box', 'browse', 'select', 'place', 'paint', 'erase', 'pick'):
             s.choose_mode(mode)
             self.assertEqual((((2, 2, 2), (5, 5, 5)), None), self.target((3, 3, 3), True))
         s.choose_mode('select'); s.point_action((1, 1, 1))
-        self.assertEqual((((1, 1, 1), (1, 1, 1)), None), self.target((3, 3, 3), True))
+        self.assertEqual((None, ((1, 1, 1), (1, 1, 1))), self.target((3, 3, 3), True))
         s.choose_mode('box'); s.point_action((2, 2, 2))
-        self.assertEqual((((2, 2, 2), (4, 4, 4)), None), self.target((4, 4, 4), True))
+        self.assertEqual((None, ((2, 2, 2), (2, 2, 2))), self.target((4, 4, 4), True))
         self.assertEqual((None, None), outline_targets(None, 'select', None, (3, 3, 3), True))
+
+    def test_touch_first_corner_stays_fixed_until_second_tap(self):
+        s = self.session
+        s.point_action((1, 1, 1))
+        for cursor in (None, (4, 3, 2), (7, 7, 7)):
+            self.assertEqual((None, ((1, 1, 1), (1, 1, 1))), self.target(cursor, True))
+            self.assertEqual(1, len(s.editor.selection))
+        s.point_action((4, 3, 2))
+        self.assertEqual((((1, 1, 1), (4, 3, 2)), None), self.target((7, 7, 7), True))
+
+    def test_large_box_uses_one_continuous_spectrum_without_exceeding_palette(self):
+        lo, hi, size = (0, 0, 0), (64, 128, 64), (64, 128, 64)
+        samples = {}
+        for a, b in cuboid(lo, hi):
+            start, end = cursor_hue(a, lo, size), cursor_hue(b, lo, size)
+            uv, uv_size = cursor_uv(start, end, 5.9999)
+            self.assertLess(uv[0] + uv_size[0], 1025)
+            self.assertGreater(uv_size[0], 0)
+            samples.setdefault(a, []).append(uv[0])
+            samples.setdefault(b, []).append(uv[0] + uv_size[0])
+        for colors in samples.values():
+            self.assertAlmostEqual(min(colors), max(colors))
 
     def test_spectrum_joins_all_three_edges_at_each_of_the_eight_corners(self):
         lo, hi = (3, 5, 8), (4, 6, 9)

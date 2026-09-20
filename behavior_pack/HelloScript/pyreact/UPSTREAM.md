@@ -20,6 +20,7 @@
 | `debug.py` | 本项目原生控件、指针、输入字体及有界草稿诊断；MCDK 与剪贴板共用诊断处理。剪贴板回复重试不重复编辑，不重复解析未改变的大回复；组件的调试 ID 支持反向查询。 |
 
 配套 `resource_pack/ui/PyreactBase.json` 保留现代化投影的模板注册。
+其中 `mp_pointer_tmpl` 引用 `ModernProjection.pointer`，以 `is_handle_button_move_event: true` 开启三维视口和滑条的原生触控移动事件；注册回调本身不会启用这些事件。
 本次上游没有更改该 JSON；自定义输入模板继续保留原字体、整数 GUI 字号、原生占位子树与聚焦时深灰底色。
 
 仓库内的 `docs/PYREACT_UPSTREAM.md` 记录调试工具迁移、验证结果与下一次更新方式。

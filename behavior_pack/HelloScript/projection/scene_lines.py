@@ -6,16 +6,21 @@ CURSOR_WEIGHTS = (.1875, .3125, .125)
 
 
 def outline_targets(selected, mode, anchor, cursor, touch=False):
-    """One blue selection (cell OR region), plus a transient desktop cursor."""
+    """Resolve blue and spectrum bounds without changing the formal selection."""
     if mode == 'box' and anchor is not None:
-        selected = bounds((anchor, cursor if cursor is not None else anchor))
+        # A desktop gesture previews the whole pending box. On touch, retain
+        # only the first corner until the second tap commits the region.
+        return None, ((anchor, anchor) if touch else
+                      bounds((anchor, cursor if cursor is not None else anchor)))
+    if touch:
+        return (None, selected) if selected and selected[0] == selected[1] else (selected, None)
     hovered = (cursor, cursor) if cursor is not None and not touch else None
     return selected, hovered
 
 
-def cursor_hue(point, origin):
+def cursor_hue(point, origin, size=(1., 1., 1.)):
     """Shared vertex field: all three edges meeting at a corner agree."""
-    return sum((point[i] - origin[i]) * CURSOR_WEIGHTS[i] for i in range(3))
+    return sum((point[i] - origin[i]) / float(size[i]) * CURSOR_WEIGHTS[i] for i in range(3))
 
 
 def cursor_uv(start, end, seconds, motion=True, invalid=False):
