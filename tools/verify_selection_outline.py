@@ -104,7 +104,8 @@ def main():
     x, y = screen_point((2.5, 2.5, 8)); node = pointer()['id']
     ui.call('pointer', node, {'phase': 'down', 'x': x, 'y': y, 'touch': True})
     time.sleep(.1)
-    ui.check('touch down does not replace a completed region', same_outline(next_region, outline()))
+    ui.check('touch down retains region bounds in the spectrum overlay',
+             same_outline(next_region, outline('cursor')) and not any(e['visible'] for e in outline()))
     ui.call('pointer', node, {'phase': 'cancel', 'touch': True})
     touch((4.5, 4.5, 8))
     ui.check('touch release still selects a single voxel', diagnostic()['selection'] == 1 and diagnostic()['focused'] == [4, 4, 7])

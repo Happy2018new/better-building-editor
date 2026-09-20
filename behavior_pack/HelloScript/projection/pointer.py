@@ -102,8 +102,13 @@ class PointerTracker(object):
         self.send('onEnter', args)
 
     def move_out(self, args):
-        # ModSDK also emits this on a normal touch-screen release. Only PC
-        # needs cancellation here; touch retains its up/cancel callbacks.
+        # TouchEvent 6 is the SDK's touch release notification, also delivered
+        # when native UI refresh lost the ordinary up/cancel route. If up has
+        # already run this is a no-op; otherwise cancel without inventing a tap.
+        if self.touch and args.get('TouchEvent') == 6:
+            if self.pressed and args.get('TouchId') in (None, self.args.get('TouchId')):
+                self.cancel(args)
+            return
         if not self.touch and self.origin is not None and not self.props.get('retainCapture'):
             self.cancel(args)
 

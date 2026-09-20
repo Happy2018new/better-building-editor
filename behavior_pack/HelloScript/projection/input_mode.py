@@ -9,11 +9,11 @@ def current_mode():
 
 
 def is_touch():
+    # On Windows F11 changes the simulation flag immediately, while INPUT_MODE
+    # retains the previous contact's type in both directions until another input.
+    if clientApi.GetPlatform() == 0:
+        return clientApi.IsTouchWithMouse()
     mode = current_mode()
-    # F11 enables native mouse-as-touch before INPUT_MODE changes on the first
-    # contact. Hide desktop hover and use touch gestures from UI entry onward.
-    if clientApi.GetPlatform() == 0 and clientApi.IsTouchWithMouse():
-        return True
     if mode != clientApi.GetMinecraftEnum().InputMode.Undefined:
         return mode == clientApi.GetMinecraftEnum().InputMode.Touch
     return clientApi.GetPlatform() in (1, 2)

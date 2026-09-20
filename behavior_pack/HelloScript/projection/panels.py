@@ -141,12 +141,12 @@ def Parameters(session=None, revision=0):
             Segments(items=[('single', '单格'), ('selection', '选区')], value=session.erase_scope,
                      onChange=partial(session.set, 'erase_scope'), width=216),
             text('点击方块擦除一格' if session.erase_scope == 'single' else
-                 '保留蓝框范围 · 点击下方擦除选区', 10, Theme.muted)]),
+                 '保留选区范围 · 点击下方擦除选区', 10, Theme.muted)]),
         line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
         text('放置前预览新格 · 放下后选中新格' if session.direct_mode == 'place' else
              '选区擦除保留范围 · 可一次撤销' if session.direct_mode == 'erase' and session.erase_scope == 'selection' else
-             '点击编辑更新为单格 · 批量工具使用蓝框', 10, Theme.muted),
+             '点击编辑更新为单格 · 批量工具使用选区', 10, Theme.muted),
         text('两点选区：视图下方的框选', 10, Theme.muted),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),

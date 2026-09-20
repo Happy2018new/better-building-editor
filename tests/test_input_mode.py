@@ -29,7 +29,9 @@ class InputModeTests(TestCase):
         self.assertTrue(self.module.is_touch())
         self.mode = 1
         self.assertTrue(self.module.is_touch())
-        self.simulated, self.mode = False, 0
+        self.simulated = False  # INPUT_MODE still reflects the last touch.
+        self.assertFalse(self.module.is_touch())
+        self.mode = 0
         self.assertFalse(self.module.is_touch())
 
     def test_phone_uses_native_mode_and_undefined_platform_fallback(self):

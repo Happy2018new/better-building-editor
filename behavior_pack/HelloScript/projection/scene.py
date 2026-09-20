@@ -193,6 +193,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.cursor_cell = None
             drag.current = None
             camera.dragging = False
+            session.camera_dragging = False
             camera.velocity = (0., 0.)
             return
         if now >= input_check.current and drag.current is None:
@@ -213,6 +214,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 camera.reset()
             camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
             drag.current = None
+            session.camera_dragging = False
             wheel_time.current = None
             placed_pointer.current = None
             hover_preview.current = None
@@ -252,7 +254,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         order = order_cache.current[1]
         plane = camera.depth_plane(session.scene_size)
         layer_updates = []
-        model_key = (signature, session.tiles.publication, len(registry))
+        held_touch = camera.dragging and session.touch_mode
+        model_key = (signature, session.tiles.publication, len(registry), held_touch)
         update_models = model_key != models_signature.current or models_pending.current
         models_signature.current = model_key
         for index, controls in list(registry.items()) if update_models else ():
@@ -287,7 +290,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     surface.current.SetVisible(shown, False)
                     preview.visible[slot] = shown
             if (getattr(preview, 'scene_signature', None) == signature and not preview.restore and
-                    preview.ready(part['name']) and preview.poses[preview.front] == pose):
+                    preview.ready(part['name']) and preview.poses[preview.front] == pose and
+                    getattr(preview, 'layer', None) == tile_layer):
                 part['pending'] = False
                 continue
             preview.scene_signature = signature
@@ -301,7 +305,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 for ref in dolls:
                     ref.current.SetPosition(native_position)
                     ref.current.SetSize(native_size)
-            if getattr(preview, 'layer', None) != tile_layer:
+            if not held_touch and getattr(preview, 'layer', None) != tile_layer:
                 preview.layer = tile_layer
                 for slot, ref in enumerate(dolls):
                     if not preview.visible[slot]:
@@ -324,7 +328,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 if preview.visible[slot] != visible:
                     surfaces[slot].current.SetVisible(visible, False)
                     preview.visible[slot] = visible
-                    if visible:
+                    if visible and not held_touch:
                         dolls[slot].current.SetLayer(tile_layer, False, False)
                         layer_updates.append((dolls[slot].current, tile_layer))
             preview.update(part['name'], pose, now, draw, show)
@@ -334,6 +338,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
         if layer_updates:
             control, layer = layer_updates[-1]
+            # Even changing native layers without a forced refresh may disturb
+            # touch routing. Defer both assignment and refresh until release.
             control.SetLayer(layer, False, True)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
@@ -448,6 +454,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             px, py = pointer.current.GetGlobalPosition()
             orbit_anchor(args['TouchPosX']-px, args['TouchPosY']-py)
         camera.dragging = True
+        session.camera_dragging = True
         drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False]
 
     def contains(control, point):
@@ -475,6 +482,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def cancel(unused):
         drag.current = None
         camera.dragging = False
+        session.camera_dragging = False
         camera.velocity = (0., 0.)
 
     def up(args):
@@ -488,6 +496,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         x, y, unused_x, unused_y, then, moved = drag.current
         drag.current = None
         camera.dragging = False
+        session.camera_dragging = False
         if moved:
             session.pointer_stats[2] += 1
             if time.time() - then > .08 or not Theme.motion:

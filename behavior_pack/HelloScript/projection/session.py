@@ -43,6 +43,7 @@ class Session(object):
         self.focused = None
         self.box_anchor = None
         self.camera_pose = (35., 25., 1.)
+        self.camera_dragging = False
         self.camera_revision = 0
         self.camera_reset_revision = 0
         self.camera_reset_animated = False

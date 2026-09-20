@@ -13,7 +13,7 @@ def outline_targets(selected, mode, anchor, cursor, touch=False):
         return None, ((anchor, anchor) if touch else
                       bounds((anchor, cursor if cursor is not None else anchor)))
     if touch:
-        return (None, selected) if selected and selected[0] == selected[1] else (selected, None)
+        return None, selected
     hovered = (cursor, cursor) if cursor is not None and not touch else None
     return selected, hovered
 

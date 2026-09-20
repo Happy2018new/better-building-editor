@@ -43,6 +43,8 @@ def main():
         diagnostic.identity = None  # Closing the UI destroys the old Scene.
 
     if '--finish' in sys.argv:
+        diagnostic({'fixture': 'interior', 'size': [8, 8, 8], 'camera': [0, 0, 1]})
+        wait_preview()
         finish(window, close_open, leave)
         return
     leave()
@@ -140,7 +142,10 @@ def finish(window, close_open, leave):
         ui.check('F11 selects the automatic touch branch before the first contact', input_state()['simulated'] and diagnostic()['touch'])
         diagnostic({'fixture': 'interior', 'size': [8, 8, 8], 'camera': [0, 0, 1]}); wait_preview()
         hover((3.5, 3.5, 8))
-        ui.check('native touch has no independent mouse hover', not visible(outline('cursor')) and visible(outline()))
+        region = outline('cursor')
+        hover((5.5, 5.5, 8))
+        ui.check('native touch has one spectrum region and no independent mouse hover',
+                 visible(region) and same_outline(region, outline('cursor')) and not visible(outline()))
         touch((2.5, 2.5, 8)); single = outline('cursor')
         ui.check('native tap selects one colorful cell immediately', input_state()['mode']==1 and
                  diagnostic()['selection']==1 and visible(single) and not visible(outline()))
@@ -152,11 +157,11 @@ def finish(window, close_open, leave):
                  same_outline(anchor, outline('cursor')) and not visible(outline()))
         snapshot('spectrum_touch_anchor')
         touch((4.5, 4.5, 8))
-        ui.check('native touch second corner replaces the spectrum with one blue region', diagnostic()['selection']==16 and
-                 diagnostic()['anchor'] is None and visible(outline()) and not visible(outline('cursor')))
+        ui.check('native touch second corner expands the spectrum into one region', diagnostic()['selection']==16 and
+                 diagnostic()['anchor'] is None and visible(outline('cursor')) and not visible(outline()))
         snapshot('dual_outlines_touch')
         ui.click('选取'); touch((6.5, 6.5, 8))
-        ui.check('native touch single selection replaces the blue region with spectrum', diagnostic()['selection']==1 and
+        ui.check('native touch single selection replaces the spectrum region', diagnostic()['selection']==1 and
                  diagnostic()['focused']==[6,6,7] and visible(outline('cursor')) and not visible(outline()))
     finally:
         set_touch(False)

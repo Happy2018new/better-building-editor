@@ -56,6 +56,26 @@ class PointerTests(unittest.TestCase):
             self.tracker.move({'TouchPosX': 90, 'TouchPosY': 90})
             self.assertEqual(count, len(self.events))
 
+    def test_touch_move_out_release_cancels_missing_up_without_edit(self):
+        self.tracker.touch_mode = lambda: True
+        self.down()
+        self.tracker.move({'TouchPosX': 140, 'TouchPosY': 240, 'TouchId': 0})
+        self.tracker.move_out({'TouchEvent': 6, 'TouchId': 1})
+        self.assertTrue(self.tracker.pressed)
+        self.tracker.move_out({'TouchEvent': 6, 'TouchId': 0})
+        self.tracker.up({'TouchId': 0})
+        self.tracker.move({'TouchPosX': 150, 'TouchPosY': 250, 'TouchId': 0})
+        self.assertEqual(['onDown', 'onMove', 'onCancel'], [name for name, args in self.events])
+        self.assertFalse(self.tracker.pressed)
+        self.assertFalse(self.host._projection_pointers)
+
+    def test_touch_up_then_move_out_keeps_exactly_one_tap(self):
+        self.tracker.touch_mode = lambda: True
+        self.down()
+        self.tracker.up({'TouchPosX': 100, 'TouchPosY': 200, 'TouchId': 0})
+        self.tracker.move_out({'TouchEvent': 6, 'TouchId': 0})
+        self.assertEqual(['onDown', 'onUp'], [name for name, args in self.events])
+
     def test_mouse_leave_cancels_instead_of_clicking_and_reentry_is_idle(self):
         self.down()
         self.tracker.leave({})

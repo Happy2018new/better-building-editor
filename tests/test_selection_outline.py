@@ -96,11 +96,11 @@ class SelectionOutlineTests(unittest.TestCase):
                 self.assertEqual((pos, pos), self.target(cursor)[0])
                 self.assertEqual(1, len(s.editor.selection))
 
-    def test_touch_has_one_colored_cell_or_blue_region_and_never_a_hover_box(self):
+    def test_touch_has_one_colored_selection_and_never_a_hover_box(self):
         s = self.session
         for mode in ('box', 'browse', 'select', 'place', 'paint', 'erase', 'pick'):
             s.choose_mode(mode)
-            self.assertEqual((((2, 2, 2), (5, 5, 5)), None), self.target((3, 3, 3), True))
+            self.assertEqual((None, ((2, 2, 2), (5, 5, 5))), self.target((3, 3, 3), True))
         s.choose_mode('select'); s.point_action((1, 1, 1))
         self.assertEqual((None, ((1, 1, 1), (1, 1, 1))), self.target((3, 3, 3), True))
         s.choose_mode('box'); s.point_action((2, 2, 2))
@@ -114,7 +114,7 @@ class SelectionOutlineTests(unittest.TestCase):
             self.assertEqual((None, ((1, 1, 1), (1, 1, 1))), self.target(cursor, True))
             self.assertEqual(1, len(s.editor.selection))
         s.point_action((4, 3, 2))
-        self.assertEqual((((1, 1, 1), (4, 3, 2)), None), self.target((7, 7, 7), True))
+        self.assertEqual((None, ((1, 1, 1), (4, 3, 2))), self.target((7, 7, 7), True))
 
     def test_large_box_uses_one_continuous_spectrum_without_exceeding_palette(self):
         lo, hi, size = (0, 0, 0), (64, 128, 64), (64, 128, 64)
