@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Modern Projection local changes; see UPSTREAM.md (upstream 9580d01).
 """调试支持：剪贴板 IPC，UI 树 dump、交互模拟和原生控件状态修改。
 
 通过剪贴板与外部脚本通信（轮询模式，挂在 PyreactScreenNode.Update 每帧）。
@@ -55,7 +56,7 @@ def _sanitize(value):
     函数 -> '<function>'，Color 对象 -> {r,g,b,a}，dict/list 递归，
     其余 repr 截断兜底（避免函数/对象 props 破坏 JSON 序列化）。
     """
-    if value is None or isinstance(value, (bool, int, float, basestring)):
+    if value is None or isinstance(value, (bool, int, long, float, basestring)):
         return value
     if callable(value):
         return "<function>"
@@ -112,10 +113,11 @@ def serialize_fiber(fiber, layout_map):
         return None
     nid = fiber.native_name or fiber.native_path
     if not nid:
-        nid = "<%s>" % _type_name(fiber)
+        nid = "<%s:%s>" % (_type_name(fiber), id(fiber))
     out = {
         "id": nid,
         "type": _type_name(fiber),
+        "key": _sanitize(fiber.key),
         "props": _sanitize_dict(fiber.props),
         "style": _style_to_dict(fiber.style),
         "children": [],
@@ -135,10 +137,13 @@ def serialize_fiber(fiber, layout_map):
 
 
 def find_fiber_by_id(root_fiber, node_id):
-    """递归找 native_name == node_id 的 fiber。"""
+    """Find the same native or component id emitted by serialize_fiber."""
     if root_fiber is None:
         return None
-    if root_fiber.native_name is not None and root_fiber.native_name == node_id:
+    current = root_fiber.native_name or root_fiber.native_path
+    if not current:
+        current = "<%s:%s>" % (_type_name(root_fiber), id(root_fiber))
+    if current == node_id:
         return root_fiber
     for cf in root_fiber.child_fibers:
         found = find_fiber_by_id(cf, node_id)
@@ -412,6 +417,79 @@ def dispatch_navigator(value):
     }
 
 
+EDITOR_COMMANDS = ('debug_component', 'font_batch', 'input_font_scale', 'native_control', 'pointer')
+
+
+def dispatch_editor_command(host, cmd, node_id=None, value=None):
+    """Project diagnostics, shared by the MCDK bridge and clipboard fallback."""
+    req = {'value': value}
+    if cmd == "debug_component":
+        fiber = find_fiber_by_id(host._root_fiber, node_id)
+        callback = (fiber.props or {}).get('onDebug') if fiber else None
+        if not callable(callback):
+            raise ValueError('component has no diagnostic callback')
+        return callback(req.get('value'))
+    elif cmd == "font_batch":
+        # Diagnostic only: this is a client-wide SDK switch, not an input
+        # font or antialiasing setting. The SDK has no return value/getter.
+        value = req.get('value')
+        if type(value) is not bool:
+            raise ValueError('font_batch requires a boolean')
+        _get_game(host).EnableFontBatchRender(value)
+        return {'requested': value}
+    elif cmd == "input_font_scale":
+        # Bounded, debug-only same-control glyph comparison. Reopening the
+        # screen restores the template's scale; never changes the font face.
+        fiber = find_fiber_by_id(host._root_fiber, node_id)
+        from .primitives import InputPrimitive
+        if fiber is None or not isinstance(fiber.comp_type, InputPrimitive):
+            raise ValueError('input_font_scale requires an Input id')
+        scale = float(req.get('value'))
+        if not .5 <= scale <= 2.:
+            raise ValueError('input_font_scale must be between 0.5 and 2')
+        label = host.GetBaseUIControl(fiber.native_path +
+            '/centering_panel/clipper_panel/display_text').asLabel()
+        label.SetTextFontSize(scale)
+        return {'requested': scale}
+    elif cmd == "native_control":
+        fiber = find_fiber_by_id(host._root_fiber, node_id)
+        if fiber is None or not fiber.native_path:
+            raise ValueError('native_control requires a primitive id')
+        control = host.GetBaseUIControl(fiber.native_path)
+        result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
+        result['visible'] = control.GetVisible()
+        tracker = fiber.primitive_state.get('pointer_tracker')
+        result['globalClickCounts'] = getattr(host, '_projection_click_counts', None)
+        if tracker is not None:
+            result['pointerPressed'] = tracker.pressed
+            result['pointerPolling'] = tracker.slot['active']
+        if _type_name(fiber) == 'Label':
+            result['text'] = control.asLabel().GetText()
+        elif _type_name(fiber) == 'Input':
+            import mod.client.extraClientApi as clientApi
+            result['text'] = control.asTextEditBox().GetEditText()
+            game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
+            result['screenMetrics'] = {'logical': game.GetScreenSize(), 'physical': game.GetScreenViewInfo()}
+            for name, suffix in [('clipper', '/centering_panel/clipper_panel'),
+                                 ('displayText', '/centering_panel/clipper_panel/display_text')]:
+                child = host.GetBaseUIControl(fiber.native_path + suffix)
+                if child is not None:
+                    result[name] = {'global': child.GetGlobalPosition(), 'size': child.GetSize()}
+                    if name == 'displayText':
+                        result[name]['properties'] = child.GetPropertyBag()
+            placeholder = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/visibility_panel/place_holder_control')
+            result['placeholderPresent'] = placeholder is not None
+        if _type_name(fiber) == 'Image':
+            image = control.asImage()
+            result['angle'] = image.GetRotateAngle()
+            result['pivot'] = image.GetRotatePivot()
+            result['rect'] = image.GetRotateRect()
+        return result
+    elif cmd == "pointer":
+        return dispatch_pointer(host, host._root_fiber, node_id, req.get("value"))
+    raise ValueError('Unknown editor diagnostic: %s' % cmd)
+
+
 def poll_clipboard(host):
     """轮询剪贴板，执行 debug 请求，写回响应。全程不抛异常。"""
     if host._root_fiber is None:
@@ -484,70 +562,8 @@ def poll_clipboard(host):
                 if not result.get("ok"):
                     resp["pyreact_ack"] = False
                     resp["error"] = result.get("error")
-        elif cmd == "debug_component":
-            fiber = find_fiber_by_id(host._root_fiber, node_id)
-            callback = (fiber.props or {}).get('onDebug') if fiber else None
-            if not callable(callback):
-                raise ValueError('component has no diagnostic callback')
-            resp['result'] = callback(req.get('value'))
-        elif cmd == "font_batch":
-            # Diagnostic only: this is a client-wide SDK switch, not an input
-            # font or antialiasing setting. The SDK has no return value/getter.
-            value = req.get('value')
-            if type(value) is not bool:
-                raise ValueError('font_batch requires a boolean')
-            _get_game(host).EnableFontBatchRender(value)
-            resp['result'] = {'requested': value}
-        elif cmd == "input_font_scale":
-            # Bounded, debug-only same-control glyph comparison. Reopening the
-            # screen restores the template's scale; never changes the font face.
-            fiber = find_fiber_by_id(host._root_fiber, node_id)
-            from .primitives import InputPrimitive
-            if fiber is None or not isinstance(fiber.comp_type, InputPrimitive):
-                raise ValueError('input_font_scale requires an Input id')
-            scale = float(req.get('value'))
-            if not .5 <= scale <= 2.:
-                raise ValueError('input_font_scale must be between 0.5 and 2')
-            label = host.GetBaseUIControl(fiber.native_path +
-                '/centering_panel/clipper_panel/display_text').asLabel()
-            label.SetTextFontSize(scale)
-            resp['result'] = {'requested': scale}
-        elif cmd == "native_control":
-            fiber = find_fiber_by_id(host._root_fiber, node_id)
-            if fiber is None or not fiber.native_path:
-                raise ValueError('native_control requires a primitive id')
-            control = host.GetBaseUIControl(fiber.native_path)
-            result = {'position': control.GetPosition(), 'global': control.GetGlobalPosition(), 'size': control.GetSize()}
-            result['visible'] = control.GetVisible()
-            tracker = fiber.primitive_state.get('pointer_tracker')
-            result['globalClickCounts'] = getattr(host, '_projection_click_counts', None)
-            if tracker is not None:
-                result['pointerPressed'] = tracker.pressed
-                result['pointerPolling'] = tracker.slot['active']
-            if _type_name(fiber) == 'Label':
-                result['text'] = control.asLabel().GetText()
-            elif _type_name(fiber) == 'Input':
-                import mod.client.extraClientApi as clientApi
-                result['text'] = control.asTextEditBox().GetEditText()
-                game = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId())
-                result['screenMetrics'] = {'logical': game.GetScreenSize(), 'physical': game.GetScreenViewInfo()}
-                for name, suffix in [('clipper', '/centering_panel/clipper_panel'),
-                                     ('displayText', '/centering_panel/clipper_panel/display_text')]:
-                    child = host.GetBaseUIControl(fiber.native_path + suffix)
-                    if child is not None:
-                        result[name] = {'global': child.GetGlobalPosition(), 'size': child.GetSize()}
-                        if name == 'displayText':
-                            result[name]['properties'] = child.GetPropertyBag()
-                placeholder = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/visibility_panel/place_holder_control')
-                result['placeholderPresent'] = placeholder is not None
-            if _type_name(fiber) == 'Image':
-                image = control.asImage()
-                result['angle'] = image.GetRotateAngle()
-                result['pivot'] = image.GetRotatePivot()
-                result['rect'] = image.GetRotateRect()
-            resp['result'] = result
-        elif cmd == "pointer":
-            resp["result"] = dispatch_pointer(host, host._root_fiber, node_id, req.get("value"))
+        elif cmd in EDITOR_COMMANDS:
+            resp['result'] = dispatch_editor_command(host, cmd, node_id, req.get('value'))
         elif cmd == "set_input":
             if not node_id:
                 resp["pyreact_ack"] = False

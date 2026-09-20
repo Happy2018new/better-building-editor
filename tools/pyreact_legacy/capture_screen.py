@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Modern Projection compatibility copy; PID binding changes are described in README.md.
 """Capture Minecraft without changing focus or relying on third-party packages.
 
 Windows uses ``PrintWindow`` and Linux uses an X11 Composite named pixmap.  Both
@@ -220,6 +221,14 @@ def _list_windows_windows():
 
 
 def _find_game_window(windows, pid=None, title=None, process_name=None):
+    # Local regression compatibility: stay on the validated MCDK instance,
+    # even if another Minecraft window is larger or has the same title.
+    bound_pid = os.environ.get('MCDEV_GAME_PID')
+    if bound_pid:
+        if pid is not None and int(pid) != int(bound_pid):
+            raise ValueError('Window PID differs from the bound instance')
+        pid = int(bound_pid)
+        windows = [item for item in windows if item['process'].lower() == 'minecraft.windows.exe']
     candidates = windows
     if pid is not None:
         candidates = [item for item in candidates if item["pid"] == pid]

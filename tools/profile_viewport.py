@@ -28,7 +28,7 @@ def main():
     capture.user32.SetCursorPos(int(x), int(y)); time.sleep(.2)
     output = ui.OUT / ('profile_' + label + '.json')
     with output.open('w', encoding='utf8') as stream:
-        process = subprocess.Popen([sys.executable, '-X', 'utf8', str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/tracy.py'),
+        process = subprocess.Popen([sys.executable, '-X', 'utf8', str(ui.ROOT / 'tools/pyreact_legacy/tracy.py'),
                                     'capture', '--seconds', '10', '--label', label, '--top', '10'], stdout=stream,
                                    creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0)
         time.sleep(1.)

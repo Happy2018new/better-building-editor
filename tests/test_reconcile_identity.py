@@ -24,15 +24,15 @@ class IdentityTests(unittest.TestCase):
             spec.loader.exec_module(module)
             commits = []
             module._update_component = lambda fiber, host: commits.append(fiber)
-            element = types.SimpleNamespace(props={}, style=None, children=[], key=None)
-            fiber = types.SimpleNamespace(element=element, dirty=False, is_component=True)
+            element = types.SimpleNamespace(props={}, style=None, children=[], key=None, ref=None)
+            fiber = types.SimpleNamespace(element=element, dirty=False, is_component=True, is_primitive=False, ref=None)
             module.update_fiber(fiber, element, None)
             self.assertEqual(commits, [])
             fiber.dirty = True
             module.update_fiber(fiber, element, None)
             self.assertEqual(commits, [fiber])
             fiber.dirty = False
-            next_element = types.SimpleNamespace(props={'value': 3}, style=None, children=[], key=None)
+            next_element = types.SimpleNamespace(props={'value': 3}, style=None, children=[], key=None, ref=None)
             module.update_fiber(fiber, next_element, None)
             self.assertEqual(len(commits), 2)
         finally:

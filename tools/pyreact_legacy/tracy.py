@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Modern Projection compatibility copy; pinned tool path changes are described in README.md.
 """Function-level profiling through Minecraft's embedded Tracy server.
 
 Reference implementation:
@@ -40,7 +41,9 @@ TOOLS = {
 
 
 def _default_bin_dir():
-    return os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "bin"))
+    # Local compatibility: reuse the original pinned tools already installed.
+    return os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..",
+        ".agents", "skills", "pyreact-debugging", "bin"))
 
 
 def _default_store_dir():

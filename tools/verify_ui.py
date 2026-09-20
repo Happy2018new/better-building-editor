@@ -1,4 +1,4 @@
-"""Live regression through the supported Pyreact clipboard protocol; requires an open workspace."""
+"""Live regression through the instance-bound MCDK protocol; requires an open workspace."""
 import json
 import sys
 import time
@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
+sys.path.insert(1, str(Path(__file__).resolve().parent / 'pyreact_legacy'))
 from _protocol import request
 from simulate import _walk, _resolve_label
 from check_native_dialogs import assert_clear
@@ -26,18 +27,8 @@ def call(command, node=None, value=None):
     assert_clear()
     if result is None and command in ('dump_tree', 'ping'):
         result = request(command, node_id=node, value=value, timeout=15)
-    elif result is None and command == 'click':
-        # A UI tree replacement may consume the clipboard acknowledgement.
-        # Never repeat a write: the next assertion verifies the resulting state.
-        result = request('ping', timeout=5)
     if not result or result.get('error'):
         raise AssertionError(result or 'IPC timed out')
-    if command in ('dump_tree', 'dump_subtree'):
-        # The in-game debugger polls the clipboard. Leaving a multi-megabyte
-        # tree reply there would make every idle frame copy that entire reply
-        # and distort native performance tests. Keep the parsed reply locally.
-        acknowledgement = request('ping', timeout=5)
-        assert acknowledgement and not acknowledgement.get('error'), acknowledgement
     return result
 
 

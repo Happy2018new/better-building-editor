@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Modern Projection local changes; see UPSTREAM.md (upstream 9580d01).
 """Renderer：把 Style 的视觉部分应用到原生控件。
 
 尺寸/位置由 layout 引擎负责；透明度需沿 fiber 树继承，通常在 layout.apply
@@ -330,10 +331,8 @@ def _style_opacity_value(style):
 
 
 def _color_alpha(fiber):
-    color = fiber.props.get("color") if fiber.props else None
-    if color is None:
-        color = fiber.last_props.get("color") if fiber.last_props else None
-    if isinstance(color, Color):
+    color = to_color(fiber.props.get("color") if fiber.props else None)
+    if color is not None:
         return color.a
     return 1.0
 

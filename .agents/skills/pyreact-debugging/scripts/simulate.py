@@ -54,7 +54,20 @@ def _is_component_boundary(node):
 
 
 def _resolve_key(tree, prefix):
-    matches = [n for n, _ in _walk(tree) if str((n.get("props", {}) or {}).get("key", "")).startswith(prefix)]
+    matches = []
+    seen = set()
+    for node, _ in _walk(tree):
+        key = node.get("key", (node.get("props", {}) or {}).get("key"))
+        if key is None or not str(key).startswith(prefix):
+            continue
+        # A Composite owns the key, while its primitive Button owns the
+        # actual native event. Only resolve an unambiguous descendant.
+        candidates = [node] if node.get("type") == "Button" else [
+            child for child, _ in _walk(node) if child.get("type") == "Button"]
+        for candidate in candidates:
+            if candidate.get("id") not in seen:
+                seen.add(candidate.get("id"))
+                matches.append(candidate)
     return matches
 
 
@@ -196,7 +209,7 @@ def _scroll(node_id, position, timeout):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Simulate Pyreact UI interaction via clipboard")
+    parser = argparse.ArgumentParser(description="Simulate Pyreact UI interaction via MCDevTool")
     parser.add_argument("action", choices=["click", "input", "slider", "scroll"],
                         help="interaction type")
     target = parser.add_mutually_exclusive_group(required=True)
