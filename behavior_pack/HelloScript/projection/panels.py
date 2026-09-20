@@ -12,7 +12,8 @@ from .coordinates import parse_coordinates
 
 
 def material_name(value):
-    return next((m[2] for m in MATERIALS if tuple(m[:2]) == value), value[0].split(':')[-1])
+    from .materials import DISPLAY_NAMES
+    return DISPLAY_NAMES.get(value, value[0].split(':')[-1])
 
 
 def material_color(value):
@@ -58,32 +59,47 @@ def Coordinates(label='', value=(0, 0, 0), onChange=None, onValidityChange=None)
 def MaterialPicker(session=None, revision=0, channels=None):
     use_theme()
     channel, set_channel = use_state('material')
-    custom, set_custom = use_state('minecraft:stone')
-    custom_aux, set_custom_aux = use_state('0')
+    managing, set_managing = use_state(False)
+    picked, set_picked = use_state(None)
     e = session.editor
     channels = channels or [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')]
     active = channel if channel in [pair[0] for pair in channels] else channels[0][0]
 
     def choose(value):
-        session.set_editor(active, value)
-
-    def custom_apply():
-        from .model import block
-        choose(block((custom.strip(), int(custom_aux))))
+        if managing:
+            set_picked(value)
+        else:
+            session.set_editor(active, value)
     current = getattr(e, active)
+    current_name = next((item['name'] for item in session.block_catalogue if item['value'] == current), material_name(current))
+    index = session.palette.index(picked) if picked in session.palette else -1
+    cells = [Button(key='mat%d' % i, onClick=partial(choose, value),
+                    buttonBuilder=partial(material_background, value == (picked if managing else current)),
+                    style=S(width=49, height=36), children=icon('box_outline', Theme.muted, 25) if value==AIR else
+                    Item(identifier=value[0], aux=value[1], style=S(width=25, height=25)))
+             for i, value in enumerate(session.palette)]
+    cells.append(Button(key='add_material', onClick=partial(session.open_materials, active),
+                        buttonBuilder=partial(material_background, False), style=S(width=49, height=36),
+                        children=icon('plus', Theme.blue, 22)))
     return Panel(style=S(gap=7), children=[
         Segments(items=channels, value=active, onChange=set_channel, width=216),
         row([Item(identifier=current[0], aux=current[1], style=S(width=30, height=30)),
-             Panel(style=S(flex=1), children=[text(material_name(current), 12), text('方块附加值  %d' % current[1], 10, Theme.muted)])]),
-        Panel(style=S(flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5, height=159, flexShrink=0), children=[
-            Button(key='mat%d' % i, onClick=partial(choose, tuple(m[:2])),
-                   buttonBuilder=partial(material_background, tuple(m[:2]) == current),
-                   style=S(width=49, height=36), children=Item(identifier=m[0], aux=m[1], style=S(width=25, height=25)))
-            for i, m in enumerate(MATERIALS)]),
-        text('自定义方块标识符 / 附加值', 10, Theme.muted),
-        row([Input(value=custom, onChange=set_custom, style=S(flex=1, height=27)),
-             Input(value=custom_aux, onChange=set_custom_aux, style=S(width=44, height=27))]),
-        Action(label='使用自定义材质', onClick=partial(session.action, custom_apply), height=26, compact=True),
+             Panel(style=S(flex=1), children=[text(current_name, 12, width=175), text('方块附加值  %d' % current[1], 10, Theme.muted)])]),
+        row([text('常用方块', 11, Theme.muted, flex=1),
+             Action(label='完成' if managing else '整理', glyph='check' if managing else 'sliders', compact=True,
+                    height=25, width=62, selected=managing, onClick=partial(set_managing, not managing))]),
+        Panel(style=S(flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5,
+                      height=((len(cells)+3)//4)*41-5, flexShrink=0), children=cells),
+        optional('palette_management', managing, [
+            text('选中常用方块，再移动或移除', 10, Theme.muted),
+            row([Action(label='前移', glyph='arrow_left', compact=True, width=66, height=27, enabled=index>0,
+                        onClick=partial(session.edit_palette, picked, -1)),
+                 Action(label='后移', glyph='arrow_right', compact=True, width=66, height=27,
+                        enabled=0<=index<len(session.palette)-1, onClick=partial(session.edit_palette, picked, 1)),
+                 Action(label='移除', glyph='trash', compact=True, danger=True, width=66, height=27, enabled=index>=0,
+                        onClick=partial(session.edit_palette, picked))]),
+            text('仅移除快捷入口，不改变建筑方块', 10, Theme.muted, width=216)]),
+        text('点击 + 按分类或中文名称添加方块', 10, Theme.muted, width=216),
     ])
 
 
@@ -118,6 +134,34 @@ def SelectionBounds(session=None, revision=0):
 
 
 @Component
+def PasteControls(session=None, revision=0):
+    use_theme()
+    from .pasting import paste_error
+    e = session.editor
+    clip = e.clipboard
+    error = paste_error(e.document, clip, session.paste_origin)
+    return Panel(style=S(gap=7), children=[
+        line(), text('粘贴预览', 15),
+        text('请先复制或剪切一个区域' if clip is None else '尺寸  %d × %d × %d' % tuple(clip['size']), 12, Theme.blue),
+        text('点击模型或工作网格定位起点，再确认粘贴。无需预先框选目标区域。', 11, Theme.muted, width=216),
+        text('已固定起点' if session.paste_pinned else '点击模型固定粘贴起点', 10, Theme.muted),
+        row([Action(label='重新定位', glyph='pin', compact=True, height=27,
+                    onClick=partial(session.set, 'paste_pinned', False)),
+             Action(label='退出粘贴', glyph='close', compact=True, height=27,
+                    onClick=partial(session.choose_mode, 'select'))]),
+    ] + [row([text(axis, 11, Theme.blue, width=20),
+              Action(glyph='minus', width=30,height=27, enabled=session.paste_origin[i]>0,
+                     onClick=partial(session.move_paste, i, -1)),
+              text(str(session.paste_origin[i]), 12, flex=1,center=True),
+              Action(glyph='plus', width=30,height=27, enabled=session.paste_origin[i]<e.document.size[i]-1,
+                     onClick=partial(session.move_paste, i, 1))]) for i,axis in enumerate('XYZ')] + [
+        Coordinates(label='粘贴起点  X, Y, Z', value=session.paste_origin, onChange=session.set_paste_origin),
+        text(error or ('包含空气 · 覆盖目标范围' if session.tool=='paste' else '跳过空气 · 保留目标原有方块'),
+             10, Theme.red if error else Theme.muted, width=216),
+    ])
+
+
+@Component
 def Parameters(session=None, revision=0):
     use_theme()
     coordinates_open, set_coordinates_open = use_state(False)
@@ -142,7 +186,8 @@ def Parameters(session=None, revision=0):
                      onChange=partial(session.set, 'erase_scope'), width=216),
             text('点击方块擦除一格' if session.erase_scope == 'single' else
                  '保留选区范围 · 点击下方擦除选区', 10, Theme.muted)]),
-        line(), text('当前选区', 12),
+        optional('paste_parameters', session.paste_active(), PasteControls(session=session, revision=revision)),
+        optional('selection_parameters', not session.paste_active(), [line(), text('当前选区', 12),
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
         text('放置前预览新格 · 放下后选中新格' if session.direct_mode == 'place' else
              '选区擦除保留范围 · 可一次撤销' if session.direct_mode == 'erase' and session.erase_scope == 'selection' else
@@ -158,7 +203,7 @@ def Parameters(session=None, revision=0):
             Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),
         optional('corners', coordinates_open or 'start' in options or 'end' in options, [
             Coordinates(label='选区起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')),
-            Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))]),
+            Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))])]),
         line(), text('方块修改条件', 12),
         Segments(items=[('all', '全部'), ('solid', '方块'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
@@ -194,6 +239,9 @@ def Layers(session=None, revision=0):
         text('锁定保护编辑 · 隐藏仅影响预览', 10, Theme.muted),
         Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
               onChange=partial(session.range_value, 'brightness', editor=False)),
+        Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
+              onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
+        text('默认 3 倍 · 减少动态效果时保持静止', 10, Theme.muted, width=216),
         text('在场景上方选择完整 / 切面 / 单层', 10, Theme.muted),
         row([Action(glyph='minus', width=28, height=26, enabled=page > 0, onClick=partial(set_page, max(0, page - 1))),
              text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
@@ -356,6 +404,6 @@ def Guide(session=None, revision=0, width=760, height=440):
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
         text('快捷入口：P 打开工作台 · F6 / F7 标记脚下两点', 12, Theme.muted),
-        text('范围上限：64 × 100 × 64 格。', 11, Theme.muted),
+        text('范围上限：64 × 128 × 64 格。', 11, Theme.muted),
         text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
     ]))

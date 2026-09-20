@@ -17,6 +17,7 @@ from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
 from .camera import zoom_label
+from .material_browser import MaterialBrowser
 
 
 def use_session_fields(session, fields):
@@ -221,6 +222,8 @@ def PlacementControls(session=None, revision=0, width=400):
     hint = HINTS[session.direct_mode]
     if session.touch_mode:
         hint = '轻触操作 · 拖动旋转 · 下方按钮缩放与移动'
+    if session.paste_active():
+        hint = '点击固定粘贴起点 · 拖动旋转 · 确认后粘贴整个复制区域'
     return row([text(hint, 10, Theme.muted, flex=1)], width=width, height=34)
 
 
@@ -264,11 +267,13 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
     ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
-                Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else '执行 · ' + BY_ID[session.tool][2],
+                Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else
+                       '确认粘贴' if session.paste_active() else '执行 · ' + BY_ID[session.tool][2],
                     glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37,
                     onClick=session.cancel_edit if session.edit_job else session.erase_selection if erase_selection else
                             partial(session.choose_mode, 'browse') if direct else session.run,
-                    enabled=not session.busy and (session.edit_job is not None or not erase_selection or
+                    enabled=not session.busy and (not session.paste_active() or (session.editor.clipboard is not None and session.paste_pinned)) and
+                            (session.edit_job is not None or not erase_selection or
                             (bool(session.editor.selection) and session.box_anchor is None)))),
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=projecting), children=
                 Action(label='返回工作台', glyph='brush', height=37, onClick=partial(session.set, 'page', 'workspace'))),
@@ -302,7 +307,7 @@ def Confirmation(session=None, revision=0):
                  Action(label='确认继续', enabled=opened, accent=True, onClick=session.accept)])])
     card = use_memo(content, [message.current, opened, Theme.scale])
     # Retain the modal through exit; its scrim continues swallowing background input.
-    return Modal(visible=opened or progress > 0., style=Style(zIndex=100), children=[
+    return Modal(visible=opened or progress > 0., style=Style(zIndex=2000), children=[
         Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
               alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
@@ -482,7 +487,8 @@ def Workspace(session=None, revision=0):
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[main,
-        Confirmation(session=session, revision=session.ui_revision), ClickEffects()])
+        Confirmation(session=session, revision=session.ui_revision),
+        MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height), ClickEffects()])
 
 
 @Component

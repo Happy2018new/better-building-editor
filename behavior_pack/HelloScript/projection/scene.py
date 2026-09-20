@@ -81,6 +81,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     cursor_outline = use_ref(None)
     grid_outline = use_ref(None)
     cursor_color = use_ref(None)
+    spectrum_time = use_ref(0.)
     cursor_ranges = use_ref([])
     dimmer = use_ref(None)
     dim_alpha = use_ref(None)
@@ -93,7 +94,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
     selected_bounds = use_ref((None, None))
-    active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
+    active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm and not session.material_browser
 
     def reset_cursor():
         hover_preview.current = None
@@ -374,6 +375,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         session.cursor_cell = preview_cell
         selected, hovered = outline_targets(selected_bounds.current[1], session.direct_mode,
                                              session.box_anchor, preview_cell, session.touch_mode)
+        pasting = session.paste_active()
+        if pasting:
+            from .pasting import paste_bounds, paste_error
+            origin = session.paste_origin
+            if not session.paste_pinned and not session.touch_mode and preview_cell is not None:
+                origin = preview_cell
+            selected, hovered = None, paste_bounds(e.clipboard, origin)
+            preview_error = paste_error(e.document, e.clipboard, origin)
 
         def box_lines(target):
             return list(cuboid(target[0], tuple(v + 1 for v in target[1]))) if target else []
@@ -422,14 +431,16 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         # Sliding twelve UV windows preserves a continuous gradient on each edge
         # and at every corner. No projection, layout, grid or mesh work here.
         if hovered is not None:
-            invalid = bool(preview_error) and not session.touch_mode and session.box_anchor is None
+            if Theme.motion:
+                spectrum_time.current += dt * session.spectrum_speed
+            invalid = bool(preview_error) and (pasting or (not session.touch_mode and session.box_anchor is None))
             color_key = (int(now * 30) if Theme.motion and not invalid else 0, invalid)
             if color_key != cursor_color.current:
                 resized = cursor_color.current is None
                 cursor_color.current = color_key
                 for ref, hues in zip(cursor_refs, cursor_ranges.current):
                     if ref.current and hues is not None:
-                        uv, uv_size = cursor_uv(hues[0], hues[1], now, Theme.motion, invalid)
+                        uv, uv_size = cursor_uv(hues[0], hues[1], spectrum_time.current, Theme.motion, invalid)
                         ref.current.asImage().SetSpriteUV(uv)
                         if resized:
                             ref.current.asImage().SetSpriteUVSize(uv_size)

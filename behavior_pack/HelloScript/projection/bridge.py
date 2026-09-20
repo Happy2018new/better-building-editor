@@ -73,6 +73,53 @@ class ClientBridge(object):
     def load_library(self):
         return self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_library', True)
 
+    def load_preferences(self):
+        return self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_preferences', True)
+
+    def save_preferences(self, value):
+        return self.factory.CreateConfigClient(self.level).SetConfigData('modern_projection_preferences', value, True)
+
+    def request_catalogue(self):
+        self.system.NotifyToServer('BlockCatalogueRequest', {})
+        def timeout():
+            if self.session.catalogue_loading and not getattr(self, 'catalogue_work', None):
+                self.session.catalogue_loading = False
+                self.session.emit('block_catalogue')
+        self.later(10., timeout)
+
+    def receive_catalogue(self, args):
+        from .materials import VARIANTS, entry, clean_name, inventory_info, unique_inventory
+        names = args.get('names', [])
+        if not isinstance(names, list):
+            return
+        queue = [(clean_name(name), aux) for name in names
+                 for aux in range(VARIANTS.get(clean_name(name).split(':')[-1], 1))]
+        queue.extend(item['value'] for item in self.session.block_catalogue)
+        self.catalogue_work = queue
+        comp = self.factory.CreateItem(self.level)
+        found = dict((item['value'], item) for item in self.session.block_catalogue)
+        def advance():
+            if self.catalogue_work is not queue:
+                return
+            deadline = time.time()+.003
+            for unused in range(16):
+                if not queue:
+                    self.session.block_catalogue = unique_inventory(found.values(), self.session.palette)
+                    self.session.catalogue_loading = False
+                    self.session.catalogue_ready = True
+                    self.catalogue_work = None
+                    self.session.emit('block_catalogue')
+                    return
+                name, aux = queue.pop()
+                info = comp.GetItemBasicInfo(native(name), aux)
+                # Internal blocks with no inventory item are not useful in the picker.
+                if inventory_info(info):
+                    found[(name, aux)] = entry(name, aux, info['itemName'], info.get('itemCategory'))
+                if time.time() >= deadline:
+                    break
+            self.next_frame(advance)
+        self.next_frame(advance)
+
     def save_library(self, value):
         return self.factory.CreateConfigClient(self.level).SetConfigData('modern_projection_library', value, True)
 

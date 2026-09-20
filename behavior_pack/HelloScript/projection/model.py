@@ -474,7 +474,7 @@ class Editor(object):
         return out
 
     def run(self, tool):
-        if self.document.volume > SMALL_VOLUME:
+        if self.document.volume > SMALL_VOLUME or tool.startswith('paste'):
             from .jobs import EditJob
             job = EditJob(self, tool)
             while not job.done:
@@ -510,11 +510,6 @@ class Editor(object):
             self._copy()
             self.message = '已复制 %d 格' % len(self.selection)
             return dict((p, AIR) for p in self.selection) if tool == 'cut' else None
-        if tool.startswith('paste'):
-            if self.clipboard is None:
-                raise ValueError('请先复制一个选区')
-            return dict((add(p, self.start), b) for p, b in self.clipboard['blocks'].items()
-                        if tool == 'paste' or b != AIR)
         if tool == 'flood':
             if self.start not in self.selection:
                 raise ValueError('填充起点不在选区内')

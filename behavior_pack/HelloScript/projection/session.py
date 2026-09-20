@@ -42,6 +42,8 @@ class Session(object):
         self.erase_scope = 'single'
         self.focused = None
         self.box_anchor = None
+        self.paste_origin = (0, 0, 0)
+        self.paste_pinned = False
         self.camera_pose = (35., 25., 1.)
         self.camera_dragging = False
         self.camera_revision = 0
@@ -58,6 +60,13 @@ class Session(object):
         self.grid = True
         self.brightness = 1.
         self.reduced_motion = False
+        self.spectrum_speed = 3.
+        from .materials import initial_catalogue, normalize_palette
+        self.palette = normalize_palette(None)
+        self.block_catalogue = initial_catalogue()
+        self.catalogue_loading = False
+        self.catalogue_ready = False
+        self.material_browser = None
         self.origin = (0, 64, 0)
         self.opacity = .45
         self.apply_air = False
@@ -97,6 +106,14 @@ class Session(object):
                 callback()
 
     def initialize(self):
+        if hasattr(self.bridge, 'load_preferences'):
+            preferences = self.bridge.load_preferences() or {}
+            speed = preferences.get('spectrum_speed', 3.) if isinstance(preferences, dict) else 3.
+            if isinstance(speed, (int, float)) and .25 <= speed <= 6.:
+                self.spectrum_speed = float(speed)
+            if isinstance(preferences, dict) and 'palette' in preferences:
+                from .materials import normalize_palette
+                self.palette = normalize_palette(preferences['palette'])
         data = self.bridge.load_library()
         if isinstance(data, dict):
             for entry in data.get('buildings', [])[:32]:
@@ -163,7 +180,46 @@ class Session(object):
         def settled():
             if serial == self.parameter_serial:
                 self.emit()
+            if field == 'spectrum_speed' and self.spectrum_speed == value:
+                self.save_preferences()
         self.bridge.later(.16, settled)
+
+    def save_preferences(self):
+        if hasattr(self.bridge, 'save_preferences'):
+            self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette})
+
+    def open_materials(self, channel):
+        self.material_browser = channel
+        self.emit()
+        if not self.catalogue_loading and not self.catalogue_ready:
+            self.catalogue_loading = True
+            self.bridge.request_catalogue()
+
+    def add_material(self, value):
+        if self.material_browser not in ('material', 'secondary', 'source', 'filter_material'):
+            return
+        if value not in self.palette:
+            if len(self.palette) >= 64:
+                self.editor.message = '常用方块已满，请先移除不需要的方块'
+                self.emit()
+                return
+            self.palette.append(value)
+        setattr(self.editor, self.material_browser, value)
+        self.material_browser = None
+        self.save_preferences()
+        self.emit()
+
+    def edit_palette(self, value, direction=None):
+        if value not in self.palette:
+            return
+        index = self.palette.index(value)
+        if direction is None:
+            self.palette.pop(index)
+        else:
+            destination = max(0, min(len(self.palette)-1, index+direction))
+            self.palette[index], self.palette[destination] = self.palette[destination], self.palette[index]
+        self.save_preferences()
+        self.emit()
 
     def adjust_boundary(self, axis, side, delta):
         e = self.editor
@@ -183,6 +239,9 @@ class Session(object):
         self.tool = tool
         self.direct_mode = 'browse'
         self.box_anchor = None
+        if tool.startswith('paste'):
+            self.paste_origin = tuple(self.editor.start)
+            self.paste_pinned = False
         self.inspector = 'params'
         self.emit()
 
@@ -221,7 +280,29 @@ class Session(object):
             self.editor.message = '请先点击框选终点，或取消框选'
             self.emit()
             return False
+        if self.paste_active():
+            from .pasting import paste_error
+            error = paste_error(self.editor.document, self.editor.clipboard, self.paste_origin)
+            if error:
+                self.editor.message = error
+                self.emit()
+                return False
+            self.editor.start = self.paste_origin
+            self.paste_pinned = True
         return self.action(self.editor.run, self.tool)
+
+    def paste_active(self):
+        return self.direct_mode == 'browse' and self.tool in ('paste', 'paste_airless')
+
+    def set_paste_origin(self, value):
+        self.paste_origin = tuple(int(v) for v in value)
+        self.paste_pinned = True
+        self.emit()
+
+    def move_paste(self, axis, amount):
+        value = list(self.paste_origin)
+        value[axis] = max(0, min(self.editor.document.size[axis]-1, value[axis]+amount))
+        self.set_paste_origin(value)
 
     def erase_selection(self):
         if self.box_anchor is not None or not self.editor.selection:
@@ -504,6 +585,11 @@ class Session(object):
         e = self.editor
         if not e.document.contains(pos):
             return False
+        if self.paste_active():
+            self.focused = pos
+            self.set_paste_origin(pos)
+            e.message = '粘贴起点已定位，请确认范围后粘贴'
+            return True
         mode = self.direct_mode
         if mode == 'erase' and self.erase_scope == 'selection':
             self.editor.message = '选区已保留，请点击擦除选区'
@@ -592,6 +678,7 @@ class Session(object):
         self.canvas_x = self.canvas_z = 0
         self.reset_camera(False)
         self.focused = self.box_anchor = None
+        self.paste_origin, self.paste_pinned = (0, 0, 0), False
         self.name = self.editor.document.name
         self.page = 'workspace'
         self.editor.message = '已载入建筑配置'

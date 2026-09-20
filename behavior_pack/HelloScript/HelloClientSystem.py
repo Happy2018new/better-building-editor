@@ -18,6 +18,7 @@ class HelloClientSystem(ClientSystem):
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'OnKeyPressInGame', self, self.key)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'ProjectionResponse', self, self.response)
+        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
 
     def UiInitFinished(self, unused):
         if self.session is not None:
@@ -44,6 +45,10 @@ class HelloClientSystem(ClientSystem):
     def response(self, args):
         if self.bridge:
             self.bridge.receive(args)
+
+    def block_catalogue(self, args):
+        if self.bridge:
+            self.bridge.receive_catalogue(args)
 
     def dimension_changed(self, args):
         if self.bridge:

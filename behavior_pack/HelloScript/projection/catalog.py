@@ -25,7 +25,7 @@ TOOLS = [
     ('paint', 'edit', '表面涂装', '为暴露的方块更换材质。'),
     ('copy', 'edit', '复制选区', '复制相对坐标和材质到内部剪贴板。'),
     ('cut', 'edit', '剪切选区', '复制并移除选区内方块。'),
-    ('paste', 'edit', '粘贴方块', '以参数起点为原点粘贴；越界时拒绝。'),
+    ('paste', 'edit', '粘贴方块', '按复制尺寸预览，点击定位后确认粘贴。'),
     ('paste_airless', 'edit', '无空气粘贴', '仅粘贴剪贴板中的非空气方块。'),
     ('flood', 'edit', '连通填充', '从参数起点开始，填充六向连通的同类方块。'),
     ('swap', 'edit', '交换材质', '交换主材质和来源材质。'),
@@ -85,7 +85,7 @@ TOOL_ICONS = {
     'rotate_y90': 'rotate_right', 'rotate_y180': 'rotate_right', 'rotate_y270': 'rotate_left',
     'mirror_x': 'mirror_x', 'mirror_y': 'mirror_y', 'mirror_z': 'mirror_x',
     'move_xp': 'arrow_right', 'move_xn': 'arrow_left', 'move_yp': 'arrow_up', 'move_yn': 'arrow_down',
-    'move_zp': 'arrow_down', 'move_zn': 'arrow_up', 'stack_x': 'array', 'stack_z': 'array',
+    'move_zp': 'arrow_down', 'move_zn': 'arrow_up', 'stack_x': 'array', 'stack_z': 'array_vertical',
     'box': 'cube', 'shell': 'box_outline', 'walls': 'walls', 'frame': 'select_box',
     'sphere': 'sphere', 'sphere_shell': 'sphere', 'cylinder': 'cylinder', 'tube': 'cylinder',
     'pyramid': 'pyramid', 'dome': 'dome', 'arch': 'arch', 'stairs': 'stairs', 'line': 'line', 'floor': 'floor', 'roof': 'roof',
@@ -127,7 +127,7 @@ def tool_parameters(identity):
         values.add('source')
     if identity in ('select_box', 'line'):
         values.update(('start', 'end'))
-    if identity in ('paste', 'paste_airless', 'flood'):
+    if identity == 'flood':
         values.add('start')
     if identity in ('shell', 'walls', 'frame', 'sphere_shell', 'tube', 'dome', 'arch'):
         values.add('thickness')

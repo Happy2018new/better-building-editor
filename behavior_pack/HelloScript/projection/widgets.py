@@ -401,7 +401,9 @@ def surface(children=None, color=None, radius=7, **style):
 
 
 def icon(name, color=None, size=18):
-    return Image(src=TEX + 'icons/' + name, color=color or Theme.muted, style=S(width=size, height=size))
+    return Image(src=TEX + 'icons/' + ('array' if name == 'array_vertical' else name),
+                 rotate=90 if name == 'array_vertical' else 0, rotatePivot=(.5,.5),
+                 color=color or Theme.muted, style=S(width=size, height=size))
 
 
 def line():

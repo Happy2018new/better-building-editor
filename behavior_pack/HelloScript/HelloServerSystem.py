@@ -73,12 +73,20 @@ class HelloServerSystem(ServerSystem):
         self.undo_records = {}
         self.uploads = {}
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
+        self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'OnScriptTickServer', self, self.tick)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent', self, self.leave)
 
     def reply(self, player, request, **data):
         data['request'] = request
         self.NotifyToClient(player, 'ProjectionResponse', data)
+
+    def block_catalogue(self, args):
+        player = args.get('__id__')
+        if player:
+            names = serverApi.GetEngineCompFactory().CreateBlockInfo(serverApi.GetLevelId()).GetLoadBlocks()
+            # Read-only catalogue, independent of capture/write jobs.
+            self.NotifyToClient(player, 'BlockCatalogueResponse', {'names': sorted(names)})
 
     def request(self, args, transferred=None):
         # Use engine-injected identity, never a client-selected player id.

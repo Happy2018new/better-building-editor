@@ -1,0 +1,119 @@
+import sys
+import unittest
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
+from projection.model import AIR, Document, Editor, bounds
+from projection.jobs import EditJob
+from projection.materials import entry, search_blocks, normalize_palette, inventory_info, unique_inventory
+from projection.session import Session
+
+STONE = ('minecraft:stone', 0)
+WOOD = ('minecraft:planks', 1)
+
+
+class Bridge:
+    def later(self, delay, callback):
+        self.callback = callback
+
+    def save_preferences(self, value):
+        self.preferences = value
+
+
+class PasteTests(unittest.TestCase):
+    def editor(self, large=False):
+        e = Editor(Document((64, 128, 64) if large else (12, 8, 12)))
+        e.document.blocks[(1, 1, 1)] = STONE
+        e.document.blocks[(3, 2, 2)] = WOOD
+        e.select_box((1, 1, 1), (3, 2, 2))
+        e.run('copy')
+        e.select_box((5, 2, 4), (5, 2, 4))
+        return e
+
+    def test_complete_clip_pastes_from_one_cell_and_undoes_in_one_step(self):
+        for large in (False, True):
+            e = self.editor(large)
+            e.document.blocks[(6, 2, 4)] = STONE
+            self.assertEqual(3, e.run('paste'))
+            self.assertEqual(STONE, e.document.get((5, 2, 4)))
+            self.assertEqual(WOOD, e.document.get((7, 3, 5)))
+            self.assertEqual(AIR, e.document.get((6, 2, 4)))
+            self.assertEqual(((5, 2, 4), (7, 3, 5)), bounds(e.selection))
+            self.assertEqual(1, len(e.undo_stack))
+            e.undo()
+            self.assertEqual(AIR, e.document.get((7, 3, 5)))
+            self.assertEqual(STONE, e.document.get((6, 2, 4)))
+
+    def test_airless_filters_locks_and_empty_destination_selection(self):
+        e = self.editor()
+        e.document.blocks[(6, 2, 4)] = STONE
+        e.selection = set()
+        e.locked_layers.add(3)
+        e.run('paste_airless')
+        self.assertEqual(STONE, e.document.get((5, 2, 4)))
+        self.assertEqual(STONE, e.document.get((6, 2, 4)))
+        self.assertEqual(AIR, e.document.get((7, 3, 5)))
+        e.undo()
+        e.mask = 'solid'
+        e.run('paste_airless')
+        self.assertEqual(AIR, e.document.get((5, 2, 4)))
+
+    def test_out_of_bounds_and_cancel_are_atomic(self):
+        e = self.editor(True)
+        before = dict(e.document.blocks.items())
+        e.start = (63, 0, 0)
+        with self.assertRaisesRegex(ValueError, '边界'):
+            e.run('paste_airless')
+        self.assertEqual(before, dict(e.document.blocks.items()))
+        e.start = (5, 2, 4)
+        job = EditJob(e, 'paste')
+        job.step(budget=1)
+        self.assertEqual(12, job.total)
+        job.cancel(); job.step()
+        self.assertEqual(before, dict(e.document.blocks.items()))
+        self.assertFalse(e.undo_stack)
+
+    def test_session_paste_click_locates_without_edit_or_selection_change(self):
+        s = Session(Bridge()); s.editor = self.editor()
+        s.choose_tool('paste')
+        before = (s.editor.revision, s.editor.selection_revision)
+        s.point_action((7, 2, 6))
+        self.assertEqual((7, 2, 6), s.paste_origin)
+        self.assertTrue(s.paste_pinned)
+        self.assertEqual(before, (s.editor.revision, s.editor.selection_revision))
+        s.run()
+        self.assertEqual(WOOD, s.editor.document.get((9, 3, 7)))
+
+
+class MaterialsTests(unittest.TestCase):
+    def test_internal_names_are_hidden_and_legacy_aliases_share_one_tile(self):
+        self.assertFalse(inventory_info({'itemCategory':'construction','itemName':'tile.internal.name'}))
+        self.assertFalse(inventory_info({'itemCategory':'none','itemName':'Hidden'}))
+        self.assertTrue(inventory_info({'itemCategory':'construction','itemName':'白色混凝土'}))
+        legacy=entry('minecraft:concrete',0,'白色混凝土')
+        modern=entry('minecraft:white_concrete',0,'白色混凝土')
+        self.assertEqual([legacy],unique_inventory([modern,legacy],[legacy['value']]))
+
+    def test_chinese_search_categories_and_aux(self):
+        values = [entry('minecraft:concrete', 0, '§f白色混凝土'), entry('minecraft:concrete', 15, '黑色混凝土'),
+                  entry('minecraft:planks', 0, '橡木木板'), entry('custom:test', 0, '定制石材')]
+        self.assertEqual([values[0]], search_blocks(values, query='白色 混凝土'))
+        self.assertEqual(values[:2], search_blocks(values, 'color', 'CONCRETE'))
+        self.assertEqual([values[2]], search_blocks(values, 'wood'))
+        self.assertEqual([values[3]], search_blocks(values, 'custom'))
+
+    def test_palette_order_remove_and_preferences_do_not_edit_document(self):
+        s = Session(Bridge()); before = s.editor.revision
+        s.palette = [STONE, WOOD]
+        s.edit_palette(WOOD, -1)
+        self.assertEqual([WOOD, STONE], s.palette)
+        s.edit_palette(STONE)
+        self.assertEqual([WOOD], s.palette)
+        self.assertEqual(before, s.editor.revision)
+        self.assertEqual([WOOD], normalize_palette(s.bridge.preferences['palette']))
+        s.range_value('spectrum_speed', 4., editor=False); s.bridge.callback()
+        self.assertEqual(4., s.bridge.preferences['spectrum_speed'])
+        self.assertEqual([WOOD], s.bridge.preferences['palette'])
+
+
+if __name__ == '__main__':
+    unittest.main()

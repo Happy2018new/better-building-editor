@@ -91,7 +91,7 @@ class EditJob(object):
     def _set(self, pos, value, respect=True):
         if not self.source.contains(pos):
             raise ValueError('操作超出建筑范围，草稿未改变')
-        if respect and not self.work._writable(pos):
+        if not self.work._writable(pos, respect):
             return
         if pos[1] in self.work.locked_layers:
             return
@@ -241,6 +241,24 @@ class EditJob(object):
             for step in self._select():
                 yield step
             return
+        if tool.startswith('paste'):
+            from .pasting import paste_bounds, paste_error
+            clip = work.clipboard
+            error = paste_error(self.source, clip, work.start)
+            if error:
+                raise ValueError(error)
+            points = clip.get('selection', clip['blocks'])
+            origin = clip.get('origin', (0, 0, 0))
+            self.total = max(1, len(points))
+            for pos in points:
+                value = clip['blocks'].get(pos, AIR)
+                if tool == 'paste' or value != AIR:
+                    target = tuple(pos[i]-origin[i]+work.start[i] for i in range(3))
+                    self._set(target, value, False)
+                self.processed += 1
+                yield None
+            self.result_selection = Selection.box(*paste_bounds(clip, work.start))
+            return
         if not self.selection:
             raise ValueError('选区为空，请先框选或全选')
         lo, hi = self.selection.bounds()
@@ -256,24 +274,6 @@ class EditJob(object):
             if tool == 'copy':
                 return
             tool = 'erase'
-        if tool.startswith('paste'):
-            clip = work.clipboard
-            if clip is None:
-                raise ValueError('请先复制一个选区')
-            if 'selection' in clip:
-                points = clip['selection']
-                origin = clip['origin']
-            else:
-                points = clip['blocks']
-                origin = (0, 0, 0)
-            for pos in points:
-                value = clip['blocks'].get(pos, AIR)
-                if tool == 'paste' or value != AIR:
-                    target = tuple(pos[i] - origin[i] + work.start[i] for i in range(3))
-                    self._set(target, value)
-                self.processed += 1
-                yield None
-            return
         if tool == 'flood':
             if work.start not in self.selection:
                 raise ValueError('填充起点不在选区内')

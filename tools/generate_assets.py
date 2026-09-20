@@ -26,6 +26,10 @@ def sprites(font_path):
                 if 0 < len(value) < 150 and '\n' not in value and any(ord(c) > 127 for c in value):
                     phrases.add(value)
     chars = set(''.join(phrases)) | set(chr(i) for i in range(32, 127))
+    # Names returned by GetItemBasicInfo are dynamic, outside Python literals.
+    vocabulary = ROOT / 'tools/block_name_glyphs.txt'
+    if vocabulary.exists():
+        chars.update(vocabulary.read_text(encoding='utf8').strip())
     result = {}
     dest = OUT / 'type'
     dest.mkdir(parents=True, exist_ok=True)
@@ -92,6 +96,7 @@ def graphics():
     grid.save(OUT / 'viewport_grid.png')
     paths = {
         'plus': [[(12,4),(12,20)],[(4,12),(20,12)]],
+        'search': [[(15,15),(22,22)],[(17,10),(16,5),(11,2),(6,3),(2,7),(2,12),(6,17),(12,18),(17,14),(17,10)]],
         'minus': [[(4,12),(20,12)]],
         'close': [[(6,6),(18,18)],[(18,6),(6,18)]],
         'cube': [[(12,2),(22,7),(22,17),(12,22),(2,17),(2,7),(12,2)],[(2,7),(12,12),(22,7)],[(12,12),(12,22)]],
