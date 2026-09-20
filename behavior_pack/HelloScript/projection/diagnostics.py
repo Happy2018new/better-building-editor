@@ -8,20 +8,23 @@ def inspect(session, value):
     value = value or {}
     if value.get('reloadShaders') is True:
         import mod.client.extraClientApi as clientApi
-        clientApi.ReloadAllShaders()
+        clientApi.ReloadOneShader("modern_projection_blocks.vertex")
     fixture = value.get('fixture')
     if fixture:
-        if fixture not in ('landmarks', 'offset', 'offset_odd', 'solid', 'demo', 'demo_large'):
+        if fixture not in ('interior', 'landmarks', 'offset', 'offset_odd', 'solid', 'demo', 'demo_large'):
             raise ValueError('unknown editor fixture')
         if fixture == 'demo':
             session.demo()
         else:
             size = (23, 15, 21) if fixture == 'offset_odd' else (24, 16, 24) if fixture == 'offset' else MAX_AXES
-            if fixture == 'solid' and 'size' in value:
+            if fixture in ('solid', 'interior') and 'size' in value:
                 size = tuple(value['size'])
             doc = Document(size)
             if fixture == 'demo_large':
                 doc.blocks = demo_document().blocks.copy()
+            elif fixture == 'interior':
+                editor = Editor(doc); editor.run('shell')
+                doc.blocks[(size[0]//2, size[1]//2, size[2]//2)] = ('minecraft:gold_block', 0)
             elif fixture == 'solid':
                 editor = Editor(doc); editor.run('fill')
             elif fixture.startswith('offset'):
@@ -58,10 +61,15 @@ def inspect(session, value):
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,
-            'depth': 0., 'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
+            'depth': session.camera_depth_pose, 'depthTarget': session.camera_depth,
+            'depthPlane': session.depth_plane(), 'eraseScope': session.erase_scope,
             'touch': session.touch_mode, 'inputMode': current_mode(), 'cameraPivot': session.camera_pivot,
             'cameraReset': session.camera_reset_revision,
             'previewBuilds': session.tiles.builds, 'previewSeconds': session.tiles.seconds,
+            'previewExtractions': session.tiles.extractions,
+            'editActive': session.edit_job is not None,
+            'performance': session.performance,
+            'editProgress': (session.edit_job.processed, session.edit_job.total) if session.edit_job else None,
             'previewTiles': len(session.tiles.parts), 'previewDirty': len(session.tiles.dirty),
             'previewSlots': len(session.tiles.slots), 'previewProgress': session.tiles.progress(),
             'cursorCell': getattr(session, 'cursor_cell', None),

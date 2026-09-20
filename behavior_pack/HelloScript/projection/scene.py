@@ -13,7 +13,7 @@ from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_line
+from .scene_lines import cuboid, grid_lines, clip_line, clip_depth
 from .chunks import painter_order
 from .input_mode import is_touch
 
@@ -59,12 +59,17 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             refresh(lambda previous: previous + 1)
         return session.subscribe(changed, ('page', 'view', 'preview'))
     use_effect(subscribe, [session])
+    use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
+    models_signature = use_ref(None)
+    models_pending = use_ref(True)
+    order_cache = use_ref(None)
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
     def create_camera():
         result = OrbitCamera(*session.camera_pose)
+        result.depth, result.depth_target = session.camera_depth_pose, session.camera_depth
         result.pivot = session.camera_pivot
         result.pan = result.pan_target = session.camera_pan
         return result
@@ -100,6 +105,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
 
     def restore_view():
         clip_geometry.current = None
+        models_signature.current = None
         outline.current = None
         if active:
             for dolls, surfaces, preview in registry.values():
@@ -123,10 +129,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def hit_at(x, y):
         origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
         origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
-        plane = session.depth_plane()
+        plane = camera.depth_plane(session.scene_size)
         def visible(pos):
             return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
-                    session.visible_layer(pos[1]) and behind_plane(pos, plane))
+                    session.visible_layer(pos[1]))
         hit = raycast(session.editor.document, origin, direction, visible)
         if hit:
             return hit
@@ -153,6 +159,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         session.camera_pan = camera.pan_target
 
     def tick(now):
+        session.bridge.pump_frame()
         dt = now - frame.current
         frame.current = now
         alpha = max(0., min(.8, 1.-session.brightness))
@@ -190,7 +197,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 session.emit('input_mode')
         if reset_revision.current != session.camera_reset_revision:
             reset_revision.current = session.camera_reset_revision
-            camera.reset()
+            if session.camera_reset_animated and Theme.motion:
+                camera.set_pivot(None, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
+                camera.dragging = False
+                camera.velocity = (0., 0.)
+                camera.pan_target = (0., 0.)
+            else:
+                camera.reset()
             camera.aim(session.camera_yaw, session.camera_pitch, session.zoom)
             drag.current = None
             wheel_time.current = None
@@ -210,7 +223,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.camera_pan = (0., 0.)
             session.emit('view')
         camera.pan_target = session.camera_pan
+        camera.depth_target = session.camera_depth
         camera.advance(dt, Theme.motion)
+        session.camera_depth_pose = camera.depth
         session.camera_pose = (camera.yaw, camera.pitch, camera.zoom)
         if wheel_time.current is not None and now - wheel_time.current >= .18:
             wheel_time.current = None
@@ -221,12 +236,19 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.emit('view')
         rendered_yaw, rendered_pitch = camera.render_angles()
         signature = (session.model_name, rendered_yaw, rendered_pitch, camera.zoom, camera.pan, width, height, Theme.scale,
-                     session.scene_origin, session.scene_size, camera.pivot)
+                     session.scene_origin, session.scene_size, camera.pivot, camera.depth)
         pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
         toward = camera.basis()[2]
-        order = painter_order(session.tiles.slots, toward)
+        order_key = (session.tiles.slots, tuple(v >= 0 for v in toward))
+        if order_cache.current is None or order_cache.current[0] != order_key:
+            order_cache.current = (order_key, painter_order(session.tiles.slots, toward))
+        order = order_cache.current[1]
+        plane = camera.depth_plane(session.scene_size)
         layer_updates = []
-        for index, controls in list(registry.items()):
+        model_key = (signature, session.tiles.publication, len(registry))
+        update_models = model_key != models_signature.current or models_pending.current
+        models_signature.current = model_key
+        for index, controls in list(registry.items()) if update_models else ():
             dolls, surfaces, preview = controls
             if not all(ref.current for ref in dolls+surfaces):
                 continue
@@ -247,6 +269,22 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 part['pending'] = False
                 continue
             center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
+            distance = sum(center[i]*toward[i] for i in range(3))-plane[1] if plane else -1000.
+            radius = sum(part['size'][i]*abs(toward[i]) for i in range(3))/2.
+            clipped = distance-radius >= 0.
+            tile_layer = 240 + int(math.floor(distance*4.+.5)) if plane and distance+radius > 0. and not clipped else 50+order[key]
+            if clipped != getattr(preview, 'depth_hidden', False):
+                preview.depth_hidden = clipped
+                for slot, surface in enumerate(surfaces):
+                    shown = not clipped and bool(preview.names[slot]) and (slot == preview.front or preview.pending is not None)
+                    surface.current.SetVisible(shown, False)
+                    preview.visible[slot] = shown
+            if (getattr(preview, 'scene_signature', None) == signature and not preview.restore and
+                    preview.ready(part['name']) and preview.poses[preview.front] == pose):
+                part['pending'] = False
+                continue
+            preview.scene_signature = signature
+            center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
             tx, ty = camera.project(center, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
             native_position, native_size = render_bounds(width*Theme.scale, height*Theme.scale,
                 (tx-width*Theme.scale/2., ty-height*Theme.scale/2.))
@@ -256,15 +294,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 for ref in dolls:
                     ref.current.SetPosition(native_position)
                     ref.current.SetSize(native_size)
-            if getattr(preview, 'layer', None) != order[key]:
-                preview.layer = order[key]
+            if getattr(preview, 'layer', None) != tile_layer:
+                preview.layer = tile_layer
                 for slot, ref in enumerate(dolls):
                     if not preview.visible[slot]:
                         continue
                     # Suppress both immediate and per-call deferred refresh;
                     # schedule one refresh after all tile changes below.
-                    ref.current.SetLayer(50+order[key], False, False)
-                    layer_updates.append((ref.current, 50+order[key]))
+                    ref.current.SetLayer(tile_layer, False, False)
+                    layer_updates.append((ref.current, tile_layer))
             def draw(slot, name, pose):
                 dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
                 surfaces[slot].current.SetPosition((-dx, -dy))
@@ -275,15 +313,18 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
                 return result
             def show(slot, visible, front):
+                visible = visible and not clipped
                 if preview.visible[slot] != visible:
                     surfaces[slot].current.SetVisible(visible, False)
                     preview.visible[slot] = visible
                     if visible:
-                        dolls[slot].current.SetLayer(50+order[key], False, False)
-                        layer_updates.append((dolls[slot].current, 50+order[key]))
+                        dolls[slot].current.SetLayer(tile_layer, False, False)
+                        layer_updates.append((dolls[slot].current, tile_layer))
             preview.update(part['name'], pose, now, draw, show)
             if preview.ready(part['name']):
                 part['pending'] = False
+        if update_models:
+            models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
         if layer_updates:
             control, layer = layer_updates[-1]
             control.SetLayer(layer, False, True)
@@ -323,7 +364,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         ready = True
         lines = []
         selected = selected_bounds.current[1]
-        if preview_cell is not None:
+        if preview_cell is not None and not (session.direct_mode == 'box' and session.box_anchor is None and len(e.selection) > 1):
             selected = (bounds((session.box_anchor, preview_cell)) if session.direct_mode == 'box' and
                         session.box_anchor is not None else (preview_cell, preview_cell))
         if selected:
@@ -335,6 +376,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 if not ref.current:
                     continue
                 segment = segments[index] if ready and index < len(segments) else None
+                if segment:
+                    segment = clip_depth(segment[0], segment[1], plane)
                 if segment:
                     if color is not None:
                         ref.current.asImage().SetSpriteColor(color.to_rgb_tuple())
@@ -354,9 +397,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
 
     def down(args):
-        session.pointer_stats[0] += 1
-        if not active:
+        if not screen_hit((args['TouchPosX'], args['TouchPosY'])):
             return
+        session.pointer_stats[0] += 1
         session.touch_mode = args.get('pointerKind') == 'touch' or is_touch()
         # Taking hold of the scene stops pending wheel/pan motion at its actual
         # pose, before rebasing the orbit. Otherwise an old zoom target can
@@ -375,14 +418,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         camera.dragging = True
         drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False]
 
+    def contains(control, point):
+        if control is None:
+            return False
+        x, y = control.GetGlobalPosition()
+        w, h = control.GetSize()
+        return x <= point[0] < x+w and y <= point[1] < y+h
+
     def screen_hit(point):
-        def contains(control):
-            if control is None:
-                return False
-            x, y = control.GetGlobalPosition()
-            w, h = control.GetSize()
-            return x <= point[0] < x+w and y <= point[1] < y+h
-        return active and contains(pointer.current) and not (navigation and contains(navigation.current))
+        return active and contains(pointer.current, point) and not (navigation and contains(navigation.current, point))
 
     def move(args):
         if drag.current is None:
@@ -402,9 +446,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         camera.velocity = (0., 0.)
 
     def up(args):
-        session.pointer_stats[1] += 1
         if drag.current is None:
             return
+        session.pointer_stats[1] += 1
         # A dropped native move must never turn a displaced release into an edit.
         if ('TouchPosX' in args and 'TouchPosY' in args and
                 (args['TouchPosX'], args['TouchPosY']) != tuple(drag.current[2:4])):
@@ -470,12 +514,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
             PreviewTile(key='tile_pool_%d' % index, identity=index, registry=registry)
             for index in range(session.tiles.pool_size)]),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=300, visible=active), children=[
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
         Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
-              zIndex=275, opacity=max(0., 1.-session.brightness), visible=active)),
+              zIndex=360, opacity=max(0., 1.-session.brightness), visible=active)),
         Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
-                buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=310, visible=active)),
+                buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=380, visible=active)),
     ])

@@ -25,6 +25,35 @@ SIZE = (64, 100, 64)
 
 
 class LargeEditorTests(unittest.TestCase):
+    def test_axis_shapes_match_cell_oracle_with_irregular_selection_and_masks(self):
+        for tool in ('shell', 'walls', 'frame', 'floor'):
+            for thickness in (1, 3, 12):
+                e = Editor(Document((64, 128, 64)))
+                e.select_box((13, 14, 13), (19, 21, 19))
+                e.selection = e.selection.difference(Selection.box((15, 15, 15), (17, 17, 17)))
+                e.thickness = thickness
+                e.material = STONE
+                e.document.blocks[(13, 14, 13)] = WOOD
+                e.locked_layers.add(16)
+                e.mask = 'air'
+                expected = {p:v for p,v in e._shape(tool, *e.selection.bounds()).items() if e._writable(p)}
+                before = dict(e.document.blocks.items())
+                e.run(tool)
+                before.update(expected)
+                self.assertEqual(before, dict(e.document.blocks.items()), (tool,thickness))
+                e.undo()
+                self.assertEqual({(13, 14, 13):WOOD}, dict(e.document.blocks.items()))
+
+    def test_thin_maximum_shell_skips_air_volume_and_preserves_cancel(self):
+        e = Editor(Document((64,128,64)));e.thickness=1
+        job=EditJob(e,'shell');job.step(budget=2,seconds=1)
+        self.assertEqual(39944,job.total)
+        self.assertFalse(e.document.blocks)
+        job.cancel();job.step();self.assertFalse(e.undo_stack)
+        self.assertEqual(39944,e.run('shell'))
+        self.assertEqual(AIR,e.document.get((32,64,32)))
+        self.assertEqual(e.material,e.document.get((63,127,63)))
+
     def test_mixed_archive_pages_roundtrip_and_incomplete_archive_rejected(self):
         class Pages:
             def __init__(self):

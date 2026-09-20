@@ -6,13 +6,16 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_selection_scope import diagnostic, wait_preview, click_point
 from verify_interaction import pointer
+from projection.camera import OrbitCamera
 
 
 def main():
     capture.user32.SetProcessDPIAware()
-    ui.new_region((25,64,25)); wait_preview()
+    size = tuple(map(int,sys.argv[2].split(','))) if len(sys.argv)>2 else (25,64,25)
+    center = (size[0]//2,size[2]//2)
+    ui.new_region(size); wait_preview()
     diagnostic({'camera':[0,90,2], 'pan':[0,0]}); time.sleep(.5)
-    ui.click('放置'); click_point((12.5,0,12.5)); wait_preview()
+    ui.click('放置'); click_point((center[0]+.5,0,center[1]+.5)); wait_preview()
     before = diagnostic(); assert before['blocks']==1,before
     target_node = pointer()['id']
     native_before = ui.call('native_control', target_node)['result']
@@ -21,7 +24,8 @@ def main():
     assert capture._activate_window(window['hwnd'])
     left,top,width,height = capture._window_rect(window['hwnd'])
     scale = width/root['width']
-    target = (int(left+(box['x']+box['width']/2)*scale), int(top+(box['y']+box['height']/2)*scale))
+    px,py = OrbitCamera(0,90,2).project((center[0]+.5,0,center[1]+.5),size,box['width'],box['height'],min(box['width'],box['height'])*.72*2/max(size))
+    target = (int(left+(box['x']+px)*scale), int(top+(box['y']+py)*scale))
     capture.user32.SetCursorPos(*target)
     time.sleep(.3)
     interval = float(sys.argv[1]) if len(sys.argv)>1 else .25
@@ -41,7 +45,7 @@ def main():
     print('native input counts', native_before.get('globalClickCounts'),native_after.get('globalClickCounts'),flush=True)
     print('rapid result', seconds, before, after, flush=True)
     ui.check('forty native clicks all place across 16-cube boundaries', after['blocks']==41)
-    ui.check('latest selected cell matches the complete stack', after['start']==after['end']==[12,40,12])
+    ui.check('latest selected cell matches the complete stack', after['start']==after['end']==[center[0],40,center[1]])
     ui.click('历史'); ui.click('撤销'); wait_preview()
     ui.check('last rapid placement has its own undo', diagnostic()['blocks']==40)
     ui.click('参数')

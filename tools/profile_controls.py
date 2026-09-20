@@ -21,7 +21,7 @@ def main():
         ui.click('取消')
     if '还原视图' in ui.labels():
         ui.click('还原视图')
-    ui.click('工作台'); ui.click('三维'); ui.click('浏览'); ui.click('参数')
+    ui.click('工作台'); ui.click('浏览'); ui.click('参数')
     if scenario == 'slider':
         interaction.category('cube'); ui.click('空心长方体')
         offset = ui.call('scroll', ui.nodes('ScrollView')[-1]['id'], 10000)['result']['position']
@@ -40,7 +40,7 @@ def main():
         labels = {'segments': ('选取', '浏览'), 'pages': ('建筑库', '工作台'),
                   'pages_all': ('建筑库', '入门指南', '投影', '工作台'),
                   'inspector': ('图层', '参数'), 'history': ('历史', '参数'),
-                  'views': ('逐层', '三维')}[scenario]
+                  'views': ('单层', '完整'), 'depth': ('前移', '后移')}[scenario]
         points = []
         for label_text in labels:
             target = next(n for n in _resolve_label(current, label_text) if label_text in ui.labels(n))
@@ -61,6 +61,10 @@ def main():
     for point in points:
         hit_window = capture.user32.WindowFromPoint(capture.POINT(*point))
         assert capture.user32.GetAncestor(hit_window, 2) == hwnd, 'Another window covers the workload target'
+    before = None
+    if scenario == 'depth':
+        from verify_selection_scope import diagnostic
+        before = diagnostic()
     output = ui.OUT / ('controls_%s_%s.json' % (scenario, label))
     with output.open('w', encoding='utf8') as stream:
         process = subprocess.Popen([sys.executable, '-X', 'utf8', str(ui.ROOT / '.agents/skills/pyreact-debugging/scripts/tracy.py'),
@@ -82,8 +86,8 @@ def main():
                     x = points[0][0] + (points[1][0] - points[0][0]) * fraction
                     capture.user32.SetCursorPos(int(x), points[0][1]); time.sleep(1. / 90.)
                 elif elapsed >= index * .65:
-                    capture.user32.SetCursorPos(*points[index % len(points)]); time.sleep(.035)
-                    capture.user32.mouse_event(2, 0, 0, 0, 0); held = True; time.sleep(.06)
+                    capture.user32.SetCursorPos(*points[index % len(points)]); time.sleep(.12 if scenario=='depth' else .035)
+                    capture.user32.mouse_event(2, 0, 0, 0, 0); held = True; time.sleep(.08 if scenario=='depth' else .06)
                     capture.user32.mouse_event(4, 0, 0, 0, 0); held = False
                     index += 1
                 else:
@@ -95,7 +99,18 @@ def main():
     result = json.loads(output.read_text(encoding='utf8'))
     result['workload'] = {'scenario': scenario, 'actualClient': dimensions['actualClient'],
                           'clickIntervalSeconds': .65, 'activeSeconds': 8.}
+    if before is not None:
+        time.sleep(1.)
+        after = diagnostic()
+        expected = before['depth']
+        step = max(1., max(before['size'])/16.)
+        for click_index in range(index):
+            expected = max(0., min(sum(before['size'])+1., expected+(step if click_index%2==0 else -step)))
+        result['workload'].update(before=before, after=after, clicks=index, expectedDepth=expected)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf8')
+    if before is not None:
+        assert abs(after['depth']-expected)<.001, result['workload']
+        assert all(before[k]==after[k] for k in ('pointerStats','pose','previewBuilds','previewExtractions','blocks')), result['workload']
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

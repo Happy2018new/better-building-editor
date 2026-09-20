@@ -9,7 +9,7 @@ from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
-from .widgets import JellyButton as Button, PageMotion, use_theme
+from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
@@ -78,7 +78,7 @@ def ToolGroup(session=None, group=None, query='', selected=None):
 @Component
 def ViewNavigation(session=None, width=430, revision=0):
     use_theme()
-    use_session_fields(session, ('view',))
+    use_session_fields(session, ('view', 'camera_depth'))
     # These move the viewpoint, so the model moves in the opposite direction.
     controls = [Action(label=label, glyph=glyph, compact=True, width=54, height=27,
                        onClick=partial(session.pan_view, x, y)) for label, glyph, x, y in (
@@ -88,7 +88,7 @@ def ViewNavigation(session=None, width=430, revision=0):
         Action(label='前移', glyph='front_view', compact=True, width=54, height=27,
                onClick=partial(session.move_depth, 1)),
         Action(label='后移', glyph='undo', compact=True, width=54, height=27,
-               enabled=session.zoom > .25, onClick=partial(session.move_depth, -1))])
+               enabled=session.camera_depth > 0., onClick=partial(session.move_depth, -1))])
     return Panel(style=S(gap=3), children=[row(controls[:4], gap=3), row(controls[4:], gap=3)] if width < 520
                  else [row(controls, gap=3)])
 
@@ -104,19 +104,33 @@ def LocateSelected(session=None):
 @Component
 def PreviewProgress(session=None, width=400):
     use_theme()
-    use_session_fields(session, ('edit_progress', 'preview_status', 'preview'))
-    job = session.edit_job
-    visible = job is not None or (session.preview_pending and session.tiles.report_progress)
-    done, total = (min(job.processed, job.total), job.total) if job else session.tiles.progress()
-    ratio = min(1., done/float(max(1, total)))
-    label = ('正在修改方块' if job else '正在更新预览') + ' · %d / %d' % (done, total)
-    return Panel(style=S(position=Position.absolute, top=42, left=12, width=min(250, width-24),
-                         zIndex=410, visible=visible), children=surface(padding=8, gap=6, children=[
-        row([text(label, 10, Theme.muted, flex=1),
-             Action(label='取消', compact=True, height=23, onClick=session.cancel_edit,
-                    enabled=job is not None)]),
+    container, label, fill, cancel = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
+    previous = use_ref(None)
+    card_width = min(250, width-24)
+
+    def tick(unused_now):
+        job = session.edit_job
+        visible = job is not None or (session.preview_pending and session.tiles.report_progress)
+        done, total = (min(job.processed, job.total), job.total) if job else session.tiles.progress()
+        signature = (visible, job is not None, done, total, Theme.scale, card_width)
+        if signature == previous.current or not all(ref.current for ref in (container,label,fill,cancel)):
+            return
+        previous.current = signature
+        container.current.SetVisible(visible, False)
+        cancel.current.SetVisible(job is not None, False)
+        if visible:
+            message = ('正在修改方块' if job else '正在更新预览') + ' · %d / %d' % (done,total)
+            label.current.asLabel().SetText(message)
+            fill.current.SetSize(((card_width-16)*Theme.scale*min(1.,done/float(max(1,total))),4*Theme.scale))
+    use_animation_frame(tick)
+    return Panel(ref=container, style=S(position=Position.absolute, top=42, left=12, width=card_width,
+                         zIndex=410, visible=False), children=surface(padding=8, gap=6, children=[
+        row([NativeText(ref=label, content='', fontSize=10*Theme.scale, color=Theme.muted,
+                        textAlign=TextAlignment.left, shadow=False, style=S(flex=1,height=20)),
+             Panel(ref=cancel, style=S(width=34,height=23), children=Action(label='取消', compact=True,
+                   height=23, width=34, onClick=session.cancel_edit))]),
         Image(color=Theme.line, style=S(width='100%', height=4), children=
-              Image(color=Theme.blue, style=S(width='%g%%' % (ratio*100), height=4))),
+              Image(ref=fill, color=Theme.blue, style=S(width=0, height=4))),
     ]))
 
 
@@ -132,21 +146,21 @@ def Viewport(session=None, revision=0, width=430, height=440):
     viewport_children = []
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation))
     if not session.model_name:
-        viewport_children.append(Panel(style=S(width='100%', height='100%', alignItems=AlignItems.center,
+        viewport_children.append(Panel(key='empty_model', style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
                      '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
     viewport_children.extend([
-        Panel(style=S(position=Position.absolute, left=12, top=12, zIndex=400, visible=session.view == '3d'),
+        Panel(key='scene_status', style=S(position=Position.absolute, left=12, top=12, zIndex=400, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
                   children=SceneStatus(session=session))),
-        Panel(style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=bool(session.preview_error)),
+        Panel(key='scene_error', style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=bool(session.preview_error)),
               children=text(session.preview_error, 11, Theme.red, width=width-24)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=400),
+        Panel(key='orientation', style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=400),
               children=OrientationGizmo(session=session)),
-        Panel(ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),
+        Panel(key='view_navigation', ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),
               children=ViewNavigation(session=session, width=width, revision=revision)),
-        PreviewProgress(session=session, width=width),
+        PreviewProgress(key='preview_progress', session=session, width=width),
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),
@@ -193,8 +207,10 @@ def Viewport(session=None, revision=0, width=430, height=440):
 @Component
 def SceneStatus(session=None):
     use_theme()
-    use_session_fields(session, ('preview_status', 'view', 'point_edit'))
+    use_session_fields(session, ('view', 'point_edit', 'camera_depth'))
     label = 'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑'
+    if session.camera_depth > 0.:
+        label += ' · 视线推进 %g 格' % session.camera_depth
     return text(label, 10, Theme.muted)
 
 
@@ -472,10 +488,8 @@ def Workspace(session=None, revision=0):
 @Component
 def TaskStatus(session=None):
     use_theme()
-    use_session_fields(session, ('edit_progress', 'preview_status'))
+    use_session_fields(session, ())
     message = ('处理中… ' if session.busy else '') + session.editor.message[:80]
-    if session.preview_pending and session.tiles.report_progress:
-        message += ' · 更新预览 %d / %d' % session.tiles.progress()
     return text(message, 10, Theme.muted, flex=1)
 
 

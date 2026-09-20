@@ -37,6 +37,7 @@ class OrbitCamera(object):
         self.pan = (0., 0.)
         self.pan_target = self.pan
         self.pivot = None
+        self.depth = self.depth_target = 0.
 
     def center(self, size):
         return self.pivot if self.pivot is not None else tuple(v / 2. for v in size)
@@ -58,6 +59,7 @@ class OrbitCamera(object):
         self.target = (35., 25., 1.)
         self.pan = self.pan_target = (0., 0.)
         self.pivot = None
+        self.depth = self.depth_target = 0.
         self.velocity = (0., 0.)
         self.dragging = False
 
@@ -97,6 +99,7 @@ class OrbitCamera(object):
         alpha = 1. - math.exp(-16. * dt) if motion else 1.
         self.pan = tuple(b if abs(b-a) < .00001 else a + (b-a)*alpha
                          for a, b in zip(self.pan, self.pan_target))
+        self.depth = self.depth_target if abs(self.depth_target-self.depth) < .0001 else self.depth + (self.depth_target-self.depth)*alpha
         before = (self.yaw, self.pitch, self.zoom)
         if not self.dragging:
             if not motion:
@@ -126,9 +129,14 @@ class OrbitCamera(object):
         return (int(math.floor(self.yaw + .5)), int(math.floor(self.pitch + .5)))
 
     def basis(self):
-        yaw, pitch = [math.radians(v) for v in self.render_angles()]
+        angles = self.render_angles()
+        if getattr(self, '_basis_angles', None) == angles:
+            return self._basis_value
+        yaw, pitch = [math.radians(v) for v in angles]
         cy, sy, cp, sp = math.cos(yaw), math.sin(yaw), math.cos(pitch), math.sin(pitch)
-        return ((cy, 0., -sy), (-sy * sp, cp, -cy * sp), (sy * cp, sp, cy * cp))
+        self._basis_angles = angles
+        self._basis_value = ((cy, 0., -sy), (-sy * sp, cp, -cy * sp), (sy * cp, sp, cy * cp))
+        return self._basis_value
 
     def project(self, point, size, width, height, unit):
         right, up, unused = self.basis()
@@ -137,12 +145,23 @@ class OrbitCamera(object):
         return (width * (.5 + self.pan[0]) + unit * sum(delta[i] * right[i] for i in range(3)),
                 height * (.5 + self.pan[1]) - unit * sum(delta[i] * up[i] for i in range(3)))
 
+    def depth_plane(self, size):
+        if self.depth <= .0001:
+            return None
+        toward = self.basis()[2]
+        far = sum(size[i] * max(0., toward[i]) for i in range(3)) + .5
+        return toward, far - self.depth
+
     def ray(self, x, y, size, width, height, unit):
         right, up, toward = self.basis()
         u, v = (x - width * (.5 + self.pan[0])) / unit, (height * (.5 + self.pan[1]) - y) / unit
         distance = sum(size) + 4.
         center = self.center(size)
         origin = tuple(center[i] + u * right[i] + v * up[i] + distance * toward[i] for i in range(3))
+        plane = self.depth_plane(size)
+        if plane is not None:
+            shift = sum(origin[i]*toward[i] for i in range(3))-plane[1]
+            origin = tuple(origin[i]-max(0.,shift)*toward[i] for i in range(3))
         return origin, tuple(-a for a in toward)
 
 

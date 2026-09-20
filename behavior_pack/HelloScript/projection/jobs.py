@@ -305,6 +305,51 @@ class EditJob(object):
                 self._set(pos, value)
                 yield None
             return
+        if tool in ('shell', 'walls', 'frame', 'floor'):
+            # Construct axis-aligned slabs as bitsets. A thin shell visits its
+            # surface only, instead of evaluating every cell of its volume.
+            thickness = max(1, work.thickness)
+            bands = []
+            for axis in range(3):
+                faces = Selection()
+                for side in (0, 1):
+                    a, b = list(lo), list(hi)
+                    if side:
+                        a[axis] = max(lo[axis], hi[axis]-thickness+1)
+                    else:
+                        b[axis] = min(hi[axis], lo[axis]+thickness-1)
+                    slab = Selection.box(a, b)
+                    for key, mask in slab.chunks.items():
+                        faces.chunks[key] = faces.chunks.get(key, 0) | mask
+                    if tool == 'floor':
+                        break
+                bands.append(faces.chunks)
+            candidates = Selection()
+            for key, mask in self.selection.chunks.items():
+                x, y, z = [band.get(key, 0) for band in bands]
+                shape = (x | y | z) if tool == 'shell' else (x | z) if tool == 'walls' else (
+                    (x & y) | (x & z) | (y & z)) if tool == 'frame' else y
+                selected = mask & shape
+                if selected:
+                    candidates.chunks[key] = selected
+                    candidates.count += bin(selected).count('1')
+            self.total = max(1, len(candidates))
+            for key in sorted(candidates.chunks):
+                mask = candidates.chunks[key]
+                unlocked = not any(key[1]*16 <= y < (key[1]+1)*16 for y in work.locked_layers)
+                if mask == FULL and work.mask == 'all' and unlocked:
+                    self._chunk(key, work.material)
+                    self.processed += CELLS
+                    yield None
+                else:
+                    for index in indices(mask):
+                        self._set(position(key, index), work.material)
+                        self.processed += 1
+                        if self.processed % 128 == 0:
+                            yield None
+                self.staged.compact(key)
+                yield None
+            return
         randomizer = random.Random(work.seed)
         for key in sorted(self.selection.chunks):
             mask = self.selection.chunks[key]

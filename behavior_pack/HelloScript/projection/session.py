@@ -45,8 +45,10 @@ class Session(object):
         self.camera_pose = (35., 25., 1.)
         self.camera_revision = 0
         self.camera_reset_revision = 0
+        self.camera_reset_animated = False
         self.camera_pivot = None
         self.camera_pan = (0., 0.)
+        self.camera_depth = self.camera_depth_pose = 0.
         self.camera_focus_request = None
         self.canvas_x = 0
         self.canvas_z = 0
@@ -65,6 +67,7 @@ class Session(object):
         self.busy = False
         self.ready = False
         self.parameter_serial = 0
+        self.performance = {}
         self.edit_job = None
         self.io_job = None
         self.scene_origin = (0, 0, 0)
@@ -235,12 +238,18 @@ class Session(object):
         self.edit_job = EditJob(self.editor, tool)
         job = self.edit_job
         last = [0.]
+        started = time.time()
+        self.performance.update(editCPU=0., editSteps=0, editWall=None)
         def advance():
             if self.edit_job is not job:
                 return
+            tick_start = time.time()
             job.step()
+            self.performance['editCPU'] += time.time()-tick_start
+            self.performance['editSteps'] += 1
             now = time.time()
             if job.done:
+                self.performance['editWall'] = now-started
                 self.edit_job = None
                 if job.tool.startswith('select_'):
                     self.box_anchor = None
@@ -253,10 +262,16 @@ class Session(object):
                     last[0] = now
                     self.editor.message = '正在编辑 %d / %d · 可取消' % (min(job.total, job.processed), job.total)
                     self.emit('edit_progress')
-                self.bridge.later(0., advance)
-        self.bridge.later(0., advance)
+                self.next_frame(advance)
+        self.next_frame(advance)
         self.emit()
         return True
+
+    def next_frame(self, callback):
+        if hasattr(self.bridge, 'next_frame'):
+            self.bridge.next_frame(callback)
+        else:
+            self.bridge.later(0., callback)
 
     def cancel_edit(self):
         if self.edit_job is not None:
@@ -347,19 +362,21 @@ class Session(object):
 
     def preview_signature(self):
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
-                self.editor.layer if self.solo_layer or self.section else -1, self.section,
-                self.depth_plane())
+                self.editor.layer if self.solo_layer or self.section else -1, self.section)
 
     def depth_plane(self):
-        return None
+        from .camera import OrbitCamera
+        camera = OrbitCamera(*self.camera_pose)
+        camera.depth = self.camera_depth_pose
+        return camera.depth_plane(self.editor.document.size)
 
     def visible_position(self, pos):
         return self.editor.document.contains(pos) and self.visible_layer(pos[1])
 
     def move_depth(self, direction):
-        # Orthographic approach/recede changes apparent distance by scaling.
-        # Share the camera's smooth interpolation; never remove voxels or mesh.
-        self.camera_view(zoom=max(.25, self.zoom * (1.2 if direction > 0 else 1./1.2)))
+        step = max(1., max(self.editor.document.size)/16.)
+        self.camera_depth = max(0., min(sum(self.editor.document.size)+1., self.camera_depth+direction*step))
+        self.emit('camera_depth')
 
     def visible_layer(self, y):
         return (y not in self.editor.hidden_layers and
@@ -431,12 +448,17 @@ class Session(object):
         self.camera_revision += 1
         self.emit('view')
 
-    def reset_camera(self):
+    def reset_camera(self, animated=True):
+        self.camera_depth = 0.
+        if not animated:
+            self.camera_depth_pose = 0.
         self.camera_focus_request = None
         self.camera_pivot = None
         self.camera_pan = (0., 0.)
         self.camera_yaw, self.camera_pitch, self.zoom = 35., 25., 1.
-        self.camera_pose = (35., 25., 1.)
+        self.camera_reset_animated = animated
+        if not animated:
+            self.camera_pose = (35., 25., 1.)
         self.camera_reset_revision += 1
         self.camera_revision += 1
         self.emit('view')
@@ -567,7 +589,7 @@ class Session(object):
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
         self.canvas_x = self.canvas_z = 0
-        self.reset_camera()
+        self.reset_camera(False)
         self.focused = self.box_anchor = None
         self.name = self.editor.document.name
         self.page = 'workspace'

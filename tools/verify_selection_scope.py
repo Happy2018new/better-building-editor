@@ -29,7 +29,7 @@ def wait_preview(timeout=120):
     start=time.perf_counter()
     while time.perf_counter()-start<timeout:
         state=diagnostic()
-        if not state['pending']:
+        if not state['pending'] and not state.get('editActive'):
             assert not state['error'],state
             time.sleep(.4)
             return state,time.perf_counter()-start

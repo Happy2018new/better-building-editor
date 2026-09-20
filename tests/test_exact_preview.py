@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
 from projection.model import Document, Editor, AIR, DIRECTIONS, add
 from projection.large_preview import build_preview
-from projection.scene_lines import grid_lines, clip_line
+from projection.scene_lines import grid_lines, clip_line, clip_depth
 from projection.session import Session
 from test_session import Bridge
 
@@ -21,6 +21,12 @@ def preview_cells(doc, **kwargs):
 
 
 class ExactPreviewTests(unittest.TestCase):
+    def test_near_plane_clips_overlay_edges_without_moving_visible_points(self):
+        plane=((0.,0.,1.),3.)
+        self.assertEqual(((1.,2.,3.),(1,2,0)),clip_depth((1,2,6),(1,2,0),plane))
+        self.assertIsNone(clip_depth((1,2,4),(5,2,8),plane))
+        self.assertEqual(((0,0,0),(1,2,3)),clip_depth((0,0,0),(1,2,3),plane))
+
     def test_surface_matches_brute_force_across_chunks_holes_hidden_and_crop(self):
         e = Editor(Document((35, 34, 33))); e.material = STONE; e.run('fill')
         e.document.blocks[(15, 16, 15)] = AIR

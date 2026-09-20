@@ -13,10 +13,10 @@ def main():
     category('grid'); ui.click('随机混合')
     before = diagnostic()
     ui.click('执行 · 随机混合')
-    progress = ui.nodes('PreviewProgress')[0]
+    progress = ui.nodes('PreviewProgress', ui.call('dump_tree')['tree'])[0]
     ui.check('large procedural edit exposes visible progress',
-             ui.nodes('Panel',progress)[0]['style'].get('visible') is True and
-             any('正在修改方块' in label for label in ui.labels(progress)))
+             ui.call('native_control',ui.nodes('Panel',progress)[0]['id'])['result']['visible'] and
+             any('正在修改方块' in ui.call('native_control',label['id'])['result'].get('text','') for label in ui.nodes('Label',progress)))
     snapshot('chunk_job_progress')
     ui.click('取消编辑')
     time.sleep(.3)

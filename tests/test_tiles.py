@@ -66,6 +66,17 @@ class TileTests(unittest.TestCase):
                 ranks = [order[key] for key in visited]
                 self.assertEqual(sorted(ranks),ranks)
 
+    def test_undo_branch_cannot_reuse_a_mesh_for_another_palette_material(self):
+        b=Bridge(); s=Session(b); s.editor=Editor(Document((32,32,32)))
+        s.refresh_preview(); b.settle(s)
+        s.editor.material=('minecraft:stone',0)
+        s.action(s.editor.run,'fill'); b.settle(s)
+        s.action(s.editor.undo); b.settle(s)
+        s.editor.material=('minecraft:gold_block',0)
+        s.action(s.editor.run,'fill'); b.settle(s)
+        self.assertTrue(scene_cells(s))
+        self.assertEqual({('minecraft:gold_block',0)},{material for material,index in scene_cells(s)})
+
     def test_tile_budget_includes_maximum_dimensions(self):
         for size in ((24,16,24), (23,15,21), (64,100,64)):
             edge = tile_edge(size)
@@ -171,8 +182,9 @@ class TileTests(unittest.TestCase):
         self.assertEqual((64,128,64),s.scene_size)
         self.assertEqual(128,len(s.tiles.slots))
         s.choose_mode('erase');s.erase_scope='single';s.point_action((63,127,63));b.settle(s)
-        builds=len(b.builds);s.action(s.editor.undo);b.settle(s)
+        builds=len(b.builds);extractions=s.tiles.extractions;s.action(s.editor.undo);b.settle(s)
         self.assertEqual(builds,len(b.builds))
+        self.assertEqual(extractions,s.tiles.extractions)
         self.assertEqual(524288,len(s.editor.document.blocks))
 
     def test_camera_focus_never_extracts_or_clips_geometry(self):

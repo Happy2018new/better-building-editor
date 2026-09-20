@@ -39,12 +39,36 @@ class ClientBridge(object):
         self.download = None
         self.projection_serial = 0
         self.projection_entities = {}
+        self.frame_pumps = 0
+        self.frame_work = []
 
     def later(self, delay, callback):
         def invoke():
             if self.alive:
                 callback()
         return self.factory.CreateGame(self.level).AddTimer(delay, invoke)
+
+    def next_frame(self, callback):
+        if self.frame_pumps:
+            self.frame_work.append(callback)
+        else:
+            self.later(0., callback)
+
+    def pump_frame(self):
+        pending, self.frame_work = self.frame_work, []
+        for callback in pending:
+            if self.alive:
+                callback()
+
+    def attach_frame_pump(self):
+        self.frame_pumps += 1
+        def detach():
+            self.frame_pumps -= 1
+            if not self.frame_pumps:
+                pending, self.frame_work = self.frame_work, []
+                for callback in pending:
+                    self.later(0., callback)
+        return detach
 
     def load_library(self):
         return self.factory.CreateConfigClient(self.level).GetConfigData('modern_projection_library', True)
@@ -236,7 +260,7 @@ class ClientBridge(object):
             s.origin = tuple(sent['origin'])
             s.canvas_x = s.canvas_z = 0
             s.progress = None
-            s.reset_camera()
+            s.reset_camera(False)
             s.editor.message = '已读取世界选区 · 方块实体内容不包含在草稿中'
             s.refresh_preview()
         elif action == 'check':

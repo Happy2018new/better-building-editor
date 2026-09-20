@@ -57,20 +57,26 @@ class EditNavigationTests(unittest.TestCase):
         s.set('erase_scope','single'); s.point_action((1,1,2))
         self.assertEqual(1,len(e.selection))
 
-    def test_approach_and_recede_change_scale_without_filtering_or_rebuilding(self):
-        s=self.session();e=s.editor;e.material=STONE;e.run('fill')
-        s.camera_pose=(0,0,2);s.zoom=2
+    def test_approach_enters_closed_shell_without_zoom_or_preview_rebuild(self):
+        s=self.session(); e=s.editor; e.material=STONE; e.run('shell')
+        e.document.blocks[(4,4,4)] = GLASS
+        s.camera_pose=(0,0,2); s.zoom=2
         before=(len(e.selection),e.revision,len(e.undo_stack),s.preview_signature())
-        s.move_depth(1)
-        self.assertAlmostEqual(2.4,s.zoom)
-        self.assertTrue(s.visible_position((3,3,7)))
-        self.assertTrue(s.visible_position((3,3,6)))
-        origin,direction=OrbitCamera(0,0).ray(200,150,e.document.size,400,300,20)
-        self.assertEqual(7,raycast(e.document,origin,direction,s.visible_position)[0][2])
-        s.move_depth(-1)
-        self.assertIsNone(s.depth_plane())
+        camera=OrbitCamera(0,0,2)
+        point=camera.project((4.5,4.5,5),e.document.size,400,300,20)
+        self.assertEqual((4,4,7),raycast(e.document,*camera.ray(*point,e.document.size,400,300,20))[0])
+        s.move_depth(1); s.move_depth(1)
+        camera.depth_target=s.camera_depth
+        camera.advance(.02)
+        self.assertTrue(0 < camera.depth < 2)
+        for unused in range(120): camera.advance(1./60.)
+        self.assertEqual((4,4,4),raycast(e.document,*camera.ray(*point,e.document.size,400,300,20))[0])
         self.assertEqual(2,s.zoom)
         self.assertEqual(before,(len(e.selection),e.revision,len(e.undo_stack),s.preview_signature()))
+        s.reset_camera(); camera.depth_target=s.camera_depth
+        for unused in range(120): camera.advance(1./60.)
+        self.assertIsNone(camera.depth_plane(e.document.size))
+        self.assertEqual((4,4,7),raycast(e.document,*camera.ray(*point,e.document.size,400,300,20))[0])
 
     def test_oblique_cut_exposes_chunk_interiors_and_matches_brute_force(self):
         s=self.session((35,34,33));e=s.editor;e.material=STONE;e.run('fill')
@@ -110,7 +116,8 @@ class EditNavigationTests(unittest.TestCase):
         self.assertTrue(s.visible_position((12,8,3)))
         for unused in range(100):
             s.move_depth(-1)
-        self.assertEqual(.25,s.zoom)
+        self.assertEqual(1.,s.zoom)
+        self.assertEqual(0.,s.camera_depth)
         self.assertFalse(s.preview_pending)
 
     def test_unified_view_modes_share_layer_and_do_not_stack_filters(self):

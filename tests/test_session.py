@@ -46,10 +46,10 @@ class SessionTests(unittest.TestCase):
     def test_camera_buttons_only_invalidate_view_owners(self):
         s = Session(Bridge()); calls = []
         s.subscribe(lambda: calls.append('workspace'), ())
-        s.subscribe(lambda: calls.append('view'), ('view',))
+        s.subscribe(lambda: calls.append('navigation'), ('camera_depth',))
         revision = s.content_revision
         s.move_depth(1)
-        self.assertEqual(['view'], calls)
+        self.assertEqual(['navigation'], calls)
         self.assertEqual(revision, s.content_revision)
 
     def test_touch_direct_actions_commit_without_confirmation(self):

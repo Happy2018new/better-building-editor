@@ -40,3 +40,17 @@ def clip_line(a, b, width, height):
     if low > high:
         return None
     return ((a[0] + low * dx, a[1] + low * dy), (a[0] + high * dx, a[1] + high * dy))
+
+
+def clip_depth(a, b, plane):
+    """Clip a world-space overlay segment at the same near plane as picking."""
+    if plane is None:
+        return a,b
+    da=sum(a[i]*plane[0][i] for i in range(3))-plane[1]
+    db=sum(b[i]*plane[0][i] for i in range(3))-plane[1]
+    if da>0 and db>0:
+        return None
+    if (da>0) != (db>0):
+        point=tuple(a[i]+(b[i]-a[i])*da/(da-db) for i in range(3))
+        return (point,b) if da>0 else (a,point)
+    return a,b
