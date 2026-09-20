@@ -43,7 +43,7 @@ def verify_outline():
     ui.click('选取')
     tap(*point((8.5, 11., 14.5), 35., 25.))
     raw = ui.call('dump_tree')['tree']
-    edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0]) if 'rotatePivot' in n.get('props', {})][-12:]
+    edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0]) if str(n.get('key', '')).startswith('edge')]
     box = pointer()['layout']
     camera = OrbitCamera(35., 25.)
     errors = []

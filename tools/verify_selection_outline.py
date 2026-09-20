@@ -10,10 +10,10 @@ from verify_large_editor import snapshot
 from mcdk import Client, return_value
 
 
-def outline():
+def outline(prefix='edge'):
     raw = ui.call('dump_tree')['tree']
     edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0])
-             if 'rotatePivot' in n.get('props', {})][-12:]
+             if str(n.get('key', '')).startswith(prefix)]
     assert len(edges) == 12
     code = (
         'import json\n'
@@ -37,8 +37,10 @@ def same_outline(a, b):
 def click_voxel(pos):
     hover(pos)
     capture.user32.mouse_event(2, 0, 0, 0, 0)
-    time.sleep(.055)
-    capture.user32.mouse_event(4, 0, 0, 0, 0)
+    try:
+        time.sleep(.055)
+    finally:
+        capture.user32.mouse_event(4, 0, 0, 0, 0)
     time.sleep(.25)
 
 
@@ -111,9 +113,10 @@ def main():
     wait_preview(); ui.click('放置')
     click_voxel((3.5, 4, 4.5)); wait_preview()
     ui.check('placement commits exactly one new cell', diagnostic()['selection'] == 1 and diagnostic()['blocks'] == 73)
-    placed = outline(); hover((4.5, 4, 4.5))
-    ui.check('single-cell placement preview still follows the mouse',
-             diagnostic()['cursorCell'] == [4, 4, 4] and not same_outline(placed, outline()))
+    placed = outline(); hovered = outline('cursor'); hover((4.5, 4, 4.5))
+    ui.check('placed blue cell persists while independent cursor follows the mouse',
+             diagnostic()['cursorCell'] == [4, 4, 4] and same_outline(placed, outline()) and
+             not same_outline(hovered, outline('cursor')))
     leave()
     (ui.OUT / 'selection_outline_checks.json').write_text(json.dumps(ui.checks, ensure_ascii=False, indent=2), encoding='utf8')
 

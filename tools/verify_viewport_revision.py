@@ -16,7 +16,7 @@ def action(**props):
 
 def outline_edges():
     scene=ui.nodes('Scene',ui.call('dump_tree')['tree'])[0]
-    return [n for n in ui.nodes('Image',scene) if 'rotatePivot' in n['props']][52:]
+    return [n for n in ui.nodes('Image',scene) if str(n.get('key','')).startswith('edge')]
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     wait_preview();time.sleep(.8)
     ui.click('浏览'); click_point((3.5,4,5.5))
     edges=outline_edges()
-    ui.check('exactly twelve edges, with no extra clicked-cell box',len(edges)==12)
+    ui.check('one blue selection uses exactly twelve edges',len(edges)==12)
     ui.check('browsing locates a single cell in the shared selection',diagnostic()['selection']==1)
     snapshot('viewport_aligned_odd')
     ui.click('选取');click_point((3.5,4,5.5))

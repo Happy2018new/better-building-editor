@@ -1,18 +1,37 @@
 """Camera-space overlay geometry, shared by the native scene and tests."""
 from .model import bounds
 
+CURSOR_PERIOD = 512
+CURSOR_WEIGHTS = (.1875, .3125, .125)
 
-def outline_target(selected, mode, anchor, cursor, error=None):
-    """Resolve the one visible box without modifying the editor's selection."""
+
+def outline_targets(selected, mode, anchor, cursor, touch=False):
+    """One blue selection (cell OR region), plus a transient desktop cursor."""
     if mode == 'box' and anchor is not None:
-        return bounds((anchor, cursor if cursor is not None else anchor)), None
-    # A completed region stays visible until a click changes the selection.
-    # Hover previews remain available when working with individual cells.
-    if selected is not None and selected[0] != selected[1]:
-        return selected, None
-    if cursor is not None:
-        return (cursor, cursor), error
-    return selected, None
+        selected = bounds((anchor, cursor if cursor is not None else anchor))
+    hovered = (cursor, cursor) if cursor is not None and not touch else None
+    return selected, hovered
+
+
+def cursor_hue(point, origin):
+    """Shared vertex field: all three edges meeting at a corner agree."""
+    return sum((point[i] - origin[i]) * CURSOR_WEIGHTS[i] for i in range(3))
+
+
+def cursor_uv(start, end, seconds, motion=True, invalid=False):
+    """Sample a repeated, bilinear spectrum; the second row is solid error red."""
+    phase = (seconds / 6.) % 1. if motion else 0.
+    return ((.5 + (start + phase) * CURSOR_PERIOD, 5.5 if invalid else 1.5),
+            ((end - start) * CURSOR_PERIOD, 1.))
+
+
+def segment_fractions(a, b, segment):
+    """Retain the original color interpolation when a screen edge is clipped."""
+    dx, dy = b[0]-a[0], b[1]-a[1]
+    length2 = dx*dx + dy*dy
+    if length2 < 1e-12:
+        return 0., 1.
+    return tuple(((p[0]-a[0])*dx + (p[1]-a[1])*dy)/length2 for p in segment)
 
 
 def cuboid(lo, hi):

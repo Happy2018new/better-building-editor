@@ -37,7 +37,7 @@ def main():
     ui.check('two real clicks finish one shared region',state['selection']==16 and state['anchor'] is None)
     capture.user32.SetCursorPos(left+30,top+40); time.sleep(.15)
     raw = ui.call('dump_tree')['tree']
-    edges = [n for n in ui.nodes('Image',ui.nodes('Scene',raw)[0]) if 'rotatePivot' in n.get('props',{})][-12:]
+    edges = [n for n in ui.nodes('Image',ui.nodes('Scene',raw)[0]) if str(n.get('key','')).startswith('edge')]
     def outline():
         return [ui.call('native_control',n['id'])['result'] for n in edges]
     before = outline()

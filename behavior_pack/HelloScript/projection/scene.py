@@ -7,13 +7,13 @@ import time
 import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
-from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
+from .widgets import Theme, S, Doll, Pointer, TypeImage, transparent, use_theme
 from .camera import OrbitCamera, raycast, layer_hit, behind_plane, render_bounds
 from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_target
+from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_hue, cursor_uv, segment_fractions
 from .chunks import painter_order
 from .input_mode import is_touch
 
@@ -22,7 +22,7 @@ MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('pain
          ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
 HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
          'select': '点击选择单个方块 · 拖动仍可旋转',
-         'place': '蓝框预览放置位置 · 红框不可放置 · 点击确认',
+         'place': '彩框预览放置位置 · 红框不可放置 · 点击放置',
          'paint': '仅替换点击格的材质 · 保持方块位置',
          'erase': '单格点击擦除 · 框选后可擦除整个选区 · 支持撤销',
          'pick': '点击吸取材质 · 不改变建筑',
@@ -78,15 +78,19 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     input_check = use_ref(0.)
     frame = use_ref(time.time())
     outline = use_ref(None)
+    cursor_outline = use_ref(None)
+    grid_outline = use_ref(None)
+    cursor_color = use_ref(None)
+    cursor_ranges = use_ref([])
     dimmer = use_ref(None)
     dim_alpha = use_ref(None)
     wheel_time = use_ref(None)
     drag = use_ref(None)
-    hovering = use_ref(False)
     mouse = use_ref(lambda: clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())).current
     hover_preview = use_ref(None)
     placed_pointer = use_ref(None)
     edge_refs = [use_ref(None) for unused in range(12)]
+    cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
     selected_bounds = use_ref((None, None))
     active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
@@ -107,6 +111,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         clip_geometry.current = None
         models_signature.current = None
         outline.current = None
+        cursor_outline.current = None
+        grid_outline.current = None
+        cursor_color.current = None
         if active:
             for dolls, surfaces, preview in registry.values():
                 preview.invalidate()
@@ -338,10 +345,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             hit = hit_at(drag.current[2]-px, drag.current[3]-py)
             if hit:
                 preview_cell, preview_error = session.cursor_target(*hit)
-        if (active and not session.touch_mode and hovering.current and
-                (drag.current is None or not drag.current[-1])):
+        if not session.touch_mode and (drag.current is None or not drag.current[-1]):
             point = mouse.GetMousePosition()
-            if point is not None:
+            # Native hover-enter may be missing when the UI opens beneath the
+            # mouse. Use the same viewport/navigation hit test as actual clicks.
+            if point is not None and screen_hit(point):
                 # Keep the just-placed result under a stationary mouse. Otherwise
                 # rebuilding the model immediately advances the cursor one cell.
                 if placed_pointer.current is not None and tuple(point) != placed_pointer.current:
@@ -355,34 +363,32 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                         target, error = session.cursor_target(*hit) if hit else (None, None)
                         hover_preview.current = (key, target, error)
                     unused_key, preview_cell, preview_error = hover_preview.current
+                else:
+                    preview_cell = session.focused
         session.cursor_cell = preview_cell
-        selected, outline_error = outline_target(selected_bounds.current[1], session.direct_mode,
-                                                 session.box_anchor, preview_cell, preview_error)
-        edge_signature = (signature, active, session.grid, e.layer, session.preview_pending,
-                          session.model_revision, selected, outline_error)
-        if edge_signature == outline.current:
-            return
-        outline.current = edge_signature
-        ready = True
-        lines = []
-        if selected:
-            lo, upper = selected
-            lines = list(cuboid(lo, tuple(v + 1 for v in upper)))
+        selected, hovered = outline_targets(selected_bounds.current[1], session.direct_mode,
+                                             session.box_anchor, preview_cell, session.touch_mode)
 
-        def draw_lines(refs, segments, thickness, color=None):
+        def box_lines(target):
+            return list(cuboid(target[0], tuple(v + 1 for v in target[1]))) if target else []
+
+        def draw_lines(refs, segments, thickness, gradient_origin=None):
+            ranges = []
             for index, ref in enumerate(refs):
+                ranges.append(None)
                 if not ref.current:
                     continue
-                segment = segments[index] if ready and index < len(segments) else None
+                segment = segments[index] if index < len(segments) else None
                 if segment:
                     segment = clip_depth(segment[0], segment[1], plane)
                 if segment:
-                    if color is not None:
-                        ref.current.asImage().SetSpriteColor(color.to_rgb_tuple())
+                    hues = [cursor_hue(p, gradient_origin) for p in segment] if gradient_origin is not None else None
                     a, b = [tuple(p[i] - session.scene_origin[i] for i in range(3)) for p in segment]
                     a, b = [camera.project(p, session.scene_size, width * Theme.scale, height * Theme.scale, unit()) for p in (a, b)]
                     segment = clip_line(a, b, width * Theme.scale, height * Theme.scale)
-                ref.current.SetVisible(bool(segment))
+                    if segment and hues is not None:
+                        ranges[index] = tuple(hues[0] + (hues[1]-hues[0])*t for t in segment_fractions(a, b, segment))
+                ref.current.SetVisible(bool(segment), False)
                 if segment:
                     (sx, sy), (ex, ey) = segment
                     length = max(.001, math.hypot(ex - sx, ey - sy))
@@ -391,8 +397,35 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
                     ref.current.SetSize((length, thickness))
                     ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
-        draw_lines(edge_refs, lines, max(.35, Theme.scale * .75), Theme.red if outline_error else Theme.blue)
-        draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
+            return ranges
+        edge_signature = (signature, selected)
+        if edge_signature != outline.current:
+            outline.current = edge_signature
+            # The blue border remains visible under the thinner color stroke
+            # when the hovered voxel is also the selected voxel.
+            draw_lines(edge_refs, box_lines(selected), max(.65, Theme.scale * 1.3))
+        cursor_signature = (signature, hovered)
+        if cursor_signature != cursor_outline.current:
+            cursor_outline.current = cursor_signature
+            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), max(.3, Theme.scale * .65), hovered[0] if hovered else None)
+            cursor_color.current = None
+        grid_signature = (signature, session.grid, e.layer)
+        if grid_signature != grid_outline.current:
+            grid_outline.current = grid_signature
+            draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
+        # Sliding twelve UV windows preserves a continuous gradient on each edge
+        # and at every corner. No projection, layout, grid or mesh work here.
+        if hovered is not None:
+            color_key = (int(now * 30) if Theme.motion and not preview_error else 0, bool(preview_error))
+            if color_key != cursor_color.current:
+                resized = cursor_color.current is None
+                cursor_color.current = color_key
+                for ref, hues in zip(cursor_refs, cursor_ranges.current):
+                    if ref.current and hues is not None:
+                        uv, uv_size = cursor_uv(hues[0], hues[1], now, Theme.motion, bool(preview_error))
+                        ref.current.asImage().SetSpriteUV(uv)
+                        if resized:
+                            ref.current.asImage().SetSpriteUVSize(uv_size)
 
     def down(args):
         if not screen_hit((args['TouchPosX'], args['TouchPosY'])):
@@ -481,20 +514,16 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             session.editor.message = '没有命中可见方块'
             session.emit()
 
-    def enter(unused):
-        hovering.current = True
-
     def leave(unused):
-        hovering.current = False
         hover_preview.current = None
         if not session.touch_mode:
             cancel(unused)
 
     def wheel(args):
-        if active and hovering.current:
+        point = mouse.GetMousePosition() if not session.touch_mode else None
+        if point is not None and screen_hit(point):
             session.camera_yaw, session.camera_pitch = camera.yaw, camera.pitch
             session.zoom = max(.25, camera.target[2] * (1.12 if args['direction'] else 1. / 1.12))
-            point = mouse.GetMousePosition()
             if point is not None and pointer.current:
                 px, py = pointer.current.GetGlobalPosition()
                 camera.zoom_at(session.zoom, point[0] - px, point[1] - py, width * Theme.scale, height * Theme.scale)
@@ -516,8 +545,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=371, visible=active), children=[
+            TypeImage(ref=ref, key='cursor%d' % i, src='textures/modern_projection/cursor_spectrum', color=Theme.white, rotatePivot=(.5, .5),
+                  style=S(position=Position.absolute, width=1, height=1, visible=False))
+            for i, ref in enumerate(cursor_refs)]),
         Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
               zIndex=360, opacity=max(0., 1.-session.brightness), visible=active)),
-        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onEnter=enter, onLeave=leave,
+        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onLeave=leave,
                 buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=380, visible=active)),
     ])
