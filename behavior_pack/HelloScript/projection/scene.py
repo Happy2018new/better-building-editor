@@ -13,7 +13,7 @@ from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_line, clip_depth
+from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_target
 from .chunks import painter_order
 from .input_mode import is_touch
 
@@ -356,17 +356,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                         hover_preview.current = (key, target, error)
                     unused_key, preview_cell, preview_error = hover_preview.current
         session.cursor_cell = preview_cell
-        edge_signature = (signature, selection_key, active, session.grid, e.layer, session.preview_pending,
-                          session.model_revision, preview_cell, preview_error)
+        selected, outline_error = outline_target(selected_bounds.current[1], session.direct_mode,
+                                                 session.box_anchor, preview_cell, preview_error)
+        edge_signature = (signature, active, session.grid, e.layer, session.preview_pending,
+                          session.model_revision, selected, outline_error)
         if edge_signature == outline.current:
             return
         outline.current = edge_signature
         ready = True
         lines = []
-        selected = selected_bounds.current[1]
-        if preview_cell is not None and not (session.direct_mode == 'box' and session.box_anchor is None and len(e.selection) > 1):
-            selected = (bounds((session.box_anchor, preview_cell)) if session.direct_mode == 'box' and
-                        session.box_anchor is not None else (preview_cell, preview_cell))
         if selected:
             lo, upper = selected
             lines = list(cuboid(lo, tuple(v + 1 for v in upper)))
@@ -393,7 +391,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
                     ref.current.SetSize((length, thickness))
                     ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
-        draw_lines(edge_refs, lines, max(.35, Theme.scale * .75), Theme.red if preview_error else Theme.blue)
+        draw_lines(edge_refs, lines, max(.35, Theme.scale * .75), Theme.red if outline_error else Theme.blue)
         draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
 
     def down(args):

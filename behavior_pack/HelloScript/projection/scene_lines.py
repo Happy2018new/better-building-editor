@@ -1,4 +1,18 @@
 """Camera-space overlay geometry, shared by the native scene and tests."""
+from .model import bounds
+
+
+def outline_target(selected, mode, anchor, cursor, error=None):
+    """Resolve the one visible box without modifying the editor's selection."""
+    if mode == 'box' and anchor is not None:
+        return bounds((anchor, cursor if cursor is not None else anchor)), None
+    # A completed region stays visible until a click changes the selection.
+    # Hover previews remain available when working with individual cells.
+    if selected is not None and selected[0] != selected[1]:
+        return selected, None
+    if cursor is not None:
+        return (cursor, cursor), error
+    return selected, None
 
 
 def cuboid(lo, hi):
