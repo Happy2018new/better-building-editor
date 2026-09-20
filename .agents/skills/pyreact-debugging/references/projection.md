@@ -22,4 +22,6 @@
 
 ## 旧回归辅助工具
 
+`tools/verify_catalogue_input.py` 使用真实点击和键盘覆盖目录、工具箱及 F11 模拟的搜索输入，采样快速输入/删除及等待过滤完成的聚焦底色，并检查中文原生文本注入、整数物理字号、弹窗阻挡底层导航和关闭后恢复输入。中文注入仍不是手机 IME 硬件验证。目录保留空格子的组件但隐藏其 Button；筛选可见格子时还需检查内部 Button，不能只按 JellyButton 的 key 统计。`tools/profile_catalogue.py` 在游戏线程测量界面提交耗时及 Clone 数，finally 恢复临时计时包装；不把 IPC 往返时间或截图 FPS 当作提交成本。
+
 `tools/pyreact_legacy/` 保留旧版截图/Win32 输入、Tracy 与动画采样剪贴板工具，供现有回归脚本使用；普通调试使用本 skill 的 MCDK 工作流。新实例下通过 `tools/run_live_check.py --session <file> --owner <owner> <工具名.py> [参数]` 运行项目回归，该入口校验实例、绑定 PID 并持有桌面锁。不要对用户的世界运行会保存建筑库或投影的 `verify_ui.py` 主函数。

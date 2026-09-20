@@ -7,6 +7,7 @@ import time
 import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
+from ..pyreact import native
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
 from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
@@ -80,6 +81,13 @@ def S(**values):
 
 
 class LabelPrimitive(BaseLabelPrimitive):
+    def props_affect_layout(self, prev_props, next_props, style):
+        # Retained captions reserve their geometry, including flex-assigned
+        # width. Their count/name changes never resize the workspace.
+        if next_props.get('glyphSlots'):
+            return False
+        return BaseLabelPrimitive.props_affect_layout(self, prev_props, next_props, style)
+
     def apply_props(self, host, fiber, control, prev_props, next_props):
         # Typography changes (including resize) make the base primitive reapply
         # text. Keep its native content empty whenever the glyph atlas owns ink.
@@ -87,6 +95,61 @@ class LabelPrimitive(BaseLabelPrimitive):
         native_next = dict(next_props, content='') if next_props.get('rasterText') else next_props
         native_prev = dict(prev_props, content='') if prev_props and prev_props.get('rasterText') else prev_props
         BaseLabelPrimitive.apply_props(self, host, fiber, control, native_prev, native_next)
+        if next_props.get('glyphSlots'):
+            state = fiber.primitive_state
+            if 'glyph_pool' not in state:
+                state['glyph_pool'] = []
+                for i in range(next_props['glyphSlots']):
+                    name = str('ink%d' % i)
+                    native.clone(host, '/root/mp_type_tmpl', fiber.native_path, name)
+                    state['glyph_pool'].append(host.GetBaseUIControl(fiber.native_path + '/' + name))
+            self.paint_glyphs(fiber)
+
+    def apply_layout(self, host, node):
+        self.paint_glyphs(node.fiber)
+
+    def paint_glyphs(self, fiber):
+        """A bounded atlas pool; changing names never clones controls."""
+        state, props = fiber.primitive_state, fiber.props
+        if not state.get('glyph_pool') or not state.get('_layout_applied'):
+            return
+        width, height = state['_layout_applied'][:2]
+        unused_sx, sy = state.get('_visual_scale', (1., 1.))
+        font = props['fontSize'] * sy
+        value = props.get('content', '')
+        color = props.get('color') or Theme.ink
+        alpha = state.get('_inherited_opacity', 1.) * color.a
+        signature = (value, font, width, height, color.to_rgb_tuple(), alpha, props.get('textAlign'))
+        if state.get('glyph_paint') == signature:
+            return
+        state['glyph_paint'] = signature
+        pieces, advance, row = [], 0., 0
+        widths = [0.]
+        for char in value[:props['glyphSlots']]:
+            data = ASSETS.get(char)
+            if data is None:
+                break
+            if advance + data[3]*font > width:
+                if row+1 >= props.get('glyphLines', 1):
+                    break
+                row, advance = row+1, 0.
+                widths.append(0.)
+            pieces.append((data, row, advance))
+            advance += data[3]*font
+            widths[row] = advance
+        for i, patch in enumerate(state['glyph_pool']):
+            shown = i < len(pieces) and props.get('rasterText')
+            patch.SetVisible(bool(shown), False)
+            if shown:
+                data, row, x = pieces[i]
+                name, w, h, unused_step = data
+                if props.get('textAlign') == TextAlignment.center:
+                    x += (width-widths[row])/2.
+                patch.asImage().SetSprite(TEX + 'type/' + name)
+                patch.asImage().SetSpriteColor(color.to_rgb_tuple())
+                patch.SetPosition((x, row*font*1.5))
+                patch.SetSize((w*font, h*font))
+                patch.SetAlpha(alpha)
 
 
 class PaperDollPrimitive(BasePaperDollPrimitive):
@@ -105,26 +168,6 @@ class InputPrimitive(BaseInputPrimitive):
         if prev_props is None or prev_props.get('fontScale') != scale:
             label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
             label.asLabel().SetTextFontSize(scale)
-
-    def apply_layout(self, host, node):
-        state = node.fiber.primitive_state
-        if 'focus_patches' not in state:
-            path = node.fiber.native_path + '/centering_panel/clipper_panel/active_background'
-            state['focus_patches'] = [host.GetBaseUIControl(path + '/p%d' % i) for i in range(9)]
-            for patch in state['focus_patches']:
-                patch.asImage().SetSpriteColor((.25, .27, .30))
-        width, height = state.get('_layout_applied', (node.frame_w, node.frame_h))[:2]
-        signature = (width, height, Theme.scale)
-        if state.get('focus_patch_size') == signature:
-            return
-        state['focus_patch_size'] = signature
-        radius = min(5*Theme.scale, width/2., height/2.)
-        xs, ys = (0., radius, width-radius, width), (0., radius, height-radius, height)
-        for i, patch in enumerate(state['focus_patches']):
-            row, col = i//3, i%3
-            patch.SetPosition((xs[col], ys[row]))
-            patch.SetSize((xs[col+1]-xs[col], ys[row+1]-ys[row]))
-
 
 NativeText = LabelPrimitive()
 NativeText.template_path = '/root/mp_label_tmpl'
@@ -377,6 +420,19 @@ def text(value, size=12, color=None, center=False, **style):
         advance = sum(.62 if ord(char) < 128 else 1. for char in value) * font
         props['style'] = NativeStyle(width=advance+1., height=font*1.4).merge(S(**style))
     return NativeText(**props)
+
+
+def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, **style):
+    """Fixed-size dynamic captions using the existing font/glyph assets."""
+    if isinstance(value, bytes):
+        value = value.decode('utf8')
+    value = value or ''
+    values = dict(height=size*1.5*lines, clipsChildren=True)
+    values.update(style)
+    return NativeText(content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
+                      shadow=False, rasterText=all(char in ASSETS for char in value),
+                      glyphSlots=slots, glyphLines=lines, textAlign=TextAlignment.center if center else TextAlignment.left,
+                      style=S(**values))
 
 
 def row(children, **style):

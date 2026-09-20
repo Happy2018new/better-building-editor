@@ -47,6 +47,7 @@ def main():
 
     original = game('_result={"palette":s.palette[:],"speed":s.spectrum_speed}')
     try:
+        game('s.set("material_browser",None)\n_result=True');time.sleep(.3)
         set_touch(False)
         ui.click('工作台'); ui.click('参数'); ui.click('放置')
         diagnostic({'fixture':'offset','camera':[0,90,1]});wait_preview()
@@ -68,7 +69,7 @@ def main():
         inp=ui.nodes('Input',ui.nodes('BlockInventory')[0])[0]
         ui.call('set_input',inp['id'],'混凝土');time.sleep(.5)
         inv=ui.nodes('BlockInventory')[0]
-        grid=[n for n in ui.nodes('JellyButton',inv) if str(n.get('key','')).startswith('block')]
+        grid=[n for n in ui.nodes('JellyButton',inv) if str(n.get('key','')).startswith('block') and ui.nodes('Button',n)]
         ui.check('Chinese name search finds block variants',len(grid)>=16 and all('混凝土' in ''.join(ui.labels(n)) for n in grid))
         snapshot('block_inventory_search')
         cell=next(n for n in grid if '红色混凝土' in ui.labels(n))
@@ -80,11 +81,16 @@ def main():
         ui.check('native inventory selection adds and equips full block data',game('_result=s.editor.material')==expected and
                  not ui.nodes('BlockInventory') and diagnostic()['blocks']==before)
         picker=ui.nodes('MaterialPicker')[0]
-        native_click(action('整理',picker))
+        if '整理' in ui.labels(picker):
+            native_click(action('整理',picker))
+        ui.call('scroll',ui.nodes('ScrollView',ui.nodes('Parameters')[0])[0]['id'],10000)
+        time.sleep(.3)
         # These are preference changes, never edits to the building.
         palette=game('_result=s.palette')
         target=next(n for n in ui.nodes('JellyButton',ui.nodes('MaterialPicker')[0]) if n.get('key')=='mat%d'%(len(palette)-1))
-        native_click(target);native_click(action('前移',ui.nodes('MaterialPicker')[0]))
+        native_click(target)
+        snapshot('palette_management_spacing')
+        native_click(action('前移',ui.nodes('MaterialPicker')[0]))
         ui.check('palette reorders selected shortcut',game('_result=s.palette[-2]')==expected)
         native_click(action('移除',ui.nodes('MaterialPicker')[0]))
         ui.check('palette removal preserves current material and document',expected not in game('_result=s.palette') and

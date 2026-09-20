@@ -21,6 +21,7 @@
 
 配套 `resource_pack/ui/PyreactBase.json` 保留现代化投影的模板注册。
 其中 `mp_pointer_tmpl` 引用 `ModernProjection.pointer`，以 `is_handle_button_move_event: true` 开启三维视口和滑条的原生触控移动事件；注册回调本身不会启用这些事件。
+`mp_inventory_modal_tmpl` 引用应用内的原生 `input_panel` 模态作用域，方块目录用它隔离底层输入；避免整屏 Button 抢占 edit_box 的选择事件。输入框聚焦底色的尺寸、颜色和初始隐藏状态由原生 JSON 维护，更新结果列表不再依赖 Python 缓存的九宫格尺寸。以上属于应用模板扩展，没有修改上游 Modal 组件。
 本次上游没有更改该 JSON；自定义输入模板继续保留原字体、整数 GUI 字号、原生占位子树与聚焦时深灰底色。
 
 仓库内的 `docs/PYREACT_UPSTREAM.md` 记录调试工具迁移、验证结果与下一次更新方式。

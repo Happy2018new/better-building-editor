@@ -220,7 +220,19 @@ def native_input_controls():
                     {'place_holder_control@common.text_edit_box_place_holder_label':dict(label_geometry)}],
                     'bindings':[{'binding_type':'view','source_control_name':'display_text',
                         'source_property_name':"(#item_name = '')",'target_property_name':'#visible','resolve_sibling_scope':True}]}},
-                {'active_background@ModernProjection.round':{'layer':0,'$mp_patch_layer':0,'size':['100%','100%'],
+                {'active_background':{'type':'panel','layer':0,'visible':False,'size':['100%','100%'],
+                    # Native geometry survives UpdateScreen/child removal. The
+                    # former Python-sized zero-size template patches did not.
+                    'controls':[
+                        {'p%d' % (r*3+c):{'type':'image','texture':'textures/modern_projection/rounded',
+                            'bilinear':True,'keep_ratio':False,'layer':0,'color':[.25,.27,.30],
+                            'anchor_from':('top','center','bottom')[r]+'_'+('left','middle','right')[c]
+                                if r!=1 else ('left_middle','center','right_middle')[c],
+                            'anchor_to':('top','center','bottom')[r]+'_'+('left','middle','right')[c]
+                                if r!=1 else ('left_middle','center','right_middle')[c],
+                            'size':['100% - 4px' if c==1 else 2,'100% - 4px' if r==1 else 2],
+                            'uv':[u,v],'uv_size':[16 if c==1 else 24,16 if r==1 else 24]}}
+                        for r,v in enumerate((0,24,40)) for c,u in enumerate((0,24,40))],
                     'bindings':[{'binding_type':'view','source_control_name':'display_text',
                         'resolve_sibling_scope':True,'source_property_name':'#text_edit_selected','target_property_name':'#visible'}]}}
             ]}}
@@ -236,6 +248,8 @@ def native_skin():
     skin={'namespace':ns,
         'label@PyreactBase.label':{'font_type':'smooth','backup_font_type':'smooth'},
         'type_image@PyreactBase.image':{'bilinear':True},
+        'inventory_modal@PyreactBase.panel':{'type':'input_panel','modal':True,'inline_modal':True,'focus_enabled':False},
+        'pointer@PyreactBase.button':{'button_mappings':[],'is_handle_button_move_event':True},
         'doll@PyreactBase.paperDoll':{'rotation':'none', 'enable_scissor_test':True},
         'click_observer@PyreactBase.panel': {'type': 'input_panel',
             'consume_hover_events': False,
@@ -285,7 +299,7 @@ def native_skin():
     base_path=ROOT/'resource_pack/ui/PyreactBase.json'
     base=json.loads(base_path.read_text(encoding='utf8'))
     controls=base['rootBase']['controls']
-    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round'),('click_observer','click_observer')]:
+    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round'),('click_observer','click_observer'),('pointer','pointer'),('inventory_modal','inventory_modal')]:
         key='mp_%s_tmpl@ModernProjection.%s'%(suffix,target)
         if not any(key in c for c in controls):
             controls.append({key:{}})

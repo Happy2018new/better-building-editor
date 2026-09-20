@@ -6,10 +6,15 @@ import time
 from functools import partial
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
-from .widgets import Theme, S, text, row, surface, icon, Action, Input, use_theme
+from ..pyreact.primitives import PanelPrimitive
+from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, Input, use_theme
 from .widgets import JellyButton as Button
 from .panels import material_background
 from .materials import CATEGORIES, search_blocks
+
+
+InventoryModal = PanelPrimitive()
+InventoryModal.template_path = '/root/mp_inventory_modal_tmpl'
 
 
 @Component
@@ -23,10 +28,14 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     columns = max(4, int(grid_width//64))
     rows = 4
     count = columns*rows
-    matches = search_blocks(session.block_catalogue, group, query)
+    matches = use_memo(lambda: search_blocks(session.block_catalogue, group, query),
+                       [id(session.block_catalogue), len(session.block_catalogue), group, query])
     pages = max(1, (len(matches)+count-1)//count)
     current_page = min(page, pages-1)
     visible = matches[current_page*count:(current_page+1)*count]
+    # Stable slots keep native item controls and captions alive across pages,
+    # category changes and empty searches. Only their content/visibility changes.
+    visible += [None] * (count-len(visible))
     selected_name = next((item['name'] for item in session.block_catalogue if item['value']==selected), '')
     cell_width = (grid_width-(columns-1)*5)/columns
 
@@ -47,28 +56,43 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
             Panel(style=S(width=116, height=rows*63, gap=4), children=[
                 Action(key=key, label=label, glyph=glyph, leading=True, compact=True, height=28,
                        selected=group==key, onClick=partial(change_group, key)) for key,label,glyph in CATEGORIES]),
-            Panel(style=S(width=grid_width, height=rows*63, flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5),
-                  children=[Button(key='block%d' % i, style=S(width=cell_width, height=58),
-                      buttonBuilder=partial(material_background, item['value']==selected), onClick=partial(set_selected, item['value']),
-                      children=Panel(style=S(width='100%', alignItems=AlignItems.center, gap=1), children=[
-                          Item(identifier=item['value'][0], aux=item['value'][1], style=S(width=30,height=30)),
-                          text(item['name'][:16], 8, width=cell_width-3, center=True)])) for i,item in enumerate(visible)] or
-                      [text('没有匹配的方块，试试其他名称', 12, Theme.muted, width=grid_width)])
+            Panel(style=S(width=grid_width, height=rows*63), children=[
+                Panel(style=S(width=grid_width, height=rows*63, flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5),
+                      children=[InventoryCell(key='slot%d' % i, item=item, selected=bool(item and item['value']==selected),
+                                              onSelect=set_selected, width=cell_width) for i,item in enumerate(visible)]),
+                Panel(style=S(position=Position.absolute, top=30, width=grid_width, visible=not matches),
+                      children=text('没有匹配的方块，试试其他名称', 12, Theme.muted, width=grid_width, center=True))])
         ], gap=10, alignItems=AlignItems.flex_start),
-        row([text('正在读取游戏方块…' if session.catalogue_loading else '%d 个方块' % len(matches), 10, Theme.muted, flex=1),
+        row([retained_text('正在读取游戏方块…' if session.catalogue_loading else '%d 个方块' % len(matches), 10, Theme.muted, flex=1),
              Action(label='上一页', glyph='arrow_left', compact=True, height=25, enabled=current_page>0,
                     onClick=partial(set_page, current_page-1)),
-             text('%d / %d' % (current_page+1,pages), 10, width=52, center=True),
+             retained_text('%d / %d' % (current_page+1,pages), 10, width=52, center=True, slots=12),
              Action(label='下一页', glyph='arrow_right', compact=True, height=25, enabled=current_page+1<pages,
                     onClick=partial(set_page, current_page+1))]),
         row([icon('search', Theme.muted, 17), text('搜索方块', 11, Theme.muted),
              Input(value=query, onChange=change_query, style=S(flex=1,height=30)),
              Action(label='清空', glyph='close', compact=True, height=28, enabled=bool(query), onClick=partial(change_query, ''))]),
         row([Item(identifier=selected[0], aux=selected[1], style=S(width=28,height=28)),
-             text(selected_name or '请选择方块', 12, flex=1),
-             Action(label='使用此方块' if selected in session.palette else '添加并使用', glyph='check' if selected in session.palette else 'plus',
+             retained_text(selected_name or '请选择方块', 12, flex=1),
+             Action(label='添加并使用', glyph='check',
                     accent=True, height=32, width=124, enabled=bool(selected_name), onClick=partial(session.add_material, selected))]),
     ])
+
+
+@Component
+def InventoryCell(item=None, selected=False, onSelect=None, width=60):
+    use_theme()
+    # Empty slots retain the last icon: hiding/revealing them is cheaper than
+    # replacing every native Item with air and then restoring it.
+    cached = use_ref({'value': ('minecraft:stone', 0), 'name': ''})
+    if item is not None:
+        cached.current = item
+    value = cached.current
+    return Button(key='block', style=S(width=width, height=58, visible=item is not None),
+        buttonBuilder=partial(material_background, selected), onClick=partial(onSelect, value['value']),
+        children=Panel(style=S(width='100%', alignItems=AlignItems.center, gap=1), children=[
+            Item(identifier=value['value'][0], aux=value['value'][1], style=S(width=30,height=30)),
+            retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2)]))
 
 
 @Component
@@ -93,7 +117,12 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     card = use_memo(lambda: BlockInventory(session=session, channel=channel.current,
                     width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision)),
                     [opened, channel.current, width, height, revision, catalogue_revision, Theme.scale])
-    return Modal(visible=opened or progress>0., style=Style(zIndex=2000), children=[
+    if not opened and progress <= 0.:
+        return None
+    # A native modal input scope blocks the workspace without a full-screen
+    # Button competing with edit_box selection on the same mouse press.
+    return InventoryModal(style=S(position=Position.absolute, top=0, left=0,
+                          width='100%', height='100%', zIndex=2000), children=[
         Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
         Panel(style=S(position=Position.absolute, width='100%',height='100%', zIndex=2,
               alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=

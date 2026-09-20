@@ -9,7 +9,7 @@ from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
-from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText
+from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText, retained_text
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
@@ -44,14 +44,31 @@ def RetainedPane(active=True, children=None, style=None):
 def ToolList(session=None, revision=0, height=440):
     use_theme()
     use_session_fields(session, ('group', 'query'))
-    query = session.query.strip().lower()
+    settled_query, set_settled_query = use_state(session.query)
+    serial = use_ref(0)
+
+    def filter_after_typing():
+        serial.current += 1
+        current = serial.current
+        value = session.query
+
+        def settle():
+            if serial.current == current:
+                set_settled_query(value)
+        session.bridge.later(.12, settle)
+
+        def cancel():
+            serial.current += 1
+        return cancel
+    use_effect(filter_after_typing, [session.query])
+    query = settled_query.strip().lower()
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == session.group)]
     title = next(g[1] for g in GROUPS if g[0] == session.group)
     return surface(width=174, height=height, padding=12, children=[
         row([text('工具箱', 15, flex=1), text('64', 10, Theme.blue)]),
         Input(value=session.query, onChange=partial(session.set, 'query'), style=S(width=150, height=27, marginTop=12)),
-        text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, marginTop=5, marginBottom=12),
-        text('搜索结果' if query else title + '工具', 10, Theme.muted, marginBottom=7),
+        retained_text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, width=150, marginTop=5, marginBottom=12),
+        retained_text('搜索结果' if query else title + '工具', 10, Theme.muted, width=150, marginBottom=7),
         Panel(style=S(width=154, flex=1), children=[
             RetainedPane(key=identity, active=not query and session.group == identity,
                 style=S(position=Position.absolute, width='100%', height='100%'),
@@ -69,11 +86,15 @@ def ToolList(session=None, revision=0, height=440):
 def ToolGroup(session=None, group=None, query='', selected=None):
     use_theme()
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == group)]
+    pool = TOOLS if group is None else [t for t in TOOLS if t[1] == group]
+    identities = set(t[0] for t in items)
     return Scroll(resetKey=query, style=S(width=154, height='100%'),
         children=Panel(style=S(width=144, gap=5), children=[
-            Action(key=t[0], label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
-                   selected=selected == t[0], onClick=partial(session.choose_tool, t[0]), compact=True)
-            for t in items] or [text('没有匹配的工具', 11, Theme.muted)]))
+            Panel(key=t[0], style=S(display=Display.flex if t[0] in identities else Display.none), children=
+                Action(label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
+                       selected=selected == t[0], onClick=partial(session.choose_tool, t[0]), compact=True))
+            for t in pool] + [Panel(key='empty', style=S(display=Display.none if items else Display.flex),
+                                   children=text('没有匹配的工具', 11, Theme.muted))]))
 
 
 @Component

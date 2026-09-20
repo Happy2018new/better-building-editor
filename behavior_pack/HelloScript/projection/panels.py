@@ -98,7 +98,7 @@ def MaterialPicker(session=None, revision=0, channels=None):
                         enabled=0<=index<len(session.palette)-1, onClick=partial(session.edit_palette, picked, 1)),
                  Action(label='移除', glyph='trash', compact=True, danger=True, width=66, height=27, enabled=index>=0,
                         onClick=partial(session.edit_palette, picked))]),
-            text('仅移除快捷入口，不改变建筑方块', 10, Theme.muted, width=216)]),
+            text('仅移除快捷入口，不改变建筑方块', 10, Theme.muted, width=216)], gap=9),
         text('点击 + 按分类或中文名称添加方块', 10, Theme.muted, width=216),
     ])
 
@@ -107,8 +107,9 @@ def material_background(selected, state):
     return Image(color=Theme.tint if selected or state != ButtonState.default else Theme.pale)
 
 
-def optional(identity, visible, children):
-    return Panel(key=identity, style=S(width='100%', display=Display.flex if visible else Display.none), children=children)
+def optional(identity, visible, children, gap=7):
+    return Panel(key=identity, style=S(width='100%', gap=gap,
+                 display=Display.flex if visible else Display.none), children=children)
 
 
 @Component
@@ -130,34 +131,44 @@ def SelectionBounds(session=None, revision=0):
                        enabled=point[axis] < (hi[axis] if side == 0 else e.document.size[axis]-1),
                        onClick=partial(session.adjust_boundary, axis, side, 1))], gap=4))
         rows.append(row(children, gap=6))
-    return Panel(style=S(width=216, gap=5), children=rows)
+    return Panel(style=S(width=216, gap=9, marginTop=3, marginBottom=3), children=rows)
 
 
 @Component
 def PasteControls(session=None, revision=0):
     use_theme()
+    precise, set_precise = use_state(False)
     from .pasting import paste_error
     e = session.editor
     clip = e.clipboard
     error = paste_error(e.document, clip, session.paste_origin)
-    return Panel(style=S(gap=7), children=[
+    return Panel(style=S(gap=10), children=[
         line(), text('粘贴预览', 15),
         text('请先复制或剪切一个区域' if clip is None else '尺寸  %d × %d × %d' % tuple(clip['size']), 12, Theme.blue),
-        text('点击模型或工作网格定位起点，再确认粘贴。无需预先框选目标区域。', 11, Theme.muted, width=216),
-        text('已固定起点' if session.paste_pinned else '点击模型固定粘贴起点', 10, Theme.muted),
-        row([Action(label='重新定位', glyph='pin', compact=True, height=27,
-                    onClick=partial(session.set, 'paste_pinned', False)),
-             Action(label='退出粘贴', glyph='close', compact=True, height=27,
-                    onClick=partial(session.choose_mode, 'select'))]),
-    ] + [row([text(axis, 11, Theme.blue, width=20),
-              Action(glyph='minus', width=30,height=27, enabled=session.paste_origin[i]>0,
+        Panel(style=S(gap=4), children=[
+            text('点击模型或网格，固定粘贴起点', 10, Theme.muted, width=216),
+            text('预览完整范围后，点击确认粘贴', 10, Theme.muted, width=216)]),
+        row([text('粘贴起点', 12, flex=1),
+             text('已固定起点' if session.paste_pinned else '随指针定位', 10, Theme.blue)]),
+        Panel(style=S(gap=8), children=[row([
+              text(axis, 11, Theme.blue, width=20),
+              text(('左右', '高低', '前后')[i], 10, Theme.muted, flex=1),
+              row([Action(glyph='minus', width=29,height=28, enabled=session.paste_origin[i]>0,
                      onClick=partial(session.move_paste, i, -1)),
-              text(str(session.paste_origin[i]), 12, flex=1,center=True),
-              Action(glyph='plus', width=30,height=27, enabled=session.paste_origin[i]<e.document.size[i]-1,
-                     onClick=partial(session.move_paste, i, 1))]) for i,axis in enumerate('XYZ')] + [
-        Coordinates(label='粘贴起点  X, Y, Z', value=session.paste_origin, onChange=session.set_paste_origin),
+                   text(str(session.paste_origin[i]), 12, width=42,center=True),
+                   Action(glyph='plus', width=29,height=28, enabled=session.paste_origin[i]<e.document.size[i]-1,
+                     onClick=partial(session.move_paste, i, 1))], gap=4)
+              ]) for i,axis in enumerate('XYZ')]),
+        row([Action(label='重新定位', glyph='pin', compact=True, width=104, height=28,
+                    onClick=partial(session.set, 'paste_pinned', False)),
+             Action(label='坐标输入', glyph='sliders', compact=True, width=104, height=28, selected=precise,
+                    onClick=partial(set_precise, not precise))], gap=8),
+        optional('paste_coordinates', precise,
+                 Coordinates(label='粘贴起点  X, Y, Z', value=session.paste_origin, onChange=session.set_paste_origin)),
         text(error or ('包含空气 · 覆盖目标范围' if session.tool=='paste' else '跳过空气 · 保留目标原有方块'),
              10, Theme.red if error else Theme.muted, width=216),
+        Action(label='退出粘贴', glyph='close', compact=True, height=28,
+               onClick=partial(session.choose_mode, 'select')),
     ])
 
 
@@ -191,7 +202,7 @@ def Parameters(session=None, revision=0):
         text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
         text('放置前预览新格 · 放下后选中新格' if session.direct_mode == 'place' else
              '选区擦除保留范围 · 可一次撤销' if session.direct_mode == 'erase' and session.erase_scope == 'selection' else
-             '点击编辑更新为单格 · 批量工具使用选区', 10, Theme.muted),
+             '点击编辑更新为单格 · 批量工具使用选区', 10, Theme.muted, width=216),
         text('两点选区：视图下方的框选', 10, Theme.muted),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),

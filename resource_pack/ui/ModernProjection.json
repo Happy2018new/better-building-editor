@@ -7,6 +7,12 @@
   "type_image@PyreactBase.image": {
     "bilinear": true
   },
+  "inventory_modal@PyreactBase.panel": {
+    "type": "input_panel",
+    "modal": true,
+    "inline_modal": true,
+    "focus_enabled": false
+  },
   "pointer@PyreactBase.button": {
     "button_mappings": [],
     "is_handle_button_move_event": true
@@ -374,12 +380,267 @@
                     }
                   },
                   {
-                    "active_background@ModernProjection.round": {
+                    "active_background": {
+                      "type": "panel",
                       "layer": 0,
-                      "$mp_patch_layer": 0,
+                      "visible": false,
                       "size": [
                         "100%",
                         "100%"
+                      ],
+                      "controls": [
+                        {
+                          "p0": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "size": [
+                              2,
+                              2
+                            ],
+                            "uv": [
+                              0,
+                              0
+                            ],
+                            "uv_size": [
+                              24,
+                              24
+                            ]
+                          }
+                        },
+                        {
+                          "p1": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "top_middle",
+                            "anchor_to": "top_middle",
+                            "size": [
+                              "100% - 4px",
+                              2
+                            ],
+                            "uv": [
+                              24,
+                              0
+                            ],
+                            "uv_size": [
+                              16,
+                              24
+                            ]
+                          }
+                        },
+                        {
+                          "p2": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "top_right",
+                            "anchor_to": "top_right",
+                            "size": [
+                              2,
+                              2
+                            ],
+                            "uv": [
+                              40,
+                              0
+                            ],
+                            "uv_size": [
+                              24,
+                              24
+                            ]
+                          }
+                        },
+                        {
+                          "p3": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "size": [
+                              2,
+                              "100% - 4px"
+                            ],
+                            "uv": [
+                              0,
+                              24
+                            ],
+                            "uv_size": [
+                              24,
+                              16
+                            ]
+                          }
+                        },
+                        {
+                          "p4": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "center",
+                            "anchor_to": "center",
+                            "size": [
+                              "100% - 4px",
+                              "100% - 4px"
+                            ],
+                            "uv": [
+                              24,
+                              24
+                            ],
+                            "uv_size": [
+                              16,
+                              16
+                            ]
+                          }
+                        },
+                        {
+                          "p5": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "right_middle",
+                            "anchor_to": "right_middle",
+                            "size": [
+                              2,
+                              "100% - 4px"
+                            ],
+                            "uv": [
+                              40,
+                              24
+                            ],
+                            "uv_size": [
+                              24,
+                              16
+                            ]
+                          }
+                        },
+                        {
+                          "p6": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "bottom_left",
+                            "anchor_to": "bottom_left",
+                            "size": [
+                              2,
+                              2
+                            ],
+                            "uv": [
+                              0,
+                              40
+                            ],
+                            "uv_size": [
+                              24,
+                              24
+                            ]
+                          }
+                        },
+                        {
+                          "p7": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "bottom_middle",
+                            "anchor_to": "bottom_middle",
+                            "size": [
+                              "100% - 4px",
+                              2
+                            ],
+                            "uv": [
+                              24,
+                              40
+                            ],
+                            "uv_size": [
+                              16,
+                              24
+                            ]
+                          }
+                        },
+                        {
+                          "p8": {
+                            "type": "image",
+                            "texture": "textures/modern_projection/rounded",
+                            "bilinear": true,
+                            "keep_ratio": false,
+                            "layer": 0,
+                            "color": [
+                              0.25,
+                              0.27,
+                              0.3
+                            ],
+                            "anchor_from": "bottom_right",
+                            "anchor_to": "bottom_right",
+                            "size": [
+                              2,
+                              2
+                            ],
+                            "uv": [
+                              40,
+                              40
+                            ],
+                            "uv_size": [
+                              24,
+                              24
+                            ]
+                          }
+                        }
                       ],
                       "bindings": [
                         {
