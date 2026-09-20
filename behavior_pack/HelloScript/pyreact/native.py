@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Modern Projection local changes; see UPSTREAM.md (upstream 9580d01).
 """SDK 访问中枢。
 
 集中封装对网易 ModSDK UI 接口的访问，让上层模块不直接依赖 SDK 细节。
@@ -58,7 +59,10 @@ def sanitize_name(name):
     # 不能以数字开头
     if "0" <= result[0] <= "9":
         result = "_" + result
-    return result
+    # Clone accepts unicode names for drawing in the Python 2 SDK, but their
+    # descendants do not receive native pointer events. Sanitization above
+    # guarantees ASCII, so str is safe here while accepting unicode keys.
+    return str(result)
 
 
 def join_path(parent_path, name):

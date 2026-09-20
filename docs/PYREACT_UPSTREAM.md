@@ -15,7 +15,9 @@
 
 ## 保留的项目补丁
 
-运行时仅 `debug.py`、`reconciler.py`、`renderer.py` 含本地差异，详见打包目录中的 `behavior_pack/HelloScript/pyreact/UPSTREAM.md`。没有覆盖业务 UI、输入模板、字体或模型渲染器。
+运行时 `debug.py`、`reconciler.py`、`renderer.py`、`native.py` 含本地差异，详见打包目录中的 `behavior_pack/HelloScript/pyreact/UPSTREAM.md`。没有覆盖业务 UI、输入模板、字体或模型渲染器。
+
+同步后的原生点击回归另见 `DEVELOPMENT.md` 阶段 35：控件名称在 Unicode key 净化后转换为 ASCII `str`，避免网易 Python 2 SDK 克隆容器时只正确显示、不接收其内部按钮的鼠标事件。普通 `click` 诊断直接调用 Python 回调，不能代替真实原生点击验证。
 
 上游新增的组件 ID 现在也能通过 `find_fiber_by_id` 反查。上游默认 MCDK 桥接只认识通用控件命令，本项目补充转发原来的有界诊断，便于继续检查原生光标、网格和指针状态。
 

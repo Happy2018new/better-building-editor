@@ -16,6 +16,7 @@
 | --- | --- |
 | `reconciler.py` | 相同不可变 Element 的干净子树跳过更新；变脏的组件正常更新。纯绘制属性不触发结构提交，保留上游 ref 切换和生命周期修复。 |
 | `renderer.py` | 仅位置、尺寸和透明度变化时不额外调用整屏 UpdateScreen；结构变化仍正常提交。 |
+| `native.py` | 保留上游中文 key 净化，但输出 ASCII `str` 控件名；网易 Python 2 SDK 克隆 Unicode 名称的容器后，后代按钮可显示却无法接收原生点击。 |
 | `debug.py` | 本项目原生控件、指针、输入字体及有界草稿诊断；MCDK 与剪贴板共用诊断处理。剪贴板回复重试不重复编辑，不重复解析未改变的大回复；组件的调试 ID 支持反向查询。 |
 
 配套 `resource_pack/ui/PyreactBase.json` 保留现代化投影的模板注册。

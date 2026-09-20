@@ -124,6 +124,19 @@ class UpgradeTests(unittest.TestCase):
         self.assertIs(parent.child_fibers[1], first)
         self.assertIs(parent.child_fibers[2], positional)
 
+    def test_unicode_keys_produce_ascii_native_control_names(self):
+        native = self.reconciler.native
+        for key, expected in (('view_navigation', 'view_navigation'),
+                              ('选区_一', '____'), ('12/区域', '_12___'),
+                              ('a-b', 'a_b'), (7, '_7')):
+            with self.subTest(key=key):
+                name = native.sanitize_name(key)
+                self.assertIs(type(name), str)
+                self.assertEqual(expected, name)
+                self.assertEqual(name, name.encode('ascii').decode('ascii'))
+        self.assertIsNone(native.sanitize_name(''))
+        self.assertIsNone(native.sanitize_name(None))
+
     def test_hidden_primitive_root_does_not_measure_native_text(self):
         element = self.primitives.Label(content='hidden', style=self.style.Style(display=self.constants.Display.none))
         fiber = self.reconciler.create_fiber(element, self.runtime)
