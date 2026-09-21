@@ -2,19 +2,13 @@
 # pylint: disable=unexpected-keyword-arg,E1123
 """Paged creative-style inventory with localized search and retained modal motion."""
 from __future__ import unicode_literals
-import time
 from functools import partial
 from ..pyreact import *
-from ..pyreact.hooks import use_animation_frame
-from ..pyreact.primitives import PanelPrimitive
 from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, Input, use_theme
 from .widgets import JellyButton as Button
 from .panels import material_background, MaterialIcon
 from .materials import CATEGORIES, search_blocks
-
-
-InventoryModal = PanelPrimitive()
-InventoryModal.template_path = '/root/mp_inventory_modal_tmpl'
+from .motion import DialogMotion
 
 
 @Component
@@ -122,32 +116,12 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
         session.bridge.later(.45, lambda: set_prepared(True) if alive[0] else None)
         return lambda: alive.__setitem__(0, False)
     use_effect(prepare, [])
-    progress, set_progress = use_state(0.)
-    motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
     channel = use_ref('material')
     opened = session.material_browser is not None
     if opened:
         channel.current = session.material_browser
-    def start_motion():
-        # Effects run after native mounting/layout, so preparing the inventory
-        # cannot consume the entrance animation before its first visible frame.
-        motion.update(target=opened, start=time.time(), **{'from': progress})
-        if not Theme.motion:
-            set_progress(float(opened))
-    use_effect(start_motion, [opened, Theme.motion])
-    def tick(now):
-        t = min(1., (now-motion['start'])/(.30 if opened else .20)) if Theme.motion else 1.
-        set_progress(motion['from']+(float(opened)-motion['from'])*(1.-(1.-t)**3))
-    use_animation_frame(tick, progress != float(opened))
     card = use_memo(lambda: BlockInventory(session=session, channel=channel.current,
                     width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision), opened=opened),
                     [opened, channel.current, width, height, revision, catalogue_revision, Theme.scale])
-    # A native modal input scope blocks the workspace without a full-screen
-    # Button competing with edit_box selection on the same mouse press.
-    return InventoryModal(style=S(position=Position.absolute, top=0, left=0,
-                          width='100%', height='100%', zIndex=2000, visible=opened or progress>0.), children=[
-        Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
-        Panel(style=S(position=Position.absolute, width='100%',height='100%', zIndex=2,
-              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
-            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+min(500,height-32))*.5*Theme.scale)]),
-                  children=card if prepared or opened else None))])
+    return DialogMotion(opened=opened, height=height, cardHeight=min(500,height-32), zIndex=2000,
+                        children=card if prepared or opened else None)

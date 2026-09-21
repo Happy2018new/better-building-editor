@@ -77,7 +77,12 @@ def main():
         ui.check(name+': focused gray persists through all 56 key samples',
                  all(all(55<=v<=90 for v in rgb) for rgb in colors))
         press(49);time.sleep(.15)
-        ui.check(name+': further native keyboard input still works',ui.call('native_control',field['id'])['result']['text']=='1')
+        following=ui.call('native_control',field['id'])['result']
+        if following['text']!='1':
+            samples.append(dict(name=name+'_following_key',final=following))
+            print(json.dumps(following,ensure_ascii=False),flush=True)
+            snapshot(name+'_following_key_failed')
+        ui.check(name+': further native keyboard input still works',following['text']=='1')
         snapshot(name)
         press(8)
 

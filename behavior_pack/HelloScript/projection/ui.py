@@ -2,7 +2,6 @@
 # pylint: disable=unexpected-keyword-arg,E1123
 """Modern Projection professional workspace, entirely native Pyreact JsonUI."""
 from __future__ import unicode_literals
-import time
 import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
@@ -17,7 +16,8 @@ from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
 from .camera import zoom_label
-from .material_browser import MaterialBrowser, InventoryModal
+from .material_browser import MaterialBrowser
+from .motion import DialogMotion, WorkspaceMotion
 
 
 def use_session_fields(session, fields):
@@ -312,20 +312,13 @@ def RenameDialog(session=None, width=980, height=640):
     use_session_fields(session, ('pending_rename',))
     opened = session.pending_rename is not None
     draft, set_draft = use_state('')
-    progress, set_progress = use_state(0.)
-    motion = use_ref({'start': 0., 'from': 0.}).current
     visited = use_ref(False)
     if opened:
         visited.current = True
     def start():
-        motion.update(start=time.time(), **{'from': progress})
         if opened:
             set_draft(session.pending_rename[1])
     use_effect(start, [session.pending_rename])
-    def tick(now):
-        t = min(1., (now-motion['start'])/(.26 if opened else .18)) if Theme.motion else 1.
-        set_progress(motion['from']+(float(opened)-motion['from'])*(1.-(1.-t)**3))
-    use_animation_frame(tick, progress != float(opened))
     def content():
         return surface(width=420, padding=24, gap=18, children=[
             row([icon('edit', Theme.blue, 24), text('重命名建筑配置', 21)]),
@@ -338,31 +331,16 @@ def RenameDialog(session=None, width=980, height=640):
                         onClick=partial(session.accept_rename, draft))])])
     card = use_memo(lambda: content() if visited.current else None,
                     [draft, opened, session.rename_error, Theme.scale, visited.current])
-    return InventoryModal(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2100,
-                          visible=opened or progress>0.), children=[
-        Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
-              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
-            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+300)*.5*Theme.scale)]), children=card))])
+    return DialogMotion(opened=opened, height=height, children=card)
 
 
 @Component
-def Confirmation(session=None, revision=0):
+def Confirmation(session=None, revision=0, height=640):
     use_theme()
-    progress, set_progress = use_state(0.)
-    motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
     message = use_ref('')
     opened = bool(session.pending_confirm)
     if opened:
         message.current = session.pending_confirm[0]
-    if motion['target'] != opened:
-        motion.update(target=opened, start=time.time(), **{'from': progress})
-
-    def tick(now):
-        fraction = min(1., (now - motion['start']) / (.28 if opened else .18)) if Theme.motion else 1.
-        eased = 1. - (1. - fraction) ** 3
-        set_progress(motion['from'] + (float(opened) - motion['from']) * eased)
-    use_animation_frame(tick, progress != float(opened))
 
     def content():
         return surface(width=420, padding=24, gap=18, children=[
@@ -371,13 +349,7 @@ def Confirmation(session=None, revision=0):
             row([Action(label='取消', enabled=opened, onClick=partial(session.set, 'pending_confirm', None)),
                  Action(label='确认继续', enabled=opened, accent=True, onClick=session.accept)])])
     card = use_memo(content, [message.current, opened, Theme.scale])
-    # Retain the modal through exit; its scrim continues swallowing background input.
-    return Modal(visible=opened or progress > 0., style=Style(zIndex=2000), children=[
-        Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
-              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
-            Panel(style=S(opacity=progress, transform=[Translate(0, (1. - progress) * 18 * Theme.scale),
-                Scale(.97 + .03 * progress)]), children=card))])
+    return DialogMotion(opened=opened, height=height, children=card)
 
 
 @Component
@@ -400,7 +372,8 @@ def PageNavigation(session=None, revision=0, focus=False):
 def CategoryRail(session=None, height=440, focus=False):
     use_theme()
     use_session_fields(session, ('group', 'page'))
-    return surface(width=64, height=height, paddingTop=12, gap=13, alignItems=AlignItems.center,
+    return surface(width=64, height=height, paddingVertical=12, gap=13,
+        alignItems=AlignItems.center, justifyContent=JustifyContent.center,
         display=Display.none if focus else Display.flex, children=[
         Panel(style=S(gap=4, alignItems=AlignItems.center), children=[
             Action(glyph=glyph, width=40, height=37, selected=session.group == identity and session.page == 'workspace',
@@ -410,13 +383,15 @@ def CategoryRail(session=None, height=440, focus=False):
 
 
 @Component
-def EditorPane(session=None, revision=0, page='workspace', width=760, height=440, focus=False):
+def EditorPane(session=None, revision=0, page='workspace', width=760, height=440, focus=False, entrance=None):
     use_theme()
     stage, set_stage = use_state(0)
     def prepare():
         alive = [True]
         if stage < 3:
             session.bridge.later(.015, lambda: set_stage(stage+1) if alive[0] else None)
+        elif entrance is not None and entrance.current:
+            entrance.current['ready']()
         return lambda: alive.__setitem__(0, False)
     use_effect(prepare, [stage])
     middle_width = width - 434
@@ -451,7 +426,7 @@ def ProjectionHelp(height=440):
 
 
 @Component
-def PageContent(session=None, revision=0, width=760, height=440, focus=False):
+def PageContent(session=None, revision=0, width=760, height=440, focus=False, entrance=None):
     use_theme()
     use_session_fields(session, ('page',))
     page = session.page
@@ -462,7 +437,7 @@ def PageContent(session=None, revision=0, width=760, height=440, focus=False):
         RetainedPane(key='editor', active=page in ('workspace', 'projection'),
             style=S(position=Position.absolute, width=width, height=height),
             children=EditorPane(session=session, revision=revision, page=editor_page.current,
-                                width=width, height=height, focus=focus)),
+                                width=width, height=height, focus=focus, entrance=entrance)),
         RetainedPane(key='library', active=page == 'library',
             style=S(position=Position.absolute, width=width, height=height),
             children=Library(session=session, revision=revision, width=width, height=height)),
@@ -480,6 +455,11 @@ def Workspace(session=None, revision=0):
     measured_screen = use_ref(screen)
     measured_pixels = use_ref(None)
     resize_pending = use_ref(False)
+    entrance = use_ref(None)
+
+    def close():
+        if entrance.current:
+            entrance.current['close']()
 
     def refresh():
         set_revision(lambda previous: previous + 1)
@@ -532,12 +512,12 @@ def Workspace(session=None, revision=0):
                                  text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿',
                                       10, Theme.mint)], paddingHorizontal=12)),
             Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
-            Action(glyph='close', width=32, height=32, onClick=navigator.pop),
+            Action(glyph='close', width=32, height=32, onClick=close),
         ], height=48 if focus else 65, paddingHorizontal=18, gap=12)),
         PageNavigation(session=session, revision=session.content_revision, focus=focus),
         row([
             CategoryRail(session=session, height=main_h, focus=focus),
-            PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus),
+            PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus, entrance=entrance),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
         row([
             text('工作层 Y', 11, Theme.blue, width=55),
@@ -559,8 +539,9 @@ def Workspace(session=None, revision=0):
             text('P 打开，F6 / F7 两点选区', 9, Theme.muted),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
-    return SafeArea(style=S(width='100%', height='100%'), children=[main,
-        Confirmation(session=session, revision=session.ui_revision),
+    return SafeArea(style=S(width='100%', height='100%'), children=[
+        WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'), height=height, children=main),
+        Confirmation(session=session, revision=session.ui_revision, height=height),
         RenameDialog(session=session, width=width, height=height),
         MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height), ClickEffects()])
 
