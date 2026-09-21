@@ -60,5 +60,23 @@ class PreparationTests(unittest.TestCase):
         self.queue.ready=False;self.queue.step(100);self.assertEqual([],self.calls)
         self.queue.ready=True;self.queue.step(101);self.assertEqual(['live'],self.calls)
 
+    def test_rebound_and_page_animations_complete_before_background_mounts(self):
+        for name in ('Action','JellyButton','PageMotion','Animated'):
+            fiber=types.SimpleNamespace(_mounted=True,comp_type=types.SimpleNamespace(__name__=name))
+            slot={'active':True,'fiber':fiber}
+            self.host._animation_frames={1:slot}
+            self.queue.add(lambda:self.calls.append('mounted'))
+            self.queue.step(100);self.assertEqual([],self.calls)
+            slot['active']=False;self.queue.step(101)
+            self.assertEqual(['mounted'],self.calls);self.calls.clear()
+            self.queue.next_batch_at=0.
+
+    def test_background_work_leaves_time_between_batches(self):
+        self.queue.add(lambda:self.calls.append('first'))
+        self.queue.add(lambda:self.calls.append('second'))
+        self.queue.step(100);self.queue.step(100.01)
+        self.assertEqual(['first'],self.calls)
+        self.queue.step(100.04);self.assertEqual(['first','second'],self.calls)
+
 
 if __name__=='__main__':unittest.main()

@@ -6,12 +6,17 @@ from ..pyreact import Component, Panel, use_state, use_effect, use_event
 from ..pyreact.hooks import use_animation_frame
 
 
+INTERACTIVE_ANIMATIONS = frozenset(('Action', 'JellyButton', 'Animated', 'PageMotion',
+                                  'WorkspaceMotion', 'DialogMotion'))
+
+
 class PreparationQueue(object):
     def __init__(self, session):
         self.session = session
         self.jobs = []
         self.ready = False
         self.paused_until = 0.
+        self.next_batch_at = 0.
         self.inputs = {}
 
     def add(self, callback, urgent=None):
@@ -23,7 +28,7 @@ class PreparationQueue(object):
         self.paused_until = time.time()+.25
 
     def step(self, now):
-        if not self.ready or not self.jobs or now < self.paused_until:
+        if not self.ready or not self.jobs or now < max(self.paused_until, self.next_batch_at):
             return
         s = self.session
         if s.camera_dragging or s.edit_job or s.busy or s.material_browser or s.pending_rename or s.pending_confirm:
@@ -33,6 +38,13 @@ class PreparationQueue(object):
             return
         if now-getattr(host, '_projection_last_pointer_time', 0.) < .25:
             return
+        # Button rebound lasts longer than the pointer cooldown. Do not resume
+        # hidden mounts halfway through it, tab sliding or native hover fades.
+        for slot in getattr(host, '_animation_frames', {}).values():
+            fiber = slot.get('fiber')
+            if (slot.get('active') and fiber is not None and fiber._mounted and
+                    getattr(fiber.comp_type, '__name__', '') in INTERACTIVE_ANIMATIONS):
+                return
         # Native tree creation can interrupt edit_box focus even when hidden.
         # Pause background work for the whole focus lifetime, including IME.
         paths = getattr(host, '_input_handlers', {})
@@ -47,6 +59,7 @@ class PreparationQueue(object):
         job = next((j for j in self.jobs if j[2] and j[2]()), self.jobs[0])
         self.jobs.remove(job)
         job[0] = False
+        self.next_batch_at = now + 1./30.
         # Exactly one small mount per frame across all panes, not one per pane.
         job[1]()
 

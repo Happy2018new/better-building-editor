@@ -34,4 +34,10 @@
 
 阶段 44 起工作台改为右侧滑入/滑出，弹窗上下最大偏移为 18 设计像素，两者均对内容和遮罩渐变。应用本地 Fade 使用无纹理 image 的 `propagate_alpha`，由原生容器传播 alpha；不要恢复为整页 Style.opacity，后者每帧遍历全部后代。稳定的 fade 引用在 transform 的 apply_layout 路径写入 alpha，不触发每帧 props 更新的整屏 UpdateScreen。原生 SDK 没有 GetAlpha；测试读取已提交的 motion_alpha 记录，并结合实际截图验证，不能声称 alpha 原生读回。采样缓存四个动画 Fiber，避免每次 flush 遍历全页影响测量。`verify_press_feedback.py` 通过真实 PC / F11 点击测量 Action 和 JellyButton 的压缩、回弹和精确复位，并检查减少动态效果。
 
+阶段 45 将工作台的整屏水平位移缩短到 12 设计像素，参照 `c3d96fe` 的 PageMotion 距离和 280 ms 入场节奏；退出仍为 200 ms，弹窗仍为 18 像素。旧版并没有独立 WorkspaceMotion，不能把它描述成原封不动回滚整个工作台。`SetAlpha` 文档只保证 image/label；原生方块模型在父容器渐隐时仍完全不透明，单靠已提交 alpha 的断言会漏报。预览片元着色器仅在正交 UI 中乘 CURRENT_COLOR.a，并为方块几何体开启混合；Scene 在模型的最小层级 50 之前用现有透明贴图绘制一个 1 像素、层级 49 的节点，传入继承的 alpha，防止沿用工作网格的半透明值。零 alpha 时隐藏 Fade 容器，避免引擎跳过图片后遗留模型。保持模型层级及这张透明图片的绘制顺序；深度裁剪、亮度和世界投影的透明度路径保持原逻辑。`verify_model_fade.py` 比较实际像素：网格开关不改变不透明表面、多个透明度档位、零透明度无模型、显示恢复。渐变由绘制状态完成，不调用 Combine 或逐帧重建模型。不能用多层建筑的像素差除以最终颜色差，来声称测得精确原生 alpha；透明面叠加和底色都会影响结果。
+
+`verify_work_plane.py` 使用未保存庭院草稿，在树木上方 Y=8 的网格进行 PC/F11 实际悬停、点选、两点框选和直接放置；关闭网格恢复选择树叶，位于网格前方的方块仍优先。`camera.pick_target` 比较射线到可见网格和实际方块的距离，而不是总先命中实际方块；换材质/擦除/吸管仍只命中实际方块。修改拾取后还要检查真实拖动的旋转支点，不能只验证俯视坐标。
+
+后台 PreparationQueue 在按钮回弹、选项与页面动画期间暂停，不仅依靠 250 ms 的点击冷却；恢复后最多每 1/30 秒一批，固定尺寸 Scroll 使用现有布局缓存隔离隐藏页签的准备。Scene/Scroll/Range 的常驻轮询不能作为暂停条件，否则后台准备永远无法完成。输入焦点和原生按住回归仍按前文要求进行。
+
 `tools/pyreact_legacy/` 保留旧版截图/Win32 输入、Tracy 与动画采样剪贴板工具，供现有回归脚本使用；普通调试使用本 skill 的 MCDK 工作流。新实例下通过 `tools/run_live_check.py --session <file> --owner <owner> <工具名.py> [参数]` 运行项目回归，该入口校验实例、绑定 PID 并持有桌面锁。不要对用户的世界运行会保存建筑库或投影的 `verify_ui.py` 主函数。

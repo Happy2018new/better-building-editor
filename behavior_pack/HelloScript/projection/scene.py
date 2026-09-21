@@ -8,7 +8,7 @@ import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .widgets import Theme, S, Doll, Pointer, TypeImage, transparent, use_theme
-from .camera import OrbitCamera, raycast, layer_hit, behind_plane, render_bounds
+from .camera import OrbitCamera, pick_target, behind_plane, render_bounds
 from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
@@ -137,18 +137,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def hit_at(x, y):
         origin, direction = camera.ray(x, y, session.scene_size, width * Theme.scale, height * Theme.scale, unit())
         origin = tuple(origin[i] + session.scene_origin[i] for i in range(3))
-        plane = camera.depth_plane(session.scene_size)
         def visible(pos):
             return (all(session.scene_origin[i] <= pos[i] < session.scene_origin[i] + session.scene_size[i] for i in range(3)) and
                     session.visible_layer(pos[1]))
-        hit = raycast(session.editor.document, origin, direction, visible)
-        if hit:
-            return hit
-        if session.direct_mode in ('place', 'box', 'select', 'browse'):
-            pos = layer_hit(session.editor.document, origin, direction, session.editor.layer)
-            if pos is not None and visible(pos):
-                return pos, (0, 0, 0)
-        return None
+        layer = session.editor.layer if session.direct_mode in ('place', 'box', 'select', 'browse') else None
+        return pick_target(session.editor.document, origin, direction, visible, layer, session.grid)
 
     def orbit_anchor(x, y):
         hit = hit_at(x, y)
@@ -560,6 +553,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
+            # Seed the geometry shader's CURRENT_COLOR with this viewport's
+            # inherited alpha. The preceding grid draws with its own .53 alpha;
+            # without a draw at layer 49 the models inherit that stale value.
+            # Reuse the transparent texture: no visible mark, one pixel draw,
+            # and no per-frame geometry submissions for workspace fades.
+            Image(src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=49)),
+        ] + [
             PreviewTile(key='tile_pool_%d' % index, identity=index, registry=registry)
             for index in range(session.tiles.pool_size)]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[

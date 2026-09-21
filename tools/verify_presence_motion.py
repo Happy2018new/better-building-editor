@@ -117,16 +117,16 @@ def main():
         values=[r[3] for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
         records[name]=rows
         changed=[v for i,v in enumerate(values) if i==0 or abs(v-values[i-1])>.01]
-        ui.check(name+' has at least five native intermediate positions',len(changed)>=5 and max(values)-min(values)>(30 if component=='WorkspaceMotion' else 3))
+        ui.check(name+' has at least five native intermediate positions',len(changed)>=5 and max(values)-min(values)>3)
         deltas=[b-a for a,b in zip(changed,changed[1:])]
         # Native flex centering can round the first committed height by <1 px.
         ui.check(name+' moves continuously in the expected direction',all(v<=.5 if opening else v>=-.5 for v in deltas))
         selected=[r for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
         ui.check(name+' applies intermediate alpha values',len(set(round(r[5],2) for r in selected if .01<r[5]<.99))>=3)
         ui.check(name+' stays on one motion axis',max(r[6] for r in selected)-min(r[6] for r in selected)<.5)
-        if component!='WorkspaceMotion':
-            scale=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
-            ui.check(name+' stays within an 18 design pixel offset',max(values)-min(values)<=18*scale+1.)
+        scale=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
+        limit=12 if component=='WorkspaceMotion' else 18
+        ui.check(name+' keeps the original compact offset',max(values)-min(values)<=limit*scale+1.)
         if frames:
             motion=[r for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
             sheet=Image.new('RGB',(1280,764),'#f1f4f8')

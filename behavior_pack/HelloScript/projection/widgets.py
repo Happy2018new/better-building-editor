@@ -381,7 +381,7 @@ def Scroll(style=None, children=None, resetKey=None):
         drag.current = None
 
     use_animation_frame(tick)
-    return Panel(style=style, children=[
+    return Panel(cacheLayout=True, style=style, children=[
         NativeScroll(ref=view, showScrollbar=False, style=NativeStyle(width='100%', height='100%'),
             children=Panel(ref=content, style=NativeStyle(width='100%'), children=children)),
         Pointer(ref=rail, retainCapture=True, onDown=down, onMove=move, onUp=up, onCancel=up,

@@ -28,6 +28,7 @@ varying vec4 light;
 varying highp float previewClip;
 
 #include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
 #include "util.h"
 
 LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
@@ -96,6 +97,10 @@ vec4 inColor = color;
 //#ifdef ENABLE_SET_TRANSPARENCY
 	diffuse.a *= COMMON_BLOCK_GEO_FLOAT1_1;
 //#endif
+    // Scene's transparent image immediately below the preview renderers seeds
+    // CURRENT_COLOR with inherited UI alpha. Perspective world projections
+    // retain their own COMMON_BLOCK_GEO_FLOAT1_1 transparency.
+	if (abs(PROJ[3][3]) > 0.5) diffuse.a *= CURRENT_COLOR.a;
 	gl_FragColor = diffuse;
 	
 #endif // BYPASS_PIXEL_SHADER

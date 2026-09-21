@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
-from projection.camera import OrbitCamera, raycast, layer_hit, render_bounds
+from projection.camera import OrbitCamera, raycast, layer_hit, render_bounds, pick_target
 from projection.model import Document, Editor, AIR
 from projection.session import Session
 
@@ -15,6 +15,29 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_work_plane_stops_selection_passing_through_to_tree(self):
+        doc = Document((24,16,24)); doc.blocks[(3,2,3)] = STONE
+        origin, direction = (3.5,20.,3.5), (0.,-1.,0.)
+        self.assertEqual(((3,6,3),(0,0,0)),pick_target(doc,origin,direction,layer=6))
+        self.assertEqual(((3,2,3),(0,1,0)),pick_target(doc,origin,direction,layer=6,grid=False))
+        self.assertEqual(((3,2,3),(0,1,0)),pick_target(doc,origin,direction))
+
+    def test_work_plane_preserves_front_blocks_and_placement_faces(self):
+        doc = Document((24,16,24)); origin, direction = (3.5,20.,3.5), (0.,-1.,0.)
+        for y in (6,9):
+            doc = Document((24,16,24));doc.blocks[(3,y,3)] = STONE
+            self.assertEqual(((3,y,3),(0,1,0)),pick_target(doc,origin,direction,layer=6))
+        doc = Document((24,16,24));doc.blocks[(3,5,3)] = STONE
+        self.assertEqual(((3,6,3),(0,0,0)),pick_target(doc,origin,direction,layer=6))
+
+    def test_work_plane_obeys_visibility_parallel_rays_and_below_views(self):
+        doc = Document((24,16,24));doc.blocks[(3,2,3)] = STONE
+        self.assertEqual(((3,2,3),(0,1,0)),pick_target(doc,(3.5,20.,3.5),(0.,-1.,0.),lambda p:p[1]!=6,6))
+        self.assertIsNone(pick_target(doc,(3.5,6.,3.5),(1.,0.,0.),layer=6))
+        self.assertEqual(((3,2,3),(0,-1,0)),pick_target(doc,(3.5,-2.,3.5),(0.,1.,0.),layer=6))
+        doc = Document((24,16,24));doc.blocks[(3,6,3)] = STONE
+        self.assertEqual(((3,6,3),(0,-1,0)),pick_target(doc,(3.5,-2.,3.5),(0.,1.,0.),layer=6))
+
     def test_rebasing_orbit_preserves_every_point_during_zoom(self):
         size, width, height, base = (64, 128, 64), 600., 400., 2.25
         for yaw, pitch in ((35.4, 25.8), (225.8, -40.3), (0, 90)):

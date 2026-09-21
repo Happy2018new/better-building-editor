@@ -212,3 +212,25 @@ def layer_hit(document, origin, direction, layer):
     point = tuple(int(math.floor(origin[i] + distance * direction[i])) for i in range(3))
     point = (point[0], layer, point[2])
     return point if document.contains(point) else None
+
+
+def pick_target(document, origin, direction, visible=None, layer=None, grid=True):
+    """Pick the nearest block or visible work-plane cell, including empty cells.
+
+    A hidden grid keeps the old empty-space fallback. Existing blocks on the
+    plane retain their entered face for placement; an empty plane cell stops
+    clicks passing through to a tree/floor behind it.
+    """
+    hit = raycast(document, origin, direction, visible)
+    pos = layer_hit(document, origin, direction, layer) if layer is not None else None
+    if pos is None or (visible is not None and not visible(pos)):
+        return hit
+    if hit is None:
+        return pos, (0, 0, 0)
+    if not grid or hit[0] == pos:
+        return hit
+    axis = next((i for i in range(3) if hit[1][i]), None)
+    distance = 0. if axis is None else (
+        hit[0][axis] + int(hit[1][axis] > 0) - origin[axis]) / direction[axis]
+    plane_distance = (layer - origin[1]) / direction[1]
+    return (pos, (0, 0, 0)) if plane_distance <= distance + 1e-7 else hit

@@ -22,12 +22,24 @@ cls._pane_saved_flush=cls._pyreact_flush
 native._pane_saved_clone=native.clone
 h._pane_costs=[]
 h._pane_clones=0
+h._pane_hotspots=[]
+h._pane_profile=None
 def flush(self):
     started=time.clock()
-    try:return self._pane_saved_flush()
+    try:
+        if self._pane_profile is not None:
+            return self._pane_profile.runcall(self._pane_saved_flush)
+        return self._pane_saved_flush()
     finally:
         cost=(time.clock()-started)*1000.
         if cost>.1:self._pane_costs.append(cost)
+        if self._pane_profile is not None:
+            if cost>50. and len(self._pane_hotspots)<12:
+                import pstats
+                stats=pstats.Stats(self._pane_profile).stats
+                top=sorted(stats.items(),key=lambda pair:pair[1][3],reverse=True)[:18]
+                self._pane_hotspots.append((cost,[(str(k),v[:4]) for k,v in top]))
+            self._pane_profile.clear()
 def clone(host,*args):
     host._pane_clones+=1
     return native._pane_saved_clone(host,*args)
@@ -35,6 +47,8 @@ cls._pyreact_flush=flush
 native.clone=clone
 _result=True
 ''')
+    if '--hotspots' in sys.argv:
+        game('import cProfile\nh._pane_profile=cProfile.Profile()\n_result=True')
     rows=[]
     operations=[('inspector','layers'),('inspector','history'),('inspector','params'),
                 ('page','library'),('page','guide'),('page','projection'),('page','workspace')]
@@ -53,8 +67,10 @@ _result=True
             rows.append(dict(dialog=opened,**data))
             print(dict(dialog=opened,peak_ms=round(max(data['commits'] or [0]),2),clones=data['clones']),flush=True)
     finally:
+        if '--hotspots' in sys.argv:
+            (ui.OUT/'pane_hotspots.json').write_text(json.dumps(game('_result=h._pane_hotspots'),indent=2),encoding='utf8')
         game('cls._pyreact_flush=cls._pane_saved_flush\ndel cls._pane_saved_flush\nnative.clone=native._pane_saved_clone\ndel native._pane_saved_clone\ns.set("material_browser",None)\ns.set("page","workspace")\n_result=True')
-        name='pane_switches_before.json' if '--baseline' in sys.argv else 'pane_switches_after.json'
+        name='pane_switches_profiled.json' if '--hotspots' in sys.argv else 'pane_switches_before.json' if '--baseline' in sys.argv else 'pane_switches_after.json'
         (ui.OUT/name).write_text(json.dumps(rows,indent=2),encoding='utf8')
 
 
