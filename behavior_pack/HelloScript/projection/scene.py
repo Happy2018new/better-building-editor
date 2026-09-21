@@ -57,7 +57,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser', 'pending_rename'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser', 'pending_rename', 'pending_confirm'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current

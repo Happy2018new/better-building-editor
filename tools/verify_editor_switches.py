@@ -99,7 +99,7 @@ _result=True
         game('h=api.GetTopScreen()\nh.pyreact_unregister_animation_frame(h._inventory_probe)\n_result=True')
     for name,samples in [('open',opened),('close',closed)]:
         values=sorted(set(round(p[1],2) for p in samples))
-        ui.check('inventory '+name+' traverses multiple native intermediate positions',len(values)>=5 and values[-1]-values[0]>30)
+        ui.check('inventory '+name+' traverses compact native intermediate positions',len(values)>=5 and values[-1]-values[0]>3)
     game('s.open_materials("secondary")\n_result=True');time.sleep(.5)
     inv=ui.nodes('BlockInventory')[0]
     ui.check('reopening retains native input control and syncs target channel',identities==[n['id'] for n in ui.nodes('Input',inv)] and inv['props']['channel']=='secondary')

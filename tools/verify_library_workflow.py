@@ -23,7 +23,7 @@ def store(data):
     return True
 s.bridge.save_library=store
 s.library=[{'id':i,'data':{'version':1,'name':name,'size':[24,16,24], 'blocks':[]}}
-           for i,name in enumerate(['\u6797\u95f4\u767d\u76d2','\u77f3\u82f1\u5854\u697c','\u5ead\u9662\u7ec3\u4e60','\u6c34\u8fb9\u5c0f\u5c4b'],1)]
+           for i,name in enumerate(['\u72ec\u7acb','\u77f3\u82f1\u5854\u697c','\u5ead\u9662\u7ec3\u4e60','\u6c34\u8fb9\u5c0f\u5c4b'],1)]
 s.name='\u8349\u7a3f\u540d\u79f0'
 s.set('page','library')
 s.emit()
@@ -64,7 +64,7 @@ _result=True
             snapshot('library_expanded_'+preset.replace(':','_'))
         click(action('重命名',ui.nodes('Library')[0]))
         field=ui.nodes('Input',dialog())[0]
-        ui.check('rename dialog is prefilled with the clicked building',field['props']['value']=='林间白盒')
+        ui.check('rename dialog is prefilled with the clicked building',field['props']['value']=='独立')
         click(field)
         with Client() as client:
             result=client.call('mc_input',{'op':'/run','args':{'steps':[{'do':'key','keys':'ctrl+a'},{'do':'text','value':'独立名称'}]}})
@@ -78,11 +78,20 @@ _result=True
                  game('_result=(s.library[0]["data"]["name"],s.library[1]["data"]["name"],s.name,s.pending_rename)')==
                  ['独立名称','石英塔楼','草稿名称',None])
         ui.check('successful rename is shown immediately in library','独立名称' in ui.labels(ui.nodes('Library')[0]))
+        title=next(n for n in ui.nodes('Label',ui.nodes('Library')[0]) if n['props'].get('content')=='独立名称')
+        ui.check('renamed Chinese building uses smooth glyphs without native fallback',
+                 title['props'].get('rasterText') and ui.call('native_control',title['id'])['result']['text']=='')
+        snapshot('library_name_smooth')
         click(action('重命名',ui.nodes('Library')[0]))
         field=ui.nodes('Input',dialog())[0]
         ui.call('set_input',field['id'],'取消修改')
         click(action('取消',dialog()))
         ui.check('cancel preserves the saved name',game('_result=s.library[0]["data"]["name"]')=='独立名称')
+        click(action('删除',ui.nodes('Library')[0]))
+        ui.check('delete opens the shared confirmation dialog',bool(game('_result=s.pending_confirm is not None')))
+        click(action('确认继续',ui.nodes('Confirmation')[0]))
+        ui.check('confirmed deletion removes only the fixture entry and closes the dialog',
+                 game('_result=([entry["id"] for entry in s.library],s.pending_confirm)')==[[2,3,4],None])
         ui.click('工作台')
         ui.check('selection is no longer a duplicate tool category','选区' not in ui.labels(ui.nodes('CategoryRail')[0]))
         ui.click('选择当前层')

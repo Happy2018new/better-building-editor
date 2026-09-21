@@ -155,7 +155,7 @@ class Session(object):
             self.progress = None
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
-        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename') else None)
+        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm') else None)
 
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:
@@ -764,7 +764,7 @@ class Session(object):
 
     def confirm(self, title, callback):
         self.pending_confirm = (title, callback)
-        self.emit()
+        self.emit('pending_confirm')
 
     def accept(self):
         if self.pending_confirm:

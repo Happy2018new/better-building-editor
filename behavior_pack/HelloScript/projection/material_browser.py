@@ -28,14 +28,17 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     count = columns*rows
     prepared, set_prepared = use_state(0)
     def prepare():
+        if prepared >= count:
+            return
+        queue = getattr(session, '_ui_preparation', None)
+        # Opening the catalogue prioritizes its own cells. While hidden it
+        # shares the same one-batch-per-frame budget as the other panes.
+        if queue is not None and not opened:
+            return queue.add(lambda: set_prepared(min(count, prepared+2)))
         alive = [True]
-        if prepared < count:
-            def advance():
-                if alive[0]:
-                    set_prepared(min(count, prepared+4))
-            session.bridge.later(.02, advance)
+        session.bridge.later(.02, lambda: set_prepared(min(count, prepared+2)) if alive[0] else None)
         return lambda: alive.__setitem__(0, False)
-    use_effect(prepare, [prepared, count])
+    use_effect(prepare, [prepared, count, opened])
     matches = use_memo(lambda: search_blocks(session.block_catalogue, group, query),
                        [id(session.block_catalogue), len(session.block_catalogue), group, query])
     pages = max(1, (len(matches)+count-1)//count)
@@ -96,7 +99,7 @@ def InventoryCell(item=None, selected=False, onSelect=None, width=60):
     if item is not None:
         cached.current = item
     value = cached.current
-    return Button(key='block', style=S(width=width, height=58, visible=item is not None),
+    return Button(key='block', cacheLayout=True, style=S(width=width, height=58, visible=item is not None),
         buttonBuilder=partial(material_background, selected), onClick=partial(onSelect, value['value']),
         children=Panel(style=S(width='100%', alignItems=AlignItems.center, gap=1), children=[
             MaterialIcon(value=value['value'], size=30),
@@ -112,6 +115,9 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     use_effect(subscribe, [session])
     prepared, set_prepared = use_state(False)
     def prepare():
+        queue = getattr(session, '_ui_preparation', None)
+        if queue is not None:
+            return queue.add(lambda: set_prepared(True))
         alive = [True]
         session.bridge.later(.45, lambda: set_prepared(True) if alive[0] else None)
         return lambda: alive.__setitem__(0, False)
@@ -123,5 +129,5 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     card = use_memo(lambda: BlockInventory(session=session, channel=channel.current,
                     width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision), opened=opened),
                     [opened, channel.current, width, height, revision, catalogue_revision, Theme.scale])
-    return DialogMotion(opened=opened, height=height, cardHeight=min(500,height-32), zIndex=2000,
+    return DialogMotion(opened=opened, session=session, zIndex=2000,
                         children=card if prepared or opened else None)

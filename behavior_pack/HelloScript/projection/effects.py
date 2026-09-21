@@ -36,6 +36,8 @@ class ClickObserverPrimitive(PanelPrimitive):
             if contact in contacts:
                 return False
             contacts.add(contact)
+            host._projection_click_contacts = contacts
+            host._projection_last_pointer_time = time.time()
             host._projection_last_click = {'point': point, 'touch': touch}
             for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
                 tracker.screen_down(args, point if args.get('TouchId') == -1 else motion.GetMousePosition())
@@ -43,6 +45,7 @@ class ClickObserverPrimitive(PanelPrimitive):
             return False
         def up(screen, args):
             fiber.primitive_state.setdefault('contacts', set()).discard(args.get('TouchId'))
+            host._projection_last_pointer_time = time.time()
             host._projection_click_counts = getattr(host, '_projection_click_counts', [0, 0])
             host._projection_click_counts[1] += 1
             release_pointers(host, args)

@@ -22,19 +22,31 @@ from HelloScript.pyreact import navigator
 import time
 api._motion_samples=[]
 NavigatorScreen._motion_saved_flush=NavigatorScreen._pyreact_flush
-def scan(f):
+def collect(f, targets):
     name=_type_name(f)
     if name in ('WorkspaceMotion','DialogMotion'):
+        targets.append(f)
+        return
+    for child in f.child_fibers:collect(child, targets)
+def sample(targets):
+    for f in targets:
+        name=_type_name(f)
         outer=f.child_fibers[0]
         moving=outer.child_fibers[1]
         if name=='DialogMotion':moving=moving.child_fibers[0]
         control=f.host.GetBaseUIControl(moving.native_path)
-        api._motion_samples.append((time.time(),name,_type_name(f.parent_fiber),control.GetPosition()[1],f.props.get('opened')))
-        if name=='DialogMotion':return
-    for child in f.child_fibers:scan(child)
+        position=control.GetPosition()
+        axis=0 if name=='WorkspaceMotion' else 1
+        api._motion_samples.append((time.time(),name,_type_name(f.parent_fiber),position[axis],f.props.get('opened'),
+                                   moving.primitive_state.get('motion_alpha',1.),position[1-axis]))
 def flush(self):
     result=self._motion_saved_flush()
-    if self._root_fiber is not None and len(api._motion_samples)<6000:scan(self._root_fiber)
+    if self._root_fiber is not None and len(api._motion_samples)<6000:
+        if getattr(self,'_motion_probe_root',None) is not self._root_fiber:
+            self._motion_probe_root=self._root_fiber
+            self._motion_probe_targets=[]
+            collect(self._root_fiber,self._motion_probe_targets)
+        sample(self._motion_probe_targets)
     return result
 NavigatorScreen._pyreact_flush=flush
 _result=True
@@ -45,6 +57,8 @@ def main():
     capture.user32.SetProcessDPIAware()
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
+    if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
+        key('p');time.sleep(2.)
     set_touch(False)
     game('s.set("page","workspace")\ns.set("material_browser",None)\ns.set("pending_confirm",None)\ns.set("pending_rename",None)\n_result=True')
     time.sleep(.5)
@@ -103,10 +117,16 @@ def main():
         values=[r[3] for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
         records[name]=rows
         changed=[v for i,v in enumerate(values) if i==0 or abs(v-values[i-1])>.01]
-        ui.check(name+' has at least five native intermediate positions',len(changed)>=5 and max(values)-min(values)>30)
+        ui.check(name+' has at least five native intermediate positions',len(changed)>=5 and max(values)-min(values)>(30 if component=='WorkspaceMotion' else 3))
         deltas=[b-a for a,b in zip(changed,changed[1:])]
         # Native flex centering can round the first committed height by <1 px.
         ui.check(name+' moves continuously in the expected direction',all(v<=.5 if opening else v>=-.5 for v in deltas))
+        selected=[r for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
+        ui.check(name+' applies intermediate alpha values',len(set(round(r[5],2) for r in selected if .01<r[5]<.99))>=3)
+        ui.check(name+' stays on one motion axis',max(r[6] for r in selected)-min(r[6] for r in selected)<.5)
+        if component!='WorkspaceMotion':
+            scale=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
+            ui.check(name+' stays within an 18 design pixel offset',max(values)-min(values)<=18*scale+1.)
         if frames:
             motion=[r for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
             sheet=Image.new('RGB',(1280,764),'#f1f4f8')
@@ -165,6 +185,9 @@ def main():
     finally:
         game('''NavigatorScreen._pyreact_flush=NavigatorScreen._motion_saved_flush
 del NavigatorScreen._motion_saved_flush
+h=api.GetTopScreen()
+for name in ('_motion_probe_root','_motion_probe_targets'):
+    if hasattr(h,name):delattr(h,name)
 s.pending_confirm=None
 s.pending_rename=None
 s.material_browser=None

@@ -26,10 +26,12 @@
 
 `tools/profile_editor_switches.py` 同样统计七种视图模式、批量工具及目录开关的提交耗时/Clone 数；`--baseline` 保存修改前记录。`verify_editor_switches.py` 用真实点击验证分类、工具和模式联动，检查空气的空心图标、目录开关的原生中间位置、重开复用输入框及重复框选起点清除。目录现在在工作台中保留隐藏控件，判断是否打开须使用过滤可见性的树；不要把原始 Fiber 中仍有 BlockInventory 判作未关闭。鼠标停在第一行工具处时不要只用 session.choose_group 来替代真实分类导航后立即点击同一坐标，优先按实际操作先点分类按钮，再点工具。
 
-`tools/profile_workspace_open.py` 使用真实 P 重开三次，分别计时同步 `_mount_element` 和后续 `_pyreact_flush`，统计原生 Clone 总数。首批界面挂载时间不等于全部编辑控件就绪时间；工作台按帧创建场景、工具栏和属性栏，方块目录延后分批准备。非当前页面首次访问时才创建，访问后保留。分类与搜索共用一组原生工具按钮，不能为了减少首次创建量在每次筛选时删除按钮，否则可能丢失原生 edit_box 焦点；修改后须跑 `verify_catalogue_input.py` 的快速输入/删除回归。
+`tools/profile_workspace_open.py` 使用真实 P 重开三次，分别计时同步 `_mount_element` 和后续 `_pyreact_flush`，统计原生 Clone 总数。首批界面挂载时间不等于全部编辑控件就绪时间；工作台按帧创建场景、工具栏和属性栏，入场结束后通过共享 PreparationQueue 分批准备其余页签和方块目录，每帧最多一个批次。原生输入框聚焦、指针按住、模型拖动和弹窗动画期间暂停后台创建。`profile_pane_switches.py` 比较首次/再次页签切换的提交耗时和 Clone 数，测量包含该窗口内的后台准备，不能当成单个切换回调耗时。分类与搜索共用一组原生工具按钮，不能为了减少首次创建量在每次筛选时删除按钮，否则可能丢失原生 edit_box 焦点；修改后须跑 `verify_catalogue_input.py` 的快速输入/删除回归。
 
 `tools/verify_library_workflow.py` 在内存中替换建筑列表及 save_library，finally 恢复，避免写入用户配置；检查 4:3/16:9 列表可见面积、独立重命名弹窗的原生输入/占位控件、保存/取消与草稿名称隔离、右侧选区操作。`verify_click_effects.py` 检查真实像素、六个粒子控件复用、弹窗层级、原生输入焦点，以及 F11 下实际触点位置。触屏坐标须来自事件，不能优先读取鼠标坐标；仍需区分开发客户端模拟和手机硬件验证。
 
 `tools/verify_presence_motion.py` 采样实际原生容器位置，检查工作台 P 入场/右上角退出、三种共用 DialogMotion 的弹窗、快速反向开合、减少动态效果以及分类上下居中。工作台动画等待分帧编辑控件挂载完成后开始；退出动画结束才出栈。`--visual` 抓取桌面中间帧，`--workspace-only` 仅测工作台；截图需覆盖首次控件准备和动画的总时间，不能仅录制 300 ms 后把世界画面误判成动画失效。测试临时确认/重命名不会执行实际持久化操作。原生位置提交与桌面画面呈现有时间差，接触表的百分比是容器位置采样参考，不是显示器呈现时间的精确标定。
+
+阶段 44 起工作台改为右侧滑入/滑出，弹窗上下最大偏移为 18 设计像素，两者均对内容和遮罩渐变。应用本地 Fade 使用无纹理 image 的 `propagate_alpha`，由原生容器传播 alpha；不要恢复为整页 Style.opacity，后者每帧遍历全部后代。稳定的 fade 引用在 transform 的 apply_layout 路径写入 alpha，不触发每帧 props 更新的整屏 UpdateScreen。原生 SDK 没有 GetAlpha；测试读取已提交的 motion_alpha 记录，并结合实际截图验证，不能声称 alpha 原生读回。采样缓存四个动画 Fiber，避免每次 flush 遍历全页影响测量。`verify_press_feedback.py` 通过真实 PC / F11 点击测量 Action 和 JellyButton 的压缩、回弹和精确复位，并检查减少动态效果。
 
 `tools/pyreact_legacy/` 保留旧版截图/Win32 输入、Tracy 与动画采样剪贴板工具，供现有回归脚本使用；普通调试使用本 skill 的 MCDK 工作流。新实例下通过 `tools/run_live_check.py --session <file> --owner <owner> <工具名.py> [参数]` 运行项目回归，该入口校验实例、绑定 PID 并持有桌面锁。不要对用户的世界运行会保存建筑库或投影的 `verify_ui.py` 主函数。

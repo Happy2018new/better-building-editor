@@ -18,6 +18,7 @@ from .gizmo import OrientationGizmo
 from .camera import zoom_label
 from .material_browser import MaterialBrowser
 from .motion import DialogMotion, WorkspaceMotion
+from .preparation import PreparationQueue, PreparationPump
 
 
 def use_session_fields(session, fields):
@@ -32,10 +33,16 @@ def use_session_fields(session, fields):
 
 
 @Component
-def RetainedPane(active=True, children=None, style=None):
+def RetainedPane(active=True, children=None, style=None, session=None):
     """Keep native controls and scroll position; refresh stale content on entry."""
     cached = use_ref(None)
-    if active:
+    prepared, set_prepared = use_state(False)
+    queue = getattr(session, '_ui_preparation', None)
+    def prepare():
+        if queue is not None and not active and cached.current is None:
+            return queue.add(lambda: set_prepared(True))
+    use_effect(prepare, [queue, active])
+    if active or (prepared and cached.current is None):
         cached.current = children
     return Panel(cacheLayout=True, style=(style or Style()).merge(Style(visible=active)), children=cached.current)
 
@@ -279,7 +286,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
                             session.box_anchor, session.paste_origin, session.paste_pinned)
         if name == 'params' and session.direct_mode != 'browse':
             content_revision = (content_revision, session.view)
-        panes.append(RetainedPane(key=name, active=active == name,
+        panes.append(RetainedPane(key=name, active=active == name, session=session,
             style=S(position=Position.absolute, width=216, height=height-111),
             children=component(session=session, revision=content_revision)))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
@@ -331,12 +338,13 @@ def RenameDialog(session=None, width=980, height=640):
                         onClick=partial(session.accept_rename, draft))])])
     card = use_memo(lambda: content() if visited.current else None,
                     [draft, opened, session.rename_error, Theme.scale, visited.current])
-    return DialogMotion(opened=opened, height=height, children=card)
+    return DialogMotion(opened=opened, session=session, children=card)
 
 
 @Component
 def Confirmation(session=None, revision=0, height=640):
     use_theme()
+    use_session_fields(session, ('pending_confirm',))
     message = use_ref('')
     opened = bool(session.pending_confirm)
     if opened:
@@ -349,7 +357,7 @@ def Confirmation(session=None, revision=0, height=640):
             row([Action(label='取消', enabled=opened, onClick=partial(session.set, 'pending_confirm', None)),
                  Action(label='确认继续', enabled=opened, accent=True, onClick=session.accept)])])
     card = use_memo(content, [message.current, opened, Theme.scale])
-    return DialogMotion(opened=opened, height=height, children=card)
+    return DialogMotion(opened=opened, session=session, children=card)
 
 
 @Component
@@ -401,8 +409,9 @@ def EditorPane(session=None, revision=0, page='workspace', width=760, height=440
         Panel(style=S(width=174, height=height, display=Display.none if focus else Display.flex), children=[
             Panel(style=S(position=Position.absolute, visible=page != 'projection'),
                   children=ToolList(session=session, revision=(session.tool, Theme.scale), height=height) if stage>=2 else None),
-            Panel(style=S(position=Position.absolute, visible=page == 'projection'),
-                  children=ProjectionHelp(height=height) if page=='projection' else None),
+            RetainedPane(active=page == 'projection', session=session,
+                  style=S(position=Position.absolute, width=174, height=height),
+                  children=ProjectionHelp(height=height)),
         ]),
         Panel(style=S(width=middle_width, height=height), children=
             Viewport(session=session, revision=revision, width=middle_width, height=height) if stage>=1 else None),
@@ -434,14 +443,14 @@ def PageContent(session=None, revision=0, width=760, height=440, focus=False, en
     if page in ('workspace', 'projection'):
         editor_page.current = page
     panes = [
-        RetainedPane(key='editor', active=page in ('workspace', 'projection'),
+        RetainedPane(key='editor', active=page in ('workspace', 'projection'), session=session,
             style=S(position=Position.absolute, width=width, height=height),
             children=EditorPane(session=session, revision=revision, page=editor_page.current,
                                 width=width, height=height, focus=focus, entrance=entrance)),
-        RetainedPane(key='library', active=page == 'library',
+        RetainedPane(key='library', active=page == 'library', session=session,
             style=S(position=Position.absolute, width=width, height=height),
             children=Library(session=session, revision=revision, width=width, height=height)),
-        RetainedPane(key='guide', active=page == 'guide',
+        RetainedPane(key='guide', active=page == 'guide', session=session,
             style=S(position=Position.absolute, width=width, height=height),
             children=Guide(session=session, revision=session.reduced_motion, width=width, height=height)),
     ]
@@ -456,6 +465,19 @@ def Workspace(session=None, revision=0):
     measured_pixels = use_ref(None)
     resize_pending = use_ref(False)
     entrance = use_ref(None)
+    preparation = use_ref(None)
+    if preparation.current is None:
+        preparation.current = PreparationQueue(session)
+    session._ui_preparation = preparation.current
+    def release_preparation():
+        def cleanup():
+            preparation.current.ready = False
+            preparation.current.jobs[:] = []
+            preparation.current.inputs.clear()
+            if getattr(session, '_ui_preparation', None) is preparation.current:
+                del session._ui_preparation
+        return cleanup
+    use_effect(release_preparation, [session])
 
     def close():
         if entrance.current:
@@ -540,10 +562,12 @@ def Workspace(session=None, revision=0):
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[
-        WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'), height=height, children=main),
+        WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'),
+                        width=width, preparation=preparation.current, children=main),
         Confirmation(session=session, revision=session.ui_revision, height=height),
         RenameDialog(session=session, width=width, height=height),
-        MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height), ClickEffects()])
+        MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height),
+        ClickEffects(), PreparationPump(queue=preparation.current)])
 
 
 @Component

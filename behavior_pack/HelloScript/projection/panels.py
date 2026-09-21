@@ -9,6 +9,7 @@ from .widgets import JellyButton as Button, use_theme, retained_text
 from .catalog import BY_ID, MATERIALS, tool_parameters
 from .model import AIR, MAX_AXES, bounds
 from .coordinates import parse_coordinates
+from .preparation import PreparedColumn
 
 
 def material_name(value):
@@ -274,7 +275,8 @@ def Layers(session=None, revision=0):
     use_effect(follow_layer, [e.layer, e.document.size])
     page = min(page, (e.document.size[1] - 1) // 16)
     low, high = page * 16, min(e.document.size[1], (page + 1) * 16)
-    return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=7), children=[
+    return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
+        urgent=lambda: session.inspector == 'layers' and session.page == 'workspace', style=S(width=216, gap=7), children=[
         row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
         text('锁定保护编辑，隐藏仅影响预览', 10, Theme.muted),
         Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
@@ -287,7 +289,7 @@ def Layers(session=None, revision=0):
              text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
              Action(glyph='plus', width=28, height=26, enabled=high < e.document.size[1], onClick=partial(set_page, page + 1))]),
         line(),
-    ] + [surface(color=Theme.tint if y == e.layer else Theme.pale, height=39, padding=5, children=row([
+    ] + [surface(color=Theme.tint if y == e.layer else Theme.pale, width=216, height=39, padding=5, children=row([
         Action(label='Y %02d' % y, onClick=partial(session.layer, y), selected=y == e.layer, height=28, width=60),
         text('%d 格' % e.document.layer_count(y), 10, Theme.muted, flex=1),
         Action(glyph='lock' if y in e.locked_layers else 'unlock', width=27, height=27,
@@ -301,7 +303,8 @@ def Layers(session=None, revision=0):
 def History(session=None, revision=0):
     use_theme()
     e = session.editor
-    return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=8), children=[
+    return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
+        urgent=lambda: session.inspector == 'history' and session.page == 'workspace', style=S(width=216, gap=8), children=[
         text('操作历史', 18), text('最多保留 50 步，修改可逐步撤销', 10, Theme.muted),
         row([Action(label='撤销', glyph='undo', onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
              Action(label='重做', glyph='redo', onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack))]), line(),
@@ -334,7 +337,8 @@ def NewRegion(session=None, compact=False):
                           onChange=partial(change, axis), stacked=compact)
             for axis, label in enumerate(('X 宽度', 'Y 高度', 'Z 长度'))]
     if compact:
-        return Panel(style=S(gap=10), children=[text('新建空白区域', 15)] + axes + [
+        return PreparedColumn(session=session, style=S(gap=10), initial=1,
+            urgent=lambda: session.page == 'library', children=[text('新建空白区域', 15)] + axes + [
             Action(label='新建空白', glyph='plus', height=32, onClick=create)])
     return surface(padding=12, gap=8, children=[
         row([text('新建区域', 14, flex=1),
@@ -379,13 +383,14 @@ def Library(session=None, revision=0, width=760, height=440):
     return row(width=width, height=height, gap=18, padding=12, alignItems=AlignItems.stretch, children=[
         Panel(style=S(width=list_width, height=height-24, gap=12), children=[
             row([text('我的建筑库', 21, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)], height=34),
-            Scroll(style=S(width=list_width, height=height-70), children=Panel(style=S(width=list_width-12, gap=12,
+            Scroll(style=S(width=list_width, height=height-70), children=PreparedColumn(session=session,
+                urgent=lambda: session.page == 'library', initial=0, style=S(width=list_width-12, gap=12,
                 height=max(170,len(cards)*142-12)), children=cards or [surface(width=list_width-12, height=170,
                     alignItems=AlignItems.center, justifyContent=JustifyContent.center, gap=10, children=[
                         icon('library', Theme.muted, 34), text('这里等待你的第一件作品', 18),
                         text('给当前草稿起个名字，然后保存配置。', 11, Theme.muted)])]))]),
         surface(width=252, height=height-24, padding=14, children=Scroll(style=S(width=236, height=height-52), children=
-            Panel(style=S(width=224, gap=12), children=[
+            PreparedColumn(session=session, urgent=lambda: session.page == 'library', style=S(width=224, gap=12), children=[
                 text('保存当前草稿', 15),
                 Input(value=session.name, onChange=partial(session.set, 'name'), style=S(width=224, height=32)),
                 Action(label='另存为新配置', glyph='save', accent=True, height=32, onClick=partial(session.action, session.save)),
@@ -397,7 +402,8 @@ def ProjectionSettings(session=None, revision=0):
     use_theme()
     e = session.editor
     stats = session.progress
-    return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=8), children=[
+    return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
+        urgent=lambda: session.page == 'projection', style=S(width=216, gap=8), children=[
         text('投影设置', 20), text('在世界中照着半透明蓝图建造', 11, Theme.muted), line(),
         surface(color=Theme.green, padding=12, gap=5, children=[
             text('生存友好', 14, Theme.mint), text('投影不会放置方块或消耗物品', 10, Theme.mint)]),
@@ -439,7 +445,8 @@ def Guide(session=None, revision=0, width=760, height=440):
         ('05', '保存作品，带走灵感', '建筑库可以保存多个配置。载入后可以继续编辑，也可以生成投影。', 'library'),
         ('06', '在生存世界慢慢实现', '到目标位置生成半透明投影，逐层搭建，检查缺失和放错的方块。', 'projection'),
     ]
-    return Scroll(style=S(width=width, height=height), children=Panel(style=S(width=width - 20, padding=20, gap=12), children=[
+    return Scroll(style=S(width=width, height=height), children=PreparedColumn(session=session,
+        urgent=lambda: session.page == 'guide', style=S(width=width - 20, padding=20, gap=12), children=[
         text('从第一块，到完整的建筑。', 26), text('不用一次学会所有工具。选一份示例，跟着这六步开始。', 13, Theme.muted),
         row([Action(label='载入庭院示例', glyph='cube', accent=True, width=160,
                     onClick=partial(session.confirm, '载入示例将替换当前草稿，继续吗？', session.demo)),

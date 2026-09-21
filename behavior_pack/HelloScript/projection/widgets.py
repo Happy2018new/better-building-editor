@@ -119,10 +119,18 @@ class LabelPrimitive(BaseLabelPrimitive):
         value = props.get('content', '')
         color = props.get('color') or Theme.ink
         alpha = state.get('_inherited_opacity', 1.) * color.a
-        signature = (value, font, width, height, color.to_rgb_tuple(), alpha, props.get('textAlign'))
+        signature = (value, font, width, height, color.to_rgb_tuple(), props.get('textAlign'),
+                     props.get('rasterText'), props.get('glyphLines'))
         if state.get('glyph_paint') == signature:
+            # Dialog fades only change alpha. Avoid reassigning textures,
+            # positions and sizes for every retained inventory glyph each frame.
+            if state.get('glyph_alpha') != alpha:
+                for patch in state['glyph_pool'][:state.get('glyph_visible', 0)]:
+                    patch.SetAlpha(alpha)
+                state['glyph_alpha'] = alpha
             return
         state['glyph_paint'] = signature
+        state['glyph_alpha'] = alpha
         pieces, advance, row = [], 0., 0
         widths = [0.]
         for char in value[:props['glyphSlots']]:
@@ -137,6 +145,7 @@ class LabelPrimitive(BaseLabelPrimitive):
             pieces.append((data, row, advance))
             advance += data[3]*font
             widths[row] = advance
+        state['glyph_visible'] = len(pieces) if props.get('rasterText') else 0
         for i, patch in enumerate(state['glyph_pool']):
             shown = i < len(pieces) and props.get('rasterText')
             patch.SetVisible(bool(shown), False)
@@ -495,7 +504,7 @@ def PageMotion(page=None, children=None, width=760, height=440):
 
 @Component
 def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
-                backgroundColor=None, hoverColor=None, radius=4, inset=0):
+                backgroundColor=None, hoverColor=None, radius=4, inset=0, cacheLayout=False):
     use_theme()
     progress, set_progress = use_state(1.)
     feedback, set_feedback = use_state(ButtonState.default)
@@ -513,7 +522,7 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
     def tick(now):
         set_progress(min(1., (now - started.current) / .36))
     use_animation_frame(tick, progress < 1.)
-    wobble = math.exp(-6 * progress) * math.sin(3 * math.pi * progress) if progress < 1. else 0.
+    wobble = math.exp(-5 * progress) * math.sin(3 * math.pi * progress) if progress < 1. and Theme.motion else 0.
     content = list(children) if isinstance(children, (list, tuple)) else ([children] if children is not None else [])
     skins = []
     if backgroundColor is not None:
@@ -530,8 +539,8 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
                 style=S(width='100%', height='100%'))))
     control = FeedbackButton if hoverColor is not None else Button
     extra = {'onFeedback': stable_feedback} if hoverColor is not None else {}
-    return control(onClick=stable_click, buttonBuilder=buttonBuilder,
-                  style=(style or NativeStyle()).merge(NativeStyle(transform=[Scale(1 + .06 * wobble, 1 - .08 * wobble)])),
+    return control(onClick=stable_click, buttonBuilder=buttonBuilder, cacheLayout=cacheLayout,
+                  style=(style or NativeStyle()).merge(NativeStyle(transform=[Scale(1 + .13 * wobble, 1 - .18 * wobble)])),
                   children=skins + content, **extra)
 
 
@@ -557,7 +566,7 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     def tick(now):
         set_progress(min(1., (now - started.current) / .44))
     use_animation_frame(tick, progress < 1.)
-    wobble = math.exp(-6 * progress) * math.sin(3.5 * math.pi * progress) if progress < 1. else 0
+    wobble = math.exp(-5 * progress) * math.sin(3.5 * math.pi * progress) if progress < 1. and Theme.motion else 0
     base = Theme.blue if accent else (Theme.tint if selected else Theme.pale)
     if enabled and feedback != ButtonState.default:
         base = base.darken(.10 if feedback == ButtonState.pressed else .035)
@@ -579,7 +588,7 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1,
-                          transform=[Scale(1 + .07 * wobble, 1 - .10 * wobble)]), children=children)
+                          transform=[Scale(1 + .13 * wobble, 1 - .18 * wobble)]), children=children)
 
 
 @Component

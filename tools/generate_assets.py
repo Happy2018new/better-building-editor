@@ -27,9 +27,10 @@ def sprites(font_path):
                     phrases.add(value)
     chars = set(''.join(phrases)) | set(chr(i) for i in range(32, 127))
     # Names returned by GetItemBasicInfo are dynamic, outside Python literals.
-    vocabulary = ROOT / 'tools/block_name_glyphs.txt'
-    if vocabulary.exists():
-        chars.update(vocabulary.read_text(encoding='utf8').strip())
+    for vocabulary_name in ('block_name_glyphs.txt', 'name_glyphs.txt'):
+        vocabulary = ROOT / 'tools' / vocabulary_name
+        if vocabulary.exists():
+            chars.update(vocabulary.read_text(encoding='utf8').strip())
     result = {}
     dest = OUT / 'type'
     dest.mkdir(parents=True, exist_ok=True)
@@ -247,6 +248,7 @@ def native_skin():
     ns='ModernProjection'; tex='textures/modern_projection/'
     skin={'namespace':ns,
         'label@PyreactBase.label':{'font_type':'smooth','backup_font_type':'smooth'},
+        'motion_group@PyreactBase.panel':{'type':'image','texture':'','propagate_alpha':True},
         'type_image@PyreactBase.image':{'bilinear':True},
         'inventory_modal@PyreactBase.panel':{'type':'input_panel','modal':True,'inline_modal':True,'focus_enabled':False},
         'pointer@PyreactBase.button':{'button_mappings':[],'is_handle_button_move_event':True},
@@ -299,7 +301,7 @@ def native_skin():
     base_path=ROOT/'resource_pack/ui/PyreactBase.json'
     base=json.loads(base_path.read_text(encoding='utf8'))
     controls=base['rootBase']['controls']
-    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round'),('click_observer','click_observer'),('pointer','pointer'),('inventory_modal','inventory_modal')]:
+    for suffix,target in [('label','label'),('type','type_image'),('input','input'),('slider','slider'),('doll','doll'),('scroll','scroll'),('round','round'),('click_observer','click_observer'),('pointer','pointer'),('inventory_modal','inventory_modal'),('motion_group','motion_group')]:
         key='mp_%s_tmpl@ModernProjection.%s'%(suffix,target)
         if not any(key in c for c in controls):
             controls.append({key:{}})
