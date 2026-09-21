@@ -62,3 +62,7 @@ python -X utf8 tools/run_live_check.py --session $instance.session_file --owner 
 2. 映射 `pyreact/` 到 `behavior_pack/HelloScript/pyreact/`，`jsonui/PyreactBase.json` 到资源包 UI；技能路径保持不变。
 3. 三方合并 `UPSTREAM.md` 列出的运行时补丁，以及本地技能中的 `projection.md`、MCDK 诊断桥接、实例启动与回归桌面锁补充。
 4. 检查许可与配套工具的删除/迁移，运行单元测试和实机回归，再更新 SHA、验证记录并提交。
+
+## 阶段 51 的滚动控件性能补丁
+
+`ScrollViewPrimitive._get_scroll_view` 优先查找实际原生 scroll_view 子节点，缓存转换后的包装对象。避免常驻滚动同步每帧将外层 Panel 转换为 ScrollView，反复触发原生警告和查找；上游后续合并需保留或验证等效行为。缓存依附当前原生控件，重新挂载自然失效；没有新增对外 props。

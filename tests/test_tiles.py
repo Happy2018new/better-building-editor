@@ -10,6 +10,7 @@ from projection.large_preview import build_preview
 from projection.chunks import painter_order
 import math
 import itertools
+import time
 
 
 def cells(palette):
@@ -126,6 +127,8 @@ class TileTests(unittest.TestCase):
         b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)
         s.choose_mode('place'); s.point_action((3,0,3)); b.settle(s)
         part = s.tiles.parts[(0,0,0)]; part['pending'] = True
+        s.tiles.renderer_active = True
+        s.tiles.last_render = time.time()
         builds = len(b.builds)
         s.point_action((3,0,3),(0,1,0))
         s.tiles.advance()
@@ -133,6 +136,24 @@ class TileTests(unittest.TestCase):
         part['pending'] = False; b.settle(s)
         self.assertEqual(builds+1,len(b.builds))
         self.assertNotEqual(part['name'],s.tiles.parts[(0,0,0)]['name'])
+
+    def test_hidden_renderer_does_not_hold_build_and_cancelled_work_cannot_resume(self):
+        b=Bridge();s=Session(b);s._loaded(Document((64,128,64)))
+        s.editor.select_box((0,0,0),(63,0,63));s.editor.run('fill');s.refresh_preview()
+        # No renderer acknowledgements: library/closed workspace still builds.
+        for unused in range(1000):
+            if not b.queue:break
+            b.queue.pop(0)()
+        self.assertFalse(s.preview_pending)
+        self.assertEqual(16,len(s.tiles.render_keys))
+        s.editor.select_box((0,1,0),(63,1,63));s.editor.run('fill');s.refresh_preview()
+        s.tiles.cancel();before=len(b.builds)
+        while b.queue:b.queue.pop(0)()
+        self.assertEqual(before,len(b.builds))
+        self.assertFalse(s.preview_pending)
+        s.tiles.retry();b.settle(s)
+        self.assertFalse(s.preview_error)
+        self.assertEqual(cells(list(build_preview(s.editor.document))[-1][0]),scene_cells(s))
 
     def test_rapid_overview_edits_do_not_publish_blocking_progress(self):
         b = Bridge(); s = Session(b); s._loaded(Document((25,64,25)))

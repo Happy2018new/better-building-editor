@@ -91,6 +91,22 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def tearDown(self):
         boundary.clientApi = self.original_api
 
+    def test_frame_watchdog_and_failed_callback_preserve_other_jobs(self):
+        import contextlib
+        import io
+        observed = []
+        self.bridge.attach_frame_pump()
+        def broken():
+            raise RuntimeError('injected frame callback failure')
+        self.bridge.next_frame(broken)
+        self.bridge.next_frame(lambda: observed.append('continued'))
+        self.assertEqual(1, len(self.runtime.timers))
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            self.runtime.timers.pop()()
+        self.assertEqual(['continued'], observed)
+        self.assertIn('injected frame callback failure', log.getvalue())
+        self.assertFalse(self.bridge.frame_work)
+
     def test_model_waits_for_actor_initialization_and_replaces_old_projection(self):
         self.bridge.project()
         self.assertEqual([], self.runtime.attached)

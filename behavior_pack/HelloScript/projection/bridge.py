@@ -45,6 +45,7 @@ class ClientBridge(object):
         self.projection_outline = ProjectionOutline(self)
         self.frame_pumps = 0
         self.frame_work = []
+        self.frame_watchdog = False
 
     def later(self, delay, callback):
         def invoke():
@@ -55,14 +56,28 @@ class ClientBridge(object):
     def next_frame(self, callback):
         if self.frame_pumps:
             self.frame_work.append(callback)
+            if not self.frame_watchdog:
+                self.frame_watchdog = True
+                self.later(.2, self.check_frame_work)
         else:
             self.later(0., callback)
 
+    def check_frame_work(self):
+        self.frame_watchdog = False
+        if self.frame_work and time.time()-getattr(self, 'last_frame_pump', 0.) >= .15:
+            self.pump_frame()
+
     def pump_frame(self):
+        self.last_frame_pump = time.time()
         pending, self.frame_work = self.frame_work, []
         for callback in pending:
             if self.alive:
-                callback()
+                try:
+                    callback()
+                except Exception:
+                    # One failed consumer must not discard other queued jobs.
+                    import traceback
+                    traceback.print_exc()
 
     def attach_frame_pump(self):
         self.frame_pumps += 1

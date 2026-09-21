@@ -31,7 +31,9 @@ class PreparationQueue(object):
         if not self.ready or not self.jobs or now < max(self.paused_until, self.next_batch_at):
             return
         s = self.session
-        if s.camera_dragging or s.edit_job or s.busy or s.material_browser or s.pending_rename or s.pending_confirm:
+        if (s.camera_dragging or getattr(s, 'preview_pending', False) or
+                getattr(getattr(s, 'tiles', None), 'mounting', False) or
+                s.edit_job or s.busy or s.material_browser or s.pending_rename or s.pending_confirm):
             return
         host = clientApi.GetTopScreen()
         if host is None or getattr(host, '_projection_click_contacts', None):

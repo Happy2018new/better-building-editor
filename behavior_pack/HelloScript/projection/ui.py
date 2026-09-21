@@ -138,34 +138,43 @@ def LocateSelected(session=None):
 @Component
 def PreviewProgress(session=None, width=400):
     use_theme()
-    container, label, fill, cancel = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
+    container, label, fill = use_ref(None), use_ref(None), use_ref(None)
+    cancel, retry = use_ref(None), use_ref(None)
     previous = use_ref(None)
-    card_width = min(250, width-24)
-
+    def stop():
+        if session.edit_job is not None:
+            session.cancel_edit()
+        else:
+            session.tiles.cancel()
     def tick(unused_now):
         job = session.edit_job
-        visible = job is not None or (session.preview_pending and session.tiles.report_progress)
+        error = session.preview_error
+        visible = bool(error) or job is not None or (session.preview_pending and session.tiles.report_progress)
         done, total = (min(job.processed, job.total), job.total) if job else session.tiles.progress()
-        signature = (visible, job is not None, done, total, Theme.scale, card_width)
-        if signature == previous.current or not all(ref.current for ref in (container,label,fill,cancel)):
+        signature = (visible, job is not None, done, total, error, Theme.scale, width)
+        if signature == previous.current or not all(ref.current for ref in (container,label,fill,cancel,retry)):
             return
         previous.current = signature
         container.current.SetVisible(visible, False)
-        cancel.current.SetVisible(job is not None, False)
+        cancel.current.SetVisible(not error, False)
+        retry.current.SetVisible(bool(error), False)
+        fill.current.SetVisible(not error, False)
         if visible:
-            message = ('正在修改方块' if job else '正在更新预览') + '，%d / %d' % (done,total)
+            message = error or (('正在修改方块' if job else '正在更新预览') + '，%d / %d' % (done,total))
             label.current.asLabel().SetText(message)
-            fill.current.SetSize(((card_width-16)*Theme.scale*min(1.,done/float(max(1,total))),4*Theme.scale))
+            fill.current.SetSize((width*Theme.scale*min(1.,done/float(max(1,total))),2*Theme.scale))
     use_animation_frame(tick)
-    return Panel(ref=container, style=S(position=Position.absolute, top=42, left=12, width=card_width,
-                         zIndex=410, visible=False), children=surface(padding=8, gap=6, children=[
+    return Panel(ref=container, style=S(position=Position.absolute, top=0, left=0, width=width,
+                         height=30, zIndex=410, visible=False), children=[
+        Image(color=Theme.white, style=S(width='100%',height=30)),
         row([NativeText(ref=label, content='', fontSize=10*Theme.scale, color=Theme.muted,
-                        textAlign=TextAlignment.left, shadow=False, style=S(flex=1,height=20)),
-             Panel(ref=cancel, style=S(width=34,height=23), children=Action(label='取消', compact=True,
-                   height=23, width=34, onClick=session.cancel_edit))]),
-        Image(color=Theme.line, style=S(width='100%', height=4), children=
-              Image(ref=fill, color=Theme.blue, style=S(width=0, height=4))),
-    ]))
+                       textAlign=TextAlignment.left, shadow=False, style=S(flex=1,height=18)),
+             Panel(ref=cancel, style=S(width=44,height=23), children=Action(label='暂停', compact=True,
+                   height=23, width=44, onClick=stop)),
+             Panel(ref=retry, style=S(width=44,height=23), children=Action(label='重试', compact=True,
+                   height=23, width=44, onClick=session.tiles.retry))],
+            position=Position.absolute,left=10,right=10,top=2,height=24),
+        Image(ref=fill, color=Theme.blue, style=S(position=Position.absolute,bottom=0,width=0,height=2))])
 
 
 @Component
@@ -179,17 +188,11 @@ def Viewport(session=None, revision=0, width=430, height=440):
     area_h = max(130, height - (191 if focus else 203))
     viewport_children = []
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation))
-    if not session.model_name:
+    if not session.model_name and not session.preview_pending and not session.preview_error:
         viewport_children.append(Panel(key='empty_model', style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
-                text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
-                     '当前没有可见方块，点击网格放置'), 12, Theme.muted)]))
+                text('当前没有可见方块，点击网格放置', 12, Theme.muted)]))
     viewport_children.extend([
-        Panel(key='scene_status', style=S(position=Position.absolute, left=12, top=12, zIndex=400, visible=session.view == '3d'),
-              children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
-                  children=SceneStatus(session=session))),
-        Panel(key='scene_error', style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=bool(session.preview_error)),
-              children=text(session.preview_error, 11, Theme.red, width=width-24)),
         Panel(key='orientation', style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=400),
               children=OrientationGizmo(session=session)),
         Panel(key='view_navigation', ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),

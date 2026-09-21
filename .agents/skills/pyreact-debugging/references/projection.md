@@ -59,3 +59,6 @@
 `assess_clipboard_sharing.py` / `assess_clipboard_runtime.py` 是分享方案评估，未注册产品导出/导入功能。运行时工具通过已绑定 MCDK 注入编码测试，再调用 SDK 剪贴板接口，不使用剪贴板传送调试命令。Windows 工具先备份当前全部可支持格式，使用隐藏原生窗口作为恢复时的剪贴板所有者，结束时恢复；遇到无法备份的格式时跳过写入。结果不含用户剪贴板内容。合成材质和随机极端样例仅用于数据容量测试，不提交原生几何，也不代表手机硬件或聊天软件容量。
 
 SetBlockNew 的最后两参数依次为 **isLegacy、updateNeighbors**。GetBlockNew 返回的传统 aux 需用 isLegacy=True 写回；现代 spruce_log 的 x/z 轴分别为 1/2，不能沿用旧 log 的 4/8 位。GetBlockStatesFromAuxValue 对旧拆分 ID 会丢失物种、原木轴和树叶标志，GetItemInfoByBlockName 只提供物品别名，不能无条件把技术方块换成其掉落物。树叶可能在批量撤销中自然改变附加值，即使 updateNeighbors=False；这种后来变化应保留，不能把整个撤销回滚。GetBlockEntityData 在 BlockInfo 与 BlockEntityData 组件均有同名接口，前者可检查原版方块实体，不能只凭接口名认定组件用错。
+
+
+阶段 51：`PreviewModels` 独立分帧创建需要的双缓冲控件，registry 使用真实分块坐标 tuple，不能再用槽位序号索引。控件布局与模型几何分别准备；`preview_pending=False` 只表示 CPU 构建完成，不表示所有控件已创建或 GPU 就绪。`measure_initial_preview.py` 还等待 mounting=False 和所有可见 part.pending=False，端到端测量包含 IPC 往返，不能声称测得 GPU fence。`profile_scene_navigation.py` 使用相同五组相机转换记录 UI 帧回调和 MCDK Python wall 热点；Python 成本不等于总帧时间。`verify_preview_recovery.py` 在内存中保存/恢复草稿，检查隐藏页面、取消、失效回调、重试和注入几何失败，不写世界或配置。

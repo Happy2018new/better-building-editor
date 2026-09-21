@@ -1023,7 +1023,10 @@ class ScrollViewPrimitive(Primitive):
         if control is None:
             return None
 
-        candidates = [control]
+        cached = getattr(control, '_pyreact_scroll_control', None)
+        if cached is not None:
+            return cached
+        candidates = []
         for path in ("/scroll_mouse/scroll_view", "/scroll_touch/scroll_view"):
             try:
                 child = control.GetChildByPath(path)
@@ -1031,6 +1034,9 @@ class ScrollViewPrimitive(Primitive):
                 child = None
             if child is not None:
                 candidates.append(child)
+        # The scrolling_panel ref is a Panel. Casting it every frame emits a
+        # native warning; resolve its actual scroll child before trying root.
+        candidates.append(control)
 
         for candidate in candidates:
             try:
@@ -1038,6 +1044,7 @@ class ScrollViewPrimitive(Primitive):
             except Exception:
                 scroll_view = None
             if scroll_view is not None:
+                control._pyreact_scroll_control = scroll_view
                 return scroll_view
         return None
 

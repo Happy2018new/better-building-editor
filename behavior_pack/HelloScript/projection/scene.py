@@ -30,7 +30,7 @@ HINTS = {'browse': '拖动自由旋转，滚轮缩放，点击定位单格',
 
 
 @Component
-def PreviewTile(identity=None, registry=None):
+def PreviewTile(identity=None, registry=None, width=400, height=300):
     dolls = [use_ref(None), use_ref(None)]
     surfaces = [use_ref(None), use_ref(None)]
     buffer = use_ref(lambda: PreviewBuffer()).current
@@ -42,11 +42,34 @@ def PreviewTile(identity=None, registry=None):
                 registry.pop(identity, None)
         return cleanup
     use_effect(register, [identity])
-    return Panel(style=Style(position=Position.absolute, width='100%', height='100%'), children=[
+    return Panel(cacheLayout=True, style=S(position=Position.absolute, width=width, height=height), children=[
         Panel(ref=surfaces[i], key='surface%d' % i,
               style=Style(position=Position.absolute, width='100%', height='100%'), children=[
             Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
                  style=Style(position=Position.absolute, width='100%', height='100%', zIndex=50))]) for i in range(2)])
+
+
+@Component
+def PreviewModels(session=None, registry=None, width=400, height=300, keys=()):
+    mounted, set_mounted = use_state(())
+    def prepare():
+        retained = tuple(k for k in mounted if k in keys)
+        missing = tuple(k for k in keys if k not in retained)
+        session.tiles.mounting = bool(missing)
+        if missing or retained != mounted:
+            alive = [True]
+            def step():
+                if alive[0]:
+                    if session.camera_dragging:
+                        session.bridge.later(.1, step)
+                    else:
+                        set_mounted(retained+missing[:4])
+            session.next_frame(step)
+            return lambda: alive.__setitem__(0, False)
+    use_effect(prepare, [keys, mounted])
+    return Panel(cacheLayout=True, style=S(position=Position.absolute,width=width,height=height), children=[
+        PreviewTile(key='tile_%d_%d_%d' % key, identity=key, registry=registry, width=width, height=height)
+        for key in mounted if key in keys])
 
 
 @Component
@@ -95,8 +118,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     edge_refs = [use_ref(None) for unused in range(12)]
     cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
+    line_state = use_ref({}).current
     selected_bounds = use_ref((None, None))
-    active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm and not session.material_browser and not session.pending_rename
+    active = (session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
+              and not session.material_browser and not session.pending_rename)
 
     def reset_cursor():
         hover_preview.current = None
@@ -162,6 +187,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         session.camera_pan = camera.pan_target
 
     def tick(now):
+        session.tiles.renderer_active = active
+        session.tiles.last_render = now
         session.bridge.pump_frame()
         # Tool switches only change picking policy and outlines. Keep the
         # native model/grid tree and pointer callbacks out of that UI commit.
@@ -259,11 +286,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         model_key = (signature, session.tiles.publication, len(registry), held_touch)
         update_models = model_key != models_signature.current or models_pending.current
         models_signature.current = model_key
-        for index, controls in list(registry.items()) if update_models else ():
+        right, up, unused_toward = camera.basis()
+        native_width, native_height, cell_unit = width*Theme.scale, height*Theme.scale, unit()
+        for key, controls in list(registry.items()) if update_models else ():
             dolls, surfaces, preview = controls
             if not all(ref.current for ref in dolls+surfaces):
                 continue
-            key = session.tiles.slots[index] if index < len(session.tiles.slots) else None
             part = session.tiles.parts.get(key)
             if part is None:
                 if not getattr(preview, 'suspended', False):
@@ -280,9 +308,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 part['pending'] = False
                 continue
             center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
+            tx, ty = camera.project(center, session.scene_size, native_width, native_height, cell_unit)
+            rx = cell_unit*(sum(part['size'][i]*abs(right[i]) for i in range(3))/2.+2.)
+            ry = cell_unit*(sum(part['size'][i]*abs(up[i]) for i in range(3))/2.+2.)
+            offscreen = tx+rx < 0 or tx-rx > native_width or ty+ry < 0 or ty-ry > native_height
             distance = sum(center[i]*toward[i] for i in range(3))-plane[1] if plane else -1000.
             radius = sum(part['size'][i]*abs(toward[i]) for i in range(3))/2.
-            clipped = distance-radius >= 0.
+            clipped = offscreen or distance-radius >= 0.
             tile_layer = 240 + int(math.floor(distance*4.+.5)) if plane and distance+radius > 0. and not clipped else 50+order[key]
             if clipped != getattr(preview, 'depth_hidden', False):
                 preview.depth_hidden = clipped
@@ -290,14 +322,19 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     shown = not clipped and bool(preview.names[slot]) and (slot == preview.front or preview.pending is not None)
                     surface.current.SetVisible(shown, False)
                     preview.visible[slot] = shown
+                if not clipped:
+                    preview.invalidate()
+            if clipped:
+                # Geometry stays exact and retained; an offscreen tile needs
+                # neither a camera submission nor a UI acknowledgement.
+                part['pending'] = False
+                continue
             if (getattr(preview, 'scene_signature', None) == signature and not preview.restore and
                     preview.ready(part['name']) and preview.poses[preview.front] == pose and
                     getattr(preview, 'layer', None) == tile_layer):
                 part['pending'] = False
                 continue
             preview.scene_signature = signature
-            center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
-            tx, ty = camera.project(center, session.scene_size, width*Theme.scale, height*Theme.scale, unit())
             native_position, native_size = render_bounds(width*Theme.scale, height*Theme.scale,
                 (tx-width*Theme.scale/2., ty-height*Theme.scale/2.))
             geometry = (native_position, native_size)
@@ -316,10 +353,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     ref.current.SetLayer(tile_layer, False, False)
                     layer_updates.append((ref.current, tile_layer))
             def draw(slot, name, pose):
-                dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
-                surfaces[slot].current.SetPosition((-dx, -dy))
-                dolls[slot].current.SetPosition(native_position)
-                dolls[slot].current.SetSize(native_size)
                 result = dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
                     'block_geometry_model_name': name, 'scale': pose[0],
                     'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
@@ -404,7 +437,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     segment = clip_line(a, b, width * Theme.scale, height * Theme.scale)
                     if segment and hues is not None:
                         ranges[index] = tuple(hues[0] + (hues[1]-hues[0])*t for t in segment_fractions(a, b, segment))
-                ref.current.SetVisible(bool(segment), False)
+                old = line_state.get(id(ref))
+                if old != bool(segment):
+                    ref.current.SetVisible(bool(segment), False)
+                    line_state[id(ref)] = bool(segment)
                 if segment:
                     (sx, sy), (ex, ey) = segment
                     length = max(.001, math.hypot(ex - sx, ey - sy))
@@ -594,9 +630,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             # and no per-frame geometry submissions for workspace fades.
             Image(src='textures/modern_projection/transparent',
                   style=S(position=Position.absolute, width=1, height=1, zIndex=49)),
-        ] + [
-            PreviewTile(key='tile_pool_%d' % index, identity=index, registry=registry)
-            for index in range(session.tiles.pool_size)]),
+            PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
+        ]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))

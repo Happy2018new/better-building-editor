@@ -172,11 +172,17 @@ class OrbitCamera(object):
         return self._basis_value
 
     def project(self, point, size, width, height, unit):
-        right, up, unused = self.basis()
-        center = self.center(size)
-        delta = [point[i] - center[i] for i in range(3)]
-        return (width * (.5 + self.pan[0]) + unit * sum(delta[i] * right[i] for i in range(3)),
-                height * (.5 + self.pan[1]) - unit * sum(delta[i] * up[i] for i in range(3)))
+        key = (self.render_angles(), self.pan, self.pivot, size, width, height, unit)
+        if getattr(self, '_projection_key', None) != key:
+            right, up, unused = self.basis()
+            center = self.center(size)
+            self._projection_key = key
+            self._projection_value = (tuple(unit*v for v in right), tuple(-unit*v for v in up),
+                width*(.5+self.pan[0])-unit*sum(center[i]*right[i] for i in range(3)),
+                height*(.5+self.pan[1])+unit*sum(center[i]*up[i] for i in range(3)))
+        rx, uy, tx, ty = self._projection_value
+        return (tx+point[0]*rx[0]+point[1]*rx[1]+point[2]*rx[2],
+                ty+point[0]*uy[0]+point[1]*uy[1]+point[2]*uy[2])
 
     def depth_plane(self, size):
         if self.depth <= .0001:

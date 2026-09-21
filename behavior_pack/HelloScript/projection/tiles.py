@@ -35,6 +35,33 @@ class TiledPreview(object):
         self.publication = 0
         self.report_progress = False
         self.extractions = 0
+        self.render_keys = ()
+        self.last_render = 0.
+        self.renderer_active = False
+        self.serial = 0
+
+    def cancel(self):
+        self.serial += 1
+        self.iterator = None
+        self.dirty.clear()
+        self.running = self.session.preview_pending = False
+        self.report_progress = False
+        self.session.preview_error = '预览已暂停，可重试'
+        self.session.emit('preview')
+
+    def retry(self):
+        self.cancel()
+        self.dirty.update(self.slots)
+        for part in self.parts.values():
+            part['pending'] = False
+        self.refresh()
+
+    def schedule(self):
+        serial = self.serial
+        def advance():
+            if serial == self.serial and self.running:
+                self.advance()
+        self.session.next_frame(advance)
 
     def source_state(self, key):
         store = self.session.editor.document.blocks
@@ -60,6 +87,7 @@ class TiledPreview(object):
                 continue
             part.update(data=entry[0], name=entry[1], source=source, bank=bank,
                         count=sum(len(v) for v in entry[0].values()), pending=bool(entry[1]),
+                        pending_at=time.time(),
                         signature=self.session.preview_signature())
             self.publish_visible()
             return True
@@ -78,11 +106,11 @@ class TiledPreview(object):
             self.dirty.clear()
             if previous is None or previous[0] != context[0]:
                 self.parts = {}
+                self.render_keys = tuple(sorted(s.editor.document.blocks.chunks))
                 self.generation = 1-self.generation
             origin, size = (0, 0, 0), s.editor.document.size
             s.scene_origin, s.scene_size, s.scene_scale = origin, size, 1
             self.slots = keys_in(origin, size)
-            self.pool_size = max(self.pool_size, len(self.slots))
             self.dirty.update(k for k in self.slots if self.parts.get(k, {}).get('signature') != signature)
             # A hidden chunk no longer owns a warming renderer. A later visit
             # mounts its retained model into a new pair before further edits.
@@ -108,6 +136,11 @@ class TiledPreview(object):
                     neighbour = tuple(key[i]+offset[i] for i in range(3))
                     if neighbour in self.slots:
                         self.dirty.add(neighbour)
+        keys = tuple(sorted(set(self.render_keys).union(s.editor.document.blocks.chunks)))
+        if keys != self.render_keys:
+            self.render_keys = keys
+            s.emit('preview')
+        self.pool_size = len(self.render_keys)
         waiting = sum(bool(self.parts[k]['pending']) for k in self.slots if k in self.parts)
         if not self.dirty and not self.running and not waiting:
             s.model_revision = signature
@@ -130,7 +163,7 @@ class TiledPreview(object):
             s.emit('preview_status')
         if not self.running:
             self.running = True
-            s.next_frame(self.advance)
+            self.schedule()
 
     def publish_visible(self):
         self.publication += 1
@@ -151,12 +184,16 @@ class TiledPreview(object):
     def advance(self):
         s = self.session
         started = time.time()
+        uploads = 0
         try:
             while time.time()-started < .003:
                 if self.iterator is None:
+                    if not self.renderer_active or time.time()-self.last_render > .5:
+                        for part in self.parts.values():
+                            part['pending'] = False
                     available = [k for k in self.dirty if not self.parts.get(k, {}).get('pending')]
                     if not available:
-                        if not self.dirty and not any(self.parts[k]['pending'] for k in self.slots if k in self.parts):
+                        if not self.dirty:
                             self.running = s.preview_pending = False
                             s.performance['previewWall'] = time.time()-self.started
                             s.model_revision = s.preview_signature()
@@ -164,6 +201,8 @@ class TiledPreview(object):
                                 self.report_progress = False
                                 s.emit('preview_status')
                             return
+                        if not s.camera_dragging and any(time.time()-self.parts[k].get('pending_at', time.time()) > 8. for k in self.dirty):
+                            raise RuntimeError('预览显示未完成，请重试')
                         break
                     self.key = min(available)
                     self.dirty.remove(self.key)
@@ -189,16 +228,18 @@ class TiledPreview(object):
                 self.submit(self.key, result[0], result[1])
                 self.done += 1
                 if self.builds != builds:
-                    break
+                    uploads += 1
+                    if uploads >= 2:
+                        break
             if self.report_progress and time.time()-self.published > .1:
                 self.published = time.time()
                 s.emit('preview_status')
-            # At most one <=4096-cell native upload per timer/render opportunity.
-            s.next_frame(self.advance)
-        except (ValueError, TypeError, RuntimeError, StopIteration) as error:
+            # At most two small uploads, still within the shared 3 ms budget.
+            self.schedule()
+        except Exception as error:
             self.iterator = None
             self.running = s.preview_pending = False
-            s.preview_error = text_type(error)
+            s.preview_error = text_type(error) or '预览构建失败，请重试'
             s.emit('preview')
         finally:
             self.seconds += time.time()-started
@@ -228,5 +269,6 @@ class TiledPreview(object):
         self.parts[key] = {'data': palette.common, 'count': palette.count, 'origin': origin,
                            'size': palette.size, 'name': name, 'bank': bank, 'cache': cache,
                            'pending': bool(name), 'version': self.version, 'source': self.source,
+                           'pending_at': time.time(),
                            'signature': self.session.preview_signature()}
         self.publish_visible()

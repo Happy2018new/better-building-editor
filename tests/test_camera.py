@@ -88,7 +88,7 @@ class CameraTests(unittest.TestCase):
         for unused in range(60):
             camera.drag(2., .3, 1/60., .25)
             actual = camera.project(point, size, width, height, unit)
-            self.assertEqual(expected, actual)
+            for a,b in zip(expected,actual): self.assertAlmostEqual(a,b,places=8)
             ray = camera.ray(*actual, size, width, height, unit)
             self.assertEqual((63,127,63), raycast(doc, *ray)[0])
 
