@@ -296,14 +296,14 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
             content_revision = (content_revision, session.view)
         panes.append(RetainedPane(key=name, active=active == name, session=session,
             style=S(position=Position.absolute, width=216, height=height-111),
-            children=component(session=session, revision=content_revision, **({'height':height-111} if name == 'params' else {}))))
+            children=component(session=session, revision=content_revision, **({'height':height-111} if name in ('params','projection') else {}))))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
     erase_selection = direct and session.direct_mode == 'erase' and session.erase_scope == 'selection'
     children = [Panel(key='header', style=S(width='100%', height=42), children=[
         Panel(style=S(position=Position.absolute, visible=not projecting), children=
             Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],
                      value=session.inspector, onChange=partial(session.set, 'inspector'), width=216)),
-        Panel(style=S(position=Position.absolute, visible=projecting), children=text('世界坐标与显示', 12, Theme.muted)),
+        Panel(style=S(position=Position.absolute, visible=projecting), children=text('投影设置', 17)),
     ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
@@ -490,6 +490,24 @@ def Workspace(session=None, revision=0):
     def close():
         if entrance.current:
             entrance.current['close']()
+
+    escape_held = use_ref(False)
+    def keyboard(args):
+        if str(args.get('key')) != '27':
+            return
+        down = str(args.get('isDown')) == '1'
+        previous = escape_held.current
+        escape_held.current = down
+        entry = navigator.top
+        if not down or previous or entry is None or entry.key != 'modern_projection_workspace':
+            return
+        # Dismiss the top dialog first, through its normal animated close path.
+        for field in ('pending_confirm', 'pending_rename', 'material_browser'):
+            if getattr(session, field) is not None:
+                session.set(field, None)
+                return
+        close()
+    use_event('OnKeyPressInGame', keyboard)
 
     def refresh():
         set_revision(lambda previous: previous + 1)

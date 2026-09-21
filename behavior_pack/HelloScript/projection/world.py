@@ -42,14 +42,32 @@ class WorldJob(object):
     def step(self, budget=2048):
         if self.done:
             return
+        try:
+            # Server callbacks cannot interleave this synchronous batch. Check
+            # once per bounded step, not three engine APIs for every cell.
+            if self.phase in ('preflight', 'write') and not self.adapter.allowed():
+                if self.phase == 'preflight':
+                    self.error, self.done = '世界写入需要创造模式、操作员和建造权限', True
+                else:
+                    self.fail('权限发生变化，正在恢复本次修改')
+                return
+            self._step(budget)
+        except (ValueError, TypeError, KeyError, RuntimeError, AttributeError) as error:
+            message = '世界接口异常：%s' % error
+            if self.phase == 'rollback':
+                self.error += '；恢复未完成，请重试撤销'
+                self.done = True
+            elif self.journal:
+                self.fail(message)
+            else:
+                self.error, self.done = message, True
+
+    def _step(self, budget):
         deadline = time.time() + .006
         for unused in range(budget):
             if unused and time.time() >= deadline:
                 return
             if self.phase == 'preflight':
-                if not self.adapter.allowed():
-                    self.error, self.done = '仅创造模式可写入世界', True
-                    return
                 if self.next_source is None:
                     try:
                         self.next_source = next(self.source)
@@ -61,6 +79,8 @@ class WorldJob(object):
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
                 desired = before if self.undoing else after
+                if hasattr(self.adapter, 'canonical'):
+                    desired = self.adapter.canonical(desired)
                 if current is None:
                     self.error, self.done = '区域尚未加载，请靠近后重试；未写入方块', True
                     return
@@ -81,15 +101,27 @@ class WorldJob(object):
                 current = self.adapter.read(pos)
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
-                if not self.adapter.allowed() or current != before or self.adapter.protected(pos, before):
+                if current != before or self.adapter.protected(pos, before):
+                    # Undo must also preserve edits occurring after preflight,
+                    # including native leaf-state updates caused by neighbors.
+                    if self.undoing and current is not None:
+                        self.skipped += 1
+                        self.cursor += 1
+                        continue
                     self.fail('目标或权限发生变化，正在回滚本次写入')
                     continue
-                changed = self.adapter.write(pos, after)
-                actual = self.adapter.read(pos)
-                if actual == after:
+                try:
+                    changed = self.adapter.write(pos, after)
+                    actual = self.adapter.read(pos)
+                except (ValueError, TypeError, KeyError, RuntimeError, AttributeError):
+                    # A setter can succeed before readback fails. Include this
+                    # cell in recovery rather than losing its original value.
+                    self.journal.append((pos, before, after))
+                    raise
+                if actual is None:
                     self.journal.append((pos, before, after))
                 elif actual != before:
-                    self.recovery.append((pos, before, actual))
+                    self.journal.append((pos, before, actual))
                 if not changed or actual != after:
                     self.fail('方块写入失败，已尝试恢复本次修改')
                     continue

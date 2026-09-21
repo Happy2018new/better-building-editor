@@ -51,3 +51,7 @@
 细棱的小轴尺寸不足一个模型单位时，自动 UV 曾导致部分侧面丢失；接近平视顶部时水平棱几乎不可见，单纯加粗无效。即便片元 shader 不采样贴图，也需给六面提供显式非零 uv_size，确保原生模型生成完整的面。检查实际像素，不能仅用实体存在或 uniform 数值判断渲染正确。
 
 `verify_projection_outline.py` 验证世界外框的尺寸、开关、速度、清理和 PC/F11 按钮，并拍摄实际投影及分块接缝。仅移动离体相机不会让原生 actor 所在区域加载，不能据此判断投影丢失；测试临时移动独立世界测试玩家并开启飞行，在 finally 恢复位置、飞行、相机和渲染距离。execute_code 内安装跨帧诊断包装时，用闭包捕获 API 与原函数，后续服务端代码可能重绑定全局 api；否则异步回调会误用服务端 API，产生仅测试脚本导致的异常。偏好保存使用内存替身，不修改用户建筑库或世界方块。
+
+阶段 49 的 `verify_projection_workflow.py` **会临时写入独立测试世界**，并切换测试玩家权限，不能用于用户建筑所在地；finally 恢复预先确认为空气的 24 格测试区、权限和草稿。检验完整网络路径、服务器鉴权、旧版方块转换、空气同步、撤销冲突和客户端实体隔离。`verify_projection_controls.py` 用真实 Esc 检查聚焦输入/弹窗，检查 4:3/16:9 的速度控件及 F11 点击后的底色像素；`verify_press_feedback.py` 验证回弹仍然存在。Action/JellyButton 的反馈 state 当前在 hooks[3]，hooks[2] 是动画进度，二者不可混用；原生 Input 焦点读取 displayText.properties['#text_edit_selected']。
+
+SetBlockNew 的最后两参数依次为 **isLegacy、updateNeighbors**。GetBlockNew 返回的传统 aux 需用 isLegacy=True 写回；现代 spruce_log 的 x/z 轴分别为 1/2，不能沿用旧 log 的 4/8 位。GetBlockStatesFromAuxValue 对旧拆分 ID 会丢失物种、原木轴和树叶标志，GetItemInfoByBlockName 只提供物品别名，不能无条件把技术方块换成其掉落物。树叶可能在批量撤销中自然改变附加值，即使 updateNeighbors=False；这种后来变化应保留，不能把整个撤销回滚。GetBlockEntityData 在 BlockInfo 与 BlockEntityData 组件均有同名接口，前者可检查原版方块实体，不能只凭接口名认定组件用错。

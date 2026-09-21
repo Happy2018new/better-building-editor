@@ -413,42 +413,69 @@ def Library(session=None, revision=0, width=760, height=440):
 
 
 @Component
-def ProjectionSettings(session=None, revision=0):
+def ProjectionSettings(session=None, revision=0, height=330):
     use_theme()
-    e = session.editor
-    stats = session.progress
-    return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
-        urgent=lambda: session.page == 'projection', style=S(width=216, gap=8), children=[
-        text('投影设置', 20), text('在世界中照着半透明蓝图建造', 11, Theme.muted), line(),
-        surface(color=Theme.green, padding=12, gap=5, children=[
-            text('生存友好', 14, Theme.mint), text('投影不会放置方块或消耗物品', 10, Theme.mint)]),
-        Coordinates(label='投影原点  X, Y, Z', value=session.origin, onChange=partial(session.set, 'origin')),
-        Action(label='使用脚下坐标', glyph='pin', onClick=partial(session.bridge.use_player_origin)),
+    tab, set_tab = use_state('display')
+    e, stats = session.editor, session.progress
+    display = [
+        text('投影位置', 14),
+        Coordinates(label='原点  X, Y, Z', value=session.origin, onChange=partial(session.set, 'origin')),
+        Action(label='使用脚下坐标', glyph='pin', onClick=session.bridge.use_player_origin),
+        line(), text('显示效果', 14),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
               onChange=partial(session.range_value, 'opacity', editor=False)),
         Action(label='炫彩范围框', glyph='box_outline', selected=session.projection_outline,
                onClick=partial(session.set, 'projection_outline', not session.projection_outline)),
-        text('可见范围与场景的完整 / 切面 / 单层一致', 10, Theme.muted),
-        Range(label='当前建造层', value=e.layer, minimum=0, maximum=max(1, e.document.size[1] - 1),
-              integer=True, onChange=partial(session.range_value, 'layer')),
+        Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
+              onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
+    ]
+    assist = [
+        text('建造辅助', 14),
+        text('在场景上方选择完整、切面或单层，并调整 Y。', 10, Theme.muted, width=216),
         Action(label='仅显示缺失方块', selected=session.projection_missing,
                onClick=partial(session.set, 'projection_missing', not session.projection_missing)),
-        Action(label='更新 / 生成投影', glyph='projection', accent=True, onClick=partial(session.action, session.bridge.project)),
-        Action(label='关闭投影', onClick=partial(session.action, session.bridge.stop_projection),
-               enabled=session.projection_active or bool(session.bridge.preparing_entity)),
+        text('修改范围或过滤后，点击更新投影。', 10, Theme.muted, width=216),
+        line(), text('建造进度', 14),
         Action(label='检查建造进度', glyph='check', onClick=partial(session.action, session.bridge.check_progress), enabled=not session.busy),
-        text('进度：%d / %d 已完成' % (stats['correct'], stats['total']) if stats else '点击检查以获取真实建造进度', 11, Theme.muted),
-        text('缺失 %d，材质不符 %d' % (stats['missing'], stats['wrong']) if stats else '原点可在世界中重新定位', 10, Theme.muted),
-        line(), text('创造模式', 14), text('应用前检查目标区域；可撤销最近一次写入。', 10, Theme.muted, width=216),
-        Action(label='同步空气（会清除对应位置）', selected=session.apply_air, danger=session.apply_air,
-               onClick=partial(session.set, 'apply_air', not session.apply_air), compact=True),
-        Action(label='应用到世界', glyph='cube', onClick=partial(session.confirm,
+        text('%d / %d 已完成' % (stats['correct'], stats['total']) if stats else '尚未检查', 11, Theme.muted),
+        text('缺失 %d，材质不符 %d' % (stats['missing'], stats['wrong']) if stats else '', 10, Theme.muted),
+        line(), text('所需材料', 14),
+    ] + [row([MaterialIcon(value=b, size=22), text(material_name(b), 11, flex=1),
+              text('%d' % count, 11, Theme.blue)]) for b, count in e.document.materials()]
+    world = [
+        text('写入真实方块', 14),
+        text('需要创造模式、操作员和建造权限。', 11, Theme.muted, width=216),
+        line(),
+        Action(label='同步空气', glyph='erase', selected=session.apply_air, danger=session.apply_air,
+               onClick=partial(session.set, 'apply_air', not session.apply_air)),
+        text('开启后会清除草稿中空气对应的位置。', 10, Theme.muted, width=216),
+        Action(label='应用到世界', glyph='cube', accent=True, onClick=partial(session.confirm,
                '将整个长方体同步到世界？草稿中的空气会清除对应位置的方块。' if session.apply_air else
-               '将草稿中的非空气方块写入目标位置？仅创造模式可用。', session.bridge.apply_world), enabled=not session.busy),
-        Action(label='撤销世界写入', onClick=partial(session.confirm, '撤销最近一次世界写入？被他人修改的方块会保留。', session.bridge.undo_world), enabled=not session.busy),
-        line(), text('所需材料', 15),
-    ] + [row([Item(identifier=b[0], aux=b[1], style=S(width=22, height=22)),
-              text(material_name(b), 11, flex=1), text('%d' % count, 11, Theme.blue)]) for b, count in e.document.materials()]))
+               '将草稿中的非空气方块写入目标位置？需要创造模式、操作员和建造权限。', session.bridge.apply_world), enabled=not session.busy),
+        Action(label='撤销世界写入', glyph='undo', onClick=partial(session.confirm,
+               '撤销最近一次世界写入？被他人修改的方块会保留。', session.bridge.undo_world),
+               enabled=not session.busy and session.world_undo),
+        text('仅可撤销本次游戏中最近一次写入。', 10, Theme.muted, width=216),
+    ]
+    return Panel(style=S(width=230, height=height, gap=10), children=[
+        text('投影与范围框仅本机可见', 10, Theme.mint),
+        row([
+            Action(label='更新投影' if session.projection_active else '生成投影', glyph='projection', accent=True, width=130,
+                   onClick=partial(session.action, session.bridge.project)),
+            Action(label='关闭', glyph='close', width=78, onClick=partial(session.action, session.bridge.stop_projection),
+                   enabled=session.projection_active or bool(session.bridge.preparing_entity)),
+        ], gap=8),
+        Segments(items=[('display','显示'),('assist','辅助'),('world','写入')], value=tab, onChange=set_tab, width=216),
+        Scroll(style=S(width=230, height=max(60,height-110)), resetKey=tab, children=
+            Panel(style=S(width=216), children=[
+                Panel(key=name, style=S(display=Display.flex if tab==name else Display.none), children=
+                    PreparedColumn(session=session, style=S(width=216, gap=10), initial=2,
+                        urgent=partial(projection_tab_active, session, tab, name), children=items))
+                for name,items in (('display',display),('assist',assist),('world',world))]))])
+
+
+def projection_tab_active(session, active, name):
+    return session.page == 'projection' and active == name
 
 
 @Component

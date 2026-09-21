@@ -293,6 +293,7 @@ class ClientBridge(object):
         self.pending = self.pending_data = self.pending_state = None
         self.upload = None
         s.busy = False
+        s.world_undo = args.get('canUndo', False) is True
         if args.get('error'):
             s.editor.message = args['error']
         elif action in ('capture', 'check') and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
@@ -488,6 +489,7 @@ class ClientBridge(object):
 
     def dimension_changed(self, unused):
         self.stop_projection()
+        self.session.world_undo = False
         self.corners = [None, None]
         self.draw_bounds()
         self.session.progress = None

@@ -87,6 +87,17 @@ class WorldTests(unittest.TestCase):
         self.assertTrue(job.error)
         self.assertEqual(self.world.read((0, 0, 0)), AIR)
 
+    def test_undo_preserves_changes_after_preflight_and_continues_other_cells(self):
+        job = WorldJob(self.world, self.doc, (0,0,0))
+        complete(job)
+        undo = WorldJob(self.world, None, (0,0,0), job.journal)
+        while undo.phase == 'preflight': undo.step(1)
+        self.world.blocks[(1,0,0)] = WOOD
+        complete(undo)
+        self.assertFalse(undo.error)
+        self.assertEqual(1, undo.skipped)
+        self.assertEqual([AIR, WOOD, AIR], [self.world.read((i,0,0)) for i in range(3)])
+
     def test_unloaded_rollback_keeps_recovery_journal(self):
         job = WorldJob(self.world, self.doc, (0, 0, 0))
         while not job.journal:
@@ -120,6 +131,29 @@ class WorldTests(unittest.TestCase):
         undo = WorldJob(self.world, None, (0, 0, 0), sync.journal)
         complete(undo)
         self.assertEqual(self.world.read((0, 0, 0)), STONE)
+
+    def test_write_exception_after_mutation_is_recovered_without_stuck_job(self):
+        original=self.world.write
+        def broken(pos,value):
+            result=original(pos,value)
+            if value==STONE: raise RuntimeError('readback/setter failure')
+            return result
+        self.world.write=broken
+        job=WorldJob(self.world,self.doc,(0,0,0))
+        complete(job)
+        self.assertTrue(job.error)
+        self.assertEqual(AIR,self.world.read((0,0,0)))
+
+    def test_native_normalization_is_used_for_plan_and_undo_journal(self):
+        legacy=('minecraft:wool',14)
+        self.world.canonical=lambda value: STONE if value==legacy else value
+        job=WorldJob(self.world,Document((1,1,1),{(0,0,0):legacy}),(0,0,0))
+        complete(job)
+        self.assertFalse(job.error)
+        self.assertEqual(STONE,job.journal[0][2])
+        undo=WorldJob(self.world,None,(0,0,0),job.journal)
+        complete(undo)
+        self.assertEqual(AIR,self.world.read((0,0,0)))
 
 
 if __name__ == '__main__':

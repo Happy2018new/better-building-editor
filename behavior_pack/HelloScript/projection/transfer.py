@@ -50,7 +50,10 @@ class Receiver(object):
             if not isinstance(name, type('')) or not 1 <= len(name) <= 64:
                 raise ValueError('建筑名称无效')
             self.document = Document(packet.get('size', ()), name=name)
-            for field, attr, maximum in [('paletteCount', 'palette_count', 65536), ('chunkCount', 'chunk_count', 6144),
+            max_chunks = 1
+            for length in self.document.size:
+                max_chunks *= (length + 15) // 16
+            for field, attr, maximum in [('paletteCount', 'palette_count', 65536), ('chunkCount', 'chunk_count', max_chunks),
                                         ('blockCount', 'block_count', self.document.volume)]:
                 value = packet.get(field)
                 if type(value) is not int or not 0 <= value <= maximum:

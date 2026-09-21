@@ -273,6 +273,10 @@ class ButtonPrimitive(BaseButtonPrimitive):
         button.AddHoverEventParams()
 
         def feedback(value, unused):
+            # A released touch has no hover-out event. Keep mouse hover feedback,
+            # but never leave a touch target highlighted after the finger lifts.
+            if value == ButtonState.hover and is_touch():
+                value = ButtonState.default
             callback = fiber.props.get('onFeedback')
             if callback:
                 callback(value)
