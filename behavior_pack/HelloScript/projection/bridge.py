@@ -98,6 +98,15 @@ class ClientBridge(object):
     def save_preferences(self, value):
         return self.factory.CreateConfigClient(self.level).SetConfigData('modern_projection_preferences', value, True)
 
+    def set_clipboard(self, value):
+        return bool(self.factory.CreateGame(self.level).SetClipboardContent(native(value)))
+
+    def get_clipboard(self):
+        value = self.factory.CreateGame(self.level).GetClipboardContent()
+        if value is None:
+            return ''
+        return value.decode('utf8') if isinstance(value, bytes) else value
+
     def request_catalogue(self):
         self.system.NotifyToServer('BlockCatalogueRequest', {})
         def timeout():

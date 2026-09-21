@@ -394,6 +394,7 @@ def Library(session=None, revision=0, width=760, height=440):
                      text('%d 方块' % data.get('blockCount', len(data.get('blocks', []))), 10, Theme.muted)])]),
             row([Action(label='载入', accent=True, onClick=partial(session.confirm, '载入将替换当前草稿，继续吗？', partial(session.load, identity))),
                  Action(label='重命名', onClick=partial(session.open_rename, identity)),
+                 Action(label='分享', glyph='copy', onClick=partial(session.action, session.sharing.open_export, identity)),
                  Action(label='删除', danger=True, onClick=partial(session.confirm, '删除这份已保存的建筑配置？', partial(session.delete, identity)))])]))
     return row(width=width, height=height, gap=18, padding=12, alignItems=AlignItems.stretch, children=[
         Panel(style=S(width=list_width, height=height-24, gap=12), children=[
@@ -409,6 +410,8 @@ def Library(session=None, revision=0, width=760, height=440):
                 text('保存当前草稿', 15),
                 Input(value=session.name, onChange=partial(session.set, 'name'), style=S(width=224, height=32)),
                 Action(label='另存为新配置', glyph='save', accent=True, height=32, onClick=partial(session.action, session.save)),
+                Action(label='分享当前草稿', glyph='copy', height=32, onClick=partial(session.action, session.sharing.open_export)),
+                Action(label='导入分享码', glyph='paste', height=32, onClick=partial(session.action, session.sharing.open_import)),
                 line(), NewRegion(session=session, compact=True)])))])
 
 

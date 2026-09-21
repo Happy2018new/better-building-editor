@@ -80,7 +80,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview', 'material_browser', 'pending_rename', 'pending_confirm'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'material_browser', 'pending_rename', 'pending_confirm', 'sharing_visibility'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
@@ -121,7 +121,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     line_state = use_ref({}).current
     selected_bounds = use_ref((None, None))
     active = (session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
-              and not session.material_browser and not session.pending_rename)
+              and not session.material_browser and not session.pending_rename and not session.sharing.opened)
 
     def reset_cursor():
         hover_preview.current = None

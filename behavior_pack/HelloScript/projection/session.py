@@ -88,6 +88,8 @@ class Session(object):
         self.scene_scale = 1
         from .tiles import TiledPreview
         self.tiles = TiledPreview(self)
+        from .sharing import Sharing
+        self.sharing = Sharing(self)
         self.point_publish = 0
         self.pointer_stats = [0, 0, 0, 0]
 

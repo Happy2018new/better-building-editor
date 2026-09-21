@@ -19,6 +19,7 @@ from .camera import zoom_label
 from .material_browser import MaterialBrowser
 from .motion import DialogMotion, WorkspaceMotion
 from .preparation import PreparationQueue, PreparationPump
+from .sharing_ui import SharingDialog
 
 
 def use_session_fields(session, fields):
@@ -492,6 +493,9 @@ def Workspace(session=None, revision=0):
     use_effect(release_preparation, [session])
 
     def close():
+        if session.sharing.opened:
+            session.sharing.close()
+            return
         if entrance.current:
             entrance.current['close']()
 
@@ -504,6 +508,9 @@ def Workspace(session=None, revision=0):
         escape_held.current = down
         entry = navigator.top
         if not down or previous or entry is None or entry.key != 'modern_projection_workspace':
+            return
+        if session.sharing.opened:
+            session.sharing.close()
             return
         # Dismiss the top dialog first, through its normal animated close path.
         for field in ('pending_confirm', 'pending_rename', 'material_browser'):
@@ -589,6 +596,7 @@ def Workspace(session=None, revision=0):
         Confirmation(session=session, revision=session.ui_revision, height=height),
         RenameDialog(session=session, width=width, height=height),
         MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height),
+        SharingDialog(session=session, width=width, height=height),
         ClickEffects(), PreparationPump(queue=preparation.current)])
 
 

@@ -62,3 +62,5 @@ SetBlockNew 的最后两参数依次为 **isLegacy、updateNeighbors**。GetBloc
 
 
 阶段 51：`PreviewModels` 独立分帧创建需要的双缓冲控件，registry 使用真实分块坐标 tuple，不能再用槽位序号索引。控件布局与模型几何分别准备；`preview_pending=False` 只表示 CPU 构建完成，不表示所有控件已创建或 GPU 就绪。`measure_initial_preview.py` 还等待 mounting=False 和所有可见 part.pending=False，端到端测量包含 IPC 往返，不能声称测得 GPU fence。`profile_scene_navigation.py` 使用相同五组相机转换记录 UI 帧回调和 MCDK Python wall 热点；Python 成本不等于总帧时间。`verify_preview_recovery.py` 在内存中保存/恢复草稿，检查隐藏页面、取消、失效回调、重试和注入几何失败，不写世界或配置。
+
+阶段 52：正式分享为 MP2/MPS2，与旧评估 MP1 区分。`verify_sharing_workflow.py` 通过 SDK 读写真实剪贴板，先完整备份可支持格式；存储用内存替身，finally 恢复，游戏通道异常也必须执行最外层剪贴板恢复。设置剪贴板、读取和再次读取分帧进行，同帧重复 SDK 读取曾返回空。测试覆盖 PC/F11 按钮、完整当前草稿/分页配置、损坏码以及最大随机材质 44 段乱序和重复接收。`verify_sharing_layout.py` 不操作剪贴板，检查 4:3/16:9 卡片及弹窗并恢复窗口尺寸。F11 与 Windows 剪贴板不等于手机硬件/系统权限验证。
