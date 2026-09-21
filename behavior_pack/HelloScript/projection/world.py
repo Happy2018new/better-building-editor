@@ -16,21 +16,19 @@ def coordinate(value):
 
 class WorldJob(object):
     """Adapter implements read / write / protected / valid / allowed, for one dimension."""
-    def __init__(self, adapter, document, origin, undo=None, include_air=False):
+    def __init__(self, adapter, document, origin, include_air=False):
         self.adapter = adapter
         self.origin = coordinate(origin)
         self.document = document
-        self.source = iter(undo) if undo is not None else (
+        self.source = (
             (add(self.origin, p), None, document.get(p)) for p in
             (document.points() if include_air else document.blocks))
         self.next_source = None
-        self.undoing = undo is not None
         self.phase = 'preflight'
         self.cursor = 0
         self.plan = Journal()
         self.journal = Journal()
         self.recovery = Journal()
-        self.skipped = 0
         self.error = ''
         self.done = False
 
@@ -55,7 +53,7 @@ class WorldJob(object):
         except (ValueError, TypeError, KeyError, RuntimeError, AttributeError) as error:
             message = '世界接口异常：%s' % error
             if self.phase == 'rollback':
-                self.error += '；恢复未完成，请重试撤销'
+                self.error += '；部分方块未能恢复，请检查目标范围'
                 self.done = True
             elif self.journal:
                 self.fail(message)
@@ -78,15 +76,13 @@ class WorldJob(object):
                 current = self.adapter.read(pos)
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
-                desired = before if self.undoing else after
+                desired = after
                 if hasattr(self.adapter, 'canonical'):
                     desired = self.adapter.canonical(desired)
                 if current is None:
                     self.error, self.done = '区域尚未加载，请靠近后重试；未写入方块', True
                     return
-                if self.undoing and current != after:
-                    self.skipped += 1
-                elif current != desired:
+                if current != desired:
                     if self.adapter.protected(pos, current) or not self.adapter.valid(desired):
                         self.error, self.done = '目标含受保护方块实体，或材质无效；未写入方块', True
                         return
@@ -102,12 +98,6 @@ class WorldJob(object):
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
                 if current != before or self.adapter.protected(pos, before):
-                    # Undo must also preserve edits occurring after preflight,
-                    # including native leaf-state updates caused by neighbors.
-                    if self.undoing and current is not None:
-                        self.skipped += 1
-                        self.cursor += 1
-                        continue
                     self.fail('目标或权限发生变化，正在回滚本次写入')
                     continue
                 try:
@@ -130,7 +120,7 @@ class WorldJob(object):
                 if self.cursor < 0:
                     self.journal = self.recovery
                     if self.recovery:
-                        self.error += '；仍有 %d 格需要重试撤销' % len(self.recovery)
+                        self.error += '；仍有 %d 格未能恢复，请检查目标范围' % len(self.recovery)
                     self.done = True
                     return
                 pos, before, after = self.journal[self.cursor]

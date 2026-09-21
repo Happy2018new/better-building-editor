@@ -52,6 +52,10 @@
 
 `verify_projection_outline.py` 验证世界外框的尺寸、开关、速度、清理和 PC/F11 按钮，并拍摄实际投影及分块接缝。仅移动离体相机不会让原生 actor 所在区域加载，不能据此判断投影丢失；测试临时移动独立世界测试玩家并开启飞行，在 finally 恢复位置、飞行、相机和渲染距离。execute_code 内安装跨帧诊断包装时，用闭包捕获 API 与原函数，后续服务端代码可能重绑定全局 api；否则异步回调会误用服务端 API，产生仅测试脚本导致的异常。偏好保存使用内存替身，不修改用户建筑库或世界方块。
 
-阶段 49 的 `verify_projection_workflow.py` **会临时写入独立测试世界**，并切换测试玩家权限，不能用于用户建筑所在地；finally 恢复预先确认为空气的 24 格测试区、权限和草稿。检验完整网络路径、服务器鉴权、旧版方块转换、空气同步、撤销冲突和客户端实体隔离。`verify_projection_controls.py` 用真实 Esc 检查聚焦输入/弹窗，检查 4:3/16:9 的速度控件及 F11 点击后的底色像素；`verify_press_feedback.py` 验证回弹仍然存在。Action/JellyButton 的反馈 state 当前在 hooks[3]，hooks[2] 是动画进度，二者不可混用；原生 Input 焦点读取 displayText.properties['#text_edit_selected']。
+`verify_projection_workflow.py` **会临时写入独立测试世界**，并切换测试玩家权限，不能用于用户建筑所在地；finally 恢复预先确认为空气的 24 格测试区、权限和草稿。检验完整网络路径、服务器鉴权、旧版方块转换、空气同步和客户端实体隔离。阶段 50 已移除世界撤销入口及协议，工具改为检查入口不存在；仍保留失败/取消写入的自动恢复。`verify_projection_controls.py` 用真实 Esc 检查聚焦输入/弹窗，检查 4:3/16:9 的速度控件及 F11 点击后的底色像素；`verify_press_feedback.py` 验证回弹仍然存在。Action/JellyButton 的反馈 state 当前在 hooks[3]，hooks[2] 是动画进度，二者不可混用；原生 Input 焦点读取 displayText.properties['#text_edit_selected']。
+
+`verify_projection_filter.py` 同样仅用于独立世界。先寻找已加载的空气测试区，临时写入旧标识对应的当前木板、羊毛、原木以及错误材质，在 finally 恢复所有测试格。验证 PC/F11 的缺失过滤即时刷新、旧标识规范化、全部完成后保留范围和最大尺寸跨分块过滤。测试强制开启范围框并恢复原偏好，不能把用户已关闭外框误判为实体丢失。服务端 `resolve` 只返回至多 64 项规范化材质，不写方块或创建实体；结束投影必须阻止仍在返回中的结果重新开启投影。客户端遇到未加载位置应重试，不能将对应分块缓存为已完成。
+
+`assess_clipboard_sharing.py` / `assess_clipboard_runtime.py` 是分享方案评估，未注册产品导出/导入功能。运行时工具通过已绑定 MCDK 注入编码测试，再调用 SDK 剪贴板接口，不使用剪贴板传送调试命令。Windows 工具先备份当前全部可支持格式，使用隐藏原生窗口作为恢复时的剪贴板所有者，结束时恢复；遇到无法备份的格式时跳过写入。结果不含用户剪贴板内容。合成材质和随机极端样例仅用于数据容量测试，不提交原生几何，也不代表手机硬件或聊天软件容量。
 
 SetBlockNew 的最后两参数依次为 **isLegacy、updateNeighbors**。GetBlockNew 返回的传统 aux 需用 isLegacy=True 写回；现代 spruce_log 的 x/z 轴分别为 1/2，不能沿用旧 log 的 4/8 位。GetBlockStatesFromAuxValue 对旧拆分 ID 会丢失物种、原木轴和树叶标志，GetItemInfoByBlockName 只提供物品别名，不能无条件把技术方块换成其掉落物。树叶可能在批量撤销中自然改变附加值，即使 updateNeighbors=False；这种后来变化应保留，不能把整个撤销回滚。GetBlockEntityData 在 BlockInfo 与 BlockEntityData 组件均有同名接口，前者可检查原版方块实体，不能只凭接口名认定组件用错。

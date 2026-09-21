@@ -7,7 +7,7 @@ import zlib
 import json
 import time
 import mod.client.extraClientApi as clientApi
-from .model import AIR, Document, Editor, add, bounds
+from .model import AIR, Document, Editor, add, bounds, block
 from .world import coordinate
 from .transfer import Receiver, packets
 from .model import SMALL_VOLUME
@@ -39,6 +39,8 @@ class ClientBridge(object):
         self.download = None
         self.projection_serial = 0
         self.projection_entities = {}
+        self.projection_requested = False
+        self.projection_palette = {}
         from .projection_outline import ProjectionOutline
         self.projection_outline = ProjectionOutline(self)
         self.frame_pumps = 0
@@ -244,9 +246,6 @@ class ClientBridge(object):
         s = self.session
         self.request('apply', {'origin': coordinate(s.origin), 'document': s.editor.document, 'includeAir': s.apply_air})
 
-    def undo_world(self):
-        self.request('undo', {})
-
     def cancel_world(self):
         if self.pending is not None:
             self.upload = None
@@ -293,11 +292,22 @@ class ClientBridge(object):
         self.pending = self.pending_data = self.pending_state = None
         self.upload = None
         s.busy = False
-        s.world_undo = args.get('canUndo', False) is True
         if args.get('error'):
             s.editor.message = args['error']
-        elif action in ('capture', 'check') and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
+        elif action in ('capture', 'check', 'resolve') and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
+        elif action == 'resolve':
+            values = args.get('palette')
+            if not isinstance(values, list) or len(values) != len(sent['palette']):
+                s.editor.message = '投影材质检查失败，请重试'
+            else:
+                try:
+                    normalized = [block(value) for value in values]
+                    self.projection_palette.update((block(old), new) for old, new in zip(sent['palette'], normalized))
+                    if self.projection_requested:
+                        self.project()
+                except (ValueError, TypeError, RuntimeError) as error:
+                    s.editor.message = type('')(error)
         elif action == 'capture':
             document = self.download.result if args.get('streamed') and self.download else Document.from_data(args['document'])
             if document is None:
@@ -325,25 +335,32 @@ class ClientBridge(object):
     def project(self):
         s = self.session
         origin = coordinate(s.origin)
+        self.projection_requested = True
+        if s.projection_missing:
+            unresolved = [value for value, count in s.editor.document.materials() if value not in self.projection_palette]
+            if unresolved:
+                s.editor.message = '正在检查投影材质…'
+                return self.request('resolve', {'palette': [list(value) for value in unresolved[:64]]})
         if s.editor.document.volume > SMALL_VOLUME:
             return self.project_large(origin)
+        self.projection_serial += 1
         if self.projection_entities:
             self.stop_projection()
+            self.projection_requested = True
         info = self.factory.CreateBlockInfo(self.level)
 
         def visible(pos):
             if not s.visible_layer(pos[1]):
                 return False
             if s.projection_missing:
-                actual = info.GetBlock(add(origin, pos))
-                if actual is None:
-                    raise ValueError('投影区域尚未加载，请靠近目标位置')
-                return tuple(actual) != s.editor.document.get(pos)
+                return self.needs_projection(info, add(origin, pos), s.editor.document.get(pos))
             return True
         name = self.geometry(s.editor.document, visible)
         if not name:
             self.stop_projection()
-            s.editor.message = '当前过滤条件下没有需要投影的方块'
+            self.projection_requested = s.projection_active = True
+            self.projection_outline.replace(origin, tuple(s.editor.document.size))
+            s.editor.message = '当前没有需要投影的方块，范围框已保留'
             return
         entity = self.system.CreateClientEntityByTypeStr(native('modern_projection:anchor'), tuple(float(v) for v in origin), (0., 0.))
         if not entity:
@@ -379,7 +396,23 @@ class ClientBridge(object):
             s.emit()
         self.later(.2, attach)
 
+    def toggle_missing(self):
+        s = self.session
+        s.projection_missing = not s.projection_missing
+        if s.projection_active or self.projection_requested:
+            self.project()
+        s.emit()
+
+    def needs_projection(self, info, pos, value):
+        actual = info.GetBlock(pos)
+        if actual is None or actual[0] == 'minecraft:unknown':
+            raise ValueError('投影区域尚未加载，请靠近目标位置')
+        return block(actual) != self.projection_palette.get(value, value)
+
     def stop_projection(self):
+        self.projection_requested = False
+        if self.pending_data and self.pending_data[0] == 'resolve':
+            self.cancel_world()
         self.projection_serial += 1
         self.projection_outline.clear()
         for entity in self.projection_entities.values():
@@ -397,6 +430,7 @@ class ClientBridge(object):
     def project_large(self, origin):
         """Stream exact nearby 16-cubed ghosts as the builder moves around."""
         self.stop_projection()
+        self.projection_requested = True
         self.projection_serial += 1
         serial = self.projection_serial
         s = self.session
@@ -447,8 +481,7 @@ class ClientBridge(object):
                                     pos = (start[0] + x, start[1] + y, start[2] + z)
                                     value = document.get(pos)
                                     if value != AIR:
-                                        actual = info.GetBlock(add(origin, pos)) if missing else None
-                                        if not missing or (actual is not None and tuple(actual) != value):
+                                        if not missing or self.needs_projection(info, add(origin, pos), value):
                                             local.blocks[(x, y, z)] = value
                             yield None
                         name = self.geometry(local)
@@ -489,7 +522,6 @@ class ClientBridge(object):
 
     def dimension_changed(self, unused):
         self.stop_projection()
-        self.session.world_undo = False
         self.corners = [None, None]
         self.draw_bounds()
         self.session.progress = None

@@ -23,6 +23,7 @@ class Runtime:
         self.sent = []
         self.uniforms = {}
         self.actor_positions = {}
+        self.world = {}
 
     def NotifyToServer(self, event, data):
         self.sent.append(data)
@@ -44,6 +45,9 @@ class Runtime:
 
     def CreateBlockInfo(self, level):
         return self
+
+    def GetBlock(self, pos):
+        return self.world.get(pos, AIR)
 
     def CreateActorRender(self, entity):
         self.rendering = entity
@@ -235,3 +239,53 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertIsNone(outline.entity)
         self.assertIsNone(outline.bounds)
         self.assertEqual(1, len(self.runtime.created))
+
+    def test_filter_toggle_resolves_legacy_palette_then_immediately_rebuilds(self):
+        b,s=self.bridge,self.bridge.session
+        old=('minecraft:planks',0)
+        s.origin=(0,0,0)
+        s.editor=Editor(Document((3,1,1),dict(((x,0,0),old) for x in range(3))))
+        self.runtime.world={(0,0,0):('minecraft:oak_planks',0),(1,0,0):('minecraft:stone',0)}
+        observed=[]
+        def geometry(doc,visible=None):
+            observed.append([p for p in doc.blocks if visible is None or visible(p)])
+            return 'model' if observed[-1] else None
+        b.geometry=geometry
+        b.toggle_missing()
+        self.assertTrue(s.projection_missing)
+        self.assertEqual('resolve',self.runtime.sent[-1]['action'])
+        b.receive({'request':b.pending,'done':True,'palette':[['minecraft:oak_planks',0]]})
+        self.assertEqual([[(1,0,0),(2,0,0)]],observed)
+        self.runtime.timers.pop(0)()
+        b.toggle_missing()
+        self.assertEqual([(0,0,0),(1,0,0),(2,0,0)],observed[-1])
+        self.assertFalse(s.projection_missing)
+
+    def test_completed_projection_retains_bounds_and_can_restore_all_blocks(self):
+        b,s=self.bridge,self.bridge.session
+        value=('minecraft:stone',0)
+        s.origin=(0,0,0);s.editor=Editor(Document((1,1,1),{(0,0,0):value}))
+        b.projection_palette[value]=value
+        self.runtime.world[(0,0,0)]=value
+        b.geometry=lambda doc,visible=None: 'model' if visible is None or visible((0,0,0)) else None
+        b.toggle_missing()
+        self.assertIsNone(b.entity)
+        self.assertTrue(s.projection_active)
+        self.assertEqual(((0,0,0),(1,1,1)),b.projection_outline.bounds)
+        b.toggle_missing()
+        for callback in list(self.runtime.timers): callback()
+        self.assertIsNotNone(b.entity)
+
+    def test_stopping_while_palette_is_in_flight_cannot_resurrect_projection(self):
+        b=self.bridge
+        b.session.projection_missing=True
+        b.project();request=b.pending
+        b.stop_projection()
+        b.receive({'request':request,'done':True,'palette':b.pending_data[1]['palette']})
+        self.assertFalse(b.session.projection_active)
+        self.assertIsNone(b.preparing_entity)
+
+    def test_unloaded_cell_is_not_misclassified_as_completed(self):
+        self.runtime.world[(0,0,0)]=None
+        with self.assertRaises(ValueError):
+            self.bridge.needs_projection(self.runtime,(0,0,0),('minecraft:stone',0))

@@ -433,8 +433,9 @@ def ProjectionSettings(session=None, revision=0, height=330):
         text('建造辅助', 14),
         text('在场景上方选择完整、切面或单层，并调整 Y。', 10, Theme.muted, width=216),
         Action(label='仅显示缺失方块', selected=session.projection_missing,
-               onClick=partial(session.set, 'projection_missing', not session.projection_missing)),
-        text('修改范围或过滤后，点击更新投影。', 10, Theme.muted, width=216),
+               onClick=partial(session.action, session.bridge.toggle_missing), enabled=not session.busy),
+        text('隐藏已完成方块，保留缺失和材质不符的位置。', 10, Theme.muted, width=216),
+        text('搭建后点击更新投影，重新检查。', 10, Theme.muted, width=216),
         line(), text('建造进度', 14),
         Action(label='检查建造进度', glyph='check', onClick=partial(session.action, session.bridge.check_progress), enabled=not session.busy),
         text('%d / %d 已完成' % (stats['correct'], stats['total']) if stats else '尚未检查', 11, Theme.muted),
@@ -450,20 +451,17 @@ def ProjectionSettings(session=None, revision=0, height=330):
                onClick=partial(session.set, 'apply_air', not session.apply_air)),
         text('开启后会清除草稿中空气对应的位置。', 10, Theme.muted, width=216),
         Action(label='应用到世界', glyph='cube', accent=True, onClick=partial(session.confirm,
-               '将整个长方体同步到世界？草稿中的空气会清除对应位置的方块。' if session.apply_air else
-               '将草稿中的非空气方块写入目标位置？需要创造模式、操作员和建造权限。', session.bridge.apply_world), enabled=not session.busy),
-        Action(label='撤销世界写入', glyph='undo', onClick=partial(session.confirm,
-               '撤销最近一次世界写入？被他人修改的方块会保留。', session.bridge.undo_world),
-               enabled=not session.busy and session.world_undo),
-        text('仅可撤销本次游戏中最近一次写入。', 10, Theme.muted, width=216),
+               '将草稿同步到世界？\n空气位置的已有方块也会被清除。\n此操作无法撤销。' if session.apply_air else
+               '将草稿中的方块写入目标位置？\n此操作无法撤销。', session.bridge.apply_world), enabled=not session.busy),
+        text('世界写入无法撤销，请确认原点和范围。', 10, Theme.muted, width=216),
     ]
     return Panel(style=S(width=230, height=height, gap=10), children=[
         text('投影与范围框仅本机可见', 10, Theme.mint),
         row([
             Action(label='更新投影' if session.projection_active else '生成投影', glyph='projection', accent=True, width=130,
-                   onClick=partial(session.action, session.bridge.project)),
+                   onClick=partial(session.action, session.bridge.project), enabled=not session.busy),
             Action(label='关闭', glyph='close', width=78, onClick=partial(session.action, session.bridge.stop_projection),
-                   enabled=session.projection_active or bool(session.bridge.preparing_entity)),
+                   enabled=session.projection_active or session.bridge.projection_requested),
         ], gap=8),
         Segments(items=[('display','显示'),('assist','辅助'),('world','写入')], value=tab, onChange=set_tab, width=216),
         Scroll(style=S(width=230, height=max(60,height-110)), resetKey=tab, children=

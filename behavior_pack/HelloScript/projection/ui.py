@@ -361,7 +361,8 @@ def Confirmation(session=None, revision=0, height=640):
     def content():
         return surface(width=420, padding=24, gap=18, children=[
             icon('info', Theme.blue, 28), text('请确认这次操作', 21),
-            text(message.current, 13, Theme.muted, width=372),
+            Panel(style=S(width=372, gap=6), children=[
+                text(paragraph, 13, Theme.muted, width=372) for paragraph in message.current.split('\n')]),
             row([Action(label='取消', enabled=opened, onClick=partial(session.set, 'pending_confirm', None)),
                  Action(label='确认继续', enabled=opened, accent=True, onClick=session.accept)])])
     card = use_memo(content, [message.current, opened, Theme.scale])

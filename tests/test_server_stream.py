@@ -19,7 +19,6 @@ class ServerStreamTests(unittest.TestCase):
         self.host = object.__new__(server.HelloServerSystem)
         self.host.jobs = {}
         self.host.uploads = {}
-        self.host.undo_records = {}
         self.replies = []
         self.host.reply = lambda player, request, **data: self.replies.append((player, request, data))
         self.creative = True
@@ -119,14 +118,13 @@ class ServerStreamTests(unittest.TestCase):
         self.assertFalse(self.host.uploads)
         self.assertFalse(self.writes)
 
-    def test_streamed_apply_and_undo_use_only_injected_player(self):
+    def test_streamed_apply_and_removed_undo_cannot_modify_world(self):
         self.send();self.finish()
         self.assertEqual(('minecraft:stone',0),self.blocks[(0,64,0)])
-        self.assertIn('player',self.host.undo_records)
         self.host.request({'__id__':'player','request':2,'action':'undo','player':'real_player'})
         self.finish()
-        self.assertEqual(AIR,self.blocks[(0,64,0)])
-        self.assertFalse(self.host.undo_records)
+        self.assertEqual(('minecraft:stone',0),self.blocks[(0,64,0)])
+        self.assertIn('未知',self.replies[-1][2]['error'])
 
     def test_revocation_during_upload_or_before_first_write_prevents_changes(self):
         first=next(packets(Document((1,1,1))))
@@ -168,6 +166,16 @@ class ServerStreamTests(unittest.TestCase):
     def test_disconnected_identity_ignored(self):
         self.host.request({'__id__':'forged','request':1,'action':'undo'})
         self.assertFalse(self.replies)
+
+    def test_projection_palette_lookup_is_bounded_read_only_and_available_in_survival(self):
+        self.creative=False
+        self.host.request({'__id__':'player','request':1,'action':'resolve','palette':[['minecraft:stone',0]]})
+        self.finish()
+        self.assertEqual([['minecraft:stone',0]],self.replies[-1][2]['palette'])
+        self.assertFalse(self.writes)
+        self.host.request({'__id__':'player','request':2,'action':'resolve','palette':[['minecraft:stone',0]]*65})
+        self.assertFalse(self.host.jobs)
+        self.assertTrue(self.replies[-1][2]['error'])
 
     def test_legacy_ids_preserve_axis_and_leaves_without_changing_dropped_item_blocks(self):
         aliases = {'log': ('log','spruce_log'), 'log2': ('log2','acacia_log'),

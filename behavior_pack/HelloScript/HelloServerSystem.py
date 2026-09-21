@@ -114,7 +114,6 @@ class HelloServerSystem(ServerSystem):
     def __init__(self, namespace, systemName):
         ServerSystem.__init__(self, namespace, systemName)
         self.jobs = {}
-        self.undo_records = {}
         self.uploads = {}
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
@@ -123,9 +122,6 @@ class HelloServerSystem(ServerSystem):
 
     def reply(self, player, request, **data):
         data['request'] = request
-        if data.get('done'):
-            record = self.undo_records.get(player)
-            data['canUndo'] = bool(record and record[1])
         self.NotifyToClient(player, 'ProjectionResponse', data)
 
     def block_catalogue(self, args):
@@ -200,18 +196,16 @@ class HelloServerSystem(ServerSystem):
             return
         try:
             action = args.get('action')
-            if action not in ('capture', 'check', 'apply', 'undo'):
+            if action not in ('capture', 'check', 'apply', 'resolve'):
                 raise ValueError('未知的世界操作')
             adapter = upload_adapter or WorldAdapter(player)
-            if action in ('apply', 'undo') and not adapter.allowed():
+            if action == 'apply' and not adapter.allowed():
                 raise ValueError('世界写入需要创造模式、操作员和建造权限')
-            if action == 'undo':
-                record = self.undo_records.get(player)
-                if not record:
-                    raise ValueError('没有可以撤销的世界写入')
-                if record[0] != adapter.dimension:
-                    raise ValueError('请返回写入时的维度再撤销')
-                job = WorldJob(adapter, None, (0, 0, 0), record[1])
+            if action == 'resolve':
+                values = args.get('palette')
+                if not isinstance(values, list) or not 1 <= len(values) <= 64:
+                    raise ValueError('投影材质数量无效')
+                job = self.resolve_palette(player, request, adapter, [block(value) for value in values])
             else:
                 origin = coordinate(args.get('origin'))
                 if action != 'capture' and transferred is None:
@@ -225,6 +219,18 @@ class HelloServerSystem(ServerSystem):
             self.jobs[player] = (request, action, job, adapter, 0)
         except (ValueError, TypeError, KeyError) as error:
             self.reply(player, request, done=True, error=error_text(error))
+
+    def resolve_palette(self, player, request, adapter, values):
+        # Read-only identity/state conversion. No world cells or actors are
+        # written, and survival players can use it for their local projection.
+        resolved = []
+        deadline = time.time() + .006
+        for value in values:
+            resolved.append(list(adapter.canonical(value)))
+            if time.time() >= deadline:
+                yield None
+                deadline = time.time() + .006
+        self.reply(player, request, done=True, palette=resolved)
 
     def validate_target(self, adapter, origin, doc):
         if origin[1] < (-64 if adapter.dimension == 0 else 0) or origin[1] + doc.size[1] > (320 if adapter.dimension == 0 else 256):
@@ -288,24 +294,16 @@ class HelloServerSystem(ServerSystem):
         for player, entry in list(self.jobs.items()):
             request, action, job, adapter, ticks = entry
             self.jobs[player] = (request, action, job, adapter, ticks + 1)
-            if action in ('apply', 'undo'):
+            if action == 'apply':
                 job.step()
                 if job.done:
                     if player not in serverApi.GetPlayerList():
                         self.jobs.pop(player, None)
-                        self.undo_records.pop(player, None)
                         continue
                     if job.error:
-                        if job.journal:
-                            self.undo_records[player] = (adapter.dimension, job.journal)
                         self.reply(player, request, done=True, error=job.error)
                     else:
-                        if action == 'apply':
-                            self.undo_records[player] = (adapter.dimension, job.journal)
-                        else:
-                            self.undo_records.pop(player, None)
-                        self.reply(player, request, done=True, message='已%s %d 格，跳过 %d 格' %
-                                   ('撤销' if action == 'undo' else '写入', len(job.journal), job.skipped))
+                        self.reply(player, request, done=True, message='已写入 %d 格' % len(job.journal))
                     self.jobs.pop(player, None)
             else:
                 try:
@@ -319,7 +317,7 @@ class HelloServerSystem(ServerSystem):
                 if isinstance(job, WorldJob):
                     phase = {'preflight':'检查目标', 'write':'写入方块', 'rollback':'恢复修改'}[job.phase]
                     self.reply(player, request, done=False, message='%s，已处理 %d 格' % (phase, max(0,job.cursor)))
-                else:
+                elif action != 'resolve':
                     self.reply(player, request, done=False, message='正在读取世界，已处理 %d 批' % (ticks + 1))
 
     def leave(self, args):
@@ -330,7 +328,6 @@ class HelloServerSystem(ServerSystem):
             entry[2].fail('玩家已离开，恢复本次修改')
         else:
             self.jobs.pop(player, None)
-        self.undo_records.pop(player, None)
 
     def Destroy(self):
         for entry in self.jobs.values():

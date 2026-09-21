@@ -103,7 +103,7 @@ ACTION_ICONS = {
     '恢复全选区域': 'select_all', '使用自定义材质': 'check',
     '仅显示当前层': 'layers', '显示全部图层': 'layers', '显示全部层': 'layers', '逐层投影': 'layers',
     '载入': 'folder', '重命名': 'edit', '删除': 'trash', '仅显示缺失方块': 'box_outline',
-    '关闭投影': 'close', '同步空气（会清除对应位置）': 'erase', '撤销世界写入': 'undo',
+    '关闭投影': 'close', '同步空气（会清除对应位置）': 'erase',
     '减少动态效果': 'motion', '取消': 'close', '确认继续': 'check',
 }
 SEGMENT_ICONS = {

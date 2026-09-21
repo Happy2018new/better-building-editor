@@ -70,7 +70,6 @@ class Session(object):
         self.origin = (0, 64, 0)
         self.opacity = .45
         self.apply_air = False
-        self.world_undo = False
         self.projection_active = False
         self.projection_missing = False
         self.projection_outline = True

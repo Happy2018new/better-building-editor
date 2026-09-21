@@ -1,4 +1,4 @@
-"""Stage 49: native Esc/touch, grouped settings and authorized world writes.
+"""Projection workflow: native Esc/touch, grouped settings and authorized world writes.
 
 Run only in the isolated managed test world. Restores the small test area,
 player permissions/mode, editor, camera and preference writer in finally.
@@ -14,7 +14,7 @@ from native_input_mode import key, state
 
 def wait_done():
     for unused in range(160):
-        value=game('_result={"busy":s.busy,"message":s.editor.message,"undo":s.world_undo,"progress":s.progress}')
+        value=game('_result={"busy":s.busy,"message":s.editor.message,"progress":s.progress}')
         if not value['busy']:return value
         time.sleep(.1)
     raise AssertionError(value)
@@ -25,18 +25,23 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     original_touch=state()['simulated']
-    game('''api._workflow_saved=(s.editor,s.origin,s.apply_air,s.page,s.spectrum_speed,s.bridge.save_preferences,s.camera_pan)
+    game('''api._workflow_saved=(s.editor,s.origin,s.apply_air,s.page,s.spectrum_speed,s.bridge.save_preferences,s.camera_pan,s.projection_outline,s.projection_missing)
+s.projection_outline=True
+s.projection_missing=False
 def discard_preferences(data):return True
 s.bridge.save_preferences=discard_preferences
 _result=True''')
     origin=server('''from HelloScript.HelloServerSystem import WorldAdapter
 host=api.GetSystem("ModernProjection","HelloServerSystem")
 a=WorldAdapter(p)
-origin=tuple(int(v)+(24 if i==1 else 0) for i,v in enumerate(f.CreatePos(p).GetFootPos()))
-cells=[(origin[0]+x,origin[1],origin[2]) for x in range(24)]
-saved=[(pos,a.read(pos)) for pos in cells]
+foot=tuple(int(v) for v in f.CreatePos(p).GetFootPos())
+choices=[(foot[0]+dx,foot[1]+dy,foot[2]) for dy in (20,32,40) for dx in (-16,-32,0)]
+for origin in choices:
+    cells=[(origin[0]+x,origin[1],origin[2]) for x in range(24)]
+    saved=[(pos,a.read(pos)) for pos in cells]
+    if all(value==("minecraft:air",0) for pos,value in saved):break
 assert all(value==("minecraft:air",0) for pos,value in saved)
-api._workflow_saved=(saved,f.CreateGame(api.GetLevelId()).GetPlayerGameType(p),f.CreatePlayer(p).GetPlayerAbilities(),host.undo_records.copy())
+api._workflow_saved=(saved,f.CreateGame(api.GetLevelId()).GetPlayerGameType(p),f.CreatePlayer(p).GetPlayerAbilities())
 _result=origin''')
     def exists():return game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
     def reopen():
@@ -72,7 +77,7 @@ _result=f.parent_fiber.hooks[3]['value']
         key('esc');time.sleep(.5)
         ui.check('Esc dismisses confirmation first and keeps workspace',exists() and game('_result=s.pending_confirm is None'))
         game('s.set("page","projection")\n_result=True');time.sleep(3.)
-        snapshot('stage49_projection_display')
+        snapshot('stage50_projection_display')
         settings=ui.nodes('ProjectionSettings')[0]
         ui.check('display groups contain outline speed and no world-write actions',
                  any(n['props'].get('label')=='炫彩流动速度' for n in ui.nodes('Range',settings)) and
@@ -80,10 +85,10 @@ _result=f.parent_fiber.hooks[3]['value']
         speed=next(n for n in ui.nodes('Range',settings) if n['props'].get('label')=='炫彩流动速度')
         ui.call('set_slider',ui.nodes('Slider',speed)[0]['id'],.6);time.sleep(.3)
         ui.check('projection page adjusts shared spectrum speed',abs(game('_result=s.spectrum_speed')-3.7)<.05)
-        ui.click('辅助');snapshot('stage49_projection_assist')
+        ui.click('辅助');snapshot('stage50_projection_assist')
         ui.check('assist contains progress and materials', '所需材料' in ui.labels(ui.nodes('ProjectionSettings')[0]))
-        ui.click('写入');snapshot('stage49_projection_world')
-        ui.check('world undo starts disabled without server record',action('撤销世界写入')['props']['enabled'] is False)
+        ui.click('写入');snapshot('stage50_projection_world')
+        ui.check('world undo is removed from settings',not any(n['props'].get('label')=='撤销世界写入' for n in ui.nodes('Action')))
 
         # Submit old and modern material IDs via the actual client network path.
         game('''from HelloScript.projection.model import Document,Editor
@@ -98,7 +103,7 @@ _result=True''');time.sleep(.8)
         actual_click(action('应用到世界'))
         actual_click(action('确认继续'))
         result=wait_done()
-        ui.check('actual apply button sends building and completes authorized write',result['undo'] and '已写入' in result['message'])
+        ui.check('actual apply button sends building and completes authorized write','已写入' in result['message'])
         data=server('a=WorldAdapter(p)\n_result=[a.read((%d+x,%d,%d)) for x in range(14)]'%tuple(origin))
         ui.check('legacy wool/planks become correct modern blocks; log/stair state retained',data[1]==['minecraft:birch_planks',0] and data[2]==['minecraft:red_wool',0] and data[3]==['minecraft:black_concrete',0] and data[4]==['minecraft:spruce_log',1] and data[5]==['minecraft:oak_stairs',2])
         ui.check('renamed default palette and all log axes survive world write',data[6]==['minecraft:stone_bricks',0] and data[7]==['minecraft:grass_block',0] and data[10:]==[['minecraft:spruce_wood',0],['minecraft:spruce_log',2],['minecraft:acacia_log',1],['minecraft:spruce_log',2]])
@@ -106,12 +111,6 @@ _result=True''');time.sleep(.8)
         ui.check('legacy leaves preserve persistent and update flags',flags[0]['persistent_bit'] and flags[1]['update_bit'])
         game('s.bridge.check_progress()\n_result=True');result=wait_done()
         ui.check('progress understands legacy material aliases',result['progress']['correct']==14)
-        # Simulate another builder's change; undo must preserve that cell.
-        server('a=WorldAdapter(p)\na.write('+repr(tuple(origin))+',("minecraft:gold_block",0))\n_result=True')
-        game('s.bridge.undo_world()\n_result=True');result=wait_done()
-        after=server('a=WorldAdapter(p)\n_result=[a.read((%d+x,%d,%d)) for x in range(14)]'%tuple(origin))
-        ui.check('server undo restores stable blocks and preserves another edit',after[0]==['minecraft:gold_block',0] and all(x==['minecraft:air',0] for i,x in enumerate(after) if i not in (0,8,9)) and not result['undo'])
-        ui.check('native leaf updates during undo do not roll back the entire undo','已撤销' in result['message'] and all(after[i][0] in ('minecraft:air','minecraft:oak_leaves') for i in (8,9)))
         # Actual server permission APIs, not client-provided authorization flags.
         for field,change,restore in (
             ('survival','SetPlayerGameType(0)','SetPlayerGameType(1)'),
@@ -125,9 +124,7 @@ _result=True''');time.sleep(.8)
         spare=(origin[0]+23,origin[1],origin[2])
         server('a=WorldAdapter(p)\na.write('+repr(spare)+',("minecraft:gold_block",0))\n_result=True')
         game('s.apply_air=True\ns.bridge.apply_world()\n_result=True');result=wait_done()
-        ui.check('air synchronization clears only corresponding draft air',result['undo'] and '已写入' in result['message'] and server('a=WorldAdapter(p)\n_result=a.read('+repr(spare)+')')==['minecraft:air',0])
-        game('s.bridge.undo_world()\n_result=True');wait_done()
-        ui.check('undo air synchronization restores removed block',server('a=WorldAdapter(p)\n_result=a.read('+repr(spare)+')')==['minecraft:gold_block',0])
+        ui.check('air synchronization clears only corresponding draft air','已写入' in result['message'] and server('a=WorldAdapter(p)\n_result=a.read('+repr(spare)+')')==['minecraft:air',0])
         game('s.bridge.project()\n_result=True');time.sleep(.6)
         actors=game('_result=[s.bridge.entity,s.bridge.projection_outline.entity]')
         ui.check('projection and rainbow outline created locally',all(actors))
@@ -141,26 +138,25 @@ _result=True''');time.sleep(.8)
             reopen()
             identity=actual_click(action('左移'))
             ui.check('touch release clears action hover' if touch else 'PC release retains mouse hover', feedback(identity)==('default' if touch else 'hover'))
-            if touch:snapshot('stage49_touch_button_released')
+            if touch:snapshot('stage50_touch_button_released')
             segment=ui.nodes('Segments',ui.nodes('PageNavigation')[0])[0]
             target=next(n for n in ui.nodes('JellyButton',segment) if n.get('key')=='workspace')
             identity=actual_click(target)
             ui.check('touch segment clears transient hover' if touch else 'PC segment retains hover',feedback(identity)==('default' if touch else 'hover'))
     finally:
-        (ui.OUT/'stage49_workflow_checks.json').write_text(json.dumps(ui.checks,ensure_ascii=False,indent=2),encoding='utf8')
+        (ui.OUT/'stage50_workflow_checks.json').write_text(json.dumps(ui.checks,ensure_ascii=False,indent=2),encoding='utf8')
         game('s.bridge.cancel_world()\ns.bridge.stop_projection()\n_result=True')
         wait_done()
         server('''a=WorldAdapter(p)
-saved,mode,abilities,undo=api._workflow_saved
+saved,mode,abilities=api._workflow_saved
 for pos,value in saved:a.write(pos,value)
 player=f.CreatePlayer(p)
 player.SetPlayerGameType(mode)
 player.SetOperatorCommandAbility(abilities['op'])
 player.SetBuildAbility(abilities['build'])
 player.SetMineAbility(abilities['mine'])
-host.undo_records=undo
 _result=True''')
-        game('s.editor,s.origin,s.apply_air,s.page,s.spectrum_speed,s.bridge.save_preferences,s.camera_pan=api._workflow_saved\ns.world_undo=False\ns.set("pending_confirm",None)\ns.refresh_preview()\ns.emit()\n_result=True')
+        game('s.editor,s.origin,s.apply_air,s.page,s.spectrum_speed,s.bridge.save_preferences,s.camera_pan,s.projection_outline,s.projection_missing=api._workflow_saved\ns.set("pending_confirm",None)\ns.refresh_preview()\ns.emit()\n_result=True')
         if exists():key('esc');time.sleep(.5)
         if state()['simulated']!=original_touch:key('f11');time.sleep(.3)
         reopen()
