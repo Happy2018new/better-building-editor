@@ -94,11 +94,19 @@ def ToolGroup(session=None, group=None, query='', selected=None):
     identities = set(t[0] for t in items)
     return Scroll(resetKey=(group, query), style=S(width=154, height='100%'),
         children=Panel(style=S(width=144, gap=5), children=[
-            Panel(key=t[0], cacheLayout=True, style=S(width=144, height=32, display=Display.flex if t[0] in identities else Display.none), children=
-                Action(label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
-                       selected=selected == t[0], onClick=partial(session.choose_tool, t[0]), compact=True))
+            ToolChoice(key=t[0], session=session, identity=t[0], visible=t[0] in identities, selected=selected == t[0])
             for t in pool] + [Panel(key='empty', style=S(display=Display.none if items else Display.flex),
                                    children=text('没有匹配的工具', 11, Theme.muted))]))
+
+
+@Component
+def ToolChoice(session=None, identity=None, visible=True, selected=False):
+    """Only the old/new selection changes; retain all other native tool rows."""
+    use_theme()
+    choose = use_callback(partial(session.choose_tool, identity), [session, identity])
+    return Panel(cacheLayout=True, style=S(width=144, height=32, display=Display.flex if visible else Display.none), children=
+        Action(label=BY_ID[identity][2], glyph=TOOL_ICONS[identity], leading=True, height=32,
+               selected=selected, onClick=choose, compact=True))
 
 
 @Component
@@ -215,7 +223,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         row([Segments(items=[('full', '完整'), ('section', '切面'), ('single', '单层')],
                       value=session.current_display_mode(), onChange=session.display_mode, width=178),
              Panel(style=S(flex=1)),
-             text('Y', 11, Theme.blue),
+             text('单层 Y' if session.solo_layer else '切面 Y' if session.section else '网格 Y', 11, Theme.blue),
              Action(glyph='minus', width=27, height=27, enabled=e.layer > 0, onClick=partial(session.layer, e.layer-1)),
              Input(value=str(e.layer), onChange=partial(set_view_layer, session), style=S(width=44, height=27)),
              Action(glyph='plus', width=27, height=27, enabled=e.layer < doc.size[1]-1,
@@ -252,7 +260,7 @@ def PlacementControls(session=None, revision=0, width=400):
     use_session_fields(session, ('input_mode', 'editing_mode'))
     hint = HINTS[session.direct_mode]
     if session.touch_mode:
-        hint = '轻触操作，拖动旋转，下方按钮缩放与移动'
+        hint = '轻触操作，单指旋转，双指缩放'
     if session.paste_active():
         hint = '点击固定粘贴起点，拖动旋转，确认后粘贴整个复制区域'
     return row([retained_text(hint, 10, Theme.muted, flex=1, slots=48, lines=2)], width=width, height=34)
@@ -288,7 +296,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
             content_revision = (content_revision, session.view)
         panes.append(RetainedPane(key=name, active=active == name, session=session,
             style=S(position=Position.absolute, width=216, height=height-111),
-            children=component(session=session, revision=content_revision)))
+            children=component(session=session, revision=content_revision, **({'height':height-111} if name == 'params' else {}))))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
     erase_selection = direct and session.direct_mode == 'erase' and session.erase_scope == 'selection'
     children = [Panel(key='header', style=S(width='100%', height=42), children=[
@@ -542,12 +550,6 @@ def Workspace(session=None, revision=0):
             PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus, entrance=entrance),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
         row([
-            text('工作层 Y', 11, Theme.blue, width=55),
-            Action(glyph='minus', width=27, height=25, onClick=partial(session.layer, e.layer - 1)),
-            text('%02d' % e.layer, 12, width=25, center=True),
-            Action(glyph='plus', width=27, height=25, onClick=partial(session.layer, e.layer + 1)),
-            text('网格高度' if not (session.solo_layer or session.section) else
-                 '仅显示 Y 层' if session.solo_layer else '显示 Y 层和下方', 10, Theme.muted),
             Panel(style=S(flex=1)),
             text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
             text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),

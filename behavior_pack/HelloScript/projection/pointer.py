@@ -12,6 +12,23 @@ class PointerTracker(object):
         self.global_press = False
         self.touch_mode = touch_mode or (lambda: False)
         self.touch = False
+        self.contacts = {}
+        self.pinching = False
+        self.pinch_pair = None
+
+    def pinch_event(self, phase):
+        pair = tuple(sorted(self.contacts)[:2])
+        if phase != 'end' and len(pair) == 2 and pair != self.pinch_pair:
+            phase = 'start'
+        self.pinch_pair = pair
+        self.send('onPinch', {'phase': phase, 'points': tuple(self.contacts[k] for k in pair)})
+
+    def add_contact(self, args):
+        identity = args.get('TouchId')
+        if identity is None or identity < 0 or 'TouchPosX' not in args or 'TouchPosY' not in args:
+            return False
+        self.contacts[identity] = (args['TouchPosX'], args['TouchPosY'])
+        return True
 
     def send(self, name, args):
         callback = self.props.get(name)
@@ -21,6 +38,20 @@ class PointerTracker(object):
     def down(self, args):
         if self.props.get('enabled') is False:
             return
+        if self.pressed and self.touch and callable(self.props.get('onPinch')):
+            identity = args.get('TouchId')
+            if identity in self.contacts:
+                return  # Duplicate global/local down for the same finger.
+            hit = self.props.get('screenHit')
+            if callable(hit) and not hit((args.get('TouchPosX', -1), args.get('TouchPosY', -1))):
+                return
+            if self.add_contact(args):
+                if len(self.contacts) >= 2:
+                    if not self.pinching:
+                        self.pinching = True
+                        self.send('onCancel', args)  # A pinch can never become an edit.
+                    self.pinch_event('move')
+                return
         if self.pressed and self.global_press:
             self.global_press = False
             return
@@ -33,6 +64,8 @@ class PointerTracker(object):
         self.origin = self.previous = None if touch else self.motion.GetMousePosition()
         args = dict(args, pointerKind='touch' if touch else 'mouse')
         self.args = dict(args)
+        if touch and callable(self.props.get('onPinch')):
+            self.add_contact(args)
         self.pressed = True
         if not hasattr(self.host, '_projection_pointers'):
             self.host._projection_pointers = set()
@@ -67,9 +100,24 @@ class PointerTracker(object):
         if hasattr(self.host, '_projection_pointers'):
             self.host._projection_pointers.discard(self)
         self.args = None
+        self.contacts.clear()
+        self.pinching = False
+        self.pinch_pair = None
 
     def up(self, args):
         if not self.pressed:
+            return
+        if self.pinching:
+            identity = args.get('TouchId')
+            if identity is None:
+                self.cancel(args)  # Ambiguous capture loss must not leave a pinch stuck.
+            elif identity in self.contacts:
+                del self.contacts[identity]
+                if self.contacts:
+                    self.pinch_event('move' if len(self.contacts) >= 2 else 'pause')
+                else:
+                    self.stop()
+                    self.pinch_event('end')
             return
         if (self.touch or self.origin is None) and args.get('TouchId') not in (None, self.args.get('TouchId')):
             return
@@ -86,15 +134,32 @@ class PointerTracker(object):
 
     def cancel(self, args):
         if self.pressed:
+            if self.pinching and args.get('TouchId') is not None:
+                self.up(args)
+                return
+            if self.touch and args.get('TouchId') not in (None, self.args.get('TouchId')):
+                return
+            pinching = self.pinching
             self.stop()
+            if pinching:
+                self.pinch_event('end')
             self.send('onCancel', args)
 
     def move(self, args):
         if self.pressed:
+            identity = args.get('TouchId')
+            if self.pinching:
+                if identity in self.contacts:
+                    self.add_contact(args)
+                    if len(self.contacts) >= 2:
+                        self.pinch_event('move')
+                return
             if self.origin is None:
                 if args.get('TouchId') not in (None, self.args.get('TouchId')):
                     return
                 self.args.update(args)
+                if identity in self.contacts:
+                    self.add_contact(args)
             self.send('onMove', args)
 
     def enter(self, args):
@@ -106,6 +171,9 @@ class PointerTracker(object):
         # when native UI refresh lost the ordinary up/cancel route. If up has
         # already run this is a no-op; otherwise cancel without inventing a tap.
         if self.touch and args.get('TouchEvent') == 6:
+            if self.pinching:
+                self.up(args)
+                return
             if self.pressed and args.get('TouchId') in (None, self.args.get('TouchId')):
                 self.cancel(args)
             return
@@ -123,6 +191,10 @@ class PointerTracker(object):
         # drops a control-local down. Native hover still owns hit testing, so
         # navigation buttons and the inspector keep priority over the canvas.
         hit_test = self.props.get('screenHit')
+        if self.touch and self.pressed and self.props.get('onPinch') and point is not None:
+            if callable(hit_test) and hit_test(point):
+                self.down(dict(args, TouchPosX=point[0], TouchPosY=point[1]))
+            return
         if self.touch_mode() or point is None or self.pressed or not self.props.get('globalCapture'):
             return
         if not (hit_test(point) if callable(hit_test) else self.hovered):
@@ -135,5 +207,5 @@ class PointerTracker(object):
 def release_pointers(host, args):
     """Local and global up may arrive in either order; finish each press once."""
     for tracker in tuple(getattr(host, '_projection_pointers', ())):
-        if (not tracker.touch and tracker.origin is not None) or args.get('TouchId') is None or tracker.args.get('TouchId') in (None, args['TouchId']):
+        if tracker.pinching or (not tracker.touch and tracker.origin is not None) or args.get('TouchId') is None or tracker.args.get('TouchId') in (None, args['TouchId']):
             tracker.up(args)

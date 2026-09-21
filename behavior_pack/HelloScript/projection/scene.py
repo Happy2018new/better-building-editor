@@ -8,7 +8,7 @@ import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .widgets import Theme, S, Doll, Pointer, TypeImage, transparent, use_theme
-from .camera import OrbitCamera, pick_target, behind_plane, render_bounds
+from .camera import OrbitCamera, PinchZoom, pick_target, behind_plane, render_bounds
 from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
@@ -57,7 +57,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser', 'pending_rename', 'pending_confirm'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'material_browser', 'pending_rename', 'pending_confirm'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
@@ -87,9 +87,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     dim_alpha = use_ref(None)
     wheel_time = use_ref(None)
     drag = use_ref(None)
+    pinch = use_ref(None)
     mouse = use_ref(lambda: clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())).current
     hover_preview = use_ref(None)
     placed_pointer = use_ref(None)
+    pointer_mode = use_ref(session.direct_mode)
     edge_refs = [use_ref(None) for unused in range(12)]
     cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
@@ -161,6 +163,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
 
     def tick(now):
         session.bridge.pump_frame()
+        # Tool switches only change picking policy and outlines. Keep the
+        # native model/grid tree and pointer callbacks out of that UI commit.
+        if pointer_mode.current != session.direct_mode:
+            pointer_mode.current = session.direct_mode
+            reset_cursor()
         dt = now - frame.current
         frame.current = now
         alpha = max(0., min(.8, 1.-session.brightness))
@@ -485,9 +492,36 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
 
     def cancel(unused):
         drag.current = None
+        pinch.current = None
         camera.dragging = False
         session.camera_dragging = False
         camera.velocity = (0., 0.)
+
+    def pinch_zoom(args):
+        phase = args['phase']
+        drag.current = None
+        camera.velocity = (0., 0.)
+        wheel_time.current = None
+        if phase == 'end':
+            pinch.current = None
+            camera.dragging = session.camera_dragging = False
+            session.camera_yaw, session.camera_pitch, session.zoom = camera.yaw, camera.pitch, camera.zoom
+            session.camera_pan = camera.pan
+            session.emit('view')
+            return
+        camera.dragging = session.camera_dragging = True
+        if len(args['points']) < 2 or pointer.current is None:
+            pinch.current = None
+            return
+        px, py = pointer.current.GetGlobalPosition()
+        points = tuple((x-px, y-py) for x, y in args['points'])
+        if phase == 'start' or pinch.current is None:
+            pinch.current = PinchZoom(camera, points, width*Theme.scale, height*Theme.scale,
+                                      minimum_distance=max(2., 4.*Theme.scale))
+        else:
+            pinch.current.move(points)
+        session.zoom = camera.zoom
+        session.camera_pan = camera.pan
 
     def up(args):
         if drag.current is None:
@@ -573,6 +607,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
             for i, ref in enumerate(cursor_refs)]),
         Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
               zIndex=360, opacity=max(0., 1.-session.brightness), visible=active)),
-        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onLeave=leave,
+        Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onLeave=leave, onPinch=pinch_zoom,
                 buttonBuilder=transparent, style=S(position=Position.absolute, width='100%', height='100%', zIndex=380, visible=active)),
     ])

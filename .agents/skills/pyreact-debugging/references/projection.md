@@ -41,3 +41,7 @@
 后台 PreparationQueue 在按钮回弹、选项与页面动画期间暂停，不仅依靠 250 ms 的点击冷却；恢复后最多每 1/30 秒一批，固定尺寸 Scroll 使用现有布局缓存隔离隐藏页签的准备。Scene/Scroll/Range 的常驻轮询不能作为暂停条件，否则后台准备永远无法完成。输入焦点和原生按住回归仍按前文要求进行。
 
 `tools/pyreact_legacy/` 保留旧版截图/Win32 输入、Tracy 与动画采样剪贴板工具，供现有回归脚本使用；普通调试使用本 skill 的 MCDK 工作流。新实例下通过 `tools/run_live_check.py --session <file> --owner <owner> <工具名.py> [参数]` 运行项目回归，该入口校验实例、绑定 PID 并持有桌面锁。不要对用户的世界运行会保存建筑库或投影的 `verify_ui.py` 主函数。
+
+阶段 46：视口 PointerTracker 仅在提供 onPinch 时追踪多 TouchId；第二触点取消单指点击，直到所有触点结束都禁止误编辑。多指 move 沿用原生 SetButtonTouchMoveCallback；全局观察器只补充第二指 down/up，不能补造原生没有投递的 move。F11 是单触点模拟，文档也没有明示同一按钮多指的保证；verify_layer_pinch.py 直接注入 tracker 多指回调验证相机与编辑隔离，必须与手机硬件测试分开报告。触点为零距离、交换/替换、cancel、TouchEvent=6、重复 global/local up 均应检查。缩放直接改变 OrbitCamera.zoom/pan，按住期间 camera_dragging 保持 true，末指释放后一次 emit('view')，继续延迟 SetLayer 避免打断原生触摸。Scene 工具切换无需重构原生树，但 tick 必须清理上一个模式候选框。
+
+工具切换性能需同时检查稳定按钮池和参数区；ToolChoice 的布尔 selected 保证只有前后按钮更新，SelectionParameters/ModificationMask 将无关参数从工具切换中隔离。固定字体布局缓存不能用于替换输入框字体，也不能省略 resize/聚焦回归。阶段 46 的底部重复 Y 控件已移除，自动化应操作 Viewport 内唯一 Input；其标签随显示模式为网格 Y / 切面 Y / 单层 Y。

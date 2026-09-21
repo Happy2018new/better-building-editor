@@ -17,12 +17,23 @@ cls._switch_saved_flush=cls._pyreact_flush
 native._switch_saved_clone=native.clone
 h._switch_times=[]
 h._switch_clones=0
+h._switch_profile=None
+h._switch_hotspots=[]
 def flush(self):
     started=time.clock()
-    try:return self._switch_saved_flush()
+    try:
+        if self._switch_profile is not None:
+            return self._switch_profile.runcall(self._switch_saved_flush)
+        return self._switch_saved_flush()
     finally:
         duration=(time.clock()-started)*1000.
         if duration>.1:self._switch_times.append(duration)
+        if self._switch_profile is not None:
+            if duration>30. and len(self._switch_hotspots)<30:
+                import pstats
+                top=sorted(pstats.Stats(self._switch_profile).stats.items(),key=lambda pair:pair[1][3],reverse=True)[:24]
+                self._switch_hotspots.append((duration,[(str(k),v[:4]) for k,v in top]))
+            self._switch_profile.clear()
 def clone(host,*args):
     host._switch_clones+=1
     return native._switch_saved_clone(host,*args)
@@ -31,6 +42,8 @@ native.clone=clone
 _result=True
 ''')
     records=[]
+    if '--hotspots' in sys.argv:
+        game('import cProfile\nh._switch_profile=cProfile.Profile()\n_result=True')
     operations=[('mode:'+m,'s.choose_mode(%r)'%m) for m in ('select','place','paint','erase','pick','box','browse')]
     operations += [('tool:'+t,'s.choose_tool(%r)'%t) for t in ('fill','erase','replace','copy','cut','shell','sphere','checker','noise','hollow','paste','fill')]
     operations += [('open:first','s.open_materials("material")'),('close:first','s.set("material_browser",None)'),
@@ -43,6 +56,8 @@ _result=True
             records.append(dict(action=name,**data))
             print({'action':name,'clones':data['clones'],'peak_ms':round(max(data['commits'] or [0]),2)},flush=True)
     finally:
+        if '--hotspots' in sys.argv:
+            (ui.OUT/'editor_switch_hotspots.json').write_text(json.dumps(game('_result=h._switch_hotspots'),indent=2),encoding='utf8')
         game('''from HelloScript.pyreact import native
 cls=type(api.GetTopScreen())
 cls._pyreact_flush=cls._switch_saved_flush
@@ -53,7 +68,7 @@ s.set('material_browser',None)
 s.choose_tool('fill')
 _result=True
 ''')
-    (ui.OUT/('editor_switches_'+('before' if '--baseline' in sys.argv else 'after')+'.json')).write_text(
+    (ui.OUT/('editor_switches_'+('profiled' if '--hotspots' in sys.argv else 'before' if '--baseline' in sys.argv else 'after')+'.json')).write_text(
         json.dumps(records,ensure_ascii=False,indent=2),encoding='utf8')
 
 

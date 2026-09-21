@@ -154,7 +154,7 @@ def SelectionBounds(session=None, revision=0):
                        enabled=point[axis] < (hi[axis] if side == 0 else e.document.size[axis]-1),
                        onClick=partial(session.adjust_boundary, axis, side, 1))], gap=4))
         rows.append(row(children, gap=6))
-    return Panel(style=S(width=216, gap=9, marginTop=3, marginBottom=3), children=rows)
+    return Panel(cacheLayout=True, style=S(width=216, height=115.5, gap=9, marginTop=3, marginBottom=3), children=rows)
 
 
 @Component
@@ -196,10 +196,8 @@ def PasteControls(session=None, revision=0):
 
 
 @Component
-def Parameters(session=None, revision=0):
+def Parameters(session=None, revision=0, height=330):
     use_theme()
-    coordinates_open, set_coordinates_open = use_state(False)
-    selection_tools, set_selection_tools = use_state(False)
     e = session.editor
     tool = BY_ID[session.tool]
     options = tool_parameters(session.tool)
@@ -210,7 +208,7 @@ def Parameters(session=None, revision=0):
     channels = [pair for pair in [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')] if pair[0] in options]
     if e.mask == 'material':
         channels.append(('filter_material', '匹配材质'))
-    return Scroll(resetKey=(session.tool, session.direct_mode), style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=6), children=[
+    return Scroll(resetKey=(session.tool, session.direct_mode), style=S(width=230, height=height), children=Panel(style=S(width=216, gap=6), children=[
         retained_text('视图操作' if tool[0] == 'direct' else '工具参数', 10, Theme.muted, width=216, slots=4, marginTop=6),
         retained_text(tool[2], 20, width=216, slots=16),
         # Split help by sentence length into readable, deliberate lines.
@@ -222,7 +220,31 @@ def Parameters(session=None, revision=0):
             text('点击方块擦除一格' if session.erase_scope == 'single' else
                  '保留选区范围，点击下方擦除选区', 10, Theme.muted)]),
         optional('paste_parameters', session.paste_active(), PasteControls(session=session, revision=revision)),
-        optional('selection_parameters', not session.paste_active(), [line(), text('当前选区', 12),
+        optional('selection_parameters', not session.paste_active(), SelectionParameters(session=session,
+            revision=session.content_revision, anchor=session.box_anchor, corners='start' in options or 'end' in options)),
+        ModificationMask(session=session, revision=session.content_revision),
+        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=session.content_revision, channels=channels)),
+        optional('material_line', bool(channels), line()),
+        optional('thickness', 'thickness' in options, Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
+              onChange=partial(session.range_value, 'thickness'), unit=' 格')),
+        optional('step', 'step' in options, Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
+              onChange=partial(session.range_value, 'step'), unit=' 格')),
+        optional('ratio', 'ratio' in options, Range(label='副材质比例', value=e.ratio, minimum=0, maximum=1,
+              onChange=partial(session.range_value, 'ratio'))),
+        optional('seed', 'seed' in options, row([text('随机种子', 11, Theme.muted, flex=1),
+             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)])),
+        optional('seed_help', 'seed' in options, text('点击种子切换可复现的随机图案', 10, Theme.muted)),
+        Panel(style=S(height=8)),
+    ]))
+
+
+@Component
+def SelectionParameters(session=None, revision=0, anchor=None, corners=False):
+    use_theme()
+    coordinates_open, set_coordinates_open = use_state(False)
+    selection_tools, set_selection_tools = use_state(False)
+    e = session.editor
+    return Panel(style=S(width=216, gap=7), children=[line(), text('当前选区', 12),
         retained_text('%d 格已选择' % len(e.selection) + ('，%d 层已锁定' % len(e.locked_layers) if e.locked_layers else ''),
                       10, Theme.muted, width=216, slots=32),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
@@ -242,27 +264,20 @@ def Parameters(session=None, revision=0):
         optional('box_pending', session.box_anchor is not None, Panel(children=[
             text('起点已设置，请点击终点', 10, Theme.blue),
             Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),
-        optional('corners', coordinates_open or 'start' in options or 'end' in options, [
+        optional('corners', coordinates_open or corners, [
             Coordinates(label='选区起点  X, Y, Z', value=e.start, onChange=partial(session.set_editor, 'start')),
-            Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))])]),
-        line(), text('方块修改条件', 12),
+            Coordinates(label='选区终点  X, Y, Z', value=e.end, onChange=partial(session.set_editor, 'end'))])])
+
+
+@Component
+def ModificationMask(session=None, revision=0):
+    use_theme()
+    e = session.editor
+    return Panel(style=S(width=216, gap=7), children=[line(), text('方块修改条件', 12),
         Segments(items=[('all', '全部'), ('solid', '方块'), ('air', '空气'), ('material', '材质')],
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
         text({'all': '允许修改方块和空气格', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
-              'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted),
-        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=session.content_revision, channels=channels)),
-        optional('material_line', bool(channels), line()),
-        optional('thickness', 'thickness' in options, Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
-              onChange=partial(session.range_value, 'thickness'), unit=' 格')),
-        optional('step', 'step' in options, Range(label='步长 / 纹理间距', value=e.step, minimum=1, maximum=16, integer=True,
-              onChange=partial(session.range_value, 'step'), unit=' 格')),
-        optional('ratio', 'ratio' in options, Range(label='副材质比例', value=e.ratio, minimum=0, maximum=1,
-              onChange=partial(session.range_value, 'ratio'))),
-        optional('seed', 'seed' in options, row([text('随机种子', 11, Theme.muted, flex=1),
-             Action(label=str(e.seed), onClick=partial(session.set_editor, 'seed', e.seed + 1), width=72, height=26)])),
-        optional('seed_help', 'seed' in options, text('点击种子切换可复现的随机图案', 10, Theme.muted)),
-        Panel(style=S(height=8)),
-    ]))
+              'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted)])
 
 
 @Component

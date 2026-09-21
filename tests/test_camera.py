@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
-from projection.camera import OrbitCamera, raycast, layer_hit, render_bounds, pick_target
+from projection.camera import OrbitCamera, PinchZoom, raycast, layer_hit, render_bounds, pick_target
 from projection.model import Document, Editor, AIR
 from projection.session import Session
 
@@ -15,6 +15,29 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_pinch_preserves_midpoint_anchor_and_supports_translation(self):
+        camera = OrbitCamera(35.,25.,2.)
+        camera.pan = camera.pan_target = (.1,-.2)
+        gesture = PinchZoom(camera,((100.,100.),(200.,100.)),400,300)
+        gesture.move(((80.,120.),(280.,120.)))
+        self.assertEqual(4.,camera.zoom)
+        self.assertAlmostEqual(.4,camera.pan[0])
+        self.assertAlmostEqual(-1./6,camera.pan[1])
+        pose=(camera.zoom,camera.pan)
+        gesture.move(((80.,120.),(280.,120.)))
+        self.assertEqual(pose,(camera.zoom,camera.pan))
+        self.assertEqual((35.,25.),(camera.yaw,camera.pitch))
+
+    def test_pinch_minimum_zoom_no_maximum_and_zero_distance_recovery(self):
+        camera=OrbitCamera()
+        gesture=PinchZoom(camera,((0.,0.),(0.,0.)),400,300)
+        gesture.move(((0.,0.),(100.,0.)))
+        self.assertEqual(1.,camera.zoom)
+        gesture.move(((49.,0.),(51.,0.)))
+        self.assertEqual(.25,camera.zoom)
+        gesture.move(((0.,0.),(100000.,0.)))
+        self.assertEqual(1000.,camera.zoom)
+
     def test_work_plane_stops_selection_passing_through_to_tree(self):
         doc = Document((24,16,24)); doc.blocks[(3,2,3)] = STONE
         origin, direction = (3.5,20.,3.5), (0.,-1.,0.)

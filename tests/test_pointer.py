@@ -20,6 +20,63 @@ class PointerTests(unittest.TestCase):
     def record(self, name):
         return lambda args: self.events.append((name, dict(args)))
 
+    def pinch(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props['onPinch'] = self.record('onPinch')
+        self.tracker.props['screenHit'] = lambda p: p[0] < 500
+        self.down()
+        self.tracker.move({'TouchId':0,'TouchPosX':110,'TouchPosY':210})
+        self.tracker.down({'TouchId':1,'TouchPosX':210,'TouchPosY':210})
+
+    def test_pinch_tracks_latest_contacts_and_releases_without_edit(self):
+        for first in (0, 1):
+            self.events[:] = []
+            self.pinch()
+            self.assertEqual(((110,210),(210,210)), self.events[-1][1]['points'])
+            self.assertEqual('start', self.events[-1][1]['phase'])
+            self.tracker.move({'TouchId':1,'TouchPosX':250,'TouchPosY':230})
+            self.assertEqual(((110,210),(250,230)), self.events[-1][1]['points'])
+            release_pointers(self.host, {'TouchId':first})
+            self.assertTrue(self.tracker.pressed)
+            self.tracker.up({'TouchId':first})  # duplicate local up
+            self.tracker.move({'TouchId':1-first,'TouchPosX':300,'TouchPosY':250})
+            self.tracker.move_out({'TouchId':1-first, 'TouchEvent':6})
+            self.assertEqual('end', self.events[-1][1]['phase'])
+            self.assertFalse(any(name=='onUp' for name,args in self.events))
+            self.assertFalse(self.tracker.pressed)
+            self.assertFalse(self.host._projection_pointers)
+
+    def test_pinch_pair_replacement_and_ambiguous_capture_loss(self):
+        self.pinch()
+        self.tracker.down({'TouchId':2,'TouchPosX':310,'TouchPosY':210})
+        self.tracker.cancel({'TouchId':0})
+        self.assertEqual('start', self.events[-1][1]['phase'])
+        self.assertEqual(((210,210),(310,210)), self.events[-1][1]['points'])
+        release_pointers(self.host,{})
+        self.assertFalse(self.tracker.pressed)
+        self.assertEqual('onCancel',self.events[-1][0])
+
+    def test_second_finger_on_navigation_does_not_steal_viewport(self):
+        self.tracker.touch_mode=lambda: True
+        self.tracker.props['onPinch']=self.record('onPinch')
+        self.tracker.props['screenHit']=lambda p:p[0]<500
+        self.down()
+        self.tracker.screen_down({'TouchId':1},(550,200))
+        self.tracker.cancel({'TouchId':1})
+        self.assertFalse(self.tracker.pinching)
+        self.assertTrue(self.tracker.pressed)
+        self.tracker.up({'TouchId':0})
+        self.assertEqual('onUp',self.events[-1][0])
+
+    def test_second_contact_global_and_local_down_deduplicate(self):
+        self.pinch()
+        count=len(self.events)
+        self.tracker.screen_down({'TouchId':1},(210,210))
+        self.tracker.down({'TouchId':1,'TouchPosX':210,'TouchPosY':210})
+        self.assertEqual(count,len(self.events))
+        self.tracker.cancel({})
+        self.assertFalse(self.tracker.contacts)
+
     def down(self):
         self.tracker.down({'TouchPosX': 100, 'TouchPosY': 200, 'TouchId': 0})
 

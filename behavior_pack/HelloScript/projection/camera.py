@@ -28,6 +28,39 @@ def zoom_label(zoom):
     return u'%.0e\u00d7' % zoom
 
 
+class PinchZoom(object):
+    """Absolute two-contact zoom, anchored at their midpoint with no mesh work."""
+    def __init__(self, camera, points, width, height, minimum_distance=2.):
+        self.camera = camera
+        self.width, self.height = max(1., width), max(1., height)
+        self.minimum_distance = minimum_distance
+        self.baseline = None
+        self.rebase(points)
+
+    def rebase(self, points):
+        a, b = points
+        distance = math.hypot(b[0]-a[0], b[1]-a[1])
+        if distance >= self.minimum_distance:
+            anchor = ((a[0]+b[0])/(2.*self.width)-.5, (a[1]+b[1])/(2.*self.height)-.5)
+            self.baseline = (distance, self.camera.zoom, self.camera.pan, anchor)
+
+    def move(self, points):
+        if self.baseline is None:
+            self.rebase(points)
+            return
+        distance, zoom, pan, anchor = self.baseline
+        a, b = points
+        requested = zoom * math.hypot(b[0]-a[0], b[1]-a[1]) / distance
+        if math.isnan(requested) or math.isinf(requested):
+            return
+        camera = self.camera
+        camera.zoom = max(.25, requested)
+        midpoint = ((a[0]+b[0])/(2.*self.width)-.5, (a[1]+b[1])/(2.*self.height)-.5)
+        camera.pan = camera.pan_target = tuple(midpoint[i]+(pan[i]-anchor[i])*camera.zoom/zoom for i in range(2))
+        camera.target = (camera.yaw, camera.pitch, camera.zoom)
+        camera.velocity = (0., 0.)
+
+
 class OrbitCamera(object):
     def __init__(self, yaw=35., pitch=25., zoom=1.):
         self.yaw, self.pitch, self.zoom = yaw, pitch, zoom

@@ -40,7 +40,7 @@ class ClickObserverPrimitive(PanelPrimitive):
             host._projection_last_pointer_time = time.time()
             host._projection_last_click = {'point': point, 'touch': touch}
             for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
-                tracker.screen_down(args, point if args.get('TouchId') == -1 else motion.GetMousePosition())
+                tracker.screen_down(args, point if touch or args.get('TouchId') == -1 else motion.GetMousePosition())
             fiber.props['onPointer'](point)
             return False
         def up(screen, args):

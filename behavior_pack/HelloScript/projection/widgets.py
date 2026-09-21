@@ -428,7 +428,9 @@ def text(value, size=12, color=None, center=False, **style):
         # engine measurement; zero-width row children otherwise draw no ink.
         advance = sum(.62 if ord(char) < 128 else 1. for char in value) * font
         props['style'] = NativeStyle(width=advance+1., height=font*1.4).merge(S(**style))
-    return NativeText(**props)
+    # Glyph geometry is fixed by text/font/width. Retain it while a neighboring
+    # tool changes; the layout engine invalidates this boundary on actual edits.
+    return NativeText(cacheLayout=True, **props)
 
 
 def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, **style):
@@ -438,7 +440,7 @@ def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, *
     value = value or ''
     values = dict(height=size*1.5*lines, clipsChildren=True)
     values.update(style)
-    return NativeText(content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
+    return NativeText(cacheLayout=True, content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
                       shadow=False, rasterText=all(char in ASSETS for char in value),
                       glyphSlots=slots, glyphLines=lines, textAlign=TextAlignment.center if center else TextAlignment.left,
                       style=S(**values))
@@ -660,7 +662,7 @@ def Segments(items=None, value=None, onChange=None, width=216):
     cell = (width - 6) / max(1, len(items))
     # The moving fill and hit targets share an unpadded coordinate system.
     # Nesting absolute insets inside surface(padding=3) applied the inset twice.
-    return Panel(style=S(width=width, height=32), children=[
+    return Panel(cacheLayout=True, style=S(width=width, height=32), children=[
         rounded_skin(Theme.pale, 5),
         Animated(style=S(position=Position.absolute, left=4, top=3, width=cell - 2, height=26),
                  transition=NativeStyle(transform=[Translate(destination * cell * Theme.scale, 0)]),
