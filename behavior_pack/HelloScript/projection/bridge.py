@@ -228,7 +228,7 @@ class ClientBridge(object):
 
     def capture(self):
         if None in self.corners:
-            raise ValueError('先关闭工作台，用 F6 / F7 标记世界中的两点')
+            raise ValueError('尚未设置世界选区，无法读取')
         lo, hi = bounds(self.corners)
         size = tuple(hi[i] - lo[i] + 1 for i in range(3))
         Document(size)

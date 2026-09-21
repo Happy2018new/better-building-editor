@@ -527,7 +527,7 @@ def Workspace(session=None, revision=0):
     width, height = screen[0] / Theme.scale, screen[1] / Theme.scale
     page = session.page
     focus = session.focus_view and page in ('workspace', 'projection')
-    main_h = height - (115 if focus else 181)
+    main_h = height - (77 if focus else 143)
     content_w = width - (24 if focus else 100)
     e = session.editor
     main = Image(color=Theme.bg, style=S(width='100%', height='100%'), children=[
@@ -549,18 +549,16 @@ def Workspace(session=None, revision=0):
             CategoryRail(session=session, height=main_h, focus=focus),
             PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus, entrance=entrance),
         ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
-        row([
-            Panel(style=S(flex=1)),
-            text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
-            text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),
-            text('材质 %d' % len(e.document.materials()), 10, Theme.muted),
-        ], height=38, paddingHorizontal=22, gap=10),
         Image(color=Theme.white, style=S(width='100%', height=29), children=row([
             Image(src=TEX + 'dot', color=Theme.mint, style=S(width=5, height=5)),
             TaskStatus(session=session),
             Panel(style=S(display=Display.flex if session.busy else Display.none), children=
                 Action(label='取消', glyph='close', compact=True, height=22, onClick=session.bridge.cancel_world)),
-            text('P 打开，F6 / F7 两点选区', 9, Theme.muted),
+            row([
+                text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
+                text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),
+                text('材质 %d' % len(e.document.materials()), 10, Theme.muted),
+            ], gap=10, flexShrink=0),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[
@@ -577,7 +575,7 @@ def TaskStatus(session=None):
     use_theme()
     use_session_fields(session, ())
     message = ('处理中… ' if session.busy else '') + session.editor.message[:80]
-    return text(message, 10, Theme.muted, flex=1)
+    return retained_text(message, 10, Theme.muted, flex=1, slots=84)
 
 
 def category(session, identity):

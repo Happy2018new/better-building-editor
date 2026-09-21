@@ -472,7 +472,7 @@ def Guide(session=None, revision=0, width=760, height=440):
         Panel(style=S(flex=1, gap=5), children=[text(title, 16), text(hint, 11, Theme.muted)]),
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
-        text('快捷入口：P 打开工作台，F6 / F7 标记脚下两点', 12, Theme.muted),
+        text('快捷入口：P 打开工作台', 12, Theme.muted),
         text('范围上限：64 × 128 × 64 格。', 11, Theme.muted),
         text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
     ]))
