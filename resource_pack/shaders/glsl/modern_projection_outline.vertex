@@ -1,0 +1,33 @@
+// __multiversion__
+#include "entityVertexUtil.h"
+
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+varying highp float spectrumHue;
+
+void main() {
+    POS4 position = POSITION;
+    // Every wire cuboid has its endpoints at a corner of a centred unit box.
+    // Move those corners to the requested size; scale thickness separately.
+    // Bedrock entity vertices are in sixteenths of a block before WORLD.
+    vec3 corner = sign(position.xyz) * 8.0;
+    // Large buildings need a wider wire when viewed as a whole. Entity WORLDVIEW
+    // may omit the bone translation, so derive this from the actual box size.
+    float wireScale = max(1.5, max(EXTRA_ACTOR_UNIFORM1.x,
+        max(EXTRA_ACTOR_UNIFORM1.y, EXTRA_ACTOR_UNIFORM1.z)) / 12.0);
+    position.xyz = corner * EXTRA_ACTOR_UNIFORM1.xyz + (position.xyz - corner) * wireScale;
+    vec3 local = position.xyz / (EXTRA_ACTOR_UNIFORM1.xyz * 16.0) + vec3(0.5);
+    // A shared spatial field gives all edges the same color where they meet.
+    spectrumHue = dot(local, vec3(0.31, 0.43, 0.26)) + TIME * EXTRA_ACTOR_UNIFORM1.w;
+    // Expand in model coordinates BEFORE the native root-bone transform,
+    // which includes a Y translation and axis inversion even without animation.
+#ifdef USE_SKINNING
+    #ifdef NETEASE_SKINNING
+        position = GetBoneMatForNetease(int(BONEID_0)) * position;
+    #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+        position = BONES[int(BONEID_0)] * position;
+    #else
+        position = BONE * position;
+    #endif
+#endif
+    gl_Position = WORLDVIEWPROJ * position;
+}

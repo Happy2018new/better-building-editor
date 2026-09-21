@@ -426,6 +426,8 @@ def ProjectionSettings(session=None, revision=0):
         Action(label='使用脚下坐标', glyph='pin', onClick=partial(session.bridge.use_player_origin)),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
               onChange=partial(session.range_value, 'opacity', editor=False)),
+        Action(label='炫彩范围框', glyph='box_outline', selected=session.projection_outline,
+               onClick=partial(session.set, 'projection_outline', not session.projection_outline)),
         text('可见范围与场景的完整 / 切面 / 单层一致', 10, Theme.muted),
         Range(label='当前建造层', value=e.layer, minimum=0, maximum=max(1, e.document.size[1] - 1),
               integer=True, onChange=partial(session.range_value, 'layer')),

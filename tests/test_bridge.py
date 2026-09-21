@@ -21,6 +21,8 @@ class Runtime:
         self.attached = []
         self.success = True
         self.sent = []
+        self.uniforms = {}
+        self.actor_positions = {}
 
     def NotifyToServer(self, event, data):
         self.sent.append(data)
@@ -28,6 +30,7 @@ class Runtime:
     def CreateClientEntityByTypeStr(self, identifier, pos, rotation):
         entity = 'actor_%d' % len(self.created)
         self.created.append(entity)
+        self.actor_positions[entity] = (identifier, pos)
         return entity
 
     def DestroyClientEntity(self, entity):
@@ -43,11 +46,24 @@ class Runtime:
         return self
 
     def CreateActorRender(self, entity):
-        self.attached.append(entity)
+        self.rendering = entity
         return self
 
-    def AddActorBlockGeometry(self, name):
+    def AddActorBlockGeometry(self, name, offset=(0, 0, 0), rotation=(0, 0, 0)):
+        self.attached.append(self.rendering)
+        self.geometry_transform = (offset, rotation)
         return self.success
+
+    def SetEntityExtraUniforms(self, index, values):
+        self.uniforms[self.rendering] = values
+        return True
+
+    def SetConfigData(self, key, value, global_config):
+        self.preferences = value
+        return True
+
+    def CreateConfigClient(self, level):
+        return self
 
     def EnableActorBlockGeometryTransparent(self, name, enabled):
         return True
@@ -79,6 +95,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(['actor_0'], self.runtime.attached)
         self.assertEqual(['previous_projection'], self.runtime.destroyed)
         self.assertEqual('actor_0', self.bridge.entity)
+        self.assertEqual(((-.5, 0., -.5), (0., 180., 0.)), self.runtime.geometry_transform)
 
     def test_stop_cancels_staged_actor_and_ignores_delayed_callback(self):
         self.bridge.project()
@@ -151,7 +168,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.session.editor.document.blocks[(0, 0, 0)] = AIR
         for unused in range(20):
             self.runtime.timers.pop(0)()
-            if self.runtime.created:
+            if observed:
                 break
         self.assertEqual([('minecraft:stone', 0)], observed)
         b.stop_projection()
@@ -160,3 +177,61 @@ class ProjectionLifecycleTests(unittest.TestCase):
             callback()
         self.assertEqual([], self.runtime.timers)
         self.assertTrue(all(actor in self.runtime.destroyed for actor in self.runtime.created))
+
+    def test_outline_toggle_keeps_projected_snapshot_and_never_rebuilds_blocks(self):
+        b, s = self.bridge, self.bridge.session
+        s.origin = (-30, 64, 5)
+        b.project()
+        # Pending settings changes must not move/resize the committed projection.
+        s.origin = (100, 80, 100)
+        s.editor = Editor(Document((64, 128, 64)))
+        self.runtime.timers.pop(0)()
+        outline = b.projection_outline
+        self.assertEqual(((-30, 64, 5), (24, 16, 24)), outline.bounds)
+        self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
+        self.assertEqual((24., 16., 24., .5), self.runtime.uniforms[outline.entity])
+        b.geometry = lambda *args: self.fail('Outline changes must not build geometry')
+        s.set('projection_outline', False)
+        self.assertIsNone(outline.entity)
+        self.assertTrue(s.projection_active)
+        self.assertFalse(self.runtime.preferences['projection_outline'])
+        s.set('projection_outline', True)
+        self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
+        self.assertEqual(['actor_0'], self.runtime.attached)
+        s.set('reduced_motion', True)
+        self.assertEqual(0., self.runtime.uniforms[outline.entity][3])
+        b.stop_projection()
+        self.assertIsNone(outline.bounds)
+        for callback in self.runtime.timers:
+            callback()
+        self.assertTrue(all(actor in self.runtime.destroyed for actor in self.runtime.created))
+
+    def test_failed_replacement_preserves_old_outline_until_projection_succeeds(self):
+        b = self.bridge
+        b.project()
+        self.runtime.timers.pop(0)()
+        previous = b.projection_outline.entity
+        previous_bounds = b.projection_outline.bounds
+        self.runtime.success = False
+        b.session.origin = (150, 80, 5)
+        b.project()
+        for callback in list(self.runtime.timers):
+            callback()
+        self.assertEqual(previous, b.projection_outline.entity)
+        self.assertEqual(previous_bounds, b.projection_outline.bounds)
+        self.assertNotIn(previous, self.runtime.destroyed)
+
+    def test_maximum_projection_has_one_full_outline_and_clears_on_dimension_change(self):
+        b, s = self.bridge, self.bridge.session
+        s.editor = Editor(Document((64, 128, 64), {(0, 0, 0): ('minecraft:stone', 0)}))
+        b.player_origin = lambda: (10, 50, -40)
+        b.project_large((10, 50, -40))
+        outline = b.projection_outline
+        self.assertEqual((42., 114., -8.), self.runtime.actor_positions[outline.entity][1])
+        self.assertEqual((64., 128., 64., .5), self.runtime.uniforms[outline.entity])
+        b.dimension_changed(None)
+        for callback in self.runtime.timers:
+            callback()
+        self.assertIsNone(outline.entity)
+        self.assertIsNone(outline.bounds)
+        self.assertEqual(1, len(self.runtime.created))

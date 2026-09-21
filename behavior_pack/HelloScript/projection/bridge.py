@@ -39,6 +39,8 @@ class ClientBridge(object):
         self.download = None
         self.projection_serial = 0
         self.projection_entities = {}
+        from .projection_outline import ProjectionOutline
+        self.projection_outline = ProjectionOutline(self)
         self.frame_pumps = 0
         self.frame_work = []
 
@@ -349,6 +351,7 @@ class ClientBridge(object):
             self.system.DestroyClientEntity(self.preparing_entity)
         self.preparing_entity = entity
         opacity = s.opacity
+        size = tuple(s.editor.document.size)
         s.editor.message = '正在准备透明投影…'
 
         def attach():
@@ -357,7 +360,9 @@ class ClientBridge(object):
             # A newly created client actor has no renderer until a later frame.
             # Attaching in its creation tick returns True but produces no model.
             render = self.factory.CreateActorRender(entity)
-            success = (render.AddActorBlockGeometry(name) and render.EnableActorBlockGeometryTransparent(name, True)
+            # Native actor block geometry starts at half-cell centres and flips
+            # X/Z. Match document cells to origin + local world coordinates.
+            success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and render.EnableActorBlockGeometryTransparent(name, True)
                        and render.SetActorBlockGeometryTransparency(name, opacity))
             self.preparing_entity = None
             if success:
@@ -366,6 +371,7 @@ class ClientBridge(object):
                 self.entity = entity
                 s.projection_active = True
                 s.editor.message = '投影已生成，关闭工作台即可在世界中查看'
+                self.projection_outline.replace(origin, size)
             else:
                 self.system.DestroyClientEntity(entity)
                 s.editor.message = '透明投影生成失败，原投影已保留'
@@ -374,6 +380,7 @@ class ClientBridge(object):
 
     def stop_projection(self):
         self.projection_serial += 1
+        self.projection_outline.clear()
         for entity in self.projection_entities.values():
             self.system.DestroyClientEntity(entity)
         self.projection_entities = {}
@@ -398,6 +405,7 @@ class ClientBridge(object):
         opacity, missing = s.opacity, s.projection_missing
         s.projection_active = True
         s.editor.message = '投影已开启，随玩家位置加载附近方块'
+        self.projection_outline.replace(origin, document.size)
         info = self.factory.CreateBlockInfo(self.level)
         preparing = set()
         empty = set()
@@ -451,7 +459,7 @@ class ClientBridge(object):
                                 def attach():
                                     if active() and self.projection_entities.get(key) == entity:
                                         render = self.factory.CreateActorRender(entity)
-                                        if render.AddActorBlockGeometry(name):
+                                        if render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)):
                                             render.EnableActorBlockGeometryTransparent(name, True)
                                             render.SetActorBlockGeometryTransparency(name, opacity)
                                 self.later(.2, attach)

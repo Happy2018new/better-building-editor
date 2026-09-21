@@ -72,6 +72,7 @@ class Session(object):
         self.apply_air = False
         self.projection_active = False
         self.projection_missing = False
+        self.projection_outline = True
         self.progress = None
         self.pending_confirm = None
         self.pending_rename = None
@@ -116,6 +117,8 @@ class Session(object):
             if isinstance(preferences, dict) and 'palette' in preferences:
                 from .materials import normalize_palette
                 self.palette = normalize_palette(preferences['palette'])
+            if isinstance(preferences, dict) and isinstance(preferences.get('projection_outline'), bool):
+                self.projection_outline = preferences['projection_outline']
         data = self.bridge.load_library()
         if isinstance(data, dict):
             for entry in data.get('buildings', [])[:32]:
@@ -153,6 +156,10 @@ class Session(object):
         setattr(self, field, value)
         if field == 'origin':
             self.progress = None
+        if field in ('projection_outline', 'reduced_motion') and hasattr(self.bridge, 'projection_outline'):
+            self.bridge.projection_outline.sync()
+        if field == 'projection_outline':
+            self.save_preferences()
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
         self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm') else None)
@@ -183,12 +190,15 @@ class Session(object):
             if serial == self.parameter_serial:
                 self.emit()
             if field == 'spectrum_speed' and self.spectrum_speed == value:
+                if hasattr(self.bridge, 'projection_outline'):
+                    self.bridge.projection_outline.sync()
                 self.save_preferences()
         self.bridge.later(.16, settled)
 
     def save_preferences(self):
         if hasattr(self.bridge, 'save_preferences'):
-            self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette})
+            self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette,
+                                          'projection_outline': self.projection_outline})
 
     def open_materials(self, channel):
         self.material_browser = channel

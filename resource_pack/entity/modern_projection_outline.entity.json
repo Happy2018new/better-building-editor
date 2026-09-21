@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "modern_projection:outline",
+      "materials": {"default": "modern_projection_outline"},
+      "textures": {"default": "textures/modern_projection/transparent"},
+      "geometry": {"default": "geometry.modern_projection.outline"},
+      "render_controllers": ["controller.render.modern_projection.anchor"]
+    }
+  }
+}

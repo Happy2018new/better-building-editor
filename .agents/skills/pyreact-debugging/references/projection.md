@@ -45,3 +45,9 @@
 阶段 46：视口 PointerTracker 仅在提供 onPinch 时追踪多 TouchId；第二触点取消单指点击，直到所有触点结束都禁止误编辑。多指 move 沿用原生 SetButtonTouchMoveCallback；全局观察器只补充第二指 down/up，不能补造原生没有投递的 move。F11 是单触点模拟，文档也没有明示同一按钮多指的保证；verify_layer_pinch.py 直接注入 tracker 多指回调验证相机与编辑隔离，必须与手机硬件测试分开报告。触点为零距离、交换/替换、cancel、TouchEvent=6、重复 global/local up 均应检查。缩放直接改变 OrbitCamera.zoom/pan，按住期间 camera_dragging 保持 true，末指释放后一次 emit('view')，继续延迟 SetLayer 避免打断原生触摸。Scene 工具切换无需重构原生树，但 tick 必须清理上一个模式候选框。
 
 工具切换性能需同时检查稳定按钮池和参数区；ToolChoice 的布尔 selected 保证只有前后按钮更新，SelectionParameters/ModificationMask 将无关参数从工具切换中隔离。固定字体布局缓存不能用于替换输入框字体，也不能省略 resize/聚焦回归。阶段 46 的底部重复 Y 控件已移除，自动化应操作 Viewport 内唯一 Input；其标签随显示模式为网格 Y / 切面 Y / 单层 Y。
+
+阶段 48 的世界炫彩范围框为独立客户端实体，ExtraUniform1 传入三轴尺寸和色相速度；顶点先在模型坐标（每 16 单位一格）扩展，再做原生骨骼变换。根骨骼也可能包含平移与轴反转，不能把已经变换的实体坐标当单位方框直接扩展。世界 AddActorBlockGeometry 实测需要 offset=(-0.5,0,-0.5)、rotation=(0,180,0) 才与 origin+文档坐标一致；单体与分块必须相同。
+
+细棱的小轴尺寸不足一个模型单位时，自动 UV 曾导致部分侧面丢失；接近平视顶部时水平棱几乎不可见，单纯加粗无效。即便片元 shader 不采样贴图，也需给六面提供显式非零 uv_size，确保原生模型生成完整的面。检查实际像素，不能仅用实体存在或 uniform 数值判断渲染正确。
+
+`verify_projection_outline.py` 验证世界外框的尺寸、开关、速度、清理和 PC/F11 按钮，并拍摄实际投影及分块接缝。仅移动离体相机不会让原生 actor 所在区域加载，不能据此判断投影丢失；测试临时移动独立世界测试玩家并开启飞行，在 finally 恢复位置、飞行、相机和渲染距离。execute_code 内安装跨帧诊断包装时，用闭包捕获 API 与原函数，后续服务端代码可能重绑定全局 api；否则异步回调会误用服务端 API，产生仅测试脚本导致的异常。偏好保存使用内存替身，不修改用户建筑库或世界方块。

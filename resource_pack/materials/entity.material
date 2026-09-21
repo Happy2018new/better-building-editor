@@ -1,0 +1,10 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "modern_projection_outline:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_outline.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_outline.fragment",
+      "+states": ["DisableCulling"]
+    }
+  }
+}
