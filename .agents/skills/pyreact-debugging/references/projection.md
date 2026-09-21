@@ -26,4 +26,8 @@
 
 `tools/profile_editor_switches.py` 同样统计七种视图模式、批量工具及目录开关的提交耗时/Clone 数；`--baseline` 保存修改前记录。`verify_editor_switches.py` 用真实点击验证分类、工具和模式联动，检查空气的空心图标、目录开关的原生中间位置、重开复用输入框及重复框选起点清除。目录现在在工作台中保留隐藏控件，判断是否打开须使用过滤可见性的树；不要把原始 Fiber 中仍有 BlockInventory 判作未关闭。鼠标停在第一行工具处时不要只用 session.choose_group 来替代真实分类导航后立即点击同一坐标，优先按实际操作先点分类按钮，再点工具。
 
+`tools/profile_workspace_open.py` 使用真实 P 重开三次，分别计时同步 `_mount_element` 和后续 `_pyreact_flush`，统计原生 Clone 总数。首批界面挂载时间不等于全部编辑控件就绪时间；工作台按帧创建场景、工具栏和属性栏，方块目录延后分批准备。非当前页面首次访问时才创建，访问后保留。分类与搜索共用一组原生工具按钮，不能为了减少首次创建量在每次筛选时删除按钮，否则可能丢失原生 edit_box 焦点；修改后须跑 `verify_catalogue_input.py` 的快速输入/删除回归。
+
+`tools/verify_library_workflow.py` 在内存中替换建筑列表及 save_library，finally 恢复，避免写入用户配置；检查 4:3/16:9 列表可见面积、独立重命名弹窗的原生输入/占位控件、保存/取消与草稿名称隔离、右侧选区操作。`verify_click_effects.py` 检查真实像素、六个粒子控件复用、弹窗层级、原生输入焦点，以及 F11 下实际触点位置。触屏坐标须来自事件，不能优先读取鼠标坐标；仍需区分开发客户端模拟和手机硬件验证。
+
 `tools/pyreact_legacy/` 保留旧版截图/Win32 输入、Tracy 与动画采样剪贴板工具，供现有回归脚本使用；普通调试使用本 skill 的 MCDK 工作流。新实例下通过 `tools/run_live_check.py --session <file> --owner <owner> <工具名.py> [参数]` 运行项目回归，该入口校验实例、绑定 PID 并持有桌面锁。不要对用户的世界运行会保存建筑库或投影的 `verify_ui.py` 主函数。

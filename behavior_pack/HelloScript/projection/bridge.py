@@ -308,7 +308,7 @@ class ClientBridge(object):
             s.canvas_x = s.canvas_z = 0
             s.progress = None
             s.reset_camera(False)
-            s.editor.message = '已读取世界选区 · 方块实体内容不包含在草稿中'
+            s.editor.message = '已读取世界选区，方块实体内容不包含在草稿中'
             s.refresh_preview()
         elif action == 'check':
             s.progress = args['progress']
@@ -365,7 +365,7 @@ class ClientBridge(object):
                     self.system.DestroyClientEntity(self.entity)
                 self.entity = entity
                 s.projection_active = True
-                s.editor.message = '投影已生成 · 关闭工作台即可在世界中查看'
+                s.editor.message = '投影已生成，关闭工作台即可在世界中查看'
             else:
                 self.system.DestroyClientEntity(entity)
                 s.editor.message = '透明投影生成失败，原投影已保留'
@@ -397,7 +397,7 @@ class ClientBridge(object):
         hidden, solo, layer = s.preview_hidden(), s.solo_layer, s.editor.layer
         opacity, missing = s.opacity, s.projection_missing
         s.projection_active = True
-        s.editor.message = '投影已开启 · 随玩家位置加载附近方块'
+        s.editor.message = '投影已开启，随玩家位置加载附近方块'
         info = self.factory.CreateBlockInfo(self.level)
         preparing = set()
         empty = set()

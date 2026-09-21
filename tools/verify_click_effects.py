@@ -7,6 +7,8 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_motion import fast
 from simulate import _resolve_label
+from native_input_mode import set_touch
+from verify_materials_paste import game
 
 
 def main():
@@ -66,7 +68,7 @@ def main():
                abs(s['global'][1] + s['size'][1] / 2. - y) < 1]
         assert hit, (x, y, states)
         assert not require_visible or ink > 20, (x, y, ink)
-        assert 80 < hit[0]['size'][0] * scale < 115, hit[0]
+        assert 110 < hit[0]['size'][0] * scale < 155, hit[0]
         return hit[0]
 
     def click_label(label, require_visible=False):
@@ -138,6 +140,18 @@ def main():
     refs = ui.nodes('Image', effect)
     native_click(x, y)
     ui.check('closing and reopening rebinds exactly one effect pool', len(refs) == 6)
+    try:
+        set_touch(True)
+        effect=ui.nodes('ClickEffects',ui.call('dump_tree')['tree'])[0]
+        refs=ui.nodes('Image',effect)
+        native_click(x,y)
+        event=game('_result=api.GetTopScreen()._projection_last_click')
+        ui.check('F11 native touch emits visible particles at the touch position',event['touch'] and
+                 abs(event['point'][0]-x)<1 and abs(event['point'][1]-y)<1)
+        native_click(root['width']*.7,root['height']*.13)
+        ui.check('touch particles follow subsequent screen taps',game('_result=api.GetTopScreen()._projection_last_click')['touch'])
+    finally:
+        set_touch(False)
     screen.close()
     (ui.OUT / 'click_effect_checks.json').write_text(json.dumps(ui.checks, ensure_ascii=False, indent=2), encoding='utf8')
 

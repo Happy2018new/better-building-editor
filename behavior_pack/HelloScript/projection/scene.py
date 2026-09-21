@@ -20,13 +20,13 @@ from .input_mode import is_touch
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
          ('erase', '擦除'), ('pick', '吸管'), ('box', '框选')]
-HINTS = {'browse': '拖动自由旋转 · 滚轮缩放 · 点击定位单格',
-         'select': '点击选择单个方块 · 拖动仍可旋转',
-         'place': '彩框预览放置位置 · 红框不可放置 · 点击放置',
-         'paint': '仅替换点击格的材质 · 保持方块位置',
-         'erase': '单格点击擦除 · 框选后可擦除整个选区 · 支持撤销',
-         'pick': '点击吸取材质 · 不改变建筑',
-         'box': '点击两点框选 · 空白处选择当前 Y 层 · 拖动旋转'}
+HINTS = {'browse': '拖动自由旋转，滚轮缩放，点击定位单格',
+         'select': '点击选择单个方块，拖动仍可旋转',
+         'place': '彩框预览放置位置，红框不可放置，点击放置',
+         'paint': '仅替换点击格的材质，保持方块位置',
+         'erase': '单格点击擦除，框选后可擦除整个选区，支持撤销',
+         'pick': '点击吸取材质，不改变建筑',
+         'box': '点击两点框选，空白处选择当前 Y 层，拖动旋转'}
 
 
 @Component
@@ -57,7 +57,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser', 'pending_rename'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
@@ -94,7 +94,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
     selected_bounds = use_ref((None, None))
-    active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm and not session.material_browser
+    active = session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm and not session.material_browser and not session.pending_rename
 
     def reset_cursor():
         hover_preview.current = None

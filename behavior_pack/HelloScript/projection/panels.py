@@ -51,7 +51,7 @@ def Coordinates(label='', value=(0, 0, 0), onChange=None, onValidityChange=None)
             onValidityChange(True)
         onChange(values)
     return Panel(style=S(gap=4, marginBottom=7), children=[
-        text(label if valid else '格式：X, Y, Z · 整数', 10, Theme.muted if valid else Theme.red),
+        text(label if valid else '格式：X, Y, Z，整数', 10, Theme.muted if valid else Theme.red),
         Input(value=draft, onChange=change, style=S(width='100%', height=27))])
 
 
@@ -123,8 +123,15 @@ def material_background(selected, state):
 
 
 def optional(identity, visible, children, gap=7):
-    return Panel(key=identity, style=S(width='100%', gap=gap,
-                 display=Display.flex if visible else Display.none), children=children)
+    return OptionalSection(key=identity, visible=visible, children=children, gap=gap)
+
+
+@Component
+def OptionalSection(visible=False, children=None, gap=7):
+    cached = use_ref(None)
+    if visible:
+        cached.current = children
+    return Panel(style=S(width='100%', gap=gap, display=Display.flex if visible else Display.none), children=cached.current)
 
 
 @Component
@@ -180,7 +187,7 @@ def PasteControls(session=None, revision=0):
                     onClick=partial(set_precise, not precise))], gap=8),
         optional('paste_coordinates', precise,
                  Coordinates(label='粘贴起点  X, Y, Z', value=session.paste_origin, onChange=session.set_paste_origin)),
-        text(error or ('包含空气 · 覆盖目标范围' if session.tool=='paste' else '跳过空气 · 保留目标原有方块'),
+        text(error or ('包含空气，覆盖目标范围' if session.tool=='paste' else '跳过空气，保留目标原有方块'),
              10, Theme.red if error else Theme.muted, width=216),
         Action(label='退出粘贴', glyph='close', compact=True, height=28,
                onClick=partial(session.choose_mode, 'select')),
@@ -191,6 +198,7 @@ def PasteControls(session=None, revision=0):
 def Parameters(session=None, revision=0):
     use_theme()
     coordinates_open, set_coordinates_open = use_state(False)
+    selection_tools, set_selection_tools = use_state(False)
     e = session.editor
     tool = BY_ID[session.tool]
     options = tool_parameters(session.tool)
@@ -211,15 +219,24 @@ def Parameters(session=None, revision=0):
             Segments(items=[('single', '单格'), ('selection', '选区')], value=session.erase_scope,
                      onChange=partial(session.set, 'erase_scope'), width=216),
             text('点击方块擦除一格' if session.erase_scope == 'single' else
-                 '保留选区范围 · 点击下方擦除选区', 10, Theme.muted)]),
+                 '保留选区范围，点击下方擦除选区', 10, Theme.muted)]),
         optional('paste_parameters', session.paste_active(), PasteControls(session=session, revision=revision)),
         optional('selection_parameters', not session.paste_active(), [line(), text('当前选区', 12),
-        retained_text('%d 格已选择' % len(e.selection) + (' · %d 层已锁定' % len(e.locked_layers) if e.locked_layers else ''),
+        retained_text('%d 格已选择' % len(e.selection) + ('，%d 层已锁定' % len(e.locked_layers) if e.locked_layers else ''),
                       10, Theme.muted, width=216, slots=32),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),
              Action(label='坐标设置', glyph='sliders', compact=True, width=108, height=27, selected=coordinates_open,
                     onClick=partial(set_coordinates_open, not coordinates_open))], gap=4),
+        row([Action(label='选择当前层', glyph='layers', compact=True, width=104, height=27,
+                    onClick=partial(session.action, e.run, 'select_layer')),
+             Action(label='调整选区', glyph='select_box', compact=True, width=108, height=27, selected=selection_tools,
+                    onClick=partial(set_selection_tools, not selection_tools))], gap=4),
+        optional('selection_tools', selection_tools, [row([
+            Action(label=BY_ID[identity][2], glyph=glyph, compact=True, width=104, height=27,
+                   onClick=partial(session.action, e.run, identity)) for identity, glyph in pair], gap=8)
+            for pair in ((('select_expand', 'expand'), ('select_contract', 'contract')),
+                         (('select_invert', 'invert'), ('select_surface', 'surface')))]),
         SelectionBounds(session=session, revision=session.content_revision),
         optional('box_pending', session.box_anchor is not None, Panel(children=[
             text('起点已设置，请点击终点', 10, Theme.blue),
@@ -259,12 +276,12 @@ def Layers(session=None, revision=0):
     low, high = page * 16, min(e.document.size[1], (page + 1) * 16)
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=7), children=[
         row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
-        text('锁定保护编辑 · 隐藏仅影响预览', 10, Theme.muted),
+        text('锁定保护编辑，隐藏仅影响预览', 10, Theme.muted),
         Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
               onChange=partial(session.range_value, 'brightness', editor=False)),
         Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
               onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
-        text('默认 3 倍 · 减少动态效果时保持静止', 10, Theme.muted, width=216),
+        text('默认 3 倍，减少动态效果时保持静止', 10, Theme.muted, width=216),
         text('在场景上方选择完整 / 切面 / 单层', 10, Theme.muted),
         row([Action(glyph='minus', width=28, height=26, enabled=page > 0, onClick=partial(set_page, max(0, page - 1))),
              text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
@@ -285,7 +302,7 @@ def History(session=None, revision=0):
     use_theme()
     e = session.editor
     return Scroll(style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=8), children=[
-        text('操作历史', 18), text('最多保留 50 步 · 修改可逐步撤销', 10, Theme.muted),
+        text('操作历史', 18), text('最多保留 50 步，修改可逐步撤销', 10, Theme.muted),
         row([Action(label='撤销', glyph='undo', onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
              Action(label='重做', glyph='redo', onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack))]), line(),
     ] + ([text('还没有编辑记录', 12, Theme.muted)] if not e.undo_stack else [
@@ -298,7 +315,7 @@ def History(session=None, revision=0):
 
 
 @Component
-def NewRegion(session=None):
+def NewRegion(session=None, compact=False):
     """Dimension controls bypass native text entry and its word filtering."""
     use_theme()
     size, set_size = use_state(session.new_size)
@@ -313,59 +330,66 @@ def NewRegion(session=None):
     def create():
         session.confirm('新建 %d × %d × %d 将替换当前草稿，请先保存需要保留的作品。' % session.new_size, session.empty)
 
+    axes = [DimensionAxis(key=str(axis), axis=axis, label=label, value=size[axis], maximum=MAX_AXES[axis],
+                          onChange=partial(change, axis), stacked=compact)
+            for axis, label in enumerate(('X 宽度', 'Y 高度', 'Z 长度'))]
+    if compact:
+        return Panel(style=S(gap=10), children=[text('新建空白区域', 15)] + axes + [
+            Action(label='新建空白', glyph='plus', height=32, onClick=create)])
     return surface(padding=12, gap=8, children=[
         row([text('新建区域', 14, flex=1),
              text('%d × %d × %d' % size, 12, Theme.muted),
              Action(label='新建空白', glyph='plus', accent=True, height=30, width=110, onClick=create)], gap=10),
-        row([DimensionAxis(key=str(axis), axis=axis, label=label, value=size[axis], maximum=MAX_AXES[axis],
-                           onChange=partial(change, axis))
-             for axis, label in enumerate(('X · 宽度', 'Y · 高度', 'Z · 长度'))], gap=12),
+        row(axes, gap=12),
     ])
 
 
 @Component
-def DimensionAxis(axis=0, label='', value=1, maximum=64, onChange=None):
+def DimensionAxis(axis=0, label='', value=1, maximum=64, onChange=None, stacked=False):
     use_theme()
     return row([
         Action(glyph='minus', width=27, height=30, enabled=value > 1, onClick=partial(onChange, value-1)),
         Panel(style=S(flex=1), children=Range(label=label, value=value, minimum=1, maximum=maximum,
                                             integer=True, unit=' / %d' % maximum, onChange=onChange)),
         Action(glyph='plus', width=27, height=30, enabled=value < maximum, onClick=partial(onChange, value+1)),
-    ], flex=1, gap=4)
+    ], flex=None if stacked else 1, gap=4)
 
 
 @Component
 def Library(session=None, revision=0, width=760, height=440):
     use_theme()
-    e = session.editor
+    unused, update = use_state(0)
+    def subscribe():
+        return session.subscribe(lambda: update(lambda value: value+1), ('library', 'name'))
+    use_effect(subscribe, [session])
+    list_width = width-294
     cards = []
     for entry in session.library:
         data = entry['data']
         identity = entry['id']
-        cards.append(surface(width=(width - 50) / 2., padding=16, height=160, children=[
+        cards.append(surface(key='building%d' % identity, width=list_width-12, padding=14, height=130, flexShrink=0, gap=12, children=[
             row([surface(color=Theme.tint, width=40, height=40, justifyContent=JustifyContent.center,
                          alignItems=AlignItems.center, children=icon('cube', Theme.blue, 24)),
-                 Panel(style=S(flex=1, gap=4), children=[text(data['name'][:18], 15),
-                     text('%d × %d × %d  ·  %d 方块' % tuple(data['size'] + [data.get('blockCount', len(data.get('blocks', [])))]), 11, Theme.muted)])]),
-            text('本机配置  #%03d' % identity, 10, Theme.muted, marginTop=12, marginBottom=12),
+                 Panel(style=S(flex=1, gap=5), children=[text(data['name'][:24], 15, width=list_width-94),
+                     text('%d × %d × %d' % tuple(data['size']), 11, Theme.muted),
+                     text('%d 方块' % data.get('blockCount', len(data.get('blocks', []))), 10, Theme.muted)])]),
             row([Action(label='载入', accent=True, onClick=partial(session.confirm, '载入将替换当前草稿，继续吗？', partial(session.load, identity))),
-                 Action(label='重命名', onClick=partial(session.action, session.rename, identity)),
+                 Action(label='重命名', onClick=partial(session.open_rename, identity)),
                  Action(label='删除', danger=True, onClick=partial(session.confirm, '删除这份已保存的建筑配置？', partial(session.delete, identity)))])]))
-    return Panel(style=S(width=width, height=height, gap=18, padding=18), children=[
-        row([Panel(style=S(flex=1, gap=5), children=[text('把灵感，留给下一次建造。', 24),
-             text('保存多个建筑配置，随时载入，在新的地点生成投影。', 12, Theme.muted)]), icon('library', Theme.blue, 32)]),
-        surface(padding=14, children=row([
-            Panel(style=S(flex=1, gap=5), children=[text('当前草稿名称 / 重命名内容', 10, Theme.muted),
-                  Input(value=session.name, onChange=partial(session.set, 'name'), style=S(width='100%', height=30))]),
-            Action(label='另存为新配置', glyph='save', accent=True, width=145, height=40, onClick=partial(session.action, session.save))
-        ], gap=14)),
-        row([text('我的建筑库', 17, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)]),
-        NewRegion(session=session),
-        Scroll(style=S(width='100%', flex=1), children=Panel(style=S(width=width - 36, flexDirection=FlexDirection.row,
-            flexWrap=FlexWrap.wrap, gap=12, height=max(170, ((len(cards) + 1) // 2) * 172)), children=cards or [surface(width=width - 40, height=170,
-                alignItems=AlignItems.center, justifyContent=JustifyContent.center, gap=10, children=[
-                    icon('library', Theme.muted, 34), text('这里等待你的第一件作品', 18),
-                    text('给当前草稿起个名字，然后保存配置。', 12, Theme.muted)])]))])
+    return row(width=width, height=height, gap=18, padding=12, alignItems=AlignItems.stretch, children=[
+        Panel(style=S(width=list_width, height=height-24, gap=12), children=[
+            row([text('我的建筑库', 21, flex=1), text('%d / 32 个配置' % len(session.library), 11, Theme.muted)], height=34),
+            Scroll(style=S(width=list_width, height=height-70), children=Panel(style=S(width=list_width-12, gap=12,
+                height=max(170,len(cards)*142-12)), children=cards or [surface(width=list_width-12, height=170,
+                    alignItems=AlignItems.center, justifyContent=JustifyContent.center, gap=10, children=[
+                        icon('library', Theme.muted, 34), text('这里等待你的第一件作品', 18),
+                        text('给当前草稿起个名字，然后保存配置。', 11, Theme.muted)])]))]),
+        surface(width=252, height=height-24, padding=14, children=Scroll(style=S(width=236, height=height-52), children=
+            Panel(style=S(width=224, gap=12), children=[
+                text('保存当前草稿', 15),
+                Input(value=session.name, onChange=partial(session.set, 'name'), style=S(width=224, height=32)),
+                Action(label='另存为新配置', glyph='save', accent=True, height=32, onClick=partial(session.action, session.save)),
+                line(), NewRegion(session=session, compact=True)])))])
 
 
 @Component
@@ -391,7 +415,7 @@ def ProjectionSettings(session=None, revision=0):
                enabled=session.projection_active or bool(session.bridge.preparing_entity)),
         Action(label='检查建造进度', glyph='check', onClick=partial(session.action, session.bridge.check_progress), enabled=not session.busy),
         text('进度：%d / %d 已完成' % (stats['correct'], stats['total']) if stats else '点击检查以获取真实建造进度', 11, Theme.muted),
-        text('缺失 %d · 材质不符 %d' % (stats['missing'], stats['wrong']) if stats else '原点可在世界中重新定位', 10, Theme.muted),
+        text('缺失 %d，材质不符 %d' % (stats['missing'], stats['wrong']) if stats else '原点可在世界中重新定位', 10, Theme.muted),
         line(), text('创造模式', 14), text('应用前检查目标区域；可撤销最近一次写入。', 10, Theme.muted, width=216),
         Action(label='同步空气（会清除对应位置）', selected=session.apply_air, danger=session.apply_air,
                onClick=partial(session.set, 'apply_air', not session.apply_air), compact=True),
@@ -426,7 +450,7 @@ def Guide(session=None, revision=0, width=760, height=440):
         Panel(style=S(flex=1, gap=5), children=[text(title, 16), text(hint, 11, Theme.muted)]),
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
-        text('快捷入口：P 打开工作台 · F6 / F7 标记脚下两点', 12, Theme.muted),
+        text('快捷入口：P 打开工作台，F6 / F7 标记脚下两点', 12, Theme.muted),
         text('范围上限：64 × 128 × 64 格。', 11, Theme.muted),
         text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
     ]))

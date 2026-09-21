@@ -21,7 +21,7 @@ def main():
         ui.click('放置')
         interaction.tap(x, y)
         ui.check('placement works after ' + mode,
-                 any('绘制单格 · 已修改 1 格' in label for label in ui.labels()))
+                 any('绘制单格，已修改 1 格' in label for label in ui.labels()))
         state = diagnostic()
         ui.check('one shared selection marks the destination cell after ' + mode,
                  state['selection'] == 1 and state['start'] == state['end'] == [8, 11, 14])
@@ -30,7 +30,7 @@ def main():
     ui.check('direct edits retain one shared selection', '选区 1' in ui.labels())
     for height in range(11, 16):
         interaction.tap(x, y)
-        ui.check('place at Y=%d' % height, 'X 8 · Y %d · Z 14' % height in ui.labels())
+        ui.check('place at Y=%d' % height, 'X 8   Y %d   Z 14' % height in ui.labels())
     interaction.tap(x, y)
     ui.check('ceiling is rejected without losing the preview',
              any('目标超出建筑范围' in label for label in ui.labels()))
@@ -41,7 +41,7 @@ def main():
         if index % 3 == 0:
             ui.click('建筑库'); ui.click('工作台')
         ui.check('replacement cycle %d completed' % (index + 1),
-                 any('绘制单格 · 已修改 1 格' in label for label in ui.labels()))
+                 any('绘制单格，已修改 1 格' in label for label in ui.labels()))
     raw = ui.call('dump_tree')['tree']
     ui.check('both native renderers survive all edits and navigation',
              renderer_ids == [n['id'] for n in ui.nodes('PaperDoll', raw)])

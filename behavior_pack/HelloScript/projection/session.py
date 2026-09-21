@@ -74,6 +74,8 @@ class Session(object):
         self.projection_missing = False
         self.progress = None
         self.pending_confirm = None
+        self.pending_rename = None
+        self.rename_error = ''
         self.busy = False
         self.ready = False
         self.parameter_serial = 0
@@ -153,7 +155,7 @@ class Session(object):
             self.progress = None
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
-        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser') else None)
+        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename') else None)
 
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:
@@ -342,7 +344,7 @@ class Session(object):
             else:
                 if now - last[0] >= .25:
                     last[0] = now
-                    self.editor.message = '正在编辑 %d / %d · 可取消' % (min(job.total, job.processed), job.total)
+                    self.editor.message = '正在编辑 %d / %d，可取消' % (min(job.total, job.processed), job.total)
                     self.emit('edit_progress')
                 self.next_frame(advance)
         self.next_frame(advance)
@@ -623,7 +625,7 @@ class Session(object):
                 start = self.box_anchor
                 self.box_anchor = None
                 e.select_box(start, pos)
-                e.message = '已选择 %d 格 · 所有批量工具使用此选区' % len(e.selection)
+                e.message = '已选择 %d 格，所有批量工具使用此选区' % len(e.selection)
         else:
             e.select_box(pos, pos)
             e.message = '方块坐标：%d, %d, %d' % pos
@@ -718,10 +720,36 @@ class Session(object):
             self.bridge.later(0., advance)
         self.bridge.later(0., advance)
 
-    def rename(self, identity):
-        name = as_text(self.name).strip()
+    def open_rename(self, identity):
+        entry = next((item for item in self.library if item['id'] == identity), None)
+        if entry is None:
+            return
+        self.rename_error = ''
+        self.pending_rename = (identity, entry['data']['name'])
+        self.emit('pending_rename')
+
+    def accept_rename(self, name):
+        if self.pending_rename is None:
+            return
+        try:
+            self.rename(self.pending_rename[0], name)
+        except (ValueError, TypeError) as error:
+            self.rename_error = as_text(str(error))
+            self.emit('pending_rename')
+            return
+        self.pending_rename = None
+        self.rename_error = ''
+        self.emit('pending_rename')
+        self.emit('library')
+
+    def rename(self, identity, name):
+        if self.io_job is not None:
+            raise ValueError('建筑存取进行中，请稍后')
+        name = as_text(name).strip()
         if not 1 <= len(name) <= 64:
             raise ValueError('请输入 1–64 字的建筑名称')
+        if not any(item['id'] == identity for item in self.library):
+            raise ValueError('这份配置已不存在，请重新选择')
         candidate = []
         for item in self.library:
             copy = dict(item)

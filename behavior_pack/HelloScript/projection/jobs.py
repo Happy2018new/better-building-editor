@@ -86,7 +86,7 @@ class EditJob(object):
             e._remember(BY_ID[self.tool][2], delta)
         e.message = ('已选择 %d 格' % len(e.selection) if BY_ID[self.tool][1] == 'select' else
                      '已复制 %d 格' % len(self.selection) if self.tool == 'copy' else
-                     '%s · 已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
+                     '%s，已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
 
     def _set(self, pos, value, respect=True):
         if not self.source.contains(pos):

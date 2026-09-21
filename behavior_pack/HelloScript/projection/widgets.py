@@ -446,14 +446,14 @@ def rounded_skin(color, radius=7):
                    style=S(position=Position.absolute, left=0, top=0, width='100%', height='100%', zIndex=-3))
 
 
-def surface(children=None, color=None, radius=7, **style):
+def surface(children=None, color=None, radius=7, key=None, **style):
     content = list(children) if isinstance(children, (list, tuple)) else ([children] if children is not None else [])
     radius = min(radius, style.get('height', 32) / 2.) if isinstance(style.get('height', 32), (int, float)) else radius
     inset = dict((k, style.pop(k)) for k in list(style) if k.startswith('padding') or k in ('gap', 'alignItems', 'justifyContent'))
     inset['width'] = '100%'
     if style.get('height') is not None:
         inset['height'] = '100%'
-    return Panel(cacheLayout=True, style=S(**style), children=[rounded_skin(color or Theme.white, radius), Panel(style=S(**inset), children=content)])
+    return Panel(key=key, cacheLayout=True, style=S(**style), children=[rounded_skin(color or Theme.white, radius), Panel(style=S(**inset), children=content)])
 
 
 def icon(name, color=None, size=18):

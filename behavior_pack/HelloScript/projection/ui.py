@@ -17,7 +17,7 @@ from .scene import Scene, MODES, HINTS
 from .effects import ClickEffects
 from .gizmo import OrientationGizmo
 from .camera import zoom_label
-from .material_browser import MaterialBrowser
+from .material_browser import MaterialBrowser, InventoryModal
 
 
 def use_session_fields(session, fields):
@@ -34,7 +34,7 @@ def use_session_fields(session, fields):
 @Component
 def RetainedPane(active=True, children=None, style=None):
     """Keep native controls and scroll position; refresh stale content on entry."""
-    cached = use_ref(children)
+    cached = use_ref(None)
     if active:
         cached.current = children
     return Panel(cacheLayout=True, style=(style or Style()).merge(Style(visible=active)), children=cached.current)
@@ -65,18 +65,12 @@ def ToolList(session=None, revision=0, height=440):
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == session.group)]
     title = next(g[1] for g in GROUPS if g[0] == session.group)
     return surface(width=174, height=height, padding=12, children=[
-        row([text('工具箱', 15, flex=1), text('64', 10, Theme.blue)]),
+        row([text('工具箱', 15, flex=1), text(str(len(TOOLS)), 10, Theme.blue)]),
         Input(value=session.query, onChange=partial(session.set, 'query'), style=S(width=150, height=27, marginTop=12)),
         retained_text('搜索工具 / 描述' if not query else '找到 %d 个工具' % len(items), 10, Theme.muted, width=150, marginTop=5, marginBottom=12),
         retained_text('搜索结果' if query else title + '工具', 10, Theme.muted, width=150, marginBottom=7),
-        Panel(style=S(width=154, flex=1), children=[
-            RetainedPane(key=identity, active=not query and session.group == identity,
-                style=S(position=Position.absolute, width='100%', height='100%'),
-                children=ToolGroup(session=session, group=identity, selected=session.tool))
-            for identity, unused_title, unused_icon in GROUPS] + [
-            RetainedPane(key='search', active=bool(query),
-                style=S(position=Position.absolute, width='100%', height='100%'),
-                children=ToolGroup(session=session, query=query, selected=session.tool))]),
+        Panel(style=S(width=154, flex=1), children=
+            ToolGroup(session=session, group=session.group, query=query, selected=session.tool)),
         Panel(style=S(height=8)),
         surface(color=Theme.pale, padding=9, gap=3, children=[text('草稿内编辑', 11, Theme.blue), text('试验后再保存或应用', 10, Theme.muted)]),
     ])
@@ -86,9 +80,12 @@ def ToolList(session=None, revision=0, height=440):
 def ToolGroup(session=None, group=None, query='', selected=None):
     use_theme()
     items = [t for t in TOOLS if (query in (t[0] + t[2] + t[3]).lower() if query else t[1] == group)]
-    pool = TOOLS if group is None else [t for t in TOOLS if t[1] == group]
+    # One stable native pool serves both categories and search. Removing a
+    # result while typing can interrupt Bedrock's edit_box focus; hiding it
+    # preserves focus without a duplicate pool for every category and search.
+    pool = TOOLS
     identities = set(t[0] for t in items)
-    return Scroll(resetKey=query, style=S(width=154, height='100%'),
+    return Scroll(resetKey=(group, query), style=S(width=154, height='100%'),
         children=Panel(style=S(width=144, gap=5), children=[
             Panel(key=t[0], cacheLayout=True, style=S(width=144, height=32, display=Display.flex if t[0] in identities else Display.none), children=
                 Action(label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
@@ -141,7 +138,7 @@ def PreviewProgress(session=None, width=400):
         container.current.SetVisible(visible, False)
         cancel.current.SetVisible(job is not None, False)
         if visible:
-            message = ('正在修改方块' if job else '正在更新预览') + ' · %d / %d' % (done,total)
+            message = ('正在修改方块' if job else '正在更新预览') + '，%d / %d' % (done,total)
             label.current.asLabel().SetText(message)
             fill.current.SetSize(((card_width-16)*Theme.scale*min(1.,done/float(max(1,total))),4*Theme.scale))
     use_animation_frame(tick)
@@ -171,7 +168,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         viewport_children.append(Panel(key='empty_model', style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text(session.preview_error or ('正在构建方块预览…' if session.preview_pending else
-                     '当前没有可见方块 · 点击网格放置'), 12, Theme.muted)]))
+                     '当前没有可见方块，点击网格放置'), 12, Theme.muted)]))
     viewport_children.extend([
         Panel(key='scene_status', style=S(position=Position.absolute, left=12, top=12, zIndex=400, visible=session.view == '3d'),
               children=surface(paddingHorizontal=9, height=24, justifyContent=JustifyContent.center,
@@ -198,7 +195,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
     ]
     return surface(width=width, height=height, children=[
         row([Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
-                text(('%d × %d × %d' % doc.size) + (' · ' + material_name(e.material) if focus else ''), 10, Theme.muted)]),
+                text(('%d × %d × %d' % doc.size) + ('，' + material_name(e.material) if focus else ''), 10, Theme.muted)]),
              Panel(style=S(display=Display.flex if focus else Display.none, flexDirection=FlexDirection.row, gap=5), children=[
                  Action(glyph='undo', width=28, height=26, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
                  Action(glyph='redo', width=28, height=26, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
@@ -236,9 +233,9 @@ def ViewportModes(session=None, revision=0, width=430):
 def SceneStatus(session=None):
     use_theme()
     use_session_fields(session, ('view', 'point_edit', 'camera_depth'))
-    label = 'X %d · Y %d · Z %d' % session.focused if session.focused else '三维 · 可直接编辑'
+    label = 'X %d   Y %d   Z %d' % session.focused if session.focused else '三维，可直接编辑'
     if session.camera_depth > 0.:
-        label += ' · 视线推进 %g 格' % session.camera_depth
+        label += '，视线推进 %g 格' % session.camera_depth
     return text(label, 10, Theme.muted)
 
 
@@ -248,9 +245,9 @@ def PlacementControls(session=None, revision=0, width=400):
     use_session_fields(session, ('input_mode', 'editing_mode'))
     hint = HINTS[session.direct_mode]
     if session.touch_mode:
-        hint = '轻触操作 · 拖动旋转 · 下方按钮缩放与移动'
+        hint = '轻触操作，拖动旋转，下方按钮缩放与移动'
     if session.paste_active():
-        hint = '点击固定粘贴起点 · 拖动旋转 · 确认后粘贴整个复制区域'
+        hint = '点击固定粘贴起点，拖动旋转，确认后粘贴整个复制区域'
     return row([retained_text(hint, 10, Theme.muted, flex=1, slots=48, lines=2)], width=width, height=34)
 
 
@@ -296,7 +293,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
                 Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else
-                       '确认粘贴' if session.paste_active() else '执行 · ' + BY_ID[session.tool][2],
+                       '确认粘贴' if session.paste_active() else '执行：' + BY_ID[session.tool][2],
                     glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37, labelWidth=172,
                     onClick=session.cancel_edit if session.edit_job else session.erase_selection if erase_selection else
                             partial(session.choose_mode, 'browse') if direct else session.run,
@@ -307,6 +304,46 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
                 Action(label='返回工作台', glyph='brush', height=37, onClick=partial(session.set, 'page', 'workspace'))),
         ])]
     return surface(width=240, height=height, padding=12, children=children)
+
+
+@Component
+def RenameDialog(session=None, width=980, height=640):
+    use_theme()
+    use_session_fields(session, ('pending_rename',))
+    opened = session.pending_rename is not None
+    draft, set_draft = use_state('')
+    progress, set_progress = use_state(0.)
+    motion = use_ref({'start': 0., 'from': 0.}).current
+    visited = use_ref(False)
+    if opened:
+        visited.current = True
+    def start():
+        motion.update(start=time.time(), **{'from': progress})
+        if opened:
+            set_draft(session.pending_rename[1])
+    use_effect(start, [session.pending_rename])
+    def tick(now):
+        t = min(1., (now-motion['start'])/(.26 if opened else .18)) if Theme.motion else 1.
+        set_progress(motion['from']+(float(opened)-motion['from'])*(1.-(1.-t)**3))
+    use_animation_frame(tick, progress != float(opened))
+    def content():
+        return surface(width=420, padding=24, gap=18, children=[
+            row([icon('edit', Theme.blue, 24), text('重命名建筑配置', 21)]),
+            text('建筑名称', 12, Theme.muted),
+            Input(value=draft, onChange=set_draft, style=S(width=372, height=34)),
+            text(session.rename_error or '请输入 1–64 字的建筑名称', 11,
+                 Theme.red if session.rename_error else Theme.muted, width=372),
+            row([Action(label='取消', enabled=opened, onClick=partial(session.set, 'pending_rename', None)),
+                 Action(label='保存名称', glyph='check', enabled=opened and bool(draft.strip()), accent=True,
+                        onClick=partial(session.accept_rename, draft))])])
+    card = use_memo(lambda: content() if visited.current else None,
+                    [draft, opened, session.rename_error, Theme.scale, visited.current])
+    return InventoryModal(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2100,
+                          visible=opened or progress>0.), children=[
+        Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
+        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
+              alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
+            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+300)*.5*Theme.scale)]), children=card))])
 
 
 @Component
@@ -375,19 +412,27 @@ def CategoryRail(session=None, height=440, focus=False):
 @Component
 def EditorPane(session=None, revision=0, page='workspace', width=760, height=440, focus=False):
     use_theme()
+    stage, set_stage = use_state(0)
+    def prepare():
+        alive = [True]
+        if stage < 3:
+            session.bridge.later(.015, lambda: set_stage(stage+1) if alive[0] else None)
+        return lambda: alive.__setitem__(0, False)
+    use_effect(prepare, [stage])
     middle_width = width - 434
     if focus:
         middle_width = width - (250 if session.focus_inspector else 0)
     return row([
         Panel(style=S(width=174, height=height, display=Display.none if focus else Display.flex), children=[
             Panel(style=S(position=Position.absolute, visible=page != 'projection'),
-                  children=ToolList(session=session, revision=(session.tool, Theme.scale), height=height)),
+                  children=ToolList(session=session, revision=(session.tool, Theme.scale), height=height) if stage>=2 else None),
             Panel(style=S(position=Position.absolute, visible=page == 'projection'),
-                  children=ProjectionHelp(height=height)),
+                  children=ProjectionHelp(height=height) if page=='projection' else None),
         ]),
-        Viewport(session=session, revision=revision, width=middle_width, height=height),
+        Panel(style=S(width=middle_width, height=height), children=
+            Viewport(session=session, revision=revision, width=middle_width, height=height) if stage>=1 else None),
         Panel(style=S(display=Display.flex if not focus or session.focus_inspector else Display.none),
-              children=Inspector(session=session, revision=revision, height=height, page=page)),
+              children=Inspector(session=session, revision=revision, height=height, page=page) if stage>=3 else None),
     ], width=width, height=height, gap=10, alignItems=AlignItems.stretch)
 
 
@@ -511,11 +556,12 @@ def Workspace(session=None, revision=0):
             TaskStatus(session=session),
             Panel(style=S(display=Display.flex if session.busy else Display.none), children=
                 Action(label='取消', glyph='close', compact=True, height=22, onClick=session.bridge.cancel_world)),
-            text('P 打开  ·  F6 / F7 两点选区', 9, Theme.muted),
+            text('P 打开，F6 / F7 两点选区', 9, Theme.muted),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
     return SafeArea(style=S(width='100%', height='100%'), children=[main,
         Confirmation(session=session, revision=session.ui_revision),
+        RenameDialog(session=session, width=width, height=height),
         MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height), ClickEffects()])
 
 

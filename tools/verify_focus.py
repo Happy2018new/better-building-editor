@@ -16,7 +16,7 @@ def main():
     focused = interaction.pointer()['layout']
     ui.check('maximize retains all tile model buffers', [n['id'] for n in ui.nodes('PaperDoll')] == ids)
     interaction.tap(*interaction.point((8.5, 11., 14.5)))
-    ui.check('place directly in maximized viewport', 'X 8 · Y 11 · Z 14' in ui.labels())
+    ui.check('place directly in maximized viewport', 'X 8   Y 11   Z 14' in ui.labels())
     undo = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'undo')
     ui.call('click', ui.nodes('Button', undo)[0]['id']); time.sleep(.6)
     ui.check('focused toolbar undo restores document', '方块 1,307' in ui.labels())

@@ -28,8 +28,8 @@ def main():
     ui.check('maximum draft selection is compact and interactive', '选区 409,600' in ui.labels())
     category('brush'); ui.click('填充方块')
     started = time.perf_counter()
-    ui.click('执行 · 填充方块')
-    wait_for('填充方块 · 已修改 409600 格')
+    ui.click('执行：填充方块')
+    wait_for('填充方块，已修改 409600 格')
     elapsed = time.perf_counter() - started
     ui.check('all 409,600 cells filled in game', '方块 409,600' in ui.labels())
     wait_preview()
@@ -45,7 +45,7 @@ def main():
     coordinates = next(n for n in ui.nodes('Coordinates') if n['props'].get('label') == '精细视图中心  X, Y, Z')
     ui.call('set_input', ui.nodes('Input', coordinates)[0]['id'], '63, 99, 63')
     time.sleep(3)
-    ui.check('far corner can be located precisely', 'X 63 · Y 99 · Z 63' in ui.labels())
+    ui.check('far corner can be located precisely', 'X 63   Y 99   Z 63' in ui.labels())
     snapshot('large_detail')
     ui.click('擦除'); ui.click('单格'); ui.click('俯视'); time.sleep(.7)
     node = pointer(); layout = node['layout']
@@ -59,7 +59,7 @@ def main():
     ui.check('layer panel is paginated', len(ui.nodes('Layers')[0]['children']) < 40)
     ui.click('参数')
     category('grid'); ui.click('随机混合')
-    ui.click('执行 · 随机混合')
+    ui.click('执行：随机混合')
     ui.click('取消编辑'); wait_for('操作已取消')
     ui.check('cancelling a full-region procedural edit keeps draft intact', '方块 409,600' in ui.labels())
     ui.click('建筑库')

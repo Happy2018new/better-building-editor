@@ -43,7 +43,7 @@ def main():
     box = interaction.pointer()['layout']
     x, y = interaction.point((20.5, 6., 3.5))
     click_at(box['x'] + x, box['y'] + y)
-    ui.check('native mouse picks the visible leaf block', 'X 20 · Y 5 · Z 3' in ui.labels())
+    ui.check('native mouse picks the visible leaf block', 'X 20   Y 5   Z 3' in ui.labels())
     x, y = box['x'] + box['width'] / 2., box['y'] + box['height'] / 2.
     move(x, y)
     # Send real mouse input only while the verified game retains foreground.

@@ -2,7 +2,7 @@
 """Tool descriptions are shared by the UI, search, help and regression tests."""
 from __future__ import unicode_literals
 
-GROUPS = [('select', '选区', 'cursor'), ('edit', '编辑', 'brush'),
+GROUPS = [('edit', '编辑', 'brush'),
           ('transform', '变换', 'move'), ('shape', '形状', 'cube'),
           ('pattern', '纹理', 'grid'), ('finish', '修整', 'spark')]
 
@@ -74,6 +74,9 @@ TOOLS = [
     ('heightmap', 'finish', '保留顶面', '每列仅保留最高的方块。'),
 ]
 BY_ID = dict((item[0], item) for item in TOOLS)
+# Selection is managed in the inspector, not a second tool workflow. Retain
+# operation IDs for saved commands, engine dispatch and compatibility.
+TOOLS = [item for item in TOOLS if item[1] != 'select']
 
 # Stable semantic icons shared by tool lists and compact controls.
 TOOL_ICONS = {

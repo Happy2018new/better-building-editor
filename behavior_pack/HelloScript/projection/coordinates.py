@@ -17,5 +17,5 @@ def parse_coordinates(raw):
     raw = raw.replace('、', ',').replace('×', ',').replace('*', ',').replace('x', ',').replace('X', ',')
     pieces = raw.split(',') if ',' in raw else raw.split()
     if len(pieces) != 3 or any(not re.match(r'^[+-]?\d+$', part.strip()) for part in pieces):
-        raise ValueError('格式：X, Y, Z · 整数')
+        raise ValueError('格式：X, Y, Z，整数')
     return tuple(int(part.strip()) for part in pieces)

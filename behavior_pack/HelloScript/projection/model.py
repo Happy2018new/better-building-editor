@@ -197,11 +197,11 @@ class Editor(object):
             if old != new:
                 delta[pos] = (old, new)
         if not delta:
-            self.message = '没有方块改变 · 请检查选区、蒙版和图层锁定'
+            self.message = '没有方块改变，请检查选区、蒙版和图层锁定'
             return 0
         self._apply(delta, 1)
         self._remember(name, delta)
-        self.message = '%s · 已修改 %d 格' % (name, len(delta))
+        self.message = '%s，已修改 %d 格' % (name, len(delta))
         return len(delta)
 
     def _remember(self, name, delta):
@@ -543,7 +543,7 @@ class Editor(object):
 
 def demo_document():
     """Editable modern courtyard, built from real blocks, not a preview image."""
-    doc = Document((24, 16, 24), name='林间白盒 · 建筑练习')
+    doc = Document((24, 16, 24), name='林间白盒建筑练习')
     quartz, wood = ('minecraft:quartz_block', 0), ('minecraft:planks', 1)
     glass, grass = ('minecraft:glass', 0), ('minecraft:grass', 0)
     for x in range(2, 22):

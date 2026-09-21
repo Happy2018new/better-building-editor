@@ -28,7 +28,7 @@ def main():
             button = next(parent for parent in reversed(ancestors) if parent['type'] == 'Button')
             ui.call('click', button['id']); time.sleep(.4)
             break
-    ui.click('执行 · 填充方块')
+    ui.click('执行：填充方块')
     ui.check('27 block draft generated', '方块 27' in ui.labels())
     ui.click('投影')
     fields = ui.nodes('Input', ui.nodes('ProjectionSettings')[0])
@@ -37,7 +37,7 @@ def main():
     ui.call('set_input', fields[0]['id'], ', '.join(map(str, origin))); time.sleep(.4)
     ui.click('检查建造进度')
     current = wait_message('建造进度已更新')
-    ui.check('test target is completely empty', '缺失 27 · 材质不符 0' in current)
+    ui.check('test target is completely empty', '缺失 27，材质不符 0' in current)
     try:
         ui.click('应用到世界'); ui.click('确认继续')
         wait_message('已写入')
@@ -49,7 +49,7 @@ def main():
         wait_message('已撤销')
     ui.click('检查建造进度')
     current = wait_message('建造进度已更新')
-    ui.check('world undo restores all 27 air cells', '缺失 27 · 材质不符 0' in current)
+    ui.check('world undo restores all 27 air cells', '缺失 27，材质不符 0' in current)
     (ui.OUT / 'world_checks.json').write_text(json.dumps(ui.checks, indent=2), encoding='utf8')
     ui.click('入门指南'); ui.click('载入庭院示例'); ui.click('确认继续'); ui.click('工作台')
 

@@ -18,6 +18,52 @@ class Bridge:
 
 
 class SessionTests(unittest.TestCase):
+    def test_rename_uses_target_dialog_name_and_preserves_archived_data(self):
+        import copy
+        bridge = Bridge(); s = Session(bridge)
+        s.name = 'unsaved draft'
+        s.library = [{'id': 7, 'data': {'name': 'old', 'version': 3, 'size': [256,384,256],
+                      'parts': 50, 'blockCount': 100000}},
+                     {'id': 8, 'data': {'name': 'neighbor', 'version': 1, 'size': [1,1,1], 'blocks': []}}]
+        before = copy.deepcopy(s.library)
+        calls = []
+        s.subscribe(lambda: calls.append('workspace'), ())
+        s.subscribe(lambda: calls.append('library'), ('library',))
+        s.open_rename(7)
+        self.assertEqual((7, 'old'), s.pending_rename)
+        s.accept_rename('  renamed  ')
+        self.assertIsNone(s.pending_rename)
+        self.assertEqual('unsaved draft', s.name)
+        before[0]['data']['name'] = 'renamed'
+        self.assertEqual(before, s.library)
+        self.assertEqual(before, bridge.data['buildings'])
+        self.assertEqual(['library'], calls)
+
+    def test_rename_validation_failure_and_cancel_never_mutate_library(self):
+        bridge = Bridge(); s = Session(bridge)
+        original = [{'id': 1, 'data': {'name': 'original', 'size': [1,1,1], 'blocks': []}}]
+        s.library = original
+        s.open_rename(1)
+        s.accept_rename(' ')
+        self.assertIs(s.library, original)
+        self.assertIsNone(bridge.data)
+        self.assertIsNotNone(s.pending_rename)
+        self.assertTrue(s.rename_error)
+        s.io_job = iter(())
+        s.accept_rename('while saving')
+        self.assertIsNone(bridge.data)
+        self.assertIs(s.library, original)
+        s.io_job = None
+        bridge.save_library = lambda data: False
+        s.accept_rename('valid')
+        self.assertEqual('original', s.library[0]['data']['name'])
+        self.assertIsNotNone(s.pending_rename)
+        s.set('pending_rename', None)
+        self.assertIsNone(s.pending_rename)
+        self.assertEqual('original', s.library[0]['data']['name'])
+        with self.assertRaisesRegex(ValueError, '不存在'):
+            s.rename(2, 'valid')
+
     def test_smaller_editing_cap_preserves_old_library_entries(self):
         b = Bridge()
         entries = [{'id': 1, 'data': {'version': 1, 'name': 'legacy',

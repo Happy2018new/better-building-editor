@@ -74,16 +74,16 @@ def graphics():
         particle = Image.new('RGBA', (336, 336))
         draw = ImageDraw.Draw(particle)
         spread = 1 - (1 - progress) ** 3
-        alpha = int(150 * (1 - progress) ** 1.4)
-        # Six quiet, slightly asymmetric flecks. No enclosing ring or flash.
+        alpha = int(215 * (1 - progress) ** 1.15)
+        # Six distinct, slightly asymmetric flecks. No enclosing ring or flash.
         for j, angle in enumerate((.18, 1.34, 2.48, 3.51, 4.63, 5.62)):
             distance = 5 + (16 if j % 2 else 20) * spread
             length = (2.6 if j % 2 else 1.5) * (1 - .65 * progress)
             points = [(168 + math.cos(angle) * d * 6, 168 + math.sin(angle) * d * 6)
                       for d in (distance, distance + length)]
-            draw.line(points, fill=(91, 133, 202, alpha), width=6)
+            draw.line(points, fill=(69, 121, 220, alpha), width=8)
             for x, y in points:
-                draw.ellipse((x-3, y-3, x+3, y+3), fill=(91, 133, 202, alpha))
+                draw.ellipse((x-4, y-4, x+4, y+4), fill=(69, 121, 220, alpha))
         flecks.paste(particle.resize((112, 112), Image.Resampling.LANCZOS), ((i % 4) * 112, (i // 4) * 112))
     flecks.save(OUT / 'click_flecks.png')
     for name, color in [('input_bg', '#F0F4FA'), ('input_hover', '#E6EDFA')]:

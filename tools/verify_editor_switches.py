@@ -53,7 +53,7 @@ def main():
         current=ui.tree()
         parameter_labels=ui.labels(ui.nodes('Parameters',current)[0])
         footer_labels=ui.labels(current)
-        passed=state==tool and title in parameter_labels and '执行 · '+title in footer_labels
+        passed=state==tool and title in parameter_labels and '执行：'+title in footer_labels
         if not passed:print({'tool':state,'params':parameter_labels[:8],'footer':[v for v in footer_labels if v.startswith('执行')]},flush=True)
         ui.check('native tool '+tool+' synchronizes title and execution',passed)
 

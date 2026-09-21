@@ -12,7 +12,7 @@ def main():
     diagnostic({'fixture':'solid'}); wait_preview()
     category('grid'); ui.click('随机混合')
     before = diagnostic()
-    ui.click('执行 · 随机混合')
+    ui.click('执行：随机混合')
     progress = ui.nodes('PreviewProgress', ui.call('dump_tree')['tree'])[0]
     ui.check('large procedural edit exposes visible progress',
              ui.call('native_control',ui.nodes('Panel',progress)[0]['id'])['result']['visible'] and
@@ -24,7 +24,7 @@ def main():
              diagnostic()['blocks']==before['blocks'] and diagnostic()['previewBuilds']==before['previewBuilds'] and
              any('操作已取消' in label for label in ui.labels()))
     category('brush'); ui.click('清空选区')
-    started=time.perf_counter(); ui.click('执行 · 清空选区'); wait_preview()
+    started=time.perf_counter(); ui.click('执行：清空选区'); wait_preview()
     erased=time.perf_counter()-started
     ui.check('whole region erases atomically',diagnostic()['blocks']==0)
     ui.click('历史')

@@ -32,6 +32,16 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     columns = max(4, int(grid_width//64))
     rows = 4
     count = columns*rows
+    prepared, set_prepared = use_state(0)
+    def prepare():
+        alive = [True]
+        if prepared < count:
+            def advance():
+                if alive[0]:
+                    set_prepared(min(count, prepared+4))
+            session.bridge.later(.02, advance)
+        return lambda: alive.__setitem__(0, False)
+    use_effect(prepare, [prepared, count])
     matches = use_memo(lambda: search_blocks(session.block_catalogue, group, query),
                        [id(session.block_catalogue), len(session.block_catalogue), group, query])
     pages = max(1, (len(matches)+count-1)//count)
@@ -55,7 +65,7 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     return surface(width=width, height=height, padding=18, gap=10, children=[
         row([icon('cube', Theme.blue, 24), text('方块目录', 20, flex=1),
              Action(glyph='close', width=30, height=30, onClick=partial(session.set, 'material_browser', None))]),
-        text('按分类浏览 · 搜索中文方块名 · 添加到常用并使用', 11, Theme.muted),
+        text('按分类浏览，搜索中文方块名，添加到常用并使用', 11, Theme.muted),
         row([
             Panel(style=S(width=116, height=rows*63, gap=4), children=[
                 Action(key=key, label=label, glyph=glyph, leading=True, compact=True, height=28,
@@ -63,7 +73,7 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
             Panel(style=S(width=grid_width, height=rows*63), children=[
                 Panel(style=S(width=grid_width, height=rows*63, flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5),
                       children=[InventoryCell(key='slot%d' % i, item=item, selected=bool(item and item['value']==selected),
-                                              onSelect=set_selected, width=cell_width) for i,item in enumerate(visible)]),
+                                              onSelect=set_selected, width=cell_width) for i,item in enumerate(visible[:prepared])]),
                 Panel(style=S(position=Position.absolute, top=30, width=grid_width, visible=not matches),
                       children=text('没有匹配的方块，试试其他名称', 12, Theme.muted, width=grid_width, center=True))])
         ], gap=10, alignItems=AlignItems.flex_start),
@@ -106,6 +116,12 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     def subscribe():
         return session.subscribe(lambda: update(lambda n: n+1), ('block_catalogue', 'material_browser'))
     use_effect(subscribe, [session])
+    prepared, set_prepared = use_state(False)
+    def prepare():
+        alive = [True]
+        session.bridge.later(.45, lambda: set_prepared(True) if alive[0] else None)
+        return lambda: alive.__setitem__(0, False)
+    use_effect(prepare, [])
     progress, set_progress = use_state(0.)
     motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
     channel = use_ref('material')
@@ -133,4 +149,5 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
         Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
         Panel(style=S(position=Position.absolute, width='100%',height='100%', zIndex=2,
               alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
-            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+min(500,height-32))*.5*Theme.scale)]), children=card))])
+            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+min(500,height-32))*.5*Theme.scale)]),
+                  children=card if prepared or opened else None))])

@@ -8,6 +8,7 @@ from ..pyreact.hooks import use_animation_frame
 from ..pyreact.primitives import PanelPrimitive
 from .widgets import Theme, S, Image, TEX, use_theme
 from .pointer import release_pointers
+from .input_mode import is_touch
 
 FRAME_UVS = tuple(((i % 4) * 112, (i // 4) * 112) for i in range(16))
 
@@ -26,14 +27,16 @@ class ClickObserverPrimitive(PanelPrimitive):
             host._projection_click_counts[0] += 1
             # Native input_panel can deliver the same down through two routes.
             # PC pointer coordinates also stay correct after moving the window.
-            point = motion.GetMousePosition()
-            if point is None:
+            touch = is_touch()
+            point = None if touch else motion.GetMousePosition()
+            if point is None and 'TouchPosX' in args and 'TouchPosY' in args:
                 point = (args['TouchPosX'], args['TouchPosY'])
             contact = args.get('TouchId')
             contacts = fiber.primitive_state.setdefault('contacts', set())
             if contact in contacts:
                 return False
             contacts.add(contact)
+            host._projection_last_click = {'point': point, 'touch': touch}
             for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
                 tracker.screen_down(args, point if args.get('TouchId') == -1 else motion.GetMousePosition())
             fiber.props['onPointer'](point)
@@ -93,7 +96,7 @@ def ClickEffects():
         control = sprites[slot].current
         if control is None:
             return
-        size = 56 * Theme.scale
+        size = 76 * Theme.scale
         control.SetSize((size, size))
         control.SetPosition((x - size / 2., y - size / 2.))
         control.asImage().SetSpriteUV(FRAME_UVS[0])
@@ -102,7 +105,7 @@ def ClickEffects():
 
     def tick(now):
         for slot, (started, previous, scale) in list(live.current.items()):
-            frame = int((now - started) / .02)
+            frame = int((now - started) / .0275)
             control = sprites[slot].current
             if frame >= len(FRAME_UVS) or not Theme.motion or scale != Theme.scale:
                 control.SetVisible(False)
@@ -114,7 +117,7 @@ def ClickEffects():
     use_animation_frame(tick)
     # An input mapping has no button hit area and does not steal focus/hover.
     return Panel(ref=overlay, style=S(position=Position.absolute, left=0, top=0,
-        width='100%', height='100%', clipsChildren=True, zIndex=200), children=[
+        width='100%', height='100%', clipsChildren=True, zIndex=3000), children=[
         ClickObserver(onPointer=burst, style=S(position=Position.absolute, width='100%', height='100%'))] + [
         Image(ref=ref, key='click%d' % i, src=TEX + 'click_flecks', uv=FRAME_UVS[0], uvSize=(112, 112),
             style=S(position=Position.absolute, width=0, height=0, visible=False))
