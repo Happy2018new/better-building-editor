@@ -82,6 +82,14 @@ def create_fiber(element, host):
     return Fiber(element, host)
 
 
+def invalidate_layout_cache(fiber):
+    """Invalidate retained layout boundaries, including through components."""
+    while fiber is not None:
+        state = fiber.primitive_state
+        state['_layout_cache_revision'] = state.get('_layout_cache_revision', 0) + 1
+        fiber = fiber.parent_fiber
+
+
 def _same_type(fiber, element):
     ft = fiber.comp_type
     et = element.comp_type
@@ -118,6 +126,7 @@ def _primitive_capabilities(primitive_class):
 def mount_fiber(fiber, native_parent_path, host):
     """挂载一个 Fiber。native_parent_path 为其原生控件/子控件应挂载的父路径。"""
     fiber.native_parent_path = native_parent_path
+    invalidate_layout_cache(fiber)
     if fiber.is_component:
         _mount_component(fiber, native_parent_path, host)
     else:
@@ -255,6 +264,10 @@ def _update_primitive(fiber, host):
     paint_changed = style_paint_changed(fiber.last_style, fiber.style)
     visible = renderer.resolve_visible(fiber.style)
     visibility_changed = fiber.primitive_state.get("_visible") != visible
+    props_layout_changed = props_changed and fiber.comp_type.props_affect_layout(
+        fiber.last_props, fiber.props, fiber.style)
+    if props_layout_changed or layout_changed or paint_changed:
+        invalidate_layout_cache(fiber)
     if props_changed or visibility_changed or style_changed:
         control = native.get_control(host, fiber.native_path)
     else:
@@ -268,8 +281,7 @@ def _update_primitive(fiber, host):
     if props_changed:
         fiber.comp_type.apply_props(host, fiber, control, fiber.last_props, fiber.props)
         host._commit_native_dirty = True
-        if fiber.comp_type.props_affect_layout(
-                fiber.last_props, fiber.props, fiber.style):
+        if props_layout_changed:
             host._commit_layout_dirty = True
     if layout_changed:
         # 布局字段变化：整树 layout（同时会写回 alpha / transform）
@@ -327,6 +339,7 @@ def reconcile_children(fiber, next_elements, host):
         for index, cf in enumerate(prev):
             if cf is not new_children[index]:
                 host._commit_layout_dirty = True
+                invalidate_layout_cache(fiber)
                 break
 
     fiber.child_fibers = new_children
@@ -380,6 +393,7 @@ def unmount_fiber(fiber, host, remove_native=True):
     会把一次 tab 切换放大成几十次昂贵的 SDK 路径/布局更新。这里仍递归
     执行 hooks、事件和 ref 清理，但由父 Primitive 负责一次原生删除。
     """
+    invalidate_layout_cache(fiber)
     fiber._mounted = False
     host._dirty.discard(fiber)
     if remove_native:

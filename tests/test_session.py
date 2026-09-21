@@ -52,6 +52,41 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(['navigation'], calls)
         self.assertEqual(revision, s.content_revision)
 
+    def test_edit_modes_notify_only_consumers_and_preserve_selection(self):
+        s = Session(Bridge()); calls = []
+        s.subscribe(lambda: calls.append('workspace'), ())
+        s.subscribe(lambda: calls.append('editor'), ('editing_mode',))
+        selection = s.editor.selection
+        revision = s.content_revision
+        s.inspector = 'history'
+        s.choose_tool('paste')
+        self.assertEqual(['editor'], calls)
+        self.assertEqual('params', s.inspector)
+        self.assertFalse(s.paste_pinned)
+        self.assertEqual(tuple(s.editor.start), s.paste_origin)
+        calls[:] = []
+        s.box_anchor = (0, 0, 0)
+        s.choose_mode('place')
+        self.assertEqual(['editor'], calls)
+        self.assertIsNone(s.box_anchor)
+        self.assertIs(selection, s.editor.selection)
+        self.assertEqual(revision, s.content_revision)
+
+    def test_inventory_visibility_is_local_but_material_choice_broadcasts(self):
+        s = Session(Bridge()); s.catalogue_ready = True
+        calls = []
+        s.subscribe(lambda: calls.append('workspace'), ())
+        s.subscribe(lambda: calls.append('inventory'), ('material_browser',))
+        s.open_materials('secondary')
+        self.assertEqual(['inventory'], calls)
+        calls[:] = []
+        s.set('material_browser', None)
+        self.assertEqual(['inventory'], calls)
+        s.open_materials('secondary'); calls[:] = []
+        s.add_material(('minecraft:stone',0))
+        self.assertIn('workspace',calls)
+        self.assertEqual(('minecraft:stone',0),s.editor.secondary)
+
     def test_touch_direct_actions_commit_without_confirmation(self):
         s = Session(Bridge()); s.editor = Editor(Document((8,8,8))); s.touch_mode = True
         s.choose_mode('place'); self.assertTrue(s.point_action((3,0,3)))

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
-from .widgets import JellyButton as Button, use_theme
+from .widgets import JellyButton as Button, use_theme, retained_text
 from .catalog import BY_ID, MATERIALS, tool_parameters
 from .model import AIR, MAX_AXES, bounds
 from .coordinates import parse_coordinates
@@ -56,13 +56,29 @@ def Coordinates(label='', value=(0, 0, 0), onChange=None, onValidityChange=None)
 
 
 @Component
+def MaterialIcon(value=AIR, size=30):
+    """Air has no inventory renderer; keep its outline separate from real items."""
+    use_theme()
+    last_item = use_ref(('minecraft:stone', 0))
+    if value != AIR:
+        last_item.current = value
+    return Panel(style=S(width=size, height=size), children=[
+        Panel(style=S(position=Position.absolute, visible=value == AIR), children=icon('box_outline', Theme.muted, size)),
+        Item(identifier=last_item.current[0], aux=last_item.current[1],
+             style=S(position=Position.absolute, width=size, height=size, visible=value != AIR))])
+
+
+@Component
 def MaterialPicker(session=None, revision=0, channels=None):
     use_theme()
     channel, set_channel = use_state('material')
     managing, set_managing = use_state(False)
     picked, set_picked = use_state(None)
     e = session.editor
-    channels = channels or [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')]
+    last_channels = use_ref(channels or [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')])
+    if channels:
+        last_channels.current = channels
+    channels = last_channels.current
     active = channel if channel in [pair[0] for pair in channels] else channels[0][0]
 
     def choose(value):
@@ -75,15 +91,14 @@ def MaterialPicker(session=None, revision=0, channels=None):
     index = session.palette.index(picked) if picked in session.palette else -1
     cells = [Button(key='mat%d' % i, onClick=partial(choose, value),
                     buttonBuilder=partial(material_background, value == (picked if managing else current)),
-                    style=S(width=49, height=36), children=icon('box_outline', Theme.muted, 25) if value==AIR else
-                    Item(identifier=value[0], aux=value[1], style=S(width=25, height=25)))
+                    style=S(width=49, height=36), children=MaterialIcon(value=value, size=25))
              for i, value in enumerate(session.palette)]
     cells.append(Button(key='add_material', onClick=partial(session.open_materials, active),
                         buttonBuilder=partial(material_background, False), style=S(width=49, height=36),
                         children=icon('plus', Theme.blue, 22)))
     return Panel(style=S(gap=7), children=[
         Segments(items=channels, value=active, onChange=set_channel, width=216),
-        row([Item(identifier=current[0], aux=current[1], style=S(width=30, height=30)),
+        row([MaterialIcon(value=current, size=30),
              Panel(style=S(flex=1), children=[text(current_name, 12, width=175), text('方块附加值  %d' % current[1], 10, Theme.muted)])]),
         row([text('常用方块', 11, Theme.muted, flex=1),
              Action(label='完成' if managing else '整理', glyph='check' if managing else 'sliders', compact=True,
@@ -187,10 +202,10 @@ def Parameters(session=None, revision=0):
     if e.mask == 'material':
         channels.append(('filter_material', '匹配材质'))
     return Scroll(resetKey=(session.tool, session.direct_mode), style=S(width=230, flex=1), children=Panel(style=S(width=216, gap=6), children=[
-        text('视图操作' if tool[0] == 'direct' else '工具参数', 10, Theme.muted, marginTop=6),
-        text(tool[2], 20),
+        retained_text('视图操作' if tool[0] == 'direct' else '工具参数', 10, Theme.muted, width=216, slots=4, marginTop=6),
+        retained_text(tool[2], 20, width=216, slots=16),
         # Split help by sentence length into readable, deliberate lines.
-        text(tool[3], 11, Theme.muted, width=216),
+        retained_text(tool[3], 11, Theme.muted, width=216, slots=48, lines=2),
         optional('erase_scope', session.direct_mode == 'erase', [
             text('擦除范围', 12),
             Segments(items=[('single', '单格'), ('selection', '选区')], value=session.erase_scope,
@@ -199,16 +214,13 @@ def Parameters(session=None, revision=0):
                  '保留选区范围 · 点击下方擦除选区', 10, Theme.muted)]),
         optional('paste_parameters', session.paste_active(), PasteControls(session=session, revision=revision)),
         optional('selection_parameters', not session.paste_active(), [line(), text('当前选区', 12),
-        text('%d 格已选择 · %d 层已锁定' % (len(e.selection), len(e.locked_layers)), 10, Theme.muted),
-        text('放置前预览新格 · 放下后选中新格' if session.direct_mode == 'place' else
-             '选区擦除保留范围 · 可一次撤销' if session.direct_mode == 'erase' and session.erase_scope == 'selection' else
-             '点击编辑更新为单格 · 批量工具使用选区', 10, Theme.muted, width=216),
-        text('两点选区：视图下方的框选', 10, Theme.muted),
+        retained_text('%d 格已选择' % len(e.selection) + (' · %d 层已锁定' % len(e.locked_layers) if e.locked_layers else ''),
+                      10, Theme.muted, width=216, slots=32),
         row([Action(label='全选', glyph='grid', compact=True, width=104, height=27,
                     onClick=partial(session.action, e.run, 'select_all')),
              Action(label='坐标设置', glyph='sliders', compact=True, width=108, height=27, selected=coordinates_open,
                     onClick=partial(set_coordinates_open, not coordinates_open))], gap=4),
-        SelectionBounds(session=session, revision=revision),
+        SelectionBounds(session=session, revision=session.content_revision),
         optional('box_pending', session.box_anchor is not None, Panel(children=[
             text('起点已设置，请点击终点', 10, Theme.blue),
             Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),
@@ -220,7 +232,7 @@ def Parameters(session=None, revision=0):
                  value=e.mask, onChange=partial(session.set_editor, 'mask'), width=216),
         text({'all': '允许修改方块和空气格', 'solid': '只修改已有方块', 'air': '只在空格中生成方块',
               'material': '只修改指定材质的方块'}[e.mask], 10, Theme.muted),
-        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=revision, channels=channels)),
+        line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=session.content_revision, channels=channels)),
         optional('material_line', bool(channels), line()),
         optional('thickness', 'thickness' in options, Range(label='厚度', value=e.thickness, minimum=1, maximum=8, integer=True,
               onChange=partial(session.range_value, 'thickness'), unit=' 格')),

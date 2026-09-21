@@ -37,13 +37,13 @@ def RetainedPane(active=True, children=None, style=None):
     cached = use_ref(children)
     if active:
         cached.current = children
-    return Panel(style=(style or Style()).merge(Style(visible=active)), children=cached.current)
+    return Panel(cacheLayout=True, style=(style or Style()).merge(Style(visible=active)), children=cached.current)
 
 
 @Component
 def ToolList(session=None, revision=0, height=440):
     use_theme()
-    use_session_fields(session, ('group', 'query'))
+    use_session_fields(session, ('group', 'query', 'editing_mode'))
     settled_query, set_settled_query = use_state(session.query)
     serial = use_ref(0)
 
@@ -90,7 +90,7 @@ def ToolGroup(session=None, group=None, query='', selected=None):
     identities = set(t[0] for t in items)
     return Scroll(resetKey=query, style=S(width=154, height='100%'),
         children=Panel(style=S(width=144, gap=5), children=[
-            Panel(key=t[0], style=S(display=Display.flex if t[0] in identities else Display.none), children=
+            Panel(key=t[0], cacheLayout=True, style=S(width=144, height=32, display=Display.flex if t[0] in identities else Display.none), children=
                 Action(label=t[2], glyph=TOOL_ICONS[t[0]], leading=True, height=32,
                        selected=selected == t[0], onClick=partial(session.choose_tool, t[0]), compact=True))
             for t in pool] + [Panel(key='empty', style=S(display=Display.none if items else Display.flex),
@@ -219,11 +219,17 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Image(color=Color(0xF7F9FCFF), style=S(height=area_h, width='100%'), children=viewport_children),
         row(view_controls, paddingHorizontal=6 if width < 480 else 10,
             height=36, gap=1 if width < 480 else 3),
-        Panel(style=S(paddingHorizontal=12, gap=4), children=[
-            Segments(items=MODES, value=session.direct_mode, onChange=session.choose_mode, width=width-24),
-            Panel(style=S(width='100%', height=36, marginTop=2),
-                  children=PlacementControls(session=session, revision=revision, width=width-24)),
-        ])])
+        ViewportModes(session=session, revision=revision, width=width)])
+
+
+@Component
+def ViewportModes(session=None, revision=0, width=430):
+    use_theme()
+    use_session_fields(session, ('editing_mode',))
+    return Panel(style=S(paddingHorizontal=12, gap=4), children=[
+        Segments(items=MODES, value=session.direct_mode, onChange=session.choose_mode, width=width-24),
+        Panel(style=S(width='100%', height=36, marginTop=2),
+              children=PlacementControls(session=session, revision=revision, width=width-24))])
 
 
 @Component
@@ -239,13 +245,13 @@ def SceneStatus(session=None):
 @Component
 def PlacementControls(session=None, revision=0, width=400):
     use_theme()
-    use_session_fields(session, ('input_mode',))
+    use_session_fields(session, ('input_mode', 'editing_mode'))
     hint = HINTS[session.direct_mode]
     if session.touch_mode:
         hint = '轻触操作 · 拖动旋转 · 下方按钮缩放与移动'
     if session.paste_active():
         hint = '点击固定粘贴起点 · 拖动旋转 · 确认后粘贴整个复制区域'
-    return row([text(hint, 10, Theme.muted, flex=1)], width=width, height=34)
+    return row([retained_text(hint, 10, Theme.muted, flex=1, slots=48, lines=2)], width=width, height=34)
 
 
 def reset_camera(session):
@@ -267,16 +273,17 @@ def turn_camera(session, amount):
 @Component
 def Inspector(session=None, revision=0, height=440, page='workspace'):
     use_theme()
-    use_session_fields(session, ('inspector', 'view'))
+    use_session_fields(session, ('inspector', 'view', 'editing_mode'))
     projecting = page == 'projection'
     active = 'projection' if projecting else session.inspector
     panes = []
     for name, component in (('params', Parameters), ('layers', Layers), ('history', History), ('projection', ProjectionSettings)):
-        content_revision = session.content_revision
+        content_revision = (session.content_revision, session.tool, session.direct_mode,
+                            session.box_anchor, session.paste_origin, session.paste_pinned)
         if name == 'params' and session.direct_mode != 'browse':
             content_revision = (content_revision, session.view)
         panes.append(RetainedPane(key=name, active=active == name,
-            style=S(position=Position.absolute, width='100%', height='100%'),
+            style=S(position=Position.absolute, width=216, height=height-111),
             children=component(session=session, revision=content_revision)))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
     erase_selection = direct and session.direct_mode == 'erase' and session.erase_scope == 'selection'
@@ -290,7 +297,7 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
                 Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else
                        '确认粘贴' if session.paste_active() else '执行 · ' + BY_ID[session.tool][2],
-                    glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37,
+                    glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37, labelWidth=172,
                     onClick=session.cancel_edit if session.edit_job else session.erase_selection if erase_selection else
                             partial(session.choose_mode, 'browse') if direct else session.run,
                     enabled=not session.busy and (not session.paste_active() or (session.editor.clipboard is not None and session.paste_pinned)) and

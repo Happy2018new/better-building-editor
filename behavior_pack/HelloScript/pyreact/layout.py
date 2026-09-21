@@ -51,6 +51,7 @@ class LayoutNode(object):
         "label_max_width",
         "direction", "column", "reverse", "display_none", "position",
         "gap_main", "gap_cross",
+        "cache_key", "cache_ready", "reused", "reuse_geometry", "last_box", "apply_context",
     )
 
     def __init__(self, fiber):
@@ -86,6 +87,9 @@ class LayoutNode(object):
         if self.style is not None and self.style.get("position") is not None:
             self.position = self.style.get("position")
         self.gap_main, self.gap_cross = _resolve_gap(self.style, self.column)
+        self.cache_key = None
+        self.cache_ready = self.reused = self.reuse_geometry = False
+        self.last_box = self.apply_context = None
 
 # ---------------------------------------------------------------------------
 # 构建布局树（组件透明，只取 primitive）
@@ -96,7 +100,7 @@ def build_layout_tree(root_fiber):
     if root_fiber.is_primitive:
         node = LayoutNode(root_fiber)
         node.inherited_opacity = _style_opacity(root_fiber)
-        node.children = _collect(root_fiber, 1.0)
+        node.children = [] if node.display_none else _collect(root_fiber, 1.0)
         for child in node.children:
             child.parent = node
         return [node]
@@ -124,16 +128,47 @@ def _collect(fiber, parent_opacity):
     result = []
     for cf in fiber.child_fibers:
         if cf.is_primitive:
+            inherited = own_opacity * _style_opacity(cf)
+            cache_key = _boundary_key(cf, inherited)
+            cached = cf.primitive_state.get('_layout_cache') if cache_key is not None else None
+            if cached is not None and cached.cache_ready and cached.cache_key == cache_key:
+                cached.reused = True
+                result.append(cached)
+                continue
             node = LayoutNode(cf)
             # primitive 自身的 inherited = 父累计 * 自身 style opacity
-            node.inherited_opacity = own_opacity * _style_opacity(cf)
-            node.children = _collect(cf, own_opacity)
+            node.inherited_opacity = inherited
+            node.cache_key = cache_key
+            if cache_key is not None:
+                cf.primitive_state['_layout_cache'] = node
+            node.children = [] if node.display_none else _collect(cf, own_opacity)
             for c in node.children:
                 c.parent = node
             result.append(node)
         else:
             result.extend(_collect(cf, own_opacity))
     return result
+
+
+def _boundary_key(fiber, opacity):
+    # Only fixed boxes can retain measurements independently of their parent.
+    # Auto/flex boxes and unmeasured native leaves keep the normal layout path.
+    style = fiber.style
+    if not fiber.props.get('cacheLayout') or style is None:
+        return None
+    if not all(isinstance(style.get(axis), (int, long, float)) for axis in ('width', 'height')):
+        return None
+    return (fiber.primitive_state.get('_layout_cache_revision', 0),
+            getattr(fiber.host, '_layout_cache_viewport', None), opacity)
+
+
+def _remember_boundaries(node):
+    if node.reused:
+        return
+    if node.cache_key is not None:
+        node.cache_ready = True
+    for child in node.children:
+        _remember_boundaries(child)
 
 
 # ---------------------------------------------------------------------------
@@ -290,7 +325,7 @@ def _resolve_gap(style, column):
 
 def _has_unmeasured_text(node):
     """是否存在“有文本内容但尚未量测出尺寸”的叶子（需等屏幕渲染后重试）。"""
-    if node.display_none:
+    if node.display_none or node.reused:
         return False
     if not node.children:
         props = node.fiber.last_props
@@ -306,7 +341,7 @@ def _has_unmeasured_text(node):
 
 def _needs_post_measure(node):
     """判断原生刷新后是否可能改变本树的自适应尺寸。"""
-    if node.display_none:
+    if node.display_none or node.reused:
         return False
     if not node.children:
         props = node.fiber.last_props or {}
@@ -330,6 +365,8 @@ def _needs_post_measure(node):
 
 def measure(node, host, snapshot=False):
     """后序量测，填充 measured_w/h。None 表示该轴依赖父级（无法自底向上确定）。"""
+    if node.reused:
+        return False
     if node.display_none:
         node.measured_w = node.measured_h = 0.0
         return False
@@ -717,6 +754,10 @@ def _resolve_local_safe_area_padding(node, box):
 
 def layout(node, box, host):
     """box = (x, y, w, h) 绝对坐标，作为本节点的外框。"""
+    node.reuse_geometry = node.reused and node.last_box == box
+    if node.reuse_geometry:
+        return
+    node.last_box = box
     node.frame_x, node.frame_y, node.frame_w, node.frame_h = box
     node.content_w = box[2]
     node.content_h = box[3]
@@ -1272,6 +1313,10 @@ def apply(node, host, parent_abs_x=0.0, parent_abs_y=0.0,
     """
     from .style import resolve_transform
 
+    context = (parent_abs_x, parent_abs_y, parent_scale_x, parent_scale_y)
+    if node.reuse_geometry and node.apply_context == context:
+        return
+    node.apply_context = context
     if node.display_none:
         return
     node.fiber.primitive_state["_inherited_opacity"] = node.inherited_opacity
@@ -1366,6 +1411,7 @@ def layout_tree(root_fiber, host, root_path):
     root_path 为根容器（/root）路径。
     """
     host._layout_screen_flushed = False
+    host._layout_cache_viewport = native.get_size(host, root_path)
     nodes = build_layout_tree(root_fiber)
     if not nodes:
         return True, None
@@ -1389,6 +1435,8 @@ def layout_tree(root_fiber, host, root_path):
     # 应用后刷新，让原生控件按新尺寸渲染
     native.update_screen(host, True)
     if not any(_needs_post_measure(node) for node in nodes):
+        for node in nodes:
+            _remember_boundaries(node)
         host._layout_screen_flushed = True
         return True, nodes
     # 第二遍：重新量测（此时 auto 容器/ItemRenderer 等可能已获得真实渲染尺寸），
@@ -1402,6 +1450,8 @@ def layout_tree(root_fiber, host, root_path):
     else:
         # 第一轮应用后的刷新已经提交了最终 frame；宿主无需再刷新一次。
         host._layout_screen_flushed = True
+    for node in nodes:
+        _remember_boundaries(node)
     return True, nodes
 
 

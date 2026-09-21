@@ -453,7 +453,7 @@ def surface(children=None, color=None, radius=7, **style):
     inset['width'] = '100%'
     if style.get('height') is not None:
         inset['height'] = '100%'
-    return Panel(style=S(**style), children=[rounded_skin(color or Theme.white, radius), Panel(style=S(**inset), children=content)])
+    return Panel(cacheLayout=True, style=S(**style), children=[rounded_skin(color or Theme.white, radius), Panel(style=S(**inset), children=content)])
 
 
 def icon(name, color=None, size=18):
@@ -537,7 +537,7 @@ def JellyButton(onClick=None, buttonBuilder=None, style=None, children=None,
 
 @Component
 def Action(label='', onClick=None, width=None, height=32, accent=False, selected=False,
-           enabled=True, glyph=None, danger=False, compact=False, leading=False):
+           enabled=True, glyph=None, danger=False, compact=False, leading=False, labelWidth=None):
     use_theme()
     glyph = glyph or ACTION_ICONS.get(label)
     progress, set_progress = use_state(1.)
@@ -570,11 +570,12 @@ def Action(label='', onClick=None, width=None, height=32, accent=False, selected
         if glyph:
             contents.append(icon(glyph, ink, 15 if compact else 17))
         if label:
-            contents.append(text(label, 11 if compact else 12, ink))
+            contents.append(text(label, 11 if compact else 12, ink) if labelWidth is None else
+                            retained_text(label, 11 if compact else 12, ink, width=labelWidth, slots=24, center=True))
         return [rounded_skin(base), row(contents, width='100%' if leading else None,
             justifyContent=JustifyContent.flex_start if leading else JustifyContent.center,
             paddingHorizontal=4 if compact else 9, gap=4 if compact else 6)]
-    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, leading, Theme.scale]))
+    children = list(use_memo(content, [label, glyph, compact, accent, selected, danger, enabled, feedback, leading, labelWidth, Theme.scale]))
     return FeedbackButton(buttonBuilder=transparent, onFeedback=stable_feedback, onClick=stable_click if enabled else None,
                   style=S(width=width, height=height, flexShrink=0,
                           opacity=1,

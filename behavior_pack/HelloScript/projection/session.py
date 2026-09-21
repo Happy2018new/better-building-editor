@@ -153,7 +153,7 @@ class Session(object):
             self.progress = None
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
-        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query') else None)
+        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser') else None)
 
     def set_editor(self, field, value):
         if getattr(self.editor, field) == value:
@@ -190,7 +190,7 @@ class Session(object):
 
     def open_materials(self, channel):
         self.material_browser = channel
-        self.emit()
+        self.emit('material_browser')
         if not self.catalogue_loading and not self.catalogue_ready:
             self.catalogue_loading = True
             self.bridge.request_catalogue()
@@ -243,7 +243,7 @@ class Session(object):
             self.paste_origin = tuple(self.editor.start)
             self.paste_pinned = False
         self.inspector = 'params'
-        self.emit()
+        self.emit('editing_mode')
 
     def choose_group(self, group):
         if self.group == group and not self.query:
@@ -520,7 +520,7 @@ class Session(object):
         self.direct_mode = mode
         self.box_anchor = None
         self.inspector = 'params'
-        self.emit()
+        self.emit('editing_mode')
 
     def camera_view(self, yaw=None, pitch=None, zoom=None):
         actual_yaw, actual_pitch, actual_zoom = self.camera_pose

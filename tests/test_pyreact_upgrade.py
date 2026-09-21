@@ -147,6 +147,67 @@ class UpgradeTests(unittest.TestCase):
             self.assertFalse(self.layout.measure(nodes[0], self.runtime))
         self.assertEqual((nodes[0].measured_w, nodes[0].measured_h), (0, 0))
 
+    def test_display_none_skips_layout_descendants_without_unmounting(self):
+        root = self.reconciler.create_fiber(self.primitives.Panel(style=self.style.Style(display=self.constants.Display.none)),self.runtime)
+        child = self.reconciler.create_fiber(self.primitives.Label(content='hidden'),self.runtime)
+        root.child_fibers=[child];child.parent_fiber=root
+        self.assertEqual([],self.layout.build_layout_tree(root)[0].children)
+        self.assertEqual([child],root.child_fibers)
+        root.style=self.style.Style(display=self.constants.Display.flex)
+        self.assertIs(child,self.layout.build_layout_tree(root)[0].children[0].fiber)
+
+    def test_fixed_layout_boundary_reuses_only_unchanged_geometry(self):
+        p = self.primitives.Panel
+        root = self.reconciler.create_fiber(p(), self.runtime)
+        child = self.reconciler.create_fiber(p(cacheLayout=True, style=self.style.Style(width=200, height=100)), self.runtime)
+        root.child_fibers = [child]
+        child.parent_fiber = root
+        self.runtime._layout_cache_viewport = (800, 600)
+        first = self.layout.build_layout_tree(root)[0].children[0]
+        first.cache_ready = True
+        first.last_box = (0, 0, 200, 100)
+        first.apply_context = (0, 0, 1, 1)
+        second = self.layout.build_layout_tree(root)[0].children[0]
+        self.assertIs(first, second)
+        with patch.object(self.layout.native, 'get_size', side_effect=AssertionError('cached measurement')):
+            self.assertFalse(self.layout.measure(second, self.runtime, True))
+        self.layout.layout(second, (0, 0, 200, 100), self.runtime)
+        self.assertTrue(second.reuse_geometry)
+        self.layout.layout(second, (0, 30, 200, 100), self.runtime)
+        self.assertFalse(second.reuse_geometry)
+        self.assertEqual(second.frame_y, 30)
+        self.reconciler.invalidate_layout_cache(child)
+        third = self.layout.build_layout_tree(root)[0].children[0]
+        self.assertIsNot(second, third)
+        third.cache_ready = True
+        self.runtime._layout_cache_viewport = (1200, 600)
+        self.assertIsNot(third, self.layout.build_layout_tree(root)[0].children[0])
+
+    def test_nested_boundary_invalidates_through_component_and_parent_opacity(self):
+        p = self.primitives.Panel
+        root = self.reconciler.create_fiber(p(), self.runtime)
+        boundary = self.reconciler.create_fiber(p(cacheLayout=True, style=self.style.Style(width=200,height=100)), self.runtime)
+        @self.component.Component
+        def Child():
+            return None
+        component = self.reconciler.create_fiber(Child(), self.runtime)
+        leaf = self.reconciler.create_fiber(p(), self.runtime)
+        root.child_fibers = [boundary]; boundary.parent_fiber = root
+        boundary.child_fibers = [component]; component.parent_fiber = boundary
+        component.child_fibers = [leaf]; leaf.parent_fiber = component
+        first = self.layout.build_layout_tree(root)[0].children[0]
+        first.cache_ready = True
+        self.reconciler.invalidate_layout_cache(leaf)
+        second = self.layout.build_layout_tree(root)[0].children[0]
+        self.assertIsNot(first, second)
+        second.cache_ready = True
+        root.style = self.style.Style(opacity=.5)
+        third = self.layout.build_layout_tree(root)[0].children[0]
+        self.assertIsNot(second, third)
+        self.assertEqual(third.inherited_opacity,.5)
+        boundary.style = self.style.Style(width='100%',height=100)
+        self.assertIsNone(self.layout._boundary_key(boundary,1.))
+
     def test_safe_area_receives_resize_until_unsubscribed(self):
         values = []
         unsubscribe = self.host._subscribe_safe_area(values.append)

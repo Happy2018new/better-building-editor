@@ -15,6 +15,8 @@
 
 快速路径直接调用原生 SetPosition / SetSize / SetAlpha，不再请求整屏 UpdateScreen；结构、显隐和层级变更仍按正常提交刷新。动画应复用未变化的 children Element，reconciler 会跳过同一不可变 Element 的干净子树（独立变脏的组件仍更新）。大页面优先移动容器、淡出单个遮罩；父级 opacity 继承需要逐个更新后代，成本与子树大小成正比。
 
+现代化投影本地扩展：`Panel(cacheLayout=True, style=Style(width=固定数值, height=固定数值))` 可保留已完成测量的子树。只有数值宽高的固定容器生效；auto、百分比和 flex 外框走正常路径。后代结构、布局属性、动画、父级透明度或窗口尺寸变化会失效；外框位置变化仍重新布局和应用。回调和固定尺寸内容更新不必使布局缓存失效。此属性是布局引擎缓存策略，不是原生 JSON 属性，也不是上游公共 API。外部直接改变需要参与自动量测的原生子控件时，应通过 Pyreact props/style 更新，不能绕开失效通知。
+
 `transform` 支持 `Translate`（设计像素平移）与 `Scale`（缩放），不参与布局流，叠加在 layout frame 之外：
 
 注：对于简单动画尽量使用 visual 过渡，避免频繁触发 layout。

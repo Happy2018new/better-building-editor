@@ -57,7 +57,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'editing_mode', 'material_browser'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
@@ -555,7 +555,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
 
     use_event('MouseWheelClientEvent', wheel, active)
     use_animation_frame(tick)
-    return Panel(ref=canvas, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
+    return Panel(ref=canvas, cacheLayout=True, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=-1, visible=active), children=[
             Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),

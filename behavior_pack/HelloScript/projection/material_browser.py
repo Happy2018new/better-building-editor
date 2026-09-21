@@ -9,7 +9,7 @@ from ..pyreact.hooks import use_animation_frame
 from ..pyreact.primitives import PanelPrimitive
 from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, Input, use_theme
 from .widgets import JellyButton as Button
-from .panels import material_background
+from .panels import material_background, MaterialIcon
 from .materials import CATEGORIES, search_blocks
 
 
@@ -18,12 +18,16 @@ InventoryModal.template_path = '/root/mp_inventory_modal_tmpl'
 
 
 @Component
-def BlockInventory(session=None, channel=None, width=750, height=500, revision=0):
+def BlockInventory(session=None, channel=None, width=750, height=500, revision=0, opened=False):
     use_theme()
     group, set_group = use_state('all')
     query, set_query = use_state('')
     page, set_page = use_state(0)
     selected, set_selected = use_state(getattr(session.editor, channel or 'material'))
+    def sync_selection():
+        if opened:
+            set_selected(getattr(session.editor, channel or 'material'))
+    use_effect(sync_selection, [opened, channel])
     grid_width = width-162
     columns = max(4, int(grid_width//64))
     rows = 4
@@ -72,7 +76,7 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
         row([icon('search', Theme.muted, 17), text('搜索方块', 11, Theme.muted),
              Input(value=query, onChange=change_query, style=S(flex=1,height=30)),
              Action(label='清空', glyph='close', compact=True, height=28, enabled=bool(query), onClick=partial(change_query, ''))]),
-        row([Item(identifier=selected[0], aux=selected[1], style=S(width=28,height=28)),
+        row([MaterialIcon(value=selected, size=28),
              retained_text(selected_name or '请选择方块', 12, flex=1),
              Action(label='添加并使用', glyph='check',
                     accent=True, height=32, width=124, enabled=bool(selected_name), onClick=partial(session.add_material, selected))]),
@@ -91,7 +95,7 @@ def InventoryCell(item=None, selected=False, onSelect=None, width=60):
     return Button(key='block', style=S(width=width, height=58, visible=item is not None),
         buttonBuilder=partial(material_background, selected), onClick=partial(onSelect, value['value']),
         children=Panel(style=S(width='100%', alignItems=AlignItems.center, gap=1), children=[
-            Item(identifier=value['value'][0], aux=value['value'][1], style=S(width=30,height=30)),
+            MaterialIcon(value=value['value'], size=30),
             retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2)]))
 
 
@@ -100,7 +104,7 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     use_theme()
     catalogue_revision, update = use_state(0)
     def subscribe():
-        return session.subscribe(lambda: update(lambda n: n+1), ('block_catalogue',))
+        return session.subscribe(lambda: update(lambda n: n+1), ('block_catalogue', 'material_browser'))
     use_effect(subscribe, [session])
     progress, set_progress = use_state(0.)
     motion = use_ref({'target': False, 'start': 0., 'from': 0.}).current
@@ -108,22 +112,25 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     opened = session.material_browser is not None
     if opened:
         channel.current = session.material_browser
-    if motion['target'] != opened:
+    def start_motion():
+        # Effects run after native mounting/layout, so preparing the inventory
+        # cannot consume the entrance animation before its first visible frame.
         motion.update(target=opened, start=time.time(), **{'from': progress})
+        if not Theme.motion:
+            set_progress(float(opened))
+    use_effect(start_motion, [opened, Theme.motion])
     def tick(now):
-        t = min(1., (now-motion['start'])/(.24 if opened else .16)) if Theme.motion else 1.
+        t = min(1., (now-motion['start'])/(.30 if opened else .20)) if Theme.motion else 1.
         set_progress(motion['from']+(float(opened)-motion['from'])*(1.-(1.-t)**3))
     use_animation_frame(tick, progress != float(opened))
     card = use_memo(lambda: BlockInventory(session=session, channel=channel.current,
-                    width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision)),
+                    width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision), opened=opened),
                     [opened, channel.current, width, height, revision, catalogue_revision, Theme.scale])
-    if not opened and progress <= 0.:
-        return None
     # A native modal input scope blocks the workspace without a full-screen
     # Button competing with edit_box selection on the same mouse press.
     return InventoryModal(style=S(position=Position.absolute, top=0, left=0,
-                          width='100%', height='100%', zIndex=2000), children=[
+                          width='100%', height='100%', zIndex=2000, visible=opened or progress>0.), children=[
         Image(color=Color(0x172B4D77), style=S(position=Position.absolute, width='100%', height='100%', opacity=progress)),
         Panel(style=S(position=Position.absolute, width='100%',height='100%', zIndex=2,
               alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
-            Panel(style=S(opacity=progress,transform=[Translate(0,(1.-progress)*16*Theme.scale),Scale(.98+.02*progress)]), children=card))])
+            Panel(style=S(transform=[Translate(0,(1.-progress)*(height+min(500,height-32))*.5*Theme.scale)]), children=card))])
