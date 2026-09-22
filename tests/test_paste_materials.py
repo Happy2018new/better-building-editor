@@ -85,6 +85,43 @@ class PasteTests(unittest.TestCase):
 
 
 class MaterialsTests(unittest.TestCase):
+    def test_custom_aux_is_independent_and_does_not_invalidate_workspace(self):
+        from projection.materials import MATERIAL_CHANNELS, with_aux
+        s = Session(Bridge())
+        workspace, palette, browser = [], [], []
+        s.subscribe(lambda: workspace.append(True), ())
+        s.subscribe(lambda: palette.append(True), ('materials',))
+        s.subscribe(lambda: browser.append(True), ('material_browser',))
+        before = (s.content_revision, s.editor.revision, dict(s.editor.document.blocks.items()))
+        for channel in MATERIAL_CHANNELS:
+            s.material_browser = channel
+            s.add_material(with_aux(('minecraft:wool', 0), '15'))
+            self.assertEqual(('minecraft:wool', 15), getattr(s.editor, channel))
+            s.set_editor(channel, ('minecraft:wool', 3))
+        self.assertEqual(1, s.palette.count(('minecraft:wool', 15)))
+        self.assertIn(('minecraft:wool', 15), normalize_palette(s.bridge.preferences['palette']))
+        self.assertFalse(workspace)
+        self.assertEqual(8, len(palette))
+        self.assertEqual(4, len(browser))
+        self.assertEqual(before, (s.content_revision, s.editor.revision, dict(s.editor.document.blocks.items())))
+
+    def test_aux_validation_and_localized_fallback(self):
+        from projection.materials import with_aux, display_name
+        value = ('custom:aux_test', 0)
+        entry(value[0], 0, '测试方块')
+        entry(value[0], 4, '测试方块变体')
+        self.assertEqual('测试方块', display_name(with_aux(value, '32767')))
+        self.assertEqual('测试方块变体', display_name(with_aux(value, '4')))
+        self.assertEqual(AIR, with_aux(AIR, '2'))
+        for invalid in ('', '**', '-1', '32768', '1.5', 'not a number', '羊毛'):
+            with self.assertRaises(ValueError):
+                with_aux(value, invalid)
+        s = Session(Bridge())
+        before = s.editor.material
+        with self.assertRaises(ValueError):
+            s.set_editor('material', (value[0], -1))
+        self.assertEqual(before, s.editor.material)
+
     def test_internal_names_are_hidden_and_legacy_aliases_share_one_tile(self):
         self.assertFalse(inventory_info({'itemCategory':'construction','itemName':'tile.internal.name'}))
         self.assertFalse(inventory_info({'itemCategory':'none','itemName':'Hidden'}))

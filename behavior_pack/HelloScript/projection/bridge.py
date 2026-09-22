@@ -107,6 +107,12 @@ class ClientBridge(object):
             return ''
         return value.decode('utf8') if isinstance(value, bytes) else value
 
+    def describe_material(self, value):
+        from .materials import clean_name
+        info = self.factory.CreateItem(self.level).GetItemBasicInfo(native(value[0]), value[1])
+        name = clean_name((info or {}).get('itemName', ''))
+        return name if name and not name.startswith(('tile.', 'item.')) else None
+
     def request_catalogue(self):
         self.system.NotifyToServer('BlockCatalogueRequest', {})
         def timeout():

@@ -4,6 +4,25 @@ from __future__ import unicode_literals
 import re
 from .catalog import MATERIALS
 DISPLAY_NAMES = dict((tuple(m[:2]), m[2]) for m in MATERIALS)
+MATERIAL_CHANNELS = ('material', 'secondary', 'source', 'filter_material')
+
+
+def material_value(value):
+    from .model import block, AIR
+    value = block(value)
+    return AIR if value[0] == AIR[0] else value
+
+
+def display_name(value):
+    return DISPLAY_NAMES.get(value, DISPLAY_NAMES.get((value[0], 0), value[0].split(':')[-1]))
+
+
+def with_aux(value, raw):
+    """Accept whole decimal values only, including filtered/empty input safely."""
+    raw = str(raw).strip()
+    if not raw or not all('0' <= ch <= '9' for ch in raw):
+        raise ValueError('附加值须为 0–32767 的整数')
+    return material_value((value[0], int(raw)))
 
 CATEGORIES = [('all', '全部方块', 'grid'), ('building', '建筑石材', 'cube'),
               ('wood', '木材', 'layers'), ('color', '彩色方块', 'brush'),

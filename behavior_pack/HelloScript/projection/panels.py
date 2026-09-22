@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, row, surface, icon, line, Action, Range, Segments, Input, Scroll
-from .widgets import JellyButton as Button, use_theme, retained_text
+from .widgets import JellyButton as Button, use_theme, retained_text, update_retained_text
 from .catalog import BY_ID, MATERIALS, tool_parameters
 from .model import AIR, MAX_AXES, bounds
 from .coordinates import parse_coordinates
@@ -13,8 +13,8 @@ from .preparation import PreparedColumn
 
 
 def material_name(value):
-    from .materials import DISPLAY_NAMES
-    return DISPLAY_NAMES.get(value, value[0].split(':')[-1])
+    from .materials import display_name
+    return display_name(value)
 
 
 def material_color(value):
@@ -70,12 +70,84 @@ def MaterialIcon(value=AIR, size=30):
 
 
 @Component
+def AuxBadge(value=0):
+    use_theme()
+    digits = str(value)
+    edge = 18 if len(digits) <= 2 else 24
+    return Image(color=Theme.blue,
+        style=S(position=Position.absolute, right=1, top=1, width=edge, height=edge,
+                zIndex=4, alignItems=AlignItems.center, justifyContent=JustifyContent.center),
+        children=retained_text(digits, 10 if len(digits) <= 2 else 8, Theme.white,
+                               width=edge, center=True, slots=5))
+
+
+@Component
+def PaletteHighlight(session=None, channel='material', value=AIR, managing=False, picked=False):
+    use_theme()
+    selected, set_selected = use_state(picked if managing else getattr(session.editor, channel)==value)
+    def subscribe():
+        def sync():
+            set_selected(picked if managing else getattr(session.editor, channel)==value)
+        sync()
+        return session.subscribe(sync, ('materials',))
+    use_effect(subscribe, [session, channel, value, managing, picked])
+    # Alpha-only changes use Pyreact's visual fast path, preserving native
+    # hover/touch routing without the expensive whole-screen UpdateScreen.
+    return Image(color=Theme.tint, style=S(position=Position.absolute, width='100%', height='100%',
+                                           opacity=1. if selected else 0.))
+
+
+@Component
+def MaterialSummary(session=None, channel='material'):
+    use_theme()
+    name, aux, item, air = use_ref(None), use_ref(None), use_ref(None), use_ref(None)
+    last = use_ref(None)
+    value = getattr(session.editor, channel)
+    def subscribe():
+        def sync():
+            current = getattr(session.editor, channel)
+            if name.current: update_retained_text(name.current, material_name(current))
+            if aux.current: update_retained_text(aux.current, '方块附加值  %d' % current[1])
+            if item.current and air.current:
+                item.current.SetVisible(current != AIR, False)
+                air.current.SetVisible(current == AIR, False)
+                if current != AIR and last.current != current:
+                    item.current.asItemRenderer().SetUiItem(current[0], current[1], False, None)
+                last.current = current
+        sync()
+        return session.subscribe(sync, ('materials', 'block_catalogue'))
+    use_effect(subscribe, [session, channel, Theme.scale])
+    return row([Panel(style=S(width=30, height=30), children=[
+        Panel(ref=air, style=S(position=Position.absolute), children=icon('box_outline', Theme.muted, 30)),
+        Item(ref=item, identifier='minecraft:stone', aux=0, style=S(position=Position.absolute, width=30, height=30))]),
+        Panel(style=S(flex=1), children=[retained_text(material_name(value), 12, width=175, slots=24, node_ref=name),
+              retained_text('方块附加值  %d' % value[1], 10, Theme.muted, width=175, slots=16, node_ref=aux)])])
+
+
+@Component
+def PaletteCell(session=None, channel='material', value=AIR, managing=False, picked=False, onSelect=None):
+    use_theme()
+    callback = use_callback(partial(onSelect, value), [onSelect, value])
+    background = use_callback(partial(material_background, False), [])
+    content = use_memo(lambda: Panel(style=S(width=49, height=40, alignItems=AlignItems.center,
+                           justifyContent=JustifyContent.center), children=[
+                       PaletteHighlight(session=session, channel=channel, value=value, managing=managing, picked=picked),
+                       MaterialIcon(value=value, size=27), AuxBadge(value=value[1])]),
+                       [session, channel, value, managing, picked, Theme.scale])
+    return Button(cacheLayout=True, onClick=callback, buttonBuilder=background,
+                  style=S(width=49, height=40), children=content)
+
+
+@Component
 def MaterialPicker(session=None, revision=0, channels=None):
     use_theme()
+    unused, update = use_state(0)
+    def subscribe():
+        return session.subscribe(lambda: update(lambda n: n+1), ('palette',))
+    use_effect(subscribe, [session])
     channel, set_channel = use_state('material')
     managing, set_managing = use_state(False)
     picked, set_picked = use_state(None)
-    e = session.editor
     last_channels = use_ref(channels or [('material', '主材质'), ('secondary', '副材质'), ('source', '替换来源')])
     if channels:
         last_channels.current = channels
@@ -87,25 +159,24 @@ def MaterialPicker(session=None, revision=0, channels=None):
             set_picked(value)
         else:
             session.set_editor(active, value)
-    current = getattr(e, active)
-    current_name = next((item['name'] for item in session.block_catalogue if item['value'] == current), material_name(current))
+    choose = use_callback(choose, [session, active, managing])
     index = session.palette.index(picked) if picked in session.palette else -1
-    cells = [Button(key='mat%d' % i, onClick=partial(choose, value),
-                    buttonBuilder=partial(material_background, value == (picked if managing else current)),
-                    style=S(width=49, height=36), children=MaterialIcon(value=value, size=25))
+    cells = [PaletteCell(key='mat%d' % i, onSelect=choose, session=session, channel=active, value=value,
+                        managing=managing, picked=value==picked)
              for i, value in enumerate(session.palette)]
-    cells.append(Button(key='add_material', onClick=partial(session.open_materials, active),
-                        buttonBuilder=partial(material_background, False), style=S(width=49, height=36),
-                        children=icon('plus', Theme.blue, 22)))
+    open_browser = use_callback(partial(session.open_materials, active), [session, active])
+    add_cell = use_memo(lambda: Button(key='add_material', onClick=open_browser,
+                        buttonBuilder=partial(material_background, False), style=S(width=49, height=40),
+                        children=icon('plus', Theme.blue, 22)), [open_browser, Theme.scale])
+    cells.append(add_cell)
     return Panel(style=S(gap=7), children=[
         Segments(items=channels, value=active, onChange=set_channel, width=216),
-        row([MaterialIcon(value=current, size=30),
-             Panel(style=S(flex=1), children=[text(current_name, 12, width=175), text('方块附加值  %d' % current[1], 10, Theme.muted)])]),
+        MaterialSummary(session=session, channel=active),
         row([text('常用方块', 11, Theme.muted, flex=1),
              Action(label='完成' if managing else '整理', glyph='check' if managing else 'sliders', compact=True,
                     height=25, width=62, selected=managing, onClick=partial(set_managing, not managing))]),
         Panel(style=S(flexDirection=FlexDirection.row, flexWrap=FlexWrap.wrap, gap=5,
-                      height=((len(cells)+3)//4)*41-5, flexShrink=0), children=cells),
+                      height=((len(cells)+3)//4)*45-5, flexShrink=0), children=cells),
         optional('palette_management', managing, [
             text('选中常用方块，再移动或移除', 10, Theme.muted),
             row([Action(label='前移', glyph='arrow_left', compact=True, width=66, height=27, enabled=index>0,

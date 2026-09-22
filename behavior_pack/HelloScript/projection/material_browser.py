@@ -6,9 +6,45 @@ from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, Input, use_theme
 from .widgets import JellyButton as Button
-from .panels import material_background, MaterialIcon
-from .materials import CATEGORIES, search_blocks
+from .panels import material_background, MaterialIcon, AuxBadge
+from .materials import CATEGORIES, search_blocks, with_aux
 from .motion import DialogMotion
+
+
+@Component
+def AuxEditor(value=None, onChange=None, onValidityChange=None, opened=False):
+    use_theme()
+    draft, set_draft = use_state(str(value[1]))
+    valid, set_valid = use_state(True)
+    def sync():
+        set_draft(str(value[1]))
+        set_valid(True)
+        onValidityChange(True)
+    use_effect(sync, [value, opened])
+    def change(raw):
+        set_draft(raw)
+        try:
+            updated = with_aux(value, raw)
+        except (ValueError, TypeError):
+            set_valid(False)
+            onValidityChange(False)
+            return
+        set_valid(True)
+        onValidityChange(True)
+        onChange(updated)
+    def step(delta):
+        updated = with_aux(value, max(0, min(32767, value[1]+delta)))
+        set_draft(str(updated[1]))
+        set_valid(True)
+        onValidityChange(True)
+        onChange(updated)
+    air = value[0] == 'minecraft:air'
+    return row([text('附加值' if valid else '请输入 0–32767', 11, Theme.muted if valid else Theme.red, width=92),
+        Action(glyph='minus', width=28, height=28, enabled=value[1]>0, onClick=partial(step, -1)),
+        Input(value=draft, onChange=change, style=S(width=68, height=28)),
+        Action(glyph='plus', width=28, height=28, enabled=not air and value[1]<32767, onClick=partial(step, 1)),
+        Action(label='归零', glyph='undo', compact=True, height=28, enabled=value[1]!=0 or not valid,
+               onClick=partial(step, -32767))], gap=5)
 
 
 @Component
@@ -18,6 +54,7 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     query, set_query = use_state('')
     page, set_page = use_state(0)
     selected, set_selected = use_state(getattr(session.editor, channel or 'material'))
+    aux_valid, set_aux_valid = use_state(True)
     def sync_selection():
         if opened:
             set_selected(getattr(session.editor, channel or 'material'))
@@ -47,7 +84,7 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
     # Stable slots keep native item controls and captions alive across pages,
     # category changes and empty searches. Only their content/visibility changes.
     visible += [None] * (count-len(visible))
-    selected_name = next((item['name'] for item in session.block_catalogue if item['value']==selected), '')
+    selected_name = session.describe_material(selected)
     cell_width = (grid_width-(columns-1)*5)/columns
 
     def change_group(value):
@@ -59,10 +96,9 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
         set_page(0)
         set_group('all')
 
-    return surface(width=width, height=height, padding=18, gap=10, children=[
+    return surface(width=width, height=height, padding=18, gap=8, children=[
         row([icon('cube', Theme.blue, 24), text('方块目录', 20, flex=1),
              Action(glyph='close', width=30, height=30, onClick=partial(session.set, 'material_browser', None))]),
-        text('按分类浏览，搜索中文方块名，添加到常用并使用', 11, Theme.muted),
         row([
             Panel(style=S(width=116, height=rows*63, gap=4), children=[
                 Action(key=key, label=label, glyph=glyph, leading=True, compact=True, height=28,
@@ -84,9 +120,12 @@ def BlockInventory(session=None, channel=None, width=750, height=500, revision=0
              Input(value=query, onChange=change_query, style=S(flex=1,height=30)),
              Action(label='清空', glyph='close', compact=True, height=28, enabled=bool(query), onClick=partial(change_query, ''))]),
         row([MaterialIcon(value=selected, size=28),
-             retained_text(selected_name or '请选择方块', 12, flex=1),
+             retained_text(selected_name, 12, flex=1),
+             text('附加值可区分颜色、朝向等状态', 10, Theme.muted)]),
+        row([AuxEditor(value=selected, onChange=set_selected, onValidityChange=set_aux_valid, opened=opened),
+             Panel(style=S(flex=1)),
              Action(label='添加并使用', glyph='check',
-                    accent=True, height=32, width=124, enabled=bool(selected_name), onClick=partial(session.add_material, selected))]),
+                    accent=True, height=32, width=124, enabled=aux_valid, onClick=partial(session.add_material, selected))]),
     ])
 
 
@@ -101,9 +140,10 @@ def InventoryCell(item=None, selected=False, onSelect=None, width=60):
     value = cached.current
     return Button(key='block', cacheLayout=True, style=S(width=width, height=58, visible=item is not None),
         buttonBuilder=partial(material_background, selected), onClick=partial(onSelect, value['value']),
-        children=Panel(style=S(width='100%', alignItems=AlignItems.center, gap=1), children=[
+        children=Panel(style=S(width='100%', height=58, alignItems=AlignItems.center, gap=1), children=[
             MaterialIcon(value=value['value'], size=30),
-            retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2)]))
+            retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2),
+            AuxBadge(value=value['value'][1])]))
 
 
 @Component
@@ -127,7 +167,7 @@ def MaterialBrowser(session=None, revision=0, width=980, height=640):
     if opened:
         channel.current = session.material_browser
     card = use_memo(lambda: BlockInventory(session=session, channel=channel.current,
-                    width=min(750,width-36), height=min(500,height-32), revision=(revision,catalogue_revision), opened=opened),
+                    width=min(750,width-36), height=min(550,height-32), revision=(revision,catalogue_revision), opened=opened),
                     [opened, channel.current, width, height, revision, catalogue_revision, Theme.scale])
     return DialogMotion(opened=opened, session=session, zIndex=2000,
                         children=card if prepared or opened else None)

@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import time
 from .model import AIR, Document, Editor, RegionSizeError, demo_document, SMALL_VOLUME, bounds
+from .materials import MATERIAL_CHANNELS, material_value
 
 
 def as_text(value):
@@ -167,6 +168,9 @@ class Session(object):
         self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm') else None)
 
     def set_editor(self, field, value):
+        if field in MATERIAL_CHANNELS:
+            value = material_value(value)
+            self.describe_material(value)
         if getattr(self.editor, field) == value:
             return
         if field in ('start', 'end'):
@@ -175,7 +179,7 @@ class Session(object):
             self.box_anchor = None
             return self.action(self.editor.select_box, start, end)
         setattr(self.editor, field, value)
-        self.emit()
+        self.emit('materials' if field in MATERIAL_CHANNELS else None)
 
     def range_value(self, field, value, editor=True):
         """Store every slider change now; publish expensive panels after release."""
@@ -209,9 +213,17 @@ class Session(object):
             self.catalogue_loading = True
             self.bridge.request_catalogue()
 
+    def describe_material(self, value):
+        from .materials import DISPLAY_NAMES, display_name
+        if value not in DISPLAY_NAMES and hasattr(self.bridge, 'describe_material'):
+            DISPLAY_NAMES[value] = self.bridge.describe_material(value) or display_name(value)
+        return display_name(value)
+
     def add_material(self, value):
-        if self.material_browser not in ('material', 'secondary', 'source', 'filter_material'):
+        if self.material_browser not in MATERIAL_CHANNELS:
             return
+        value = material_value(value)
+        self.describe_material(value)
         if value not in self.palette:
             if len(self.palette) >= 64:
                 self.editor.message = '常用方块已满，请先移除不需要的方块'
@@ -221,7 +233,9 @@ class Session(object):
         setattr(self.editor, self.material_browser, value)
         self.material_browser = None
         self.save_preferences()
-        self.emit()
+        self.emit('palette')
+        self.emit('materials')
+        self.emit('material_browser')
 
     def edit_palette(self, value, direction=None):
         if value not in self.palette:
@@ -233,7 +247,7 @@ class Session(object):
             destination = max(0, min(len(self.palette)-1, index+direction))
             self.palette[index], self.palette[destination] = self.palette[destination], self.palette[index]
         self.save_preferences()
-        self.emit()
+        self.emit('palette')
 
     def adjust_boundary(self, axis, side, delta):
         e = self.editor

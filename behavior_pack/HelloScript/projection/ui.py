@@ -252,6 +252,22 @@ def PreviewProgress(session=None, width=400, container=None):
 
 
 @Component
+def ViewportCaption(session=None, size=(24,16,24), focus=False):
+    use_theme()
+    caption = use_ref(None)
+    def content():
+        return ('%d × %d × %d' % size) + ('，' + material_name(session.editor.material) if focus else '')
+    def subscribe():
+        def sync():
+            if caption.current: update_retained_text(caption.current, content())
+        sync()
+        return session.subscribe(sync, ('materials', 'block_catalogue'))
+    use_effect(subscribe, [session, size, focus, Theme.scale])
+    return Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
+        retained_text(content(), 10, Theme.muted, slots=40, node_ref=caption)])
+
+
+@Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
     use_session_fields(session, ('view', 'preview', 'preview_visible'))
@@ -287,8 +303,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
         Action(label='复位', glyph='home', compact=True, height=26, onClick=partial(reset_camera, session)),
     ]
     return surface(width=width, height=height, children=[
-        row([Panel(style=S(flex=1, gap=3), children=[text('专注编辑' if focus else '场景视图', 14),
-                text(('%d × %d × %d' % doc.size) + ('，' + material_name(e.material) if focus else ''), 10, Theme.muted)]),
+        row([ViewportCaption(session=session, size=doc.size, focus=focus),
              Panel(style=S(display=Display.flex if focus else Display.none, flexDirection=FlexDirection.row, gap=5), children=[
                  Action(glyph='undo', width=28, height=26, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
                  Action(glyph='redo', width=28, height=26, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),

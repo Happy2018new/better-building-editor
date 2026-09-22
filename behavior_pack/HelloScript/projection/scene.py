@@ -13,7 +13,7 @@ from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_hue, cursor_uv, segment_fractions
+from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
 from .chunks import painter_order
 from .native_layers import apply_layers
 from .input_mode import is_touch
@@ -422,7 +422,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         def box_lines(target):
             return list(cuboid(target[0], tuple(v + 1 for v in target[1]))) if target else []
 
-        def draw_lines(refs, segments, thickness, gradient_bounds=None):
+        def draw_lines(refs, segments, thickness, gradient_bounds=None, depth_plane=None):
             ranges = []
             origin = session.scene_origin
             gradient_size = tuple(gradient_bounds[1][i] - gradient_bounds[0][i] + 1 for i in range(3)) if gradient_bounds else None
@@ -432,7 +432,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                     continue
                 segment = segments[index] if index < len(segments) else None
                 if segment:
-                    segment = clip_depth(segment[0], segment[1], plane)
+                    segment = clip_depth(segment[0], segment[1], depth_plane)
                 if segment:
                     hues = [cursor_hue(p, gradient_bounds[0], gradient_size) for p in segment] if gradient_bounds is not None else None
                     a,b = segment
@@ -462,15 +462,16 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if edge_signature != outline.current:
             outline.current = edge_signature
             draw_lines(edge_refs, box_lines(selected), thickness)
-        cursor_signature = (signature, hovered)
+        hover_plane = cursor_depth_plane(plane, session.direct_mode, session.box_anchor, session.touch_mode, pasting)
+        cursor_signature = (signature, hovered, hover_plane)
         if cursor_signature != cursor_outline.current:
             cursor_outline.current = cursor_signature
-            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), thickness, hovered)
+            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), thickness, hovered, hover_plane)
             cursor_color.current = None
         grid_signature = (signature, session.grid, e.layer)
         if grid_signature != grid_outline.current:
             grid_outline.current = grid_signature
-            draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4))
+            draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4), depth_plane=plane)
         # Sliding twelve UV windows preserves a continuous gradient on each edge
         # and at every corner. No projection, layout, grid or mesh work here.
         if hovered is not None:

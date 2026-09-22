@@ -118,11 +118,12 @@ class SessionTests(unittest.TestCase):
         self.assertIs(selection, s.editor.selection)
         self.assertEqual(revision, s.content_revision)
 
-    def test_inventory_visibility_is_local_but_material_choice_broadcasts(self):
+    def test_inventory_visibility_and_material_choice_publish_to_their_owners(self):
         s = Session(Bridge()); s.catalogue_ready = True
         calls = []
         s.subscribe(lambda: calls.append('workspace'), ())
         s.subscribe(lambda: calls.append('inventory'), ('material_browser',))
+        s.subscribe(lambda: calls.append('materials'), ('materials',))
         s.open_materials('secondary')
         self.assertEqual(['inventory'], calls)
         calls[:] = []
@@ -130,7 +131,7 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(['inventory'], calls)
         s.open_materials('secondary'); calls[:] = []
         s.add_material(('minecraft:stone',0))
-        self.assertIn('workspace',calls)
+        self.assertEqual(['materials','inventory'],calls)
         self.assertEqual(('minecraft:stone',0),s.editor.secondary)
 
     def test_touch_direct_actions_commit_without_confirmation(self):

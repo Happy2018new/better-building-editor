@@ -5,6 +5,15 @@ CURSOR_PERIOD = 512
 CURSOR_WEIGHTS = (.1875, .3125, .125)
 
 
+def cursor_depth_plane(plane, mode, anchor, touch=False, pasting=False):
+    """Only a mouse hover follows the model cut; editing bounds stay whole.
+
+    Spectrum lines also represent committed touch selections, a pending box
+    and the paste footprint. Their color does not identify their depth policy.
+    """
+    return None if touch or pasting or (mode == 'box' and anchor is not None) else plane
+
+
 def outline_targets(selected, mode, anchor, cursor, touch=False):
     """Resolve blue and spectrum bounds without changing the formal selection."""
     if mode == 'box' and anchor is not None:

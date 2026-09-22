@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
-from projection.scene_lines import outline_targets, cursor_hue, cursor_uv, cuboid, clip_line, segment_fractions
+from projection.scene_lines import outline_targets, cursor_depth_plane, clip_depth, cursor_hue, cursor_uv, cuboid, clip_line, segment_fractions
 from projection.model import bounds, Document, Editor
 from projection.session import Session
 
@@ -150,6 +150,22 @@ class SelectionOutlineTests(unittest.TestCase):
         clipped = clip_line(a, b, 80, 80)
         self.assertEqual((.25, .75), segment_fractions(a, b, clipped))
         self.assertEqual((0., 1.), segment_fractions(a, a, (a, a)))
+
+    def test_depth_keeps_editing_extents_complete_on_both_input_modes(self):
+        edges = list(cuboid((1, 1, 1), (5, 5, 5)))
+        for depth in (0., 2., 4.):
+            plane = ((0., 0., 1.), depth)
+            # Pending PC box, committed touch box, touch first corner and paste
+            # all share spectrum ink, but represent an extent, not a hover.
+            for mode, anchor, touch, paste in [('box', (1, 1, 1), False, False),
+                    ('select', None, True, False), ('box', (1, 1, 1), True, False),
+                    ('browse', None, False, True)]:
+                cut = cursor_depth_plane(plane, mode, anchor, touch, paste)
+                self.assertEqual(edges, [clip_depth(a, b, cut) for a, b in edges])
+            hover_cut = cursor_depth_plane(plane, 'select', None)
+            self.assertNotEqual(edges, [clip_depth(a, b, hover_cut) for a, b in edges])
+        # Ignoring the model's cut never disables the viewport's own clipping.
+        self.assertEqual(((0., 20.), (80., 20.)), clip_line((-40., 20.), (120., 20.), 80, 80))
 
 
 if __name__ == '__main__':
