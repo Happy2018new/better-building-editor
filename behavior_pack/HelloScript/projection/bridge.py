@@ -27,6 +27,7 @@ class ClientBridge(object):
         self.corners = [None, None]
         self.outline = []
         self.entity = None
+        self.projection_mesh = None
         self.preparing_entity = None
         self.request_id = 0
         self.pending = None
@@ -48,6 +49,7 @@ class ClientBridge(object):
         self.frame_pumps = 0
         self.frame_work = []
         self.frame_watchdog = False
+        self._projection_follow_position = None
 
     def later(self, delay, callback):
         def invoke():
@@ -63,6 +65,38 @@ class ClientBridge(object):
                 self.later(.2, self.check_frame_work)
         else:
             self.later(0., callback)
+
+    def follow_projection(self):
+        """Keep large client-only actors inside the native view culler.
+
+        Actor geometry offsets and the outline shader compensate for the
+        temporary anchor position, so the visible projection remains fixed in
+        world space. This is a transform-only update; no palette or model is
+        rebuilt while the camera moves.
+        """
+        if not self.alive or not self.session or not self.session.projection_active:
+            self._projection_follow_position = None
+            return
+        try:
+            camera = self.factory.CreateCamera(self.level)
+            centre, forward = camera.GetPosition(), camera.GetForward()
+            position = tuple(float(centre[i]) + 4. * forward[i] for i in range(3))
+        except Exception:
+            return
+        signature = (position, self.entity, self.projection_outline.entity)
+        if signature == self._projection_follow_position:
+            return
+        if self.projection_mesh:
+            entity, model, origin, previous = self.projection_mesh
+            if entity == self.entity and position != previous:
+                if not self.factory.CreatePos(entity).SetPosForClientEntity(position):
+                    return
+                offset = (position[0]-origin[0]-.5, origin[1]-position[1], position[2]-origin[2]-.5)
+                if not self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset):
+                    return
+                self.projection_mesh = (entity, model, origin, position)
+        if self.projection_outline.follow(position):
+            self._projection_follow_position = signature
 
     def check_frame_work(self):
         self.frame_watchdog = False
@@ -430,6 +464,7 @@ class ClientBridge(object):
                 return
             # A newly created client actor has no renderer until a later frame.
             # Attaching in its creation tick returns True but produces no model.
+            self.factory.CreateModel(entity).SetEntityShadowShow(False)
             render = self.factory.CreateActorRender(entity)
             # Native actor block geometry starts at half-cell centres and flips
             # X/Z. Match document cells to origin + local world coordinates.
@@ -441,6 +476,7 @@ class ClientBridge(object):
                 if self.entity:
                     self.system.DestroyClientEntity(self.entity)
                 self.entity = entity
+                self.projection_mesh = (entity, name, origin, origin)
                 s.projection_active = True
                 s.editor.message = '投影已生成，关闭工作台即可在世界中查看'
                 self.projection_outline.replace(origin, size)
@@ -480,6 +516,8 @@ class ClientBridge(object):
         if self.entity:
             self.system.DestroyClientEntity(self.entity)
         self.entity = None
+        self._projection_follow_position = None
+        self.projection_mesh = None
         self.session.projection_active = False
         self.session.editor.message = '投影已关闭'
 

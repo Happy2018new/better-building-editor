@@ -17,6 +17,7 @@ class HelloClientSystem(ClientSystem):
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'OnKeyPressInGame', self, self.key)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
+        self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'GameRenderTickEvent', self, self.render_tick)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'ProjectionResponse', self, self.response)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
 
@@ -53,6 +54,10 @@ class HelloClientSystem(ClientSystem):
     def dimension_changed(self, args):
         if self.bridge:
             self.bridge.dimension_changed(args)
+
+    def render_tick(self, unused):
+        if self.bridge:
+            self.bridge.follow_projection()
 
     def Destroy(self):
         if self.bridge:

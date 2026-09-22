@@ -2,6 +2,7 @@
 #include "entityVertexUtil.h"
 
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
 varying highp float spectrumHue;
 
 void main() {
@@ -10,10 +11,8 @@ void main() {
     // Move those corners to the requested size; scale thickness separately.
     // Bedrock entity vertices are in sixteenths of a block before WORLD.
     vec3 corner = sign(position.xyz) * 8.0;
-    // Large buildings need a wider wire when viewed as a whole. Entity WORLDVIEW
-    // may omit the bone translation, so derive this from the actual box size.
-    float wireScale = max(1.5, max(EXTRA_ACTOR_UNIFORM1.x,
-        max(EXTRA_ACTOR_UNIFORM1.y, EXTRA_ACTOR_UNIFORM1.z)) / 12.0);
+    // Keep wire thickness independent of building dimensions (0.045 blocks).
+    float wireScale = 1.0;
     position.xyz = corner * EXTRA_ACTOR_UNIFORM1.xyz + (position.xyz - corner) * wireScale;
     vec3 local = position.xyz / (EXTRA_ACTOR_UNIFORM1.xyz * 16.0) + vec3(0.5);
     // A shared spatial field gives all edges the same color where they meet.
@@ -29,5 +28,15 @@ void main() {
         position = BONE * position;
     #endif
 #endif
-    gl_Position = WORLDVIEWPROJ * position;
+    // A client actor is kept close to the camera to avoid native actor
+    // frustum culling when the camera enters a large projection. EXTRA2 is
+    // the world-space correction from that temporary actor position back to
+    // the fixed projection centre.
+    if (EXTRA_ACTOR_UNIFORM2.w > 0.5) {
+        vec4 worldPosition = WORLD * position;
+        worldPosition.xyz += EXTRA_ACTOR_UNIFORM2.xyz;
+        gl_Position = VIEWPROJ * worldPosition;
+    } else {
+        gl_Position = WORLDVIEWPROJ * position;
+    }
 }

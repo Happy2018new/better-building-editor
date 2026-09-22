@@ -8,12 +8,14 @@ class ProjectionOutline(object):
         self.bridge = bridge
         self.entity = None
         self.bounds = None
+        self.render_position = None
 
     def clear(self):
         self.bounds = None
         self.hide()
 
     def hide(self):
+        self.render_position = None
         if self.entity is not None:
             self.bridge.system.DestroyClientEntity(self.entity)
             self.entity = None
@@ -52,9 +54,38 @@ class ProjectionOutline(object):
 
     def configure(self, entity):
         s = self.bridge.session
-        size = self.bounds[1]
+        self.bridge.factory.CreateModel(entity).SetEntityShadowShow(False)
+        origin, size = self.bounds
         # Engine TIME wraps every 210 seconds. An integral number of cycles in
         # that interval prevents a color jump at the wrap; match editor speed / 6.
         cycles = int(s.spectrum_speed * 35. + .5) if not s.reduced_motion else 0
         values = tuple(float(v) for v in size) + (cycles / 210.,)
-        return self.bridge.factory.CreateActorRender(entity).SetEntityExtraUniforms(1, values)
+        render = self.bridge.factory.CreateActorRender(entity)
+        result = render.SetEntityExtraUniforms(1, values)
+        # EXTRA2 is consumed by the outline vertex shader when the actor is
+        # camera-relative.  Keeping the correction in world units avoids any
+        # camera-dependent scale or line-width changes.
+        current = self.render_position
+        if current is not None:
+            centre = tuple(float(origin[i]) + size[i] * .5 for i in range(3))
+            correction = tuple(centre[i] - current[i] for i in range(3)) + (1.,)
+            render.SetEntityExtraUniforms(2, correction)
+        return result
+
+    def follow(self, position):
+        """Move only the native culling anchor; preserve the world-space box."""
+        if self.entity is None or self.bounds is None:
+            return True
+        origin, size = self.bounds
+        target = tuple(float(v) for v in position)
+        current = self.render_position
+        if target == current:
+            return True
+        if not self.bridge.factory.CreatePos(self.entity).SetPosForClientEntity(target):
+            return False
+        centre = tuple(float(origin[i]) + size[i] * .5 for i in range(3))
+        correction = tuple(centre[i] - target[i] for i in range(3)) + (1.,)
+        if not self.bridge.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(2, correction):
+            return False
+        self.render_position = target
+        return True

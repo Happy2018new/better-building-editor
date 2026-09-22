@@ -94,6 +94,7 @@ class WorldProjection(object):
         if b.entity:
             b.system.DestroyClientEntity(b.entity)
         b.entity, b.preparing_entity = entity, None
+        b.projection_mesh = (entity, self.model, self.origin, self.anchor) if entity else None
         b.session.projection_active = True
         b.projection_outline.replace(self.origin, self.document.size)
         self.ready = True
@@ -105,6 +106,7 @@ class WorldProjection(object):
         if not self.active() or b.preparing_entity != entity:
             return
         try:
+            b.factory.CreateModel(entity).SetEntityShadowShow(False)
             render = b.factory.CreateActorRender(entity)
             # Rotation applies after offset. Anchor at the centre for native
             # visibility, preserving exact origin + document voxel coordinates.

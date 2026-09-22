@@ -25,6 +25,35 @@ class Runtime:
         self.actor_positions = {}
         self.world = {}
         self.render_distance = 72.
+        self.shadows = {}
+        self.uniform_slots = {}
+        self.camera_pos = (0., 64., 0.)
+        self.camera_forward = (0., 0., 1.)
+        self.moves = []
+        self.offsets = {}
+
+    def CreateCamera(self, level):
+        return self
+
+    def GetPosition(self):
+        return self.camera_pos
+
+    def GetForward(self):
+        return self.camera_forward
+
+    def CreatePos(self, entity):
+        self.moving = entity
+        return self
+
+    def SetPosForClientEntity(self, position):
+        self.moves.append((self.moving, position))
+        identity, unused = self.actor_positions[self.moving]
+        self.actor_positions[self.moving] = (identity, position)
+        return True
+
+    def SetActorBlockGeometryOffset(self, name, offset):
+        self.offsets[self.rendering] = offset
+        return True
 
     def NotifyToServer(self, event, data):
         self.sent.append(data)
@@ -54,6 +83,13 @@ class Runtime:
         self.rendering = entity
         return self
 
+    def CreateModel(self, entity):
+        self.shadow_entity = entity
+        return self
+
+    def SetEntityShadowShow(self, value):
+        self.shadows[self.shadow_entity] = value
+
     def GetEntityRenderDistance(self):
         return self.render_distance
 
@@ -68,6 +104,7 @@ class Runtime:
 
     def SetEntityExtraUniforms(self, index, values):
         self.uniforms[self.rendering] = values
+        self.uniform_slots[self.rendering, index] = values
         return True
 
     def SetConfigData(self, key, value, global_config):
@@ -85,6 +122,67 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_camera_anchor_retries_transient_native_failure_without_camera_motion(self):
+        b, r = self.bridge, self.runtime
+        b.session.origin = (0,64,0)
+        b.project()
+        r.timers.pop(0)()
+        setter = r.SetActorBlockGeometryOffset
+        r.SetActorBlockGeometryOffset = lambda *a: False
+        b.follow_projection()
+        self.assertIsNone(b._projection_follow_position)
+        r.SetActorBlockGeometryOffset = setter
+        b.follow_projection()
+        self.assertIsNotNone(b._projection_follow_position)
+        self.assertEqual((0.,64.,4.), b.projection_mesh[3])
+
+    def test_camera_anchor_preserves_world_coordinates_without_rebuilding(self):
+        b, r = self.bridge, self.runtime
+        b.session.origin = (-30, 64, 5)
+        b.project()
+        r.timers.pop(0)()
+        mesh, outline = b.entity, b.projection_outline.entity
+        b.geometry = lambda *a: self.fail('camera movement must not rebuild geometry')
+        for position, forward in [((0., 66., 0.), (0., 0., 1.)),
+                                  ((-30., 65., 5.), (0., -1., 0.)),
+                                  ((-18., 72., 17.), (1., 0., 0.))]:
+            r.camera_pos, r.camera_forward = position, forward
+            b.follow_projection()
+            anchor = tuple(position[i]+forward[i]*4. for i in range(3))
+            self.assertEqual(anchor, r.actor_positions[mesh][1])
+            ox, oy, oz = r.offsets[mesh]
+            self.assertEqual((-30., 64., 5.), (anchor[0]-ox-.5, anchor[1]+oy, anchor[2]-oz-.5))
+            correction = r.uniform_slots[outline, 2]
+            self.assertEqual((-18., 72., 17.), tuple(anchor[i]+correction[i] for i in range(3)))
+            calls = len(r.moves)
+            b.follow_projection()
+            self.assertEqual(calls, len(r.moves), 'stationary frames submit no transforms')
+        self.assertEqual([mesh], r.attached)
+        b.stop_projection()
+        self.assertIsNone(b.projection_mesh)
+        calls = len(r.moves)
+        b.follow_projection()
+        self.assertEqual(calls, len(r.moves))
+
+    def test_pending_replacement_and_outline_toggle_follow_committed_snapshot(self):
+        b, r = self.bridge, self.runtime
+        b.session.origin = (-30, 64, 5)
+        b.project()
+        r.timers.pop(0)()
+        mesh = b.entity
+        b.follow_projection()
+        b.session.set('projection_outline', False)
+        b.session.set('projection_outline', True)
+        b.follow_projection()
+        self.assertEqual((0., 64., 4.), r.actor_positions[b.projection_outline.entity][1])
+        b.session.editor = Editor(Document((64,128,64), {(0,0,0):('minecraft:stone',0)}))
+        b.project_large((100,100,100))
+        r.camera_pos = (10., 70., 20.)
+        b.follow_projection()
+        self.assertEqual(mesh, b.entity)
+        self.assertEqual((-30,64,5), b.projection_mesh[2])
+        self.assertEqual((40.-.5, -6., 19.-.5), r.offsets[mesh])
+
     def test_default_render_distance_is_leased_and_restored(self):
         self.runtime.render_distance=-1.
         self.bridge.ensure_projection_distance((64,128,64))
@@ -225,6 +323,8 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(((-30, 64, 5), (24, 16, 24)), outline.bounds)
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
         self.assertEqual((24., 16., 24., .5), self.runtime.uniforms[outline.entity])
+        self.assertIs(self.runtime.shadows[outline.entity],False)
+        self.assertIs(self.runtime.shadows[b.entity],False)
         b.geometry = lambda *args: self.fail('Outline changes must not build geometry')
         s.set('projection_outline', False)
         self.assertIsNone(outline.entity)
