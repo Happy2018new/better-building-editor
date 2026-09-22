@@ -21,6 +21,18 @@ def preview_cells(doc, **kwargs):
 
 
 class ExactPreviewTests(unittest.TestCase):
+    def test_modern_opaque_variants_cull_only_enclosed_full_cubes(self):
+        from projection.large_preview import is_opaque
+        for name in ('oak_planks','cyan_concrete','white_wool','stone_bricks','grass_block'):
+            value=('minecraft:'+name,0)
+            self.assertTrue(is_opaque(value))
+            doc=Document((3,3,3),{(x,y,z):value for x in range(3) for y in range(3) for z in range(3)})
+            cells=preview_cells(doc)
+            self.assertEqual(26,len(cells))
+            self.assertNotIn((1,1,1),cells)
+        for value in (('custom:oak_planks',0),('minecraft:cyan_stained_glass',0),('minecraft:oak_slab',0)):
+            self.assertFalse(is_opaque(value))
+
     def test_near_plane_clips_overlay_edges_without_moving_visible_points(self):
         plane=((0.,0.,1.),3.)
         self.assertEqual(((1.,2.,3.),(1,2,0)),clip_depth((1,2,6),(1,2,0),plane))

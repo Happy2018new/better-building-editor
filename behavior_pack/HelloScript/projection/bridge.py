@@ -124,16 +124,18 @@ class ClientBridge(object):
         self.later(10., timeout)
 
     def receive_catalogue(self, args):
-        from .materials import VARIANTS, entry, clean_name, inventory_info, unique_inventory
+        from .materials import entry, clean_name, inventory_info, unique_inventory
+        from .block_registry import catalogue_values
         names = args.get('names', [])
         if not isinstance(names, list):
             return
-        queue = [(clean_name(name), aux) for name in names
-                 for aux in range(VARIANTS.get(clean_name(name).split(':')[-1], 1))]
-        queue.extend(item['value'] for item in self.session.block_catalogue)
+        modern = catalogue_values()
+        custom = [(clean_name(name), 0) for name in names
+                  if not clean_name(name).startswith('minecraft:')]
+        queue = list(modern) + custom
         self.catalogue_work = queue
         comp = self.factory.CreateItem(self.level)
-        found = dict((item['value'], item) for item in self.session.block_catalogue)
+        found = {}
         def advance():
             if self.catalogue_work is not queue:
                 return
@@ -187,31 +189,36 @@ class ClientBridge(object):
         self.session.emit()
 
     def geometry(self, document, visible=None, name=None):
-        from .materials import geometry_material, SPLIT_PLANKS
+        from .block_registry import canonical, states
         data = document.palette_data(visible)
         if not data['common']:
             return None
         common = {}
         for value, positions in data['common'].items():
-            value = geometry_material(value)
+            value = canonical(value)
             if value in common:
                 common[value] = common[value] + positions
             else:
                 common[value] = positions
         data['common'] = common
-        # The native palette captured from modern planks includes an explicit
-        # empty state record for every species. Without it, the mesh converter
-        # resolves these aliases to oak even though Serialize retains the IDs.
-        data['states'] = dict((value, {}) for value in common if value[0] in SPLIT_PLANKS)
+        # Empty records are meaningful: omitting cyan stained glass (or a
+        # modern plank) lets the native converter choose the first variant.
+        data['states'] = {}
+        for value in common:
+            record = states(value)
+            if record is not None:
+                data['states'][value] = record
         # The embedded Python omits hashlib.sha256. An exact compressed key
         # avoids collisions and retains no second Python list of voxel indices.
-        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()), sorted(data['states']))).encode('utf8'), 1)
+        state_key = sorted((key, sorted(record.items())) for key,record in data['states'].items())
+        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()), state_key)).encode('utf8'), 1)
         if fingerprint is not None and fingerprint in self.models:
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
         name = native(name or 'modern_projection_%d' % len(self.models))
         data['common'] = dict(((native(k[0]), k[1]), v) for k, v in data['common'].items())
-        data['states'] = dict(((native(k[0]), k[1]), v) for k, v in data['states'].items())
+        data['states'] = dict(((native(k[0]), k[1]), dict((native(key),native(val))
+                              for key,val in v.items())) for k, v in data['states'].items())
         data = dict((native(k), v) for k, v in data.items())
         palette = self.factory.CreateBlock(self.level).GetBlankBlockPalette()
         if palette is None or not palette.DeserializeBlockPalette(data):
@@ -477,16 +484,21 @@ class ClientBridge(object):
         self.session.editor.message = '投影已关闭'
 
     def project_large(self, origin):
-        """Prepare all exact 16-cubed ghosts, independent of player distance."""
+        """Prepare one exact full model while retaining the previous projection."""
         from .world_projection import WorldProjection
-        self.stop_projection()
         self.projection_requested = True
         self.projection_serial += 1
-        s = self.session
+        if self.preparing_entity:
+            self.system.DestroyClientEntity(self.preparing_entity)
+            self.preparing_entity = None
+        had_projection = bool(self.entity or self.projection_entities)
         self.projection_work = WorldProjection(self, origin)
         self.ensure_projection_distance(self.projection_work.document.size)
-        s.projection_active = True
-        self.projection_outline.replace(origin, self.projection_work.document.size)
+        # Keep the selected region visible while the exact model is prepared;
+        # the outline is independent of the eventual mesh commit.
+        self.session.projection_active = True
+        if not had_projection:
+            self.projection_outline.replace(origin, self.projection_work.document.size)
         self.projection_work.publish(True)
         self.next_frame(self.projection_work.advance)
 
@@ -496,7 +508,8 @@ class ClientBridge(object):
         render = self.factory.CreateActorRender(self.player)
         current = render.GetEntityRenderDistance()
         required = max(256., math.sqrt(sum(v*v for v in size))+64.)
-        if self.projection_distance is None and 0. <= current < required:
+        # A negative value means the engine default, not unlimited distance.
+        if self.projection_distance is None and current < required:
             if render.SetEntityRenderDistance(required):
                 self.projection_distance = (current, required)
 

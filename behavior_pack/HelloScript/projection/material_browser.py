@@ -8,6 +8,7 @@ from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, 
 from .widgets import JellyButton as Button
 from .panels import material_background, MaterialIcon
 from .materials import CATEGORIES, search_blocks, with_aux
+from .block_registry import aux_values, next_aux
 from .motion import DialogMotion
 
 
@@ -33,16 +34,22 @@ def AuxEditor(value=None, onChange=None, onValidityChange=None, opened=False):
         onValidityChange(True)
         onChange(updated)
     def step(delta):
-        updated = with_aux(value, max(0, min(32767, value[1]+delta)))
+        try:
+            updated = next_aux(value, delta)
+        except (ValueError, TypeError):
+            updated = with_aux(value, max(0, min(32767, value[1]+delta)))
         set_draft(str(updated[1]))
         set_valid(True)
         onValidityChange(True)
         onChange(updated)
     air = value[0] == 'minecraft:air'
-    return row([text('附加值' if valid else '请输入 0–32767', 11, Theme.muted if valid else Theme.red, width=92),
-        Action(glyph='minus', width=28, height=28, enabled=value[1]>0, onClick=partial(step, -1)),
+    allowed = aux_values(value[0])
+    lower = allowed[0] if allowed else 0
+    upper = allowed[-1] if allowed else 32767
+    return row([text('附加值' if valid else '无效附加值', 11, Theme.muted if valid else Theme.red, width=92),
+        Action(glyph='minus', width=28, height=28, enabled=value[1]>lower, onClick=partial(step, -1)),
         Input(value=draft, onChange=change, style=S(width=68, height=28)),
-        Action(glyph='plus', width=28, height=28, enabled=not air and value[1]<32767, onClick=partial(step, 1)),
+        Action(glyph='plus', width=28, height=28, enabled=not air and value[1]<upper, onClick=partial(step, 1)),
         Action(label='归零', glyph='undo', compact=True, height=28, enabled=value[1]!=0 or not valid,
                onClick=partial(step, -32767))], gap=5)
 

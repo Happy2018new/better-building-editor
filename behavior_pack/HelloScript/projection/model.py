@@ -156,7 +156,7 @@ class Editor(object):
         self.document = document or Document()
         self.selection = Selection.box((0, 0, 0), tuple(v - 1 for v in self.document.size))
         self.material = ('minecraft:quartz_block', 0)
-        self.secondary = ('minecraft:planks', 1)
+        self.secondary = ('minecraft:spruce_planks', 0)
         self.source = ('minecraft:stone', 0)
         self.filter_material = ('minecraft:stone', 0)
         self.start = (0, 0, 0)

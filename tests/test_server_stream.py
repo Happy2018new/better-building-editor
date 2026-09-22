@@ -201,9 +201,16 @@ class ServerStreamTests(unittest.TestCase):
                                     ('oak_stairs',2,'oak_stairs',2),('lit_redstone_lamp',0,'lit_redstone_lamp',0)]:
             self.assertEqual(('minecraft:'+new,result),adapter.canonical(('minecraft:'+old,data)))
         calls=[]
+        state_calls=[]
+        self.factory.CreateBlockState=lambda level: types.SimpleNamespace(
+            SetBlockStates=lambda *args: state_calls.append(args) or True)
         adapter.info.SetBlockNew=lambda *args: calls.append(args) or True
         adapter.write((0,64,0),('minecraft:spruce_log',1))
         self.assertEqual((True,False),calls[0][-2:])
+        self.assertEqual(0,calls[0][1]['aux'])
+        self.assertEqual({b'pillar_axis':b'x'},state_calls[0][1])
+        adapter.write((0,64,0),('minecraft:quartz_block',1))
+        self.assertEqual({b'pillar_axis':b'x'},state_calls[1][1])
 
 
 if __name__ == '__main__':

@@ -5,20 +5,6 @@ import re
 from .catalog import MATERIALS
 DISPLAY_NAMES = dict((tuple(m[:2]), m[2]) for m in MATERIALS)
 MATERIAL_CHANNELS = ('material', 'secondary', 'source', 'filter_material')
-PLANK_SPECIES = ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak')
-SPLIT_PLANKS = frozenset('minecraft:'+wood+'_planks' for wood in PLANK_SPECIES)
-
-
-def geometry_material(value):
-    """Upgrade legacy species for the mesh palette's explicit state records.
-
-    Keep the saved/selected legacy identity; only the rendering boundary uses
-    the split names, matching the server's GetItemInfoByBlockName conversion.
-    """
-    if value[0] == 'minecraft:planks' and 0 <= value[1] < 6:
-        wood = PLANK_SPECIES[value[1]]
-        return ('minecraft:'+wood+'_planks', 0)
-    return value
 
 
 def material_value(value):
@@ -36,21 +22,17 @@ def with_aux(value, raw):
     raw = str(raw).strip()
     if not raw or not all('0' <= ch <= '9' for ch in raw):
         raise ValueError('附加值须为 0–32767 的整数')
-    return material_value((value[0], int(raw)))
+    updated = material_value((value[0], int(raw)))
+    from .block_registry import BLOCKS, aux_values, canonical
+    if updated[0] in BLOCKS and updated[1] not in aux_values(updated[0]):
+        raise ValueError('该方块没有此附加值')
+    canonical(updated)  # Validate archived names too, without rewriting saved IDs.
+    return updated
 
 CATEGORIES = [('all', '全部方块', 'grid'), ('building', '建筑石材', 'cube'),
               ('wood', '木材', 'layers'), ('color', '彩色方块', 'brush'),
               ('nature', '自然', 'surface'), ('decor', '装饰照明', 'spark'),
               ('mechanism', '功能方块', 'sliders'), ('custom', '模组方块', 'plus')]
-# Legacy identifiers still use aux values for distinct creative variants.
-VARIANTS = {'stone': 7, 'dirt': 3, 'planks': 6, 'log': 4, 'log2': 2, 'leaves': 4,
-            'leaves2': 2, 'wool': 16, 'concrete': 16, 'concrete_powder': 16,
-            'stained_glass': 16, 'stained_glass_pane': 16, 'stained_hardened_clay': 16,
-            'carpet': 16, 'sandstone': 3, 'red_sandstone': 3, 'quartz_block': 4,
-            'stonebrick': 4, 'prismarine': 3, 'sand': 2, 'red_flower': 9,
-            'sapling': 6, 'double_plant': 6, 'sponge': 2, 'stone_block_slab': 8,
-            'stone_block_slab2': 8, 'stone_block_slab3': 8, 'stone_block_slab4': 5,
-            'wooden_slab': 6}
 
 
 def clean_name(value):

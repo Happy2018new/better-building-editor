@@ -85,6 +85,13 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_default_render_distance_is_leased_and_restored(self):
+        self.runtime.render_distance=-1.
+        self.bridge.ensure_projection_distance((64,128,64))
+        self.assertEqual(256.,self.runtime.render_distance)
+        self.bridge.restore_projection_distance()
+        self.assertEqual(-1.,self.runtime.render_distance)
+
     def setUp(self):
         self.runtime = Runtime()
         self.original_api = boundary.clientApi
@@ -234,7 +241,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             callback()
         self.assertTrue(all(actor in self.runtime.destroyed for actor in self.runtime.created))
 
-    def test_all_128_world_tiles_survive_moving_away_and_finish_idle(self):
+    def test_all_128_world_tiles_submit_one_complete_model_and_finish_idle(self):
         b = self.bridge
         keys = [(x,y,z) for x in range(4) for y in range(8) for z in range(4)]
         values = dict((tuple(v*16 for v in k), ('minecraft:planks',k[1]%6)) for k in keys)
@@ -248,13 +255,15 @@ class ProjectionLifecycleTests(unittest.TestCase):
             if not self.runtime.timers:
                 break
             self.runtime.timers.pop(0)()
-        self.assertEqual(set(keys),set(b.projection_entities))
+        self.assertFalse(b.projection_entities)
         self.assertEqual(set(keys),b.projection_work.completed)
-        self.assertEqual(128,len(palettes))
-        self.assertEqual(128,sum(len(p['common']) for p in palettes))
+        self.assertTrue(b.projection_work.ready)
+        self.assertEqual(1,len(palettes))
+        self.assertEqual((64,64,128),palettes[0]['volume'])
+        self.assertEqual(128,sum(len(v) for v in palettes[0]['common'].values()))
         self.assertFalse(self.runtime.timers)
         self.assertEqual(256.,self.runtime.render_distance)
-        self.assertTrue(all(self.runtime.uniforms[e] == (19487., 0., 0., 0.) for e in b.projection_entities.values()))
+        self.assertEqual((19487., 0., 0., 0.), self.runtime.uniforms[b.entity])
         b.stop_projection()
         self.assertEqual(72.,self.runtime.render_distance)
         self.assertTrue(all(a in self.runtime.destroyed for a in self.runtime.created))
@@ -271,20 +280,21 @@ class ProjectionLifecycleTests(unittest.TestCase):
         for unused in range(80):
             if not self.runtime.timers: break
             self.runtime.timers.pop(0)()
-        self.assertEqual({(2,2,2)},set(b.projection_entities))
+        self.assertFalse(b.projection_entities)
+        self.assertTrue(b.projection_work.ready)
         last = next(p for p in palettes if p['common'])
-        self.assertEqual((3,1,8),last['volume'])
-        self.assertEqual({('minecraft:planks',3):[23]},last['common'])
-        entity = b.projection_entities[(2,2,2)]
+        self.assertEqual((35,33,40),last['volume'])
+        self.assertEqual({('minecraft:planks',3):[39*33*35+32*35+34]},last['common'])
+        entity = b.entity
         self.assertEqual((26.5,40.,47.5),self.runtime.actor_positions[entity][1])
         offset, rotation = self.runtime.geometry_transform
         self.assertEqual((0.,180.,0.), rotation)
         # Rotation is applied after offset: X/Z reverse, Y is unchanged.
         anchor = self.runtime.actor_positions[entity][1]
-        self.assertEqual((42.,52.,62.),
+        self.assertEqual((10.,20.,30.),
                          (anchor[0]-offset[0]-.5,anchor[1]+offset[1],anchor[2]-offset[2]-.5))
 
-    def test_failed_tile_attachment_is_destroyed_and_retry_reuses_geometry(self):
+    def test_failed_full_attachment_retains_old_model_and_allows_explicit_retry(self):
         b = self.bridge
         b.player_origin = lambda: (0,0,0)
         b.session.editor = Editor(Document((64,128,64),{(63,127,63):('minecraft:stone',0)}))
@@ -293,42 +303,49 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.runtime.success = False
         b.project_large((0,0,0))
         for unused in range(40):
+            if not self.runtime.timers: break
             self.runtime.timers.pop(0)()
-            if b.projection_work.failures: break
+            if b.projection_work.error: break
         self.assertFalse(b.projection_entities)
-        self.assertFalse(b.projection_work.completed)
+        self.assertFalse(b.projection_work.ready)
+        self.assertEqual('previous_projection',b.entity)
+        self.assertIsNone(b.preparing_entity)
         self.runtime.success = True
-        b.projection_work.failures[(3,7,3)] = 0.
+        b.project_large((0,0,0))
         for unused in range(80):
             if not self.runtime.timers: break
             self.runtime.timers.pop(0)()
         self.assertEqual({(3,7,3)},b.projection_work.completed)
-        self.assertEqual(1,len(built))
+        self.assertTrue(b.projection_work.ready)
         self.runtime.render_distance = 400. # Another mod/user changed the setting.
         b.stop_projection()
         self.assertEqual(400.,self.runtime.render_distance)
 
-    def test_native_mesh_failure_is_retried_instead_of_counted_as_empty(self):
+    def test_native_mesh_failure_stops_and_preserves_old_model_until_explicit_retry(self):
         b = self.bridge
         b.player_origin = lambda: (0,0,0)
         b.session.editor = Editor(Document((64,128,64),{(63,127,63):('minecraft:stone',0)}))
         b.geometry = lambda doc: None
         b.project_large((0,0,0))
         for unused in range(40):
+            if not self.runtime.timers: break
             self.runtime.timers.pop(0)()
-            if b.projection_work.failures: break
-        self.assertFalse(b.projection_work.completed)
-        self.assertFalse(b.projection_work.models)
+            if b.projection_work.error: break
+        self.assertFalse(b.projection_work.ready)
+        self.assertIsNone(b.projection_work.model)
+        self.assertEqual('previous_projection', b.entity)
+        self.assertFalse(self.runtime.timers)
         b.geometry = lambda doc: 'recovered'
-        b.projection_work.failures[(3,7,3)] = 0.
+        b.project_large((0,0,0))
         for unused in range(80):
             if not self.runtime.timers: break
             self.runtime.timers.pop(0)()
         self.assertEqual({(3,7,3)},b.projection_work.completed)
+        self.assertTrue(b.projection_work.ready)
 
     def test_plank_species_use_explicit_states_without_mutating_source_or_losing_aliases(self):
         from projection.large_preview import SurfacePalette
-        from projection.materials import PLANK_SPECIES
+        PLANK_SPECIES = ('oak','spruce','birch','jungle','acacia','dark_oak')
         b = self.bridge
         del b.geometry
         palette = SurfacePalette((9,1,1))
@@ -345,9 +362,9 @@ class ProjectionLifecycleTests(unittest.TestCase):
             CombineBlockPaletteToGeometry=lambda p,name,mode: builds.append(name) or name)
         name = b.geometry(palette)
         data = observed[0]
-        self.assertEqual(set(('minecraft:'+wood+'_planks',0) for wood in PLANK_SPECIES),set(data['states']))
+        self.assertEqual(set(('minecraft:'+wood+'_planks',0) for wood in PLANK_SPECIES) | {('minecraft:polished_granite',0)},set(data['states']))
         self.assertEqual([1,6],data['common'][('minecraft:spruce_planks',0)])
-        self.assertEqual([7],data['common'][('minecraft:stone',2)])
+        self.assertEqual([7],data['common'][('minecraft:polished_granite',0)])
         self.assertEqual([8],data['common'][('custom:test_planks',3)])
         self.assertEqual(9,sum(len(v) for v in data['common'].values()))
         self.assertEqual(original,palette.common)
@@ -373,6 +390,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b, s = self.bridge, self.bridge.session
         s.editor = Editor(Document((64, 128, 64), {(0, 0, 0): ('minecraft:stone', 0)}))
         b.player_origin = lambda: (10, 50, -40)
+        b.entity = None
         b.project_large((10, 50, -40))
         outline = b.projection_outline
         self.assertEqual((42., 114., -8.), self.runtime.actor_positions[outline.entity][1])

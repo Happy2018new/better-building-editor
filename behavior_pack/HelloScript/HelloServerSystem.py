@@ -4,6 +4,7 @@ import mod.server.extraServerApi as serverApi
 from .projection.model import AIR, Document, add, block
 from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
+from .projection.block_registry import canonical as registry_canonical, states as registry_states
 import time
 
 try:
@@ -27,6 +28,7 @@ class WorldAdapter(object):
         self.info = self.factory.CreateBlockInfo(self.level)
         self.validity = {}
         self.canonical_values = {}
+        self.state_values = {}
         self.loading = {}
 
     def ensure(self, pos):
@@ -58,31 +60,9 @@ class WorldAdapter(object):
                 isinstance(abilities, dict) and all(abilities.get(k) is True for k in ('op', 'build', 'mine')))
 
     def canonical(self, value):
-        """Resolve legacy split IDs without placing temporary blocks in the world."""
+        """Use the same authoritative state identity as the client renderer."""
         if value not in self.canonical_values:
-            result = value
-            if value != AIR:
-                info = self.factory.CreateItem(self.level).GetItemInfoByBlockName(value[0].encode('utf8'), value[1])
-                # Only upgrade the legacy identity, never replace a technical
-                # block with its dropped item (lit lamps, crops, upper doors...).
-                split_tree = value[0] in ('minecraft:log', 'minecraft:log2', 'minecraft:leaves', 'minecraft:leaves2')
-                renamed = value[0] in ('minecraft:stonebrick', 'minecraft:grass')
-                if info and (info.get('itemName') == value[0] or split_tree or renamed) and info.get('newItemName') != value[0]:
-                    name = info.get('newItemName')
-                    if name and self.info.GetBlockBasicInfo(name.encode('utf8')):
-                        states = self.factory.CreateBlockState(self.level)
-                        old_states = states.GetBlockStatesFromAuxValue(value[0].encode('utf8'), value[1])
-                        # State lookup already splits legacy IDs and loses the
-                        # old log-axis / leaf flags. Decode these known families.
-                        if value[0] in ('minecraft:log', 'minecraft:log2'):
-                            old_states = {'pillar_axis': ('y', 'x', 'z', 'y')[(value[1] >> 2) & 3]}
-                        elif value[0] in ('minecraft:leaves', 'minecraft:leaves2'):
-                            old_states = {'persistent_bit': bool(value[1] & 4), 'update_bit': bool(value[1] & 8)}
-                        aux = states.GetBlockAuxValueFromStates(name.encode('utf8'), old_states) if old_states is not None else None
-                        if aux is None or aux < 0:
-                            raise ValueError('无法转换旧版方块状态，请重新选择该材质')
-                        result = block((name, aux))
-            self.canonical_values[value] = result
+            self.canonical_values[value] = registry_canonical(value)
         return self.canonical_values[value]
 
     def read(self, pos):
@@ -92,11 +72,26 @@ class WorldAdapter(object):
         return block((data['name'], data.get('aux', 0)))
 
     def write(self, pos, value):
+        value = self.canonical(value)
         name = value[0].encode('utf8')
-        # Suppress explicit neighbor updates; native ticks can still change blocks.
-        # GetBlockNew and state conversion return traditional aux. False here
-        # reinterprets modern log axes as runtime indices and resets them to Y.
-        return self.info.SetBlockNew(pos, {'name': name, 'aux': value[1]}, 0, self.dimension, True, False)
+        if value not in self.state_values:
+            record = registry_states(value)
+            self.state_values[value] = (None if record is None else dict(
+                (key.encode('utf8'), item.encode('utf8') if isinstance(item,text_type) else item)
+                for key,item in record.items()))
+        record = self.state_values[value]
+        # SetBlockNew can interpret modern aux as old species (quartz:1 becomes
+        # chiseled quartz). Create the name's default, then apply exact states.
+        # Custom blocks retain their own SDK aux convention. Zero is already
+        # the default state, avoiding a second setter for common bulk fills.
+        aux = value[1] if record is None else 0
+        if not self.info.SetBlockNew(pos, {'name': name, 'aux': aux}, 0, self.dimension, True, False):
+            # Native reports False for an unchanged default block as well.
+            if self.read(pos) != (value[0], aux):
+                return False
+        if record and value[1] != 0:
+            return self.factory.CreateBlockState(self.level).SetBlockStates(pos, record, self.dimension)
+        return True
 
     def protected(self, pos, value):
         if value[0] in ('minecraft:bedrock', 'minecraft:barrier', 'minecraft:allow', 'minecraft:deny'):
@@ -104,6 +99,12 @@ class WorldAdapter(object):
         return self.info.GetBlockEntityData(self.dimension, pos) is not None
 
     def valid(self, value):
+        try:
+            registry_canonical(value)
+            if value[0].startswith('minecraft:'):
+                return True
+        except (ValueError, TypeError):
+            return False
         if value[0] not in self.validity:
             data = self.info.GetBlockBasicInfo(value[0].encode('utf8'))
             self.validity[value[0]] = bool(data)

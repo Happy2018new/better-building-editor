@@ -12,6 +12,15 @@ OPAQUE = frozenset('stone stonebrick planks concrete wool quartz_block dirt gras
 MAX_SURFACE_BLOCKS = 750000
 
 
+def is_opaque(value):
+    name = value[0]
+    if not name.startswith('minecraft:'):
+        return False
+    name = name.split(':', 1)[1]
+    return (name in OPAQUE or name in ('stone_bricks', 'grass_block', 'bricks') or
+            name.endswith(('_planks', '_concrete', '_wool')))
+
+
 class SurfacePalette(object):
     def __init__(self, size):
         self.size = size
@@ -40,7 +49,7 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
     palette_origin = scan_lo if local else origin
     out = SurfacePalette(tuple(scan_hi[i]-scan_lo[i] for i in range(3)) if local else size)
     store = document.blocks
-    opaque = [value[0].startswith('minecraft:') and value[0].split(':')[-1] in OPAQUE for value in store.palette]
+    opaque = [is_opaque(value) for value in store.palette]
     ys = set(y for y in range(origin[1], end[1]) if y not in hidden and (layer is None or y == layer))
 
     def conceals(x, y, z):
