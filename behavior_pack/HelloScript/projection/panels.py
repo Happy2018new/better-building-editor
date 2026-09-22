@@ -73,11 +73,11 @@ def MaterialIcon(value=AIR, size=30):
 def AuxBadge(value=0):
     use_theme()
     digits = str(value)
-    edge = 18 if len(digits) <= 2 else 24
+    edge = 13 if len(digits) <= 2 else 2 + len(digits) * 4
     return Image(color=Theme.blue,
         style=S(position=Position.absolute, right=1, top=1, width=edge, height=edge,
                 zIndex=4, alignItems=AlignItems.center, justifyContent=JustifyContent.center),
-        children=retained_text(digits, 10 if len(digits) <= 2 else 8, Theme.white,
+        children=retained_text(digits, 8 if len(digits) <= 2 else 7, Theme.white,
                                width=edge, center=True, slots=5))
 
 
@@ -132,7 +132,9 @@ def PaletteCell(session=None, channel='material', value=AIR, managing=False, pic
     content = use_memo(lambda: Panel(style=S(width=49, height=40, alignItems=AlignItems.center,
                            justifyContent=JustifyContent.center), children=[
                        PaletteHighlight(session=session, channel=channel, value=value, managing=managing, picked=picked),
-                       MaterialIcon(value=value, size=27), AuxBadge(value=value[1])]),
+                       Panel(style=S(position=Position.absolute, left=4 if value[1]<100 else 1, bottom=4),
+                             children=MaterialIcon(value=value, size=27 if value[1]<100 else 24)),
+                       AuxBadge(value=value[1])]),
                        [session, channel, value, managing, picked, Theme.scale])
     return Button(cacheLayout=True, onClick=callback, buttonBuilder=background,
                   style=S(width=49, height=40), children=content)

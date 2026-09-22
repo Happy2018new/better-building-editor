@@ -6,7 +6,7 @@ from functools import partial
 from ..pyreact import *
 from .widgets import Theme, S, text, retained_text, row, surface, icon, Action, Input, use_theme
 from .widgets import JellyButton as Button
-from .panels import material_background, MaterialIcon, AuxBadge
+from .panels import material_background, MaterialIcon
 from .materials import CATEGORIES, search_blocks, with_aux
 from .motion import DialogMotion
 
@@ -142,8 +142,7 @@ def InventoryCell(item=None, selected=False, onSelect=None, width=60):
         buttonBuilder=partial(material_background, selected), onClick=partial(onSelect, value['value']),
         children=Panel(style=S(width='100%', height=58, alignItems=AlignItems.center, gap=1), children=[
             MaterialIcon(value=value['value'], size=30),
-            retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2),
-            AuxBadge(value=value['value'][1])]))
+            retained_text(value['name'], 8, width=width-3, center=True, slots=20, lines=2)]))
 
 
 @Component
