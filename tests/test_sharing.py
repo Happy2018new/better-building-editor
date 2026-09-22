@@ -69,6 +69,24 @@ class SharingTests(unittest.TestCase):
         self.assertEqual(text,result)
         with self.assertRaises(ValueError):Inbox().add(parts[0]+'x')
 
+    def test_short_segments_and_missing_range_tracking_preserve_legacy_import(self):
+        text='MP2:'+('abcdefgh'*5000)+':00000000'
+        for size in (256,512,1024):
+            parts=split_text(text,size);box=Inbox()
+            self.assertTrue(all(len(part)<=size+40 for part in parts))
+            box.add(parts[1]);box.add(parts[3]);box.add(parts[1])
+            self.assertEqual(len(parts)-2,len(box.missing()))
+            self.assertTrue(box.missing_summary().startswith('1、3、5–'))
+            for part in parts:
+                result=box.add(part)
+            self.assertEqual(text,result);self.assertFalse(box.missing())
+        # Previous releases used 12,000 payload characters per MPS2 segment.
+        box=Inbox();total=(len(text)+11999)//12000
+        for index in range(total):
+            data=text[index*12000:(index+1)*12000]
+            result=box.add('MPS2:%s:%d:%d:%s:%s'%(checksum(text.encode('ascii')),index+1,total,checksum(data.encode('ascii')),data))
+        self.assertEqual(text,result)
+
     def test_import_only_commits_new_archive_after_confirmation(self):
         b=Bridge();s=Session(b);share=Sharing(s);original=s.editor
         source=Document((64,128,64),{(63,127,63):('minecraft:stone',0)},name='分享建筑')

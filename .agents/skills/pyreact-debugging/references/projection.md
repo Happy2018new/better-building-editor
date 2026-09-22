@@ -64,3 +64,9 @@ SetBlockNew 的最后两参数依次为 **isLegacy、updateNeighbors**。GetBloc
 阶段 51：`PreviewModels` 独立分帧创建需要的双缓冲控件，registry 使用真实分块坐标 tuple，不能再用槽位序号索引。控件布局与模型几何分别准备；`preview_pending=False` 只表示 CPU 构建完成，不表示所有控件已创建或 GPU 就绪。`measure_initial_preview.py` 还等待 mounting=False 和所有可见 part.pending=False，端到端测量包含 IPC 往返，不能声称测得 GPU fence。`profile_scene_navigation.py` 使用相同五组相机转换记录 UI 帧回调和 MCDK Python wall 热点；Python 成本不等于总帧时间。`verify_preview_recovery.py` 在内存中保存/恢复草稿，检查隐藏页面、取消、失效回调、重试和注入几何失败，不写世界或配置。
 
 阶段 52：正式分享为 MP2/MPS2，与旧评估 MP1 区分。`verify_sharing_workflow.py` 通过 SDK 读写真实剪贴板，先完整备份可支持格式；存储用内存替身，finally 恢复，游戏通道异常也必须执行最外层剪贴板恢复。设置剪贴板、读取和再次读取分帧进行，同帧重复 SDK 读取曾返回空。测试覆盖 PC/F11 按钮、完整当前草稿/分页配置、损坏码以及最大随机材质 44 段乱序和重复接收。`verify_sharing_layout.py` 不操作剪贴板，检查 4:3/16:9 卡片及弹窗并恢复窗口尺寸。F11 与 Windows 剪贴板不等于手机硬件/系统权限验证。
+
+阶段 53：用户明确要求修复字体库后，静态标签/动态名称切换为同一 Noto Sans SC 字体的完整 cmap 图集（30,890 字形，50 张 2048² 页，约 35.8 MB PNG），不再通过扫描文案来决定单字覆盖。输入框保持原生整数倍率。`generate_assets.py` 同时生成完整图集；可用 `generate_font_atlas.py --font .tools/fonts/NotoSansSC.ttf` 单独重建。嵌入式 Python 2 是 narrow Unicode，扩展汉字的 JSON key 是代理对，不能调用 `unichr(>0xffff)`；typography.characters 在此版本合并为代理对字符串，在宽 Unicode 版本转码点。
+
+诊断 execute_code 的非 ASCII 源码可能产生 UTF-8 乱码，测试应先转成 ASCII 的 unicode 转义，不能把注入产生的 `å…` 当成产品字体问题。`verify_font_share_polish.py` 使用此方式，实际检查“annnn币”、缺段分页、原生剪贴板三档长度和进度卡片。动态原生显隐不会同步回声明式 style.visible，读取这样的卡片需用原始 dump_tree，不能经 verify_ui.tree 的可见性过滤。
+
+`profile_ellipsoid_touch.py` 载入已备份的用户椭球，F11 原生持续按住旋转，分别测视线深度 0/40；前后对比只能代表 Python UI 帧回调开销。`verify_polish53_regressions.py` 组合触摸/内部编辑/恢复测试，finally 恢复内存草稿；--runtime-only 仅执行字体、整数倍率与 Python 2 编译检查。ConfigClient(..., True) 是本机跨世界配置，不是服务器或按账号独立的云库。

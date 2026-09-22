@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import time
 from .model import Document
-from .sharing_codec import encode_steps, decode_steps, split_text, Inbox, PART_SIZE
+from .sharing_codec import encode_steps, decode_steps, split_text, Inbox, PART_SIZE, PART_SIZES
 
 
 class Sharing(object):
@@ -19,6 +19,8 @@ class Sharing(object):
         self.text = None
         self.parts = []
         self.part = 0
+        self.part_size = PART_SIZE
+        self.inbox_page = 0
         self.inbox = Inbox()
         self.serial = 0
         self.saved = False
@@ -63,6 +65,7 @@ class Sharing(object):
         self.document = self.text = None
         self.parts, self.part, self.saved = [], 0, False
         self.inbox = Inbox()
+        self.inbox_page = 0
         self.progress = (0, 1)
         self.emit()
         self.session.emit('sharing_visibility')
@@ -131,7 +134,7 @@ class Sharing(object):
                 yield result
         def ready(result):
             self.text = result['text']
-            self.parts = split_text(self.text) if len(self.text)>PART_SIZE else []
+            self.parts = split_text(self.text,self.part_size) if len(self.text)>min(PART_SIZES) else []
             self.message = '分享码已准备好，共 %s 字符' % format(len(self.text), ',')
         self.run(prepare(), ready, '正在准备建筑分享码…')
 
@@ -157,11 +160,30 @@ class Sharing(object):
         self.part = max(0,min(len(self.parts)-1,self.part+change))
         self.emit()
 
+    def set_part_size(self, size):
+        if size not in PART_SIZES or self.busy or not self.text:
+            return
+        self.part_size = size
+        self.parts = split_text(self.text,size)
+        self.part = 0
+        self.message = '每段约 %d 字符，请使用同一种分段长度发送完整建筑' % size
+        self.emit()
+
+    def inbox_move(self, change):
+        self.inbox_page = max(0,min((self.inbox.total-1)//24,self.inbox_page+change))
+        self.emit()
+
+    def first_missing(self):
+        missing = self.inbox.missing()
+        self.inbox_page = (missing[0]-1)//24 if missing else 0
+        self.emit()
+
     def clear_parts(self):
         self.serial += 1
         self.iterator = None
         self.busy = False
         self.inbox = Inbox()
+        self.inbox_page = 0
         self.document = None
         self.saved = False
         self.message, self.error = '已清空，等待新的分享码', False

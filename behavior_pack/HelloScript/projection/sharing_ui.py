@@ -4,7 +4,8 @@
 from __future__ import unicode_literals
 from functools import partial
 from ..pyreact import *
-from .widgets import Theme, S, text, row, surface, icon, Action, use_theme
+from .widgets import Theme, S, text, row, surface, icon, Action, Segments, use_theme
+from .sharing_codec import PART_SIZES
 from .motion import DialogMotion
 
 
@@ -38,7 +39,9 @@ def SharingDialog(session=None, width=900, height=640):
         if exporting and share.text:
             children += [Action(label='复制完整编码', glyph='copy', accent=True, onClick=share.copy)]
             if share.parts:
-                children += [text('内容较长，也可以分段发送。',11,Theme.muted),
+                children += [text('分段发送，每段长度',11,Theme.muted),
+                             Segments(items=[(size,'%d 字'%size) for size in PART_SIZES],value=share.part_size,
+                                      onChange=share.set_part_size,width=content_width),
                              row([Action(glyph='arrow_left', width=30,onClick=partial(share.select_part,-1),enabled=share.part>0),
                                   text('第 %d / %d 段' % (share.part+1,len(share.parts)),11,Theme.muted,flex=1,center=True),
                                   Action(glyph='arrow_right',width=30,onClick=partial(share.select_part,1),enabled=share.part+1<len(share.parts)),
@@ -50,6 +53,18 @@ def SharingDialog(session=None, width=900, height=640):
                 children += [text('导入只添加本地配置，当前草稿和世界保持完整。',11,Theme.muted,width=content_width),
                              Action(label='确认加入建筑库',glyph='save',accent=True,onClick=share.accept,enabled=not share.busy and not share.saved)]
             elif share.inbox.parts:
-                children += [text('继续复制下一段，再点击读取。',11,Theme.muted)]
+                children += [text('缺少第 '+share.inbox.missing_summary()+' 段',11,Theme.ink,width=content_width),
+                             text('绿色为已接收，浅灰为待接收',10,Theme.muted)]
+                start = share.inbox_page*24+1
+                for first in range(start,min(start+24,share.inbox.total+1),6):
+                    children.append(row([surface(width=(content_width-30)/6.,height=24,padding=0,
+                        color=Theme.tint if number not in share.inbox.parts else Color(0xE6F5EFFF),
+                        justifyContent=JustifyContent.center,alignItems=AlignItems.center,children=
+                        text(str(number),10,Theme.muted if number not in share.inbox.parts else Theme.mint))
+                        for number in range(first,min(first+6,share.inbox.total+1))]))
+                children += [row([Action(glyph='arrow_left',width=28,onClick=partial(share.inbox_move,-1),enabled=share.inbox_page>0),
+                                  text('%d / %d 页'%(share.inbox_page+1,(share.inbox.total+23)//24),10,Theme.muted,flex=1,center=True),
+                                  Action(glyph='arrow_right',width=28,onClick=partial(share.inbox_move,1),enabled=start+24<=share.inbox.total),
+                                  Action(label='定位缺失',glyph='pin',onClick=share.first_missing)])]
         retained.current = surface(width=card_width,padding=24,gap=16,children=children)
     return DialogMotion(opened=share.opened, session=session, children=retained.current)

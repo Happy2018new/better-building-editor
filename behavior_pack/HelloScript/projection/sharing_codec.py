@@ -11,7 +11,10 @@ from .transfer import packets, Receiver
 MAX_TEXT = 8 * 1024 * 1024
 MAX_RAW = 16 * 1024 * 1024
 MAX_RECORD = 32768
-PART_SIZE = 12000
+PART_SIZE = 512
+PART_SIZES = (256, 512, 1024)
+MAX_PART_SIZE = 12000  # Accept archives sent by earlier releases.
+MAX_PARTS = (MAX_TEXT+min(PART_SIZES)-1)//min(PART_SIZES)
 TAIL = b'MP-END'
 BASE64 = re.compile(r'^[A-Za-z0-9+/]*={0,2}$')
 IDENTIFIER = re.compile(r'^[a-z0-9_.-]+:[a-z0-9_./-]+$')
@@ -112,13 +115,15 @@ def decode_steps(text):
         raise ValueError('分享码损坏或格式无效，请重新复制')
 
 
-def split_text(text):
+def split_text(text, part_size=PART_SIZE):
     if not isinstance(text, type('')) or len(text) > MAX_TEXT:
         raise ValueError('分享码长度无效')
+    if part_size not in PART_SIZES:
+        raise ValueError('不支持的分段长度')
     identity = checksum(text.encode('ascii'))
-    total = (len(text)+PART_SIZE-1)//PART_SIZE
+    total = (len(text)+part_size-1)//part_size
     return ['MPS2:%s:%d:%d:%s:%s' % (identity, index+1, total, checksum(piece.encode('ascii')), piece)
-            for index, piece in enumerate(text[start:start+PART_SIZE] for start in range(0,len(text),PART_SIZE))]
+            for index, piece in enumerate(text[start:start+part_size] for start in range(0,len(text),part_size))]
 
 
 class Inbox(object):
@@ -126,6 +131,19 @@ class Inbox(object):
         self.identity = None
         self.total = 0
         self.parts = {}
+
+    def missing(self):
+        return [index for index in range(1,self.total+1) if index not in self.parts]
+
+    def missing_summary(self, limit=6):
+        runs=[]
+        for index in self.missing():
+            if runs and runs[-1][1]+1 == index:
+                runs[-1][1] = index
+            else:
+                runs.append([index,index])
+        text = '、'.join(str(a) if a==b else '%d–%d'%(a,b) for a,b in runs[:limit])
+        return text+(' 等' if len(runs)>limit else '')
 
     def add(self, text):
         if isinstance(text, bytes):
@@ -139,10 +157,10 @@ class Inbox(object):
         if len(fields) != 6:
             raise ValueError('分段分享码格式无效')
         unused, identity, index, total, crc, data = fields
-        if not index.isdigit() or not total.isdigit() or len(index)>4 or len(total)>4:
+        if not index.isdigit() or not total.isdigit() or len(index)>5 or len(total)>5:
             raise ValueError('分享码分段序号无效')
         index, total = int(index), int(total)
-        if (not 1 <= index <= total <= (MAX_TEXT+PART_SIZE-1)//PART_SIZE or len(data)>PART_SIZE or
+        if (not 1 <= index <= total <= MAX_PARTS or not 1<=len(data)<=MAX_PART_SIZE or
                 not re.match(r'^[0-9a-f]{8}$',identity) or checksum(data.encode('ascii')) != crc):
             raise ValueError('分享码分段损坏或超限')
         if self.identity is not None and (identity != self.identity or total != self.total):
