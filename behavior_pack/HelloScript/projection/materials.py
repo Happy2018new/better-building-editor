@@ -5,6 +5,20 @@ import re
 from .catalog import MATERIALS
 DISPLAY_NAMES = dict((tuple(m[:2]), m[2]) for m in MATERIALS)
 MATERIAL_CHANNELS = ('material', 'secondary', 'source', 'filter_material')
+PLANK_SPECIES = ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak')
+SPLIT_PLANKS = frozenset('minecraft:'+wood+'_planks' for wood in PLANK_SPECIES)
+
+
+def geometry_material(value):
+    """Upgrade legacy species for the mesh palette's explicit state records.
+
+    Keep the saved/selected legacy identity; only the rendering boundary uses
+    the split names, matching the server's GetItemInfoByBlockName conversion.
+    """
+    if value[0] == 'minecraft:planks' and 0 <= value[1] < 6:
+        wood = PLANK_SPECIES[value[1]]
+        return ('minecraft:'+wood+'_planks', 0)
+    return value
 
 
 def material_value(value):

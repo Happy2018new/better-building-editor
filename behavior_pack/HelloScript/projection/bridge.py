@@ -39,6 +39,8 @@ class ClientBridge(object):
         self.download = None
         self.projection_serial = 0
         self.projection_entities = {}
+        self.projection_work = None
+        self.projection_distance = None
         self.projection_requested = False
         self.projection_palette = {}
         from .projection_outline import ProjectionOutline
@@ -185,17 +187,31 @@ class ClientBridge(object):
         self.session.emit()
 
     def geometry(self, document, visible=None, name=None):
+        from .materials import geometry_material, SPLIT_PLANKS
         data = document.palette_data(visible)
         if not data['common']:
             return None
+        common = {}
+        for value, positions in data['common'].items():
+            value = geometry_material(value)
+            if value in common:
+                common[value] = common[value] + positions
+            else:
+                common[value] = positions
+        data['common'] = common
+        # The native palette captured from modern planks includes an explicit
+        # empty state record for every species. Without it, the mesh converter
+        # resolves these aliases to oak even though Serialize retains the IDs.
+        data['states'] = dict((value, {}) for value in common if value[0] in SPLIT_PLANKS)
         # The embedded Python omits hashlib.sha256. An exact compressed key
         # avoids collisions and retains no second Python list of voxel indices.
-        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()))).encode('utf8'), 1)
+        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()), sorted(data['states']))).encode('utf8'), 1)
         if fingerprint is not None and fingerprint in self.models:
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
         name = native(name or 'modern_projection_%d' % len(self.models))
         data['common'] = dict(((native(k[0]), k[1]), v) for k, v in data['common'].items())
+        data['states'] = dict(((native(k[0]), k[1]), v) for k, v in data['states'].items())
         data = dict((native(k), v) for k, v in data.items())
         palette = self.factory.CreateBlock(self.level).GetBlankBlockPalette()
         if palette is None or not palette.DeserializeBlockPalette(data):
@@ -411,7 +427,8 @@ class ClientBridge(object):
             # Native actor block geometry starts at half-cell centres and flips
             # X/Z. Match document cells to origin + local world coordinates.
             success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and render.EnableActorBlockGeometryTransparent(name, True)
-                       and render.SetActorBlockGeometryTransparency(name, opacity))
+                       and render.SetActorBlockGeometryTransparency(name, opacity)
+                       and render.SetEntityExtraUniforms(4, (19487., 0., 0., 0.)))
             self.preparing_entity = None
             if success:
                 if self.entity:
@@ -444,6 +461,8 @@ class ClientBridge(object):
         if self.pending_data and self.pending_data[0] == 'resolve':
             self.cancel_world()
         self.projection_serial += 1
+        self.projection_work = None
+        self.restore_projection_distance()
         self.projection_outline.clear()
         for entity in self.projection_entities.values():
             self.system.DestroyClientEntity(entity)
@@ -458,97 +477,35 @@ class ClientBridge(object):
         self.session.editor.message = '投影已关闭'
 
     def project_large(self, origin):
-        """Stream exact nearby 16-cubed ghosts as the builder moves around."""
+        """Prepare all exact 16-cubed ghosts, independent of player distance."""
+        from .world_projection import WorldProjection
         self.stop_projection()
         self.projection_requested = True
         self.projection_serial += 1
-        serial = self.projection_serial
         s = self.session
-        document = Document(s.editor.document.size)
-        document.blocks = s.editor.document.blocks.copy()
-        hidden, solo, layer = s.preview_hidden(), s.solo_layer, s.editor.layer
-        opacity, missing = s.opacity, s.projection_missing
+        self.projection_work = WorldProjection(self, origin)
+        self.ensure_projection_distance(self.projection_work.document.size)
         s.projection_active = True
-        s.editor.message = '投影已开启，随玩家位置加载附近方块'
-        self.projection_outline.replace(origin, document.size)
-        info = self.factory.CreateBlockInfo(self.level)
-        preparing = set()
-        empty = set()
+        self.projection_outline.replace(origin, self.projection_work.document.size)
+        self.projection_work.publish(True)
+        self.next_frame(self.projection_work.advance)
 
-        def active():
-            return self.alive and serial == self.projection_serial
+    def ensure_projection_distance(self, size):
+        # This SDK setting belongs to the local player, not an individual
+        # ghost. Lease it only while projecting, and preserve external changes.
+        render = self.factory.CreateActorRender(self.player)
+        current = render.GetEntityRenderDistance()
+        required = max(256., math.sqrt(sum(v*v for v in size))+64.)
+        if self.projection_distance is None and 0. <= current < required:
+            if render.SetEntityRenderDistance(required):
+                self.projection_distance = (current, required)
 
-        def update():
-            if not active():
-                return
-            player = self.player_origin()
-            center = tuple((player[i] - origin[i]) // 16 for i in range(3))
-            candidates = []
-            for key in document.blocks.chunks:
-                if max(abs(key[i] - center[i]) for i in range(3)) <= 3 and any(
-                        key[1] * 16 + y not in hidden and (not solo or key[1] * 16 + y == layer) for y in range(16)):
-                    candidates.append(key)
-            desired = set(sorted(candidates, key=lambda k: sum((k[i] - center[i]) ** 2 for i in range(3)))[:32])
-            empty.intersection_update(desired)
-            for key in list(self.projection_entities):
-                if key not in desired:
-                    self.system.DestroyClientEntity(self.projection_entities.pop(key))
-            todo = [key for key in desired if key not in self.projection_entities and key not in preparing and key not in empty]
-            if todo:
-                key = min(todo, key=lambda k: sum((k[i] - center[i]) ** 2 for i in range(3)))
-                preparing.add(key)
-                local = Document((16, 16, 16))
-                start = tuple(v * 16 for v in key)
-                def build():
-                    if not active():
-                        return
-                    try:
-                        for y in range(16):
-                            if start[1] + y in hidden or (solo and start[1] + y != layer):
-                                continue
-                            for z in range(16):
-                                for x in range(16):
-                                    pos = (start[0] + x, start[1] + y, start[2] + z)
-                                    value = document.get(pos)
-                                    if value != AIR:
-                                        if not missing or self.needs_projection(info, add(origin, pos), value):
-                                            local.blocks[(x, y, z)] = value
-                            yield None
-                        name = self.geometry(local)
-                        if name:
-                            world = add(origin, start)
-                            entity = self.system.CreateClientEntityByTypeStr(native('modern_projection:anchor'), tuple(float(v) for v in world), (0., 0.))
-                            if entity:
-                                self.projection_entities[key] = entity
-                                def attach():
-                                    if active() and self.projection_entities.get(key) == entity:
-                                        render = self.factory.CreateActorRender(entity)
-                                        if render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)):
-                                            render.EnableActorBlockGeometryTransparent(name, True)
-                                            render.SetActorBlockGeometryTransparency(name, opacity)
-                                self.later(.2, attach)
-                        else:
-                            empty.add(key)
-                    finally:
-                        preparing.discard(key)
-                iterator = build()
-                def advance():
-                    if not active():
-                        return
-                    deadline = time.time() + .004
-                    try:
-                        while time.time() < deadline:
-                            next(iterator)
-                    except StopIteration:
-                        return
-                    except (ValueError, TypeError, RuntimeError) as error:
-                        preparing.discard(key)
-                        s.editor.message = str(error)
-                        return
-                    self.later(0., advance)
-                self.later(0., advance)
-            self.later(.1, update)
-        self.later(0., update)
+    def restore_projection_distance(self):
+        lease, self.projection_distance = self.projection_distance, None
+        if lease is not None:
+            render = self.factory.CreateActorRender(self.player)
+            if render.GetEntityRenderDistance() == lease[1]:
+                render.SetEntityRenderDistance(lease[0])
 
     def dimension_changed(self, unused):
         self.stop_projection()
