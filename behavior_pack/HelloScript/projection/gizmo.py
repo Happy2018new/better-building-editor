@@ -6,6 +6,7 @@ import math
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .camera import OrbitCamera
+from .native_layers import apply_layers
 from .widgets import Theme, S, TEX, text, use_theme
 
 
@@ -29,7 +30,7 @@ def OrientationGizmo(session=None):
         previous.current = signature
         right, up, toward = OrbitCamera(yaw, pitch).basis()
         scale, center = Theme.scale, 30 * Theme.scale
-        layer_update = None
+        layer_updates = []
         for axis in range(3):
             dx, dy = right[axis], -up[axis]
             length = math.hypot(dx, dy)
@@ -51,11 +52,8 @@ def OrientationGizmo(session=None):
                 # Any native layer refresh (including next-frame refresh) drops
                 # a held touch's move/up route. Positions rotate live; refresh
                 # overlap ordering once the finger is released.
-                tip.SetLayer(10 + depth, False, False)
-                label.SetLayer(20 + depth, False, False)
-                layer_update = (label, 20 + depth)
-        if layer_update:
-            layer_update[0].SetLayer(layer_update[1], False, True)
+                layer_updates.extend([(tip, 10 + depth), (label, 20 + depth)])
+        apply_layers(layer_updates)
 
     use_animation_frame(tick)
     colors = [Theme.red, Theme.mint, Theme.blue]

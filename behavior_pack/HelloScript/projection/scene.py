@@ -15,6 +15,7 @@ from .diagnostics import inspect
 from functools import partial
 from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_hue, cursor_uv, segment_fractions
 from .chunks import painter_order
+from .native_layers import apply_layers
 from .input_mode import is_touch
 
 
@@ -354,7 +355,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                         continue
                     # Suppress both immediate and per-call deferred refresh;
                     # schedule one refresh after all tile changes below.
-                    ref.current.SetLayer(tile_layer, False, False)
                     layer_updates.append((ref.current, tile_layer))
             def draw(slot, name, pose):
                 result = preview.native_dolls[slot].RenderBlockGeometryModel({
@@ -367,7 +367,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     surfaces[slot].current.SetVisible(visible, False)
                     preview.visible[slot] = visible
                     if visible and not held_touch:
-                        dolls[slot].current.SetLayer(tile_layer, False, False)
                         layer_updates.append((dolls[slot].current, tile_layer))
             preview.update(part['name'], pose, now, draw, show)
             if preview.ready(part['name']):
@@ -375,10 +374,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         if update_models:
             models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
         if layer_updates:
-            control, layer = layer_updates[-1]
             # Even changing native layers without a forced refresh may disturb
             # touch routing. Defer both assignment and refresh until release.
-            control.SetLayer(layer, False, True)
+            apply_layers(layer_updates)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
