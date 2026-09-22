@@ -74,7 +74,7 @@ def PreviewModels(session=None, registry=None, width=400, height=300, keys=()):
 
 
 @Component
-def Scene(session=None, revision=0, width=400, height=300, navigation=None):
+def Scene(session=None, revision=0, width=400, height=300, navigation=None, preview_status=None):
     use_theme()
     unused, refresh = use_state(0)
 
@@ -519,7 +519,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         return x <= point[0] < x+w and y <= point[1] < y+h
 
     def screen_hit(point):
-        return active and contains(pointer.current, point) and not (navigation and contains(navigation.current, point))
+        status_visible = (session.preview_error or session.edit_job is not None or
+                          (session.preview_pending and session.tiles.report_progress))
+        return (active and contains(pointer.current, point) and
+                not (navigation and contains(navigation.current, point)) and
+                not (status_visible and preview_status and contains(preview_status.current, point)))
 
     def move(args):
         if drag.current is None:

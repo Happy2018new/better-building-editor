@@ -2,6 +2,8 @@
 # pylint: disable=unexpected-keyword-arg,E1123
 """Modern Projection professional workspace, entirely native Pyreact JsonUI."""
 from __future__ import unicode_literals
+import math
+import time
 import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
@@ -20,6 +22,9 @@ from .material_browser import MaterialBrowser
 from .motion import DialogMotion, WorkspaceMotion
 from .preparation import PreparationQueue, PreparationPump
 from .sharing_ui import SharingDialog
+from .typography import layout as text_layout
+from .widgets import Pointer, rounded_skin
+from .input_mode import is_touch
 
 
 def use_session_fields(session, fields):
@@ -137,20 +142,79 @@ def LocateSelected(session=None):
 
 
 @Component
-def PreviewProgress(session=None, width=400):
+def PreviewAction(session=None, label='', onClick=None):
+    """Retain a tap through native preview refreshes, including a stationary mouse."""
     use_theme()
-    container, label, fill = use_ref(None), use_ref(None), use_ref(None)
-    cancel, retry = use_ref(None), use_ref(None)
+    control, pressed = use_ref(None), use_ref(None)
+    progress, set_progress = use_state(1.)
+    feedback, set_feedback = use_state(ButtonState.default)
+    started = use_ref(0.)
+
+    def hit(point):
+        if (control.current is None or session.page not in ('workspace', 'projection') or
+                session.pending_confirm or session.pending_rename or session.material_browser or
+                session.sharing.opened or not control.current.GetVisible()):
+            return False
+        x, y = control.current.GetGlobalPosition()
+        w, h = control.current.GetSize()
+        return x <= point[0] < x+w and y <= point[1] < y+h
+
+    def down(args):
+        point = (args['TouchPosX'], args['TouchPosY'])
+        if hit(point):
+            pressed.current = point
+            set_feedback(ButtonState.pressed)
+
+    def cancel(unused):
+        pressed.current = None
+        set_feedback(ButtonState.default)
+
+    def up(args):
+        origin = pressed.current
+        cancel(args)
+        point = (args['TouchPosX'], args['TouchPosY'])
+        if origin is not None and hit(point) and math.hypot(point[0]-origin[0],point[1]-origin[1]) <= 4*Theme.scale:
+            if Theme.motion:
+                started.current = time.time()
+                set_progress(0.)
+            onClick()
+
+    def enter(unused):
+        if not is_touch():
+            set_feedback(ButtonState.hover)
+
+    def tick(now):
+        set_progress(min(1., (now-started.current)/.44))
+    use_animation_frame(tick, progress < 1.)
+    wobble = math.exp(-5*progress)*math.sin(3.5*math.pi*progress) if progress < 1. and Theme.motion else 0.
+    base = Theme.pale if feedback == ButtonState.default else Theme.pale.darken(.1 if feedback == ButtonState.pressed else .035)
+    return Pointer(ref=control, globalCapture=True, screenHit=hit, onDown=down, onUp=up,
+        onCancel=cancel, onEnter=enter, onLeave=cancel, buttonBuilder=transparent,
+        style=S(width=64,height=24,flexShrink=0,transform=[Scale(1+.13*wobble,1-.18*wobble)]),
+        children=[rounded_skin(base),row([icon('redo' if label == '重试' else 'close',Theme.ink,15),
+            retained_text(label,11,Theme.ink,width=24,slots=2,center=True)],
+            justifyContent=JustifyContent.center,paddingHorizontal=4,gap=4)])
+
+
+@Component
+def PreviewProgress(session=None, width=400, container=None):
+    use_theme()
+    local_container, label, fill = use_ref(None), use_ref(None), use_ref(None)
+    container = container or local_container
+    phase, set_phase = use_state((False, '', 1))
     previous = use_ref(None)
     published = use_ref(0.)
     card_width = min(280, width-24)
-    def caption(signature):
+    caption_width = card_width-92
+    def caption(signature, complete=False):
         if not signature or not signature[0]:
             return ''
         unused_visible, editing, done, total, error, unused_scale, unused_width = signature
-        return error or (('正在修改方块' if editing else '正在更新预览') + '，%d / %d' % (done,total))
+        return error or (('正在修改方块' if editing else '正在更新预览') + '，%d / %d' % (total if complete else done,total))
     def stop():
-        if session.edit_job is not None:
+        if session.preview_error:
+            session.tiles.retry()
+        elif session.edit_job is not None:
             session.cancel_edit()
         else:
             session.tiles.cancel()
@@ -165,40 +229,39 @@ def PreviewProgress(session=None, width=400):
         published.current = now
         done, total = ((min(job.processed, job.total), job.total) if job else session.tiles.progress()) if visible else (0,1)
         signature = (visible, job is not None, done, total, error, Theme.scale, width)
-        if signature == previous.current or not all(ref.current for ref in (container,label,fill,cancel,retry)):
+        if signature == previous.current:
             return
         previous.current = signature
-        container.current.SetVisible(visible, False)
-        cancel.current.SetVisible(not error, False)
-        retry.current.SetVisible(bool(error), False)
-        fill.current.SetVisible(not error, False)
-        if visible:
+        # Publish only phase/line changes; progress ticks repaint retained ink.
+        lines = min(2, len(text_layout(caption(signature, True), 11, caption_width)[1]))
+        if phase != (visible, error, lines):
+            set_phase((visible, error, lines))
+        if visible and all(ref.current for ref in (label,fill)):
             update_retained_text(label.current, caption(signature))
             fill.current.SetSize(((card_width-20)*Theme.scale*min(1.,done/float(max(1,total))),4*Theme.scale))
     use_animation_frame(tick)
+    if not phase[0]:
+        return None
+    fraction = min(1.,previous.current[2]/float(max(1,previous.current[3]))) if previous.current else 0.
     return Panel(ref=container, style=S(position=Position.absolute, top=42, left=12, width=card_width,
-                         zIndex=410, visible=False), children=surface(padding=10,gap=6,children=[
-        row([retained_text(caption(previous.current),11,Theme.ink,width=card_width-72,slots=60,lines=2,node_ref=label),
-             Panel(style=S(width=44,height=24),children=[
-                 Panel(ref=cancel, style=S(position=Position.absolute,width=44,height=24), children=Action(label='取消', compact=True,
-                       height=24, width=44, onClick=stop)),
-                 Panel(ref=retry, style=S(position=Position.absolute,width=44,height=24), children=Action(label='重试', compact=True,
-                       height=24, width=44, onClick=session.tiles.retry))])],gap=8),
-        Image(color=Theme.line,style=S(width='100%',height=4),children=
-              Image(ref=fill,color=Theme.blue,style=S(width=0,height=4)))]))
+                         zIndex=410), children=surface(padding=10,gap=6,children=[
+        row([retained_text(caption(previous.current),11,Theme.ink,width=caption_width,slots=60,lines=phase[2],node_ref=label),
+             PreviewAction(session=session,label='重试' if phase[1] else '取消',onClick=stop)],gap=8),
+        Image(color=Theme.line,style=S(width='100%',height=4,display=Display.none if phase[1] else Display.flex),children=
+              Image(ref=fill,color=Theme.blue,style=S(width=(card_width-20)*fraction,height=4)))]))
 
 
 @Component
 def Viewport(session=None, revision=0, width=430, height=440):
     use_theme()
     use_session_fields(session, ('view', 'preview', 'preview_visible'))
-    navigation = use_ref(None)
+    navigation, preview_status = use_ref(None), use_ref(None)
     e = session.editor
     doc = e.document
     focus = session.focus_view
     area_h = max(130, height - (191 if focus else 203))
     viewport_children = []
-    viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation))
+    viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation, preview_status=preview_status))
     if not session.model_name and not session.preview_pending and not session.preview_error:
         viewport_children.append(Panel(key='empty_model', style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
@@ -209,7 +272,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
               children=OrientationGizmo(session=session)),
         Panel(key='view_navigation', ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),
               children=ViewNavigation(session=session, width=width, revision=revision)),
-        PreviewProgress(key='preview_progress', session=session, width=width),
+        PreviewProgress(key='preview_progress', session=session, width=width, container=preview_status),
     ])
     view_controls = [
         Action(glyph='minus', width=28, height=26, onClick=partial(session.camera_view, zoom=max(.25, session.zoom / 1.2))),

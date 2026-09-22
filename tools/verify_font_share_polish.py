@@ -111,11 +111,14 @@ s.tiles.report_progress=True
 s.tiles.progress=lambda:(24,128)
 _result=True''');time.sleep(.3)
         progress=ui.nodes('PreviewProgress',ui.call('dump_tree')['tree'])[0]
-        cancel=next(n for n in ui.nodes('Action',progress) if n['props'].get('label')=='取消')
+        cancel=next(n for n in ui.nodes('PreviewAction',progress) if n['props'].get('label')=='取消')
+        cancel_button=ui.nodes('Pointer',cancel)[0]
         label=next(n for n in ui.nodes('Label',progress) if '24 / 128' in n['props'].get('content',''))
-        ui.check('progress and cancel share a compact row',abs(ui.nodes('Button',cancel)[0]['layout']['y']-label['layout']['y'])<12)
+        ui.check('progress and cancel share a compact row',abs(cancel_button['layout']['y']-label['layout']['y'])<12)
         snapshot('stage54_preview_progress')
-        ui.call('click',ui.nodes('Button',cancel)[0]['id']);time.sleep(.2)
+        for phase in ('down','up'):
+            ui.call('pointer',cancel_button['id'],{'phase':phase,'x':cancel_button['layout']['width']/2.,'y':cancel_button['layout']['height']/2.})
+        time.sleep(.2)
         ui.check('cancel stops preview rather than pausing it',game('_result=not s.preview_pending and not s.tiles.running and s.tiles.iterator is None and "取消" in s.preview_error'))
         game('s.preview_pending,s.tiles.report_progress,s.tiles.progress=api._font_progress\ndel api._font_progress\n_result=True')
         game('s.preview_error="已取消更新，可重试"\n_result=True');time.sleep(.3)
