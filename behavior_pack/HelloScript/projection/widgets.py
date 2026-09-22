@@ -348,8 +348,22 @@ def Scroll(style=None, children=None, resetKey=None):
     metrics = use_ref((0., 0., 0., 0.))
     drag = use_ref(None)
     rendered = use_ref(None)
+    suspended = use_ref(None)
+
+    def release():
+        drag.current = None
+        box = getattr(rail.current, '_mp_drag_box', None)
+        if box is not None:
+            rail.current.SetPosition(box[0])
+            rail.current.SetSize(box[1])
+            rail.current._mp_drag_box = None
+        if suspended.current is not None:
+            suspended.current.SetTouchEnable(True)
+            suspended.current = None
+    use_effect(lambda: release, [])
 
     def reset():
+        release()
         if view.current:
             NativeScroll.scroll_to_top(view.current)
     use_effect(reset, [resetKey])
@@ -358,20 +372,30 @@ def Scroll(style=None, children=None, resetKey=None):
         if not all(r.current for r in (view, content, rail, thumb)):
             return
         if not NativeScroll.is_shown(view.current):
+            release()
             return
         height = view.current.GetSize()[1]
         total = content.current.GetSize()[1]
+        if height <= 0 or total <= height + 1:
+            if rendered.current != 'hidden':
+                rail.current.SetVisible(False)
+                thumb.current.SetVisible(False)
+            rendered.current = 'hidden'
+            metrics.current = (max(0., height), max(0., total), 0., 0.)
+            release()
+            return
         pos = NativeScroll.get_scroll_position(view.current) or 0.
         length = min(height, max(24 * Theme.scale, height * height / max(height, total, 1.)))
         offset = max(0., min(height - length, pos * (height - length) / max(1., total - height)))
         metrics.current = (height, total, length, pos)
-        signature = (height, total, length, offset, Theme.scale)
+        signature = (view.current.GetSize()[0], height, total, length, offset, Theme.scale)
         if signature == rendered.current:
             return
         rendered.current = signature
         rail.current.SetVisible(total > height + 1)
+        thumb.current.SetVisible(total > height + 1)
         thumb.current.SetSize((4 * Theme.scale, length))
-        thumb.current.SetPosition((3 * Theme.scale, offset))
+        thumb.current.SetPosition((view.current.GetSize()[0] + 3 * Theme.scale, offset))
 
     def move(args):
         if drag.current is None:
@@ -382,26 +406,50 @@ def Scroll(style=None, children=None, resetKey=None):
         NativeScroll.scroll_to(view.current, max(0., min(total - height, pos)))
 
     def down(args):
+        tick(0.)
         height, total, length, pos = metrics.current
-        y = args['TouchPosY'] - rail.current.GetGlobalPosition()[1]
+        if total <= height or height <= length:
+            return
+        # ModSDK TouchPos is screen-space (also for a local button callback).
+        # Convert only the hit-test coordinate; drag deltas below stay in the
+        # same screen-space coordinate system, so capture survives leaving rail.
+        global_y = rail.current.GetGlobalPosition()[1]
+        y = args.get('TouchPosY', global_y) - global_y
         top = pos * (height - length) / max(1., total - height)
         if not top <= y <= top + length:
             pos = max(0., min(total - height, (y - length / 2.) * (total - height) / max(1., height - length)))
             NativeScroll.scroll_to(view.current, pos)
         drag.current = (args['TouchPosY'], pos)
+        if args.get('pointerKind') == 'touch':
+            # A held rail owns this gesture. Suspend native content scrolling
+            # until release, and retain a screen-sized invisible hit surface so
+            # a finger may stray sideways without losing move/up callbacks.
+            native_view = view.current.GetChildByPath('/scroll_touch/scroll_view')
+            if native_view is not None:
+                native_view.SetTouchEnable(False)
+                suspended.current = native_view
+            position, size = rail.current.GetPosition(), rail.current.GetSize()
+            gx, gy = rail.current.GetGlobalPosition()
+            rail.current._mp_drag_box = (position, size)
+            screen_size = clientApi.GetEngineCompFactory().CreateGame(clientApi.GetLevelId()).GetScreenSize()
+            rail.current.SetPosition((position[0]-gx, position[1]-gy))
+            rail.current.SetSize(screen_size)
 
     def up(unused):
-        drag.current = None
+        release()
 
     use_animation_frame(tick)
     return Panel(cacheLayout=True, style=style, children=[
-        NativeScroll(ref=view, showScrollbar=False, style=NativeStyle(width='100%', height='100%'),
+        # Keep the rail outside the native touch viewport: overlapping it lets
+        # Bedrock steal the button gesture for ordinary content scrolling.
+        NativeScroll(ref=view, showScrollbar=False,
+            style=S(position=Position.absolute, left=0, right=10, top=0, bottom=0),
             children=Panel(ref=content, style=NativeStyle(width='100%'), children=children)),
         Pointer(ref=rail, retainCapture=True, onDown=down, onMove=move, onUp=up, onCancel=up,
             buttonBuilder=transparent,
-            style=S(position=Position.absolute, right=0, top=0, width=10, height='100%', zIndex=10),
-            children=Image(ref=thumb, color=Color(0xAAB8CCFF),
-                style=S(position=Position.absolute, left=3, top=0, width=4, height=24))),
+            style=S(position=Position.absolute, right=0, top=0, width=10, height='100%', zIndex=10)),
+        Image(ref=thumb, color=Color(0xAAB8CCFF),
+              style=S(position=Position.absolute, right=3, top=0, width=4, height=24,zIndex=11)),
     ])
 
 

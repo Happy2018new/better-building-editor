@@ -63,6 +63,6 @@ python -X utf8 tools/run_live_check.py --session $instance.session_file --owner 
 3. 三方合并 `UPSTREAM.md` 列出的运行时补丁，以及本地技能中的 `projection.md`、MCDK 诊断桥接、实例启动与回归桌面锁补充。
 4. 检查许可与配套工具的删除/迁移，运行单元测试和实机回归，再更新 SHA、验证记录并提交。
 
-## 阶段 51 的滚动控件性能补丁
+## 滚动控件兼容补丁（2026-09-22 修正）
 
-`ScrollViewPrimitive._get_scroll_view` 优先查找实际原生 scroll_view 子节点，缓存转换后的包装对象。避免常驻滚动同步每帧将外层 Panel 转换为 ScrollView，反复触发原生警告和查找；上游后续合并需保留或验证等效行为。缓存依附当前原生控件，重新挂载自然失效；没有新增对外 props。
+`ScrollViewPrimitive._get_scroll_view` 优先从模板根创建 SDK 包装对象，并用非空 `GetScrollViewContentPath()` 验证后缓存。SDK 内部自己拼接 touch/mouse 子路径；阶段 51 改为对内部 `scroll_view` 转换后，路径重复，造成读回零和写入无效。不能恢复该错误优化。百分比 setter 传入限制在 0–100 的整数；缓存依附当前控件，重挂载失效，没有新增对外 props。实机验证需检查内容真实位置，不能仅检查 asScrollView 返回非空。

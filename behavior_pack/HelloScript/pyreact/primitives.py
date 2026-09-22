@@ -1026,7 +1026,10 @@ class ScrollViewPrimitive(Primitive):
         cached = getattr(control, '_pyreact_scroll_control', None)
         if cached is not None:
             return cached
-        candidates = []
+        # SDK ScrollViewUIControl resolves scroll_mouse/scroll_touch itself.
+        # Casting the internal native scroll_view succeeds, but its SDK methods
+        # then append that branch twice: reads return 0 and writes do nothing.
+        candidates = [control]
         for path in ("/scroll_mouse/scroll_view", "/scroll_touch/scroll_view"):
             try:
                 child = control.GetChildByPath(path)
@@ -1034,18 +1037,14 @@ class ScrollViewPrimitive(Primitive):
                 child = None
             if child is not None:
                 candidates.append(child)
-        # The scrolling_panel ref is a Panel. Casting it every frame emits a
-        # native warning; resolve its actual scroll child before trying root.
-        candidates.append(control)
-
         for candidate in candidates:
             try:
                 scroll_view = candidate.asScrollView()
+                if scroll_view is not None and scroll_view.GetScrollViewContentPath():
+                    control._pyreact_scroll_control = scroll_view
+                    return scroll_view
             except Exception:
-                scroll_view = None
-            if scroll_view is not None:
-                control._pyreact_scroll_control = scroll_view
-                return scroll_view
+                continue
         return None
 
     @staticmethod
@@ -1071,7 +1070,7 @@ class ScrollViewPrimitive(Primitive):
         if scroll_view is None:
             return False
         try:
-            scroll_view.SetScrollViewPercentValue(percent)
+            scroll_view.SetScrollViewPercentValue(int(round(max(0., min(100., percent)))))
             return True
         except Exception:
             return False

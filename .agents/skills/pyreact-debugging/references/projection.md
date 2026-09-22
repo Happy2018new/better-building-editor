@@ -2,6 +2,8 @@
 
 这是本项目扩展；不是上游通用 API。MCDK 与游戏内保留的剪贴板通道共用相同的有界诊断处理函数。
 
+滚动条回归用 `verify_scrollbar61.py`，真实 PC/F11 按住后移出轨道，检查连续滚动、释放后停止和恢复普通触摸滚动。SDK 的 ScrollView 包装对象应创建在模板根；内部 `/scroll_touch/scroll_view` 只用于暂时关闭原生内容触摸，不用于 SDK 滚动读写。F11 确实投递 TouchId=0 和 move 事件；不能因 Windows 鼠标输入而跳过模拟验证，仍需与手机硬件测试区分。热装 @Component 必须更新已被其他模块导入的旧函数引用，并跨帧 pop/push；检查实际回调源码与原生尺寸，避免拿旧闭包测试新代码。
+
 - 自定义指针 Primitive 可通过 `_protocol.request('pointer', node_id=ID, value={'phase': 'down|move|up|cancel|enter|leave', 'x': X, 'y': Y})` 调试；坐标为相对该原生控件左上角的 UI 单位，调用正式 `onDown/onMove/onUp/onCancel/onEnter/onLeave` 回调。拖动使用 down → 若干 move → up；与 Win32 实际鼠标输入测试配合验证绑定。
 - 指针请求可加 `touch: true`，模拟触控操作方式（例如轻触直接放置、拖动只旋转）。它仍是回调模拟，不能替代手机硬件的触摸事件测试。
 - 开发客户端关闭 UI 后按 **F11** 切换原生触屏模拟，F12 无效。使用实例绑定的 MCDK `mc_input /key` 发送 scan code；本机 `keybd_event` 的虚拟功能键曾无效，不能只凭投递成功判断切换。`tools/native_input_mode.py` 读回 `IsTouchWithMouse()` 确认开关，在真正触点后再核对 `PlayerView.GetToggleOption(OptionId.INPUT_MODE) == InputMode.Touch`。进入或退出 F11 模拟时，INPUT_MODE 都可能保留上一次接触的模式，直至新输入才更新；因此 Windows 以模拟开关为准，手机依原生模式判定。`verify_native_touch.py` 必须在按住未松手时多次检查角度连续变化，只检查松手后有转动会漏报缺失 move 事件。
