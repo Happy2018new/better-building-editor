@@ -33,15 +33,19 @@ class TypographyTests(unittest.TestCase):
         self.assertEqual(1,len(pieces))
         self.assertEqual(glyph(char),pieces[0][0])
 
-    def test_phrase_sprites_explicitly_reset_previous_atlas_crop(self):
+    def test_phrase_atlas_crops_exist_without_duplicate_character_images(self):
         from projection.typography import ASSETS
         from PIL import Image
         directory=Path(__file__).resolve().parents[1]/'resource_pack/textures/modern_projection/type'
-        for phrase in ('未命名建筑','现代化投影'):
+        for phrase in ASSETS:
+            self.assertGreater(len(phrase),1)
             data=glyph(phrase)
             with Image.open(directory/(data[0]+'.png')) as image:
-                self.assertEqual(image.size,data[5])
-            self.assertEqual((0,0),data[4])
+                self.assertLessEqual(data[4][0]+data[5][0]+2,image.width)
+                self.assertLessEqual(data[4][1]+data[5][1]+2,image.height)
+            self.assertEqual((round(data[1]*64),88),data[5])
+        referenced={glyph(char)[0] for char in GLYPHS}|{glyph(phrase)[0] for phrase in ASSETS}
+        self.assertEqual(referenced,{path.stem for path in directory.glob('*.png')})
 
     def test_wrapping_keeps_closing_punctuation_with_preceding_character(self):
         value='请先保存需要保留的作品。'

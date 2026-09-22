@@ -53,8 +53,7 @@ def SharingDialog(session=None, width=900, height=640):
                 children += [text('导入只添加本地配置，当前草稿和世界保持完整。',11,Theme.muted,width=content_width),
                              Action(label='确认加入建筑库',glyph='save',accent=True,onClick=share.accept,enabled=not share.busy and not share.saved)]
             elif share.inbox.parts:
-                children += [text('缺少第 '+share.inbox.missing_summary()+' 段',11,Theme.ink,width=content_width),
-                             text('绿色为已接收，浅灰为待接收',10,Theme.muted)]
+                children += [text('绿色为已接收，浅灰为待接收',10,Theme.muted)]
                 start = share.inbox_page*24+1
                 for first in range(start,min(start+24,share.inbox.total+1),6):
                     children.append(row([surface(width=(content_width-30)/6.,height=24,padding=0,

@@ -46,7 +46,7 @@ class TiledPreview(object):
         self.dirty.clear()
         self.running = self.session.preview_pending = False
         self.report_progress = False
-        self.session.preview_error = '预览已暂停，可重试'
+        self.session.preview_error = '已取消更新，可重试'
         self.session.emit('preview')
 
     def retry(self):

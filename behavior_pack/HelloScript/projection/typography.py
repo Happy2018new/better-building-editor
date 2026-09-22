@@ -32,7 +32,7 @@ def glyph(value):
         page, x, y, width, advance = data
         return ('atlas_%03d' % page, width/64., 88/64., advance/64., (x,y), (width,88))
     data = ASSETS.get(value)
-    return tuple(data)+((0,0),(int(round(data[1]*64)),int(round(data[2]*64)))) if data is not None else None
+    return tuple(data[:4])+(tuple(data[4]),tuple(data[5])) if data is not None else None
 
 
 def supported(value):

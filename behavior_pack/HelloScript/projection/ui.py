@@ -178,11 +178,12 @@ def PreviewProgress(session=None, width=400):
     use_animation_frame(tick)
     return Panel(ref=container, style=S(position=Position.absolute, top=42, left=12, width=card_width,
                          zIndex=410, visible=False), children=surface(padding=10,gap=6,children=[
-        retained_text(caption(previous.current),11,Theme.ink,width=card_width-20,slots=60,lines=2,node_ref=label),
-        row([Panel(style=S(flex=1)), Panel(ref=cancel, style=S(width=44,height=23), children=Action(label='暂停', compact=True,
-                   height=23, width=44, onClick=stop)),
-             Panel(ref=retry, style=S(width=44,height=23), children=Action(label='重试', compact=True,
-                   height=23, width=44, onClick=session.tiles.retry))]),
+        row([retained_text(caption(previous.current),11,Theme.ink,width=card_width-72,slots=60,lines=2,node_ref=label),
+             Panel(style=S(width=44,height=24),children=[
+                 Panel(ref=cancel, style=S(position=Position.absolute,width=44,height=24), children=Action(label='取消', compact=True,
+                       height=24, width=44, onClick=stop)),
+                 Panel(ref=retry, style=S(position=Position.absolute,width=44,height=24), children=Action(label='重试', compact=True,
+                       height=24, width=44, onClick=session.tiles.retry))])],gap=8),
         Image(color=Theme.line,style=S(width='100%',height=4),children=
               Image(ref=fill,color=Theme.blue,style=S(width=0,height=4)))]))
 

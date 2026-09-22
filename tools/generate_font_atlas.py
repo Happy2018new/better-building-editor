@@ -15,9 +15,11 @@ def build(path):
     cmap=TTFont(str(path)).getBestCmap()
     font=ImageFont.truetype(str(path),64)
     font.set_variation_by_name('Medium')
-    existing=runpy.run_path(str(ROOT/'behavior_pack/HelloScript/projection/type_assets.py'))['ASSETS']
+    mapping=ROOT/'behavior_pack/HelloScript/projection/font_atlas.py'
+    existing=runpy.run_path(str(mapping))['GLYPHS'] if mapping.exists() else {}
     chars=[chr(code) for code in cmap if code>=32 and not 0x7f<=code<0xa0]
-    chars.sort(key=lambda char:(char not in existing,ord(char)))
+    # Preserve page order on regeneration, independently of phrase inventory.
+    chars.sort(key=lambda char:tuple(existing[char][:3][i] for i in (0,2,1)) if char in existing else (100000,0,ord(char)))
     dest=ROOT/'resource_pack/textures/modern_projection/type'
     rows={};page=0;x=y=2
     image=Image.new('RGBA',(PAGE,PAGE),(255,255,255,0))
