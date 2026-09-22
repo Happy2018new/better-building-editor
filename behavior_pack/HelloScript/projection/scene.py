@@ -119,6 +119,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
     cursor_refs = [use_ref(None) for unused in range(12)]
     grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
     line_state = use_ref({}).current
+    line_images = use_ref({}).current
     selected_bounds = use_ref((None, None))
     active = (session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
               and not session.material_browser and not session.pending_rename and not session.sharing.opened)
@@ -288,10 +289,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
         models_signature.current = model_key
         right, up, unused_toward = camera.basis()
         native_width, native_height, cell_unit = width*Theme.scale, height*Theme.scale, unit()
+        project = camera.projector(session.scene_size, native_width, native_height, cell_unit)
         for key, controls in list(registry.items()) if update_models else ():
             dolls, surfaces, preview = controls
             if not all(ref.current for ref in dolls+surfaces):
                 continue
+            if not hasattr(preview, 'native_dolls'):
+                preview.native_dolls = tuple(ref.current.asNeteasePaperDoll() for ref in dolls)
             part = session.tiles.parts.get(key)
             if part is None:
                 if not getattr(preview, 'suspended', False):
@@ -308,7 +312,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 part['pending'] = False
                 continue
             center = tuple(part['origin'][i]+part['size'][i]/2.-session.scene_origin[i] for i in range(3))
-            tx, ty = camera.project(center, session.scene_size, native_width, native_height, cell_unit)
+            tx, ty = project(center)
             rx = cell_unit*(sum(part['size'][i]*abs(right[i]) for i in range(3))/2.+2.)
             ry = cell_unit*(sum(part['size'][i]*abs(up[i]) for i in range(3))/2.+2.)
             offscreen = tx+rx < 0 or tx-rx > native_width or ty+ry < 0 or ty-ry > native_height
@@ -353,7 +357,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     ref.current.SetLayer(tile_layer, False, False)
                     layer_updates.append((ref.current, tile_layer))
             def draw(slot, name, pose):
-                result = dolls[slot].current.asNeteasePaperDoll().RenderBlockGeometryModel({
+                result = preview.native_dolls[slot].RenderBlockGeometryModel({
                     'block_geometry_model_name': name, 'scale': pose[0],
                     'init_rot_x': pose[1], 'init_rot_y': 0., 'init_rot_z': pose[2]})
                 return result
@@ -422,6 +426,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
 
         def draw_lines(refs, segments, thickness, gradient_bounds=None):
             ranges = []
+            origin = session.scene_origin
             gradient_size = tuple(gradient_bounds[1][i] - gradient_bounds[0][i] + 1 for i in range(3)) if gradient_bounds else None
             for index, ref in enumerate(refs):
                 ranges.append(None)
@@ -432,9 +437,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     segment = clip_depth(segment[0], segment[1], plane)
                 if segment:
                     hues = [cursor_hue(p, gradient_bounds[0], gradient_size) for p in segment] if gradient_bounds is not None else None
-                    a, b = [tuple(p[i] - session.scene_origin[i] for i in range(3)) for p in segment]
-                    a, b = [camera.project(p, session.scene_size, width * Theme.scale, height * Theme.scale, unit()) for p in (a, b)]
-                    segment = clip_line(a, b, width * Theme.scale, height * Theme.scale)
+                    a,b = segment
+                    a = project((a[0]-origin[0],a[1]-origin[1],a[2]-origin[2]))
+                    b = project((b[0]-origin[0],b[1]-origin[1],b[2]-origin[2]))
+                    segment = clip_line(a, b, native_width, native_height)
                     if segment and hues is not None:
                         ranges[index] = tuple(hues[0] + (hues[1]-hues[0])*t for t in segment_fractions(a, b, segment))
                 old = line_state.get(id(ref))
@@ -448,7 +454,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                     # its centre inside the viewport, including vertical edges.
                     ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
                     ref.current.SetSize((length, thickness))
-                    ref.current.asImage().Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
+                    identity = id(ref)
+                    if identity not in line_images:
+                        line_images[identity] = ref.current.asImage()
+                    line_images[identity].Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
             return ranges
         thickness = max(.3, Theme.scale * .65)
         edge_signature = (signature, selected)
@@ -477,9 +486,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None):
                 for ref, hues in zip(cursor_refs, cursor_ranges.current):
                     if ref.current and hues is not None:
                         uv, uv_size = cursor_uv(hues[0], hues[1], spectrum_time.current, Theme.motion, invalid)
-                        ref.current.asImage().SetSpriteUV(uv)
+                        line_images[id(ref)].SetSpriteUV(uv)
                         if resized:
-                            ref.current.asImage().SetSpriteUVSize(uv_size)
+                            line_images[id(ref)].SetSpriteUVSize(uv_size)
 
     def down(args):
         if not screen_hit((args['TouchPosX'], args['TouchPosY'])):

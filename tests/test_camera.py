@@ -15,6 +15,19 @@ class Bridge:
 
 
 class CameraTests(unittest.TestCase):
+    def test_frame_projection_stays_aligned_with_picking_after_pose_changes(self):
+        camera=OrbitCamera(35.,25.,4.)
+        size,width,height,unit=(64,128,64),640.,400.,12.
+        for yaw,pitch,pan,pivot in ((0,0,(0.,0.),None),(221,60,(.4,-.8),(30.,90.,20.)),(24,-70,(-1.,2.),None)):
+            camera.yaw,camera.pitch,camera.pan,camera.pivot=yaw,pitch,pan,pivot
+            project=camera.projector(size,width,height,unit)
+            for point in ((0.,0.,0.),(63.,127.,63.),(31.5,65.5,42.5)):
+                screen=project(point)
+                origin,direction=camera.ray(*screen,size,width,height,unit)
+                axis=max(range(3),key=lambda i:abs(direction[i]))
+                distance=(point[axis]-origin[axis])/direction[axis]
+                for i in range(3):self.assertAlmostEqual(point[i],origin[i]+distance*direction[i],places=7)
+
     def test_pinch_preserves_midpoint_anchor_and_supports_translation(self):
         camera = OrbitCamera(35.,25.,2.)
         camera.pan = camera.pan_target = (.1,-.2)

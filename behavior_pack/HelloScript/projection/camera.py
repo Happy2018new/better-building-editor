@@ -171,7 +171,8 @@ class OrbitCamera(object):
         self._basis_value = ((cy, 0., -sy), (-sy * sp, cp, -cy * sp), (sy * cp, sp, cy * cp))
         return self._basis_value
 
-    def project(self, point, size, width, height, unit):
+    def projection(self, size, width, height, unit):
+        """Freeze affine coefficients once for a frame's tiles and line vertices."""
         key = (self.render_angles(), self.pan, self.pivot, size, width, height, unit)
         if getattr(self, '_projection_key', None) != key:
             right, up, unused = self.basis()
@@ -180,7 +181,17 @@ class OrbitCamera(object):
             self._projection_value = (tuple(unit*v for v in right), tuple(-unit*v for v in up),
                 width*(.5+self.pan[0])-unit*sum(center[i]*right[i] for i in range(3)),
                 height*(.5+self.pan[1])+unit*sum(center[i]*up[i] for i in range(3)))
-        rx, uy, tx, ty = self._projection_value
+        return self._projection_value
+
+    def projector(self, size, width, height, unit):
+        rx, uy, tx, ty = self.projection(size, width, height, unit)
+        def project(point):
+            return (tx+point[0]*rx[0]+point[1]*rx[1]+point[2]*rx[2],
+                    ty+point[0]*uy[0]+point[1]*uy[1]+point[2]*uy[2])
+        return project
+
+    def project(self, point, size, width, height, unit):
+        rx, uy, tx, ty = self.projection(size, width, height, unit)
         return (tx+point[0]*rx[0]+point[1]*rx[1]+point[2]*rx[2],
                 ty+point[0]*uy[0]+point[1]*uy[1]+point[2]*uy[2])
 

@@ -12,6 +12,7 @@ from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
 from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
+from .typography import glyph, supported, layout as text_layout
 from .catalog import ACTION_ICONS, SEGMENT_ICONS
 from .pointer import PointerTracker
 from .input_mode import is_touch
@@ -96,6 +97,7 @@ class LabelPrimitive(BaseLabelPrimitive):
         native_prev = dict(prev_props, content='') if prev_props and prev_props.get('rasterText') else prev_props
         BaseLabelPrimitive.apply_props(self, host, fiber, control, native_prev, native_next)
         if next_props.get('glyphSlots'):
+            control._mp_caption_fiber = fiber
             state = fiber.primitive_state
             if 'glyph_pool' not in state:
                 state['glyph_pool'] = []
@@ -131,30 +133,20 @@ class LabelPrimitive(BaseLabelPrimitive):
             return
         state['glyph_paint'] = signature
         state['glyph_alpha'] = alpha
-        pieces, advance, row = [], 0., 0
-        widths = [0.]
-        for char in value[:props['glyphSlots']]:
-            data = ASSETS.get(char)
-            if data is None:
-                break
-            if advance + data[3]*font > width:
-                if row+1 >= props.get('glyphLines', 1):
-                    break
-                row, advance = row+1, 0.
-                widths.append(0.)
-            pieces.append((data, row, advance))
-            advance += data[3]*font
-            widths[row] = advance
+        pieces, widths = text_layout(value[:props['glyphSlots']], font, width, props.get('glyphLines', 1))
         state['glyph_visible'] = len(pieces) if props.get('rasterText') else 0
         for i, patch in enumerate(state['glyph_pool']):
             shown = i < len(pieces) and props.get('rasterText')
             patch.SetVisible(bool(shown), False)
             if shown:
                 data, row, x = pieces[i]
-                name, w, h, unused_step = data
+                name, w, h, unused_step, uv, uv_size = data
                 if props.get('textAlign') == TextAlignment.center:
                     x += (width-widths[row])/2.
                 patch.asImage().SetSprite(TEX + 'type/' + name)
+                patch.asImage().SetSpriteUV(uv)
+                if uv_size is not None:
+                    patch.asImage().SetSpriteUVSize(uv_size)
                 patch.asImage().SetSpriteColor(color.to_rgb_tuple())
                 patch.SetPosition((x, row*font*1.5))
                 patch.SetSize((w*font, h*font))
@@ -189,7 +181,22 @@ Slider = SliderPrimitive()
 Slider.template_path = '/root/mp_slider_tmpl'
 Doll = PaperDollPrimitive()
 Doll.template_path = '/root/mp_doll_tmpl'
-NativeScroll = ScrollViewPrimitive()
+class VisibleScrollPrimitive(ScrollViewPrimitive):
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        ScrollViewPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        control._mp_scroll_fiber = fiber
+
+    @staticmethod
+    def is_shown(control):
+        fiber = getattr(control, '_mp_scroll_fiber', None)
+        while fiber is not None:
+            if fiber.primitive_state.get('_visible') is False:
+                return False
+            fiber = fiber.parent_fiber
+        return True
+
+
+NativeScroll = VisibleScrollPrimitive()
 NativeScroll.template_path = '/root/mp_scroll_tmpl'
 
 
@@ -350,6 +357,8 @@ def Scroll(style=None, children=None, resetKey=None):
     def tick(unused):
         if not all(r.current for r in (view, content, rail, thumb)):
             return
+        if not NativeScroll.is_shown(view.current):
+            return
         height = view.current.GetSize()[1]
         total = content.current.GetSize()[1]
         pos = NativeScroll.get_scroll_position(view.current) or 0.
@@ -403,24 +412,22 @@ def text(value, size=12, color=None, center=False, **style):
     font = size * Theme.scale
     props = dict(content=value, fontSize=font, shadow=False, color=color,
                  textAlign=TextAlignment.center if center else TextAlignment.left)
-    if value and all(char in ASSETS for char in value):
-        pieces = [value] if value in ASSETS else list(value)
-        advance = sum(ASSETS[p][3] for p in pieces) * font
+    if value and supported(value):
         limit = style.get('width')
         limit = limit * Theme.scale if isinstance(limit, (int, float)) else None
-        if limit and advance > limit:
-            pieces = list(value)
-        x, y, children = 0., 0., []
-        for i, piece in enumerate(pieces):
-            name, width, height, step = ASSETS[piece]
-            if limit and x and x + step * font > limit:
-                x, y = 0., y + font * 1.5
+        phrase = ASSETS.get(value)
+        if phrase and (not limit or phrase[3]*font <= limit):
+            pieces, widths = [(glyph(value),0,0.)], [phrase[3]*font]
+        else:
+            pieces, widths = text_layout(value, font, limit)
+        children = []
+        for i, (data, row_index, x) in enumerate(pieces):
+            name, width, height, step, uv, uv_size = data
             children.append(TypeImage(key='glyph_%d' % i, src=TEX + 'type/' + name,
-                color=color, style=NativeStyle(position=Position.absolute, left=x, top=y,
+                color=color, uv=uv, uvSize=uv_size, style=NativeStyle(position=Position.absolute, left=x, top=row_index*font*1.5,
                                                width=width * font, height=height * font)))
-            x += step * font
-        advance = min(advance, limit) if limit else advance
-        total_height = y + font * 1.35
+        advance = min(max(widths), limit) if limit else max(widths)
+        total_height = (len(widths)-1)*font*1.5 + font*1.35
         props['children'] = Panel(style=NativeStyle(position=Position.absolute,
             left='50%' if center else 0, top=0, width=advance, height=total_height,
             transform=[Translate(-advance / 2., 0)] if center else None), children=children)
@@ -437,17 +444,27 @@ def text(value, size=12, color=None, center=False, **style):
     return NativeText(cacheLayout=True, **props)
 
 
-def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, **style):
+def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, node_ref=None, **style):
     """Fixed-size dynamic captions using the existing font/glyph assets."""
     if isinstance(value, bytes):
         value = value.decode('utf8')
     value = value or ''
     values = dict(height=size*1.5*lines, clipsChildren=True)
     values.update(style)
-    return NativeText(cacheLayout=True, content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
-                      shadow=False, rasterText=all(char in ASSETS for char in value),
+    return NativeText(ref=node_ref, cacheLayout=True, content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
+                      shadow=False, rasterText=supported(value),
                       glyphSlots=slots, glyphLines=lines, textAlign=TextAlignment.center if center else TextAlignment.left,
                       style=S(**values))
+
+
+def update_retained_text(control, value):
+    fiber = getattr(control, '_mp_caption_fiber', None)
+    if fiber is None or fiber.props.get('content') == value:
+        return
+    fiber.props['content'] = value
+    fiber.props['rasterText'] = supported(value)
+    control.asLabel().SetText('' if fiber.props['rasterText'] else value)
+    NativeText.paint_glyphs(fiber)
 
 
 def row(children, **style):

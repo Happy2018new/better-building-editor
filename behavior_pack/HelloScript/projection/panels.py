@@ -346,7 +346,7 @@ def NewRegion(session=None, compact=False):
         set_size(session.new_size)
 
     def create():
-        session.confirm('新建 %d × %d × %d 将替换当前草稿，请先保存需要保留的作品。' % session.new_size, session.empty)
+        session.confirm('新建 %d × %d × %d 区域将替换当前草稿。\n请先保存需要保留的作品。' % session.new_size, session.empty)
 
     axes = [DimensionAxis(key=str(axis), axis=axis, label=label, value=size[axis], maximum=MAX_AXES[axis],
                           onChange=partial(change, axis), stacked=compact)

@@ -316,3 +316,6 @@ def native_skin():
 if __name__=='__main__':
     parser=argparse.ArgumentParser(); parser.add_argument('--font',required=True); args=parser.parse_args()
     sprites(args.font); graphics(); native_skin()
+    # Runtime names and future UI captions must not depend on scanned literals.
+    from generate_font_atlas import build
+    build(Path(args.font))

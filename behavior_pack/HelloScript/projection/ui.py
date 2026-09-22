@@ -8,7 +8,7 @@ from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
-from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText, retained_text
+from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText, retained_text, update_retained_text
 from .panels import Parameters, Layers, History, Library, ProjectionSettings, Guide, material_color, material_name
 from .catalog import GROUPS, TOOLS, BY_ID, TOOL_ICONS
 from .model import AIR
@@ -142,16 +142,28 @@ def PreviewProgress(session=None, width=400):
     container, label, fill = use_ref(None), use_ref(None), use_ref(None)
     cancel, retry = use_ref(None), use_ref(None)
     previous = use_ref(None)
+    published = use_ref(0.)
+    card_width = min(280, width-24)
+    def caption(signature):
+        if not signature or not signature[0]:
+            return ''
+        unused_visible, editing, done, total, error, unused_scale, unused_width = signature
+        return error or (('正在修改方块' if editing else '正在更新预览') + '，%d / %d' % (done,total))
     def stop():
         if session.edit_job is not None:
             session.cancel_edit()
         else:
             session.tiles.cancel()
-    def tick(unused_now):
+    def tick(now):
         job = session.edit_job
         error = session.preview_error
         visible = bool(error) or job is not None or (session.preview_pending and session.tiles.report_progress)
-        done, total = (min(job.processed, job.total), job.total) if job else session.tiles.progress()
+        if not visible and previous.current and not previous.current[0]:
+            return
+        if visible and now-published.current < .1:
+            return
+        published.current = now
+        done, total = ((min(job.processed, job.total), job.total) if job else session.tiles.progress()) if visible else (0,1)
         signature = (visible, job is not None, done, total, error, Theme.scale, width)
         if signature == previous.current or not all(ref.current for ref in (container,label,fill,cancel,retry)):
             return
@@ -161,21 +173,18 @@ def PreviewProgress(session=None, width=400):
         retry.current.SetVisible(bool(error), False)
         fill.current.SetVisible(not error, False)
         if visible:
-            message = error or (('正在修改方块' if job else '正在更新预览') + '，%d / %d' % (done,total))
-            label.current.asLabel().SetText(message)
-            fill.current.SetSize((width*Theme.scale*min(1.,done/float(max(1,total))),2*Theme.scale))
+            update_retained_text(label.current, caption(signature))
+            fill.current.SetSize(((card_width-20)*Theme.scale*min(1.,done/float(max(1,total))),4*Theme.scale))
     use_animation_frame(tick)
-    return Panel(ref=container, style=S(position=Position.absolute, top=0, left=0, width=width,
-                         height=30, zIndex=410, visible=False), children=[
-        Image(color=Theme.white, style=S(width='100%',height=30)),
-        row([NativeText(ref=label, content='', fontSize=10*Theme.scale, color=Theme.muted,
-                       textAlign=TextAlignment.left, shadow=False, style=S(flex=1,height=18)),
-             Panel(ref=cancel, style=S(width=44,height=23), children=Action(label='暂停', compact=True,
+    return Panel(ref=container, style=S(position=Position.absolute, top=42, left=12, width=card_width,
+                         zIndex=410, visible=False), children=surface(padding=10,gap=6,children=[
+        retained_text(caption(previous.current),11,Theme.ink,width=card_width-20,slots=60,lines=2,node_ref=label),
+        row([Panel(style=S(flex=1)), Panel(ref=cancel, style=S(width=44,height=23), children=Action(label='暂停', compact=True,
                    height=23, width=44, onClick=stop)),
              Panel(ref=retry, style=S(width=44,height=23), children=Action(label='重试', compact=True,
-                   height=23, width=44, onClick=session.tiles.retry))],
-            position=Position.absolute,left=10,right=10,top=2,height=24),
-        Image(ref=fill, color=Theme.blue, style=S(position=Position.absolute,bottom=0,width=0,height=2))])
+                   height=23, width=44, onClick=session.tiles.retry))]),
+        Image(color=Theme.line,style=S(width='100%',height=4),children=
+              Image(ref=fill,color=Theme.blue,style=S(width=0,height=4)))]))
 
 
 @Component
@@ -194,6 +203,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text('当前没有可见方块，点击网格放置', 12, Theme.muted)]))
     viewport_children.extend([
+        SceneStatus(session=session),
         Panel(key='orientation', style=S(position=Position.absolute, width='100%', height='100%', visible=session.view == '3d', zIndex=400),
               children=OrientationGizmo(session=session)),
         Panel(key='view_navigation', ref=navigation, style=S(position=Position.absolute, left=12, bottom=12, zIndex=400, visible=session.view == '3d'),
@@ -251,11 +261,11 @@ def ViewportModes(session=None, revision=0, width=430):
 @Component
 def SceneStatus(session=None):
     use_theme()
-    use_session_fields(session, ('view', 'point_edit', 'camera_depth'))
-    label = 'X %d   Y %d   Z %d' % session.focused if session.focused else '三维，可直接编辑'
-    if session.camera_depth > 0.:
-        label += '，视线推进 %g 格' % session.camera_depth
-    return text(label, 10, Theme.muted)
+    use_session_fields(session, ('view', 'camera_depth'))
+    return Panel(style=S(position=Position.absolute,left=12,top=12,zIndex=400,
+                         visible=session.view=='3d' and session.camera_depth>0.),children=
+        surface(paddingHorizontal=9,height=24,justifyContent=JustifyContent.center,children=
+                text('视线已深入 %g 格' % session.camera_depth,11,Theme.muted)))
 
 
 @Component
