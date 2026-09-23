@@ -58,3 +58,5 @@ Style(transform=[{"scale": 1.2, "origin": (0.5, 1.0)}])
 如果控件同时具有 `color` 和 `opacity`，最终 native alpha 应等于继承后的 `Style.opacity * Color.alpha`。
 
 本地 Primitive 扩展：`apply_props` 可以显式返回 `False`，表示属性已在 Python 回调表或已有原生绘制控件中更新，不需要仅为这些 props 再调用整屏 `UpdateScreen`。默认返回 `None` 仍会刷新，兼容上游与自定义组件。挂载、显隐、层级及布局的提交不受此返回值影响；不要用它跳过结构更新。Button 在 `buttonBuilder` 引用不变时只替换最新点击回调；需要改变背景时传入新的 builder。
+
+框架内部同步挂载/提交使用 `native.batch_input_routes()` 合并网易 3.9 的重复输入路由重建；业务组件无需额外调用，不能跨帧或覆盖真实输入事件分发。异常退出会恢复并提交路由，其他引擎版本无此辅助函数时正常使用原 API。空 Panel/Label 及其子类不依赖刷新后的原生尺寸；绝对定位的两侧锚点也可确定相应轴尺寸，无需为此再次排版整棵树。

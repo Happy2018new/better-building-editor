@@ -350,13 +350,23 @@ def _needs_post_measure(node):
         # 不依赖目标 Label 在首轮 UpdateScreen 后的尺寸。
         if content is not None and content != "":
             return False
-        primitive_name = node.fiber.comp_type.__class__.__name__
-        if primitive_name in ("PanelPrimitive", "LabelPrimitive"):
+        from .primitives import PanelPrimitive, LabelPrimitive
+        if isinstance(node.fiber.comp_type, (PanelPrimitive, LabelPrimitive)):
             return False
         style = node.style
         width = style.get("width") if style is not None else None
         height = style.get("height") if style is not None else None
-        return width is None or height is None
+        width_defined = width is not None
+        height_defined = height is not None
+        if node.position == Position.absolute and style is not None:
+            # Opposite anchors determine this axis from the parent. Reading
+            # the native size after refresh cannot change its layout, e.g.
+            # a segment underline with left/right and an explicit height.
+            width_defined = width_defined or (style.get("left") is not None and
+                                              style.get("right") is not None)
+            height_defined = height_defined or (style.get("top") is not None and
+                                                style.get("bottom") is not None)
+        return not width_defined or not height_defined
     for child in node.children:
         if _needs_post_measure(child):
             return True

@@ -26,6 +26,7 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--label',default='after')
     parser.add_argument('--orbit',action='store_true')
+    parser.add_argument('--navigation',action='store_true')
     parser.add_argument('--hotspots',action='store_true')
     args=parser.parse_args()
     rows=[]
@@ -79,6 +80,20 @@ _result=True''')
                           interval_ms=summary([(b[0]-a[0])*1000. for a,b in zip(frames,frames[1:])]))
             rows.append(result);print(json.dumps(result),flush=True)
         assert result['blocks']==39944,result
+        if args.navigation:
+            before=game('api._workflow_rows=[]\napi._workflow_active=True\n_result=s.tiles.builds')
+            for yaw,pitch,zoom,pan,depth in ((0,0,1,(0,0),0),(35,20,2,(.2,-.2),16),
+                                          (90,35,8,(-.4,.4),48),(170,-20,4,(.1,0),24),
+                                          (35,25,1,(0,0),0)):
+                game('s.camera_pan='+repr(pan)+'\ns.camera_depth='+repr(depth)+
+                     '\ns.camera_view(%r,%r,%r)\ns.emit("camera_depth")\n_result=True'%(yaw,pitch,zoom))
+                time.sleep(.9)
+            frames=game('api._workflow_active=False\n_result=api._workflow_rows')
+            result=game('_result={"new_builds":s.tiles.builds-'+str(before)+',"blocks":len(s.editor.document.blocks),"pose":s.camera_pose}')
+            result.update(case='navigation',python_ms=summary([r[1] for r in frames]),
+                          interval_ms=summary([(b[0]-a[0])*1000. for a,b in zip(frames,frames[1:])]))
+            rows.append(result);print(json.dumps(result),flush=True)
+            assert result['new_builds']==0 and result['blocks']==39944,result
         if args.orbit:
             import profile_orbit_angles
             previous=sys.argv
