@@ -42,15 +42,16 @@ def generate():
     ui = ROOT / 'resource_pack/textures/modern_projection'
     ui.mkdir(parents=True, exist_ok=True)
     for state, fill, edge, stripe in (
-        ('normal', '#E9F2F8', '#6E8397', '#3284E7'),
-        ('hover', '#F5FBFF', '#397DED', '#23C7D5'),
-        ('pressed', '#CCDDEB', '#3165B2', '#16B5CA'),
+        ('normal', '#18273CEB', '#658CBACD', '#82D7F9'),
+        ('hover', '#253E5FF5', '#94D2FC', '#C8F3FF'),
+        ('pressed', '#102039F5', '#86B3F1', '#77C9FA'),
     ):
-        button = Image.new('RGBA', (112, 28), (0, 0, 0, 0))
+        button = Image.new('RGBA', (536, 144), (0, 0, 0, 0))
         d = ImageDraw.Draw(button)
-        d.rectangle((1, 2, 110, 26), fill='#243B5360')
-        d.rectangle((0, 0, 110, 24), fill=fill, outline=edge, width=1)
-        d.rectangle((1, 1, 3, 23), fill=stripe)
+        d.rounded_rectangle((5,14,530,141),radius=40,fill='#07122155')
+        d.rounded_rectangle((3,3,532,130),radius=36,fill=fill,outline=edge,width=4)
+        d.rounded_rectangle((25,8,510,11),radius=2,fill=stripe)
+        button = button.resize((268,72),Image.Resampling.LANCZOS)
         button.save(ui / ('tool_button_' + state + '.png'))
 
 

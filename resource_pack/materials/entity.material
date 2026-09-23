@@ -1,6 +1,25 @@
 {
   "materials": {
     "version": "1.0.0",
+    "modern_projection_survey_wire:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_survey_box.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_survey_box.fragment",
+      "+states": ["DisableCulling"]
+    },
+    "modern_projection_survey_veil:modern_projection_survey_wire": {
+      "+defines": ["SURVEY_VEIL"],
+      "+states": ["Blending", "DisableDepthWrite"],
+      "blendSrc": "SourceAlpha", "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_survey_stars:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_survey_stars.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_survey_stars.fragment",
+      "+states": ["Blending", "DisableDepthWrite", "DisableCulling"],
+      "blendSrc": "SourceAlpha", "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_survey_strike:modern_projection_survey_stars": {
+      "+defines": ["SURVEY_STRIKE"]
+    },
     "modern_projection_outline:entity_static": {
       "vertexShader": "shaders/glsl/modern_projection_outline.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_outline.fragment",

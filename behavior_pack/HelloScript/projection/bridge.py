@@ -24,7 +24,8 @@ class ClientBridge(object):
         self.player = clientApi.GetLocalPlayerId()
         self.session = None
         self.corners = [None, None]
-        self.outline = []
+        from .survey_effects import SurveyEffects
+        self.survey_effects = SurveyEffects(self)
         self.entity = None
         self.projection_mesh = None
         self.preparing_entity = None
@@ -73,7 +74,9 @@ class ClientBridge(object):
         world space. This is a transform-only update; no palette or model is
         rebuilt while the camera moves.
         """
-        if not self.alive or not self.session or not self.session.projection_active:
+        if not self.alive or not self.session:
+            return
+        if not self.session.projection_active and not self.survey_effects.active():
             self._projection_follow_position = None
             return
         try:
@@ -81,6 +84,9 @@ class ClientBridge(object):
             centre, forward = camera.GetPosition(), camera.GetForward()
             position = tuple(float(centre[i]) + 4. * forward[i] for i in range(3))
         except Exception:
+            return
+        self.survey_effects.follow(position)
+        if not self.session.projection_active:
             return
         signature = (position, self.entity, self.projection_outline.entity)
         if signature == self._projection_follow_position:
@@ -233,11 +239,14 @@ class ClientBridge(object):
             return
         if index == 0:
             self.corners = [tuple(pos), None]
-            self.notify('已设置第一个角点，请对准另一方块再次使用测绘器')
+            self.notify('第一个角点已设置，请选择另一方块')
         elif self.corners[0] is not None:
             self.corners[1] = tuple(pos)
-            self.notify('已选择 %d × %d × %d，点击“导入选区”加入建筑库' % tuple(args['size']))
+            from .input_mode import is_touch
+            action = '点击“导入选区”' if is_touch() else '左键导入，右键重新选取'
+            self.notify(('已选择 %d × %d × %d，' % tuple(args['size'])) + action)
         self.draw_bounds()
+        self.survey_effects.strike(tuple(pos))
         self.session.emit()
 
     def capture_new(self):
@@ -324,29 +333,12 @@ class ClientBridge(object):
         self.session.emit()
 
     def draw_bounds(self):
-        for shape in self.outline:
-            shape.Remove()
-        self.outline = []
         points = [p for p in self.corners if p is not None]
         if not points:
+            self.survey_effects.clear()
             return
         lo, hi = bounds(points)
-        # Surface-coincident lines disappear into opaque terrain. A small
-        # visual-only margin keeps ground/roof selections readable.
-        lo = tuple(v - .01 for v in lo)
-        hi = tuple(v + 1.01 for v in hi)
-        drawing = self.factory.CreateDrawing(self.level)
-        for axis in range(3):
-            other = [i for i in range(3) if i != axis]
-            for a in (0, 1):
-                for b in (0, 1):
-                    start, end = list(lo), list(lo)
-                    start[other[0]] = end[other[0]] = (lo, hi)[a][other[0]]
-                    start[other[1]] = end[other[1]] = (lo, hi)[b][other[1]]
-                    end[axis] = hi[axis]
-                    shape = drawing.AddLineShape(tuple(start), tuple(end), (.28, .60, 1.))
-                    if shape:
-                        self.outline.append(shape)
+        self.survey_effects.replace(lo,tuple(hi[i]-lo[i]+1 for i in range(3)))
 
     def request(self, action, data):
         if self.session.edit_job is not None or self.session.io_job is not None:

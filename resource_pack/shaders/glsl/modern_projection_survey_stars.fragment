@@ -1,0 +1,15 @@
+// __multiversion__
+#include "fragmentVersionCentroid.h"
+varying highp vec2 starUV;
+varying highp vec4 starTint;
+varying highp float starGlint;
+void main() {
+    vec2 p = abs(starUV);
+    float r2 = dot(p,p);
+    float core = exp(-r2*24.);
+    float rays = exp(-p.x*42.)*pow(max(0.,1.-p.y),2.) + exp(-p.y*42.)*pow(max(0.,1.-p.x),2.);
+    float halo = exp(-r2*4.5)*.065;
+    float alpha = min(1.,core+rays*.15*starGlint+halo)*starTint.a;
+    alpha *= 1.-smoothstep(.65,1.,r2);
+    gl_FragColor = vec4(mix(starTint.rgb,vec3(1.),core),alpha);
+}

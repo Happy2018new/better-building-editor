@@ -71,11 +71,11 @@ def wait_ready(seconds=30):
     raise AssertionError(value)
 
 
-def hud_click(reset=False):
-    position=game('''control=owner.hud.screen.%s
+def hud_click():
+    position=game('''control=owner.hud.screen.button
 pos,size=control.GetGlobalPosition(),control.GetSize()
 screen=s.bridge.factory.CreateGame(s.bridge.level).GetScreenSize()
-_result=[(pos[i]+size[i]/2.)/screen[i] for i in range(2)]''' % ('reset_button' if reset else 'button'))
+_result=[(pos[i]+size[i]/2.)/screen[i] for i in range(2)]''')
     input_step('/click', at=position)
     time.sleep(.5)
 
@@ -90,15 +90,24 @@ def snapshot(name):
 
 
 def touch_world_gestures():
-    hud_click(reset=True)
-    input_step('/click',at=[.5,.42])
+    game('owner.tool_reset()\napi.GetEngineCompFactory().CreateRot(api.GetLocalPlayerId()).SetRot((65.,0.))\n_result=True')
+    time.sleep(.5)
+    facing=game('_result=s.bridge.factory.CreateCamera(s.bridge.level).PickFacing()')
+    input_step('/click',at=[.30,.42])
     time.sleep(.4)
     before=state()['corners']
     assert before[0] is not None and before[1] is None,before
+    if facing and facing.get('type')=='Block':
+        assert before[0]!=[facing[a] for a in ('x','y','z')],(before,facing)
+    assert not state()['hud'][0],'Unnecessary first-point HUD button'
     input_step('/drag',**{'from':[.55,.4],'to':[.65,.45],'segments':12})
     time.sleep(.4)
     assert state()['corners']==before,'Camera drag unexpectedly selected a corner'
-    print('PASS F11 world tap selects; dragging does not select',flush=True)
+    input_step('/click',at=[.70,.42])
+    time.sleep(.4)
+    assert None not in state()['corners'],state()
+    assert state()['hud'][0],'Import HUD missing after second touch point'
+    print('PASS F11 off-centre world tap selects; dragging does not select',flush=True)
 
 
 def main():
@@ -131,7 +140,7 @@ _result=True''',server=True)
             input_step('/key',keys='f11');time.sleep(.3)
         assert equip('modern_projection:terminal')
         time.sleep(.4)
-        input_step('/click',button='right')
+        input_step('/click',button='right',at=[.5,.4])
         time.sleep(2)
         assert state()['open'],'Terminal right-click did not open'
         print('PASS PC terminal right-click',flush=True)
@@ -141,30 +150,33 @@ _result=True''',server=True)
         game('api.GetEngineCompFactory().CreateRot(api.GetLocalPlayerId()).SetRot((70.,0.))\n_result=True')
         time.sleep(.5)
         print('Facing',game('_result=s.bridge.factory.CreateCamera(s.bridge.level).PickFacing()'),flush=True)
-        input_step('/click',button='right')
+        input_step('/click',button='right',at=[.5,.4])
         time.sleep(.5)
         assert state()['corners'][0] is not None,'Native wand point missing'
         game('api.GetEngineCompFactory().CreateRot(api.GetLocalPlayerId()).SetRot((60.,90.))\n_result=True')
         time.sleep(.5)
-        input_step('/click',button='right')
+        input_step('/click',button='right',at=[.5,.4])
         time.sleep(.5)
         assert None not in state()['corners'],'Second point missing'
         print('PASS PC two native world corners',json.dumps(state()['corners']),flush=True)
+        assert not state()['hud'][0],'PC should use left-click instead of HUD import'
+        input_step('/click',button='left',at=[.5,.4])
+        value=wait_ready()
+        assert value['open'] and len(value['library'])==1 and value['draft_same'],value
+        print('PASS PC left-click capture and draft protection',flush=True)
+        game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+        time.sleep(.6)
         input_step('/key',keys='f11');time.sleep(.5)
         assert state()['touch'],'F11 touch simulation missing'
+        touch_world_gestures()
+        before=state()['corners']
         print('HUD',snapshot('wand_selection'),flush=True)
         hud_click()
         value=wait_ready()
-        assert len(value['library'])==1 and value['draft_same'],value
+        assert len(value['library'])==2 and value['draft_same'] and value['corners']==before,value
         print('PASS F11 HUD capture and draft protection',json.dumps(value,ensure_ascii=False),flush=True)
         game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
         time.sleep(.6)
-        hud_click(reset=True)
-        assert state()['corners']==[None,None]
-        hud_click()
-        assert state()['corners'][0] is not None,'Touch HUD mark missing'
-        print('PASS F11 reset and crosshair mark',flush=True)
-        touch_world_gestures()
         assert equip('modern_projection:terminal')
         time.sleep(.4)
         print('HUD',snapshot('terminal'),flush=True)

@@ -6,6 +6,8 @@ from .projection.session import Session
 from .projection.ui import Workspace
 from .projection.tool_hud import TerminalHud
 from .projection.tool_items import TERMINAL, SURVEY_WAND, item_name
+from .projection.input_mode import is_touch
+import time
 
 ClientSystem = clientApi.GetClientSystemCls()
 
@@ -17,6 +19,7 @@ class HelloClientSystem(ClientSystem):
         self.bridge = None
         self.session = None
         self.hud = None
+        self.tool_touch_pick = None
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'OnKeyPressInGame', self, self.key)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
@@ -30,9 +33,12 @@ class HelloClientSystem(ClientSystem):
         for event in ('StartDestroyBlockClientEvent', 'PlayerTryDestroyBlockClientEvent'):
             self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
                                 event, self, self.tool_prevent_break)
-        for event in ('RightClickBeforeClientEvent', 'TapBeforeClientEvent'):
-            self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
-                                event, self, self.tool_use)
+        for event,handler in (
+                ('RightClickBeforeClientEvent',self.tool_use),
+                ('TapBeforeClientEvent',self.tool_touch_tap),
+                ('GetEntityByCoordEvent',self.tool_touch_down),
+                ('LeftClickBeforeClientEvent',self.tool_import_click)):
+            self.ListenForEvent(clientApi.GetEngineNamespace(),clientApi.GetEngineSystemName(),event,self,handler)
 
     def UiInitFinished(self, unused):
         if self.session is not None:
@@ -53,6 +59,7 @@ class HelloClientSystem(ClientSystem):
         self.open_workspace()
 
     def carried_changed(self, args):
+        self.tool_touch_pick = None
         if self.hud is not None:
             self.hud.carried = item_name(args.get('itemDict'))
             self.hud.update()
@@ -75,14 +82,52 @@ class HelloClientSystem(ClientSystem):
             self.open_workspace()
         else:
             try:
-                self.tool_mark_facing()
+                if is_touch():
+                    self.tool_mark(self.bridge.factory.CreateCamera(self.bridge.level).GetChosen())
+                else:
+                    self.tool_mark_facing()
             except (ValueError, TypeError, KeyError) as error:
                 self.bridge.notify(error.args[0])
 
+    def tool_touch_down(self, unused):
+        self.tool_touch_pick = None
+        if self.hud and self.hud.carried == SURVEY_WAND and not navigator.contains('modern_projection_workspace'):
+            # GetChosen is the engine's actual screen-contact hit, independent
+            # of whether the player uses a crosshair. Preserve it until the
+            # native short-tap event; dragging never reaches that event.
+            pick = self.bridge.factory.CreateCamera(self.bridge.level).GetChosen()
+            self.tool_touch_pick = (pick,time.time())
+
+    def tool_touch_tap(self, args):
+        if self.hud is None or self.hud.carried not in (SURVEY_WAND,TERMINAL):
+            return
+        if navigator.contains('modern_projection_workspace'):
+            return
+        args['cancel'] = True
+        if self.hud.carried == TERMINAL:
+            self.open_workspace()
+            return
+        cached,self.tool_touch_pick = self.tool_touch_pick,None
+        pick = cached[0] if cached and time.time()-cached[1] < .75 else None
+        if pick and pick.get('type') == 'Block':
+            self.tool_mark(pick)
+
+    def tool_import_click(self, args):
+        if self.hud is None or self.hud.carried != SURVEY_WAND or is_touch():
+            return
+        if navigator.contains('modern_projection_workspace'):
+            return
+        args['cancel'] = True
+        if None not in self.bridge.corners:
+            self.tool_hud_action()
+
     def tool_mark_facing(self):
         pick = self.bridge.factory.CreateCamera(self.bridge.level).PickFacing()
+        self.tool_mark(pick)
+
+    def tool_mark(self, pick):
         if not pick or pick.get('type') != 'Block':
-            raise ValueError(u'请将准星对准要选取的方块')
+            raise ValueError(u'请选择要测绘的方块')
         self.NotifyToServer('WorldToolRequest', {'action': 'point',
             'pos': [int(pick[axis]) for axis in ('x', 'y', 'z')]})
 
@@ -97,8 +142,6 @@ class HelloClientSystem(ClientSystem):
                     self.bridge.capture_new()
                     self.session.page = 'library'
                     self.open_workspace()
-                else:
-                    self.tool_mark_facing()
             except (ValueError, TypeError, KeyError) as error:
                 self.bridge.notify(error.args[0])
 
@@ -126,6 +169,7 @@ class HelloClientSystem(ClientSystem):
             self.bridge.receive_catalogue(args)
 
     def dimension_changed(self, args):
+        self.tool_touch_pick = None
         if self.bridge:
             self.bridge.dimension_changed(args)
 

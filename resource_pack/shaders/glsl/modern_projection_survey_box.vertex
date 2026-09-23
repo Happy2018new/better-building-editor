@@ -1,0 +1,42 @@
+// __multiversion__
+#include "entityVertexUtil.h"
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
+varying highp vec3 surveyLocal;
+varying highp vec3 surveySize;
+
+void main() {
+    POS4 position = POSITION;
+    vec4 widthDirection = vec4(0.);
+#ifdef SURVEY_VEIL
+    position.xyz *= EXTRA_ACTOR_UNIFORM1.xyz + vec3(0.028);
+#else
+    vec3 corner = sign(position.xyz) * 8.0;
+    widthDirection = vec4(position.xyz-corner,0.);
+    position.xyz = corner * (EXTRA_ACTOR_UNIFORM1.xyz + vec3(0.028)) + (position.xyz-corner) * 0.72;
+#endif
+    surveySize = EXTRA_ACTOR_UNIFORM1.xyz;
+    surveyLocal = position.xyz / 16.0;
+#ifdef USE_SKINNING
+    #ifdef NETEASE_SKINNING
+        position = GetBoneMatForNetease(int(BONEID_0)) * position;
+        widthDirection = GetBoneMatForNetease(int(BONEID_0)) * widthDirection;
+    #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+        position = BONES[int(BONEID_0)] * position;
+        widthDirection = BONES[int(BONEID_0)] * widthDirection;
+    #else
+        position = BONE * position;
+        widthDirection = BONE * widthDirection;
+    #endif
+#endif
+    vec4 worldPosition = WORLD * position;
+    worldPosition.xyz += EXTRA_ACTOR_UNIFORM2.xyz;
+    gl_Position = VIEWPROJ * worldPosition;
+#ifndef SURVEY_VEIL
+    // Keep distant selection edges legible at roughly one screen pixel.
+    // Near the player they retain the fine 0.032-block width. This only
+    // expands the tube cross-section, never the bounds or starfield mapping.
+    float widthScale = clamp(gl_Position.w*.04,.72,8.0);
+    gl_Position += (VIEWPROJ * WORLD * widthDirection) * (widthScale-.72);
+#endif
+}
