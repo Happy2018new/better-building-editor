@@ -2,7 +2,6 @@
 """Client SDK boundary: local library, previews, selection outline and ghost models."""
 from __future__ import unicode_literals
 import math
-import sys
 import zlib
 import json
 import time
@@ -14,7 +13,7 @@ from .model import SMALL_VOLUME
 
 
 def native(value):
-    return value.encode('utf8') if sys.version_info[0] == 2 and isinstance(value, type('')) else value
+    return value.encode('utf8') if bytes is str and isinstance(value, type('')) else value
 
 
 class ClientBridge(object):

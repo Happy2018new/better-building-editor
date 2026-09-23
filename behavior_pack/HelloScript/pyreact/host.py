@@ -266,10 +266,6 @@ class PyreactScreenNode(native.ScreenNode):
                 not self._commit_native_dirty and
                 not self._commit_layout_dirty and not self._pending_effects):
             return
-        with native.batch_input_routes():
-            self._pyreact_commit()
-
-    def _pyreact_commit(self):
         pending_native_dirty = self._commit_native_dirty
         pending_layout_dirty = self._commit_layout_dirty
         self._commit_native_dirty = False
@@ -740,11 +736,6 @@ class Root(object):
 
 def _mount_element(element, host, path):
     """把一个已构造的 Element 直接挂载到指定宿主路径。"""
-    with native.batch_input_routes():
-        return _mount_element_now(element, host, path)
-
-
-def _mount_element_now(element, host, path):
     root_fiber = None
     if host._root_fiber is not None:
         reconciler.unmount_fiber(host._root_fiber, host)

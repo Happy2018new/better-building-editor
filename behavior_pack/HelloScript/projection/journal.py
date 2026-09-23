@@ -1,6 +1,6 @@
 """Compressed random-access world journal with a fixed-size working buffer."""
 import zlib
-from array import array
+from .packed import IntegerBuffer
 
 
 class Journal(object):
@@ -8,7 +8,7 @@ class Journal(object):
 
     def __init__(self, rows=()):
         self.blocks = []
-        self.tail = array('i')
+        self.tail = IntegerBuffer('i')
         self.count = 0
         self.palette = []
         self.ids = {}
@@ -30,9 +30,9 @@ class Journal(object):
         self.tail.extend(list(pos) + [self._id(before), self._id(after)])
         self.count += 1
         if len(self.tail) == self.ROWS * 5:
-            raw = self.tail.tobytes() if hasattr(self.tail, 'tobytes') else self.tail.tostring()
+            raw = self.tail.tobytes()
             self.blocks.append(zlib.compress(raw, 1))
-            self.tail = array('i')
+            self.tail = IntegerBuffer('i')
 
     def __getitem__(self, index):
         if index < 0:
@@ -45,12 +45,9 @@ class Journal(object):
         elif self.cached[0] == chunk:
             values = self.cached[1]
         else:
-            values = array('i')
+            values = IntegerBuffer('i')
             raw = zlib.decompress(self.blocks[chunk])
-            if hasattr(values, 'frombytes'):
-                values.frombytes(raw)
-            else:
-                values.fromstring(raw)
+            values.frombytes(raw)
             self.cached = (chunk, values)
         start = offset * 5
         return (tuple(values[start:start + 3]), self.palette[values[start + 3]], self.palette[values[start + 4]])

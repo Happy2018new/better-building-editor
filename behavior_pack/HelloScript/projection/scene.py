@@ -15,7 +15,7 @@ from .diagnostics import inspect
 from functools import partial
 from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
 from .chunks import painter_order
-from .native_layers import apply_layers
+from .native_layers import PendingLayers
 from .input_mode import is_touch
 from .biomes import ui_color
 
@@ -89,6 +89,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     models_signature = use_ref(None)
     models_pending = use_ref(True)
     order_cache = use_ref(None)
+    pending_layers = use_ref(lambda: PendingLayers()).current
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
@@ -377,7 +378,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if layer_updates:
             # Even changing native layers without a forced refresh may disturb
             # touch routing. Defer both assignment and refresh until release.
-            apply_layers(layer_updates)
+            pending_layers.add(layer_updates)
+        if pending_layers.pending and not held_touch:
+            pending_layers.flush(ref.current for dolls, unused_surfaces, unused_preview in registry.values()
+                                 for ref in dolls if ref.current is not None)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:

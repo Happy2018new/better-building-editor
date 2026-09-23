@@ -99,7 +99,7 @@ _result=True''')
             previous=sys.argv
             try:
                 for pc in (True,False):
-                    sys.argv=['profile_orbit_angles.py','--label','perf67_max_'+('pc' if pc else 'touch'),
+                    sys.argv=['profile_orbit_angles.py','--label',args.label+'_max_'+('pc' if pc else 'touch'),
                               '--zoom','2','--depth','32']+(['--pc'] if pc else [])
                     profile_orbit_angles.main()
             finally:sys.argv=previous

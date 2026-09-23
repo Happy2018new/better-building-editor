@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Shared glyph metrics and punctuation-aware wrapping for all static UI text."""
 from __future__ import unicode_literals
-import sys
 from .type_assets import ASSETS
 from .font_atlas import GLYPHS
 
@@ -20,7 +19,7 @@ def characters(value):
         char = value[index]
         index += 1
         if 0xd800 <= ord(char) <= 0xdbff and index < len(value) and 0xdc00 <= ord(value[index]) <= 0xdfff:
-            char = (char+value[index] if sys.maxunicode <= 0xffff else
+            char = (char+value[index] if len('\U00010000') == 2 else
                     codepoint(0x10000 + ((ord(char)-0xd800)<<10) + ord(value[index])-0xdc00))
             index += 1
         yield char

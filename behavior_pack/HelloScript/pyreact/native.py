@@ -3,10 +3,8 @@
 """SDK 访问中枢。
 
 集中封装对网易 ModSDK UI 接口的访问，让上层模块不直接依赖 SDK 细节。
-控件操作使用 ``mod.client.extraClientApi``；提交批处理兼容引擎的 gui 辅助函数，
-不引入第三方库。
+控件操作仅使用公开的 ``mod.client.extraClientApi``，不导入引擎内部模块。
 """
-from contextlib import contextmanager
 import mod.client.extraClientApi as clientApi
 
 ScreenNode = clientApi.GetScreenNodeCls()
@@ -41,41 +39,6 @@ MEASURE_LABEL_PATH = ROOT_PATH + "/measure_lbl"
 # 文档明确 (0,0) 表示无限制，量测单行真实尺寸。
 MEASURE_TEXT_ALIGN_DEFAULT = "left"
 MEASURE_MAX_HEIGHT = 99999.0
-
-
-@contextmanager
-def batch_input_routes():
-    """Coalesce synchronous SDK routing rebuilds inside one UI commit.
-
-    Netease 3.9 SetLayer rebuilds Python input routes even when both refresh
-    flags are False. Every native write still runs immediately; only identical
-    routing notifications are replayed once after the final tree is ready.
-    Never keep this scope across frames or around player input dispatch.
-    """
-    try:
-        import gui
-    except ImportError:
-        gui = None
-    original = getattr(gui, 'handle_input_mode_change', None)
-    if not callable(original):
-        yield
-        return
-    pending = []
-
-    def defer(*args, **kwargs):
-        call = (args, kwargs)
-        if call not in pending:
-            pending.append(call)
-
-    gui.handle_input_mode_change = defer
-    try:
-        yield
-    finally:
-        # Nested commits replay into their outer scope. Restore before calling
-        # the engine so failures cannot leave a deferred handler installed.
-        gui.handle_input_mode_change = original
-        for args, kwargs in pending:
-            original(*args, **kwargs)
 
 
 # 控件名净化：JSON UI 控件名只允许 ASCII 字母数字下划线

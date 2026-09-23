@@ -2,9 +2,8 @@
 """Version 2 chunk format; bounded records also serve network streaming."""
 from __future__ import unicode_literals
 import base64
-import sys
 import zlib
-from array import array
+from .packed import IntegerBuffer
 from collections import Counter
 from .storage import CELLS, integer_types, position
 
@@ -13,10 +12,8 @@ def encode_chunk(key, chunk):
     if isinstance(chunk, integer_types):
         payload = int(chunk)
     else:
-        values = array('H', chunk)
-        if sys.byteorder != 'little':
-            values.byteswap()
-        raw = values.tobytes() if hasattr(values, 'tobytes') else values.tostring()
+        values = IntegerBuffer('H', chunk)
+        raw = values.tobytes()
         payload = base64.b64encode(zlib.compress(raw, 1)).decode('ascii')
     return list(key) + [payload]
 
@@ -48,13 +45,8 @@ def decode_chunk(document, row):
         # detects truncated streams/checksums without accepting zip bombs.
         if zlib.decompress(packed) != raw:
             raise ValueError('分块压缩校验失败')
-        values = array('H')
-        if hasattr(values, 'frombytes'):
-            values.frombytes(raw)
-        else:
-            values.fromstring(raw)
-        if sys.byteorder != 'little':
-            values.byteswap()
+        values = IntegerBuffer('H')
+        values.frombytes(raw)
     except (ValueError, TypeError, UnicodeError, zlib.error):
         raise ValueError('分块压缩数据损坏')
     if max(values) >= len(store.palette):

@@ -5,7 +5,7 @@ Uniform chunks cost one palette id. Mixed chunks use 8192 bytes. Copies share
 chunks until the first write, so an atomic edit and its undo need no cell dicts.
 """
 from __future__ import unicode_literals
-from array import array
+from .packed import IntegerBuffer
 from collections import Counter
 
 AIR = ('minecraft:air', 0)
@@ -192,11 +192,11 @@ class BlockStore(object):
         if old_id == new_id:
             return
         if isinstance(chunk, integer_types):
-            chunk = array('H', [chunk]) * CELLS
+            chunk = IntegerBuffer('H', [chunk]) * CELLS
             self.chunks[key] = chunk
             self.owned.add(key)
         elif key not in self.owned:
-            chunk = array('H', chunk)
+            chunk = IntegerBuffer('H', chunk)
             self.chunks[key] = chunk
             self.owned.add(key)
         chunk[index] = new_id
@@ -302,9 +302,9 @@ class BlockStore(object):
             # Empty/solid chunks are frequent even for irregular selections.
             # Assign whole selected Y planes with array slices, and count the
             # remaining bits per plane rather than per-voxel Counter updates.
-            chunk = array('H', [previous]) * CELLS
+            chunk = IntegerBuffer('H', [previous]) * CELLS
             plane_mask = (1 << 256)-1
-            plane_values = array('H', [identity])*256
+            plane_values = IntegerBuffer('H', [identity])*256
             delta = int(bool(identity))-int(bool(previous))
             changed = 0
             for y in range(16):
@@ -328,7 +328,7 @@ class BlockStore(object):
             if identity:
                 self.counts[value] += changed
             return changed
-        chunk = previous if key in self.owned else array('H', previous)
+        chunk = previous if key in self.owned else IntegerBuffer('H', previous)
         removed, layers = Counter(), [0]*16
         changed = 0
         new_solid = int(bool(identity))

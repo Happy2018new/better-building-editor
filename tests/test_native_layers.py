@@ -1,57 +1,59 @@
 import sys
-import types
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack/HelloScript'))
-from projection.native_layers import apply_layers
+from projection.native_layers import apply_layers, PendingLayers
 
 
 class LayerBatchTests(unittest.TestCase):
     def setUp(self):
-        self.gui=types.ModuleType('gui')
-        self.routes=[];self.writes=[]
-        self.original=lambda *a,**k:self.routes.append((a,k))
-        self.gui.handle_input_mode_change=self.original
-        self.modules=patch.dict(sys.modules,{'gui':self.gui})
-        self.modules.start();self.addCleanup(self.modules.stop)
+        self.writes=[]
 
-    def control(self, identity, fail=False):
-        case=self
+    def control(self, identity):
+        writes=self.writes
         class Control:
             def SetLayer(self, layer, sync, force):
-                case.writes.append((identity,layer,sync,force))
-                case.gui.handle_input_mode_change()
-                if fail:raise ValueError('native control removed')
+                writes.append((identity,layer,sync,force))
         return Control()
 
-    def test_large_orbit_keeps_every_layer_but_rebuilds_input_once(self):
-        apply_layers([(self.control(i),50+i) for i in range(104)])
-        self.assertEqual(105,len(self.writes))
-        self.assertEqual(list(range(50,154)),[v[1] for v in self.writes[:-1]])
+    def test_public_updates_refresh_once_without_duplicate_final_write(self):
+        controls=[self.control(i) for i in range(6)]
+        apply_layers([(control,50+i) for i,control in enumerate(controls)])
+        self.assertEqual(6,len(self.writes))
+        self.assertEqual(list(range(50,56)),[v[1] for v in self.writes])
         self.assertEqual(1,sum(v[3] for v in self.writes))
-        self.assertEqual(1,len(self.routes))
-        self.assertIs(self.original,self.gui.handle_input_mode_change)
-        self.gui.handle_input_mode_change()
-        self.assertEqual(2,len(self.routes))
+        self.assertTrue(self.writes[-1][3])
 
-    def test_exception_restores_and_flushes_native_routing(self):
-        with self.assertRaises(ValueError):
-            apply_layers([(self.control(1),50),(self.control(2,True),51)])
-        self.assertIs(self.original,self.gui.handle_input_mode_change)
-        self.assertEqual(1,len(self.routes))
+    def test_latest_request_wins_for_same_control(self):
+        a,b=self.control(1),self.control(2)
+        apply_layers([(a,30),(b,40),(a,50)])
+        self.assertEqual([(1,50,False,False),(2,40,False,True)],self.writes)
 
-    def test_other_engine_versions_use_public_api(self):
-        del self.gui.handle_input_mode_change
-        writes=[]
-        class Control:
-            def SetLayer(self,*args):writes.append(args)
-        apply_layers([(Control(),55)])
-        self.assertEqual([(55,False,False),(55,False,True)],writes)
+    def test_large_order_change_is_bounded_and_eventually_complete(self):
+        controls=[self.control(i) for i in range(104)]
+        queue=PendingLayers()
+        queue.add([(control,50+i) for i,control in enumerate(controls)])
+        while queue.pending:
+            before=len(self.writes)
+            queue.flush(controls)
+            self.assertLessEqual(len(self.writes)-before,4)
+        self.assertEqual(104,len(self.writes))
+        self.assertEqual(list(range(50,154)),[v[1] for v in self.writes])
+
+    def test_removed_controls_are_discarded_and_new_camera_target_wins(self):
+        controls=[self.control(i) for i in range(8)]
+        queue=PendingLayers()
+        queue.add([(control,50+i) for i,control in enumerate(controls)])
+        queue.flush(controls,2)
+        queue.add([(controls[7],90)])
+        queue.flush(controls[4:],8)
+        self.assertEqual([0,1,4,5,6,7],[v[0] for v in self.writes])
+        self.assertEqual(90,self.writes[-1][1])
+        self.assertFalse(queue.pending)
 
     def test_empty_batch_does_not_touch_engine(self):
         apply_layers([])
-        self.assertEqual([],self.routes)
+        self.assertEqual([],self.writes)
 
 
 if __name__=='__main__':unittest.main()

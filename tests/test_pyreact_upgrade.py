@@ -35,7 +35,6 @@ class UpgradeTests(unittest.TestCase):
         class Host:
             schedule_render = self.host.PyreactScreenNode.schedule_render
             flush = self.host.PyreactScreenNode._pyreact_flush
-            _pyreact_commit = self.host.PyreactScreenNode._pyreact_commit
 
         self.runtime = Host()
         self.runtime._dirty = set()
@@ -285,30 +284,6 @@ class UpgradeTests(unittest.TestCase):
             node = self.layout.build_layout_tree(fiber)[0]
             self.assertEqual(expected, self.layout._needs_post_measure(node), props)
 
-    def test_native_route_batch_keeps_distinct_modes_and_nested_writes(self):
-        native = self.reconciler.native
-        gui = types.ModuleType('gui')
-        routes, writes = [], []
-        def route(*args, **kwargs):
-            routes.append((args, kwargs, len(writes)))
-        gui.handle_input_mode_change = route
-        class Control:
-            def SetLayer(self, *args):
-                writes.append(args)
-                gui.handle_input_mode_change()
-        with patch.dict(sys.modules, gui=gui):
-            with native.batch_input_routes():
-                for i in range(104):
-                    native.set_layer(Control(), i)
-                with native.batch_input_routes():
-                    gui.handle_input_mode_change()
-                    gui.handle_input_mode_change(mode='touch')
-                self.assertEqual([], routes)
-                gui.handle_input_mode_change(mode='touch')
-            self.assertIs(gui.handle_input_mode_change, route)
-        self.assertEqual(104, len(writes))
-        self.assertEqual([((), {}, 104), ((), {'mode': 'touch'}, 104)], routes)
-
     def test_empty_panel_subclass_does_not_force_second_layout(self):
         class FadePrimitive(self.primitives.PanelPrimitive):
             pass
@@ -319,44 +294,6 @@ class UpgradeTests(unittest.TestCase):
         child.parent_fiber = parent
         parent.child_fibers = [child]
         self.assertTrue(self.layout._needs_post_measure(self.layout.build_layout_tree(parent)[0]))
-
-    def test_native_route_batch_restores_on_commit_or_routing_exception(self):
-        native = self.reconciler.native
-        gui = types.ModuleType('gui')
-        from unittest.mock import Mock
-        for fail_route in (False, True):
-            original = Mock(side_effect=ValueError('route failed') if fail_route else None)
-            gui.handle_input_mode_change = original
-            with patch.dict(sys.modules, gui=gui):
-                with self.assertRaises(ValueError):
-                    with native.batch_input_routes():
-                        gui.handle_input_mode_change()
-                        raise ValueError('commit failed')
-                self.assertIs(gui.handle_input_mode_change, original)
-            original.assert_called_once_with()
-        with patch.dict(sys.modules, gui=types.ModuleType('gui')):
-            with native.batch_input_routes():
-                pass  # other SDK versions retain their public API path
-
-    def test_host_flush_batches_routes_until_effects_are_applied(self):
-        gui = types.ModuleType('gui')
-        events = []
-        gui.handle_input_mode_change = lambda: events.append('route')
-        @self.component.Component
-        def Child():
-            value, setter = self.hooks.use_state(0)
-            self.setter = setter
-            if value:
-                gui.handle_input_mode_change()
-                gui.handle_input_mode_change()
-            self.hooks.use_effect(lambda: events.append('effect'), [value])
-        self.mount(Child())
-        self.runtime.flush()
-        events[:] = []
-        self.setter(1)
-        with patch.dict(sys.modules, gui=gui):
-            self.runtime.flush()
-        self.assertEqual(['effect', 'route'], events)
 
     def test_component_dump_id_roundtrips_to_same_fiber(self):
         @self.component.Component
