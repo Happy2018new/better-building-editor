@@ -1,15 +1,28 @@
 // __multiversion__
 #include "fragmentVersionCentroid.h"
-varying highp vec2 starUV;
-varying highp vec4 starTint;
-varying highp float starGlint;
+varying highp vec2 effectUV;
+varying highp vec4 effectTint;
+varying highp float effectKind;
 void main() {
-    vec2 p = abs(starUV);
-    float r2 = dot(p,p);
-    float core = exp(-r2*24.);
-    float rays = exp(-p.x*42.)*pow(max(0.,1.-p.y),2.) + exp(-p.y*42.)*pow(max(0.,1.-p.x),2.);
-    float halo = exp(-r2*4.5)*.065;
-    float alpha = min(1.,core+rays*.15*starGlint+halo)*starTint.a;
-    alpha *= 1.-smoothstep(.65,1.,r2);
-    gl_FragColor = vec4(mix(starTint.rgb,vec3(1.),core),alpha);
+    vec2 p=abs(effectUV);
+    float alpha=1.;vec3 rgb=effectTint.rgb;
+    if (effectKind < .5) {
+        alpha=exp(-dot(p,p)*12.)*(1.-smoothstep(.6,1.,dot(p,p)));
+    } else if (effectKind < 1.5) {
+        // Concave four-point silhouette, fine rays and a white nucleus.
+        float shape=(p.x+p.y)*.27+sqrt(p.x*p.y)*1.8;
+        float star=1.-smoothstep(.255,.30,shape),nucleus=exp(-dot(p,p)*85.);
+        alpha=max(star,nucleus);rgb=mix(rgb,vec3(1.),max(nucleus,star*.65));
+    } else if (effectKind < 2.5) {
+        float core=exp(-p.y*p.y*85.);
+        alpha=exp(-p.y*p.y*4.5)*(1.-smoothstep(.7,1.,p.y));
+        rgb=mix(rgb,vec3(.94,.91,1.),core*.68);
+    } else if (effectKind > 4.5) {
+        float bead=pow(.5+.5*cos(effectUV.x*6.2831853*34.),12.);
+        alpha=exp(-p.y*p.y*6.)*(.22+.78*bead);
+        rgb=mix(rgb,vec3(.92,.95,1.),bead*.65);
+    } else if (effectKind > 3.5) {
+        alpha=exp(-dot(p,p)*5.)*(1.-smoothstep(.55,1.,dot(p,p)));
+    }
+    gl_FragColor=vec4(rgb,alpha*effectTint.a);
 }

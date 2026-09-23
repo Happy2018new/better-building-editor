@@ -71,11 +71,11 @@ def wait_ready(seconds=30):
     raise AssertionError(value)
 
 
-def hud_click():
-    position=game('''control=owner.hud.screen.button
+def hud_click(clear=False):
+    position=game('''control=owner.hud.screen.%s
 pos,size=control.GetGlobalPosition(),control.GetSize()
 screen=s.bridge.factory.CreateGame(s.bridge.level).GetScreenSize()
-_result=[(pos[i]+size[i]/2.)/screen[i] for i in range(2)]''')
+_result=[(pos[i]+size[i]/2.)/screen[i] for i in range(2)]''' % ('clear_button' if clear else 'button'))
     input_step('/click', at=position)
     time.sleep(.5)
 
@@ -99,7 +99,16 @@ def touch_world_gestures():
     assert before[0] is not None and before[1] is None,before
     if facing and facing.get('type')=='Block':
         assert before[0]!=[facing[a] for a in ('x','y','z')],(before,facing)
-    assert not state()['hud'][0],'Unnecessary first-point HUD button'
+    assert not state()['hud'][0] and state()['hud'][1],state()['hud']
+    hud_click(clear=True)
+    assert state()['corners']==[None,None],state()['corners']
+    assert game('_result=player not in owner.world_points and player not in owner.world_regions',True)
+    assert game('_result=not s.bridge.survey_effects.active()')
+    assert not state()['hud'][1],'Clear button remained after reset'
+    input_step('/click',at=[.30,.42])
+    time.sleep(.4)
+    before=state()['corners']
+    assert before[0] is not None and before[1] is None,before
     input_step('/drag',**{'from':[.55,.4],'to':[.65,.45],'segments':12})
     time.sleep(.4)
     assert state()['corners']==before,'Camera drag unexpectedly selected a corner'
@@ -153,6 +162,17 @@ _result=True''',server=True)
         input_step('/click',button='right',at=[.5,.4])
         time.sleep(.5)
         assert state()['corners'][0] is not None,'Native wand point missing'
+        # Sneaking is a game-tick state; a same-packet modifier chord can
+        # dispatch right-click before the player's pose has updated.
+        input_step('/run',steps=[{'do':'key','keys':'shift','action':'down'},
+            {'do':'wait','ms':250},{'do':'click','button':'right','at':[.5,.4]},
+            {'do':'wait','ms':150},{'do':'key','keys':'shift','action':'up'}])
+        time.sleep(.4)
+        assert state()['corners']==[None,None],'Sneak right-click did not clear'
+        assert game('_result=player not in owner.world_points and player not in owner.world_regions',True)
+        input_step('/click',button='right',at=[.5,.4])
+        time.sleep(.4)
+        assert state()['corners'][0] is not None,'First point after clear missing'
         game('api.GetEngineCompFactory().CreateRot(api.GetLocalPlayerId()).SetRot((60.,90.))\n_result=True')
         time.sleep(.5)
         input_step('/click',button='right',at=[.5,.4])
@@ -160,6 +180,7 @@ _result=True''',server=True)
         assert None not in state()['corners'],'Second point missing'
         print('PASS PC two native world corners',json.dumps(state()['corners']),flush=True)
         assert not state()['hud'][0],'PC should use left-click instead of HUD import'
+        assert state()['hud'][1],'PC clear selection button missing'
         input_step('/click',button='left',at=[.5,.4])
         value=wait_ready()
         assert value['open'] and len(value['library'])==1 and value['draft_same'],value
@@ -177,6 +198,9 @@ _result=True''',server=True)
         print('PASS F11 HUD capture and draft protection',json.dumps(value,ensure_ascii=False),flush=True)
         game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
         time.sleep(.6)
+        hud_click(clear=True)
+        assert state()['corners']==[None,None],'Completed region did not clear'
+        assert game('_result=player not in owner.world_points and player not in owner.world_regions',True)
         assert equip('modern_projection:terminal')
         time.sleep(.4)
         print('HUD',snapshot('terminal'),flush=True)

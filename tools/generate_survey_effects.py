@@ -22,9 +22,10 @@ def generate():
     outline = json.loads((ROOT / 'models/entity/modern_projection_outline.geo.json').read_text())
     geometry('survey_wire', outline['minecraft:geometry'][0]['bones'][0]['cubes'])
     geometry('survey_veil', [{'origin':[-8,-8,-8],'size':[16,16,16],'uv':[0,0]}])
-    for name, count in [('survey_stars',3072),('survey_strike',320)]:
-        # POSITION encodes particle id and quad corner. The vertex shader
-        # computes the real centre, slow dust drift and camera-facing orientation.
+    for name, count in [('survey_stars',3072),('survey_strike',768)]:
+        # POSITION encodes a primitive address and its four vertices. The
+        # shader turns these into joined ribbon segments, eight triangular
+        # faces per tumbling crystal, and a small number of star billboards.
         # Keep encoded coordinates below 256 so mobile mediump POSITION
         # retains the half-unit quad corners without precision loss.
         geometry(name,[{'origin':[(i%64)*4-.5,(i//64)*4-.5,0],'size':[1,1,0],

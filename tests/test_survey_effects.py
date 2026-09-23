@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class SurveyAssetTests(unittest.TestCase):
     def test_encoded_particles_survive_axis_mirroring_and_mobile_half_precision(self):
-        for kind, count in [('stars',3072),('strike',320)]:
+        for kind, count in [('stars',3072),('strike',768)]:
             path=ROOT/('resource_pack/models/entity/modern_projection_survey_'+kind+'.geo.json')
             cubes=json.loads(path.read_text())['minecraft:geometry'][0]['bones'][0]['cubes']
             self.assertEqual(count,len(cubes))

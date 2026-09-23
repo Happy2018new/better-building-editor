@@ -3,128 +3,206 @@
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
-varying highp vec2 starUV;
-varying highp vec4 starTint;
-varying highp float starGlint;
+varying highp vec2 effectUV;
+varying highp vec4 effectTint;
+varying highp float effectKind;
 const float TAU = 6.28318530718;
-
-void main() {
-    // Bedrock may mirror the imported model axes. Decode the magnitude;
-    // retain the sign only for the billboard corner, never for the slot id.
-    vec2 address = floor((abs(POSITION.xy)+1.0)/4.0);
-    float id = address.x+address.y*64.0;
-    vec2 corner = (POSITION.xy-sign(POSITION.xy)*address*4.0)*2.0;
-    float seed = fract(sin(id*91.31+17.17)*43758.5453);
-    float spread = fract(sin(id*37.17+5.71)*17347.17);
-    float phase = fract(sin(id*19.73+71.13)*31837.31);
-    vec3 centre;
-    vec3 tangent = vec3(1.,0.,0.);
-    float stretch = 1.0;
-    float visible = 1.0;
-    float radius = .058 + seed*.032;
-    starGlint = step(.98,spread);
-    float clock = TIME * EXTRA_ACTOR_UNIFORM1.w;
-#ifdef SURVEY_STRIKE
-    float age = EXTRA_ACTOR_UNIFORM3.x;
-    if (id < 192.0) {
-        float tail = floor(id/3.0)/64.0;
-        float path = clamp(age*1.45-tail*.42,0.,1.);
-        float arc = mod(id,3.)*TAU/3. + seed*TAU;
-        centre = vec3(-1.6+3.2*path,.65*sin(path*3.14159265),1.-2.*path);
-        centre += vec3(0.,cos(arc),sin(arc))*(.03+tail*.25);
-        visible = (1.-tail)*smoothstep(0.,.07,path)*(1.-smoothstep(.88,1.,path));
-        radius *= 1.5;
-    } else {
-        float phi = id*2.39996323;
-        float y = (id-192.)/64.-1.;
-        vec3 direction = vec3(cos(phi)*sqrt(max(0.,1.-y*y)),y,sin(phi)*sqrt(max(0.,1.-y*y)));
-        centre = direction*(.25+age*1.5);
-        visible = smoothstep(.03,.15,age)*(1.-smoothstep(.35,1.,age));
-    }
-    visible *= 1.-smoothstep(.82,1.,age);
-#else
-    float edge = floor(id/256.);
-    float slot = mod(id,256.);
-    float axis = floor(edge/4.);
-    float pair = mod(edge,4.);
-    vec3 size = EXTRA_ACTOR_UNIFORM1.xyz;
-    float length = axis < .5 ? size.x : (axis < 1.5 ? size.y : size.z);
-    float count = min(224.,max(20.,length*14.));
-    visible = 1.-step(count,slot);
-    // Each small cohort smoothly chooses between drifting, streaming and
-    // winding around the edge. Staggered phases avoid one synchronised pulse.
-    float cycle = clock*TAU/21. + edge*.37 + floor(slot/16.)*.48;
-    vec3 modes = max(vec3(0.),cos(vec3(cycle,cycle-TAU/3.,cycle-TAU*2./3.)));
-    modes *= modes;
-    modes /= max(.001,modes.x+modes.y+modes.z);
-    // Whole cycles per engine clock wrap, at about 0.4 blocks/second.
-    float loops = max(1.,floor(84./max(1.,length)+.5));
-    float u = fract((slot+phase)/count + clock*loops/210.
-                    + modes.x*.24*sin(clock*TAU/7.+seed*TAU)/max(1.,length));
-    float angle = phase*TAU+clock*TAU/14.;
-    float distance = .08 + .50*spread*spread;
-    float a = (mod(pair,2.)*2.-1.);
-    float b = (floor(pair/2.)*2.-1.);
-    vec2 cloud = vec2(cos(angle),sin(angle))*distance;
-    cloud += .17*vec2(sin(clock*TAU/7.+seed*TAU),cos(clock*TAU/10.+phase*TAU));
-    vec2 stream = vec2(cos(phase*TAU),sin(phase*TAU))*(.07+spread*.16);
-    stream += .06*vec2(sin(u*length*2.+clock*TAU/5.),cos(u*length*2.+clock*TAU/5.));
-    float helix = u*length*TAU*.36-clock*TAU/5.+floor(slot/8.)*2.39996323;
-    vec2 spiral = vec2(cos(helix),sin(helix))*(.18+spread*.30);
-    vec2 drift = modes.x*cloud+modes.y*stream+modes.z*spiral;
-    // Reserved tail slots provide one occasional comet per edge. Each has
-    // eight progressively softer segments, separate from the stardust.
-    if (slot >= 224.) {
-        float comet = floor((slot-224.)/8.);
-        float tail = mod(slot-224.,8.)/8.;
-        float route = fract(comet*.249+edge*.137+clock*max(1.,floor(210./length+.5))/210.);
-        u = route-tail*min(.75,length*.35)/length;
-        float arc = route*length*2. + clock*TAU/7.+comet*TAU*.25;
-        drift = vec2(cos(arc),sin(arc))*(.13+.06*comet);
-        visible = (1.-step(1.,comet))*(1.-tail)*.6;
-        // A single occasional comet, staggered across the twelve edges.
-        visible *= smoothstep(.45,.7,.5+.5*sin(clock*TAU/14.+edge*1.7));
-        radius = .06*(1.-tail*.5);
-        stretch = 1.65;
-        starGlint = 1.-step(.01,tail);
-    }
-    if (axis < .5) centre = vec3((u-.5)*size.x,a*size.y*.5+drift.x,b*size.z*.5+drift.y);
-    else if (axis < 1.5) centre = vec3(a*size.x*.5+drift.x,(u-.5)*size.y,b*size.z*.5+drift.y);
-    else centre = vec3(a*size.x*.5+drift.x,b*size.y*.5+drift.y,(u-.5)*size.z);
-    tangent = axis < .5 ? vec3(1.,0.,0.) : (axis < 1.5 ? vec3(0.,1.,0.) : vec3(0.,0.,1.));
-    visible *= .62+.25*pow(.5+.5*sin(clock*TAU/3.5+seed*TAU),2.);
-    visible *= smoothstep(0.,.025,u)*(1.-smoothstep(.975,1.,u));
-    radius += starGlint*.03;
-#endif
-    vec4 position = vec4(centre*16.,1.);
-    vec4 direction = vec4(tangent*16.,0.);
+float random1(float p) { return fract(sin(p*12.9898+4.1414)*43758.5453); }
+vec4 projectPoint(vec3 point, float w) {
+    // Native entity bones invert model Y. Keep our paths positive-up so
+    // ground clicks sweep above the block instead of disappearing inside it.
+    vec4 p=vec4(point*vec3(16.,-16.,16.),w);
 #ifdef USE_SKINNING
     #ifdef NETEASE_SKINNING
-        position = GetBoneMatForNetease(int(BONEID_0)) * position;
-        direction = GetBoneMatForNetease(int(BONEID_0)) * direction;
+        p=GetBoneMatForNetease(int(BONEID_0))*p;
     #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
-        position = BONES[int(BONEID_0)] * position;
-        direction = BONES[int(BONEID_0)] * direction;
+        p=BONES[int(BONEID_0)]*p;
     #else
-        position = BONE * position;
-        direction = BONE * direction;
+        p=BONE*p;
     #endif
 #endif
-    vec4 worldPosition = WORLD * position;
-    worldPosition.xyz += EXTRA_ACTOR_UNIFORM2.xyz;
-    gl_Position = VIEWPROJ * worldPosition;
-    // Avoid losing every dust mote to subpixel rasterization on big boxes.
-    radius = max(radius,clamp(gl_Position.w*.004,0.,.6));
-    // Add the projected view-space quad offset before perspective division.
-    // This engine exposes WORLDVIEW/PROJ, but no standalone VIEW uniform.
-    vec4 projectedDirection = VIEWPROJ * WORLD * direction;
-    vec2 along = (projectedDirection.xy*gl_Position.w-gl_Position.xy*projectedDirection.w)
-               /vec2(PROJ[0][0],PROJ[1][1]);
-    along = dot(along,along) > .00001 ? normalize(along) : vec2(1.,0.);
-    vec2 quad = along*corner.x*stretch + vec2(-along.y,along.x)*corner.y;
-    gl_Position.xy += quad*radius*step(.001,visible)*vec2(PROJ[0][0],PROJ[1][1]);
-    starUV = corner;
-    vec3 tint = mix(vec3(.57,.69,.90),vec3(.87,.91,1.),seed);
-    tint = mix(tint,vec3(.78,.66,.91),step(.86,phase));
-    starTint = vec4(tint,visible);
+    p=WORLD*p;
+    p.xyz+=EXTRA_ACTOR_UNIFORM2.xyz*w;
+    return VIEWPROJ*p;
+}
+// Eight real triangular faces per shard; collapse two quad vertices to a pole.
+vec3 crystalVertex(float face, vec2 corner, float seed, float clock, out float light) {
+    float sector=mod(face,4.), top=1.-step(4.,face)*2.;
+    vec3 a=vec3(0.,top*1.65,0.);
+    vec3 b=vec3(cos(sector*TAU/4.),0.,sin(sector*TAU/4.));
+    vec3 c=vec3(cos((sector+1.)*TAU/4.),0.,sin((sector+1.)*TAU/4.));
+    vec3 v=corner.y > 0. ? a : (corner.x > 0. ? c : b);
+    vec3 n=normalize(cross(b-a,c-a))*top;
+    float yaw=seed*TAU+clock*(.45+seed*.65), pitch=seed*8.-clock*.38;
+    mat3 turn=mat3(cos(yaw),0.,sin(yaw),0.,1.,0.,-sin(yaw),0.,cos(yaw));
+    mat3 tilt=mat3(1.,0.,0.,0.,cos(pitch),sin(pitch),0.,-sin(pitch),cos(pitch));
+    n=turn*tilt*n;
+    light=.58+.42*max(0.,dot(n,normalize(vec3(-.3,.8,.5))));
+    return turn*tilt*v;
+}
+vec3 edgePoint(float axis, float pair, float u, vec2 offset) {
+    vec3 size=EXTRA_ACTOR_UNIFORM1.xyz;
+    float a=mod(pair,2.)*2.-1.,b=floor(pair/2.)*2.-1.;
+    if (axis < .5) return vec3((u-.5)*size.x,a*size.y*.5+offset.x,b*size.z*.5+offset.y);
+    if (axis < 1.5) return vec3(a*size.x*.5+offset.x,(u-.5)*size.y,b*size.z*.5+offset.y);
+    return vec3(a*size.x*.5+offset.x,b*size.y*.5+offset.y,(u-.5)*size.z);
+}
+vec3 strikePath(float u) {
+    return vec3(-2.7+5.4*u,.55+1.1*u-.35*sin(u*3.14159),1.7-3.4*u);
+}
+void main() {
+    vec2 address=floor((abs(POSITION.xy)+1.)/4.);
+    float id=address.x+address.y*64.;
+    vec2 corner=TEXCOORD_0*2.-1.;
+    float seed=random1(id),phase=random1(id+113.),clock=TIME;
+    vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.),tint=vec3(.57,.65,1.);
+    float width=.025,opacity=1.,roll=0.;
+    // 0 dust, 1 four-point star, 2 ribbon, 3 crystal, 4 halo, 5 dotted orbit.
+    effectKind=0.; effectUV=corner;
+#ifdef SURVEY_STRIKE
+    float age=EXTRA_ACTOR_UNIFORM3.x,head=age*1.28;
+    float fade=smoothstep(0.,.08,age)*(1.-smoothstep(.64,1.,age));
+    float trail=0.;
+    if (id < 192.) {
+        float lane=floor(id/64.);
+        trail=(mod(id,64.)+(corner.x+1.)*.5)/64.;
+        float u=head-trail*.70;
+        centre=strikePath(u);
+        centre+=vec3(0.,sin(trail*7.+lane*1.8+age*3.),cos(trail*5.+lane*2.))*trail*trail*.25;
+        tangent=strikePath(u+.002)-strikePath(u);
+        width=(.022+trail*.30)*(lane < .5 ? 1. : (lane < 1.5 ? .38 : 1.7));
+        opacity=fade*smoothstep(-.12,.04,u)*pow(1.-trail,1.1);
+        tint=lane < .5 ? vec3(.67,.38,1.) : (lane < 1.5 ? vec3(.92,.80,1.) : vec3(.27,.40,1.));
+        if (lane > 1.5) opacity*=.46;
+        effectKind=2.; effectUV=vec2(trail,corner.y);
+    } else if (id < 196.) {
+        float layer=id-192.;
+        centre=strikePath(head);
+        width=layer < .5 ? .48 : (layer < 1.5 ? .22 : (layer < 2.5 ? .78 : .085));
+        opacity=fade*(layer < 1.5 ? 1. : (layer < 2.5 ? .20 : 1.));
+        roll=layer < .5 ? -.28 : .5;
+        tint=layer < .5 ? vec3(.55,.81,1.) : vec3(.91,.84,1.);
+        effectKind=layer == 2. ? 4. : 1.;
+    } else if (id < 644.) {
+        float shard=floor((id-196.)/8.);
+        seed=random1(shard+501.);phase=random1(shard+123.);
+        trail=.10+random1(shard+44.)*.9;
+        float u=head-trail*.65;
+        float angle=phase*TAU+age*(seed-.5)*1.5;
+        float spread=(.05+trail*trail*.9)*(.25+seed);
+        centre=strikePath(u)+vec3(0.,cos(angle),sin(angle))*spread;
+        float light;
+        centre+=crystalVertex(mod(id-196.,8.),corner,seed,age*2.,light)*(.035+trail*(.045+seed*.085));
+        opacity=fade*smoothstep(-.14,.02,u)*(1.-smoothstep(.7,1.,trail));
+        tint=mix(vec3(.47,.60,1.),vec3(.99,.85,1.),phase)*light;
+        effectKind=3.;
+    } else {
+        trail=seed;
+        float u=head-trail*.8,spread=(.08+trail*.7)*phase;
+        centre=strikePath(u)+vec3(0.,cos(id*2.4),sin(id*2.4))*spread;
+        width=.010+phase*.017;
+        opacity=fade*(1.-trail)*smoothstep(-.15,.03,u);
+        tint=mix(vec3(.43,.62,1.),vec3(.91,.72,1.),phase);
+        effectKind=step(.96,phase);
+        if (effectKind > .5) width*=3.;
+    }
+#else
+    float edge=floor(id/256.),slot=mod(id,256.);
+    float axis=floor(edge/4.),pair=mod(edge,4.);
+    vec3 size=EXTRA_ACTOR_UNIFORM1.xyz;
+    float edgeLength=axis < .5 ? size.x : (axis < 1.5 ? size.y : size.z);
+    float scale=min(1.,.32+edgeLength*.17),loop=fract(clock/14.+edge*.267);
+    float head=loop*1.65-.12;
+    float cometFade=smoothstep(0.,.12,loop)*(1.-smoothstep(.65,.90,loop));
+    // Stagger leading stars so small selections do not become a luminous wall.
+    cometFade*=pow(.5+.5*sin(clock*TAU/42.+edge*2.39996),4.);
+    float trailLength=min(edgeLength*.72,3.8),u=0.; vec2 drift=vec2(0.);
+    tangent=axis < .5 ? vec3(1.,0.,0.) : (axis < 1.5 ? vec3(0.,1.,0.) : vec3(0.,0.,1.));
+    if (slot < 32.) {
+        u=fract((slot+phase)/32.+clock/35.);
+        float a=phase*TAU+clock*TAU/14.;
+        drift=vec2(cos(a),sin(a))*(.09+seed*.42)*scale;
+        centre=edgePoint(axis,pair,u,drift);
+        width=(.010+seed*.016)*scale;
+        opacity=(.45+.35*sin(clock*TAU/7.+id))*smoothstep(0.,.08,u)*(1.-smoothstep(.92,1.,u));
+        effectKind=step(.90,phase);
+        if (effectKind > .5) width=.095*scale;
+        tint=vec3(.60,.76,1.);
+    } else if (slot < 80.) {
+        float lane=floor((slot-32.)/24.);
+        float t=(mod(slot-32.,24.)+(corner.x+1.)*.5)/24.;
+        float angle=t*TAU*.78+clock*TAU/21.+edge*.71+lane*2.2;
+        float r=(.42+.19*lane)*scale;
+        u=fract(.25+edge*.173+clock/70.)+sin(angle)*min(.24,1.3/edgeLength);
+        drift=vec2(cos(angle),sin(angle)*.6)*r;
+        centre=edgePoint(axis,pair,u,drift);
+        float da=.002;
+        vec3 next=edgePoint(axis,pair,u+(sin(angle+da)-sin(angle))*min(.24,1.3/edgeLength),vec2(cos(angle+da),sin(angle+da)*.6)*r);
+        tangent=next-centre;
+        width=.015*scale;opacity=sin(t*3.14159)*.78;
+        tint=vec3(.57,.73,1.); effectKind=5.;effectUV=vec2(t,corner.y);
+    } else if (slot < 144.) {
+        float lane=floor((slot-80.)/32.);
+        float t=(mod(slot-80.,32.)+(corner.x+1.)*.5)/32.;
+        u=head-t*trailLength/edgeLength;
+        float a=head*2.+edge+clock*TAU/21.;
+        drift=vec2(cos(a+t*.8),sin(a+t*.8))*(.12+t*t*.20)*scale;
+        centre=edgePoint(axis,pair,u,drift);
+        width=(.01+t*.13)*scale*(lane < .5 ? 1. : .24);
+        opacity=cometFade*pow(1.-t,1.2)*smoothstep(-.08,.02,u)*(1.-smoothstep(1.,1.1,u));
+        tint=lane < .5 ? vec3(.57,.36,1.) : vec3(.85,.78,1.);
+        effectKind=2.; effectUV=vec2(t,corner.y);
+    } else if (slot < 146.) {
+        float a=head*2.+edge+clock*TAU/21.;
+        centre=edgePoint(axis,pair,head,vec2(cos(a),sin(a))*.12*scale);
+        width=(slot < 145. ? .23 : .41)*scale;
+        opacity=cometFade*smoothstep(-.08,.02,head)*(1.-smoothstep(1.,1.1,head));
+        effectKind=slot < 145. ? 1. : 4.;
+        if (effectKind > 3.5) opacity*=.13;
+        roll=.35;tint=vec3(.66,.78,1.);
+    } else if (slot < 210.) {
+        float shard=floor((slot-146.)/8.);
+        seed=random1(shard+edge*8.+101.);phase=random1(shard+edge*8.+167.);
+        float t=.16+seed*.74;
+        u=head-t*trailLength/edgeLength;
+        float a=head*2.+edge+clock*TAU/21.+phase*2.;
+        drift=vec2(cos(a),sin(a))*(.12+t*t*.38)*scale;
+        centre=edgePoint(axis,pair,u,drift);
+        float light;
+        centre+=crystalVertex(mod(slot-146.,8.),corner,seed,clock,light)*(.025+t*.065)*scale;
+        opacity=cometFade*(1.-t*.5)*smoothstep(-.08,.02,u)*(1.-smoothstep(1.,1.1,u));
+        tint=mix(vec3(.37,.53,1.),vec3(.84,.74,1.),phase)*light;effectKind=3.;
+    } else {
+        float lane=floor((slot-210.)/23.);
+        u=(mod(slot-210.,23.)+(corner.x+1.)*.5)/23.;
+        float a=u*TAU+clock*TAU/7.+edge;
+        drift=vec2(cos(a),sin(a))*.022*scale;
+        centre=edgePoint(axis,pair,u,drift);
+        width=(lane < .5 ? .055 : .016)*scale;
+        opacity=lane < .5 ? .13 : .37;
+        tint=mix(vec3(.30,.47,1.),vec3(.79,.52,1.),.5+.5*sin(u*edgeLength*3.-clock*TAU/3.5));
+        effectKind=2.;effectUV=vec2(u,corner.y);
+    }
+#endif
+    gl_Position=projectPoint(centre,1.);
+    if (effectKind < 2.5 || effectKind > 3.5) {
+        // entity_static does not bind PROJ on every renderer. Recover its
+        // scale from the camera's orthonormal rows in the bound VIEWPROJ.
+        vec2 projectionScale=vec2(
+            length(vec3(VIEWPROJ[0][0],VIEWPROJ[1][0],VIEWPROJ[2][0])),
+            length(vec3(VIEWPROJ[0][1],VIEWPROJ[1][1],VIEWPROJ[2][1])));
+        vec4 d=projectPoint(tangent,0.);
+        vec2 along=(d.xy*gl_Position.w-gl_Position.xy*d.w)/projectionScale;
+        along=dot(along,along) > .000001 ? normalize(along) : vec2(1.,0.);
+        vec2 across=vec2(-along.y,along.x),quad;
+        if ((effectKind > 1.5 && effectKind < 2.5) || effectKind > 4.5) {
+            width=max(width,min(.07,gl_Position.w*.00045));
+            quad=across*corner.y;
+        } else {
+            vec2 uv=vec2(corner.x*cos(roll)-corner.y*sin(roll),corner.x*sin(roll)+corner.y*cos(roll));
+            quad=along*uv.x+across*uv.y;
+        }
+        gl_Position.xy+=quad*width*step(.001,opacity)*projectionScale;
+    }
+    effectTint=vec4(tint,opacity);
 }

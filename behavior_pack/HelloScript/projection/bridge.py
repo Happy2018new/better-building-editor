@@ -243,7 +243,7 @@ class ClientBridge(object):
         elif self.corners[0] is not None:
             self.corners[1] = tuple(pos)
             from .input_mode import is_touch
-            action = '点击“导入选区”' if is_touch() else '左键导入，右键重新选取'
+            action = '点击“导入选区”' if is_touch() else '左键导入，右键重选，潜行右键清除'
             self.notify(('已选择 %d × %d × %d，' % tuple(args['size'])) + action)
         self.draw_bounds()
         self.survey_effects.strike(tuple(pos))

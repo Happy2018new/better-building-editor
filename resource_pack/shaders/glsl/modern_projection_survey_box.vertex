@@ -13,7 +13,7 @@ void main() {
 #else
     vec3 corner = sign(position.xyz) * 8.0;
     widthDirection = vec4(position.xyz-corner,0.);
-    position.xyz = corner * (EXTRA_ACTOR_UNIFORM1.xyz + vec3(0.028)) + (position.xyz-corner) * 0.72;
+    position.xyz = corner * (EXTRA_ACTOR_UNIFORM1.xyz + vec3(0.028)) + (position.xyz-corner) * 0.48;
 #endif
     surveySize = EXTRA_ACTOR_UNIFORM1.xyz;
     surveyLocal = position.xyz / 16.0;
@@ -36,7 +36,7 @@ void main() {
     // Keep distant selection edges legible at roughly one screen pixel.
     // Near the player they retain the fine 0.032-block width. This only
     // expands the tube cross-section, never the bounds or starfield mapping.
-    float widthScale = clamp(gl_Position.w*.04,.72,8.0);
-    gl_Position += (VIEWPROJ * WORLD * widthDirection) * (widthScale-.72);
+    float widthScale = clamp(gl_Position.w*.032,.48,6.0);
+    gl_Position += (VIEWPROJ * WORLD * widthDirection) * (widthScale-.48);
 #endif
 }

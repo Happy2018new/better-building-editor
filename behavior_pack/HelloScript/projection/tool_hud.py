@@ -15,23 +15,36 @@ CONTENT = ('/variables_button_mappings_and_controls/safezone_screen_matrix'
 class TerminalHudScreen(ScreenNode):
     def Create(self):
         self.button = self.GetBaseUIControl(str(CONTENT + '/open_button'))
+        self.clear_button = self.GetBaseUIControl(str(CONTENT + '/clear_button'))
         if self.button is not None:
             self.button.asButton().AddTouchEventParams({'isSwallow': True})
             self.button.asButton().SetButtonTouchUpCallback(self.open)
-        self.set_state(False, '')
+        if self.clear_button is not None:
+            self.clear_button.asButton().AddTouchEventParams({'isSwallow': True})
+            self.clear_button.asButton().SetButtonTouchUpCallback(self.clear)
+        self.set_state(False, False, '')
 
     def open(self, unused=None):
         owner = _OWNER[0]
         if owner is not None:
             owner.tool_hud_action()
 
-    def set_state(self, visible, caption):
+    def clear(self, unused=None):
+        owner = _OWNER[0]
+        if owner is not None:
+            owner.tool_reset()
+
+    def set_state(self, visible, clear_visible, caption):
         if self.button is not None:
             self.button.SetVisible(bool(visible), False)
+            self.button.SetFullPosition('x', {'absoluteValue': -32 if clear_visible else 0})
             label = self.GetBaseUIControl(str(CONTENT + '/open_button/caption'))
             if label is not None:
                 label.asLabel().SetText(caption.encode('utf8'))
-                self.UpdateScreen(False)
+        if self.clear_button is not None:
+            self.clear_button.SetVisible(bool(clear_visible), False)
+            self.clear_button.SetFullPosition('x', {'absoluteValue': 82 if visible else 0})
+        self.UpdateScreen(False)
 
 
 class TerminalHud(object):
@@ -59,7 +72,9 @@ class TerminalHud(object):
                    (self.carried == SURVEY_WAND and None not in corners and is_touch()))
         visible = visible and not navigator.contains('modern_projection_workspace')
         caption = '投影工作台' if self.carried == TERMINAL else '导入选区'
-        state = (visible, caption)
+        clear_visible = (self.carried == SURVEY_WAND and any(point is not None for point in corners)
+                         and not navigator.contains('modern_projection_workspace'))
+        state = (visible, clear_visible, caption)
         if state != self.shown and self.screen is not None:
             self.shown = state
             self.screen.set_state(*state)
@@ -68,4 +83,4 @@ class TerminalHud(object):
         if _OWNER[0] is self.owner:
             _OWNER[0] = None
         if self.screen is not None:
-            self.screen.set_state(False, '')
+            self.screen.set_state(False, False, '')

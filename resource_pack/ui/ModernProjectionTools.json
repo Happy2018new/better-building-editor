@@ -1,5 +1,13 @@
 {
   "namespace": "ModernProjectionTools",
+  "button_stars": {
+    "anim_type": "flip_book",
+    "initial_uv": [0, 0],
+    "frame_count": 24,
+    "frame_step": 160,
+    "fps": 12,
+    "easing": "linear"
+  },
   "hudScreen@common.base_screen": {
     "$screen_content": "ModernProjectionTools.hudContent"
   },
@@ -14,12 +22,9 @@
         "open_button@common.button": {
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [
-            0,
-            -62
-          ],
+          "offset": [-32, -62],
           "size": [
-            134,
+            142,
             36
           ],
           "visible": false,
@@ -29,6 +34,8 @@
               "default": {
                 "type": "image",
                 "texture": "textures/modern_projection/tool_button_normal",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
                 "layer": 1,
                 "size": [
                   "100%",
@@ -41,6 +48,8 @@
               "hover": {
                 "type": "image",
                 "texture": "textures/modern_projection/tool_button_hover",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
                 "layer": 1,
                 "size": [
                   "100%",
@@ -53,27 +62,14 @@
               "pressed": {
                 "type": "image",
                 "texture": "textures/modern_projection/tool_button_pressed",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
                 "layer": 1,
                 "size": [
                   "100%",
                   "100%"
                 ],
                 "keep_ratio": false
-              }
-            },
-            {
-              "glyph": {
-                "type": "image",
-                "texture": "textures/items/modern_projection_terminal",
-                "size": [
-                  24,
-                  24
-                ],
-                "offset": [
-                  -47,
-                  -1
-                ],
-                "layer": 3
               }
             },
             {
@@ -89,15 +85,68 @@
                 "text_alignment": "center",
                 "anchor_from": "center",
                 "anchor_to": "center",
-                "size": [
-                  100,
-                  20
-                ],
+                "size": [124, 20],
                 "shadow": false,
-                "offset": [
-                  12,
-                  -1
-                ]
+                "offset": [0, -1]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "clear_button@common.button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [82, -62],
+          "size": [54, 36],
+          "visible": false,
+          "layer": 5,
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_normal",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_hover",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_pressed",
+                "uv": "@ModernProjectionTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "caption": {
+                "type": "label",
+                "text": "清除",
+                "layer": 3,
+                "color": [0.94, 0.97, 1.0],
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [48, 20],
+                "shadow": false,
+                "offset": [0, -1]
               }
             }
           ]

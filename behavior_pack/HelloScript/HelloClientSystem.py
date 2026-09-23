@@ -84,6 +84,8 @@ class HelloClientSystem(ClientSystem):
             try:
                 if is_touch():
                     self.tool_mark(self.bridge.factory.CreateCamera(self.bridge.level).GetChosen())
+                elif self.bridge.factory.CreatePlayer(clientApi.GetLocalPlayerId()).isSneaking():
+                    self.tool_reset()
                 else:
                     self.tool_mark_facing()
             except (ValueError, TypeError, KeyError) as error:
@@ -110,6 +112,7 @@ class HelloClientSystem(ClientSystem):
         cached,self.tool_touch_pick = self.tool_touch_pick,None
         pick = cached[0] if cached and time.time()-cached[1] < .75 else None
         if pick and pick.get('type') == 'Block':
+            self.bridge.factory.CreatePlayer(clientApi.GetLevelId()).Swing()
             self.tool_mark(pick)
 
     def tool_import_click(self, args):
