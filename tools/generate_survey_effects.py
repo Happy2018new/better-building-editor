@@ -19,10 +19,8 @@ def geometry(name, cubes):
 
 
 def generate():
-    outline = json.loads((ROOT / 'models/entity/modern_projection_outline.geo.json').read_text())
-    geometry('survey_wire', outline['minecraft:geometry'][0]['bones'][0]['cubes'])
-    geometry('survey_veil', [{'origin':[-8,-8,-8],'size':[16,16,16],'uv':[0,0]}])
-    for name, count in [('survey_stars',3072),('survey_strike',768)]:
+    for name, count in [('survey_wire',576),('survey_guide',576),
+                        ('survey_stars',3072),('survey_strike',768)]:
         # POSITION encodes a primitive address and its four vertices. The
         # shader turns these into joined ribbon segments, eight triangular
         # faces per tumbling crystal, and a small number of star billboards.
@@ -30,7 +28,7 @@ def generate():
         # retains the half-unit quad corners without precision loss.
         geometry(name,[{'origin':[(i%64)*4-.5,(i//64)*4-.5,0],'size':[1,1,0],
             'uv':{'north':{'uv':[0,0],'uv_size':[2,2]}}} for i in range(count)])
-    for name in ('survey_wire','survey_veil','survey_stars','survey_strike'):
+    for name in ('survey_wire','survey_guide','survey_stars','survey_strike'):
         behavior = json.loads((ROOT.parent / 'behavior_pack/entities/modern_projection_outline.json').read_text())
         behavior['minecraft:entity']['description']['identifier'] = 'modern_projection:' + name
         (ROOT.parent / ('behavior_pack/entities/modern_projection_' + name + '.json')).write_text(

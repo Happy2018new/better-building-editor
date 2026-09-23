@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class SurveyAssetTests(unittest.TestCase):
     def test_encoded_particles_survive_axis_mirroring_and_mobile_half_precision(self):
-        for kind, count in [('stars',3072),('strike',768)]:
+        for kind, count in [('wire',576),('guide',576),('stars',3072),('strike',768)]:
             path=ROOT/('resource_pack/models/entity/modern_projection_survey_'+kind+'.geo.json')
             cubes=json.loads(path.read_text())['minecraft:geometry'][0]['bones'][0]['cubes']
             self.assertEqual(count,len(cubes))
@@ -33,7 +33,7 @@ class SurveyAssetTests(unittest.TestCase):
 
     def test_private_effect_resources_have_no_collision_and_resolve_materials(self):
         materials=json.loads((ROOT/'resource_pack/materials/entity.material').read_text())['materials']
-        for kind in ('wire','veil','stars','strike'):
+        for kind in ('wire','guide','stars','strike'):
             name='modern_projection_survey_'+kind
             bp=json.loads((ROOT/('behavior_pack/entities/'+name+'.json')).read_text())['minecraft:entity']
             self.assertFalse(bp['components']['minecraft:physics']['has_collision'])
@@ -93,6 +93,43 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertEqual(3,len(self.live))
         self.effect.clear()
         self.assertFalse(self.live)
+
+    def test_steady_box_does_not_upload_animation_uniforms_every_frame(self):
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+            self.effect.replace((0,0,0),(4,5,4))
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=12.):
+            self.effect.follow((0.,0.,8.),(0.,0.,12.))
+        self.uniforms.clear()
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=13.):
+            self.effect.follow((0.,0.,8.),(0.,0.,12.))
+        self.assertFalse(self.uniforms)
+
+    def test_camera_motion_does_not_teleport_main_star_to_another_corner(self):
+        self.effect.follow((0.,0.,8.),(0.,0.,12.))
+        self.effect.replace((0,0,0),(4,5,4))
+        corner=self.effect.corner
+        self.effect.follow((0.,0.,-8.),(0.,0.,-12.))
+        self.assertEqual(corner,self.effect.corner)
+        for entity in self.live:
+            self.assertEqual((-2.,-2.5,-14.,float(corner)),self.uniforms[(entity,4)])
+
+    def test_new_box_samples_current_camera_even_after_previous_burst_expired(self):
+        self.effect.camera=(-10.,-10.,-10.)
+        self.effect.bridge.level='test'
+        self.effect.bridge.factory.CreateCamera=lambda level:types.SimpleNamespace(
+            GetPosition=lambda:(10.,10.,10.))
+        self.effect.replace((0,0,0),(4,5,4))
+        self.assertEqual(7,self.effect.corner)
+        self.assertEqual((10.,10.,10.),self.effect.camera)
+
+    def test_delayed_native_registration_preserves_finished_entrance(self):
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+            self.effect.replace((0,0,0),(4,5,4))
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=12.):
+            self.effect.follow((0.,0.,8.))
+        for callback in self.callbacks:callback()
+        for entity in self.live:
+            self.assertEqual((1.,1.,0.,0.),self.uniforms[(entity,3)])
 
 
 if __name__=='__main__': unittest.main()

@@ -1,28 +1,68 @@
 // __multiversion__
 #include "fragmentVersionCentroid.h"
+#include "uniformPerFrameConstants.h"
 varying highp vec2 effectUV;
 varying highp vec4 effectTint;
 varying highp float effectKind;
+varying highp vec4 facetNormal;
+varying highp vec4 facetView;
+varying highp vec3 facetLight;
 void main() {
     vec2 p=abs(effectUV);
     float alpha=1.;vec3 rgb=effectTint.rgb;
-    if (effectKind < .5) {
-        alpha=exp(-dot(p,p)*12.)*(1.-smoothstep(.6,1.,dot(p,p)));
-    } else if (effectKind < 1.5) {
-        // Concave four-point silhouette, fine rays and a white nucleus.
-        float shape=(p.x+p.y)*.27+sqrt(p.x*p.y)*1.8;
-        float star=1.-smoothstep(.255,.30,shape),nucleus=exp(-dot(p,p)*85.);
-        alpha=max(star,nucleus);rgb=mix(rgb,vec3(1.),max(nucleus,star*.65));
-    } else if (effectKind < 2.5) {
-        float core=exp(-p.y*p.y*85.);
-        alpha=exp(-p.y*p.y*4.5)*(1.-smoothstep(.7,1.,p.y));
-        rgb=mix(rgb,vec3(.94,.91,1.),core*.68);
-    } else if (effectKind > 4.5) {
-        float bead=pow(.5+.5*cos(effectUV.x*6.2831853*34.),12.);
-        alpha=exp(-p.y*p.y*6.)*(.22+.78*bead);
-        rgb=mix(rgb,vec3(.92,.95,1.),bead*.65);
-    } else if (effectKind > 3.5) {
-        alpha=exp(-dot(p,p)*5.)*(1.-smoothstep(.55,1.,dot(p,p)));
+    if(effectKind<.5) {
+        alpha=exp(-dot(p,p)*10.)*(1.-smoothstep(.55,1.,dot(p,p)));
+    } else if(effectKind<1.5) {
+        // Long tapered rays, with soft shoulders and a tiny hard white nucleus.
+        float horizontal=pow(1.-clamp(p.x,0.,1.),2.)*exp(-p.y*p.y/(.00016+.005*pow(1.-p.x,4.)));
+        float vertical=pow(1.-clamp(p.y,0.,1.),2.4)*exp(-p.x*p.x/(.00016+.004*pow(1.-p.y,4.)));
+        float core=exp(-dot(p,p)*650.);
+        alpha=max(max(horizontal,vertical),core);
+        rgb=mix(rgb,vec3(.97,.985,1.),max(core,.70));
+    } else if(effectKind<2.5) {
+        float core=exp(-p.y*p.y*65.);
+        alpha=exp(-p.y*p.y*5.)*(1.-smoothstep(.75,1.,p.y));
+        rgb=mix(rgb,vec3(.91,.95,1.),core*.32);
+    } else if(effectKind<3.5) {
+        vec3 n=normalize(facetNormal.xyz),v=normalize(facetView.xyz),l=normalize(facetLight);
+        float seed=facetNormal.w;
+        float nv=abs(dot(n,v)),fresnel=pow(1.-nv,3.);
+        float reflection=pow(abs(dot(n,normalize(v+l))),75.);
+        float backlight=pow(max(0.,-dot(n,l)),2.);
+        vec3 bary=vec3(effectUV,1.-effectUV.x-effectUV.y);
+        float edge=min(bary.x,min(bary.y,bary.z));
+        float rim=1.-smoothstep(.008,.035,edge);
+        float dispersion=sin(dot(effectUV,vec2(7.,-11.))+TIME*6.2831853/3.5+seed*6.);
+        vec3 edgeColour=mix(vec3(.27,.85,1.),vec3(.96,.42,.86),.5+.5*dispersion);
+        float crack=pow(.5+.5*sin(effectUV.x*29.+sin(effectUV.y*17.+seed*12.)*2.+seed*23.),30.);
+        crack*=1.-smoothstep(.08,.30,edge);
+        float sweep=pow(max(0.,1.-abs(effectUV.x+effectUV.y*.38-fract(TIME/1.75+seed))*12.),10.);
+        float thick=smoothstep(0.,.28,edge);
+        rgb=mix(rgb,vec3(.67,.29,.80),backlight*.55+thick*.16);
+        rgb=mix(rgb,edgeColour,rim*.7);
+        rgb=mix(rgb,vec3(.93,.98,1.),clamp(reflection*.95+rim*fresnel*.85+sweep*.25+crack*.2,0.,1.));
+        alpha=.12+thick*.09+fresnel*.22+rim*(.30+.25*fresnel)+reflection*.65+crack*.09+sweep*.10;
+        // Analytic internal light echoes; this material has no scene-colour sampler.
+        float echo=exp(-pow((effectUV.x-effectUV.y*.45-.22)-sin(TIME*6.2831853/7.+seed*8.)*.18,2.)*450.);
+        rgb=mix(rgb,edgeColour,echo*.35);
+        alpha+=echo*.08;
+        if(!gl_FrontFacing)alpha*=.22;
+    } else if(effectKind<5.5) {
+        float r=length(p);
+        alpha=exp(-r*r*7.)*(1.-smoothstep(.6,1.,r));
+        rgb=mix(vec3(.45,.25,.88),vec3(.96,.67,.93),exp(-r*r*14.));
+    } else if(effectKind<6.5) {
+        // Three nested optical widths, not three overlapping opaque cylinders.
+        float core=exp(-p.y*p.y*80.);
+        float halo=exp(-p.y*p.y*16.);
+        float mist=exp(-p.y*p.y*5.)*(1.-smoothstep(.78,1.,p.y));
+        alpha=core*.97+halo*.42+mist*.09;
+        rgb=mix(vec3(.48,.29,.83),rgb,clamp(halo*3.,0.,1.));
+        rgb=mix(rgb,vec3(.86,.98,1.),core*.8);
+    } else {
+        // Only a thin dim locator is visible through world blocks.
+        alpha=exp(-p.y*p.y*7.);
+        rgb=vec3(.40,.59,.90);
     }
-    gl_FragColor=vec4(rgb,alpha*effectTint.a);
+    gl_FragColor=vec4(rgb,clamp(alpha*effectTint.a,0.,1.));
 }

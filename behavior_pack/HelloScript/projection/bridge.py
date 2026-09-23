@@ -85,7 +85,7 @@ class ClientBridge(object):
             position = tuple(float(centre[i]) + 4. * forward[i] for i in range(3))
         except Exception:
             return
-        self.survey_effects.follow(position)
+        self.survey_effects.follow(position,tuple(centre))
         if not self.session.projection_active:
             return
         signature = (position, self.entity, self.projection_outline.entity)

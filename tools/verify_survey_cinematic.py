@@ -1,5 +1,5 @@
 """Real survey VFX in a bound isolated game; never edits the building library.
-Comet still holds age=0.5; videos use normal GPU motion and burst lifetimes.
+All stills and videos use the live animation and bounded burst lifetimes.
 """
 import json
 import subprocess
@@ -21,7 +21,7 @@ def main():
     saved = game('''f=api.GetEngineCompFactory()
 _result=[f.CreatePos(player).GetFootPos(),f.CreateFly(player).IsPlayerFlying(),
          f.CreateTime(api.GetLevelId()).GetTime()]''', True)
-    x, base, z = int(saved[0][0]), int(saved[0][1]) + 70, int(saved[0][2])
+    x, base, z = int(saved[0][0]), max(300, int(saved[0][1]) + 70), int(saved[0][2])
     evidence = {}
 
     def raw(name):
@@ -29,12 +29,12 @@ _result=[f.CreatePos(player).GetFootPos(),f.CreateFly(player).IsPlayerFlying(),
         # tick before collecting pixels after an asynchronous camera change.
         time.sleep(.4)
         unused_x, unused_y, width, height = capture._window_rect(window['hwnd'])
-        path = OUT / ('survey74_' + name + '.png')
+        path = OUT / ('survey75_' + name + '.png')
         capture._capture_window_windows(window['hwnd'], width, height, False, str(path))
         return str(path)
 
     def video(name):
-        path = OUT / ('survey74_' + name + '.mp4')
+        path = OUT / ('survey75_' + name + '.mp4')
         # Capture only the verified game's HWND, never desktop/other apps.
         run = subprocess.run(['ffmpeg', '-y', '-hide_banner', '-loglevel', 'error',
             '-f', 'gdigrab', '-framerate', '30', '-i', 'hwnd=' + str(window['hwnd']),
@@ -54,22 +54,24 @@ _result=True''' % ((x, base, z),), True)
         game('''e=s.bridge.survey_effects
 e.clear()
 s.bridge.corners=[None,None]
-r=e._spawn('strike',%r,(1,1,1))
-e.layers.append(r)
-s.bridge.factory.CreateActorRender(r[0]).SetEntityExtraUniforms(3,(.5,0.,0.,0.))
-_result=True''' % ((x+.5, base+6.5, z+4.5),))
+e.strike(%r)
+_result=True''' % ((x, base+6, z+4),))
         time.sleep(.35)
-        evidence['comet_held_age_half'] = raw('comet_final')
+        evidence['comet_live'] = raw('comet_final')
         game('''from functools import partial
 e=s.bridge.survey_effects
 e.clear()
 for delay in (1.,3.5,6.):s.bridge.later(delay,partial(e.strike,%r))
 _result=True''' % ((x, base+6, z+4),))
         evidence['comet_video'] = video('comet_motion')
-        ids = box((x,base+3,z+3),(4,5,4))
         camera((x+7.,base+9.,z+11.),(x+2.,base+5.5,z+5.))
+        time.sleep(.2)
+        ids = box((x,base+3,z+3),(4,5,4))
         evidence['orbits_video'] = video('orbits_motion')
         evidence['night'] = raw('orbits_night')
+        # Inspect glow thickness and genuine crystal faces in a close view.
+        camera((x+4.8,base+8.,z+9.),(x+2.,base+5.5,z+5.))
+        evidence['detail'] = raw('detail')
         assert ids == game('_result=[r[0] for r in s.bridge.survey_effects.layers]')
         evidence['static_entities_reused'] = True
         game('api.GetEngineCompFactory().CreateTime(api.GetLevelId()).SetTimeOfDay(6000)\n_result=True',True)
@@ -77,12 +79,14 @@ _result=True''' % ((x, base+6, z+4),))
         evidence['day'] = raw('orbits_day')
         box((x,base+3,z+3),(1,1,1))
         camera((x+2.,base+5.,z+6.),(x+.5,base+3.5,z+3.5))
-        evidence['single'] = snapshot('survey74_single')
+        time.sleep(1.3)
+        evidence['single'] = snapshot('survey75_single')
         ids = box((x-32,base-32,z-32),(64,128,64))
         # A detached camera does not load distant actor chunks. Move the test
         # player with this far camera so it matches real player observation.
         game('api.GetEngineCompFactory().CreatePos(player).SetPos(%r)\n_result=True' % ((x+85.,base+80.,z+90.),),True)
         camera((x+85.,base+80.,z+90.),(x,base+32.,z))
+        time.sleep(1.3)
         evidence['maximum'] = raw('maximum')
         game('api.GetEngineCompFactory().CreatePos(player).SetPos(%r)\n_result=True' % ((x,base,z),),True)
         camera((x,base,z),(x+32,base,z+32))
@@ -108,7 +112,7 @@ f.CreatePos(player).SetPos(%r)
 f.CreateFly(player).ChangePlayerFlyState(%r)
 f.CreateTime(api.GetLevelId()).SetTime(%r)
 _result=True''' % (tuple(saved[0]),saved[1],saved[2]),True)
-        (OUT/'survey74_evidence.json').write_text(json.dumps(evidence,indent=2),encoding='utf8')
+        (OUT/'survey75_evidence.json').write_text(json.dumps(evidence,indent=2),encoding='utf8')
     print(json.dumps(evidence,indent=2))
 
 
