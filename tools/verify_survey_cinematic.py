@@ -5,6 +5,7 @@ import json
 import subprocess
 import time
 from pathlib import Path
+from PIL import Image
 from verify_world_tools import game, snapshot, equip
 from verify_survey_visuals import box, camera
 from mcdk import load_session
@@ -30,8 +31,16 @@ _result=[f.CreatePos(player).GetFootPos(),f.CreateFly(player).IsPlayerFlying(),
         time.sleep(.4)
         unused_x, unused_y, width, height = capture._window_rect(window['hwnd'])
         path = OUT / ('survey75_' + name + '.png')
-        capture._capture_window_windows(window['hwnd'], width, height, False, str(path))
-        return str(path)
+        # PrintWindow can return an entirely white surface during a camera /
+        # native swap-chain transition. Never record that as visual evidence.
+        for attempt in range(3):
+            capture._capture_window_windows(window['hwnd'], width, height, False, str(path))
+            with Image.open(path) as frame:
+                variation=sum(high-low for low,high in frame.convert('RGB').getextrema())
+            if variation>8:
+                return str(path)
+            time.sleep(.3)
+        raise AssertionError('Game capture returned a blank surface: '+str(path))
 
     def video(name):
         path = OUT / ('survey75_' + name + '.mp4')
@@ -90,6 +99,7 @@ _result=True''' % ((x, base+6, z+4),))
         evidence['maximum'] = raw('maximum')
         game('api.GetEngineCompFactory().CreatePos(player).SetPos(%r)\n_result=True' % ((x,base,z),),True)
         camera((x,base,z),(x+32,base,z+32))
+        time.sleep(.6)
         evidence['inside'] = raw('inside')
         assert ids == game('_result=[r[0] for r in s.bridge.survey_effects.layers]')
         evidence['camera_entities_reused'] = True
