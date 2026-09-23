@@ -107,7 +107,8 @@ class Sharing(object):
         def prepare():
             s = self.session
             if identity is None:
-                document = Document(s.editor.document.size, name=s.name.strip() or s.editor.document.name)
+                document = Document(s.editor.document.size, name=s.name.strip() or s.editor.document.name,
+                                    biome=s.editor.document.biome)
                 document.blocks = s.editor.document.blocks.copy()
             else:
                 entry = next((row for row in s.library if row['id']==identity), None)

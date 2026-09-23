@@ -17,6 +17,7 @@ from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targ
 from .chunks import painter_order
 from .native_layers import apply_layers
 from .input_mode import is_touch
+from .biomes import ui_color
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
@@ -81,7 +82,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     def subscribe():
         def changed():
             refresh(lambda previous: previous + 1)
-        return session.subscribe(changed, ('page', 'view', 'preview', 'material_browser', 'pending_rename', 'pending_confirm', 'sharing_visibility'))
+        return session.subscribe(changed, ('page', 'view', 'preview', 'biome', 'material_browser', 'pending_rename', 'pending_confirm', 'sharing_visibility'))
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
@@ -640,7 +641,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             # without a draw at layer 49 the models inherit that stale value.
             # Reuse the transparent texture: no visible mark, one pixel draw,
             # and no per-frame geometry submissions for workspace fades.
-            Image(src='textures/modern_projection/transparent',
+            Image(src='textures/modern_projection/transparent', color=Color(ui_color(session.editor.document.biome)),
                   style=S(position=Position.absolute, width=1, height=1, zIndex=49)),
             PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
         ]),

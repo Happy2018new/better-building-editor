@@ -613,7 +613,7 @@ def Workspace(session=None, revision=0):
         set_revision(lambda previous: previous + 1)
 
     def subscribe():
-        return session.subscribe(refresh, ())
+        return session.subscribe(refresh, ('biome',))
     use_effect(subscribe, [session])
 
     def resized(unused):
@@ -656,8 +656,8 @@ def Workspace(session=None, revision=0):
             Panel(style=S(flex=1)),
             Button(buttonBuilder=transparent, backgroundColor=Theme.green,
                    hoverColor=Color(0x178C7E2E), radius=7, style=S(height=32),
-                   children=row([icon('check' if e.saved_revision == e.revision and session.library else 'draft', Theme.mint, 15),
-                                 text('草稿已保存' if e.saved_revision == e.revision and session.library else '本地草稿',
+                   children=row([icon('check' if e.saved_revision == e.revision and e.saved_biome == e.document.biome and session.library else 'draft', Theme.mint, 15),
+                                 text('草稿已保存' if e.saved_revision == e.revision and e.saved_biome == e.document.biome and session.library else '本地草稿',
                                       10, Theme.mint)], paddingHorizontal=12)),
             Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=close),

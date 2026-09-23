@@ -122,6 +122,27 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_biome_updates_live_and_pending_ghost_without_rebuilding(self):
+        from projection.biomes import actor_uniform
+        b, r = self.bridge, self.runtime
+        b.project()
+        r.timers.pop(0)()
+        entity = b.entity
+        b.geometry = lambda *args, **kwargs: self.fail('tint must not rebuild geometry')
+        b.session.set_biome('desert')
+        self.assertEqual(entity, b.entity)
+        self.assertEqual(actor_uniform('desert'), r.uniform_slots[entity, 4])
+        b.geometry = lambda *args, **kwargs: 'pending_biome_model'
+        b.project_large((0, 64, 0))
+        b.session.set_biome('jungle')
+        for unused in range(200):
+            if not r.timers:
+                break
+            r.timers.pop(0)()
+        self.assertTrue(b.projection_work.ready)
+        self.assertEqual('jungle', b.projection_work.document.biome)
+        self.assertEqual(actor_uniform('jungle'), r.uniform_slots[b.entity, 4])
+
     def test_camera_anchor_retries_transient_native_failure_without_camera_motion(self):
         b, r = self.bridge, self.runtime
         b.session.origin = (0,64,0)
@@ -363,7 +384,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(128,sum(len(v) for v in palettes[0]['common'].values()))
         self.assertFalse(self.runtime.timers)
         self.assertEqual(256.,self.runtime.render_distance)
-        self.assertEqual((19487., 0., 0., 0.), self.runtime.uniforms[b.entity])
+        self.assertEqual((19487., 1., 0., 0.), self.runtime.uniforms[b.entity])
         b.stop_projection()
         self.assertEqual(72.,self.runtime.render_distance)
         self.assertTrue(all(a in self.runtime.destroyed for a in self.runtime.created))

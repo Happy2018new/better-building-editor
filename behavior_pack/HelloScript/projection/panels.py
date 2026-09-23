@@ -361,6 +361,31 @@ def ModificationMask(session=None, revision=0):
 
 
 @Component
+def BiomeTintSettings(session=None):
+    from .biomes import PRESETS, label
+    use_theme()
+    opened, set_opened = use_state(False)
+    unused, update = use_state(0)
+    def subscribe():
+        return session.subscribe(lambda: update(lambda value: value+1), ('biome',))
+    use_effect(subscribe, [session])
+    current = session.editor.document.biome
+    options = [Action(label=name, glyph='surface', width=104, height=30, compact=True,
+                      selected=current == key, onClick=partial(session.set_biome, key))
+               for key, name, grass, foliage in PRESETS]
+    return Panel(style=S(width=216, gap=7), children=[
+        text('生物群系染色', 13),
+        Action(label=label(current), glyph='surface', height=30, selected=opened,
+               onClick=partial(set_opened, not opened)),
+        Panel(style=S(display=Display.flex if opened else Display.none, gap=6), children=[
+            row(options[i:i+2], gap=8) for i in range(0, len(options), 2)] + [
+                Action(label='使用当前位置的群系', glyph='pin', height=30,
+                       onClick=partial(session.action, session.bridge.use_current_biome))]),
+        text('预览与投影共用，随建筑保存', 10, Theme.muted),
+    ])
+
+
+@Component
 def Layers(session=None, revision=0):
     use_theme()
     e = session.editor
@@ -376,6 +401,7 @@ def Layers(session=None, revision=0):
         text('锁定保护编辑，隐藏仅影响预览', 10, Theme.muted),
         Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
               onChange=partial(session.range_value, 'brightness', editor=False)),
+        BiomeTintSettings(session=session),
         Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
               onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
         text('默认 3 倍，减少动态效果时保持静止', 10, Theme.muted, width=216),
@@ -507,6 +533,7 @@ def ProjectionSettings(session=None, revision=0, height=330):
         Coordinates(label='原点  X, Y, Z', value=session.origin, onChange=partial(session.set, 'origin')),
         Action(label='使用脚下坐标', glyph='pin', onClick=session.bridge.use_player_origin),
         line(), text('显示效果', 14),
+        BiomeTintSettings(session=session),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
               onChange=partial(session.range_value, 'opacity', editor=False)),
         Action(label='炫彩范围框', glyph='box_outline', selected=session.projection_outline,

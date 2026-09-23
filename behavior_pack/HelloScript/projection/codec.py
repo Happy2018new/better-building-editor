@@ -76,14 +76,14 @@ def decode_chunk(document, row):
 
 def to_data(document):
     store = document.blocks
-    return {'version': 2, 'name': document.name, 'size': list(document.size),
+    return {'version': 2, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
             'blockCount': len(store), 'palette': [list(v) for v in store.palette],
             'chunks': [encode_chunk(k, store.chunks[k]) for k in sorted(store.chunks)]}
 
 
 def load_steps(data):
     from .model import AIR, Document, block
-    doc = Document(data.get('size', ()), name=data.get('name', '未命名建筑'))
+    doc = Document(data.get('size', ()), name=data.get('name', '未命名建筑'), biome=data.get('biome', 'plains'))
     palette = data.get('palette')
     chunks = data.get('chunks')
     if not isinstance(palette, list) or not 1 <= len(palette) <= 65536:

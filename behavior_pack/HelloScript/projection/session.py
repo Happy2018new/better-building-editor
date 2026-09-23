@@ -206,6 +206,19 @@ class Session(object):
             self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette,
                                           'projection_outline': self.projection_outline})
 
+    def set_biome(self, value):
+        from .biomes import validate, label
+        value = validate(value)
+        if self.editor.document.biome == value:
+            return
+        self.editor.document.biome = value
+        if hasattr(self.bridge, 'update_biome_tint'):
+            self.bridge.update_biome_tint(value)
+        self.editor.message = '建筑染色已设为' + label(value)
+        # Appearance has its own dirty marker: block revisions and cached
+        # geometry remain valid, including on the next single-block edit.
+        self.emit('biome')
+
     def open_materials(self, channel):
         self.material_browser = channel
         self.emit('material_browser')
@@ -681,10 +694,11 @@ class Session(object):
             self.library, self.library_serial = candidate, serial
             self.editor.document.name = name
             self.editor.saved_revision = self.editor.revision
+            self.editor.saved_biome = data.get('biome', 'plains')
             self.editor.message = '建筑已保存到本机建筑库'
         if self.editor.document.volume > SMALL_VOLUME:
             from .archive import save_steps
-            doc = Document(self.editor.document.size, name=name)
+            doc = Document(self.editor.document.size, name=name, biome=self.editor.document.biome)
             doc.blocks = self.editor.document.blocks.copy()
             self._start_io(save_steps(self.bridge, doc, serial), commit, '正在保存建筑')
         else:

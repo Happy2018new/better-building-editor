@@ -37,7 +37,29 @@ LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;   // terrain foliage texture
 
 //#ifdef ENABLE_SET_TRANSPARENCY
 uniform float COMMON_BLOCK_GEO_FLOAT1_1; 
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
 //#endif
+
+// Stable colors for our UI/client actors. PaperDoll does not reliably bind
+// the foliage colormap at TEXTURE_1 (inventory renders can leave another
+// texture there). Only our tagged draws bypass that unrelated texture.
+vec3 buildingBiomeTint(float index) {
+    vec3 grass = vec3(146.0,188.0,88.0);
+    vec3 foliage = vec3(119.0,171.0,47.0);
+    if (index > 1.5 && index < 2.5) { grass=vec3(121.0,191.0,90.0); foliage=vec3(89.0,174.0,48.0); }
+    if (index > 2.5 && index < 3.5) { grass=vec3(136.0,186.0,103.0); foliage=vec3(107.0,169.0,65.0); }
+    if (index > 3.5 && index < 4.5) { grass=vec3(134.0,181.0,131.0); foliage=vec3(104.0,164.0,100.0); }
+    if (index > 4.5 && index < 5.5) { grass=vec3(76.0,118.0,60.0); foliage=vec3(106.0,112.0,57.0); }
+    if (index > 5.5 && index < 6.5) { grass=vec3(76.0,118.0,60.0); foliage=vec3(141.0,177.0,39.0); }
+    if (index > 6.5 && index < 7.5) { grass=vec3(88.0,203.0,60.0); foliage=vec3(48.0,187.0,11.0); }
+    if (index > 7.5 && index < 9.5) { grass=vec3(190.0,182.0,84.0); foliage=vec3(174.0,164.0,42.0); }
+    if (index > 9.5 && index < 10.5) { grass=vec3(128.0,180.0,150.0); foliage=vec3(96.0,161.0,123.0); }
+    #if USE_ALPHA_TEST
+        return foliage / 255.0;
+    #else
+        return grass / 255.0;
+    #endif
+}
 
 void main()
 {
@@ -68,6 +90,10 @@ void main()
 #endif
 
 vec4 inColor = color;
+bool preview = abs(PROJ[3][3]) > 0.5;
+bool buildingUI = preview && abs(CURRENT_COLOR.g-128.0/255.0) < 0.003 && abs(CURRENT_COLOR.b-192.0/255.0) < 0.003;
+bool buildingWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
+float biomeIndex = buildingUI ? floor(CURRENT_COLOR.r*255.0+0.5) : EXTRA_ACTOR_UNIFORM4.y;
 
 #if defined(BLEND) && !defined(USE_TEXEL_AA)
 	diffuse.a *= inColor.a;
@@ -83,10 +109,22 @@ vec4 inColor = color;
 		diffuse.a = inColor.a;
 	#endif
 	
+    // Native grass tops carry an already sampled green vertex tint instead
+    // of SEASONS UVs. Plain blocks (including green glass/wool) have neutral
+    // vertex colors: their actual color is in TEXTURE_0 and stays untouched.
+    if ((buildingUI || buildingWorld) && inColor.g > inColor.r*1.05 && inColor.g > inColor.b*1.05) {
+        inColor.rgb = buildingBiomeTint(biomeIndex);
+    }
 	diffuse.rgb *= inColor.rgb;
 #else
 	vec2 uv = inColor.xy;
-	diffuse.rgb *= mix(vec3(1.0,1.0,1.0), texture2D( TEXTURE_1, uv).rgb*2.0, inColor.b);
+    vec3 tint;
+    if (buildingUI || buildingWorld) {
+        tint = buildingBiomeTint(biomeIndex);
+    } else {
+        tint = texture2D(TEXTURE_1, uv).rgb*2.0;
+    }
+    diffuse.rgb *= mix(vec3(1.0), tint, inColor.b);
 	diffuse.rgb *= inColor.aaa;
 	diffuse.a = 1.0;
 #endif

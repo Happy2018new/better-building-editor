@@ -57,7 +57,7 @@ class RegionSizeError(ValueError):
 
 
 class Document(object):
-    def __init__(self, size=(24, 16, 24), blocks=None, name='未命名建筑'):
+    def __init__(self, size=(24, 16, 24), blocks=None, name='未命名建筑', biome='plains'):
         if len(size) != 3 or any(type(v) is not int or v < 1 for v in size):
             raise ValueError('X/Z 须为 1–64 格，Y 须为 1–128 格')
         if any(v > MAX_AXES[i] for i, v in enumerate(size)):
@@ -65,6 +65,8 @@ class Document(object):
         self.size = tuple(size)
         self.blocks = BlockStore()
         self.name = name
+        from .biomes import validate
+        self.biome = validate(biome)
         for pos, value in (blocks or {}).items():
             if not self.contains(pos):
                 raise ValueError('方块超出建筑范围')
@@ -85,7 +87,7 @@ class Document(object):
         if self.volume > SMALL_VOLUME:
             from .codec import to_data
             return to_data(self)
-        return {'version': 1, 'name': self.name, 'size': list(self.size),
+        return {'version': 1, 'name': self.name, 'size': list(self.size), 'biome': self.biome,
                 'blocks': [[p[0], p[1], p[2], b[0], b[1]] for p, b in sorted(self.blocks.items())]}
 
     @classmethod
@@ -123,7 +125,7 @@ class Document(object):
                 raise ValueError('配置名称无效')
         if not 1 <= len(name) <= 64:
             raise ValueError('名称长度须为 1–64 字')
-        return cls(data.get('size', ()), values, name)
+        return cls(data.get('size', ()), values, name, data.get('biome', 'plains'))
 
     def materials(self):
         return [(v, count) for v, count in self.blocks.counts.most_common() if count > 0]
@@ -175,6 +177,7 @@ class Editor(object):
         self.revision = 0
         self.selection_revision = 0
         self.saved_revision = 0
+        self.saved_biome = self.document.biome
         self.message = '工作台已就绪'
 
     def _writable(self, pos, respect_selection=True):

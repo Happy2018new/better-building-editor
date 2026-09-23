@@ -8,7 +8,10 @@ def inspect(session, value):
     value = value or {}
     if value.get('reloadShaders') is True:
         import mod.client.extraClientApi as clientApi
-        clientApi.ReloadOneShader("modern_projection_blocks.vertex")
+        # Reload on a later game frame; synchronous reload during an IPC
+        # callback can stall the render thread waiting for that callback.
+        session.bridge.later(.05, lambda: clientApi.ReloadOneShader("modern_projection_biome_blocks.vertex"))
+        session.bridge.later(.1, lambda: clientApi.ReloadOneShader("modern_projection_biome_blocks.fragment"))
     fixture = value.get('fixture')
     if fixture:
         if fixture not in ('interior', 'landmarks', 'offset', 'offset_odd', 'solid', 'demo', 'demo_large'):

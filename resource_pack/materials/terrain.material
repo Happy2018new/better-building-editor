@@ -3,8 +3,20 @@
     "version": "1.0.0",
     "netease_block_as_entity_mesh": {
       "+states": ["Blending"],
-      "vertexShader": "shaders/glsl/modern_projection_blocks.vertex",
-      "fragmentShader": "shaders/glsl/modern_projection_blocks.fragment"
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+    },
+    "netease_block_as_mesh_opaque_seasons": {
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+    },
+    "netease_block_as_mesh_alpha_seasons": {
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+    },
+    "netease_block_as_mesh_blend_alphatest_seasons": {
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
     }
   }
 }

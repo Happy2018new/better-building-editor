@@ -262,6 +262,24 @@ class ClientBridge(object):
             self.models[fingerprint] = result
         return result
 
+    def update_biome_tint(self, value):
+        from .biomes import actor_uniform
+        work = getattr(self, 'projection_work', None)
+        if work is not None:
+            work.document.biome = value
+        if self.entity:
+            self.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(4, actor_uniform(value))
+
+    def use_current_biome(self):
+        from .biomes import from_native
+        name = self.factory.CreateBiome(self.level).GetBiomeName(self.player_origin())
+        if name is None:
+            raise ValueError('当前位置尚未加载，请稍后重试')
+        value = from_native(name)
+        if value is None:
+            raise ValueError('当前群系暂无染色预设，请从列表选择')
+        self.session.set_biome(value)
+
     def mark(self, index):
         pick = self.factory.CreateCamera(self.level).PickFacing()
         pos = tuple(int(pick[k]) for k in ('x', 'y', 'z')) if pick and pick.get('type') == 'Block' else self.player_origin()
@@ -308,7 +326,7 @@ class ClientBridge(object):
         document = data.get('document')
         if isinstance(document, Document):
             data.pop('document')
-            snapshot = Document(document.size, name=document.name)
+            snapshot = Document(document.size, name=document.name, biome=document.biome)
             snapshot.blocks = document.blocks.copy()
             self.upload = packets(snapshot)
             packet = next(self.upload)
@@ -468,9 +486,10 @@ class ClientBridge(object):
             render = self.factory.CreateActorRender(entity)
             # Native actor block geometry starts at half-cell centres and flips
             # X/Z. Match document cells to origin + local world coordinates.
+            from .biomes import actor_uniform
             success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and render.EnableActorBlockGeometryTransparent(name, True)
                        and render.SetActorBlockGeometryTransparency(name, opacity)
-                       and render.SetEntityExtraUniforms(4, (19487., 0., 0., 0.)))
+                       and render.SetEntityExtraUniforms(4, actor_uniform(s.editor.document.biome)))
             self.preparing_entity = None
             if success:
                 if self.entity:

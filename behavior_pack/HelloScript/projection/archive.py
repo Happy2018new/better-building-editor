@@ -11,7 +11,7 @@ def validate(data):
     name = data.get('name')
     if isinstance(name, bytes):
         name = name.decode('utf8')
-    doc = Document(data.get('size', ()), name=name)
+    doc = Document(data.get('size', ()), name=name, biome=data.get('biome', 'plains'))
     if not isinstance(name, type('')) or not 1 <= len(name) <= 64:
         raise ValueError('建筑名称无效')
     # ConfigClient returns UTF-8 bytes in the embedded Python. Normalize before
@@ -38,7 +38,7 @@ def save_steps(bridge, document, identity):
             raise ValueError('建筑分块保存失败，草稿已保留')
         count += 1
         yield None
-    yield {'version': 3, 'name': document.name, 'size': list(document.size),
+    yield {'version': 3, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
            'blockCount': len(document.blocks), 'parts': count}
 
 
@@ -56,4 +56,6 @@ def load_steps(bridge, identity, data):
     if doc is None or list(doc.size) != data['size'] or len(doc.blocks) != data['blockCount']:
         raise ValueError('建筑存储不完整，当前草稿已保留')
     doc.name = data['name']
+    if doc.biome != data.get('biome', 'plains'):
+        raise ValueError('建筑染色数据不一致，当前草稿已保留')
     yield doc

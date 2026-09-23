@@ -86,7 +86,12 @@ void main()
     uv0 = TEXCOORD_0;
 	uv1 = TEXCOORD_1;
 	color = COLOR;
-    if (preview) color.rgb = max(color.rgb, vec3(0.55));
+    // SEASONS encodes colormap UVs and tint weight, not an RGB color.
+    // Clamping it as lighting changes both the biome and untinted textures.
+    #ifndef SEASONS
+    bool biomeVertex = COLOR.g > COLOR.r*1.05 && COLOR.g > COLOR.b*1.05;
+    if (preview && !biomeVertex) color.rgb = max(color.rgb, vec3(0.55));
+    #endif
 #endif
 
 ///// find distance from the camera

@@ -11,7 +11,7 @@ class WorldProjection(object):
     def __init__(self, bridge, origin):
         self.bridge, self.serial, self.origin = bridge, bridge.projection_serial, origin
         s = bridge.session
-        self.document = Document(s.editor.document.size)
+        self.document = Document(s.editor.document.size, biome=s.editor.document.biome)
         self.document.blocks = s.editor.document.blocks.copy()
         self.center = tuple(v/2. for v in self.document.size)
         self.anchor = add(origin, self.center)
@@ -111,10 +111,11 @@ class WorldProjection(object):
             # Rotation applies after offset. Anchor at the centre for native
             # visibility, preserving exact origin + document voxel coordinates.
             offset = (self.center[0]-.5, -self.center[1], self.center[2]-.5)
+            from .biomes import actor_uniform
             success = (render.AddActorBlockGeometry(self.model, offset, (0.,180.,0.)) and
                        render.EnableActorBlockGeometryTransparent(self.model, True) and
                        render.SetActorBlockGeometryTransparency(self.model, self.opacity) and
-                       render.SetEntityExtraUniforms(4, (19487.,0.,0.,0.)))
+                       render.SetEntityExtraUniforms(4, actor_uniform(self.document.biome)))
             if not success:
                 raise ValueError('透明投影生成失败，原投影已保留，请重试')
             self.commit(entity)

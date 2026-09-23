@@ -8,7 +8,7 @@ from .codec import encode_chunk, decode_chunk
 def packets(document):
     seq = 0
     store = document.blocks
-    yield {'seq': seq, 'kind': 'begin', 'name': document.name, 'size': list(document.size),
+    yield {'seq': seq, 'kind': 'begin', 'name': document.name, 'size': list(document.size), 'biome': document.biome,
            'paletteCount': len(store.palette), 'chunkCount': len(store.chunks), 'blockCount': len(store)}
     for start in range(0, len(store.palette), 64):
         seq += 1
@@ -49,7 +49,7 @@ class Receiver(object):
                 name = name.decode('utf8')
             if not isinstance(name, type('')) or not 1 <= len(name) <= 64:
                 raise ValueError('建筑名称无效')
-            self.document = Document(packet.get('size', ()), name=name)
+            self.document = Document(packet.get('size', ()), name=name, biome=packet.get('biome', 'plains'))
             max_chunks = 1
             for length in self.document.size:
                 max_chunks *= (length + 15) // 16
