@@ -14,6 +14,11 @@ def material_value(value):
 
 
 def display_name(value):
+    from .block_registry import canonical
+    try:
+        value = canonical(value)
+    except ValueError:
+        pass  # Keep damaged/unsupported archived entries readable.
     return DISPLAY_NAMES.get(value, DISPLAY_NAMES.get((value[0], 0), value[0].split(':')[-1]))
 
 

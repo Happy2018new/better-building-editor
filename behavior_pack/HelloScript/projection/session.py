@@ -215,8 +215,15 @@ class Session(object):
 
     def describe_material(self, value):
         from .materials import DISPLAY_NAMES, display_name
+        from .block_registry import canonical
+        try:
+            value = canonical(value)
+        except ValueError:
+            return display_name(value)
         if value not in DISPLAY_NAMES and hasattr(self.bridge, 'describe_material'):
-            DISPLAY_NAMES[value] = self.bridge.describe_material(value) or display_name(value)
+            name = self.bridge.describe_material(value)
+            if name:
+                DISPLAY_NAMES[value] = name
         return display_name(value)
 
     def add_material(self, value):

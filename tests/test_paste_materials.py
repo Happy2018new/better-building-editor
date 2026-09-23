@@ -85,6 +85,51 @@ class PasteTests(unittest.TestCase):
 
 
 class MaterialsTests(unittest.TestCase):
+    def test_material_lists_resolve_legacy_variants_without_opening_catalogue(self):
+        from unittest.mock import patch
+        from projection.materials import DISPLAY_NAMES, display_name
+        translations = {
+            ('minecraft:grass_block', 0): '草方块',
+            ('minecraft:spruce_planks', 0): '云杉木板',
+            ('minecraft:oak_leaves', 0): '橡树树叶',
+            ('minecraft:cyan_stained_glass', 0): '青色染色玻璃',
+        }
+        legacy = [('minecraft:grass', 0), WOOD,
+                  ('minecraft:leaves', 0), ('minecraft:stained_glass', 9)]
+        s = Session(Bridge())
+        before = s.editor.document.to_data()
+        calls = []
+        def describe(value):
+            calls.append(value)
+            return translations[value]
+        s.bridge.describe_material = describe
+        with patch.dict(DISPLAY_NAMES, {}, clear=True):
+            names = [s.describe_material(value) for value in legacy]
+            self.assertEqual(list(translations.values()), names)
+            self.assertEqual(list(translations), calls)
+            # The picker and both material lists reuse one cache, including aux aliases.
+            self.assertEqual(names, [display_name(value) for value in legacy])
+            self.assertEqual(names, [s.describe_material(value) for value in translations])
+            self.assertEqual(4, len(calls))
+        self.assertFalse(s.catalogue_loading)
+        self.assertFalse(s.catalogue_ready)
+        self.assertEqual(before, s.editor.document.to_data())
+
+    def test_material_names_follow_picker_cache_and_retry_missing_translations(self):
+        from unittest.mock import Mock, patch
+        from projection.materials import DISPLAY_NAMES, display_name
+        s = Session(Bridge())
+        value = ('custom:unloaded_block', 3)
+        s.bridge.describe_material = Mock(side_effect=[None, '定制方块'])
+        with patch.dict(DISPLAY_NAMES, {}, clear=True):
+            self.assertEqual('unloaded_block', s.describe_material(value))
+            self.assertNotIn(value, DISPLAY_NAMES)
+            self.assertEqual('定制方块', s.describe_material(value))
+            entry('minecraft:spruce_planks', 0, '云杉木板')
+            self.assertEqual('云杉木板', s.describe_material(WOOD))
+            self.assertEqual('云杉木板', display_name(WOOD))
+            self.assertEqual(2, s.bridge.describe_material.call_count)
+
     def test_custom_aux_is_independent_and_does_not_invalidate_workspace(self):
         from projection.materials import MATERIAL_CHANNELS, with_aux
         s = Session(Bridge())

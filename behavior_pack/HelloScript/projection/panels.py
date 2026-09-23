@@ -17,6 +17,13 @@ def material_name(value):
     return display_name(value)
 
 
+def use_material_names(session):
+    unused, update = use_state(0)
+    def subscribe():
+        return session.subscribe(lambda: update(lambda value: value+1), ('block_catalogue',))
+    use_effect(subscribe, [session])
+
+
 def material_color(value):
     code = next((m[3] for m in MATERIALS if tuple(m[:2]) == value), '9BA6B4')
     return Color(int(code + 'FF', 16))
@@ -390,6 +397,7 @@ def Layers(session=None, revision=0):
 @Component
 def History(session=None, revision=0):
     use_theme()
+    use_material_names(session)
     e = session.editor
     return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
         urgent=lambda: session.inspector == 'history' and session.page == 'workspace', style=S(width=216, gap=8), children=[
@@ -401,7 +409,7 @@ def History(session=None, revision=0):
         for name, delta in reversed(e.undo_stack)
     ]) + [line(), text('材料清单', 16)] + [
         row([Item(identifier=b[0], aux=b[1], style=S(width=23, height=23)),
-             text(material_name(b), 11, flex=1), text('%d' % count, 12, Theme.blue)])
+             text(session.describe_material(b), 11, flex=1), text('%d' % count, 12, Theme.blue)])
         for b, count in e.document.materials()]))
 
 
@@ -491,6 +499,7 @@ def Library(session=None, revision=0, width=760, height=440):
 @Component
 def ProjectionSettings(session=None, revision=0, height=330):
     use_theme()
+    use_material_names(session)
     tab, set_tab = use_state('display')
     e, stats = session.editor, session.progress
     display = [
@@ -517,7 +526,7 @@ def ProjectionSettings(session=None, revision=0, height=330):
         text('%d / %d 已完成' % (stats['correct'], stats['total']) if stats else '尚未检查', 11, Theme.muted),
         text('缺失 %d，材质不符 %d' % (stats['missing'], stats['wrong']) if stats else '', 10, Theme.muted),
         line(), text('所需材料', 14),
-    ] + [row([MaterialIcon(value=b, size=22), text(material_name(b), 11, flex=1),
+    ] + [row([MaterialIcon(value=b, size=22), text(session.describe_material(b), 11, flex=1),
               text('%d' % count, 11, Theme.blue)]) for b, count in e.document.materials()]
     world = [
         text('写入真实方块', 14),
