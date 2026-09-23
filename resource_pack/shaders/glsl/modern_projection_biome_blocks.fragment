@@ -91,9 +91,10 @@ void main()
 
 vec4 inColor = color;
 bool preview = abs(PROJ[3][3]) > 0.5;
-bool buildingUI = preview && abs(CURRENT_COLOR.g-128.0/255.0) < 0.003 && abs(CURRENT_COLOR.b-192.0/255.0) < 0.003;
+float previewTag = floor(CURRENT_COLOR.r*255.0+0.5);
+bool buildingUI = preview && previewTag >= 209.0 && previewTag <= 218.0;
 bool buildingWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
-float biomeIndex = buildingUI ? floor(CURRENT_COLOR.r*255.0+0.5) : EXTRA_ACTOR_UNIFORM4.y;
+float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
 
 #if defined(BLEND) && !defined(USE_TEXEL_AA)
 	diffuse.a *= inColor.a;

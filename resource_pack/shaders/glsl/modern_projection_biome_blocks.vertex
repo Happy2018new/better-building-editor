@@ -53,29 +53,35 @@ void main()
 
     // PaperDoll scales XYZ together but retains a fixed orthographic depth
     // range. At close editing distances this clips otherwise visible faces.
-    // Preserve each UI control's centre depth while bounding its local depth
-    // span. Normalizing the entire Z value erased the separation between
-    // independently positioned chunk renderers and exposed internal faces.
-    // This mapping is affine within each draw, so it preserves interpolation
-    // and within-chunk depth order. XY and world perspective are untouched.
+    // Building tiles use one shared view-depth transform; unrelated UI models
+    // retain the bounded per-control transform. Both are affine, preserving
+    // interpolation. XY and perspective world rendering are untouched.
     bool preview = abs(PROJ[3][3]) > 0.5;
     previewClip = -1.0;
     if (preview) {
-        // Netease 3.9's PaperDoll view centre Z is SetLayer(layer)-500.
-        // Full tiles occupy 50..177. A partially crossed 16-cube uses
-        // 184..296 to carry its centre's signed near-plane distance in
-        // quarter-block steps. No palette or geometry upload is involved.
-        float uiLayer = floor(WORLDVIEW[3][2] + 500.5);
-        if (uiLayer >= 184.0 && uiLayer <= 296.0) {
+        float tag = floor(CURRENT_COLOR.r*255.0+0.5);
+        bool buildingUI = tag >= 209.0 && tag <= 218.0;
+        if (buildingUI) {
+            // Each tile seeds CURRENT_COLOR immediately before its two model
+            // buffers. Native layers stay fixed; RGB carries biome + signed
+            // centre-to-view-plane distance. Alpha remains the workspace fade.
+            float distance = (floor(CURRENT_COLOR.g*255.0+0.5)*256.0 +
+                              floor(CURRENT_COLOR.b*255.0+0.5)-32768.0)/64.0;
             vec3 viewZ = vec3(WORLDVIEW[0][2], WORLDVIEW[1][2], WORLDVIEW[2][2]);
-            previewClip = dot(normalize(viewZ), POSITION.xyz) + (uiLayer-240.0)*0.25;
+            previewClip = dot(normalize(viewZ), POSITION.xyz) + distance;
+            // All tiles use ONE depth transform, independent of control order,
+            // zoom or chunk boundaries. A larger toward-view distance is nearer.
+            float centerDepth = PROJ[2][2]*(-350.0) + PROJ[3][2];
+            pos.z = (centerDepth + previewClip*PROJ[2][2]*0.04) /
+                    (1.0+abs(centerDepth));
+        } else {
+            float depthRange = 1.0 + abs(WORLDVIEWPROJ[3][2]) + 128.0 *
+                (abs(WORLDVIEWPROJ[0][2]) + abs(WORLDVIEWPROJ[1][2]) + abs(WORLDVIEWPROJ[2][2]));
+            float centerDepth = WORLDVIEWPROJ[3][2];
+            float localDepth = (pos.z - centerDepth) / depthRange;
+            pos.z = (centerDepth + localDepth * abs(PROJ[2][2]) * 0.25) /
+                (1.0 + abs(centerDepth));
         }
-        float depthRange = 1.0 + abs(WORLDVIEWPROJ[3][2]) + 128.0 *
-            (abs(WORLDVIEWPROJ[0][2]) + abs(WORLDVIEWPROJ[1][2]) + abs(WORLDVIEWPROJ[2][2]));
-        float centerDepth = WORLDVIEWPROJ[3][2];
-        float localDepth = (pos.z - centerDepth) / depthRange;
-        pos.z = (centerDepth + localDepth * abs(PROJ[2][2]) * 0.25) /
-            (1.0 + abs(centerDepth));
     }
     gl_Position = pos;
 

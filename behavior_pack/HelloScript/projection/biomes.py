@@ -68,9 +68,3 @@ def from_native(name):
 
 def actor_uniform(value):
     return (19487., float(shader_index(value)), 0., 0.)
-
-
-def ui_color(value):
-    # CURRENT_COLOR already carries the viewport's fade alpha. The otherwise
-    # unused RGB channels carry a small preset index and an ownership marker.
-    return (shader_index(value) << 24) | 0x0080C0FF

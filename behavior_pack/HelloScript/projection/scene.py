@@ -14,10 +14,8 @@ from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
 from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
-from .chunks import painter_order
-from .native_layers import PendingLayers
+from .preview_depth import depth_color, tile_layer
 from .input_mode import is_touch
-from .biomes import ui_color
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
@@ -36,6 +34,9 @@ def PreviewTile(identity=None, registry=None, width=400, height=300):
     dolls = [use_ref(None), use_ref(None)]
     surfaces = [use_ref(None), use_ref(None)]
     buffer = use_ref(lambda: PreviewBuffer()).current
+    tint = use_ref(None)
+    buffer.tint = tint
+    layer = tile_layer(identity)
     def register():
         entry = (dolls, surfaces, buffer)
         registry[identity] = entry
@@ -45,10 +46,13 @@ def PreviewTile(identity=None, registry=None, width=400, height=300):
         return cleanup
     use_effect(register, [identity])
     return Panel(cacheLayout=True, style=S(position=Position.absolute, width=width, height=height), children=[
+        Image(ref=tint, src='textures/modern_projection/transparent',
+              style=S(position=Position.absolute, width=1, height=1, zIndex=layer-1)),
+    ] + [
         Panel(ref=surfaces[i], key='surface%d' % i,
-              style=Style(position=Position.absolute, width='100%', height='100%'), children=[
+              style=Style(position=Position.absolute, width='100%', height='100%', zIndex=0), children=[
             Doll(ref=dolls[i], managed=True, renderType=PaperDollRenderType.block_geometry,
-                 style=Style(position=Position.absolute, width='100%', height='100%', zIndex=50))]) for i in range(2)])
+                 style=Style(position=Position.absolute, width='100%', height='100%', zIndex=layer))]) for i in range(2)])
 
 
 @Component
@@ -88,8 +92,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     registry = use_ref({}).current
     models_signature = use_ref(None)
     models_pending = use_ref(True)
-    order_cache = use_ref(None)
-    pending_layers = use_ref(lambda: PendingLayers()).current
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
     clip_geometry = use_ref(None)
@@ -280,14 +282,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                      session.scene_origin, session.scene_size, camera.pivot, camera.depth)
         pose = (unit() * session.scene_scale / 10., -90. + rendered_pitch, rendered_yaw)
         toward = camera.basis()[2]
-        order_key = (session.tiles.slots, tuple(v >= 0 for v in toward))
-        if order_cache.current is None or order_cache.current[0] != order_key:
-            order_cache.current = (order_key, painter_order(session.tiles.slots, toward))
-        order = order_cache.current[1]
         plane = camera.depth_plane(session.scene_size)
-        layer_updates = []
-        held_touch = camera.dragging and session.touch_mode
-        model_key = (signature, session.tiles.publication, len(registry), held_touch)
+        plane_offset = plane[1] if plane else sum(session.scene_size[i]*max(0.,toward[i]) for i in range(3))+.5
+        biome = session.editor.document.biome
+        model_key = (signature, session.tiles.publication, len(registry), biome)
         update_models = model_key != models_signature.current or models_pending.current
         models_signature.current = model_key
         right, up, unused_toward = camera.basis()
@@ -295,7 +293,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         project = camera.projector(session.scene_size, native_width, native_height, cell_unit)
         for key, controls in list(registry.items()) if update_models else ():
             dolls, surfaces, preview = controls
-            if not all(ref.current for ref in dolls+surfaces):
+            if not all(ref.current for ref in dolls+surfaces) or not preview.tint.current:
                 continue
             if not hasattr(preview, 'native_dolls'):
                 preview.native_dolls = tuple(ref.current.asNeteasePaperDoll() for ref in dolls)
@@ -319,10 +317,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             rx = cell_unit*(sum(part['size'][i]*abs(right[i]) for i in range(3))/2.+2.)
             ry = cell_unit*(sum(part['size'][i]*abs(up[i]) for i in range(3))/2.+2.)
             offscreen = tx+rx < 0 or tx-rx > native_width or ty+ry < 0 or ty-ry > native_height
-            distance = sum(center[i]*toward[i] for i in range(3))-plane[1] if plane else -1000.
+            distance = sum(center[i]*toward[i] for i in range(3))-plane_offset
             radius = sum(part['size'][i]*abs(toward[i]) for i in range(3))/2.
             clipped = offscreen or distance-radius >= 0.
-            tile_layer = 240 + int(math.floor(distance*4.+.5)) if plane and distance+radius > 0. and not clipped else 50+order[key]
             if clipped != getattr(preview, 'depth_hidden', False):
                 preview.depth_hidden = clipped
                 for slot, surface in enumerate(surfaces):
@@ -336,9 +333,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 # neither a camera submission nor a UI acknowledgement.
                 part['pending'] = False
                 continue
+            tint_color = depth_color(distance, biome)
+            if getattr(preview, 'tint_color', None) != tint_color:
+                preview.tint.current.asImage().SetSpriteColor(tint_color)
+                preview.tint_color = tint_color
             if (getattr(preview, 'scene_signature', None) == signature and not preview.restore and
-                    preview.ready(part['name']) and preview.poses[preview.front] == pose and
-                    getattr(preview, 'layer', None) == tile_layer):
+                    preview.ready(part['name']) and preview.poses[preview.front] == pose):
                 part['pending'] = False
                 continue
             preview.scene_signature = signature
@@ -350,14 +350,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 for ref in dolls:
                     ref.current.SetPosition(native_position)
                     ref.current.SetSize(native_size)
-            if not held_touch and getattr(preview, 'layer', None) != tile_layer:
-                preview.layer = tile_layer
-                for slot, ref in enumerate(dolls):
-                    if not preview.visible[slot]:
-                        continue
-                    # Suppress both immediate and per-call deferred refresh;
-                    # schedule one refresh after all tile changes below.
-                    layer_updates.append((ref.current, tile_layer))
             def draw(slot, name, pose):
                 result = preview.native_dolls[slot].RenderBlockGeometryModel({
                     'block_geometry_model_name': name, 'scale': pose[0],
@@ -368,20 +360,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 if preview.visible[slot] != visible:
                     surfaces[slot].current.SetVisible(visible, False)
                     preview.visible[slot] = visible
-                    if visible and not held_touch:
-                        layer_updates.append((dolls[slot].current, tile_layer))
             preview.update(part['name'], pose, now, draw, show)
             if preview.ready(part['name']):
                 part['pending'] = False
         if update_models:
             models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
-        if layer_updates:
-            # Even changing native layers without a forced refresh may disturb
-            # touch routing. Defer both assignment and refresh until release.
-            pending_layers.add(layer_updates)
-        if pending_layers.pending and not held_touch:
-            pending_layers.flush(ref.current for dolls, unused_surfaces, unused_preview in registry.values()
-                                 for ref in dolls if ref.current is not None)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
@@ -640,13 +623,6 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
-            # Seed the geometry shader's CURRENT_COLOR with this viewport's
-            # inherited alpha. The preceding grid draws with its own .53 alpha;
-            # without a draw at layer 49 the models inherit that stale value.
-            # Reuse the transparent texture: no visible mark, one pixel draw,
-            # and no per-frame geometry submissions for workspace fades.
-            Image(src='textures/modern_projection/transparent', color=Color(ui_color(session.editor.document.biome)),
-                  style=S(position=Position.absolute, width=1, height=1, zIndex=49)),
             PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
         ]),
         Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[

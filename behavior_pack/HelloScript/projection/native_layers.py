@@ -1,4 +1,8 @@
-"""Public SDK layer writes; large camera order changes are spread across frames."""
+"""Public SDK layer writes for the three-axis orientation widget.
+
+Model tiles have stable layers; never split a camera pose's depth order across
+frames. That exposed mixed front/back chunks during continuous orbit.
+"""
 from collections import OrderedDict
 
 
@@ -9,24 +13,3 @@ def apply_layers(updates):
     values = list(latest.values())
     for index, (control, layer) in enumerate(values):
         control.SetLayer(layer, False, index == len(values)-1)
-
-
-class PendingLayers(object):
-    """Coalesce superseded order changes without intercepting engine routing."""
-    def __init__(self):
-        self.pending = OrderedDict()
-
-    def add(self, updates):
-        for control, layer in updates:
-            self.pending[id(control)] = (control, layer)
-
-    def flush(self, controls, limit=4):
-        alive = set(id(control) for control in controls)
-        for identity in list(self.pending):
-            if identity not in alive:
-                self.pending.pop(identity)
-        batch = []
-        while self.pending and len(batch) < limit:
-            unused, entry = self.pending.popitem(last=False)
-            batch.append(entry)
-        apply_layers(batch)

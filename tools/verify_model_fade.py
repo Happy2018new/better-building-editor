@@ -25,6 +25,11 @@ def main():
     set_touch(False)
     diagnostic.identity=None
     diagnostic({'fixture':'solid','size':[8,8,8],'layer':0,'camera':[35,25,1.]});wait_preview()
+    # Use a saturated surface. White quartz nearly matches the white UI;
+    # when the backdrop fades to the moving world, that near-zero reference
+    # can invert the contrast ratio even though the model itself fades.
+    game('s.editor.material=("minecraft:red_wool",0)\ns.editor.run("fill")\ns.refresh_preview()\ns.emit()\n_result=True')
+    wait_preview()
     game('s.choose_mode("browse")\ns.set("grid",True)\n_result=True')
     time.sleep(1.)
     left,top,width,height=capture._window_rect(window['hwnd'])
