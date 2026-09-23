@@ -389,19 +389,19 @@ def Inspector(session=None, revision=0, height=440, page='workspace'):
             content_revision = (content_revision, session.view)
         panes.append(RetainedPane(key=name, active=active == name, session=session,
             style=S(position=Position.absolute, width=216, height=height-111),
-            children=component(session=session, revision=content_revision, **({'height':height-111} if name in ('params','projection') else {}))))
+            children=component(session=session, revision=content_revision, **({'height':height-111} if name in ('params','layers','projection') else {}))))
     direct = session.view == '3d' and session.direct_mode not in ('browse', 'box', 'select')
     erase_selection = direct and session.direct_mode == 'erase' and session.erase_scope == 'selection'
     children = [Panel(key='header', style=S(width='100%', height=42), children=[
         Panel(style=S(position=Position.absolute, visible=not projecting), children=
-            Segments(items=[('params', '参数'), ('layers', '图层'), ('history', '历史')],
+            Segments(items=[('params', '参数'), ('layers', '场景'), ('history', '历史')],
                      value=session.inspector, onChange=partial(session.set, 'inspector'), width=216)),
         Panel(style=S(position=Position.absolute, visible=projecting), children=text('投影设置', 17)),
     ]), Panel(key='panes', style=S(width='100%', flex=1), children=panes),
         Panel(key='footer', style=S(width='100%', height=45), children=[
             Panel(style=S(position=Position.absolute, top=8, width='100%', visible=not projecting), children=
                 Action(label='取消编辑' if session.edit_job else '擦除选区' if erase_selection else '返回批量工具' if direct else
-                       '确认粘贴' if session.paste_active() else '执行：' + BY_ID[session.tool][2],
+                       '确认粘贴' if session.paste_active() else '执行 · ' + BY_ID[session.tool][2],
                     glyph='close' if session.edit_job else 'erase' if erase_selection else 'play', accent=True, height=37, labelWidth=172,
                     onClick=session.cancel_edit if session.edit_job else session.erase_selection if erase_selection else
                             partial(session.choose_mode, 'browse') if direct else session.run,
@@ -645,7 +645,7 @@ def Workspace(session=None, revision=0):
     width, height = screen[0] / Theme.scale, screen[1] / Theme.scale
     page = session.page
     focus = session.focus_view and page in ('workspace', 'projection')
-    main_h = height - (77 if focus else 143)
+    main_h = height - (87 if focus else 153)
     content_w = width - (24 if focus else 100)
     e = session.editor
     main = Image(color=Theme.bg, style=S(width='100%', height='100%'), children=[
@@ -666,7 +666,7 @@ def Workspace(session=None, revision=0):
         row([
             CategoryRail(session=session, height=main_h, focus=focus),
             PageContent(session=session, revision=session.content_revision, width=content_w, height=main_h, focus=focus, entrance=entrance),
-        ], paddingHorizontal=12, gap=12, alignItems=AlignItems.stretch),
+        ], paddingHorizontal=12, marginBottom=10, gap=12, alignItems=AlignItems.stretch),
         Image(color=Theme.white, style=S(width='100%', height=29), children=row([
             Image(src=TEX + 'dot', color=Theme.mint, style=S(width=5, height=5)),
             TaskStatus(session=session),

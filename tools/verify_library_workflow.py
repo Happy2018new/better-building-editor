@@ -101,7 +101,8 @@ _result=True
                  ('扩展选区','收缩选区','反向选择','选择表面')))
         ui.click('全选')
         ui.check('full selection restores entire document',game('_result=len(s.editor.selection)')==9216)
-        ui.check('visible built-in captions have no middle dots',not any('·' in label for label in ui.labels()))
+        ui.check('middle dot is reserved for the requested execute caption',
+                 not any('·' in label and not label.startswith('执行 · ') for label in ui.labels()))
     finally:
         game('''s.library,s.library_serial,s.name,s.bridge.save_library=s._library_check
 del s._library_check

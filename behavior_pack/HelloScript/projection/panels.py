@@ -370,12 +370,12 @@ def BiomeTintSettings(session=None):
         return session.subscribe(lambda: update(lambda value: value+1), ('biome',))
     use_effect(subscribe, [session])
     current = session.editor.document.biome
-    options = [Action(label=name, glyph='surface', width=104, height=30, compact=True,
+    options = [Action(label=name, glyph='biome_' + key, width=104, height=30, compact=True,
                       selected=current == key, onClick=partial(session.set_biome, key))
                for key, name, grass, foliage in PRESETS]
     return Panel(style=S(width=216, gap=7), children=[
         text('生物群系染色', 13),
-        Action(label=label(current), glyph='surface', height=30, selected=opened,
+        Action(label=label(current), glyph='biome_' + current, height=30, selected=opened,
                onClick=partial(set_opened, not opened)),
         Panel(style=S(display=Display.flex if opened else Display.none, gap=6), children=[
             row(options[i:i+2], gap=8) for i in range(0, len(options), 2)] + [
@@ -386,30 +386,32 @@ def BiomeTintSettings(session=None):
 
 
 @Component
-def Layers(session=None, revision=0):
+def Layers(session=None, revision=0, height=330):
     use_theme()
     e = session.editor
+    tab, set_tab = use_state('appearance')
     page, set_page = use_state(e.layer // 16)
     def follow_layer():
         set_page(e.layer // 16)
     use_effect(follow_layer, [e.layer, e.document.size])
     page = min(page, (e.document.size[1] - 1) // 16)
     low, high = page * 16, min(e.document.size[1], (page + 1) * 16)
-    return Scroll(style=S(width=230, flex=1), children=PreparedColumn(session=session,
-        urgent=lambda: session.inspector == 'layers' and session.page == 'workspace', style=S(width=216, gap=7), children=[
-        row([text('垂直图层', 18, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
-        text('锁定保护编辑，隐藏仅影响预览', 10, Theme.muted),
+    appearance = [
+        row([icon('eye', size=16), text('建筑外观', 14)]),
         Range(label='场景亮度', value=session.brightness, minimum=.2, maximum=1.,
               onChange=partial(session.range_value, 'brightness', editor=False)),
         BiomeTintSettings(session=session),
+        line(),
+        row([icon('box_outline', size=16), text('线框动画', 14)]),
         Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
               onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
-        text('默认 3 倍，减少动态效果时保持静止', 10, Theme.muted, width=216),
-        text('在场景上方选择完整 / 切面 / 单层', 10, Theme.muted),
+    ]
+    layers = [
+        row([text('垂直图层', 14, flex=1), text('%d 层' % e.document.size[1], 11, Theme.muted)]),
+        text('锁定保护编辑，隐藏仅影响预览', 10, Theme.muted),
         row([Action(glyph='minus', width=28, height=26, enabled=page > 0, onClick=partial(set_page, max(0, page - 1))),
              text('Y %d–%d' % (low, high - 1), 11, Theme.muted, flex=1, center=True),
              Action(glyph='plus', width=28, height=26, enabled=high < e.document.size[1], onClick=partial(set_page, page + 1))]),
-        line(),
     ] + [surface(color=Theme.tint if y == e.layer else Theme.pale, width=216, height=39, padding=5, children=row([
         Action(label='Y %02d' % y, onClick=partial(session.layer, y), selected=y == e.layer, height=28, width=60),
         text('%d 格' % e.document.layer_count(y), 10, Theme.muted, flex=1),
@@ -417,7 +419,22 @@ def Layers(session=None, revision=0):
                selected=y in e.locked_layers, onClick=partial(session.toggle_layer, 'lock', y)),
         Action(glyph='eye', width=27, height=27, selected=y not in e.hidden_layers,
                onClick=partial(session.toggle_layer, 'hide', y)),
-    ], gap=3)) for y in reversed(range(low, high))]))
+    ], gap=3)) for y in reversed(range(low, high))]
+    # Retain both sections so switching does not recreate layer controls or
+    # reset an expanded biome picker. Each section is prepared between inputs.
+    return Panel(style=S(width=230, height=height, gap=10), children=[
+        Segments(items=[('appearance', '外观'), ('layers', '图层管理')],
+                 value=tab, onChange=set_tab, width=216),
+        Scroll(style=S(width=230, height=max(60, height-42)), resetKey=tab, children=
+            Panel(style=S(width=216), children=[
+                Panel(key=name, style=S(display=Display.flex if tab == name else Display.none), children=
+                    PreparedColumn(session=session, style=S(width=216, gap=10),
+                        urgent=partial(scene_tab_active, session, tab, name), children=items))
+                for name, items in (('appearance', appearance), ('layers', layers))]))])
+
+
+def scene_tab_active(session, active, name):
+    return session.page == 'workspace' and session.inspector == 'layers' and active == name
 
 
 @Component
