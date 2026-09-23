@@ -25,6 +25,48 @@ SIZE = (64, 100, 64)
 
 
 class LargeEditorTests(unittest.TestCase):
+    def test_masked_chunk_edits_match_cell_oracle_and_keep_statistics_and_undo(self):
+        from collections import Counter
+        for mode in ('all', 'air', 'solid', 'material'):
+            for tool in ('fill', 'erase', 'shell', 'walls', 'frame', 'floor'):
+                e = Editor(Document((31,33,29)))
+                e.document.blocks.fill_chunk((0,0,0), STONE)
+                for p in ((15,15,15),(16,16,16),(18,20,18)):
+                    e.document.blocks[p] = WOOD
+                e.select_box((13,13,13),(19,21,19))
+                e.selection = e.selection.difference(Selection.box((15,15,15),(17,17,17)))
+                e.material, e.filter_material, e.mask = ('minecraft:wool',3), WOOD, mode
+                e.locked_layers = {14, 16, 21}
+                before = dict(e.document.blocks.items())
+                snapshot = e.document.blocks.copy()
+                expected = dict(before)
+                writes = ({p:AIR if tool=='erase' else e.material for p in e.selection}
+                          if tool in ('fill','erase') else e._shape(tool,*e.selection.bounds()))
+                for pos, value in writes.items():
+                    if e._writable(pos):
+                        if value==AIR:expected.pop(pos,None)
+                        else:expected[pos]=value
+                job=EditJob(e,tool)
+                while not job.done:job.step()
+                self.assertFalse(job.error,(tool,mode))
+                self.assertEqual(expected,dict(e.document.blocks.items()),(tool,mode))
+                self.assertEqual(before,dict(snapshot.items()))
+                self.assertEqual(Counter(expected.values()),+e.document.blocks.counts)
+                self.assertEqual(Counter(p[1] for p in expected),+e.document.blocks.layers)
+                self.assertEqual(len(expected),len(e.document.blocks))
+                if job.changed:
+                    e.undo();self.assertEqual(before,dict(e.document.blocks.items()))
+                    e.redo();self.assertEqual(expected,dict(e.document.blocks.items()))
+
+    def test_fast_fill_rejects_outside_selection_before_publishing(self):
+        e=Editor(Document((31,33,29)))
+        e.selection=Selection.box((0,0,0),(31,33,29))
+        job=EditJob(e,'fill')
+        while not job.done:job.step()
+        self.assertTrue(job.error)
+        self.assertFalse(e.document.blocks)
+        self.assertFalse(e.undo_stack)
+
     def test_axis_shapes_match_cell_oracle_with_irregular_selection_and_masks(self):
         for tool in ('shell', 'walls', 'frame', 'floor'):
             for thickness in (1, 3, 12):

@@ -113,6 +113,21 @@ class EditJob(object):
         self.changed += difference_count(original, identity) - before
         self.staged.fill_chunk(key, value)
 
+    def _fill_selected_chunk(self, key, mask, value):
+        """For disjoint fill/shape chunks; source cells are visited only once."""
+        self.processed += CELLS if mask == FULL else bin(mask).count('1')
+        for y in self.work.locked_layers:
+            local_y = y-(key[1] << 4)
+            if 0 <= local_y < 16:
+                mask &= ~(((1 << 256)-1) << (local_y << 8))
+        mode = self.work.mask
+        allowed = None
+        if mode != 'all':
+            palette = self.staged.palette
+            allowed = [entry != AIR if mode == 'solid' else entry == AIR if mode == 'air' else
+                       entry == self.work.filter_material for entry in palette]
+        self.changed += self.staged.fill_mask(key, mask, value, allowed)
+
     def _select(self):
         tool, doc = self.tool, self.source
         universe = Selection.box((0, 0, 0), tuple(v - 1 for v in doc.size))
@@ -262,6 +277,8 @@ class EditJob(object):
         if not self.selection:
             raise ValueError('选区为空，请先框选或全选')
         lo, hi = self.selection.bounds()
+        if not self.source.contains(lo) or not self.source.contains(hi):
+            raise ValueError('操作超出建筑范围，草稿未改变')
         if group == 'transform':
             for step in self._transform(lo, hi):
                 yield step
@@ -335,27 +352,14 @@ class EditJob(object):
                     candidates.count += bin(selected).count('1')
             self.total = max(1, len(candidates))
             for key in sorted(candidates.chunks):
-                mask = candidates.chunks[key]
-                unlocked = not any(key[1]*16 <= y < (key[1]+1)*16 for y in work.locked_layers)
-                if mask == FULL and work.mask == 'all' and unlocked:
-                    self._chunk(key, work.material)
-                    self.processed += CELLS
-                    yield None
-                else:
-                    for index in indices(mask):
-                        self._set(position(key, index), work.material)
-                        self.processed += 1
-                        if self.processed % 128 == 0:
-                            yield None
-                self.staged.compact(key)
+                self._fill_selected_chunk(key, candidates.chunks[key], work.material)
                 yield None
             return
         randomizer = random.Random(work.seed)
         for key in sorted(self.selection.chunks):
             mask = self.selection.chunks[key]
-            if tool in ('fill', 'box', 'erase') and mask == FULL and work.mask == 'all' and not any((key[1] << 4) <= y < (key[1] + 1) * 16 for y in work.locked_layers):
-                self._chunk(key, AIR if tool == 'erase' else work.material)
-                self.processed += CELLS
+            if tool in ('fill', 'box', 'erase'):
+                self._fill_selected_chunk(key, mask, AIR if tool == 'erase' else work.material)
                 yield None
                 continue
             batch = []

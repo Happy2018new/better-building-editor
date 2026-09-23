@@ -282,6 +282,80 @@ class BlockStore(object):
     def memory_bytes(self):
         return len(self.chunks) * 128 + sum(CELLS * 2 for c in self.chunks.values() if not isinstance(c, integer_types))
 
+    def fill_mask(self, key, mask, value, allowed=None):
+        """Fill selected bits once, preserving copy-on-write and all counters.
+
+        allowed optionally maps existing palette ids to mask eligibility. The
+        caller supplies in-bounds selection bits and removes locked layers.
+        No coordinates, palette lookup or selection lookup per cell is needed.
+        """
+        if not mask:
+            return 0
+        previous = self.chunks.get(key, 0)
+        uniform = isinstance(previous, integer_types)
+        identity = self.palette_id(value)
+        if uniform and (previous == identity or (allowed is not None and not allowed[previous])):
+            return 0
+        if mask == FULL and (allowed is None or uniform):
+            return self.fill_chunk(key, value)
+        if uniform:
+            # Empty/solid chunks are frequent even for irregular selections.
+            # Assign whole selected Y planes with array slices, and count the
+            # remaining bits per plane rather than per-voxel Counter updates.
+            chunk = array('H', [previous]) * CELLS
+            plane_mask = (1 << 256)-1
+            plane_values = array('H', [identity])*256
+            delta = int(bool(identity))-int(bool(previous))
+            changed = 0
+            for y in range(16):
+                plane = (mask >> (y << 8)) & plane_mask
+                if not plane:
+                    continue
+                count = 256 if plane == plane_mask else bin(plane).count('1')
+                changed += count
+                if plane == plane_mask:
+                    chunk[y*256:(y+1)*256] = plane_values
+                else:
+                    for index in indices(plane):
+                        chunk[(y << 8)+index] = identity
+                if delta:
+                    self.layers[(key[1] << 4)+y] += delta*count
+            self.chunks[key] = chunk
+            self.owned.add(key)
+            self.count += delta*changed
+            if previous:
+                self.counts[self.palette[previous]] -= changed
+            if identity:
+                self.counts[value] += changed
+            return changed
+        chunk = previous if key in self.owned else array('H', previous)
+        removed, layers = Counter(), [0]*16
+        changed = 0
+        new_solid = int(bool(identity))
+        for index in indices(mask):
+            old = chunk[index]
+            if old == identity or (allowed is not None and not allowed[old]):
+                continue
+            chunk[index] = identity
+            removed[old] += 1
+            layers[index >> 8] += new_solid - int(bool(old))
+            changed += 1
+        if not changed:
+            return 0
+        self.chunks[key] = chunk
+        self.owned.add(key)
+        self.count += sum(layers)
+        for y, delta in enumerate(layers):
+            if delta:
+                self.layers[(key[1] << 4)+y] += delta
+        for old, count in removed.items():
+            if old:
+                self.counts[self.palette[old]] -= count
+        if identity:
+            self.counts[value] += changed
+        self.compact(key)
+        return changed
+
     def compact(self, key):
         chunk = self.chunks.get(key, 0)
         if not isinstance(chunk, integer_types) and all(v == chunk[0] for v in chunk):
