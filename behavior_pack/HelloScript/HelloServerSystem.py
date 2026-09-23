@@ -5,6 +5,7 @@ from .projection.model import AIR, Document, add, block
 from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
+from .projection.tool_items import SURVEY_WAND, TERMINAL, item_name, selection
 import time
 
 try:
@@ -116,10 +117,113 @@ class HelloServerSystem(ServerSystem):
         ServerSystem.__init__(self, namespace, systemName)
         self.jobs = {}
         self.uploads = {}
+        self.world_points = {}
+        self.world_regions = {}
+        self.tool_last_use = {}
+        self.terminal_last_use = {}
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
+        self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'WorldToolRequest', self, self.world_tool_request)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'OnScriptTickServer', self, self.tick)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent', self, self.leave)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerItemUseOnEvent', self, self.tool_use_on)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerItemTryUseEvent', self, self.tool_try_use)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DimensionChangeFinishServerEvent', self, self.tool_dimension_changed)
+        for event in ('StartDestroyBlockServerEvent', 'ServerPlayerTryDestroyBlockEvent'):
+            self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), event, self, self.tool_prevent_break)
+
+    def held_tool(self, player):
+        item = serverApi.GetEngineCompFactory().CreateItem(player).GetPlayerItem(
+            serverApi.GetMinecraftEnum().ItemPosType.CARRIED, 0)
+        return item_name(item)
+
+    def tool_dimension_changed(self, args):
+        player = args.get('playerId')
+        self.world_points.pop(player, None)
+        self.world_regions.pop(player, None)
+
+    def tool_prevent_break(self, args):
+        player = args.get('playerId')
+        if player in serverApi.GetPlayerList() and self.held_tool(player) in (SURVEY_WAND, TERMINAL):
+            args['cancel'] = True
+
+    def world_tool_request(self, args):
+        # HUD requests are untrusted. The sender is supplied by the engine.
+        if not isinstance(args, dict):
+            return
+        player = args.get('__id__')
+        if player not in serverApi.GetPlayerList() or self.held_tool(player) != SURVEY_WAND:
+            return
+        if args.get('action') == 'reset':
+            self.world_points.pop(player, None)
+            self.world_regions.pop(player, None)
+            self.NotifyToClient(player, 'WorldToolPoint', {'clear': True})
+        elif args.get('action') == 'point':
+            try:
+                pos = coordinate(args.get('pos'))
+                foot = serverApi.GetEngineCompFactory().CreatePos(player).GetFootPos()
+                if foot is None or sum((pos[i] + .5 - foot[i]) ** 2 for i in range(3)) > 144.:
+                    raise ValueError('请在 12 格以内选取方块')
+                dimension = serverApi.GetEngineCompFactory().CreateDimension(player).GetEntityDimensionId()
+                self.tool_use_on(dict(zip(('x','y','z'),pos), entityId=player, dimensionId=dimension,
+                                      itemDict={'newItemName': SURVEY_WAND}))
+            except (ValueError, TypeError, KeyError) as error:
+                self.NotifyToClient(player, 'WorldToolPoint', {'error': error_text(error)})
+
+    def tool_try_use(self, args):
+        if item_name(args.get('itemDict')) != TERMINAL:
+            return
+        player = args.get('playerId')
+        if player in serverApi.GetPlayerList():
+            args['cancel'] = True
+            self.open_terminal(player)
+
+    def open_terminal(self, player):
+        now = time.time()
+        if now - self.terminal_last_use.get(player, 0.) < .3:
+            return
+        self.terminal_last_use[player] = now
+        self.NotifyToClient(player, 'OpenProjectionUi', {})
+
+    def tool_use_on(self, args):
+        name = item_name(args.get('itemDict'))
+        player = args.get('entityId')
+        if name not in (SURVEY_WAND, TERMINAL) or player not in serverApi.GetPlayerList():
+            return
+        args['ret'] = True
+        if name == TERMINAL:
+            self.open_terminal(player)
+            return
+        try:
+            adapter = WorldAdapter(player)
+            dimension = args.get('dimensionId')
+            if dimension != adapter.dimension:
+                raise ValueError('维度已改变，请重新选取')
+            pos = tuple(args[axis] for axis in ('x', 'y', 'z'))
+            if any(type(value) is not int for value in pos):
+                raise ValueError('选点坐标无效')
+            now = time.time()
+            last = self.tool_last_use.get(player)
+            self.tool_last_use[player] = now
+            if last is not None and now - last < .2:
+                return
+            previous = self.world_points.get(player)
+            if previous and previous[1] == dimension and now - previous[2] < 600.:
+                origin, size = selection(previous[0], pos)
+                self.validate_target(adapter, origin, Document(size))
+                self.world_points.pop(player, None)
+                self.world_regions[player] = (dimension, origin, size)
+                self.NotifyToClient(player, 'WorldToolPoint', {'index': 1, 'pos': pos,
+                    'dimension': dimension, 'origin': origin, 'size': size})
+            else:
+                self.world_regions.pop(player, None)
+                self.world_points[player] = (pos, dimension, now)
+                self.NotifyToClient(player, 'WorldToolPoint', {'index': 0, 'pos': pos,
+                    'dimension': dimension})
+        except (ValueError, TypeError, KeyError) as error:
+            self.world_points.pop(player, None)
+            self.world_regions.pop(player, None)
+            self.NotifyToClient(player, 'WorldToolPoint', {'error': error_text(error), 'clear': True})
 
     def reply(self, player, request, **data):
         data['request'] = request
@@ -200,6 +304,10 @@ class HelloServerSystem(ServerSystem):
             if action not in ('capture', 'check', 'apply', 'resolve'):
                 raise ValueError('未知的世界操作')
             adapter = upload_adapter or WorldAdapter(player)
+            if action == 'capture' and args.get('source') == 'world_item':
+                region = self.world_regions.get(player)
+                if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
+                    raise ValueError('世界选区已改变，请重新选择两个角点')
             if action == 'apply' and not adapter.allowed():
                 raise ValueError('世界写入需要创造模式、操作员和建造权限')
             if action == 'resolve':
@@ -244,6 +352,8 @@ class HelloServerSystem(ServerSystem):
 
     def read_job(self, player, request, action, adapter, doc, origin):
         stats = {'total': len(doc.blocks), 'correct': 0, 'missing': 0, 'wrong': 0}
+        adapter.read_processed = 0
+        adapter.read_total = doc.volume if action == 'capture' else len(doc.blocks)
         points = doc.points() if action == 'capture' else iter(doc.blocks)
         deadline = time.time() + .006
         batch = 0
@@ -273,10 +383,12 @@ class HelloServerSystem(ServerSystem):
                 stats['wrong'] += 1
             batch += 1
             if batch >= 2048 or time.time() >= deadline:
+                adapter.read_processed = index + 1
                 yield None
                 batch = 0
                 deadline = time.time() + .006
         if action == 'capture':
+            adapter.read_processed = adapter.read_total
             if previous_chunk is not None:
                 doc.blocks.compact(previous_chunk)
             doc.name = '世界选区'
@@ -308,6 +420,9 @@ class HelloServerSystem(ServerSystem):
                     self.jobs.pop(player, None)
             else:
                 try:
+                    if adapter is not None and (player not in serverApi.GetPlayerList() or
+                            adapter.factory.CreateDimension(player).GetEntityDimensionId() != adapter.dimension):
+                        raise ValueError('玩家已离开或维度已改变，已取消世界读取')
                     next(job)
                 except StopIteration:
                     self.jobs.pop(player, None)
@@ -319,10 +434,18 @@ class HelloServerSystem(ServerSystem):
                     phase = {'preflight':'检查目标', 'write':'写入方块', 'rollback':'恢复修改'}[job.phase]
                     self.reply(player, request, done=False, message='%s，已处理 %d 格' % (phase, max(0,job.cursor)))
                 elif action != 'resolve':
-                    self.reply(player, request, done=False, message='正在读取世界，已处理 %d 批' % (ticks + 1))
+                    total = getattr(adapter, 'read_total', 0)
+                    count = getattr(adapter, 'read_processed', 0)
+                    message = ('正在传输选区数据' if count == total else
+                               '正在读取世界 %d%%' % (100 * count // max(1, total)))
+                    self.reply(player, request, done=False, message=message)
 
     def leave(self, args):
         player = args.get('id')
+        self.world_points.pop(player, None)
+        self.world_regions.pop(player, None)
+        self.tool_last_use.pop(player, None)
+        self.terminal_last_use.pop(player, None)
         self.uploads.pop(player, None)
         entry = self.jobs.get(player)
         if entry and isinstance(entry[2], WorldJob):

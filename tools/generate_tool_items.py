@@ -39,6 +39,20 @@ def generate():
     d.line((26, 4, 28, 4), fill=cyan)
     terminal.save(OUT / 'modern_projection_terminal.png')
 
+    ui = ROOT / 'resource_pack/textures/modern_projection'
+    ui.mkdir(parents=True, exist_ok=True)
+    for state, fill, edge, stripe in (
+        ('normal', '#E9F2F8', '#6E8397', '#3284E7'),
+        ('hover', '#F5FBFF', '#397DED', '#23C7D5'),
+        ('pressed', '#CCDDEB', '#3165B2', '#16B5CA'),
+    ):
+        button = Image.new('RGBA', (112, 28), (0, 0, 0, 0))
+        d = ImageDraw.Draw(button)
+        d.rectangle((1, 2, 110, 26), fill='#243B5360')
+        d.rectangle((0, 0, 110, 24), fill=fill, outline=edge, width=1)
+        d.rectangle((1, 1, 3, 23), fill=stripe)
+        button.save(ui / ('tool_button_' + state + '.png'))
+
 
 if __name__ == '__main__':
     generate()

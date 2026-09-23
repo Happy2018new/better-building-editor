@@ -1,0 +1,14 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {"identifier": "modern_projection:survey_wand"},
+    "tags": ["crafting_table"],
+    "pattern": ["  L", " R ", "S  "],
+    "key": {
+      "L": {"item": "minecraft:lapis_lazuli"},
+      "R": {"item": "minecraft:redstone"},
+      "S": {"item": "minecraft:stick"}
+    },
+    "result": {"item": "modern_projection:survey_wand", "count": 1}
+  }
+}

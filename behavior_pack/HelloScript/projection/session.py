@@ -27,6 +27,8 @@ class Session(object):
         self.content_revision = 0
         self.library = []
         self.library_serial = 0
+        self.world_import_document = None
+        self.world_import_origin = None
         self.model_name = None
         self.model_revision = None
         self.preview_pending = False
@@ -679,6 +681,8 @@ class Session(object):
         return True
 
     def save(self):
+        if self.io_job is not None:
+            raise ValueError('请等待当前建筑存取完成')
         name = as_text(self.name).strip()
         if not name or len(name) > 64:
             raise ValueError('请输入 1–64 字的建筑名称')
@@ -704,7 +708,44 @@ class Session(object):
         else:
             commit(self.editor.document.to_data())
 
+    def import_world_capture(self, document, origin):
+        """Archive a captured region without changing the open draft."""
+        if self.world_import_document is not None:
+            raise ValueError('上一个世界选区尚未保存，请在建筑库重试导入')
+        self.world_import_document = document
+        self.world_import_origin = tuple(origin)
+        self.retry_world_import()
+
+    def retry_world_import(self):
+        from .archive import save_steps
+        from .tool_items import unique_name
+        if self.world_import_document is None:
+            raise ValueError('没有待导入的世界选区')
+        if self.io_job is not None or self.edit_job is not None:
+            raise ValueError('请等待当前建筑操作完成')
+        if len(self.library) >= 32:
+            raise ValueError('建筑库已满，请删除不需要的配置后重试导入')
+        doc = self.world_import_document
+        doc.name = unique_name(self.world_import_origin,
+                               [as_text(entry['data']['name']) for entry in self.library])
+        identity = self.library_serial + 1
+
+        def commit(data):
+            entry = {'id': identity, 'data': data, 'saved': int(time.time())}
+            candidate = self.library + [entry]
+            if not self.bridge.save_library({'version': 1, 'serial': identity, 'buildings': candidate}):
+                raise ValueError('建筑库保存失败，可在建筑库重试导入')
+            self.library, self.library_serial = candidate, identity
+            self.world_import_document = self.world_import_origin = None
+            self.editor.message = '世界选区已加入建筑库，当前草稿保持完整'
+            self.bridge.notify(self.editor.message)
+            self.emit('library')
+
+        self._start_io(save_steps(self.bridge, doc, identity), commit, '正在保存世界选区到建筑库')
+
     def load(self, identity):
+        if self.io_job is not None:
+            raise ValueError('请等待当前建筑存取完成')
         entry = next((item for item in self.library if item['id'] == identity), None)
         if entry is None:
             raise ValueError('找不到这份配置')

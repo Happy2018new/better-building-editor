@@ -473,8 +473,8 @@ def PageNavigation(session=None, revision=0, focus=False):
         Panel(style=S(flex=1)), text(e.document.name[:24], 11, Theme.muted),
         Action(glyph='undo', width=29, height=28, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
         Action(glyph='redo', width=29, height=28, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
-        Action(label='读取选区', glyph='cursor', width=100, height=28,
-               onClick=partial(session.confirm, '读取世界选区将替换当前草稿，继续吗？', session.bridge.capture), enabled=not session.busy),
+        Action(label='导入选区', glyph='cursor', width=100, height=28,
+               onClick=partial(session.action, session.bridge.capture_new), enabled=not session.busy),
     ], paddingHorizontal=18, height=49, gap=8, display=Display.none if focus else Display.flex)
 
 

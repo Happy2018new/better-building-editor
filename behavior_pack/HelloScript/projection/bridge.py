@@ -215,6 +215,41 @@ class ClientBridge(object):
             return (0, 64, 0)
         return tuple(int(math.floor(v)) for v in pos)
 
+    def notify(self, message):
+        self.factory.CreateTextNotifyClient(self.level).SetLeftCornerNotify(native(message))
+
+    def world_tool_point(self, args):
+        if args.get('clear'):
+            self.corners = [None, None]
+            self.draw_bounds()
+        if args.get('error'):
+            self.notify(args['error'])
+            self.session.editor.message = args['error']
+            self.session.emit()
+            return
+        index = args.get('index')
+        pos = args.get('pos')
+        if index not in (0, 1) or not isinstance(pos, (tuple, list)) or len(pos) != 3:
+            return
+        if index == 0:
+            self.corners = [tuple(pos), None]
+            self.notify('已设置第一个角点，请对准另一方块再次使用测绘器')
+        elif self.corners[0] is not None:
+            self.corners[1] = tuple(pos)
+            self.notify('已选择 %d × %d × %d，点击“导入选区”加入建筑库' % tuple(args['size']))
+        self.draw_bounds()
+        self.session.emit()
+
+    def capture_new(self):
+        if self.session.world_import_document is not None:
+            raise ValueError('待导入选区尚未保存，请先到建筑库重试')
+        if None in self.corners:
+            raise ValueError('请先用投影测绘器选择两个角点')
+        from .tool_items import selection
+        origin, size = selection(*self.corners)
+        self.request('capture', {'origin': origin, 'size': size, 'source': 'world_item'})
+        self.notify('正在读取选区；导入后将新建配置，不覆盖当前草稿')
+
     def use_player_origin(self):
         self.session.origin = self.player_origin()
         self.session.progress = None
@@ -296,7 +331,10 @@ class ClientBridge(object):
         if not points:
             return
         lo, hi = bounds(points)
-        hi = tuple(v + 1. for v in hi)
+        # Surface-coincident lines disappear into opaque terrain. A small
+        # visual-only margin keeps ground/roof selections readable.
+        lo = tuple(v - .01 for v in lo)
+        hi = tuple(v + 1.01 for v in hi)
         drawing = self.factory.CreateDrawing(self.level)
         for axis in range(3):
             other = [i for i in range(3) if i != axis]
@@ -322,6 +360,23 @@ class ClientBridge(object):
         data = dict(data, action=action, request=self.request_id)
         self.session.busy = True
         self.download = Receiver() if action == 'capture' else None
+        if action == 'capture':
+            self.capture_activity = time.time()
+            request = self.pending
+            def watchdog():
+                if self.pending != request:
+                    return
+                if time.time() - self.capture_activity >= 30.:
+                    self.cancel_world()
+                    self.pending = self.pending_data = self.pending_state = None
+                    self.download = None
+                    self.session.busy = False
+                    self.session.editor.message = '世界读取超时，请重试导入选区'
+                    self.notify(self.session.editor.message)
+                    self.session.emit()
+                else:
+                    self.later(5., watchdog)
+            self.later(5., watchdog)
         document = data.get('document')
         if isinstance(document, Document):
             data.pop('document')
@@ -358,6 +413,7 @@ class ClientBridge(object):
     def receive(self, args):
         if args.get('request') != self.pending:
             return
+        self.capture_activity = time.time()
         s = self.session
         if not args.get('done'):
             if 'uploadAck' in args:
@@ -397,8 +453,11 @@ class ClientBridge(object):
         self.upload = None
         s.busy = False
         if args.get('error'):
+            self.download = None
             s.editor.message = args['error']
-        elif action in ('capture', 'check', 'resolve') and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
+            if sent.get('source') == 'world_item':
+                self.notify(s.editor.message)
+        elif action in ('capture', 'check', 'resolve') and sent.get('source') != 'world_item' and state != (id(s.editor), s.editor.revision, tuple(s.origin)):
             s.editor.message = '草稿或原点已改变，请重新读取或检查'
         elif action == 'resolve':
             values = args.get('palette')
@@ -414,8 +473,17 @@ class ClientBridge(object):
                     s.editor.message = type('')(error)
         elif action == 'capture':
             document = self.download.result if args.get('streamed') and self.download else Document.from_data(args['document'])
+            self.download = None
             if document is None:
                 s.editor.message = '建筑传输不完整，请重新读取'
+                s.emit()
+                return
+            if sent.get('source') == 'world_item':
+                try:
+                    s.import_world_capture(document, sent['origin'])
+                except (ValueError, TypeError, KeyError) as error:
+                    s.editor.message = type('')(error)
+                    self.notify(s.editor.message)
                 s.emit()
                 return
             s.editor = Editor(document)
@@ -577,6 +645,8 @@ class ClientBridge(object):
                 render.SetEntityRenderDistance(lease[0])
 
     def dimension_changed(self, unused):
+        if self.pending_data and self.pending_data[0] == 'capture':
+            self.cancel_world()
         self.stop_projection()
         self.corners = [None, None]
         self.draw_bounds()

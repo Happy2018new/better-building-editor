@@ -19,6 +19,10 @@ class ServerStreamTests(unittest.TestCase):
         self.host = object.__new__(server.HelloServerSystem)
         self.host.jobs = {}
         self.host.uploads = {}
+        self.host.tool_last_use = {}
+        self.host.terminal_last_use = {}
+        self.host.world_regions = {}
+        self.host.world_points = {}
         self.replies = []
         self.host.reply = lambda player, request, **data: self.replies.append((player, request, data))
         self.creative = True
@@ -93,6 +97,83 @@ class ServerStreamTests(unittest.TestCase):
         self.assertTrue(self.replies[-1][2]['streamed'])
         self.assertEqual(stone, receiver.result.get((0, 0, 0)))
         self.assertEqual(1, len(receiver.result.blocks))
+
+    def test_survey_wand_marks_two_authorized_corners_without_world_writes(self):
+        self.host.world_points = {}
+        sent = []
+        self.host.NotifyToClient = lambda player, event, payload: sent.append((player,event,payload))
+        first = {'entityId':'player', 'itemDict':{'newItemName':'modern_projection:survey_wand'},
+                 'dimensionId':0, 'x':0, 'y':64, 'z':0}
+        second = dict(first, x=3, y=66, z=2)
+        with patch.object(server.time, 'time', side_effect=(10., 11.)):
+            self.host.tool_use_on(first)
+            self.host.tool_use_on(second)
+        self.assertTrue(first['ret'])
+        self.assertTrue(second['ret'])
+        self.assertEqual((0,64,0), sent[1][2]['origin'])
+        self.assertEqual((4,3,3), sent[1][2]['size'])
+        self.assertFalse(self.host.world_points)
+        self.assertEqual((0,(0,64,0),(4,3,3)), self.host.world_regions['player'])
+        self.assertFalse(self.writes)
+
+    def test_world_tool_capture_cannot_forge_an_unselected_region(self):
+        self.host.world_regions['player'] = (0, (0,64,0), (2,2,2))
+        self.host.request({'__id__':'player', 'request':21, 'action':'capture',
+                           'source':'world_item', 'origin':(1,64,0), 'size':(2,2,2)})
+        self.assertFalse(self.host.jobs)
+        self.assertIn('重新选择', self.replies[-1][2]['error'])
+        self.host.request({'__id__':'player', 'request':22, 'action':'capture',
+                           'source':'world_item', 'origin':(0,64,0), 'size':(2,2,2)})
+        self.assertIn('player', self.host.jobs)
+        self.finish()
+        self.assertFalse(self.writes)
+
+    def test_world_tool_hud_requests_require_holding_wand_and_nearby_target(self):
+        original = self.factory.CreateItem
+        carried = {'newItemName':'minecraft:stick'}
+        self.factory.CreateItem = lambda player: types.SimpleNamespace(
+            GetPlayerItem=lambda kind, slot: carried)
+        p = patch.object(server.serverApi, 'GetMinecraftEnum',
+                         lambda: types.SimpleNamespace(ItemPosType=types.SimpleNamespace(CARRIED=0)), create=True)
+        p.start();self.addCleanup(p.stop)
+        self.addCleanup(lambda: setattr(self.factory, 'CreateItem', original))
+        sent = []
+        self.host.NotifyToClient = lambda player, event, payload: sent.append(payload)
+        request = {'__id__':'player', 'action':'point', 'pos':(0,64,0)}
+        self.host.world_tool_request(request)
+        self.assertFalse(sent)
+        carried['newItemName']='modern_projection:survey_wand'
+        self.host.world_tool_request(dict(request, pos=(50,64,0)))
+        self.assertIn('12 格', sent[-1]['error'])
+        self.host.world_tool_request(request)
+        self.assertEqual(0, sent[-1]['index'])
+        self.host.world_tool_request({'__id__':'player','action':'reset'})
+        self.assertTrue(sent[-1]['clear'])
+        self.assertFalse(self.host.world_points)
+
+    def test_survey_wand_rejects_oversize_and_wrong_dimension(self):
+        self.host.world_points = {}
+        sent = []
+        self.host.NotifyToClient = lambda player, event, payload: sent.append(payload)
+        point = {'entityId':'player', 'itemDict':{'newItemName':'modern_projection:survey_wand'},
+                 'dimensionId':0, 'x':0, 'y':64, 'z':0}
+        with patch.object(server.time, 'time', side_effect=(10., 11.)):
+            self.host.tool_use_on(dict(point))
+            self.host.tool_use_on(dict(point, x=64))
+        self.assertIn('64', sent[-1]['error'])
+        self.assertFalse(self.host.world_points)
+        self.host.tool_use_on(dict(point, dimensionId=1))
+        self.assertIn('维度', sent[-1]['error'])
+
+    def test_terminal_item_use_requests_only_own_clients_ui(self):
+        sent = []
+        self.host.NotifyToClient = lambda player, event, payload: sent.append((player,event))
+        args = {'playerId':'player', 'itemDict':{'newItemName':'modern_projection:terminal'}}
+        self.host.tool_try_use(args)
+        self.assertTrue(args['cancel'])
+        self.assertEqual([('player','OpenProjectionUi')], sent)
+        self.host.tool_try_use({'playerId':'player', 'itemDict':{'newItemName':'minecraft:stick'}})
+        self.assertEqual(1, len(sent))
 
     def test_read_exception_finishes_job_with_error(self):
         def broken():

@@ -536,6 +536,12 @@ def Library(session=None, revision=0, width=760, height=440):
                 Action(label='另存为新配置', glyph='save', accent=True, height=32, onClick=partial(session.action, session.save)),
                 Action(label='分享当前草稿', glyph='copy', height=32, onClick=partial(session.action, session.sharing.open_export)),
                 Action(label='导入分享码', glyph='paste', height=32, onClick=partial(session.action, session.sharing.open_import)),
+                Panel(style=S(display=Display.flex if session.world_import_document is not None else Display.none,
+                              gap=7), children=[
+                    text('世界选区等待保存', 12, Theme.muted),
+                    Action(label='重试导入选区', glyph='save', height=32,
+                           onClick=partial(session.action, session.retry_world_import),
+                           enabled=session.io_job is None)]),
                 line(), NewRegion(session=session, compact=True)])))])
 
 
@@ -629,6 +635,9 @@ def Guide(session=None, revision=0, width=760, height=440):
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
         text('快捷入口：P 打开工作台', 12, Theme.muted),
+        text('投影终端：右键使用，或点击手持时的屏幕按钮打开工作台。', 12, Theme.muted),
+        text('投影测绘器：使用方块标记两个角点，再点击导入选区。触屏也可对准准星点选。', 12, Theme.muted),
+        text('世界选区只保存方块，不包含箱子内容、生物或命令方块数据。', 12, Theme.muted),
         text('范围上限：64 × 128 × 64 格。', 11, Theme.muted),
-        text('配置保存在本机；箱子内容与实体数据不包含在建筑配置中。', 11, Theme.muted),
+        text('导入会在本机建筑库新建配置，保留当前草稿。', 11, Theme.muted),
     ]))

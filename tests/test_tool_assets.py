@@ -16,7 +16,7 @@ class ToolAssetTests(unittest.TestCase):
             identity = 'modern_projection:' + name
             behavior = json.loads((ROOT / ('behavior_pack/netease_items_beh/' + name + '.json')).read_text(encoding='utf8'))
             resource = json.loads((ROOT / ('resource_pack/netease_items_res/' + name + '.json')).read_text(encoding='utf8'))
-            recipe = json.loads((ROOT / ('behavior_pack/recipes/' + name + '.json')).read_text(encoding='utf8'))['minecraft:recipe_shaped']
+            recipe = json.loads((ROOT / ('behavior_pack/netease_recipes/' + name + '.json')).read_text(encoding='utf8'))['minecraft:recipe_shaped']
             self.assertEqual(identity, behavior['minecraft:item']['description']['identifier'])
             self.assertEqual(identity, resource['minecraft:item']['description']['identifier'])
             self.assertEqual(identity, recipe['result']['item'])

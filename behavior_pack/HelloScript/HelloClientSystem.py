@@ -4,6 +4,8 @@ from .pyreact import runtime_init, navigator
 from .projection.bridge import ClientBridge
 from .projection.session import Session
 from .projection.ui import Workspace
+from .projection.tool_hud import TerminalHud
+from .projection.tool_items import TERMINAL, SURVEY_WAND, item_name
 
 ClientSystem = clientApi.GetClientSystemCls()
 
@@ -14,12 +16,23 @@ class HelloClientSystem(ClientSystem):
         runtime_init(self, debug=True)
         self.bridge = None
         self.session = None
+        self.hud = None
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'OnKeyPressInGame', self, self.key)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'GameRenderTickEvent', self, self.render_tick)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'ProjectionResponse', self, self.response)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
+        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'OpenProjectionUi', self, self.open_from_terminal)
+        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'WorldToolPoint', self, self.world_tool_point)
+        self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+                            'OnCarriedNewItemChangedClientEvent', self, self.carried_changed)
+        for event in ('StartDestroyBlockClientEvent', 'PlayerTryDestroyBlockClientEvent'):
+            self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+                                event, self, self.tool_prevent_break)
+        for event in ('RightClickBeforeClientEvent', 'TapBeforeClientEvent'):
+            self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+                                event, self, self.tool_use)
 
     def UiInitFinished(self, unused):
         if self.session is not None:
@@ -28,7 +41,70 @@ class HelloClientSystem(ClientSystem):
         self.session = Session(self.bridge)
         self.bridge.session = self.session
         self.session.initialize()
-        navigator.push(Workspace(session=self.session), key='modern_projection_workspace')
+        self.hud = TerminalHud(self)
+
+    def open_workspace(self):
+        if self.session is not None and not navigator.contains('modern_projection_workspace'):
+            navigator.push(Workspace(session=self.session), key='modern_projection_workspace')
+
+    def open_from_terminal(self, unused=None):
+        if unused is None and (self.hud is None or self.hud.carried != TERMINAL):
+            return
+        self.open_workspace()
+
+    def carried_changed(self, args):
+        if self.hud is not None:
+            self.hud.carried = item_name(args.get('itemDict'))
+            self.hud.update()
+
+    def world_tool_point(self, args):
+        if self.bridge is not None:
+            self.bridge.world_tool_point(args)
+
+    def tool_prevent_break(self, args):
+        if self.hud and self.hud.carried in (SURVEY_WAND, TERMINAL):
+            args['cancel'] = True
+
+    def tool_use(self, args):
+        if self.hud is None or self.hud.carried not in (SURVEY_WAND, TERMINAL):
+            return
+        if navigator.contains('modern_projection_workspace'):
+            return
+        args['cancel'] = True
+        if self.hud.carried == TERMINAL:
+            self.open_workspace()
+        else:
+            try:
+                self.tool_mark_facing()
+            except (ValueError, TypeError, KeyError) as error:
+                self.bridge.notify(error.args[0])
+
+    def tool_mark_facing(self):
+        pick = self.bridge.factory.CreateCamera(self.bridge.level).PickFacing()
+        if not pick or pick.get('type') != 'Block':
+            raise ValueError(u'请将准星对准要选取的方块')
+        self.NotifyToServer('WorldToolRequest', {'action': 'point',
+            'pos': [int(pick[axis]) for axis in ('x', 'y', 'z')]})
+
+    def tool_hud_action(self, unused=None):
+        if self.hud is None or self.session is None:
+            return
+        if self.hud.carried == TERMINAL:
+            self.open_workspace()
+        elif self.hud.carried == SURVEY_WAND:
+            try:
+                if None not in self.bridge.corners:
+                    self.bridge.capture_new()
+                    self.session.page = 'library'
+                    self.open_workspace()
+                else:
+                    self.tool_mark_facing()
+            except (ValueError, TypeError, KeyError) as error:
+                self.bridge.notify(error.args[0])
+
+    def tool_reset(self, unused=None):
+        if self.hud and self.hud.carried == SURVEY_WAND:
+            self.NotifyToServer('WorldToolRequest', {'action': 'reset'})
 
     def key(self, args):
         if self.session is None or str(args.get('isDown')) != '1':
@@ -39,9 +115,7 @@ class HelloClientSystem(ClientSystem):
         if args.get('screenName') not in ('hud_screen', 'in_game_play_screen'):
             return
         if key == '80':
-            navigator.push(Workspace(session=self.session), key='modern_projection_workspace')
-        elif key in ('117', '118'):
-            self.session.action(self.bridge.mark, 0 if key == '117' else 1)
+            self.open_workspace()
 
     def response(self, args):
         if self.bridge:
@@ -58,7 +132,11 @@ class HelloClientSystem(ClientSystem):
     def render_tick(self, unused):
         if self.bridge:
             self.bridge.follow_projection()
+        if self.hud:
+            self.hud.update()
 
     def Destroy(self):
         if self.bridge:
             self.bridge.destroy()
+        if self.hud:
+            self.hud.destroy()

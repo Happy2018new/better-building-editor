@@ -1,0 +1,162 @@
+{
+  "namespace": "ModernProjectionTools",
+  "hudScreen@common.base_screen": {
+    "$screen_content": "ModernProjectionTools.hudContent"
+  },
+  "hudContent": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "open_button@common.button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [
+            -22,
+            -62
+          ],
+          "size": [
+            112,
+            28
+          ],
+          "visible": false,
+          "layer": 5,
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_normal",
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_hover",
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_pressed",
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "caption": {
+                "type": "label",
+                "text": "打开投影工作台",
+                "layer": 3,
+                "color": [
+                  0.1,
+                  0.2,
+                  0.3
+                ],
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [
+                  "100%",
+                  20
+                ],
+                "shadow": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "reset_button@common.button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [
+            66,
+            -62
+          ],
+          "size": [
+            38,
+            28
+          ],
+          "visible": false,
+          "layer": 5,
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_normal",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1,
+                "keep_ratio": false
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_hover",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1,
+                "keep_ratio": false
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/modern_projection/tool_button_pressed",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1,
+                "keep_ratio": false
+              }
+            },
+            {
+              "caption": {
+                "type": "label",
+                "text": "重选",
+                "color": [
+                  0.1,
+                  0.2,
+                  0.3
+                ],
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [
+                  "100%",
+                  22
+                ],
+                "layer": 3
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
