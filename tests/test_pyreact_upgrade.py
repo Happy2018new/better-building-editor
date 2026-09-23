@@ -11,6 +11,10 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 
 
+class GameDict(dict):
+    iteritems = dict.items
+
+
 class UpgradeTests(unittest.TestCase):
     def setUp(self):
         aliases = patch.dict(builtins.__dict__, long=int, basestring=str, unicode=str)
@@ -216,6 +220,55 @@ class UpgradeTests(unittest.TestCase):
         unsubscribe()
         self.host._publish_safe_area((1600, 600), (10, 0, 0, 0))
         self.assertEqual(values, [(0, 0, 0, 0), (0, 0, 0, 0)])
+
+    def test_callback_update_uses_latest_handler_without_native_commit(self):
+        from unittest.mock import Mock
+        handler = Mock()
+        builder = Mock()
+        style = self.style.Style(width=100, height=32)
+        first = self.primitives.Button(onClick=lambda: None, buttonBuilder=builder, style=style)
+        fiber = self.reconciler.create_fiber(first, self.runtime)
+        fiber.last_props, fiber.last_style = GameDict(fiber.props), fiber.style
+        fiber.primitive_state['_visible'] = True
+        fiber.native_path = '/root/button'
+        self.runtime.pyreact_register_button = Mock()
+        with patch.object(self.reconciler.native, 'get_control', return_value=Mock()):
+            self.reconciler.update_fiber(fiber, self.primitives.Button(onClick=handler, buttonBuilder=builder, style=style), self.runtime)
+        self.assertFalse(self.runtime._commit_native_dirty)
+        self.assertFalse(self.runtime._commit_layout_dirty)
+        self.runtime.pyreact_register_button.call_args.args[-1]()
+        handler.assert_called_once_with()
+        builder.assert_not_called()
+
+    def test_props_fast_path_keeps_visibility_and_layout_commits(self):
+        from unittest.mock import Mock
+        first = self.primitives.Panel(cacheLayout=True, style=self.style.Style(width=100,height=32))
+        fiber = self.reconciler.create_fiber(first, self.runtime)
+        fiber.last_props, fiber.last_style = GameDict(fiber.props), fiber.style
+        fiber.primitive_state['_visible'] = True
+        fiber.native_path = '/root/panel'
+        with patch.object(self.reconciler.native, 'get_control', return_value=Mock()):
+            self.reconciler.update_fiber(fiber, self.primitives.Panel(cacheLayout=False,
+                style=self.style.Style(width=120,height=32,visible=False)), self.runtime)
+        self.assertTrue(self.runtime._commit_native_dirty)
+        self.assertTrue(self.runtime._commit_layout_dirty)
+
+    def test_fixed_leaf_skips_native_measurement_but_auto_text_still_measures(self):
+        for primitive in (self.primitives.Label, self.primitives.Item):
+            fiber = self.reconciler.create_fiber(primitive(content='label', style=self.style.Style(width=100,height=32)),self.runtime)
+            fiber.last_props = fiber.props
+            node = self.layout.build_layout_tree(fiber)[0]
+            with patch.object(self.layout.native,'get_size',side_effect=AssertionError('fixed leaf native read')), \
+                 patch.object(self.layout.native,'measure_text',side_effect=AssertionError('fixed text measured')):
+                self.layout.measure(node,self.runtime,True)
+            self.assertEqual((100.,32.),(node.measured_w,node.measured_h))
+        fiber = self.reconciler.create_fiber(self.primitives.Label(content='wrap', style=self.style.Style(width=100)),self.runtime)
+        fiber.last_props = fiber.props
+        node = self.layout.build_layout_tree(fiber)[0]
+        with patch.object(self.layout.native,'measure_text',return_value=(80.,42.)) as measure:
+            self.layout.measure(node,self.runtime,True)
+        measure.assert_called_once()
+        self.assertEqual(42.,node.measured_h)
 
     def test_component_dump_id_roundtrips_to_same_fiber(self):
         @self.component.Component

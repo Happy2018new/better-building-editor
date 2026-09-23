@@ -279,8 +279,11 @@ def _update_primitive(fiber, host):
         renderer.apply_style(host, fiber, control, fiber.style, visible)
         host._commit_native_dirty = True
     if props_changed:
-        fiber.comp_type.apply_props(host, fiber, control, fiber.last_props, fiber.props)
-        host._commit_native_dirty = True
+        refresh = fiber.comp_type.apply_props(host, fiber, control, fiber.last_props, fiber.props)
+        # Explicit False opts out only of the props refresh. Layout, mounting
+        # and visibility still commit normally; None keeps custom code safe.
+        if refresh is not False:
+            host._commit_native_dirty = True
         if props_layout_changed:
             host._commit_layout_dirty = True
     if layout_changed:

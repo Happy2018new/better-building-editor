@@ -56,3 +56,5 @@ Style(transform=[{"scale": 1.2, "origin": (0.5, 1.0)}])
 ```
 
 如果控件同时具有 `color` 和 `opacity`，最终 native alpha 应等于继承后的 `Style.opacity * Color.alpha`。
+
+本地 Primitive 扩展：`apply_props` 可以显式返回 `False`，表示属性已在 Python 回调表或已有原生绘制控件中更新，不需要仅为这些 props 再调用整屏 `UpdateScreen`。默认返回 `None` 仍会刷新，兼容上游与自定义组件。挂载、显隐、层级及布局的提交不受此返回值影响；不要用它跳过结构更新。Button 在 `buttonBuilder` 引用不变时只替换最新点击回调；需要改变背景时传入新的 builder。

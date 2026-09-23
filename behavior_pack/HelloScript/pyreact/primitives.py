@@ -193,7 +193,7 @@ class Primitive(object):
         return []
 
     def apply_props(self, host, fiber, control, prev_props, next_props):
-        """应用原生属性。子类覆盖。"""
+        """应用原生属性。返回 False 可免除仅由 props 引起的整屏刷新。"""
 
     def props_affect_layout(self, prev_props, next_props, style):
         """props 变化是否可能改变自适应尺寸。"""
@@ -234,7 +234,7 @@ class PanelPrimitive(Primitive):
 
     def apply_props(self, host, fiber, control, prev_props, next_props):
         # Panel 无原生专属属性（布局/视觉由 layout 与 renderer 处理）
-        pass
+        return False
 
 
 class LabelPrimitive(Primitive):
@@ -1390,6 +1390,12 @@ class ButtonPrimitive(Primitive):
             return
         button_builder = next_props.get("buttonBuilder")
         on_click = next_props.get("onClick")
+
+        if prev_props is not None and prev_props.get("buttonBuilder") is button_builder:
+            # Callbacks live in the host table. Rebinding one does not change
+            # the native hit target or any of its three state backgrounds.
+            host.pyreact_register_button(fiber.native_path, None, None, on_click)
+            return False
 
         if button_builder is not None:
             for state in self.STATE_NAMES:

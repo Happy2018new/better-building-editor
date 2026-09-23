@@ -386,7 +386,12 @@ def measure(node, host, snapshot=False):
         # Style 中的显式 width/height（如 Item/Image 模板尺寸为 0 的情况）
         props = node.fiber.last_props
         content = props.get("content") if props else None
-        if content is not None and content != "":
+        if (isinstance(w_val, (int, long, float)) and not isinstance(w_val, bool) and
+                isinstance(h_val, (int, long, float)) and not isinstance(h_val, bool)):
+            # A definite leaf cannot gain intrinsic size after UpdateScreen.
+            # Avoid querying native text/item geometry that layout overrides.
+            size = (float(w_val), float(h_val))
+        elif content is not None and content != "":
             from .constants import font_size_to_scale
             font_scale = None
             if props and props.get("fontSize") is not None:

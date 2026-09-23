@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import math
 import time
+from collections import OrderedDict
 import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
@@ -18,6 +19,8 @@ from .pointer import PointerTracker
 from .input_mode import is_touch
 
 TEX = 'textures/modern_projection/'
+_TEXT_ELEMENTS = OrderedDict()
+_TEXT_ELEMENT_LIMIT = 512
 
 
 class Theme(object):
@@ -106,6 +109,8 @@ class LabelPrimitive(BaseLabelPrimitive):
                     native.clone(host, '/root/mp_type_tmpl', fiber.native_path, name)
                     state['glyph_pool'].append(host.GetBaseUIControl(fiber.native_path + '/' + name))
             self.paint_glyphs(fiber)
+            if prev_props and next_props.get('rasterText') and prev_props.get('rasterText'):
+                return False  # Atlas patches have already received their ink.
 
     def apply_layout(self, host, node):
         self.paint_glyphs(node.fiber)
@@ -134,23 +139,36 @@ class LabelPrimitive(BaseLabelPrimitive):
         state['glyph_paint'] = signature
         state['glyph_alpha'] = alpha
         pieces, widths = text_layout(value[:props['glyphSlots']], font, width, props.get('glyphLines', 1))
-        state['glyph_visible'] = len(pieces) if props.get('rasterText') else 0
-        for i, patch in enumerate(state['glyph_pool']):
-            shown = i < len(pieces) and props.get('rasterText')
-            patch.SetVisible(bool(shown), False)
+        previous_visible = state.get('glyph_visible', 0)
+        visible = min(len(pieces), len(state['glyph_pool'])) if props.get('rasterText') else 0
+        old_slots = state.setdefault('glyph_ink', {})
+        # Spare glyph slots are hidden once, not on every keystroke, material
+        # change or progress tick. Compare the visible glyphs individually too.
+        initialized = state.get('glyph_initialized', False)
+        limit = max(previous_visible, visible) if initialized else len(state['glyph_pool'])
+        for i, patch in enumerate(state['glyph_pool'][:limit]):
+            shown = i < visible
+            if not initialized or shown != (i < previous_visible):
+                patch.SetVisible(bool(shown), False)
             if shown:
                 data, row, x = pieces[i]
                 name, w, h, unused_step, uv, uv_size = data
                 if props.get('textAlign') == TextAlignment.center:
                     x += (width-widths[row])/2.
-                patch.asImage().SetSprite(TEX + 'type/' + name)
-                patch.asImage().SetSpriteUV(uv)
-                if uv_size is not None:
-                    patch.asImage().SetSpriteUVSize(uv_size)
-                patch.asImage().SetSpriteColor(color.to_rgb_tuple())
-                patch.SetPosition((x, row*font*1.5))
-                patch.SetSize((w*font, h*font))
+                ink = (name, uv, uv_size, color.to_rgb_tuple(), (x, row*font*1.5), (w*font, h*font))
+                old = old_slots.get(i)
+                if old != ink:
+                    image = patch.asImage()
+                    if old is None or old[0] != name: image.SetSprite(TEX + 'type/' + name)
+                    if old is None or old[1] != uv: image.SetSpriteUV(uv)
+                    if uv_size is not None and (old is None or old[2] != uv_size): image.SetSpriteUVSize(uv_size)
+                    if old is None or old[3] != ink[3]: image.SetSpriteColor(ink[3])
+                    if old is None or old[4] != ink[4]: patch.SetPosition(ink[4])
+                    if old is None or old[5] != ink[5]: patch.SetSize(ink[5])
+                    old_slots[i] = ink
                 patch.SetAlpha(alpha)
+        state['glyph_visible'] = visible
+        state['glyph_initialized'] = True
 
 
 class PaperDollPrimitive(BasePaperDollPrimitive):
@@ -273,9 +291,9 @@ Input = Field
 class ButtonPrimitive(BaseButtonPrimitive):
     """Native hit testing; feedback recolors the existing fixed-corner surface."""
     def apply_props(self, host, fiber, control, prev_props, next_props):
-        BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        refresh = BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
         if prev_props is not None:
-            return
+            return refresh
         button = control.asButton()
         button.AddHoverEventParams()
 
@@ -308,7 +326,7 @@ class PointerPrimitive(BaseButtonPrimitive):
     template_path = '/root/mp_pointer_tmpl'
 
     def apply_props(self, host, fiber, control, prev_props, next_props):
-        BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+        refresh = BaseButtonPrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
         tracker = fiber.primitive_state.get('pointer_tracker')
         if tracker is None:
             motion = clientApi.GetEngineCompFactory().CreateActorMotion(clientApi.GetLocalPlayerId())
@@ -328,6 +346,7 @@ class PointerPrimitive(BaseButtonPrimitive):
                                  ('move_out', 'SetButtonTouchMoveOutCallback'),
                                  ('enter', 'SetButtonHoverInCallback'), ('leave', 'SetButtonHoverOutCallback')):
                 getattr(button, method)(getattr(tracker, name))
+        return refresh
 
     def unmount(self, host, fiber):
         tracker = fiber.primitive_state.get('pointer_tracker')
@@ -457,6 +476,17 @@ def text(value, size=12, color=None, center=False, **style):
     if not isinstance(value, type('')):
         value = value.decode('utf8') if isinstance(value, bytes) else str(value)
     color = color or Theme.ink
+    # Immutable static labels can reuse their element/glyph tree. Mutable
+    # retained captions have a separate path and never enter this cache.
+    cache_key = (value, size, color.to_rgb_tuple(), color.a, center, Theme.scale, tuple(sorted(style.items())))
+    try:
+        cached = _TEXT_ELEMENTS.pop(cache_key, None)
+    except TypeError:
+        cache_key = None
+        cached = None
+    if cached is not None:
+        _TEXT_ELEMENTS[cache_key] = cached
+        return cached
     font = size * Theme.scale
     props = dict(content=value, fontSize=font, shadow=False, color=color,
                  textAlign=TextAlignment.center if center else TextAlignment.left)
@@ -489,7 +519,12 @@ def text(value, size=12, color=None, center=False, **style):
         props['style'] = NativeStyle(width=advance+1., height=font*1.4).merge(S(**style))
     # Glyph geometry is fixed by text/font/width. Retain it while a neighboring
     # tool changes; the layout engine invalidates this boundary on actual edits.
-    return NativeText(cacheLayout=True, **props)
+    result = NativeText(cacheLayout=True, **props)
+    if cache_key is not None:
+        _TEXT_ELEMENTS[cache_key] = result
+        if len(_TEXT_ELEMENTS) > _TEXT_ELEMENT_LIMIT:
+            _TEXT_ELEMENTS.popitem(last=False)
+    return result
 
 
 def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, node_ref=None, **style):
@@ -720,6 +755,11 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
 def Segments(items=None, value=None, onChange=None, width=216):
     use_theme()
     items = items or []
+    retained = use_ref([])
+    for identity, label in items:
+        if identity not in retained.current:
+            retained.current.append(identity)
+    positions = dict((pair[0], (i, pair[1])) for i, pair in enumerate(items))
     index = next((i for i, pair in enumerate(items) if pair[0] == value), 0)
     destination, set_destination = use_state(index)
 
@@ -739,11 +779,26 @@ def Segments(items=None, value=None, onChange=None, width=216):
                  children=surface(color=Theme.tint, radius=4, width='100%', height='100%', children=[
                      Image(color=Theme.blue, style=S(position=Position.absolute,
                          left=8, right=8, bottom=0, height=2))])),
-        row([JellyButton(key=pair[0], buttonBuilder=transparent, onClick=partial(onChange, pair[0]),
-                    hoverColor=Color(0x477AF42E), radius=4, inset=1,
-                    style=S(width=cell, height=26),
-                    children=row(([icon(SEGMENT_ICONS[pair[1]], Theme.blue if pair[0] == value else Theme.muted, 13)]
-                                  if pair[1] in SEGMENT_ICONS else []) +
-                                 [text(pair[1], 11, Theme.blue if pair[0] == value else Theme.muted)],
-                                 width='100%', gap=5, justifyContent=JustifyContent.center)) for pair in items], gap=0,
-            position=Position.absolute, left=3, top=3, width=width - 6, height=26)])
+        Panel(style=S(position=Position.absolute, left=3, top=3, width=width-6, height=26), children=[
+            SegmentChoice(key=identity, identity=identity, label=positions.get(identity, (0, ''))[1],
+                index=positions.get(identity, (0, ''))[0], visible=identity in positions,
+                selected=identity == value, cell=cell, onChange=onChange)
+            for identity in retained.current])])
+
+
+@Component
+def SegmentChoice(identity=None, label='', index=0, visible=True, selected=False, cell=70, onChange=None):
+    use_theme()
+    choose = use_callback(partial(onChange, identity), [onChange, identity])
+    cached = use_ref(None)
+    def content():
+        ink = Theme.blue if selected else Theme.muted
+        return row(([icon(SEGMENT_ICONS[label], ink, 13)] if label in SEGMENT_ICONS else []) +
+                   [text(label, 11, ink)], width='100%', gap=5, justifyContent=JustifyContent.center)
+    rendered = use_memo(content, [label, selected, Theme.scale])
+    if visible:
+        cached.current = rendered
+    return Panel(style=S(position=Position.absolute, left=index*cell, width=cell, height=26,
+                         display=Display.flex if visible else Display.none), children=
+        JellyButton(buttonBuilder=transparent, onClick=choose, hoverColor=Color(0x477AF42E), radius=4, inset=1,
+                    style=S(width=cell, height=26), children=cached.current))

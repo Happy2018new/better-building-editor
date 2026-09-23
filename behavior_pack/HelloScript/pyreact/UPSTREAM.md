@@ -18,11 +18,14 @@
 | `layout.py` | 固定宽高容器可用 `cacheLayout` 复用未变化的测量和布局；尺寸、后代结构、透明度、变换及窗口尺寸变化失效。`display:none` 子树不构建布局节点，原生控件继续保留。 |
 | `renderer.py` | 仅位置、尺寸和透明度变化时不额外调用整屏 UpdateScreen；结构变化仍正常提交。 |
 | `native.py` | 保留上游中文 key 净化，但输出 ASCII `str` 控件名；网易 Python 2 SDK 克隆 Unicode 名称的容器后，后代按钮可显示却无法接收原生点击。 |
+| `primitives.py` / `reconciler.py` | `apply_props` 显式返回 False 时免除仅由 props 触发的整屏刷新；默认 None 保持兼容。Button 的 builder 引用不变时只更新回调；Panel 的空 props 更新不刷新。挂载、布局及显隐仍提交。 |
 | `debug.py` | 本项目原生控件、指针、输入字体及有界草稿诊断；MCDK 与剪贴板共用诊断处理。剪贴板回复重试不重复编辑，不重复解析未改变的大回复；组件的调试 ID 支持反向查询。 |
 
 配套 `resource_pack/ui/PyreactBase.json` 保留现代化投影的模板注册。
 其中 `mp_pointer_tmpl` 引用 `ModernProjection.pointer`，以 `is_handle_button_move_event: true` 开启三维视口和滑条的原生触控移动事件；注册回调本身不会启用这些事件。
 `mp_inventory_modal_tmpl` 引用应用内的原生 `input_panel` 模态作用域，方块目录用它隔离底层输入；避免整屏 Button 抢占 edit_box 的选择事件。输入框聚焦底色的尺寸、颜色和初始隐藏状态由原生 JSON 维护，更新结果列表不再依赖 Python 缓存的九宫格尺寸。以上属于应用模板扩展，没有修改上游 Modal 组件。
 本次上游没有更改该 JSON；自定义输入模板继续保留原字体、整数 GUI 字号、原生占位子树与聚焦时深灰底色。
+
+2026-09-23 性能补丁另让固定数值宽高的叶子直接使用声明尺寸，避免查询随后会被布局覆盖的原生尺寸；自适应文本仍正常量测。应用层静态文字 Element 使用有界缓存，动态字形池按字形差异更新，材质通道按钮保留原生命中控件。验证见 `docs/PERFORMANCE_67.md`。
 
 仓库内的 `docs/PYREACT_UPSTREAM.md` 记录调试工具迁移、验证结果与下一次更新方式。
