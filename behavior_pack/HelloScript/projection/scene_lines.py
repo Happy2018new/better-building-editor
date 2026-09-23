@@ -1,4 +1,5 @@
 """Camera-space overlay geometry, shared by the native scene and tests."""
+import math
 from .model import bounds
 
 CURSOR_PERIOD = 512
@@ -87,6 +88,24 @@ def clip_line(a, b, width, height):
     if low > high:
         return None
     return ((a[0] + low * dx, a[1] + low * dy), (a[0] + high * dx, a[1] + high * dy))
+
+
+def clip_stroke(a, b, width, height, thickness):
+    """Keep the entire rotated Image quad inside the model's scissor.
+
+    A centre-line clip leaves rotated corners outside. Native sprite pixels
+    also differ from GetRotateRect at fractional GUI dimensions. Reserve one
+    UI raster unit at the boundary; do not translate interior points.
+    """
+    dx, dy = b[0]-a[0], b[1]-a[1]
+    length = math.hypot(dx, dy)
+    if length < 1e-9:
+        return None
+    px, py = 1. + abs(dy)*thickness/(2.*length), 1. + abs(dx)*thickness/(2.*length)
+    if width <= 2.*px or height <= 2.*py:
+        return None
+    segment = clip_line((a[0]-px,a[1]-py), (b[0]-px,b[1]-py), width-2.*px, height-2.*py)
+    return tuple((x+px,y+py) for x,y in segment) if segment else None
 
 
 def clip_depth(a, b, plane):

@@ -13,7 +13,7 @@ from .model import bounds, MAX_AXES
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_line, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
+from .scene_lines import cuboid, grid_lines, clip_stroke, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
 from .preview_depth import depth_color, tile_layer
 from .input_mode import is_touch
 
@@ -94,6 +94,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     models_pending = use_ref(True)
     pointer, canvas = use_ref(None), use_ref(None)
     clipping = use_ref(None)
+    grid_clipping, edge_clipping, cursor_clipping = use_ref(None), use_ref(None), use_ref(None)
     clip_geometry = use_ref(None)
     def create_camera():
         result = OrbitCamera(*session.camera_pose)
@@ -137,8 +138,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     def clip():
         if canvas.current:
             canvas.current.SetClipsChildren(True)
-        if clipping.current:
-            clipping.current.SetClipsChildren(True)
+        for ref in (clipping, grid_clipping, edge_clipping, cursor_clipping):
+            if ref.current:
+                ref.current.SetClipsChildren(True)
     use_effect(clip, [])
 
     def restore_view():
@@ -151,6 +153,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if active:
             for dolls, surfaces, preview in registry.values():
                 preview.invalidate()
+                preview.clip_offset = None
     use_effect(restore_view, [active, width, height, Theme.scale, session.page])
 
     def aim():
@@ -217,12 +220,13 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                         max(0., math.floor(y + ch) - math.ceil(y)))
             if geometry != clip_geometry.current:
                 clip_geometry.current = geometry
-                clipping.current.SetPosition((dx, dy))
-                clipping.current.SetSize(geometry[2:])
-                for dolls, surfaces, preview in registry.values():
-                    for surface in surfaces:
-                        if surface.current:
-                            surface.current.SetPosition((-dx, -dy))
+                # Model scissoring and rotated Image lines must share the
+                # same integral rectangle, including after window motion.
+                for ref in (clipping, grid_clipping, edge_clipping, cursor_clipping):
+                    if ref.current:
+                        ref.current.SetPosition((dx, dy))
+                        ref.current.SetSize(geometry[2:])
+                outline.current = cursor_outline.current = grid_outline.current = None
         if not active:
             session.cursor_cell = None
             drag.current = None
@@ -285,7 +289,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         plane = camera.depth_plane(session.scene_size)
         plane_offset = plane[1] if plane else sum(session.scene_size[i]*max(0.,toward[i]) for i in range(3))+.5
         biome = session.editor.document.biome
-        model_key = (signature, session.tiles.publication, len(registry), biome)
+        model_key = (signature, session.tiles.publication, len(registry), biome, clip_geometry.current)
         update_models = model_key != models_signature.current or models_pending.current
         models_signature.current = model_key
         right, up, unused_toward = camera.basis()
@@ -295,6 +299,16 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             dolls, surfaces, preview = controls
             if not all(ref.current for ref in dolls+surfaces) or not preview.tint.current:
                 continue
+            # Tiles mount over several frames, often after the scissor was
+            # positioned. Each new pair needs the same origin compensation;
+            # updating only existing tiles when the scissor changes leaves
+            # seams of ceil(canvas_origin)-canvas_origin between neighbours.
+            dx, dy = clip_geometry.current[:2] if clip_geometry.current else (0., 0.)
+            clip_offset = (-dx, -dy)
+            if getattr(preview, 'clip_offset', None) != clip_offset:
+                for surface in surfaces:
+                    surface.current.SetPosition(clip_offset)
+                preview.clip_offset = clip_offset
             if not hasattr(preview, 'native_dolls'):
                 preview.native_dolls = tuple(ref.current.asNeteasePaperDoll() for ref in dolls)
             part = session.tiles.parts.get(key)
@@ -413,6 +427,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         def draw_lines(refs, segments, thickness, gradient_bounds=None, depth_plane=None):
             ranges = []
             origin = session.scene_origin
+            dx, dy, clip_width, clip_height = clip_geometry.current or (0., 0., native_width, native_height)
             gradient_size = tuple(gradient_bounds[1][i] - gradient_bounds[0][i] + 1 for i in range(3)) if gradient_bounds else None
             for index, ref in enumerate(refs):
                 ranges.append(None)
@@ -426,7 +441,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                     a,b = segment
                     a = project((a[0]-origin[0],a[1]-origin[1],a[2]-origin[2]))
                     b = project((b[0]-origin[0],b[1]-origin[1],b[2]-origin[2]))
-                    segment = clip_line(a, b, native_width, native_height)
+                    a, b = (a[0]-dx, a[1]-dy), (b[0]-dx, b[1]-dy)
+                    segment = clip_stroke(a, b, clip_width, clip_height, thickness)
                     if segment and hues is not None:
                         ranges[index] = tuple(hues[0] + (hues[1]-hues[0])*t for t in segment_fractions(a, b, segment))
                 old = line_state.get(id(ref))
@@ -619,17 +635,20 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     use_event('MouseWheelClientEvent', wheel, active)
     use_animation_frame(tick)
     return Panel(ref=canvas, cacheLayout=True, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=-1, visible=active), children=[
+        Panel(ref=grid_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=-1, visible=active), children=[
             Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
-        Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%'), children=[
+        # A covered PaperDoll can leak a one-pixel viewport-background row
+        # through modal controls at its scissor boundary. Suspend
+        # drawing while inactive; retain the controls and geometry for return.
+        Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%', visible=active), children=[
             PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
         ]),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[
+        Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[
             Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(edge_refs)]),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=371, visible=active), children=[
+        Panel(ref=cursor_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=371, visible=active), children=[
             TypeImage(ref=ref, key='cursor%d' % i, src='textures/modern_projection/cursor_spectrum', color=Theme.white, rotatePivot=(.5, .5),
                   style=S(position=Position.absolute, width=1, height=1, visible=False))
             for i, ref in enumerate(cursor_refs)]),
