@@ -765,8 +765,7 @@ class Session(object):
                 raise ValueError('建筑库保存失败，可在建筑库重试导入')
             self.library, self.library_serial = candidate, identity
             self.world_import_document = self.world_import_origin = None
-            self.editor.message = '世界选区已加入建筑库，当前草稿保持完整'
-            self.bridge.notify(self.editor.message)
+            self.editor.message = ''
             self.emit('library')
 
         self._start_io(save_steps(self.bridge, doc, identity), commit, '正在保存世界选区到建筑库')

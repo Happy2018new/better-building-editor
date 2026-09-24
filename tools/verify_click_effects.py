@@ -132,9 +132,8 @@ def main():
     ui.call('click', ui.nodes('Button', close)[0]['id'])
     time.sleep(.6)
     assert capture._activate_window(hwnd)
-    capture.user32.keybd_event(80, 0, 0, 0)
-    time.sleep(.08)
-    capture.user32.keybd_event(80, 0, 2, 0)
+    from verify_world_tools import game as world_game
+    world_game('owner.open_workspace()\n_result=True')
     time.sleep(.8)
     effect = ui.nodes('ClickEffects', ui.call('dump_tree')['tree'])[0]
     refs = ui.nodes('Image', effect)

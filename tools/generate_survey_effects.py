@@ -10,12 +10,21 @@ def write(path, data):
 
 
 def geometry(name, cubes):
+    bones = [{'name':'root','pivot':[0,0,0],'cubes':cubes}]
+    crystal_range = {'survey_stars':(449,2033), 'survey_strike':(149,333)}.get(name)
+    if crystal_range:
+        lo, hi = crystal_range
+        # Keep encoded addresses intact. Bone material routing separates light
+        # (additive/no depth writes) from the existing crystal surface pass.
+        bones = [{'name':'root','pivot':[0,0,0]},
+                 {'name':'crystals','parent':'root','pivot':[0,0,0],'cubes':cubes[lo:hi]},
+                 {'name':'glow','parent':'root','pivot':[0,0,0],'cubes':cubes[:lo]+cubes[hi:]}]
     write('models/entity/modern_projection_' + name + '.geo.json', {
         'format_version':'1.12.0', 'minecraft:geometry':[{
             'description':{'identifier':'geometry.modern_projection.' + name,
                 'texture_width':2,'texture_height':2,'visible_bounds_width':140,
                 'visible_bounds_height':140,'visible_bounds_offset':[0,0,0]},
-            'bones':[{'name':'root','pivot':[0,0,0],'cubes':cubes}]}]})
+            'bones':bones}]})
 
 
 def generate():
@@ -29,6 +38,12 @@ def generate():
         geometry(name,[{'origin':[(i%64)*4-.5,(i//64)*4-.5,0],'size':[1,1,0],
             'uv':{'north':{'uv':[0,0],'uv_size':[2,2]}}} for i in range(count)])
     for name in ('survey_wire','survey_guide','survey_stars','survey_strike'):
+        materials = {'default':'modern_projection_' + name}
+        controller = 'controller.render.modern_projection.anchor'
+        if name in ('survey_stars','survey_strike'):
+            materials['glow'] = ('modern_projection_survey_glow' if name == 'survey_stars'
+                                 else 'modern_projection_survey_strike_glow')
+            controller = 'controller.render.modern_projection.survey_particles'
         behavior = json.loads((ROOT.parent / 'behavior_pack/entities/modern_projection_outline.json').read_text())
         behavior['minecraft:entity']['description']['identifier'] = 'modern_projection:' + name
         (ROOT.parent / ('behavior_pack/entities/modern_projection_' + name + '.json')).write_text(
@@ -36,11 +51,11 @@ def generate():
         write('entity/modern_projection_' + name + '.entity.json', {
             'format_version':'1.10.0','minecraft:client_entity':{'description':{
                 'identifier':'modern_projection:' + name,
-                'materials':{'default':'modern_projection_' + name},
+                'materials':materials,
                 'textures':{'default':'textures/modern_projection/transparent'},
                 'geometry':{'default':'geometry.modern_projection.outline' if name == 'survey_wire'
                             else 'geometry.modern_projection.' + name},
-                'render_controllers':['controller.render.modern_projection.anchor']}}})
+                'render_controllers':[controller]}}})
 
 
 if __name__ == '__main__':

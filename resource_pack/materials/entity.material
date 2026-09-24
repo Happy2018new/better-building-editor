@@ -23,6 +23,14 @@
     "modern_projection_survey_strike:modern_projection_survey_stars": {
       "+defines": ["SURVEY_STRIKE"]
     },
+    "modern_projection_survey_glow:modern_projection_survey_stars": {
+      "+defines": ["SURVEY_GLOW"],
+      "+states": ["DisableDepthWrite"],
+      "blendSrc": "SourceAlpha", "blendDst": "One"
+    },
+    "modern_projection_survey_strike_glow:modern_projection_survey_glow": {
+      "+defines": ["SURVEY_STRIKE"]
+    },
     "modern_projection_outline:entity_static": {
       "vertexShader": "shaders/glsl/modern_projection_outline.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_outline.fragment",

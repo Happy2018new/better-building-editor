@@ -265,7 +265,6 @@ class ClientBridge(object):
         from .tool_items import selection
         origin, size = selection(*self.corners)
         self.request('capture', {'origin': origin, 'size': size, 'source': 'world_item'})
-        self.notify('正在读取选区；导入后将新建配置，不覆盖当前草稿')
 
     def use_player_origin(self):
         self.session.origin = self.player_origin()

@@ -13,7 +13,7 @@ from verify_materials_paste import game
 from verify_selection_scope import diagnostic, wait_preview
 from verify_global_cursor import screen_point
 from verify_interaction import pointer
-from native_input_mode import key, set_touch
+from native_input_mode import key, set_touch, open_workspace
 
 
 def main():
@@ -21,7 +21,7 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p');time.sleep(3.)
+        open_workspace();time.sleep(3.)
     set_touch(False)
     diagnostic.identity=None
     diagnostic({'fixture':'solid','size':[8,8,8],'layer':0,'camera':[35,25,1.]});wait_preview()

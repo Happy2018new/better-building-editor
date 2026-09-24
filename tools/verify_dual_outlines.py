@@ -6,6 +6,7 @@ import mss
 import numpy as np
 from PIL import Image
 import verify_ui as ui
+from verify_world_tools import game
 import capture_screen as capture
 from verify_selection_scope import diagnostic, wait_preview
 from verify_selection_outline import outline, same_outline, click_voxel
@@ -38,7 +39,7 @@ def main():
         action = next(n for n in ui.nodes('Action') if n['props'].get('glyph') == 'close')
         ui.call('click', ui.nodes('Button', action)[0]['id'])
         time.sleep(.6)
-        key(80)
+        game('owner.open_workspace()\n_result=True')
         time.sleep(1.)
         diagnostic.identity = None  # Closing the UI destroys the old Scene.
 

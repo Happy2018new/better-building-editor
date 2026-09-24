@@ -7,7 +7,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_font_share_polish import game
 from verify_whitelist_runtime import settle
-from native_input_mode import key, set_touch, state
+from native_input_mode import key, set_touch, state, open_workspace
 
 
 def alignment():
@@ -43,7 +43,7 @@ def main():
     assert window and capture._activate_window(window['hwnd'])
     original_touch=state()['simulated']
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p');time.sleep(3)
+        open_workspace();time.sleep(3)
     game('''fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',
 'zoom','camera_pan','camera_pivot','camera_depth','camera_depth_pose','camera_pose','focus_view','grid','material_browser')

@@ -662,7 +662,6 @@ def Guide(session=None, revision=0, width=760, height=440):
         Panel(style=S(flex=1, gap=5), children=[text(title, 16), text(hint, 11, Theme.muted)]),
         icon(glyph, Theme.blue, 24),
     ])) for number, title, hint, glyph in sections] + [
-        text('快捷入口：P 打开工作台', 12, Theme.muted),
         text('投影终端：右键使用，或点击手持时的屏幕按钮打开工作台。', 12, Theme.muted),
         text('投影测绘器：右键或轻触两个方块选点，左键导入；触屏选完后点击导入选区。', 12, Theme.muted),
         text('世界选区只保存方块，不包含箱子内容、生物或命令方块数据。', 12, Theme.muted),

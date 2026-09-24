@@ -5,6 +5,8 @@ import time
 from .outline_settings import defaults, normalize
 
 GOLD_PRESET = defaults()['golden']
+# Long enough to read the individual fragments forming at the selected face.
+CLICK_FORMATION_SECONDS = 1.8
 # Native Facing: down, up, north, south, west, east. Shader axes: -X,+X,-Y,+Y,-Z,+Z.
 NATIVE_FACES = (2, 3, 4, 5, 0, 1)
 
@@ -73,15 +75,13 @@ class WireEffects(object):
         if self.reduced_motion:
             flow = 0.
         self._uniform(record, 1, record['size'] + (flow,))
-        duration = .55 if point else 1.2
+        duration = CLICK_FORMATION_SECONDS if point else 1.2
         entered = min(1., max(0., (now-record['started']) / duration))
         self._uniform(record, 3, (entered, options['brightness'], style+options['width']*.1,
                                  0. if self.reduced_motion else options['orbit_speed']))
         camera = self.camera or self.anchor or record['centre']
         view = tuple(float(camera[i])-record['centre'][i] for i in range(3))
         density = options['density']
-        if record['kind'] == 'guide' and isinstance(self, SurveyEffects):
-            density = -density  # Only the survey guide draws the white volume.
         self._uniform(record, 4, view + (float(record['face']) if point else density,))
 
     def _move(self, record, anchor):

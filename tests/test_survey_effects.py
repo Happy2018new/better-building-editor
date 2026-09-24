@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack'))
-from HelloScript.projection.survey_effects import SurveyEffects, WireEffects
+from HelloScript.projection.survey_effects import SurveyEffects, WireEffects, CLICK_FORMATION_SECONDS
 from HelloScript.projection.outline_settings import defaults, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +29,10 @@ class SurveyAssetTests(unittest.TestCase):
     def test_encoded_particles_survive_axis_mirroring_and_mobile_half_precision(self):
         for kind, count in [('wire',576),('guide',576),('stars',2560),('strike',512)]:
             path=ROOT/('resource_pack/models/entity/modern_projection_survey_'+kind+'.geo.json')
-            cubes=json.loads(path.read_text())['minecraft:geometry'][0]['bones'][0]['cubes']
+            bones=json.loads(path.read_text())['minecraft:geometry'][0]['bones']
+            cubes=[cube for bone in bones for cube in bone.get('cubes',[])]
+            cubes.sort(key=lambda cube: round((cube['origin'][0]+.5)/4.) +
+                       round((cube['origin'][1]+.5)/4.)*64)
             self.assertEqual(count,len(cubes))
             for expected,cube in enumerate(cubes):
                 for sign_x,sign_y in [(1,1),(-1,1),(1,-1),(-1,-1)]:
@@ -54,17 +57,46 @@ class SurveyAssetTests(unittest.TestCase):
             self.assertEqual(bp['description']['identifier'],rp['identifier'])
             self.assertTrue(any(key.split(':')[0]==rp['materials']['default'] for key in materials))
 
-    def test_fill_reuses_client_only_guide_without_depth_writes(self):
+    def test_orbit_glow_has_additive_material_and_crystals_keep_depth(self):
+        materials=json.loads((ROOT/'resource_pack/materials/entity.material').read_text())['materials']
+        controllers=json.loads((ROOT/'resource_pack/render_controllers/modern_projection_anchor.json').read_text())['render_controllers']
+        self.assertEqual([{'*':'Material.default'},{'glow':'Material.glow'}],
+                         controllers['controller.render.modern_projection.survey_particles']['materials'])
+        glow=materials['modern_projection_survey_glow:modern_projection_survey_stars']
+        self.assertEqual('One',glow['blendDst'])
+        self.assertIn('DisableDepthWrite',glow['+states'])
+        self.assertNotIn('DisableDepthTest',glow['+states'])
+        crystal=materials['modern_projection_survey_stars:entity_static']
+        self.assertEqual('OneMinusSrcAlpha',crystal['blendDst'])
+        self.assertNotIn('DisableDepthWrite',crystal['+states'])
+        for kind,lo,hi in [('stars',449,2033),('strike',149,333)]:
+            path=ROOT/('resource_pack/models/entity/modern_projection_survey_'+kind+'.geo.json')
+            bones=json.loads(path.read_text())['minecraft:geometry'][0]['bones']
+            for bone in bones[1:]:
+                self.assertEqual('root',bone['parent'])
+                for cube in bone['cubes']:
+                    origin=cube['origin']
+                    index=round((origin[0]+.5)/4.)+round((origin[1]+.5)/4.)*64
+                    self.assertEqual(bone['name']=='crystals',lo<=index<hi)
+            entity=json.loads((ROOT/('resource_pack/entity/modern_projection_survey_'+kind+'.entity.json')).read_text())
+            desc=entity['minecraft:client_entity']['description']
+            self.assertIn('glow',desc['materials'])
+            glow_key=next(key for key in materials if key.split(':')[0]==desc['materials']['glow'])
+            self.assertIn('SURVEY_STRIKE' if kind=='strike' else 'SURVEY_GLOW',materials[glow_key]['+defines'])
+            self.assertEqual(['controller.render.modern_projection.survey_particles'],desc['render_controllers'])
+
+    def test_guide_draws_only_edges_without_white_faces_or_grid(self):
         materials=json.loads((ROOT/'resource_pack/materials/entity.material').read_text())['materials']
         guide=materials['modern_projection_survey_guide:entity_static']
         self.assertIn('Blending',guide['+states'])
         self.assertIn('DisableDepthWrite',guide['+states'])
         self.assertNotIn('DisableDepthTest',guide['+states'])
         shader=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.vertex').read_text()
-        self.assertIn('density<0. && id<6.',shader)
-        self.assertIn('side*(size.x*.5+.02)',shader)
+        self.assertNotIn('density<0.',shader)
+        self.assertIn('float edge=floor(id/48.)',shader)
+        self.assertNotIn('effectKind=8.',shader)
         fragment=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.fragment').read_text()
-        self.assertIn('vec2 grid=fract(tile)',fragment)
+        self.assertNotIn('vec2 grid=fract(tile)',fragment)
 
 
 class SurveyEffectTests(unittest.TestCase):
@@ -96,7 +128,7 @@ class SurveyEffectTests(unittest.TestCase):
     def test_large_box_moves_culling_anchor_without_rebuilding_or_moving_visual_bounds(self):
         self.effect.replace((10,64,20),(64,128,64))
         guide = self.effect.layers[0]
-        self.assertLess(self.uniforms[(guide['id'],4)][3],0.)
+        self.assertGreater(self.uniforms[(guide['id'],4)][3],0.)
         ids = set(self.live)
         self.effect.follow((1.,2.,3.))
         self.effect.replace((10,64,20),(64,128,64))
@@ -205,14 +237,24 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertIs(marker,self.effect.points[0])
         self.assertEqual(1,marker['face'])
 
-    def test_click_marker_enters_faster_than_box(self):
+    def test_click_formation_runs_once_then_replays_without_new_actors(self):
         with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
             self.effect.replace((0,0,0),(2,2,2))
             self.effect.sync_points([(0,0,0),None])
         with patch('HelloScript.projection.survey_effects.time.time',return_value=10.55):
             self.effect.follow((0.,0.,5.))
-        self.assertEqual(1.,self.uniforms[(self.effect.points[0]['id'],3)][0])
+        marker=self.effect.points[0]
+        actors=set(self.live)
+        self.assertAlmostEqual(.55/CLICK_FORMATION_SECONDS,self.uniforms[(marker['id'],3)][0])
         self.assertLess(self.uniforms[(self.effect.layers[0]['id'],3)][0],.5)
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=13.):
+            self.effect.follow((0.,0.,5.))
+        self.assertEqual(1.,self.uniforms[(marker['id'],3)][0])
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=14.):
+            self.effect.pulse_point(0)
+            self.effect.follow((0.,0.,5.))
+        self.assertEqual(0.,self.uniforms[(marker['id'],3)][0])
+        self.assertEqual(actors,self.live)
 
     def test_new_selection_samples_current_camera(self):
         self.effect.camera=(-10.,-10.,-10.)

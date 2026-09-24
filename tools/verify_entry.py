@@ -1,8 +1,9 @@
-"""Exercise the real P/F6/F7 handlers without sending keys to another application."""
+"""Verify that P stays in-world and the terminal still opens the workspace."""
 import json
 import time
 import verify_ui as ui
 import capture_screen as capture
+from verify_world_tools import game, input_step, state, equip
 
 
 def key(hwnd, code):
@@ -13,32 +14,39 @@ def key(hwnd, code):
 
 
 def main():
-    if not capture.IS_WINDOWS:
-        raise RuntimeError('This entry check requires the Windows development game.')
-    window = capture._find_game_window(capture._list_windows(), process_name='Minecraft.Windows.exe')
-    assert window and not window['minimized'], 'An open game window is required'
-    ui.click('工作台')
-    ui.call('navigator', value={'action': 'close'})
-    time.sleep(.5)
-    for code in (117, 118, 80):
-        key(window['hwnd'], code)
-    current = ui.labels()
-    ui.check('P reopens workspace', '场景视图' in current)
-    ui.check('F7 marks the second corner', any(s.startswith('已标记终点：') for s in current))
-    ui.click('读取选区')
-    ui.click('确认继续')
-    for unused in range(20):
-        current = ui.labels()
-        if any(s.startswith('已读取世界选区') for s in current):
-            break
-        time.sleep(.3)
-    ui.check('F6 and F7 define a readable world selection', any(s.startswith('已读取世界选区') for s in current))
-    ui.save('ui_entry_verified')
-    (ui.OUT / 'entry_checks.json').write_text(json.dumps(ui.checks, indent=2), encoding='utf8')
-    ui.click('入门指南')
-    ui.click('载入庭院示例')
-    ui.click('确认继续')
-    ui.click('工作台')
+    original = state()
+    game('''item=api.GetEngineCompFactory().CreateItem(player)
+api._entry_carried=item.GetPlayerItem(api.GetMinecraftEnum().ItemPosType.CARRIED,0)
+_result=True''',server=True)
+    try:
+        if original['open']:
+            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+            time.sleep(.6)
+        if original['touch']:
+            input_step('/key',keys='f11')
+            time.sleep(.3)
+        assert equip('modern_projection:terminal')
+        time.sleep(.4)
+        input_step('/key',keys='p')
+        time.sleep(.5)
+        ui.check('P leaves workspace closed while holding terminal',not state()['open'])
+        input_step('/click',button='right',at=[.5,.4])
+        time.sleep(2.)
+        ui.check('Terminal right-click opens workspace',state()['open'])
+        ui.save('ui_entry_verified')
+    finally:
+        if state()['open']:
+            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+            time.sleep(.6)
+        if state()['touch'] != original['touch']:
+            input_step('/key',keys='f11')
+        game('''item=api.GetEngineCompFactory().CreateItem(player)
+item.SpawnItemToPlayerCarried(api._entry_carried or {'itemName':'minecraft:air','count':0,'auxValue':0},player)
+del api._entry_carried
+_result=True''',server=True)
+        if original['open']:
+            game('owner.open_workspace()\n_result=True')
+        (ui.OUT / 'entry_checks.json').write_text(json.dumps(ui.checks, indent=2), encoding='utf8')
 
 
 if __name__ == '__main__':

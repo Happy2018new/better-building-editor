@@ -1,11 +1,11 @@
-"""Measure game-thread mount/flush cost of actual P reopens, not IPC latency."""
+"""Measure game-thread mount/flush cost of workspace reopens, not IPC latency."""
 import json
 import sys
 import time
 import verify_ui as ui
 import capture_screen as capture
 from verify_materials_paste import game
-from native_input_mode import key
+from native_input_mode import open_workspace
 
 
 def main():
@@ -42,12 +42,12 @@ _result=True
             game('from HelloScript.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
             time.sleep(.6)
             game("api._open_stats={'commits':[], 'clones':0, 'mounts':[]}\n_result=True")
-            key('p')
+            open_workspace()
             time.sleep(2.)
             result=game('_result=api._open_stats')
             rows.append(result)
             print(json.dumps(result), flush=True)
-            ui.check('P reopens workspace %d' % repeat, bool(ui.nodes('Workspace')))
+            ui.check('Workspace reopens %d' % repeat, bool(ui.nodes('Workspace')))
     finally:
         game('''from HelloScript.pyreact import native, host
 from HelloScript.pyreact.navigator import NavigatorScreen

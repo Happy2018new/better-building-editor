@@ -13,7 +13,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_materials_paste import game
 from verify_large_editor import snapshot
-from native_input_mode import key, set_touch
+from native_input_mode import key, set_touch, open_workspace
 
 
 PROBE = '''from HelloScript.pyreact.navigator import NavigatorScreen
@@ -58,7 +58,7 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p');time.sleep(2.)
+        open_workspace();time.sleep(2.)
     set_touch(False)
     game('s.set("page","workspace")\ns.set("material_browser",None)\ns.set("pending_confirm",None)\ns.set("pending_rename",None)\n_result=True')
     time.sleep(.5)
@@ -156,8 +156,8 @@ def main():
         reset();perform(lambda:click(close_action()))
         samples('workspace close','WorkspaceMotion',False)
         ui.check('workspace closes after native exit motion',not game('_result=navigator.contains("modern_projection_workspace")'))
-        reset();perform(lambda:key('p'),1.5);time.sleep(1.)
-        samples('workspace P open','WorkspaceMotion',True)
+        reset();perform(open_workspace,1.5);time.sleep(1.)
+        samples('workspace open','WorkspaceMotion',True)
         ui.check('workspace returns to exact origin',game('_result=[r[3] for r in api._motion_samples if r[1]=="WorkspaceMotion"][-1]')==0.)
         if '--workspace-only' in sys.argv:
             return

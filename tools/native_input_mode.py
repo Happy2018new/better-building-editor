@@ -21,6 +21,12 @@ def key(name):
     assert not result.get('isError') and result.get('structuredContent', {}).get('ok'), result
 
 
+def open_workspace():
+    """Open the real workspace for fixture setup without a removed hotkey."""
+    from verify_world_tools import game
+    return game('owner.open_workspace()\n_result=True')
+
+
 def set_touch(enabled):
     if state()['simulated'] == enabled:
         return
@@ -30,7 +36,7 @@ def set_touch(enabled):
     key('f11')
     time.sleep(.3)
     assert state()['simulated'] == enabled, 'F11 did not change native touch simulation'
-    key('p')
+    open_workspace()
     time.sleep(.8)
     from verify_selection_scope import diagnostic
     diagnostic.identity = None

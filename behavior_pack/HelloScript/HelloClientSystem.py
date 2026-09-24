@@ -21,7 +21,6 @@ class HelloClientSystem(ClientSystem):
         self.hud = None
         self.tool_touch_pick = None
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
-        self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'OnKeyPressInGame', self, self.key)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'GameRenderTickEvent', self, self.render_tick)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'ProjectionResponse', self, self.response)
@@ -153,17 +152,6 @@ class HelloClientSystem(ClientSystem):
     def tool_reset(self, unused=None):
         if self.hud and self.hud.carried == SURVEY_WAND:
             self.NotifyToServer('WorldToolRequest', {'action': 'reset'})
-
-    def key(self, args):
-        if self.session is None or str(args.get('isDown')) != '1':
-            return
-        key = str(args.get('key'))
-        if navigator.contains('modern_projection_workspace'):
-            return
-        if args.get('screenName') not in ('hud_screen', 'in_game_play_screen'):
-            return
-        if key == '80':
-            self.open_workspace()
 
     def response(self, args):
         if self.bridge:

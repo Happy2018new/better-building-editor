@@ -5,7 +5,7 @@ import time
 import verify_ui as ui
 import capture_screen as capture
 from verify_materials_paste import game
-from native_input_mode import key, set_touch
+from native_input_mode import key, set_touch, open_workspace
 
 
 def main():
@@ -13,7 +13,7 @@ def main():
     assert window and capture._activate_window(window['hwnd'])
     set_touch(False)
     game('from HelloScript.pyreact import navigator\ns.set("page","workspace")\ns.set("inspector","params")\nnavigator.pop()\n_result=True')
-    time.sleep(.5);key('p');time.sleep(3.)
+    time.sleep(.5);open_workspace();time.sleep(3.)
     game('''from HelloScript.pyreact import native
 import time
 h=api.GetTopScreen()

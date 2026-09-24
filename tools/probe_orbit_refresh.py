@@ -10,7 +10,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_font_share_polish import game
 from verify_interaction import pointer
-from native_input_mode import set_touch, state, key
+from native_input_mode import set_touch, state, key, open_workspace
 from verify_whitelist_runtime import settle
 
 
@@ -29,7 +29,7 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd']),'Game focus unavailable'
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p')
+        open_workspace()
         time.sleep(3)
     original=state()['simulated']
     if args.fixture:

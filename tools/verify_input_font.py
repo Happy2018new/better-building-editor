@@ -13,6 +13,7 @@ import time
 import mss
 from PIL import Image, ImageChops
 import verify_ui as ui
+from verify_world_tools import game
 import capture_screen as capture
 from verify_entry import key
 
@@ -55,7 +56,7 @@ def main():
                 if args.remount:
                     ui.call('navigator', value={'action': 'close'})
                     time.sleep(.4)
-                    key(hwnd, 80)
+                    game('owner.open_workspace()\n_result=True')
                     ui.click('建筑库')
                     field = ui.nodes('Input', ui.nodes('Library')[0])[0]
                 native = ui.call('native_control', field['id'])['result']

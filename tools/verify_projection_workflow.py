@@ -9,7 +9,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_projection_outline import server, game
 from verify_large_editor import snapshot
-from native_input_mode import key, state
+from native_input_mode import key, state, open_workspace
 
 
 def wait_done():
@@ -45,7 +45,7 @@ api._workflow_saved=(saved,f.CreateGame(api.GetLevelId()).GetPlayerGameType(p),f
 _result=origin''')
     def exists():return game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
     def reopen():
-        if not exists():key('p');time.sleep(2.5)
+        if not exists():open_workspace();time.sleep(2.5)
     def actual_click(node):
         button=ui.nodes('Button',node)[0]
         native=ui.call('native_control',button['id'])['result']

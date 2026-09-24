@@ -10,7 +10,7 @@ import capture_screen as capture
 from verify_font_share_polish import game
 from verify_whitelist_runtime import settle
 from verify_biome_controls import native_click, action
-from native_input_mode import key, set_touch, state
+from native_input_mode import key, set_touch, state, open_workspace
 
 
 def controls():
@@ -33,7 +33,7 @@ def main():
     small='--small' in sys.argv
     resize=str(ui.ROOT/'.agents/skills/pyreact-debugging/scripts/resize_window.py')
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p');time.sleep(3)
+        open_workspace();time.sleep(3)
     original_touch=state()['simulated']
     game('''fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',

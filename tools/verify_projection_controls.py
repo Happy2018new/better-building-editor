@@ -8,7 +8,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_projection_outline import game
 from verify_large_editor import snapshot
-from native_input_mode import key, state, set_touch
+from native_input_mode import key, state, set_touch, open_workspace
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
         return game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
 
     def reopen():
-        if not exists():key('p');time.sleep(2.)
+        if not exists():open_workspace();time.sleep(2.)
 
     def native(node):
         if node['type'] not in ('Input','Button'):node=ui.nodes('Button',node)[0]

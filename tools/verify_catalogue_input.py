@@ -12,7 +12,7 @@ import capture_screen as capture
 from mcdk import Client
 from verify_materials_paste import game
 from verify_large_editor import snapshot
-from native_input_mode import key, set_touch
+from native_input_mode import key, set_touch, open_workspace
 from verify_input_scale import inspect
 
 
@@ -21,7 +21,7 @@ def main():
     window = capture._find_game_window(capture._list_windows(), process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     if not ui.nodes('ToolList'):
-        key('p'); time.sleep(1)
+        open_workspace(); time.sleep(1)
     original=game('_result=s.query')
     samples=[]
 

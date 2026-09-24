@@ -9,23 +9,22 @@ ITEMS = ('survey_wand', 'terminal')
 
 
 class ToolAssetTests(unittest.TestCase):
-    def test_tool_hud_star_atlas_and_centered_labels(self):
+    def test_native_tool_buttons_leave_room_for_two_line_actionbar(self):
         ui=json.loads((ROOT/'resource_pack/ui/ModernProjectionTools.json').read_text(encoding='utf8'))
-        animation=ui['button_stars']
-        self.assertEqual('flip_book',animation['anim_type'])
-        self.assertEqual(24,animation['frame_count'])
-        self.assertEqual(160,animation['frame_step'])
-        controls=ui['hudContent']['controls']
-        for entry in controls:
-            button=next(iter(entry.values()))
+        controls={name:body for entry in ui['hudContent']['controls'] for name,body in entry.items()}
+        tip=controls['tip_panel']
+        for name in ('open_button@common.button','clear_button@common.button'):
+            button=controls[name]
+            self.assertEqual([50,20],button['size'])
+            # Bottom-anchored tip grows upward; leave a gap above the button.
+            self.assertLessEqual(tip['offset'][1]+6,button['offset'][1]-button['size'][1])
             children={name:body for child in button['controls'] for name,body in child.items()}
             self.assertEqual('center',children['caption']['text_alignment'])
-            self.assertEqual(0,children['caption']['offset'][0])
-            for name in ('default','hover','pressed'):
-                self.assertEqual('@ModernProjectionTools.button_stars',children[name]['uv'])
-                texture=ROOT/'resource_pack'/(children[name]['texture']+'.png')
-                with Image.open(texture) as image:
-                    self.assertEqual((160*24,48),image.size)
+            self.assertEqual([48,10],children['caption']['size'])
+            for state in ('default','hover','pressed'):
+                self.assertEqual('textures/gui/gui',children[state]['texture'])
+                self.assertEqual([0,164],children[state]['uv'])
+                self.assertEqual([118,20],children[state]['uv_size'])
 
     def test_items_recipes_and_textures_are_connected(self):
         atlas = json.loads((ROOT / 'resource_pack/textures/item_texture.json').read_text(encoding='utf8'))

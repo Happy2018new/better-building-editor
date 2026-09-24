@@ -1,6 +1,14 @@
 {
   "format_version": "1.8.0",
   "render_controllers": {
+    "controller.render.modern_projection.survey_particles": {
+      "geometry": "Geometry.default",
+      "materials": [
+        { "*": "Material.default" },
+        { "glow": "Material.glow" }
+      ],
+      "textures": ["Texture.default"]
+    },
     "controller.render.modern_projection.anchor": {
       "geometry": "Geometry.default",
       "materials": [

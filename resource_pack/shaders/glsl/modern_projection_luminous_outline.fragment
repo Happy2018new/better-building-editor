@@ -4,6 +4,7 @@
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
 varying highp vec3 outlinePosition;
+varying highp vec3 railLocal;
 const float TAU=6.28318530718;
 
 vec3 gold(float phase){
@@ -18,7 +19,13 @@ void main(){
  float drift=floor(EXTRA_ACTOR_UNIFORM1.w*16.+.5)/210.;
  float phase=spatial-TIME*EXTRA_ACTOR_UNIFORM1.w+.035*sin(TAU*(spatial*.8-TIME*drift));
  vec3 rgb=gold(phase);
- if(floor(EXTRA_ACTOR_UNIFORM3.z)>.5){
+ // Resolve a luminous filament across each rail face instead of a flat strip.
+ vec3 edgeDistance=abs(abs(railLocal)-vec3(.5))/.0225;
+ float across=clamp(min(edgeDistance.x,min(edgeDistance.y,edgeDistance.z)),0.,1.);
+ float filament=exp(-across*across*18.);
+ float glint=pow(.5+.5*sin(TAU*(spatial*3.-TIME*drift)),16.);
+ bool starry=floor(EXTRA_ACTOR_UNIFORM3.z)>.5;
+ if(starry){
   rgb=mix(vec3(.22,.74,.97),vec3(.72,.30,.94),.5+.5*sin(phase*TAU));
   float cloud=.5+.5*sin(spatial*38.+sin(spatial*17.-TIME*EXTRA_ACTOR_UNIFORM1.w*TAU)*1.4);
   rgb=mix(rgb,vec3(.19,.16,.44),.18*cloud);
@@ -26,6 +33,10 @@ void main(){
   float sparkle=pow(.5+.5*sin(spatial*119.-TIME*TAU*rate),32.);
   rgb=mix(rgb,vec3(.94,.96,1.),sparkle*.65);
  }
+ // Apply the shared bright core after choosing the palette, so starry rails
+ // retain the filament and travelling glints as well as the gold rails.
+ rgb=mix(starry?vec3(.10,.12,.32):vec3(.43,.20,.045),rgb,.35+.45*(1.-across));
+ rgb=mix(rgb,starry?vec3(.90,.96,1.):vec3(1.,.97,.80),clamp(filament*.88+glint*.68,0.,1.));
  // Same opaque depth-writing pass as rainbow. Background water cannot paint
  // over a nearer rail; foreground terrain still occludes all three normally.
  gl_FragColor=vec4(rgb*EXTRA_ACTOR_UNIFORM3.y,1.);

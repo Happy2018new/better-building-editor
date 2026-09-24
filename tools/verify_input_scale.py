@@ -10,6 +10,7 @@ import time
 import mss
 from PIL import Image
 import verify_ui as ui
+from verify_world_tools import game
 import capture_screen as capture
 from verify_entry import key
 from _protocol import request
@@ -102,7 +103,7 @@ def main():
         # can compose with the template factor in this engine.
         close_workspace()
         time.sleep(.5)
-        key(hwnd, 80)
+        game('owner.open_workspace()\n_result=True')
         ui.click('建筑库')
         original = ui.nodes('Input', ui.nodes('Library')[0])[0]['props']['value']
         try:
@@ -186,7 +187,7 @@ def main():
             blur()
             close_workspace()
             time.sleep(.5)
-            key(hwnd, 80)
+            game('owner.open_workspace()\n_result=True')
             ui.click('建筑库')
             field = ui.nodes('Input', ui.nodes('Library')[0])[0]
             native = inspect(field, 'reopened input')

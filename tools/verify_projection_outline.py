@@ -5,7 +5,7 @@ import verify_ui as ui
 import capture_screen as capture
 from verify_materials_paste import game
 from verify_large_editor import snapshot
-from native_input_mode import key, state
+from native_input_mode import key, state, open_workspace
 from mcdk import Client, return_value
 
 
@@ -54,7 +54,7 @@ def main():
     assert window and capture._activate_window(window['hwnd'])
     original_touch=state()['simulated']
     if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
-        key('p');time.sleep(2.)
+        open_workspace();time.sleep(2.)
     server('api._outline_saved_player=(f.CreatePos(p).GetFootPos(),f.CreateFly(p).IsPlayerFlying())\n_result=True')
     game('''b=s.bridge
 api._outline_test_saved=(s.editor,s.origin,s.projection_outline,s.spectrum_speed,s.reduced_motion,b.save_preferences,s.page)
@@ -149,7 +149,7 @@ _result=True
             if state()['simulated']!=touch:
                 key('f11');time.sleep(.3)
                 assert state()['simulated']==touch
-            key('p');time.sleep(2.5)
+            open_workspace();time.sleep(2.5)
             node=next(n for n in ui.nodes('Action') if n['props'].get('label')=='炫彩范围框')
             button=ui.nodes('Button',node)[0]
             ctrl=ui.call('native_control',button['id'])['result']
@@ -187,7 +187,7 @@ _result=True
         if state()['simulated']!=original_touch:
             key('f11');time.sleep(.3)
             assert state()['simulated']==original_touch
-        key('p');time.sleep(1.)
+        open_workspace();time.sleep(1.)
 
 
 if __name__=='__main__':
