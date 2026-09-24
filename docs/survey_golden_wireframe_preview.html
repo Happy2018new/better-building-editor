@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>金色星穹线框 · 三种环绕效果</title>
+  <style>
+    :root { color-scheme: dark; font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+    * { box-sizing: border-box; }
+    html,body { width:100%; height:100%; margin:0; overflow:hidden; background:#080a12; }
+    canvas { position:fixed; inset:0; width:100%; height:100%; }
+    .panel { position:fixed; left:24px; top:22px; width:min(330px,calc(100vw - 48px)); padding:17px 18px 16px; border:1px solid rgba(242,194,86,.36); border-radius:16px; background:linear-gradient(145deg,rgba(17,17,30,.88),rgba(26,18,18,.70)); box-shadow:0 0 35px rgba(230,157,42,.10),inset 0 0 26px rgba(255,216,130,.05); backdrop-filter:blur(10px); user-select:none; }
+    .title { color:#fff4cb; font-size:16px; letter-spacing:.08em; }
+    .subtitle { margin-top:5px; color:#bea979; font-size:11px; line-height:1.65; }
+    .row { display:grid; grid-template-columns:76px 1fr 42px; gap:9px; align-items:center; margin-top:13px; color:#e3c987; font-size:12px; }
+    select,button { color:#fff2c2; border:1px solid rgba(242,194,86,.45); border-radius:8px; background:rgba(50,37,30,.78); padding:7px 9px; }
+    select { width:100%; grid-column:2 / 4; }
+    input[type=range] { width:100%; accent-color:#edb83f; }
+    output { color:#fff5cf; text-align:right; font-variant-numeric:tabular-nums; }
+    button { margin-top:14px; cursor:pointer; background:linear-gradient(135deg,rgba(147,92,18,.75),rgba(65,37,28,.78)); }
+    button:hover { box-shadow:0 0 22px rgba(255,198,68,.35); border-color:#ffe7a1; }
+    .hint { position:fixed; right:22px; bottom:18px; color:rgba(236,214,163,.57); font-size:11px; }
+  </style>
+</head>
+<body>
+  <canvas id="scene" aria-label="金色流动线框与三种环绕特效预览"></canvas>
+  <section class="panel">
+    <div class="title">金色星穹线框</div>
+    <div class="subtitle">线框沿棱流动，外围效果可以切换为环形、螺旋或三层金色丝带。</div>
+    <label class="row"><span>环绕效果</span><select id="mode"><option value="ring">环形光带</option><option value="spiral">螺旋环绕</option><option value="ribbon">三层流光丝带</option></select></label>
+    <label class="row"><span>粒子数量</span><input id="density" type="range" min="0.5" max="1.8" step="0.1" value="1"><output id="densityOut">1.0×</output></label>
+    <label class="row"><span>流动速度</span><input id="speed" type="range" min="0.2" max="2.4" step="0.1" value="1"><output id="speedOut">1.0×</output></label>
+    <label class="row"><span>金色亮度</span><input id="gold" type="range" min="0.45" max="1.7" step="0.05" value="1"><output id="goldOut">1.00</output></label>
+    <button id="flare" type="button">触发金色爆发</button>
+  </section>
+  <div class="hint">拖动改变视角 · 空格暂停 · 模式可切换</div>
+  <script>
+    const canvas = document.getElementById('scene'), ctx = canvas.getContext('2d');
+    const TAU = Math.PI * 2;
+    let W=0,H=0,dpr=1,last=performance.now(),time=0,paused=false,flare=0;
+    let yaw=-.46,pitch=-.16,drag=false,px=0,py=0;
+    const mode=document.getElementById('mode'),density=document.getElementById('density'),speed=document.getElementById('speed'),gold=document.getElementById('gold');
+    const densityOut=document.getElementById('densityOut'),speedOut=document.getElementById('speedOut'),goldOut=document.getElementById('goldOut');
+    const cube=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+    const edges=[]; for(let i=0;i<8;i++) for(const bit of [1,2,4]) if(i<(i^bit)) edges.push([i,i^bit]);
+    const goldPalette=['#fff1b0','#ffe28b','#f6bd4e','#dc8f25','#ffcb63'];
+    function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);} addEventListener('resize',resize);resize();
+    function rot(v){const [x,y,z]=v,cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(pitch),sx=Math.sin(pitch);const a=x*cy-z*sy,b=x*sy+z*cy;return [a,y*cx-b*sx,y*sx+b*cx];}
+    function project(v){const p=rot(v),camera=5.2,f=Math.min(W,H)*.30,d=camera-p[2];return{x:W*.54+p[0]*f/d,y:H*.53-p[1]*f/d,z:p[2],d};}
+    function lerp(a,b,t){return a+(b-a)*t;}
+    function hsv(h,s,l){return `hsl(${((h%360)+360)%360} ${s}% ${l}%)`;}
+    function drawBg(now){const g=ctx.createRadialGradient(W*.56,H*.47,0,W*.56,H*.47,Math.max(W,H)*.8);g.addColorStop(0,'#242018');g.addColorStop(.24,'#111522');g.addColorStop(.62,'#090c18');g.addColorStop(1,'#03040b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.save();ctx.globalCompositeOperation='lighter';for(let i=0;i<125;i++){const x=(i*181.7%W),y=(i*83.9%H),a=.12+.22*(.5+.5*Math.sin(now*.0004+i*3.1));ctx.fillStyle=`rgba(255,221,151,${a})`;ctx.fillRect(x,y,1,1);}ctx.restore();}
+    function line(points,color,width,blur,alpha){ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.shadowColor=color;ctx.shadowBlur=blur;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.stroke();ctx.restore();}
+    function drawWire(now){const pv=cube.map(project),ordered=edges.slice().sort((a,b)=>(pv[a[0]].z+pv[a[1]].z)-(pv[b[0]].z+pv[b[1]].z));const light=Number(gold.value);for(const [a,b] of ordered){const mid=(pv[a[0]].z+pv[b[1]].z)*.5;const hue=39+22*Math.sin(now*.00065+mid*1.6+(a+b)*.3);const color=hsv(hue,88,54+15*light);const q=[pv[a],pv[b]];line(q,color,10,35,.055*light);line(q,color,3.6,15,.25*light);line(q,'#fff3bd',1.0,5,.88*light);const t=(now*.00042+(a+b)*.071)%1;const sx=lerp(pv[a].x,pv[b].x,t),sy=lerp(pv[a].y,pv[b].y,t);spark(sx,sy,2.2,light*.55);}for(const p of pv)spark(p.x,p.y,1.7,.7);}
+    function spark(x,y,size,alpha){ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha;const g=ctx.createRadialGradient(x,y,0,x,y,size*5);g.addColorStop(0,'#fff9db');g.addColorStop(.25,'#ffd76c');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(x-size*5,y-size*5,size*10,size*10);ctx.strokeStyle='#fff4c8';ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(x-size*3.3,y);ctx.lineTo(x+size*3.3,y);ctx.moveTo(x,y-size*2.3);ctx.lineTo(x,y+size*2.3);ctx.stroke();ctx.restore();}
+    function star(x,y,r,alpha,phase){const l=Number(gold.value),pulse=.85+.15*Math.sin(time*4.2+phase);r*=pulse*(1+flare*.8);ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha*l;const g=ctx.createRadialGradient(x,y,0,x,y,r*6);g.addColorStop(0,'#fffef1');g.addColorStop(.10,'#fff1ae');g.addColorStop(.35,'rgba(255,193,67,.50)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(x-r*6,y-r*6,r*12,r*12);ctx.strokeStyle='#fff3bf';ctx.shadowColor='#f0a52d';ctx.shadowBlur=r*3;ctx.lineWidth=Math.max(1,r*.10);ctx.beginPath();ctx.moveTo(x-r*6.3,y);ctx.lineTo(x+r*6.3,y);ctx.moveTo(x,y-r*3.9);ctx.lineTo(x,y+r*3.9);ctx.stroke();ctx.fillStyle='#fffdf0';ctx.beginPath();ctx.arc(x,y,r*.32,0,TAU);ctx.fill();ctx.restore();}
+    function ringPoint(t,layer){const a=t*TAU+layer*.9,r=1.72+layer*.17;return [Math.cos(a)*r,Math.sin(a)*r*.56,Math.sin(a+layer)*.70];}
+    function spiralPoint(t,layer){const a=t*TAU*2.1+layer*TAU/3,r=.62+1.72*((t%1));const y=-1.65+3.3*((t+.12*layer)%1);return [Math.cos(a)*r,y,Math.sin(a)*r];}
+    function ribbonPoint(t,layer){const a=t*TAU+layer*TAU/3;const r=1.72+.22*Math.sin(t*TAU*2+layer);return [Math.cos(a)*r,Math.sin(t*TAU*2+layer)*.64,Math.sin(a)*r];}
+    function pathPoint(t,layer){if(mode.value==='spiral')return spiralPoint(t,layer);if(mode.value==='ribbon')return ribbonPoint(t,layer);return ringPoint(t,layer);}
+    function drawOrbit(now){const mult=Number(density.value),layers=mode.value==='ribbon'?3:mode.value==='spiral'?2:3;ctx.save();ctx.globalCompositeOperation='lighter';for(let layer=0;layer<layers;layer++){const n=Math.floor((mode.value==='spiral'?46:62)*mult);const points=[];for(let i=0;i<=n;i++){const q=project(pathPoint((i/n+time*.055-layer*.11)%1,layer));points.push(q);}line(points,hsv(39+layer*8,91,57),mode.value==='spiral'?2.0:1.5,15,.28);for(let i=0;i<n;i++){const u=(i/n+time*.105-layer*.18)%1;const q=project(pathPoint(u,layer));const a=.16+.35*(.5+.5*Math.sin(i*.71+time*3.));spark(q.x,q.y,1.2+1.1*(1-u),a);if(i%Math.max(4,Math.floor(9/mult))===0){const s=project(pathPoint((u+.012)%1,layer));star(q.x,q.y,3.0+layer*.4,a+.15,layer*2+i);}}}ctx.restore();}
+    function flareBurst(){flare=1;}
+    function drawFlare(){if(flare<=0)return;const p=project(pathPoint((time*.055)%1,0));for(let i=0;i<36;i++){const a=i*TAU/36+time*.4,r=18+(1-flare)*130; spark(p.x+Math.cos(a)*r,p.y+Math.sin(a)*r*.58,1.4,flare*.22);}}
+    function frame(now){const dt=Math.min(50,now-last);last=now;if(!paused){time+=dt*.001*Number(speed.value);flare=Math.max(0,flare-dt*.001*1.8);yaw+=dt*.00005;pitch=-.17+.035*Math.sin(time*.31);}drawBg(now);drawWire(now);drawOrbit(now);drawFlare();requestAnimationFrame(frame);}
+    density.oninput=()=>densityOut.value=Number(density.value).toFixed(1)+'×';speed.oninput=()=>speedOut.value=Number(speed.value).toFixed(1)+'×';gold.oninput=()=>goldOut.value=Number(gold.value).toFixed(2);document.getElementById('flare').onclick=flareBurst;addEventListener('keydown',e=>{if(e.code==='Space'){paused=!paused;e.preventDefault();}});
+    canvas.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-px)*.008;pitch=Math.max(-.95,Math.min(.95,pitch+(e.clientY-py)*.006));px=e.clientX;py=e.clientY;});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
