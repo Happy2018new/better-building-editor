@@ -145,10 +145,20 @@ void main(){
  facetNormal=vec4(0.,1.,0.,seed);facetView=vec4(0.,0.,1.,theme);
  facetLight=normalize(localDirection(vec3(-.3,.8,.6)));
 #if defined(SURVEY_GUIDE)
- float edge=floor(id/48.),u=(mod(id,48.)+(corner.x+1.)*.5)/48.;
- centre=edgePoint(edge,u);tangent=edgePoint(edge,1.)-edgePoint(edge,0.);
- materialPos=centre/(size*.5+vec3(.024));
- width=.011;opacity=smoothstep(0.,.85,entered)*.14;effectKind=7.;effectUV=vec2(u,corner.y);
+ if(density<0. && id<6.){
+  float axis=floor(id/2.),side=mod(id,2.)*2.-1.;
+  if(axis<.5)centre=vec3(side*(size.x*.5+.02),corner.y*size.y*.5,corner.x*size.z*.5);
+  else if(axis<1.5)centre=vec3(corner.x*size.x*.5,side*(size.y*.5+.02),corner.y*size.z*.5);
+  else centre=vec3(corner.x*size.x*.5,corner.y*size.y*.5,side*(size.z*.5+.02));
+  tint=vec3(1.);opacity=.17*smoothstep(0.,.85,entered);effectKind=8.+axis;
+  materialPos=centre;
+ }else{
+  float edgeId=id-(density<0.?6.:0.);
+  float edge=floor(edgeId/48.),u=(mod(edgeId,48.)+(corner.x+1.)*.5)/48.;
+  centre=edgePoint(edge,u);tangent=edgePoint(edge,1.)-edgePoint(edge,0.);
+  materialPos=centre/(size*.5+vec3(.024));
+  width=.011;opacity=smoothstep(0.,.85,entered)*.14;effectKind=7.;effectUV=vec2(u,corner.y);
+ }
 #elif defined(SURVEY_STRIKE)
  vec3 n=markerNormal();float appear=smoothstep(0.,.08,entered);
  float flash=exp(-pow((entered-.15)*8.,2.));
@@ -243,7 +253,7 @@ void main(){
  opacity*=smoothstep(.06,.85,entered);
 #endif
  gl_Position=projectPoint(centre,1.);
- if(effectKind<2.5||effectKind>5.5){
+ if(effectKind<2.5||(effectKind>5.5&&effectKind<7.5)){
   if(effectKind<1.5){
    width=min(width,max(.001,abs(gl_Position.w)*.035));
    opacity*=smoothstep(.08,.35,length(camera-centre));

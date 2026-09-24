@@ -22,7 +22,14 @@ vec3 astral(float phase){
 void main(){
  vec2 p=abs(effectUV);float alpha=1.,theme=facetView.w;vec3 rgb=effectTint.rgb;
  if(theme>.5)rgb=vec3(.52,.69,1.);
- if(effectKind<.5){
+ if(effectKind>7.5){
+  vec2 tile=effectKind<8.5?materialPos.yz+EXTRA_ACTOR_UNIFORM1.yz*.5:
+            effectKind<9.5?materialPos.xz+EXTRA_ACTOR_UNIFORM1.xz*.5:
+                           materialPos.xy+EXTRA_ACTOR_UNIFORM1.xy*.5;
+  vec2 grid=fract(tile);
+  float seam=1.-smoothstep(.015,.055,min(min(grid.x,1.-grid.x),min(grid.y,1.-grid.y)));
+  rgb=vec3(1.);alpha=.78+.22*seam;
+ }else if(effectKind<.5){
   alpha=exp(-dot(p,p)*9.)*(1.-smoothstep(.55,1.,dot(p,p)));
  }else if(effectKind<1.5){
   float x=pow(1.-clamp(p.x,0.,1.),2.)*exp(-p.y*p.y/(.0002+.004*pow(1.-p.x,4.)));

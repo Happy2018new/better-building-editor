@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 import mod.client.extraClientApi as clientApi
 from .tool_items import SURVEY_WAND, TERMINAL, item_name
-from .input_mode import is_touch
+from .bridge import native
 from ..pyreact import navigator
 
 _OWNER = [None]
@@ -16,13 +16,19 @@ class TerminalHudScreen(ScreenNode):
     def Create(self):
         self.button = self.GetBaseUIControl(str(CONTENT + '/open_button'))
         self.clear_button = self.GetBaseUIControl(str(CONTENT + '/clear_button'))
+        self.tip = self.GetBaseUIControl(str(CONTENT + '/tip_panel'))
         if self.button is not None:
             self.button.asButton().AddTouchEventParams({'isSwallow': True})
             self.button.asButton().SetButtonTouchUpCallback(self.open)
         if self.clear_button is not None:
             self.clear_button.asButton().AddTouchEventParams({'isSwallow': True})
             self.clear_button.asButton().SetButtonTouchUpCallback(self.clear)
+        if self.tip is not None:
+            self.tip.SetVisible(False, False)
         self.set_state(False, False, '')
+        owner = _OWNER[0]
+        if owner is not None and owner.hud is not None:
+            owner.hud.shown = None
 
     def open(self, unused=None):
         owner = _OWNER[0]
@@ -43,7 +49,16 @@ class TerminalHudScreen(ScreenNode):
                 label.asLabel().SetText(caption.encode('utf8'))
         if self.clear_button is not None:
             self.clear_button.SetVisible(bool(clear_visible), False)
-            self.clear_button.SetFullPosition('x', {'absoluteValue': 82 if visible else 0})
+            self.clear_button.SetFullPosition('x', {'absoluteValue': 74 if visible else 0})
+        self.UpdateScreen(False)
+
+    def set_tip(self, message):
+        if self.tip is None:
+            return
+        label = self.GetBaseUIControl(str(CONTENT + '/tip_panel/tip_text'))
+        if label is not None:
+            label.asLabel().SetText(native(message))
+        self.tip.SetVisible(bool(message), False)
         self.UpdateScreen(False)
 
 
@@ -53,6 +68,7 @@ class TerminalHud(object):
         self.owner = owner
         self.carried = None
         self.shown = None
+        self.tip_sequence = 0
         clientApi.RegisterUI(str('ModernProjectionTools'), str('TerminalHud'),
                              str(__name__ + '.TerminalHudScreen'), str('ModernProjectionTools.hudScreen'))
         self.screen = clientApi.CreateUI(str('ModernProjectionTools'), str('TerminalHud'), {'isHud': 1})
@@ -67,20 +83,30 @@ class TerminalHud(object):
         self.update()
 
     def update(self):
-        corners = self.owner.bridge.corners
-        visible = (self.carried == TERMINAL or
-                   (self.carried == SURVEY_WAND and None not in corners and is_touch()))
+        visible = self.carried in (TERMINAL, SURVEY_WAND)
         visible = visible and not navigator.contains('modern_projection_workspace')
         caption = '投影工作台' if self.carried == TERMINAL else '导入选区'
-        clear_visible = (self.carried == SURVEY_WAND and any(point is not None for point in corners)
-                         and not navigator.contains('modern_projection_workspace'))
+        clear_visible = self.carried == SURVEY_WAND and visible
         state = (visible, clear_visible, caption)
         if state != self.shown and self.screen is not None:
             self.shown = state
             self.screen.set_state(*state)
 
+    def show_tip(self, message):
+        if self.screen is None:
+            return
+        self.tip_sequence += 1
+        sequence = self.tip_sequence
+        self.screen.set_tip(message)
+
+        def hide():
+            if self.tip_sequence == sequence and self.screen is not None:
+                self.screen.set_tip('')
+        self.owner.bridge.later(4., hide)
+
     def destroy(self):
         if _OWNER[0] is self.owner:
             _OWNER[0] = None
+        self.tip_sequence += 1
         if self.screen is not None:
             self.screen.set_state(False, False, '')

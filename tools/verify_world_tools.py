@@ -99,12 +99,12 @@ def touch_world_gestures():
     assert before[0] is not None and before[1] is None,before
     if facing and facing.get('type')=='Block':
         assert before[0]!=[facing[a] for a in ('x','y','z')],(before,facing)
-    assert not state()['hud'][0] and state()['hud'][1],state()['hud']
+    assert state()['hud'][0] and state()['hud'][1],state()['hud']
     hud_click(clear=True)
     assert state()['corners']==[None,None],state()['corners']
     assert game('_result=player not in owner.world_points and player not in owner.world_regions',True)
     assert game('_result=not s.bridge.survey_effects.active()')
-    assert not state()['hud'][1],'Clear button remained after reset'
+    assert state()['hud'][0] and state()['hud'][1],'Tool buttons must remain visible after reset'
     input_step('/click',at=[.30,.42])
     time.sleep(.4)
     before=state()['corners']
@@ -179,7 +179,7 @@ _result=True''',server=True)
         time.sleep(.5)
         assert None not in state()['corners'],'Second point missing'
         print('PASS PC two native world corners',json.dumps(state()['corners']),flush=True)
-        assert not state()['hud'][0],'PC should use left-click instead of HUD import'
+        assert state()['hud'][0],'PC import button missing'
         assert state()['hud'][1],'PC clear selection button missing'
         input_step('/click',button='left',at=[.5,.4])
         value=wait_ready()

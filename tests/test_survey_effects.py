@@ -54,6 +54,18 @@ class SurveyAssetTests(unittest.TestCase):
             self.assertEqual(bp['description']['identifier'],rp['identifier'])
             self.assertTrue(any(key.split(':')[0]==rp['materials']['default'] for key in materials))
 
+    def test_fill_reuses_client_only_guide_without_depth_writes(self):
+        materials=json.loads((ROOT/'resource_pack/materials/entity.material').read_text())['materials']
+        guide=materials['modern_projection_survey_guide:entity_static']
+        self.assertIn('Blending',guide['+states'])
+        self.assertIn('DisableDepthWrite',guide['+states'])
+        self.assertNotIn('DisableDepthTest',guide['+states'])
+        shader=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.vertex').read_text()
+        self.assertIn('density<0. && id<6.',shader)
+        self.assertIn('side*(size.x*.5+.02)',shader)
+        fragment=(ROOT/'resource_pack/shaders/glsl/modern_projection_survey_stars.fragment').read_text()
+        self.assertIn('vec2 grid=fract(tile)',fragment)
+
 
 class SurveyEffectTests(unittest.TestCase):
     def setUp(self):
@@ -83,6 +95,8 @@ class SurveyEffectTests(unittest.TestCase):
 
     def test_large_box_moves_culling_anchor_without_rebuilding_or_moving_visual_bounds(self):
         self.effect.replace((10,64,20),(64,128,64))
+        guide = self.effect.layers[0]
+        self.assertLess(self.uniforms[(guide['id'],4)][3],0.)
         ids = set(self.live)
         self.effect.follow((1.,2.,3.))
         self.effect.replace((10,64,20),(64,128,64))
@@ -98,6 +112,7 @@ class SurveyEffectTests(unittest.TestCase):
     def test_projection_flow_speed_does_not_change_orbit_and_keeps_actor_ids(self):
         self.effect = WireEffects(self.effect.bridge)
         self.effect.replace((10,64,20),(64,128,64))
+        self.assertGreater(self.uniforms[(self.effect.layers[0]['id'],4)][3],0.)
         self.effect.follow((0.,0.,8.))
         ids = set(self.live)
         options = defaults()['golden']
@@ -189,6 +204,15 @@ class SurveyEffectTests(unittest.TestCase):
         self.effect.sync_points([(0,0,0),None])
         self.assertIs(marker,self.effect.points[0])
         self.assertEqual(1,marker['face'])
+
+    def test_click_marker_enters_faster_than_box(self):
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+            self.effect.replace((0,0,0),(2,2,2))
+            self.effect.sync_points([(0,0,0),None])
+        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.55):
+            self.effect.follow((0.,0.,5.))
+        self.assertEqual(1.,self.uniforms[(self.effect.points[0]['id'],3)][0])
+        self.assertLess(self.uniforms[(self.effect.layers[0]['id'],3)][0],.5)
 
     def test_new_selection_samples_current_camera(self):
         self.effect.camera=(-10.,-10.,-10.)

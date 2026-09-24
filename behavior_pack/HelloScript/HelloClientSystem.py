@@ -141,10 +141,12 @@ class HelloClientSystem(ClientSystem):
             self.open_workspace()
         elif self.hud.carried == SURVEY_WAND:
             try:
-                if None not in self.bridge.corners:
-                    self.bridge.capture_new()
-                    self.session.page = 'library'
-                    self.open_workspace()
+                if None in self.bridge.corners:
+                    self.bridge.survey_tip('请先选择两个角点')
+                    return
+                self.bridge.capture_new()
+                self.session.page = 'library'
+                self.open_workspace()
             except (ValueError, TypeError, KeyError) as error:
                 self.bridge.notify(error.args[0])
 

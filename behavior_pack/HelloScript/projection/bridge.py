@@ -226,13 +226,18 @@ class ClientBridge(object):
     def notify(self, message):
         self.factory.CreateTextNotifyClient(self.level).SetLeftCornerNotify(native(message))
 
+    def survey_tip(self, message):
+        hud = getattr(self.system, 'hud', None)
+        if hud is not None:
+            hud.show_tip(message)
+
     def world_tool_point(self, args):
         if args.get('clear'):
             self.corners = [None, None]
             self.corner_faces = [None, None]
             self.draw_bounds()
         if args.get('error'):
-            self.notify(args['error'])
+            self.survey_tip(args['error'])
             self.session.editor.message = args['error']
             self.session.emit()
             return
@@ -243,13 +248,11 @@ class ClientBridge(object):
         if index == 0:
             self.corners = [tuple(pos), None]
             self.corner_faces = [args.get('face'), None]
-            self.notify('第一个角点已设置，请选择另一方块')
+            self.survey_tip('第一个角点已设置，请选择另一方块')
         elif self.corners[0] is not None:
             self.corners[1] = tuple(pos)
             self.corner_faces[1] = args.get('face')
-            from .input_mode import is_touch
-            action = '点击“导入选区”' if is_touch() else '左键导入，右键重选，潜行右键清除'
-            self.notify(('已选择 %d × %d × %d，' % tuple(args['size'])) + action)
+            self.survey_tip('已选择 %d × %d × %d' % tuple(args['size']))
         self.draw_bounds()
         self.survey_effects.pulse_point(index)
         self.session.emit()

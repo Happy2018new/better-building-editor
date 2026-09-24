@@ -1,13 +1,5 @@
 {
   "namespace": "ModernProjectionTools",
-  "button_stars": {
-    "anim_type": "flip_book",
-    "initial_uv": [0, 0],
-    "frame_count": 24,
-    "frame_step": 160,
-    "fps": 12,
-    "easing": "linear"
-  },
   "hudScreen@common.base_screen": {
     "$screen_content": "ModernProjectionTools.hudContent"
   },
@@ -20,12 +12,14 @@
     "controls": [
       {
         "open_button@common.button": {
+          "$pressed_button_name": "button.focus_filler",
+          "$focus_enabled": false,
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [-32, -62],
+          "offset": [-32, -68],
           "size": [
-            142,
-            36
+            118,
+            30
           ],
           "visible": false,
           "layer": 5,
@@ -33,9 +27,7 @@
             {
               "default": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_normal",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonStroke",
                 "layer": 1,
                 "size": [
                   "100%",
@@ -47,9 +39,7 @@
             {
               "hover": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_hover",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonStroke",
                 "layer": 1,
                 "size": [
                   "100%",
@@ -61,9 +51,7 @@
             {
               "pressed": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_pressed",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonNoStroke",
                 "layer": 1,
                 "size": [
                   "100%",
@@ -78,16 +66,42 @@
                 "text": "投影工作台",
                 "layer": 3,
                 "color": [
-                  0.94,
-                  0.97,
+                  1.0,
+                  1.0,
                   1.0
                 ],
                 "text_alignment": "center",
                 "anchor_from": "center",
                 "anchor_to": "center",
-                "size": [124, 20],
-                "shadow": false,
-                "offset": [0, -1]
+                "size": [110, 20],
+                "shadow": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "tip_panel": {
+          "type": "image",
+          "texture": "textures/ui/hud_tip_text_background",
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [0, -32],
+          "size": ["100%c + 14px", "100%c + 6px"],
+          "alpha": 0.72,
+          "visible": false,
+          "layer": 7,
+          "controls": [
+            {
+              "tip_text": {
+                "type": "label",
+                "text": "",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text_alignment": "center",
+                "color": [1.0, 1.0, 1.0],
+                "shadow": true,
+                "layer": 8
               }
             }
           ]
@@ -95,19 +109,19 @@
       },
       {
         "clear_button@common.button": {
+          "$pressed_button_name": "button.focus_filler",
+          "$focus_enabled": false,
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [82, -62],
-          "size": [54, 36],
+          "offset": [74, -68],
+          "size": [52, 30],
           "visible": false,
           "layer": 5,
           "controls": [
             {
               "default": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_normal",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonStroke",
                 "layer": 1,
                 "size": ["100%", "100%"],
                 "keep_ratio": false
@@ -116,9 +130,7 @@
             {
               "hover": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_hover",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonStroke",
                 "layer": 1,
                 "size": ["100%", "100%"],
                 "keep_ratio": false
@@ -127,9 +139,7 @@
             {
               "pressed": {
                 "type": "image",
-                "texture": "textures/modern_projection/tool_button_pressed",
-                "uv": "@ModernProjectionTools.button_stars",
-                "uv_size": [160, 48],
+                "texture": "textures/ui/NormalButtonNoStroke",
                 "layer": 1,
                 "size": ["100%", "100%"],
                 "keep_ratio": false
@@ -140,13 +150,12 @@
                 "type": "label",
                 "text": "清除",
                 "layer": 3,
-                "color": [0.94, 0.97, 1.0],
+                "color": [1.0, 1.0, 1.0],
                 "text_alignment": "center",
                 "anchor_from": "center",
                 "anchor_to": "center",
                 "size": [48, 20],
-                "shadow": false,
-                "offset": [0, -1]
+                "shadow": true
               }
             }
           ]
