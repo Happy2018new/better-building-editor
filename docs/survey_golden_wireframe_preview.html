@@ -1,69 +1,594 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>金色星穹线框 · 三种环绕效果</title>
-  <style>
-    :root { color-scheme: dark; font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
-    * { box-sizing: border-box; }
-    html,body { width:100%; height:100%; margin:0; overflow:hidden; background:#080a12; }
-    canvas { position:fixed; inset:0; width:100%; height:100%; }
-    .panel { position:fixed; left:24px; top:22px; width:min(330px,calc(100vw - 48px)); padding:17px 18px 16px; border:1px solid rgba(242,194,86,.36); border-radius:16px; background:linear-gradient(145deg,rgba(17,17,30,.88),rgba(26,18,18,.70)); box-shadow:0 0 35px rgba(230,157,42,.10),inset 0 0 26px rgba(255,216,130,.05); backdrop-filter:blur(10px); user-select:none; }
-    .title { color:#fff4cb; font-size:16px; letter-spacing:.08em; }
-    .subtitle { margin-top:5px; color:#bea979; font-size:11px; line-height:1.65; }
-    .row { display:grid; grid-template-columns:76px 1fr 42px; gap:9px; align-items:center; margin-top:13px; color:#e3c987; font-size:12px; }
-    select,button { color:#fff2c2; border:1px solid rgba(242,194,86,.45); border-radius:8px; background:rgba(50,37,30,.78); padding:7px 9px; }
-    select { width:100%; grid-column:2 / 4; }
-    input[type=range] { width:100%; accent-color:#edb83f; }
-    output { color:#fff5cf; text-align:right; font-variant-numeric:tabular-nums; }
-    button { margin-top:14px; cursor:pointer; background:linear-gradient(135deg,rgba(147,92,18,.75),rgba(65,37,28,.78)); }
-    button:hover { box-shadow:0 0 22px rgba(255,198,68,.35); border-color:#ffe7a1; }
-    .hint { position:fixed; right:22px; bottom:18px; color:rgba(236,214,163,.57); font-size:11px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090c12">
+<title>鎏金 · 线框动态预览</title>
+<style>
+  :root{color-scheme:dark;--gold:#efd49c;--dim:#86858a;--line:rgba(232,211,170,.12);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif}
+  *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#080b11;color:#eee9df;overflow:hidden}
+  button,input{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #eed49b;outline-offset:4px}
+  canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+  .header{position:absolute;top:0;left:0;right:320px;height:96px;padding:28px 36px;display:flex;align-items:center;gap:13px;pointer-events:none}
+  .mark{width:31px;height:31px;color:var(--gold)}.brand{font-size:18px;font-weight:500;letter-spacing:.22em}.eyebrow{font-size:9px;letter-spacing:.26em;color:#a8987a;margin-top:5px}
+  .tag{margin-left:auto;font-size:10px;letter-spacing:.10em;color:#a49c8c;border:1px solid var(--line);padding:6px 10px;border-radius:20px}
+  .caption{position:absolute;left:36px;bottom:37px;pointer-events:none}.caption h1{font-weight:400;letter-spacing:.17em;font-size:21px;margin:0 0 11px}.caption p{margin:0;color:#878b93;font-size:11px;line-height:1.8;letter-spacing:.06em}
+  .stage-controls{position:absolute;right:352px;bottom:35px;display:flex;gap:7px}.icon-button{border:1px solid var(--line);background:#10151cbd;border-radius:50%;height:36px;width:36px;display:grid;place-items:center;backdrop-filter:blur(10px)}.icon-button:hover{border-color:#baa175;background:#292720}.icon-button svg{width:15px;height:15px}
+  .panel{position:absolute;right:0;top:0;bottom:0;width:320px;padding:36px 26px 24px;border-left:1px solid var(--line);background:linear-gradient(160deg,#151820f5,#101219f5);overflow:auto}
+  .panel-kicker{font-size:10px;color:#a39780;letter-spacing:.2em}.panel h2{font-size:22px;font-weight:400;letter-spacing:.12em;margin:11px 0 10px}.intro{color:#959599;font-size:11px;line-height:1.9;margin:0 0 28px}
+  .material-card{display:flex;align-items:center;gap:13px;padding:16px 13px;border:1px solid #b3965338;border-radius:9px;background:linear-gradient(120deg,#ac79261a,#151b2500)}.material-card strong{font-size:12px;font-weight:400;letter-spacing:.1em}.material-card small{display:block;font-size:10px;color:#9a958a;margin-top:7px}.material-swatch{width:36px;height:42px;clip-path:polygon(47% 0,91% 28%,81% 73%,35% 100%,8% 54%);background:conic-gradient(from 30deg at 52% 42%,#fbefd8,#ae7134,#f5c37e,#724b28,#fff6d2,#d69842,#fbefd8);box-shadow:0 0 12px #e5b63b;transform:rotate(12deg)}
+  .point-status{display:flex;gap:8px;margin:18px 0 8px}.point-status span{flex:1;padding:9px 10px;border:1px solid #d5b87528;border-radius:6px;font-size:10px;color:#dbc59b;background:#c6932910}.point-status span[data-active="false"]{color:#7b7f88;background:transparent;border-color:#6c737328}.point-actions{display:flex;gap:8px}.point-actions .burst{letter-spacing:.05em}.point-actions .secondary{background:transparent;border-color:#c0af8938;color:#a8a399}
+  .preview-tabs{display:flex;margin-top:18px;padding:3px;border:1px solid #e8d3aa22;border-radius:8px;background:#0b101680}.preview-tabs button{flex:1;border:0;border-radius:5px;background:transparent;padding:9px 4px;font-size:11px;color:#95918a}.preview-tabs button[aria-pressed="true"]{background:#ad854b2e;color:#f0d59d;box-shadow:inset 0 0 0 1px #caab6240}.click-note{font-size:10px;color:#a19989;line-height:1.85;margin:12px 0}
+  .rule{height:1px;background:var(--line);margin:23px 0}.slider{margin:0 0 18px}.slider-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#c8c4bb;margin-bottom:11px}.slider output{color:#c9b88e;font-size:10px;font-variant-numeric:tabular-nums}
+  input[type="range"]{appearance:none;height:3px;width:100%;margin:4px 0 7px;border-radius:3px;background:linear-gradient(to right,#ceb276 var(--fill,40%),#343638 var(--fill,40%));cursor:pointer}input[type="range"]::-webkit-slider-thumb{appearance:none;width:10px;height:10px;border-radius:50%;background:#eed8a9;box-shadow:0 0 8px #e8be6233}input[type="range"]::-moz-range-thumb{width:10px;height:10px;border:0;border-radius:50%;background:#eed8a9}
+  .switch-row{display:flex;align-items:center;justify-content:space-between;margin:15px 0;font-size:11px;color:#b8b5af}.switch{width:30px;height:17px;border:1px solid #656058;border-radius:12px;background:#22262c;padding:2px;position:relative}.switch::after{content:"";display:block;width:11px;height:11px;background:#92918c;border-radius:50%;transition:transform .2s}.switch[aria-pressed="true"]{background:#715d35;border-color:#9b814e}.switch[aria-pressed="true"]::after{transform:translateX(12px);background:#f1d8a2}
+  .burst{width:100%;border:1px solid #a48850;background:linear-gradient(110deg,#70552555,#40332366);border-radius:7px;padding:11px;margin-top:8px;color:#e7cf9a;letter-spacing:.16em;font-size:11px}.burst:hover{background:#8d6a333d;border-color:#e3c27b}.footnote{color:#6f737d;font-size:10px;line-height:1.9;margin:20px 0 0}
+  @media(max-height:740px) and (min-width:721px){.panel{padding-top:24px}.intro{margin-bottom:18px}.rule{margin:18px 0}.slider{margin-bottom:12px}.footnote{margin-top:12px}}
+  @media(max-width:720px){body{overflow:auto}.panel{top:59vh;bottom:auto;min-height:41vh;width:100%;padding:20px;border-left:0;border-top:1px solid var(--line)}.header{height:74px;right:0;padding:20px}.brand{font-size:16px}.tag{font-size:9px}.caption{left:20px;bottom:auto;top:calc(59vh - 61px)}.caption h1{font-size:15px;margin-bottom:6px}.caption p{font-size:9px}.stage-controls{right:18px;bottom:auto;top:calc(59vh - 58px)}.panel h2{font-size:18px;margin-top:8px}.intro{margin-bottom:17px}.sliders{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.slider-top{font-size:10px}.slider{margin:0}.panel-kicker{font-size:9px}.rule{margin:18px 0}.settings{display:flex;gap:28px;margin-top:18px}.switch-row{gap:15px;margin:0 0 12px}.footnote{margin-top:12px}}
+</style>
 </head>
 <body>
-  <canvas id="scene" aria-label="金色流动线框与三种环绕特效预览"></canvas>
-  <section class="panel">
-    <div class="title">金色星穹线框</div>
-    <div class="subtitle">线框沿棱流动，外围效果可以切换为环形、螺旋或三层金色丝带。</div>
-    <label class="row"><span>环绕效果</span><select id="mode"><option value="ring">环形光带</option><option value="spiral">螺旋环绕</option><option value="ribbon">三层流光丝带</option></select></label>
-    <label class="row"><span>粒子数量</span><input id="density" type="range" min="0.5" max="1.8" step="0.1" value="1"><output id="densityOut">1.0×</output></label>
-    <label class="row"><span>流动速度</span><input id="speed" type="range" min="0.2" max="2.4" step="0.1" value="1"><output id="speedOut">1.0×</output></label>
-    <label class="row"><span>金色亮度</span><input id="gold" type="range" min="0.45" max="1.7" step="0.05" value="1"><output id="goldOut">1.00</output></label>
-    <button id="flare" type="button">触发金色爆发</button>
-  </section>
-  <div class="hint">拖动改变视角 · 空格暂停 · 模式可切换</div>
-  <script>
-    const canvas = document.getElementById('scene'), ctx = canvas.getContext('2d');
-    const TAU = Math.PI * 2;
-    let W=0,H=0,dpr=1,last=performance.now(),time=0,paused=false,flare=0;
-    let yaw=-.46,pitch=-.16,drag=false,px=0,py=0;
-    const mode=document.getElementById('mode'),density=document.getElementById('density'),speed=document.getElementById('speed'),gold=document.getElementById('gold');
-    const densityOut=document.getElementById('densityOut'),speedOut=document.getElementById('speedOut'),goldOut=document.getElementById('goldOut');
-    const cube=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
-    const edges=[]; for(let i=0;i<8;i++) for(const bit of [1,2,4]) if(i<(i^bit)) edges.push([i,i^bit]);
-    const goldPalette=['#fff1b0','#ffe28b','#f6bd4e','#dc8f25','#ffcb63'];
-    function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);} addEventListener('resize',resize);resize();
-    function rot(v){const [x,y,z]=v,cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(pitch),sx=Math.sin(pitch);const a=x*cy-z*sy,b=x*sy+z*cy;return [a,y*cx-b*sx,y*sx+b*cx];}
-    function project(v){const p=rot(v),camera=5.2,f=Math.min(W,H)*.30,d=camera-p[2];return{x:W*.54+p[0]*f/d,y:H*.53-p[1]*f/d,z:p[2],d};}
-    function lerp(a,b,t){return a+(b-a)*t;}
-    function hsv(h,s,l){return `hsl(${((h%360)+360)%360} ${s}% ${l}%)`;}
-    function drawBg(now){const g=ctx.createRadialGradient(W*.56,H*.47,0,W*.56,H*.47,Math.max(W,H)*.8);g.addColorStop(0,'#242018');g.addColorStop(.24,'#111522');g.addColorStop(.62,'#090c18');g.addColorStop(1,'#03040b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.save();ctx.globalCompositeOperation='lighter';for(let i=0;i<125;i++){const x=(i*181.7%W),y=(i*83.9%H),a=.12+.22*(.5+.5*Math.sin(now*.0004+i*3.1));ctx.fillStyle=`rgba(255,221,151,${a})`;ctx.fillRect(x,y,1,1);}ctx.restore();}
-    function line(points,color,width,blur,alpha){ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.shadowColor=color;ctx.shadowBlur=blur;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.stroke();ctx.restore();}
-    function drawWire(now){const pv=cube.map(project),ordered=edges.slice().sort((a,b)=>(pv[a[0]].z+pv[a[1]].z)-(pv[b[0]].z+pv[b[1]].z));const light=Number(gold.value);for(const [a,b] of ordered){const mid=(pv[a[0]].z+pv[b[1]].z)*.5;const hue=39+22*Math.sin(now*.00065+mid*1.6+(a+b)*.3);const color=hsv(hue,88,54+15*light);const q=[pv[a],pv[b]];line(q,color,10,35,.055*light);line(q,color,3.6,15,.25*light);line(q,'#fff3bd',1.0,5,.88*light);const t=(now*.00042+(a+b)*.071)%1;const sx=lerp(pv[a].x,pv[b].x,t),sy=lerp(pv[a].y,pv[b].y,t);spark(sx,sy,2.2,light*.55);}for(const p of pv)spark(p.x,p.y,1.7,.7);}
-    function spark(x,y,size,alpha){ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha;const g=ctx.createRadialGradient(x,y,0,x,y,size*5);g.addColorStop(0,'#fff9db');g.addColorStop(.25,'#ffd76c');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(x-size*5,y-size*5,size*10,size*10);ctx.strokeStyle='#fff4c8';ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(x-size*3.3,y);ctx.lineTo(x+size*3.3,y);ctx.moveTo(x,y-size*2.3);ctx.lineTo(x,y+size*2.3);ctx.stroke();ctx.restore();}
-    function star(x,y,r,alpha,phase){const l=Number(gold.value),pulse=.85+.15*Math.sin(time*4.2+phase);r*=pulse*(1+flare*.8);ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=alpha*l;const g=ctx.createRadialGradient(x,y,0,x,y,r*6);g.addColorStop(0,'#fffef1');g.addColorStop(.10,'#fff1ae');g.addColorStop(.35,'rgba(255,193,67,.50)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(x-r*6,y-r*6,r*12,r*12);ctx.strokeStyle='#fff3bf';ctx.shadowColor='#f0a52d';ctx.shadowBlur=r*3;ctx.lineWidth=Math.max(1,r*.10);ctx.beginPath();ctx.moveTo(x-r*6.3,y);ctx.lineTo(x+r*6.3,y);ctx.moveTo(x,y-r*3.9);ctx.lineTo(x,y+r*3.9);ctx.stroke();ctx.fillStyle='#fffdf0';ctx.beginPath();ctx.arc(x,y,r*.32,0,TAU);ctx.fill();ctx.restore();}
-    function ringPoint(t,layer){const a=t*TAU+layer*.9,r=1.72+layer*.17;return [Math.cos(a)*r,Math.sin(a)*r*.56,Math.sin(a+layer)*.70];}
-    function spiralPoint(t,layer){const a=t*TAU*2.1+layer*TAU/3,r=.62+1.72*((t%1));const y=-1.65+3.3*((t+.12*layer)%1);return [Math.cos(a)*r,y,Math.sin(a)*r];}
-    function ribbonPoint(t,layer){const a=t*TAU+layer*TAU/3;const r=1.72+.22*Math.sin(t*TAU*2+layer);return [Math.cos(a)*r,Math.sin(t*TAU*2+layer)*.64,Math.sin(a)*r];}
-    function pathPoint(t,layer){if(mode.value==='spiral')return spiralPoint(t,layer);if(mode.value==='ribbon')return ribbonPoint(t,layer);return ringPoint(t,layer);}
-    function drawOrbit(now){const mult=Number(density.value),layers=mode.value==='ribbon'?3:mode.value==='spiral'?2:3;ctx.save();ctx.globalCompositeOperation='lighter';for(let layer=0;layer<layers;layer++){const n=Math.floor((mode.value==='spiral'?46:62)*mult);const points=[];for(let i=0;i<=n;i++){const q=project(pathPoint((i/n+time*.055-layer*.11)%1,layer));points.push(q);}line(points,hsv(39+layer*8,91,57),mode.value==='spiral'?2.0:1.5,15,.28);for(let i=0;i<n;i++){const u=(i/n+time*.105-layer*.18)%1;const q=project(pathPoint(u,layer));const a=.16+.35*(.5+.5*Math.sin(i*.71+time*3.));spark(q.x,q.y,1.2+1.1*(1-u),a);if(i%Math.max(4,Math.floor(9/mult))===0){const s=project(pathPoint((u+.012)%1,layer));star(q.x,q.y,3.0+layer*.4,a+.15,layer*2+i);}}}ctx.restore();}
-    function flareBurst(){flare=1;}
-    function drawFlare(){if(flare<=0)return;const p=project(pathPoint((time*.055)%1,0));for(let i=0;i<36;i++){const a=i*TAU/36+time*.4,r=18+(1-flare)*130; spark(p.x+Math.cos(a)*r,p.y+Math.sin(a)*r*.58,1.4,flare*.22);}}
-    function frame(now){const dt=Math.min(50,now-last);last=now;if(!paused){time+=dt*.001*Number(speed.value);flare=Math.max(0,flare-dt*.001*1.8);yaw+=dt*.00005;pitch=-.17+.035*Math.sin(time*.31);}drawBg(now);drawWire(now);drawOrbit(now);drawFlare();requestAnimationFrame(frame);}
-    density.oninput=()=>densityOut.value=Number(density.value).toFixed(1)+'×';speed.oninput=()=>speedOut.value=Number(speed.value).toFixed(1)+'×';gold.oninput=()=>goldOut.value=Number(gold.value).toFixed(2);document.getElementById('flare').onclick=flareBurst;addEventListener('keydown',e=>{if(e.code==='Space'){paused=!paused;e.preventDefault();}});
-    canvas.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-px)*.008;pitch=Math.max(-.95,Math.min(.95,pitch+(e.clientY-py)*.006));px=e.clientX;py=e.clientY;});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);requestAnimationFrame(frame);
-  </script>
+<canvas id="scene" aria-label="流动的琥珀金色晶棱，带随视角反光的立体碎晶和闪烁星芒；拖动可旋转"></canvas>
+<header class="header">
+  <svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1"><path d="m16 2 13 7v14l-13 7L3 23V9Zm0 0v14m13-7-13 7L3 9m13 7v14"/></svg>
+  <div><div class="brand">鎏金</div><div class="eyebrow">GOLDEN AETHER</div></div><span class="tag">流金与双星 / 06</span>
+</header>
+<div class="caption"><h1 id="sceneTitle">琥珀晶光</h1><p id="sceneText">绕棱螺旋前行，拖动观察晶体折面。</p></div>
+<div class="stage-controls">
+  <button class="icon-button" id="pause" aria-label="暂停动画" title="暂停 / 空格"><svg viewBox="0 0 16 16" fill="currentColor"><path id="pauseIcon" d="M4 3h2v10H4zM10 3h2v10h-2z"/></svg></button>
+  <button class="icon-button" id="reset" aria-label="复位视角" title="复位视角"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 6a5.5 5.5 0 1 1 0 5M3 2v4h4"/></svg></button>
+</div>
+<aside class="panel">
+  <div class="panel-kicker">光与折面 / STUDY 06</div><h2>流金入棱，双星常明。</h2>
+  <p class="intro">香槟金与琥珀色在光棱中柔和交融。<br>星芒拖着长尾绕行，两处选点持续生光。</p>
+  <div class="material-card"><span class="material-swatch" aria-hidden="true"></span><div><strong>琥珀晶光</strong><small>渐变金芯 / 彗星长尾 / 双点晶芒</small></div></div>
+  <div class="preview-tabs" role="group" aria-label="预览场景">
+    <button id="previewOrbit" aria-pressed="true">线框与两点</button><button id="previewClick" aria-pressed="false">两点近看</button>
+  </div>
+  <div class="rule"></div>
+  <div class="sliders">
+    <div class="slider"><label class="slider-top" for="speed">棱内流速<output id="speedOut">1.0×</output></label><input id="speed" type="range" min="0.2" max="3" step="0.1" value="1"></div>
+    <div class="slider"><label class="slider-top" for="density">碎晶密度<output id="densityOut">1.0×</output></label><input id="density" type="range" min="0.3" max="1.8" step="0.1" value="1"></div>
+    <div class="slider"><label class="slider-top" for="gold">辉光强度<output id="goldOut">1.0×</output></label><input id="gold" type="range" min="0.4" max="1.7" step="0.1" value="1"></div>
+    <div class="slider"><label class="slider-top" for="distance">螺旋半径<output id="distanceOut">5.0%</output></label><input id="distance" type="range" min="0.04" max="0.18" step="0.01" value="0.10"></div>
+  </div>
+  <div class="settings"><div class="switch-row">缓慢自转<button class="switch" id="rotate" aria-label="缓慢自转" aria-pressed="true"></button></div></div>
+  <div class="point-status" aria-live="polite"><span id="point0">起点 · 已选中</span><span id="point1">终点 · 已选中</span></div>
+  <div class="point-actions"><button class="burst" id="restore">恢复两点示例</button><button class="burst secondary" id="clear">清除选点</button></div>
+  <p class="click-note">两处晶芒会一直保留，分别环绕各自的方块。<br>轻点方块可调整触点，拖动只旋转视角。</p>
+  <p class="footnote">拖动旋转，滚轮调整远近，空格暂停。<br>螺旋半径以方盒边长为参照，可断网打开。</p>
+</aside>
+<script>
+'use strict';
+const canvas = document.getElementById('scene');
+const ctx = canvas.getContext('2d', {alpha:false});
+const TAU = Math.PI * 2;
+const state = {speed:1,density:1,gold:1,distance:.10,paused:false,rotate:true,
+  yaw:-.57,pitch:.28,zoom:1,time:0,flow:0,scene:'orbit'};
+let W=0,H=0,stageW=0,stageH=0,dpr=1,frameTime=0;
+let drag=null,queue=[],background;
+const selections=[null,null];
+let selectionSerial=0;
+const vertices = Array.from({length:8},(_,i)=>[(i&1)?1:-1,(i&2)?1:-1,(i&4)?1:-1]);
+const edges=[];
+for(let i=0;i<8;i++)for(const bit of [1,2,4])if(i<(i^bit))edges.push([i,i^bit]);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const mix=(a,b,t)=>a.map((x,i)=>lerp(x,b[i],t));
+const fract=x=>((x%1)+1)%1;
+const rand=n=>fract(Math.sin(n*127.1+311.7)*43758.5453123);
+const rgb=(a,alpha=1)=>`rgba(${a.map(x=>Math.round(x)).join(',')},${clamp(alpha)})`;
+function tone(t){
+  // One shared field for all edges: meeting vertices have identical colours.
+  const stops=[[184,104,25],[245,174,49],[255,226,142],[255,248,215],[237,183,73]];
+  const x=fract(t)*stops.length,k=Math.floor(x),u=x-k;
+  return mix(stops[k],stops[(k+1)%stops.length],u*u*(3-2*u));
+}
+function sprite(kind,warm=false){
+  const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');
+  const glow=g.createRadialGradient(64,64,0,64,64,64);
+  glow.addColorStop(0,warm?'rgba(255,203,101,1)':'rgba(255,253,237,1)');glow.addColorStop(.045,'rgba(255,234,170,.95)');
+  glow.addColorStop(.16,'rgba(255,191,60,.30)');glow.addColorStop(.45,'rgba(245,147,33,.07)');glow.addColorStop(1,'rgba(227,124,24,0)');
+  g.fillStyle=glow;g.fillRect(0,0,128,128);
+  if(kind==='star'){
+    for(let axis=0;axis<2;axis++){
+      g.save();g.translate(64,64);g.rotate(axis*Math.PI/2);
+      const gradient=g.createLinearGradient(-62,0,62,0);
+      gradient.addColorStop(0,'rgba(255,222,143,0)');gradient.addColorStop(.45,'rgba(255,245,209,.9)');gradient.addColorStop(.5,warm?'#ffce7d':'#fffef2');gradient.addColorStop(.55,'rgba(255,245,209,.9)');gradient.addColorStop(1,'rgba(255,222,143,0)');
+      g.fillStyle=gradient;g.beginPath();g.moveTo(-62,0);g.quadraticCurveTo(-5,-1,0,-4);g.quadraticCurveTo(5,-1,62,0);g.quadraticCurveTo(5,1,0,4);g.quadraticCurveTo(-5,1,-62,0);g.fill();g.restore();
+    }
+  }
+  return c;
+}
+const softSprite=sprite('soft'),starSprite=sprite('star'),amberSprite=sprite('star',true);
+function resize(){
+  W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
+  stageW=W<=720?W:W-320;stageH=W<=720?H*.59:H;
+  canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  background=document.createElement('canvas');background.width=Math.round(stageW*dpr);background.height=Math.round(stageH*dpr);
+  const b=background.getContext('2d');b.scale(dpr,dpr);
+  const g=b.createRadialGradient(stageW*.51,stageH*.48,0,stageW*.51,stageH*.48,stageW*.78);
+  g.addColorStop(0,'#17202a');g.addColorStop(.40,'#101620');g.addColorStop(1,'#05070c');b.fillStyle=g;b.fillRect(0,0,stageW,stageH);
+  // Static, restrained haze. It never obscures the transparent cube faces.
+  const fog=b.createRadialGradient(stageW*.48,stageH*.67,0,stageW*.48,stageH*.67,stageW*.41);
+  fog.addColorStop(0,'rgba(160,107,37,.075)');fog.addColorStop(1,'rgba(160,107,37,0)');b.fillStyle=fog;b.fillRect(0,0,stageW,stageH);
+  for(let i=0;i<160;i++){b.fillStyle=`rgba(205,213,228,${.05+rand(i+74)*.19})`;b.beginPath();b.arc(rand(i+1)*stageW,rand(i+290)*stageH,.25+rand(i+42)*.45,0,TAU);b.fill();}
+}
+function rotate(p){
+  const cy=Math.cos(state.yaw),sy=Math.sin(state.yaw),cx=Math.cos(state.pitch),sx=Math.sin(state.pitch);
+  const x=p[0]*cy-p[2]*sy,z=p[0]*sy+p[2]*cy;
+  return [x,p[1]*cx-z*sx,p[1]*sx+z*cx];
+}
+function project(p){
+  const a=rotate(p),depth=6.8-a[2];
+  const focal=Math.min(stageW*.24,(stageH-85)*.245)*6.1*state.zoom;
+  return {x:stageW*.51+a[0]*focal/depth,y:stageH*.49-a[1]*focal/depth,z:a[2],scale:6.8/depth};
+}
+function addLine(a,b,color,width,alpha,extra={}){
+  queue.push({kind:'line',z:(a.z+b.z)/2,a,b,color,width,alpha,...extra});
+}
+function addSprite(p,size,alpha,star=false,heat=1){queue.push({kind:'sprite',z:p.z,p,size,alpha,star,heat});}
+// Three closed walks together cover all twelve real cube edges. Decorative
+// geometry is offset from these walks, never from a large orbit around the box.
+const edgeWalk=[0,1,5,4,6,7,3,2];
+const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0);
+const sub=(a,b)=>a.map((v,i)=>v-b[i]);
+const norm=a=>{const n=Math.hypot(...a)||1;return a.map(v=>v/n);};
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function walkVertex(index,lane){
+  const p=vertices[edgeWalk[((index%8)+8)%8]],shift=lane%3;
+  return [p[shift],p[(shift+1)%3],p[(shift+2)%3]];
+}
+function edgeFrame(t,lane){
+  const u=fract(t)*8,index=Math.floor(u),f=u-index,cut=.08;
+  const prev=walkVertex(index-1,lane),a=walkVertex(index,lane);
+  const b=walkVertex(index+1,lane),next=walkVertex(index+2,lane);
+  let p,tangent;
+  // Small quadratic fillets keep moving particles continuous through corners.
+  if(f<cut || f>1-cut){
+    const start=f<cut?mix(prev,a,1-cut):mix(a,b,1-cut);
+    const corner=f<cut?a:b,end=f<cut?mix(a,b,cut):mix(b,next,cut);
+    const v=f<cut?(f+cut)/(2*cut):(f-1+cut)/(2*cut);
+    p=mix(mix(start,corner,v),mix(corner,end,v),v);
+    tangent=norm(mix(sub(corner,start),sub(end,corner),v));
+  }else{p=mix(a,b,f);tangent=norm(sub(b,a));}
+  const along=dot(p,tangent),normal=norm(p.map((v,i)=>v-tangent[i]*along));
+  return {p,tangent,normal,binormal:norm(cross(tangent,normal))};
+}
+
+// The edge itself is the helix axis: the displacement completes a full
+// 360 degrees in its normal plane, including both sides of the luminous core.
+// Integer turns make the closed route join continuously at its seam.
+function path(t,lane,clock=state.time){
+  const f=edgeFrame(t,lane),angle=t*TAU*16-clock*.58+lane*2.1;
+  const radius=state.distance;
+  return f.p.map((v,i)=>v+radius*(f.normal[i]*Math.cos(angle)+f.binormal[i]*Math.sin(angle)));
+}
+const mul=(v,s)=>v.map(x=>x*s);
+const add=(a,b)=>a.map((v,i)=>v+b[i]);
+function poly(points,color,alpha,extra={}){
+  const projected=points.map(project);
+  queue.push({kind:'facet',z:projected.reduce((s,p)=>s+p.z,0)/points.length,
+    points:projected,color,alpha,...extra});
+}
+// Lights are fixed in viewing space. Rotating the object changes each face's
+// normal against them, even if the animation clock is paused.
+const keyLight=norm([-.55,.72,1.15]),rimLight=norm([.83,.15,-.55]);
+function facetLight(normal,position,seed=0){
+  const n=rotate(normal),p=rotate(position),view=norm([-p[0],-p[1],6.8-p[2]]);
+  const nv=dot(n,view),fresnel=Math.pow(1-clamp(Math.abs(nv)),3);
+  const half=norm(add(view,keyLight));
+  const gloss=Math.pow(Math.max(0,dot(n,half)),58);
+  const bounce=Math.pow(Math.max(0,dot(n,norm(add(view,rimLight)))),32)*.55;
+  const reflected=sub(mul(n,2*dot(n,view)),view);
+  // Broad environment reflections split adjacent triangular faces into clear
+  // light/dark planes. Narrow lamps produce occasional sharp mirror glints.
+  const window=Math.pow(Math.max(0,dot(reflected,norm([-.3,.72,.65]))),9);
+  const blueWindow=Math.pow(Math.max(0,dot(reflected,norm([.85,.2,.48]))),12);
+  const lamp=Math.pow(clamp(1-Math.abs(reflected[0]-.18)*3),16)*clamp(reflected[1]+.2);
+  const warm=clamp(.32+.65*reflected[1]+seed*.16);
+  let color=mix([78,65,49],[240,190,113],warm);
+  color=mix(color,[197,220,232],blueWindow*.65);
+  const shine=clamp(gloss+bounce+lamp*.6);
+  color=mix(color,[255,245,209],clamp(window*.90+shine*.98));
+  return {nv,fresnel,shine,window,color,alpha:clamp(.32+window*.35+fresnel*.21+shine*.35)};
+}
+function wireField(p){
+  // A continuous, periodic world-space field. No narrow pulses, high-frequency
+  // stripes or colour jump at the wrap; all twelve edges share corner colours.
+  const spatial=dot(p,[.21,.29,.24]),t=state.flow;
+  const drift=.035*Math.sin(spatial*TAU*.8-t*.6);
+  const phase=fract(spatial-t*.38+drift);
+  const sheen=.5+.5*Math.sin(TAU*(spatial*.66-t*.31));
+  const luster=.5+.5*Math.sin(TAU*(spatial*1.5-t*.48));
+  return {phase,sheen,luster,color:mix(tone(phase),[255,218,145],.26)};
+}
+function makeWire(){
+  for(const [a,b] of edges){
+    const A=vertices[a],B=vertices[b],axis=norm(sub(B,A));
+    const basis=norm(cross(axis,Math.abs(axis[1])>.9?[1,0,0]:[0,1,0]));
+    const other=cross(axis,basis),radius=.009;
+    const pa=project(A),pb=project(B),near=clamp(((pa.z+pb.z)/2+2.3)/4.6);
+    const field=Array.from({length:25},(_,j)=>wireField(mix(A,B,j/24)));
+    const gradient=field.map((m,i)=>({at:i/24,color:m.color,alpha:.82+.18*m.sheen}));
+    addLine(pa,pb,[226,137,35],9,.028*state.gold);
+    addLine(pa,pb,[255,190,66],4,.070*state.gold,{stops:gradient});
+    // One gradient per bevel, instead of many short polygons. This removes
+    // antialiasing seams and dotted highlights without flattening the prism.
+    for(let side=0;side<6;side++){
+      const theta=side*TAU/6,angle=theta+TAU/12;
+      const normal=add(mul(basis,Math.cos(angle)),mul(other,Math.sin(angle)));
+      const o1=mul(add(mul(basis,Math.cos(theta)),mul(other,Math.sin(theta))),radius);
+      const o2=mul(add(mul(basis,Math.cos(theta+TAU/6)),mul(other,Math.sin(theta+TAU/6))),radius);
+      const lighting=facetLight(normal,mix(A,B,.5));
+      if(lighting.nv<0)continue;
+      const stops=field.map((m,i)=>{
+        let color=mix([112,70,27],m.color,.68+.22*lighting.window+.05*m.luster);
+        color=mix(color,[255,244,203],lighting.shine*.3+m.sheen*.08);
+        return {at:i/24,color};
+      });
+      poly([add(A,o1),add(B,o1),add(B,o2),add(A,o2)],stops[0].color,.84*state.gold,
+        {blend:'source-over',stops,gradientA:pa,gradientB:pb});
+    }
+    addLine(pa,pb,[255,224,159],1.05+near*.25,(.44+near*.12)*state.gold,{stops:gradient});
+    addLine(pa,pb,[255,244,208],.48+near*.14,.29*state.gold,
+      {stops:field.map((m,i)=>({at:i/24,color:mix(m.color,[255,249,221],.62),alpha:.72+.28*m.sheen}))});
+  }
+  vertices.forEach(v=>{
+    const m=wireField(v);
+    addSprite(project(v),12+m.sheen*5,(.17+m.sheen*.12)*state.gold,true,.55+m.sheen*.3);
+  });
+}
+function makeDust(){
+  const amount=Math.floor(290*state.density);
+  for(let i=0;i<amount;i++){
+    const seed=rand(i+8),l=i%3,u=fract(rand(i+378)+state.time*(.016+seed*.010));
+    const p=path(u,l),a=rand(i+801)*TAU+state.time*(.2+seed*.2);
+    const spread=.008+rand(i+144)*.022;
+    p[0]+=Math.cos(a)*spread;p[1]+=Math.sin(a+state.time*.23)*spread*.8;p[2]+=Math.sin(a)*spread;
+    const q=project(p),depth=clamp((q.z+3)/6);
+    const flicker=.10+.90*Math.pow(.5+.5*Math.sin(state.time*(1.5+seed)+i*2.39),7);
+    const alpha=(.20+.65*depth)*flicker*state.gold;
+    queue.push({kind:'dust',z:q.z,p:q,radius:(.35+seed*.62)*q.scale,alpha,color:tone(seed*.65+state.time*.045)});
+    if(i%23===0)addSprite(q,8+seed*7,alpha*.5,true,flicker);
+  }
+}
+function tumble(v,seed){
+  // Independent spin, precession and nutation: not flat sprites rotating in 2D.
+  const t=state.time,a=t*(.32+seed*.65)+seed*29;
+  const b=t*(.27+rand(seed*80+3)*.45)+seed*11+Math.sin(t*.4+seed*17)*.35;
+  const c=Math.sin(t*.23+seed*31)*.55+seed*7;
+  let [x,y,z]=v;
+  [y,z]=[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];
+  [x,z]=[x*Math.cos(b)+z*Math.sin(b),-x*Math.sin(b)+z*Math.cos(b)];
+  return [x*Math.cos(c)-y*Math.sin(c),x*Math.sin(c)+y*Math.cos(c),z];
+}
+const shardFaces=[[0,2,3],[0,3,4],[0,4,5],[0,5,2],[1,3,2],[1,4,3],[1,5,4],[1,2,5]];
+function shardShape(seed){
+  const wide=.34+seed*.35,thick=.17+rand(seed*63+4)*.28;
+  return [[.11,1.13,0],[-.13,-.86,.07],[-wide,.12,-.04],[.08,-.06,thick],
+    [wide,.04,.07],[-.03,.13,-thick]];
+}
+let shardSamples=[];
+// Shared geometry and lighting for edge spirals and permanent endpoint shards.
+function addCrystal(p,scale,seed,opacity=1,sampleId=-1){
+  const vs=shardShape(seed).map(v=>add(p,mul(tumble(v,seed),scale)));
+  let flash=0;
+  for(let face=0;face<shardFaces.length;face++){
+    const tri=shardFaces[face].map(k=>vs[k]);
+    const centre=tri[0].map((v,k)=>(v+tri[1][k]+tri[2][k])/3);
+    let n=norm(cross(sub(tri[1],tri[0]),sub(tri[2],tri[0])));
+    if(dot(n,sub(centre,p))<0)n=mul(n,-1);
+    const light=facetLight(n,centre,seed);
+    if(light.nv<0)continue;
+    flash=Math.max(flash,light.shine);
+    if(sampleId>=0&&sampleId<16)shardSamples.push({id:sampleId,face,shine:light.shine,color:light.color,normal:n});
+    const breath=.87+.13*Math.sin(state.time*(.9+seed)+seed*33);
+    const color=light.color.map(v=>clamp(v*breath,0,255));
+    poly(tri,color,light.alpha*opacity,{blend:'source-over',crystal:true,
+      edge:mix([178,116,49],[255,250,221],clamp(light.fresnel*.7+light.shine)),
+      edgeAlpha:(.20+light.fresnel*.3+light.shine*.45)*state.gold*opacity,
+      shine:light.shine,seed:seed+face*.1});
+    if(light.shine>.16){
+      const slide=.2+fract(state.time*(.5+seed)+face*.18)*.6;
+      addLine(project(mix(tri[0],tri[1],slide)),project(mix(tri[0],tri[2],slide)),
+        [255,251,226],.7,light.shine*.7*state.gold*opacity);
+    }
+  }
+  if(flash>.18)addSprite(project(p),(14+flash*23)*project(p).scale,
+    (flash-.18)*1.05*state.gold*opacity,true,clamp(flash+.3));
+}
+function makeShards(){
+  const amount=Math.floor(110*state.density);
+  for(let i=0;i<amount;i++){
+    const seed=rand(i+370),lane=i%3,u=fract(rand(i+935)+state.time*(.016+seed*.010));
+    const f=edgeFrame(u,lane),p=path(u,lane),phase=state.time*.3+seed*TAU;
+    // Fine jitter preserves the visible winding rather than smearing it into
+    // an offset cloud running parallel to the edge.
+    for(let k=0;k<3;k++)p[k]+=(f.normal[k]*Math.cos(phase)+f.binormal[k]*Math.sin(phase))*.015;
+    addCrystal(p,.045+Math.pow(rand(i+113),1.5)*.065,seed,1,i);
+  }
+}
+function starLight(l){
+  const t=state.time,slow=.5+.5*Math.sin(t*(1.35+l*.23)+l*2.17);
+  const shimmer=Math.pow(.5+.5*Math.sin(t*(3.2+l*.31)+l*4.13),12);
+  return clamp(.16+.63*Math.pow(slow,2.2)+shimmer*.24);
+}
+const STAR_COUNT=9;
+function starRoute(id,clock=state.time){
+  const lane=id%3,speed=.021+rand(id+183)*.010;
+  const head=fract(clock*speed+rand(id+421));
+  return path(head,lane,clock);
+}
+function addComet(route,id,size=1,strength=1,tailSeconds=2.7){
+  const light=starLight(id),segments=46;
+  // Samples record where the moving star WAS, including the helix's own
+  // rotation. These are short lived tails, not separately drawn orbit lines.
+  for(let j=segments;j>=1;j--){
+    const u=1-j/segments,v=1-(j-1)/segments;
+    const a=project(route(state.time-(1-u)*tailSeconds));
+    const b=project(route(state.time-(1-v)*tailSeconds));
+    const life=Math.pow(u,1.65)*(.42+.58*light)*strength*state.gold;
+    const color=mix([198,109,30],[255,235,177],Math.pow(u,.72));
+    const width=(.35+u*1.15)*size*(a.scale+b.scale)/2;
+    addLine(a,b,[243,174,65],width*3.2,life*.065);
+    addLine(a,b,color,width,life*.74);
+    if(j<18)addLine(a,b,[255,247,211],width*.43,life*.46);
+  }
+  const p=project(route(state.time));
+  addSprite(p,(23+light*29)*size*p.scale,(.30+light*.66)*strength*state.gold,true,.35+.65*light);
+  addSprite(p,(10+light*13)*size*p.scale,light*.3*strength*state.gold);
+}
+function makeStars(){
+  for(let i=0;i<STAR_COUNT;i++){
+    addComet(clock=>starRoute(i,clock),i,.72+rand(i+911)*.36,1,2.7+rand(i+492)*.8);
+  }
+}
+const blockFaces=[
+  {normal:[1,0,0],ids:[1,3,7,5]}, {normal:[-1,0,0],ids:[0,4,6,2]},
+  {normal:[0,1,0],ids:[2,6,7,3]}, {normal:[0,-1,0],ids:[0,1,5,4]},
+  {normal:[0,0,1],ids:[4,5,7,6]}, {normal:[0,0,-1],ids:[0,2,3,1]}
+];
+function blockLayout(id){
+  if(state.scene==='orbit')return {center:id?[.76,.76,-.76]:[-.76,-.76,.76],half:.24};
+  return {center:id?[.85,.43,-.15]:[-.85,-.43,.15],half:.51};
+}
+function makeBlock(id){
+  const {center,half}=blockLayout(id),vs=vertices.map(v=>add(center,mul(v,half)));
+  for(const face of blockFaces){
+    const facing=facetLight(face.normal,add(center,mul(face.normal,half)));
+    if(facing.nv<=0)continue;
+    const illumination=.48+.52*Math.max(0,dot(rotate(face.normal),keyLight));
+    const color=[58,65,73].map(v=>v*illumination);
+    const corners=face.ids.map(k=>vs[k]);
+    poly(corners,color,1,{blend:'source-over'});
+    for(let i=0;i<38;i++){
+      const u=.02+rand(i+31)*.96,v=.02+rand(i+91)*.96;
+      const q=mix(mix(corners[0],corners[1],u),mix(corners[3],corners[2],u),v);
+      const p=project(add(q,mul(face.normal,.002)));
+      queue.push({kind:'dust',p,z:p.z,radius:.35+rand(i+62)*.5,alpha:.09,
+        color:[175,181,183],blend:'source-over'});
+    }
+  }
+  for(const [a,b] of edges){
+    const A=project(vs[a]),B=project(vs[b]);
+    addLine(A,B,selections[id]?[216,177,104]:[148,162,173],.75,selections[id] ? .26 : .15);
+  }
+}
+function inverseRotate(p){
+  const cx=Math.cos(state.pitch),sx=Math.sin(state.pitch),cy=Math.cos(state.yaw),sy=Math.sin(state.yaw);
+  const y=p[1]*cx+p[2]*sx,z=-p[1]*sx+p[2]*cx;
+  return [p[0]*cy+z*sy,y,-p[0]*sy+z*cy];
+}
+function hitBlock(x,y){
+  const focal=Math.min(stageW*.24,(stageH-85)*.245)*6.1*state.zoom;
+  const origin=inverseRotate([0,0,6.8]),dir=norm(inverseRotate([(x-stageW*.51)/focal,-(y-stageH*.49)/focal,-1]));
+  let closest=null;
+  for(let id=0;id<2;id++){
+    const {center,half}=blockLayout(id),local=sub(origin,center);
+    let near=0,far=Infinity,normal=[0,0,0],miss=false;
+    for(let axis=0;axis<3;axis++){
+      if(Math.abs(dir[axis])<1e-8){if(Math.abs(local[axis])>half){miss=true;break;}continue;}
+      let a=(-half-local[axis])/dir[axis],b=(half-local[axis])/dir[axis];
+      let sign=-1;if(a>b){[a,b]=[b,a];sign=1;}
+      if(a>near){near=a;normal=[0,0,0];normal[axis]=sign;}
+      far=Math.min(far,b);if(near>far){miss=true;break;}
+    }
+    if(!miss&&far>=0&&(!closest||near<closest.depth)){
+      closest={id,point:mul(sub(add(origin,mul(dir,near)),center),1/half),normal,depth:near};
+    }
+  }
+  return closest;
+}
+function updateSelectionStatus(){
+  selections.forEach((c,id)=>{
+    const label=document.getElementById('point'+id);
+    label.textContent=(id?'终点':'起点')+' · '+(c?'已选中':'未选中');
+    label.dataset.active=String(!!c);
+  });
+}
+function selectPoint(hit){
+  if(!hit||!Number.isInteger(hit.id)||hit.id<0||hit.id>1)return false;
+  const n=hit.normal,tangent=norm(cross(Math.abs(n[1])>.9?[1,0,0]:[0,1,0],n));
+  // Two stable slots. Re-selecting one block cannot expire or restart the
+  // other marker, and switching preview scenes never changes their lifetime.
+  selections[hit.id]={id:hit.id,point:hit.point.slice(),normal:n.slice(),tangent,
+    bitangent:cross(n,tangent),started:state.time,serial:selectionSerial++};
+  updateSelectionStatus();return true;
+}
+function restorePoints(){
+  selectPoint({id:0,point:[0,0,1],normal:[0,0,1]});
+  selectPoint({id:1,point:[0,1,0],normal:[0,1,0]});
+}
+function clearPoints(){selections.fill(null);updateSelectionStatus();}
+function markerPoint(c,x=0,y=0,z=0){
+  const {center,half}=blockLayout(c.id);
+  return c.point.map((v,i)=>center[i]+half*(v+c.tangent[i]*x+c.bitangent[i]*y+c.normal[i]*z)+c.normal[i]*.018);
+}
+function markerRoute(c,lane,clock=state.time){
+  const phase=clock*(.72+lane*.12)+c.id*2.7+lane*TAU/3;
+  const r=.54+lane*.12+.045*Math.sin(clock*.65+lane);
+  return markerPoint(c,Math.cos(phase)*r,Math.sin(phase)*r*.83,
+    .16+.09*Math.sin(phase*2+lane));
+}
+function makeSelections(){
+  for(const c of selections){
+    if(!c)continue;
+    const {half}=blockLayout(c.id),size=state.scene==='orbit'?.74:1;
+    const breath=.5+.5*Math.sin(state.time*1.65+c.id*2.8),p=project(markerPoint(c));
+    // A calm, persistent core replaces the recurring impact flash. Moving
+    // satellites and tumbling facets supply motion without large flare disks.
+    addSprite(p,(28+breath*10)*size*p.scale,(.42+breath*.24)*state.gold,true,.68+breath*.24);
+    addSprite(p,(38+breath*11)*size*p.scale,.14*state.gold);
+    for(let lane=0;lane<3;lane++){
+      addComet(clock=>markerRoute(c,lane,clock),12+c.id*3+lane,.44*size,.82,1.1+lane*.2);
+    }
+    const count=Math.floor(23*state.density);
+    for(let i=0;i<count;i++){
+      const seed=rand(i+807+c.id*107),t=state.time*(.19+seed*.29)+seed*TAU;
+      const radius=.35+rand(i+541)*.65;
+      const p=markerPoint(c,Math.cos(t)*radius,Math.sin(t)*radius*.83,
+        .18+seed*.18+.12*Math.sin(t*2+seed*5));
+      addCrystal(p,half*(.048+seed*.083),seed,.9);
+    }
+    for(let i=0;i<40;i++){
+      const seed=rand(i+404+c.id*78),phase=state.time*(.32+seed*.3)+seed*TAU;
+      const radius=.22+rand(i+652)*.85;
+      const p=project(markerPoint(c,Math.cos(phase)*radius,Math.sin(phase)*radius*.83,
+        .11+.16*Math.sin(phase*2+seed)));
+      const light=.12+.54*Math.pow(.5+.5*Math.sin(state.time*(1.3+seed)+seed*19),3);
+      addSprite(p,(3+seed*4)*size,light*state.gold,i%11===0,light);
+    }
+  }
+}
+function drawPointLabels(){
+  ctx.font='10px "Microsoft YaHei",sans-serif';ctx.textAlign='center';
+  for(let id=0;id<2;id++){
+    const {center,half}=blockLayout(id),p=project(center);
+    const bottom=Math.max(...vertices.map(v=>project(add(center,mul(v,half))).y));
+    const y=bottom+(state.scene==='orbit'?16:23);
+    ctx.fillStyle=selections[id]?'#c2ab7d':'#737e8b';
+    ctx.fillText(id?'02 / 终点':'01 / 起点',p.x,y);
+  }
+}
+function setScene(scene){
+  state.scene=scene;
+  document.getElementById('previewOrbit').setAttribute('aria-pressed',String(scene==='orbit'));
+  document.getElementById('previewClick').setAttribute('aria-pressed',String(scene==='click'));
+  document.getElementById('sceneTitle').textContent=scene==='orbit'?'流金与双星':'两点常明';
+  document.getElementById('sceneText').textContent=scene==='orbit'?'星芒绕棱，双点常驻。拖动观察晶体折面。':'轻点调整各自的触点；两处特效独立持续。';
+}
+function colorGradient(a,b,stops){
+  const gradient=ctx.createLinearGradient(a.x,a.y,b.x,b.y);
+  for(const stop of stops)gradient.addColorStop(stop.at,rgb(stop.color,stop.alpha??1));
+  return gradient;
+}
+function trace(points){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();}
+function drawScene(){
+  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.fillStyle='#080b11';ctx.fillRect(0,0,W,H);
+  ctx.drawImage(background,0,0,stageW,stageH);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,stageW,stageH);ctx.clip();
+  queue=[];shardSamples=[];
+  if(state.scene==='orbit'){makeWire();makeDust();makeShards();makeStars();}
+  for(let id=0;id<2;id++)makeBlock(id);
+  makeSelections();
+  queue.sort((a,b)=>a.z-b.z);ctx.lineCap='round';
+  for(const cmd of queue){
+    ctx.globalCompositeOperation=cmd.blend||'lighter';ctx.globalAlpha=clamp(cmd.alpha);
+    if(cmd.kind==='line'){
+      ctx.lineWidth=cmd.width;ctx.strokeStyle=cmd.stops?colorGradient(cmd.a,cmd.b,cmd.stops):rgb(cmd.color);ctx.beginPath();ctx.moveTo(cmd.a.x,cmd.a.y);ctx.lineTo(cmd.b.x,cmd.b.y);ctx.stroke();
+    }else if(cmd.kind==='sprite'){
+      const s=cmd.size,x=cmd.p.x-s/2,y=cmd.p.y-s/2;
+      if(cmd.star){
+        ctx.globalAlpha=clamp(cmd.alpha*(1-cmd.heat));ctx.drawImage(amberSprite,x,y,s,s);
+        ctx.globalAlpha=clamp(cmd.alpha*cmd.heat);ctx.drawImage(starSprite,x,y,s,s);
+      }else ctx.drawImage(softSprite,x,y,s,s);
+    }else if(cmd.kind==='dust'){
+      ctx.fillStyle=rgb(cmd.color);ctx.beginPath();ctx.arc(cmd.p.x,cmd.p.y,cmd.radius,0,TAU);ctx.fill();
+    }else if(cmd.kind==='facet'){
+      trace(cmd.points);
+      if(cmd.crystal){
+        const [a,b,c]=cmd.points;
+        const gradient=ctx.createLinearGradient(a.x,a.y,(b.x+c.x)/2,(b.y+c.y)/2);
+        gradient.addColorStop(0,rgb(mix(cmd.color,[255,232,179],.18)));
+        gradient.addColorStop(.45,rgb(cmd.color));
+        gradient.addColorStop(1,rgb(cmd.color.map(v=>v*.58)));
+        ctx.fillStyle=gradient;ctx.fill();
+        ctx.globalAlpha=clamp(cmd.edgeAlpha);ctx.strokeStyle=rgb(cmd.edge);ctx.lineWidth=.65;ctx.stroke();
+        // Fine fracture inside the face reinforces thickness without an opaque fill.
+        const v=mix([a.x,a.y],[b.x,b.y],.35),w=mix([a.x,a.y],[c.x,c.y],.62);
+        ctx.globalAlpha=clamp(cmd.edgeAlpha*.32);ctx.lineWidth=.45;
+        ctx.beginPath();ctx.moveTo(v[0],v[1]);ctx.lineTo((a.x+b.x+c.x)/3,(a.y+b.y+c.y)/3);ctx.lineTo(w[0],w[1]);ctx.stroke();
+      }else{ctx.fillStyle=cmd.stops?colorGradient(cmd.gradientA,cmd.gradientB,cmd.stops):rgb(cmd.color);ctx.fill();}
+    }
+  }
+  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';drawPointLabels();
+  ctx.restore();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+}
+function frame(now){
+  const dt=frameTime?Math.min(.045,(now-frameTime)/1000):0;frameTime=now;
+  if(!state.paused){state.time+=dt;state.flow+=dt*state.speed;if(state.rotate&&!drag)state.yaw+=dt*.045;}
+  drawScene();requestAnimationFrame(frame);
+}
+function togglePause(){
+  state.paused=!state.paused;
+  document.getElementById('pause').setAttribute('aria-label',state.paused?'继续动画':'暂停动画');
+  document.getElementById('pauseIcon').setAttribute('d',state.paused?'M4 2l9 6-9 6z':'M4 3h2v10H4zM10 3h2v10h-2z');
+}
+for(const name of ['speed','density','gold','distance']){
+  const input=document.getElementById(name),update=()=>{state[name]=Number(input.value);document.getElementById(name+'Out').value=name==='distance'?(state[name]*50).toFixed(1)+'%':state[name].toFixed(1)+'×';input.style.setProperty('--fill',((input.value-input.min)/(input.max-input.min)*100)+'%');};
+  input.addEventListener('input',update);update();
+}
+for(const name of ['rotate'])document.getElementById(name).addEventListener('click',()=>{state[name]=!state[name];document.getElementById(name).setAttribute('aria-pressed',String(state[name]));});
+document.getElementById('pause').addEventListener('click',togglePause);
+document.getElementById('reset').addEventListener('click',()=>{state.yaw=-.57;state.pitch=.28;state.zoom=1;});
+document.getElementById('previewOrbit').addEventListener('click',()=>setScene('orbit'));
+document.getElementById('previewClick').addEventListener('click',()=>setScene('click'));
+document.getElementById('restore').addEventListener('click',restorePoints);
+document.getElementById('clear').addEventListener('click',clearPoints);
+addEventListener('keydown',event=>{if(event.code==='Space'&&!/INPUT|BUTTON|SELECT|TEXTAREA/.test(event.target.tagName)){event.preventDefault();togglePause();}});
+const pointers=new Set();
+canvas.addEventListener('pointerdown',event=>{
+  const rect=canvas.getBoundingClientRect();
+  if(event.button!==0||event.clientX-rect.left>stageW||event.clientY-rect.top>stageH)return;
+  pointers.add(event.pointerId);
+  if(pointers.size>1){if(drag)drag.cancelled=true;return;}
+  drag={x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,id:event.pointerId,moved:false,cancelled:false};
+  canvas.setPointerCapture(event.pointerId);
+});
+canvas.addEventListener('pointermove',event=>{
+  if(!drag||event.pointerId!==drag.id||drag.cancelled)return;
+  if(Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)>7)drag.moved=true;
+  if(drag.moved){
+    state.yaw+=(event.clientX-drag.x)*.006;
+    state.pitch=clamp(state.pitch+(event.clientY-drag.y)*.005,-1.15,1.15);
+  }
+  drag.x=event.clientX;drag.y=event.clientY;
+});
+canvas.addEventListener('pointerup',event=>{
+  pointers.delete(event.pointerId);
+  if(!drag||event.pointerId!==drag.id)return;
+  const tap=!drag.moved&&!drag.cancelled;drag=null;
+  if(tap){
+    const rect=canvas.getBoundingClientRect();
+    selectPoint(hitBlock(event.clientX-rect.left,event.clientY-rect.top));
+  }
+});
+for(const type of ['pointercancel','lostpointercapture'])canvas.addEventListener(type,event=>{
+  pointers.delete(event.pointerId);if(drag&&drag.id===event.pointerId)drag=null;
+});
+canvas.addEventListener('wheel',event=>{event.preventDefault();state.zoom=clamp(state.zoom*Math.exp(-event.deltaY*.00065),.60,1.5);},{passive:false});
+document.addEventListener('visibilitychange',()=>{frameTime=0;});
+addEventListener('resize',resize);resize();restorePoints();setScene('orbit');requestAnimationFrame(frame);
+// Diagnostics also expose view-dependent face shading for local regression.
+window.goldenPreview={state,draw:drawScene,edges,vertices,path,edgeFrame,wireField,starLight,starRoute,
+  facets:()=>shardSamples,hitBlock,selectPoint,setScene,project,selections,blockLayout,markerPoint,
+  clearPoints,restorePoints,
+  stats:()=>({orbitShards:state.scene==='orbit'?Math.floor(110*state.density):0,
+    orbitStars:state.scene==='orbit'?STAR_COUNT:0,pointStars:selections.filter(Boolean).length*3,primitives:queue.length,
+    activeSelections:selections.filter(Boolean).length,scene:state.scene})};
+</script>
 </body>
 </html>

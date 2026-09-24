@@ -1,11 +1,12 @@
 // __multiversion__
 #include "fragmentVersionCentroid.h"
 
+uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
 varying highp float spectrumHue;
 
 void main() {
     vec3 spectrum = clamp(abs(fract(spectrumHue + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);
     // Unlit and independent of the translucent building's opacity. Normal
     // world depth testing remains enabled; this is not an x-ray overlay.
-    gl_FragColor = vec4(mix(vec3(1.0), spectrum, 0.82), 1.0);
+    gl_FragColor = vec4(mix(vec3(1.0), spectrum, 0.82) * EXTRA_ACTOR_UNIFORM3.x, 1.0);
 }

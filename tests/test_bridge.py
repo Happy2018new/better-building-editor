@@ -122,6 +122,43 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_outline_styles_keep_committed_building_and_independent_preferences(self):
+        b, r, s = self.bridge, self.runtime, self.bridge.session
+        self.assertEqual('rainbow', s.outline_style)
+        b.project()
+        r.timers.pop(0)()
+        building, bounds = b.entity, b.projection_outline.bounds
+        b.geometry = lambda *a, **k: self.fail('Style change must not rebuild building')
+        s.origin = (100,100,100)
+        for style in ('golden', 'starry', 'rainbow', 'golden'):
+            old = b.projection_outline.entity
+            s.set('outline_style', style)
+            b.follow_projection()
+            self.assertIn(old, r.destroyed)
+            self.assertEqual(building, b.entity)
+            self.assertEqual(bounds, b.projection_outline.bounds)
+            self.assertEqual([building], r.attached)
+        ids = [item['id'] for item in b.projection_outline.effects.layers]
+        s.outline_parameter('golden', 'speed', 4.)
+        s.outline_parameter('golden', 'brightness', .8)
+        self.assertEqual(ids, [item['id'] for item in b.projection_outline.effects.layers])
+        for entity in ids:
+            self.assertGreater(r.uniform_slots[entity,1][3], 1.5)
+            self.assertEqual((.8,.1,1.), r.uniform_slots[entity,3][1:])
+        self.assertEqual(3., s.outline_options['rainbow']['speed'])
+        self.assertEqual(1., s.outline_options['starry']['speed'])
+        while r.timers:
+            r.timers.pop(0)()
+        self.assertEqual(4., r.preferences['outline_options']['golden']['speed'])
+        s.set('projection_outline', False)
+        self.assertEqual(building, b.entity)
+        self.assertTrue(all(entity in r.destroyed for entity in ids))
+        self.assertFalse(b.projection_outline.effects.active())
+        s.set('projection_outline', True)
+        b.stop_projection()
+        self.assertIsNone(b.projection_outline.bounds)
+        self.assertFalse(b.projection_outline.effects.active())
+
     def test_biome_updates_live_and_pending_ghost_without_rebuilding(self):
         from projection.biomes import actor_uniform
         b, r = self.bridge, self.runtime
@@ -343,7 +380,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         outline = b.projection_outline
         self.assertEqual(((-30, 64, 5), (24, 16, 24)), outline.bounds)
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
-        self.assertEqual((24., 16., 24., .5), self.runtime.uniforms[outline.entity])
+        self.assertEqual((24., 16., 24., .5), self.runtime.uniform_slots[outline.entity, 1])
         self.assertIs(self.runtime.shadows[outline.entity],False)
         self.assertIs(self.runtime.shadows[b.entity],False)
         b.geometry = lambda *args: self.fail('Outline changes must not build geometry')
@@ -355,7 +392,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
         self.assertEqual(['actor_0'], self.runtime.attached)
         s.set('reduced_motion', True)
-        self.assertEqual(0., self.runtime.uniforms[outline.entity][3])
+        self.assertEqual(0., self.runtime.uniform_slots[outline.entity, 1][3])
         b.stop_projection()
         self.assertIsNone(outline.bounds)
         for callback in self.runtime.timers:
@@ -515,7 +552,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.project_large((10, 50, -40))
         outline = b.projection_outline
         self.assertEqual((42., 114., -8.), self.runtime.actor_positions[outline.entity][1])
-        self.assertEqual((64., 128., 64., .5), self.runtime.uniforms[outline.entity])
+        self.assertEqual((64., 128., 64., .5), self.runtime.uniform_slots[outline.entity, 1])
         b.dimension_changed(None)
         for callback in self.runtime.timers:
             callback()

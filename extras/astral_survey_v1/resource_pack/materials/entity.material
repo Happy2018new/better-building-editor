@@ -1,0 +1,43 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "astral_survey_survey_wire:entity_static": {
+      "vertexShader": "shaders/glsl/astral_survey_survey_stars.vertex",
+      "fragmentShader": "shaders/glsl/astral_survey_survey_stars.fragment",
+      "+defines": [
+        "SURVEY_WIRE"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "astral_survey_survey_guide:astral_survey_survey_wire": {
+      "+defines": [
+        "SURVEY_GUIDE"
+      ],
+      "+states": [
+        "DisableDepthTest"
+      ]
+    },
+    "astral_survey_survey_stars:entity_static": {
+      "vertexShader": "shaders/glsl/astral_survey_survey_stars.vertex",
+      "fragmentShader": "shaders/glsl/astral_survey_survey_stars.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "astral_survey_survey_strike:astral_survey_survey_stars": {
+      "+defines": [
+        "SURVEY_STRIKE"
+      ]
+    }
+  }
+}

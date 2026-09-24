@@ -64,6 +64,10 @@ class Session(object):
         self.brightness = 1.
         self.reduced_motion = False
         self.spectrum_speed = 3.
+        from .outline_settings import defaults
+        self.outline_style = 'rainbow'
+        self.outline_options = defaults()
+        self.outline_parameter_serial = 0
         from .materials import initial_catalogue, normalize_palette
         self.palette = normalize_palette(None)
         self.block_catalogue = initial_catalogue()
@@ -124,6 +128,11 @@ class Session(object):
                 self.palette = normalize_palette(preferences['palette'])
             if isinstance(preferences, dict) and isinstance(preferences.get('projection_outline'), bool):
                 self.projection_outline = preferences['projection_outline']
+            if isinstance(preferences, dict):
+                from .outline_settings import STYLES, normalize
+                if preferences.get('outline_style') in STYLES:
+                    self.outline_style = preferences['outline_style']
+                self.outline_options = normalize(preferences.get('outline_options'))
         data = self.bridge.load_library()
         if isinstance(data, dict):
             for entry in data.get('buildings', [])[:32]:
@@ -156,18 +165,20 @@ class Session(object):
 
     def set(self, field, value):
         value = as_text(value)
+        if field == 'outline_style' and value not in ('rainbow', 'golden', 'starry'):
+            return
         if getattr(self, field) == value:
             return
         setattr(self, field, value)
         if field == 'origin':
             self.progress = None
-        if field in ('projection_outline', 'reduced_motion') and hasattr(self.bridge, 'projection_outline'):
+        if field in ('projection_outline', 'outline_style', 'reduced_motion') and hasattr(self.bridge, 'projection_outline'):
             self.bridge.projection_outline.sync()
-        if field == 'projection_outline':
+        if field in ('projection_outline', 'outline_style'):
             self.save_preferences()
         # Pane navigation only invalidates its owners. Document edits still
         # broadcast so retained panes refresh before becoming interactive.
-        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm') else None)
+        self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm', 'outline_style', 'projection_outline') else None)
 
     def set_editor(self, field, value):
         if field in MATERIAL_CHANNELS:
@@ -198,15 +209,32 @@ class Session(object):
             if serial == self.parameter_serial:
                 self.emit()
             if field == 'spectrum_speed' and self.spectrum_speed == value:
-                if hasattr(self.bridge, 'projection_outline'):
-                    self.bridge.projection_outline.sync()
                 self.save_preferences()
+        self.bridge.later(.16, settled)
+
+    def outline_parameter(self, style, name, value):
+        from .outline_settings import STYLES, valid_parameter
+        if style not in STYLES or not valid_parameter(name, value):
+            return
+        value = float(value)
+        if self.outline_options[style][name] == value:
+            return
+        self.outline_options[style][name] = value
+        if style == self.outline_style:
+            self.bridge.projection_outline.sync()
+        self.outline_parameter_serial += 1
+        serial = self.outline_parameter_serial
+        def settled():
+            if serial == self.outline_parameter_serial:
+                self.save_preferences()
+                self.emit('outline_options')
         self.bridge.later(.16, settled)
 
     def save_preferences(self):
         if hasattr(self.bridge, 'save_preferences'):
             self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette,
-                                          'projection_outline': self.projection_outline})
+                                          'projection_outline': self.projection_outline,
+                                          'outline_style': self.outline_style, 'outline_options': self.outline_options})
 
     def set_biome(self, value):
         from .biomes import validate, label

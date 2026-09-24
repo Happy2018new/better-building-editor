@@ -1,0 +1,32 @@
+// __multiversion__
+#include "fragmentVersionCentroid.h"
+#include "uniformPerFrameConstants.h"
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
+varying highp vec3 outlinePosition;
+const float TAU=6.28318530718;
+
+vec3 gold(float phase){
+ float x=fract(phase)*5.;vec3 a=vec3(.722,.408,.098),b=vec3(.961,.682,.192);
+ if(x>=1.){a=b;b=vec3(1.,.886,.557);}if(x>=2.){a=b;b=vec3(1.,.973,.843);}
+ if(x>=3.){a=b;b=vec3(.929,.718,.286);}if(x>=4.){a=b;b=vec3(.722,.408,.098);}
+ return mix(mix(a,b,smoothstep(0.,1.,fract(x))),vec3(1.,.855,.569),.26);
+}
+
+void main(){
+ float spatial=dot(outlinePosition,vec3(.21,.29,.24));
+ float drift=floor(EXTRA_ACTOR_UNIFORM1.w*16.+.5)/210.;
+ float phase=spatial-TIME*EXTRA_ACTOR_UNIFORM1.w+.035*sin(TAU*(spatial*.8-TIME*drift));
+ vec3 rgb=gold(phase);
+ if(floor(EXTRA_ACTOR_UNIFORM3.z)>.5){
+  rgb=mix(vec3(.22,.74,.97),vec3(.72,.30,.94),.5+.5*sin(phase*TAU));
+  float cloud=.5+.5*sin(spatial*38.+sin(spatial*17.-TIME*EXTRA_ACTOR_UNIFORM1.w*TAU)*1.4);
+  rgb=mix(rgb,vec3(.19,.16,.44),.18*cloud);
+  float rate=floor(EXTRA_ACTOR_UNIFORM1.w*79.+.5)/210.;
+  float sparkle=pow(.5+.5*sin(spatial*119.-TIME*TAU*rate),32.);
+  rgb=mix(rgb,vec3(.94,.96,1.),sparkle*.65);
+ }
+ // Same opaque depth-writing pass as rainbow. Background water cannot paint
+ // over a nearer rail; foreground terrain still occludes all three normally.
+ gl_FragColor=vec4(rgb*EXTRA_ACTOR_UNIFORM3.y,1.);
+}

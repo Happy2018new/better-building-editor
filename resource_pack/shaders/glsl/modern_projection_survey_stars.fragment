@@ -1,68 +1,79 @@
 // __multiversion__
 #include "fragmentVersionCentroid.h"
 #include "uniformPerFrameConstants.h"
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 varying highp vec2 effectUV;
 varying highp vec4 effectTint;
 varying highp float effectKind;
 varying highp vec4 facetNormal;
 varying highp vec4 facetView;
 varying highp vec3 facetLight;
-void main() {
-    vec2 p=abs(effectUV);
-    float alpha=1.;vec3 rgb=effectTint.rgb;
-    if(effectKind<.5) {
-        alpha=exp(-dot(p,p)*10.)*(1.-smoothstep(.55,1.,dot(p,p)));
-    } else if(effectKind<1.5) {
-        // Long tapered rays, with soft shoulders and a tiny hard white nucleus.
-        float horizontal=pow(1.-clamp(p.x,0.,1.),2.)*exp(-p.y*p.y/(.00016+.005*pow(1.-p.x,4.)));
-        float vertical=pow(1.-clamp(p.y,0.,1.),2.4)*exp(-p.x*p.x/(.00016+.004*pow(1.-p.y,4.)));
-        float core=exp(-dot(p,p)*650.);
-        alpha=max(max(horizontal,vertical),core);
-        rgb=mix(rgb,vec3(.97,.985,1.),max(core,.70));
-    } else if(effectKind<2.5) {
-        float core=exp(-p.y*p.y*65.);
-        alpha=exp(-p.y*p.y*5.)*(1.-smoothstep(.75,1.,p.y));
-        rgb=mix(rgb,vec3(.91,.95,1.),core*.32);
-    } else if(effectKind<3.5) {
-        vec3 n=normalize(facetNormal.xyz),v=normalize(facetView.xyz),l=normalize(facetLight);
-        float seed=facetNormal.w;
-        float nv=abs(dot(n,v)),fresnel=pow(1.-nv,3.);
-        float reflection=pow(abs(dot(n,normalize(v+l))),75.);
-        float backlight=pow(max(0.,-dot(n,l)),2.);
-        vec3 bary=vec3(effectUV,1.-effectUV.x-effectUV.y);
-        float edge=min(bary.x,min(bary.y,bary.z));
-        float rim=1.-smoothstep(.008,.035,edge);
-        float dispersion=sin(dot(effectUV,vec2(7.,-11.))+TIME*6.2831853/3.5+seed*6.);
-        vec3 edgeColour=mix(vec3(.27,.85,1.),vec3(.96,.42,.86),.5+.5*dispersion);
-        float crack=pow(.5+.5*sin(effectUV.x*29.+sin(effectUV.y*17.+seed*12.)*2.+seed*23.),30.);
-        crack*=1.-smoothstep(.08,.30,edge);
-        float sweep=pow(max(0.,1.-abs(effectUV.x+effectUV.y*.38-fract(TIME/1.75+seed))*12.),10.);
-        float thick=smoothstep(0.,.28,edge);
-        rgb=mix(rgb,vec3(.67,.29,.80),backlight*.55+thick*.16);
-        rgb=mix(rgb,edgeColour,rim*.7);
-        rgb=mix(rgb,vec3(.93,.98,1.),clamp(reflection*.95+rim*fresnel*.85+sweep*.25+crack*.2,0.,1.));
-        alpha=.12+thick*.09+fresnel*.22+rim*(.30+.25*fresnel)+reflection*.65+crack*.09+sweep*.10;
-        // Analytic internal light echoes; this material has no scene-colour sampler.
-        float echo=exp(-pow((effectUV.x-effectUV.y*.45-.22)-sin(TIME*6.2831853/7.+seed*8.)*.18,2.)*450.);
-        rgb=mix(rgb,edgeColour,echo*.35);
-        alpha+=echo*.08;
-        if(!gl_FrontFacing)alpha*=.22;
-    } else if(effectKind<5.5) {
-        float r=length(p);
-        alpha=exp(-r*r*7.)*(1.-smoothstep(.6,1.,r));
-        rgb=mix(vec3(.45,.25,.88),vec3(.96,.67,.93),exp(-r*r*14.));
-    } else if(effectKind<6.5) {
-        // Three nested optical widths, not three overlapping opaque cylinders.
-        float core=exp(-p.y*p.y*80.);
-        float halo=exp(-p.y*p.y*16.);
-        float mist=exp(-p.y*p.y*5.)*(1.-smoothstep(.78,1.,p.y));
-        alpha=core*.97+halo*.42+mist*.09;
-        rgb=mix(vec3(.48,.29,.83),rgb,clamp(halo*3.,0.,1.));
-        rgb=mix(rgb,vec3(.86,.98,1.),core*.8);
-    } else {
-        // Only a thin dim locator is visible through world blocks.
-        alpha=exp(-p.y*p.y*7.);
-        rgb=vec3(.40,.59,.90);
-    }
-    gl_FragColor=vec4(rgb,clamp(alpha*effectTint.a,0.,1.));
+varying highp vec3 materialPos;
+const float TAU=6.28318530718;
+vec3 gold(float phase){
+ float x=fract(phase)*5.;vec3 a=vec3(.722,.408,.098),b=vec3(.961,.682,.192);
+ if(x>=1.){a=b;b=vec3(1.,.886,.557);}if(x>=2.){a=b;b=vec3(1.,.973,.843);}
+ if(x>=3.){a=b;b=vec3(.929,.718,.286);}if(x>=4.){a=b;b=vec3(.722,.408,.098);}
+ return mix(mix(a,b,smoothstep(0.,1.,fract(x))),vec3(1.,.855,.569),.26);
+}
+vec3 astral(float phase){
+ return mix(vec3(.22,.74,.97),vec3(.72,.30,.94),.5+.5*sin(phase*TAU));
+}
+void main(){
+ vec2 p=abs(effectUV);float alpha=1.,theme=facetView.w;vec3 rgb=effectTint.rgb;
+ if(theme>.5)rgb=vec3(.52,.69,1.);
+ if(effectKind<.5){
+  alpha=exp(-dot(p,p)*9.)*(1.-smoothstep(.55,1.,dot(p,p)));
+ }else if(effectKind<1.5){
+  float x=pow(1.-clamp(p.x,0.,1.),2.)*exp(-p.y*p.y/(.0002+.004*pow(1.-p.x,4.)));
+  float y=pow(1.-clamp(p.y,0.,1.),2.2)*exp(-p.x*p.x/(.0002+.004*pow(1.-p.y,4.)));
+  float core=exp(-dot(p,p)*450.);alpha=max(max(x,y),core)+exp(-dot(p,p)*23.)*.1;
+  rgb=mix(rgb,vec3(1.,.98,.9),core*.95);
+ }else if(effectKind<2.5){
+  alpha=exp(-p.y*p.y*7.)*(1.-smoothstep(.7,1.,p.y));
+  rgb=theme>.5?mix(vec3(.31,.20,.67),vec3(.77,.91,1.),1.-effectUV.x):mix(vec3(.78,.43,.12),vec3(1.,.94,.75),1.-effectUV.x);
+  rgb=mix(rgb,vec3(1.,.97,.86),exp(-p.y*p.y*50.)*.35);
+ }else if(effectKind<3.5){
+  vec3 n=normalize(facetNormal.xyz),v=normalize(facetView.xyz),light=normalize(facetLight);
+  float facing=abs(dot(n,v)),fresnel=pow(1.-facing,3.);
+  vec3 reflected=reflect(-v,n);
+  float window=pow(max(0.,dot(reflected,light)),9.);
+  float flash=pow(abs(dot(n,normalize(v+light))),44.);
+  float glint=pow(max(0.,dot(reflect(-light,n),v)),52.);
+  float flicker=pow(.5+.5*sin(TIME*TAU*floor(210.+facetNormal.w*123.)/210.+facetNormal.w*83.),36.);
+  float cool=pow(max(0.,dot(reflected,normalize(vec3(.85,.2,.48)))),12.);
+  vec3 base=theme>.5?mix(vec3(.27,.39,.68),vec3(.78,.55,1.),.5+.5*reflected.y):mix(vec3(.52,.34,.13),vec3(1.,.86,.48),clamp(.32+.65*reflected.y,0.,1.));
+  base=mix(base,vec3(.77,.86,.91),cool*.65);
+  vec3 bary=vec3(effectUV,1.-effectUV.x-effectUV.y);float edge=min(bary.x,min(bary.y,bary.z));
+  float rim=1.-smoothstep(.012,.045,edge);
+  rgb=mix(base,theme>.5?vec3(.96,.99,1.):vec3(1.,.98,.87),clamp(window+flash+glint*.9+flicker*flash*.75+rim*(.45+fresnel*.35),0.,1.));
+  float crack=exp(-pow((effectUV.x-.31-effectUV.y*.23)*100.,2.))*smoothstep(.07,.19,edge);
+  rgb=mix(rgb,vec3(1.,.95,.85),crack*.28);
+  alpha=.52+window*.4+fresnel*.26+flash*.42+glint*.6+flicker*flash*.3+rim*.28;
+ }else{
+  float spatial=dot(materialPos,vec3(.21,.29,.24));
+  float drift=floor(EXTRA_ACTOR_UNIFORM1.w*16.+.5)/210.;
+  float phase=spatial-TIME*EXTRA_ACTOR_UNIFORM1.w+.035*sin(TAU*(spatial*.8-TIME*drift));
+  rgb=theme>.5?astral(phase):gold(phase);
+  float core=exp(-p.y*p.y*85.),halo=exp(-p.y*p.y*13.);
+  alpha=core*.98+halo*.36+exp(-p.y*p.y*5.)*.045;
+  if(theme>.5){
+   // Moving nebula filaments and sparse embedded stars, not a flat purple tint.
+   float cloud=.5+.5*sin(spatial*38.+sin(spatial*17.-TIME*EXTRA_ACTOR_UNIFORM1.w*TAU)*1.4);
+   rgb=mix(rgb,vec3(.19,.16,.44),.25*cloud*(1.-core));
+   float sparkleRate=floor(EXTRA_ACTOR_UNIFORM1.w*79.+.5)/210.;
+   float sparkle=pow(.5+.5*sin(spatial*119.-TIME*TAU*sparkleRate),32.);
+   rgb=mix(rgb,vec3(.94,.96,1.),sparkle*.65*core);
+  }
+  rgb=mix(rgb,theme>.5?vec3(.91,.96,1.):vec3(1.,.97,.86),core*.42);
+  if(effectKind>6.5){alpha=exp(-p.y*p.y*8.);rgb*=.8;}
+ }
+ float coverage=clamp(alpha*effectTint.a,0.,1.);
+#ifndef SURVEY_GUIDE
+ // Write depth only for visible fragments so subsequently drawn water/leaves
+ // cannot overwrite a closer crystal. Empty billboard pixels must never mask
+ // the world or another effect with an invisible rectangular depth plate.
+ if(coverage<.035)discard;
+#endif
+ gl_FragColor=vec4(rgb,coverage);
 }

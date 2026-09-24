@@ -1,63 +1,101 @@
 # -*- coding: utf-8 -*-
-"""Private survey volume, GPU stardust and bounded short-lived comets."""
+"""Private GPU wire effects and exactly two persistent survey point markers."""
 from __future__ import unicode_literals
 import time
+from .outline_settings import defaults, normalize
+
+GOLD_PRESET = defaults()['golden']
+# Native Facing: down, up, north, south, west, east. Shader axes: -X,+X,-Y,+Y,-Z,+Z.
+NATIVE_FACES = (2, 3, 4, 5, 0, 1)
 
 
-class SurveyEffects(object):
+class WireEffects(object):
+    """Shared renderer; survey settings are fixed by its owner, never by UI."""
     def __init__(self, bridge):
         self.bridge = bridge
         self.layers = []
-        self.bursts = []
+        self.points = [None, None]
         self.bounds = None
         self.anchor = None
         self.camera = None
         self.started = 0.
-        self.flared = -10.
-        self.corner = 7
-        self.timing = None
-        self.view = None
+        self.style = 'golden'
+        self.options = defaults()['golden']
+        self.reduced_motion = False
 
-    def _spawn(self, kind, centre, size):
-        b = self.bridge
-        entity = b.system.CreateClientEntityByTypeStr(
-            ('modern_projection:survey_' + kind).encode('ascii'),centre,(0.,0.))
+    def configure_style(self, style, options, reduced_motion=False):
+        if style not in ('golden', 'starry'):
+            raise ValueError('Unknown luminous outline style')
+        options = normalize({style: options})[style]
+        if (style, options, reduced_motion) == (self.style, self.options, self.reduced_motion):
+            return
+        self.style, self.options, self.reduced_motion = style, options, reduced_motion
+        if self.active():
+            self.follow(self.anchor, self.camera)
+
+    def _records(self):
+        return self.layers + [record for record in self.points if record is not None]
+
+    def _spawn(self, kind, centre, size, face=4):
+        entity = self.bridge.system.CreateClientEntityByTypeStr(
+            ('modern_projection:survey_' + kind).encode('ascii'), centre, (0., 0.))
         if not entity:
             return None
-        record = [entity,centre,tuple(float(v) for v in size),None]
+        record = {'id': entity, 'centre': centre, 'size': tuple(float(v) for v in size),
+                  'kind': kind, 'face': face, 'started': time.time(), 'anchor': None, 'uniforms': {}}
         self._configure(record)
         def ready():
-            if record in self.layers or any(record is item[0] for item in self.bursts):
+            if any(record is item for item in self._records()):
+                # Native renderer registration can lag behind entity creation.
+                record['uniforms'].clear()
                 self._configure(record)
-        b.later(.15,ready)
+        self.bridge.later(.15, ready)
         return record
 
-    def _configure(self, record):
-        b = self.bridge
-        entity,centre,size,unused = record
-        b.factory.CreateModel(entity).SetEntityShadowShow(False)
-        b.factory.CreateActorRender(entity).SetEntityExtraUniforms(1,size+(1.,))
-        if record in self.layers and self.timing is not None:
-            b.factory.CreateActorRender(entity).SetEntityExtraUniforms(3,self.timing)
-        b.factory.CreateActorRender(entity).SetEntityExtraUniforms(4,self._view(record))
-        record[3] = None
-        self._move(record,self.anchor or centre)
+    def _uniform(self, record, slot, value):
+        if record['uniforms'].get(slot) == value:
+            return True
+        ok = self.bridge.factory.CreateActorRender(record['id']).SetEntityExtraUniforms(slot, value)
+        if ok:
+            record['uniforms'][slot] = value
+        return ok
 
-    def _view(self, record):
-        camera = self.camera or self.anchor or record[1]
-        return tuple(float(camera[i])-record[1][i] for i in range(3))+(float(self.corner),)
+    def _configure(self, record):
+        self.bridge.factory.CreateModel(record['id']).SetEntityShadowShow(False)
+        self._update(record, time.time())
+        self._move(record, self.anchor or record['centre'])
+
+    def _update(self, record, now):
+        point = record['kind'] == 'strike'
+        options = GOLD_PRESET if point else self.options
+        style = 0. if point or self.style == 'golden' else 1.
+        flow = round(options['speed'] * .38 * 210.) / 210.
+        if self.reduced_motion:
+            flow = 0.
+        self._uniform(record, 1, record['size'] + (flow,))
+        entered = min(1., max(0., (now-record['started']) / 1.2))
+        self._uniform(record, 3, (entered, options['brightness'], style+options['width']*.1,
+                                 0. if self.reduced_motion else options['orbit_speed']))
+        camera = self.camera or self.anchor or record['centre']
+        view = tuple(float(camera[i])-record['centre'][i] for i in range(3))
+        self._uniform(record, 4, view + (float(record['face']) if point else options['density'],))
 
     def _move(self, record, anchor):
-        if record[3] == anchor:
-            return
-        b = self.bridge
-        if b.factory.CreatePos(record[0]).SetPosForClientEntity(anchor):
-            offset = tuple(record[1][i]-anchor[i] for i in range(3))+(1.,)
-            if b.factory.CreateActorRender(record[0]).SetEntityExtraUniforms(2,offset):
-                record[3] = anchor
+        if anchor is None:
+            anchor = record['centre']
+        anchor = tuple(anchor)
+        if record['anchor'] == anchor:
+            return True
+        if not self.bridge.factory.CreatePos(record['id']).SetPosForClientEntity(anchor):
+            return False
+        offset = tuple(record['centre'][i]-anchor[i] for i in range(3)) + (1.,)
+        if not self._uniform(record, 2, offset):
+            return False
+        record['anchor'] = anchor
+        return True
 
     def replace(self, origin, size):
-        bounds = (tuple(origin),tuple(size))
+        bounds = (tuple(origin), tuple(size))
         if bounds == self.bounds and len(self.layers) == 3:
             return
         self.clear_box()
@@ -67,73 +105,81 @@ class SurveyEffects(object):
             self.camera = tuple(self.bridge.factory.CreateCamera(self.bridge.level).GetPosition())
         except Exception:
             pass
-        camera = self.camera or self.anchor or centre
-        # Choose once when a new box appears: orbiting the camera must not
-        # teleport the dominant star between corners halfway through a beam.
-        self.corner = sum((1 << i) for i in range(3) if camera[i] >= centre[i])
         self.started = time.time()
-        self.timing = None
-        self.view = None
-        for kind in ('guide','wire','stars'):
-            record = self._spawn(kind,centre,size)
+        for kind in ('guide', 'wire', 'stars'):
+            record = self._spawn(kind, centre, size)
             if record is not None:
                 self.layers.append(record)
 
-    def strike(self, pos):
-        self.flared = time.time()
-        while len(self.bursts) >= 3:
-            self.bridge.system.DestroyClientEntity(self.bursts.pop(0)[0][0])
-        centre = tuple(float(v)+.5 for v in pos)
-        record = self._spawn('strike',centre,(1,1,1))
+    def sync_points(self, positions, faces=None):
+        for index in range(2):
+            pos = positions[index]
+            if index == 1 and pos is not None and pos == positions[0]:
+                pos = None  # A one-block selection needs one visible marker.
+            record = self.points[index]
+            centre = tuple(float(v)+.5 for v in pos) if pos is not None else None
+            native_face = faces[index] if faces is not None else None
+            if index == 0 and positions[0] is not None and positions[1] == positions[0] and faces is not None:
+                # Coincident endpoints share one marker at the most recently hit face.
+                native_face = faces[1] if type(faces[1]) is int and 0 <= faces[1] < 6 else native_face
+            face = NATIVE_FACES[native_face] if type(native_face) is int and 0 <= native_face < 6 else None
+            if face is None and record is not None and record['centre'] == centre:
+                face = record['face']  # Legacy callers must not move an already picked face.
+            if face is None and centre is not None:
+                camera = self.camera or self.anchor or tuple(centre[i]+2. for i in range(3))
+                delta = tuple(camera[i]-centre[i] for i in range(3))
+                axis = max(range(3), key=lambda i: abs(delta[i]))
+                face = axis*2 + (1 if delta[axis] >= 0. else 0)
+            if record is not None and record['centre'] == centre:
+                if record['face'] != face:
+                    record['face'] = face
+                    self._update(record, time.time())
+                continue
+            if record is not None:
+                self.bridge.system.DestroyClientEntity(record['id'])
+            self.points[index] = None
+            if centre is not None:
+                self.points[index] = self._spawn('strike', centre, (1, 1, 1), face)
+
+    def pulse_point(self, index):
+        record = self.points[index]
+        if record is None and index == 1:
+            record = self.points[0]
         if record is not None:
-            self.bridge.factory.CreateActorRender(record[0]).SetEntityExtraUniforms(3,(0.,0.,0.,0.))
-            self.bursts.append((record,time.time()))
+            record['started'] = time.time()
 
     def active(self):
-        return bool(self.layers or self.bursts)
+        return bool(self.layers or any(self.points))
 
     def follow(self, anchor, camera=None):
-        self.anchor = anchor
-        self.camera = camera or anchor
+        if anchor is not None:
+            self.anchor = tuple(anchor)
+        if camera is not None:
+            self.camera = tuple(camera)
         now = time.time()
-        timing = (min(1.,max(0.,(now-self.started)/1.2)),
-                  min(1.,max(0.,(now-self.flared)/.55)),0.,0.)
-        view_changed = self.view != self.camera
-        for record in self.layers:
-            self._move(record,anchor)
-            if timing != self.timing or view_changed:
-                render = self.bridge.factory.CreateActorRender(record[0])
-                if timing != self.timing:
-                    render.SetEntityExtraUniforms(3,timing)
-                if view_changed:
-                    render.SetEntityExtraUniforms(4,self._view(record))
-        self.timing = timing
-        self.view = self.camera
-        remaining = []
-        for record,started in self.bursts:
-            age = (now-started)/1.8
-            if age >= 1.:
-                self.bridge.system.DestroyClientEntity(record[0])
-            else:
-                self._move(record,anchor)
-                self.bridge.factory.CreateActorRender(record[0]).SetEntityExtraUniforms(3,(age,0.,0.,0.))
-                if view_changed:
-                    self.bridge.factory.CreateActorRender(record[0]).SetEntityExtraUniforms(4,self._view(record))
-                remaining.append((record,started))
-        self.bursts = remaining
+        ok = True
+        for record in self._records():
+            ok = self._move(record, self.anchor) and ok
+            self._update(record, now)
+        return ok
 
     def clear_box(self):
         for record in self.layers:
-            self.bridge.system.DestroyClientEntity(record[0])
+            self.bridge.system.DestroyClientEntity(record['id'])
         self.layers = []
         self.bounds = None
-        self.timing = None
-        self.view = None
 
     def clear(self):
         self.clear_box()
-        for record,unused in self.bursts:
-            self.bridge.system.DestroyClientEntity(record[0])
-        self.bursts = []
+        for record in self.points:
+            if record is not None:
+                self.bridge.system.DestroyClientEntity(record['id'])
+        self.points = [None, None]
         self.anchor = None
         self.camera = None
+
+
+class SurveyEffects(WireEffects):
+    """The survey wand always uses the approved gold preset, including points."""
+    def configure_style(self, style, options, reduced_motion=False):
+        raise ValueError('Survey appearance is fixed')

@@ -103,8 +103,8 @@ class ServerStreamTests(unittest.TestCase):
         sent = []
         self.host.NotifyToClient = lambda player, event, payload: sent.append((player,event,payload))
         first = {'entityId':'player', 'itemDict':{'newItemName':'modern_projection:survey_wand'},
-                 'dimensionId':0, 'x':0, 'y':64, 'z':0}
-        second = dict(first, x=3, y=66, z=2)
+                 'dimensionId':0, 'x':0, 'y':64, 'z':0, 'face':4}
+        second = dict(first, x=3, y=66, z=2, face=1)
         with patch.object(server.time, 'time', side_effect=(10., 11.)):
             self.host.tool_use_on(first)
             self.host.tool_use_on(second)
@@ -112,6 +112,8 @@ class ServerStreamTests(unittest.TestCase):
         self.assertTrue(second['ret'])
         self.assertEqual((0,64,0), sent[1][2]['origin'])
         self.assertEqual((4,3,3), sent[1][2]['size'])
+        self.assertEqual(4, sent[0][2]['face'])
+        self.assertEqual(1, sent[1][2]['face'])
         self.assertFalse(self.host.world_points)
         self.assertEqual((0,(0,64,0),(4,3,3)), self.host.world_regions['player'])
         self.assertFalse(self.writes)
@@ -139,7 +141,7 @@ class ServerStreamTests(unittest.TestCase):
         self.addCleanup(lambda: setattr(self.factory, 'CreateItem', original))
         sent = []
         self.host.NotifyToClient = lambda player, event, payload: sent.append(payload)
-        request = {'__id__':'player', 'action':'point', 'pos':(0,64,0)}
+        request = {'__id__':'player', 'action':'point', 'pos':(0,64,0), 'face':5}
         self.host.world_tool_request(request)
         self.assertFalse(sent)
         carried['newItemName']='modern_projection:survey_wand'
@@ -147,6 +149,7 @@ class ServerStreamTests(unittest.TestCase):
         self.assertIn('12 格', sent[-1]['error'])
         self.host.world_tool_request(request)
         self.assertEqual(0, sent[-1]['index'])
+        self.assertEqual(5, sent[-1]['face'])
         self.host.world_tool_request({'__id__':'player','action':'reset'})
         self.assertTrue(sent[-1]['clear'])
         self.assertFalse(self.host.world_points)

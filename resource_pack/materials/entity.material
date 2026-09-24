@@ -2,20 +2,22 @@
   "materials": {
     "version": "1.0.0",
     "modern_projection_survey_wire:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_outline.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_luminous_outline.fragment",
+      "+defines": ["LUMINOUS_OUTLINE"],
+      "+states": ["DisableCulling"]
+    },
+    "modern_projection_survey_guide:entity_static": {
       "vertexShader": "shaders/glsl/modern_projection_survey_stars.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_survey_stars.fragment",
-      "+defines": ["SURVEY_WIRE"],
+      "+defines": ["SURVEY_GUIDE"],
       "+states": ["Blending", "DisableDepthWrite", "DisableCulling"],
       "blendSrc": "SourceAlpha", "blendDst": "OneMinusSrcAlpha"
-    },
-    "modern_projection_survey_guide:modern_projection_survey_wire": {
-      "+defines": ["SURVEY_GUIDE"],
-      "+states": ["DisableDepthTest"]
     },
     "modern_projection_survey_stars:entity_static": {
       "vertexShader": "shaders/glsl/modern_projection_survey_stars.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_survey_stars.fragment",
-      "+states": ["Blending", "DisableDepthWrite", "DisableCulling"],
+      "+states": ["Blending", "DisableCulling"],
       "blendSrc": "SourceAlpha", "blendDst": "OneMinusSrcAlpha"
     },
     "modern_projection_survey_strike:modern_projection_survey_stars": {

@@ -24,6 +24,7 @@ class ClientBridge(object):
         self.player = clientApi.GetLocalPlayerId()
         self.session = None
         self.corners = [None, None]
+        self.corner_faces = [None, None]
         from .survey_effects import SurveyEffects
         self.survey_effects = SurveyEffects(self)
         self.entity = None
@@ -90,6 +91,7 @@ class ClientBridge(object):
             return
         signature = (position, self.entity, self.projection_outline.entity)
         if signature == self._projection_follow_position:
+            self.projection_outline.follow(position, tuple(centre))
             return
         if self.projection_mesh:
             entity, model, origin, previous = self.projection_mesh
@@ -100,7 +102,7 @@ class ClientBridge(object):
                 if not self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset):
                     return
                 self.projection_mesh = (entity, model, origin, position)
-        if self.projection_outline.follow(position):
+        if self.projection_outline.follow(position, tuple(centre)):
             self._projection_follow_position = signature
 
     def check_frame_work(self):
@@ -227,6 +229,7 @@ class ClientBridge(object):
     def world_tool_point(self, args):
         if args.get('clear'):
             self.corners = [None, None]
+            self.corner_faces = [None, None]
             self.draw_bounds()
         if args.get('error'):
             self.notify(args['error'])
@@ -239,14 +242,16 @@ class ClientBridge(object):
             return
         if index == 0:
             self.corners = [tuple(pos), None]
+            self.corner_faces = [args.get('face'), None]
             self.notify('第一个角点已设置，请选择另一方块')
         elif self.corners[0] is not None:
             self.corners[1] = tuple(pos)
+            self.corner_faces[1] = args.get('face')
             from .input_mode import is_touch
             action = '点击“导入选区”' if is_touch() else '左键导入，右键重选，潜行右键清除'
             self.notify(('已选择 %d × %d × %d，' % tuple(args['size'])) + action)
         self.draw_bounds()
-        self.survey_effects.strike(tuple(pos))
+        self.survey_effects.pulse_point(index)
         self.session.emit()
 
     def capture_new(self):
@@ -327,6 +332,7 @@ class ClientBridge(object):
         pick = self.factory.CreateCamera(self.level).PickFacing()
         pos = tuple(int(pick[k]) for k in ('x', 'y', 'z')) if pick and pick.get('type') == 'Block' else self.player_origin()
         self.corners[index] = pos
+        self.corner_faces[index] = pick.get('face') if pick and pick.get('type') == 'Block' else None
         self.draw_bounds()
         self.session.editor.message = '已标记%s：%d, %d, %d' % tuple(['起点' if index == 0 else '终点'] + list(pos))
         self.factory.CreateTextNotifyClient(self.level).SetLeftCornerNotify(native(self.session.editor.message))
@@ -339,6 +345,7 @@ class ClientBridge(object):
             return
         lo, hi = bounds(points)
         self.survey_effects.replace(lo,tuple(hi[i]-lo[i]+1 for i in range(3)))
+        self.survey_effects.sync_points(self.corners, self.corner_faces)
 
     def request(self, action, data):
         if self.session.edit_job is not None or self.session.io_job is not None:
@@ -641,6 +648,7 @@ class ClientBridge(object):
             self.cancel_world()
         self.stop_projection()
         self.corners = [None, None]
+        self.corner_faces = [None, None]
         self.draw_bounds()
         self.session.progress = None
         self.session.emit()
@@ -649,4 +657,5 @@ class ClientBridge(object):
         self.alive = False
         self.stop_projection()
         self.corners = [None, None]
+        self.corner_faces = [None, None]
         self.draw_bounds()

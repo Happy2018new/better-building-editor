@@ -132,7 +132,7 @@ class HelloClientSystem(ClientSystem):
         if not pick or pick.get('type') != 'Block':
             raise ValueError(u'请选择要测绘的方块')
         self.NotifyToServer('WorldToolRequest', {'action': 'point',
-            'pos': [int(pick[axis]) for axis in ('x', 'y', 'z')]})
+            'pos': [int(pick[axis]) for axis in ('x', 'y', 'z')], 'face': pick.get('face')})
 
     def tool_hud_action(self, unused=None):
         if self.hud is None or self.session is None:

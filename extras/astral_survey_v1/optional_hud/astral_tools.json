@@ -1,0 +1,157 @@
+{
+  "namespace": "AstralSurveyTools",
+  "button_stars": {
+    "anim_type": "flip_book",
+    "initial_uv": [0, 0],
+    "frame_count": 24,
+    "frame_step": 160,
+    "fps": 12,
+    "easing": "linear"
+  },
+  "hudScreen@common.base_screen": {
+    "$screen_content": "AstralSurveyTools.hudContent"
+  },
+  "hudContent": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "open_button@common.button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [-32, -62],
+          "size": [
+            142,
+            36
+          ],
+          "visible": false,
+          "layer": 5,
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_normal",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_hover",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_pressed",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "caption": {
+                "type": "label",
+                "text": "投影工作台",
+                "layer": 3,
+                "color": [
+                  0.94,
+                  0.97,
+                  1.0
+                ],
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [124, 20],
+                "shadow": false,
+                "offset": [0, -1]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "clear_button@common.button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [82, -62],
+          "size": [54, 36],
+          "visible": false,
+          "layer": 5,
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_normal",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_hover",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/astral_survey/tool_button_pressed",
+                "uv": "@AstralSurveyTools.button_stars",
+                "uv_size": [160, 48],
+                "layer": 1,
+                "size": ["100%", "100%"],
+                "keep_ratio": false
+              }
+            },
+            {
+              "caption": {
+                "type": "label",
+                "text": "清除",
+                "layer": 3,
+                "color": [0.94, 0.97, 1.0],
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [48, 20],
+                "shadow": false,
+                "offset": [0, -1]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

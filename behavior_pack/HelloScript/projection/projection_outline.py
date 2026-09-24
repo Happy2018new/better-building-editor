@@ -9,6 +9,9 @@ class ProjectionOutline(object):
         self.entity = None
         self.bounds = None
         self.render_position = None
+        self.style = None
+        from .survey_effects import WireEffects
+        self.effects = WireEffects(bridge)
 
     def clear(self):
         self.bounds = None
@@ -16,9 +19,18 @@ class ProjectionOutline(object):
 
     def hide(self):
         self.render_position = None
-        if self.entity is not None:
-            self.bridge.system.DestroyClientEntity(self.entity)
-            self.entity = None
+        # Hot-reload can call destruction on an instance created by the
+        # previous module generation. Treat missing fields as an already
+        # empty outline so closing the UI never leaks or raises.
+        style = getattr(self, 'style', None)
+        entity = getattr(self, 'entity', None)
+        if style in (None, 'rainbow') and entity is not None:
+            self.bridge.system.DestroyClientEntity(entity)
+        effects = getattr(self, 'effects', None)
+        if effects is not None:
+            effects.clear()
+        self.entity = None
+        self.style = None
 
     def replace(self, origin, size):
         # Store the projection snapshot, not the currently edited draft or origin.
@@ -33,6 +45,15 @@ class ProjectionOutline(object):
             self.hide()
             return
         origin, size = self.bounds
+        style = s.outline_style
+        if self.style != style:
+            self.hide()
+            self.style = style
+        if style != 'rainbow':
+            self.effects.configure_style(style, s.outline_options[style], s.reduced_motion)
+            self.effects.replace(origin, size)
+            self.entity = self.effects.layers[1]['id'] if len(self.effects.layers) > 1 else None
+            return
         if self.entity is not None:
             self.configure(self.entity)
             return
@@ -58,10 +79,12 @@ class ProjectionOutline(object):
         origin, size = self.bounds
         # Engine TIME wraps every 210 seconds. An integral number of cycles in
         # that interval prevents a color jump at the wrap; match editor speed / 6.
-        cycles = int(s.spectrum_speed * 35. + .5) if not s.reduced_motion else 0
+        options = s.outline_options['rainbow']
+        cycles = int(options['speed'] * 35. + .5) if not s.reduced_motion else 0
         values = tuple(float(v) for v in size) + (cycles / 210.,)
         render = self.bridge.factory.CreateActorRender(entity)
         result = render.SetEntityExtraUniforms(1, values)
+        render.SetEntityExtraUniforms(3, (options['brightness'], options['width'], 0., 0.))
         # EXTRA2 is consumed by the outline vertex shader when the actor is
         # camera-relative.  Keeping the correction in world units avoids any
         # camera-dependent scale or line-width changes.
@@ -72,8 +95,10 @@ class ProjectionOutline(object):
             render.SetEntityExtraUniforms(2, correction)
         return result
 
-    def follow(self, position):
+    def follow(self, position, camera=None):
         """Move only the native culling anchor; preserve the world-space box."""
+        if self.style in ('golden', 'starry'):
+            return self.effects.follow(position, camera)
         if self.entity is None or self.bounds is None:
             return True
         origin, size = self.bounds

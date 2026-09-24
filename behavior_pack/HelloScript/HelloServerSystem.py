@@ -166,7 +166,7 @@ class HelloServerSystem(ServerSystem):
                     raise ValueError('请在 12 格以内选取方块')
                 dimension = serverApi.GetEngineCompFactory().CreateDimension(player).GetEntityDimensionId()
                 self.tool_use_on(dict(zip(('x','y','z'),pos), entityId=player, dimensionId=dimension,
-                                      itemDict={'newItemName': SURVEY_WAND}))
+                                      itemDict={'newItemName': SURVEY_WAND}, face=args.get('face')))
             except (ValueError, TypeError, KeyError) as error:
                 self.NotifyToClient(player, 'WorldToolPoint', {'error': error_text(error)})
 
@@ -202,6 +202,9 @@ class HelloServerSystem(ServerSystem):
             pos = tuple(args[axis] for axis in ('x', 'y', 'z'))
             if any(type(value) is not int for value in pos):
                 raise ValueError('选点坐标无效')
+            face = args.get('face')
+            if type(face) is not int or not 0 <= face <= 5:
+                face = None
             now = time.time()
             last = self.tool_last_use.get(player)
             self.tool_last_use[player] = now
@@ -214,12 +217,12 @@ class HelloServerSystem(ServerSystem):
                 self.world_points.pop(player, None)
                 self.world_regions[player] = (dimension, origin, size)
                 self.NotifyToClient(player, 'WorldToolPoint', {'index': 1, 'pos': pos,
-                    'dimension': dimension, 'origin': origin, 'size': size})
+                    'face': face, 'dimension': dimension, 'origin': origin, 'size': size})
             else:
                 self.world_regions.pop(player, None)
                 self.world_points[player] = (pos, dimension, now)
                 self.NotifyToClient(player, 'WorldToolPoint', {'index': 0, 'pos': pos,
-                    'dimension': dimension})
+                    'face': face, 'dimension': dimension})
         except (ValueError, TypeError, KeyError) as error:
             self.world_points.pop(player, None)
             self.world_regions.pop(player, None)

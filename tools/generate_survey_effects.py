@@ -20,9 +20,9 @@ def geometry(name, cubes):
 
 def generate():
     for name, count in [('survey_wire',576),('survey_guide',576),
-                        ('survey_stars',3072),('survey_strike',768)]:
+                        ('survey_stars',2560),('survey_strike',512)]:
         # POSITION encodes a primitive address and its four vertices. The
-        # shader turns these into joined ribbon segments, eight triangular
+        # shader turns these into short comet trails, eight triangular
         # faces per tumbling crystal, and a small number of star billboards.
         # Keep encoded coordinates below 256 so mobile mediump POSITION
         # retains the half-unit quad corners without precision loss.
@@ -38,7 +38,8 @@ def generate():
                 'identifier':'modern_projection:' + name,
                 'materials':{'default':'modern_projection_' + name},
                 'textures':{'default':'textures/modern_projection/transparent'},
-                'geometry':{'default':'geometry.modern_projection.' + name},
+                'geometry':{'default':'geometry.modern_projection.outline' if name == 'survey_wire'
+                            else 'geometry.modern_projection.' + name},
                 'render_controllers':['controller.render.modern_projection.anchor']}}})
 
 

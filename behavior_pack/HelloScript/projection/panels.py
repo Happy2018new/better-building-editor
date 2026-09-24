@@ -402,7 +402,7 @@ def Layers(session=None, revision=0, height=330):
               onChange=partial(session.range_value, 'brightness', editor=False)),
         BiomeTintSettings(session=session),
         line(),
-        row([icon('box_outline', size=16), text('线框动画', 14)]),
+        row([icon('box_outline', size=16), text('编辑选框动画', 14)]),
         Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
               onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
     ]
@@ -546,6 +546,37 @@ def Library(session=None, revision=0, width=760, height=440):
 
 
 @Component
+def ProjectionOutlineSettings(session=None):
+    use_theme()
+    unused, update = use_state(0)
+    def subscribe():
+        return session.subscribe(lambda: update(lambda v: v+1), ('outline_options', 'outline_style', 'projection_outline'))
+    use_effect(subscribe, [session])
+    style = session.outline_style
+    values = session.outline_options[style]
+    controls = [
+        Action(label='显示投影范围框', glyph='box_outline', selected=session.projection_outline,
+               onClick=partial(session.set, 'projection_outline', not session.projection_outline)),
+        Segments(items=[('rainbow', '炫彩'), ('golden', '金色'), ('starry', '星空')],
+                 value=style, width=216, onChange=partial(session.set, 'outline_style')),
+        Range(label='线框流速', value=values['speed'], minimum=.25, maximum=6., unit=' 倍',
+              onChange=partial(session.outline_parameter, style, 'speed')),
+        Range(label='线框粗细', value=values['width'], minimum=.5, maximum=2., unit=' 倍',
+              onChange=partial(session.outline_parameter, style, 'width')),
+        Range(label='辉光亮度', value=values['brightness'], minimum=.35, maximum=1.5, unit=' 倍',
+              onChange=partial(session.outline_parameter, style, 'brightness')),
+    ]
+    if style != 'rainbow':
+        controls.extend([
+            Range(label='环绕速度', value=values['orbit_speed'], minimum=.25, maximum=3., unit=' 倍',
+                  onChange=partial(session.outline_parameter, style, 'orbit_speed')),
+            Range(label='碎晶密度', value=values['density'], minimum=.3, maximum=1.8, unit=' 倍',
+                  onChange=partial(session.outline_parameter, style, 'density')),
+        ])
+    return Panel(style=S(width=216, gap=10), children=[text('投影范围框', 14)] + controls)
+
+
+@Component
 def ProjectionSettings(session=None, revision=0, height=330):
     use_theme()
     use_material_names(session)
@@ -559,10 +590,7 @@ def ProjectionSettings(session=None, revision=0, height=330):
         BiomeTintSettings(session=session),
         Range(label='投影不透明度', value=session.opacity, minimum=.1, maximum=.85,
               onChange=partial(session.range_value, 'opacity', editor=False)),
-        Action(label='炫彩范围框', glyph='box_outline', selected=session.projection_outline,
-               onClick=partial(session.set, 'projection_outline', not session.projection_outline)),
-        Range(label='炫彩流动速度', value=session.spectrum_speed, minimum=.25, maximum=6., unit=' 倍',
-              onChange=partial(session.range_value, 'spectrum_speed', editor=False)),
+        line(), ProjectionOutlineSettings(session=session),
     ]
     assist = [
         text('建造辅助', 14),
