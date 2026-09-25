@@ -27,11 +27,11 @@ class ClickObserverPrimitive(PanelPrimitive):
             host._projection_click_counts[0] += 1
             # Native input_panel can deliver the same down through two routes.
             # PC pointer coordinates also stay correct after moving the window.
-            touch = is_touch()
+            contact = args.get('TouchId')
+            touch = is_touch() or (contact is not None and contact >= 0)
             point = None if touch else motion.GetMousePosition()
             if point is None and 'TouchPosX' in args and 'TouchPosY' in args:
                 point = (args['TouchPosX'], args['TouchPosY'])
-            contact = args.get('TouchId')
             contacts = fiber.primitive_state.setdefault('contacts', set())
             if contact in contacts:
                 return False
@@ -52,15 +52,16 @@ class ClickObserverPrimitive(PanelPrimitive):
             return False
 
         def multi_touch(screen, args):
-            # BF_InteractButtonClick has no down/up-only filter. Retain native
-            # TouchId and screen coordinates for BOTH moving fingers.
+            # This is an aggregate release, not a stream of contact events.
+            # Android's BF_InteractButtonClick instead fires at release with
+            # a stale TouchEvent=1, which used to reopen an already ended drag.
             if getattr(host, '_projection_trace_touch', False):
                 trace = getattr(host, '_projection_touch_trace', [])
                 trace.append(dict((key, args[key]) for key in
                     ('TouchEvent', 'ButtonState', 'TouchId', 'TouchPosX', 'TouchPosY') if key in args))
                 host._projection_touch_trace = trace[-48:]
             for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
-                tracker.native_touch(args)
+                tracker.touch_finished()
             return False
 
         # Both bindings observe the same non-consuming global input mapping.
@@ -69,7 +70,7 @@ class ClickObserverPrimitive(PanelPrimitive):
         binder = clientApi.GetViewBinderCls()
         for phase, callback, flag in (('down', down, binder.BF_ButtonClickDown),
                                        ('up', up, binder.BF_ButtonClickUp),
-                                       ('multi', multi_touch, binder.BF_InteractButtonClick)):
+                                       ('multi', multi_touch, binder.BF_ButtonClickUp)):
             name = '__projection_pointer_%s_%s' % (phase, id(fiber))
             callback.__name__ = name
             callback.binding_flags = flag

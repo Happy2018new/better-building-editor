@@ -221,6 +221,43 @@ class UpgradeTests(unittest.TestCase):
         self.host._publish_safe_area((1600, 600), (10, 0, 0, 0))
         self.assertEqual(values, [(0, 0, 0, 0), (0, 0, 0, 0)])
 
+    def test_safe_content_uses_page_screen_size_when_probe_size_differs(self):
+        insets = self.host.SafeAreaInsets(13, 24, 27, 48)
+        self.host._publish_safe_area((390, 220), insets)
+        self.assertEqual((390, 220), self.host.get_safe_area_size())
+        self.assertEqual((408, 235), self.host._safe_content_size((480, 275), insets))
+        self.assertEqual((480, 275), self.host._safe_content_size((480, 275), None))
+
+    def test_full_size_hud_translation_does_not_create_a_safe_inset(self):
+        measured = self.host._safe_insets_from_rects(
+            (0, 0), (480, 275), (-14.383686, 0), (480, 275))
+        self.assertEqual((0, 0, 0, 0), measured.to_tuple())
+        measured = self.host._safe_insets_from_rects(
+            (0, 0), (480, 275), (14.383686, 0), (480, 275))
+        self.assertEqual((0, 0, 0, 0), measured.to_tuple())
+
+    def test_real_asymmetric_safe_insets_keep_the_measured_size(self):
+        measured = self.host._safe_insets_from_rects(
+            (0, 0), (480, 275), (48, 13), (408, 235))
+        self.assertEqual((13, 24, 27, 48), measured.to_tuple())
+        self.assertEqual((408, 235), self.host._safe_content_size((480, 275), measured))
+
+    def test_safe_probe_excludes_hud_translation_with_nonzero_safe_insets(self):
+        probe = object.__new__(self.host.SafeAreaProbeScreen)
+        rectangles = {
+            self.host._SCREEN_CONTROL_PATH: ((0., 0.), (600., 270.)),
+            self.host._SAFE_AREA_MATRIX_PATH: ((-17.9796066, 0.), (600., 270.)),
+            self.host._SAFE_AREA_CONTROL_PATH: ((6.0203934, 0.), (552., 256.5)),
+        }
+        with patch.object(self.host.native, 'get_size',
+                          side_effect=lambda screen, path: rectangles[path][1]), \
+             patch.object(self.host.native, 'get_global_position',
+                          side_effect=lambda screen, path: rectangles[path][0]):
+            probe._capture_size()
+        self.assertEqual((0., 24., 13.5, 24.),
+                         self.host.get_safe_area_insets().to_tuple())
+        self.assertEqual((552., 256.5), self.host.get_safe_area_size())
+
     def test_callback_update_uses_latest_handler_without_native_commit(self):
         from unittest.mock import Mock
         handler = Mock()

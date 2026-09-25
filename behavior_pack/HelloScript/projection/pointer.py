@@ -59,7 +59,9 @@ class PointerTracker(object):
             if self.touch and args.get('TouchId') != self.args.get('TouchId'):
                 return
             self.cancel(args)
-        touch = args.get('pointerKind') == 'touch' or self.touch_mode()
+        identity = args.get('TouchId')
+        touch = (args.get('pointerKind') == 'touch' or self.touch_mode() or
+                 (callable(self.props.get('onPinch')) and identity is not None and identity >= 0))
         self.touch = touch
         self.origin = self.previous = None if touch else self.motion.GetMousePosition()
         args = dict(args, pointerKind='touch' if touch else 'mouse')
@@ -148,6 +150,13 @@ class PointerTracker(object):
     def move(self, args):
         if self.pressed:
             identity = args.get('TouchId')
+            # Android reports every held finger here, but its button down/up
+            # callbacks can describe only the first finger. Admit a second
+            # contact from its first local move, while retaining hit testing.
+            if (self.touch and callable(self.props.get('onPinch')) and
+                    identity is not None and identity >= 0 and
+                    identity not in self.contacts):
+                self.down(args)
             if self.pinching:
                 if identity in self.contacts:
                     self.add_contact(args)
@@ -161,6 +170,11 @@ class PointerTracker(object):
                 if identity in self.contacts:
                     self.add_contact(args)
             self.send('onMove', args)
+
+    def touch_finished(self):
+        """The multi_touch button is released after the final native finger."""
+        if self.pinching:
+            self.cancel({})
 
     def enter(self, args):
         self.hovered = True
@@ -200,13 +214,9 @@ class PointerTracker(object):
         self.global_press = self.pressed
 
     def native_touch(self, args):
-        """Route the native multi-touch input mapping, including held moves.
-
-        The ordinary button tracks the first pointer. The screen input panel
-        also observes button.multi_touch so a second contact continues moving
-        even when the viewport button is already held by the first finger.
-        """
-        if not self.touch_mode() or self.props.get('enabled') is False:
+        """Route explicit contact events (also used by debug replay)."""
+        if self.props.get('enabled') is False or (not self.touch_mode() and
+                not callable(self.props.get('onPinch'))):
             return
         phase = args.get('TouchEvent', args.get('ButtonState', -1))
         identity = args.get('TouchId')
@@ -215,7 +225,7 @@ class PointerTracker(object):
         elif phase in (0, 3):
             if identity is not None:
                 (self.up if phase == 0 else self.cancel)(args)
-        elif phase in (1, 4, 5, 6) and identity is not None and identity >= 0:
+        elif identity is not None and identity >= 0:
             if 'TouchPosX' not in args or 'TouchPosY' not in args:
                 return
             if phase == 1 and identity not in self.contacts:

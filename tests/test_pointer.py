@@ -79,6 +79,45 @@ class PointerTests(unittest.TestCase):
         self.tracker.cancel({})
         self.assertFalse(self.tracker.contacts)
 
+    def test_android_second_finger_move_without_down_starts_pinch(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props.update(onPinch=self.record('onPinch'),
+                                  screenHit=lambda point: point[0] < 500)
+        self.down()
+        self.tracker.move({'TouchId': 0, 'TouchEvent': 4,
+                           'TouchPosX': 110, 'TouchPosY': 200})
+        self.tracker.move({'TouchId': 1, 'TouchEvent': 4,
+                           'TouchPosX': 210, 'TouchPosY': 200})
+        self.assertTrue(self.tracker.pinching)
+        self.tracker.move({'TouchId': 1, 'TouchEvent': 4,
+                           'TouchPosX': 310, 'TouchPosY': 200})
+        self.assertEqual(((110, 200), (310, 200)), self.events[-1][1]['points'])
+        self.tracker.up({'TouchId': 0})
+        self.tracker.touch_finished()  # No individual up for the other finger.
+        self.tracker.touch_finished()
+        self.assertFalse(self.tracker.pressed)
+        self.assertFalse(self.tracker.contacts)
+        self.assertFalse(any(name == 'onUp' for name, args in self.events))
+        self.assertEqual(1, sum(name == 'onPinch' and args['phase'] == 'end'
+                                for name, args in self.events))
+
+    def test_android_local_second_move_outside_viewport_does_not_capture(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props.update(onPinch=self.record('onPinch'),
+                                  screenHit=lambda point: point[0] < 500)
+        self.down()
+        self.tracker.move({'TouchId': 1, 'TouchEvent': 4,
+                           'TouchPosX': 550, 'TouchPosY': 200})
+        self.assertFalse(self.tracker.pinching)
+        self.assertNotIn(1, self.tracker.contacts)
+
+    def test_aggregate_touch_release_does_not_consume_single_finger_click(self):
+        self.tracker.touch_mode = lambda: True
+        self.down()
+        self.tracker.touch_finished()
+        self.tracker.up({'TouchId': 0})
+        self.assertEqual(['onDown', 'onUp'], [name for name, args in self.events])
+
     def down(self):
         self.tracker.down({'TouchPosX': 100, 'TouchPosY': 200, 'TouchId': 0})
 
@@ -146,6 +185,21 @@ class PointerTests(unittest.TestCase):
         self.tracker.native_touch({'TouchId':0,'TouchEvent':0})
         self.assertFalse(self.tracker.pressed)
         self.assertFalse(any(name == 'onUp' for name, args in self.events))
+
+    def test_native_move_code_two_zooms_when_input_mode_is_stale(self):
+        self.tracker.props.update(onPinch=self.record('onPinch'), globalCapture=True,
+                                  screenHit=lambda point: point[0] < 500)
+        for identity, x in ((0, 100), (1, 200)):
+            self.tracker.native_touch({'TouchId': identity, 'TouchEvent': 1,
+                                       'TouchPosX': x, 'TouchPosY': 200})
+        self.assertTrue(self.tracker.pinching)
+        self.assertTrue(self.tracker.touch)
+        self.tracker.native_touch({'TouchId': 1, 'TouchEvent': 2,
+                                   'TouchPosX': 300, 'TouchPosY': 200})
+        self.assertEqual(((100, 200), (300, 200)), self.events[-1][1]['points'])
+        self.tracker.native_touch({'TouchId': 0, 'TouchEvent': 0})
+        self.tracker.native_touch({'TouchId': 1, 'TouchEvent': 0})
+        self.assertFalse(self.tracker.pressed)
 
     def test_native_secondary_contact_does_not_start_over_toolbar(self):
         self.pinch()

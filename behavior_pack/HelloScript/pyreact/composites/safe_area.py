@@ -5,6 +5,7 @@ from .. import host
 from ..component import Component
 from ..hooks import use_effect, use_state
 from ..primitives import Panel
+from ..native import get_screen_size
 from ..style import Style
 
 
@@ -39,10 +40,10 @@ def SafeArea(style=None, children=None):
     safe_size = host.get_safe_area_size()
     safe_area = None
     if safe_size is not None:
-        safe_size = tuple(safe_size)
+        safe_width, safe_height = host._safe_content_size(get_screen_size(), insets)
         safe_area = (
-            float(safe_size[0]),
-            float(safe_size[1]),
+            safe_width,
+            safe_height,
             insets.top,
             insets.right,
             insets.bottom,

@@ -564,13 +564,11 @@ def PageContent(session=None, revision=0, width=760, height=440, focus=False, en
 def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
-    safe_screen, set_safe_screen = use_state(lambda: get_safe_area_size() or tuple(get_screen_size()))
+    safe_insets, set_safe_insets = use_state(get_safe_area_insets)
     native_host = _current_fiber().host
 
     def subscribe_safe_area():
-        def changed(unused):
-            set_safe_screen(get_safe_area_size() or tuple(get_screen_size()))
-        return runtime_host._subscribe_safe_area(changed)
+        return runtime_host._subscribe_safe_area(set_safe_insets)
     use_effect(subscribe_safe_area, ())
     measured_screen = use_ref(screen)
     measured_pixels = use_ref(None)
@@ -641,7 +639,8 @@ def Workspace(session=None, revision=0):
                 session.bridge.later(.25, partial(settle, True))
         session.bridge.later(.05, settle)
     use_event('ScreenSizeChangedClientEvent', resized)
-    usable = tuple(safe_screen)
+    usable = runtime_host._safe_content_size(screen, safe_insets)
+    usable = (max(1., usable[0]), max(1., usable[1]))
     Theme.configure(min(usable[1] / 640., usable[0] / 980.), not session.reduced_motion)
     width, height = usable[0] / Theme.scale, usable[1] / Theme.scale
     page = session.page

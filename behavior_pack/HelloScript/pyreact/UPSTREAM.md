@@ -28,7 +28,9 @@
 `mp_inventory_modal_tmpl` 引用应用内的原生 `input_panel` 模态作用域，方块目录用它隔离底层输入；避免整屏 Button 抢占 edit_box 的选择事件。输入框聚焦底色的尺寸、颜色和初始隐藏状态由原生 JSON 维护，更新结果列表不再依赖 Python 缓存的九宫格尺寸。以上属于应用模板扩展，没有修改上游 Modal 组件。
 本次上游没有更改该 JSON；自定义输入模板继续保留原字体、整数 GUI 字号、原生占位子树与聚焦时深灰底色。
 
-2026-09-25：应用的 `ModernProjection.click_observer` 增加非吞噬的 `button.multi_touch` 映射和原生交互绑定；`PointerTracker` 不再把 TouchMoveOut (6) 当作释放。手机第二触点的实际事件载荷仍须真机核验。工作台最外层是不透明全屏底色，内容容器按实际 SafeArea 尺寸计算，不让安全区 padding 与全屏内部固定宽高叠加。验证记录见 `docs/ASTRAL_STAFFS_AND_MOBILE.md`。
+2026-09-25：应用的 `ModernProjection.click_observer` 增加非吞噬的 `button.multi_touch` 映射；`PointerTracker` 不再把 TouchMoveOut (6) 当作释放。工作台最外层是不透明全屏底色，内容容器按实际 SafeArea 尺寸计算，不让安全区 padding 与全屏内部固定宽高叠加。初始验证见 `docs/ASTRAL_STAFFS_AND_MOBILE.md`。
+
+2026-09-26 真机修复：安全区相对 `safezone_screen_matrix` 的全局位置和尺寸测量，排除 HUD 整体平移；完整画布不缩小时 inset 为零，内容尺寸以当前页面画布减边距计算。Android 第二指可能只有本地 move，没有 down/up；PointerTracker 从命中视口的首次 move 捕获第二指。`button.multi_touch` 改用 `BF_ButtonClickUp` 清理末指释放；不可再将 `BF_InteractButtonClick` 的陈旧 down 参数当逐触点流。手机用户已确认缩放生效，诊断和验证边界见 `docs/MOBILE_DEBUGGING.md`。
 
 2026-09-23 性能补丁另让固定数值宽高的叶子直接使用声明尺寸，避免查询随后会被布局覆盖的原生尺寸；自适应文本仍正常量测。应用层静态文字 Element 使用有界缓存，动态字形池按字形差异更新，材质通道按钮保留原生命中控件。验证见 `docs/PERFORMANCE_67.md`。
 

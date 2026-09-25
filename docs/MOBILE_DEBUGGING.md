@@ -12,9 +12,27 @@
 - Android 11 及以上无线方式：电脑、手机连接同一 Wi-Fi，手机打开“无线调试 → 使用配对码配对设备”，运行 `adb pair 手机IP:配对端口` 并输入手机上的配对码。配对端口与连接端口可能不同；若未自动连接，再用无线调试主页显示的地址运行 `adb connect 手机IP:连接端口`，最后执行 `adb devices -l`。
 - 日志：复现前执行 `adb logcat -c`，完成一次复现后用 `adb logcat -d -v threadtime > phone-log.txt` 保存日志。也可以在开发自测包自身的日志界面查看 Python 输出；普通发行包不保证把 Python 输出转到 logcat。
 
-这条 ADB 路径只用于连接设备、采集日志和截图，不等于网易客户端已经提供远程 Python 执行或 MCDK 控制。后续有具体手机版本后，再确认它实际开放的调试入口；不需要 root，也不需要开放电脑 MCDK 端口。
+这条标准 ADB 路径只用于连接设备、采集日志和截图，不等于网易客户端已经提供远程 Python 执行或 MCDK 控制；不需要 root，也不需要开放电脑 MCDK 端口。
 
-这轮代码已把有限触控诊断留在 UI 宿主上：设置 `_projection_trace_touch = True` 后，`_projection_touch_trace` 只保留最近 48 个 `TouchEvent`、`TouchId` 和坐标。重点检查以下顺序：第一根手指 `1/4`，第二根手指 `1/4`，两根手指距离变化，分别 `0` 释放，最后 `onPinch` 为 `end`；`TouchEvent=6` 只是移出控件，`7` 才是画布离开。手机上还应确认切换异形屏方向后安全区仍覆盖内容，系统返回键先关闭顶层弹窗，再关闭工作台。
+有限触控诊断留在 UI 宿主上：设置 `_projection_trace_touch = True` 后，`_projection_touch_trace` 只保留最近 48 个全局 multi_touch 释放事件。它不是完整的逐触点记录；采样本地 down/move/up 时必须重新绑定 SDK 按钮回调，单独替换 PointerTracker 类方法无法覆盖 SDK 已缓存的绑定方法。`TouchEvent=6` 只是移出控件，`7` 才是画布离开。手机上还应确认切换异形屏方向后安全区仍覆盖内容，系统返回键先关闭顶层弹窗，再关闭工作台。
+
+## 2026-09-26 真机定位与修复
+
+设备为已连接 ADB 的 Android 自测客户端 `com.netease.mctest`。此次使用临时诊断采集实际安全区坐标、原生触摸回调和相机状态；以下保留问题定位、修复及验证结果。
+
+安全区：手机逻辑画布为 600×270、物理画布为 2400×1080。HUD 的 safezone_screen_matrix 全局位置为 `(-17.9796066, 0)`、尺寸为 600×270；安全内容位置为 `(6.0203934, 0)`、尺寸为 552×256.5。相对屏幕根计算会错误发布左 6.02、右 41.98。现改为相对安全区矩阵计算，得到 `(top,right,bottom,left)=(0,24,13.5,24)`；动态应用后实际内容位置为 `(24,0)`、尺寸仍是 552×256.5，截图确认左右留白对称。矩阵本身的 HUD 平移不应变成推入页面的安全边距。
+
+双指：用户真实手势记录含第一指 96 次 move、第二指 91 次 move，但没有第二指的本地 down/up。旧 PointerTracker 仅接纳已收到 down 的 TouchId，丢弃了第二指移动。另一个根因是 `BF_InteractButtonClick` 在手势结束后触发，并携带陈旧的 `TouchEvent=1`；把它当原始触点流会重新开始已结束的拖动。
+
+修复后，从原生按钮的第二指首次 move 建立接触，仍先校验视口命中；`button.multi_touch` 只绑定 `BF_ButtonClickUp`，在最后一指结束时清理 pinch。普通单指点击仍由原来的 up 路径处理。缩放按双指距离比例计算，以中点为锚，因此中点移动会平移建筑视图；不修改建筑内容。
+
+手机进程内通过 Android MotionEvent 复现一次双指张开、合拢，共投递 64 个系统触摸事件，触发 116 次缩放更新，倍率范围约 0.939～2.756，结束后 `pressed=false`、`pinching=false`、触点为空。用户随后确认真实手指能够正常放大缩小；读回最终拖拽状态也为 false，建筑仍为 1307 方块、修订号 0。临时探针已移除，安全区与双指修复保留在仓库源代码，手机持久生效需安装修复版本。
+
+本地验证：安全区 22 项、指针 21 项、相机 29 项测试通过。独立 ModPC 的 `probe_touch_safe_area.py` 通过：桌面和 F11 均为零 inset，内容与根画布同为 `(0,0,480,275)`。后续 `verify_mobile_routes.py` 的原生拖动回归被 Windows 前台焦点占用阻止，未计入通过结果。此次没有完成横竖屏切换、其他手机型号及 iOS 验证。
+
+全套 `python -m unittest discover -s tests` 的 331 项测试通过。
+
+截图：`.runtime/phone_safe_pinch_fixed.png`，另有修复前 `.runtime/pyreact_phone_current.png`。动态回调实验文件位于 `.runtime/`，不作为产品运行时依赖。
 
 建议的真机回归顺序：
 

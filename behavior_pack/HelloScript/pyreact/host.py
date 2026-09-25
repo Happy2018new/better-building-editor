@@ -33,6 +33,7 @@ _SAFE_AREA_UI_NAME = "safe_area_probe"
 _SAFE_AREA_SCREEN_DEF = "PyreactBase.safeAreaProbe"
 _UI_INIT_PRIORITY = 10
 _SCREEN_CONTROL_PATH = "/variables_button_mappings_and_controls"
+_SAFE_AREA_MATRIX_PATH = _SCREEN_CONTROL_PATH + "/safezone_screen_matrix"
 _SAFE_AREA_CONTROL_PATH = (
     "/variables_button_mappings_and_controls/safezone_screen_matrix/"
     "inner_matrix/safezone_screen_panel/root_screen_panel"
@@ -121,8 +122,11 @@ class SafeAreaProbeScreen(native.ScreenNode):
             _SAFE_AREA_PROBE[0] = None
 
     def _capture_size(self):
+        # The HUD matrix can be translated independently of a pushed screen.
+        # Measure its safe child in the matrix's coordinate space; otherwise
+        # that translation becomes an asymmetric inset on the pushed screen.
         screen_width, screen_height = native.get_size(
-            self, _SCREEN_CONTROL_PATH)
+            self, _SAFE_AREA_MATRIX_PATH)
         safe_width, safe_height = native.get_size(
             self, _SAFE_AREA_CONTROL_PATH)
         if (screen_width <= 0 or screen_height <= 0 or
@@ -130,19 +134,14 @@ class SafeAreaProbeScreen(native.ScreenNode):
             return
 
         screen_x, screen_y = native.get_global_position(
-            self, _SCREEN_CONTROL_PATH)
+            self, _SAFE_AREA_MATRIX_PATH)
         safe_x, safe_y = native.get_global_position(
             self, _SAFE_AREA_CONTROL_PATH)
-        left = _normalize_inset(safe_x - screen_x)
-        top = _normalize_inset(safe_y - screen_y)
-        right = _normalize_inset(
-            screen_x + screen_width - safe_x - safe_width)
-        bottom = _normalize_inset(
-            screen_y + screen_height - safe_y - safe_height)
-
         _publish_safe_area(
             (float(safe_width), float(safe_height)),
-            SafeAreaInsets(top, right, bottom, left),
+            _safe_insets_from_rects(
+                (screen_x, screen_y), (screen_width, screen_height),
+                (safe_x, safe_y), (safe_width, safe_height)),
         )
 
 
@@ -154,6 +153,15 @@ def _normalize_inset(value):
     if result < 0.001:
         return 0.0
     return result
+
+
+def _safe_insets_from_rects(screen_position, screen_size, safe_position, safe_size):
+    """Ignore HUD translations that do not actually shrink the safe rectangle."""
+    horizontal_gap = _normalize_inset(screen_size[0] - safe_size[0])
+    vertical_gap = _normalize_inset(screen_size[1] - safe_size[1])
+    left = min(horizontal_gap, _normalize_inset(safe_position[0] - screen_position[0]))
+    top = min(vertical_gap, _normalize_inset(safe_position[1] - screen_position[1]))
+    return SafeAreaInsets(top, horizontal_gap - left, vertical_gap - top, left)
 
 
 class PyreactScreenNode(native.ScreenNode):
@@ -806,6 +814,14 @@ def get_safe_area_size():
 def get_safe_area_insets():
     """返回 SafeAreaInsets；探针尚未完成布局时返回 None。"""
     return _SAFE_AREA_INSETS[0]
+
+
+def _safe_content_size(screen_size, insets):
+    """用当前页面的完整尺寸和安全边距计算可用内容尺寸。"""
+    if insets is None:
+        return tuple(screen_size)
+    return (max(0.0, float(screen_size[0]) - insets.left - insets.right),
+            max(0.0, float(screen_size[1]) - insets.top - insets.bottom))
 
 
 def _publish_safe_area(size, insets):
