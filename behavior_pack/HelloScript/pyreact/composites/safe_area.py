@@ -39,6 +39,7 @@ def SafeArea(style=None, children=None):
     safe_size = host.get_safe_area_size()
     safe_area = None
     if safe_size is not None:
+        safe_size = tuple(safe_size)
         safe_area = (
             float(safe_size[0]),
             float(safe_size[1]),

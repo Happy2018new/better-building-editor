@@ -9,6 +9,7 @@ varying highp vec4 facetNormal;
 varying highp vec4 facetView;
 varying highp vec3 facetLight;
 varying highp vec3 materialPos;
+varying highp float crystalBirth;
 const float TAU=6.28318530718;
 vec3 gold(float phase){
  float x=fract(phase)*5.;vec3 a=vec3(.722,.408,.098),b=vec3(.961,.682,.192);
@@ -60,6 +61,11 @@ void main(){
   float crack=exp(-pow((effectUV.x-.31-effectUV.y*.23)*100.,2.))*smoothstep(.07,.19,edge);
   rgb=mix(rgb,vec3(1.,.95,.85),crack*.28);
   alpha=.52+window*.4+fresnel*.26+flash*.42+glint*.6+flicker*flash*.3+rim*.28;
+  // A traveling frost boundary lights the newly forming facets, then fades
+  // into the same permanent gold material without swapping particle actors.
+  float frost=sin(crystalBirth*3.14159265);
+  rgb=mix(rgb,vec3(.91,.98,1.),frost*(.34+rim*.52));
+  alpha=min(1.,alpha+frost*.25);
  }else if(effectKind<4.5){
   // Broad, angular light flakes, distinct from the faceted crystal material.
   float silhouette=p.x*.72+p.y;

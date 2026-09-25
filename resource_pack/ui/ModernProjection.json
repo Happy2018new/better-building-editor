@@ -29,7 +29,14 @@
   "click_observer@PyreactBase.panel": {
     "type": "input_panel",
     "consume_hover_events": false,
+    "is_handle_button_move_event": true,
     "button_mappings": [
+      {
+        "from_button_id": "button.multi_touch",
+        "to_button_id": "#modern_projection_multi_touch",
+        "mapping_type": "global",
+        "consume_event": false
+      },
       {
         "from_button_id": "button.menu_select",
         "to_button_id": "#modern_projection_pointer_down",

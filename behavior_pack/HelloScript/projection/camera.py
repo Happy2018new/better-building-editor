@@ -71,6 +71,10 @@ class OrbitCamera(object):
         self.pan_target = self.pan
         self.pivot = None
         self.depth = self.depth_target = 0.
+        self._basis_angles = None
+        self._basis_value = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
+        self._projection_key = None
+        self._projection_value = ((1., 0., 0.), (0., 1., 0.), 0., 0.)
 
     def center(self, size):
         return self.pivot if self.pivot is not None else tuple(v / 2. for v in size)

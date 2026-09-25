@@ -1,0 +1,142 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.modern_projection_survey_wand.holding": {
+      "loop": true,
+      "bones": {
+        "staff": {
+          "position": [
+            "c.is_first_person ? 0.0 : 0.0",
+            "c.is_first_person ? 18.0 : 22.0",
+            "c.is_first_person ? 2.4 : 0.0"
+          ],
+          "rotation": [
+            "c.is_first_person ? 27.0 : -8.0",
+            "c.is_first_person ? -39.0 : 0.0",
+            "c.is_first_person ? -159.0 : 0.0"
+          ],
+          "scale": "c.is_first_person ? 0.62 : 0.85"
+        },
+        "gem0": {
+          "position": [
+            0,
+            "16.0 + math.sin(q.life_time * 48.0) * 0.24",
+            0
+          ],
+          "rotation": [
+            0,
+            "q.life_time * 15.0",
+            0
+          ],
+          "scale": [
+            1.6,
+            1.8,
+            1.6
+          ]
+        },
+        "gem1": {
+          "position": [
+            "math.cos(q.life_time * -18 + 72) * 4.7",
+            "17.0 + math.sin(q.life_time * 34.0 + 72.0) * 1.0",
+            "math.sin(q.life_time * -18 + 72) * 3.2"
+          ],
+          "rotation": [
+            12,
+            "q.life_time * -18 + 72",
+            -12
+          ],
+          "scale": [
+            0.48,
+            0.66,
+            0.48
+          ]
+        },
+        "gem2": {
+          "position": [
+            "math.cos(q.life_time * -18 + 144) * 4.7",
+            "17.0 + math.sin(q.life_time * 34.0 + 144.0) * 1.0",
+            "math.sin(q.life_time * -18 + 144) * 3.2"
+          ],
+          "rotation": [
+            12,
+            "q.life_time * -18 + 144",
+            12
+          ],
+          "scale": [
+            0.48,
+            0.66,
+            0.48
+          ]
+        },
+        "gem3": {
+          "position": [
+            "math.cos(q.life_time * -18 + 216) * 4.7",
+            "17.0 + math.sin(q.life_time * 34.0 + 216.0) * 1.0",
+            "math.sin(q.life_time * -18 + 216) * 3.2"
+          ],
+          "rotation": [
+            12,
+            "q.life_time * -18 + 216",
+            -12
+          ],
+          "scale": [
+            0.48,
+            0.66,
+            0.48
+          ]
+        },
+        "gem4": {
+          "position": [
+            "math.cos(q.life_time * -18 + 288) * 4.7",
+            "17.0 + math.sin(q.life_time * 34.0 + 288.0) * 1.0",
+            "math.sin(q.life_time * -18 + 288) * 3.2"
+          ],
+          "rotation": [
+            12,
+            "q.life_time * -18 + 288",
+            12
+          ],
+          "scale": [
+            0.48,
+            0.66,
+            0.48
+          ]
+        },
+        "gem5": {
+          "position": [
+            "math.cos(q.life_time * -18 + 360) * 4.7",
+            "17.0 + math.sin(q.life_time * 34.0 + 360.0) * 1.0",
+            "math.sin(q.life_time * -18 + 360) * 3.2"
+          ],
+          "rotation": [
+            12,
+            "q.life_time * -18 + 360",
+            -12
+          ],
+          "scale": [
+            0.48,
+            0.66,
+            0.48
+          ]
+        },
+        "gem6": {
+          "position": [
+            0,
+            -17,
+            0
+          ],
+          "rotation": [
+            0,
+            "q.life_time * -12.0",
+            0
+          ],
+          "scale": [
+            0.7,
+            0.7,
+            0.7
+          ]
+        }
+      }
+    }
+  }
+}

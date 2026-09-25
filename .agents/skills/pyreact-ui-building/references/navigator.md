@@ -54,3 +54,5 @@ def open_detail(item_id):
 `GetTopUI` / `GetTopScreen`，直到真实栈顶达到目标。事务期间 native 页面自行关闭、
 业务代码主动 pop 或继续 push，都会在后续帧重新纳入判断。navigator 自己发起的
 连续 pop 仍遵守 ModSDK 每帧最多弹出一个 UI 的原生限制。
+
+本项目的 Screen 模板自带 `button.menu_cancel`、`button.menu_inventory_cancel` 和 `button.menu_exit` 返回映射。默认调用 `navigator.pop()`；工作台的宿主返回处理先关闭顶层对话框再退出页面。安卓 `OnBackButtonReleaseClientEvent` 作为平台补充入口，与 JSON UI 回调共用去重，并检查真正的原生栈顶。不要再为同一页面添加只监听 Esc 的重复关闭逻辑。

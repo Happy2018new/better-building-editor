@@ -7,7 +7,8 @@ import time
 import mod.client.extraClientApi as clientApi
 from functools import partial
 from ..pyreact import *
-from ..pyreact.hooks import use_animation_frame
+from ..pyreact.hooks import use_animation_frame, _current_fiber
+from ..pyreact import host as runtime_host
 from ..pyreact.native import get_screen_size
 from .widgets import Theme, S, TEX, text, row, surface, icon, line, Action, Range, Segments, Doll, Scroll, Input, transparent
 from .widgets import JellyButton as Button, PageMotion, use_theme, NativeText, retained_text, update_retained_text
@@ -563,6 +564,14 @@ def PageContent(session=None, revision=0, width=760, height=440, focus=False, en
 def Workspace(session=None, revision=0):
     revision, set_revision = use_state(0)
     screen, set_screen = use_state(get_screen_size())
+    safe_screen, set_safe_screen = use_state(lambda: get_safe_area_size() or tuple(get_screen_size()))
+    native_host = _current_fiber().host
+
+    def subscribe_safe_area():
+        def changed(unused):
+            set_safe_screen(get_safe_area_size() or tuple(get_screen_size()))
+        return runtime_host._subscribe_safe_area(changed)
+    use_effect(subscribe_safe_area, ())
     measured_screen = use_ref(screen)
     measured_pixels = use_ref(None)
     resize_pending = use_ref(False)
@@ -585,29 +594,20 @@ def Workspace(session=None, revision=0):
         if session.sharing.opened:
             session.sharing.close()
             return
-        if entrance.current:
-            entrance.current['close']()
-
-    escape_held = use_ref(False)
-    def keyboard(args):
-        if str(args.get('key')) != '27':
-            return
-        down = str(args.get('isDown')) == '1'
-        previous = escape_held.current
-        escape_held.current = down
-        entry = navigator.top
-        if not down or previous or entry is None or entry.key != 'modern_projection_workspace':
-            return
-        if session.sharing.opened:
-            session.sharing.close()
-            return
-        # Dismiss the top dialog first, through its normal animated close path.
         for field in ('pending_confirm', 'pending_rename', 'material_browser'):
             if getattr(session, field) is not None:
                 session.set(field, None)
                 return
-        close()
-    use_event('OnKeyPressInGame', keyboard)
+        if entrance.current:
+            entrance.current['close']()
+
+    # Android Back, controller cancel and Esc share the native JSON UI route.
+    native_host._pyreact_back_handler = close
+    def release_back_handler():
+        def cleanup():
+            native_host._pyreact_back_handler = None
+        return cleanup
+    use_effect(release_back_handler, ())
 
     def refresh():
         set_revision(lambda previous: previous + 1)
@@ -641,8 +641,9 @@ def Workspace(session=None, revision=0):
                 session.bridge.later(.25, partial(settle, True))
         session.bridge.later(.05, settle)
     use_event('ScreenSizeChangedClientEvent', resized)
-    Theme.configure(min(screen[1] / 640., screen[0] / 980.), not session.reduced_motion)
-    width, height = screen[0] / Theme.scale, screen[1] / Theme.scale
+    usable = tuple(safe_screen)
+    Theme.configure(min(usable[1] / 640., usable[0] / 980.), not session.reduced_motion)
+    width, height = usable[0] / Theme.scale, usable[1] / Theme.scale
     page = session.page
     focus = session.focus_view and page in ('workspace', 'projection')
     main_h = height - (87 if focus else 153)
@@ -679,14 +680,16 @@ def Workspace(session=None, revision=0):
             ], gap=10, flexShrink=0),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
-    return SafeArea(style=S(width='100%', height='100%'), children=[
+    return Image(color=Theme.bg, style=S(width='100%', height='100%'), children=
+      SafeArea(style=S(width='100%', height='100%'), children=
+       Panel(style=S(width='100%', height='100%', clipsChildren=True), children=[
         WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'),
                         width=width, preparation=preparation.current, children=main),
         Confirmation(session=session, revision=session.ui_revision, height=height),
         RenameDialog(session=session, width=width, height=height),
         MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height),
         SharingDialog(session=session, width=width, height=height),
-        ClickEffects(), PreparationPump(queue=preparation.current)])
+        ClickEffects(), PreparationPump(queue=preparation.current)])))
 
 
 @Component

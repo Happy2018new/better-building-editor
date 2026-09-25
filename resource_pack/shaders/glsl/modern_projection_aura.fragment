@@ -1,0 +1,37 @@
+// __multiversion__
+#include "fragmentVersionCentroid.h"
+varying highp vec2 magicUV;
+varying highp vec4 magicColor;
+varying highp float magicKind;
+varying highp vec3 magicNormal;
+varying highp vec3 magicView;
+void main(){
+ vec2 p=abs(magicUV);vec3 rgb=magicColor.rgb;float a=1.;
+ if(magicKind<.5){a=exp(-dot(p,p)*16.)*.82;}
+ else if(magicKind<1.5){
+  float rays=max(exp(-p.x*p.x*500.)*pow(1.-p.y,3.),exp(-p.y*p.y*500.)*pow(1.-p.x,3.));
+  a=exp(-dot(p,p)*120.)+rays*.7;rgb=mix(rgb,vec3(.93,.98,1.),.7);
+ }else if(magicKind<2.5){a=exp(-p.y*p.y*65.)*.8+exp(-p.y*p.y*7.)*.13;}
+ else if(magicKind<3.5){
+  vec3 n=normalize(magicNormal),v=normalize(magicView);
+  float rim=pow(1.-abs(dot(n,v)),2.);
+  float flash=pow(max(0.,dot(reflect(-normalize(vec3(-.3,.8,.5)),n),v)),24.);
+  vec3 bary=vec3(magicUV,1.-magicUV.x-magicUV.y);
+  float edge=1.-smoothstep(.01,.05,min(bary.x,min(bary.y,bary.z)));
+  rgb=mix(rgb*.26,vec3(.83,.96,1.),clamp(.18+rim*.35+flash*.7+edge*.55,0.,1.));a=.76;
+ }else if(magicKind<4.5){
+  // Small angular runes: diamonds, transverse strokes, split tips.
+  float diamond=1.-smoothstep(.065,.12,abs(p.x+p.y-.72));
+  float stem=(1.-smoothstep(.04,.10,p.x))*step(p.y,.95);
+  a=max(diamond,stem)*.72;
+ }else{
+  float shape=p.x*.75+p.y;
+  a=(1.-smoothstep(.72,1.,shape))*.62;
+  rgb=mix(rgb,vec3(.84,.98,1.),1.-p.y);
+ }
+ float coverage=clamp(a*magicColor.a,0.,1.);
+#ifndef AURA_GLOW
+ if(coverage<.04)discard;
+#endif
+ gl_FragColor=vec4(rgb,coverage);
+}

@@ -793,6 +793,21 @@ class Navigator(object):
 class NavigatorScreen(host.PyreactScreenNode):
     """16 个自动注册 Screen 槽位共用的宿主类。"""
 
+    @native.ViewBinder.binding(native.ViewBinder.BF_ButtonClickUp, '#pyreact_navigation_back')
+    def _native_back(self, args):
+        if navigator.top is not self._navigation_entry:
+            return False
+        now = host.time.time()
+        if now - getattr(self, '_last_back_time', 0.) < .18:
+            return True
+        self._last_back_time = now
+        callback = getattr(self, '_pyreact_back_handler', None)
+        if callable(callback):
+            callback()
+        else:
+            navigator.pop()
+        return True
+
     def __init__(self, namespace, name, params):
         host.PyreactScreenNode.__init__(self, namespace, name, params)
         self._navigator_active = False

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "modern_projection:terminal",
+      "materials": {
+        "default": "entity_alphatest",
+        "gem": "modern_projection_staff_gem_violet"
+      },
+      "textures": {
+        "default": "textures/items/modern_projection_staff_palette"
+      },
+      "geometry": {
+        "default": "geometry.modern_projection_terminal"
+      },
+      "animations": {
+        "holding": "animation.modern_projection_terminal.holding"
+      },
+      "scripts": {
+        "animate": [
+          "holding"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.modern_projection.staff"
+      ]
+    }
+  }
+}

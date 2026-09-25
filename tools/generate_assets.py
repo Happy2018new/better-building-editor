@@ -261,8 +261,10 @@ def native_skin():
         'pointer@PyreactBase.button':{'button_mappings':[],'is_handle_button_move_event':True},
         'doll@PyreactBase.paperDoll':{'rotation':'none', 'enable_scissor_test':True},
         'click_observer@PyreactBase.panel': {'type': 'input_panel',
-            'consume_hover_events': False,
-            'button_mappings': [{'from_button_id': 'button.menu_select',
+            'consume_hover_events': False, 'is_handle_button_move_event': True,
+            'button_mappings': [{'from_button_id': 'button.multi_touch',
+                'to_button_id': '#modern_projection_multi_touch', 'mapping_type': 'global', 'consume_event': False},
+                {'from_button_id': 'button.menu_select',
                 'to_button_id': '#modern_projection_pointer_down', 'mapping_type': 'global', 'consume_event': False}]},
         'round@PyreactBase.panel': {'$mp_patch_layer|default':2, 'controls': [
             {'p%d' % (r * 3 + c): {'type': 'image', 'texture': tex + 'rounded', 'bilinear': True,

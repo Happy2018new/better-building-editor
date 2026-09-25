@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "modern_projection:staff_aura",
+      "materials": {
+        "default": "modern_projection_staff_aura",
+        "glow": "modern_projection_staff_aura_glow"
+      },
+      "textures": {
+        "default": "textures/modern_projection/transparent"
+      },
+      "geometry": {
+        "default": "geometry.modern_projection.staff_aura"
+      },
+      "render_controllers": [
+        "controller.render.modern_projection.survey_particles"
+      ]
+    }
+  }
+}

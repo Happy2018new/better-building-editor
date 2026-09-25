@@ -1,0 +1,45 @@
+// __multiversion__
+#include "fragmentVersionCentroid.h"
+#include "uniformPerFrameConstants.h"
+precision highp float;
+varying highp vec3 skyRay;
+varying highp vec3 gemNormal;
+varying highp vec3 gemPosition;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float stars(vec2 p,float layer){
+ vec2 cell=floor(p),f=fract(p)-.5;
+ float seed=hash(cell+layer*19.);
+ vec2 offset=vec2(hash(cell+4.),hash(cell+9.))*.65-.325;
+ float r=length(f-offset),twinkle=.65+.35*sin(TIME*6.2831853*30./210.+seed*40.);
+ float core=1.-smoothstep(.032,.090,r);
+ float halo=exp(-r*r*95.)*.28;
+ return (core+halo)*step(.84,seed)*twinkle;
+}
+void main(){
+ vec3 ray=normalize(skyRay),n=normalize(gemNormal),view=-ray;
+ // Three celestial shells at different depths create view-dependent
+ // parallax; the sky remains coherent across adjacent crystal facets.
+ vec2 sky=vec2(atan(ray.z,ray.x),asin(clamp(ray.y,-1.,1.)));
+ float clock=TIME*6.2831853/210.;
+ vec2 drift=vec2(cos(clock),sin(clock))*.30;
+ vec2 local=vec2(gemPosition.x+gemPosition.z*.37,gemPosition.y);
+ vec2 p=sky*3.+local*.65+drift;
+ float clouds=sin(p.x*2.3+sin(p.y*2.1))*sin(p.y*3.7-p.x*.8);
+ vec3 deep=vec3(.016,.034,.080),nebula=vec3(.04,.23,.32);
+#ifdef STAFF_VIOLET
+ nebula=vec3(.19,.085,.37);
+#endif
+ vec3 rgb=mix(deep,nebula,smoothstep(-.7,.8,clouds)*.85);
+ float filament=pow(.5+.5*sin(p.y*4.+sin(p.x*2.)*1.7),5.);
+ rgb+=vec3(.025,.10,.14)*filament;
+ float dust=stars(sky*19.+drift*.65+local*2.8,1.);
+ float middle=stars(sky*32.+drift*.42+local*4.2,2.);
+ float distant=stars(sky*53.+drift*.18+local*6.1,3.);
+ rgb+=vec3(.66,.89,1.)*dust+vec3(.63,.54,.90)*middle*.72+vec3(.76,.91,1.)*distant*.4;
+ float fresnel=pow(1.-abs(dot(n,view)),3.);
+ float shine=pow(max(0.,dot(reflect(-normalize(vec3(-.4,.8,.5)),n),view)),28.);
+ float facet=.5+.5*dot(n,normalize(vec3(-.45,.7,.6)));
+ rgb+=vec3(.18,.48,.61)*fresnel*.7+vec3(.74,.91,1.)*shine*.7;
+ rgb+=vec3(.035,.065,.085)*facet;
+ gl_FragColor=vec4(rgb,1.);
+}

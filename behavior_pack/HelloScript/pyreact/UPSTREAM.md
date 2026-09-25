@@ -20,11 +20,15 @@
 | `native.py` | 保留上游中文 key 净化，但输出 ASCII `str` 控件名；网易 Python 2 SDK 克隆 Unicode 名称的容器后，后代按钮可显示却无法接收原生点击。 |
 | `primitives.py` / `reconciler.py` | `apply_props` 显式返回 False 时免除仅由 props 触发的整屏刷新；默认 None 保持兼容。Button 的 builder 引用不变时只更新回调；Panel 的空 props 更新不刷新。挂载、布局及显隐仍提交。 |
 | `debug.py` | 本项目原生控件、指针、输入字体及有界草稿诊断；MCDK 与剪贴板共用诊断处理。剪贴板回复重试不重复编辑，不重复解析未改变的大回复；组件的调试 ID 支持反向查询。 |
+| `host.py` / `composites/safe_area.py` | 每 0.5 秒重新读取原生安全区，支持不伴随分辨率变化的安全区设置；向机审显式返回/转换 tuple。 |
+| `navigator.py` / `host.py` | JSON UI 的 menu_cancel / menu_inventory_cancel / menu_exit 共用返回回调；安卓系统返回事件进入同一路由并去重，只处理当前原生栈顶。工作台先关闭顶层对话框，再播放页面退出动画。 |
 
 配套 `resource_pack/ui/PyreactBase.json` 保留现代化投影的模板注册。
 其中 `mp_pointer_tmpl` 引用 `ModernProjection.pointer`，以 `is_handle_button_move_event: true` 开启三维视口和滑条的原生触控移动事件；注册回调本身不会启用这些事件。
 `mp_inventory_modal_tmpl` 引用应用内的原生 `input_panel` 模态作用域，方块目录用它隔离底层输入；避免整屏 Button 抢占 edit_box 的选择事件。输入框聚焦底色的尺寸、颜色和初始隐藏状态由原生 JSON 维护，更新结果列表不再依赖 Python 缓存的九宫格尺寸。以上属于应用模板扩展，没有修改上游 Modal 组件。
 本次上游没有更改该 JSON；自定义输入模板继续保留原字体、整数 GUI 字号、原生占位子树与聚焦时深灰底色。
+
+2026-09-25：应用的 `ModernProjection.click_observer` 增加非吞噬的 `button.multi_touch` 映射和原生交互绑定；`PointerTracker` 不再把 TouchMoveOut (6) 当作释放。手机第二触点的实际事件载荷仍须真机核验。工作台最外层是不透明全屏底色，内容容器按实际 SafeArea 尺寸计算，不让安全区 padding 与全屏内部固定宽高叠加。验证记录见 `docs/ASTRAL_STAFFS_AND_MOBILE.md`。
 
 2026-09-23 性能补丁另让固定数值宽高的叶子直接使用声明尺寸，避免查询随后会被布局覆盖的原生尺寸；自适应文本仍正常量测。应用层静态文字 Element 使用有界缓存，动态字形池按字形差异更新，材质通道按钮保留原生命中控件。验证见 `docs/PERFORMANCE_67.md`。
 

@@ -14,6 +14,11 @@
     "type": "screen",
     "is_showing_menu": true,
     "render_only_when_topmost": true,
+    "button_mappings": [
+      {"from_button_id": "button.menu_cancel", "to_button_id": "#pyreact_navigation_back", "mapping_type": "global"},
+      {"from_button_id": "button.menu_inventory_cancel", "to_button_id": "#pyreact_navigation_back", "mapping_type": "global"},
+      {"from_button_id": "button.menu_exit", "to_button_id": "#pyreact_navigation_back", "mapping_type": "global"}
+    ],
     "controls": [
       {
         "root@PyreactBase.rootBase": {}

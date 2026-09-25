@@ -19,6 +19,7 @@ class HelloClientSystem(ClientSystem):
         self.bridge = None
         self.session = None
         self.hud = None
+        self.staff_aura = None
         self.tool_touch_pick = None
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
@@ -47,6 +48,8 @@ class HelloClientSystem(ClientSystem):
         self.bridge.session = self.session
         self.session.initialize()
         self.hud = TerminalHud(self)
+        from .projection.staff_aura import StaffAura
+        self.staff_aura = StaffAura(self.bridge)
 
     def open_workspace(self):
         if self.session is not None and not navigator.contains('modern_projection_workspace'):
@@ -163,6 +166,8 @@ class HelloClientSystem(ClientSystem):
 
     def dimension_changed(self, args):
         self.tool_touch_pick = None
+        if self.staff_aura:
+            self.staff_aura.clear()
         if self.bridge:
             self.bridge.dimension_changed(args)
 
@@ -171,8 +176,12 @@ class HelloClientSystem(ClientSystem):
             self.bridge.follow_projection()
         if self.hud:
             self.hud.update()
+        if self.staff_aura and self.hud:
+            self.staff_aura.update(self.hud.carried, not navigator.contains('modern_projection_workspace'))
 
     def Destroy(self):
+        if self.staff_aura:
+            self.staff_aura.clear()
         if self.bridge:
             self.bridge.destroy()
         if self.hud:

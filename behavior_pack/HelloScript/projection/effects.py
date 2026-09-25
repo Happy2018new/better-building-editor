@@ -51,16 +51,30 @@ class ClickObserverPrimitive(PanelPrimitive):
             release_pointers(host, args)
             return False
 
+        def multi_touch(screen, args):
+            # BF_InteractButtonClick has no down/up-only filter. Retain native
+            # TouchId and screen coordinates for BOTH moving fingers.
+            if getattr(host, '_projection_trace_touch', False):
+                trace = getattr(host, '_projection_touch_trace', [])
+                trace.append(dict((key, args[key]) for key in
+                    ('TouchEvent', 'ButtonState', 'TouchId', 'TouchPosX', 'TouchPosY') if key in args))
+                host._projection_touch_trace = trace[-48:]
+            for tracker in tuple(getattr(host, '_projection_pointer_surfaces', ())):
+                tracker.native_touch(args)
+            return False
+
         # Both bindings observe the same non-consuming global input mapping.
         # A lost control-local up must not leave PC mouse polling enabled.
         names = []
         binder = clientApi.GetViewBinderCls()
         for phase, callback, flag in (('down', down, binder.BF_ButtonClickDown),
-                                       ('up', up, binder.BF_ButtonClickUp)):
+                                       ('up', up, binder.BF_ButtonClickUp),
+                                       ('multi', multi_touch, binder.BF_InteractButtonClick)):
             name = '__projection_pointer_%s_%s' % (phase, id(fiber))
             callback.__name__ = name
             callback.binding_flags = flag
-            callback.binding_name = '#modern_projection_pointer_down'
+            callback.binding_name = ('#modern_projection_multi_touch' if phase == 'multi'
+                                     else '#modern_projection_pointer_down')
             setattr(host.__class__, name, callback)
             host._process_default(getattr(host, name), host.screen_name)
             names.append(name)

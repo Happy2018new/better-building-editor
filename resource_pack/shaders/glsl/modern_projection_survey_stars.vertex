@@ -132,6 +132,16 @@ vec3 markerRoute(float lane,float clock){
  return markerPoint(markerNormal(),cos(a)*r*(.2+.8*entered),sin(a)*r*.83*(.2+.8*entered),.16+.09*sin(a*2.+lane));
 }
 varying highp vec3 materialPos;
+varying highp float crystalBirth;
+float birthProgress(float shard,float entered){
+ return smoothstep(0.,1.,clamp((entered-random1(shard+807.)*.28)/.60,0.,1.));
+}
+vec3 birthCentre(float shard,vec3 n,float clock){
+ float seed=random1(shard+807.),phase=random1(shard+541.);
+ float a=clock*TAU*cycles(6.+floor(seed*10.),EXTRA_ACTOR_UNIFORM3.w)+seed*TAU;
+ float r=.43+phase*.72;
+ return markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+seed*.18+.12*sin(a*2.+seed*5.));
+}
 void main(){
  vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
  vec2 corner=TEXCOORD_0*2.-1.;float seed=random1(id+1.),phase=random1(id+113.);
@@ -141,7 +151,7 @@ void main(){
  float scale=clamp(1.25*pow(min(size.x,min(size.y,size.z))/4.,.9),.82,16.);
  vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.),tint=vec3(1.,.81,.44);
  float width=.018,opacity=1.;
- effectUV=corner;effectKind=0.;materialPos=vec3(0.);
+ effectUV=corner;effectKind=0.;materialPos=vec3(0.);crystalBirth=1.;
  facetNormal=vec4(0.,1.,0.,seed);facetView=vec4(0.,0.,1.,theme);
  facetLight=normalize(localDirection(vec3(-.3,.8,.6)));
 #if defined(SURVEY_GUIDE)
@@ -151,6 +161,10 @@ void main(){
   width=.065;opacity=smoothstep(0.,.85,entered)*.48;effectKind=7.;effectUV=vec2(u,corner.y);
 #elif defined(SURVEY_STRIKE)
  vec3 n=markerNormal();float appear=smoothstep(0.,.08,entered);
+ // During formation the orbit clock is held, then catches up continuously.
+ // Each seed stays at its own final crystal centre: no cloud collapsing into
+ // the block and no replacement/snap when the persistent effect takes over.
+ float birthClock=TIME-entered*1.8*(1.-smoothstep(.68,1.,entered));
  float flash=exp(-pow((entered-.78)*14.,2.));
  if(id<144.){
   float lane=floor(id/48.),t=(mod(id,48.)+(corner.x+1.)*.5)/48.;
@@ -169,15 +183,16 @@ void main(){
   opacity=id<148.?.10+light*.8+flash*.3:.05+light*.17;effectKind=id<148.?1.:0.;
  }else if(id<333.){
   float shard=floor((id-149.)/8.);seed=random1(shard+807.);phase=random1(shard+541.);
-  float a=TIME*TAU*cycles(6.+floor(seed*10.),orbit)+seed*TAU;
-  float r=(.43+phase*.72)*(.15+.85*smoothstep(0.,.9,entered));
-  centre=markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+seed*.18+.12*sin(a*2.+seed*5.));
+  centre=birthCentre(shard,n,birthClock);
+  float grown=birthProgress(shard,entered);crystalBirth=grown;
   // Keep the permanent endpoint crystals readable at normal game scale.
   // Enlarge the silhouette and orbit while limiting near-camera angular size.
   float eyeDistance=length(camera-centre);
-  float shardSize=min(.060+seed*.095,max(.002,eyeDistance*.035));
-  vec3 normal;centre+=flake(mod(id-149.,8.),corner,seed,TIME,normal)*shardSize;
-  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-centre);effectKind=3.;opacity=.9*smoothstep(.15,.65,eyeDistance);
+  float shardSize=min(.085+seed*.120,max(.002,eyeDistance*.045));
+  vec3 normal;vec3 crystal=flake(mod(id-149.,8.),corner,seed,birthClock,normal);
+  // Facets grow outwards from the seed, with length leading thickness.
+  centre+=crystal*shardSize*vec3(pow(grown,1.15),grown,pow(grown,1.15));
+  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-centre);effectKind=3.;opacity=.9*smoothstep(.15,.65,eyeDistance)*smoothstep(0.,.04,grown);
   effectUV=corner.y>0.?vec2(0.,1.):corner.x>0.?vec2(1.,0.):vec2(0.);
  }else if(id<413.){
   seed=random1(id+404.);float a=TIME*TAU*cycles(11.+floor(seed*10.),orbit)+seed*TAU;
@@ -187,23 +202,15 @@ void main(){
   width=(.050+seed*.070)*(.35+light*1.5);opacity=.025+.78*light;
   if(mod(id,11.)<.5){effectKind=1.;width*=2.;}
  }else{
-  // The spare 99 quads form luminous, tumbling fragments on each click.
-  // Reverse-dissolve: they appear outside the face, spiral inward, then merge.
-  float shard=id-413.;seed=random1(shard+1247.);phase=random1(shard+1789.);
-  float progress=clamp((entered-phase*.20)/(.70+seed*.10),0.,1.);
-  float gather=smoothstep(.08,1.,progress),remain=1.-gather;
-  float angle=seed*TAU+gather*(2.1+phase*2.8);
-  float radius=(.8+phase*1.75)*remain;
-  centre=markerPoint(n,cos(angle)*radius,sin(angle)*radius*.85,
-                     .10+remain*(.40+random1(shard+917.)*2.));
-  vec3 right=normalize(cross(abs(n.y)>.9?vec3(1.,0.,0.):vec3(0.,1.,0.),n));
-  vec3 up=cross(n,right);
-  float grown=smoothstep(0.,.20,progress)*(1.-smoothstep(.78,1.,progress));
-  float shardSize=min((.15+seed*.18)*grown,max(.002,length(camera-centre)*.10));
-  vec3 petal=tumble(vec3(corner.x*.52,corner.y,0.),seed,entered*4.);
-  centre+=(right*petal.x+up*petal.y+n*petal.z)*shardSize;
-  opacity=grown*(.68+.32*sin(seed*17.+progress*7.));
-  effectKind=4.;effectUV=corner;
+  float shard=mod(id-413.,23.),lane=floor((id-413.)/23.);
+  seed=random1(shard+807.);float grown=birthProgress(shard,entered);
+  centre=birthCentre(shard,n,birthClock);
+  float bloom=sin(grown*3.14159265)*smoothstep(0.,.08,grown);
+  if(lane>.5){
+   vec3 normal;centre+=flake(mod(lane+shard,8.),vec2(0.,1.),seed,birthClock,normal)*(.085+seed*.120)*grown;
+  }
+  width=(lane<.5?.26:.13)*bloom;
+  opacity=bloom*(lane<.5?.70:.45);effectKind=lane<.5?1.:0.;
  }
  opacity*=appear;
 #else

@@ -1,0 +1,27 @@
+// __multiversion__
+#include "entityVertexUtil.h"
+varying highp vec3 skyRay;
+varying highp vec3 gemNormal;
+varying highp vec3 gemPosition;
+void main(){
+ vec4 p=POSITION,n=NORMAL;
+ // Native boxes supply three rings per gem. Collapse the end rings into
+ // sharp tips, retaining a proper solid faceted crystal rather than cubes.
+ float taper=max(.012,1.-abs(p.y)*.5);
+ p.xz*=taper;
+ if(abs(n.y)<.5)n=vec4(normalize(vec3(n.x,sign(p.y)*.5,n.z)),0.);
+#ifdef USE_SKINNING
+ #ifdef NETEASE_SKINNING
+  mat4 bone=GetBoneMatForNetease(int(BONEID_0));p=bone*p;n=bone*n;
+ #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+  p=BONES[int(BONEID_0)]*p;n=BONES[int(BONEID_0)]*n;
+ #else
+  p=BONE*p;n=BONE*n;
+ #endif
+#endif
+ vec3 world=(WORLD*p).xyz;
+ skyRay=world;
+ gemNormal=normalize((WORLD*vec4(n.xyz,0.)).xyz);
+ gemPosition=POSITION.xyz;
+ gl_Position=WORLDVIEWPROJ*p;
+}

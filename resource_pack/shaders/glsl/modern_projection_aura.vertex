@@ -1,0 +1,103 @@
+// __multiversion__
+#include "entityVertexUtil.h"
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
+varying highp vec2 magicUV;
+varying highp vec4 magicColor;
+varying highp float magicKind;
+varying highp vec3 magicNormal;
+varying highp vec3 magicView;
+const float TAU=6.28318530718;
+float hash(float n){return fract(sin(n*12.9898+4.1414)*43758.5453);}
+vec4 world(vec3 point,float w){
+ vec4 p=vec4(point*vec3(16.,-16.,16.),w);
+#ifdef USE_SKINNING
+ #ifdef NETEASE_SKINNING
+  p=GetBoneMatForNetease(int(BONEID_0))*p;
+ #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+  p=BONES[int(BONEID_0)]*p;
+ #else
+  p=BONE*p;
+ #endif
+#endif
+ return WORLD*p;
+}
+vec3 orbit(float angle,float lane){
+ // Three tilted astrolabe paths, soft vertical precession.
+ float r=1.13+lane*.16;
+ return vec3(cos(angle)*r,.94+sin(angle+lane*1.7)*(.22+lane*.16),sin(angle)*r);
+}
+vec3 vertex(float v){
+ if(v<.5)return vec3(0.,1.8,0.);
+ if(v<1.5)return vec3(0.,-1.35,0.);
+ float a=(v-2.)*TAU/4.;return vec3(cos(a)*.58,0.,sin(a)*.58);
+}
+void main(){
+ vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
+ vec2 uv=TEXCOORD_0*2.-1.;float seed=hash(id+1.);
+ float clock=TIME*EXTRA_ACTOR_UNIFORM1.z,t=clock*TAU/210.;
+ vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.);
+ float width=.04,alpha=1.;magicKind=0.;magicUV=uv;
+ magicNormal=vec3(0.,1.,0.);magicView=vec3(0.,0.,1.);
+ if(id<128.){
+  float shard=floor(id/8.),face=mod(id,8.);seed=hash(shard+53.);
+  float a=t*13.+shard*TAU/16.;
+  // Ice sentinels: slow elliptical procession + independent levitation.
+  centre=vec3(cos(a)*1.12,.85+sin(a*2.+seed*5.)*.52,sin(a)*.97);
+  float side=mod(face,4.);vec3 v0=vertex(face<4.?0.:1.),v1=vertex(side+2.),v2=vertex(mod(side+1.,4.)+2.);
+  vec3 p=uv.y>0.?v0:uv.x>0.?v2:v1;
+  vec3 n=normalize(cross(v1-v0,v2-v0));if(dot(n,(v0+v1+v2)/3.)<0.)n=-n;
+  float spin=t*21.+seed*TAU;mat2 turn=mat2(cos(spin),sin(spin),-sin(spin),cos(spin));
+  p.xz=turn*p.xz;n.xz=turn*n.xz;
+  centre+=p*(.075+seed*.055);magicNormal=normalize(world(n,0.).xyz);
+  magicView=normalize(-world(centre,1.).xyz);magicKind=3.;
+  magicUV=uv.y>0.?vec2(0.,1.):uv.x>0.?vec2(1.,0.):vec2(0.);
+ }else if(id<416.){
+  float lane=floor((id-128.)/96.),u=(mod(id-128.,96.)+(uv.x+1.)*.5)/96.;
+  float a=u*TAU+t*(lane<.5?7.:lane<1.5?-11.:5.);
+  centre=orbit(a,lane);tangent=orbit(a+.001,lane)-centre;
+  width=.024;alpha=.25+.24*pow(.5+.5*sin(a*3.-t*17.),3.);magicKind=2.;
+  magicUV=vec2(u,uv.y);
+ }else if(id<464.){
+  // Sigils orbit on a level ground ring, separate from the tilted ribbons.
+  float rune=id-416.,a=rune*TAU/48.-t*5.;
+  centre=vec3(cos(a)*1.42,.055,sin(a)*1.42);
+  vec3 radial=vec3(cos(a),0.,sin(a)),along=vec3(-sin(a),0.,cos(a));
+  centre+=(radial*uv.y+along*uv.x)*.064;magicKind=4.;alpha=.48;
+ }else if(id<528.){
+  // Constellation stars trace a breathing spherical Lissajous path.
+  float a=t*9.+seed*TAU,b=t*7.+hash(id+73.)*TAU;
+  centre=vec3(cos(a)*1.5,.95+sin(b)*.85,sin(a)*1.3);
+  float pulse=pow(.5+.5*sin(t*(71.+floor(seed*47.))+seed*41.),3.);
+  width=.035+pulse*.15;alpha=.10+pulse*.74;magicKind=1.;
+ }else if(id<624.){
+  // Stardust rises in a double helix, tapering away above the shoulders.
+  float life=fract(seed+clock/7.5),a=life*TAU*1.6+seed*TAU+t*9.;
+  float radius=.72+life*.72;
+  centre=vec3(cos(a)*radius,.08+life*2.05,sin(a)*radius);
+  alpha=sin(life*3.14159265)*(.3+hash(id+99.)*.45);
+  width=.028+hash(id+24.)*.034;magicKind=0.;
+ }else{
+  // Thin ice petals flutter on outward loops, then dissolve and reseed.
+  float life=fract(seed+clock/10.5),a=seed*TAU-t*6.+sin(life*TAU)*.7;
+  float radius=.65+sin(life*3.14159265)*1.15;
+  centre=vec3(cos(a)*radius,.25+life*1.35,sin(a)*radius);
+  width=.055;alpha=sin(life*3.14159265)*.62;magicKind=5.;
+ }
+ vec4 pos=world(centre,1.);gl_Position=VIEWPROJ*pos;
+ float eye=length(pos.xyz);
+ // Suppress effects immediately at the eye, keep the player's face legible.
+ alpha*=smoothstep(.30,.85,eye)*EXTRA_ACTOR_UNIFORM1.x;
+ if(magicKind<2.5||magicKind>4.5){
+  vec2 scale=vec2(length(vec3(VIEWPROJ[0][0],VIEWPROJ[1][0],VIEWPROJ[2][0])),length(vec3(VIEWPROJ[0][1],VIEWPROJ[1][1],VIEWPROJ[2][1])));
+  vec2 quad=uv;
+  if(magicKind>1.5&&magicKind<2.5){
+   vec4 d=VIEWPROJ*world(tangent,0.);vec2 along=(d.xy*gl_Position.w-gl_Position.xy*d.w)/scale;
+   along=normalize(along+vec2(.000001));quad=vec2(-along.y,along.x)*uv.y;
+  }
+  gl_Position.xy+=quad*width*scale;
+ }
+ vec3 tint=mix(vec3(.37,.78,1.),vec3(.70,.47,1.),EXTRA_ACTOR_UNIFORM1.y);
+ magicColor=vec4(tint,alpha);
+}

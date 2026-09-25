@@ -86,6 +86,15 @@ class _RuntimeEventHandler(object):
         from .navigator import navigator
         navigator._on_pop_screen_after(args)
 
+    def on_android_back(self, args):
+        # Some Android clients emit the platform release without forwarding
+        # menu_cancel. Both routes share NavigatorScreen's debounce and close
+        # handler, and must never dismiss an unrelated native screen above it.
+        from .navigator import navigator
+        entry = navigator.top
+        if entry is not None and entry._host is not None and entry._host is clientApi.GetTopScreen():
+            entry._host._native_back(args)
+
 
 _RUNTIME_EVENT_HANDLER = _RuntimeEventHandler()
 
@@ -102,7 +111,9 @@ class SafeAreaProbeScreen(native.ScreenNode):
             self._capture_size()
 
     def Update(self):
-        if _SAFE_AREA_INSETS[0] is None:
+        now = time.time()
+        if _SAFE_AREA_INSETS[0] is None or now >= getattr(self, '_next_measure', 0.):
+            self._next_measure = now + .5
             self._capture_size()
 
     def Destroy(self):
@@ -788,7 +799,8 @@ def create_root(component):
 
 def get_safe_area_size():
     """返回 JsonUI 安全内容区的 ``(width, height)``，尚未测得时返回 None。"""
-    return _SAFE_AREA_SIZE[0]
+    size = _SAFE_AREA_SIZE[0]
+    return tuple(size) if size is not None else None
 
 
 def get_safe_area_insets():
@@ -888,6 +900,11 @@ def runtime_init(client_system, debug=False):
         "PopScreenAfterClientEvent",
         _RUNTIME_EVENT_HANDLER,
         _RUNTIME_EVENT_HANDLER.on_pop_screen_after,
+    )
+    client_system.ListenForEvent(
+        clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+        "OnBackButtonReleaseClientEvent", _RUNTIME_EVENT_HANDLER,
+        _RUNTIME_EVENT_HANDLER.on_android_back,
     )
     client_system.ListenForEvent(
         clientApi.GetEngineNamespace(),

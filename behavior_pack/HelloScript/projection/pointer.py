@@ -167,15 +167,11 @@ class PointerTracker(object):
         self.send('onEnter', args)
 
     def move_out(self, args):
-        # TouchEvent 6 is the SDK's touch release notification, also delivered
-        # when native UI refresh lost the ordinary up/cancel route. If up has
-        # already run this is a no-op; otherwise cancel without inventing a tap.
-        if self.touch and args.get('TouchEvent') == 6:
-            if self.pinching:
-                self.up(args)
-                return
-            if self.pressed and args.get('TouchId') in (None, self.args.get('TouchId')):
-                self.cancel(args)
+        # 6 is MOVE OUT, not release. Keep both contacts captured across the
+        # viewport edge. Only 7 (screen exit), up and cancel end a contact.
+        if self.touch:
+            if args.get('TouchEvent') == 7:
+                self.cancel({})
             return
         if not self.touch and self.origin is not None and not self.props.get('retainCapture'):
             self.cancel(args)
@@ -195,13 +191,37 @@ class PointerTracker(object):
             if callable(hit_test) and hit_test(point):
                 self.down(dict(args, TouchPosX=point[0], TouchPosY=point[1]))
             return
-        if self.touch_mode() or point is None or self.pressed or not self.props.get('globalCapture'):
+        if point is None or self.pressed or not self.props.get('globalCapture'):
             return
         if not (hit_test(point) if callable(hit_test) else self.hovered):
             return
         event = dict(args, TouchPosX=point[0], TouchPosY=point[1])
         self.down(event)
         self.global_press = self.pressed
+
+    def native_touch(self, args):
+        """Route the native multi-touch input mapping, including held moves.
+
+        The ordinary button tracks the first pointer. The screen input panel
+        also observes button.multi_touch so a second contact continues moving
+        even when the viewport button is already held by the first finger.
+        """
+        if not self.touch_mode() or self.props.get('enabled') is False:
+            return
+        phase = args.get('TouchEvent', args.get('ButtonState', -1))
+        identity = args.get('TouchId')
+        if phase == 7:
+            self.cancel({})
+        elif phase in (0, 3):
+            if identity is not None:
+                (self.up if phase == 0 else self.cancel)(args)
+        elif phase in (1, 4, 5, 6) and identity is not None and identity >= 0:
+            if 'TouchPosX' not in args or 'TouchPosY' not in args:
+                return
+            if phase == 1 and identity not in self.contacts:
+                self.screen_down(args, (args['TouchPosX'], args['TouchPosY']))
+            if phase != 1 and identity in self.contacts:
+                self.move(args)
 
 
 def release_pointers(host, args):

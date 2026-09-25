@@ -2,6 +2,14 @@
 
 更新于 2026-09-25，工作区 `D:/Happy2018newの个人文件/GitHub/better-building-editor`，本轮以 `1af6a65` 的交接及 `998218a` 的功能为基线。此文档用于把当前项目和近期对话带入新任务；具体行为以当前源码为准。`docs/` 中的阶段报告保留当时的实现与测试记录，部分旧措辞已过期。
 
+## 最新增量：法杖与手机适配
+
+完整实现和证据见 `ASTRAL_STAFFS_AND_MOBILE.md`，手机连接资料见 `MOBILE_DEBUGGING.md`。本轮修正机审报告的缓存初始化/tuple 推断、安全区排版及全屏底色、JSON UI/安卓返回路由、触控移出误释放；新增非吞噬多触点入口。两种物品升级为带视差星空宝石和悬浮晶簇的三维法杖，手持时有六类 GPU 魔法效果。点击动画已经再次修改：**每颗黄色晶体从自己的中心生长，完成后进入常驻运动**，下文旧的“碎片聚拢”描述仅代表 `b8e0922` 历史版本。
+
+最新本地验证为 **323 项单元测试通过，84 运行时文件白名单无违规，并在游戏 Python 2 中编译通过**。真实 Esc 和 F11 单指拖动通过；注入双触点缩放/释放及返回去重通过，安全矩形 `(48,13,408,235)` 和全屏背景通过原生尺寸/截图核验。**安卓真机双指、系统返回、刘海和手机 shader 尚待设备测试，不能把回调注入当成真机通过。** 尚未重新提交网易机审。
+
+最后冷启动实例 owner 为 `astral-review`，session 为 `C:/Users/Happy2018new/.pyreact-debug/instances/68d93463687e49ad8d3f89866916ac24/session.json`，使用前先查 status。`fragments-final` 和中间 `astral-staff-final` 已停止。不要在需要仅重载新 shader 时再次调用整套资源热重载；本机开发客户端完整重载会触发原版 PBR shader 错误及执行通道失效，单独的公开 `ReloadOneShader` 已成功。
+
 ## 项目与约束
 
 - 项目是网易 Minecraft 基岩版 ModSDK 建筑编辑器，行为包在 `behavior_pack/`，资源包在 `resource_pack/`。游戏内 Python 为 2.7；宿主测试和工具为 Python 3。

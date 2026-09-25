@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "modern_projection:survey_wand",
+      "materials": {
+        "default": "entity_alphatest",
+        "gem": "modern_projection_staff_gem"
+      },
+      "textures": {
+        "default": "textures/items/modern_projection_staff_palette"
+      },
+      "geometry": {
+        "default": "geometry.modern_projection_survey_wand"
+      },
+      "animations": {
+        "holding": "animation.modern_projection_survey_wand.holding"
+      },
+      "scripts": {
+        "animate": [
+          "holding"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.modern_projection.staff"
+      ]
+    }
+  }
+}

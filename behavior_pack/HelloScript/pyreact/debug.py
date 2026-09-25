@@ -505,8 +505,8 @@ def poll_clipboard(host):
         return
     # dump_tree responses can be several MB. They remain on the clipboard
     # between requests: parsing our own response every tick stalls the UI.
-    cached = _LAST_RESPONSE[0]
-    if (cached is not None and content == cached[1]) or content == _LAST_IGNORED_CONTENT[0]:
+    cached = tuple(_LAST_RESPONSE[0] or ())
+    if (cached and content == cached[1]) or content == _LAST_IGNORED_CONTENT[0]:
         return
     try:
         data = json.loads(content)
@@ -524,8 +524,8 @@ def poll_clipboard(host):
     if seq is not None and _LAST_REQUEST_SEQ[0] == seq:
         # Clipboard readers can briefly lock the Windows clipboard. Retry the
         # cached acknowledgement, never the action (which may edit the world).
-        cached = _LAST_RESPONSE[0]
-        if cached is not None and cached[0] == seq:
+        cached = tuple(_LAST_RESPONSE[0] or ())
+        if cached and cached[0] == seq:
             try:
                 game.SetClipboardContent(cached[1])
             except Exception:
