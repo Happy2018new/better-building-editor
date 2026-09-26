@@ -93,7 +93,7 @@ def ui_settings():
             results[('touch_' if touch else 'pc_')+style] = {'parameter':parameter,'value':value,'screenshot':raw(('touch_' if touch else 'pc_')+style+'_settings')}
             print('PASS native %s %s controls' % ('F11' if touch else 'PC', style), flush=True)
         # Restore defaults before visual comparison.
-        game('from HelloScript.projection.outline_settings import defaults\ns.outline_options=defaults()\ns.set("outline_style","rainbow")\ns.save_preferences()\ns.emit("outline_options")\n_result=True')
+        game('from modern_projection.projection.outline_settings import defaults\ns.outline_options=defaults()\ns.set("outline_style","rainbow")\ns.save_preferences()\ns.emit("outline_options")\n_result=True')
     set_touch(False)
     (OUT/'ui.json').write_text(json.dumps(results, indent=2), encoding='utf8')
     return results
@@ -132,7 +132,7 @@ _result=count''' % ('minecraft:'+block), True)
 
 def visual_matrix():
     results = {}
-    game('''from HelloScript.pyreact import navigator
+    game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 s.bridge.stop_projection()
 _result=True''')
@@ -180,7 +180,7 @@ _result=True''', True)
             results[name] = raw('survey_'+name)
             print('CAPTURE bounds '+name, flush=True)
         game('''s.bridge.corners=[None,None];s.bridge.draw_bounds()
-from HelloScript.projection.model import Document,Editor
+from modern_projection.projection.model import Document,Editor
 blocks={}
 for x in range(6):
  for z in range(6):blocks[(x,0,z)]=('minecraft:quartz_block',0)

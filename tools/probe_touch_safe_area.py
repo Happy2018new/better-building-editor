@@ -6,7 +6,7 @@ from verify_world_tools import game, snapshot
 
 
 def metrics():
-    return game('''from HelloScript.pyreact import host
+    return game('''from modern_projection.pyreact import host
 probe=host._SAFE_AREA_PROBE[0]
 screen=probe.GetBaseUIControl(host._SCREEN_CONTROL_PATH)
 safe=probe.GetBaseUIControl(host._SAFE_AREA_CONTROL_PATH)
@@ -49,7 +49,7 @@ def main():
                           'screenshot': screenshot}, ensure_ascii=False, indent=2))
     finally:
         set_touch(original)
-        game('''from HelloScript.pyreact import navigator
+        game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 _result=True''')
 

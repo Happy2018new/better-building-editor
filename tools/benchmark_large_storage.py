@@ -8,7 +8,7 @@ from pathlib import Path
 import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.model import Document, MAX_AXES, MAX_VOLUME
 from projection.codec import encode_chunk
 

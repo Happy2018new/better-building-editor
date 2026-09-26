@@ -15,7 +15,7 @@ def game(code):
     with Client() as client:
         return return_value(client.call('execute_code', {'code':
             'from __future__ import unicode_literals\nimport mod.client.extraClientApi as api\n'
-            's=api.GetSystem("ModernProjection", "HelloClientSystem").session\n'+code,
+            's=api.GetSystem("ModernProjection", "ModernProjectionClientSystem").session\n'+code,
             'is_client': True, 'direct_return': True}))
 
 

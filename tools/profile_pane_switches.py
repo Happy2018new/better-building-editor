@@ -12,9 +12,9 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     set_touch(False)
-    game('from HelloScript.pyreact import navigator\ns.set("page","workspace")\ns.set("inspector","params")\nnavigator.pop()\n_result=True')
+    game('from modern_projection.pyreact import navigator\ns.set("page","workspace")\ns.set("inspector","params")\nnavigator.pop()\n_result=True')
     time.sleep(.5);open_workspace();time.sleep(3.)
-    game('''from HelloScript.pyreact import native
+    game('''from modern_projection.pyreact import native
 import time
 h=api.GetTopScreen()
 cls=type(h)

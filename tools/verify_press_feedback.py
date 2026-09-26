@@ -21,7 +21,7 @@ def main():
             target=next(n for n in ui.nodes('JellyButton',segment) if n.get('key')=='workspace')
         button=ui.nodes('Button',target)[0]
         native=ui.call('native_control',button['id'])['result']
-        game('''from HelloScript.pyreact.debug import find_fiber_by_id
+        game('''from modern_projection.pyreact.debug import find_fiber_by_id
 h=api.GetTopScreen()
 f=find_fiber_by_id(h._root_fiber,%r)
 control=h.GetBaseUIControl(f.native_path)

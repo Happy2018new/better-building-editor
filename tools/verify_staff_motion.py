@@ -35,7 +35,7 @@ def main():
         assert sum(ImageStat.Stat(Image.open(path).convert('RGB')).var)>1., 'Blank capture: '+name
         return str(path)
 
-    old = game('''from HelloScript.pyreact import navigator
+    old = game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'): navigator.pop()
 view=s.bridge.factory.CreatePlayerView(s.bridge.player)
 cam=s.bridge.factory.CreateCamera(s.bridge.level)

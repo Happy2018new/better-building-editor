@@ -41,7 +41,7 @@ def generate(source):
     for name,rows in sorted(compatible.items()):
         lines.append('    '+repr(name)+': '+repr(pack(sorted(rows.items())))+',')
     lines.extend(['}', ''])
-    path = ROOT/'behavior_pack/HelloScript/projection/block_registry_data.py'
+    path = ROOT/'behavior_pack/modern_projection/projection/block_registry_data.py'
     path.write_text('\n'.join(lines),encoding='ascii')
     print('%d names, %d states, %d legacy aliases; %d bytes' % (
         len(blocks),len(records),sum(len(v) for v in compatible.values()),path.stat().st_size))

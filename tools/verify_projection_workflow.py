@@ -31,8 +31,8 @@ s.projection_missing=False
 def discard_preferences(data):return True
 s.bridge.save_preferences=discard_preferences
 _result=True''')
-    origin=server('''from HelloScript.HelloServerSystem import WorldAdapter
-host=api.GetSystem("ModernProjection","HelloServerSystem")
+    origin=server('''from modern_projection.server_system import WorldAdapter
+host=api.GetSystem("ModernProjection","ModernProjectionServerSystem")
 a=WorldAdapter(p)
 foot=tuple(int(v) for v in f.CreatePos(p).GetFootPos())
 choices=[(foot[0]+dx,foot[1]+dy,foot[2]) for dy in (20,32,40) for dx in (-16,-32,0)]
@@ -43,7 +43,7 @@ for origin in choices:
 assert all(value==("minecraft:air",0) for pos,value in saved)
 api._workflow_saved=(saved,f.CreateGame(api.GetLevelId()).GetPlayerGameType(p),f.CreatePlayer(p).GetPlayerAbilities())
 _result=origin''')
-    def exists():return game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
+    def exists():return game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
     def reopen():
         if not exists():open_workspace();time.sleep(2.5)
     def actual_click(node):
@@ -64,7 +64,7 @@ _result=origin''')
         return button['id']
     def action(label):return next(n for n in ui.nodes('Action') if n['props'].get('label')==label)
     def feedback(identity):
-        return game('''from HelloScript.pyreact.debug import find_fiber_by_id
+        return game('''from modern_projection.pyreact.debug import find_fiber_by_id
 f=find_fiber_by_id(api.GetTopScreen()._root_fiber,%r)
 _result=f.parent_fiber.hooks[3]['value']
 '''%identity)
@@ -91,7 +91,7 @@ _result=f.parent_fiber.hooks[3]['value']
         ui.check('world undo is removed from settings',not any(n['props'].get('label')=='撤销世界写入' for n in ui.nodes('Action')))
 
         # Submit old and modern material IDs via the actual client network path.
-        game('''from HelloScript.projection.model import Document,Editor
+        game('''from modern_projection.projection.model import Document,Editor
 values=[("minecraft:stone",0),("minecraft:planks",2),("minecraft:wool",14),("minecraft:concrete",15),("minecraft:log",5),("minecraft:oak_stairs",2),
         ("minecraft:stonebrick",0),("minecraft:grass",0),("minecraft:leaves",4),("minecraft:leaves",8),("minecraft:log",13),("minecraft:log",9),("minecraft:log2",4),("minecraft:spruce_log",2)]
 s.origin='''+repr(tuple(origin))+'''

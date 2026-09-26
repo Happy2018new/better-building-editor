@@ -10,13 +10,13 @@ from native_input_mode import set_touch, state
 
 
 def install():
-    path=ui.ROOT/'behavior_pack/HelloScript/pyreact/primitives.py'
+    path=ui.ROOT/'behavior_pack/modern_projection/pyreact/primitives.py'
     source=path.read_text(encoding='utf8')
     node=next(n for n in ast.parse(source).body if isinstance(n,ast.ClassDef) and n.name=='ScrollViewPrimitive')
     patch='\n'.join(source.splitlines()[node.lineno-1:node.end_lineno])
     code=base64.b64encode(patch.encode('utf8')).decode('ascii')
     game('''import base64
-from HelloScript.pyreact import primitives,native
+from modern_projection.pyreact import primitives,native
 ns=dict(primitives.__dict__)
 exec(compile(base64.b64decode('''+repr(code)+'''),'<scroll-fix>','exec'),ns)
 for name in ('_get_scroll_view','scroll_to_percent'):
@@ -30,21 +30,21 @@ for slot in getattr(h,'_projection_pointer_surfaces',()):
     if view and view.current and hasattr(view.current,'_pyreact_scroll_control'):
         del view.current._pyreact_scroll_control
 _result=True''')
-    source=(ui.ROOT/'behavior_pack/HelloScript/projection/widgets.py').read_text(encoding='utf8')
+    source=(ui.ROOT/'behavior_pack/modern_projection/projection/widgets.py').read_text(encoding='utf8')
     node=next(n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name=='Scroll')
     patch='from __future__ import unicode_literals\n@Component\n'+'\n'.join(source.splitlines()[node.lineno-1:node.end_lineno])
     code=base64.b64encode(patch.encode('utf8')).decode('ascii')
-    game('''from HelloScript.projection import widgets
+    game('''from modern_projection.projection import widgets
 import sys
 ns=dict(widgets.__dict__)
 exec(compile(base64.b64decode('''+repr(code)+'''),'<scroll-component>','exec'),ns)
 for module_name,module in tuple(sys.modules.items()):
-    if not module_name.startswith('HelloScript.projection'):continue
+    if not module_name.startswith('modern_projection.projection'):continue
     component=getattr(module,'Scroll',None)
     if component is not None and hasattr(component,'_render'):
         component._render.func_code=ns['Scroll']._render.func_code
-from HelloScript.pyreact import navigator
-from HelloScript.projection.ui import Workspace
+from modern_projection.pyreact import navigator
+from modern_projection.projection.ui import Workspace
 navigator.pop()
 _result=True''')
     time.sleep(.6)
@@ -56,8 +56,8 @@ def controls():
     scroll=ui.nodes('Scroll')[1]
     target=ui.nodes('Pointer',scroll)[0]
     view=ui.nodes('VisibleScroll',scroll)[0]
-    game('''from HelloScript.pyreact import native,debug
-from HelloScript.pyreact.primitives import ScrollViewPrimitive
+    game('''from modern_projection.pyreact import native,debug
+from modern_projection.pyreact.primitives import ScrollViewPrimitive
 h=native.get_top_screen()
 v=debug.find_fiber_by_id(h._root_fiber,'''+repr(view['id'])+''')
 vc=h.GetBaseUIControl(v.native_path)

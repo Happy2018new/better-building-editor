@@ -13,7 +13,7 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     original_touch=state()['simulated']
-    origin=server('''from HelloScript.HelloServerSystem import WorldAdapter
+    origin=server('''from modern_projection.server_system import WorldAdapter
 a=WorldAdapter(p)
 offsets=(0,1,2,3,4,17,33)
 foot=tuple(int(v) for v in f.CreatePos(p).GetFootPos())
@@ -36,7 +36,7 @@ def wrap_geometry(original,records):
     return build
 s.bridge.geometry=wrap_geometry(s.bridge.geometry,api._filter_builds)
 s.bridge.stop_projection()
-from HelloScript.projection.model import Document,Editor
+from modern_projection.projection.model import Document,Editor
 s.origin='''+repr(tuple(origin))+'''
 values=[("minecraft:planks",0),("minecraft:wool",14),("minecraft:log",5),("minecraft:quartz_block",0),("minecraft:quartz_block",0)]
 s.editor=Editor(Document((5,1,1),dict(((i,0,0),v) for i,v in enumerate(values))))

@@ -76,7 +76,7 @@ _result=True''')
  t.send=api._mobile_touch_send
 _result=True''')
         set_touch(original)
-        game('''from HelloScript.pyreact import navigator
+        game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 _result=True''')
 

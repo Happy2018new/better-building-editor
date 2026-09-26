@@ -69,8 +69,8 @@ class AstralStaffTests(unittest.TestCase):
 
 
 sys.path.insert(0,str(ROOT/'behavior_pack'))
-from HelloScript.projection.staff_aura import StaffAura, NearbyStaffAuras
-from HelloScript.projection.tool_items import TERMINAL, SURVEY_WAND
+from modern_projection.projection.staff_aura import StaffAura, NearbyStaffAuras
+from modern_projection.projection.tool_items import TERMINAL, SURVEY_WAND
 
 
 class AuraLifecycleTests(unittest.TestCase):
@@ -81,7 +81,7 @@ class AuraLifecycleTests(unittest.TestCase):
         self.perspective=1
         self.pos=(1.,64.,2.)
         self.callbacks=[]
-        self.clock=patch('HelloScript.projection.staff_aura.time.time',return_value=10.)
+        self.clock=patch('modern_projection.projection.staff_aura.time.time',return_value=10.)
         self.now=self.clock.start()
         self.addCleanup(self.clock.stop)
         def spawn(kind,pos,rot):

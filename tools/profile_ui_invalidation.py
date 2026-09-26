@@ -6,8 +6,8 @@ from verify_font_share_polish import game
 
 
 def main():
-    game('''from HelloScript.pyreact import reconciler as r
-from HelloScript.pyreact.style import style_layout_changed
+    game('''from modern_projection.pyreact import reconciler as r
+from modern_projection.pyreact.style import style_layout_changed
 h=api.GetTopScreen()
 h._audit_layout=[]
 r._audit_saved_update=r._update_primitive

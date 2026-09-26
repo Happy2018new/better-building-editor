@@ -5,7 +5,7 @@ from verify_world_tools import game, snapshot
 
 
 def main():
-    original = game('''from HelloScript.pyreact import host, navigator
+    original = game('''from modern_projection.pyreact import host, navigator
 probe=host._SAFE_AREA_PROBE[0]
 screen_control=probe.GetBaseUIControl(host._SCREEN_CONTROL_PATH)
 safe_control=probe.GetBaseUIControl(host._SAFE_AREA_CONTROL_PATH)
@@ -19,13 +19,13 @@ _result={'safe':host.get_safe_area_size(),
          'pose':(s.camera_yaw,s.camera_pitch,s.zoom),'pan':s.camera_pan}''')
     assert not original['open'], 'Run with the workspace closed'
     try:
-        game('''from HelloScript.pyreact import host
+        game('''from modern_projection.pyreact import host
 host._SAFE_AREA_PROBE[0]._next_measure=host.time.time()+30.
 host._publish_safe_area((1.,1.),host.SafeAreaInsets(13.,24.,27.,48.))
 owner.open_workspace()
 _result=True''')
         time.sleep(1.5)
-        result = game('''from HelloScript.pyreact import host
+        result = game('''from modern_projection.pyreact import host
 h=api.GetTopScreen()
 def find_safe(f):
  if getattr(f.comp_type,'__name__',None)=='SafeArea':return f
@@ -66,7 +66,7 @@ _result={'screen':screen,'probe':host.get_safe_area_size(),'rect':rect,'expected
         result['screenshot'] = snapshot('safe_pinch_runtime')
         print(json.dumps(result, ensure_ascii=False, indent=2))
     finally:
-        game('''from HelloScript.pyreact import host, navigator
+        game('''from modern_projection.pyreact import host, navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 if %r is not None:
  host._publish_safe_area(%r,host.SafeAreaInsets(*%r))

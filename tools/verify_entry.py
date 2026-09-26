@@ -20,7 +20,7 @@ api._entry_carried=item.GetPlayerItem(api.GetMinecraftEnum().ItemPosType.CARRIED
 _result=True''',server=True)
     try:
         if original['open']:
-            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+            game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
             time.sleep(.6)
         if original['touch']:
             input_step('/key',keys='f11')
@@ -36,7 +36,7 @@ _result=True''',server=True)
         ui.save('ui_entry_verified')
     finally:
         if state()['open']:
-            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+            game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
             time.sleep(.6)
         if state()['touch'] != original['touch']:
             input_step('/key',keys='f11')

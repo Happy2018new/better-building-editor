@@ -42,7 +42,7 @@ def main():
             picker = ui.nodes('MaterialPicker')[0]
             ui.check('retained channel invokes current handler',ui.nodes('MaterialSummary',picker)[0]['props']['channel']=='secondary')
             snapshot('perf67_options_'+('touch' if mode else 'pc'))
-        ui.check('static caption cache is bounded and respects size/scale',game('''from HelloScript.projection import widgets as w
+        ui.check('static caption cache is bounded and respects size/scale',game('''from modern_projection.projection import widgets as w
 a=w.text(u'\u5de5\u5177',12)
 b=w.text(u'\u5de5\u5177',12)
 c=w.text(u'\u5de5\u5177',14)

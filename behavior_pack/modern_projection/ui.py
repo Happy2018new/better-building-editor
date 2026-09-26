@@ -7,7 +7,7 @@ ViewBinder = clientApi.GetViewBinderCls()
 ViewRequest = clientApi.GetViewViewRequestCls()
 
 
-class HelloScreen(ScreenNode):
+class ModernProjectionScreen(ScreenNode):
     def __init__(self, namespace, name, param):
         ScreenNode.__init__(self, namespace, name, param)
         self.mPlayerId = clientApi.GetLocalPlayerId()
@@ -16,7 +16,7 @@ class HelloScreen(ScreenNode):
         self.client = param.get("client", None)
 
     def Create(self):
-        print("=====> HelloUi Created <=====")
+        print("=====> ModernProjection UI Created <=====")
 
     def OnActive(self):
         pass
@@ -28,4 +28,4 @@ class HelloScreen(ScreenNode):
         pass
 
     def Destroy(self):
-        print("=====> HelloUi Destroyed <=====")
+        print("=====> ModernProjection UI Destroyed <=====")

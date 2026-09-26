@@ -10,11 +10,11 @@ from verify_projection_outline import server
 
 def install():
     for name in ('block_registry_data','block_registry','materials','world_projection','bridge'):
-        path=ui.ROOT/('behavior_pack/HelloScript/projection/'+name+'.py')
+        path=ui.ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')
         encoded=base64.b64encode(path.read_bytes()).decode('ascii')
-        game('import base64\nfrom HelloScript.projection import '+name+' as module\n'
+        game('import base64\nfrom modern_projection.projection import '+name+' as module\n'
             'exec(compile(base64.b64decode('+repr(encoded)+'),'+repr(str(path))+',"exec"),module.__dict__)\n_result=True')
-    game('''from HelloScript.projection.bridge import ClientBridge
+    game('''from modern_projection.projection.bridge import ClientBridge
 b=s.bridge
 b.__class__=ClientBridge
 if 'geometry' in b.__dict__:del b.__dict__['geometry']
@@ -24,8 +24,8 @@ _result=True''')
 def main():
     install()
     original=game('''import json
-from HelloScript.pyreact import navigator
-from HelloScript.projection.model import Document,Editor
+from modern_projection.pyreact import navigator
+from modern_projection.projection.model import Document,Editor
 b=s.bridge
 cam=b.factory.CreateCamera(b.level)
 api._p61_saved=(s.editor,s.origin,s.opacity,s.solo_layer,s.projection_missing,
@@ -36,8 +36,8 @@ _result={'active':s.projection_active,'blocks':len(s.editor.document.blocks)}'''
     entities=[]
     server('api._p61_saved_player=(f.CreatePos(p).GetFootPos(),f.CreateFly(p).IsPlayerFlying())\n_result=True')
     try:
-        game('''from HelloScript.projection.block_registry import canonical,states
-from HelloScript.projection.bridge import native
+        game('''from modern_projection.projection.block_registry import canonical,states
+from modern_projection.projection.bridge import native
 values=[('minecraft:stained_glass',i) for i in range(16)]
 values += [('minecraft:planks',i) for i in range(6)]
 values += [('minecraft:log',i) for i in (0,4,8)]
@@ -127,7 +127,7 @@ cam.LockModCameraPitch(saved[6]);cam.LockModCameraYaw(saved[7])
 if saved[5]:b.project()
 s.editor.message=saved[8]
 assert json.dumps(s.editor.document.to_data(),sort_keys=True)==api._p61_draft
-from HelloScript.projection.ui import Workspace
+from modern_projection.projection.ui import Workspace
 if not navigator.contains('modern_projection_workspace'):
     navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')

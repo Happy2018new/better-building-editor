@@ -11,8 +11,8 @@ from native_input_mode import open_workspace
 def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
-    game('''from HelloScript.pyreact import native, navigator, host
-from HelloScript.pyreact.navigator import NavigatorScreen
+    game('''from modern_projection.pyreact import native, navigator, host
+from modern_projection.pyreact.navigator import NavigatorScreen
 import time
 NavigatorScreen._open_saved_flush=NavigatorScreen._pyreact_flush
 native._open_saved_clone=native.clone
@@ -39,7 +39,7 @@ _result=True
     rows=[]
     try:
         for repeat in range(3):
-            game('from HelloScript.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
+            game('from modern_projection.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
             time.sleep(.6)
             game("api._open_stats={'commits':[], 'clones':0, 'mounts':[]}\n_result=True")
             open_workspace()
@@ -49,8 +49,8 @@ _result=True
             print(json.dumps(result), flush=True)
             ui.check('Workspace reopens %d' % repeat, bool(ui.nodes('Workspace')))
     finally:
-        game('''from HelloScript.pyreact import native, host
-from HelloScript.pyreact.navigator import NavigatorScreen
+        game('''from modern_projection.pyreact import native, host
+from modern_projection.pyreact.navigator import NavigatorScreen
 NavigatorScreen._pyreact_flush=NavigatorScreen._open_saved_flush
 del NavigatorScreen._open_saved_flush
 native.clone=native._open_saved_clone

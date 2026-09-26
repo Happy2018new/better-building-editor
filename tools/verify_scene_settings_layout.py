@@ -11,16 +11,16 @@ from native_input_mode import state, set_touch
 
 
 def install():
-    game('from HelloScript.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
+    game('from modern_projection.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
     time.sleep(.4)
-    game('from HelloScript.projection.catalog import SEGMENT_ICONS\nSEGMENT_ICONS.update({u"场景":"eye",u"外观":"sliders",u"图层管理":"layers"})\n_result=True')
+    game('from modern_projection.projection.catalog import SEGMENT_ICONS\nSEGMENT_ICONS.update({u"场景":"eye",u"外观":"sliders",u"图层管理":"layers"})\n_result=True')
     for name in ('panels', 'ui'):
-        source=base64.b64encode((ui.ROOT/('behavior_pack/HelloScript/projection/'+name+'.py')).read_bytes()).decode('ascii')
-        game('import base64\nfrom HelloScript.projection import '+name+' as module\n'
+        source=base64.b64encode((ui.ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')).read_bytes()).decode('ascii')
+        game('import base64\nfrom modern_projection.projection import '+name+' as module\n'
              'exec(compile(base64.b64decode('+repr(source)+'),'+repr(name+'.py')+',"exec"),module.__dict__)\n_result=True')
     game('''import sys
-from HelloScript.pyreact import navigator
-from HelloScript.projection.ui import Workspace
+from modern_projection.pyreact import navigator
+from modern_projection.projection.ui import Workspace
 sys.modules[s.bridge.system.__class__.__module__].Workspace=Workspace
 navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
@@ -47,7 +47,7 @@ def check_gap():
     pane=ui.nodes('Panel',owner[0])[0]['layout']
     parents=next(parents for node,parents in ui._walk(tree) if node.get('type')=='TaskStatus')
     status=next(node['layout'] for node in reversed(parents) if node.get('type')=='Image')
-    scale=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
+    scale=game('from modern_projection.projection.widgets import Theme\n_result=Theme.scale')
     gap=status['y']-pane['y']-pane['height']
     ui.check('footer has a ten-unit gutter below rounded panels',abs(gap-10*scale)<.2)
     return gap/scale

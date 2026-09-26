@@ -17,7 +17,7 @@ def outline(prefix='edge'):
     assert len(edges) == 12
     code = (
         'import json\n'
-        'from HelloScript.pyreact import host, debug\n'
+        'from modern_projection.pyreact import host, debug\n'
         '_result = json.dumps([debug.dispatch_editor_command('
         'host._ACTIVE_HOST[0], "native_control", identity, None) for identity in %r])\n'
     ) % [n['id'] for n in edges]

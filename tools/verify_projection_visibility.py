@@ -28,7 +28,7 @@ def main():
     if fixture.exists():
         payload=fixture.read_text(encoding='utf8')
     else:
-        sys.path.insert(0,str(ui.ROOT/'behavior_pack/HelloScript'))
+        sys.path.insert(0,str(ui.ROOT/'behavior_pack/modern_projection'))
         from projection.model import Document
         def inside(x,y,z):
             return ((x+.5-32.)/32.)**2+((y+.5-64.)/64.)**2+((z+.5-32.)/32.)**2<=1.
@@ -42,8 +42,8 @@ def main():
         payload=json.dumps(Document((64,128,64),blocks).to_data())
     server('api._angles62_player=(f.CreatePos(p).GetFootPos(),f.CreateFly(p).IsPlayerFlying())\n_result=True')
     game('''import json
-from HelloScript.pyreact import navigator
-from HelloScript.projection.model import Document,Editor
+from modern_projection.pyreact import navigator
+from modern_projection.projection.model import Document,Editor
 b=s.bridge;cam=b.factory.CreateCamera(b.level)
 api._angles62_saved=(s.editor,s.origin,s.opacity,s.solo_layer,s.projection_missing,s.projection_outline,
  s.reduced_motion,s.projection_active,cam.IsModCameraLockPitch(),cam.IsModCameraLockYaw(),s.editor.message)
@@ -152,7 +152,7 @@ s.editor,s.origin,s.opacity,s.solo_layer,s.projection_missing,s.projection_outli
 cam.ResetCameraPos();cam.UnDepartCamera();cam.LockModCameraPitch(v[8]);cam.LockModCameraYaw(v[9])
 if v[7]:b.project()
 s.editor.message=v[10]
-from HelloScript.projection.ui import Workspace
+from modern_projection.projection.ui import Workspace
 navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
 

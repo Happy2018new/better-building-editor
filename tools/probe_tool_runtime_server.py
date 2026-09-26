@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Read-only MCDK probe for registered custom items."""
 import mod.server.extraServerApi as api
-from HelloScript.projection.tool_items import SURVEY_WAND, TERMINAL
-system = api.GetSystem('ModernProjection', 'HelloServerSystem')
+from modern_projection.projection.tool_items import SURVEY_WAND, TERMINAL
+system = api.GetSystem('ModernProjection', 'ModernProjectionServerSystem')
 item = api.GetEngineCompFactory().CreateItem(api.GetLevelId())
 recipes = api.GetEngineCompFactory().CreateRecipe(api.GetLevelId())
 _result = {

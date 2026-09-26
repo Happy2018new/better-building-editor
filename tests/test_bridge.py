@@ -3,7 +3,7 @@ import sys
 import types
 import unittest
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 
 for name in ('mod', 'mod.client', 'mod.client.extraClientApi'):
     sys.modules.setdefault(name, types.ModuleType(name))

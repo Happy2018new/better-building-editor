@@ -1,5 +1,13 @@
 # 现代化投影开发记录
 
+## 脚本命名与入口
+
+- Python 包位于 `behavior_pack/modern_projection/`；业务和 Pyreact 子包分别为 `projection/`、`pyreact/`。
+- 保留加载器识别的 `modMain.py` 入口，绑定类为 `ModernProjectionMod`；不要改为 `mod_main.py`。
+- `client_system.py` 和 `server_system.py` 分别提供 `ModernProjectionClientSystem`、`ModernProjectionServerSystem`，在 `ModernProjection` 命名空间下以同名系统注册。
+- `ui.py` 中的原生界面类名为 `ModernProjectionScreen`；工作台组件仍位于 `projection/ui.py`。
+- Python 包路径、系统注册名、事件监听来源、测试和调试脚本需同步更新；物品标识、存档键和资源包命名保持原样。
+
 ## 阶段 32：批量性能、缓存历史与内部观察
 
 - 最大 64×128×64、厚度 1 空心长方体由约 170.73 秒降到 8.33 秒（均含预览、调试查询和等待）。编辑自身墙钟约 2.00 秒、CPU 0.529 秒，预览约 5.03 秒。采用位集合薄板构造，只访问 39,944 个表面候选；保留掩码、锁层、原子发布与取消。墙、框架、底板也走该快速路径。
@@ -87,7 +95,7 @@
 
 ## 阶段 1：编辑内核与开发环境
 
-- Pyreact-MC 保持项目已有实现，业务代码位于 `behavior_pack/HelloScript/projection`。
+- Pyreact-MC 保持项目已有实现，业务代码位于 `behavior_pack/modern_projection/projection`。
 - 文档上限为 X/Z 256、Y 384，共 25,165,824 格。超过 32768 格走分块存储、异步编辑与受限预览，所有草稿编辑限定在文档长方体内。
 - 64 个工具集中定义在 `catalog.py`，由 `Editor.run` 执行；界面、搜索和测试共用目录。
 - 原子提交、最多 50 步 / 262144 个变更格的历史；失败的越界操作不会部分生效。

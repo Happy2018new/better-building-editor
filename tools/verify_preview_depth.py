@@ -13,7 +13,7 @@ from verify_interaction import pointer
 
 
 def main():
-    game('''from HelloScript.projection.model import Document
+    game('''from modern_projection.projection.model import Document
 fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',
 'zoom','camera_pan','camera_pivot','camera_depth','camera_depth_pose','camera_pose','focus_view','grid')

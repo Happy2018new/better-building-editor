@@ -26,7 +26,7 @@ def wait_preview():
 
 
 def main():
-    game('''from HelloScript.pyreact import host
+    game('''from modern_projection.pyreact import host
 api._mobile_fix_saved=(s.editor,s.page,s.inspector,s.material_browser,
     s.camera_yaw,s.camera_pitch,s.zoom,s.camera_pan)
 api._mobile_safe_saved=(host.get_safe_area_size(),host.get_safe_area_insets())
@@ -42,12 +42,12 @@ _result=True''')
         border = ImageChops.difference(before, after).crop((0, 0, 12, before.height))
         ui.check('unsafe margin darkens with modal', max(ImageStat.Stat(border).mean) > 5)
         print('safe area: ' + path, flush=True)
-        game('''from HelloScript.pyreact import host
+        game('''from modern_projection.pyreact import host
 s.set('material_browser',None)
 size,insets=api._mobile_safe_saved
 host._publish_safe_area(size,insets)
 host._SAFE_AREA_PROBE[0]._next_measure=0.
-from HelloScript.projection.model import Document
+from modern_projection.projection.model import Document
 blocks=dict(((x,0,z),('minecraft:grass',0)) for x in range(8) for z in range(8))
 s._loaded(Document((8,1,8),blocks,biome='plains'))
 s.set('page','projection')
@@ -79,7 +79,7 @@ _result=True''')
                      float(jungle_side[1]) / jungle_side[0]) < .2)
         ui.check('grass side dirt stays unchanged',
                  grass['plains'].getpixel(dirt) == grass['jungle'].getpixel(dirt))
-        game('''from HelloScript.projection.model import Document
+        game('''from modern_projection.projection.model import Document
 blocks=dict(((x,0,z),('minecraft:green_wool',0)) for x in range(8) for z in range(8))
 s._loaded(Document((8,1,8),blocks,biome='plains'))
 s.set('page','projection')
@@ -95,7 +95,7 @@ _result=True''')
         ui.check('green wool is not biome tinted',
                  max(ImageStat.Stat(difference.crop((280, 200, 500, 300))).mean) < 2)
     finally:
-        game('''from HelloScript.pyreact import host,navigator
+        game('''from modern_projection.pyreact import host,navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 size,insets=api._mobile_safe_saved
 host._publish_safe_area(size,insets)

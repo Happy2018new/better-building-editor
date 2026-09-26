@@ -22,7 +22,7 @@ def load_hud():
     modules[package + '.pyreact'].navigator = types.SimpleNamespace(contains=lambda key: False)
     module = types.ModuleType(package + '.projection.tool_hud')
     module.__package__ = package + '.projection'
-    path = Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript/projection/tool_hud.py'
+    path = Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection/projection/tool_hud.py'
     with patch.dict(sys.modules, modules):
         exec(compile(path.read_text(encoding='utf8'), str(path), 'exec'), module.__dict__)
     return module

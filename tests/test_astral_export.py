@@ -37,7 +37,7 @@ class AstralExportTests(unittest.TestCase):
             self.assertEqual(desc['identifier'], bp['minecraft:entity']['description']['identifier'])
         for path in SOURCE.rglob('*.py'):
             code = path.read_text(encoding='utf8')
-            self.assertNotIn('HelloScript', code)
+            self.assertNotIn('modern_projection', code)
             self.assertNotIn('modern_projection:', code)
 
     def test_archive_integrity_and_reproducible_output(self):

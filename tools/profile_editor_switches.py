@@ -9,7 +9,7 @@ from verify_materials_paste import game
 def main():
     game('s.set("material_browser",None)\ns.set("page","workspace")\n_result=True')
     time.sleep(.5)
-    game('''from HelloScript.pyreact import native
+    game('''from modern_projection.pyreact import native
 import time
 h=api.GetTopScreen()
 cls=type(h)
@@ -58,7 +58,7 @@ _result=True
     finally:
         if '--hotspots' in sys.argv:
             (ui.OUT/'editor_switch_hotspots.json').write_text(json.dumps(game('_result=h._switch_hotspots'),indent=2),encoding='utf8')
-        game('''from HelloScript.pyreact import native
+        game('''from modern_projection.pyreact import native
 cls=type(api.GetTopScreen())
 cls._pyreact_flush=cls._switch_saved_flush
 del cls._switch_saved_flush

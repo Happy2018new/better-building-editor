@@ -15,7 +15,7 @@ def main():
     game('''b=s.bridge
 cam=b.factory.CreateCamera(b.level)
 api._wood_verification=(cam.IsModCameraLockPitch(),cam.IsModCameraLockYaw(),s.editor.document)
-from HelloScript.projection.model import Document
+from modern_projection.projection.model import Document
 doc=Document((12,1,1),dict(((i,0,0),('minecraft:planks',i//2)) for i in range(12)))
 name=b.geometry(doc,name='modern_projection_wood_verification')
 origin=tuple(float(v) for v in b.player_origin())

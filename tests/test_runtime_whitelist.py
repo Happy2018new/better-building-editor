@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-sys.path.insert(0, str(ROOT / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from audit_runtime_imports import audit, imports
 from projection.packed import IntegerBuffer
 

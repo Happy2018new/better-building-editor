@@ -9,14 +9,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack'))
 for name in ('mod', 'mod.server', 'mod.server.extraServerApi'):
     sys.modules.setdefault(name, types.ModuleType(name))
 sys.modules['mod.server.extraServerApi'].GetServerSystemCls = lambda: object
-from HelloScript import HelloServerSystem as server
-from HelloScript.projection.model import Document, AIR
-from HelloScript.projection.transfer import packets, Receiver
+from modern_projection import server_system as server
+from modern_projection.projection.model import Document, AIR
+from modern_projection.projection.transfer import packets, Receiver
 
 
 class ServerStreamTests(unittest.TestCase):
     def setUp(self):
-        self.host = object.__new__(server.HelloServerSystem)
+        self.host = object.__new__(server.ModernProjectionServerSystem)
         self.host.jobs = {}
         self.host.uploads = {}
         self.host.tool_last_use = {}

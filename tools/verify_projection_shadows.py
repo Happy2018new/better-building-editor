@@ -9,7 +9,7 @@ from verify_projection_visibility import difference
 
 def main():
     server('api._shadow_cells=[]\napi._shadow_player=(f.CreatePos(p).GetFootPos(),f.CreateFly(p).IsPlayerFlying())\n_result=True')
-    base = game('''from HelloScript.pyreact import navigator
+    base = game('''from modern_projection.pyreact import navigator
 b=s.bridge
 cam=b.factory.CreateCamera(b.level)
 api._shadow_saved=(s.editor,s.origin,s.opacity,s.projection_outline,s.reduced_motion,s.projection_active,
@@ -27,8 +27,8 @@ assert all(info.GetBlockNew(pos,0)['name']=='minecraft:stone' for pos in cells)
 f.CreateFly(p).ChangePlayerFlyState(True)
 f.CreatePos(p).SetFootPos((base[0]-3.,base[1]+2.5,base[2]-3.))
 _result=True''')
-        game('''from HelloScript.pyreact import navigator
-from HelloScript.projection.model import Document,Editor
+        game('''from modern_projection.pyreact import navigator
+from modern_projection.projection.model import Document,Editor
 navigator.pop()
 b.stop_projection()
 s.editor=Editor(Document((4,4,4),{(2,0,2):('minecraft:quartz_block',0),(2,1,2):('minecraft:quartz_block',0)}))
@@ -72,7 +72,7 @@ s.editor,s.origin,s.opacity,s.projection_outline,s.reduced_motion=v[:5]
 s.solo_layer,s.projection_missing=v[8:10]
 cam.ResetCameraPos();cam.UnDepartCamera();cam.LockModCameraPitch(v[6]);cam.LockModCameraYaw(v[7])
 if v[5]:b.project()
-from HelloScript.projection.ui import Workspace
+from modern_projection.projection.ui import Workspace
 navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
         server('''info=f.CreateBlockInfo(api.GetLevelId())

@@ -36,7 +36,7 @@ for x in range(-4,10):
 _result=True''' % ('minecraft:'+block), True)
 
     try:
-        game('from HelloScript.pyreact import navigator\nif navigator.contains("modern_projection_workspace"):navigator.pop()\ns.bridge.stop_projection()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nif navigator.contains("modern_projection_workspace"):navigator.pop()\ns.bridge.stop_projection()\n_result=True')
         game('api.GetEngineCompFactory().CreateFly(player).ChangePlayerFlyState(True)\n_result=True', True)
         view((8.,310.,12.),(2.,305.5,4.))
         ids=survey((0,303,2),(4,5,4))
@@ -71,8 +71,8 @@ _result=True''' % ('minecraft:'+block), True)
         ]:
             view(pos,target);survey(origin,size);time.sleep(1.4);shot(label)
         game('''s.bridge.corners=[None,None];s.bridge.draw_bounds()
-from HelloScript.projection.model import Document,Editor
-from HelloScript.projection.outline_settings import defaults
+from modern_projection.projection.model import Document,Editor
+from modern_projection.projection.outline_settings import defaults
 blocks={}
 for x in range(6):
  for z in range(6):blocks[(x,0,z)]=('minecraft:quartz_block',0)

@@ -17,10 +17,10 @@ def install(execute, name, relative):
 def main():
     for execute in (game,server):
         for name in ('block_registry_data','block_registry'):
-            install(execute,'HelloScript.projection.'+name,'HelloScript/projection/'+name+'.py')
-    install(server,'HelloScript.HelloServerSystem','HelloScript/HelloServerSystem.py')
-    result=server('''from HelloScript.HelloServerSystem import WorldAdapter
-from HelloScript.projection.block_registry import canonical,states
+            install(execute,'modern_projection.projection.'+name,'modern_projection/projection/'+name+'.py')
+    install(server,'modern_projection.server_system','modern_projection/server_system.py')
+    result=server('''from modern_projection.server_system import WorldAdapter
+from modern_projection.projection.block_registry import canonical,states
 a=WorldAdapter(p)
 origin=f.CreatePos(p).GetFootPos()
 point=(int(origin[0]),int(origin[1])+15,int(origin[2]))
@@ -56,7 +56,7 @@ _result=True''')
         time.sleep(.1)
     ui.check('authoritative catalogue contains localized cyan glass',bool(catalogue['cyan']) and not catalogue['pending'])
     compiled=0
-    for path in (ui.ROOT/'behavior_pack/HelloScript').rglob('*.py'):
+    for path in (ui.ROOT/'behavior_pack/modern_projection').rglob('*.py'):
         if 'pyreact' in path.parts and path.name!='primitives.py':continue
         encoded=base64.b64encode(path.read_bytes()).decode('ascii')
         game('import base64\ncompile(base64.b64decode('+repr(encoded)+'),'+repr(str(path))+',"exec")\n_result=True')

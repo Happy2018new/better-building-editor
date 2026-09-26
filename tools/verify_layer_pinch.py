@@ -81,7 +81,7 @@ _result=True''')
             ui.check(mode+' pinch doubles scale without mesh builds or editing',
                      abs(held['pose'][2]/before['pose'][2]-2.)<.001 and held['previewBuilds']==before['previewBuilds'] and
                      held['blocks']==before['blocks'] and held['selection']==before['selection'])
-            game('''from HelloScript.projection.pointer import release_pointers
+            game('''from modern_projection.projection.pointer import release_pointers
 release_pointers(h,{'TouchId':101})
 t.up({'TouchId':101})
 t.move({'TouchId':102,'TouchPosX':cx+span*2.5,'TouchPosY':cy+3.})

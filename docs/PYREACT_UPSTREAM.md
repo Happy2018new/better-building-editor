@@ -15,7 +15,7 @@
 
 ## 保留的项目补丁
 
-运行时 `debug.py`、`reconciler.py`、`renderer.py`、`native.py` 含本地差异，详见打包目录中的 `behavior_pack/HelloScript/pyreact/UPSTREAM.md`。没有覆盖业务 UI、输入模板、字体或模型渲染器。
+运行时 `debug.py`、`reconciler.py`、`renderer.py`、`native.py` 含本地差异，详见打包目录中的 `behavior_pack/modern_projection/pyreact/UPSTREAM.md`。没有覆盖业务 UI、输入模板、字体或模型渲染器。
 
 同步后的原生点击回归另见 `DEVELOPMENT.md` 阶段 35：控件名称在 Unicode key 净化后转换为 ASCII `str`，避免网易 Python 2 SDK 克隆容器时只正确显示、不接收其内部按钮的鼠标事件。普通 `click` 诊断直接调用 Python 回调，不能代替真实原生点击验证。
 
@@ -59,7 +59,7 @@ python -X utf8 tools/run_live_check.py --session $instance.session_file --owner 
 ## 后续更新
 
 1. 获取上游新提交，以本文件记录的完整 SHA 为旧基准比较。
-2. 映射 `pyreact/` 到 `behavior_pack/HelloScript/pyreact/`，`jsonui/PyreactBase.json` 到资源包 UI；技能路径保持不变。
+2. 映射 `pyreact/` 到 `behavior_pack/modern_projection/pyreact/`，`jsonui/PyreactBase.json` 到资源包 UI；技能路径保持不变。
 3. 三方合并 `UPSTREAM.md` 列出的运行时补丁，以及本地技能中的 `projection.md`、MCDK 诊断桥接、实例启动与回归桌面锁补充。
 4. 检查许可与配套工具的删除/迁移，运行单元测试和实机回归，再更新 SHA、验证记录并提交。
 

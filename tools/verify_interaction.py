@@ -4,7 +4,7 @@ import time
 import sys
 import verify_ui as ui
 
-sys.path.insert(0, str(ui.ROOT / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(ui.ROOT / 'behavior_pack/modern_projection'))
 from projection.camera import OrbitCamera
 
 

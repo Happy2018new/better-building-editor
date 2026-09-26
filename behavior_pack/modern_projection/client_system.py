@@ -12,7 +12,7 @@ import time
 ClientSystem = clientApi.GetClientSystemCls()
 
 
-class HelloClientSystem(ClientSystem):
+class ModernProjectionClientSystem(ClientSystem):
     def __init__(self, namespace, systemName):
         ClientSystem.__init__(self, namespace, systemName)
         runtime_init(self, debug=True)
@@ -25,11 +25,11 @@ class HelloClientSystem(ClientSystem):
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'GameRenderTickEvent', self, self.render_tick)
-        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'ProjectionResponse', self, self.response)
-        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
-        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'OpenProjectionUi', self, self.open_from_terminal)
-        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'WorldToolPoint', self, self.world_tool_point)
-        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'StaffAuraState', self, self.staff_aura_state)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'ProjectionResponse', self, self.response)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'OpenProjectionUi', self, self.open_from_terminal)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'WorldToolPoint', self, self.world_tool_point)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'StaffAuraState', self, self.staff_aura_state)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
                             'OnCarriedNewItemChangedClientEvent', self, self.carried_changed)
         for event in ('StartDestroyBlockClientEvent', 'PlayerTryDestroyBlockClientEvent'):

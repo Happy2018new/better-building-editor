@@ -19,7 +19,7 @@ def main():
     assert window and capture._activate_window(window['hwnd'])
     original=state()['simulated']
     payload=(ui.OUT/'stage51_current_document.json').read_text(encoding='utf8')
-    game('import json\nfrom HelloScript.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.set("page","workspace")\ns.emit()\n_result=True')
+    game('import json\nfrom modern_projection.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.set("page","workspace")\ns.emit()\n_result=True')
     for unused in range(150):
         if not game('_result=s.preview_pending or getattr(s.tiles,"mounting",False)'):break
         time.sleep(.2)

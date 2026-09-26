@@ -14,7 +14,7 @@ from native_input_mode import key, set_touch, state, open_workspace
 
 
 def controls():
-    return game('''from HelloScript.pyreact.debug import _type_name
+    return game('''from modern_projection.pyreact.debug import _type_name
 def find(f,name):
     if _type_name(f)==name:return f
     for child in f.child_fibers:
@@ -32,14 +32,14 @@ def main():
     original_size=capture._window_rect(window['hwnd'])[2:]
     small='--small' in sys.argv
     resize=str(ui.ROOT/'.agents/skills/pyreact-debugging/scripts/resize_window.py')
-    if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
+    if not game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
         open_workspace();time.sleep(3)
     original_touch=state()['simulated']
     game('''fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',
 'zoom','camera_pan','camera_pivot','camera_depth','camera_depth_pose','camera_pose','focus_view','grid','material_browser')
 api._clip70_saved=dict((k,getattr(s,k)) for k in fields)
-from HelloScript.projection.model import Document
+from modern_projection.projection.model import Document
 s._loaded(Document((8,8,8),dict(((x,y,z),('minecraft:red_wool',0)) for x in range(8) for y in range(8) for z in range(8))))
 s.direct_mode='browse';s.grid=True;s.material_browser=None;s.focus_view=False;s.emit()
 _result=True''')

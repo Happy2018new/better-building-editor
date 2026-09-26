@@ -34,8 +34,8 @@ def main(background=False):
     resize=str(ui.ROOT/'.agents/skills/pyreact-debugging/scripts/resize_window.py')
     if '--reload-typography' in sys.argv:
         import base64
-        source=(ui.ROOT/'behavior_pack/HelloScript/projection/typography.py').read_bytes()
-        game('import base64\nfrom HelloScript.projection import typography\nold_glyph=typography.glyph\nexec(compile(base64.b64decode('+repr(base64.b64encode(source).decode('ascii'))+'),"typography.py","exec"),typography.__dict__)\nold_glyph.func_code=typography.glyph.func_code\n_result=True')
+        source=(ui.ROOT/'behavior_pack/modern_projection/projection/typography.py').read_bytes()
+        game('import base64\nfrom modern_projection.projection import typography\nold_glyph=typography.glyph\nexec(compile(base64.b64decode('+repr(base64.b64encode(source).decode('ascii'))+'),"typography.py","exec"),typography.__dict__)\nold_glyph.func_code=typography.glyph.func_code\n_result=True')
     backup=ClipboardBackup()
     native_clipboard=False if background else backup.save()
     if not native_clipboard:
@@ -98,7 +98,7 @@ _result=True''')
         exact=game('''for part in api._font_parts:
     result=s.sharing.inbox.add(part)
 api._font_complete=result
-from HelloScript.projection.sharing_codec import decode_steps
+from modern_projection.projection.sharing_codec import decode_steps
 result=list(decode_steps(result))[-1]
 _result=result['document'].blocks==s.editor.document.blocks''')
         ui.check('short pieces reconstruct exact maximum ellipsoid',exact and game('_result=not s.sharing.inbox.missing()'))

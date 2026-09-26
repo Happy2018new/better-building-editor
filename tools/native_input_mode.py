@@ -8,7 +8,7 @@ def state():
     with Client() as client:
         return return_value(client.call('execute_code', {'code': '''
 import mod.client.extraClientApi as api
-from HelloScript.projection.input_mode import current_mode, is_touch
+from modern_projection.projection.input_mode import current_mode, is_touch
 _result = {'mode': current_mode(), 'simulated': api.IsTouchWithMouse(), 'touch': is_touch()}
 ''', 'is_client': True, 'direct_return': True}))
 

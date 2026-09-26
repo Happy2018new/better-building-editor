@@ -88,7 +88,7 @@ _result=True''')
             '_result={"entity":s.bridge.entity,"models":len(s.bridge.models),"builds":api._biome_builds}'))
         game('s.bridge.stop_projection()\n_result=True')
 
-        game('''from HelloScript.projection.model import Document
+        game('''from modern_projection.projection.model import Document
 s._loaded(Document((64,128,64)))
 s.editor.material=('minecraft:oak_leaves',0)
 s.choose_tool('shell')

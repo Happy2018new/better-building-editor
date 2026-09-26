@@ -112,7 +112,7 @@ class WorldAdapter(object):
         return self.validity[value[0]]
 
 
-class HelloServerSystem(ServerSystem):
+class ModernProjectionServerSystem(ServerSystem):
     def __init__(self, namespace, systemName):
         ServerSystem.__init__(self, namespace, systemName)
         self.jobs = {}
@@ -122,9 +122,9 @@ class HelloServerSystem(ServerSystem):
         self.tool_last_use = {}
         self.terminal_last_use = {}
         self.aura_tick = 0
-        self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
-        self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
-        self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'WorldToolRequest', self, self.world_tool_request)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionClientSystem', 'ProjectionRequest', self, self.request)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
+        self.ListenForEvent('ModernProjection', 'ModernProjectionClientSystem', 'WorldToolRequest', self, self.world_tool_request)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'OnScriptTickServer', self, self.tick)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent', self, self.leave)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerItemUseOnEvent', self, self.tool_use_on)

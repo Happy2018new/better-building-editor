@@ -11,26 +11,26 @@ from native_input_mode import set_touch, state
 
 
 def reload_code():
-    game('''from HelloScript.pyreact import navigator
+    game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 _result=True''')
     time.sleep(.4)
     for name in ('scene_lines','materials','bridge','session','panels','material_browser','scene','ui'):
-        data=base64.b64encode((ui.ROOT/('behavior_pack/HelloScript/projection/'+name+'.py')).read_bytes()).decode('ascii')
+        data=base64.b64encode((ui.ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')).read_bytes()).decode('ascii')
         game('''import base64,importlib
-module=importlib.import_module('HelloScript.projection.%s')
+module=importlib.import_module('modern_projection.projection.%s')
 names=dict(getattr(module,'DISPLAY_NAMES',{}))
 exec(compile(base64.b64decode(%r),%r,'exec'),module.__dict__)
 if names:module.DISPLAY_NAMES.update(names)
 _result=True'''%(name,data,name+'.py'))
-    game('''from HelloScript.projection.session import Session
-from HelloScript.projection.ui import Workspace
-from HelloScript.projection.bridge import ClientBridge
-from HelloScript import HelloClientSystem
+    game('''from modern_projection.projection.session import Session
+from modern_projection.projection.ui import Workspace
+from modern_projection.projection.bridge import ClientBridge
+from modern_projection import client_system
 s.__class__=Session
 s.bridge.__class__=ClientBridge
-HelloClientSystem.Workspace=Workspace
-HelloClientSystem.Session=Session
+client_system.Workspace=Workspace
+client_system.Session=Session
 navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
     time.sleep(3.)
@@ -43,9 +43,9 @@ def click_action(label, root, window):
 
 def verify_palette(window):
     game('s.set("material_browser",None)\n_result=True');time.sleep(.5)
-    game('''from HelloScript.pyreact import *
-from HelloScript.projection.panels import MaterialPicker
-from HelloScript.projection.widgets import surface
+    game('''from modern_projection.pyreact import *
+from modern_projection.projection.panels import MaterialPicker
+from modern_projection.projection.widgets import surface
 @Component
 def PaletteCheck():
     return SafeArea(style=Style(width='100%',height='100%'),children=Panel(
@@ -150,7 +150,7 @@ _result=True''')
         ui.check('stepper recovers invalid input without keyboard',ui.nodes('AuxEditor')[0]['props']['value']==['minecraft:wool',0])
         verify_palette(window)
     finally:
-        game('''from HelloScript.pyreact import navigator
+        game('''from modern_projection.pyreact import navigator
 if navigator.contains('palette_check'):navigator.pop()
 _result=True''')
         game('''(s.page,s.direct_mode,s.inspector,s.material_browser,palette,s.bridge.save_preferences,

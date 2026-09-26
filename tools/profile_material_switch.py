@@ -10,8 +10,8 @@ from profile_orbit_angles import summary
 def main():
     label = sys.argv[1] if len(sys.argv) > 1 else 'before'
     game('''import time,json
-from HelloScript.pyreact import host,navigator
-from HelloScript.projection.ui import Workspace
+from modern_projection.pyreact import host,navigator
+from modern_projection.projection.ui import Workspace
 if not navigator.contains('modern_projection_workspace'):
     navigator.push(Workspace(session=s),key='modern_projection_workspace')
 api._material_saved=(s.editor.material,s.page,s.direct_mode,s.inspector,host.notify_game_render_tick)

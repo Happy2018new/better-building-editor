@@ -20,7 +20,7 @@ class PreparationTests(unittest.TestCase):
         modules['prep_test.pyreact.hooks'].use_animation_frame=lambda *a:None
         self.scope=patch.dict(sys.modules,modules)
         self.scope.start();self.addCleanup(self.scope.stop)
-        path=Path(__file__).resolve().parents[1]/'behavior_pack/HelloScript/projection/preparation.py'
+        path=Path(__file__).resolve().parents[1]/'behavior_pack/modern_projection/projection/preparation.py'
         spec=importlib.util.spec_from_file_location('prep_test.projection.preparation',path)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
         self.focus=False

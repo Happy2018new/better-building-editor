@@ -1514,7 +1514,7 @@ function renderSrcMap() {
  u1 = EXTRA_ACTOR_UNIFORM1 · u2 = EXTRA_ACTOR_UNIFORM2 · u3 = EXTRA_ACTOR_UNIFORM3 · u4 = EXTRA_ACTOR_UNIFORM4<br>`;
   $('srcMap').innerHTML = common + (S.scene === 'aura' ? `
  <br><b style="color:#cfe9f6;font-weight:400">环身光环</b><br>
- 行为：<code>behavior_pack/HelloScript/projection/staff_aura.py</code><br>
+ 行为：<code>behavior_pack/modern_projection/projection/staff_aura.py</code><br>
  顶点：<code>resource_pack/shaders/glsl/modern_projection_aura.vertex</code><br>
  像素：<code>resource_pack/shaders/glsl/modern_projection_aura.fragment</code><br>
  实体：<code>resource_pack/entity/modern_projection_staff_aura.entity.json</code><br>
@@ -1522,7 +1522,7 @@ function renderSrcMap() {
  材质：<code>resource_pack/materials/entity.material</code> → <code>modern_projection_staff_aura</code> / <code>_glow</code><br>
  u1=(入场 0..1, 紫蓝法杖?, 动态 1/冻结 0, 1)，由 <code>SetEntityExtraUniforms(1, value)</code> 每帧按需上传。` : `
  <br><b style="color:#cfe9f6;font-weight:400">点选特效</b><br>
- 行为：<code>behavior_pack/HelloScript/projection/survey_effects.py</code>（<code>_spawn('strike')</code> / <code>pulse_point()</code> / <code>_update()</code>）<br>
+ 行为：<code>behavior_pack/modern_projection/projection/survey_effects.py</code>（<code>_spawn('strike')</code> / <code>pulse_point()</code> / <code>_update()</code>）<br>
  顶点/像素：<code>resource_pack/shaders/glsl/modern_projection_survey_stars.vertex/.fragment</code>（<code>SURVEY_STRIKE</code>）<br>
  实体：<code>resource_pack/entity/modern_projection_survey_strike.entity.json</code><br>
  几何：<code>resource_pack/models/entity/modern_projection_survey_strike.geo.json</code><br>

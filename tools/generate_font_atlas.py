@@ -15,7 +15,7 @@ def build(path):
     cmap=TTFont(str(path)).getBestCmap()
     font=ImageFont.truetype(str(path),64)
     font.set_variation_by_name('Medium')
-    mapping=ROOT/'behavior_pack/HelloScript/projection/font_atlas.py'
+    mapping=ROOT/'behavior_pack/modern_projection/projection/font_atlas.py'
     existing=runpy.run_path(str(mapping))['GLYPHS'] if mapping.exists() else {}
     chars=[chr(code) for code in cmap if code>=32 and not 0x7f<=code<0xa0]
     # Preserve page order on regeneration, independently of phrase inventory.
@@ -36,7 +36,7 @@ def build(path):
         rows[char]=[page,x,y,width,advance]
         x+=width+4
     save()
-    output=ROOT/'behavior_pack/HelloScript/projection/font_atlas.py'
+    output=ROOT/'behavior_pack/modern_projection/projection/font_atlas.py'
     output.write_text('# -*- coding: utf-8 -*-\n# Generated complete Noto Sans SC cmap (OFL), 64 px Medium.\nimport json\nGLYPHS = json.loads(r\'\'\''+json.dumps(rows,ensure_ascii=True,separators=(',',':'))+'\'\'\')\n',encoding='utf8')
     print('Generated %d glyphs in %d shared atlas pages'%(len(rows),page+1),flush=True)
 

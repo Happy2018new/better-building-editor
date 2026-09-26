@@ -16,11 +16,11 @@ def snapshot(name):
 
 def install():
     for name in ('materials', 'world_projection', 'bridge'):
-        path = ui.ROOT / ('behavior_pack/HelloScript/projection/'+name+'.py')
+        path = ui.ROOT / ('behavior_pack/modern_projection/projection/'+name+'.py')
         source = base64.b64encode(path.read_bytes()).decode('ascii')
-        game('import base64\nfrom HelloScript.projection import '+name+' as module\n'
+        game('import base64\nfrom modern_projection.projection import '+name+' as module\n'
              'exec(compile(base64.b64decode('+repr(source)+'),'+repr(str(path))+',"exec"),module.__dict__)\n_result=True')
-    game('''from HelloScript.projection.bridge import ClientBridge
+    game('''from modern_projection.projection.bridge import ClientBridge
 b=s.bridge
 b.__class__=ClientBridge
 # Prior profiling tools restored an old bound method on this instance.

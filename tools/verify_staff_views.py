@@ -13,7 +13,7 @@ OUT = Path(__file__).resolve().parents[1] / '.runtime'
 
 
 def main():
-    old = game('''from HelloScript.pyreact import navigator
+    old = game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 f=s.bridge.factory;p=s.bridge.player
 _result={'view':f.CreatePlayerView(p).GetPerspective(),

@@ -1,7 +1,7 @@
 # 旧回归工具兼容层
 
 这些工具来自 PyreactMC `5fe33a3`，上游 `9580d01` 已迁移到 MCDK。
-许可及归属见 `../../behavior_pack/HelloScript/pyreact/LICENSE` 与 `NOTICE`。
+许可及归属见 `../../behavior_pack/modern_projection/pyreact/LICENSE` 与 `NOTICE`。
 
 - `capture_screen.py`：原有回归使用的 Win32 截图、窗口与真实输入辅助函数。绑定实例时强制匹配 `MCDEV_GAME_PID` 和 `Minecraft.Windows.exe`。
 - `tracy.py`：历史性能脚本的 CLI，继续复用原来已安装并校验的二进制目录。新性能调查使用 MCDK `mc_profiler`。

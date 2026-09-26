@@ -9,7 +9,7 @@ def main():
     for kind in ('max_shell','current_document'):
         payload=(ui.OUT/('stage51_'+kind+'.json')).read_text(encoding='utf8')
         started=time.monotonic()
-        game('import json\nfrom HelloScript.projection.model import Document\ns.set("page","workspace")\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.emit()\n_result=True')
+        game('import json\nfrom modern_projection.projection.model import Document\ns.set("page","workspace")\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.emit()\n_result=True')
         for unused in range(180):
             value=game('_result={"pending":s.preview_pending,"error":s.preview_error,"wall":s.performance.get("previewWall"),"controls":len(s.tiles.render_keys),"builds":s.tiles.builds,"extract_seconds":s.tiles.seconds,"blocks":len(s.editor.document.blocks),"mounting":getattr(s.tiles,"mounting",False),"waiting":sum(bool(p["pending"]) for p in s.tiles.parts.values())}')
             if not value['pending'] and not value['mounting'] and not value['waiting']:break

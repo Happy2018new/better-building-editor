@@ -16,13 +16,13 @@ from collections import Counter
 
 def dependencies():
     try:
-        from HelloScript.projection.model import Document
-        from HelloScript.projection.codec import to_data
+        from modern_projection.projection.model import Document
+        from modern_projection.projection.codec import to_data
     except ImportError:
         import os
         sys.path.insert(0,os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'behavior_pack'))
-        from HelloScript.projection.model import Document
-        from HelloScript.projection.codec import to_data
+        from modern_projection.projection.model import Document
+        from modern_projection.projection.codec import to_data
     return Document,to_data
 
 

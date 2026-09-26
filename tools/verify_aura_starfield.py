@@ -14,7 +14,7 @@ def main():
     label = sys.argv[1] if len(sys.argv) > 1 else 'aura_stars'
     binding = load_session(live=True)
     out = Path(__file__).resolve().parents[1] / '.runtime' / (label + '.png')
-    old = game('''from HelloScript.pyreact import navigator
+    old = game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'): navigator.pop()
 view=s.bridge.factory.CreatePlayerView(s.bridge.player)
 _result={'perspective':view.GetPerspective(),

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Read-only MCDK probe for custom tools and their HUD."""
 import mod.client.extraClientApi as api
-from HelloScript.projection.tool_items import SURVEY_WAND, TERMINAL
-owner = api.GetSystem('ModernProjection', 'HelloClientSystem')
+from modern_projection.projection.tool_items import SURVEY_WAND, TERMINAL
+owner = api.GetSystem('ModernProjection', 'ModernProjectionClientSystem')
 item = api.GetEngineCompFactory().CreateItem(api.GetLevelId())
 hud = owner.hud
 _result = {

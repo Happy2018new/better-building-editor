@@ -4,9 +4,9 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack'))
-from HelloScript.projection.model import Document
-from HelloScript.projection.session import Session
-from HelloScript.projection.tool_items import selection, unique_name
+from modern_projection.projection.model import Document
+from modern_projection.projection.session import Session
+from modern_projection.projection.tool_items import selection, unique_name
 
 
 class MemoryBridge(object):

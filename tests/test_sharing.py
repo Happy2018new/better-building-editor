@@ -4,7 +4,7 @@ import sys
 import unittest
 import zlib
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack/HelloScript'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack/modern_projection'))
 from projection.model import Document
 from projection.sharing_codec import encode_steps,decode_steps,split_text,Inbox,checksum,MAX_RAW
 from projection.sharing import Sharing

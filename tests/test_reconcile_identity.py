@@ -18,7 +18,7 @@ class IdentityTests(unittest.TestCase):
         modules['isolated_reconciler.primitives'].Primitive = type('Primitive', (), {})
         sys.modules.update(modules)
         try:
-            path = Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript/pyreact/reconciler.py'
+            path = Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection/pyreact/reconciler.py'
             spec = importlib.util.spec_from_file_location('isolated_reconciler.reconciler', path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)

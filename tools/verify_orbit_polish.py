@@ -42,8 +42,8 @@ def final_checks():
     payload=(ui.OUT/'stage54_current_document.json').read_text(encoding='utf8')
     value=game('''import json
 import gui
-from HelloScript.pyreact import host
-from HelloScript.projection.model import Document
+from modern_projection.pyreact import host
+from modern_projection.projection.model import Document
 expected=Document.from_data(json.loads(%r))
 _result={'exact_draft':s.editor.document.blocks==expected.blocks and s.editor.document.size==expected.size and s.editor.document.name==expected.name,
          'blocks':len(s.editor.document.blocks),'pending':s.preview_pending,'error':s.preview_error,
@@ -53,7 +53,7 @@ _result={'exact_draft':s.editor.document.blocks==expected.blocks and s.editor.do
     ui.check('original maximum ellipsoid restored exactly',value['exact_draft'] and value['blocks']==20649)
     ui.check('preview settles without an active test or error',not value['pending'] and not value['error'] and not value['temporary_progress'])
     ui.check('SDK input callback and render callback restored',value['input_callback']=='handle_input_mode_change' and value['frame_callback']=='notify_game_render_tick')
-    files=list((ui.ROOT/'behavior_pack/HelloScript/projection').glob('*.py'))
+    files=list((ui.ROOT/'behavior_pack/modern_projection/projection').glob('*.py'))
     for path in files:
         encoded=base64.b64encode(path.read_bytes()).decode('ascii')
         game('import base64\ncompile(base64.b64decode('+repr(encoded)+'),'+repr(path.name)+',"exec")\n_result=True')
@@ -69,8 +69,8 @@ def main():
     capture.user32.SetProcessDPIAware()
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and (background or capture._activate_window(window['hwnd']))
-    game('''from HelloScript.pyreact import navigator
-from HelloScript.projection.ui import Workspace
+    game('''from modern_projection.pyreact import navigator
+from modern_projection.projection.ui import Workspace
 if not navigator.contains('modern_projection_workspace'):
     navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')

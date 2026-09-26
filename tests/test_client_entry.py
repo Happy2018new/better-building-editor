@@ -36,9 +36,9 @@ def load_client():
     react = modules[package + '.pyreact']
     react.runtime_init = Mock()
     react.navigator = types.SimpleNamespace(contains=Mock(return_value=False), push=Mock())
-    module = types.ModuleType(package + '.HelloClientSystem')
+    module = types.ModuleType(package + '.client_system')
     module.__package__ = package
-    path = Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript/HelloClientSystem.py'
+    path = Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection/client_system.py'
     with patch.dict(sys.modules, modules):
         exec(compile(path.read_text(encoding='utf8'), str(path), 'exec'), module.__dict__)
     return module
@@ -47,7 +47,7 @@ def load_client():
 class ClientEntryTests(unittest.TestCase):
     def setUp(self):
         self.module = load_client()
-        self.owner = self.module.HelloClientSystem('ModernProjection', 'HelloClientSystem')
+        self.owner = self.module.ModernProjectionClientSystem('ModernProjection', 'ModernProjectionClientSystem')
         self.owner.session = object()
 
     def test_no_world_keyboard_subscription(self):

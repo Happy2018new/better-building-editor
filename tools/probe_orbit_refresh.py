@@ -28,7 +28,7 @@ def main():
     capture.user32.SetProcessDPIAware()
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd']),'Game focus unavailable'
-    if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
+    if not game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
         open_workspace()
         time.sleep(3)
     original=state()['simulated']
@@ -36,7 +36,7 @@ def main():
         payload=json.loads(args.fixture.read_text(encoding='utf8'))
     else:
         import sys
-        sys.path.insert(0,str(ui.ROOT/'behavior_pack/HelloScript'))
+        sys.path.insert(0,str(ui.ROOT/'behavior_pack/modern_projection'))
         from projection.model import Document
         outer=lambda x,y,z:((x+.5-32)/32)**2+((y+.5-64)/64)**2+((z+.5-32)/32)**2<=1
         blocks={(x,y,z):('minecraft:sandstone',0)
@@ -46,7 +46,7 @@ def main():
         payload=Document((64,128,64),blocks).to_data()
     encoded=base64.b64encode(json.dumps(payload).encode()).decode()
     game('''import json,base64
-from HelloScript.projection.model import Document
+from modern_projection.projection.model import Document
 fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',
 'zoom','camera_pan','camera_pivot','camera_depth','camera_depth_pose','camera_pose','focus_view','grid')
@@ -67,9 +67,9 @@ _result=True''')
         box=tuple(int(v) for v in (left+node['global'][0]*scale,top+node['global'][1]*scale,
                   left+(node['global'][0]+node['size'][0])*scale,top+(node['global'][1]+node['size'][1])*scale))
         x,y=(box[0]+box[2])//2,(box[1]+box[3])//2
-        design=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
-        game('''from HelloScript.projection import native_layers
-from HelloScript.pyreact import host
+        design=game('from modern_projection.projection.widgets import Theme\n_result=Theme.scale')
+        game('''from modern_projection.projection import native_layers
+from modern_projection.pyreact import host
 import time
 api._orbit69_apply=native_layers.apply_layers
 api._orbit69_tick=host.notify_game_render_tick

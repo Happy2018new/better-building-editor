@@ -8,7 +8,7 @@ from verify_selection_outline import outline, same_outline
 
 def main():
     game('''import json
-from HelloScript.projection import scene
+from modern_projection.projection import scene
 fields=('page','view','direct_mode','box_anchor','camera_yaw','camera_pitch','zoom','camera_pan',
         'camera_pivot','camera_depth','camera_depth_pose','camera_pose','grid','touch_mode')
 api._depth_saved=dict((key,getattr(s,key)) for key in fields)

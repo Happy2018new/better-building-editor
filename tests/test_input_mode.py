@@ -18,7 +18,7 @@ class InputModeTests(TestCase):
         api.IsTouchWithMouse = lambda: self.simulated
         parent = ModuleType('mod'); parent.client = ModuleType('mod.client'); parent.client.extraClientApi = api
         spec = importlib.util.spec_from_file_location('_test_input_mode',
-            Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript/projection/input_mode.py')
+            Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection/projection/input_mode.py')
         self.module = importlib.util.module_from_spec(spec)
         with mock.patch.dict('sys.modules', {'mod': parent, 'mod.client': parent.client, 'mod.client.extraClientApi': api}):
             spec.loader.exec_module(self.module)

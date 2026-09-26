@@ -43,7 +43,7 @@ def main():
 
     with Client() as client:
         names = return_value(client.call('execute_code', {'code': '''
-from HelloScript.pyreact import host
+from modern_projection.pyreact import host
 def visit(fiber):
     result=[]
     if fiber.is_primitive:

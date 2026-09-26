@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
-APP = ROOT / 'behavior_pack/HelloScript/projection'
+APP = ROOT / 'behavior_pack/modern_projection/projection'
 OUT = ROOT / 'resource_pack/textures/modern_projection'
 
 

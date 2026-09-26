@@ -70,7 +70,7 @@ def main():
     snapshot('inventory_retained_open')
     game('s.set("material_browser",None)\n_result=True');time.sleep(.35)
     game('''import time
-from HelloScript.pyreact.debug import _type_name
+from modern_projection.pyreact.debug import _type_name
 h=api.GetTopScreen()
 def find(f,name):
     if _type_name(f)==name:return f

@@ -23,7 +23,7 @@ def game(code, server=False):
     side = 'server' if server else 'client'
     source = ('from __future__ import unicode_literals\n'
               'import mod.%s.extra%sApi as api\n' % (side, side.title()) +
-              'owner=api.GetSystem("ModernProjection", "Hello%sSystem")\n' % side.title() +
+              'owner=api.GetSystem("ModernProjection", "ModernProjection%sSystem")\n' % side.title() +
               ('player=api.GetPlayerList()[0]\n' if server else 's=owner.session\n') + code)
     return return_value(call('execute_code', {'code':source.encode('ascii','backslashreplace').decode('ascii'),
                                              'is_client':not server, 'direct_return':True}))
@@ -53,7 +53,7 @@ _result=bool(carried and carried.get('newItemName',carried.get('itemName'))==nam
 
 
 def state():
-    return game('''from HelloScript.pyreact import navigator
+    return game('''from modern_projection.pyreact import navigator
 _result={'open':navigator.contains('modern_projection_workspace'),
     'corners':s.bridge.corners,'busy':s.busy,'io':s.io_job is not None,
     'library':[(e['id'],e['data']['name'],e['data']['size']) for e in s.library],
@@ -143,7 +143,7 @@ _result=True''',server=True)
         game('owner.world_points.pop(player,None)\nowner.world_regions.pop(player,None)\nowner.tool_last_use.pop(player,None)\n_result=True',server=True)
         game('s.bridge.corners=[None,None]\ns.bridge.draw_bounds()\n_result=True')
         if state()['open']:
-            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+            game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
             time.sleep(.6)
         if state()['touch']:
             input_step('/key',keys='f11');time.sleep(.3)
@@ -153,7 +153,7 @@ _result=True''',server=True)
         time.sleep(2)
         assert state()['open'],'Terminal right-click did not open'
         print('PASS PC terminal right-click',flush=True)
-        game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
         time.sleep(.6)
         assert equip('modern_projection:survey_wand')
         game('api.GetEngineCompFactory().CreateRot(api.GetLocalPlayerId()).SetRot((70.,0.))\n_result=True')
@@ -185,7 +185,7 @@ _result=True''',server=True)
         value=wait_ready()
         assert value['open'] and len(value['library'])==1 and value['draft_same'],value
         print('PASS PC left-click capture and draft protection',flush=True)
-        game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
         time.sleep(.6)
         input_step('/key',keys='f11');time.sleep(.5)
         assert state()['touch'],'F11 touch simulation missing'
@@ -196,7 +196,7 @@ _result=True''',server=True)
         value=wait_ready()
         assert len(value['library'])==2 and value['draft_same'] and value['corners']==before,value
         print('PASS F11 HUD capture and draft protection',json.dumps(value,ensure_ascii=False),flush=True)
-        game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
         time.sleep(.6)
         hud_click(clear=True)
         assert state()['corners']==[None,None],'Completed region did not clear'
@@ -224,7 +224,7 @@ _result=True''')
 _result=True''',server=True)
         if state()['touch']!=original['touch']:
             if state()['open']:
-                game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True');time.sleep(.6)
+                game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True');time.sleep(.6)
             input_step('/key',keys='f11')
 
 

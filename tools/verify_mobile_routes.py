@@ -6,7 +6,7 @@ from verify_world_tools import game,input_step
 
 
 def main():
-    original=game('''from HelloScript.pyreact import navigator
+    original=game('''from modern_projection.pyreact import navigator
 _result={'touch':api.IsTouchWithMouse(),'mode':s.direct_mode,
          'pose':(s.camera_yaw,s.camera_pitch,s.zoom),'pan':s.camera_pan}
 if navigator.contains('modern_projection_workspace'):navigator.pop()''')
@@ -51,14 +51,14 @@ _result={'ratio':s.zoom/before[0],'held':held,'outside':outside,'released':not t
         assert abs(p['ratio']-2.)<.001 and all(p[k] for k in ('held','outside','released','same_blocks')),p
         game('s.set("pending_confirm",(u"Back route regression",lambda:None))\n_result=True')
         time.sleep(.5)
-        report['android_callback_deduplicated']=game('''from HelloScript.pyreact import host,navigator
+        report['android_callback_deduplicated']=game('''from modern_projection.pyreact import host,navigator
 h=api.GetTopScreen()
 host._RUNTIME_EVENT_HANDLER.on_android_back({})
 h._native_back({})
 _result=s.pending_confirm is None and navigator.contains('modern_projection_workspace')''')
         assert report['android_callback_deduplicated']
     finally:
-        game('''from HelloScript.pyreact import navigator
+        game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 s.pending_confirm=None
 s.choose_mode(%r)

@@ -28,8 +28,8 @@ def main():
     print(game('_result={"size":s.editor.document.size,"blocks":len(s.editor.document.blocks),"depth":s.camera_depth,"zoom":s.zoom,"tiles":len(s.tiles.render_keys)}'),flush=True)
     set_touch(not args.pc)
     game('''import time
-from HelloScript.pyreact import host
-from HelloScript.projection import scene
+from modern_projection.pyreact import host
+from modern_projection.projection import scene
 api._orbit_saved=(s.camera_yaw,s.camera_pitch,s.zoom,s.camera_pan,s.camera_pivot,s.camera_depth,s.page,s.grid,host.notify_game_render_tick )
 api._orbit_record={'active':False,'rows':[],'fps':0.,'poll':0.,'profile':False,'slow':[]}
 def recorder(original,record,clock,session,component):
@@ -63,7 +63,7 @@ _result=True''')
             native=ui.call('native_control',pointer()['id'])['result']
             root=ui.nodes('SafeArea')[0]['children'][0]['layout']
             left,top,width,height=capture._window_rect(window['hwnd']);scale=width/root['width']
-            design=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
+            design=game('from modern_projection.projection.widgets import Theme\n_result=Theme.scale')
             x=int(left+(native['global'][0]+native['size'][0]*.5)*scale)
             y=int(top+(native['global'][1]+native['size'][1]*.4)*scale)
             game('api._orbit_record["rows"]=[]\napi._orbit_record["slow"]=[]\napi._orbit_record["active"]=True\n_result=True')

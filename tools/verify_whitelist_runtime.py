@@ -17,19 +17,19 @@ from native_input_mode import set_touch, state
 def compatibility():
     # Refresh the final bounds-check method without replacing classes already
     # held by the live editor. All other changes were loaded at game startup.
-    source = base64.b64encode((ui.ROOT/'behavior_pack/HelloScript/projection/packed.py').read_bytes()).decode('ascii')
-    game('import base64\nfrom HelloScript.projection import packed\n'
+    source = base64.b64encode((ui.ROOT/'behavior_pack/modern_projection/projection/packed.py').read_bytes()).decode('ascii')
+    game('import base64\nfrom modern_projection.projection import packed\n'
          'scope=dict(packed.__dict__)\nexec(compile(base64.b64decode('+repr(source)+'),"packed.py","exec"),scope)\n'
          'packed.IntegerBuffer.__setitem__=scope["IntegerBuffer"].__setitem__.im_func\n_result=True')
     result = game('''import struct,zlib,base64,json
-from HelloScript.projection.packed import IntegerBuffer
-from HelloScript.projection.model import Document
-from HelloScript.projection.codec import to_data
-from HelloScript.projection.journal import Journal
-from HelloScript.projection.archive import save_steps,load_steps
-from HelloScript.projection.sharing_codec import encode_steps,decode_steps,split_text,Inbox
-from HelloScript.projection.typography import characters,supported
-from HelloScript.projection.bridge import native
+from modern_projection.projection.packed import IntegerBuffer
+from modern_projection.projection.model import Document
+from modern_projection.projection.codec import to_data
+from modern_projection.projection.journal import Journal
+from modern_projection.projection.archive import save_steps,load_steps
+from modern_projection.projection.sharing_codec import encode_steps,decode_steps,split_text,Inbox
+from modern_projection.projection.typography import characters,supported
+from modern_projection.projection.bridge import native
 checks=[]
 def check(name,condition):
     assert condition,name
@@ -92,7 +92,7 @@ def main():
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',
 'zoom','camera_pan','camera_pivot','camera_depth','camera_depth_pose','camera_pose','focus_view','grid')
 api._whitelist_saved=dict((k,getattr(s,k)) for k in fields)
-from HelloScript.projection.model import demo_document
+from modern_projection.projection.model import demo_document
 s._loaded(demo_document())
 s.direct_mode='browse';s.inspector='layers';s.grid=False;s.focus_view=False;s.emit()
 _result=True''')

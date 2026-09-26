@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.scene_lines import outline_targets, cursor_depth_plane, clip_depth, cursor_hue, cursor_uv, cuboid, clip_line, segment_fractions
 from projection.model import bounds, Document, Editor
 from projection.session import Session

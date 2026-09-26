@@ -53,7 +53,7 @@ def main():
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
     original_touch=state()['simulated']
-    if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
+    if not game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
         open_workspace();time.sleep(2.)
     server('api._outline_saved_player=(f.CreatePos(p).GetFootPos(),f.CreateFly(p).IsPlayerFlying())\n_result=True')
     game('''b=s.bridge
@@ -95,7 +95,7 @@ _result=True
         game('s.bridge.project()\n_result=True')
         first=wait_active()
         ui.check('default world projection has one outline with exact draft size',first['bounds'][1]==[24,16,24])
-        game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True')
         aim((26.,16.,-30.))
         snapshot('stage48_world_outline_a')
         time.sleep(.4)
@@ -112,7 +112,7 @@ _result=True
         game('s.set("reduced_motion",False)\ns.range_value("spectrum_speed",6.,False)\n_result=True')
         time.sleep(.4)
         ui.check('speed changes shader without rebuilding projection',game('_result=s.bridge.factory.CreateActorRender(s.bridge.projection_outline.entity).GetEntityExtraUniforms(1)[3]==1. and api._outline_test_builds=='+str(before)))
-        game('''from HelloScript.projection.model import Document,Editor
+        game('''from modern_projection.projection.model import Document,Editor
 s.editor=Editor(Document((4,6,8),dict(((x,y,z),("minecraft:quartz_block",0)) for x in range(4) for y in range(6) for z in range(8))))
 s.bridge.project()
 _result=True
@@ -165,7 +165,7 @@ _result=True
             finally:capture.user32.mouse_event(4,0,0,0,0)
             time.sleep(.4)
             ui.check('actual outline toggle touch='+str(touch),game('_result=s.projection_outline')!=previous)
-            game('from HelloScript.pyreact import navigator\nnavigator.pop()\n_result=True');time.sleep(.3)
+            game('from modern_projection.pyreact import navigator\nnavigator.pop()\n_result=True');time.sleep(.3)
     finally:
         (ui.OUT/'stage48_outline_checks.json').write_text(json.dumps(ui.checks,ensure_ascii=False,indent=2),encoding='utf8')
         game('''b=s.bridge
@@ -182,7 +182,7 @@ s.refresh_preview()
 s.emit()
 _result=True
 ''')
-        game('from HelloScript.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
+        game('from modern_projection.pyreact import navigator\nif navigator.contains("modern_projection_workspace"): navigator.pop()\n_result=True')
         server('f.CreatePos(p).SetFootPos(api._outline_saved_player[0])\nf.CreateFly(p).ChangePlayerFlyState(api._outline_saved_player[1])\n_result=True')
         if state()['simulated']!=original_touch:
             key('f11');time.sleep(.3)

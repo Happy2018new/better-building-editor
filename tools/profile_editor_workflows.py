@@ -30,8 +30,8 @@ def main():
     parser.add_argument('--hotspots',action='store_true')
     args=parser.parse_args()
     rows=[]
-    game('''from HelloScript.projection.model import Document
-from HelloScript.pyreact import host
+    game('''from modern_projection.projection.model import Document
+from modern_projection.pyreact import host
 import time
 fields=('editor','name','page','tool','direct_mode','group','inspector','section','solo_layer',
 'canvas_x','canvas_z','focused','box_anchor','paste_origin','paste_pinned','camera_yaw','camera_pitch',

@@ -14,17 +14,17 @@ def main():
     args = parser.parse_args()
     if args.install:
         for name in ('storage','jobs'):
-            source=base64.b64encode((ui.ROOT/('behavior_pack/HelloScript/projection/'+name+'.py')).read_bytes()).decode('ascii')
-            game('import base64\nfrom HelloScript.projection import '+name+' as module\n'
+            source=base64.b64encode((ui.ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')).read_bytes()).decode('ascii')
+            game('import base64\nfrom modern_projection.projection import '+name+' as module\n'
                  'scope=dict(module.__dict__)\nexec(compile(base64.b64decode('+repr(source)+'),'+repr(name+'.py')+',"exec"),scope)\n'+
                  ('module.BlockStore.fill_mask=scope["BlockStore"].fill_mask.im_func\n' if name=='storage' else
                   'module.__dict__.update(scope)\n')+'_result=True')
     reports = []
     for case in ('fill', 'shell', 'masked_fill', 'partial_erase'):
         game('''import time
-from HelloScript.projection.model import Document,Editor
-from HelloScript.projection.jobs import EditJob
-from HelloScript.projection.storage import Selection
+from modern_projection.projection.model import Document,Editor
+from modern_projection.projection.jobs import EditJob
+from modern_projection.projection.storage import Selection
 scratch=Editor(Document((64,128,64)))
 case='''+repr(case)+'''
 if case in ('masked_fill','partial_erase'):

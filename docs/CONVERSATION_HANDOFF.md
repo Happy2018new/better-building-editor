@@ -33,13 +33,13 @@
 
 | 职责 | 路径 |
 | --- | --- |
-| 游戏输入、PC/触屏工具事件、UI 入口 | `behavior_pack/HelloScript/HelloClientSystem.py` |
-| 服务端测绘选点与导入权限 | `behavior_pack/HelloScript/HelloServerSystem.py` |
-| 测绘请求、客户端选区、捕获与投影桥接 | `behavior_pack/HelloScript/projection/bridge.py` |
-| 工具 HUD 按钮与 Actionbar 风格提示 | `behavior_pack/HelloScript/projection/tool_hud.py`、`resource_pack/ui/ModernProjectionTools.json` |
-| 金色测绘/金色和星空投影效果 | `behavior_pack/HelloScript/projection/survey_effects.py`、`resource_pack/shaders/glsl/modern_projection_survey_stars.*` |
-| 投影外框与独立风格参数 | `behavior_pack/HelloScript/projection/projection_outline.py`、`outline_settings.py`、`resource_pack/shaders/glsl/modern_projection_*outline.*` |
-| 草稿、建筑库和编辑状态 | `behavior_pack/HelloScript/projection/model.py`、`session.py`、`ui.py` |
+| 游戏输入、PC/触屏工具事件、UI 入口 | `behavior_pack/modern_projection/client_system.py` |
+| 服务端测绘选点与导入权限 | `behavior_pack/modern_projection/server_system.py` |
+| 测绘请求、客户端选区、捕获与投影桥接 | `behavior_pack/modern_projection/projection/bridge.py` |
+| 工具 HUD 按钮与 Actionbar 风格提示 | `behavior_pack/modern_projection/projection/tool_hud.py`、`resource_pack/ui/ModernProjectionTools.json` |
+| 金色测绘/金色和星空投影效果 | `behavior_pack/modern_projection/projection/survey_effects.py`、`resource_pack/shaders/glsl/modern_projection_survey_stars.*` |
+| 投影外框与独立风格参数 | `behavior_pack/modern_projection/projection/projection_outline.py`、`outline_settings.py`、`resource_pack/shaders/glsl/modern_projection_*outline.*` |
+| 草稿、建筑库和编辑状态 | `behavior_pack/modern_projection/projection/model.py`、`session.py`、`ui.py` |
 | 聚焦测试与真实输入回归 | `tests/test_survey_effects.py`、`tests/test_bridge.py`、`tests/test_server_stream.py`、`tools/verify_world_tools.py` |
 
 ## 最近提交和验证

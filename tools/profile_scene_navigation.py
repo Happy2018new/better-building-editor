@@ -11,11 +11,11 @@ def main():
     label = 'before' if '--baseline' in sys.argv else 'after'
     if '--restore-fixture' in sys.argv:
         payload=(ui.OUT/'stage51_current_document.json').read_text(encoding='utf8')
-        game('import json\nfrom HelloScript.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\n_result=True')
+        game('import json\nfrom modern_projection.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\n_result=True')
         for unused in range(240):
             if not game('_result=s.preview_pending'):break
             time.sleep(.25)
-    payload=game('import json\nfrom HelloScript.projection.codec import to_data\n_result=json.dumps(to_data(s.editor.document),ensure_ascii=True)')
+    payload=game('import json\nfrom modern_projection.projection.codec import to_data\n_result=json.dumps(to_data(s.editor.document),ensure_ascii=True)')
     if label=='before':(ui.OUT/'stage51_current_document.json').write_text(payload,encoding='utf8')
     game('''import time
 api._navigation_saved=(s.camera_yaw,s.camera_pitch,s.zoom,s.camera_pan,s.camera_pivot,s.page)

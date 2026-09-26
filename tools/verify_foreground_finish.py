@@ -65,8 +65,8 @@ def main():
     else:
         activate_bound_window(window)
     original_mode=state()['simulated']
-    game('''from HelloScript.pyreact import navigator
-from HelloScript.projection.ui import Workspace
+    game('''from modern_projection.pyreact import navigator
+from modern_projection.projection.ui import Workspace
 if not navigator.contains('modern_projection_workspace'):
     navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
@@ -75,14 +75,14 @@ _result=True''')
         close=next(n for n in ui.nodes('Action') if n['props'].get('glyph')=='close')
         ui.call('click',ui.nodes('Button',close)[0]['id'])
         for unused in range(30):
-            if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):break
+            if not game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):break
             time.sleep(.1)
         for name in ('scene','ui'):
-            code=base64.b64encode((ui.ROOT/('behavior_pack/HelloScript/projection/'+name+'.py')).read_bytes()).decode('ascii')
-            game('import base64\nfrom HelloScript.projection import '+name+' as module\nexec(compile(base64.b64decode('+repr(code)+'),'+repr(name+'.py')+',"exec"),module.__dict__)\n_result=True')
-        game('''from HelloScript.projection.ui import Workspace
-from HelloScript import HelloClientSystem
-HelloClientSystem.Workspace=Workspace
+            code=base64.b64encode((ui.ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')).read_bytes()).decode('ascii')
+            game('import base64\nfrom modern_projection.projection import '+name+' as module\nexec(compile(base64.b64decode('+repr(code)+'),'+repr(name+'.py')+',"exec"),module.__dict__)\n_result=True')
+        game('''from modern_projection.projection.ui import Workspace
+from modern_projection import client_system
+client_system.Workspace=Workspace
 navigator.push(Workspace(session=s),key='modern_projection_workspace')
 _result=True''')
         time.sleep(1.)

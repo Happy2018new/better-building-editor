@@ -9,8 +9,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack'))
-from HelloScript.projection.survey_effects import SurveyEffects, WireEffects, CLICK_FORMATION_SECONDS
-from HelloScript.projection.outline_settings import defaults, normalize
+from modern_projection.projection.survey_effects import SurveyEffects, WireEffects, CLICK_FORMATION_SECONDS
+from modern_projection.projection.outline_settings import defaults, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -164,7 +164,7 @@ class SurveyEffectTests(unittest.TestCase):
         self.effect.replace((0,0,0),(4,5,4))
         self.effect.sync_points([(0,0,0),(3,4,3)])
         first,second = self.effect.points
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=10**12):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=10**12):
             self.effect.follow((0.,0.,8.))
         self.assertEqual(5,len(self.live))
         for unused in range(20): self.effect.sync_points([(0,0,0),(3,4,3)])
@@ -181,12 +181,12 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertFalse(self.live)
 
     def test_steady_box_does_not_upload_animation_uniforms_every_frame(self):
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=10.):
             self.effect.replace((0,0,0),(4,5,4))
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=12.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=12.):
             self.effect.follow((0.,0.,8.),(0.,0.,12.))
         self.uniforms.clear()
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=13.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=13.):
             self.effect.follow((0.,0.,8.),(0.,0.,12.))
         self.assertFalse(self.uniforms)
 
@@ -215,17 +215,17 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertEqual(1,marker['face'])
 
     def test_coincident_corners_share_one_marker_and_only_clicked_point_reenters(self):
-        with patch('HelloScript.projection.survey_effects.time.time', return_value=10.):
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=10.):
             self.effect.replace((0,0,0),(1,1,1))
             self.effect.sync_points([(0,0,0),(0,0,0)])
         self.assertEqual(4, len(self.live))
         self.assertIsNone(self.effect.points[1])
-        with patch('HelloScript.projection.survey_effects.time.time', return_value=12.):
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=12.):
             self.effect.pulse_point(1)
         self.assertEqual(12., self.effect.points[0]['started'])
         self.effect.sync_points([(0,0,0),(2,2,2)])
         first = self.effect.points[0]
-        with patch('HelloScript.projection.survey_effects.time.time', return_value=20.):
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=20.):
             self.effect.pulse_point(1)
         self.assertEqual(12., first['started'])
         self.assertEqual(20., self.effect.points[1]['started'])
@@ -241,19 +241,19 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertEqual(1,marker['face'])
 
     def test_click_formation_runs_once_then_replays_without_new_actors(self):
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=10.):
             self.effect.replace((0,0,0),(2,2,2))
             self.effect.sync_points([(0,0,0),None])
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.55):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=10.55):
             self.effect.follow((0.,0.,5.))
         marker=self.effect.points[0]
         actors=set(self.live)
         self.assertAlmostEqual(.55/CLICK_FORMATION_SECONDS,self.uniforms[(marker['id'],3)][0])
         self.assertLess(self.uniforms[(self.effect.layers[0]['id'],3)][0],.5)
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=13.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=13.):
             self.effect.follow((0.,0.,5.))
         self.assertEqual(1.,self.uniforms[(marker['id'],3)][0])
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=14.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=14.):
             self.effect.pulse_point(0)
             self.effect.follow((0.,0.,5.))
         self.assertEqual(0.,self.uniforms[(marker['id'],3)][0])
@@ -267,9 +267,9 @@ class SurveyEffectTests(unittest.TestCase):
         self.assertEqual((10.,10.,10.),self.effect.camera)
 
     def test_delayed_native_registration_preserves_finished_entrance(self):
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=10.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=10.):
             self.effect.replace((0,0,0),(4,5,4))
-        with patch('HelloScript.projection.survey_effects.time.time',return_value=12.):
+        with patch('modern_projection.projection.survey_effects.time.time',return_value=12.):
             self.effect.follow((0.,0.,8.))
         for callback in self.callbacks:callback()
         for entity in self.live:

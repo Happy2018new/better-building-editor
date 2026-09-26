@@ -58,7 +58,7 @@ _result=True''')
             ui.check(('F11' if touch_mode else 'PC')+' native selection switches back',
                      game('_result=s.editor.document.biome')=='plains')
             native_click(action('使用当前位置的群系',ui.nodes('BiomeTintSettings')[0]))
-            ui.check(('F11' if touch_mode else 'PC')+' current biome button samples actual world',game('''from HelloScript.projection.biomes import from_native
+            ui.check(('F11' if touch_mode else 'PC')+' current biome button samples actual world',game('''from modern_projection.projection.biomes import from_native
 expected=from_native(b.factory.CreateBiome(b.level).GetBiomeName(b.player_origin()))
 _result=expected is not None and s.editor.document.biome==expected'''))
         set_touch(False)
@@ -73,7 +73,7 @@ _result=True''')
             if ready:break
             time.sleep(.2)
         assert ready,'projection did not attach'
-        game('''from HelloScript.pyreact import navigator
+        game('''from modern_projection.pyreact import navigator
 navigator.pop()
 cam=b.factory.CreateCamera(b.level)
 cam.LockModCameraPitch(True)
@@ -104,8 +104,8 @@ _result=True''')
         ui.check('world projection visible foliage and grass change tint',tinted>400)
         (ui.OUT/'biome65_control_checks.json').write_text(json.dumps(ui.checks,indent=2),encoding='utf8')
     finally:
-        game('''from HelloScript.pyreact import navigator
-from HelloScript.projection.ui import Workspace
+        game('''from modern_projection.pyreact import navigator
+from modern_projection.projection.ui import Workspace
 b.stop_projection()
 cam=b.factory.CreateCamera(b.level)
 cam.ResetCameraPos()

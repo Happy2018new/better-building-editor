@@ -13,7 +13,7 @@ OUT=Path(__file__).resolve().parents[1]/'.runtime'
 
 def main():
     binding=load_session(live=True)
-    old=game('''from HelloScript.pyreact import navigator
+    old=game('''from modern_projection.pyreact import navigator
 if navigator.contains('modern_projection_workspace'):navigator.pop()
 cam=s.bridge.factory.CreateCamera(s.bridge.level)
 cam.ResetCameraPos()

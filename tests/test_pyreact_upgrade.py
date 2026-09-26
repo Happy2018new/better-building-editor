@@ -21,7 +21,7 @@ class UpgradeTests(unittest.TestCase):
         aliases.start()
         self.addCleanup(aliases.stop)
         package = types.ModuleType('upgrade_pyreact')
-        package.__path__ = [str(ROOT / 'behavior_pack/HelloScript/pyreact')]
+        package.__path__ = [str(ROOT / 'behavior_pack/modern_projection/pyreact')]
         api = types.ModuleType('mod.client.extraClientApi')
         api.GetScreenNodeCls = api.GetViewBinderCls = api.GetViewViewRequestCls = lambda: object
         modules = {'upgrade_pyreact': package, 'mod': types.ModuleType('mod'),

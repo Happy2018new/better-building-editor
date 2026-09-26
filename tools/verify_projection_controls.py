@@ -20,7 +20,7 @@ def main():
     original_size=capture._window_rect(window['hwnd'])[2:]
 
     def exists():
-        return game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
+        return game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")')
 
     def reopen():
         if not exists():open_workspace();time.sleep(2.)

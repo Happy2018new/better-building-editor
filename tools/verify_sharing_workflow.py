@@ -78,7 +78,7 @@ _result=True''')
         ui.check('invalid clipboard leaves library and draft intact',value['error'] and game('_result=len(s.library)==2 and s.sharing.document is None'))
         # Force several real-sized fragments using a maximum random16 fixture.
         source=(ui.ROOT/'tools/assess_clipboard_sharing.py').read_text(encoding='utf8').split("if __name__=='__main__':")[0]
-        game('import types\napi._share_fixture=types.ModuleType("fixture".encode("ascii"))\nexec(compile('+repr(source)+',"fixture","exec"),api._share_fixture.__dict__)\napi._share_large=api._share_fixture.fixture("random16")\nfrom HelloScript.projection.sharing_codec import encode_steps,split_text\napi._share_parts=split_text(list(encode_steps(api._share_large))[-1]["text"])\ns.sharing.open_import()\n_result=True')
+        game('import types\napi._share_fixture=types.ModuleType("fixture".encode("ascii"))\nexec(compile('+repr(source)+',"fixture","exec"),api._share_fixture.__dict__)\napi._share_large=api._share_fixture.fixture("random16")\nfrom modern_projection.projection.sharing_codec import encode_steps,split_text\napi._share_parts=split_text(list(encode_steps(api._share_large))[-1]["text"])\ns.sharing.open_import()\n_result=True')
         value=game('_result=len(api._share_parts)')
         game('_result=s.bridge.set_clipboard(api._share_parts[-1])')
         time.sleep(.2)

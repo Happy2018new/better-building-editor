@@ -18,7 +18,7 @@ def wait():
 def main():
     game('api._preview_saved=(s.editor,s.page,s.camera_pose,s.camera_pan,s.camera_pivot,s.section,s.solo_layer)\n_result=True')
     try:
-        game('from HelloScript.projection.model import Document\ns._loaded(Document((64,128,64)))\ns.emit()\n_result=True')
+        game('from modern_projection.projection.model import Document\ns._loaded(Document((64,128,64)))\ns.emit()\n_result=True')
         result=wait()
         ui.check('maximum empty document needs no native model controls',result['tiles']==0)
         ui.check('central construction message removed','正在构建方块预览…' not in ui.labels())

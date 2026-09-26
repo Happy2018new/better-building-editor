@@ -14,7 +14,7 @@ def main():
     original=state()['simulated']
     if '--restore-fixture' in sys.argv:
         payload=(ui.OUT/'stage51_current_document.json').read_text(encoding='utf8')
-        game('import json\nfrom HelloScript.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.emit()\n_result=True')
+        game('import json\nfrom modern_projection.projection.model import Document\ns._loaded(Document.from_data(json.loads('+repr(payload)+')))\ns.emit()\n_result=True')
         for unused in range(150):
             if not game('_result=s.preview_pending or s.tiles.mounting'):break
             time.sleep(.1)
@@ -26,8 +26,8 @@ _result=True''')
             set_touch(False)
             verify_editor_depth.main()
             verify_preview_recovery.main()
-        value=game('''from HelloScript.projection.typography import supported,characters,GLYPHS
-from HelloScript.projection.widgets import Theme
+        value=game('''from modern_projection.projection.typography import supported,characters,GLYPHS
+from modern_projection.projection.widgets import Theme
 g=api.GetEngineCompFactory().CreateGame(api.GetLevelId())
 gui=max(1.,round(float(g.GetScreenViewInfo()[0])/g.GetScreenSize()[0]))
 _result={'font_integer':abs(Theme.input_font_scale*gui-round(Theme.input_font_scale*gui))<.0001,
@@ -37,7 +37,7 @@ _result={'font_integer':abs(Theme.input_font_scale*gui-round(Theme.input_font_sc
         ui.check('embedded Python loads complete font map',value['glyphs']==30890)
         ui.check('supplementary CJK works on narrow Python 2',value['narrow_unicode'])
         import base64
-        files=list((ui.ROOT/'behavior_pack/HelloScript/projection').glob('*.py'))
+        files=list((ui.ROOT/'behavior_pack/modern_projection/projection').glob('*.py'))
         for path in files:
             encoded=base64.b64encode(path.read_bytes()).decode('ascii')
             game('import base64\ncompile(base64.b64decode('+repr(encoded)+'),'+repr(path.name)+',"exec")\n_result=True')

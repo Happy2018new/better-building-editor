@@ -4,7 +4,7 @@ import json
 import unittest
 from pathlib import Path
 
-PATH = Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript/pyreact/debug.py'
+PATH = Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection/pyreact/debug.py'
 
 
 class DebugAckTests(unittest.TestCase):

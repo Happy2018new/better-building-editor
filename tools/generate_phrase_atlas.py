@@ -12,7 +12,7 @@ PAGE = 2048
 
 
 def build(font_path):
-    app = ROOT / 'behavior_pack/HelloScript/projection'
+    app = ROOT / 'behavior_pack/modern_projection/projection'
     dest = ROOT / 'resource_pack/textures/modern_projection/type'
     font = ImageFont.truetype(str(font_path), 64)
     font.set_variation_by_name('Medium')

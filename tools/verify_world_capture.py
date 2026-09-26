@@ -44,7 +44,7 @@ _result=True''')
             if unused % 5 == 0:
                 print('Reading',round(time.monotonic()-started,2),value['message'],flush=True)
         assert len(value['library'])==1 and value['draft_same'], value
-        result=game('''from HelloScript.projection.transfer import Receiver
+        result=game('''from modern_projection.projection.transfer import Receiver
 receiver=Receiver()
 entry=s.library[0]
 for part in range(entry['data']['parts']):

@@ -32,7 +32,7 @@ _result=out.getvalue()
         finally:
             game('cls=type(api.GetTopScreen())\ncls._pyreact_flush=cls._profile_saved_flush\ndel cls._profile_saved_flush\n_result=True')
         return
-    game('''from HelloScript.pyreact import native
+    game('''from modern_projection.pyreact import native
 import time
 h=api.GetTopScreen()
 cls=type(h)
@@ -66,7 +66,7 @@ _result=True
             records.append(dict(action=label,**result))
             print({'action':label,'clones':result['clones'],'peak_commit_ms':round(max(result['commits'] or [0]),2)},flush=True)
     finally:
-        game('''from HelloScript.pyreact import native
+        game('''from modern_projection.pyreact import native
 cls=type(api.GetTopScreen())
 cls._pyreact_flush=cls._catalogue_original_flush
 del cls._catalogue_original_flush

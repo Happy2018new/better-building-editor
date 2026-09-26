@@ -16,9 +16,9 @@ from verify_large_editor import snapshot
 from native_input_mode import key, set_touch, open_workspace
 
 
-PROBE = '''from HelloScript.pyreact.navigator import NavigatorScreen
-from HelloScript.pyreact.debug import _type_name
-from HelloScript.pyreact import navigator
+PROBE = '''from modern_projection.pyreact.navigator import NavigatorScreen
+from modern_projection.pyreact.debug import _type_name
+from modern_projection.pyreact import navigator
 import time
 api._motion_samples=[]
 NavigatorScreen._motion_saved_flush=NavigatorScreen._pyreact_flush
@@ -57,7 +57,7 @@ def main():
     capture.user32.SetProcessDPIAware()
     window=capture._find_game_window(capture._list_windows(),process_name='Minecraft.Windows.exe')
     assert window and capture._activate_window(window['hwnd'])
-    if not game('from HelloScript.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
+    if not game('from modern_projection.pyreact import navigator\n_result=navigator.contains("modern_projection_workspace")'):
         open_workspace();time.sleep(2.)
     set_touch(False)
     game('s.set("page","workspace")\ns.set("material_browser",None)\ns.set("pending_confirm",None)\ns.set("pending_rename",None)\n_result=True')
@@ -124,7 +124,7 @@ def main():
         selected=[r for r in rows if (r[1]=='WorkspaceMotion' if component=='WorkspaceMotion' else r[2]==component and r[4]==opening)]
         ui.check(name+' applies intermediate alpha values',len(set(round(r[5],2) for r in selected if .01<r[5]<.99))>=3)
         ui.check(name+' stays on one motion axis',max(r[6] for r in selected)-min(r[6] for r in selected)<.5)
-        scale=game('from HelloScript.projection.widgets import Theme\n_result=Theme.scale')
+        scale=game('from modern_projection.projection.widgets import Theme\n_result=Theme.scale')
         limit=12 if component=='WorkspaceMotion' else 18
         ui.check(name+' keeps the original compact offset',max(values)-min(values)<=limit*scale+1.)
         if frames:

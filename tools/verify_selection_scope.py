@@ -5,7 +5,7 @@ import json
 import verify_ui as ui
 from verify_interaction import pointer, tap, category
 from verify_large_editor import snapshot
-sys.path.insert(0, str(ui.ROOT / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(ui.ROOT / 'behavior_pack/modern_projection'))
 from projection.camera import OrbitCamera
 
 

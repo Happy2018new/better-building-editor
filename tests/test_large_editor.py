@@ -5,7 +5,7 @@ import unittest
 import zlib
 import base64
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.model import AIR, Document, Editor, bounds
 from projection.storage import BlockStore, Selection, FULL
 from projection.jobs import EditJob

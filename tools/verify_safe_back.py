@@ -8,29 +8,29 @@ from verify_world_tools import game, input_step, snapshot
 def main():
     report = {}
     try:
-        game('''from HelloScript.pyreact import navigator, host
+        game('''from modern_projection.pyreact import navigator, host
 api._safe_review=(host.get_safe_area_size(),host.get_safe_area_insets())
 owner.open_workspace()
 _result=True''')
         time.sleep(1.5)
         input_step('/key', keys='esc')
         time.sleep(1.)
-        report['esc_native_closed'] = game('''from HelloScript.pyreact import navigator
+        report['esc_native_closed'] = game('''from modern_projection.pyreact import navigator
 _result=not navigator.contains('modern_projection_workspace')''')
         if not report['esc_native_closed']:
-            report['back_state']=game('''from HelloScript.pyreact import navigator
+            report['back_state']=game('''from modern_projection.pyreact import navigator
 h=navigator.top._host
 _result={'back_time':getattr(h,'_last_back_time',None),'top':navigator.top_ui_name,
          'dialogs':[s.pending_confirm,s.pending_rename,s.material_browser],
          'sharing':s.sharing.opened,'transition':navigator.is_transitioning}''')
         assert report['esc_native_closed'], report
-        game('''from HelloScript.pyreact import host
+        game('''from modern_projection.pyreact import host
 host._SAFE_AREA_PROBE[0]._next_measure=host.time.time()+30.
 host._publish_safe_area((408.,235.),host.SafeAreaInsets(13.,24.,27.,48.))
 owner.open_workspace()
 _result=True''')
         time.sleep(.8)
-        report['asymmetric_layout'] = game('''from HelloScript.pyreact import navigator, host
+        report['asymmetric_layout'] = game('''from modern_projection.pyreact import navigator, host
 h=navigator.top._host
 nodes=[]
 def visit(f):
@@ -48,7 +48,7 @@ _result={'safe':host.get_safe_area_size(),'nodes':nodes}''')
                    abs(n[2][0]-408.)<.1 and abs(n[2][1]-235.)<.1
                    for n in report['asymmetric_layout']['nodes']), report
     finally:
-        game('''from HelloScript.pyreact import navigator, host
+        game('''from modern_projection.pyreact import navigator, host
 saved=getattr(api,'_safe_review',None)
 if saved:
  host._publish_safe_area(saved[0],saved[1])

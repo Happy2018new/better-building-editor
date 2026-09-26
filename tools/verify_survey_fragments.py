@@ -49,8 +49,8 @@ _result=True''')
             "_result=api._fragment_review_id==s.bridge.survey_effects.points[0]['id']")
         assert report['replayed_on_same_actor']
         # Use the same camera and shape for both colour variants.
-        game('''from HelloScript.projection.survey_effects import WireEffects
-from HelloScript.projection.outline_settings import defaults
+        game('''from modern_projection.projection.survey_effects import WireEffects
+from modern_projection.projection.outline_settings import defaults
 s.bridge.survey_effects.clear()
 api._fragment_review_outline=WireEffects(s.bridge)
 _result=True''')
