@@ -133,8 +133,22 @@ vec3 markerRoute(float lane,float clock){
 }
 varying highp vec3 materialPos;
 varying highp float crystalBirth;
-float birthProgress(float shard,float entered){
- return smoothstep(0.,1.,clamp((entered-random1(shard+807.)*.28)/.60,0.,1.));
+/* 【灵魂重聚】逆着「人化成万千光片消散」演：每片碎光有自己的出发方向 / 半径 / 高度
+   和到达时刻，从被点击面附近边旋转边收束，最后一片在 .80 汇到位——那一下就是结晶闪光。
+   原 birthProgress()（整颗晶体按一个进度原地长大）已废弃。 */
+float gatherArrive(float shard){return .42+random1(shard+311.)*.36;}
+/* 同一颗晶体的 8 个棱面按「棱面序号 frag=0..7」依次错开到达，跨满 .42~.80（约 0.6s）：
+   纯随机哈希时 8 片会碰巧挤在同一时刻一起出现，看起来就像整颗凭空出现。 */
+float gatherArriveFacet(float shard,float frag){
+ return .42+.048*frag+random1(shard*17.+frag*5.)*.04;
+}
+/* 汇聚缓动：先慢后快（强 ease-in）——碎光长时间停在远处，最后 20% 才被吸进去。 */
+float gatherEase(float raw){return pow(raw,2.6);}
+vec3 gatherFrom(vec3 n,float shard,float h){
+ /* 碎光的活动范围限制在被点击面的 1 个方块之内：markerPoint 的横向缩放是 .64、
+    沿法线是 .55+z*.58，所以 r 取 0~1.5 → 横向 0~0.96 格；z 写死为正 → 只从面前方来。 */
+ float a=random1(shard+77.)*TAU,r=random1(shard+88.)*1.5;
+ return markerPoint(n,cos(a)*r,sin(a)*r,.18+abs(h)*.9);
 }
 vec3 birthCentre(float shard,vec3 n,float clock){
  float seed=random1(shard+807.),phase=random1(shard+541.);
@@ -166,6 +180,11 @@ void main(){
  // the block and no replacement/snap when the persistent effect takes over.
  float birthClock=TIME-entered*1.8*(1.-smoothstep(.68,1.,entered));
  float flash=exp(-pow((entered-.78)*14.,2.));
+ /* form：0 = 正在重聚（只有碎光），1 = 常驻。星星层要等晶体拼完（.78）之后再点亮，
+    所以所有星点/星雾层的出现都由 form 控制，常驻端（entered=1）保持和原版完全一致。
+    星星要在晶体拼完之后尽快亮起来（.78~.88 抬起，spark 峰值 ~.845≈1.52s）。 */
+ float form=smoothstep(.78,.88,entered);
+ float crys=clamp(1.-abs(entered-.80)/.14,0.,1.);   // .80 结晶瞬间的爆光包络
  if(id<144.){
   float lane=floor(id/48.),t=(mod(id,48.)+(corner.x+1.)*.5)/48.;
   float clock=TIME-t*(.65+lane*.15);
@@ -182,35 +201,85 @@ void main(){
   centre=markerPoint(n,0.,0.,0.);width=id<148.?.15+light*.48+flash*.45:.32+light*.38+flash*.26;
   opacity=id<148.?.10+light*.8+flash*.3:.05+light*.17;effectKind=id<148.?1.:0.;
  }else if(id<333.){
-  float shard=floor((id-149.)/8.);seed=random1(shard+807.);phase=random1(shard+541.);
-  centre=birthCentre(shard,n,birthClock);
-  float grown=birthProgress(shard,entered);crystalBirth=grown;
+  /* 【碎光拼合成晶】8 个棱面各自从面附近化作一片碎光，边旋边收汇进晶体的最终位置；
+     飞行中略微拉长、颜色是晶体自己的颜色提亮（crystalBirth=0 → FS 走「碎光」分支），
+     落地 crystalBirth=1 才显出真正的棱面。所以晶体是被一块块「拼」出来的。
+     每一片有自己的出发点和到达时刻（arrF 按棱面序号错开），所以永远是一片一片拼起来。 */
+  float shard=floor((id-149.)/8.),frag=mod(id-149.,8.);
+  seed=random1(shard+807.);phase=random1(shard+541.);
+  vec3 target=birthCentre(shard,n,birthClock);
   // Keep the permanent endpoint crystals readable at normal game scale.
-  // Enlarge the silhouette and orbit while limiting near-camera angular size.
-  float eyeDistance=length(camera-centre);
-  float shardSize=min(.085+seed*.120,max(.002,eyeDistance*.045));
-  vec3 normal;vec3 crystal=flake(mod(id-149.,8.),corner,seed,birthClock,normal);
-  // Facets grow outwards from the seed, with length leading thickness.
-  centre+=crystal*shardSize*vec3(pow(grown,1.15),grown,pow(grown,1.15));
-  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-centre);effectKind=3.;opacity=.9*smoothstep(.15,.65,eyeDistance)*smoothstep(0.,.04,grown);
+  // Keep world size fixed; approaching the crystal only changes perspective.
+  float eyeDistance=length(camera-target);
+  float shardSize=.085+seed*.120;
+  float arrF=gatherArriveFacet(shard,frag);
+  float raw=clamp((entered-arrF*.15)/(arrF*.85),0.,1.);
+  float e=gatherEase(raw);                          // 先慢后快：像被吸进去
+  // 出发点和到达时刻都用 id（= 单个棱面）而不是 shard（= 整颗晶体）：
+  // 8 个棱面各自从不同方向、不同时刻飞回来，晶体才会「一片片拼起来」。
+  vec3 from=gatherFrom(n,id,(random1(id+99.)-.5)*2.1);
+  vec3 flight=target-from,dir=normalize(flight+vec3(0.,0.001,0.));
+  /* grow 管「碎片多大」（早点长起来，才看得出是一片片拼上去的）；
+     crystalBirth 管「是光还是晶体」（晚点转，飞行途中一直保持碎光的样子）。 */
+  float grow=smoothstep(.45,1.,e);
+  vec3 normal;vec3 crystal=flake(frag,corner,seed,birthClock,normal);
+  float stretch=mix(1.5,1.,grow);                   // 飞行中略微拉长，落地收回成棱面
+  crystal+=dir*dot(crystal,dir)*(stretch-1.);
+  centre=from+flight*e+crystal*shardSize*mix(.60,1.,grow);
+  crystalBirth=smoothstep(.75,1.,e);
+  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-target);effectKind=3.;
+  opacity=.9*smoothstep(.15,.65,eyeDistance)*smoothstep(0.,.10,raw);
   effectUV=corner.y>0.?vec2(0.,1.):corner.x>0.?vec2(1.,0.):vec2(0.);
  }else if(id<413.){
+  /* 引路的碎光：比晶体棱面更早出发、更早到位，先把「魂」引过来；到位后停在星点该在的
+     位置，等 form 抬起来就是常驻那层星点（form=1 时与原来的常驻表现逐项一致）。 */
   seed=random1(id+404.);float a=TIME*TAU*cycles(11.+floor(seed*10.),orbit)+seed*TAU;
   float r=(.22+random1(id+652.)*.85)*smoothstep(0.,.8,entered);
-  centre=markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+.12*sin(a*2.+seed));
-  float light=starLight(id);
-  width=(.050+seed*.070)*(.35+light*1.5);opacity=.025+.78*light;
+  vec3 steady=markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+.12*sin(a*2.+seed));
+  float arr2=.30+random1(id+271.)*.42,span2=arr2*.85;
+  float raw=clamp((entered-(arr2-span2))/span2,0.,1.);
+  float e=gatherEase(raw);
+  vec3 from=gatherFrom(n,id+31.,(random1(id+913.)-.5)*2.);
+  centre=mix(from+(steady-from)*e,steady,form);
+  /* 星星点亮：晶体拼完（.78）之后整层先一起亮一下（ignition），再落回常驻的闪烁。
+     spark 在 entered=1 时为 0，所以常驻端仍与原版逐项一致。 */
+  float light=starLight(id),lead=1.-form;
+  float spark=smoothstep(.78,.84,entered)*(1.-smoothstep(.85,.96,entered));
+  float lit=clamp(light+spark*1.1,0.,1.);
+  width=(.050+seed*.070)*(.35+light*1.5)*(1.+1.4*lead+1.6*spark);
+  opacity=(.025+.78*lit)*(1.+.9*lead+2.2*spark)*smoothstep(0.,.10,raw);
   if(mod(id,11.)<.5){effectKind=1.;width*=2.;}
  }else{
+  /* 这 99 片平时是「结晶爆光 + 晶体残影」。重聚阶段改当「光痕」：同一个 shard 的 4 片
+     按 lane 依次落后 5% 路程 → 领头光后面拖 3 段，形成彗尾。
+     kind 2 的四边形是「垂直于 tangent 的细线」，把 tangent 设成速度的垂线，
+     这条线就顺着飞行方向拉长成一道光痕。.80 结晶瞬间切回爆光/残影；
+     常驻端 crys=0 且 form=1 → 不可见，与原来的表现一致。 */
   float shard=mod(id-413.,23.),lane=floor((id-413.)/23.);
-  seed=random1(shard+807.);float grown=birthProgress(shard,entered);
-  centre=birthCentre(shard,n,birthClock);
-  float bloom=sin(grown*3.14159265)*smoothstep(0.,.08,grown);
+  seed=random1(shard+807.);
+  vec3 target=birthCentre(shard,n,birthClock);
+  float arr=gatherArrive(shard+555.);
+  float raw=clamp((entered-arr*.15)/(arr*.85),0.,1.);
+  float e=gatherEase(clamp(raw-lane*.05,0.,1.));
+  vec3 from=gatherFrom(n,shard+555.,(random1(shard+222.)-.5)*3.);
+  vec3 ghost=target;
   if(lane>.5){
-   vec3 normal;centre+=flake(mod(lane+shard,8.),vec2(0.,1.),seed,birthClock,normal)*(.085+seed*.120)*grown;
+   vec3 normal;ghost+=flake(mod(lane+shard,8.),vec2(0.,1.),seed,birthClock,normal)*(.085+seed*.120);
   }
-  width=(lane<.5?.26:.13)*bloom;
-  opacity=bloom*(lane<.5?.70:.45);effectKind=lane<.5?1.:0.;
+  float bloom=crys*smoothstep(0.,.06,entered);
+  if(bloom>.01){
+   centre=mix(from+(target-from)*e,ghost,crys);
+   width=(lane<.5?.26:.13)*bloom;
+   opacity=bloom*(lane<.5?.70:.45);effectKind=lane<.5?1.:0.;
+  }else{
+   vec3 vel=target-from;
+   tangent=normalize(cross(vel,vec3(0.,1.,0.))+vec3(.001,0.,.001));
+   // 拖尾按「路程」错开：每片沿飞行方向退后固定 0.09 格，4 段才分得开。
+   centre=from+vel*e-normalize(vel+vec3(.001,0.,0.))*lane*.09;
+   width=(.075+random1(shard+333.)*.065)*(1.-.45*e);
+   opacity=.46*(1.-form)*(1.-lane*.16)*smoothstep(0.,.10,raw);
+   effectUV=vec2(.5,corner.y);effectKind=2.;
+  }
  }
  opacity*=appear;
 #else
@@ -235,11 +304,10 @@ void main(){
   // The gold/starry projection uses the same geometry but a larger, clearly
   // faceted crystal envelope. Density controls how many exist, this factor
   // controls their readable size independently.
-  // Cap angular size from the shared shard centre, so a large-box crystal
-  // passing beside the eye cannot cover the scene. All eight faces use the
-  // same scale/fade; the crystal never tears apart while crossing the eye.
+  // All eight faces retain the same world size at every camera distance.
+  // Only opacity fades when a crystal crosses the eye.
   float eyeDistance=length(camera-centre);
-  float shardSize=min((.055+pow(random1(shard+113.),1.5)*.095)*scale,max(.002,eyeDistance*.035));
+  float shardSize=(.055+pow(random1(shard+113.),1.5)*.095)*scale;
   vec3 normal;centre+=flake(mod(id-449.,8.),corner,seed,TIME,normal)*shardSize;
   facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-centre);
   opacity=step(shard+.5,110.*density)*smoothstep(.15,.65,eyeDistance);effectKind=3.;
@@ -262,7 +330,7 @@ void main(){
   float u=fract(phase+TIME*cycles(3.+floor(seed*3.),orbit));
   centre=route(u,mod(shard,3.),TIME);
   float eyeDistance=length(camera-centre);
-  float shardSize=min((.055+pow(random1(shard+113.),1.5)*.095)*scale,max(.002,eyeDistance*.035));
+  float shardSize=(.055+pow(random1(shard+113.),1.5)*.095)*scale;
   vec3 normal;
   vec3 tip=flake(mod(shard,8.),vec2(0.,1.),seed,TIME,normal)*shardSize;
   vec3 view=normalize(camera-centre);

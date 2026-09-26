@@ -21,6 +21,9 @@ class ServerStreamTests(unittest.TestCase):
         self.host.uploads = {}
         self.host.tool_last_use = {}
         self.host.terminal_last_use = {}
+        self.host.aura_tick = 0
+        self.aura_states = []
+        self.host.BroadcastToAllClient = lambda event, value: self.aura_states.append((event, value))
         self.host.world_regions = {}
         self.host.world_points = {}
         self.replies = []
@@ -39,9 +42,12 @@ class ServerStreamTests(unittest.TestCase):
                 GetBlockNew=lambda pos, dim: dict(zip(('name','aux'),self.blocks.get(pos,AIR))),
                 GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=lambda dim,pos: None,
                 SetBlockNew=self.write),
-            CreateItem=lambda level: types.SimpleNamespace(GetItemInfoByBlockName=lambda n,a: {}))
+            CreateItem=lambda level: types.SimpleNamespace(GetItemInfoByBlockName=lambda n,a: {},
+                GetPlayerItem=lambda kind,slot: {'newItemName':'minecraft:stick'}))
         for name,value in [('GetPlayerList',lambda:['real_player','player']), ('GetLevelId',lambda:'level'),
-                           ('GetEngineCompFactory',lambda:self.factory)]:
+                           ('GetEngineCompFactory',lambda:self.factory),
+                           ('GetMinecraftEnum',lambda:types.SimpleNamespace(
+                               ItemPosType=types.SimpleNamespace(CARRIED=1)))]:
             p = patch.object(server.serverApi,name,value,create=True)
             p.start(); self.addCleanup(p.stop)
 
@@ -49,6 +55,14 @@ class ServerStreamTests(unittest.TestCase):
         self.blocks[pos]=(data['name'].decode('utf8'),data['aux'])
         self.writes.append(pos)
         return True
+
+    def test_staff_state_snapshot_uses_server_equipment(self):
+        self.factory.CreateItem=lambda player:types.SimpleNamespace(
+            GetPlayerItem=lambda kind,slot:{'newItemName':
+                'modern_projection:terminal' if player=='real_player' else 'minecraft:stick'})
+        for unused in range(15):self.host.tick()
+        self.assertEqual([('StaffAuraState',{'carried':{'real_player':'modern_projection:terminal'}})],
+                         self.aura_states)
 
     def send(self, action='apply', doc=None, identity=1):
         for packet in packets(doc or Document((2,1,1),{(0,0,0):('minecraft:stone',0)})):

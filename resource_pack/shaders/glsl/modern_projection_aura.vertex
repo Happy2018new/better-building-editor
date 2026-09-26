@@ -8,6 +8,11 @@ varying highp vec4 magicColor;
 varying highp float magicKind;
 varying highp vec3 magicNormal;
 varying highp vec3 magicView;
+/* Native WORLD positions are camera-relative; the view ray is already pos.xyz.
+   The lab's WORLD is absolute, so it subtracts EYE to get the same ray. */
+varying highp vec3 skyRay;
+varying highp vec3 skyPos;
+varying highp float skyClock;
 const float TAU=6.28318530718;
 float hash(float n){return fract(sin(n*12.9898+4.1414)*43758.5453);}
 vec4 world(vec3 point,float w){
@@ -28,6 +33,27 @@ vec3 orbit(float angle,float lane){
  float r=1.13+lane*.16;
  return vec3(cos(angle)*r,.94+sin(angle+lane*1.7)*(.22+lane*.16),sin(angle)*r);
 }
+float layoutPhase(float shard,float tier,float layoutSeed){
+ return (hash(shard*17.3+tier*91.+layoutSeed*1.37)-.5)*2.2;
+}
+vec3 starCentre(float id,float t,float layoutSeed){
+ float a=t*9.+hash(id+layoutSeed*1.17)*TAU;
+ float b=t*7.+hash(id+73.+layoutSeed*1.61)*TAU;
+ return vec3(cos(a)*1.5,.95+sin(b)*.85,sin(a)*1.3);
+}
+vec3 ringPoint(float a,float r,float tx,float tz,float hy){
+ // 把水平圆环整体倾斜成一条有角度的轨道：先绕 X 倾 tx，再绕 Z 倾 tz，最后抬到高度 hy。
+ // 三档冰晶各用不同的倾角 → 看起来是一个有体积的球状力场，而不是三层水平叠盘子。
+ vec3 p=vec3(cos(a)*r,0.,sin(a)*r);
+ float cx=cos(tx),sx=sin(tx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);
+ float cz=cos(tz),sz=sin(tz);p=vec3(p.x*cz-p.y*sz,p.x*sz+p.y*cz,p.z);
+ return p+vec3(0.,hy,0.);
+}
+vec3 tiltLocal(vec3 p,float ax,float az){
+ // 晶体自己的固定倾角：不再全部朝天立正，每颗有个固定姿态。
+ float cx=cos(ax),sx=sin(ax);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);
+ float cz=cos(az),sz=sin(az);return vec3(p.x*cz-p.y*sz,p.x*sz+p.y*cz,p.z);
+}
 vec3 vertex(float v){
  if(v<.5)return vec3(0.,1.8,0.);
  if(v<1.5)return vec3(0.,-1.35,0.);
@@ -37,65 +63,128 @@ void main(){
  vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
  vec2 uv=TEXCOORD_0*2.-1.;float seed=hash(id+1.);
  float clock=TIME*EXTRA_ACTOR_UNIFORM1.z,t=clock*TAU/210.;
- vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.);
+ vec3 centre=vec3(0.);
  float width=.04,alpha=1.;magicKind=0.;magicUV=uv;
+ float switching=smoothstep(0.,1.,EXTRA_ACTOR_UNIFORM3.z);
  magicNormal=vec3(0.,1.,0.);magicView=vec3(0.,0.,1.);
  if(id<128.){
-  float shard=floor(id/8.),face=mod(id,8.);seed=hash(shard+53.);
-  float a=t*13.+shard*TAU/16.;
-  // Ice sentinels: slow elliptical procession + independent levitation.
-  centre=vec3(cos(a)*1.12,.85+sin(a*2.+seed*5.)*.52,sin(a)*.97);
+  /* 【重做】16 颗冰晶分三档，做出「主次」而不是 52 颗一样大的：
+       主晶 3 颗（最大）· 中晶 5 颗 · 小晶 8 颗。
+     三条轨道各自倾斜（27° / -17°+19° / 9°-12°），半径、高度、周期、转向都不同，
+     晶体本身还各带一个固定倾角 + 轻微上下浮动 —— 不再是三层水平盘 + 全员立正。 */
+  float tier=id<24.?0.:(id<64.?1.:2.);
+  float idx=id<24.?id:(id<64.?id-24.:id-64.);
+  float count=tier<.5?3.:(tier<1.5?5.:8.);
+  float shard=floor(idx/8.),face=mod(idx,8.);
+  float seedc=hash(shard+53.+tier*307.);
+  // 主晶轨道倾角最大（27°）也抬得最高，最高点扫过肩头以上 —— 光环不会「拦腰截断」；
+  // 小晶最低最宽，负责把光环保在地面附近。三档倾角互不相同 → 有体积的球状力场。
+  float tx=tier<.5?27.*TAU/360.:(tier<1.5?-17.*TAU/360.:9.*TAU/360.);
+  float tz=tier<.5?0.:(tier<1.5?19.*TAU/360.:-12.*TAU/360.);
+  float rad=tier<.5?1.20:(tier<1.5?.95:1.32);
+  float hy=tier<.5?1.18:(tier<1.5?1.02:.78);
+  float per=tier<.5?26.:(tier<1.5?33.:42.);
+  float dir=tier<1.5?1.:-1.;
+  // 相位上抖一点：保留「环绕」的秩序感，又不会几颗晶体在一条直线上排队
+  float ajit=(hash(shard*7.3+tier*19.)-.5)*.42;
+  float phaseShift=mix(layoutPhase(shard,tier,EXTRA_ACTOR_UNIFORM3.x),
+                   layoutPhase(shard,tier,EXTRA_ACTOR_UNIFORM3.y),switching);
+  float a=shard*TAU/count+dir*t*(210./per)+tier*1.7+ajit+phaseShift;
+  centre=ringPoint(a,rad,tx,tz,hy);
+  centre.y+=(mix(hash(shard+tier*83.+EXTRA_ACTOR_UNIFORM3.x),
+                 hash(shard+tier*83.+EXTRA_ACTOR_UNIFORM3.y),switching)-.5)*.12;
+  centre.y+=sin(a*3.+seedc*TAU)*(tier<.5?.10:.07);
+  float size=tier<.5?(.140+seedc*.032):(tier<1.5?(.095+seedc*.025):(.062+seedc*.020));
   float side=mod(face,4.);vec3 v0=vertex(face<4.?0.:1.),v1=vertex(side+2.),v2=vertex(mod(side+1.,4.)+2.);
   vec3 p=uv.y>0.?v0:uv.x>0.?v2:v1;
   vec3 n=normalize(cross(v1-v0,v2-v0));if(dot(n,(v0+v1+v2)/3.)<0.)n=-n;
-  float spin=t*21.+seed*TAU;mat2 turn=mat2(cos(spin),sin(spin),-sin(spin),cos(spin));
+  float lax=(hash(shard+911.+tier*13.)-.5)*1.2,laz=(seedc-.5)*1.4;
+  p=tiltLocal(p,lax,laz);n=tiltLocal(n,lax,laz);
+  float spin=t*21.+seedc*TAU;mat2 turn=mat2(cos(spin),sin(spin),-sin(spin),cos(spin));
   p.xz=turn*p.xz;n.xz=turn*n.xz;
-  centre+=p*(.075+seed*.055);magicNormal=normalize(world(n,0.).xyz);
-  magicView=normalize(-world(centre,1.).xyz);magicKind=3.;
+  centre+=p*size;magicNormal=normalize(world(n,0.).xyz);
+  // 固定的世界空间观察方向：所有冰晶明暗统计一致、棱面明暗差也更大。
+  // （原来这里是 normalize(-world(centre,1.).xyz)：拿「世界原点指向晶体」当视线，
+  //   每颗晶体离原点多远、在多高，反光强度都不一样，于是各圈一圈亮一圈暗。）
+  magicView=vec3(-.2,.75,.63);magicKind=3.;
   magicUV=uv.y>0.?vec2(0.,1.):uv.x>0.?vec2(1.,0.):vec2(0.);
- }else if(id<416.){
-  float lane=floor((id-128.)/96.),u=(mod(id-128.,96.)+(uv.x+1.)*.5)/96.;
-  float a=u*TAU+t*(lane<.5?7.:lane<1.5?-11.:5.);
-  centre=orbit(a,lane);tangent=orbit(a+.001,lane)-centre;
-  width=.024;alpha=.25+.24*pow(.5+.5*sin(a*3.-t*17.),3.);magicKind=2.;
-  magicUV=vec2(u,uv.y);
+ }else if(id<176.){
+  /* 主晶尾迹：3 颗主晶各拖 16 颗小星芒，沿同一条倾斜轨道跟在后面，越远越小越淡。
+     形状仍复用原有星芒（kind 1），只是更小更淡 —— 用「拖着走的小火星」交代流动感，
+     而不是再加一圈一样亮的大星芒。 */
+  float k=id-128.,hero=mod(k,3.),j=floor(k/3.);
+  float seedc=hash(hero+53.);
+  float lag=.055+j*.048;
+  float ajit=(hash(hero*7.3)-.5)*.42;   // 必须和主晶那支的相位抖动完全一致，否则尾迹会脱开
+  float phaseShift=mix(layoutPhase(hero,0.,EXTRA_ACTOR_UNIFORM3.x),
+                   layoutPhase(hero,0.,EXTRA_ACTOR_UNIFORM3.y),switching);
+  float a=hero*TAU/3.+t*(210./26.)+ajit+phaseShift-lag;
+  /* 尾迹必须和主晶用同一条轨道（半径/倾角/高度完全一致），否则会跟晶体脱开 */
+  centre=ringPoint(a,1.20,27.*TAU/360.,0.,1.18);
+  centre.y+=sin(a*3.+seedc*TAU)*.10;
+  float fade=1.-j/16.;
+  float pulse=.60+.40*sin(t*40.+j*.9+hero*2.1);
+  width=.018+.050*fade;alpha=(.05+.38*fade*fade)*pulse*EXTRA_ACTOR_UNIFORM1.w;magicKind=1.;
+ }else if(id<240.){
+  // A separate ribbon for each constellation star, pulled behind player motion.
+  float star=id+288.;
+  centre=mix(starCentre(star,t,EXTRA_ACTOR_UNIFORM3.x),
+             starCentre(star,t,EXTRA_ACTOR_UNIFORM3.y),switching);
+  // Keep centre at the star. Motion is a world-space velocity; it must NOT
+  // pass through the actor's scale, skinning or axis flips in world().
+  width=.025;alpha=.48*smoothstep(.6,3.,EXTRA_ACTOR_UNIFORM2.w)*EXTRA_ACTOR_UNIFORM1.z*EXTRA_ACTOR_UNIFORM1.w;
+  magicKind=2.;
  }else if(id<464.){
-  // Sigils orbit on a level ground ring, separate from the tilted ribbons.
-  float rune=id-416.,a=rune*TAU/48.-t*5.;
-  centre=vec3(cos(a)*1.42,.055,sin(a)*1.42);
-  vec3 radial=vec3(cos(a),0.,sin(a)),along=vec3(-sin(a),0.,cos(a));
-  centre+=(radial*uv.y+along*uv.x)*.064;magicKind=4.;alpha=.48;
+  alpha=0.;
  }else if(id<528.){
   // Constellation stars trace a breathing spherical Lissajous path.
-  float a=t*9.+seed*TAU,b=t*7.+hash(id+73.)*TAU;
-  centre=vec3(cos(a)*1.5,.95+sin(b)*.85,sin(a)*1.3);
+  centre=mix(starCentre(id,t,EXTRA_ACTOR_UNIFORM3.x),
+             starCentre(id,t,EXTRA_ACTOR_UNIFORM3.y),switching);
   float pulse=pow(.5+.5*sin(t*(71.+floor(seed*47.))+seed*41.),3.);
   width=.035+pulse*.15;alpha=.10+pulse*.74;magicKind=1.;
  }else if(id<624.){
-  // Stardust rises in a double helix, tapering away above the shoulders.
-  float life=fract(seed+clock/7.5),a=life*TAU*1.6+seed*TAU+t*9.;
-  float radius=.72+life*.72;
-  centre=vec3(cos(a)*radius,.08+life*2.05,sin(a)*radius);
-  alpha=sin(life*3.14159265)*(.3+hash(id+99.)*.45);
-  width=.028+hash(id+24.)*.034;magicKind=0.;
+  /* 【已删除】528–623 原来是「星尘」：96 个双螺旋上升的 soft 粒子。
+     它们是整套里唯一既没有形状、亮度又低的元素（最暗时几乎看不见），
+     和冰晶/星芒这种有材质的元素摆在一起显得很脏，所以整层删掉。
+     几何里不再绘制这批方块，这里留一个空分支占住 id 区间（要复用这 96 个方块就在这里写）。 */
+  alpha=0.;
  }else{
-  // Thin ice petals flutter on outward loops, then dissolve and reseed.
-  float life=fract(seed+clock/10.5),a=seed*TAU-t*6.+sin(life*TAU)*.7;
-  float radius=.65+sin(life*3.14159265)*1.15;
-  centre=vec3(cos(a)*radius,.25+life*1.35,sin(a)*radius);
-  width=.055;alpha=sin(life*3.14159265)*.62;magicKind=5.;
+  /* 624–647 未使用：原来这里是「头顶星冠」。
+     头顶那圈被审美诊断点名为「孤零零的紧箍咒」——和下方结构没有呼应，所以删掉；
+     这些方块留作容量。 */
+  alpha=0.;
  }
- vec4 pos=world(centre,1.);gl_Position=VIEWPROJ*pos;
+ vec4 pos=world(centre,1.);
+ // Separate inertia makes the orbit breathe while the actor follows a turn.
+ // Ribbon heads use the same offset as their corresponding stars.
+ float drag=0.;
+ if(id<176.){
+  float crystal=id<128.?floor(id/8.):mod(id-128.,3.);
+  drag=.006+hash(crystal*13.+23.)*.012;
+ }else if((id>=176.&&id<240.)||(id>=464.&&id<528.)){
+  float star=id<240.?id+288.:id;
+  drag=.015+hash(star*7.+41.)*.025;
+ }
+ pos.xyz-=EXTRA_ACTOR_UNIFORM2.xyz*drag;
+ if(magicKind>1.5&&magicKind<2.5){
+  // A physical ribbon: head at the star, tail behind the player's world
+  // displacement. Project both ends normally, including foreshortening.
+  vec3 motion=EXTRA_ACTOR_UNIFORM2.xyz;
+  vec3 tail=-motion*min(.10,.55/max(length(motion),.001));
+  vec3 side=cross(normalize(pos.xyz+vec3(0.,.00001,0.)),tail);
+  float sideLength=length(side);
+  float along=(uv.x+1.)*.5;
+  alpha*=smoothstep(.02,.12,sideLength/max(length(tail),.001));
+  pos.xyz+=tail*along+side/max(sideLength,.00001)*uv.y*width*(1.-along*.75);
+ }
+ gl_Position=VIEWPROJ*pos;
+ skyRay=pos.xyz;skyPos=pos.xyz;skyClock=clock;
  float eye=length(pos.xyz);
  // Suppress effects immediately at the eye, keep the player's face legible.
  alpha*=smoothstep(.30,.85,eye)*EXTRA_ACTOR_UNIFORM1.x;
- if(magicKind<2.5||magicKind>4.5){
+ if(magicKind<1.5||magicKind>4.5){
   vec2 scale=vec2(length(vec3(VIEWPROJ[0][0],VIEWPROJ[1][0],VIEWPROJ[2][0])),length(vec3(VIEWPROJ[0][1],VIEWPROJ[1][1],VIEWPROJ[2][1])));
   vec2 quad=uv;
-  if(magicKind>1.5&&magicKind<2.5){
-   vec4 d=VIEWPROJ*world(tangent,0.);vec2 along=(d.xy*gl_Position.w-gl_Position.xy*d.w)/scale;
-   along=normalize(along+vec2(.000001));quad=vec2(-along.y,along.x)*uv.y;
-  }
   gl_Position.xy+=quad*width*scale;
  }
  vec3 tint=mix(vec3(.37,.78,1.),vec3(.70,.47,1.),EXTRA_ACTOR_UNIFORM1.y);

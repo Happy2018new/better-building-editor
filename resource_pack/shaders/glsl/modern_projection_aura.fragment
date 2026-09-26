@@ -5,20 +5,89 @@ varying highp vec4 magicColor;
 varying highp float magicKind;
 varying highp vec3 magicNormal;
 varying highp vec3 magicView;
+varying highp vec3 skyRay;
+varying highp vec3 skyPos;
+varying highp float skyClock;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+/* 星点：照抄 modern_projection_staff.fragment 的 stars()，只把 TIME 换成光环时钟 skyClock
+   （这样「暂停 / 动态」开关一关，星点闪烁也会跟着停），并多一个「星点概率」参数。
+   参数 thresh 越小星点越密：法杖用 .84（16% 的格子里有星），冰晶要更密才好看见。 */
+float skyStars(vec2 p,float layer,float thresh){
+ vec2 cell=floor(p),f=fract(p)-.5;
+ float seed=hash(cell+layer*19.);
+ vec2 offset=vec2(hash(cell+4.),hash(cell+9.))*.65-.325;
+ float r=length(f-offset),twinkle=.65+.35*sin(skyClock*6.2831853*30./210.+seed*40.);
+ /* 星核比原来「胖」一档（.032~.090 → .040~.115）：格距按屏幕像素定死之后，最细一层在低分辨率
+    下也只有几十像素，细核会掉到亚像素变成摩尔纹；加粗后最小的星也还有 4~6 像素。 */
+ float core=1.-smoothstep(.040,.115,r);
+ float halo=exp(-r*r*70.)*.26;
+ return (core+halo)*step(thresh,seed)*twinkle;
+}
 void main(){
  vec2 p=abs(magicUV);vec3 rgb=magicColor.rgb;float a=1.;
  if(magicKind<.5){a=exp(-dot(p,p)*16.)*.82;}
  else if(magicKind<1.5){
   float rays=max(exp(-p.x*p.x*500.)*pow(1.-p.y,3.),exp(-p.y*p.y*500.)*pow(1.-p.x,3.));
   a=exp(-dot(p,p)*120.)+rays*.7;rgb=mix(rgb,vec3(.93,.98,1.),.7);
- }else if(magicKind<2.5){a=exp(-p.y*p.y*65.)*.8+exp(-p.y*p.y*7.)*.13;}
+ }else if(magicKind<2.5){
+  a=(exp(-p.y*p.y*28.)*.8+exp(-p.y*p.y*5.)*.13)
+    *(1.-smoothstep(-1.,1.,magicUV.x));
+ }
  else if(magicKind<3.5){
   vec3 n=normalize(magicNormal),v=normalize(magicView);
   float rim=pow(1.-abs(dot(n,v)),2.);
   float flash=pow(max(0.,dot(reflect(-normalize(vec3(-.3,.8,.5)),n),v)),24.);
   vec3 bary=vec3(magicUV,1.-magicUV.x-magicUV.y);
   float edge=1.-smoothstep(.01,.05,min(bary.x,min(bary.y,bary.z)));
-  rgb=mix(rgb*.26,vec3(.83,.96,1.),clamp(.18+rim*.35+flash*.7+edge*.55,0.,1.));a=.76;
+  // 【调亮】冰晶走正常混合层之后，单面的亮度会比叠加层低，所以把环境项和反光都抬一档：
+  // 底面 rgb*.26→*.42、环境项 .18→.30、rim .35→.42、flash .7→.72、不透明度 .76→.92。
+  /* 【结构改动】以前是「玻璃整面染白 + 中间混一点星空」，所以晶体永远读成浅蓝玻璃。
+     现在反过来：星空 = 底面，玻璃的环境项压到很低，棱线/镜面/菲涅尔改为叠加上去的局部高光。
+     不反光的棱面就是一片夜色 + 星点，反光的棱面仍是白色镜面，对比更大、也更像星空宝石。 */
+  /* 【星空内芯】和法杖物品同一套算法（modern_projection_staff.fragment）：
+     视线方向 → 球面坐标 → 四层不同密度的视差星点 + 星云，所以转视角时星空会流动。
+     和法杖的区别只有两点：① 底色比法杖亮一档（冰晶整体亮度不能掉下来）；
+     ② 只在「棱面内部 + 偏暗的面」透出星空（(1-edge) 去掉棱线，st 让高光面保持玻璃白），
+        于是白色棱边、镜面一闪、星空三者可以同时存在。 */
+  /* 【星空尺度】和 docs/effects_lab.html 用同一条规则：天球坐标 × 14 格/弧度（固定角频率）。
+     走过两条弯路，都实测失败并被这次的棋盘格诊断钉死：
+     ① 按「到相机的距离」放大频率 —— 星点的像素尺寸本来与距离无关，乘距离只会把远处晶体压成
+        亚像素噪点；
+     ② 用 ∂sky/∂像素 的雅可比把星格铺到屏幕像素上（顶点差分和 dFdx 两种实现都试过）——
+        实机渲染出来是 1 像素的紫黑乱点：skyRay 这个 varying 在片元里逐像素变化并不等于真实的
+        角变化（量化/插值噪声远大于真实增量），导数一取就是噪声，格子全糊。
+     所以回到「按角度定频率」这条在 lab 里被验证过的路：距离、分辨率、视场都不影响星点的
+     相对大小，两边算法也完全一致。
+     另外把方位角乘上 cos(纬度)：等距圆柱投影在高纬度会把方位角压扁，那正是之前「横向拉伸」的来源。 */
+  vec3 ray=normalize(skyRay);
+  float skyLat=asin(clamp(ray.y,-1.,1.));
+  vec2 sky=vec2(atan(ray.z,ray.x)*cos(skyLat),skyLat);
+  vec2 drift=vec2(skyClock*.095,skyClock*.043)
+            +vec2(cos(skyClock*.3),sin(skyClock*.3))*.12;
+  vec2 loc=vec2(skyPos.x+skyPos.z*.37,skyPos.y);
+  vec2 g=sky*14.+loc*.65+drift;
+  vec2 sp=g;
+  float clouds=sin(sp.x*2.3+sin(sp.y*2.1))*sin(sp.y*3.7-sp.x*.8);
+  /* 底色直接用回法杖那档深空色（deep 近黑、nebula 深青），晶体内部才会读成「夜空」；
+     晶体的整体亮度改由「白色棱线 + 镜面高光 + 星点」撑住，这也是星空宝石该有的对比方式。 */
+  // 两层星云叠加：粗的一层是大块明暗，细的一层是丝状纹理，星空才不会显得平
+  float clouds2=sin(sp.x*5.1+cos(sp.y*3.3))*sin(sp.y*6.7+sp.x*1.1);
+  // 每颗晶体随机偏青或偏紫（用世界坐标当种子），一片晶体里不会全是同一个色调
+  float hue=hash(vec2(floor(skyPos.x*2.3+skyPos.z*1.7),floor(skyPos.y*2.9)));
+  vec3 neb=mix(vec3(.050,.200,.320),vec3(.135,.060,.300),step(.62,hue));
+  vec3 srg=mix(vec3(.020,.040,.100),neb,smoothstep(-.35,.55,clouds)*.9);
+  srg+=neb*.45*pow(.5+.5*clouds2,3.);
+  srg+=vec3(.020,.080,.120)*pow(.5+.5*sin(sp.y*4.+sin(sp.x*2.)*1.7),5.);
+  /* 四层星点：大星 → 中星 → 小星 → 细碎星尘，越小越暗，做出纵深。
+     频率比例 14 : 24 : 44 : 78 与法杖物品、网页 lab 完全一致（这一条是「像不像星空」的关键，
+     之前把它换成屏幕像素尺度反而糊成了亚像素噪点）。 */
+  srg+=vec3(.66,.89,1.)*skyStars(g+drift*.65+loc*2.8,1.,.30)
+      +vec3(.63,.54,.90)*skyStars(g*1.714+drift*.42+loc*4.2,2.,.45)*.72
+      +vec3(.76,.91,1.)*skyStars(g*3.143+drift*.18+loc*6.1,3.,.35)*.38
+      +vec3(.60,.70,1.)*skyStars(g*5.571+drift*.10+loc*9.3,4.,.30)*.22;
+  srg*=1.+.45*rim;                       // 掠射的棱面星空更亮一点，像宝石内部散射
+  float spec=clamp(rim*.42+flash*.72+edge*.95,0.,1.);
+  rgb=srg+rgb*.42*(.30+.35*rim)+vec3(.86,.97,1.)*spec+vec3(.04,.08,.13);a=.92;
  }else if(magicKind<4.5){
   // Small angular runes: diamonds, transverse strokes, split tips.
   float diamond=1.-smoothstep(.065,.12,abs(p.x+p.y-.72));

@@ -20,6 +20,7 @@ class HelloClientSystem(ClientSystem):
         self.session = None
         self.hud = None
         self.staff_aura = None
+        self.nearby_staff_auras = None
         self.tool_touch_pick = None
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
@@ -28,6 +29,7 @@ class HelloClientSystem(ClientSystem):
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'OpenProjectionUi', self, self.open_from_terminal)
         self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'WorldToolPoint', self, self.world_tool_point)
+        self.ListenForEvent('ModernProjection', 'HelloServerSystem', 'StaffAuraState', self, self.staff_aura_state)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
                             'OnCarriedNewItemChangedClientEvent', self, self.carried_changed)
         for event in ('StartDestroyBlockClientEvent', 'PlayerTryDestroyBlockClientEvent'):
@@ -48,8 +50,9 @@ class HelloClientSystem(ClientSystem):
         self.bridge.session = self.session
         self.session.initialize()
         self.hud = TerminalHud(self)
-        from .projection.staff_aura import StaffAura
+        from .projection.staff_aura import StaffAura, NearbyStaffAuras
         self.staff_aura = StaffAura(self.bridge)
+        self.nearby_staff_auras = NearbyStaffAuras(self.bridge)
 
     def open_workspace(self):
         if self.session is not None and not navigator.contains('modern_projection_workspace'):
@@ -69,6 +72,15 @@ class HelloClientSystem(ClientSystem):
     def world_tool_point(self, args):
         if self.bridge is not None:
             self.bridge.world_tool_point(args)
+
+    def staff_aura_state(self, args):
+        if self.nearby_staff_auras:
+            # Query only loaded players in this client's current dimension.
+            players = self.bridge.factory.CreateGame(self.bridge.level).GetEntitiesAroundByType(
+                self.bridge.player, 64, clientApi.GetMinecraftEnum().EntityType.Player) or []
+            carried = args.get('carried', {})
+            self.nearby_staff_auras.sync(dict((player, carried[player])
+                for player in players if player in carried))
 
     def tool_prevent_break(self, args):
         if self.hud and self.hud.carried in (SURVEY_WAND, TERMINAL):
@@ -168,6 +180,8 @@ class HelloClientSystem(ClientSystem):
         self.tool_touch_pick = None
         if self.staff_aura:
             self.staff_aura.clear()
+        if self.nearby_staff_auras:
+            self.nearby_staff_auras.clear()
         if self.bridge:
             self.bridge.dimension_changed(args)
 
@@ -178,10 +192,14 @@ class HelloClientSystem(ClientSystem):
             self.hud.update()
         if self.staff_aura and self.hud:
             self.staff_aura.update(self.hud.carried, not navigator.contains('modern_projection_workspace'))
+        if self.nearby_staff_auras:
+            self.nearby_staff_auras.update()
 
     def Destroy(self):
         if self.staff_aura:
             self.staff_aura.clear()
+        if self.nearby_staff_auras:
+            self.nearby_staff_auras.clear()
         if self.bridge:
             self.bridge.destroy()
         if self.hud:

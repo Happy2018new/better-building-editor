@@ -5,41 +5,80 @@ precision highp float;
 varying highp vec3 skyRay;
 varying highp vec3 gemNormal;
 varying highp vec3 gemPosition;
+varying highp vec3 gemLocalNormal;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float stars(vec2 p,float layer){
+float stars(vec2 p,float layer,float threshold){
  vec2 cell=floor(p),f=fract(p)-.5;
  float seed=hash(cell+layer*19.);
  vec2 offset=vec2(hash(cell+4.),hash(cell+9.))*.65-.325;
  float r=length(f-offset),twinkle=.65+.35*sin(TIME*6.2831853*30./210.+seed*40.);
- float core=1.-smoothstep(.032,.090,r);
- float halo=exp(-r*r*95.)*.28;
- return (core+halo)*step(.84,seed)*twinkle;
+ float core=1.-smoothstep(.040,.115,r);
+ float halo=exp(-r*r*70.)*.26;
+ return (core+halo)*step(threshold,seed)*twinkle;
 }
 void main(){
  vec3 ray=normalize(skyRay),n=normalize(gemNormal),view=-ray;
- // Three celestial shells at different depths create view-dependent
- // parallax; the sky remains coherent across adjacent crystal facets.
- vec2 sky=vec2(atan(ray.z,ray.x),asin(clamp(ray.y,-1.,1.)));
- float clock=TIME*6.2831853/210.;
- vec2 drift=vec2(cos(clock),sin(clock))*.30;
+ float latitude=asin(clamp(ray.y,-1.,1.));
+ vec2 sky=vec2(atan(ray.z,ray.x)*cos(latitude),latitude);
+ // Circular drift keeps the field moving without a seam at TIME wrap.
+ // Complete two circles within the engine's 210 s TIME wrap, without a jump.
+ float skyTime=TIME*6.2831853/105.;
+ vec2 drift=vec2(cos(skyTime),sin(skyTime))*7.8;
  vec2 local=vec2(gemPosition.x+gemPosition.z*.37,gemPosition.y);
- vec2 p=sky*3.+local*.65+drift;
- float clouds=sin(p.x*2.3+sin(p.y*2.1))*sin(p.y*3.7-p.x*.8);
- vec3 deep=vec3(.016,.034,.080),nebula=vec3(.04,.23,.32);
-#ifdef STAFF_VIOLET
- nebula=vec3(.19,.085,.37);
+ vec2 g=sky*14.+local*.65+drift;
+#ifndef STAFF_GOLD_MOTE
+ // Keep the crystal and grip at the same star scale. Sampling their local
+ // faces also avoids the stretched view-ray projection on rotating facets.
+ vec3 axis=abs(normalize(gemLocalNormal));
+ vec2 face=axis.x>axis.z?(axis.x>axis.y?gemPosition.zy:gemPosition.xz)
+                         :(axis.z>axis.y?gemPosition.xy:gemPosition.xz);
+ // Match the aura's visible angular star scale. Model units are much larger
+ // than the aura's sky-coordinate variation across one crystal.
+ g=face*.55+ray.xz*1.7+drift;
+ local=face*.15;
 #endif
- vec3 rgb=mix(deep,nebula,smoothstep(-.7,.8,clouds)*.85);
+ vec2 p=g;
+ float clouds=sin(p.x*2.3+sin(p.y*2.1))*sin(p.y*3.7-p.x*.8);
+ float clouds2=sin(p.x*5.1+cos(p.y*3.3))*sin(p.y*6.7+p.x*1.1);
+ vec3 deep=vec3(.020,.040,.100),nebula=vec3(.050,.200,.320);
+#ifdef STAFF_VIOLET
+ nebula=vec3(.135,.060,.300);
+#endif
+ vec3 rgb=mix(deep,nebula,smoothstep(-.35,.55,clouds)*.9);
+ rgb+=nebula*.45*pow(.5+.5*clouds2,3.);
  float filament=pow(.5+.5*sin(p.y*4.+sin(p.x*2.)*1.7),5.);
- rgb+=vec3(.025,.10,.14)*filament;
- float dust=stars(sky*19.+drift*.65+local*2.8,1.);
- float middle=stars(sky*32.+drift*.42+local*4.2,2.);
- float distant=stars(sky*53.+drift*.18+local*6.1,3.);
- rgb+=vec3(.66,.89,1.)*dust+vec3(.63,.54,.90)*middle*.72+vec3(.76,.91,1.)*distant*.4;
+ rgb+=vec3(.020,.080,.120)*filament;
+ float cut1=.30,cut2=.45,cut3=.35,cut4=.30;
+#ifdef STAFF_GRIP
+ // The grip covers far more surface than a gem; sparse stars keep it legible.
+ cut1=.70;cut2=.78;cut3=.84;cut4=.90;
+#endif
+ rgb+=vec3(.66,.89,1.)*stars(g+drift*.65+local*2.8,1.,cut1)
+     +vec3(.63,.54,.90)*stars(g*1.714+drift*.42+local*4.2,2.,cut2)*.72
+     +vec3(.76,.91,1.)*stars(g*3.143+drift*.18+local*6.1,3.,cut3)*.38
+     +vec3(.60,.70,1.)*stars(g*5.571+drift*.10+local*9.3,4.,cut4)*.22;
  float fresnel=pow(1.-abs(dot(n,view)),3.);
  float shine=pow(max(0.,dot(reflect(-normalize(vec3(-.4,.8,.5)),n),view)),28.);
  float facet=.5+.5*dot(n,normalize(vec3(-.45,.7,.6)));
  rgb+=vec3(.18,.48,.61)*fresnel*.7+vec3(.74,.91,1.)*shine*.7;
  rgb+=vec3(.035,.065,.085)*facet;
+#ifdef STAFF_GRIP
+ rgb=rgb*.78+vec3(.012,.020,.032);
+#endif
+#ifdef STAFF_GOLD_MOTE
+ // Same view-dependent moving star layers as the grip, recoloured in gold.
+ // Coarse amber/cream cells give the tiny cubes a glowing mineral surface.
+ vec3 cells=floor(gemPosition*14.);
+ float mineral=hash(cells.xy+cells.z*vec2(17.,37.));
+ float warmCloud=smoothstep(-.5,.6,clouds);
+ vec3 gold=mix(vec3(.23,.085,.014),vec3(.80,.42,.075),warmCloud);
+ gold+=vec3(.42,.32,.13)*smoothstep(.32,.83,mineral);
+ float sparks=stars(g+drift*.65+local*2.8,1.,.30)
+             +stars(g*1.714+drift*.42+local*4.2,2.,.45)*.72
+             +stars(g*3.143+drift*.18+local*6.1,3.,.35)*.38
+             +stars(g*5.571+drift*.10+local*9.3,4.,.30)*.22;
+ rgb=gold+vec3(1.,.85,.44)*sparks
+     +vec3(.22,.14,.045)*fresnel+vec3(1.,.89,.61)*shine*.55;
+#endif
  gl_FragColor=vec4(rgb,1.);
 }

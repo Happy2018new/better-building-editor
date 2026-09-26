@@ -1,7 +1,6 @@
 """Reproducible native staff models, floating crystals and inventory artwork."""
 import json
 import math
-import random
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -28,36 +27,49 @@ def cube(origin, size, color=0, rotation=None):
 def staff(kind):
     terminal = kind == 'terminal'
     name = 'modern_projection_' + kind
-    body = [cube([-.65, -15, -.65], [1.3, 27, 1.3], 0),
-            cube([-.30, -13, -.72], [.60, 23, .16], 2),
-            cube([-.82, -16, -.82], [1.64, 2, 1.64], 1),
-            cube([-.92, -3.6, -.92], [1.84, .7, 1.84], 1),
-            cube([-.92, 3, -.92], [1.84, .7, 1.84], 1),
-            cube([-1.1, 10, -1.1], [2.2, 2, 2.2], 1)]
-    for y in range(-3, 3):
-        body.append(cube([-.72, y, -.72], [1.44, .35, 1.44], 3))
+    body = [cube([-.65, -9, -.65], [1.3, 24, 1.3], 0),
+            cube([-.30, -8, -.72], [.60, 23, .16], 2),
+            cube([-.82, -10, -.82], [1.64, 2, 1.64], 1),
+            cube([-.92, -6.7, -.92], [1.84, .7, 1.84], 1),
+            cube([-.92, 4, -.92], [1.84, .7, 1.84], 1),
+            cube([-1.1, 13, -1.1], [2.2, 2, 2.2], 1)]
+    grip = [cube([-.73, y, -.73], [1.46, 1.9, 1.46], 4)
+            for y in range(-6, 6, 2)]
+    for y in (-6, -2, 2, 4):
+        body.append(cube([-.82, y, -.82], [1.64, .35, 1.64], 5))
     # Open crescent / astrolabe cradles, with negative space around the core.
     for side in (-1, 1):
         for i in range(6):
             angle = (-65 + i * 24) * math.pi / 180
             x = side * (2.2 + math.cos(angle) * 2.6)
-            y = 15 + math.sin(angle) * 4.2
+            y = 18 + math.sin(angle) * 4.2
             body.append(cube([x-.38, y-.8, -.38], [.76, 1.8, .76], 1,
                              [0, 0, side * (65-i*24)]))
-    if terminal:
-        for i in range(8):
-            a = i * math.pi / 4
-            body.append(cube([math.cos(a)*3.8-.28, 16+math.sin(a)*3.8-.65, -.3],
-                             [.56, 1.3, .6], 2, [0, 0, 90-i*45]))
+    motes = []
+    for strand in range(2):
+        for i in range(24):
+            progress = (i + strand * .5) / 24.
+            angle = progress * math.pi * 4.5 + strand * math.pi
+            radius = 1.65 + .12 * math.sin(i * 2.7)
+            size = .26 if i % 4 else .42
+            motes.append(cube([math.cos(angle) * radius-size/2,
+                               -8 + progress * 24-size/2,
+                               math.sin(angle) * radius-size/2], [size, size, size], 5))
     bones = [{'name': 'staff', 'binding': "q.item_slot_to_bone_name('main_hand')",
-              'pivot': [0, 0, 0], 'cubes': body}]
-    animate = {'staff': {'position': ['c.is_first_person ? 0.0 : 0.0',
-                                     'c.is_first_person ? 18.0 : 22.0',
+              'pivot': [0, 0, 0], 'cubes': body},
+             {'name': 'grip', 'parent': 'staff', 'pivot': [0, 0, 0], 'cubes': grip},
+             {'name': 'motes', 'parent': 'staff', 'pivot': [0, 0, 0], 'cubes': motes}]
+    # The native item binding uses Y=24 as its hand origin. The authored
+    # grip/rotation pivot is Y=0, so move that pivot to the hand after rotating
+    # and scaling. A lower offset makes the player hold the staff by its head.
+    animate = {'staff': {'position': [0,
+                                     'c.is_first_person ? 18.0 : 24.0',
                                      'c.is_first_person ? 2.4 : 0.0'],
-                          'rotation': ['c.is_first_person ? 27.0 : -8.0',
+                          'rotation': ['c.is_first_person ? 27.0 : 75.0',
                                        'c.is_first_person ? -39.0 : 0.0',
                                        'c.is_first_person ? -159.0 : 0.0'],
-                          'scale': 'c.is_first_person ? 0.62 : 0.85'}}
+                          'scale': 'c.is_first_person ? 0.62 : 0.85'},
+               'motes': {'rotation': [0, 'q.life_time * 18.0', 0]}}
     for i in range(7):
         bone = 'gem%d' % i
         # Two half prisms taper into a faceted bipyramid in the gem shader.
@@ -65,23 +77,23 @@ def staff(kind):
                       'cubes': [cube([-1, -2, -1], [2, 2, 2], 2),
                                 cube([-1, 0, -1], [2, 2, 2], 2)]})
         if i == 0:
-            animation = {'position': [0, '16.0 + math.sin(q.life_time * 48.0) * 0.24', 0],
+            animation = {'position': [0, '19.0 + math.sin(q.life_time * 48.0) * 0.24', 0],
                          'rotation': [0, 'q.life_time * 15.0', 0],
                          'scale': [1.6, 1.8, 1.6]}
         elif i == 6:
-            animation = {'position': [0, -17, 0], 'rotation': [0, 'q.life_time * -12.0', 0],
+            animation = {'position': [0, -10, 0], 'rotation': [0, 'q.life_time * -12.0', 0],
                          'scale': [.7, .7, .7]}
         else:
             angle = 'q.life_time * %s + %s' % (22 if terminal else -18, i*72)
             animation = {'position': ['math.cos(%s) * 4.7' % angle,
-                                     '17.0 + math.sin(q.life_time * 34.0 + %d.0) * 1.0' % (i*72),
+                                     '20.0 + math.sin(q.life_time * 34.0 + %d.0) * 1.0' % (i*72),
                                      'math.sin(%s) * 3.2' % angle],
                          'rotation': [12, angle, -12 if i % 2 else 12],
                          'scale': [.48, .66, .48]}
         animate[bone] = animation
     write(RP / ('models/entity/' + name + '.geo.json'), {
         'format_version': '1.16.0', 'minecraft:geometry': [{
-            'description': {'identifier': 'geometry.' + name, 'texture_width': 32,
+            'description': {'identifier': 'geometry.' + name, 'texture_width': 48,
                             'texture_height': 8, 'visible_bounds_width': 5,
                             'visible_bounds_height': 5, 'visible_bounds_offset': [0, 1, 0]},
             'bones': bones}]})
@@ -92,7 +104,9 @@ def staff(kind):
         'format_version': '1.10.0', 'minecraft:attachable': {'description': {
             'identifier': 'modern_projection:' + kind,
             'materials': {'default': 'entity_alphatest',
-                          'gem': 'modern_projection_staff_gem' + ('_violet' if terminal else '')},
+                          'gem': 'modern_projection_staff_gem' + ('_violet' if terminal else ''),
+                          'grip': 'modern_projection_staff_grip' + ('_violet' if terminal else ''),
+                          'motes': 'modern_projection_staff_motes'},
             'textures': {'default': 'textures/items/modern_projection_staff_palette'},
             'geometry': {'default': 'geometry.' + name},
             'animations': {'holding': 'animation.' + name + '.holding'},
@@ -101,40 +115,35 @@ def staff(kind):
 
 
 def icons():
-    palette = Image.new('RGBA', (32, 8))
+    palette = Image.new('RGBA', (48, 8))
     d = ImageDraw.Draw(palette)
-    for i, color in enumerate(('#16263D', '#D4AC67', '#9EDAF4', '#44445F')):
+    for i, color in enumerate(('#16263D', '#D4AC67', '#9EDAF4', '#44445F',
+                               '#10203A', '#EBC871')):
         d.rectangle((i*8, 0, i*8+7, 7), fill=color)
         d.line((i*8, 0, i*8+7, 0), fill='#E9E5D5')
+    for x, y in ((33, 2), (36, 5), (39, 3), (34, 7)):
+        d.point((x, y), fill='#B7DDF3')
+    d.line((41, 4, 47, 4), fill='#3B4F6D')
     palette.save(RP / 'textures/items/modern_projection_staff_palette.png')
     for kind in ('terminal', 'survey_wand'):
         im = Image.new('RGBA', (128, 128))
         d = ImageDraw.Draw(im)
         gold, rim = '#C89F5F', '#F6E7BF'
-        d.line((19, 115, 83, 41), fill='#111C32', width=12)
-        d.line((20, 114, 83, 42), fill=gold, width=7)
-        d.line((20, 113, 81, 43), fill='#394262', width=4)
-        d.line((24, 112, 86, 43), fill='#86B9D0', width=1)
-        for k in range(4):
-            x, y = 38+k*4, 92-k*5
-            d.line((x-3, y-3, x+4, y+3), fill=gold, width=3)
-        d.arc((60, 4, 118, 64), 5, 284, fill=gold, width=5)
-        d.arc((65, 9, 113, 59), 2, 280, fill=rim, width=1)
-        gems = [(87, 31, 14), (63, 27, 5), (112, 22, 5), (97, 66, 5), (106, 48, 4)]
-        rng = random.Random(772)
-        for x, y, size in gems:
-            diamond = [(x, y-size*1.4), (x+size*.66, y), (x, y+size*1.4), (x-size*.66, y)]
-            d.polygon(diamond, fill='#11213A', outline='#9DE9F8')
-            d.polygon([(x,y-size*1.4), (x+size*.66,y), (x,y+size*1.4), (x+size*.1,y)],
-                      fill='#51498B' if kind == 'terminal' else '#276C8E')
-            for unused in range(int(size*1.6)):
-                px, py = rng.uniform(-.45,.45)*size, rng.uniform(-.9,.9)*size
-                if abs(px)/(size*.66)+abs(py)/(size*1.4)<.85:
-                    d.ellipse((x+px,y+py,x+px+1.5,y+py+1.5),fill='#E3FBFF')
-            d.line((x,y-size*1.4,x-size*.66,y),fill='#EDF9FF',width=1)
-        for x, y in [(51,15),(120,65),(76,69)]:
-            d.line((x-3,y,x+3,y),fill='#A5E6FF',width=1)
-            d.line((x,y-3,x,y+3),fill='#D3F7FF',width=1)
+        d.line((20, 114, 82, 43), fill=gold, width=11)
+        d.line((20, 114, 82, 43), fill='#142740', width=7)
+        d.line((25, 110, 84, 44), fill='#78B7CC', width=2)
+        for x, y in ((37, 96), (51, 80), (65, 64)):
+            d.line((x-4, y-3, x+5, y+4), fill=gold, width=3)
+        d.arc((60, 3, 118, 63), 15, 270, fill=gold, width=6)
+        d.arc((64, 7, 114, 59), 15, 270, fill=rim, width=2)
+        x, y, size = 87, 31, 17
+        diamond = [(x, y-size*1.4), (x+size*.66, y), (x, y+size*1.4), (x-size*.66, y)]
+        d.polygon(diamond, fill='#11213A', outline='#9DE9F8')
+        d.polygon([(x, y-size*1.4), (x+size*.66, y), (x, y+size*1.4), (x+size*.1, y)],
+                  fill='#51498B' if kind == 'terminal' else '#276C8E')
+        d.line((x, y-size*1.4, x-size*.66, y), fill='#EDF9FF', width=2)
+        for px, py in ((-2, -5), (3, 3), (0, 11)):
+            d.ellipse((x+px, y+py, x+px+2, y+py+2), fill='#E3FBFF')
         im.resize((32,32), Image.Resampling.LANCZOS).save(
             RP / ('textures/items/modern_projection_' + kind + '.png'))
 
@@ -164,18 +173,23 @@ def aura():
     write(ROOT/'behavior_pack/entities/modern_projection_staff_aura.json',behavior)
 
 
-def generate():
+def staff_assets():
     for kind in ('terminal','survey_wand'):
         staff(kind)
     icons()
-    aura()
     write(RP / 'render_controllers/modern_projection_staff.json', {
         'format_version':'1.8.0','render_controllers':{
             'controller.render.modern_projection.staff':{
                 'geometry':'Geometry.default',
-                'materials':[{'*':'Material.default'}] +
+                'materials':[{'*':'Material.default'}, {'grip':'Material.grip'},
+                             {'motes':'Material.motes'}] +
                             [{'gem%d' % i:'Material.gem'} for i in range(7)],
                 'textures':['Texture.default']}}})
+
+
+def generate():
+    staff_assets()
+    aura()
 
 
 if __name__ == '__main__':

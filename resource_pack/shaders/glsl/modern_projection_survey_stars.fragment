@@ -61,11 +61,13 @@ void main(){
   float crack=exp(-pow((effectUV.x-.31-effectUV.y*.23)*100.,2.))*smoothstep(.07,.19,edge);
   rgb=mix(rgb,vec3(1.,.95,.85),crack*.28);
   alpha=.52+window*.4+fresnel*.26+flash*.42+glint*.6+flicker*flash*.3+rim*.28;
-  // A traveling frost boundary lights the newly forming facets, then fades
-  // into the same permanent gold material without swapping particle actors.
-  float frost=sin(crystalBirth*3.14159265);
-  rgb=mix(rgb,vec3(.91,.98,1.),frost*(.34+rim*.52));
-  alpha=min(1.,alpha+frost*.25);
+  // The newly forming facets keep the crystal's own colour and are only
+  // brightened: forcing them white read as a different particle next to the
+  // gold crystal. crystalBirth=1 restores the untouched material.
+  float fresh=1.-crystalBirth;
+  rgb*=1.+1.6*fresh;
+  float soft=1.-smoothstep(.22,.66,length(effectUV-vec2(.3333,.3333)));
+  alpha=mix(alpha,alpha*soft*1.25+.06*fresh,fresh);
  }else if(effectKind<4.5){
   // Broad, angular light flakes, distinct from the faceted crystal material.
   float silhouette=p.x*.72+p.y;

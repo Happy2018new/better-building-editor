@@ -121,6 +121,7 @@ class HelloServerSystem(ServerSystem):
         self.world_regions = {}
         self.tool_last_use = {}
         self.terminal_last_use = {}
+        self.aura_tick = 0
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'ProjectionRequest', self, self.request)
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'BlockCatalogueRequest', self, self.block_catalogue)
         self.ListenForEvent('ModernProjection', 'HelloClientSystem', 'WorldToolRequest', self, self.world_tool_request)
@@ -403,6 +404,13 @@ class HelloServerSystem(ServerSystem):
             self.reply(player, request, done=True, progress=stats)
 
     def tick(self, unused=None):
+        self.aura_tick += 1
+        if self.aura_tick % 15 == 0:
+            players = serverApi.GetPlayerList()
+            carried = dict((player, name) for player in players
+                           for name in (self.held_tool(player),)
+                           if name in (SURVEY_WAND, TERMINAL))
+            self.BroadcastToAllClient('StaffAuraState', {'carried': carried})
         for player, entry in list(self.uploads.items()):
             if time.time() - entry[3] > 60.:
                 self.uploads.pop(player, None)
