@@ -18,6 +18,7 @@ class TiledPreview(object):
     def __init__(self, session):
         self.session = session
         self.context = None
+        self.document_size = None
         self.edge = EDGE
         self.parts = {}
         self.slots = ()
@@ -39,9 +40,12 @@ class TiledPreview(object):
         self.last_render = 0.
         self.renderer_active = False
         self.serial = 0
+        self.point_defer_started = 0.
+        self.point_defer_until = 0.
 
     def cancel(self):
         self.serial += 1
+        self.point_defer_started = self.point_defer_until = 0.
         self.iterator = None
         self.dirty.clear()
         self.running = self.session.preview_pending = False
@@ -74,13 +78,17 @@ class TiledPreview(object):
             store.owned.discard(neighbour)
         # Snapshot undo can restore an older palette; a later branch may reuse
         # the same numeric material id for a different block.
-        return (self.context, tuple(store.palette), tuple(store.chunks.get(k, 0) for k in neighbours))
+        # The editor identity changes on reload; equal content and visibility
+        # still describe exactly the same mesh, including its boundary halo.
+        context = (self.session.editor.document.size,) + self.context[1:]
+        return (context, tuple(store.palette), tuple(store.chunks.get(k, 0) for k in neighbours))
 
     def restore_cached(self, key, source):
         part = self.parts.get(key)
         if part is None:
             return False
         if part.get('source') == source:
+            part['signature'] = self.session.preview_signature()
             return True
         for bank, entry in part['cache'].items():
             if source not in entry[2]:
@@ -98,16 +106,19 @@ class TiledPreview(object):
         signature = s.preview_signature()
         context = signature[:1] + signature[2:]
         changed_context = context != self.context
+        if positions is None and not changed_context and signature != s.model_revision:
+            positions = getattr(s.editor, 'last_changed_positions', None)
         if changed_context:
-            previous = self.context
+            self.point_defer_started = self.point_defer_until = 0.
             previous_slots = self.slots
             self.context = context
             self.iterator = None
             self.dirty.clear()
-            if previous is None or previous[0] != context[0]:
+            if self.document_size != s.editor.document.size:
                 self.parts = {}
                 self.render_keys = tuple(sorted(s.editor.document.blocks.chunks))
                 self.generation = 1-self.generation
+                self.document_size = s.editor.document.size
             origin, size = (0, 0, 0), s.editor.document.size
             s.scene_origin, s.scene_size, s.scene_scale = origin, size, 1
             self.slots = keys_in(origin, size)
@@ -122,6 +133,11 @@ class TiledPreview(object):
             self.publish_visible()
             s.emit('preview')
         elif positions is not None:
+            if s.touch_mode and hasattr(s.bridge, 'next_frame'):
+                now = time.time()
+                if not self.point_defer_started:
+                    self.point_defer_started = now
+                self.point_defer_until = min(now + .1, self.point_defer_started + .25)
             changed = set()
             for pos in positions:
                 for offset in ((0,0,0), (1,0,0), (-1,0,0), (0,1,0), (0,-1,0), (0,0,1), (0,0,-1)):
@@ -130,6 +146,7 @@ class TiledPreview(object):
                         changed.add(tuple(v//EDGE for v in point))
             self.dirty.update(changed.intersection(self.slots))
         elif signature != s.model_revision:
+            self.point_defer_started = self.point_defer_until = 0.
             changed = getattr(s.editor, 'last_changed_chunks', set(self.slots))
             for key in changed:
                 for offset in ((0,0,0), (1,0,0), (-1,0,0), (0,1,0), (0,-1,0), (0,0,1), (0,0,-1)):
@@ -186,6 +203,15 @@ class TiledPreview(object):
         started = time.time()
         uploads = 0
         try:
+            # Keep native model replacement and extraction out of held gestures.
+            # The authoritative document already contains every completed click.
+            if s.camera_dragging:
+                s.bridge.later(.03, self.schedule)
+                return
+            if self.point_defer_until > started:
+                s.bridge.later(self.point_defer_until - started, self.schedule)
+                return
+            self.point_defer_started = self.point_defer_until = 0.
             while time.time()-started < .003:
                 if self.iterator is None:
                     if not self.renderer_active or time.time()-self.last_render > .5:

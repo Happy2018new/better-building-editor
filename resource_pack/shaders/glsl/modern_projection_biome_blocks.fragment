@@ -43,7 +43,7 @@ uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
 // Stable colors for our UI/client actors. PaperDoll does not reliably bind
 // the foliage colormap at TEXTURE_1 (inventory renders can leave another
 // texture there). Only our tagged draws bypass that unrelated texture.
-vec3 buildingBiomeTint(float index) {
+vec3 buildingBiomeTint(float index, bool foliageFace) {
     vec3 grass = vec3(146.0,188.0,88.0);
     vec3 foliage = vec3(119.0,171.0,47.0);
     if (index > 1.5 && index < 2.5) { grass=vec3(121.0,191.0,90.0); foliage=vec3(89.0,174.0,48.0); }
@@ -54,11 +54,44 @@ vec3 buildingBiomeTint(float index) {
     if (index > 6.5 && index < 7.5) { grass=vec3(88.0,203.0,60.0); foliage=vec3(48.0,187.0,11.0); }
     if (index > 7.5 && index < 9.5) { grass=vec3(190.0,182.0,84.0); foliage=vec3(174.0,164.0,42.0); }
     if (index > 9.5 && index < 10.5) { grass=vec3(128.0,180.0,150.0); foliage=vec3(96.0,161.0,123.0); }
-    #if USE_ALPHA_TEST
-        return foliage / 255.0;
-    #else
-        return grass / 255.0;
-    #endif
+    return (foliageFace ? foliage : grass) / 255.0;
+}
+
+// Vanilla grass_side is an opaque atlas sprite whose gray grass fringe is
+// already multiplied by one of these world-biome overlay colors. Recover its
+// source tint from the fringe's chroma; dirt and other block textures do not
+// lie on one of these color rays.
+float sideTintError(vec3 pixel, vec3 source) {
+    float shade = dot(pixel, source) / dot(source, source);
+    vec3 delta = pixel - source*shade;
+    return shade > 0.25 && shade < 0.9 ? dot(delta, delta) : 1.0;
+}
+
+vec3 grassSideSource(vec3 pixel) {
+    vec3 source = vec3(0.0);
+    float best = 0.000324;
+    #define SIDE_COLOR(R,G,B) { vec3 candidate = vec3(R,G,B)/255.0; \
+        float error = sideTintError(pixel, candidate); \
+        if (error < best) { best = error; source = candidate; } }
+    SIDE_COLOR(121.0,192.0,90.0)
+    SIDE_COLOR(138.0,182.0,137.0)
+    SIDE_COLOR(191.0,183.0,85.0)
+    SIDE_COLOR(89.0,201.0,60.0)
+    SIDE_COLOR(85.0,201.0,63.0)
+    SIDE_COLOR(136.0,187.0,102.0)
+    SIDE_COLOR(134.0,184.0,127.0)
+    SIDE_COLOR(100.0,199.0,63.0)
+    SIDE_COLOR(134.0,183.0,131.0)
+    SIDE_COLOR(131.0,181.0,147.0)
+    SIDE_COLOR(128.0,180.0,151.0)
+    SIDE_COLOR(145.0,189.0,89.0)
+    SIDE_COLOR(144.0,129.0,77.0)
+    SIDE_COLOR(142.0,185.0,113.0)
+    SIDE_COLOR(106.0,112.0,57.0)
+    SIDE_COLOR(80.0,122.0,50.0)
+    SIDE_COLOR(119.0,130.0,114.0)
+    #undef SIDE_COLOR
+    return source;
 }
 
 void main()
@@ -114,14 +147,22 @@ float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
     // of SEASONS UVs. Plain blocks (including green glass/wool) have neutral
     // vertex colors: their actual color is in TEXTURE_0 and stays untouched.
     if ((buildingUI || buildingWorld) && inColor.g > inColor.r*1.05 && inColor.g > inColor.b*1.05) {
-        inColor.rgb = buildingBiomeTint(biomeIndex);
+        inColor.rgb = buildingBiomeTint(biomeIndex, false);
     }
+    #if !USE_ALPHA_TEST && !defined(BLEND)
+    else if (buildingUI || buildingWorld) {
+        vec3 source = grassSideSource(diffuse.rgb);
+        if (source.g > 0.0) {
+            diffuse.rgb *= buildingBiomeTint(biomeIndex, false) / source;
+        }
+    }
+    #endif
 	diffuse.rgb *= inColor.rgb;
 #else
 	vec2 uv = inColor.xy;
     vec3 tint;
     if (buildingUI || buildingWorld) {
-        tint = buildingBiomeTint(biomeIndex);
+        tint = buildingBiomeTint(biomeIndex, USE_ALPHA_TEST != 0);
     } else {
         tint = texture2D(TEXTURE_1, uv).rgb*2.0;
     }

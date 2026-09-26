@@ -2,6 +2,7 @@
 """Atomic, cancellable editor jobs. No engine calls and no 25M-cell dictionaries."""
 from __future__ import unicode_literals
 import copy
+import math
 import random
 import time
 from collections import deque
@@ -81,6 +82,7 @@ class EditJob(object):
         if self.changed:
             delta = SnapshotDelta(self.source.blocks, self.staged, self.changed)
             self.source.blocks = self.staged
+            e.last_changed_positions = None
             e.last_changed_chunks = delta.changed_chunks
             e.revision += 1
             e._remember(BY_ID[self.tool][2], delta)
@@ -249,6 +251,41 @@ class EditJob(object):
             yield None
         self.result_selection = result
 
+    def _sphere_shell(self, lo, hi):
+        """Visit the ellipsoid's outer and inner X bands, not its empty core."""
+        size = [hi[i] - lo[i] + 1 for i in range(3)]
+        center = [(hi[i] + lo[i]) / 2. for i in range(3)]
+        radius = [max(.5, value / 2.) for value in size]
+        inner = [max(.01, value - max(1, self.work.thickness)) for value in radius]
+        width = size[0]
+        for y in range(lo[1], hi[1] + 1):
+            ny = (y - center[1]) / radius[1]
+            iy = (y - center[1]) / inner[1]
+            for z in range(lo[2], hi[2] + 1):
+                nz = (z - center[2]) / radius[2]
+                iz = (z - center[2]) / inner[2]
+                outer_rest = 1. - ny * ny - nz * nz
+                if outer_rest >= -1e-12:
+                    reach = radius[0] * math.sqrt(max(0., outer_rest))
+                    first = max(lo[0], int(math.ceil(center[0] - reach - 1e-8)))
+                    last = min(hi[0], int(math.floor(center[0] + reach + 1e-8)))
+                    inner_rest = 1. - iy * iy - iz * iz
+                    if inner_rest > 0.:
+                        gap = inner[0] * math.sqrt(inner_rest)
+                        left = min(last, int(math.floor(center[0] - gap + 1e-8)) + 1)
+                        right = max(first, int(math.ceil(center[0] + gap - 1e-8)) - 1)
+                    else:
+                        left, right = last, last + 1
+                    for start, stop in ((first, left + 1), (max(left + 1, right), last + 1)):
+                        for x in range(start, stop):
+                            # Match Editor._shape exactly at fractional boundaries.
+                            outer = sum(v * v for v in ((x-center[0])/radius[0], ny, nz))
+                            inside = sum(v * v for v in ((x-center[0])/inner[0], iy, iz))
+                            if outer <= 1. and inside >= 1.:
+                                self._set((x, y, z), self.work.material)
+                self.processed += width
+                yield None
+
     def _run(self):
         tool, work = self.tool, self.work
         group = BY_ID[tool][1]
@@ -321,6 +358,11 @@ class EditJob(object):
             for pos, value in work._shape(tool, lo, hi).items():
                 self._set(pos, value)
                 yield None
+            return
+        if tool == 'sphere_shell' and len(self.selection) == (
+                (hi[0]-lo[0]+1) * (hi[1]-lo[1]+1) * (hi[2]-lo[2]+1)):
+            for step in self._sphere_shell(lo, hi):
+                yield step
             return
         if tool in ('shell', 'walls', 'frame', 'floor'):
             # Construct axis-aligned slabs as bitsets. A thin shell visits its

@@ -41,17 +41,27 @@ class PointerTracker(object):
         if self.pressed and self.touch and callable(self.props.get('onPinch')):
             identity = args.get('TouchId')
             if identity in self.contacts:
-                return  # Duplicate global/local down for the same finger.
-            hit = self.props.get('screenHit')
-            if callable(hit) and not hit((args.get('TouchPosX', -1), args.get('TouchPosY', -1))):
-                return
-            if self.add_contact(args):
-                if len(self.contacts) >= 2:
-                    if not self.pinching:
-                        self.pinching = True
-                        self.send('onCancel', args)  # A pinch can never become an edit.
-                    self.pinch_event('move')
-                return
+                point = (args.get('TouchPosX'), args.get('TouchPosY'))
+                previous = self.contacts[identity]
+                if (point[0] is not None and point[1] is not None and
+                        abs(point[0] - previous[0]) <= 4 and
+                        abs(point[1] - previous[1]) <= 4):
+                    self.global_press = False
+                    return  # Duplicate global/local down for the same finger.
+                # Android reuses TouchId after a lost up. A new down at a new
+                # position starts a fresh gesture, never a move from old origin.
+                self.cancel({})
+            else:
+                hit = self.props.get('screenHit')
+                if callable(hit) and not hit((args.get('TouchPosX', -1), args.get('TouchPosY', -1))):
+                    return
+                if self.add_contact(args):
+                    if len(self.contacts) >= 2:
+                        if not self.pinching:
+                            self.pinching = True
+                            self.send('onCancel', args)  # A pinch can never become an edit.
+                        self.pinch_event('move')
+                    return
         if self.pressed and self.global_press:
             self.global_press = False
             return
@@ -181,11 +191,15 @@ class PointerTracker(object):
         self.send('onEnter', args)
 
     def move_out(self, args):
-        # 6 is MOVE OUT, not release. Keep both contacts captured across the
-        # viewport edge. Only 7 (screen exit), up and cancel end a contact.
         if self.touch:
             if args.get('TouchEvent') == 7:
                 self.cancel({})
+            elif (args.get('TouchEvent') == 6 and not self.pinching and
+                  args.get('TouchId') in (None, self.args.get('TouchId') if self.args else None) and
+                  args.get('TouchPosX') == 0 and args.get('TouchPosY') == 0):
+                # Android sends this after release even if the local up was
+                # dropped. A real viewport exit retains its nonzero position.
+                self.cancel(args)
             return
         if not self.touch and self.origin is not None and not self.props.get('retainCapture'):
             self.cancel(args)

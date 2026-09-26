@@ -384,12 +384,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if selected_bounds.current[0] != selection_key:
             selected_bounds.current = (selection_key, bounds(e.selection) if e.selection else None)
         preview_cell, preview_error = (None, None)
-        if session.touch_mode and drag.current is not None and not drag.current[-1]:
+        if session.touch_mode and drag.current is not None and not drag.current[5]:
             px, py = pointer.current.GetGlobalPosition()
             hit = hit_at(drag.current[2]-px, drag.current[3]-py)
             if hit:
                 preview_cell, preview_error = session.cursor_target(*hit)
-        if not session.touch_mode and (drag.current is None or not drag.current[-1]):
+        if not session.touch_mode and (drag.current is None or not drag.current[5]):
             point = mouse.GetMousePosition()
             # Native hover-enter may be missing when the UI opens beneath the
             # mouse. Use the same viewport/navigation hit test as actual clicks.
@@ -514,7 +514,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             orbit_anchor(args['TouchPosX']-px, args['TouchPosY']-py)
         camera.dragging = True
         session.camera_dragging = True
-        drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False]
+        drag.current = [args['TouchPosX'], args['TouchPosY'], args['TouchPosX'], args['TouchPosY'], time.time(), False, False]
 
     def contains(control, point):
         if control is None:
@@ -533,14 +533,18 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     def move(args):
         if drag.current is None:
             return
-        x, y, last_x, last_y, then, moved = drag.current
+        x, y, last_x, last_y, then, moved, rotated = drag.current
         now = time.time()
         nx, ny = args['TouchPosX'], args['TouchPosY']
-        moved = moved or math.hypot(nx - x, ny - y) > 4 * Theme.scale
+        was_moved = moved
+        threshold = 8 if session.touch_mode else 4
+        moved = moved or math.hypot(nx - x, ny - y) > threshold * Theme.scale
         if moved:
             sensitivity = min(1., math.sqrt(12.*Theme.scale/max(12.*Theme.scale, unit())))
-            camera.drag((nx - last_x) / Theme.scale, (ny - last_y) / Theme.scale, now - then, sensitivity)
-        drag.current = [x, y, nx, ny, now, moved]
+            if was_moved or not session.touch_mode:
+                camera.drag((nx - last_x) / Theme.scale, (ny - last_y) / Theme.scale, now - then, sensitivity)
+                rotated = True
+        drag.current = [x, y, nx, ny, now, moved, rotated]
 
     def cancel(unused):
         drag.current = None
@@ -583,11 +587,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if ('TouchPosX' in args and 'TouchPosY' in args and
                 (args['TouchPosX'], args['TouchPosY']) != tuple(drag.current[2:4])):
             move(args)
-        x, y, unused_x, unused_y, then, moved = drag.current
+        x, y, unused_x, unused_y, then, moved, rotated = drag.current
         drag.current = None
         camera.dragging = False
         session.camera_dragging = False
-        if moved:
+        if rotated:
             session.pointer_stats[2] += 1
             if time.time() - then > .08 or not Theme.motion:
                 camera.velocity = (0., 0.)
@@ -597,10 +601,12 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         signature = session.preview_signature()
         if session.tiles.context != signature[:1] + signature[2:] or session.preview_error:
             session.editor.message = '预览更新中，请稍后点击'
-            session.emit()
+            session.publish_point_edit(.12)
             return
         px, py = pointer.current.GetGlobalPosition()
-        x, y = args.get('TouchPosX', x) - px, args.get('TouchPosY', y) - py
+        if not moved:
+            x, y = args.get('TouchPosX', x), args.get('TouchPosY', y)
+        x, y = x - px, y - py
         hit = hit_at(x, y)
         if hit:
             before_revision = session.editor.revision
@@ -612,7 +618,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         else:
             session.focused = None
             session.editor.message = '没有命中可见方块'
-            session.emit()
+            session.publish_point_edit(.12)
 
     def leave(unused):
         hover_preview.current = None

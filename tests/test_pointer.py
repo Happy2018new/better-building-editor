@@ -75,6 +75,7 @@ class PointerTests(unittest.TestCase):
         count=len(self.events)
         self.tracker.screen_down({'TouchId':1},(210,210))
         self.tracker.down({'TouchId':1,'TouchPosX':210,'TouchPosY':210})
+        self.tracker.down({'TouchId':1,'TouchPosX':212,'TouchPosY':211})
         self.assertEqual(count,len(self.events))
         self.tracker.cancel({})
         self.assertFalse(self.tracker.contacts)
@@ -215,6 +216,40 @@ class PointerTests(unittest.TestCase):
         self.tracker.up({'TouchPosX': 100, 'TouchPosY': 200, 'TouchId': 0})
         self.tracker.move_out({'TouchEvent': 6, 'TouchId': 0})
         self.assertEqual(['onDown', 'onUp'], [name for name, args in self.events])
+
+    def test_android_zero_position_move_out_clears_lost_single_release(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props['onPinch'] = self.record('onPinch')
+        self.down()
+        self.tracker.move({'TouchId': 0, 'TouchPosX': 130, 'TouchPosY': 200})
+        self.tracker.move_out({'TouchEvent': 6, 'TouchId': 0,
+                               'TouchPosX': 0, 'TouchPosY': 0})
+        self.assertFalse(self.tracker.pressed)
+        self.assertEqual('onCancel', self.events[-1][0])
+        self.tracker.down({'TouchId': 0, 'TouchPosX': 300, 'TouchPosY': 200})
+        self.tracker.up({'TouchId': 0, 'TouchPosX': 300, 'TouchPosY': 200})
+        self.assertEqual(1, sum(name == 'onUp' for name, unused in self.events))
+        self.assertFalse(self.tracker.pressed)
+
+    def test_reused_touch_id_rebases_lost_gesture_without_rotation(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props['onPinch'] = self.record('onPinch')
+        self.down()
+        self.tracker.move({'TouchId': 0, 'TouchPosX': 125, 'TouchPosY': 200})
+        self.tracker.down({'TouchId': 0, 'TouchPosX': 300, 'TouchPosY': 200})
+        self.tracker.up({'TouchId': 0, 'TouchPosX': 300, 'TouchPosY': 200})
+        self.assertEqual(['onDown', 'onMove', 'onCancel', 'onDown', 'onUp'],
+                         [name for name, unused in self.events])
+        self.assertFalse(self.tracker.pressed)
+
+    def test_rapid_taps_at_different_positions_remain_independent(self):
+        self.tracker.touch_mode = lambda: True
+        self.tracker.props['onPinch'] = self.record('onPinch')
+        for x in (100, 160, 115, 320, 150):
+            self.tracker.down({'TouchId': 0, 'TouchPosX': x, 'TouchPosY': 200})
+            self.tracker.up({'TouchId': 0, 'TouchPosX': x, 'TouchPosY': 200})
+        self.assertEqual(5, sum(name == 'onUp' for name, unused in self.events))
+        self.assertFalse(any(name in ('onMove', 'onPinch') for name, unused in self.events))
 
     def test_mouse_leave_cancels_instead_of_clicking_and_reentry_is_idle(self):
         self.down()

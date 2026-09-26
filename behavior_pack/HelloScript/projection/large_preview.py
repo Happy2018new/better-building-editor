@@ -133,9 +133,14 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
         for y in range(max(base[1], scan_lo[1]), min(base[1] + 16, scan_hi[1])):
             if y not in ys:
                 continue
+            interior_y = (uncut and not uniform and base[1] < y < base[1]+15 and
+                          y-1 in ys and y+1 in ys)
             for z in range(max(base[2], scan_lo[2]), min(base[2] + 16, scan_hi[2])):
+                local_row = (interior_y and base[2] < z < base[2]+15 and
+                             origin[2] < z < end[2]-1)
                 for x in range(max(base[0], scan_lo[0]), min(base[0] + 16, scan_hi[0])):
-                    identity = chunk if uniform else chunk[((y & 15) << 8) | ((z & 15) << 4) | (x & 15)]
+                    index = ((y & 15) << 8) | ((z & 15) << 4) | (x & 15)
+                    identity = chunk if uniform else chunk[index]
                     if not identity:
                         continue
                     if not behind_plane((x, y, z), plane):
@@ -143,8 +148,16 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
                     interior = (uncut and uniform and opaque[identity] and base[0] < x < base[0] + 15 and
                                 base[2] < z < base[2] + 15 and base[1] < y < base[1] + 15 and
                                 origin[0] < x < end[0] - 1 and origin[2] < z < end[2] - 1 and y-1 in ys and y+1 in ys)
-                    if interior or (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and
-                                    conceals(x, y+1, z) and conceals(x, y, z-1) and conceals(x, y, z+1)):
+                    if local_row and base[0] < x < base[0]+15 and origin[0] < x < end[0]-1:
+                        # Most neighbours share this array. Avoid six hash lookups
+                        # and coordinate conversions for each dense interior cell.
+                        concealed = (opaque[chunk[index-1]] and opaque[chunk[index+1]] and
+                                     opaque[chunk[index-256]] and opaque[chunk[index+256]] and
+                                     opaque[chunk[index-16]] and opaque[chunk[index+16]])
+                    else:
+                        concealed = interior or (conceals(x-1, y, z) and conceals(x+1, y, z) and conceals(x, y-1, z) and
+                                                 conceals(x, y+1, z) and conceals(x, y, z-1) and conceals(x, y, z+1))
+                    if concealed:
                         continue
                     out.add((x-palette_origin[0], y-palette_origin[1], z-palette_origin[2]), store.palette[identity])
                 yield None

@@ -349,6 +349,10 @@ class Session(object):
             self.editor.message = str(error).decode('utf8') if isinstance(str(error), bytes) else str(error)
             self.emit()
             return False
+        if callback in (self.editor.undo, self.editor.redo) and result and getattr(self.editor, 'last_changed_positions', None) is not None:
+            self.tiles.refresh(self.editor.last_changed_positions)
+            self.publish_point_edit()
+            return result
         self.refresh_preview()
         self.emit()
         return result
@@ -451,15 +455,21 @@ class Session(object):
         result = self.editor.paint_at(pos, erase, False)
         if result:
             self.tiles.refresh([pos])
+        self.publish_point_edit()
+        return result
+
+    def publish_point_edit(self, delay=.4):
         # The cursor and native tiles read current data every frame. Inspector,
         # history and document statistics only need one update after a burst.
         self.point_publish += 1
         serial = self.point_publish
         def settled():
             if serial == self.point_publish:
-                self.emit()
-        self.bridge.later(.4, settled)
-        return result
+                if self.camera_dragging:
+                    self.bridge.later(.1, settled)
+                else:
+                    self.emit('point_edit')
+        self.bridge.later(delay, settled)
 
     def _build_preview(self):
         editor = self.editor
@@ -671,7 +681,7 @@ class Session(object):
         mode = self.direct_mode
         if mode == 'erase' and self.erase_scope == 'selection':
             self.editor.message = '选区已保留，请点击擦除选区'
-            self.emit()
+            self.publish_point_edit(.12)
             return False
         self.focused = pos
         if mode == 'place':
@@ -690,6 +700,7 @@ class Session(object):
             if e.document.get(pos) != AIR:
                 e.material = e.document.get(pos)
                 e.message = '已吸取材质：' + e.material[0]
+                self.emit('materials')
         elif mode == 'select':
             e.select_box(pos, pos)
         elif mode == 'box':
@@ -705,7 +716,9 @@ class Session(object):
         else:
             e.select_box(pos, pos)
             e.message = '方块坐标：%d, %d, %d' % pos
-        self.emit()
+        # Picking changes the cursor immediately. Reconcile the small selection
+        # and status panels after a tap burst, without rebuilding the workspace.
+        self.publish_point_edit(.12)
         return True
 
     def save(self):

@@ -96,6 +96,47 @@ class LargeEditorTests(unittest.TestCase):
         self.assertEqual(AIR,e.document.get((32,64,32)))
         self.assertEqual(e.material,e.document.get((63,127,63)))
 
+    def test_cuboid_sphere_shell_matches_cell_oracle_at_fractional_boundaries(self):
+        for size in ((7, 8, 9), (16, 16, 16), (17, 19, 18)):
+            for thickness in (1, 2, 5):
+                e = Editor(Document(size))
+                e.thickness = thickness
+                e.material = STONE
+                expected = e._shape('sphere_shell', (0, 0, 0),
+                                    tuple(v - 1 for v in size))
+                job = EditJob(e, 'sphere_shell')
+                while not job.done:
+                    job.step()
+                self.assertFalse(job.error, (size, thickness))
+                self.assertEqual(set(expected), set(e.document.blocks),
+                                 (size, thickness))
+                self.assertEqual(len(e.selection), job.processed)
+
+        e = Editor(Document((17, 19, 18)))
+        e.thickness = 2
+        e.material = STONE
+        e.locked_layers = {0, 7, 18}
+        e.mask = 'solid'
+        e.document.blocks[(8, 9, 9)] = WOOD
+        expected = {p: value for p, value in
+                    e._shape('sphere_shell', (0, 0, 0), (16, 18, 17)).items()
+                    if e._writable(p)}
+        job = EditJob(e, 'sphere_shell')
+        while not job.done:
+            job.step()
+        self.assertFalse(job.error)
+        self.assertEqual(expected, {p: e.document.get(p) for p in expected})
+        self.assertEqual(len(expected), job.changed)
+
+        e = Editor(Document((64, 128, 64)))
+        job = EditJob(e, 'sphere_shell')
+        while not job.done:
+            job.step()
+        self.assertFalse(job.error)
+        self.assertEqual(20648, job.changed)
+        self.assertEqual(job.total, job.processed)
+        self.assertEqual(AIR, e.document.get((32, 64, 32)))
+
     def test_mixed_archive_pages_roundtrip_and_incomplete_archive_rejected(self):
         class Pages:
             def __init__(self):

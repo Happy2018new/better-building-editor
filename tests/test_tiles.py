@@ -2,15 +2,18 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/HelloScript'))
-from projection.model import Document, Editor
+from projection.model import AIR, Document, Editor
 from projection.session import Session
 from projection.tiles import tile_edge
 import projection.tiles as tiles
-from projection.large_preview import build_preview
+from projection.large_preview import build_preview, is_opaque
+from projection.camera import behind_plane
 from projection.chunks import painter_order
 import math
 import itertools
 import time
+import random
+from unittest.mock import patch
 
 
 def cells(palette):
@@ -50,6 +53,28 @@ class Bridge:
 
 
 class TileTests(unittest.TestCase):
+    def test_mixed_chunk_surface_matches_voxel_oracle_with_holes_and_clipping(self):
+        rng = random.Random(47)
+        doc = Document((19,18,17))
+        materials = (('minecraft:stone',0), ('minecraft:glass',0), AIR)
+        for pos in itertools.product(range(19),range(18),range(17)):
+            value = materials[0 if rng.random() < .85 else rng.randrange(3)]
+            if value != AIR: doc.blocks[pos] = value
+        for hidden, layer, plane in (((),None,None), ((6,),None,None), ((),8,None),
+                                     ((),None,((.6,.4,.3),17.2))):
+            def visible(pos):
+                return (doc.contains(pos) and pos[1] not in hidden and
+                        (layer is None or pos[1] == layer) and behind_plane(pos,plane))
+            expected = set()
+            for pos, value in doc.blocks.items():
+                if not visible(pos): continue
+                neighbors = [tuple(pos[i]+offset[i] for i in range(3)) for offset in
+                             ((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1))]
+                if not all(visible(p) and is_opaque(doc.get(p)) for p in neighbors):
+                    expected.add((value,pos[1]*19*17+pos[0]*17+pos[2]))
+            actual = cells(list(build_preview(doc,hidden,layer,None,plane))[-1][0])
+            self.assertEqual(expected,actual)
+
     def test_painter_order_agrees_with_ray_traversal_and_is_stable_within_octant(self):
         keys = list(itertools.product(range(4), range(8), range(4)))
         for signs in itertools.product((-1,1), repeat=3):
@@ -109,19 +134,123 @@ class TileTests(unittest.TestCase):
         builds = len(b.builds)
         s.choose_mode('place')
         calls = []; s.subscribe(lambda: calls.append('root'), ())
+        s.subscribe(lambda: calls.append('point_edit'), ('point_edit',))
         for y in range(1,7):
             s.point_action((3,y-1,3),(0,1,0))
         self.assertEqual([], calls)
         self.assertEqual(582,len(s.editor.document.blocks))
         b.settle(s)
         self.assertEqual(builds+1,len(b.builds))
-        self.assertEqual(1,len(calls))
+        self.assertEqual(['point_edit'], calls)
         self.assertTrue(all(p is before[k] for k,p in s.tiles.parts.items() if k!=(0,0,0)))
         self.assertEqual(cells(list(build_preview(s.editor.document))[-1][0]), scene_cells(s))
         self.assertEqual(4,len(s.tiles.slots))
         for _ in range(6): s.action(s.editor.undo)
         b.settle(s)
         self.assertEqual(576,len(s.editor.document.blocks))
+
+    def test_live_point_edits_wait_briefly_and_share_one_upload(self):
+        class LiveBridge(Bridge):
+            def next_frame(self, callback):
+                self.queue.append(callback)
+
+        b = LiveBridge(); s = Session(b)
+        s._loaded(Document((8, 8, 8))); b.settle(s)
+        s.touch_mode = True
+        s.choose_mode('place')
+        with patch.object(tiles.time, 'time', return_value=100.):
+            self.assertTrue(s.point_action((3, 0, 3)))
+            b.queue.pop(0)()
+            self.assertFalse(b.builds)
+            self.assertTrue(s.point_action((3, 0, 3), (0, 1, 0)))
+            self.assertFalse(b.builds)
+        b.settle(s)
+        self.assertEqual(2, len(s.editor.document.blocks))
+        self.assertEqual(1, len(b.builds))
+        self.assertFalse(s.tiles.report_progress)
+
+    def test_reload_reuses_identical_meshes_and_updates_changed_content(self):
+        b = Bridge(); s = Session(b)
+        doc = Document((32, 16, 16))
+        doc.blocks[(3, 0, 3)] = ('minecraft:stone', 0)
+        doc.blocks[(20, 0, 3)] = ('minecraft:stone', 0)
+        s._loaded(doc); b.settle(s)
+        builds, extractions = len(b.builds), s.tiles.extractions
+        # Deserialize into independent arrays, as a real configuration load does.
+        s._loaded(Document.from_data(doc.to_data())); b.settle(s)
+        self.assertEqual(builds, len(b.builds))
+        self.assertEqual(extractions, s.tiles.extractions)
+        self.assertEqual(cells(list(build_preview(doc))[-1][0]), scene_cells(s))
+        changed = Document.from_data(doc.to_data())
+        changed.blocks[(3, 0, 3)] = ('minecraft:gold_block', 0)
+        s._loaded(changed); b.settle(s)
+        self.assertEqual(builds+1, len(b.builds))
+        self.assertEqual(cells(list(build_preview(changed))[-1][0]), scene_cells(s))
+        s._loaded(Document((32, 16, 16))); b.settle(s)
+        self.assertFalse(scene_cells(s))
+
+    def test_single_undo_is_local_and_does_not_broadcast_full_workspace(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((48,48,48))); b.settle(s)
+        s.choose_mode('place'); s.point_action((20,20,20)); b.settle(s)
+        calls = []
+        s.subscribe(lambda: calls.append('root'), ())
+        s.subscribe(lambda: calls.append('point'), ('point_edit',))
+        self.assertTrue(s.action(s.editor.undo))
+        self.assertEqual({(1,1,1)}, s.tiles.dirty)
+        b.settle(s)
+        self.assertEqual(['point'], calls)
+        self.assertFalse(s.editor.document.blocks)
+        self.assertTrue(s.action(s.editor.redo)); b.settle(s)
+        self.assertEqual(1, len(s.editor.document.blocks))
+
+    def test_selection_taps_are_immediate_without_mesh_work_or_full_refresh(self):
+        for mode in ('browse', 'select', 'pick', 'box'):
+            b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)
+            s.editor.document.blocks[(3,2,3)] = ('minecraft:gold_block', 0)
+            s.choose_mode(mode)
+            calls = []
+            s.subscribe(lambda: calls.append('root'), ())
+            s.subscribe(lambda: calls.append('point'), ('point_edit',))
+            s.subscribe(lambda: calls.append('materials'), ('materials',))
+            before = s.editor.revision, s.tiles.extractions, len(b.builds)
+            self.assertTrue(s.point_action((3,2,3)))
+            self.assertEqual((3,2,3), s.focused)
+            self.assertEqual({(3,2,3)}, set(s.editor.selection))
+            if mode == 'pick':
+                self.assertEqual(('minecraft:gold_block', 0), s.editor.material)
+                self.assertIn('materials', calls)
+            if mode == 'box':
+                self.assertTrue(s.point_action((4,3,4)))
+                self.assertEqual(8, len(s.editor.selection))
+                self.assertIsNone(s.box_anchor)
+            b.settle(s)
+            self.assertEqual(before, (s.editor.revision, s.tiles.extractions, len(b.builds)))
+            self.assertEqual(1, calls.count('point'))
+            self.assertNotIn('root', calls)
+
+    def test_held_gesture_defers_mesh_work_and_notification_without_losing_edit(self):
+        b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)
+        s.choose_mode('place'); s.point_action((3,0,3))
+        calls = []; s.subscribe(lambda: calls.append(True), ('point_edit',))
+        s.camera_dragging = True
+        for callback in b.queue[:]:
+            b.queue.remove(callback); callback()
+        self.assertFalse(b.builds)
+        self.assertFalse(calls)
+        self.assertEqual(1, len(s.editor.document.blocks))
+        s.camera_dragging = False; b.settle(s)
+        self.assertEqual(1, len(b.builds))
+        self.assertEqual([True], calls)
+
+    def test_bulk_job_after_point_edit_invalidates_all_changed_chunks(self):
+        from projection.jobs import EditJob
+        b = Bridge(); s = Session(b); s._loaded(Document((32,32,32))); b.settle(s)
+        s.choose_mode('place'); s.point_action((3,0,3)); b.settle(s)
+        s.editor.select_box((0,0,0), (31,31,31))
+        job = EditJob(s.editor, 'shell')
+        while not job.done: job.step()
+        s.refresh_preview(); b.settle(s)
+        self.assertEqual(cells(list(build_preview(s.editor.document))[-1][0]), scene_cells(s))
 
     def test_pending_upload_is_never_overwritten_by_next_edit(self):
         b = Bridge(); s = Session(b); s._loaded(Document((8,8,8))); b.settle(s)

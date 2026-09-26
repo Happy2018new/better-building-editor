@@ -155,6 +155,8 @@ class LabelPrimitive(BaseLabelPrimitive):
                 name, w, h, unused_step, uv, uv_size = data
                 if props.get('textAlign') == TextAlignment.center:
                     x += (width-widths[row])/2.
+                elif props.get('textAlign') == TextAlignment.right:
+                    x += width-widths[row]
                 ink = (name, uv, uv_size, color.to_rgb_tuple(), (x, row*font*1.5), (w*font, h*font))
                 old = old_slots.get(i)
                 if old != ink:
@@ -527,7 +529,7 @@ def text(value, size=12, color=None, center=False, **style):
     return result
 
 
-def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, node_ref=None, **style):
+def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, node_ref=None, text_align=None, **style):
     """Fixed-size dynamic captions using the existing font/glyph assets."""
     if isinstance(value, bytes):
         value = value.decode('utf8')
@@ -536,7 +538,7 @@ def retained_text(value, size=12, color=None, center=False, slots=40, lines=1, n
     values.update(style)
     return NativeText(ref=node_ref, cacheLayout=True, content=value, fontSize=size*Theme.scale, color=color or Theme.ink,
                       shadow=False, rasterText=supported(value),
-                      glyphSlots=slots, glyphLines=lines, textAlign=TextAlignment.center if center else TextAlignment.left,
+                      glyphSlots=slots, glyphLines=lines, textAlign=text_align or (TextAlignment.center if center else TextAlignment.left),
                       style=S(**values))
 
 
@@ -738,9 +740,9 @@ def Range(label='', value=0., minimum=0., maximum=1., onChange=None, unit='', in
     stable_change = use_callback(change, [current, minimum, maximum, integer, onChange])
     return Panel(style=S(height=49, width='100%'), children=[
         row([text(label, 11, Theme.muted, flex=1),
-             NativeText(content=('%d' % current if integer else '%.2f' % current) + unit,
-                        fontSize=11 * Theme.scale, color=Theme.ink, shadow=False,
-                        textAlign=TextAlignment.right, style=S(width=66, height=15))]),
+             retained_text(('%d' % current if integer else '%.2f' % current) + unit,
+                           11, Theme.ink, slots=16, text_align=TextAlignment.right,
+                           width=66, height=16)]),
         Panel(style=S(height=26, width='100%', marginTop=3, paddingHorizontal=10), children=[
           Panel(ref=track, style=S(height=26, width='100%'), children=[
             Image(color=Theme.line, style=S(position=Position.absolute, top=11, height=4, width='100%', zIndex=1)),

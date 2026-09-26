@@ -379,12 +379,12 @@ def turn_camera(session, amount):
 @Component
 def Inspector(session=None, revision=0, height=440, page='workspace'):
     use_theme()
-    use_session_fields(session, ('inspector', 'view', 'editing_mode'))
+    use_session_fields(session, ('inspector', 'view', 'editing_mode', 'point_edit'))
     projecting = page == 'projection'
     active = 'projection' if projecting else session.inspector
     panes = []
     for name, component in (('params', Parameters), ('layers', Layers), ('history', History), ('projection', ProjectionSettings)):
-        content_revision = (session.content_revision, session.tool, session.direct_mode,
+        content_revision = (session.content_revision, session.editor.revision, session.editor.selection_revision, session.tool, session.direct_mode,
                             session.box_anchor, session.paste_origin, session.paste_pinned)
         if name == 'params' and session.direct_mode != 'browse':
             content_revision = (content_revision, session.view)
@@ -466,7 +466,7 @@ def Confirmation(session=None, revision=0, height=640):
 @Component
 def PageNavigation(session=None, revision=0, focus=False):
     use_theme()
-    use_session_fields(session, ('page',))
+    use_session_fields(session, ('page', 'point_edit'))
     e = session.editor
     return row([
         Segments(items=[('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'), ('guide', '入门指南')],
@@ -654,11 +654,7 @@ def Workspace(session=None, revision=0):
             Panel(style=S(gap=1), children=[text('现代化投影', 16 if focus else 20),
                 text('MODERN PROJECTION', 8, Theme.muted, display=Display.none if focus else Display.flex)]),
             Panel(style=S(flex=1)),
-            Button(buttonBuilder=transparent, backgroundColor=Theme.green,
-                   hoverColor=Color(0x178C7E2E), radius=7, style=S(height=32),
-                   children=row([icon('check' if e.saved_revision == e.revision and e.saved_biome == e.document.biome and session.library else 'draft', Theme.mint, 15),
-                                 text('草稿已保存' if e.saved_revision == e.revision and e.saved_biome == e.document.biome and session.library else '本地草稿',
-                                      10, Theme.mint)], paddingHorizontal=12)),
+            DraftStatus(session=session),
             Action(label='保存配置', glyph='save', accent=True, width=115, height=32, onClick=partial(session.action, session.save)),
             Action(glyph='close', width=32, height=32, onClick=close),
         ], height=48 if focus else 65, paddingHorizontal=18, gap=12)),
@@ -672,29 +668,51 @@ def Workspace(session=None, revision=0):
             TaskStatus(session=session),
             Panel(style=S(display=Display.flex if session.busy else Display.none), children=
                 Action(label='取消', glyph='close', compact=True, height=22, onClick=session.bridge.cancel_world)),
-            row([
-                text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted),
-                text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted),
-                text('材质 %d' % len(e.document.materials()), 10, Theme.muted),
-            ], gap=10, flexShrink=0),
+            DocumentStatistics(session=session),
         ], height=29, paddingHorizontal=20, gap=7)),
     ])
-    return Image(color=Theme.bg, style=S(width='100%', height='100%'), children=
+    return Image(color=Theme.bg, style=S(width='100%', height='100%'), children=[
       SafeArea(style=S(width='100%', height='100%'), children=
        Panel(style=S(width='100%', height='100%', clipsChildren=True), children=[
         WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'),
                         width=width, preparation=preparation.current, children=main),
+        ClickEffects(), PreparationPump(queue=preparation.current)])),
+        # Modal backdrops cover the physical canvas, including unsafe margins.
+        # DialogMotion applies its own SafeArea to the interactive card only.
         Confirmation(session=session, revision=session.ui_revision, height=height),
         RenameDialog(session=session, width=width, height=height),
         MaterialBrowser(session=session, revision=session.ui_revision, width=width, height=height),
-        SharingDialog(session=session, width=width, height=height),
-        ClickEffects(), PreparationPump(queue=preparation.current)])))
+        SharingDialog(session=session, width=width, height=height)])
+
+
+@Component
+def DraftStatus(session=None):
+    use_theme()
+    use_session_fields(session, ('point_edit', 'biome'))
+    e = session.editor
+    saved = e.saved_revision == e.revision and e.saved_biome == e.document.biome and session.library
+    return Button(buttonBuilder=transparent, backgroundColor=Theme.green,
+                  hoverColor=Color(0x178C7E2E), radius=7, style=S(height=32, width=112),
+                  children=row([icon('check' if saved else 'draft', Theme.mint, 15),
+                                retained_text('草稿已保存' if saved else '本地草稿', 10, Theme.mint, width=60, slots=5)], paddingHorizontal=12))
+
+
+@Component
+def DocumentStatistics(session=None):
+    use_theme()
+    use_session_fields(session, ('point_edit',))
+    e = session.editor
+    return row([
+        retained_text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted, width=90, slots=16),
+        retained_text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted, width=90, slots=16),
+        retained_text('材质 %d' % len(e.document.materials()), 10, Theme.muted, width=65, slots=10),
+    ], gap=10, flexShrink=0)
 
 
 @Component
 def TaskStatus(session=None):
     use_theme()
-    use_session_fields(session, ())
+    use_session_fields(session, ('point_edit',))
     message = ('处理中… ' if session.busy else '') + session.editor.message[:80]
     return retained_text(message, 10, Theme.muted, flex=1, slots=84)
 

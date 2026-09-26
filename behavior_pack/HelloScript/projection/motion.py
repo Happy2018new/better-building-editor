@@ -81,7 +81,7 @@ def DialogMotion(opened=False, zIndex=2100, session=None, children=None):
                       width='100%', height='100%', zIndex=zIndex, visible=opened or progress>0.), children=[
         Image(color=Color(0x172B4D77), style=S(position=Position.absolute,
               width='100%', height='100%', opacity=progress)),
-        Panel(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
+        SafeArea(style=S(position=Position.absolute, width='100%', height='100%', zIndex=2,
               alignItems=AlignItems.center, justifyContent=JustifyContent.center), children=
             Fade(key='moving', fade=fade, style=S(
                   transform=[Translate(0,(1.-progress)*DIALOG_OFFSET*Theme.scale)]),

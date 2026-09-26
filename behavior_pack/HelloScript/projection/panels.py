@@ -301,7 +301,7 @@ def Parameters(session=None, revision=0, height=330):
                  '保留选区范围，点击下方擦除选区', 10, Theme.muted)]),
         optional('paste_parameters', session.paste_active(), PasteControls(session=session, revision=revision)),
         optional('selection_parameters', not session.paste_active(), SelectionParameters(session=session,
-            revision=session.content_revision, anchor=session.box_anchor, corners='start' in options or 'end' in options)),
+            revision=(session.content_revision, e.selection_revision), anchor=session.box_anchor, corners='start' in options or 'end' in options)),
         ModificationMask(session=session, revision=session.content_revision),
         line(), optional('materials', bool(channels), MaterialPicker(session=session, revision=session.content_revision, channels=channels)),
         optional('material_line', bool(channels), line()),
@@ -340,7 +340,7 @@ def SelectionParameters(session=None, revision=0, anchor=None, corners=False):
                    onClick=partial(session.action, e.run, identity)) for identity, glyph in pair], gap=8)
             for pair in ((('select_expand', 'expand'), ('select_contract', 'contract')),
                          (('select_invert', 'invert'), ('select_surface', 'surface')))]),
-        SelectionBounds(session=session, revision=session.content_revision),
+        SelectionBounds(session=session, revision=(session.content_revision, e.selection_revision)),
         optional('box_pending', session.box_anchor is not None, Panel(children=[
             text('起点已设置，请点击终点', 10, Theme.blue),
             Action(label='取消框选', glyph='close', compact=True, height=26, onClick=partial(session.choose_mode, 'browse'))])),

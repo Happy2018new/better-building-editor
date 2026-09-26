@@ -217,6 +217,7 @@ class Editor(object):
             self.undo_stack.pop(0)
 
     def _apply(self, delta, side):
+        self.last_changed_positions = (tuple(delta) if isinstance(delta, dict) and len(delta) <= 32 else None)
         self.last_changed_chunks = (delta.changed_chunks if hasattr(delta, 'changed_chunks') else
                                     set(tuple(v//16 for v in pos) for pos in delta))
         if hasattr(delta, 'stores'):

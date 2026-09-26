@@ -125,6 +125,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_outline_styles_keep_committed_building_and_independent_preferences(self):
         b, r, s = self.bridge, self.runtime, self.bridge.session
         self.assertEqual('rainbow', s.outline_style)
+        self.assertTrue(s.projection_outline)
         b.project()
         r.timers.pop(0)()
         building, bounds = b.entity, b.projection_outline.bounds
