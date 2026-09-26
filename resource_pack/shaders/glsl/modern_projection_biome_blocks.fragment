@@ -149,7 +149,11 @@ float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
     if ((buildingUI || buildingWorld) && inColor.g > inColor.r*1.05 && inColor.g > inColor.b*1.05) {
         inColor.rgb = buildingBiomeTint(biomeIndex, false);
     }
-    #if !USE_ALPHA_TEST && !defined(BLEND)
+    // World projections use the transparent entity mesh material (BLEND),
+    // while the editor preview usually uses the opaque path. Grass side
+    // pixels need the same source-tint recovery in both paths; alpha-tested
+    // foliage without blending keeps the native vertex treatment below.
+    #if !USE_ALPHA_TEST || defined(BLEND)
     else if (buildingUI || buildingWorld) {
         vec3 source = grassSideSource(diffuse.rgb);
         if (source.g > 0.0) {
