@@ -1,0 +1,1794 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>法杖环身 / 选点点选 特效实验室</title>
+<style>
+:root{color-scheme:dark;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;color:#e9f2f6;background:#080d15}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+[hidden]{display:none!important}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;min-height:100svh}
+.viewport{position:relative;height:100svh;min-height:600px;overflow:hidden;background:#0a1220}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+.hud{position:absolute;left:18px;top:16px;pointer-events:none;text-shadow:0 2px 10px #050b14}
+.hud .k{font-size:9px;letter-spacing:.22em;color:#8fb3c9}
+.hud h1{font-size:20px;font-weight:400;margin:7px 0 4px}
+.hud p{margin:0;font-size:10px;line-height:1.7;color:#a8c0cf;max-width:430px}
+.hud code{color:#bdf0ff;font-size:10px}
+.legend{position:absolute;left:18px;bottom:16px;display:flex;flex-wrap:wrap;gap:10px;font-size:10px;color:#b9d2df;pointer-events:none;max-width:70%}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.viewtools{position:absolute;right:16px;top:16px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:320px}
+.tool{border:1px solid #b9daf133;background:#0e1a2ad9;border-radius:4px;padding:7px 10px;font-size:10px;color:#b6cddd}
+.tool:hover{background:#2c5470a8;border-color:#afeafe8a}
+.tool[aria-pressed=true]{background:#2f6a86cc;border-color:#c9f4ff;color:#f0fdff}
+.fatal{position:absolute;inset:0;display:none;place-items:center;background:#12070aee;padding:30px;text-align:center;font-size:12px;line-height:1.8;color:#ffd9dd;white-space:pre-wrap}
+body.no-ui .layout{grid-template-columns:1fr!important}
+body.no-ui .panel,body.no-ui .viewtools,body.no-ui .legend{display:none!important}
+.panel{height:100svh;min-height:600px;overflow:auto;background:#0d1624;border-left:1px solid #a4d3eb29;padding:22px 20px 30px;scrollbar-color:#37526a #0d1624;scrollbar-width:thin}
+.kicker{color:#8fa8be;font-size:9px;letter-spacing:.2em}
+.panel h2{font-size:18px;font-weight:400;margin:10px 0 8px}
+.tabs{display:flex;gap:3px;padding:3px;border:1px solid #aecfe22e;border-radius:5px;margin:14px 0 4px}
+.tabs button{flex:1;padding:9px 6px;border-radius:3px;font-size:11px;color:#91a9bd}
+.tabs button[aria-selected=true]{background:#bdddf324;color:#e8fbff}
+.grp{border-top:1px solid #acd2e62a;margin-top:16px;padding-top:14px}
+.grp>h3{margin:0 0 10px;font-size:11px;font-weight:400;color:#c4d7e2;display:flex;justify-content:space-between;align-items:center}
+.grp>h3 small{font-size:9px;color:#869dae;font-weight:400}
+.slider{margin:12px 0}
+.slider label{display:flex;justify-content:space-between;font-size:10px;color:#b2c8d5;margin-bottom:4px}
+.slider output{color:#e1f6fc;font-variant-numeric:tabular-nums}
+input[type=range]{appearance:none;display:block;width:100%;height:3px;margin:7px 0;background:linear-gradient(90deg,#93dcef var(--fill,50%),#2c4054 var(--fill,50%));border-radius:2px}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border:2px solid #123043;border-radius:50%;background:#c2f4ff}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;border:2px solid #123043;border-radius:50%;background:#c2f4ff}
+.seg{display:flex;gap:3px;padding:3px;border:1px solid #aecfe22e;border-radius:4px;margin:9px 0}
+.seg button{flex:1;padding:7px 4px;font-size:10px;border-radius:3px;color:#93aabd}
+.seg button[aria-pressed=true]{background:#bdddf324;color:#e9fbff}
+label.check{display:flex;align-items:center;gap:8px;color:#a9c0ce;font-size:10px;margin:9px 0}
+label.check input{accent-color:#a9e6f7}
+select{width:100%;padding:7px 8px;background:#162538;border:1px solid #a0c5df4a;border-radius:3px;font-size:10px}
+.row{display:flex;gap:7px;margin-top:10px}
+.row button{flex:1;padding:9px 6px;border:1px solid #b9daf133;border-radius:4px;background:#14202f;font-size:10px;color:#b9d2df}
+.row button:hover{background:#26506a}
+pre.out{margin:10px 0 0;padding:10px;background:#08111c;border:1px solid #a4d3eb26;border-radius:4px;font-size:10px;line-height:1.65;color:#a8d8ea;white-space:pre-wrap;word-break:break-all;font-family:Consolas,ui-monospace,monospace}
+.src{font-size:10px;line-height:1.8;color:#93a9bb}
+.src code{color:#c6e9f7;font-family:Consolas,ui-monospace,monospace;font-size:10px}
+.note{font-size:10px;line-height:1.8;color:#93a9bb;margin:8px 0 0}
+.note b{color:#ffd9a0;font-weight:400}
+@media(max-width:900px){.layout{display:block}.viewport{height:66svh;min-height:420px}.panel{height:auto;min-height:0;border-left:0;border-top:1px solid #a4d3eb29}}
+</style>
+</head>
+<body>
+<div class="layout">
+<main class="viewport" id="viewport">
+  <canvas id="scene"></canvas>
+  <div class="hud">
+    <div class="k" id="hudKicker">EFFECT LAB / 01</div>
+    <h1 id="hudTitle">手持法杖 · 环身魔法光环</h1>
+    <p id="hudText"></p>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="viewtools">
+    <button class="tool" id="pThird">第三人称</button>
+    <button class="tool" id="pClose">近景</button>
+    <button class="tool" id="pTop">顶视</button>
+    <button class="tool" id="pFront">正面</button>
+    <button class="tool" id="autoRotate" aria-pressed="false">自动旋转</button>
+  </div>
+  <div class="fatal" id="fatal"></div>
+  <pre id="diag" style="position:absolute;right:14px;bottom:14px;margin:0;max-width:52%;padding:8px 10px;background:#00000099;border-radius:4px;font:10px/1.45 Consolas,ui-monospace,monospace;color:#9fe8c0;white-space:pre-wrap;pointer-events:none;z-index:9"></pre>
+  <div id="probe" style="position:absolute;left:14px;bottom:14px;display:flex;gap:6px;z-index:9;pointer-events:none"></div>
+</main>
+
+<aside class="panel">
+  <div class="kicker">WEBGL 离线复刻 · 非游戏资源</div>
+  <h2>特效实验室</h2>
+  <p class="note">着色器为 <b>逐行搬运</b> 的游戏 GLSL（只补了 WebGL 需要的头文件、去掉了 <code>#include</code>），几何按编码 ID 规则重建。改这里等于预览改游戏。</p>
+
+  <div class="tabs" role="tablist">
+    <button id="tabAura" role="tab" aria-selected="true">01 环身光环</button>
+    <button id="tabStrike" role="tab" aria-selected="false">02 点选特效</button>
+  </div>
+
+  <section class="grp">
+    <h3>时间 <small>原生 TIME 在 210 秒回绕</small></h3>
+    <div class="row">
+      <button id="play">暂停</button>
+      <button id="stepBack">−1 帧</button>
+      <button id="stepFwd">+1 帧</button>
+    </div>
+    <div class="slider">
+      <label for="timeRange"><span id="timeCaption">TIME</span> <output id="timeOut">0.000 s</output></label>
+      <input id="timeRange" type="range" min="0" max="210" step="0.005" value="0">
+    </div>
+    <div class="slider">
+      <label for="speed">播放速度 <output id="speedOut">1.00×</output></label>
+      <input id="speed" type="range" min="0.05" max="4" step="0.05" value="1">
+    </div>
+  </section>
+
+  <section class="grp" id="grpAura">
+    <h3>环身参数 <small>staff_aura.py</small></h3>
+    <label class="check">法杖款式</label>
+    <select id="staff">
+      <option value="1">星穹法杖（紫蓝星云 · TERMINAL）</option>
+      <option value="0">星霜法杖（青蓝星空 · SURVEY_WAND）</option>
+    </select>
+    <label class="check" style="margin-top:12px"><input type="checkbox" id="reducedMotion">减少动态效果（冻结光环时钟 u1.z=0）</label>
+    <div class="slider">
+      <label for="auraEntered">入场进度 u1.x <output id="auraEnteredOut">1.000</output></label>
+      <input id="auraEntered" type="range" min="0" max="1" step="0.005" value="1">
+    </div>
+    <label class="check"><input type="checkbox" id="auraAuto" checked>自动播放入场（0.65 秒）</label>
+    <div class="row"><button id="auraReplay">重播入场</button></div>
+    <h3 style="margin-top:14px">分层显示 <small>按 id 段重建几何，只影响预览</small></h3>
+    <div id="auraLayers"></div>
+    <div class="row">
+      <button id="auraOnlyKeep">当前方案</button>
+      <button id="auraPresetMin">不要尾迹</button>
+      <button id="auraAllOn">全部打开</button>
+    </div>
+    <p class="note" id="auraLayerOut"></p>
+    <div class="slider">
+      <label for="worldX">实验：实体世界坐标 X <output id="worldXOut">0</output></label>
+      <input id="worldX" type="range" min="0" max="2000" step="1" value="0">
+    </div>
+    <p class="note">偏移非 0 时可以看到 <code>magicView = -world(centre)</code> 这个近似带来的变化：光环边缘光会随玩家绝对坐标改变。</p>
+  </section>
+
+  <section class="grp" id="grpStrike" hidden>
+    <h3>点选参数 <small>survey_effects.py · GOLD_PRESET</small></h3>
+    <label class="check" style="margin-top:12px">演示阶段</label>
+    <div class="row">
+      <button id="phaseClick" aria-pressed="true">点击瞬间（0–1.8s）</button>
+      <button id="phaseSteady" aria-pressed="false">常驻（已成形）</button>
+    </div>
+    <label class="check"><input type="checkbox" id="clickLoop" checked>循环重播点击瞬间</label>
+    <div class="row"><button id="strikeReplay">重播点击</button></div>
+    <div class="slider" id="strikeEnteredWrap">
+      <label for="strikeEntered">生成进度 u3.x <small>（仅常驻阶段可手动定格）</small> <output id="strikeEnteredOut">1.000</output></label>
+      <input id="strikeEntered" type="range" min="0" max="1" step="0.002" value="1">
+    </div>
+    <label class="check" style="margin-top:12px">点选面 face（u4.w）</label>
+    <select id="face">
+      <option value="1">up 上（原生 1）</option>
+      <option value="0">down 下（原生 0）</option>
+      <option value="3">south 南（原生 3）</option>
+      <option value="2">north 北（原生 2）</option>
+      <option value="5">east 东（原生 5）</option>
+      <option value="4">west 西（原生 4）</option>
+    </select>
+    <label class="check" style="margin-top:12px">配色 theme（u3.z 的整数部分）</label>
+    <select id="theme">
+      <option value="0.1">金色（测绘固定值 0 + width 1×0.1）</option>
+      <option value="1.1">星空（实验，u3.z=1.1）</option>
+    </select>
+    <div class="slider">
+      <label for="brightness">亮度 u3.y <output id="brightnessOut">1.00</output></label>
+      <input id="brightness" type="range" min="0.35" max="1.5" step="0.01" value="1">
+    </div>
+    <div class="slider">
+      <label for="orbit">环绕速度 u3.w <output id="orbitOut">1.00</output></label>
+      <input id="orbit" type="range" min="0" max="3" step="0.01" value="1">
+    </div>
+    <div class="slider">
+      <label for="flow">线框流速 u1.w <output id="flowOut">0.6857</output></label>
+      <input id="flow" type="range" min="0" max="3" step="0.001" value="0.685714">
+    </div>
+  </section>
+
+  <section class="grp">
+    <h3>渲染与参考物</h3>
+    <label class="check"><input type="checkbox" id="showGrid" checked>地面网格（每格 1 方块）</label>
+    <label class="check" id="chkPlayerWrap"><input type="checkbox" id="showPlayer" checked>玩家代理（0.6×1.8×0.6，仅比例参考）</label>
+    <label class="check" id="chkBlockWrap"><input type="checkbox" id="showBlock" checked>被点选方块 + 两点选区线框</label>
+    <label class="check"><input type="checkbox" id="debugKind">调试：按类型着色</label>
+    <label class="check"><input type="checkbox" id="showDiag" checked>显示诊断（画布/矩阵/GL 错误）</label>
+    <div class="slider">
+      <label for="gain">整体增益（仅预览） <output id="gainOut">1.00</output></label>
+      <input id="gain" type="range" min="0.1" max="3" step="0.05" value="1">
+    </div>
+  </section>
+
+  <section class="grp">
+    <h3>当前 uniform <small>与游戏一一对应</small></h3>
+    <pre class="out" id="uniformOut"></pre>
+    <div class="row"><button id="copyParams">复制参数</button><button id="defaults">恢复默认</button></div>
+  </section>
+
+  <section class="grp">
+    <h3>源码对照</h3>
+    <div class="src" id="srcMap"></div>
+  </section>
+</aside>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   特效实验室 —— 把手持法杖「环身光环」与两点框选「点选特效」转写成可视化 HTML
+   ---------------------------------------------------------------------
+   移植原则：GLSL 主体逐行照抄游戏文件，只做三件事
+     1) 用 LAB_VS/LAB_FS 头替换 #include（POSITION/NORMAL/TEXCOORD_0/WORLD/VIEWPROJ/TIME）
+     2) 末尾 gl_FragColor 一行换成带 LAB_GAIN / LAB_DEBUG 的等价写法
+     3) 几何按 id 编码规则重建：id=i+j*64，方块原点(4i-0.5, 4j-0.5,0)，north 面 UV 0..1
+   WORLD 与原版一致：T(实体位置) · S(1/16, -1/16, 1/16)
+   （原生实体顶点是 1/16 方块、带 Y 反相；着色器里 *vec3(16,-16,16) 正好抵消）
+   ===================================================================== */
+
+/* ---------- 1. 移植的着色器 ---------- */
+const LAB_VS = `precision highp float;
+attribute highp vec3 POSITION;
+attribute highp vec3 NORMAL;
+attribute highp vec2 TEXCOORD_0;
+uniform highp mat4 WORLD;
+uniform highp mat4 VIEWPROJ;
+uniform highp float TIME;
+uniform highp vec3 EYE;
+`;
+
+const LAB_FS = `precision highp float;
+uniform highp float TIME;
+uniform highp float LAB_GAIN;
+uniform highp float LAB_DEBUG;
+float labHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+`;
+
+/* ===== resource_pack/shaders/glsl/modern_projection_aura.vertex ===== */
+const AURA_VS = LAB_VS + `
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
+varying highp vec2 magicUV;
+varying highp vec4 magicColor;
+varying highp float magicKind;
+varying highp vec3 magicNormal;
+varying highp vec3 magicView;
+/* 星空内芯用：眼睛→顶点方向（片元做球面映射，视角一转星空就跟着流动）、
+   顶点世界坐标（让每颗晶体看到星空的不同区域）、光环自己的时钟（受 u1.z 控制，暂停时一起停） */
+varying highp vec3 labSkyRay;
+varying highp vec3 labSkyPos;
+varying highp float labClock;
+const float TAU=6.28318530718;
+float hash(float n){return fract(sin(n*12.9898+4.1414)*43758.5453);}
+vec4 world(vec3 point,float w){
+ vec4 p=vec4(point*vec3(16.,-16.,16.),w);
+#ifdef USE_SKINNING
+ #ifdef NETEASE_SKINNING
+  p=GetBoneMatForNetease(int(BONEID_0))*p;
+ #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+  p=BONES[int(BONEID_0)]*p;
+ #else
+  p=BONE*p;
+ #endif
+#endif
+ return WORLD*p;
+}
+vec3 orbit(float angle,float lane){
+ // Three tilted astrolabe paths, soft vertical precession.
+ float r=1.13+lane*.16;
+ return vec3(cos(angle)*r,.94+sin(angle+lane*1.7)*(.22+lane*.16),sin(angle)*r);
+}
+vec3 ringPoint(float a,float r,float tx,float tz,float hy){
+ // 把水平圆环整体倾斜成一条有角度的轨道：先绕 X 倾 tx，再绕 Z 倾 tz，最后抬到高度 hy。
+ // 三档冰晶各用不同的倾角 → 看起来是一个有体积的球状力场，而不是三层水平叠盘子。
+ vec3 p=vec3(cos(a)*r,0.,sin(a)*r);
+ float cx=cos(tx),sx=sin(tx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);
+ float cz=cos(tz),sz=sin(tz);p=vec3(p.x*cz-p.y*sz,p.x*sz+p.y*cz,p.z);
+ return p+vec3(0.,hy,0.);
+}
+vec3 tiltLocal(vec3 p,float ax,float az){
+ // 晶体自己的固定倾角：不再全部朝天立正，每颗有个固定姿态。
+ float cx=cos(ax),sx=sin(ax);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);
+ float cz=cos(az),sz=sin(az);return vec3(p.x*cz-p.y*sz,p.x*sz+p.y*cz,p.z);
+}
+vec3 vertex(float v){
+ if(v<.5)return vec3(0.,1.8,0.);
+ if(v<1.5)return vec3(0.,-1.35,0.);
+ float a=(v-2.)*TAU/4.;return vec3(cos(a)*.58,0.,sin(a)*.58);
+}
+void main(){
+ vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
+ vec2 uv=TEXCOORD_0*2.-1.;float seed=hash(id+1.);
+ float clock=TIME*EXTRA_ACTOR_UNIFORM1.z,t=clock*TAU/210.;
+ vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.);
+ float width=.04,alpha=1.;magicKind=0.;magicUV=uv;
+ magicNormal=vec3(0.,1.,0.);magicView=vec3(0.,0.,1.);
+ if(id<128.){
+  /* 【重做】16 颗冰晶分三档，做出「主次」而不是 52 颗一样大的：
+       主晶 3 颗（最大）· 中晶 5 颗 · 小晶 8 颗。
+     三条轨道各自倾斜（18° / -14°+16° / 9°-12°），半径、高度、周期、转向都不同，
+     晶体本身还各带一个固定倾角 + 轻微上下浮动 —— 不再是三层水平盘 + 全员立正。 */
+  float tier=id<24.?0.:(id<64.?1.:2.);
+  float idx=id<24.?id:(id<64.?id-24.:id-64.);
+  float count=tier<.5?3.:(tier<1.5?5.:8.);
+  float shard=floor(idx/8.),face=mod(idx,8.);
+  float seedc=hash(shard+53.+tier*307.);
+  // 主晶轨道倾角最大（27°）也抬得最高，最高点扫过肩头以上 —— 光环不会「拦腰截断」，
+  // 又因为没有新加任何元素，所以不会回到「头顶孤立一圈」的老毛病；
+  // 小晶最低最宽，负责把光环保在地面附近。三档倾角互不相同 → 有体积的球状力场。
+  float tx=tier<.5?27.*TAU/360.:(tier<1.5?-17.*TAU/360.:9.*TAU/360.);
+  float tz=tier<.5?0.:(tier<1.5?19.*TAU/360.:-12.*TAU/360.);
+  float rad=tier<.5?1.20:(tier<1.5?.95:1.32);
+  float hy=tier<.5?1.18:(tier<1.5?1.02:.78);
+  float per=tier<.5?26.:(tier<1.5?33.:42.);
+  float dir=tier<1.5?1.:-1.;
+  // 相位上抖一点：保留「环绕」的秩序感，又不会几颗晶体在一条直线上排队
+  float ajit=(hash(shard*7.3+tier*19.)-.5)*.42;
+  float a=shard*TAU/count+dir*t*(210./per)+tier*1.7+ajit;
+  centre=ringPoint(a,rad,tx,tz,hy);
+  centre.y+=sin(a*3.+seedc*TAU)*(tier<.5?.10:.07);
+  float size=tier<.5?(.140+seedc*.032):(tier<1.5?(.095+seedc*.025):(.062+seedc*.020));
+  float side=mod(face,4.);vec3 v0=vertex(face<4.?0.:1.),v1=vertex(side+2.),v2=vertex(mod(side+1.,4.)+2.);
+  vec3 p=uv.y>0.?v0:uv.x>0.?v2:v1;
+  vec3 n=normalize(cross(v1-v0,v2-v0));if(dot(n,(v0+v1+v2)/3.)<0.)n=-n;
+  float lax=(hash(shard+911.+tier*13.)-.5)*1.2,laz=(seedc-.5)*1.4;
+  p=tiltLocal(p,lax,laz);n=tiltLocal(n,lax,laz);
+  float spin=t*21.+seedc*TAU;mat2 turn=mat2(cos(spin),sin(spin),-sin(spin),cos(spin));
+  p.xz=turn*p.xz;n.xz=turn*n.xz;
+  centre+=p*size;magicNormal=normalize(world(n,0.).xyz);
+  // 固定的世界空间观察方向：所有冰晶明暗统计一致、棱面明暗差也更大。
+  // （原来这里是 normalize(-world(centre,1.).xyz)：拿「世界原点指向晶体」当视线，
+  //   每颗晶体离原点多远、在多高，反光强度都不一样，于是各圈一圈亮一圈暗。）
+  magicView=vec3(-.2,.75,.63);magicKind=3.;
+  magicUV=uv.y>0.?vec2(0.,1.):uv.x>0.?vec2(1.,0.):vec2(0.);
+ }else if(id<176.){
+  /* 主晶尾迹：3 颗主晶各拖 16 颗小星芒，沿同一条倾斜轨道跟在后面，越远越小越淡。
+     形状仍复用原有星芒（kind 1），只是更小更淡 —— 用「拖着走的小火星」交代流动感，
+     而不是再加一圈一样亮的大星芒。 */
+  float k=id-128.,hero=mod(k,3.),j=floor(k/3.);
+  float seedc=hash(hero+53.);
+  float lag=.055+j*.048;
+  float ajit=(hash(hero*7.3)-.5)*.42;   // 必须和主晶那支的相位抖动完全一致，否则尾迹会脱开
+  float a=hero*TAU/3.+t*(210./26.)+ajit-lag;
+  /* 尾迹必须和主晶用同一条轨道（半径/倾角/高度完全一致），否则会跟晶体脱开 */
+  centre=ringPoint(a,1.20,27.*TAU/360.,0.,1.18);
+  centre.y+=sin(a*3.+seedc*TAU)*.10;
+  float fade=1.-j/16.;
+  float pulse=.60+.40*sin(t*40.+j*.9+hero*2.1);
+  width=.018+.050*fade;alpha=(.05+.38*fade*fade)*pulse;magicKind=1.;
+ }else if(id<464.){
+  /* 176–463 未使用：这里原来是「环绕星芒」两圈 + 36 颗外挂冰晶。
+     审美诊断的结论是元素太多、同质化过载、互相抢戏，所以整段砍掉，
+     这 288 个方块留作以后加东西的容量（要用就在这里写分支）。 */
+  alpha=0.;
+ }else if(id<528.){
+  // Constellation stars trace a breathing spherical Lissajous path.
+  float a=t*9.+seed*TAU,b=t*7.+hash(id+73.)*TAU;
+  centre=vec3(cos(a)*1.5,.95+sin(b)*.85,sin(a)*1.3);
+  float pulse=pow(.5+.5*sin(t*(71.+floor(seed*47.))+seed*41.),3.);
+  width=.035+pulse*.15;alpha=.10+pulse*.74;magicKind=1.;
+ }else if(id<624.){
+  // 【已删除】528–623 原来是「星尘」：96 个双螺旋上升的 soft 粒子。
+  // 它们是整套里唯一既没有形状、亮度又低的元素（最暗时几乎看不见），
+  // 和冰晶/星芒这种有材质的元素摆在一起显得很脏，所以整层删掉。
+  // 几何里不再绘制这批方块，这里留一个空分支占住 id 区间（要复用这 96 个方块就在这里写）。
+  alpha=0.;
+ }else{
+  /* 528–647 未使用：原来这里是「星尘」（528–623）和「头顶星冠」（624–647）。
+     头顶那圈被审美诊断点名为「孤零零的紧箍咒」——和下方结构没有呼应，所以删掉；
+     星尘则是整套里唯一没有形状又偏暗的元素，也删掉。这些方块留作容量。 */
+  alpha=0.;
+ }
+ vec4 pos=world(centre,1.);gl_Position=VIEWPROJ*pos;
+ // The lab uses absolute WORLD coordinates; native WORLD is already camera-relative.
+ labSkyRay=pos.xyz-EYE;labSkyPos=pos.xyz;labClock=clock;
+ float eye=length(pos.xyz);
+ // Suppress effects immediately at the eye, keep the player's face legible.
+ alpha*=smoothstep(.30,.85,eye)*EXTRA_ACTOR_UNIFORM1.x;
+ if(magicKind<2.5||magicKind>4.5){
+  vec2 scale=vec2(length(vec3(VIEWPROJ[0][0],VIEWPROJ[1][0],VIEWPROJ[2][0])),length(vec3(VIEWPROJ[0][1],VIEWPROJ[1][1],VIEWPROJ[2][1])));
+  vec2 quad=uv;
+  if(magicKind>1.5&&magicKind<2.5){
+   vec4 d=VIEWPROJ*world(tangent,0.);vec2 along=(d.xy*gl_Position.w-gl_Position.xy*d.w)/scale;
+   along=normalize(along+vec2(.000001));quad=vec2(-along.y,along.x)*uv.y;
+  }
+  gl_Position.xy+=quad*width*scale;
+ }
+ vec3 tint=mix(vec3(.37,.78,1.),vec3(.70,.47,1.),EXTRA_ACTOR_UNIFORM1.y);
+ magicColor=vec4(tint,alpha);
+}`;
+
+/* ===== resource_pack/shaders/glsl/modern_projection_aura.fragment ===== */
+const AURA_FS_BODY = `
+varying highp vec2 magicUV;
+varying highp vec4 magicColor;
+varying highp float magicKind;
+varying highp vec3 magicNormal;
+varying highp vec3 magicView;
+varying highp vec3 labSkyRay;
+varying highp vec3 labSkyPos;
+varying highp float labClock;
+/* 星点：照抄 modern_projection_staff.fragment 的 stars()，只把 TIME 换成光环时钟 labClock
+   （这样「暂停 / 动态」开关一关，星点闪烁也会跟着停），并多一个「星点概率」参数。
+   参数 thresh 越小星点越密：法杖用 .84（16% 的格子里有星），冰晶要更密才好看见。 */
+float skyStars(vec2 p,float layer,float thresh){
+ vec2 cell=floor(p),f=fract(p)-.5;
+ float seed=labHash(cell+layer*19.);
+ vec2 offset=vec2(labHash(cell+4.),labHash(cell+9.))*.65-.325;
+ float r=length(f-offset),twinkle=.65+.35*sin(labClock*6.2831853*30./210.+seed*40.);
+ /* 星核比原来「胖」一档（.032~.090 → .040~.115）：格距按屏幕像素定死之后，
+    最细一层在低分辨率下只有十几像素，细核会掉到亚像素变成摩尔纹/雪花。 */
+ float core=1.-smoothstep(.040,.115,r);
+ float halo=exp(-r*r*70.)*.26;
+ return (core+halo)*step(thresh,seed)*twinkle;
+}
+void main(){
+ vec2 p=abs(magicUV);vec3 rgb=magicColor.rgb;float a=1.;
+ if(magicKind<.5){a=exp(-dot(p,p)*16.)*.82;}
+ else if(magicKind<1.5){
+  float rays=max(exp(-p.x*p.x*500.)*pow(1.-p.y,3.),exp(-p.y*p.y*500.)*pow(1.-p.x,3.));
+  a=exp(-dot(p,p)*120.)+rays*.7;rgb=mix(rgb,vec3(.93,.98,1.),.7);
+ }else if(magicKind<2.5){a=exp(-p.y*p.y*65.)*.8+exp(-p.y*p.y*7.)*.13;}
+ else if(magicKind<3.5){
+  vec3 n=normalize(magicNormal),v=normalize(magicView);
+  float rim=pow(1.-abs(dot(n,v)),2.);
+  float flash=pow(max(0.,dot(reflect(-normalize(vec3(-.3,.8,.5)),n),v)),24.);
+  vec3 bary=vec3(magicUV,1.-magicUV.x-magicUV.y);
+  float edge=1.-smoothstep(.01,.05,min(bary.x,min(bary.y,bary.z)));
+  // 【调亮】冰晶改成走正常混合层之后，单面的亮度会比叠加层低，所以把环境项和反光都抬一档：
+  // 底面 rgb*.26→*.42、环境项 .18→.30、rim .35→.42、flash .7→.72、不透明度 .76→.92，
+  // 这样整体亮度追到原来叠加层那一档，但棱面明暗（玻璃感）和一闪一闪的高光都保留下来。
+  /* 【结构改动】以前是「玻璃整面染白 + 中间混一点星空」，所以晶体永远读成浅蓝玻璃。
+     现在反过来：星空 = 底面，玻璃的环境项压到很低，棱线/镜面/菲涅尔改为叠加上去的局部高光。
+     不反光的棱面就是一片夜色 + 星点，反光的棱面仍是白色镜面，对比更大、也更像星空宝石。 */
+  /* 【星空内芯】和法杖物品同一套算法（modern_projection_staff.fragment）：
+     视线方向 → 球面坐标 → 三层不同密度的视差星点 + 星云，所以转视角时星空会流动。
+     和法杖的区别只有两点：① 底色比法杖亮一档（冰晶整体亮度不能掉下来）；
+     ② 只在「棱面内部 + 偏暗的面」透出星空（(1-edge) 去掉棱线，st 让高光面保持玻璃白），
+        于是白色棱边、镜面一闪、星空三者可以同时存在。 */
+  vec3 ray=normalize(labSkyRay);
+  float skyLat=asin(clamp(ray.y,-1.,1.));
+  /* 方位角乘 cos(纬度)：等距圆柱投影在高纬度会把方位角压扁，那正是「星点被横向拉长」的来源。
+     乘完之后 sky 在球面上局部各向同性，星点就是圆的。 */
+  vec2 sky=vec2(atan(ray.z,ray.x)*cos(skyLat),skyLat);
+  vec2 drift=vec2(cos(labClock),sin(labClock))*.30;
+  vec2 loc=vec2(labSkyPos.x+labSkyPos.z*.37,labSkyPos.y);
+  vec2 g=sky*14.+loc*.65+drift;      // 14 格/弧度，和游戏 shader 完全一致
+  vec2 sp=g;
+  float clouds=sin(sp.x*2.3+sin(sp.y*2.1))*sin(sp.y*3.7-sp.x*.8);
+  /* 底色直接用回法杖那档深空色（deep 近黑、nebula 深青），晶体内部才会读成「夜空」；
+     晶体的整体亮度改由「白色棱线 + 镜面高光 + 星点」撑住，这也是星空宝石该有的对比方式。 */
+  // 两层星云叠加：粗的一层是大块明暗，细的一层是丝状纹理，星空才不会显得平
+  float clouds2=sin(sp.x*5.1+cos(sp.y*3.3))*sin(sp.y*6.7+sp.x*1.1);
+  // 每颗晶体随机偏青或偏紫（用世界坐标当种子），一片晶体里不会全是同一个色调
+  float hue=labHash(vec2(floor(labSkyPos.x*2.3+labSkyPos.z*1.7),floor(labSkyPos.y*2.9)));
+  vec3 neb=mix(vec3(.050,.200,.320),vec3(.135,.060,.300),step(.62,hue));
+  vec3 srg=mix(vec3(.020,.040,.100),neb,smoothstep(-.35,.55,clouds)*.9);
+  srg+=neb*.45*pow(.5+.5*clouds2,3.);
+  srg+=vec3(.020,.080,.120)*pow(.5+.5*sin(sp.y*4.+sin(sp.x*2.)*1.7),5.);
+  /* 四层星点：大星 → 中星 → 小星 → 细碎星尘，越小越暗，做出纵深。
+     频率比例 14 : 24 : 44 : 78 与游戏 shader 完全一致。 */
+  srg+=vec3(.66,.89,1.)*skyStars(g+drift*.65+loc*2.8,1.,.30)
+      +vec3(.63,.54,.90)*skyStars(g*1.714+drift*.42+loc*4.2,2.,.45)*.72
+      +vec3(.76,.91,1.)*skyStars(g*3.143+drift*.18+loc*6.1,3.,.35)*.38
+      +vec3(.60,.70,1.)*skyStars(g*5.571+drift*.10+loc*9.3,4.,.30)*.22;
+  srg*=1.+.45*rim;                       // 掠射的棱面星空更亮一点，像宝石内部散射
+  float spec=clamp(rim*.42+flash*.72+edge*.95,0.,1.);
+  rgb=srg+rgb*.42*(.30+.35*rim)+vec3(.86,.97,1.)*spec+vec3(.04,.08,.13);a=.92;
+ }else if(magicKind<4.5){
+  // Small angular runes: diamonds, transverse strokes, split tips.
+  float diamond=1.-smoothstep(.065,.12,abs(p.x+p.y-.72));
+  float stem=(1.-smoothstep(.04,.10,p.x))*step(p.y,.95);
+  a=max(diamond,stem)*.72;
+ }else{
+  float shape=p.x*.75+p.y;
+  a=(1.-smoothstep(.72,1.,shape))*.62;
+  rgb=mix(rgb,vec3(.84,.98,1.),1.-p.y);
+ }
+ float coverage=clamp(a*magicColor.a,0.,1.);
+#ifndef AURA_GLOW
+ if(coverage<.04)discard;
+#endif
+ gl_FragColor=vec4(rgb,coverage);
+}`;
+const AURA_KINDS = [
+  ['微粒粉尘 kind0', '.35,.80,1.'], ['星芒 kind1', '1.,1.,1.'], ['光带 kind2', '.15,1.,.45'],
+  ['冰晶 kind3', '1.,.30,.85'], ['符环 kind4', '1.,.72,.12'], ['薄冰花瓣 kind5', '.60,.42,1.']];
+
+/* ===== resource_pack/shaders/glsl/modern_projection_survey_stars.vertex ===== */
+const SURVEY_VS = LAB_VS + `
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+varying highp vec2 effectUV;
+varying highp vec4 effectTint;
+varying highp float effectKind;
+varying highp vec4 facetNormal;
+varying highp vec4 facetView;
+varying highp vec3 facetLight;
+const float TAU=6.28318530718;
+float random1(float p) { return fract(sin(p*12.9898+4.1414)*43758.5453); }
+vec4 worldPoint(vec3 point,float w) {
+    // Native entity bones invert model Y. All effect math is world-positive-up.
+    vec4 p=vec4(point*vec3(16.,-16.,16.),w);
+#ifdef USE_SKINNING
+    #ifdef NETEASE_SKINNING
+        p=GetBoneMatForNetease(int(BONEID_0))*p;
+    #elif defined(LARGE_VERTEX_SHADER_UNIFORMS)
+        p=BONES[int(BONEID_0)]*p;
+    #else
+        p=BONE*p;
+    #endif
+#endif
+    p=WORLD*p;
+    p.xyz+=EXTRA_ACTOR_UNIFORM2.xyz*w;
+    return p;
+}
+vec4 projectPoint(vec3 point,float w) { return VIEWPROJ*worldPoint(point,w); }
+vec3 localDirection(vec3 worldDirection) {
+    // The native root also rotates X/Z. Convert camera/light directions with
+    // the actual bone basis; copying world axes into model space reverses the
+    // beam and anchors its star at the far corner for some camera headings.
+    vec3 x=worldPoint(vec3(1.,0.,0.),0.).xyz;
+    vec3 y=worldPoint(vec3(0.,1.,0.),0.).xyz;
+    vec3 z=worldPoint(vec3(0.,0.,1.),0.).xyz;
+    return vec3(dot(worldDirection,x)/dot(x,x),dot(worldDirection,y)/dot(y,y),dot(worldDirection,z)/dot(z,z));
+}
+
+// All animation lives on the GPU. Native TIME wraps at 210 s; route clocks
+// use integral cycles so looping does not jump at the engine's wrap.
+float cycles(float count,float speed){return floor(count*speed+.5)/210.;}
+vec3 cubeCorner(float id){
+ return vec3(mod(id,2.),mod(floor(id/2.),2.),floor(id/4.))*2.-1.;
+}
+vec3 edgePoint(float edge,float u){
+ float axis=floor(edge/4.),pair=mod(edge,4.);
+ float a=mod(pair,2.)*2.-1.,b=floor(pair/2.)*2.-1.;
+ vec3 h=EXTRA_ACTOR_UNIFORM1.xyz*.5+vec3(.024);
+ if(axis<.5)return vec3((u*2.-1.)*h.x,a*h.y,b*h.z);
+ if(axis<1.5)return vec3(a*h.x,(u*2.-1.)*h.y,b*h.z);
+ return vec3(a*h.x,b*h.y,(u*2.-1.)*h.z);
+}
+vec3 walkVertex(float i,float lane){
+ i=mod(i,8.);float id=0.;
+ if(i>.5)id=1.;if(i>1.5)id=5.;if(i>2.5)id=4.;if(i>3.5)id=6.;
+ if(i>4.5)id=7.;if(i>5.5)id=3.;if(i>6.5)id=2.;
+ vec3 p=cubeCorner(id);if(lane>.5&&lane<1.5)p=p.yzx;else if(lane>1.5)p=p.zxy;
+ return p*(EXTRA_ACTOR_UNIFORM1.xyz*.5+vec3(.024));
+}
+void edgeFrame(float t,float lane,out vec3 point,out vec3 normal,out vec3 binormal){
+ float u=fract(t)*8.,i=floor(u),f=fract(u),cut=.08;
+ vec3 a=walkVertex(i,lane),b=walkVertex(i+1.,lane),tangent;
+ if(f<cut||f>1.-cut){
+  vec3 start,corner,end;
+  float v;
+  if(f<cut){start=mix(walkVertex(i-1.,lane),a,1.-cut);corner=a;end=mix(a,b,cut);v=(f+cut)/(2.*cut);}
+  else{start=mix(a,b,1.-cut);corner=b;end=mix(b,walkVertex(i+2.,lane),cut);v=(f-1.+cut)/(2.*cut);}
+  point=mix(mix(start,corner,v),mix(corner,end,v),v);
+  tangent=normalize(mix(corner-start,end-corner,v));
+ }else{point=mix(a,b,f);tangent=normalize(b-a);}
+ normal=normalize(point-tangent*dot(point,tangent));binormal=normalize(cross(tangent,normal));
+}
+vec3 route(float t,float lane,float clock){
+ vec3 p,n,b;edgeFrame(t,lane,p,n,b);
+ float orbit=EXTRA_ACTOR_UNIFORM3.w;
+ float angle=t*TAU*16.-clock*TAU*cycles(19.,orbit)+lane*2.1;
+ float radius=clamp(min(EXTRA_ACTOR_UNIFORM1.x,min(EXTRA_ACTOR_UNIFORM1.y,EXTRA_ACTOR_UNIFORM1.z))*.05,.075,.65);
+ return p+radius*(n*cos(angle)+b*sin(angle));
+}
+vec3 starRoute(float id,float clock){
+ float u=fract(clock*cycles(4.+mod(id,3.),EXTRA_ACTOR_UNIFORM3.w)+random1(id+421.));
+ return route(u,mod(id,3.),clock);
+}
+float starLight(float id){
+ float a=.5+.5*sin(TIME*TAU*cycles(84.+mod(id,4.)*17.,EXTRA_ACTOR_UNIFORM3.w)+id*2.17);
+ float b=pow(.5+.5*sin(TIME*TAU*cycles(173.+mod(id,4.)*23.,EXTRA_ACTOR_UNIFORM3.w)+id*4.13),8.);
+ return clamp(.035+.90*pow(a,3.)+b*.5,0.,1.);
+}
+vec3 shardVertex(float id,float seed){
+ float wide=.34+seed*.35,thick=.17+random1(seed*63.+4.)*.28;
+ if(id<.5)return vec3(.11,1.13,0.);
+ if(id<1.5)return vec3(-.13,-.86,.07);
+ if(id<2.5)return vec3(-wide,.12,-.04);
+ if(id<3.5)return vec3(.08,-.06,thick);
+ if(id<4.5)return vec3(wide,.04,.07);
+ return vec3(-.03,.13,-thick);
+}
+vec3 tumble(vec3 p,float seed,float clock){
+ float speed=EXTRA_ACTOR_UNIFORM3.w;
+ float a=clock*TAU*cycles(11.+floor(seed*22.),speed)+seed*29.;
+ float b=clock*TAU*cycles(9.+floor(random1(seed*80.+3.)*15.),speed)+seed*11.+sin(clock*TAU*cycles(13.,speed)+seed*17.)*.35;
+ float c=sin(clock*TAU*cycles(8.,speed)+seed*31.)*.55+seed*7.;
+ p.yz=mat2(cos(a),sin(a),-sin(a),cos(a))*p.yz;
+ p.xz=mat2(cos(b),-sin(b),sin(b),cos(b))*p.xz;
+ p.xy=mat2(cos(c),sin(c),-sin(c),cos(c))*p.xy;return p;
+}
+vec3 flake(float face,vec2 uv,float seed,float clock,out vec3 normal){
+ float side=mod(face,4.);bool lower=face>3.5;
+ vec3 a=shardVertex(lower?1.:0.,seed),b=shardVertex(2.+side,seed),c=shardVertex(2.+mod(side+1.,4.),seed);
+ if(lower){vec3 swap=b;b=c;c=swap;}
+ normal=normalize(cross(b-a,c-a));
+ if(dot(normal,(a+b+c)/3.)<0.)normal=-normal;
+ normal=tumble(normal,seed,clock);
+ return tumble(uv.y>0.?a:(uv.x>0.?c:b),seed,clock);
+}
+vec3 markerNormal(){
+ float face=EXTRA_ACTOR_UNIFORM4.w,axis=floor(face/2.),sign=mod(face,2.)*2.-1.;
+ vec3 n=axis<.5?vec3(sign,0.,0.):axis<1.5?vec3(0.,sign,0.):vec3(0.,0.,sign);
+ return normalize(localDirection(n));
+}
+vec3 markerPoint(vec3 n,float x,float y,float z){
+ vec3 tangent=normalize(cross(abs(n.y)>.9?vec3(1.,0.,0.):vec3(0.,1.,0.),n));
+ return n*(.55+z*.58)+tangent*x*.64+cross(n,tangent)*y*.64;
+}
+vec3 markerRoute(float lane,float clock){
+ float a=clock*TAU*cycles(24.+lane*4.,EXTRA_ACTOR_UNIFORM3.w)+lane*TAU/3.;
+ float r=.64+lane*.14+.055*sin(clock*TAU*cycles(20.,EXTRA_ACTOR_UNIFORM3.w)+lane);
+ float entered=smoothstep(0.,.8,EXTRA_ACTOR_UNIFORM3.x);
+ return markerPoint(markerNormal(),cos(a)*r*(.2+.8*entered),sin(a)*r*.83*(.2+.8*entered),.16+.09*sin(a*2.+lane));
+}
+varying highp vec3 materialPos;
+varying highp float crystalBirth;
+/* 原 birthProgress()（整颗晶体按一个进度原地长大）已废弃：现在是「碎光从面附近飞进来、
+   一片片拼成晶体」，见下面的 gatherArriveFacet()/gatherFrom() 与 SURVEY_STRIKE 的重聚分支。 */
+vec3 birthCentre(float shard,vec3 n,float clock){
+ float seed=random1(shard+807.),phase=random1(shard+541.);
+ float a=clock*TAU*cycles(6.+floor(seed*10.),EXTRA_ACTOR_UNIFORM3.w)+seed*TAU;
+ float r=.43+phase*.72;
+ return markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+seed*.18+.12*sin(a*2.+seed*5.));
+}
+/* 【灵魂重聚】逆着「人化成万千光片消散」演：每片碎光有自己的出发方向 / 半径 / 高度
+   和到达时刻，从远处边旋转边收束，最后一片在 .80 汇到位——那一下就是结晶闪光。
+   ARRIVE 错开（.42~.78）所以晶体是被一块块「拼」起来的，而不是整体原地长大。 */
+float gatherArrive(float shard){return .42+random1(shard+311.)*.36;}
+/* 同一颗晶体的 8 个棱面按「棱面序号 frag=0..7」依次错开到达，跨满 .42~.80（约 0.6s）：
+   纯随机哈希时 8 片会碰巧挤在同一时刻一起出现，看起来就像整颗凭空出现。 */
+float gatherArriveFacet(float shard,float frag){
+ return .42+.048*frag+random1(shard*17.+frag*5.)*.04;
+}
+/* 汇聚缓动：先慢后快（强 ease-in）——碎光长时间停在远处，最后 20% 才被吸进去。 */
+float gatherEase(float raw){return pow(raw,2.6);}
+vec3 gatherFrom(vec3 n,float shard,float h){
+ /* 碎光的活动范围限制在被点击面的 1 个方块之内：markerPoint 的横向缩放是 .64、
+    沿法线是 .55+z*.58，所以 r 取 0~1.5 → 横向 0~0.96 格；z 写死为正 → 只从面前方来。 */
+ float a=random1(shard+77.)*TAU,r=random1(shard+88.)*1.5;
+ return markerPoint(n,cos(a)*r,sin(a)*r,.18+abs(h)*.9);
+}
+void main(){
+ vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
+ vec2 corner=TEXCOORD_0*2.-1.;float seed=random1(id+1.),phase=random1(id+113.);
+ vec3 size=EXTRA_ACTOR_UNIFORM1.xyz,camera=localDirection(EXTRA_ACTOR_UNIFORM4.xyz);
+ float entered=EXTRA_ACTOR_UNIFORM3.x,brightness=EXTRA_ACTOR_UNIFORM3.y,orbit=EXTRA_ACTOR_UNIFORM3.w;
+ float theme=floor(EXTRA_ACTOR_UNIFORM3.z),density=EXTRA_ACTOR_UNIFORM4.w;
+ float scale=clamp(1.25*pow(min(size.x,min(size.y,size.z))/4.,.9),.82,16.);
+ vec3 centre=vec3(0.),tangent=vec3(1.,0.,0.),tint=vec3(1.,.81,.44);
+ float width=.018,opacity=1.;
+ effectUV=corner;effectKind=0.;materialPos=vec3(0.);crystalBirth=1.;
+ facetNormal=vec4(0.,1.,0.,seed);facetView=vec4(0.,0.,1.,theme);
+ facetLight=normalize(localDirection(vec3(-.3,.8,.6)));
+#if defined(SURVEY_GUIDE)
+  float edge=floor(id/48.),u=(mod(id,48.)+(corner.x+1.)*.5)/48.;
+  centre=edgePoint(edge,u);tangent=edgePoint(edge,1.)-edgePoint(edge,0.);
+  materialPos=centre/(size*.5+vec3(.024));
+  width=.065;opacity=smoothstep(0.,.85,entered)*.48;effectKind=7.;effectUV=vec2(u,corner.y);
+#elif defined(SURVEY_STRIKE)
+ vec3 n=markerNormal();float appear=smoothstep(0.,.08,entered);
+ // During formation the orbit clock is held, then catches up continuously.
+ // Each seed stays at its own final crystal centre: no cloud collapsing into
+ // the block and no replacement/snap when the persistent effect takes over.
+ float birthClock=TIME-entered*1.8*(1.-smoothstep(.68,1.,entered));
+ float flash=exp(-pow((entered-.78)*14.,2.));
+ // form：0 = 正在重聚（只有碎光），1 = 常驻。星星层要等晶体拼完（.78）之后再点亮，
+ // 所以所有星点/星雾层的出现都由 form 控制，常驻端（entered=1）保持和原版完全一致。
+ /* 星星要在「晶体拼完」之后尽快亮起来（实测反馈：原来 .80~.97 太慢，约 0.31s）。
+    现在 .78~.88 抬起星点层（1.40→1.58s），spark 的整层点亮峰值提前到 ~1.52s。 */
+ float form=smoothstep(.78,.88,entered);
+ float crys=clamp(1.-abs(entered-.80)/.14,0.,1.);   // .80 结晶瞬间的爆光包络（收紧一点更脆）
+ // 碎光的颜色由 FS 处理：不再强推冷白，改成「晶体自己的颜色 + 提亮」（见 SURVEY_FS_BODY 的 fresh）。
+ if(id<144.){
+  float lane=floor(id/48.),t=(mod(id,48.)+(corner.x+1.)*.5)/48.;
+  float clock=TIME-t*(.65+lane*.15);
+  centre=markerRoute(lane,clock);tangent=markerRoute(lane,clock+.008)-centre;
+  float shimmer=.5+.5*sin(TAU*(t*3.-TIME*cycles(92.+lane*17.,orbit))+lane*2.1);
+  width=.024+.055*(1.-t);opacity=pow(1.-t,2.1)*(.12+.88*starLight(lane+12.))*(.35+.65*shimmer);
+  effectKind=2.;effectUV=vec2(t,corner.y);
+ }else if(id<147.){
+  float lane=id-144.;centre=markerRoute(lane,TIME);
+  float light=starLight(lane+12.);
+  width=.14+.55*light;opacity=.08+.92*light;effectKind=1.;
+ }else if(id<149.){
+  float light=starLight(27.);
+  centre=markerPoint(n,0.,0.,0.);width=id<148.?.15+light*.48+flash*.45:.32+light*.38+flash*.26;
+  opacity=id<148.?.10+light*.8+flash*.3:.05+light*.17;effectKind=id<148.?1.:0.;
+ }else if(id<333.){
+  /* 【碎光拼合成晶】8 个棱面各自从面附近化作一片碎光，边旋边收汇进晶体的最终位置；
+     飞行中略微拉长、颜色是晶体自己的颜色提亮（crystalBirth=0 → FS 走「碎光」分支），
+     落地 crystalBirth=1 才显出真正的棱面。所以晶体是被一块块「拼」出来的。
+     每一片有自己的出发点和到达时刻（arrF 按棱面序号错开），所以永远是一片一片拼起来。 */
+  float shard=floor((id-149.)/8.),frag=mod(id-149.,8.);
+  seed=random1(shard+807.);phase=random1(shard+541.);
+  vec3 target=birthCentre(shard,n,birthClock);
+  // Keep the permanent endpoint crystals readable at normal game scale.
+  // Enlarge the silhouette and orbit while limiting near-camera angular size.
+  float eyeDistance=length(camera-target);
+  float shardSize=min(.085+seed*.120,max(.002,eyeDistance*.045));
+  float arrF=gatherArriveFacet(shard,frag);
+  float raw=clamp((entered-arrF*.15)/(arrF*.85),0.,1.);
+  float e=gatherEase(raw);                          // 先慢后快：像被吸进去
+  // 出发点和到达时刻都用 id（= 单个棱面）而不是 shard（= 整颗晶体）：
+  // 8 个棱面各自从不同方向、不同时刻飞回来，晶体才会「一片片拼起来」。
+  vec3 from=gatherFrom(n,id,(random1(id+99.)-.5)*2.1);
+  vec3 flight=target-from,dir=normalize(flight+vec3(0.,0.001,0.));
+  /* grow 管「碎片多大」（早点长起来，才看得出是一片片拼上去的）；
+     crystalBirth 管「是光还是晶体」（晚点转，飞行途中一直保持碎光的样子）。 */
+  float grow=smoothstep(.45,1.,e);
+  vec3 normal;vec3 crystal=flake(frag,corner,seed,birthClock,normal);
+  float stretch=mix(1.5,1.,grow);                   // 飞行中略微拉长，落地收回成棱面
+  crystal+=dir*dot(crystal,dir)*(stretch-1.);
+  centre=from+flight*e+crystal*shardSize*mix(.60,1.,grow);
+  crystalBirth=smoothstep(.75,1.,e);
+  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-target);effectKind=3.;
+  opacity=.9*smoothstep(.15,.65,eyeDistance)*smoothstep(0.,.10,raw);
+  effectUV=corner.y>0.?vec2(0.,1.):corner.x>0.?vec2(1.,0.):vec2(0.);
+ }else if(id<413.){
+  /* 引路的碎光：比晶体棱面更早出发、更早到位，先把「魂」引过来；到位后停在星点该在的
+     位置，等 form 抬起来就是常驻那层星点（form=1 时与原来的常驻表现逐项一致）。 */
+  seed=random1(id+404.);float a=TIME*TAU*cycles(11.+floor(seed*10.),orbit)+seed*TAU;
+  float r=(.22+random1(id+652.)*.85)*smoothstep(0.,.8,entered);
+  vec3 steady=markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+.12*sin(a*2.+seed));
+  float arr2=.30+random1(id+271.)*.42,span2=arr2*.85;
+  float raw=clamp((entered-(arr2-span2))/span2,0.,1.);
+  float e=gatherEase(raw);
+  vec3 from=gatherFrom(n,id+31.,(random1(id+913.)-.5)*2.);
+  centre=mix(from+(steady-from)*e,steady,form);
+  /* 星星点亮：晶体拼完（.78）之后整层先一起亮一下（ignition），再落回常驻的闪烁。
+     spark 在 entered=1 时为 0，所以常驻端仍与原版逐项一致。 */
+  float light=starLight(id),lead=1.-form;
+  float spark=smoothstep(.78,.84,entered)*(1.-smoothstep(.85,.96,entered));
+  float lit=clamp(light+spark*1.1,0.,1.);
+  width=(.050+seed*.070)*(.35+light*1.5)*(1.+1.4*lead+1.6*spark);
+  opacity=(.025+.78*lit)*(1.+.9*lead+2.2*spark)*smoothstep(0.,.10,raw);
+  if(mod(id,11.)<.5){effectKind=1.;width*=2.;}
+ }else{
+  /* 这 99 片平时是「结晶爆光 + 晶体残影」。重聚阶段改当「光痕」：同一个 shard 的 4 片
+     按 lane 依次落后 5% 路程 → 领头光后面拖 3 段，形成彗尾。
+     kind 2 的四边形是「垂直于 tangent 的细线」，把 tangent 设成速度的垂线，
+     这条线就顺着飞行方向拉长成一道光痕。.80 结晶瞬间切回爆光/残影；
+     常驻端 crys=0 且 form=1 → 不可见，与原来的表现一致。 */
+  float shard=mod(id-413.,23.),lane=floor((id-413.)/23.);
+  seed=random1(shard+807.);
+  vec3 target=birthCentre(shard,n,birthClock);
+  float arr=gatherArrive(shard+555.);
+  float raw=clamp((entered-arr*.15)/(arr*.85),0.,1.);
+  float e=gatherEase(clamp(raw-lane*.05,0.,1.));
+  vec3 from=gatherFrom(n,shard+555.,(random1(shard+222.)-.5)*3.);
+  vec3 ghost=target;
+  if(lane>.5){
+   vec3 normal;ghost+=flake(mod(lane+shard,8.),vec2(0.,1.),seed,birthClock,normal)*(.085+seed*.120);
+  }
+  float bloom=crys*smoothstep(0.,.06,entered);
+  if(bloom>.01){
+   centre=mix(from+(target-from)*e,ghost,crys);
+   width=(lane<.5?.26:.13)*bloom;
+   opacity=bloom*(lane<.5?.70:.45);effectKind=lane<.5?1.:0.;
+  }else{
+   vec3 vel=target-from;
+   tangent=normalize(cross(vel,vec3(0.,1.,0.))+vec3(.001,0.,.001));
+   // 拖尾按「路程」错开：每片沿飞行方向退后固定 0.09 格，4 段才分得开。
+   centre=from+vel*e-normalize(vel+vec3(.001,0.,0.))*lane*.09;
+   width=(.075+random1(shard+333.)*.065)*(1.-.45*e);
+   opacity=.46*(1.-form)*(1.-lane*.16)*smoothstep(0.,.10,raw);
+   effectUV=vec2(.5,corner.y);effectKind=2.;
+  }
+ }
+ opacity*=appear;
+#else
+ if(id<432.){
+  float star=floor(id/48.),t=(mod(id,48.)+(corner.x+1.)*.5)/48.;
+  float clock=TIME-t*(1.3+random1(star+492.)*.6);
+  centre=starRoute(star,clock);tangent=starRoute(star,clock+.008)-centre;
+  float shimmer=.5+.5*sin(TAU*(t*3.-TIME*cycles(83.+mod(star,4.)*19.,orbit))+star*2.1);
+  width=(.028+.070*(1.-t))*scale;
+  opacity=pow(1.-t,2.1)*(.10+.90*starLight(star))*(.35+.65*shimmer);effectKind=2.;effectUV=vec2(t,corner.y);
+ }else if(id<441.){
+  float star=id-432.,light=starLight(star);centre=starRoute(star,TIME);
+  width=(.14+light*.82)*scale;opacity=.06+light*.94;effectKind=1.;
+ }else if(id<449.){
+  centre=cubeCorner(id-441.)*(size*.5+vec3(.024));
+  float light=starLight(id);
+  width=(.07+.29*light)*scale;opacity=.04+.66*light;effectKind=1.;
+ }else if(id<2033.){
+  float shard=floor((id-449.)/8.);seed=random1(shard+370.);phase=random1(shard+935.);
+  float lane=mod(shard,3.),u=fract(phase+TIME*cycles(3.+floor(seed*3.),orbit));
+  centre=route(u,lane,TIME);
+  // The gold/starry projection uses the same geometry but a larger, clearly
+  // faceted crystal envelope. Density controls how many exist, this factor
+  // controls their readable size independently.
+  // Cap angular size from the shared shard centre, so a large-box crystal
+  // passing beside the eye cannot cover the scene. All eight faces use the
+  // same scale/fade; the crystal never tears apart while crossing the eye.
+  float eyeDistance=length(camera-centre);
+  float shardSize=min((.055+pow(random1(shard+113.),1.5)*.095)*scale,max(.002,eyeDistance*.035));
+  vec3 normal;centre+=flake(mod(id-449.,8.),corner,seed,TIME,normal)*shardSize;
+  facetNormal=vec4(normal,seed);facetView.xyz=normalize(camera-centre);
+  opacity=step(shard+.5,110.*density)*smoothstep(.15,.65,eyeDistance);effectKind=3.;
+  effectUV=corner.y>0.?vec2(0.,1.):corner.x>0.?vec2(1.,0.):vec2(0.);
+ }else if(id<2531.){
+  float mote=id-2033.;seed=random1(mote+8.);phase=random1(mote+378.);
+  float u=fract(phase+TIME*cycles(3.+floor(seed*3.),orbit));
+  centre=route(u,mod(mote,3.),TIME);
+  float a=TIME*TAU*cycles(7.,orbit)+seed*TAU;
+  centre+=vec3(cos(a),sin(a),sin(a+seed))*.012*scale;
+  float light=starLight(mote+33.);
+  width=(.045+seed*.060)*scale*(.3+light*1.8);
+  opacity=(.025+.975*light)*step(mote+.5,290.*density);
+  if(mod(mote,23.)<.5){effectKind=1.;width*=4.;opacity=pow(opacity,3.);}
+ }else if(id<2555.){
+  // Small star glints are attached to actual rotating crystal facets. A fixed
+  // virtual key light keeps them visible in daylight and at night; changing
+  // view or tumble angle brings individual facets briefly into reflection.
+  float shard=(id-2531.)*4.;seed=random1(shard+370.);phase=random1(shard+935.);
+  float u=fract(phase+TIME*cycles(3.+floor(seed*3.),orbit));
+  centre=route(u,mod(shard,3.),TIME);
+  float eyeDistance=length(camera-centre);
+  float shardSize=min((.055+pow(random1(shard+113.),1.5)*.095)*scale,max(.002,eyeDistance*.035));
+  vec3 normal;
+  vec3 tip=flake(mod(shard,8.),vec2(0.,1.),seed,TIME,normal)*shardSize;
+  vec3 view=normalize(camera-centre);
+  float reflected=pow(max(0.,dot(reflect(-facetLight,normal),view)),36.);
+  centre+=tip;
+  width=(.26+.34*reflected)*scale;
+  opacity=reflected*step(shard+.5,110.*density)*smoothstep(.15,.65,eyeDistance);
+  tint=vec3(1.,.98,.91);effectKind=1.;
+ }else{opacity=0.;}
+ opacity*=smoothstep(.06,.85,entered);
+#endif
+ gl_Position=projectPoint(centre,1.);
+ if(effectKind<2.5||effectKind>5.5){
+  if(effectKind<1.5){
+   float light=starLight(id+71.);
+   width=min(width,max(.001,abs(gl_Position.w)*(.024+.056*light)));
+   opacity*=smoothstep(.08,.35,length(camera-centre));
+  }
+  vec2 projectionScale=vec2(length(vec3(VIEWPROJ[0][0],VIEWPROJ[1][0],VIEWPROJ[2][0])),length(vec3(VIEWPROJ[0][1],VIEWPROJ[1][1],VIEWPROJ[2][1])));
+  vec4 d=projectPoint(tangent,0.);vec2 along=(d.xy*gl_Position.w-gl_Position.xy*d.w)/projectionScale;
+  along=dot(along,along)>.000001?normalize(along):vec2(1.,0.);vec2 quad=corner;
+  if((effectKind>1.5&&effectKind<2.5)||effectKind>5.5){
+   if(effectKind>5.5){
+    // Keep a resolved core at distance and cap the near-camera halo. Without
+    // this, the subpixel core flickers and an edge beside the eye fills the screen.
+    float depth=max(.001,gl_Position.w);
+    width=clamp(width,depth*.0006,depth*.009)*fract(EXTRA_ACTOR_UNIFORM3.z)*10.;
+   }
+   quad=vec2(-along.y,along.x)*corner.y;
+  }
+  gl_Position.xy+=quad*width*step(.0001,opacity)*projectionScale;
+ }
+ // Leave homogeneous near/far clipping to the rasterizer. Relocating only
+ // the vertices behind the eye stretches crossing triangles across the view.
+ effectTint=vec4(tint,opacity*brightness);
+}`;
+
+/* ===== resource_pack/shaders/glsl/modern_projection_survey_stars.fragment ===== */
+const SURVEY_FS_BODY = `
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+varying highp vec2 effectUV;
+varying highp vec4 effectTint;
+varying highp float effectKind;
+varying highp vec4 facetNormal;
+varying highp vec4 facetView;
+varying highp vec3 facetLight;
+varying highp vec3 materialPos;
+varying highp float crystalBirth;
+const float TAU=6.28318530718;
+vec3 gold(float phase){
+ float x=fract(phase)*5.;vec3 a=vec3(.722,.408,.098),b=vec3(.961,.682,.192);
+ if(x>=1.){a=b;b=vec3(1.,.886,.557);}if(x>=2.){a=b;b=vec3(1.,.973,.843);}
+ if(x>=3.){a=b;b=vec3(.929,.718,.286);}if(x>=4.){a=b;b=vec3(.722,.408,.098);}
+ return mix(mix(a,b,smoothstep(0.,1.,fract(x))),vec3(1.,.855,.569),.26);
+}
+vec3 astral(float phase){
+ return mix(vec3(.22,.74,.97),vec3(.72,.30,.94),.5+.5*sin(phase*TAU));
+}
+void main(){
+ vec2 p=abs(effectUV);float alpha=1.,theme=facetView.w;vec3 rgb=effectTint.rgb;
+ if(theme>.5)rgb=vec3(.52,.69,1.);
+ if(effectKind<.5){
+  float r2=dot(p,p),core=exp(-r2*38.);
+  float halo=exp(-r2*7.)*(1.-smoothstep(.45,1.,r2));
+  alpha=core*.9+halo*.18;
+  rgb=mix(theme>.5?vec3(.24,.40,1.):vec3(1.,.48,.08),
+          theme>.5?vec3(.85,.94,1.):vec3(1.,.97,.80),core);
+ }else if(effectKind<1.5){
+  float x=pow(1.-clamp(p.x,0.,1.),2.)*exp(-p.y*p.y/(.0002+.004*pow(1.-p.x,4.)));
+  float y=pow(1.-clamp(p.y,0.,1.),2.2)*exp(-p.x*p.x/(.0002+.004*pow(1.-p.y,4.)));
+  float core=exp(-dot(p,p)*280.);
+  float rays=max(x,y);
+  alpha=core*.9+rays*.55+exp(-dot(p,p)*15.)*.075;
+  rgb=mix(theme>.5?vec3(.35,.52,1.):vec3(1.,.62,.16),
+          theme>.5?vec3(.91,.97,1.):vec3(1.,.99,.90),clamp(core+rays,0.,1.));
+ }else if(effectKind<2.5){
+  float filament=exp(-p.y*p.y*110.);
+  // A fine light core with a faint halo, smoothly vanishing at the tail.
+  float head=1.-smoothstep(.05,1.,effectUV.x);
+  alpha=(filament*.62+exp(-p.y*p.y*8.)*.10)*head;
+  rgb=mix(theme>.5?vec3(.25,.32,.90):vec3(1.,.43,.06),
+          theme>.5?vec3(.83,.94,1.):vec3(1.,.98,.83),filament*head);
+ }else if(effectKind<3.5){
+  vec3 n=normalize(facetNormal.xyz),v=normalize(facetView.xyz),light=normalize(facetLight);
+  float facing=abs(dot(n,v)),fresnel=pow(1.-facing,3.);
+  vec3 reflected=reflect(-v,n);
+  float window=pow(max(0.,dot(reflected,light)),9.);
+  float flash=pow(abs(dot(n,normalize(v+light))),44.);
+  float glint=pow(max(0.,dot(reflect(-light,n),v)),52.);
+  float flicker=pow(.5+.5*sin(TIME*TAU*floor(210.+facetNormal.w*123.)/210.+facetNormal.w*83.),36.);
+  float cool=pow(max(0.,dot(reflected,normalize(vec3(.85,.2,.48)))),12.);
+  vec3 base=theme>.5?mix(vec3(.27,.39,.68),vec3(.78,.55,1.),.5+.5*reflected.y):mix(vec3(.52,.34,.13),vec3(1.,.86,.48),clamp(.32+.65*reflected.y,0.,1.));
+  base=mix(base,vec3(.77,.86,.91),cool*.65);
+  vec3 bary=vec3(effectUV,1.-effectUV.x-effectUV.y);float edge=min(bary.x,min(bary.y,bary.z));
+  float rim=1.-smoothstep(.012,.045,edge);
+  rgb=mix(base,theme>.5?vec3(.96,.99,1.):vec3(1.,.98,.87),clamp(window+flash+glint*.9+flicker*flash*.75+rim*(.45+fresnel*.35),0.,1.));
+  float crack=exp(-pow((effectUV.x-.31-effectUV.y*.23)*100.,2.))*smoothstep(.07,.19,edge);
+  rgb=mix(rgb,vec3(1.,.95,.85),crack*.28);
+  alpha=.52+window*.4+fresnel*.26+flash*.42+glint*.6+flicker*flash*.3+rim*.28;
+  /* crystalBirth：0 = 刚从晶体中心长出来的碎光，1 = 已经定型的棱面。
+     【颜色必须和晶体一致】之前这里把碎光强推成冷白，配金色晶体就显得「颜色很怪」；
+     现在只提亮、不改色相——rgb 本来就是这块棱面的晶体材质色，乘系数就是同色的光。
+     形状上留一层很轻的径向柔边（三个顶点 UV 是 (0,0)/(1,0)/(0,1)，中心在 1/3 处），
+     免得刚长出来的小碎片在屏幕上看成一小块生硬的三角。常驻端 fresh=0 → 走原路径。 */
+  float fresh=1.-crystalBirth;
+  rgb*=1.+1.6*fresh;
+  float soft=1.-smoothstep(.22,.66,length(effectUV-vec2(.3333,.3333)));
+  alpha=mix(alpha,alpha*soft*1.25+.06*fresh,fresh);
+ }else if(effectKind<4.5){
+  // Broad, angular light flakes, distinct from the faceted crystal material.
+  float silhouette=p.x*.72+p.y;
+  float edge=1.-smoothstep(.72,1.,silhouette);
+  float heart=exp(-dot(effectUV*vec2(1.4,1.),effectUV*vec2(1.4,1.))*3.);
+  alpha=edge*(.60+.40*heart);
+  rgb=mix(vec3(1.,.65,.18),vec3(1.,1.,.88),.48+.52*heart);
+ }else{
+  float spatial=dot(materialPos,vec3(.21,.29,.24));
+  float drift=floor(EXTRA_ACTOR_UNIFORM1.w*16.+.5)/210.;
+  float phase=spatial-TIME*EXTRA_ACTOR_UNIFORM1.w+.035*sin(TAU*(spatial*.8-TIME*drift));
+  rgb=theme>.5?astral(phase):gold(phase);
+  float core=exp(-p.y*p.y*85.),halo=exp(-p.y*p.y*13.);
+  alpha=core*.98+halo*.36+exp(-p.y*p.y*5.)*.045;
+  if(theme>.5){
+   // Moving nebula filaments and sparse embedded stars, not a flat purple tint.
+   float cloud=.5+.5*sin(spatial*38.+sin(spatial*17.-TIME*EXTRA_ACTOR_UNIFORM1.w*TAU)*1.4);
+   rgb=mix(rgb,vec3(.19,.16,.44),.25*cloud*(1.-core));
+   float sparkleRate=floor(EXTRA_ACTOR_UNIFORM1.w*79.+.5)/210.;
+   float sparkle=pow(.5+.5*sin(spatial*119.-TIME*TAU*sparkleRate),32.);
+   rgb=mix(rgb,vec3(.94,.96,1.),sparkle*.65*core);
+  }
+  rgb=mix(rgb,theme>.5?vec3(.91,.96,1.):vec3(1.,.97,.86),core*.42);
+  if(effectKind>6.5){alpha=exp(-p.y*p.y*10.)*.65+core*.28;}
+ }
+ float coverage=clamp(alpha*effectTint.a,0.,1.);
+#if !defined(SURVEY_GUIDE) && !defined(SURVEY_GLOW)
+ // Write depth only for visible fragments so subsequently drawn water/leaves
+ // cannot overwrite a closer crystal. Empty billboard pixels must never mask
+ // the world or another effect with an invisible rectangular depth plate.
+ if(coverage<.035)discard;
+#endif
+ gl_FragColor=vec4(rgb,coverage);
+}`;
+const SURVEY_KINDS = [
+  ['点/核 kind0', '1.,.55,.10'], ['星芒 kind1', '1.,1.,1.'], ['流光 kind2', '.15,1.,.45'],
+  ['晶体 kind3', '1.,.30,.85'], ['宽光片 kind4', '1.,.72,.12'], ['引导线 kind7', '.30,.60,1.']];
+
+/* 末尾一行换成带 LAB_GAIN / LAB_DEBUG 的等价写法；kind 着色函数插在 main 之前。
+   游戏原文件里这两种写法都会保留原样，这里只是预览用的等价改写。 */
+function withLabTail(body, kindVar, kinds) {
+  const rows = kinds.map((n, i) => ` if(${kindVar}<${i + .5})return vec3(${n[1]});`).join('\n');
+  const helper = `
+// ---- LAB ONLY: 类型着色，游戏里没有这段 ----
+vec3 labKindColor(float k){
+${rows}
+ return vec3(.4,.4,.4);
+}
+`;
+  const tail = ' gl_FragColor=vec4(rgb,coverage);';
+  if (body.indexOf(tail) < 0 || body.indexOf('void main(){') < 0) throw new Error('lab anchor not found');
+  return body.replace(tail,
+` if(LAB_DEBUG>.5){
+  gl_FragColor=vec4(mix(rgb,labKindColor(${kindVar}),.9),max(coverage,.10)*LAB_GAIN);
+ }else{
+  gl_FragColor=vec4(rgb,clamp(coverage*LAB_GAIN,0.,1.));
+ }`).replace('void main(){', helper + 'void main(){');
+}
+
+/* ---------- 2. WebGL 初始化 ---------- */
+const canvas = document.getElementById('scene');
+const gl = canvas.getContext('webgl', {alpha: false, antialias: true, depth: true, premultipliedAlpha: false, preserveDrawingBuffer: true});
+const fatal = document.getElementById('fatal');
+function die(msg) { fatal.style.display = 'grid'; fatal.textContent = msg; throw new Error(msg); }
+if (!gl) die('无法创建 WebGL 上下文。\n请用桌面版 Chrome/Edge 打开本文件（file:// 直接打开也可以）。');
+
+function compile(type, src, label) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    const log = gl.getShaderInfoLog(s);
+    const lines = src.split('\n').map((l, i) => (i + 1) + ': ' + l).join('\n');
+    die('着色器编译失败 [' + label + ']\n' + log + '\n\n' + lines);
+  }
+  return s;
+}
+function program(vsSrc, fsSrc, defines) {
+  const prefix = Object.keys(defines || {}).map(k => '#define ' + k + ' ' + defines[k] + '\n').join('');
+  const p = gl.createProgram();
+  gl.attachShader(p, compile(gl.VERTEX_SHADER, prefix + vsSrc, 'vs'));
+  gl.attachShader(p, compile(gl.FRAGMENT_SHADER, prefix + fsSrc, 'fs'));
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) die('着色器链接失败\n' + gl.getProgramInfoLog(p));
+  const U = {}, A = {};
+  ['POSITION', 'NORMAL', 'TEXCOORD_0', 'COLOR'].forEach(n => A[n] = gl.getAttribLocation(p, n));
+  ['WORLD', 'VIEWPROJ', 'MODEL', 'EYE', 'TIME', 'LAB_GAIN', 'LAB_DEBUG', 'EXTRA_ACTOR_UNIFORM1',
+    'EXTRA_ACTOR_UNIFORM2', 'EXTRA_ACTOR_UNIFORM3', 'EXTRA_ACTOR_UNIFORM4']
+    .forEach(n => U[n] = gl.getUniformLocation(p, n));
+  return {p, U, A};
+}
+
+/* ---------- 3. 几何：id → 编码四边形 ---------- */
+/* 每个 id 一个「north 面」四边形（原生几何里就是 1 个可见四边形 + 其它 UV 退化为 0 的面） */
+function buildQuads(ids) {
+  const n = ids.length, pos = new Float32Array(n * 12), uv = new Float32Array(n * 8), idx = new Uint16Array(n * 6);
+  const corners = [[0, 0], [1, 0], [1, 1], [0, 1]];
+  ids.forEach((id, k) => {
+    const i = id % 64, j = Math.floor(id / 64);
+    const x = 4 * i - 0.5, y = 4 * j - 0.5;
+    corners.forEach((c, v) => {
+      const o3 = (k * 4 + v) * 3, o2 = (k * 4 + v) * 2;
+      pos[o3] = x; pos[o3 + 1] = y; pos[o3 + 2] = 0;
+      uv[o2] = c[0]; uv[o2 + 1] = c[1];
+    });
+    const b = k * 4, o = k * 6;
+    idx[o] = b; idx[o + 1] = b + 1; idx[o + 2] = b + 2;
+    idx[o + 3] = b; idx[o + 4] = b + 2; idx[o + 5] = b + 3;
+  });
+  return {
+    pos: gl.createBuffer(), uv: gl.createBuffer(), idx: gl.createBuffer(),
+    count: idx.length,
+    init() {
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.pos); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.uv); gl.bufferData(gl.ARRAY_BUFFER, uv, gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.idx); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.STATIC_DRAW);
+      return this;
+    }
+  }.init();
+}
+function range(a, b) { const r = []; for (let i = a; i <= b; i++) r.push(i); return r; }
+
+/* ---------- 4. 场景定义（几何 id 取自 .geo.json 的编码方块） ---------- */
+const AURA_VS_P = program(AURA_VS, LAB_FS + withLabTail(AURA_FS_BODY, 'magicKind', AURA_KINDS), {});
+const AURA_GLOW_P = program(AURA_VS, LAB_FS + withLabTail(AURA_FS_BODY, 'magicKind', AURA_KINDS), {AURA_GLOW: 1});
+const STRIKE_VS_P = program(SURVEY_VS, LAB_FS + withLabTail(SURVEY_FS_BODY, 'effectKind', SURVEY_KINDS), {SURVEY_STRIKE: 1});
+const STRIKE_GLOW_P = program(SURVEY_VS, LAB_FS + withLabTail(SURVEY_FS_BODY, 'effectKind', SURVEY_KINDS), {SURVEY_STRIKE: 1, SURVEY_GLOW: 1});
+
+/* modern_projection_staff_aura.geo.json: crystals 骨 0..127 / glow 骨 128..647 */
+const AURA_CRYSTALS = buildQuads(range(0, 127));
+const AURA_GLOW_GEO = buildQuads(range(128, 647));
+/* modern_projection_survey_strike.geo.json: crystals 骨 149..332 / glow 骨 0..148 + 333..511 */
+const STRIKE_CRYSTALS = buildQuads(range(149, 332));
+const STRIKE_GLOW_GEO = buildQuads(range(0, 148).concat(range(333, 511)));
+
+const SCENES = {
+  aura: {
+    title: '手持法杖 · 环身魔法光环',
+    kicker: 'EFFECT LAB / 01  modern_projection:staff_aura',
+    text: '实体 <code>modern_projection:staff_aura</code> · 材质 <code>modern_projection_staff_aura</code> + <code>_glow</code> · 648 个编码四边形。所有运动都在 GPU，Python 每帧只同步脚下坐标和光环状态 uniform。<br><b>【星空内芯】</b>冰晶内部现在是夜空：照抄法杖物品 <code>modern_projection_staff.fragment</code> 那套算法（视线方向 → 球面坐标 → 多层视差星点 + 星云），所以<b>转视角时晶体里的星空会流动</b>。和法杖的差别：星点网格更粗、概率更高（冰晶在屏幕上只有几十像素，照法杖密度星核会小于 1 像素、直接看不见），并加了每颗晶体随机偏青/偏紫。着色上做了结构改动——<b>星空是底面，玻璃的环境项压掉，棱线/镜面/菲涅尔改成叠加上去的局部高光</b>，所以暗面是深空+星点、亮面仍是白色镜面，对比比原来大得多。<br><b>【本轮重做】</b>三条轨道各自倾斜（18°/−14°+16°/9°−12°）· 16 颗冰晶分三档做主次（<b>主晶 3</b> · <b>中晶 5</b> · <b>小晶 8</b>）· 每颗有固定倾角 + 上下浮动 + 相位抖动 · 3 颗主晶各拖 16 颗小星芒尾迹 · 保留原星座星点 64 颗。冰晶全部走 <code>crystals</code> 骨（Material.default · 正常混合 + 写深度），星芒走 <code>glow</code> 骨（叠加）。周期：主晶 26 秒、中晶 33 秒反向、小晶 42 秒。',
+    legend: [['#ff4dd9', '冰晶（主晶 3 / 中晶 5 / 小晶 8，kind 3）'], ['#ffffff', '星芒（主晶尾迹 / 星座星点，kind 1）']],
+    passes: [
+      {name: 'crystals', geo: AURA_CRYSTALS, prog: AURA_VS_P, additive: false, depthWrite: true},
+      {name: 'glow', geo: AURA_GLOW_GEO, prog: AURA_GLOW_P, additive: true, depthWrite: false}
+    ],
+    camera: {yaw: -34, pitch: 17, dist: 5.0, target: [0, 1.05, 0]},
+    showPlayer: true, showBox: false
+  },
+  strike: {
+    title: '两点框选 · 点选方块特效',
+    kicker: 'EFFECT LAB / 02  modern_projection:survey_strike',
+    text: '实体 <code>modern_projection:survey_strike</code>（每个选点一个）· 材质 <code>modern_projection_survey_strike</code> + <code>_glow</code> · 着色器容量 0..767，几何实际只有 0..511。<br><b>点击特效</b>＝ <code>entered</code> 从 0 走到 1 的这 1.8 秒（<code>pulse_point()</code> 只把 started 置为当前时间）。<br><b>【灵魂重聚】</b>逆着电影里「人化成万千光片消散」演：363 片碎光（184 棱面 + 80 星尘 + 99 光痕）从<b>被点击面 1 个方块之内</b>边旋边收，最后一片在 0.80 汇到位，一记闪光结晶。<br><b>① 重聚（0→0.80，约 1.44s）</b><code>gatherFrom()</code> 给每片不同的出发方向与半径（横向 ≤0.96 格、沿面法线 0.10~0.63 格）；<code>gatherArriveFacet()</code> 按<b>棱面序号 frag=0..7</b> 把同一颗晶体的 8 片依次错开在 0.42~0.80（跨度约 0.6s），所以晶体是一片片拼起来的；缓动是 <code>gatherEase()=pow(raw,2.6)</code>——先停在远处、最后 20% 才被猛地吸进去。飞行中的碎片用晶体自己的颜色提亮，落地才显出真正棱面。<br><b>② 结晶（0.78~0.80）</b><code>crys</code> 爆光 + 晶体残影。<br><b>③ 星芒点亮（0.78→0.88，即 1.40→1.58s）</b>晶体拼完之后星星才出现：<code>form</code> 抬起星点层，<code>spark</code> 在 ~0.845（1.52s）把整层一起点亮再落回常驻闪烁。<br><b>颜色</b>：碎光不再强推冷白（之前配金色晶体「颜色很怪」），FS 里改用 <code>rgb*=1.+1.6*fresh</code>——只提亮、不改色相，碎光和它拼成的晶体是同一个颜色（换星穹主题就是蓝紫色）。<br><b>七层在 entered=1 时逐项等于改前表达式</b>（fresh=0、form=1、spark=0、crys=0），切到常驻不会跳变。左栏「演示阶段」在两者间切换，点选页默认停在点击瞬间并循环重播；也可用 <code>?scene=strike&amp;entered=0.45&amp;ui=0</code> 定格任意一帧。',
+    legend: [['#ff8c1a', '点/内核'], ['#ffffff', '星芒'], ['#26ff73', '流光细丝'], ['#ff4dd9', '点选晶体'], ['#ffb81f', '宽光片']],
+    passes: [
+      {name: 'crystals', geo: STRIKE_CRYSTALS, prog: STRIKE_VS_P, additive: false, depthWrite: true},
+      {name: 'glow', geo: STRIKE_GLOW_GEO, prog: STRIKE_GLOW_P, additive: true, depthWrite: false}
+    ],
+    camera: {yaw: -38, pitch: 20, dist: 4.4, target: [0.5, 0.65, 0.5]},
+    showPlayer: false, showBox: true
+  }
+};
+
+/* ---------- 5. 场景外参考物（lab 自带，不是游戏 shader） ---------- */
+const CTX_VS = `precision highp float;
+attribute highp vec3 POSITION;
+attribute highp vec3 COLOR;
+uniform highp mat4 MODEL;
+uniform highp mat4 VIEWPROJ;
+varying highp vec3 vColor;
+varying highp vec3 vNormal;
+varying highp vec3 vWorld;
+void main(){
+ vColor=COLOR;vNormal=normalize((MODEL*vec4(POSITION,0.)).xyz);
+ vWorld=(MODEL*vec4(POSITION,1.)).xyz;
+ gl_Position=VIEWPROJ*MODEL*vec4(POSITION,1.);
+}`;
+const SOLID_FS = `precision highp float;
+varying highp vec3 vColor;varying highp vec3 vNormal;varying highp vec3 vWorld;
+uniform highp vec3 EYE;
+void main(){
+ vec3 n=normalize(vNormal),l=normalize(vec3(-.42,.86,.34));
+ float d=max(0.,dot(n,l))*.72+max(0.,dot(n,normalize(vec3(.5,.4,-.6))))*.2+.24;
+ vec3 v=normalize(EYE-vWorld);
+ float rim=pow(1.-abs(dot(n,v)),2.)*.10;
+ gl_FragColor=vec4(vColor*(d+rim),1.);
+}`;
+const LINE_FS = `precision highp float;
+varying highp vec3 vColor;
+void main(){gl_FragColor=vec4(vColor,1.);}`;
+const SKY_VS = `precision highp float;
+attribute highp vec2 POSITION;
+uniform highp vec3 RAY;
+varying highp vec3 vRay;
+void main(){vRay=RAY;gl_Position=vec4(POSITION,0.,1.);}`;
+const SKY_FS = `precision highp float;
+varying highp vec3 vRay;
+uniform highp vec3 FWD, RIGHT, UP;
+uniform highp float ASPECT, TANHALF;
+void main(){
+ vec3 d=normalize(FWD+RIGHT*(vRay.x*ASPECT*TANHALF)+UP*(vRay.y*TANHALF));
+ float h=clamp(d.y*.5+.5,0.,1.);
+ vec3 down=vec3(.045,.062,.085),horiz=vec3(.10,.14,.20),up=vec3(.05,.075,.13);
+ vec3 c=mix(down,horiz,smoothstep(0.,.5,h));c=mix(c,up,smoothstep(.5,1.,h));
+ c+=vec3(.05,.07,.10)*pow(1.-abs(d.y),6.);
+ gl_FragColor=vec4(c,1.);
+}`;
+const CTX = {
+  solid: program(CTX_VS, SOLID_FS, {}),
+  line: program(CTX_VS, LINE_FS, {}),
+  sky: (() => {
+    const p = gl.createProgram();
+    gl.attachShader(p, compile(gl.VERTEX_SHADER, SKY_VS, 'skyvs'));
+    gl.attachShader(p, compile(gl.FRAGMENT_SHADER, SKY_FS, 'skyfs'));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) die('sky link\n' + gl.getProgramInfoLog(p));
+    return {p, A: {POSITION: gl.getAttribLocation(p, 'POSITION')}, U: {
+      RAY: gl.getUniformLocation(p, 'RAY'), FWD: gl.getUniformLocation(p, 'FWD'),
+      RIGHT: gl.getUniformLocation(p, 'RIGHT'), UP: gl.getUniformLocation(p, 'UP'),
+      ASPECT: gl.getUniformLocation(p, 'ASPECT'), TANHALF: gl.getUniformLocation(p, 'TANHALF')}};
+  })(),
+  skyBuf: null
+};
+function mesh(verts, idx, mode) {
+  const V = new Float32Array(verts), I = new Uint16Array(idx);
+  const vb = gl.createBuffer(), ib = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, V, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, I, gl.STATIC_DRAW);
+  return {vb, ib, n: idx.length, mode: mode === undefined ? gl.TRIANGLES : mode};
+}
+function boxMesh(x0, y0, z0, x1, y1, z1, col) {
+  const p = [[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]];
+  const f = {px:[1,2,6,5, 1,0,0], nx:[0,4,7,3, -1,0,0], py:[4,5,6,7, 0,1,0], ny:[3,2,1,0, 0,-1,0], pz:[2,3,7,6, 0,0,1], nz:[0,1,5,4, 0,0,-1]};
+  const verts = [], idx = [];
+  let base = 0;
+  for (const k in f) {
+    const q = f[k];
+    for (let i = 0; i < 4; i++) { const v = p[q[i]]; verts.push(v[0], v[1], v[2], col[0], col[1], col[2]); }
+    idx.push(base, base + 1, base + 2, base, base + 2, base + 3); base += 4;
+  }
+  return mesh(verts, idx);
+}
+function boxLines(x0, y0, z0, x1, y1, z1, col) {
+  const p = [[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]];
+  const e = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+  const verts = [], idx = [];
+  e.forEach(([a, b], i) => {
+    verts.push(p[a][0], p[a][1], p[a][2], col[0], col[1], col[2]);
+    verts.push(p[b][0], p[b][1], p[b][2], col[0], col[1], col[2]);
+    idx.push(i * 2, i * 2 + 1);
+  });
+  return mesh(verts, idx, gl.LINES);
+}
+const G = {
+  player: boxMesh(-0.3, 0, -0.3, 0.3, 1.8, 0.3, [0.42, 0.47, 0.56]),
+  block: boxMesh(0, 0, 0, 1, 1, 1, [0.44, 0.40, 0.33]),
+  boxWire: boxLines(0, 0, 0, 1, 1, 1, [0.62, 0.78, 0.92]),
+  gridMinor: null, gridMajor: null
+};
+(function buildGrid() {
+  const mn = [], mj = [], R = 24;
+  for (let i = -R; i <= R; i++) {
+    const major = (i % 8 === 0);
+    const col = major ? [0.30, 0.44, 0.56] : [0.17, 0.25, 0.33];
+    const arr = major ? mj : mn;
+    const a = arr.length / 6;
+    arr.push(i, 0, -R, col[0], col[1], col[2], i, 0, R, col[0], col[1], col[2]);
+    arr.push(-R, 0, i, col[0], col[1], col[2], R, 0, i, col[0], col[1], col[2]);
+  }
+  const mk = (arr) => { const idx = []; for (let i = 0; i < arr.length / 6; i++) idx.push(i); return mesh(arr, idx, gl.LINES); };
+  G.gridMinor = mk(mn); G.gridMajor = mk(mj);
+})();
+
+/* ---------- 6. 矩阵 ---------- */
+function mul(a, b) {
+  const o = new Float32Array(16);
+  for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) {
+    o[c * 4 + r] = a[r] * b[c * 4] + a[4 + r] * b[c * 4 + 1] + a[8 + r] * b[c * 4 + 2] + a[12 + r] * b[c * 4 + 3];
+  }
+  return o;
+}
+function perspective(fovy, aspect, near, far) {
+  const f = 1 / Math.tan(fovy / 2), nf = 1 / (near - far);
+  return new Float32Array([f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0]);
+}
+function lookAt(eye, c, up) {
+  let z = [eye[0] - c[0], eye[1] - c[1], eye[2] - c[2]];
+  let l = Math.hypot(...z) || 1; z = z.map(v => v / l);
+  let x = [up[1] * z[2] - up[2] * z[1], up[2] * z[0] - up[0] * z[2], up[0] * z[1] - up[1] * z[0]];
+  l = Math.hypot(...x) || 1; x = x.map(v => v / l);
+  const y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]];
+  /* 行是相机基向量 x/y/z，列主序存法：列0=x，列1=y，列2=z，列3=平移 */
+  return new Float32Array([
+    x[0], y[0], z[0], 0,
+    x[1], y[1], z[1], 0,
+    x[2], y[2], z[2], 0,
+    -(x[0] * eye[0] + x[1] * eye[1] + x[2] * eye[2]),
+    -(y[0] * eye[0] + y[1] * eye[1] + y[2] * eye[2]),
+    -(z[0] * eye[0] + z[1] * eye[1] + z[2] * eye[2]), 1]);
+}
+function modelMat(tx, ty, tz, sx, sy, sz) {
+  return new Float32Array([sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, 0, tx, ty, tz, 1]);
+}
+/* 列主序：out[r] = Σ_c m[c*4+r] * v[c] */
+function xform(m, v) {
+  return [m[0] * v[0] + m[4] * v[1] + m[8] * v[2] + m[12] * v[3],
+          m[1] * v[0] + m[5] * v[1] + m[9] * v[2] + m[13] * v[3],
+          m[2] * v[0] + m[6] * v[1] + m[10] * v[2] + m[14] * v[3],
+          m[3] * v[0] + m[7] * v[1] + m[11] * v[2] + m[15] * v[3]];
+}
+/* 原生实体 WORLD：T(位置) · S(1/16, -1/16, 1/16) */
+const NATIVE_WORLD = (x, y, z) => modelMat(x, y, z, 1 / 16, -1 / 16, 1 / 16);
+
+/* ---------- 7. UI 状态 ---------- */
+const S = {
+  scene: 'aura', playing: true, time: 0, speed: 1,
+  staff: 1, reducedMotion: false, auraEntered: 1, auraAuto: true, worldX: 0,
+  strikeEntered: 1, strikePhase: 'click', clickAge: 0, clickLoop: true,
+  face: 1, theme: 0.1, brightness: 1, orbit: 1, flow: 0.685714,
+  /* 光环分层：全部由「冰晶（kind 3）」和「星芒（kind 1）」两种材质组成；星尘已删除 */
+  layers: {crystal: true, trail: true, star: true},
+  showGrid: true, showPlayer: true, showBlock: true, debugKind: false, gain: 1, showDiag: true,
+  autoRotate: false,
+  /* 入场计时用「不受 210 秒回绕影响」的真实秒数，和 Python 里的 time.time() 一致 */
+  clock: 0, auraStarted: -10,
+  cam: {yaw: -34, pitch: 17, dist: 5, target: [0, 1.05, 0]}
+};
+const DEFAULTS = JSON.parse(JSON.stringify({
+  staff: S.staff, reducedMotion: S.reducedMotion, auraEntered: S.auraEntered, auraAuto: S.auraAuto,
+  worldX: S.worldX, strikeEntered: S.strikeEntered, strikePhase: S.strikePhase, clickLoop: S.clickLoop,
+  layers: S.layers, face: S.face,
+  theme: S.theme, brightness: S.brightness, orbit: S.orbit, flow: S.flow,
+  showGrid: S.showGrid, showPlayer: S.showPlayer, showBlock: S.showBlock,
+  debugKind: S.debugKind, gain: S.gain, time: S.time, speed: S.speed
+}));
+
+const $ = id => document.getElementById(id);
+
+/* 数值探针：底部一排纯色方块，颜色 = 读数。
+   离线截图里读颜色就能核对「当前场景 / 几何数量 / glError」，不依赖控制台。 */
+const probeEls = [];
+(function buildProbe() {
+  const box = $('probe');
+  for (let i = 0; i < 6; i++) {
+    const el = document.createElement('i');
+    el.style.cssText = 'width:38px;height:38px;border-radius:4px;display:block;border:1px solid #2a3550';
+    box.appendChild(el); probeEls.push(el);
+  }
+})();
+function probeSet(i, rgb, label) {
+  const c = rgb.map(v => Math.max(0, Math.min(255, Math.round(v))));
+  probeEls[i].style.background = 'rgb(' + c.join(',') + ')';
+  probeEls[i].title = label + ' → ' + c.join(',');
+  probeEls[i].dataset.read = label + '=' + c.join(',');
+}
+function setFill(el) {
+  const p = (el.value - el.min) / (el.max - el.min) * 100;
+  el.style.setProperty('--fill', p + '%');
+}
+function bindRange(id, outId, key, fmt, after) {
+  const el = $(id), out = $(outId);
+  const sync = () => {
+    S[key] = parseFloat(el.value);
+    out.textContent = fmt ? fmt(S[key]) : S[key];
+    setFill(el);
+    if (after) after();
+  };
+  el.addEventListener('input', sync); sync();
+  return el;
+}
+function bindCheck(id, key, after) {
+  const el = $(id);
+  const sync = () => { S[key] = el.checked; if (after) after(); };
+  el.addEventListener('change', sync); sync();
+  return el;
+}
+
+/* 手动拖时间轴才算「暂停」——注意 bindRange 会立刻 sync 一次，
+   如果把暂停写在 after 里，页面一打开就被设成暂停（按钮却还显示「暂停」），看起来就是不能播放。 */
+bindRange('timeRange', 'timeOut', 'time', v => v.toFixed(3) + ' s')
+  .addEventListener('input', () => {
+    pausePlayback();
+    if (strikeClickMode()) { S.clickAge = S.time; S.strikeEntered = Math.min(1, S.clickAge / STRIKE_CLICK_SECONDS); }
+  });
+bindRange('speed', 'speedOut', 'speed', v => v.toFixed(2) + '×');
+bindRange('auraEntered', 'auraEnteredOut', 'auraEntered', v => v.toFixed(3));
+bindRange('strikeEntered', 'strikeEnteredOut', 'strikeEntered', v => v.toFixed(3));
+bindRange('brightness', 'brightnessOut', 'brightness', v => v.toFixed(2));
+bindRange('orbit', 'orbitOut', 'orbit', v => v.toFixed(2));
+bindRange('flow', 'flowOut', 'flow', v => v.toFixed(4));
+bindRange('gain', 'gainOut', 'gain', v => v.toFixed(2));
+bindRange('worldX', 'worldXOut', 'worldX', v => v.toFixed(0));
+bindCheck('reducedMotion', 'reducedMotion');
+bindCheck('showGrid', 'showGrid');
+bindCheck('showPlayer', 'showPlayer');
+bindCheck('showBlock', 'showBlock');
+bindCheck('debugKind', 'debugKind');
+bindCheck('showDiag', 'showDiag');
+bindCheck('auraAuto', 'auraAuto');
+bindCheck('clickLoop', 'clickLoop');
+$('staff').addEventListener('change', e => S.staff = parseFloat(e.target.value));
+$('face').addEventListener('change', e => S.face = parseFloat(e.target.value));
+$('theme').addEventListener('change', e => S.theme = parseFloat(e.target.value));
+
+/* ---------- 光环分层：按 id 段重建几何（id 划分取自 shader 里的分支） ---------- */
+const AURA_LAYERS = [
+  /* pass 对应游戏里的骨骼/材质：crystals 骨 = Material.default（正常混合 + 写深度），
+     glow 骨 = Material.glow（叠加、不写深度）。冰晶必须走 crystals，否则会变成发光的扁片。 */
+  {key: 'crystal', from: 0, to: 127, pass: 'crystals', label: '16 颗冰晶 0–127 · 3 主 + 5 中 + 8 小（三条倾斜轨道）'},
+  {key: 'trail', from: 128, to: 175, pass: 'glow', label: '主晶尾迹 128–175 · 小星芒 48 颗（跟 3 颗主晶）'},
+  {key: 'star', from: 464, to: 527, pass: 'glow', label: '星座星点 464–527 · kind 1（保留）'}
+];
+/* 176–463、528–647 已不再绘制（原「环绕星芒」「外挂冰晶」「星尘」「头顶星冠」全部删除）：
+   这些方块留作容量，要用就在 shader 里对应 id 段写分支，再在这里加一行层表。 */
+(function buildLayerUI() {
+  AURA_LAYERS.forEach(L => {
+    const el = document.createElement('label');
+    el.className = 'check';
+    el.innerHTML = '<input type="checkbox" id="layer_' + L.key + '">' + L.label;
+    $('auraLayers').appendChild(el);
+  });
+})();
+function disposeGeo(g) { if (g) { gl.deleteBuffer(g.pos); gl.deleteBuffer(g.uv); gl.deleteBuffer(g.idx); } }
+function rebuildAuraGeo() {
+  const crys = [], glow = [];
+  AURA_LAYERS.forEach(L => {
+    if (!S.layers[L.key]) return;
+    /* 按 pass 分几何，而不是按 id 大小：三圈冰晶全部进 crystals（正常混合层） */
+    for (let i = L.from; i <= L.to; i++) (L.pass === 'glow' ? glow : crys).push(i);
+  });
+  disposeGeo(SCENES.aura.passes[0].geo); SCENES.aura.passes[0].geo = buildQuads(crys);
+  disposeGeo(SCENES.aura.passes[1].geo); SCENES.aura.passes[1].geo = buildQuads(glow);
+  $('auraLayerOut').textContent =
+    '本次绘制：冰晶层 ' + crys.length + ' 面（' + Math.round(crys.length / 8) + ' 颗冰晶）· 星芒层 ' + glow.length + ' 面';
+}
+AURA_LAYERS.forEach(L => {
+  const el = $('layer_' + L.key);
+  el.addEventListener('change', () => { S.layers[L.key] = el.checked; rebuildAuraGeo(); });
+});
+function applyLayers(preset) {
+  const sets = {
+    current: ['crystal', 'trail', 'star'],   // 当前方案
+    min: ['crystal', 'star'],                // 去掉尾迹，只留冰晶 + 星座星点
+    all: AURA_LAYERS.map(L => L.key)
+  };
+  const on = sets[preset] || sets.current;
+  AURA_LAYERS.forEach(L => {
+    const v = on.indexOf(L.key) >= 0;
+    S.layers[L.key] = v; $('layer_' + L.key).checked = v;
+  });
+  rebuildAuraGeo();
+}
+$('auraOnlyKeep').addEventListener('click', () => applyLayers('current'));
+$('auraPresetMin').addEventListener('click', () => applyLayers('min'));
+$('auraAllOn').addEventListener('click', () => applyLayers('all'));
+
+/* ---------- 点选特效：点击瞬间（0–1.8s）与常驻（已成形）两个阶段 ---------- */
+const STRIKE_CLICK_SECONDS = 1.8;      // survey_effects.CLICK_FORMATION_SECONDS
+function strikeClickMode() { return S.scene === 'strike' && S.strikePhase === 'click'; }
+function pausePlayback() { S.playing = false; $('play').textContent = '播放'; }
+function syncTimeSlider() {
+  const click = strikeClickMode();
+  const max = click ? STRIKE_CLICK_SECONDS : 210;
+  const v = click ? Math.min(S.clickAge, STRIKE_CLICK_SECONDS) : S.time;
+  $('timeCaption').textContent = click ? '点击后时间' : 'TIME';
+  $('timeRange').max = String(max);
+  $('timeRange').value = v; setFill($('timeRange'));
+  $('timeOut').textContent = v.toFixed(3) + ' s';
+}
+function setPhase(p) {
+  S.strikePhase = p;
+  $('phaseClick').setAttribute('aria-pressed', String(p === 'click'));
+  $('phaseSteady').setAttribute('aria-pressed', String(p === 'steady'));
+  $('strikeEntered').disabled = (p === 'click');
+  $('strikeEnteredWrap').style.opacity = p === 'click' ? '.45' : '1';
+  if (p === 'click') { S.clickAge = 0; S.strikeEntered = 0; }
+  else {
+    /* 切到常驻时先给一个「已成形」的 entered，避免停在 click 阶段留下的 0 看到空场景 */
+    S.strikeEntered = 1;
+    $('strikeEntered').value = 1; $('strikeEnteredOut').textContent = '1.000'; setFill($('strikeEntered'));
+  }
+  S.playing = true; $('play').textContent = '暂停';
+  syncTimeSlider();
+}
+$('phaseClick').addEventListener('click', () => setPhase('click'));
+$('phaseSteady').addEventListener('click', () => setPhase('steady'));
+$('strikeReplay').addEventListener('click', () => setPhase('click'));
+
+$('play').addEventListener('click', () => {
+  S.playing = !S.playing;
+  $('play').textContent = S.playing ? '暂停' : '播放';
+});
+/* 逐帧步进：点击瞬间阶段步进的是「点击后时间」，常驻阶段步进 TIME */
+function step(d) {
+  pausePlayback();
+  if (strikeClickMode()) {
+    S.clickAge = Math.min(STRIKE_CLICK_SECONDS, Math.max(0, S.clickAge + d));
+    S.time = S.clickAge;
+    S.strikeEntered = Math.min(1, S.clickAge / STRIKE_CLICK_SECONDS);
+  } else {
+    S.time = (S.time + d + 210) % 210;
+  }
+  syncTimeSlider();
+}
+$('stepBack').addEventListener('click', () => step(-0.02));
+$('stepFwd').addEventListener('click', () => step(0.02));
+$('auraReplay').addEventListener('click', () => { S.auraAuto = true; $('auraAuto').checked = true; S.auraStarted = S.clock; });
+$('autoRotate').addEventListener('click', () => {
+  S.autoRotate = !S.autoRotate;
+  $('autoRotate').setAttribute('aria-pressed', String(S.autoRotate));
+});
+$('defaults').addEventListener('click', () => {
+  Object.assign(S, JSON.parse(JSON.stringify(DEFAULTS)));
+  $('staff').value = String(S.staff); $('face').value = String(S.face); $('theme').value = String(S.theme);
+  ['timeRange', 'speed', 'auraEntered', 'strikeEntered', 'brightness', 'orbit', 'flow', 'gain', 'worldX'].forEach(id => {});
+  $('timeRange').value = S.time; $('speed').value = S.speed;
+  $('auraEntered').value = S.auraEntered; $('strikeEntered').value = S.strikeEntered;
+  $('brightness').value = S.brightness; $('orbit').value = S.orbit; $('flow').value = S.flow;
+  $('gain').value = S.gain; $('worldX').value = S.worldX;
+  $('reducedMotion').checked = S.reducedMotion; $('showGrid').checked = S.showGrid;
+  $('showPlayer').checked = S.showPlayer; $('showBlock').checked = S.showBlock;
+  $('debugKind').checked = S.debugKind; $('auraAuto').checked = S.auraAuto; $('clickLoop').checked = S.clickLoop;
+  $('phaseClick').setAttribute('aria-pressed', String(S.strikePhase === 'click'));
+  $('phaseSteady').setAttribute('aria-pressed', String(S.strikePhase === 'steady'));
+  $('strikeEntered').disabled = (S.strikePhase === 'click');
+  $('strikeEnteredWrap').style.opacity = S.strikePhase === 'click' ? '.45' : '1';
+  AURA_LAYERS.forEach(L => { $('layer_' + L.key).checked = !!S.layers[L.key]; });
+  rebuildAuraGeo();
+  ['timeRange', 'speed', 'auraEntered', 'strikeEntered', 'brightness', 'orbit', 'flow', 'gain', 'worldX']
+    .forEach(id => setFill($(id)));
+  $('timeOut').textContent = S.time.toFixed(3) + ' s';
+  selectScene('aura');
+});
+function selectScene(name) {
+  S.scene = name;
+  /* 进入某个场景时重放它的入场：光环 0.65s 成形；点选默认停在「点击瞬间」并从头播 */
+  if (name === 'aura') S.auraStarted = S.clock;
+  else if (S.strikePhase === 'click') { S.clickAge = 0; S.strikeEntered = 0; }
+  syncTimeSlider();
+  const sc = SCENES[name];
+  $('tabAura').setAttribute('aria-selected', String(name === 'aura'));
+  $('tabStrike').setAttribute('aria-selected', String(name === 'strike'));
+  $('grpAura').hidden = name !== 'aura';
+  $('grpStrike').hidden = name !== 'strike';
+  $('chkPlayerWrap').hidden = name !== 'aura';
+  $('chkBlockWrap').hidden = name !== 'strike';
+  $('hudKicker').textContent = sc.kicker;
+  $('hudTitle').textContent = sc.title;
+  $('hudText').innerHTML = sc.text;
+  $('legend').innerHTML = sc.legend.map(([c, t]) => '<span><i style="background:' + c + '"></i>' + t + '</span>').join('');
+  resetCamera();
+  renderSrcMap();
+}
+$('tabAura').addEventListener('click', () => selectScene('aura'));
+$('tabStrike').addEventListener('click', () => selectScene('strike'));
+
+function resetCamera() {
+  const c = SCENES[S.scene].camera;
+  S.cam.yaw = c.yaw; S.cam.pitch = c.pitch; S.cam.dist = c.dist;
+  S.cam.target = c.target.slice();
+  if (S.scene === 'aura') S.cam.target[0] = S.worldX;
+  // 方便复现/对比同一个机位：index.html?cam=yaw,pitch,dist （例如 ?cam=52,17,5）
+  const q = new URLSearchParams(location.search).get('cam');
+  if (q) {
+    const v = q.split(',').map(Number);
+    if (v.length === 3 && v.every(n => isFinite(n))) { S.cam.yaw = v[0]; S.cam.pitch = v[1]; S.cam.dist = v[2]; }
+  }
+}
+[['pThird', [-34, 17, 5.0]], ['pClose', [-24, 8, 2.6]], ['pTop', [-34, 74, 6.2]], ['pFront', [0, 6, 4.2]]].forEach(([id, v]) => {
+  $(id).addEventListener('click', () => { S.cam.yaw = v[0]; S.cam.pitch = v[1]; S.cam.dist = v[2]; });
+});
+$('copyParams').addEventListener('click', () => {
+  const txt = $('uniformOut').textContent;
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => flash($('copyParams'), '已复制'), () => flash($('copyParams'), '复制失败'));
+  else flash($('copyParams'), '不可用');
+});
+function flash(btn, text) { const old = btn.textContent; btn.textContent = text; setTimeout(() => btn.textContent = old, 1200); }
+
+function renderSrcMap() {
+  const common = `<code>uniform</code> → 代码对应：<br>
+ u1 = EXTRA_ACTOR_UNIFORM1 · u2 = EXTRA_ACTOR_UNIFORM2 · u3 = EXTRA_ACTOR_UNIFORM3 · u4 = EXTRA_ACTOR_UNIFORM4<br>`;
+  $('srcMap').innerHTML = common + (S.scene === 'aura' ? `
+ <br><b style="color:#cfe9f6;font-weight:400">环身光环</b><br>
+ 行为：<code>behavior_pack/HelloScript/projection/staff_aura.py</code><br>
+ 顶点：<code>resource_pack/shaders/glsl/modern_projection_aura.vertex</code><br>
+ 像素：<code>resource_pack/shaders/glsl/modern_projection_aura.fragment</code><br>
+ 实体：<code>resource_pack/entity/modern_projection_staff_aura.entity.json</code><br>
+ 几何：<code>resource_pack/models/entity/modern_projection_staff_aura.geo.json</code><br>
+ 材质：<code>resource_pack/materials/entity.material</code> → <code>modern_projection_staff_aura</code> / <code>_glow</code><br>
+ u1=(入场 0..1, 紫蓝法杖?, 动态 1/冻结 0, 1)，由 <code>SetEntityExtraUniforms(1, value)</code> 每帧按需上传。` : `
+ <br><b style="color:#cfe9f6;font-weight:400">点选特效</b><br>
+ 行为：<code>behavior_pack/HelloScript/projection/survey_effects.py</code>（<code>_spawn('strike')</code> / <code>pulse_point()</code> / <code>_update()</code>）<br>
+ 顶点/像素：<code>resource_pack/shaders/glsl/modern_projection_survey_stars.vertex/.fragment</code>（<code>SURVEY_STRIKE</code>）<br>
+ 实体：<code>resource_pack/entity/modern_projection_survey_strike.entity.json</code><br>
+ 几何：<code>resource_pack/models/entity/modern_projection_survey_strike.geo.json</code><br>
+ 预设：<code>outline_settings.py</code> → <code>GOLD_PRESET</code>（speed 1.8 / width 1 / brightness 1 / orbit 1）<br>
+ u1=(1,1,1, 流速 flow) · u3=(1.8 秒进场, 亮度, 主题+宽 0.1, 环绕速度) · u4=(相机−方块中心, 点选面)。`);
+}
+
+/* ---------- 8. 交互：拖拽旋转 / 滚轮缩放 ---------- */
+let drag = null;
+canvas.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY}; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => {
+  if (!drag) return;
+  S.cam.yaw -= (e.clientX - drag.x) * 0.32;
+  S.cam.pitch = Math.max(-85, Math.min(88, S.cam.pitch + (e.clientY - drag.y) * 0.28));
+  drag = {x: e.clientX, y: e.clientY};
+});
+canvas.addEventListener('pointerup', () => drag = null);
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  S.cam.dist = Math.max(0.6, Math.min(40, S.cam.dist * Math.pow(1.0016, e.deltaY)));
+}, {passive: false});
+
+/* ---------- 9. 渲染 ---------- */
+function resize() {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = canvas.clientWidth | 0, h = canvas.clientHeight | 0;
+  if (canvas.width !== (w * dpr | 0) || canvas.height !== (h * dpr | 0)) {
+    canvas.width = w * dpr | 0; canvas.height = h * dpr | 0;
+  }
+}
+function drawGeo(geo, P, attribs) {
+  gl.bindBuffer(gl.ARRAY_BUFFER, geo.pos);
+  gl.enableVertexAttribArray(attribs.POSITION);
+  gl.vertexAttribPointer(attribs.POSITION, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, geo.uv);
+  gl.enableVertexAttribArray(attribs.TEXCOORD_0);
+  gl.vertexAttribPointer(attribs.TEXCOORD_0, 2, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, geo.idx);
+  gl.drawElements(gl.TRIANGLES, geo.count, gl.UNSIGNED_SHORT, 0);
+}
+function drawMesh(m, P) {
+  const A = P.A;
+  gl.bindBuffer(gl.ARRAY_BUFFER, m.vb);
+  gl.enableVertexAttribArray(A.POSITION);
+  gl.vertexAttribPointer(A.POSITION, 3, gl.FLOAT, false, 24, 0);
+  gl.enableVertexAttribArray(A.COLOR);
+  gl.vertexAttribPointer(A.COLOR, 3, gl.FLOAT, false, 24, 12);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.ib);
+  gl.drawElements(m.mode, m.n, gl.UNSIGNED_SHORT, 0);
+}
+function setExtraUniforms(P, u1, u2, u3, u4) {
+  const U = P.U;
+  if (U.EXTRA_ACTOR_UNIFORM1 && u1) gl.uniform4fv(U.EXTRA_ACTOR_UNIFORM1, u1);
+  if (U.EXTRA_ACTOR_UNIFORM2 && u2) gl.uniform4fv(U.EXTRA_ACTOR_UNIFORM2, u2);
+  if (U.EXTRA_ACTOR_UNIFORM3 && u3) gl.uniform4fv(U.EXTRA_ACTOR_UNIFORM3, u3);
+  if (U.EXTRA_ACTOR_UNIFORM4 && u4) gl.uniform4fv(U.EXTRA_ACTOR_UNIFORM4, u4);
+}
+/* 每帧 uniform 计算：与 Python 侧完全一致 */
+function frameUniforms() {
+  const sc = SCENES[S.scene];
+  const eye = camEye();
+  if (S.scene === 'aura') {
+    const entered = S.auraAuto
+      ? Math.min(1, Math.max(0, (S.clock - S.auraStarted) / 0.65)) : S.auraEntered;
+    const o = [S.worldX, 0, 0];
+    const u1 = [entered, S.staff, S.reducedMotion ? 0 : 1, 1];
+    return {o, u1, u2: [0, 0, 0, 1], u3: [0, 0, 0, 1], u4: [0, 0, 0, 0], entered};
+  }
+  const o = [0.5, 0.5, 0.5];                      // 被点选方块中心
+  /* 点击瞬间阶段：TIME 与 entered 按「点击后秒数」耦合（1.8 秒内 TIME≈age，shader 里的 birthClock 靠它把时钟压住再追上）；
+     常驻阶段：entered 由滑杆定格，TIME 自由走。 */
+  const entered = S.strikePhase === 'click'
+    ? Math.min(1, Math.max(0, S.clickAge / STRIKE_CLICK_SECONDS)) : S.strikeEntered;
+  const u1 = [1, 1, 1, S.flow];
+  const u3 = [entered, S.brightness, S.theme, S.orbit];
+  const u4 = [eye[0] - o[0], eye[1] - o[1], eye[2] - o[2], S.face];
+  return {o, u1, u2: [0, 0, 0, 1], u3, u4, entered};
+}
+function camEye() {
+  const y = S.cam.yaw * Math.PI / 180, p = S.cam.pitch * Math.PI / 180;
+  const t = S.cam.target;
+  return [t[0] + S.cam.dist * Math.cos(p) * Math.sin(y),
+          t[1] + S.cam.dist * Math.sin(p),
+          t[2] + S.cam.dist * Math.cos(p) * Math.cos(y)];
+}
+let lastT = performance.now();
+function update(now) {
+  const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
+  if (S.playing) {
+    S.clock += dt * S.speed;
+    if (strikeClickMode()) {
+      /* 点击瞬间：TIME 与 entered 一起从 0 走到 1.8 秒，可选循环重播 */
+      S.clickAge += dt * S.speed;
+      if (S.clickAge > STRIKE_CLICK_SECONDS) {
+        if (S.clickLoop) S.clickAge -= STRIKE_CLICK_SECONDS;
+        else { S.clickAge = STRIKE_CLICK_SECONDS; pausePlayback(); }
+      }
+      S.time = S.clickAge % 210;
+      S.strikeEntered = Math.min(1, S.clickAge / STRIKE_CLICK_SECONDS);
+    } else {
+      S.time = (S.time + dt * S.speed) % 210;
+    }
+    syncTimeSlider();
+  }
+  if (S.autoRotate) S.cam.yaw += dt * 14;
+  if (S.scene === 'aura') { S.cam.target[0] += (S.worldX - S.cam.target[0]) * 0.5; }
+}
+function renderFrame() {
+  resize();
+  const sc = SCENES[S.scene];
+  const W = canvas.width, H = canvas.height;
+  const aspect = W / H, fovy = 62 * Math.PI / 180, tanHalf = Math.tan(fovy / 2);
+  const eye = camEye();
+  const view = lookAt(eye, S.cam.target, [0, 1, 0]);
+  const proj = perspective(fovy, aspect, 0.04, 400);
+  const vp = mul(proj, view);
+
+  gl.viewport(0, 0, W, H);
+  gl.disable(gl.BLEND);
+  gl.enable(gl.DEPTH_TEST);
+  gl.depthMask(true);
+  gl.clearColor(0.02, 0.03, 0.05, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  /* 天空 */
+  gl.depthMask(false); gl.disable(gl.DEPTH_TEST);
+  gl.useProgram(CTX.sky.p);
+  if (!CTX.skyBuf) {
+    const vb = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    CTX.skyBuf = vb;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, CTX.skyBuf);
+  gl.enableVertexAttribArray(CTX.sky.A.POSITION);
+  gl.vertexAttribPointer(CTX.sky.A.POSITION, 2, gl.FLOAT, false, 0, 0);
+  const fwd = [S.cam.target[0] - eye[0], S.cam.target[1] - eye[1], S.cam.target[2] - eye[2]];
+  const fl = Math.hypot(...fwd) || 1; const F = fwd.map(v => v / fl);
+  const R = [-F[2], 0, F[0]]; const rl = Math.hypot(...R) || 1; R[0] /= rl; R[2] /= rl;
+  const Uu = [R[1] * F[2] - R[2] * F[1], R[2] * F[0] - R[0] * F[2], R[0] * F[1] - R[1] * F[0]];
+  gl.uniform3fv(CTX.sky.U.RIGHT, R); gl.uniform3fv(CTX.sky.U.UP, Uu); gl.uniform3fv(CTX.sky.U.FWD, F);
+  gl.uniform1f(CTX.sky.U.ASPECT, aspect); gl.uniform1f(CTX.sky.U.TANHALF, tanHalf);
+  gl.uniform3fv(CTX.sky.U.RAY, [0, 0, 0]);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  gl.enable(gl.DEPTH_TEST); gl.depthMask(true);
+
+  /* 参考物 */
+  const identity = modelMat(0, 0, 0, 1, 1, 1);
+  function drawSolid(m, model) {
+    gl.useProgram(CTX.solid.p);
+    gl.uniformMatrix4fv(CTX.solid.U.VIEWPROJ, false, vp);
+    gl.uniformMatrix4fv(CTX.solid.U.MODEL, false, model || identity);
+    gl.uniform3fv(CTX.solid.U.EYE, new Float32Array(eye));
+    drawMesh(m, CTX.solid);
+  }
+  function drawLines(m, model) {
+    gl.useProgram(CTX.line.p);
+    gl.uniformMatrix4fv(CTX.line.U.VIEWPROJ, false, vp);
+    gl.uniformMatrix4fv(CTX.line.U.MODEL, false, model || identity);
+    drawMesh(m, CTX.line);
+  }
+  if (S.showGrid) { drawLines(G.gridMinor, modelMat(0, 0.002, 0, 1, 1, 1)); drawLines(G.gridMajor, modelMat(0, 0.003, 0, 1, 1, 1)); }
+  if (S.scene === 'aura' && S.showPlayer) drawSolid(G.player, modelMat(S.worldX, 0, 0, 1, 1, 1));
+  if (S.scene === 'strike') {
+    drawSolid(G.block, identity);
+    if (S.showBlock) drawLines(G.boxWire, identity);
+  }
+
+  /* 特效本体 */
+  const fu = frameUniforms();
+  const world = NATIVE_WORLD(fu.o[0], fu.o[1], fu.o[2]);
+  gl.disable(gl.CULL_FACE);
+  for (const pass of sc.passes) {
+    const P = pass.prog;
+    gl.useProgram(P.p);
+    gl.uniformMatrix4fv(P.U.WORLD, false, world);
+    gl.uniformMatrix4fv(P.U.VIEWPROJ, false, vp);
+    gl.uniform1f(P.U.TIME, S.time);
+    gl.uniform1f(P.U.LAB_GAIN, S.gain);
+    gl.uniform1f(P.U.LAB_DEBUG, S.debugKind ? 1 : 0);
+    /* 星空内芯要知道眼睛在哪：顶点→眼睛方向做球面映射，转视角星空就流动 */
+    if (P.U.EYE) gl.uniform3fv(P.U.EYE, new Float32Array(eye));
+    setExtraUniforms(P, fu.u1, fu.u2, fu.u3, fu.u4);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, pass.additive ? gl.ONE : gl.ONE_MINUS_SRC_ALPHA);
+    gl.depthMask(pass.depthWrite);
+    drawGeo(pass.geo, P, P.A);
+  }
+  gl.depthMask(true);
+
+  /* 读数 */
+  const line = (n, v) => n + ' = (' + v.map(x => (Math.abs(x) < 10 ? x.toFixed(4) : x.toFixed(2))).join(', ') + ')';
+  $('uniformOut').textContent =
+    'scene ' + S.scene + '   TIME = ' + S.time.toFixed(3) + ' s   entered = ' + fu.entered.toFixed(4) + '\n' +
+    'EXTRA_ACTOR_UNIFORM1 ' + line('', fu.u1).trim() + '\n' +
+    (S.scene === 'aura'
+      ? 'EXTRA_ACTOR_UNIFORM1 = (入场, 紫蓝?, 动态, 1)\n实体原点 = (' + fu.o.join(', ') + ')'
+      : 'EXTRA_ACTOR_UNIFORM3 ' + line('', fu.u3).trim() + '\nEXTRA_ACTOR_UNIFORM4 ' + line('', fu.u4).trim() +
+        '\n实体(方块中心) = (' + fu.o.join(', ') + ')');
+
+  /* 诊断：画布尺寸 / 矩阵 / GL 错误 / 关键点投影 */
+  /* 数值探针（0 场景 / 1 光环晶体面数 / 2 点选晶体面数 / 3 点选光晕面数 / 4 glError / 5 时间） */
+  const glErr = gl.getError();
+  probeSet(0, S.scene === 'strike' ? [255, 140, 0] : [0, 200, 255], 'scene(青=环身 橙=点选)');
+  probeSet(1, [SCENES.aura.passes[0].geo.count / 4, 0, 0], '环身晶体面数×6/4');
+  probeSet(2, [0, SCENES.aura.passes[1].geo.count / 16, 0], '环身辉光面数×6/16');
+  probeSet(3, [0, 0, STRIKE_CRYSTALS.count / 16], '点选晶体面数×6/16');
+  probeSet(4, glErr ? [255, 0, 255] : [0, 0, 0], 'glError(品红=有错)');
+  probeSet(5, [S.time * 8, S.time * 8, S.time * 8], 'TIME×8');
+
+  if (S.showDiag) {
+    const q = xform(vp, [fu.o[0], fu.o[1] + 1, fu.o[2], 1]);
+    const qn = q.slice(0, 3).map(v => v / q[3]);
+    const ge = glErr;
+    $('diag').textContent =
+      'canvas ' + W + '×' + H + '  dpr ' + (window.devicePixelRatio || 1) + '  glError ' + ge +
+      '  viewportDrawn ' + (gl.drawingBufferWidth + '×' + gl.drawingBufferHeight) + '\n' +
+      'eye (' + eye.map(v => v.toFixed(2)).join(', ') + ')  target (' + S.cam.target.map(v => v.toFixed(2)).join(', ') + ')' +
+      '  dist ' + S.cam.dist.toFixed(2) + '  yaw ' + S.cam.yaw.toFixed(1) + '  pitch ' + S.cam.pitch.toFixed(1) + '\n' +
+      'vp col0 (' + [0, 1, 2, 3].map(i => vp[i].toFixed(3)).join(', ') + ')\n' +
+      'vp col3 (' + [12, 13, 14, 15].map(i => vp[i].toFixed(3)).join(', ') + ')\n' +
+      'point+1  clip (' + q.map(v => v.toFixed(3)).join(', ') + ')  ndc (' + qn.map(v => v.toFixed(3)).join(', ') + ')\n' +
+      '左下六格探针：场景 / 环身晶体面数 / 环身辉光面数 / 点选晶体面数 / glError / TIME（颜色即读数，悬停有说明）';
+    $('diag').hidden = false;
+  } else { $('diag').hidden = true; }
+}
+/* 一帧 = 推进时间 + 重绘；另外先同步画一帧，保证静态截图/无 rAF 环境也有画面 */
+function loop(now) { update(now); renderFrame(); requestAnimationFrame(guarded); }
+/* 任何一帧出错都把错误显示到视口上，便于排查 */
+function guarded(now) {
+  try { loop(now); }
+  catch (e) {
+    fatal.style.display = 'grid';
+    fatal.textContent = '渲染循环出错：\n' + (e && e.stack ? e.stack : e);
+  }
+}
+
+/* ---------- 10. 启动 ---------- */
+try {
+  window.addEventListener('error', e => {
+    if (fatal.style.display !== 'grid') { fatal.style.display = 'grid'; fatal.textContent = '脚本错误：\n' + (e.message || e); }
+  });
+  AURA_LAYERS.forEach(L => { $('layer_' + L.key).checked = !!S.layers[L.key]; });
+  rebuildAuraGeo();                   // 按 S.layers 重建几何（三圈冰晶 + 两圈星芒 + 头顶星冠）
+  setPhase(S.strikePhase);            // 点选默认停在「点击瞬间」
+  selectScene('aura');
+  /* 深链参数（对比 / 截图用，可叠加）：
+     ?scene=strike|aura  ?phase=click|steady  ?entered=0..1  ?ui=0  ?cam=yaw,pitch,dist
+     例：docs/effects_lab.html?scene=strike&entered=0.5&ui=0 → 直接定格在「灵魂重聚」进行到一半 */
+  const Q = new URLSearchParams(location.search);
+  const qScene = Q.get('scene'); if (qScene && SCENES[qScene]) selectScene(qScene);
+  const qPhase = Q.get('phase'); if (qPhase === 'click' || qPhase === 'steady') setPhase(qPhase);
+  const qEntered = parseFloat(Q.get('entered'));
+  if (isFinite(qEntered)) {
+    S.strikePhase = 'steady'; S.strikeEntered = Math.max(0, Math.min(1, qEntered));
+    $('strikeEntered').value = S.strikeEntered;
+    $('strikeEnteredOut').textContent = S.strikeEntered.toFixed(3);
+    setFill($('strikeEntered')); $('strikeEntered').disabled = false; $('strikeEnteredWrap').style.opacity = '1';
+  }
+  if (Q.get('ui') === '0') document.body.classList.add('no-ui');
+  S.playing = true; $('play').textContent = '暂停';   // 默认就是播放中：TIME 一直在走，入场动画也会自己播
+  renderFrame();                       // 同步首帧
+  requestAnimationFrame(guarded);
+} catch (e) {
+  die(String(e && e.message || e));
+}
+</script>
+</body>
+</html>
