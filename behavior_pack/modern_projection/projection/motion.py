@@ -89,18 +89,29 @@ def DialogMotion(opened=False, zIndex=2100, session=None, children=None):
 
 
 @Component
-def WorkspaceMotion(controller=None, awaitEditor=True, width=980, preparation=None, children=None):
+def WorkspaceMotion(controller=None, awaitEditor=True, width=980, preparation=None, textPreparation=None, children=None):
     use_theme()
-    ready, set_ready = use_state(not awaitEditor)
+    mounted, set_mounted = use_state(not awaitEditor)
+    ready, set_ready = use_state(False)
     closing, set_closing = use_state(False)
     popped = use_ref(False)
     progress = use_presence(ready and not closing, open_duration=.28)
     fade = use_ref(0.)
     fade.current = progress
-    controller.current = {'ready': lambda: set_ready(True), 'close': lambda: set_closing(True)}
+    controller.current = {'ready': lambda: set_mounted(True), 'close': lambda: set_closing(True)}
+
+    def reveal(unused):
+        if mounted and (textPreparation is None or textPreparation.settled()):
+            if textPreparation is not None:
+                textPreparation.seal()
+            set_ready(True)
+    use_animation_frame(reveal, not ready and not closing)
 
     def finish():
         if preparation is not None:
+            if progress == 1. and not closing and not preparation.ready:
+                # Leave the first settled frame free of hidden-pane mounts.
+                preparation.next_batch_at = max(preparation.next_batch_at, time.time()+.25)
             preparation.ready = progress == 1. and not closing
         if closing and progress == 0. and not popped.current:
             popped.current = True

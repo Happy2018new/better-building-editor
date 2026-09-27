@@ -22,6 +22,7 @@ from .camera import zoom_label
 from .material_browser import MaterialBrowser
 from .motion import DialogMotion, WorkspaceMotion
 from .preparation import PreparationQueue, PreparationPump
+from .text_preparation import TextPreparation, TextPreparationPump
 from .sharing_ui import SharingDialog
 from .typography import layout as text_layout
 from .widgets import Pointer, rounded_skin
@@ -574,6 +575,12 @@ def Workspace(session=None, revision=0):
     measured_pixels = use_ref(None)
     resize_pending = use_ref(False)
     entrance = use_ref(None)
+    text_preparation = use_ref(None)
+    if text_preparation.current is None:
+        if not hasattr(session, '_prepared_text_pages'):
+            session._prepared_text_pages = set()
+        text_preparation.current = TextPreparation(session._prepared_text_pages)
+    native_host._projection_text_preparation = text_preparation.current
     preparation = use_ref(None)
     if preparation.current is None:
         preparation.current = PreparationQueue(session)
@@ -583,6 +590,9 @@ def Workspace(session=None, revision=0):
             preparation.current.ready = False
             preparation.current.jobs[:] = []
             preparation.current.inputs.clear()
+            text_preparation.current.dispose()
+            if getattr(native_host, '_projection_text_preparation', None) is text_preparation.current:
+                del native_host._projection_text_preparation
             if getattr(session, '_ui_preparation', None) is preparation.current:
                 del session._ui_preparation
         return cleanup
@@ -675,7 +685,9 @@ def Workspace(session=None, revision=0):
       SafeArea(style=S(width='100%', height='100%'), children=
        Panel(style=S(width='100%', height='100%', clipsChildren=True), children=[
         WorkspaceMotion(controller=entrance, awaitEditor=page in ('workspace', 'projection'),
-                        width=width, preparation=preparation.current, children=main),
+                        width=width, preparation=preparation.current,
+                        textPreparation=text_preparation.current, children=main),
+        TextPreparationPump(preparation=text_preparation.current, host=native_host),
         ClickEffects(), PreparationPump(queue=preparation.current)])),
         # Modal backdrops cover the physical canvas, including unsafe margins.
         # DialogMotion applies its own SafeArea to the interactive card only.
@@ -694,7 +706,8 @@ def DraftStatus(session=None):
     return Button(buttonBuilder=transparent, backgroundColor=Theme.green,
                   hoverColor=Color(0x178C7E2E), radius=7, style=S(height=32, width=112),
                   children=row([icon('check' if saved else 'draft', Theme.mint, 15),
-                                retained_text('草稿已保存' if saved else '本地草稿', 10, Theme.mint, width=60, slots=5)], paddingHorizontal=12))
+                                retained_text('草稿已保存' if saved else '本地草稿', 10, Theme.mint,
+                                              width=50 if saved else 40, slots=5)], paddingHorizontal=12))
 
 
 @Component

@@ -11,7 +11,7 @@ from ..pyreact import *
 from ..pyreact import native
 from ..pyreact.hooks import use_animation_frame
 from ..pyreact.style import Style as NativeStyle
-from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
+from ..pyreact.primitives import LabelPrimitive as BaseLabelPrimitive, ImagePrimitive as BaseImagePrimitive, SliderPrimitive, InputPrimitive as BaseInputPrimitive, PaperDollPrimitive as BasePaperDollPrimitive, ScrollViewPrimitive, ButtonPrimitive as BaseButtonPrimitive, PanelPrimitive
 from .type_assets import ASSETS
 from .typography import glyph, supported, layout as text_layout
 from .catalog import ACTION_ICONS, SEGMENT_ICONS
@@ -153,6 +153,9 @@ class LabelPrimitive(BaseLabelPrimitive):
             if shown:
                 data, row, x = pieces[i]
                 name, w, h, unused_step, uv, uv_size = data
+                preparation = getattr(fiber.host, '_projection_text_preparation', None)
+                if preparation is not None:
+                    preparation.request(TEX + 'type/' + name)
                 if props.get('textAlign') == TextAlignment.center:
                     x += (width-widths[row])/2.
                 elif props.get('textAlign') == TextAlignment.right:
@@ -189,6 +192,15 @@ class InputPrimitive(BaseInputPrimitive):
         if prev_props is None or prev_props.get('fontScale') != scale:
             label = host.GetBaseUIControl(fiber.native_path + '/centering_panel/clipper_panel/display_text')
             label.asLabel().SetTextFontSize(scale)
+
+class ImagePrimitive(BaseImagePrimitive):
+    def apply_props(self, host, fiber, control, prev_props, next_props):
+        src = next_props.get('src') or ''
+        preparation = getattr(host, '_projection_text_preparation', None)
+        if preparation is not None and src.startswith(TEX + 'type/'):
+            preparation.request(src)
+        return BaseImagePrimitive.apply_props(self, host, fiber, control, prev_props, next_props)
+
 
 NativeText = LabelPrimitive()
 NativeText.template_path = '/root/mp_label_tmpl'
