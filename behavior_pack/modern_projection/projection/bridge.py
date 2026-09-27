@@ -322,12 +322,14 @@ class ClientBridge(object):
 
     def use_current_biome(self):
         from .biomes import from_native
+        # Sample only on this explicit action. Store one preset on the
+        # building; moving to another biome must not replace that choice.
         name = self.factory.CreateBiome(self.level).GetBiomeName(self.player_origin())
         if name is None:
             raise ValueError('当前位置尚未加载，请稍后重试')
         value = from_native(name)
         if value is None:
-            raise ValueError('当前群系暂无染色预设，请从列表选择')
+            raise ValueError('无法匹配当前群系的颜色，请从列表选择')
         self.session.set_biome(value)
 
     def mark(self, index):

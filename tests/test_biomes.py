@@ -72,16 +72,47 @@ class BiomeTests(unittest.TestCase):
         s.bridge.settle()
         self.assertEqual('taiga', s.sharing.document.biome)
 
-    def test_current_biome_mapping_does_not_silently_guess_unknown_biomes(self):
+    def test_current_biome_uses_nearest_known_color_without_guessing_custom_biomes(self):
         self.assertEqual('forest', biomes.from_native(b'minecraft:forest_hills'))
         self.assertEqual('jungle', biomes.from_native('minecraft:bamboo_jungle'))
         self.assertEqual('taiga', biomes.from_native('redwood_taiga_mutated'))
         self.assertEqual('forest', biomes.from_native('birch_forest_hills_mutated'))
-        self.assertIsNone(biomes.from_native('jungle_edge_mutated'))
-        self.assertIsNone(biomes.from_native('pale_garden'))
+        self.assertEqual('jungle', biomes.from_native('jungle_edge_mutated'))
+        self.assertEqual('taiga', biomes.from_native('pale_garden'))
+        self.assertEqual('desert', biomes.from_native('minecraft:mesa'))
+        self.assertEqual('birch_forest', biomes.from_native('ocean'))
+        self.assertEqual('taiga', biomes.from_native('meadow'))
         self.assertIsNone(biomes.from_native('custom:red_forest'))
         self.assertIsNone(biomes.from_native('custom:forest'))
         self.assertIsNone(biomes.from_native(None))
+
+    def test_exact_names_and_equal_color_ties_are_stable(self):
+        for key in biomes.KEYS:
+            self.assertEqual(key, biomes.from_native('minecraft:' + key))
+        self.assertEqual('savanna', biomes.from_native('savanna_mutated'))
+        self.assertEqual('savanna', biomes.from_native('savanna_plateau'))
+        # This variant has different climate colors: do not force its parent.
+        self.assertEqual('forest', biomes.from_native('savanna_plateau_mutated'))
+        self.assertEqual('desert', biomes.nearest('BEB654', 'AEA42A'))
+        self.assertEqual('savanna', biomes.nearest('BEB654', 'AEA42A', 'savanna'))
+
+    def test_matching_accounts_for_foliage_as_well_as_grass(self):
+        self.assertEqual('swampland', biomes.nearest('4C763C', '6A7039'))
+        self.assertEqual('mangrove_swamp', biomes.nearest('4C763C', '8DB127'))
+
+    def test_native_shaded_grass_is_matched_as_a_biome_color(self):
+        # Vanilla roofed_forest enables grass_is_shaded and the native
+        # grass-side atlas supplies its 507A32 shaded swatch. The installed
+        # mutated client biome does not enable that appearance override.
+        self.assertEqual(('507A32', '59AE30'), biomes.NATIVE_COLORS['roofed_forest'])
+        self.assertEqual('mangrove_swamp', biomes.from_native('roofed_forest'))
+        self.assertEqual('forest', biomes.from_native('roofed_forest_mutated'))
+
+    def test_every_bundled_vanilla_biome_has_a_nearest_preset(self):
+        self.assertEqual(87, len(biomes.NATIVE_COLORS))
+        for name in biomes.NATIVE_COLORS:
+            with self.subTest(biome=name):
+                self.assertIn(biomes.from_native(name), biomes.KEYS)
 
 
 if __name__ == '__main__':
