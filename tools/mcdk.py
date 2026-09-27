@@ -13,7 +13,7 @@ def main():
     parser.add_argument('tool', nargs='?', default='list')
     parser.add_argument('arguments', nargs='?', default='{}')
     args = parser.parse_args()
-    binary = ROOT / '.tools/mcdk-runtime/mcdk-asst-lite.exe'
+    binary = ROOT / '.tools/mcdk-runtime/v0.2.7/mcdk-asst-lite.exe'
     process = subprocess.Popen([str(binary), '--stdio'], cwd=binary.parent,
                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                stderr=subprocess.DEVNULL)

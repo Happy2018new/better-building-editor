@@ -106,8 +106,9 @@
 
 已下载 `https://github.com/GitHub-Zero123/mcdk-assistant`：
 
-- 源码资料：`.tools/mcdk-assistant`，commit `481f461d589847b9dceed762a9d8557bcd278e81`。
-- Windows LITE 二进制：`.tools/mcdk-runtime`，release `v0.2.6`。
+- 源码资料：`.tools/mcdk-assistant`，commit `172b3bc8289912e58a096349f568d1b921005d8c`。
+- Windows LITE 二进制：`.tools/mcdk-runtime/v0.2.7`，release `v0.2.7`。相邻 `knowledge` 目录联接到源码资料库，已按上述 commit 重建索引，包含发布后更新的 Bedrock 资料。
+- 项目技能：`.agents/skills/` 中同步上游 7 份技能，统一工具入口适配、安装校验与后续更新方式见 [MCDK_ASSISTANT_UPSTREAM.md](MCDK_ASSISTANT_UPSTREAM.md)。
 - 项目 MCP 配置：`.codex/config.toml`。配置方法参考 <https://developers.openai.com/codex/mcp/>。
 - 当前任务可直接使用 `python tools/mcdk.py list` 和 `python tools/mcdk.py minecraft_docs '{"command":"api CombineBlockPaletteToGeometry"}'`。
 - `.tools` 为开发机器缓存，不随模组打包。
