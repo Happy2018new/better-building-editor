@@ -1,4 +1,6 @@
 // __multiversion__
+// Keep TIME, orbit/hash arithmetic and the fragment interface at highp.
+precision highp float;
 #include "entityVertexUtil.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM2;

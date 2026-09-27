@@ -1,4 +1,6 @@
 // __multiversion__
+// Match the fragment stage, including uniforms declared by engine headers.
+precision highp float;
 #include "entityVertexUtil.h"
 varying highp vec3 skyRay;
 varying highp vec3 gemNormal;

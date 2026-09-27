@@ -1,4 +1,7 @@
 // __multiversion__
+// highp varyings alone do not protect hash parameters, locals or return values.
+// The star hash needs fractional bits after multiplication by 43758.5453.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 varying highp vec2 magicUV;
 varying highp vec4 magicColor;
@@ -9,9 +12,8 @@ varying highp vec3 skyRay;
 varying highp vec3 skyPos;
 varying highp float skyClock;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-/* 星点：照抄 modern_projection_staff.fragment 的 stars()，只把 TIME 换成光环时钟 skyClock
-   （这样「暂停 / 动态」开关一关，星点闪烁也会跟着停），并多一个「星点概率」参数。
-   参数 thresh 越小星点越密：法杖用 .84（16% 的格子里有星），冰晶要更密才好看见。 */
+/* Match the staff's star distribution without changing density to mask a
+   precision failure. skyClock also follows the reduced-motion setting. */
 float skyStars(vec2 p,float layer,float thresh){
  vec2 cell=floor(p),f=fract(p)-.5;
  float seed=hash(cell+layer*19.);

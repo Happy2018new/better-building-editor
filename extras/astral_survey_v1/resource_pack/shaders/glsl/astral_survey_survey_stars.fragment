@@ -1,4 +1,6 @@
 // __multiversion__
+// Standalone pack: TIME and crystal highlights need the same mobile precision.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 #include "uniformPerFrameConstants.h"
 varying highp vec2 effectUV;

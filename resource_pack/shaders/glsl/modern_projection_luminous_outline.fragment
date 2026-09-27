@@ -1,4 +1,6 @@
 // __multiversion__
+// TIME and moving filament phases must remain smooth throughout its 210 s loop.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 #include "uniformPerFrameConstants.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
