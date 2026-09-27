@@ -310,6 +310,25 @@ class ServerStreamTests(unittest.TestCase):
         adapter.write((0,64,0),('minecraft:quartz_block',1))
         self.assertEqual({b'pillar_axis':b'x'},state_calls[1][1])
 
+    def test_apply_over_existing_block_accepts_equivalent_native_aliases(self):
+        pos = (0,64,0)
+        self.blocks[pos] = ('minecraft:grass',0)
+        reads = [0]
+        def read(pos, dim):
+            reads[0] += 1
+            if pos == (0,64,0) and reads[0] == 2:
+                return {'name':'minecraft:grass_block','aux':0}
+            name, aux = self.blocks.get(pos, AIR)
+            return {'name':name,'aux':aux}
+        self.factory.CreateBlockInfo = lambda level: types.SimpleNamespace(
+            GetBlockNew=read, GetBlockBasicInfo=lambda name: {'name':name},
+            GetBlockEntityData=lambda dim,pos: None, SetBlockNew=self.write)
+        self.send(doc=Document((1,1,1), {(0,0,0):('minecraft:stone',0)}))
+        self.finish()
+        self.assertFalse(self.replies[-1][2].get('error'))
+        self.assertEqual(('minecraft:stone',0), self.blocks[pos])
+        self.assertEqual([pos], self.writes)
+
 
 if __name__ == '__main__':
     unittest.main()

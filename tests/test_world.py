@@ -129,6 +129,66 @@ class WorldTests(unittest.TestCase):
         self.assertFalse(job.error)
         self.assertEqual(STONE,job.journal[0][2])
 
+    def test_equivalent_legacy_target_is_not_reported_as_changed(self):
+        legacy=('minecraft:grass',0)
+        modern=('minecraft:grass_block',0)
+        self.world.blocks[(0,0,0)] = legacy
+        self.world.canonical=lambda value: modern if value == legacy else value
+        self.world.valid=lambda value: value in (AIR, legacy, modern, STONE, WOOD)
+        job = WorldJob(self.world, Document((1,1,1), {(0,0,0): modern}), (0,0,0))
+        complete(job)
+        self.assertFalse(job.error)
+        self.assertEqual(0, self.world.writes)
+
+    def test_changed_pending_target_is_replaced_using_current_rollback_value(self):
+        self.world.blocks[(1,0,0)] = WOOD
+        job = WorldJob(self.world, self.doc, (0,0,0))
+        while not job.journal:
+            job.step(1)
+        self.world.blocks[(1,0,0)] = AIR
+        self.world.fail_at = (2,0,0)
+        complete(job)
+        self.assertIn('方块写入失败', job.error)
+        self.assertEqual(AIR, self.world.read((0,0,0)))
+        self.assertEqual(AIR, self.world.read((1,0,0)))
+
+    def test_native_neighbor_state_change_does_not_abort_overwrite(self):
+        leaves = ('minecraft:oak_leaves',2)
+        updated = ('minecraft:oak_leaves',3)
+        self.world.blocks[(1,0,0)] = leaves
+        original = self.world.write
+        def write(pos, value):
+            result = original(pos, value)
+            if pos == (0,0,0) and value == STONE:
+                self.world.blocks[(1,0,0)] = updated
+            return result
+        self.world.write = write
+        job = WorldJob(self.world, self.doc, (0,0,0))
+        complete(job)
+        self.assertFalse(job.error)
+        self.assertTrue(all(self.world.read((i,0,0)) == STONE for i in range(3)))
+        self.assertEqual(updated, job.journal[1][1])
+
+    def test_newly_protected_target_aborts_and_rolls_back(self):
+        job = WorldJob(self.world, self.doc, (0,0,0))
+        while not job.journal:
+            job.step(1)
+        self.world.protected_cells.add((1,0,0))
+        complete(job)
+        self.assertIn('受保护', job.error)
+        self.assertEqual(AIR, self.world.read((0,0,0)))
+        self.assertEqual(AIR, self.world.read((1,0,0)))
+
+    def test_rollback_keeps_later_external_edits(self):
+        job = WorldJob(self.world, self.doc, (0,0,0))
+        while not job.journal:
+            job.step(1)
+        self.world.blocks[(0,0,0)] = WOOD
+        self.world.fail_at = (1,0,0)
+        complete(job)
+        self.assertTrue(job.error)
+        self.assertEqual(WOOD, self.world.read((0,0,0)))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -32,6 +32,20 @@ class WorldJob(object):
         self.error = ''
         self.done = False
 
+    def _canonical(self, value):
+        """Compare engine block identities, not legacy aliases or raw aux values."""
+        if value is None:
+            return None
+        canonical = getattr(self.adapter, 'canonical', None)
+        if callable(canonical):
+            try:
+                return canonical(value)
+            except (ValueError, TypeError):
+                # Keep custom/future block IDs comparable when the adapter has
+                # no registry entry for them.
+                pass
+        return value
+
     def fail(self, message):
         self.error = message
         self.phase = 'rollback'
@@ -77,8 +91,8 @@ class WorldJob(object):
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
                 desired = after
-                if hasattr(self.adapter, 'canonical'):
-                    desired = self.adapter.canonical(desired)
+                current = self._canonical(current)
+                desired = self._canonical(desired)
                 if current is None:
                     self.error, self.done = '区域尚未加载，请靠近后重试；未写入方块', True
                     return
@@ -97,9 +111,21 @@ class WorldJob(object):
                 current = self.adapter.read(pos)
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
-                if current != before or self.adapter.protected(pos, before):
-                    self.fail('目标或权限发生变化，正在回滚本次写入')
+                current = self._canonical(current)
+                if current is None:
+                    self.fail('区域尚未加载，正在回滚本次写入')
                     continue
+                if current == after:
+                    self.cursor += 1
+                    continue
+                if self.adapter.protected(pos, current):
+                    self.fail('目标含受保护方块实体，正在回滚本次写入')
+                    continue
+                # Applying a draft replaces the current permitted contents.
+                # Earlier writes can update leaves or remove linked blocks even
+                # with updateNeighbors=False. A preflight snapshot is therefore
+                # stale; journal the value immediately before this write.
+                before = current
                 try:
                     changed = self.adapter.write(pos, after)
                     actual = self.adapter.read(pos)
@@ -108,6 +134,8 @@ class WorldJob(object):
                     # cell in recovery rather than losing its original value.
                     self.journal.append((pos, before, after))
                     raise
+                actual = self._canonical(actual)
+                after = self._canonical(after)
                 if actual is None:
                     self.journal.append((pos, before, after))
                 elif actual != before:
@@ -127,9 +155,12 @@ class WorldJob(object):
                 current = self.adapter.read(pos)
                 if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
                     return
+                current = self._canonical(current)
+                after = self._canonical(after)
+                before = self._canonical(before)
                 if current == after and not self.adapter.protected(pos, current):
                     self.adapter.write(pos, before)
-                    if self.adapter.read(pos) != before:
+                    if self._canonical(self.adapter.read(pos)) != before:
                         self.recovery.append((pos, before, after))
                 elif current is None:
                     self.recovery.append((pos, before, after))
