@@ -60,13 +60,11 @@ vec3 buildingBiomeTint(float index, bool foliageFace) {
 }
 
 #ifndef SEASONS
-// Keep this predicate in sync with the vertex shader, which must preserve
-// dry-biome chroma instead of treating it as neutral preview lighting.
+// Keep this predicate in sync with the vertex shader. This continuous range
+// covers vanilla green/yellow/brown grass and its interpolated colors, while
+// excluding neutral vertex lighting. Fixed block pigments stay in TEXTURE_0.
 bool grassVertexTint(vec3 tint) {
-    bool green = tint.g > tint.r*1.05 && tint.g > tint.b*1.05;
-    bool dry = abs(tint.r*182.0 - tint.g*190.0) < tint.g*4.0 &&
-               abs(tint.b*182.0 - tint.g*84.0) < tint.g*4.0;
-    return green || dry;
+    return tint.g > tint.r*0.85 && tint.g > tint.b*1.05;
 }
 #endif
 

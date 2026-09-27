@@ -48,14 +48,12 @@ const vec3 UNIT_Y = vec3(0,1,0);
 const float DIST_DESATURATION = 56.0 / 255.0; //WARNING this value is also hardcoded in the water color, don'tchange
 
 #ifndef SEASONS
-// Keep this predicate in sync with the fragment shader. Dry grass uses
-// (190,182,84), sometimes quantized to (191,183,85): red exceeds green.
-// Compare chroma with a small, scale-independent tolerance, not brightness.
+// Keep this predicate in sync with the fragment shader. The vanilla grass
+// colormaps and overrides include yellow savanna and brown badlands colors.
+// One continuous chroma range also preserves their biome-boundary blends
+// and lighting-scaled colors; neutral vertex lighting remains excluded.
 bool grassVertexTint(vec3 tint) {
-    bool green = tint.g > tint.r*1.05 && tint.g > tint.b*1.05;
-    bool dry = abs(tint.r*182.0 - tint.g*190.0) < tint.g*4.0 &&
-               abs(tint.b*182.0 - tint.g*84.0) < tint.g*4.0;
-    return green || dry;
+    return tint.g > tint.r*0.85 && tint.g > tint.b*1.05;
 }
 #endif
 
