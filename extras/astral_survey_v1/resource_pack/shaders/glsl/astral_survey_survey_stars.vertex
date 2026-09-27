@@ -1,4 +1,6 @@
 // __multiversion__
+// Keep the standalone pack's engine uniforms and animation math at highp.
+precision highp float;
 #include "entityVertexUtil.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM2;

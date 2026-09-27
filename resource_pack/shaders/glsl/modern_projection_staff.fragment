@@ -1,7 +1,8 @@
 // __multiversion__
+// Declare precision BEFORE includes: TIME must not inherit mobile mediump.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 #include "uniformPerFrameConstants.h"
-precision highp float;
 varying highp vec3 skyRay;
 varying highp vec3 gemNormal;
 varying highp vec3 gemPosition;

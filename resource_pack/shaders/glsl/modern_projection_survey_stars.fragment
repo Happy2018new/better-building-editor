@@ -1,4 +1,6 @@
 // __multiversion__
+// Protect TIME at declaration and the narrow crystal/star highlight math.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 #include "uniformPerFrameConstants.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;

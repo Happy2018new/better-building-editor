@@ -1,4 +1,6 @@
 // __multiversion__
+// Preserve fractional hue after the time-dependent varying is interpolated.
+precision highp float;
 #include "fragmentVersionCentroid.h"
 
 uniform highp vec4 EXTRA_ACTOR_UNIFORM3;

@@ -1,4 +1,6 @@
 // __multiversion__
+// Match fragment uniforms and preserve random seeds and animation phases.
+precision highp float;
 #include "entityVertexUtil.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
