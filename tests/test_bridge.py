@@ -122,6 +122,38 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_current_biome_is_a_one_shot_nearest_preset_selection(self):
+        b, r, s = self.bridge, self.runtime, self.bridge.session
+        current, reads = ['minecraft:pale_garden'], []
+        def sample(pos):
+            reads.append(pos)
+            return current[0]
+        r.CreateBiome = lambda level: types.SimpleNamespace(GetBiomeName=sample)
+        b.player_origin = lambda: (20, 70, 40)
+        b.geometry = lambda *a, **k: self.fail('preset selection must not rebuild geometry')
+        before = (s.preview_signature(), dict(s.editor.document.blocks.items()), s.tiles.builds)
+        b.use_current_biome()
+        self.assertEqual('taiga', s.editor.document.biome)
+        s.set_biome('jungle')
+        current[0] = 'minecraft:mesa'
+        s.emit('view')
+        self.assertEqual('jungle', s.editor.document.biome)
+        self.assertEqual([(20, 70, 40)], reads)
+        b.use_current_biome()
+        self.assertEqual('desert', s.editor.document.biome)
+        self.assertEqual(2, len(reads))
+        self.assertEqual(before, (s.preview_signature(), dict(s.editor.document.blocks.items()), s.tiles.builds))
+
+    def test_unloaded_or_unknown_current_biome_keeps_the_existing_choice(self):
+        b, r, s = self.bridge, self.runtime, self.bridge.session
+        b.player_origin = lambda: (20, 70, 40)
+        s.set_biome('forest')
+        for name in (None, 'custom:forest'):
+            r.CreateBiome = lambda level: types.SimpleNamespace(GetBiomeName=lambda pos: name)
+            with self.assertRaises(ValueError):
+                b.use_current_biome()
+            self.assertEqual('forest', s.editor.document.biome)
+
     def test_outline_styles_keep_committed_building_and_independent_preferences(self):
         b, r, s = self.bridge, self.runtime, self.bridge.session
         self.assertEqual('rainbow', s.outline_style)
