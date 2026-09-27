@@ -47,6 +47,18 @@ const float rB = 1.0;
 const vec3 UNIT_Y = vec3(0,1,0);
 const float DIST_DESATURATION = 56.0 / 255.0; //WARNING this value is also hardcoded in the water color, don'tchange
 
+#ifndef SEASONS
+// Keep this predicate in sync with the fragment shader. Dry grass uses
+// (190,182,84), sometimes quantized to (191,183,85): red exceeds green.
+// Compare chroma with a small, scale-independent tolerance, not brightness.
+bool grassVertexTint(vec3 tint) {
+    bool green = tint.g > tint.r*1.05 && tint.g > tint.b*1.05;
+    bool dry = abs(tint.r*182.0 - tint.g*190.0) < tint.g*4.0 &&
+               abs(tint.b*182.0 - tint.g*84.0) < tint.g*4.0;
+    return green || dry;
+}
+#endif
+
 void main()
 {
     POS4 worldPos;
@@ -97,7 +109,7 @@ void main()
     // SEASONS encodes colormap UVs and tint weight, not an RGB color.
     // Clamping it as lighting changes both the biome and untinted textures.
     #ifndef SEASONS
-    bool biomeVertex = COLOR.g > COLOR.r*1.05 && COLOR.g > COLOR.b*1.05;
+    bool biomeVertex = grassVertexTint(COLOR.rgb);
     if (preview && !biomeVertex) color.rgb = max(color.rgb, vec3(0.55));
     #endif
 #endif
