@@ -59,6 +59,17 @@ vec3 buildingBiomeTint(float index, bool foliageFace) {
     return (foliageFace ? foliage : grass) / 255.0;
 }
 
+#ifndef SEASONS
+// Keep this predicate in sync with the vertex shader, which must preserve
+// dry-biome chroma instead of treating it as neutral preview lighting.
+bool grassVertexTint(vec3 tint) {
+    bool green = tint.g > tint.r*1.05 && tint.g > tint.b*1.05;
+    bool dry = abs(tint.r*182.0 - tint.g*190.0) < tint.g*4.0 &&
+               abs(tint.b*182.0 - tint.g*84.0) < tint.g*4.0;
+    return green || dry;
+}
+#endif
+
 // Vanilla grass_side is an opaque atlas sprite whose gray grass fringe is
 // already multiplied by one of these world-biome overlay colors. Recover its
 // source tint from the fringe's chroma; dirt and other block textures do not
@@ -145,10 +156,10 @@ float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
 		diffuse.a = inColor.a;
 	#endif
 	
-    // Native grass tops carry an already sampled green vertex tint instead
+    // Native grass tops carry an already sampled grass vertex tint instead
     // of SEASONS UVs. Plain blocks (including green glass/wool) have neutral
     // vertex colors: their actual color is in TEXTURE_0 and stays untouched.
-    if ((buildingUI || buildingWorld) && inColor.g > inColor.r*1.05 && inColor.g > inColor.b*1.05) {
+    if ((buildingUI || buildingWorld) && grassVertexTint(inColor.rgb)) {
         inColor.rgb = buildingBiomeTint(biomeIndex, false);
     }
     // World projections use the transparent entity mesh material (BLEND),
