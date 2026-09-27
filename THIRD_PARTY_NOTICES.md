@@ -20,6 +20,14 @@
 
 以上为提示，具体范围、统计口径、例外及义务均以上游完整文件为准。本项目作者的授权不能代替上游授权。
 
+## mcdk-assistant 技能
+
+- **上游与作者：** [GitHub-Zero123 / mcdk-assistant](https://github.com/GitHub-Zero123/mcdk-assistant)，Copyright (c) 2026, Zero123。
+- **集成基准：** `172b3bc8289912e58a096349f568d1b921005d8c`。
+- **范围：** `.agents/skills/` 下的 `ffi-cache`、`hash-key`、`mc-search`、`mod-workflow`、`next-opt`、`py-except`、`py-init`。
+- **许可：** [BSD 3-Clause License 完整文本](docs/vendor/mcdk-assistant.LICENSE.txt)。这些第三方技能继续适用上游许可。
+- **本地修改：** `mc-search`、`mod-workflow` 适配当前 MCP 统一入口及使用边界，详见 [同步记录](docs/MCDK_ASSISTANT_UPSTREAM.md)。工具程序与资料库位于忽略目录 `.tools/`，不随模组发布。
+
 ## three.js
 
 - **项目：** [three.js](https://github.com/mrdoob/three.js)。
