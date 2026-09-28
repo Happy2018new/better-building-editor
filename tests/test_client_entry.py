@@ -22,6 +22,9 @@ def load_client():
         def ListenForEvent(self, namespace, system, event, owner, callback):
             self.events[event] = callback
 
+        def UnListenAllEvents(self):
+            self.events.clear()
+
     api = modules['mod.client.extraClientApi']
     api.GetClientSystemCls = lambda: System
     api.GetEngineNamespace = lambda: 'engine'
@@ -55,6 +58,13 @@ class ClientEntryTests(unittest.TestCase):
         self.assertIn('OpenProjectionUi', self.owner.events)
         self.assertIn('RightClickBeforeClientEvent', self.owner.events)
 
+    def test_chunk_registry_tracks_load_unload_before_ui_initialization(self):
+        point = {'dimension': 0, 'chunkPosX': -2, 'chunkPosZ': 3}
+        self.owner.events['ChunkLoadedClientEvent'](point)
+        self.assertIn((0, -2, 3), self.owner.projection_loaded_chunks)
+        self.owner.events['ChunkAcquireDiscardedClientEvent'](point)
+        self.assertFalse(self.owner.projection_loaded_chunks)
+
     def test_terminal_right_click_opens_once_and_cancels_use(self):
         self.owner.hud = types.SimpleNamespace(carried='terminal')
         event = {}
@@ -73,6 +83,46 @@ class ClientEntryTests(unittest.TestCase):
         self.owner.hud.carried = 'terminal'
         self.owner.open_from_terminal()
         self.module.navigator.push.assert_called_once()
+
+    def test_projection_uses_existing_client_interactions_without_network_listener(self):
+        self.assertNotIn('ProjectionDirty', self.owner.events)
+        self.owner.hud = types.SimpleNamespace(carried='minecraft:stone')
+        self.owner.bridge = Mock()
+        for event in ('RightClickBeforeClientEvent', 'LeftClickBeforeClientEvent',
+                      'TapBeforeClientEvent', 'StartDestroyBlockClientEvent',
+                      'PlayerTryDestroyBlockClientEvent'):
+            with self.subTest(event=event):
+                args = ({'pos': (10., 64., 20.)} if event == 'StartDestroyBlockClientEvent'
+                        else {'x': 10, 'y': 64, 'z': 20})
+                self.owner.bridge.reset_mock()
+                self.owner.events[event](args)
+                self.owner.bridge.projection_interaction.assert_called_once()
+                if event in ('StartDestroyBlockClientEvent', 'PlayerTryDestroyBlockClientEvent'):
+                    self.owner.bridge.projection_interaction.assert_called_once_with((10, 64, 20))
+                self.assertNotIn('cancel', args)
+        self.owner.bridge.projection_interaction.assert_called_once_with((10, 64, 20))
+
+    def test_break_without_position_does_not_fall_back_to_camera(self):
+        self.owner.bridge = Mock()
+        self.owner.tool_prevent_break({})
+        self.owner.bridge.projection_interaction.assert_not_called()
+
+    def test_system_destruction_unregisters_listeners_and_stops_projection(self):
+        self.owner.bridge = Mock()
+        self.owner.bridge.destroy.side_effect = lambda: self.assertFalse(self.owner.events)
+        self.assertIn('GameRenderTickEvent', self.owner.events)
+        self.owner.Destroy()
+        self.assertFalse(self.owner.events)
+        self.owner.bridge.destroy.assert_called_once_with()
+
+    def test_tool_cancel_does_not_enqueue_occupancy_hints(self):
+        self.owner.hud = types.SimpleNamespace(carried='terminal')
+        self.owner.bridge = Mock()
+        event = {'x': 10, 'y': 64, 'z': 20}
+        self.owner.events['StartDestroyBlockClientEvent'](event)
+        self.assertTrue(event['cancel'])
+        self.owner.events['RightClickBeforeClientEvent']({})
+        self.owner.bridge.projection_interaction.assert_not_called()
 
 
 if __name__ == '__main__':

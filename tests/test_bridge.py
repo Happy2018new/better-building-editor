@@ -35,6 +35,9 @@ class Runtime:
     def CreateCamera(self, level):
         return self
 
+    def GetFootPos(self):
+        return (0., 64., 0.)
+
     def GetPosition(self):
         return self.camera_pos
 
@@ -72,6 +75,12 @@ class Runtime:
 
     def AddTimer(self, delay, callback):
         self.timers.append(callback)
+
+    def CreateBlock(self, level):
+        return self
+
+    def GetBlockPaletteBetweenPos(self, *args):
+        return None
 
     def CreateBlockInfo(self, level):
         return self
@@ -122,6 +131,66 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_client_occupancy_start_interaction_and_stop_send_no_network_events(self):
+        b, r = self.bridge, self.runtime
+        b.session.projection_missing = True
+        b.session.editor = Editor(Document((1, 1, 1), {(0, 0, 0): ('minecraft:stone', 0)}))
+        b.session.origin = (10, 64, 20)
+        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible), name or 'model')[1]
+        b.project()
+        while r.timers:
+            r.timers.pop(0)()
+        watcher = b.projection_occupancy
+        self.assertIsNotNone(watcher)
+        r.PickFacing = lambda: dict(type='Block', x=10, y=64, z=20)
+        b.projection_interaction()
+        self.assertTrue(watcher.hints)
+        b.stop_projection()
+        self.assertIsNone(b.projection_occupancy)
+        self.assertFalse(watcher.active())
+        self.assertFalse(r.sent)
+
+    def test_occupancy_updates_camera_origin_when_anchor_is_unchanged(self):
+        b, r = self.bridge, self.runtime
+        b.session.projection_missing = True
+        b.session.editor = Editor(Document((1,1,1), {(0,0,0): ('minecraft:stone',0)}))
+        b.session.origin = (10,64,20)
+        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible),name or 'model')[1]
+        b.project()
+        r.timers.pop(0)()
+        b.follow_projection()
+        anchor = b.projection_mesh[3]
+        r.camera_pos, r.camera_forward = (0.,64.,8.), (0.,0.,-1.)
+        b.follow_projection()
+        self.assertEqual(anchor,b.projection_mesh[3])
+        self.assertEqual({4},set(b.projection_occupancy.shader.uniforms))
+
+    def test_occupancy_buffer_failure_keeps_previous_projection(self):
+        b, r = self.bridge, self.runtime
+        b.session.projection_missing = True
+        b.session.editor = Editor(Document((1,1,1), {(0,0,0): ('minecraft:stone',0)}))
+        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible),name or 'model')[1]
+        b.project()
+        while r.timers:
+            r.timers.pop(0)()
+        old, tracker = b.entity, b.projection_occupancy
+        b.project()
+        pending = b.preparing_entity
+        r.SetEntityExtraUniforms = lambda slot, values: slot != 4
+        while r.timers:
+            r.timers.pop(0)()
+        self.assertEqual(old,b.entity)
+        self.assertIs(tracker,b.projection_occupancy)
+        self.assertNotIn(old,r.destroyed)
+        self.assertIn(pending,r.destroyed)
+
+    def test_no_active_occupancy_skips_camera_pick(self):
+        b, r = self.bridge, self.runtime
+        r.PickFacing = lambda: self.fail('disabled projection must not pick')
+        r.GetChosen = lambda: self.fail('disabled projection must not pick')
+        b.projection_interaction()
+        b.projection_interaction(touch=True)
+
     def test_current_biome_is_a_one_shot_nearest_preset_selection(self):
         b, r, s = self.bridge, self.runtime, self.bridge.session
         current, reads = ['minecraft:pale_garden'], []
@@ -225,7 +294,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         r.SetActorBlockGeometryOffset = setter
         b.follow_projection()
         self.assertIsNotNone(b._projection_follow_position)
-        self.assertEqual((0.,64.,4.), b.projection_mesh[3])
+        self.assertEqual((0.,65.,0.), b.projection_mesh[3])
 
     def test_camera_anchor_preserves_world_coordinates_without_rebuilding(self):
         b, r = self.bridge, self.runtime
@@ -240,9 +309,10 @@ class ProjectionLifecycleTests(unittest.TestCase):
             r.camera_pos, r.camera_forward = position, forward
             b.follow_projection()
             anchor = tuple(position[i]+forward[i]*4. for i in range(3))
-            self.assertEqual(anchor, r.actor_positions[mesh][1])
+            mesh_anchor = (0., 65., 0.)
+            self.assertEqual(mesh_anchor, r.actor_positions[mesh][1])
             ox, oy, oz = r.offsets[mesh]
-            self.assertEqual((-30., 64., 5.), (anchor[0]-ox-.5, anchor[1]+oy, anchor[2]-oz-.5))
+            self.assertEqual((-30., 64., 5.), (mesh_anchor[0]-ox-.5, mesh_anchor[1]+oy, mesh_anchor[2]-oz-.5))
             correction = r.uniform_slots[outline, 2]
             self.assertEqual((-18., 72., 17.), tuple(anchor[i]+correction[i] for i in range(3)))
             calls = len(r.moves)
@@ -272,7 +342,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.follow_projection()
         self.assertEqual(mesh, b.entity)
         self.assertEqual((-30,64,5), b.projection_mesh[2])
-        self.assertEqual((40.-.5, -6., 19.-.5), r.offsets[mesh])
+        self.assertEqual((29.5, -1., -5.5), r.offsets[mesh])
 
     def test_default_render_distance_is_leased_and_restored(self):
         self.runtime.render_distance=-1.
@@ -289,6 +359,9 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.bridge = boundary.ClientBridge(self.runtime)
         self.bridge.geometry = lambda *unused: 'model'
         self.bridge.session = Session(self.bridge)
+        # General actor/outline tests exercise the unfiltered rendering path.
+        # Shader filtering and its persistent buffers have dedicated tests.
+        self.bridge.session.projection_missing = False
         self.bridge.entity = 'previous_projection'
         self.bridge.session.projection_active = True
 
@@ -593,22 +666,24 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertIsNone(outline.bounds)
         self.assertEqual(1, len(self.runtime.created))
 
-    def test_filter_toggle_resolves_legacy_palette_then_immediately_rebuilds(self):
+    def test_filter_hides_any_occupied_block_without_resolving_materials(self):
         b,s=self.bridge,self.bridge.session
+        s.projection_missing=True
         old=('minecraft:planks',0)
         s.origin=(0,0,0)
         s.editor=Editor(Document((3,1,1),dict(((x,0,0),old) for x in range(3))))
         self.runtime.world={(0,0,0):('minecraft:oak_planks',0),(1,0,0):('minecraft:stone',0)}
         observed=[]
-        def geometry(doc,visible=None):
+        def geometry(doc,visible=None,name=None):
+            if hasattr(doc, 'common'):
+                return name or 'model'
             observed.append([p for p in doc.blocks if visible is None or visible(p)])
-            return 'model' if observed[-1] else None
+            return (name or 'model') if observed[-1] else None
         b.geometry=geometry
-        b.toggle_missing()
+        b.project()
         self.assertTrue(s.projection_missing)
-        self.assertEqual('resolve',self.runtime.sent[-1]['action'])
-        b.receive({'request':b.pending,'done':True,'palette':[['minecraft:oak_planks',0]]})
-        self.assertEqual([[(1,0,0),(2,0,0)]],observed)
+        self.assertFalse(any(v.get('action') == 'resolve' for v in self.runtime.sent))
+        self.assertEqual([[(2,0,0)]],observed)
         self.runtime.timers.pop(0)()
         b.toggle_missing()
         self.assertEqual([(0,0,0),(1,0,0),(2,0,0)],observed[-1])
@@ -616,12 +691,13 @@ class ProjectionLifecycleTests(unittest.TestCase):
 
     def test_completed_projection_retains_bounds_and_can_restore_all_blocks(self):
         b,s=self.bridge,self.bridge.session
+        s.projection_missing=True
         value=('minecraft:stone',0)
         s.origin=(0,0,0);s.editor=Editor(Document((1,1,1),{(0,0,0):value}))
         b.projection_palette[value]=value
         self.runtime.world[(0,0,0)]=value
-        b.geometry=lambda doc,visible=None: 'model' if visible is None or visible((0,0,0)) else None
-        b.toggle_missing()
+        b.geometry=lambda doc,visible=None,name=None: (name or 'model') if visible is None or visible((0,0,0)) else None
+        b.project()
         self.assertIsNone(b.entity)
         self.assertTrue(s.projection_active)
         self.assertEqual(((0,0,0),(1,1,1)),b.projection_outline.bounds)
@@ -629,14 +705,18 @@ class ProjectionLifecycleTests(unittest.TestCase):
         for callback in list(self.runtime.timers): callback()
         self.assertIsNotNone(b.entity)
 
-    def test_stopping_while_palette_is_in_flight_cannot_resurrect_projection(self):
+    def test_stopping_filtered_projection_cancels_pending_attachment(self):
         b=self.bridge
         b.session.projection_missing=True
-        b.project();request=b.pending
+        b.geometry=lambda doc,visible=None,name=None: (doc.palette_data(visible), name or 'model')[1]
+        b.project()
+        callbacks=list(self.runtime.timers)
         b.stop_projection()
-        b.receive({'request':request,'done':True,'palette':b.pending_data[1]['palette']})
+        for callback in callbacks:
+            callback()
         self.assertFalse(b.session.projection_active)
         self.assertIsNone(b.preparing_entity)
+        self.assertIsNone(b.projection_occupancy)
 
     def test_unloaded_cell_is_not_misclassified_as_completed(self):
         self.runtime.world[(0,0,0)]=None

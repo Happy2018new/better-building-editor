@@ -112,7 +112,6 @@ void main()
 	gl_FragColor = vec4(0, 0, 0, 0);
 	return;
 #else 
-
 #if !defined(TEXEL_AA) || !defined(TEXEL_AA_FEATURE)
 	vec4 diffuse = texture2D(TEXTURE_0, uv0);
 #else
@@ -190,7 +189,7 @@ float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
 	diffuse.rgb = mix( diffuse.rgb, fogColor.rgb, fogColor.a );
 #endif
 //#ifdef ENABLE_SET_TRANSPARENCY
-	diffuse.a *= COMMON_BLOCK_GEO_FLOAT1_1;
+    diffuse.a *= buildingWorld && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5 ? EXTRA_ACTOR_UNIFORM4.w : COMMON_BLOCK_GEO_FLOAT1_1;
 //#endif
     // Scene's transparent image immediately below the preview renderers seeds
     // CURRENT_COLOR with inherited UI alpha. Perspective world projections
