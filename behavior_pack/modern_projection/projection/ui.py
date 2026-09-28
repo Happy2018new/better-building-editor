@@ -715,18 +715,31 @@ def DocumentStatistics(session=None):
     use_theme()
     use_session_fields(session, ('point_edit',))
     e = session.editor
-    return row([
-        retained_text('方块 %s' % format(len(e.document.blocks), ','), 10, Theme.muted, width=90, slots=16),
-        retained_text('选区 %s' % format(len(e.selection), ','), 10, Theme.muted, width=90, slots=16),
-        retained_text('材质 %d' % len(e.document.materials()), 10, Theme.muted, width=65, slots=10),
-    ], gap=10, flexShrink=0)
+    # Fit each caption to its glyph advances, then align the group to the
+    # right. Keep the outer box fixed so count changes stay inside the footer.
+    captions = (
+        '方块 %s' % format(len(e.document.blocks), ','),
+        '选区 %s' % format(len(e.selection), ','),
+        '材质 %d' % len(e.document.materials()),
+    )
+    return Panel(cacheLayout=True,
+        style=S(width=265, flexShrink=0, flexDirection=FlexDirection.row,
+                alignItems=AlignItems.center, justifyContent=JustifyContent.flex_end, gap=12),
+        children=[retained_text(value, 10, Theme.muted, slots=16,
+                               width=max(text_layout(value, 10)[1])+1, flexShrink=0)
+                  for value in captions])
 
 
 @Component
 def TaskStatus(session=None):
     use_theme()
-    use_session_fields(session, ('point_edit',))
-    message = ('处理中… ' if session.busy else '') + session.editor.message[:80]
+    use_session_fields(session, ('point_edit', 'edit_progress', 'biome', 'library'))
+    message = (session.editor.message or '').strip()[:80]
+    if session.busy:
+        message = '处理中… ' + message
+    if not message:
+        active = session.edit_job is not None or session.io_job is not None
+        message = '正在处理…' if active else '工作台已就绪'
     return retained_text(message, 10, Theme.muted, flex=1, slots=84)
 
 

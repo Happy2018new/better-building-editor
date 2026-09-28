@@ -64,7 +64,7 @@ class ToolImportTests(unittest.TestCase):
         self.assertEqual('世界选区 1,64,2 (2)', session.library[1]['data']['name'])
         self.assertEqual(2, bridge.library['serial'])
         self.assertEqual([], bridge.messages)
-        self.assertEqual('', session.editor.message)
+        self.assertEqual('世界选区已导入建筑库', session.editor.message)
         self.assertIs(original, session.editor)
 
     def test_failed_index_can_be_retried_without_losing_import(self):
