@@ -22,6 +22,7 @@ class ClientBridge(object):
         self.factory = clientApi.GetEngineCompFactory()
         self.level = clientApi.GetLevelId()
         self.player = clientApi.GetLocalPlayerId()
+        self.player_position = self.factory.CreatePos(self.player)
         self.session = None
         self.corners = [None, None]
         self.corner_faces = [None, None]
@@ -42,6 +43,7 @@ class ClientBridge(object):
         self.projection_serial = 0
         self.projection_entities = {}
         self.projection_work = None
+        self.projection_occupancy = None
         self.projection_distance = None
         self.projection_requested = False
         self.projection_palette = {}
@@ -89,19 +91,30 @@ class ClientBridge(object):
         self.survey_effects.follow(position,tuple(centre))
         if not self.session.projection_active:
             return
-        signature = (position, self.entity, self.projection_outline.entity)
+        # Empty elevated subchunks can omit client actors before the camera
+        # frustum test. Keep the mesh actor in the player's loaded section;
+        # compensate its geometry offset to retain exact world coordinates.
+        foot = self.player_position.GetFootPos()
+        if foot is None:
+            return
+        mesh_position = (foot[0], foot[1]+1., foot[2])
+        signature = (position, mesh_position, self.entity, self.projection_outline.entity)
         if signature == self._projection_follow_position:
             self.projection_outline.follow(position, tuple(centre))
             return
         if self.projection_mesh:
             entity, model, origin, previous = self.projection_mesh
-            if entity == self.entity and position != previous:
-                if not self.factory.CreatePos(entity).SetPosForClientEntity(position):
+            if entity == self.entity and mesh_position != previous:
+                if mesh_position != previous and not self.factory.CreatePos(entity).SetPosForClientEntity(mesh_position):
                     return
-                offset = (position[0]-origin[0]-.5, origin[1]-position[1], position[2]-origin[2]-.5)
-                if not self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset):
+                offset = (mesh_position[0]-origin[0]-.5, origin[1]-mesh_position[1], mesh_position[2]-origin[2]-.5)
+                occupancy = self.projection_occupancy
+                moved = (occupancy.shader.follow(mesh_position, centre) if occupancy is not None and
+                         occupancy.entity == entity else
+                         self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset))
+                if not moved:
                     return
-                self.projection_mesh = (entity, model, origin, position)
+                self.projection_mesh = (entity, model, origin, mesh_position)
         if self.projection_outline.follow(position, tuple(centre)):
             self._projection_follow_position = signature
 
@@ -317,6 +330,11 @@ class ClientBridge(object):
         work = getattr(self, 'projection_work', None)
         if work is not None:
             work.document.biome = value
+        if self.projection_occupancy is not None:
+            self.projection_occupancy.document.biome = value
+            if self.projection_occupancy.shader.render is not None:
+                self.projection_occupancy.shader.control()
+                return
         if self.entity:
             self.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(4, actor_uniform(value))
 
@@ -510,31 +528,32 @@ class ClientBridge(object):
     def project(self):
         s = self.session
         origin = coordinate(s.origin)
+        self.ensure_projection_distance(s.editor.document.size)
         self.projection_requested = True
-        if s.projection_missing:
-            unresolved = [value for value, count in s.editor.document.materials() if value not in self.projection_palette]
-            if unresolved:
-                s.editor.message = '正在检查投影材质…'
-                return self.request('resolve', {'palette': [list(value) for value in unresolved[:64]]})
         if s.editor.document.volume > SMALL_VOLUME:
             return self.project_large(origin)
         self.projection_serial += 1
+        self.projection_work = None
         if self.projection_entities:
             self.stop_projection()
             self.projection_requested = True
-        info = self.factory.CreateBlockInfo(self.level)
+        from .occupancy import ProjectionOccupancy
+        occupancy = ProjectionOccupancy(self, origin) if s.projection_missing else None
 
         def visible(pos):
+            if occupancy is not None:
+                return occupancy.initial_visible(pos)
             if not s.visible_layer(pos[1]):
                 return False
-            if s.projection_missing:
-                return self.needs_projection(info, add(origin, pos), s.editor.document.get(pos))
             return True
-        name = self.geometry(s.editor.document, visible)
+        name = (self.geometry(s.editor.document, visible, name=occupancy.shader.names[0])
+                if occupancy is not None else self.geometry(s.editor.document, visible))
         if not name:
             self.stop_projection()
             self.projection_requested = s.projection_active = True
             self.projection_outline.replace(origin, tuple(s.editor.document.size))
+            if occupancy is not None:
+                occupancy.start(None, None)
             s.editor.message = '当前没有需要投影的方块，范围框已保留'
             return
         entity = self.system.CreateClientEntityByTypeStr(native('modern_projection:anchor'), tuple(float(v) for v in origin), (0., 0.))
@@ -560,6 +579,11 @@ class ClientBridge(object):
             success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and render.EnableActorBlockGeometryTransparent(name, True)
                        and render.SetActorBlockGeometryTransparency(name, opacity)
                        and render.SetEntityExtraUniforms(4, actor_uniform(s.editor.document.biome)))
+            if success and occupancy is not None:
+                try:
+                    occupancy.shader.bind(entity, name, origin, attached=True)
+                except (ValueError, TypeError, KeyError, RuntimeError):
+                    success = False
             self.preparing_entity = None
             if success:
                 if self.entity:
@@ -569,6 +593,7 @@ class ClientBridge(object):
                 s.projection_active = True
                 s.editor.message = '投影已生成，关闭工作台即可在世界中查看'
                 self.projection_outline.replace(origin, size)
+                self.set_projection_occupancy(occupancy, entity, name)
             else:
                 self.system.DestroyClientEntity(entity)
                 s.editor.message = '透明投影生成失败，原投影已保留'
@@ -586,9 +611,32 @@ class ClientBridge(object):
         actual = info.GetBlock(pos)
         if actual is None or actual[0] == 'minecraft:unknown':
             raise ValueError('投影区域尚未加载，请靠近目标位置')
-        return block(actual) != self.projection_palette.get(value, value)
+        from .occupancy import AIR_NAMES
+        return actual[0] in AIR_NAMES
+
+    def set_projection_occupancy(self, occupancy, entity, model):
+        if occupancy is not None:
+            occupancy.start(entity, model)
+        else:
+            self.projection_occupancy = None
+
+    def projection_interaction(self, pos=None, touch=False):
+        occupancy = self.projection_occupancy
+        if occupancy is None or not occupancy.active():
+            return
+        if pos is None:
+            pick = occupancy.camera.GetChosen() if touch else occupancy.camera.PickFacing()
+            if not pick or pick.get('type') != 'Block':
+                return
+            pos = tuple(int(pick[axis]) for axis in ('x', 'y', 'z'))
+        occupancy.hint(pos)
+
+    def update_projection_occupancy(self):
+        if self.projection_occupancy is not None:
+            self.projection_occupancy.tick()
 
     def stop_projection(self):
+        self.projection_occupancy = None
         self.projection_requested = False
         if self.pending_data and self.pending_data[0] == 'resolve':
             self.cancel_world()
@@ -648,6 +696,10 @@ class ClientBridge(object):
                 render.SetEntityRenderDistance(lease[0])
 
     def dimension_changed(self, unused):
+        loaded = getattr(self.system, 'projection_loaded_chunks', None)
+        if loaded is not None:
+            dimension = self.factory.CreateGame(self.level).GetCurrentDimension()
+            loaded.intersection_update(key for key in tuple(loaded) if key[0] == dimension)
         if self.pending_data and self.pending_data[0] == 'capture':
             self.cancel_world()
         self.stop_projection()

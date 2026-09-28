@@ -30,6 +30,7 @@ varying highp float previewClip;
 // time-of-day lighting and world fog while other actor block geometry keeps
 // the native terrain appearance.
 uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+uniform float COMMON_BLOCK_GEO_FLOAT1_1;
 
 #include "uniformWorldConstants.h"
 #include "uniformPerFrameConstants.h"
@@ -98,6 +99,11 @@ void main()
     gl_Position = pos;
 
     bool projectionWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x - 19487.0) < 0.25;
+    if (projectionWorld && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5) {
+        float bank = COMMON_BLOCK_GEO_FLOAT1_1 < 0.5 ? 1.0 : 2.0;
+        if (abs(bank-EXTRA_ACTOR_UNIFORM4.z) > 0.25)
+            gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+    }
     light = (preview || projectionWorld) ? vec4(1.0) : vec4(TILE_LIGHT_COLOR.xyz, 1.0);
 
 #ifndef BYPASS_PIXEL_SHADER

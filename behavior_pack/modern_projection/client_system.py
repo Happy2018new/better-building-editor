@@ -22,9 +22,14 @@ class ModernProjectionClientSystem(ClientSystem):
         self.staff_aura = None
         self.nearby_staff_auras = None
         self.tool_touch_pick = None
+        self.projection_loaded_chunks = set()
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'UiInitFinished', self, self.UiInitFinished)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'DimensionChangeFinishClientEvent', self, self.dimension_changed)
         self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(), 'GameRenderTickEvent', self, self.render_tick)
+        self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+                            'ChunkLoadedClientEvent', self, self.chunk_loaded)
+        self.ListenForEvent(clientApi.GetEngineNamespace(), clientApi.GetEngineSystemName(),
+                            'ChunkAcquireDiscardedClientEvent', self, self.chunk_unloaded)
         self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'ProjectionResponse', self, self.response)
         self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'BlockCatalogueResponse', self, self.block_catalogue)
         self.ListenForEvent('ModernProjection', 'ModernProjectionServerSystem', 'OpenProjectionUi', self, self.open_from_terminal)
@@ -53,6 +58,12 @@ class ModernProjectionClientSystem(ClientSystem):
         from .projection.staff_aura import StaffAura, NearbyStaffAuras
         self.staff_aura = StaffAura(self.bridge)
         self.nearby_staff_auras = NearbyStaffAuras(self.bridge)
+
+    def chunk_loaded(self, args):
+        self.projection_loaded_chunks.add((args['dimension'], args['chunkPosX'], args['chunkPosZ']))
+
+    def chunk_unloaded(self, args):
+        self.projection_loaded_chunks.discard((args['dimension'], args['chunkPosX'], args['chunkPosZ']))
 
     def open_workspace(self):
         if self.session is not None and not navigator.contains('modern_projection_workspace'):
@@ -85,9 +96,18 @@ class ModernProjectionClientSystem(ClientSystem):
     def tool_prevent_break(self, args):
         if self.hud and self.hud.carried in (SURVEY_WAND, TERMINAL):
             args['cancel'] = True
+        elif self.bridge:
+            # StartDestroy carries pos; PlayerTryDestroy carries x/y/z.
+            pos = args.get('pos')
+            if pos is None and all(axis in args for axis in ('x', 'y', 'z')):
+                pos = tuple(args[axis] for axis in ('x', 'y', 'z'))
+            if pos is not None:
+                self.bridge.projection_interaction(tuple(int(v) for v in pos))
 
     def tool_use(self, args):
         if self.hud is None or self.hud.carried not in (SURVEY_WAND, TERMINAL):
+            if self.bridge and self.bridge.projection_occupancy is not None:
+                self.bridge.projection_interaction(touch=is_touch())
             return
         if navigator.contains('modern_projection_workspace'):
             return
@@ -116,6 +136,8 @@ class ModernProjectionClientSystem(ClientSystem):
 
     def tool_touch_tap(self, args):
         if self.hud is None or self.hud.carried not in (SURVEY_WAND,TERMINAL):
+            if self.bridge:
+                self.bridge.projection_interaction(touch=True)
             return
         if navigator.contains('modern_projection_workspace'):
             return
@@ -130,6 +152,8 @@ class ModernProjectionClientSystem(ClientSystem):
             self.tool_mark(pick)
 
     def tool_import_click(self, args):
+        if self.bridge and (self.hud is None or self.hud.carried not in (SURVEY_WAND, TERMINAL)):
+            self.bridge.projection_interaction()
         if self.hud is None or self.hud.carried != SURVEY_WAND or is_touch():
             return
         if navigator.contains('modern_projection_workspace'):
@@ -188,6 +212,7 @@ class ModernProjectionClientSystem(ClientSystem):
     def render_tick(self, unused):
         if self.bridge:
             self.bridge.follow_projection()
+            self.bridge.update_projection_occupancy()
         if self.hud:
             self.hud.update()
         if self.staff_aura and self.hud:
@@ -196,6 +221,8 @@ class ModernProjectionClientSystem(ClientSystem):
             self.nearby_staff_auras.update()
 
     def Destroy(self):
+        # These listeners belong to the system, not individual projections.
+        self.UnListenAllEvents()
         if self.staff_aura:
             self.staff_aura.clear()
         if self.nearby_staff_auras:
