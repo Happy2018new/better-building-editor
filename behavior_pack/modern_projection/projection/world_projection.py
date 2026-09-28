@@ -18,6 +18,8 @@ class WorldProjection(object):
         self.hidden = set(s.preview_hidden())
         self.layer = s.editor.layer if s.solo_layer else None
         self.opacity, self.missing = s.opacity, s.projection_missing
+        from .occupancy import ProjectionOccupancy
+        self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
         self.keys = tuple(sorted(self.document.blocks.chunks))
         self.total, self.completed = len(self.keys), set()
         self.output = SurfacePalette(self.document.size)
@@ -33,12 +35,19 @@ class WorldProjection(object):
 
     def prepare(self):
         store = self.document.blocks
-        info = self.bridge.factory.CreateBlockInfo(self.bridge.level) if self.missing else None
         for key in self.keys:
             start = tuple(v*16 for v in key)
             size = tuple(min(16, self.document.size[i]-start[i]) for i in range(3))
             chunk = store.chunks[key]
             uniform = isinstance(chunk, integer_types)
+            if self.occupancy is not None and self.occupancy.bulk is not None:
+                from .occupancy_initial import prepare_chunk
+                for unused in prepare_chunk(self.occupancy, store, key, size, self.output):
+                    yield None
+                self.completed.add(key)
+                continue
+            if not uniform:
+                chunk = tuple(chunk)
             for y in range(size[1]):
                 if not self.visible_y(start[1]+y):
                     continue
@@ -49,7 +58,7 @@ class WorldProjection(object):
                             continue
                         value = store.palette[identity]
                         pos = (start[0]+x, start[1]+y, start[2]+z)
-                        if info is None or self.bridge.needs_projection(info, add(self.origin, pos), value):
+                        if self.occupancy is None or self.occupancy.initial_visible(pos):
                             self.output.add(pos, value)
                 yield None
             self.completed.add(key)
@@ -97,6 +106,7 @@ class WorldProjection(object):
         b.projection_mesh = (entity, self.model, self.origin, self.anchor) if entity else None
         b.session.projection_active = True
         b.projection_outline.replace(self.origin, self.document.size)
+        b.set_projection_occupancy(self.occupancy, entity, self.model)
         self.ready = True
         self.output = None
         self.publish(True)
@@ -118,13 +128,16 @@ class WorldProjection(object):
                        render.SetEntityExtraUniforms(4, actor_uniform(self.document.biome)))
             if not success:
                 raise ValueError('透明投影生成失败，原投影已保留，请重试')
+            if self.occupancy is not None:
+                self.occupancy.shader.bind(entity, self.model, self.anchor, attached=True)
             self.commit(entity)
         except Exception as exc:
             self.fail(type('')(exc))
 
     def submit(self):
         b = self.bridge
-        self.model = b.geometry(self.output)
+        self.model = (b.geometry(self.output, name=self.occupancy.shader.names[0])
+                      if self.occupancy else b.geometry(self.output))
         if not self.model:
             if self.output.count:
                 raise ValueError('投影模型生成失败，原投影已保留，请重试')
@@ -142,9 +155,7 @@ class WorldProjection(object):
         deadline = time.time()+.003
         try:
             while time.time() < deadline:
-                try:
-                    next(self.iterator)
-                except StopIteration:
+                if next(self.iterator, False) is False:
                     self.iterator = None
                     self.publish(True)
                     self.submit()  # One native model; no transparent tile seams.

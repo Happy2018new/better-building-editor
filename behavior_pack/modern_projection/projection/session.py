@@ -78,7 +78,7 @@ class Session(object):
         self.opacity = .45
         self.apply_air = False
         self.projection_active = False
-        self.projection_missing = False
+        self.projection_missing = True
         self.projection_outline = True
         self.progress = None
         self.pending_confirm = None
