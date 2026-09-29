@@ -362,7 +362,7 @@ def ModificationMask(session=None, revision=0):
 
 @Component
 def BiomeTintSettings(session=None):
-    from .biomes import PRESETS, label
+    from .biomes import CHOICES, label
     use_theme()
     opened, set_opened = use_state(False)
     unused, update = use_state(0)
@@ -370,15 +370,17 @@ def BiomeTintSettings(session=None):
         return session.subscribe(lambda: update(lambda value: value+1), ('biome',))
     use_effect(subscribe, [session])
     current = session.editor.document.biome
+    choice = 'desert' if current == 'savanna' else current
     options = [Action(label=name, glyph='biome_' + key, width=104, height=30, compact=True,
-                      selected=current == key, onClick=partial(session.set_biome, key))
-               for key, name, grass, foliage in PRESETS]
+                      selected=choice == key, onClick=partial(session.set_biome, key))
+               for key, name, grass, foliage in CHOICES]
     return Panel(style=S(width=216, gap=7), children=[
         text('生物群系染色', 13),
         Action(label=label(current), glyph='biome_' + current, height=30, selected=opened,
                onClick=partial(set_opened, not opened)),
         Panel(style=S(display=Display.flex if opened else Display.none, gap=6), children=[
             row(options[i:i+2], gap=8) for i in range(0, len(options), 2)] + [
+                text('相近色已合并；干燥含沙漠与热带草原', 10, Theme.muted),
                 Action(label='使用当前位置的群系', glyph='pin', height=30,
                        onClick=partial(session.action, session.bridge.use_current_biome))]),
         text('预览与投影共用，随建筑保存', 10, Theme.muted),

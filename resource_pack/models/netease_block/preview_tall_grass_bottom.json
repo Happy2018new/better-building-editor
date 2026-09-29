@@ -1,0 +1,113 @@
+{
+  "format_version": "1.13.0",
+  "netease:block_geometry": {
+    "description": {
+      "identifier": "modern_projection:preview_tall_grass_bottom",
+      "textures": [
+        "tall_grass_bottom"
+      ],
+      "item_texture": "tall_grass_bottom",
+      "use_ao": false
+    },
+    "bones": [
+      {
+        "name": "cross_0",
+        "pivot": [
+          0,
+          8,
+          0
+        ],
+        "rotation": [
+          0,
+          45,
+          0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -8,
+              0,
+              0
+            ],
+            "size": [
+              16,
+              16,
+              0
+            ],
+            "uv": {
+              "north": {
+                "uv": [
+                  0,
+                  0
+                ],
+                "uv_size": [
+                  16,
+                  16
+                ]
+              },
+              "south": {
+                "uv": [
+                  16,
+                  0
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "cross_1",
+        "pivot": [
+          0,
+          8,
+          0
+        ],
+        "rotation": [
+          0,
+          -45,
+          0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -8,
+              0,
+              0
+            ],
+            "size": [
+              16,
+              16,
+              0
+            ],
+            "uv": {
+              "north": {
+                "uv": [
+                  0,
+                  0
+                ],
+                "uv_size": [
+                  16,
+                  16
+                ]
+              },
+              "south": {
+                "uv": [
+                  16,
+                  0
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

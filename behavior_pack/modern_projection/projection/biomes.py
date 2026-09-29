@@ -2,8 +2,9 @@
 """Building-local biome tint presets; never changes the world's biomes."""
 from __future__ import unicode_literals
 
-# Stable shader indices. Colors sampled from the 3.9 vanilla grass/foliage
-# colormaps at each biome's temperature and temperature * rainfall.
+# Stable shader indices: append new colors; do not reorder saved presets.
+# Climate colors use the installed vanilla colormaps. Distinct appearance
+# overrides are checked against the Bedrock 1.21.120 client biome resources.
 # key, Chinese label, grass RGB, foliage RGB
 PRESETS = (
     ('plains', '草原', '92BC58', '77AB2F'),
@@ -16,9 +17,18 @@ PRESETS = (
     ('desert', '沙漠', 'BEB654', 'AEA42A'),
     ('savanna', '热带草原', 'BEB654', 'AEA42A'),
     ('ice_plains', '雪原', '80B496', '60A17B'),
+    ('pale_garden', '苍白花园', '778272', '878D76'),
+    ('cherry_grove', '樱花树林', 'B6DB61', 'B6DB61'),
+    ('mesa', '恶地', '90814D', 'AEA42A'),
+    ('roofed_forest', '黑森林', '507A32', '59AE30'),
 )
 KEYS = tuple(row[0] for row in PRESETS)
 DEFAULT = 'plains'
+
+# Desert and savanna share both colors. Keep their stored identifiers and
+# shader indices compatible while presenting a single choice in the UI.
+CHOICES = tuple((key, '干燥群系' if key == 'desert' else name, grass, foliage)
+                for key, name, grass, foliage in PRESETS if key != 'savanna')
 
 # Representative grass/foliage colors from installed 3.9.0.401155 vanilla
 # biome climates, client-biome overrides, colormaps and grass-side atlas.
