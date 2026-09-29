@@ -56,6 +56,10 @@ vec3 buildingBiomeTint(float index, bool foliageFace) {
     if (index > 6.5 && index < 7.5) { grass=vec3(88.0,203.0,60.0); foliage=vec3(48.0,187.0,11.0); }
     if (index > 7.5 && index < 9.5) { grass=vec3(190.0,182.0,84.0); foliage=vec3(174.0,164.0,42.0); }
     if (index > 9.5 && index < 10.5) { grass=vec3(128.0,180.0,150.0); foliage=vec3(96.0,161.0,123.0); }
+    if (index > 10.5 && index < 11.5) { grass=vec3(119.0,130.0,114.0); foliage=vec3(135.0,141.0,118.0); }
+    if (index > 11.5 && index < 12.5) { grass=vec3(182.0,219.0,97.0); foliage=vec3(182.0,219.0,97.0); }
+    if (index > 12.5 && index < 13.5) { grass=vec3(144.0,129.0,77.0); foliage=vec3(174.0,164.0,42.0); }
+    if (index > 13.5 && index < 14.5) { grass=vec3(80.0,122.0,50.0); foliage=vec3(89.0,174.0,48.0); }
     return (foliageFace ? foliage : grass) / 255.0;
 }
 
@@ -135,7 +139,7 @@ void main()
 vec4 inColor = color;
 bool preview = abs(PROJ[3][3]) > 0.5;
 float previewTag = floor(CURRENT_COLOR.r*255.0+0.5);
-bool buildingUI = preview && previewTag >= 209.0 && previewTag <= 218.0;
+bool buildingUI = preview && previewTag >= 209.0 && previewTag <= 222.0;
 bool buildingWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
 float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
 
@@ -159,11 +163,10 @@ float biomeIndex = buildingUI ? previewTag-208.0 : EXTRA_ACTOR_UNIFORM4.y;
     if ((buildingUI || buildingWorld) && grassVertexTint(inColor.rgb)) {
         inColor.rgb = buildingBiomeTint(biomeIndex, false);
     }
-    // World projections use the transparent entity mesh material (BLEND),
-    // while the editor preview usually uses the opaque path. Grass side
-    // pixels need the same source-tint recovery in both paths; alpha-tested
-    // foliage without blending keeps the native vertex treatment below.
-    #if !USE_ALPHA_TEST || defined(BLEND)
+    // Grass-side recovery also applies to the blended world projection.
+    // Alpha-tested foliage can have fixed green pigments (birch/spruce),
+    // so it must never be treated as the grass-side atlas overlay.
+    #if !USE_ALPHA_TEST
     else if (buildingUI || buildingWorld) {
         vec3 source = grassSideSource(diffuse.rgb);
         if (source.g > 0.0) {

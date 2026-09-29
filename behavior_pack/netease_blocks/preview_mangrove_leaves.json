@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "modern_projection:preview_mangrove_leaves",
+      "register_to_create_menu": false
+    },
+    "components": {
+      "netease:render_layer": {
+        "value": "optionalAlpha"
+      },
+      "netease:no_crop_face_block": {},
+      "minecraft:block_light_absorption": {
+        "value": 0
+      }
+    }
+  }
+}
