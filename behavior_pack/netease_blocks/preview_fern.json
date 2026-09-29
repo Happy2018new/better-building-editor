@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "modern_projection:preview_fern",
+      "register_to_create_menu": false
+    },
+    "components": {
+      "netease:render_layer": {
+        "value": "alpha"
+      },
+      "netease:no_crop_face_block": {},
+      "minecraft:block_light_absorption": {
+        "value": 0
+      }
+    }
+  }
+}

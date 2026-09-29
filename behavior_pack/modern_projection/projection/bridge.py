@@ -180,12 +180,17 @@ class ClientBridge(object):
     def receive_catalogue(self, args):
         from .materials import entry, clean_name, inventory_info, unique_inventory
         from .block_registry import catalogue_values
+        from .geometry_palette import INTERNAL_RENDER_BLOCKS
         names = args.get('names', [])
         if not isinstance(names, list):
             return
         modern = catalogue_values()
-        custom = [(clean_name(name), 0) for name in names
-                  if not clean_name(name).startswith('minecraft:')]
+        custom = []
+        for raw_name in names:
+            name = clean_name(raw_name)
+            if name.startswith('minecraft:') or name in INTERNAL_RENDER_BLOCKS:
+                continue
+            custom.append((name, 0))
         queue = list(modern) + custom
         self.catalogue_work = queue
         comp = self.factory.CreateItem(self.level)
@@ -286,25 +291,10 @@ class ClientBridge(object):
         self.session.emit()
 
     def geometry(self, document, visible=None, name=None):
-        from .block_registry import canonical, states
-        data = document.palette_data(visible)
+        from .geometry_palette import prepare_palette
+        data = prepare_palette(document.palette_data(visible))
         if not data['common']:
             return None
-        common = {}
-        for value, positions in data['common'].items():
-            value = canonical(value)
-            if value in common:
-                common[value] = common[value] + positions
-            else:
-                common[value] = positions
-        data['common'] = common
-        # Empty records are meaningful: omitting cyan stained glass (or a
-        # modern plank) lets the native converter choose the first variant.
-        data['states'] = {}
-        for value in common:
-            record = states(value)
-            if record is not None:
-                data['states'][value] = record
         # The embedded Python omits hashlib.sha256. An exact compressed key
         # avoids collisions and retains no second Python list of voxel indices.
         state_key = sorted((key, sorted(record.items())) for key,record in data['states'].items())

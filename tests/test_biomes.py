@@ -12,8 +12,9 @@ from test_sharing import Bridge
 
 class BiomeTests(unittest.TestCase):
     def test_building_tint_survives_every_archive_and_sharing_path(self):
-        for size in ((8, 8, 8), (64, 128, 64)):
-            doc = Document(size, {(1, 2, 3): ('minecraft:leaves', 0)}, biome='swampland')
+        for size, biome in ((size, biome) for size in ((8, 8, 8), (64, 128, 64))
+                            for biome in biomes.KEYS):
+            doc = Document(size, {(1, 2, 3): ('minecraft:leaves', 0)}, biome=biome)
             restored = [Document.from_data(doc.to_data()),
                         list(codec.load_steps(codec.to_data(doc)))[-1]]
             receiver = Receiver()
@@ -26,7 +27,7 @@ class BiomeTests(unittest.TestCase):
             text = list(encode_steps(doc))[-1]['text']
             restored.append(list(decode_steps(text))[-1]['document'])
             for result in restored:
-                self.assertEqual('swampland', result.biome)
+                self.assertEqual(biome, result.biome)
                 self.assertEqual(doc.blocks, result.blocks)
                 self.assertEqual(doc.size, result.size)
 
@@ -78,8 +79,8 @@ class BiomeTests(unittest.TestCase):
         self.assertEqual('taiga', biomes.from_native('redwood_taiga_mutated'))
         self.assertEqual('forest', biomes.from_native('birch_forest_hills_mutated'))
         self.assertEqual('jungle', biomes.from_native('jungle_edge_mutated'))
-        self.assertEqual('taiga', biomes.from_native('pale_garden'))
-        self.assertEqual('desert', biomes.from_native('minecraft:mesa'))
+        self.assertEqual('pale_garden', biomes.from_native('pale_garden'))
+        self.assertEqual('mesa', biomes.from_native('minecraft:mesa'))
         self.assertEqual('birch_forest', biomes.from_native('ocean'))
         self.assertEqual('taiga', biomes.from_native('meadow'))
         self.assertIsNone(biomes.from_native('custom:red_forest'))
@@ -105,14 +106,40 @@ class BiomeTests(unittest.TestCase):
         # grass-side atlas supplies its 507A32 shaded swatch. The installed
         # mutated client biome does not enable that appearance override.
         self.assertEqual(('507A32', '59AE30'), biomes.NATIVE_COLORS['roofed_forest'])
-        self.assertEqual('mangrove_swamp', biomes.from_native('roofed_forest'))
+        self.assertEqual('roofed_forest', biomes.from_native('roofed_forest'))
         self.assertEqual('forest', biomes.from_native('roofed_forest_mutated'))
+
+    def test_distinct_native_appearance_colors_are_preserved_exactly(self):
+        for name in ('pale_garden', 'cherry_grove', 'mesa', 'roofed_forest'):
+            self.assertEqual(name, biomes.from_native('minecraft:' + name))
+            row = biomes.PRESETS[biomes.shader_index(name) - 1]
+            self.assertEqual(biomes.NATIVE_COLORS[name], row[2:])
+        self.assertEqual('mesa', biomes.from_native('mesa_bryce'))
+        # Bedrock's mesa_plateau has climate colors, unlike other badlands.
+        self.assertEqual('desert', biomes.from_native('mesa_plateau'))
+
+    def test_palette_has_no_duplicate_choices_and_retains_legacy_indices(self):
+        legacy = ('plains', 'forest', 'birch_forest', 'taiga', 'swampland',
+                  'mangrove_swamp', 'jungle', 'desert', 'savanna', 'ice_plains')
+        self.assertEqual(legacy, biomes.KEYS[:len(legacy)])
+        self.assertEqual(13, len(biomes.CHOICES))
+        self.assertEqual(len(biomes.CHOICES), len(set(row[2:] for row in biomes.CHOICES)))
+        self.assertEqual(set(row[2:] for row in biomes.PRESETS),
+                         set(row[2:] for row in biomes.CHOICES))
 
     def test_every_bundled_vanilla_biome_has_a_nearest_preset(self):
         self.assertEqual(87, len(biomes.NATIVE_COLORS))
         for name in biomes.NATIVE_COLORS:
             with self.subTest(biome=name):
                 self.assertIn(biomes.from_native(name), biomes.KEYS)
+                preset = biomes.PRESETS[biomes.shader_index(biomes.from_native(name)) - 1]
+                # A compact palette may approximate climate variants, but
+                # must not lose the clearly different gray/yellow/dark hues.
+                native = biomes.NATIVE_COLORS[name]
+                for actual, expected in zip(preset[2:], native):
+                    difference = [abs(int(actual[i:i+2], 16) - int(expected[i:i+2], 16))
+                                  for i in (0, 2, 4)]
+                    self.assertLessEqual(max(difference), 26)
 
 
 if __name__ == '__main__':

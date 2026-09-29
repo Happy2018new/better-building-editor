@@ -202,14 +202,14 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.geometry = lambda *a, **k: self.fail('preset selection must not rebuild geometry')
         before = (s.preview_signature(), dict(s.editor.document.blocks.items()), s.tiles.builds)
         b.use_current_biome()
-        self.assertEqual('taiga', s.editor.document.biome)
+        self.assertEqual('pale_garden', s.editor.document.biome)
         s.set_biome('jungle')
         current[0] = 'minecraft:mesa'
         s.emit('view')
         self.assertEqual('jungle', s.editor.document.biome)
         self.assertEqual([(20, 70, 40)], reads)
         b.use_current_biome()
-        self.assertEqual('desert', s.editor.document.biome)
+        self.assertEqual('mesa', s.editor.document.biome)
         self.assertEqual(2, len(reads))
         self.assertEqual(before, (s.preview_signature(), dict(s.editor.document.blocks.items()), s.tiles.builds))
 
@@ -634,6 +634,62 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(original,palette.common)
         self.assertEqual(name,b.geometry(palette))
         self.assertEqual(1,len(builds))
+
+    def test_leaf_render_proxies_share_geometry_across_legacy_and_lifecycle_states(self):
+        from projection.large_preview import SurfacePalette
+        from projection.geometry_palette import LEAF_PROXIES
+        b = self.bridge
+        del b.geometry
+        b.models.clear()
+        observed = []
+        builds = []
+        native_palette = types.SimpleNamespace(DeserializeBlockPalette=lambda data: observed.append(data) or True)
+        self.runtime.CreateBlock = lambda level: types.SimpleNamespace(GetBlankBlockPalette=lambda: native_palette)
+        self.runtime.CreateBlockGeometry = lambda level: types.SimpleNamespace(
+            CombineBlockPaletteToGeometry=lambda p,n,m: builds.append(n) or n)
+        species = ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak')
+        models = []
+        for variant in range(5):
+            palette = SurfacePalette((7, 1, 1))
+            for index, name in enumerate(species):
+                family = 'leaves' if index < 4 else 'leaves2'
+                value = (('minecraft:' + family, (index if index < 4 else index - 4) + 12)
+                         if variant == 4 else ('minecraft:' + name + '_leaves', variant))
+                palette.add((index, 0, 0), value)
+            palette.add((6, 0, 0), ('minecraft:quartz_block', 0))
+            saved = dict((key, list(value)) for key, value in palette.common.items())
+            models.append(b.geometry(palette))
+            self.assertEqual(saved, palette.common)
+        self.assertEqual(1, len(set(models)))
+        self.assertEqual(1, len(builds))
+        expected = set((LEAF_PROXIES['minecraft:' + name + '_leaves'], 0)
+                       for name in species)
+        self.assertEqual(expected |
+                         {('minecraft:quartz_block', 0)}, set(observed[0]['common']))
+        self.assertEqual({('minecraft:quartz_block', 0)}, set(observed[0]['states']))
+
+    def test_hidden_leaf_render_proxies_never_enter_material_catalogue(self):
+        from projection.geometry_palette import INTERNAL_RENDER_BLOCKS
+        custom = {'custom:visible_block', 'other:preview_oak_leaves'}
+        names = [name.encode('utf8') for name in INTERNAL_RENDER_BLOCKS] + list(custom)
+        queried = []
+        def info(name, aux):
+            queried.append(name)
+            if name.startswith('minecraft:'):
+                return None
+            # Even hidden proxies would have usable metadata if queried.
+            return {'itemName': name, 'itemCategory': 'custom'}
+        self.bridge.factory.CreateItem = lambda level: types.SimpleNamespace(
+            GetItemBasicInfo=info)
+        self.bridge.receive_catalogue({'names': names})
+        queued = [name for name, unused in self.bridge.catalogue_work]
+        self.assertTrue(INTERNAL_RENDER_BLOCKS.isdisjoint(queued))
+        self.assertTrue(custom.issubset(queued))
+        while self.runtime.timers:
+            self.runtime.timers.pop(0)()
+        self.assertTrue(self.bridge.session.catalogue_ready)
+        self.assertEqual(custom, {item['value'][0] for item in self.bridge.session.block_catalogue})
+        self.assertTrue(INTERNAL_RENDER_BLOCKS.isdisjoint(queried))
 
     def test_failed_replacement_preserves_old_outline_until_projection_succeeds(self):
         b = self.bridge

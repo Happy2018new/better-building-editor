@@ -73,7 +73,7 @@ void main()
     previewClip = -1.0;
     if (preview) {
         float tag = floor(CURRENT_COLOR.r*255.0+0.5);
-        bool buildingUI = tag >= 209.0 && tag <= 218.0;
+        bool buildingUI = tag >= 209.0 && tag <= 222.0;
         if (buildingUI) {
             // Each tile seeds CURRENT_COLOR immediately before its two model
             // buffers. Native layers stay fixed; RGB carries biome + signed

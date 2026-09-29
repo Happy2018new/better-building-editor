@@ -69,7 +69,7 @@ def main():
         ui.call('click',ui.nodes('Button',choose)[0]['id']);time.sleep(.7)
         settings=ui.nodes('BiomeTintSettings')[0]
         icons=[n['props']['glyph'] for n in ui.nodes('Action',settings) if n['props'].get('compact')]
-        ui.check('all ten biome choices have distinct semantic icons',len(icons)==len(set(icons))==10)
+        ui.check('thirteen distinct biome colors have semantic icons',len(icons)==len(set(icons))==13)
         snapshot('scene66_biomes')
         ui.call('click',ui.nodes('Button',ui.nodes('Action',settings)[0])[0]['id']);time.sleep(.4)
         snapshot('scene66_appearance')
