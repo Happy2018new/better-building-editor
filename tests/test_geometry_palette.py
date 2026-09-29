@@ -1,5 +1,6 @@
 import copy
 import json
+import math
 import sys
 import unittest
 from pathlib import Path
@@ -77,12 +78,38 @@ class GeometryPaletteTests(unittest.TestCase):
                                      (name + '.json')).read_text(encoding='utf8'))['minecraft:block']
             model = json.loads((ROOT / 'resource_pack/models/netease_block' /
                                 (name + '.json')).read_text(encoding='utf8'))['netease:block_geometry']
-            self.assertFalse(definition['description']['register_to_create_menu'])
+            self.assertFalse(definition['description']['register_to_creative_menu'])
+            self.assertNotIn('register_to_create_menu', definition['description'])
             self.assertEqual('alpha', definition['components']['netease:render_layer']['value'])
             self.assertEqual(proxy, model['description']['identifier'])
             self.assertEqual(2, len(model['bones']))
             self.assertEqual(proxy, appearances[proxy]['netease_model'])
             self.assertEqual('textures/colormap/grass', appearances[proxy]['use_colormap'])
+
+    def test_grass_geometry_is_centered_inside_its_block(self):
+        # Native palette conversion mirrors the model's X axis: a block spans
+        # X=-16..0 and Y/Z=0..16. Verified from front/side orthographic views.
+        # Check vertices in block coordinates, including both tall halves.
+        for proxy in PLANT_PROXIES.values():
+            path = ROOT / 'resource_pack/models/netease_block' / (proxy.split(':')[1] + '.json')
+            model = json.loads(path.read_text(encoding='utf8'))['netease:block_geometry']
+            for bone in model['bones']:
+                pivot = bone['pivot']
+                angle = math.radians(bone['rotation'][1])
+                for cube in bone['cubes']:
+                    origin, size = cube['origin'], cube['size']
+                    vertices = []
+                    for x in (origin[0], origin[0] + size[0]):
+                        for z in (origin[2], origin[2] + size[2]):
+                            dx, dz = x - pivot[0], z - pivot[2]
+                            vertices.append((-(pivot[0] + dx * math.cos(angle) - dz * math.sin(angle)),
+                                             pivot[2] + dx * math.sin(angle) + dz * math.cos(angle)))
+                    for axis in (0, 1):
+                        values = [v[axis] for v in vertices]
+                        self.assertAlmostEqual(8., sum(values) / len(values), msg=proxy)
+                        self.assertGreaterEqual(min(values), 0., proxy)
+                        self.assertLessEqual(max(values), 16., proxy)
+                    self.assertEqual((0, 16), (origin[1], origin[1] + size[1]))
 
     def test_every_proxy_has_a_hidden_cutout_resource_with_its_own_species_texture(self):
         appearances = json.loads((ROOT / 'resource_pack/blocks.json').read_text(encoding='utf8'))
@@ -91,7 +118,8 @@ class GeometryPaletteTests(unittest.TestCase):
             definition = json.loads((ROOT / 'behavior_pack/netease_blocks' /
                                      (name + '.json')).read_text(encoding='utf8'))['minecraft:block']
             self.assertEqual(proxy, definition['description']['identifier'])
-            self.assertFalse(definition['description']['register_to_create_menu'])
+            self.assertFalse(definition['description']['register_to_creative_menu'])
+            self.assertNotIn('register_to_create_menu', definition['description'])
             self.assertEqual('optionalAlpha', definition['components']['netease:render_layer']['value'])
             self.assertIn('netease:no_crop_face_block', definition['components'])
             appearance = appearances[proxy]
