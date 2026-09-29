@@ -25,7 +25,7 @@ PLANT_PROXIES = {
 }
 
 # The engine can return item metadata for hidden custom blocks despite
-# register_to_create_menu=false. Keep render-only IDs out of the picker.
+# register_to_creative_menu=false. Keep render-only IDs out of the picker.
 INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()))
 
 
