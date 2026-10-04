@@ -11,16 +11,25 @@ from mcdk import Client, return_value
 
 
 def outline(prefix='edge'):
+    """Native retained model state, not a prediction of per-edge pixels."""
     raw = ui.call('dump_tree')['tree']
-    edges = [n for n in ui.nodes('Image', ui.nodes('Scene', raw)[0])
-             if str(n.get('key', '')).startswith(prefix)]
-    assert len(edges) == 12
-    code = (
-        'import json\n'
-        'from modern_projection.pyreact import host, debug\n'
-        '_result = json.dumps([debug.dispatch_editor_command('
-        'host._ACTIVE_HOST[0], "native_control", identity, None) for identity in %r])\n'
-    ) % [n['id'] for n in edges]
+    scene = ui.nodes('Scene', raw)[0]
+    dolls = [n for n in ui.nodes('PaperDoll', scene) if n.get('key') == prefix]
+    assert len(dolls) == 1
+    code = '''import json
+from modern_projection.pyreact import host, debug
+from modern_projection.projection.outline_preview import OutlinePreview
+h=host._ACTIVE_HOST[0]
+f=debug.find_fiber_by_id(h._root_fiber,%r)
+models=[slot['value'].current for slot in f.hooks if slot['type']=='ref'
+        and isinstance(slot['value'].current,OutlinePreview)]
+model=models[%d]
+native=debug.dispatch_editor_command(h,'native_control',%r,None)
+native['dimensions']=int(round(model.tint[1]*524288)) if model.tint else None
+native['thickness']=(model.tint[0]*255-round(model.tint[0]*255))*8 if model.tint else None
+native['angles']=model.signature[0][1:4] if model.signature else None
+_result=json.dumps([native])
+''' % (scene['id'], int(prefix == 'cursor'), dolls[0]['id'])
     ui.assert_clear()
     with Client(timeout=15) as client:
         result = return_value(client.call('execute_code', {
@@ -30,8 +39,11 @@ def outline(prefix='edge'):
 
 
 def same_outline(a, b):
-    return all(x['visible'] == y['visible'] and x['rect'] == y['rect']
-               for x, y in zip(a, b))
+    fields = ('visible', 'global', 'size', 'dimensions', 'angles')
+    return len(a) == len(b) and all(all(x[k] == y[k] for k in fields) and
+                                  (x['thickness'] is None and y['thickness'] is None or
+                                   x['thickness'] is not None and y['thickness'] is not None and
+                                   abs(x['thickness']-y['thickness'])<.001) for x,y in zip(a,b))
 
 
 def click_voxel(pos):

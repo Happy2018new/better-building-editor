@@ -88,9 +88,7 @@ for group in (2,3):
     for f in scene.child_fibers[group].child_fibers:
         c=scene.host.GetBaseUIControl(f.native_path)
         if c.GetVisible():
-            im=c.asImage()
-            _result.append({'group':group,'position':c.GetGlobalPosition(),'size':c.GetSize(),
-                            'angle':im.GetRotateAngle(),'pivot':im.GetRotatePivot(),'rect':im.GetRotateRect()})''')
+            _result.append({'group':group,'position':c.GetGlobalPosition(),'size':c.GetSize()})''')
             ui.check(name+' model and outline stay inside all four sides',not any(outside))
         game('s.set("focus_view",False)\ns.camera_pan=(0.,0.)\ns.emit("view")\n_result=True');time.sleep(.7)
         for touch in (False,True):
