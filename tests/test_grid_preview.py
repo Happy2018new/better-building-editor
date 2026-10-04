@@ -1,8 +1,10 @@
+import importlib.util
 import itertools
 import json
 import math
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -11,6 +13,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.camera import OrbitCamera
 from projection.grid_preview import GRID_BLOCK, GRID_TAG, GridPreview, GridView, grid_center, grid_palette
 from projection.geometry_palette import INTERNAL_RENDER_BLOCKS
+from projection.outline_preview import OutlinePreview
 
 
 class Control:
@@ -41,6 +44,32 @@ class Control:
 
 
 class GridPreviewTests(unittest.TestCase):
+    def test_grid_and_outline_render_with_namedtuple_disabled(self):
+        path = ROOT / 'behavior_pack/modern_projection/projection/grid_preview.py'
+        spec = importlib.util.spec_from_file_location('projection._restricted_grid_preview', path)
+        module = importlib.util.module_from_spec(spec)
+        session = SimpleNamespace(scene_size=(7, 8, 9), scene_origin=(0, 0, 0),
+                                  editor=SimpleNamespace(layer=2), grid=True,
+                                  bridge=SimpleNamespace(geometry=lambda palette: 'geometry'))
+        grid_doll, grid_image = Control(), Control()
+        outline_doll, outline_image = Control(), Control()
+        with patch('collections.namedtuple', side_effect=AssertionError('disabled module function')):
+            spec.loader.exec_module(module)
+            view = module.GridView(lambda point: (point[0]*10, point[1]*10), (0, 0, 1),
+                                   10, (1, -65, 35), (400, 300), (.25, .5), .65, 'restricted')
+            module.GridPreview().update(session, grid_doll, grid_image, view)
+            OutlinePreview().update(session, outline_doll, outline_image, view,
+                                    ((1, 2, 1), (5, 2, 7)))
+        self.assertTrue(grid_doll.visible)
+        self.assertTrue(outline_doll.visible)
+        for doll in (grid_doll, outline_doll):
+            self.assertEqual(1, len(doll.submissions))
+            self.assertEqual(1, doll.submissions[0]['scale'])
+            self.assertEqual(-65, doll.submissions[0]['init_rot_x'])
+            self.assertEqual(35, doll.submissions[0]['init_rot_z'])
+        self.assertAlmostEqual(.65, (grid_image.color[0]*255-GRID_TAG)*8)
+        self.assertAlmostEqual(.65, (outline_image.color[0]*255-224)*8)
+
     def test_grid_palette_retains_one_mesh_for_all_document_dimensions(self):
         for size in ((1, 1, 1), (7, 8, 9), (24, 16, 24), (64, 128, 64)):
             palette = grid_palette(size)
@@ -86,7 +115,8 @@ class GridPreviewTests(unittest.TestCase):
         session.grid = True
         grid.update(session, doll, image, view)
         self.assertTrue(doll.visible)
-        grid.update(session, doll, image, view._replace(signature='orbit', pose=(2, -45, 90)))
+        view.signature, view.pose = 'orbit', (2, -45, 90)
+        grid.update(session, doll, image, view)
         self.assertEqual(1, len(builds))
         session.editor.layer = 8
         grid.update(session, doll, image, view)
