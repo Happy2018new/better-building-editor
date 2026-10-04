@@ -10,6 +10,7 @@ from verify_world_tools import game
 import capture_screen as capture
 from verify_selection_scope import diagnostic, wait_preview
 from verify_selection_outline import outline, same_outline, click_voxel
+from verify_interaction import pointer
 from verify_global_cursor import hover
 from verify_native_touch import touch
 from native_input_mode import set_touch, state as input_state, key as native_key
@@ -87,7 +88,7 @@ def main():
     ui.check('completed region and independent hovered cube are both visible', diagnostic()['selection'] == 16 and
              same_outline(region, outline()) and visible(outline('cursor')) and not same_outline(region, outline('cursor')))
     ui.check('blue and spectrum edges use the same thickness',
-             all(abs(a['size'][1] - b['size'][1]) < .001 for a, b in zip(region, outline('cursor'))))
+             all(abs(a['thickness'] - b['thickness']) < .001 for a, b in zip(region, outline('cursor'))))
     snapshot('dual_outlines_region')
     before = diagnostic()
     for mode in ('浏览', '选取', '换材质', '擦除', '吸管', '框选'):
@@ -119,9 +120,9 @@ def finish(window, close_open, leave):
     # A larger hovered cube makes the interpolation observable in actual pixels.
     leave(); diagnostic({'fixture': 'solid', 'size': [4, 4, 4], 'selection': [[0, 0, 0], [0, 0, 0]], 'camera': [35, 25, 1]})
     wait_preview(); hover((2.5, 2.5, 4)); edges = outline('cursor')
-    points = [p for line in edges if line['visible'] for p in line['rect']]
-    crop = (int(min(p[0] for p in points)*scale)-4, int(min(p[1] for p in points)*scale)-4,
-            int(max(p[0] for p in points)*scale)+5, int(max(p[1] for p in points)*scale)+5)
+    native=ui.call('native_control',pointer()['id'])['result']
+    x,y=native['global'];w,h=native['size']
+    crop=tuple(int(v*scale) for v in (x,y,x+w,y+h))
     with mss.MSS() as screen:
         def grab():
             assert capture.user32.GetForegroundWindow() == hwnd

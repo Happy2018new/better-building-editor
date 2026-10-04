@@ -28,6 +28,8 @@ varying vec4 fogColor;
 #endif
 varying vec4 light;
 varying highp float previewClip;
+varying highp vec2 gridPosition;
+varying highp float outlineHue;
 
 #include "uniformShaderConstants.h"
 #include "uniformWorldConstants.h"
@@ -112,6 +114,24 @@ vec3 grassSideSource(vec3 pixel) {
 void main()
 {
     if (previewClip > 0.0) discard;
+    float overlayTag = floor(CURRENT_COLOR.r*255.0+0.5);
+    if (abs(PROJ[3][3]) > 0.5 && overlayTag >= 223.0 && overlayTag <= 226.0) {
+        // Grid and outlines share both coverage and visible width, including
+        // low-subpixel-precision GPUs. The wide source quad is trimmed here.
+        // The extra 0.0005 UI unit ensures containment across separately
+        // translated models, whose float32 centres can round differently.
+        float coverageTolerance = overlayTag == 223.0 ? 0.016 : 0.0165;
+        if (abs(gridPosition.x) > gridPosition.y+coverageTolerance) discard;
+        vec3 ink = vec3(71.0,122.0,244.0)/255.0;
+        if (overlayTag == 223.0) ink = vec3(155.0,172.0,204.0)/255.0;
+        if (overlayTag == 225.0) {
+            vec3 hue = clamp(abs(fract(outlineHue+vec3(0.0,2.0/3.0,1.0/3.0))*6.0-3.0)-1.0,0.0,1.0);
+            ink = 0.98*mix(vec3(1.0),hue,0.55);
+        }
+        if (overlayTag == 226.0) ink = vec3(211.0,92.0,114.0)/255.0;
+        gl_FragColor = vec4(ink,CURRENT_COLOR.a);
+        return;
+    }
 #ifdef BYPASS_PIXEL_SHADER
 	gl_FragColor = vec4(0, 0, 0, 0);
 	return;

@@ -26,7 +26,8 @@ PLANT_PROXIES = {
 
 # The engine can return item metadata for hidden custom blocks despite
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
-INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()))
+INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()) +
+                                 ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
 def prepare_palette(source):

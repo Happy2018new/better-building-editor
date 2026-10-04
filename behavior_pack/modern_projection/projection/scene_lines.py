@@ -6,6 +6,11 @@ CURSOR_PERIOD = 512
 CURSOR_WEIGHTS = (.1875, .3125, .125)
 
 
+def stroke_width(scale):
+    """Native UI units shared by grid, selection and spectrum strokes."""
+    return max(.3, scale * .65)
+
+
 def cursor_depth_plane(plane, mode, anchor, touch=False, pasting=False):
     """Only a mouse hover follows the model cut; editing bounds stay whole.
 
