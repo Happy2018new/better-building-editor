@@ -7,14 +7,16 @@ import time
 import mod.client.extraClientApi as clientApi
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
-from .widgets import Theme, S, Doll, Pointer, TypeImage, transparent, use_theme
+from .widgets import Theme, S, Doll, Pointer, transparent, use_theme
 from .camera import OrbitCamera, PinchZoom, pick_target, behind_plane, render_bounds
-from .model import bounds, MAX_AXES
+from .model import bounds
 from .preview import PreviewBuffer
 from .diagnostics import inspect
 from functools import partial
-from .scene_lines import cuboid, grid_lines, clip_stroke, clip_depth, outline_targets, cursor_depth_plane, cursor_hue, cursor_uv, segment_fractions
+from .scene_lines import outline_targets, cursor_depth_plane, stroke_width
 from .preview_depth import depth_color, tile_layer
+from .grid_preview import GridPreview, GridView
+from .outline_preview import OutlinePreview
 from .input_mode import is_touch
 
 
@@ -106,12 +108,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     reset_revision = use_ref(session.camera_reset_revision)
     input_check = use_ref(0.)
     frame = use_ref(time.time())
-    outline = use_ref(None)
-    cursor_outline = use_ref(None)
-    grid_outline = use_ref(None)
-    cursor_color = use_ref(None)
+    outline = use_ref(lambda: OutlinePreview()).current
+    cursor_outline = use_ref(lambda: OutlinePreview()).current
+    grid_preview = use_ref(lambda: GridPreview()).current
+    grid_doll, grid_tint = use_ref(None), use_ref(None)
     spectrum_time = use_ref(0.)
-    cursor_ranges = use_ref([])
     dimmer = use_ref(None)
     dim_alpha = use_ref(None)
     wheel_time = use_ref(None)
@@ -121,11 +122,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     hover_preview = use_ref(None)
     placed_pointer = use_ref(None)
     pointer_mode = use_ref(session.direct_mode)
-    edge_refs = [use_ref(None) for unused in range(12)]
-    cursor_refs = [use_ref(None) for unused in range(12)]
-    grid_refs = [use_ref(None) for unused in range(MAX_AXES[0]+MAX_AXES[2]+2)]
-    line_state = use_ref({}).current
-    line_images = use_ref({}).current
+    edge_doll, edge_tint = use_ref(None), use_ref(None)
+    cursor_doll, cursor_tint = use_ref(None), use_ref(None)
     selected_bounds = use_ref((None, None))
     active = (session.view == '3d' and session.page in ('workspace', 'projection') and not session.pending_confirm
               and not session.material_browser and not session.pending_rename and not session.sharing.opened)
@@ -146,10 +144,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     def restore_view():
         clip_geometry.current = None
         models_signature.current = None
-        outline.current = None
-        cursor_outline.current = None
-        grid_outline.current = None
-        cursor_color.current = None
+        outline.invalidate()
+        cursor_outline.invalidate()
+        grid_preview.invalidate()
         if active:
             for dolls, surfaces, preview in registry.values():
                 preview.invalidate()
@@ -220,13 +217,15 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                         max(0., math.floor(y + ch) - math.ceil(y)))
             if geometry != clip_geometry.current:
                 clip_geometry.current = geometry
-                # Model scissoring and rotated Image lines must share the
+                # Models, outlines and the grid must share the
                 # same integral rectangle, including after window motion.
                 for ref in (clipping, grid_clipping, edge_clipping, cursor_clipping):
                     if ref.current:
                         ref.current.SetPosition((dx, dy))
                         ref.current.SetSize(geometry[2:])
-                outline.current = cursor_outline.current = grid_outline.current = None
+                outline.invalidate()
+                cursor_outline.invalidate()
+                grid_preview.invalidate()
         if not active:
             session.cursor_cell = None
             drag.current = None
@@ -256,7 +255,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             wheel_time.current = None
             placed_pointer.current = None
             hover_preview.current = None
-            outline.current = None
+            outline.invalidate()
         if session.camera_focus_request is not None:
             point = tuple(session.camera_focus_request[i] - session.scene_origin[i] for i in range(3))
             session.camera_focus_request = None
@@ -421,77 +420,20 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             selected, hovered = None, paste_bounds(e.clipboard, origin)
             preview_error = paste_error(e.document, e.clipboard, origin)
 
-        def box_lines(target):
-            return list(cuboid(target[0], tuple(v + 1 for v in target[1]))) if target else []
-
-        def draw_lines(refs, segments, thickness, gradient_bounds=None, depth_plane=None):
-            ranges = []
-            origin = session.scene_origin
-            dx, dy, clip_width, clip_height = clip_geometry.current or (0., 0., native_width, native_height)
-            gradient_size = tuple(gradient_bounds[1][i] - gradient_bounds[0][i] + 1 for i in range(3)) if gradient_bounds else None
-            for index, ref in enumerate(refs):
-                ranges.append(None)
-                if not ref.current:
-                    continue
-                segment = segments[index] if index < len(segments) else None
-                if segment:
-                    segment = clip_depth(segment[0], segment[1], depth_plane)
-                if segment:
-                    hues = [cursor_hue(p, gradient_bounds[0], gradient_size) for p in segment] if gradient_bounds is not None else None
-                    a,b = segment
-                    a = project((a[0]-origin[0],a[1]-origin[1],a[2]-origin[2]))
-                    b = project((b[0]-origin[0],b[1]-origin[1],b[2]-origin[2]))
-                    a, b = (a[0]-dx, a[1]-dy), (b[0]-dx, b[1]-dy)
-                    segment = clip_stroke(a, b, clip_width, clip_height, thickness)
-                    if segment and hues is not None:
-                        ranges[index] = tuple(hues[0] + (hues[1]-hues[0])*t for t in segment_fractions(a, b, segment))
-                old = line_state.get(id(ref))
-                if old != bool(segment):
-                    ref.current.SetVisible(bool(segment), False)
-                    line_state[id(ref)] = bool(segment)
-                if segment:
-                    (sx, sy), (ex, ey) = segment
-                    length = max(.001, math.hypot(ex - sx, ey - sy))
-                    # Native JsonUI culls the unrotated rectangle first. Keep
-                    # its centre inside the viewport, including vertical edges.
-                    ref.current.SetPosition(((sx+ex-length)/2., (sy+ey-thickness)/2.))
-                    ref.current.SetSize((length, thickness))
-                    identity = id(ref)
-                    if identity not in line_images:
-                        line_images[identity] = ref.current.asImage()
-                    line_images[identity].Rotate(-math.degrees(math.atan2(ey - sy, ex - sx)))
-            return ranges
-        thickness = max(.3, Theme.scale * .65)
-        edge_signature = (signature, selected)
-        if edge_signature != outline.current:
-            outline.current = edge_signature
-            draw_lines(edge_refs, box_lines(selected), thickness)
+        thickness = stroke_width(Theme.scale)
         hover_plane = cursor_depth_plane(plane, session.direct_mode, session.box_anchor, session.touch_mode, pasting)
-        cursor_signature = (signature, hovered, hover_plane)
-        if cursor_signature != cursor_outline.current:
-            cursor_outline.current = cursor_signature
-            cursor_ranges.current = draw_lines(cursor_refs, box_lines(hovered), thickness, hovered, hover_plane)
-            cursor_color.current = None
-        grid_signature = (signature, session.grid, e.layer)
-        if grid_signature != grid_outline.current:
-            grid_outline.current = grid_signature
-            draw_lines(grid_refs, grid_lines(session.scene_origin, session.scene_size, e.layer) if session.grid else [], max(.22, Theme.scale * .4), depth_plane=plane)
-        # Sliding twelve UV windows preserves a continuous gradient on each edge
-        # and at every corner. No projection, layout, grid or mesh work here.
-        if hovered is not None:
-            if Theme.motion:
-                spectrum_time.current += dt * session.spectrum_speed
-            invalid = bool(preview_error) and (pasting or (not session.touch_mode and session.box_anchor is None))
-            color_key = (int(now * 30) if Theme.motion and not invalid else 0, invalid)
-            if color_key != cursor_color.current:
-                resized = cursor_color.current is None
-                cursor_color.current = color_key
-                for ref, hues in zip(cursor_refs, cursor_ranges.current):
-                    if ref.current and hues is not None:
-                        uv, uv_size = cursor_uv(hues[0], hues[1], spectrum_time.current, Theme.motion, invalid)
-                        line_images[id(ref)].SetSpriteUV(uv)
-                        if resized:
-                            line_images[id(ref)].SetSpriteUVSize(uv_size)
+        view = GridView(project, toward, plane_offset, pose, (native_width, native_height),
+                        clip_geometry.current[:2] if clip_geometry.current else (0., 0.), thickness, signature)
+        if grid_doll.current and grid_tint.current:
+            grid_preview.update(session, grid_doll.current, grid_tint.current, view)
+        if edge_doll.current and edge_tint.current:
+            outline.update(session, edge_doll.current, edge_tint.current, view, selected)
+        if hovered is not None and Theme.motion:
+            spectrum_time.current += dt * session.spectrum_speed
+        invalid = bool(preview_error) and (pasting or (not session.touch_mode and session.box_anchor is None))
+        if cursor_doll.current and cursor_tint.current:
+            cursor_outline.update(session, cursor_doll.current, cursor_tint.current, view, hovered,
+                                  hover_plane, spectrum_time.current, invalid)
 
     def down(args):
         if not screen_hit((args['TouchPosX'], args['TouchPosY'])):
@@ -641,23 +583,28 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     use_event('MouseWheelClientEvent', wheel, active)
     use_animation_frame(tick)
     return Panel(ref=canvas, cacheLayout=True, onDebug=partial(inspect, session), style=S(position=Position.absolute, width=width, height=height, zIndex=2), children=[
-        Panel(ref=grid_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=-1, visible=active), children=[
-            Image(ref=ref, key='grid%d' % i, color=Color(0x9BACCC88), rotatePivot=(.5, .5),
-                  style=S(position=Position.absolute, width=1, height=1, visible=False)) for i, ref in enumerate(grid_refs)]),
+        Panel(ref=grid_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=grid_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=349)),
+            Doll(ref=grid_doll, managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=350, visible=False)),
+        ]),
         # A covered PaperDoll can leak a one-pixel viewport-background row
         # through modal controls at its scissor boundary. Suspend
         # drawing while inactive; retain the controls and geometry for return.
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%', visible=active), children=[
             PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
         ]),
-        Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=active), children=[
-            Image(ref=ref, key='edge%d' % i, color=Theme.blue, rotatePivot=(.5, .5),
-                  style=S(position=Position.absolute, width=1, height=1, visible=False))
-            for i, ref in enumerate(edge_refs)]),
-        Panel(ref=cursor_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=371, visible=active), children=[
-            TypeImage(ref=ref, key='cursor%d' % i, src='textures/modern_projection/cursor_spectrum', color=Theme.white, rotatePivot=(.5, .5),
-                  style=S(position=Position.absolute, width=1, height=1, visible=False))
-            for i, ref in enumerate(cursor_refs)]),
+        Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=edge_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=369)),
+            Doll(ref=edge_doll, key='edge', managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=370, visible=False))]),
+        Panel(ref=cursor_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
+            Image(ref=cursor_tint, src='textures/modern_projection/transparent',
+                  style=S(position=Position.absolute, width=1, height=1, zIndex=371)),
+            Doll(ref=cursor_doll, key='cursor', managed=True, renderType=PaperDollRenderType.block_geometry,
+                 style=S(position=Position.absolute, width='100%', height='100%', zIndex=372, visible=False))]),
         Image(ref=dimmer, color=Color(0x000000FF), style=S(position=Position.absolute, width='100%', height='100%',
               zIndex=360, opacity=max(0., 1.-session.brightness), visible=active)),
         Pointer(ref=pointer, enabled=active, globalCapture=True, screenHit=screen_hit, onDown=down, onMove=move, onUp=up, onCancel=cancel, onLeave=leave, onPinch=pinch_zoom,

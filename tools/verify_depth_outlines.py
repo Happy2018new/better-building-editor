@@ -29,7 +29,7 @@ _result=True''')
                 game('s.camera_depth=%r\ns.emit("camera_depth")\n_result=True'%depth)
                 time.sleep(1.)
                 edges=outline('cursor' if touch else 'edge')
-                ui.check(('touch' if touch else 'pc')+' complete 12 edges at depth '+str(depth),all(n['visible'] for n in edges))
+                ui.check(('touch' if touch else 'pc')+' selection model remains visible at depth '+str(depth),all(n['visible'] for n in edges))
                 if previous is not None:
                     ui.check('depth does not move or truncate selection edges',same_outline(previous,edges))
                 previous=edges

@@ -70,8 +70,10 @@ def shader_source(path, headers, version, flags, ref=None):
     else:
         source = path.read_text(encoding='utf8')
     prefix = '#version 300 es\n' if version == 300 else '#version 100\n'
-    prefix += ('precision mediump float;\nprecision highp int;\n'
-               '#define MCPE_NETEASE\n#define MAT4 highp mat4\n#define POS4 highp vec4\n')
+    # Preserve the source's float precision; declare int before engine headers.
+    source = source.replace('precision highp float;',
+                            'precision highp float;\nprecision highp int;', 1)
+    prefix += '#define MCPE_NETEASE\n#define MAT4 highp mat4\n#define POS4 highp vec4\n'
     return prefix + ''.join('#define ' + f + '\n' for f in flags) + expand(source)
 
 
@@ -102,8 +104,12 @@ def fixtures(seasons=False, foliage=False):
             # The side's tinted grass fringe has neutral vertices; its dirt
             # area must retain its texture. Include the dry-biome fringe.
             for color in ((191, 183, 85), (121, 192, 90), (89, 201, 60)):
+                pixel = [round(c * .6) for c in color]
+                # Cutout leaves retain fixed texture pigments; only opaque
+                # grass sides run the atlas-overlay recovery path.
+                expected = pixel if foliage else [c * .6 for c in desired]
                 add('side-fringe/' + str(color) + '/' + mode, mode, target, [1] * 4,
-                    [round(c * .6) for c in color], [c * .6 for c in desired], 3)
+                    pixel, expected, 3)
             for name, pixel in (('stone', (128, 128, 128)), ('dirt', (134, 96, 67)),
                                 ('yellow', (220, 205, 33)), ('green', (40, 150, 55)),
                                 ('white', (255, 255, 255)), ('blue', (35, 65, 190))):
