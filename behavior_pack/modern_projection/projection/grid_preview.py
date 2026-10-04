@@ -1,12 +1,26 @@
 """Retained work-plane geometry sharing the building's native depth buffer."""
-from collections import namedtuple
 from .large_preview import SurfacePalette
 from .camera import render_bounds
 from .outline_preview import outline_color
 
 GRID_BLOCK = 'modern_projection:preview_grid'
 GRID_TAG = 223
-GridView = namedtuple('GridView', 'project toward plane_offset pose viewport clip_offset thickness signature')
+
+
+class GridView(object):
+    __slots__ = ('project', 'toward', 'plane_offset', 'pose', 'viewport',
+                 'clip_offset', 'thickness', 'signature')
+
+    def __init__(self, project, toward, plane_offset, pose, viewport,
+                 clip_offset, thickness, signature):
+        self.project = project
+        self.toward = toward
+        self.plane_offset = plane_offset
+        self.pose = pose
+        self.viewport = viewport
+        self.clip_offset = clip_offset
+        self.thickness = thickness
+        self.signature = signature
 
 
 def grid_palette(size):
