@@ -118,7 +118,9 @@ class AuraLifecycleTests(unittest.TestCase):
         self.pos=(2.,64.,3.)
         self.aura.update(SURVEY_WAND)
         self.assertEqual(actor,self.aura.entity)
-        self.assertEqual(emitter,self.aura.glow.eid)
+        self.assertNotEqual(emitter,self.aura.glow.eid)
+        self.assertNotIn(emitter,self.particles.live)
+        emitter=self.aura.glow.eid
         self.assertEqual(0.,dict(self.uploads)[3][2])
         self.now.return_value=12.15
         self.aura.update(SURVEY_WAND)
@@ -241,7 +243,8 @@ class AuraLifecycleTests(unittest.TestCase):
         manager.sync({'player':TERMINAL,'other_player':TERMINAL})
         manager.update()
         self.assertEqual(actor,manager.auras['other_player'].entity)
-        self.assertEqual(emitter,manager.auras['other_player'].glow.eid)
+        self.assertNotEqual(emitter,manager.auras['other_player'].glow.eid)
+        self.assertNotIn(emitter,self.particles.live)
         self.assertEqual(TERMINAL,manager.auras['other_player'].carried)
         # A render tick where an entity unloads must clear its visual at once,
         # even before the slower equipment scan runs.
@@ -260,6 +263,27 @@ class AuraLifecycleTests(unittest.TestCase):
         self.assertFalse(manager.auras)
         for callback in self.callbacks:callback()
         self.assertFalse(self.particles.live)
+
+    def test_early_tool_switch_keeps_birth_fade_and_layout_transition_on_one_phase(self):
+        self.aura.update(TERMINAL)
+        actor = self.aura.entity
+        old_emitter = self.aura.glow.eid
+        self.now.return_value = 10.2
+        self.aura.update(SURVEY_WAND)
+        emitter = self.aura.glow.eid
+        self.assertNotEqual(old_emitter, emitter)
+        self.assertEqual(actor, self.aura.entity)
+        initial_birth = self.aura.uniform[0]
+        self.assertAlmostEqual(.2 / .65, initial_birth, delta=.5 / 63.)
+        self.assertEqual(0., self.aura.layout_uniform[2])
+        self.now.return_value = 10.4
+        self.aura.update(SURVEY_WAND)
+        self.assertEqual(emitter, self.aura.glow.eid)
+        self.assertAlmostEqual(.4 / .65, self.aura.uniform[0], delta=.5 / 63. + .7 / (.65 * 254.))
+        self.assertGreater(self.aura.layout_uniform[2], 0.)
+        decoded = decode_aura(self.particles.live[emitter]['variables'], 112)
+        self.assertEqual(self.aura.uniform[0], decoded['entered'])
+        self.assertEqual(self.aura.layout_uniform[2], decoded['switching'])
 
 
 if __name__ == '__main__':

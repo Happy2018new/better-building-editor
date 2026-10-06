@@ -47,24 +47,24 @@
         ],
         "facing_camera_mode": "rotate_xyz",
         "uv": {
-          "texture_width": 65536,
-          "texture_height": 65536,
+          "texture_width": 65535,
+          "texture_height": 65535,
           "uv": [
-            "(v.ux+(v.particle_lifetime-1048576))*8+2",
-            "(v.uy)*8+2"
+            "(v.ux+(v.particle_lifetime-1048576))*4+0.5",
+            "(v.uy)*4+0.5"
           ],
           "uv_size": [
-            4,
-            4
+            2.5,
+            2.5
           ]
         }
       },
       "minecraft:particle_appearance_tinting": {
         "color": [
-          "v.ready?(v.red)/255:0",
-          "v.ready?(v.green)/255:0",
-          "v.ready?(v.blue)/255:0",
-          "v.ready?(v.alpha)/255:0"
+          "(v.red)/255",
+          "(v.green)/255",
+          "(v.blue)/255",
+          "v.ready?v.alpha/255:0"
         ]
       }
     }

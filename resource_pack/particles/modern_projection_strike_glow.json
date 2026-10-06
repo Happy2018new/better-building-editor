@@ -47,24 +47,24 @@
         ],
         "facing_camera_mode": "rotate_xyz",
         "uv": {
-          "texture_width": 65536,
-          "texture_height": 65536,
+          "texture_width": 65535,
+          "texture_height": 65535,
           "uv": [
-            "(v.ux)*8+2",
-            "(v.uy+math.mod((v.particle_lifetime-1048576),128)*64)*8+2"
+            "(v.ux+math.mod(math.floor((v.particle_lifetime-1048576)/256),2)*8192)*4+0.5",
+            "(v.uy+math.mod((v.particle_lifetime-1048576),256)*64)*4+0.5"
           ],
           "uv_size": [
-            4,
-            4
+            2.5,
+            2.5
           ]
         }
       },
       "minecraft:particle_appearance_tinting": {
         "color": [
-          "v.ready?(v.red+math.floor((v.particle_lifetime-1048576)/128))/255:0",
-          "v.ready?(v.green)/255:0",
-          "v.ready?(v.blue)/255:0",
-          "v.ready?(v.alpha)/255:0"
+          "(v.red+math.floor((v.particle_lifetime-1048576)/512)*128)/255",
+          "(v.green)/255",
+          "(v.blue)/255",
+          "v.ready?v.alpha/255:0"
         ]
       }
     }

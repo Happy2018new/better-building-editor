@@ -31,8 +31,9 @@ def generate():
             ux, uy, red = 'v.ux+' + index, 'v.uy', 'v.red'
             radius = 3
         else:
-            ux, uy = 'v.ux', 'v.uy+math.mod(' + index + ',128)*64'
-            red = 'v.red+math.floor(' + index + '/128)'
+            ux = 'v.ux+math.mod(math.floor(' + index + '/256),2)*8192'
+            uy = 'v.uy+math.mod(' + index + ',256)*64'
+            red = 'v.red+math.floor(' + index + '/512)*128'
             radius = (4 if kind == 'strike' else
                       'math.sqrt(math.pow(math.mod(v.ux,64)+1,2)'
                       '+math.pow(math.floor(v.ux/64)+1,2)'
@@ -43,9 +44,11 @@ def generate():
         # Visible particles use tiny carriers; the sentinel never enters the
         # trajectory shader. Its compact ID is exactly the visible count.
         carrier_size = index + '<' + str(count) + '?0.000001:(' + str(radius) + ')'
-        # UVs are texels in a 65536-wide virtual texture. Native rendering
-        # stores them as UNORM16; use separated corners (2,6) in each 8-code
-        # cell so rounding/inset at an atlas edge cannot flip corner or data.
+        # Match the UNORM16 denominator: a 65535-wide virtual texture with
+        # corners (.5,3) survives float32 rounding/truncation and up to .5
+        # texel atlas inset while leaving 14 static payload bits. The last
+        # upper corner is exactly 65535, so UVs never exceed one.
+        # No continuously changing value is packed into these UV addresses.
         components = {
             'minecraft:emitter_initialization': {
                 'creation_expression': 'v.counter=0;v.ready=0;v.ux=0;v.uy=0;'
@@ -62,12 +65,14 @@ def generate():
             'minecraft:particle_motion_parametric': {'relative_position': [0, 0, 0]},
             'minecraft:particle_appearance_billboard': {
                 'size': [carrier_size, carrier_size], 'facing_camera_mode': 'rotate_xyz',
-                'uv': {'texture_width': 65536, 'texture_height': 65536,
-                       'uv': ['(' + value + ')*8+2' for value in (ux, uy)],
-                       'uv_size': [4, 4]}},
+                'uv': {'texture_width': 65535, 'texture_height': 65535,
+                       'uv': ['(' + value + ')*4+0.5' for value in (ux, uy)],
+                       'uv_size': [2.5, 2.5]}},
             'minecraft:particle_appearance_tinting': {
-                'color': ['v.ready?(' + value + ')/255:0'
-                          for value in (red, 'v.green', 'v.blue', 'v.alpha')]}}
+                # Preserve metadata (especially sentinel ID bits) while
+                # hidden. Alpha zero alone gates registration and cleanup.
+                'color': ['(' + value + ')/255' for value in (red, 'v.green', 'v.blue')]
+                         + ['v.ready?v.alpha/255:0']}}
         write('particles/modern_projection_' + kind + '_glow.json', {
             'format_version': '1.10.0', 'particle_effect': {
                 'description': {'identifier': 'modern_projection:' + kind + '_glow',
