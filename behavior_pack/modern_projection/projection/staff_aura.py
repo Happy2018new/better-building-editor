@@ -120,6 +120,8 @@ class StaffAura(object):
             self.entity = None
             return False
         self.started, self.position = now, pos
+        self.layout_from = self.layout_to
+        self.switch_started = now
         self.last_tick, self.last_target = now, pos
         self.last_target_change = now
         self.samples = [(now, pos)]
@@ -145,14 +147,14 @@ class StaffAura(object):
             if self.player_view is None:
                 self.player_view = self.bridge.factory.CreatePlayerView(self.bridge.player)
             first_person = self.player_view.GetPerspective() == 0
-        value = (min(1., max(0., (now-self.started)/.65)),
-                 1. if carried == TERMINAL else 0., 0. if reduced else 1.,
+        flags = (1. if carried == TERMINAL else 0., 0. if reduced else 1.,
                  0. if first_person else 1.)
         speed = math.sqrt(sum(v*v for v in self.velocity))
         velocity = tuple(v * min(1., 7. / max(speed, .001)) for v in self.velocity)
         layout = (self.layout_from, self.layout_to,
                   min(1., max(0., (now - self.switch_started) / .7)), 1.)
-        variables, value, motion, layout = aura_packet(value, velocity, layout)
+        birth_base = (self.switch_started - self.started) / .65
+        variables, value, motion, layout = aura_packet(flags, velocity, layout, birth_base)
         self.glow.update(self.position, variables)
         render = self.render
         if value != self.uniform and render.SetEntityExtraUniforms(1, value):
