@@ -1,0 +1,84 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "modern_projection_survey_native_glow:particles_base": {
+      "vertexShader": "shaders/glsl/modern_projection_survey_stars.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_survey_stars.fragment",
+      "+defines": [
+        "NATIVE_GLOW",
+        "SURVEY_GLOW"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "One",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "Color"
+        },
+        {
+          "field": "UV0"
+        }
+      ]
+    },
+    "modern_projection_strike_native_glow:particles_base": {
+      "vertexShader": "shaders/glsl/modern_projection_survey_stars.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_survey_stars.fragment",
+      "+defines": [
+        "NATIVE_GLOW",
+        "SURVEY_GLOW",
+        "SURVEY_STRIKE"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "One",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "Color"
+        },
+        {
+          "field": "UV0"
+        }
+      ]
+    },
+    "modern_projection_aura_native_glow:particles_base": {
+      "vertexShader": "shaders/glsl/modern_projection_aura.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_aura.fragment",
+      "+defines": [
+        "NATIVE_GLOW",
+        "AURA_GLOW"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "One",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "Color"
+        },
+        {
+          "field": "UV0"
+        }
+      ]
+    }
+  }
+}

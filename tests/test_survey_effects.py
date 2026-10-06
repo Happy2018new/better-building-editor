@@ -11,11 +11,32 @@ from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack'))
 from modern_projection.projection.survey_effects import SurveyEffects, WireEffects, CLICK_FORMATION_SECONDS
 from modern_projection.projection.outline_settings import defaults, normalize
+from test_native_glow import FakeParticleSystem, decode_survey
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class SurveyAssetTests(unittest.TestCase):
+    def test_native_glow_renders_in_particle_pass_with_depth_and_hides_old_actor_glow(self):
+        materials=json.loads((ROOT/'resource_pack/materials/particles.material').read_text(encoding='utf8'))['materials']
+        controllers=json.loads((ROOT/'resource_pack/render_controllers/modern_projection_anchor.json').read_text(encoding='utf8'))['render_controllers']
+        self.assertEqual([{'glow':0}],controllers['controller.render.modern_projection.survey_particles']['part_visibility'])
+        for kind,count in (('survey',972),('strike',329),('aura',177)):
+            path=ROOT/('resource_pack/particles/modern_projection_'+kind+'_glow.json')
+            effect=json.loads(path.read_text(encoding='utf8'))['particle_effect']
+            self.assertEqual('modern_projection:'+kind+'_glow',effect['description']['identifier'])
+            name=effect['description']['basic_render_parameters']['material']
+            material=materials[name+':particles_base']
+            self.assertIn('NATIVE_GLOW',material['+defines'])
+            self.assertIn('DisableDepthWrite',material['+states'])
+            self.assertNotIn('DisableDepthTest',material['+states'])
+            self.assertEqual('One',material['blendDst'])
+            components=effect['components']
+            self.assertEqual(count,components['minecraft:emitter_rate_instant']['num_particles'])
+            self.assertIn('v.ready=0;',components['minecraft:emitter_initialization']['creation_expression'])
+            self.assertTrue(all('v.ready?' in channel for channel in components['minecraft:particle_appearance_tinting']['color']))
+            self.assertEqual(True,components['minecraft:emitter_local_space']['position'])
+
     def test_luminous_rails_share_rainbow_geometry_and_depth_pass(self):
         materials=json.loads((ROOT/'resource_pack/materials/entity.material').read_text())['materials']
         rainbow=materials['modern_projection_outline:entity_static']
@@ -109,6 +130,7 @@ class SurveyEffectTests(unittest.TestCase):
         self.uniforms = {}
         self.positions = {}
         self.callbacks = []
+        self.particles = FakeParticleSystem()
         def create(kind, pos, rotation):
             self.next_id += 1
             self.live.add(self.next_id)
@@ -122,6 +144,7 @@ class SurveyEffectTests(unittest.TestCase):
         bridge = types.SimpleNamespace(system=types.SimpleNamespace(
             CreateClientEntityByTypeStr=create,DestroyClientEntity=self.live.remove),
             factory=types.SimpleNamespace(
+                CreateParticleSystem=lambda entity:self.particles,
                 CreateModel=lambda entity:types.SimpleNamespace(SetEntityShadowShow=lambda value:True),
                 CreateActorRender=lambda entity:types.SimpleNamespace(SetEntityExtraUniforms=lambda slot,value:uniforms(entity,slot,value)),
                 CreatePos=lambda entity:types.SimpleNamespace(SetPosForClientEntity=lambda pos:move(entity,pos))),
@@ -186,9 +209,77 @@ class SurveyEffectTests(unittest.TestCase):
         with patch('modern_projection.projection.survey_effects.time.time',return_value=12.):
             self.effect.follow((0.,0.,8.),(0.,0.,12.))
         self.uniforms.clear()
+        self.particles.calls.clear()
         with patch('modern_projection.projection.survey_effects.time.time',return_value=13.):
             self.effect.follow((0.,0.,8.),(0.,0.,12.))
         self.assertFalse(self.uniforms)
+        self.assertFalse(self.particles.calls)
+
+    def test_native_glow_stays_at_selection_centre_and_replaces_only_changed_endpoint(self):
+        self.effect.replace((10, 64, 20), (64, 128, 64))
+        self.effect.sync_points([(10, 64, 20), (20, 70, 30)])
+        stars = self.effect.layers[2]
+        first, second = self.effect.points
+        emitters = set(self.particles.live)
+        self.assertEqual(3, len(emitters))
+        self.assertTrue(all(record['glow'] is None for record in self.effect.layers[:2]))
+        self.effect.follow((100., 32., -80.), (105., 35., -85.))
+        self.assertEqual(emitters, set(self.particles.live))
+        for record in (stars, first, second):
+            self.assertEqual(record['centre'], self.particles.live[record['glow'].eid]['position'])
+        removed = second['glow'].eid
+        self.effect.sync_points([(10, 64, 20), (30, 80, 40)])
+        self.assertEqual({stars['glow'].eid, first['glow'].eid}, emitters & set(self.particles.live))
+        self.assertNotIn(removed, self.particles.live)
+        self.assertEqual(3, len(self.particles.live))
+        self.effect.clear_box()
+        self.assertEqual(2, len(self.particles.live))
+        self.effect.clear()
+        for callback in self.callbacks:
+            callback()
+        self.assertFalse(self.particles.live)
+
+    def test_native_actor_parameters_match_after_style_replay_and_face_change(self):
+        self.effect = WireEffects(self.effect.bridge)
+        options = defaults()['starry']
+        options.update(brightness=1.333, density=1.234, orbit_speed=2.345)
+        self.effect.configure_style('starry', options)
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=10.):
+            self.effect.replace((0, 0, 0), (64, 128, 64))
+            self.effect.sync_points([(0, 0, 0), None], [5, None])
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=10.53):
+            self.effect.follow((0., 0., 8.))
+        stars = self.effect.layers[2]
+        variables = self.particles.live[stars['glow'].eid]['variables']
+        decoded = decode_survey(variables, 449)
+        actor = self.uniforms[(stars['id'], 3)]
+        self.assertEqual((decoded['entered'], decoded['brightness'], decoded['orbit']),
+                         (actor[0], actor[1], actor[3]))
+        self.assertEqual(decoded['density'], self.uniforms[(stars['id'], 4)][3])
+        self.assertEqual(1, decoded['theme'])
+        marker = self.effect.points[0]
+        emitter = marker['glow'].eid
+        with patch('modern_projection.projection.survey_effects.time.time', return_value=12.):
+            self.effect.sync_points([(0, 0, 0), None], [0, None])
+            self.effect.pulse_point(0)
+            self.effect.follow((0., 0., 8.))
+        decoded = decode_survey(self.particles.live[emitter]['variables'], 149, True)
+        self.assertEqual(2, decoded['face'])
+        self.assertEqual(0., decoded['entered'])
+        self.assertEqual(emitter, marker['glow'].eid)
+
+    def test_cleared_unready_emitters_cannot_return_from_actor_registration_callback(self):
+        self.particles.fail_variables.add('variable.green')
+        self.effect.replace((0, 0, 0), (2, 3, 4))
+        self.effect.sync_points([(0, 0, 0), None])
+        self.assertEqual(2, len(self.particles.live))
+        self.assertTrue(all(item['variables']['ready'] == 0. for item in self.particles.live.values()))
+        self.effect.clear()
+        self.particles.fail_variables.clear()
+        for callback in self.callbacks:
+            callback()
+        self.assertFalse(self.particles.live)
+        self.assertFalse(self.live)
 
     def test_camera_motion_keeps_selected_block_and_hit_face_fixed(self):
         self.effect.follow((0.,0.,8.),(0.,0.,12.))
@@ -248,7 +339,7 @@ class SurveyEffectTests(unittest.TestCase):
             self.effect.follow((0.,0.,5.))
         marker=self.effect.points[0]
         actors=set(self.live)
-        self.assertAlmostEqual(.55/CLICK_FORMATION_SECONDS,self.uniforms[(marker['id'],3)][0])
+        self.assertAlmostEqual(.55/CLICK_FORMATION_SECONDS,self.uniforms[(marker['id'],3)][0],delta=.5/63.)
         self.assertLess(self.uniforms[(self.effect.layers[0]['id'],3)][0],.5)
         with patch('modern_projection.projection.survey_effects.time.time',return_value=13.):
             self.effect.follow((0.,0.,5.))

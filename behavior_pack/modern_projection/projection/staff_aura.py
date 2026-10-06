@@ -4,6 +4,7 @@ import time
 import math
 import random
 from .tool_items import TERMINAL, SURVEY_WAND
+from .native_glow import NativeGlow, aura_packet
 
 
 class StaffAura(object):
@@ -11,6 +12,10 @@ class StaffAura(object):
         self.bridge = bridge
         self.player = bridge.player if player is None else player
         self.entity = None
+        self.glow = NativeGlow(bridge, 'aura')
+        self.player_position = bridge.factory.CreatePos(self.player)
+        self.actor_position = self.render = None
+        self.player_view = None
         self.started = 0.
         self.uniform = None
         self.motion_uniform = self.layout_uniform = None
@@ -23,7 +28,7 @@ class StaffAura(object):
         self.stop_anchor = False
         self.velocity = (0., 0., 0.)
         self.carried = None
-        self.layout_from = self.layout_to = random.random() * 1000.
+        self.layout_from = self.layout_to = random.randint(0, 255)
         self.switch_started = 0.
 
     def _follow_sample(self, when):
@@ -65,38 +70,18 @@ class StaffAura(object):
             return
         # Feet position prevents camera bob and eye-height changes from moving
         # the magic circle. A single actor follows the player, never each mote.
-        pos = self.bridge.factory.CreatePos(self.player).GetFootPos()
+        pos = self.player_position.GetFootPos()
         if pos is None:
             self.clear()
             return
         pos = tuple(float(v) for v in pos)
         if self.carried is not None and carried != self.carried:
             self.layout_from = self.layout_to
-            self.layout_to = random.random() * 1000.
+            self.layout_to = (self.layout_from + random.randint(1, 255)) % 256
             self.switch_started = now
         self.carried = carried
-        if self.entity is None:
-            if now < self.retry_after:
-                return
-            self.retry_after = now + 1.
-            self.entity = self.bridge.system.CreateClientEntityByTypeStr(
-                'modern_projection:staff_aura', pos, (0., 0.))
-            if not self.entity:
-                self.entity = None
-                return
-            self.started, self.position = now, pos
-            self.last_tick, self.last_target = now, pos
-            self.last_target_change = now
-            self.samples = [(now, pos)]
-            self.stop_anchor = False
-            self.bridge.factory.CreateModel(self.entity).SetEntityShadowShow(False)
-            # ActorRender registration is asynchronous; keep retrying only
-            # this one uniform until accepted, also refresh after registration.
-            entity = self.entity
-            def ready():
-                if self.entity == entity:
-                    self.uniform = self.motion_uniform = self.layout_uniform = None
-            self.bridge.later(.15, ready)
+        if self.entity is None and not self._spawn(pos, now):
+            return
         dt = min(.1, max(.001, now - self.last_tick))
         delta = tuple(pos[i] - self.last_target[i] for i in range(3))
         if sum(v*v for v in delta) > 9.:
@@ -122,34 +107,67 @@ class StaffAura(object):
             self.velocity = tuple(self.velocity[i] + (sample_velocity[i] - self.velocity[i]) * blend
                                   for i in range(3))
         self.last_tick, self.last_target = now, pos
-        self.bridge.factory.CreatePos(self.entity).SetPosForClientEntity(self.position)
+        self.actor_position.SetPosForClientEntity(self.position)
+        self._update_render(now, carried)
+
+    def _spawn(self, pos, now):
+        if now < self.retry_after:
+            return False
+        self.retry_after = now + 1.
+        self.entity = self.bridge.system.CreateClientEntityByTypeStr(
+            'modern_projection:staff_aura', pos, (0., 0.))
+        if not self.entity:
+            self.entity = None
+            return False
+        self.started, self.position = now, pos
+        self.last_tick, self.last_target = now, pos
+        self.last_target_change = now
+        self.samples = [(now, pos)]
+        self.stop_anchor = False
+        self.bridge.factory.CreateModel(self.entity).SetEntityShadowShow(False)
+        self.actor_position = self.bridge.factory.CreatePos(self.entity)
+        self.render = self.bridge.factory.CreateActorRender(self.entity)
+        # ActorRender registration is asynchronous; keep retrying only
+        # changed uniforms until accepted, also refresh after registration.
+        entity = self.entity
+        def ready():
+            if self.entity == entity:
+                self.uniform = self.motion_uniform = self.layout_uniform = None
+        self.bridge.later(.15, ready)
+        return True
+
+    def _update_render(self, now, carried):
         reduced = self.bridge.session.reduced_motion if self.bridge.session else False
         # Perspective belongs to the observer. A first-person observer still
         # sees other players' trails; only their own trails are hidden.
         first_person = False
         if self.player == self.bridge.player:
-            first_person = self.bridge.factory.CreatePlayerView(self.bridge.player).GetPerspective() == 0
+            if self.player_view is None:
+                self.player_view = self.bridge.factory.CreatePlayerView(self.bridge.player)
+            first_person = self.player_view.GetPerspective() == 0
         value = (min(1., max(0., (now-self.started)/.65)),
                  1. if carried == TERMINAL else 0., 0. if reduced else 1.,
                  0. if first_person else 1.)
-        if value != self.uniform:
-            if self.bridge.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(1, value):
-                self.uniform = value
         speed = math.sqrt(sum(v*v for v in self.velocity))
         velocity = tuple(v * min(1., 7. / max(speed, .001)) for v in self.velocity)
-        render = self.bridge.factory.CreateActorRender(self.entity)
-        motion = velocity + (min(speed, 7.),)
-        if motion != self.motion_uniform and render.SetEntityExtraUniforms(2, motion):
-            self.motion_uniform = motion
         layout = (self.layout_from, self.layout_to,
                   min(1., max(0., (now - self.switch_started) / .7)), 1.)
+        variables, value, motion, layout = aura_packet(value, velocity, layout)
+        self.glow.update(self.position, variables)
+        render = self.render
+        if value != self.uniform and render.SetEntityExtraUniforms(1, value):
+            self.uniform = value
+        if motion != self.motion_uniform and render.SetEntityExtraUniforms(2, motion):
+            self.motion_uniform = motion
         if layout != self.layout_uniform and render.SetEntityExtraUniforms(3, layout):
             self.layout_uniform = layout
 
     def clear(self):
+        self.glow.clear()
         if self.entity is not None:
             self.bridge.system.DestroyClientEntity(self.entity)
         self.entity = None
+        self.actor_position = self.render = None
         self.uniform = self.motion_uniform = self.layout_uniform = self.position = None
         self.retry_after = 0.
         self.last_tick = self.last_target = self.carried = None

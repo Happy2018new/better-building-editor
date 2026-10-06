@@ -1,11 +1,21 @@
 // __multiversion__
 // Match fragment uniforms and preserve random seeds and animation phases.
 precision highp float;
+// The engine deduplicates includes before evaluating branches. Keep shared
+// headers outside NATIVE_GLOW so entityVertexUtil retains their declarations.
+#include "uniformWorldConstants.h"
+#include "uniformPerFrameConstants.h"
+#include "vertexVersionCentroidUV.h"
+#ifdef NATIVE_GLOW
+#define VIEWPROJ WORLDVIEWPROJ
+#include "modern_projection_particle_vertex.h"
+#else
 #include "entityVertexUtil.h"
 uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM2;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM3;
 uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+#endif
 varying highp vec2 effectUV;
 varying highp vec4 effectTint;
 varying highp float effectKind;
@@ -15,6 +25,9 @@ varying highp vec3 facetLight;
 const float TAU=6.28318530718;
 float random1(float p) { return fract(sin(p*12.9898+4.1414)*43758.5453); }
 vec4 worldPoint(vec3 point,float w) {
+#ifdef NATIVE_GLOW
+    return vec4(nativeOrigin*w+point*vec3(-1.,1.,-1.),w);
+#else
     // Native entity bones invert model Y. All effect math is world-positive-up.
     vec4 p=vec4(point*vec3(16.,-16.,16.),w);
 #ifdef USE_SKINNING
@@ -29,6 +42,7 @@ vec4 worldPoint(vec3 point,float w) {
     p=WORLD*p;
     p.xyz+=EXTRA_ACTOR_UNIFORM2.xyz*w;
     return p;
+#endif
 }
 vec4 projectPoint(vec3 point,float w) { return VIEWPROJ*worldPoint(point,w); }
 vec3 localDirection(vec3 worldDirection) {
@@ -159,8 +173,23 @@ vec3 birthCentre(float shard,vec3 n,float clock){
  return markerPoint(n,cos(a)*r,sin(a)*r*.83,.18+seed*.18+.12*sin(a*2.+seed*5.));
 }
 void main(){
+#ifdef NATIVE_GLOW
+ if(!nativeSurvey()){
+  // The last native particle expands culling bounds only. Keep its large
+  // CPU billboard out of worldPoint(), routes and all visible geometry.
+  effectUV=vec2(0.);effectTint=vec4(0.);effectKind=0.;
+  facetNormal=vec4(0.,1.,0.,0.);facetView=vec4(0.,0.,1.,0.);
+  facetLight=vec3(0.,1.,0.);materialPos=vec3(0.);crystalBirth=1.;
+  gl_Position=vec4(2.,2.,2.,1.);
+  return;
+ }
+ float id=nativeId;
+ vec2 corner=nativeCorner;
+#else
  vec2 address=floor((abs(POSITION.xy)+1.)/4.);float id=address.x+address.y*64.;
- vec2 corner=TEXCOORD_0*2.-1.;float seed=random1(id+1.),phase=random1(id+113.);
+ vec2 corner=TEXCOORD_0*2.-1.;
+#endif
+ float seed=random1(id+1.),phase=random1(id+113.);
  vec3 size=EXTRA_ACTOR_UNIFORM1.xyz,camera=localDirection(EXTRA_ACTOR_UNIFORM4.xyz);
  float entered=EXTRA_ACTOR_UNIFORM3.x,brightness=EXTRA_ACTOR_UNIFORM3.y,orbit=EXTRA_ACTOR_UNIFORM3.w;
  float theme=floor(EXTRA_ACTOR_UNIFORM3.z),density=EXTRA_ACTOR_UNIFORM4.w;
