@@ -31,6 +31,7 @@ class ClientBridge(object):
         self.entity = None
         self.projection_mesh = None
         self.preparing_entity = None
+        self.projection_backdrop = self.preparing_backdrop = None
         self.request_id = 0
         self.pending = None
         self.pending_data = None
@@ -113,6 +114,8 @@ class ClientBridge(object):
                          occupancy.entity == entity else
                          self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset))
                 if not moved:
+                    return
+                if self.projection_backdrop is not None and not self.projection_backdrop.follow(mesh_position):
                     return
                 self.projection_mesh = (entity, model, origin, mesh_position)
         if self.projection_outline.follow(position, tuple(centre)):
@@ -317,6 +320,8 @@ class ClientBridge(object):
 
     def update_biome_tint(self, value):
         from .biomes import actor_uniform
+        if self.projection_backdrop is not None:
+            self.projection_backdrop.tint(value)
         work = getattr(self, 'projection_work', None)
         if work is not None:
             work.document.biome = value
@@ -523,22 +528,26 @@ class ClientBridge(object):
         if s.editor.document.volume > SMALL_VOLUME:
             return self.project_large(origin)
         self.projection_serial += 1
+        self.cancel_preparing_projection()
         self.projection_work = None
         if self.projection_entities:
             self.stop_projection()
             self.projection_requested = True
         from .occupancy import ProjectionOccupancy
         occupancy = ProjectionOccupancy(self, origin) if s.projection_missing else None
+        has_visible = [False]
 
         def visible(pos):
-            if occupancy is not None:
-                return occupancy.initial_visible(pos)
-            if not s.visible_layer(pos[1]):
-                return False
-            return True
+            result = (occupancy.initial_visible(pos) if occupancy is not None else
+                      s.visible_layer(pos[1]))
+            if result:
+                has_visible[0] = True
+            return result
         name = (self.geometry(s.editor.document, visible, name=occupancy.shader.names[0])
                 if occupancy is not None else self.geometry(s.editor.document, visible))
         if not name:
+            if has_visible[0]:
+                raise ValueError('投影模型生成失败，原投影已保留，请重试')
             self.stop_projection()
             self.projection_requested = s.projection_active = True
             self.projection_outline.replace(origin, tuple(s.editor.document.size))
@@ -546,46 +555,45 @@ class ClientBridge(object):
                 occupancy.start(None, None)
             s.editor.message = '当前没有需要投影的方块，范围框已保留'
             return
-        entity = self.system.CreateClientEntityByTypeStr(native('modern_projection:anchor'), tuple(float(v) for v in origin), (0., 0.))
-        if not entity:
-            raise ValueError('无法创建投影，请靠近目标区域')
-        if self.preparing_entity:
-            self.system.DestroyClientEntity(self.preparing_entity)
-        self.preparing_entity = entity
+        entity = self.prepare_projection_actor(origin, tuple(float(v) for v in origin))
+        serial = self.projection_serial
         opacity = s.opacity
         size = tuple(s.editor.document.size)
         s.editor.message = '正在准备透明投影…'
 
         def attach():
-            if self.preparing_entity != entity:
+            if not self.alive or serial != self.projection_serial or self.preparing_entity != entity:
                 return
             # A newly created client actor has no renderer until a later frame.
             # Attaching in its creation tick returns True but produces no model.
-            self.factory.CreateModel(entity).SetEntityShadowShow(False)
-            render = self.factory.CreateActorRender(entity)
-            # Native actor block geometry starts at half-cell centres and flips
-            # X/Z. Match document cells to origin + local world coordinates.
-            from .biomes import actor_uniform
-            success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and render.EnableActorBlockGeometryTransparent(name, True)
-                       and render.SetActorBlockGeometryTransparency(name, opacity)
-                       and render.SetEntityExtraUniforms(4, actor_uniform(s.editor.document.biome)))
-            if success and occupancy is not None:
-                try:
-                    occupancy.shader.bind(entity, name, origin, attached=True)
-                except (ValueError, TypeError, KeyError, RuntimeError):
-                    success = False
-            self.preparing_entity = None
+            try:
+                self.factory.CreateModel(entity).SetEntityShadowShow(False)
+                render = self.factory.CreateActorRender(entity)
+                # Rotation reverses X/Z after the half-cell offset.
+                from .biomes import actor_uniform
+                success = (render.AddActorBlockGeometry(name, (-.5, 0., -.5), (0., 180., 0.)) and
+                           render.EnableActorBlockGeometryTransparent(name, True) and
+                           render.SetActorBlockGeometryTransparency(name, opacity) and
+                           render.SetEntityExtraUniforms(4, actor_uniform(s.editor.document.biome)))
+                if success:
+                    if occupancy is not None:
+                        occupancy.document.biome = s.editor.document.biome
+                        occupancy.shader.bind(entity, name, origin, attached=True,
+                                              backdrop=self.preparing_backdrop)
+                    else:
+                        self.preparing_backdrop.bind((name,), name, s.editor.document.biome)
+            except (ValueError, TypeError, KeyError, RuntimeError):
+                import traceback
+                traceback.print_exc()
+                success = False
             if success:
-                if self.entity:
-                    self.system.DestroyClientEntity(self.entity)
-                self.entity = entity
-                self.projection_mesh = (entity, name, origin, origin)
+                self.commit_projection_actor(entity, name, origin, origin)
                 s.projection_active = True
                 s.editor.message = '投影已生成，关闭工作台即可在世界中查看'
                 self.projection_outline.replace(origin, size)
                 self.set_projection_occupancy(occupancy, entity, name)
             else:
-                self.system.DestroyClientEntity(entity)
+                self.cancel_preparing_projection()
                 s.editor.message = '透明投影生成失败，原投影已保留'
             s.emit()
         self.later(.2, attach)
@@ -605,6 +613,8 @@ class ClientBridge(object):
         return actual[0] in AIR_NAMES
 
     def set_projection_occupancy(self, occupancy, entity, model):
+        if self.projection_occupancy is not None and self.projection_occupancy is not occupancy:
+            self.projection_occupancy.close()
         if occupancy is not None:
             occupancy.start(entity, model)
         else:
@@ -625,7 +635,36 @@ class ClientBridge(object):
         if self.projection_occupancy is not None:
             self.projection_occupancy.tick()
 
+    def cancel_preparing_projection(self):
+        if self.preparing_entity:
+            self.system.DestroyClientEntity(self.preparing_entity)
+        self.preparing_entity = None
+        if self.preparing_backdrop is not None:
+            self.preparing_backdrop.clear()
+        self.preparing_backdrop = None
+
+    def prepare_projection_actor(self, origin, anchor):
+        from .projection_backdrop import create_projection_actors
+        self.cancel_preparing_projection()
+        self.preparing_entity, self.preparing_backdrop = create_projection_actors(self, origin, anchor)
+        return self.preparing_entity
+
+    def commit_projection_actor(self, entity, model, origin, anchor):
+        for old in self.projection_entities.values():
+            self.system.DestroyClientEntity(old)
+        self.projection_entities = {}
+        if self.entity:
+            self.system.DestroyClientEntity(self.entity)
+        if self.projection_backdrop is not None:
+            self.projection_backdrop.clear()
+        self.entity, self.preparing_entity = entity, None
+        self.projection_backdrop, self.preparing_backdrop = self.preparing_backdrop, None
+        self.projection_mesh = (entity, model, origin, anchor) if entity else None
+        self._projection_follow_position = None
+
     def stop_projection(self):
+        if self.projection_occupancy is not None:
+            self.projection_occupancy.close()
         self.projection_occupancy = None
         self.projection_requested = False
         if self.pending_data and self.pending_data[0] == 'resolve':
@@ -637,9 +676,10 @@ class ClientBridge(object):
         for entity in self.projection_entities.values():
             self.system.DestroyClientEntity(entity)
         self.projection_entities = {}
-        if self.preparing_entity:
-            self.system.DestroyClientEntity(self.preparing_entity)
-        self.preparing_entity = None
+        self.cancel_preparing_projection()
+        if self.projection_backdrop is not None:
+            self.projection_backdrop.clear()
+        self.projection_backdrop = None
         if self.entity:
             self.system.DestroyClientEntity(self.entity)
         self.entity = None
@@ -653,9 +693,7 @@ class ClientBridge(object):
         from .world_projection import WorldProjection
         self.projection_requested = True
         self.projection_serial += 1
-        if self.preparing_entity:
-            self.system.DestroyClientEntity(self.preparing_entity)
-            self.preparing_entity = None
+        self.cancel_preparing_projection()
         had_projection = bool(self.entity or self.projection_entities)
         self.projection_work = WorldProjection(self, origin)
         self.ensure_projection_distance(self.projection_work.document.size)

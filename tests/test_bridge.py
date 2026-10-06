@@ -12,6 +12,7 @@ from projection.session import Session
 from projection.model import Document, Editor, AIR
 from projection.transfer import Receiver
 from test_native_glow import FakeParticleSystem
+from actor_runtime import BoundComponent
 
 
 class Runtime:
@@ -33,6 +34,8 @@ class Runtime:
         self.moves = []
         self.offsets = {}
         self.particles = FakeParticleSystem()
+        self.visibility, self.transparent, self.opacity = {}, {}, {}
+        self.geometry_names = {}
 
     def CreateParticleSystem(self, entity):
         return self.particles
@@ -50,8 +53,7 @@ class Runtime:
         return self.camera_forward
 
     def CreatePos(self, entity):
-        self.moving = entity
-        return self
+        return BoundComponent(self, 'moving', entity)
 
     def SetPosForClientEntity(self, position):
         self.moves.append((self.moving, position))
@@ -94,12 +96,10 @@ class Runtime:
         return self.world.get(pos, AIR)
 
     def CreateActorRender(self, entity):
-        self.rendering = entity
-        return self
+        return BoundComponent(self, 'rendering', entity)
 
     def CreateModel(self, entity):
-        self.shadow_entity = entity
-        return self
+        return BoundComponent(self, 'shadow_entity', entity)
 
     def SetEntityShadowShow(self, value):
         self.shadows[self.shadow_entity] = value
@@ -113,6 +113,7 @@ class Runtime:
 
     def AddActorBlockGeometry(self, name, offset=(0, 0, 0), rotation=(0, 0, 0)):
         self.attached.append(self.rendering)
+        self.geometry_names.setdefault(self.rendering, set()).add(name)
         self.geometry_transform = (offset, rotation)
         return self.success
 
@@ -129,9 +130,15 @@ class Runtime:
         return self
 
     def EnableActorBlockGeometryTransparent(self, name, enabled):
+        self.transparent[self.rendering, name] = enabled
         return True
 
     def SetActorBlockGeometryTransparency(self, name, opacity):
+        self.opacity[self.rendering, name] = opacity
+        return True
+
+    def SetActorBlockGeometryVisible(self, name, visible):
+        self.visibility[self.rendering, name] = visible
         return True
 
 
@@ -244,7 +251,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             self.assertIn(old, r.destroyed)
             self.assertEqual(building, b.entity)
             self.assertEqual(bounds, b.projection_outline.bounds)
-            self.assertEqual([building], r.attached)
+            self.assertEqual([building, b.projection_backdrop.entity], r.attached)
             self.assertEqual(0 if style == 'rainbow' else 1, len(r.particles.live))
         ids = [item['id'] for item in b.projection_outline.effects.layers]
         s.outline_parameter('golden', 'speed', 4.)
@@ -328,7 +335,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             calls = len(r.moves)
             b.follow_projection()
             self.assertEqual(calls, len(r.moves), 'stationary frames submit no transforms')
-        self.assertEqual([mesh], r.attached)
+        self.assertEqual([mesh, b.projection_backdrop.entity], r.attached)
         b.stop_projection()
         self.assertIsNone(b.projection_mesh)
         calls = len(r.moves)
@@ -399,7 +406,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual([], self.runtime.attached)
         self.assertEqual([], self.runtime.destroyed)
         self.runtime.timers.pop()()
-        self.assertEqual(['actor_0'], self.runtime.attached)
+        self.assertEqual(['actor_0', 'actor_1'], self.runtime.attached)
         self.assertEqual(['previous_projection'], self.runtime.destroyed)
         self.assertEqual('actor_0', self.bridge.entity)
         self.assertEqual(((-.5, 0., -.5), (0., 180., 0.)), self.runtime.geometry_transform)
@@ -409,14 +416,14 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.bridge.stop_projection()
         self.runtime.timers.pop()()
         self.assertEqual([], self.runtime.attached)
-        self.assertEqual({'actor_0', 'previous_projection'}, set(self.runtime.destroyed))
+        self.assertEqual({'actor_0', 'actor_1', 'previous_projection'}, set(self.runtime.destroyed))
         self.assertFalse(self.bridge.session.projection_active)
 
     def test_failed_attachment_retains_previous_projection(self):
         self.runtime.success = False
         self.bridge.project()
         self.runtime.timers.pop()()
-        self.assertEqual(['actor_0'], self.runtime.destroyed)
+        self.assertEqual(['actor_0', 'actor_1'], self.runtime.destroyed)
         self.assertEqual('previous_projection', self.bridge.entity)
         self.assertTrue(self.bridge.session.projection_active)
 
@@ -425,8 +432,8 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.bridge.project()
         for callback in self.runtime.timers:
             callback()
-        self.assertEqual(['actor_1'], self.runtime.attached)
-        self.assertEqual('actor_1', self.bridge.entity)
+        self.assertEqual(['actor_2', 'actor_3'], self.runtime.attached)
+        self.assertEqual('actor_2', self.bridge.entity)
 
     def test_stream_upload_is_snapshot_and_ack_driven(self):
         b = self.bridge
@@ -506,7 +513,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertFalse(self.runtime.preferences['projection_outline'])
         s.set('projection_outline', True)
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
-        self.assertEqual(['actor_0'], self.runtime.attached)
+        self.assertEqual(['actor_0', 'actor_1'], self.runtime.attached)
         s.set('reduced_motion', True)
         self.assertEqual(0., self.runtime.uniform_slots[outline.entity, 1][3])
         b.stop_projection()

@@ -1,0 +1,78 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "skyplane": {
+      "states": [
+        "DisableDepthWrite",
+        "DisableAlphaWrite"
+      ],
+      "depthFunc": "LessEqual",
+      "vertexShader": "shaders/glsl/modern_projection_far_sky.vertex",
+      "vrGeometryShader": "shaders/sky.geometry",
+      "fragmentShader": "shaders/glsl/color.fragment",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "Color"
+        }
+      ],
+      "msaaSupport": "Both"
+    },
+    "cubemap": {
+      "states": [
+        "Blending"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "vertexShader": "shaders/glsl/modern_projection_far_uv.vertex",
+      "vrGeometryShader": "shaders/uv.geometry",
+      "fragmentShader": "shaders/glsl/texture_ccolor.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Bilinear"
+        }
+      ],
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "UV0"
+        }
+      ],
+      "msaaSupport": "Both",
+      "depthFunc": "LessEqual"
+    },
+    "end_sky": {
+      "states": [
+        "DisableDepthWrite",
+        "DisableAlphaWrite"
+      ],
+      "msaaSupport": "Both",
+      "vertexShader": "shaders/glsl/modern_projection_far_uv_repeat.vertex",
+      "vrGeometryShader": "shaders/uv.geometry",
+      "fragmentShader": "shaders/glsl/texture_ccolor.fragment",
+      "vertexFields": [
+        {
+          "field": "Position"
+        },
+        {
+          "field": "Color"
+        },
+        {
+          "field": "UV0"
+        }
+      ],
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureWrap": "Repeat"
+        }
+      ],
+      "depthFunc": "LessEqual"
+    }
+  }
+}

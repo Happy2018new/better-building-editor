@@ -12,6 +12,7 @@ class OccupancyShader(object):
         self.names = tuple('modern_projection_buffer_%d_%d' % (self.pool, bank)
                            for bank in range(2))
         self.render = None
+        self.backdrop = None
         self.uniforms = {}
         self.bank = 0
         self.empty = False
@@ -26,12 +27,9 @@ class OccupancyShader(object):
         self.updates += 1
 
     def control(self):
-        tracker = self.tracker
-        tint = actor_uniform(tracker.document.biome)
-        self.write(4, tint[:2]+(-1. if self.empty else float(self.bank+1),
-                               tracker.bridge.session.opacity))
+        self.commit(None if self.empty else self.names[self.bank])
 
-    def bind(self, entity, model, anchor, attached=False):
+    def bind(self, entity, model, anchor, attached=False, backdrop=None):
         tracker, b = self.tracker, self.tracker.bridge
         self.render = b.factory.CreateActorRender(entity)
         self.bank = self.names.index(model)
@@ -52,6 +50,9 @@ class OccupancyShader(object):
             if not (self.render.EnableActorBlockGeometryTransparent(name, True) and
                     self.render.SetActorBlockGeometryTransparency(name, .25+.5*bank)):
                 raise ValueError('Could not configure projection shader buffer')
+        if backdrop is not None:
+            backdrop.bind(self.names, model, tracker.document.biome)
+        self.backdrop = backdrop
 
     def offset(self, anchor):
         origin = self.tracker.origin
@@ -65,6 +66,14 @@ class OccupancyShader(object):
         empty = model is None
         bank = self.names.index(model) if model is not None else self.bank
         tint = actor_uniform(self.tracker.document.biome)
-        self.write(4, tint[:2]+(-1. if empty else float(bank+1),
-                               self.tracker.bridge.session.opacity))
+        previous = dict(self.backdrop.visible) if self.backdrop is not None else None
+        if self.backdrop is not None:
+            self.backdrop.select(model)
+        try:
+            self.write(4, tint[:2]+(-1. if empty else float(bank+1),
+                                   self.tracker.bridge.session.opacity))
+        except (ValueError, TypeError, RuntimeError):
+            if self.backdrop is not None:
+                self.backdrop.restore_visibility(previous)
+            raise
         self.empty, self.bank = empty, bank

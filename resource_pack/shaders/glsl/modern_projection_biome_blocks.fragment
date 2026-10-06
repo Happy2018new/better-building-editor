@@ -156,6 +156,15 @@ void main()
 		discard;
 #endif
 
+// This copy uses the same atlas cutout and silhouette as the colour pass.
+// Restoring the original clip interval prevents sky masks when entering a
+// projection: moving its depth must not resurrect near/far-clipped surfaces.
+if (abs(PROJ[3][3]) < 0.5 && abs(EXTRA_ACTOR_UNIFORM4.x - 19488.0) < 0.25) {
+    if (abs(gridPosition.x) > gridPosition.y) discard;
+    gl_FragColor = vec4(0.0);
+    return;
+}
+
 vec4 inColor = color;
 bool preview = abs(PROJ[3][3]) > 0.5;
 float previewTag = floor(CURRENT_COLOR.r*255.0+0.5);

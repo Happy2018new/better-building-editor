@@ -56,6 +56,7 @@ class ProjectionOccupancy(object):
         self.bank = 0
         self.attaching = self.failed = False
         self.pending_model = None
+        self.preparing_entity = self.preparing_backdrop = None
         self.reads = self.builds = self.commits = 0
         self.last_poll_ms = self.max_poll_ms = self.last_build_ms = 0.
         self.last_prepare_ms = 0.
@@ -167,13 +168,23 @@ class ProjectionOccupancy(object):
         if self.bridge.projection_mesh:
             self.anchor = self.bridge.projection_mesh[3]
         if entity is not None and self.shader.render is None:
-            self.shader.bind(entity, model, self.anchor, attached=True)
+            self.shader.bind(entity, model, self.anchor, attached=True,
+                             backdrop=self.bridge.projection_backdrop)
         self.bridge.projection_occupancy = self
         self.next_poll = time.time() + POLL_INTERVAL
 
     def active(self):
         return (self.bridge.alive and self.bridge.projection_occupancy is self and
                 self.bridge.session.projection_active)
+
+    def close(self):
+        if self.preparing_entity is not None:
+            self.bridge.system.DestroyClientEntity(self.preparing_entity)
+        if self.preparing_backdrop is not None:
+            self.preparing_backdrop.clear()
+        self.preparing_entity = self.preparing_backdrop = None
+        self.attaching = False
+        self.pending_model = None
 
     def hint(self, world):
         # Client interaction is only a hint: retry after the world catches up.
@@ -304,6 +315,7 @@ class ProjectionOccupancy(object):
                     return
         except (ValueError, TypeError, KeyError, RuntimeError) as error:
             traceback.print_exc()
+            self.close()
             self.failed = True
             self.build = self.output = self.snapshot = None
             self.bridge.session.editor.message = u'投影自动更新失败，请点击更新投影：%s' % error
@@ -332,17 +344,17 @@ class ProjectionOccupancy(object):
         if self.entity is None and model is not None:
             self.bridge.ensure_projection_distance(self.size)
             anchor = tuple(self.origin[i]+self.size[i]/2. for i in range(3))
-            entity = self.bridge.system.CreateClientEntityByTypeStr(b'modern_projection:anchor', anchor, (0., 0.))
-            if not entity:
-                raise ValueError('Could not create projection actor')
-            self.entity = self.bridge.entity = entity
-            self.bridge.factory.CreateModel(entity).SetEntityShadowShow(False)
+            from .projection_backdrop import create_projection_actors
+            entity, backdrop = create_projection_actors(self.bridge, self.origin, anchor)
+            self.preparing_entity, self.preparing_backdrop = entity, backdrop
             self.attaching = True
             def attach():
-                if self.active():
+                if self.active() and self.preparing_entity == entity:
                     self.attaching = False
                     # The render tick serializes this with manual regeneration.
                     self.pending_model = (model, anchor, 0.)
+                elif self.preparing_entity == entity:
+                    self.close()
             self.bridge.later(max(.2, self.resource_wait), attach)
             return
         mesh = self.bridge.projection_mesh
@@ -354,8 +366,14 @@ class ProjectionOccupancy(object):
     def replace(self, model, anchor):
         b = self.bridge
         if self.shader.render is None and model is not None:
-            self.shader.bind(self.entity, model, anchor)
+            b.factory.CreateModel(self.preparing_entity).SetEntityShadowShow(False)
+            self.shader.bind(self.preparing_entity, model, anchor,
+                             backdrop=self.preparing_backdrop)
         self.shader.commit(model)
+        if self.preparing_entity is not None:
+            self.entity = b.entity = self.preparing_entity
+            b.projection_backdrop = self.preparing_backdrop
+            self.preparing_entity = self.preparing_backdrop = None
         self.model = model
         self.anchor = anchor
         # Keep the transform alive even when every cell is hidden by the shader.

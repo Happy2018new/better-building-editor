@@ -84,9 +84,7 @@ class WorldProjection(object):
         b = self.bridge
         if not self.active():
             return
-        if b.preparing_entity:
-            b.system.DestroyClientEntity(b.preparing_entity)
-            b.preparing_entity = None
+        b.cancel_preparing_projection()
         # Keep the previous projection on failure; never retry forever.
         self.error = message
         self.iterator = self.output = None
@@ -97,13 +95,7 @@ class WorldProjection(object):
 
     def commit(self, entity):
         b = self.bridge
-        for old in b.projection_entities.values():
-            b.system.DestroyClientEntity(old)
-        b.projection_entities = {}
-        if b.entity:
-            b.system.DestroyClientEntity(b.entity)
-        b.entity, b.preparing_entity = entity, None
-        b.projection_mesh = (entity, self.model, self.origin, self.anchor) if entity else None
+        b.commit_projection_actor(entity, self.model, self.origin, self.anchor)
         b.session.projection_active = True
         b.projection_outline.replace(self.origin, self.document.size)
         b.set_projection_occupancy(self.occupancy, entity, self.model)
@@ -129,7 +121,11 @@ class WorldProjection(object):
             if not success:
                 raise ValueError('透明投影生成失败，原投影已保留，请重试')
             if self.occupancy is not None:
-                self.occupancy.shader.bind(entity, self.model, self.anchor, attached=True)
+                self.occupancy.document.biome = self.document.biome
+                self.occupancy.shader.bind(entity, self.model, self.anchor, attached=True,
+                                           backdrop=b.preparing_backdrop)
+            else:
+                b.preparing_backdrop.bind((self.model,), self.model, self.document.biome)
             self.commit(entity)
         except Exception as exc:
             self.fail(type('')(exc))
@@ -143,10 +139,7 @@ class WorldProjection(object):
                 raise ValueError('投影模型生成失败，原投影已保留，请重试')
             self.commit(None)
             return
-        entity = b.system.CreateClientEntityByTypeStr(b'modern_projection:anchor', self.anchor, (0.,0.))
-        if not entity:
-            raise ValueError('无法创建投影，请靠近目标区域后重试')
-        b.preparing_entity = entity
+        entity = b.prepare_projection_actor(self.origin, self.anchor)
         b.later(.2, lambda: self.attach(entity))
 
     def advance(self):

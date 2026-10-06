@@ -1,4 +1,4 @@
-"""Verify automatic single-actor occupancy culling in a managed test world.
+"""Verify occupancy culling and its shared-geometry depth guard in a test world.
 
 Run through run_live_check.py with the assigned session and owner. The default
 case temporarily edits verified-air cells and restores them in finally. --probe
@@ -130,6 +130,10 @@ def snapshot():
 records=api._occupancy_qa_records
 mesh=b.projection_mesh
 occupancy=b.projection_occupancy
+backdrop=b.projection_backdrop
+guard=None if backdrop is None else {"entity":backdrop.entity,
+    "visible":sorted(name for name,value in backdrop.visible.items() if value),
+    "anchor":backdrop.anchor}
 metrics=None
 if occupancy is not None:
     metrics={key:getattr(occupancy,key) for key in ("reads","builds","commits",
@@ -157,7 +161,20 @@ _result={"active":s.projection_active,"preparing":bool(b.preparing_entity),
          "actor":b.entity,"actors":len(b.projection_entities)+int(bool(b.entity)),
          "split_actors":len(b.projection_entities),"models":len(b.models),
          "records":records,"committed":committed,"mesh":mesh,"metrics":metrics,
-         "message":s.editor.message}''')
+         "message":s.editor.message,"guard":guard,"opacity":s.opacity}''')
+
+
+def check_guard(actual):
+    """A stable colour buffer must have the same active depth buffer."""
+    guard, mesh = actual['guard'], actual['mesh']
+    if mesh is None:
+        assert guard is None, actual
+        return
+    assert guard and guard['entity'] != actual['actor'], actual
+    committed = actual['committed']
+    visible = [mesh[1]] if committed and committed['count'] and actual['opacity'] > 0 else []
+    assert guard['visible'] == visible, actual
+    assert guard['anchor'] == mesh[3], actual
 
 
 def check_client_callbacks(origin, evidence):
@@ -206,6 +223,7 @@ def wait_points(points, timeout=15):
                 ((expected and committed and committed['points'] == expected) or
                  (not expected and (actual['mesh'] is None or committed and committed['count']==0)))):
             assert actual['split_actors'] == 0, actual
+            check_guard(actual)
             actual['observed_seconds'] = time.monotonic() - started
             return actual
         time.sleep(.12)
@@ -222,6 +240,7 @@ def wait_count(count, timeout=45):
                 committed['count'] == count and actual['metrics']):
             actual['observed_seconds'] = time.monotonic() - started
             assert actual['actors'] == 1 and actual['split_actors'] == 0, actual
+            check_guard(actual)
             return actual
         time.sleep(.15)
     raise AssertionError({'expected_count': count, 'last': actual})

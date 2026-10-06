@@ -4,11 +4,13 @@ import types
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from actor_runtime import BoundComponent
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack'))
 from modern_projection.projection.model import Document, AIR
 from modern_projection.projection.large_preview import SurfacePalette
 from modern_projection.projection.occupancy import ProjectionOccupancy, POLL_LIMIT, MAX_HINTS
+from modern_projection.projection.projection_backdrop import create_projection_actors
 
 STONE = ('minecraft:stone', 0)
 
@@ -19,6 +21,7 @@ class Runtime:
         self.created, self.attached, self.removed, self.timers, self.sent = [], [], [], [], []
         self.camera = (300., 64., 300.)
         self.offsets, self.geometry_calls, self.uniforms = {}, [], {}
+        self.destroyed, self.visibility = [], {}
 
     def CreateBlock(self, level):
         return self
@@ -51,8 +54,17 @@ class Runtime:
         return True
 
     def CreateActorRender(self, entity):
-        self.rendering = entity
-        return self
+        return BoundComponent(self, 'rendering', entity)
+
+    def CreatePos(self, entity):
+        return BoundComponent(self, 'moving', entity)
+
+    def DestroyClientEntity(self, entity):
+        self.destroyed.append(entity)
+
+    def SetActorBlockGeometryVisible(self, model, visible):
+        self.visibility[self.rendering, model] = visible
+        return True
 
     def AddActorBlockGeometry(self, model, offset, rotation):
         self.models[self.rendering].add(model)
@@ -97,13 +109,15 @@ class OccupancyReviewTests(unittest.TestCase):
         bridge = types.SimpleNamespace(session=session, factory=runtime, system=runtime,
             projection_serial=1, level='level', alive=True, projection_mesh=None, entity=None,
             projection_work=None, preparing_entity=None, projection_occupancy=None,
+            projection_backdrop=None,
             later=lambda delay, callback: runtime.timers.append(callback), geometry=runtime.geometry)
         bridge.ensure_projection_distance = lambda size: None
         occupancy = ProjectionOccupancy(bridge, origin)
         visible = [pos for pos in document.blocks if occupancy.initial_visible(pos)]
         entity = model = None
         if visible:
-            entity = bridge.entity = runtime.CreateClientEntityByTypeStr('anchor', origin, (0, 0))
+            entity, bridge.projection_backdrop = create_projection_actors(bridge, origin, origin)
+            bridge.entity = entity
             model = occupancy.shader.names[0]
             runtime.models[entity].add(model)
             bridge.projection_mesh = (entity, model, origin, origin)
@@ -163,7 +177,7 @@ class OccupancyReviewTests(unittest.TestCase):
         self.commit_pending(o)
         self.assertFalse(o.changed)
         self.assertEqual({STONE: (0,)}, r.geometry_calls[-1][1])
-        self.assertEqual(1, len(r.created))
+        self.assertEqual(2, len(r.created))
         self.assertEqual(2, len(r.models[o.entity]))
         self.assertFalse(r.attached or r.removed)
 
@@ -193,7 +207,7 @@ class OccupancyReviewTests(unittest.TestCase):
         self.assertFalse(r.attached)
         b.projection_work.error = 'manual build failed'
         o.tick()
-        self.assertEqual(2, len(r.attached))
+        self.assertEqual(4, len(r.attached))
         self.assertIsNone(o.pending_model)
 
     def test_stale_deferred_callback_cannot_attach_to_new_projection(self):
@@ -228,7 +242,7 @@ class OccupancyReviewTests(unittest.TestCase):
         for name in o.shader.names:
             self.assertEqual((16.5, -8., -11.5), r.offsets[name])
         self.assertEqual({4}, set(r.uniforms))
-        self.assertEqual(1, len(r.created))
+        self.assertEqual(2, len(r.created))
         self.assertEqual(anchor, b.projection_mesh[3])
         self.assertFalse(r.attached or r.removed)
 
@@ -485,7 +499,7 @@ class OccupancyReviewTests(unittest.TestCase):
         self.commit_pending(o)
         self.assertFalse(o.changed)
         self.assertTrue(o.shader.empty)
-        self.assertEqual(1, len(r.created))
+        self.assertEqual(2, len(r.created))
         self.assertEqual(2, len(r.models[o.entity]))
         self.assertFalse(r.sent)
 

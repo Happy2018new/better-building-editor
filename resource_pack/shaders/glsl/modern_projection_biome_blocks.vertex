@@ -163,6 +163,14 @@ void main()
     }
     gl_Position = pos;
     gridPosition = POSITION.xz;
+    if (!preview && abs(EXTRA_ACTOR_UNIFORM4.x - 19488.0) < 0.25) {
+        // The colourless copy only protects empty sky pixels. Real terrain
+        // remains nearer and retains its depth for subsequent particles.
+        // Leave a full D16 depth step below 1 (also safe with D24/D32).
+        // Keep the original clip interval for fragments crossing the camera.
+        gridPosition = pos.zw;
+        gl_Position.z = pos.w * (1.0 - 1.0 / 32768.0);
+    }
 
     bool projectionWorld = !preview && abs(EXTRA_ACTOR_UNIFORM4.x - 19487.0) < 0.25;
     if (projectionWorld && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5) {

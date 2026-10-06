@@ -6,19 +6,113 @@
         "Blending"
       ],
       "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
-      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "msaaSupport": "Both"
     },
     "netease_block_as_mesh_opaque_seasons": {
       "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
-      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "msaaSupport": "Both"
     },
-    "netease_block_as_mesh_alpha_seasons": {
+    "netease_block_as_mesh_blend_enable_transparency:netease_block_as_mesh_blend": {
       "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
-      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "+defines": [
+        "BLEND"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "depthFunc": "LessEqual",
+      "msaaSupport": "Both"
     },
-    "netease_block_as_mesh_blend_alphatest_seasons": {
+    "netease_block_as_mesh_blend_alphatest:netease_block_as_mesh_alpha": {
       "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
-      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment"
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "+defines": [
+        "BLEND"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "depthFunc": "LessEqual",
+      "msaaSupport": "Both"
+    },
+    "netease_block_as_mesh_blend_alphatest_seasons:netease_block_as_mesh_alpha_seasons": {
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "+defines": [
+        "BLEND"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "depthFunc": "LessEqual",
+      "msaaSupport": "Both"
+    },
+    "netease_block_as_mesh_blend_alphatest_singleside:netease_block_as_mesh_alpha_single_side": {
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "+defines": [
+        "BLEND"
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "depthFunc": "LessEqual",
+      "msaaSupport": "Both"
+    },
+    "netease_block_as_mesh_alpha_single_side:netease_block_as_entity_mesh": {
+      "+defines": [
+        "ALPHA_TEST"
+      ],
+      "+states": [],
+      "-states": [
+        "EnableAlphaToCoverage"
+      ],
+      "msaaSupport": "Both"
+    },
+    "netease_block_as_mesh_alpha:netease_block_as_mesh_alpha_single_side": {
+      "+states": [
+        "DisableCulling"
+      ],
+      "depthBias": 0.0,
+      "slopeScaledDepthBias": 0.1,
+      "depthBiasOGL": 0.0,
+      "slopeScaledDepthBiasOGL": 0.5,
+      "-states": [
+        "EnableAlphaToCoverage"
+      ],
+      "msaaSupport": "Both"
+    },
+    "netease_block_as_mesh_alpha_seasons:netease_block_as_entity_mesh": {
+      "+defines": [
+        "ALPHA_TEST",
+        "SEASONS"
+      ],
+      "+states": [
+        "DisableCulling"
+      ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "TexelAA"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_biome_blocks.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_biome_blocks.fragment",
+      "-states": [
+        "EnableAlphaToCoverage"
+      ],
+      "msaaSupport": "Both"
     }
   }
 }
