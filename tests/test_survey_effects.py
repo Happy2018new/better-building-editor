@@ -34,7 +34,9 @@ class SurveyAssetTests(unittest.TestCase):
             components=effect['components']
             self.assertEqual(count,components['minecraft:emitter_rate_instant']['num_particles'])
             self.assertIn('v.ready=0;',components['minecraft:emitter_initialization']['creation_expression'])
-            self.assertTrue(all('v.ready?' in channel for channel in components['minecraft:particle_appearance_tinting']['color']))
+            tint = components['minecraft:particle_appearance_tinting']['color']
+            self.assertTrue(all('v.ready' not in channel for channel in tint[:3]))
+            self.assertIn('v.ready?', tint[3])
             self.assertEqual(True,components['minecraft:emitter_local_space']['position'])
 
     def test_luminous_rails_share_rainbow_geometry_and_depth_pass(self):
@@ -263,10 +265,11 @@ class SurveyEffectTests(unittest.TestCase):
             self.effect.sync_points([(0, 0, 0), None], [0, None])
             self.effect.pulse_point(0)
             self.effect.follow((0., 0., 8.))
-        decoded = decode_survey(self.particles.live[emitter]['variables'], 149, True)
+        self.assertNotEqual(emitter, marker['glow'].eid)
+        self.assertNotIn(emitter, self.particles.live)
+        decoded = decode_survey(self.particles.live[marker['glow'].eid]['variables'], 149, True)
         self.assertEqual(2, decoded['face'])
         self.assertEqual(0., decoded['entered'])
-        self.assertEqual(emitter, marker['glow'].eid)
 
     def test_cleared_unready_emitters_cannot_return_from_actor_registration_callback(self):
         self.particles.fail_variables.add('variable.green')
