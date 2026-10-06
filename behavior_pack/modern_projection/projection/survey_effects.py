@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import time
 from .outline_settings import defaults, normalize
+from .native_glow import NativeGlow, survey_packet
 
 GOLD_PRESET = defaults()['golden']
 # Long enough to read the individual fragments forming at the selected face.
@@ -45,6 +46,8 @@ class WireEffects(object):
             return None
         record = {'id': entity, 'centre': centre, 'size': tuple(float(v) for v in size),
                   'kind': kind, 'face': face, 'started': time.time(), 'anchor': None, 'uniforms': {}}
+        record['glow'] = (NativeGlow(self.bridge, 'strike' if kind == 'strike' else 'survey')
+                          if kind in ('stars', 'strike') else None)
         self._configure(record)
         def ready():
             if any(record is item for item in self._records()):
@@ -77,12 +80,23 @@ class WireEffects(object):
         self._uniform(record, 1, record['size'] + (flow,))
         duration = CLICK_FORMATION_SECONDS if point else 1.2
         entered = min(1., max(0., (now-record['started']) / duration))
-        self._uniform(record, 3, (entered, options['brightness'], style+options['width']*.1,
-                                 0. if self.reduced_motion else options['orbit_speed']))
+        appearance = (entered, options['brightness'], style+options['width']*.1,
+                      0. if self.reduced_motion else options['orbit_speed'])
+        density = options['density']
+        glow = record['glow']
+        if glow is not None:
+            variables, appearance, density = survey_packet(
+                record['size'], record['face'] if point else None, appearance, density)
+            glow.update(record['centre'], variables)
+        self._uniform(record, 3, appearance)
         camera = self.camera or self.anchor or record['centre']
         view = tuple(float(camera[i])-record['centre'][i] for i in range(3))
-        density = options['density']
         self._uniform(record, 4, view + (float(record['face']) if point else density,))
+
+    def _release(self, record):
+        if record['glow'] is not None:
+            record['glow'].clear()
+        self.bridge.system.DestroyClientEntity(record['id'])
 
     def _move(self, record, anchor):
         if anchor is None:
@@ -105,10 +119,11 @@ class WireEffects(object):
         self.clear_box()
         self.bounds = bounds
         centre = tuple(float(origin[i])+size[i]*.5 for i in range(3))
-        try:
-            self.camera = tuple(self.bridge.factory.CreateCamera(self.bridge.level).GetPosition())
-        except Exception:
-            pass
+        create_camera = getattr(self.bridge.factory, 'CreateCamera', None)
+        if create_camera is not None:
+            camera = create_camera(self.bridge.level).GetPosition()
+            if camera is not None:
+                self.camera = tuple(camera)
         self.started = time.time()
         for kind in ('guide', 'wire', 'stars'):
             record = self._spawn(kind, centre, size)
@@ -140,7 +155,7 @@ class WireEffects(object):
                     self._update(record, time.time())
                 continue
             if record is not None:
-                self.bridge.system.DestroyClientEntity(record['id'])
+                self._release(record)
             self.points[index] = None
             if centre is not None:
                 self.points[index] = self._spawn('strike', centre, (1, 1, 1), face)
@@ -169,7 +184,7 @@ class WireEffects(object):
 
     def clear_box(self):
         for record in self.layers:
-            self.bridge.system.DestroyClientEntity(record['id'])
+            self._release(record)
         self.layers = []
         self.bounds = None
 
@@ -177,7 +192,7 @@ class WireEffects(object):
         self.clear_box()
         for record in self.points:
             if record is not None:
-                self.bridge.system.DestroyClientEntity(record['id'])
+                self._release(record)
         self.points = [None, None]
         self.anchor = None
         self.camera = None

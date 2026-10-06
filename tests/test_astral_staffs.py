@@ -71,6 +71,7 @@ class AstralStaffTests(unittest.TestCase):
 sys.path.insert(0,str(ROOT/'behavior_pack'))
 from modern_projection.projection.staff_aura import StaffAura, NearbyStaffAuras
 from modern_projection.projection.tool_items import TERMINAL, SURVEY_WAND
+from test_native_glow import FakeParticleSystem, decode_aura
 
 
 class AuraLifecycleTests(unittest.TestCase):
@@ -81,6 +82,7 @@ class AuraLifecycleTests(unittest.TestCase):
         self.perspective=1
         self.pos=(1.,64.,2.)
         self.callbacks=[]
+        self.particles=FakeParticleSystem()
         self.clock=patch('modern_projection.projection.staff_aura.time.time',return_value=10.)
         self.now=self.clock.start()
         self.addCleanup(self.clock.stop)
@@ -94,6 +96,7 @@ class AuraLifecycleTests(unittest.TestCase):
         self.bridge=types.SimpleNamespace(player='player',session=types.SimpleNamespace(reduced_motion=False),
             system=types.SimpleNamespace(CreateClientEntityByTypeStr=spawn,DestroyClientEntity=self.live.remove),
             factory=types.SimpleNamespace(
+                CreateParticleSystem=lambda entity:self.particles,
                 CreatePos=lambda entity:types.SimpleNamespace(GetFootPos=lambda:self.pos,SetPosForClientEntity=lambda pos:self.positions.append(pos) or True),
                 CreateModel=lambda entity:types.SimpleNamespace(SetEntityShadowShow=lambda value:True),
                 CreateActorRender=lambda entity:types.SimpleNamespace(SetEntityExtraUniforms=uniform)),
@@ -104,14 +107,18 @@ class AuraLifecycleTests(unittest.TestCase):
     def test_switch_staff_reuses_actor_and_empty_hand_cleans_up(self):
         self.aura.update(TERMINAL)
         actor=self.aura.entity
+        emitter=self.aura.glow.eid
         self.now.return_value=12.
         self.aura.update(TERMINAL)
         self.uploads[:]=[]
+        self.particles.calls.clear()
         for unused in range(30):self.aura.update(TERMINAL)
         self.assertFalse(self.uploads)
+        self.assertFalse(self.particles.calls)
         self.pos=(2.,64.,3.)
         self.aura.update(SURVEY_WAND)
         self.assertEqual(actor,self.aura.entity)
+        self.assertEqual(emitter,self.aura.glow.eid)
         self.assertEqual(0.,dict(self.uploads)[3][2])
         self.now.return_value=12.15
         self.aura.update(SURVEY_WAND)
@@ -119,20 +126,48 @@ class AuraLifecycleTests(unittest.TestCase):
         self.assertLessEqual(self.aura.position[0],self.pos[0])
         self.assertNotEqual(self.aura.layout_from,self.aura.layout_to)
         self.assertEqual(1,len(self.live))
+        self.assertEqual(1,len(self.particles.live))
+        self.assertEqual(self.aura.position,self.particles.live[emitter]['position'])
         self.aura.update(None)
         for callback in self.callbacks:callback()
         self.assertFalse(self.live)
+        self.assertFalse(self.particles.live)
         self.assertIsNone(self.aura.uniform)
 
     def test_menu_and_dimension_cleanup_do_not_respawn_from_delayed_callback(self):
+        self.particles.fail_variables.add('variable.blue')
         self.aura.update(TERMINAL)
+        self.assertEqual(0.,self.particles.live[self.aura.glow.eid]['variables']['ready'])
         self.aura.update(TERMINAL,False)
+        self.particles.fail_variables.clear()
         for callback in self.callbacks:callback()
         self.assertFalse(self.live)
+        self.assertFalse(self.particles.live)
         self.aura.update(TERMINAL)
         self.aura.clear()
         self.aura.clear()
         self.assertFalse(self.live)
+        for callback in self.callbacks:callback()
+        self.assertFalse(self.particles.live)
+
+    def test_native_glow_and_actor_share_quantized_motion_without_rounding_cpu_path(self):
+        self.aura.update(TERMINAL)
+        self.aura.layout_from, self.aura.layout_to = 255, 0
+        self.aura.switch_started = 10.
+        self.now.return_value = 10.05
+        self.pos = (1.2, 63.9, 2.15)
+        self.aura.update(TERMINAL)
+        self.now.return_value = 10.1
+        self.aura.update(TERMINAL)
+        emitter = self.aura.glow.eid
+        decoded = decode_aura(self.particles.live[emitter]['variables'], 112)
+        self.assertEqual((255, 0), decoded['seeds'])
+        self.assertEqual(self.aura.motion_uniform[:3], decoded['velocity'])
+        self.assertEqual(self.aura.uniform[0], decoded['entered'])
+        self.assertEqual(self.aura.layout_uniform[2], decoded['switching'])
+        self.assertNotEqual(self.aura.velocity, self.aura.motion_uniform[:3])
+        self.assertEqual(self.aura.position, self.particles.live[emitter]['position'])
+        self.assertNotEqual(self.pos, self.aura.position)
 
     def test_reduced_motion_freezes_shader_clock(self):
         self.bridge.session.reduced_motion=True
@@ -202,15 +237,18 @@ class AuraLifecycleTests(unittest.TestCase):
         manager.update()
         self.assertEqual(['other_player'],list(manager.auras))
         actor=manager.auras['other_player'].entity
+        emitter=manager.auras['other_player'].glow.eid
         manager.sync({'player':TERMINAL,'other_player':TERMINAL})
         manager.update()
         self.assertEqual(actor,manager.auras['other_player'].entity)
+        self.assertEqual(emitter,manager.auras['other_player'].glow.eid)
         self.assertEqual(TERMINAL,manager.auras['other_player'].carried)
         # A render tick where an entity unloads must clear its visual at once,
         # even before the slower equipment scan runs.
         self.pos=None
         manager.update()
         self.assertFalse(self.live)
+        self.assertFalse(self.particles.live)
         manager.sync({'player':TERMINAL})
         self.assertFalse(manager.auras)
         self.pos=(1.,64.,2.)
@@ -220,6 +258,8 @@ class AuraLifecycleTests(unittest.TestCase):
         manager.sync({'other_player':'minecraft:stick'})
         self.assertFalse(self.live)
         self.assertFalse(manager.auras)
+        for callback in self.callbacks:callback()
+        self.assertFalse(self.particles.live)
 
 
 if __name__ == '__main__':
