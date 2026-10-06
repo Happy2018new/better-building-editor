@@ -11,6 +11,7 @@ from projection import bridge as boundary
 from projection.session import Session
 from projection.model import Document, Editor, AIR
 from projection.transfer import Receiver
+from test_native_glow import FakeParticleSystem
 
 
 class Runtime:
@@ -31,6 +32,10 @@ class Runtime:
         self.camera_forward = (0., 0., 1.)
         self.moves = []
         self.offsets = {}
+        self.particles = FakeParticleSystem()
+
+    def CreateParticleSystem(self, entity):
+        return self.particles
 
     def CreateCamera(self, level):
         return self
@@ -240,13 +245,16 @@ class ProjectionLifecycleTests(unittest.TestCase):
             self.assertEqual(building, b.entity)
             self.assertEqual(bounds, b.projection_outline.bounds)
             self.assertEqual([building], r.attached)
+            self.assertEqual(0 if style == 'rainbow' else 1, len(r.particles.live))
         ids = [item['id'] for item in b.projection_outline.effects.layers]
         s.outline_parameter('golden', 'speed', 4.)
         s.outline_parameter('golden', 'brightness', .8)
         self.assertEqual(ids, [item['id'] for item in b.projection_outline.effects.layers])
         for entity in ids:
             self.assertGreater(r.uniform_slots[entity,1][3], 1.5)
-            self.assertEqual((.8,.1,1.), r.uniform_slots[entity,3][1:])
+            self.assertAlmostEqual(.8, r.uniform_slots[entity,3][1], delta=.5/84.)
+            self.assertEqual((.1,1.), r.uniform_slots[entity,3][2:])
+        self.assertEqual(.8, s.outline_options['golden']['brightness'])
         self.assertEqual(3., s.outline_options['rainbow']['speed'])
         self.assertEqual(1., s.outline_options['starry']['speed'])
         while r.timers:
@@ -256,10 +264,12 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(building, b.entity)
         self.assertTrue(all(entity in r.destroyed for entity in ids))
         self.assertFalse(b.projection_outline.effects.active())
+        self.assertFalse(r.particles.live)
         s.set('projection_outline', True)
         b.stop_projection()
         self.assertIsNone(b.projection_outline.bounds)
         self.assertFalse(b.projection_outline.effects.active())
+        self.assertFalse(r.particles.live)
 
     def test_biome_updates_live_and_pending_ghost_without_rebuilding(self):
         from projection.biomes import actor_uniform
