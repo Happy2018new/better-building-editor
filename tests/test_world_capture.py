@@ -29,8 +29,10 @@ class WorldCaptureTests(unittest.TestCase):
             'volume': (2, 2, 1),
             'common': {front_stairs: [0], front_chest: [2]},
             'states': {
-                front_stairs: states(front_stairs),
-                front_chest: states(front_chest),
+                front_stairs: dict((key.encode('utf8'), value)
+                                   for key, value in states(front_stairs).items()),
+                front_chest: dict((key.encode('utf8'), value)
+                                  for key, value in states(front_chest).items()),
             },
             'extra': {water: [0]},
             'extraStates': {water: states(water)},
@@ -68,6 +70,22 @@ class WorldCaptureTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '方块状态不在当前版本表中'):
             merge_palette(document, source, (0, 0, 0), (1, 1, 1), (0, 0, 0))
         self.assertEqual(0, len(document.blocks))
+
+    def test_palette_byte_state_text_resolves_without_coercing_numeric_or_bit_types(self):
+        wall = ('minecraft:cobblestone_wall', 1)
+        properties = states(wall)
+        source = {
+            'volume': (1, 1, 1),
+            'common': {wall: [0]},
+            'states': {wall: dict((key.encode('utf8'),
+                                   value.encode('utf8') if isinstance(value, str) else value)
+                                  for key, value in properties.items())},
+        }
+        document = Document((1, 1, 1))
+
+        merge_palette(document, source, (0, 0, 0), (1, 1, 1), (0, 0, 0))
+
+        self.assertEqual(wall, foreground(document.get((0, 0, 0))))
 
     def test_capture_rejects_unloaded_or_unknown_chunk_edges(self):
         loaded = {(0, 0, 0), (0, 0, 1)}

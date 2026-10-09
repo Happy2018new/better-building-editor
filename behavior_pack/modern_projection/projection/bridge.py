@@ -435,16 +435,24 @@ class ClientBridge(object):
         self.session.busy = True
         self.session.editor.message = '正在读取世界方块层与方块实体…'
         self.session.emit()
-        block_component = self.factory.CreateBlock(self.level)
-        block_info = self.factory.CreateBlockInfo(self.level)
-        loaded_chunks = getattr(self.system, 'projection_loaded_chunks', None)
-        chunks = []
-        for cy in range((size[1] + 15) // 16):
-            for cx in range((size[0] + 15) // 16):
-                for cz in range((size[2] + 15) // 16):
-                    local = (cx * 16, cy * 16, cz * 16)
-                    chunk_size = tuple(min(16, size[i] - local[i]) for i in range(3))
-                    chunks.append((local, chunk_size))
+        try:
+            block_component = self.factory.CreateBlock(self.level)
+            block_info = self.factory.CreateBlockInfo(self.level)
+            loaded_chunks = getattr(self.system, 'projection_loaded_chunks', None)
+            chunks = []
+            for cy in range((size[1] + 15) // 16):
+                for cx in range((size[0] + 15) // 16):
+                    for cz in range((size[2] + 15) // 16):
+                        local = (cx * 16, cy * 16, cz * 16)
+                        chunk_size = tuple(min(16, size[i] - local[i]) for i in range(3))
+                        chunks.append((local, chunk_size))
+        except Exception as error:
+            self.capture_active = None
+            self.capture_dimension = None
+            self.session.busy = False
+            self.session.editor.message = '世界读取初始化失败：%s' % error
+            self.session.emit()
+            return
 
         def read_chunk(index=0):
             if self.capture_active != serial:

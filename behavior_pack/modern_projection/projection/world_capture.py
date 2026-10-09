@@ -29,8 +29,21 @@ def validate_loaded_chunk(loaded_chunks, dimension, low, high, read_block):
 def _states(source, name):
     values = {}
     for value, record in source.get(name, {}).items():
-        values[block(value)] = record
+        values[block(value)] = _normalize_state_record(record)
     return values
+
+
+def _state_text(value):
+    if isinstance(value, bytes):
+        return value.decode('utf8')
+    return value
+
+
+def _normalize_state_record(record):
+    if not isinstance(record, dict):
+        return record
+    return dict((_state_text(key), _state_text(value))
+                for key, value in record.items())
 
 
 def _material(value, states):

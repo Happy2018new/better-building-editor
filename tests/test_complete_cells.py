@@ -281,6 +281,28 @@ class CompleteCellTests(unittest.TestCase):
         self.assertEqual(STONE, foreground(session.editor.document.get((0, 0, 0))))
         self.assertEqual(DIRT, background(session.editor.document.get((0, 0, 0))))
 
+    def test_waterlogged_fence_placement_and_erasure_follow_selected_layer(self):
+        fence = ('minecraft:oak_fence', 0)
+        water = ('minecraft:water', 0)
+        editor = Editor(Document((1, 1, 1)))
+        editor.edit_layer = 0
+        editor.material = fence
+        editor.paint_at((0, 0, 0), respect_selection=False)
+        editor.edit_layer = 1
+        editor.material = water
+        editor.paint_at((0, 0, 0), respect_selection=False)
+        self.assertEqual(fence, foreground(editor.document.get((0, 0, 0))))
+        self.assertEqual(water, background(editor.document.get((0, 0, 0))))
+
+        editor.edit_layer = 0
+        editor.paint_at((0, 0, 0), erase=True, respect_selection=False)
+        self.assertEqual(AIR, foreground(editor.document.get((0, 0, 0))))
+        self.assertEqual(water, background(editor.document.get((0, 0, 0))))
+
+        editor.edit_layer = 1
+        editor.paint_at((0, 0, 0), erase=True, respect_selection=False)
+        self.assertEqual(AIR, editor.document.get((0, 0, 0)))
+
     def test_grouped_placement_erase_selection_copy_and_move_keep_pairs(self):
         from projection.block_groups import group_partner, paired_position
 
@@ -345,6 +367,122 @@ class CompleteCellTests(unittest.TestCase):
         malformed = Document((1, 2, 1), {(0, 1, 0): upper})
         with self.assertRaises(ValueError):
             close_group_selection(malformed, [(0, 1, 0)], strict=True)
+
+    def test_pale_moss_carpet_upper_bit_is_not_a_multiblock_pair(self):
+        from projection.block_groups import group_is_upper, group_partner, preserve_group_part
+
+        carpet = ('minecraft:pale_moss_carpet', 1)
+        self.assertIsNone(group_partner(carpet))
+        self.assertFalse(group_is_upper(carpet))
+        self.assertEqual(carpet, preserve_group_part(
+            carpet, ('minecraft:wooden_door', 0)))
+        editor = Editor(Document((3, 1, 1), {(1, 0, 0): carpet}))
+        self.assertEqual({(1, 0, 0)}, set(close_group_selection(
+            editor.document, [(1, 0, 0)])))
+        editor.select_box((1, 0, 0), (1, 0, 0))
+        editor.run('copy')
+        self.assertEqual({(0, 0, 0)}, set(editor.clipboard['blocks']))
+        editor.run('erase')
+        self.assertEqual(AIR, editor.document.get((1, 0, 0)))
+
+    def test_every_dumped_multiblock_half_has_a_reciprocal_state(self):
+        from projection import block_registry as registry
+        from projection.block_groups import group_partner
+
+        checked = 0
+        for name in registry.BLOCKS:
+            for aux in registry.aux_values(name):
+                value = (name, aux)
+                properties = registry.states(value)
+                paired = ('upper_block_bit' in properties and
+                          name != 'minecraft:pale_moss_carpet')
+                paired = paired or properties.get('sea_grass_type') in (
+                    'double_bot', 'double_top')
+                paired = paired or 'head_piece_bit' in properties
+                relation = group_partner(value)
+                if not paired:
+                    self.assertIsNone(relation, value)
+                    continue
+                self.assertIsNotNone(relation, value)
+                offset, partner = relation
+                reverse = group_partner(partner)
+                self.assertEqual(tuple(-v for v in offset), reverse[0], value)
+                self.assertEqual(value, reverse[1], value)
+                checked += 1
+        self.assertGreater(checked, 700)
+
+    def test_replacing_pale_moss_carpet_with_door_builds_lower_and_upper_halves(self):
+        from projection.block_groups import group_partner
+
+        carpet = ('minecraft:pale_moss_carpet', 1)
+        lower = ('minecraft:wooden_door', 0)
+        upper = group_partner(lower)[1]
+        editor = Editor(Document((1, 2, 1), {
+            (0, 0, 0): carpet, (0, 1, 0): carpet}))
+        editor.select_box((0, 0, 0), (0, 1, 0))
+        editor.source = carpet
+        editor.material = lower
+        self.assertEqual(2, editor.run('replace'))
+        self.assertEqual(lower, editor.document.get((0, 0, 0)))
+        self.assertEqual(upper, editor.document.get((0, 1, 0)))
+
+    def test_replacing_door_with_pale_moss_carpet_preserves_requested_variant(self):
+        from projection.block_groups import group_partner
+
+        lower = ('minecraft:wooden_door', 0)
+        upper = group_partner(lower)[1]
+        carpet = ('minecraft:pale_moss_carpet', 1)
+        editor = Editor(Document((1, 2, 1), {
+            (0, 0, 0): lower, (0, 1, 0): upper}))
+        editor.select_box((0, 0, 0), (0, 1, 0))
+        editor.source = lower
+        editor.material = carpet
+        self.assertEqual(2, editor.run('replace'))
+        self.assertEqual(carpet, editor.document.get((0, 0, 0)))
+        self.assertEqual(carpet, editor.document.get((0, 1, 0)))
+
+    def test_double_chest_nbt_links_close_copy_move_rotate_and_erase_as_a_group(self):
+        from projection.nbt_spatial import scalar
+        left, right = (1, 0, 1), (2, 0, 1)
+        left_actor = {'id': 'Chest', 'x': 1, 'y': 0, 'z': 1,
+                      'pairx': 2, 'pairz': 1, 'Items': []}
+        right_actor = {'id': 'Chest', 'x': 2, 'y': 0, 'z': 1,
+                       'pairx': 1, 'pairz': 1, 'Items': []}
+        editor = Editor(Document((5, 1, 4), {
+            left: make_cell(('minecraft:chest', 0), AIR, left_actor),
+            right: make_cell(('minecraft:chest', 0), AIR, right_actor),
+        }))
+
+        editor.select_box(left, left)
+        self.assertEqual({left, right}, set(editor.selection))
+        editor.run('copy')
+        self.assertEqual({(0, 0, 0), (1, 0, 0)}, set(editor.clipboard['blocks']))
+        editor.step = 1
+        editor.run('move_xp')
+        moved_left, moved_right = (2, 0, 1), (3, 0, 1)
+        self.assertEqual(3, scalar(actor_data(editor.document.get(moved_left)), 'pairx'))
+        self.assertEqual(2, scalar(actor_data(editor.document.get(moved_right)), 'pairx'))
+
+        editor.select_box(moved_left, moved_left)
+        editor.run('rotate_y90')
+        rotated = set(editor.selection)
+        self.assertEqual({(2, 0, 1), (2, 0, 2)}, rotated)
+        for pos in rotated:
+            pair_x = scalar(actor_data(editor.document.get(pos)), 'pairx')
+            pair_z = scalar(actor_data(editor.document.get(pos)), 'pairz')
+            self.assertIn((pair_x, 0, pair_z), rotated)
+        editor.selection = {next(iter(rotated))}
+        editor.run('erase')
+        self.assertTrue(all(editor.document.get(pos) == AIR for pos in rotated))
+
+        adjacent = Editor(Document((4, 1, 2), {
+            (1, 0, 0): ('minecraft:chest', 0),
+            (2, 0, 0): ('minecraft:chest', 0),
+        }))
+        adjacent.select_box((1, 0, 0), (1, 0, 0))
+        self.assertEqual({(1, 0, 0), (2, 0, 0)}, set(adjacent.selection))
+        adjacent.run('erase')
+        self.assertEqual(0, len(adjacent.document.blocks))
 
     def test_large_job_fill_and_replace_keep_door_and_plant_pairs(self):
         from projection.block_groups import group_partner

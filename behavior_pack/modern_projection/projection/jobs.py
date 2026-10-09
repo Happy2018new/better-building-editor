@@ -491,12 +491,10 @@ class EditJob(object):
         else:
             changes = work._edit(tool)
         if tool == 'replace' and work.edit_layer == 0 and changes:
-            from .block_groups import paired_position
+            from .block_groups import paired_cell_position
             for pos in tuple(changes):
-                partner = paired_position(
-                    lambda target: foreground(self.source.get(target)) if self.source.contains(target) else None,
-                    pos,
-                )
+                partner = paired_cell_position(
+                    lambda target: self.source.get(target) if self.source.contains(target) else None, pos)
                 if partner is not None and partner in self.selection:
                     changes[partner] = changes[pos]
         # All changes in this batch are still part of the original selection.

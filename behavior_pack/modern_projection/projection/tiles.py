@@ -271,8 +271,9 @@ class TiledPreview(object):
             self.seconds += time.time()-started
 
     def submit(self, key, palette, origin):
+        data = (palette.common, palette.extra, palette.actor)
         part = self.parts.get(key)
-        if part is not None and palette.common == part['data']:
+        if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()
             part['source'] = self.source
             sources = part['cache'][part['bank']][2]
@@ -283,16 +284,16 @@ class TiledPreview(object):
             raise ValueError('可见方块过多，请使用切面或单层；草稿完整保留')
         bank = 1-part['bank'] if part else 0
         cache = part['cache'] if part else {}
-        reused = next((slot for slot, entry in cache.items() if entry[0] == palette.common), None)
+        reused = next((slot for slot, entry in cache.items() if entry[0] == data), None)
         if reused is not None:
             bank, name = reused, cache[reused][1]
         else:
             name = None
-            if palette.common:
+            if palette.common or palette.extra:
                 name = self.session.bridge.geometry(palette, name='modern_projection_chunk_%d_%d_%d_%d_%d' % ((self.generation,)+key+(bank,)))
                 self.builds += 1
-        cache[bank] = (palette.common, name, (self.source,))
-        self.parts[key] = {'data': palette.common, 'count': palette.count, 'origin': origin,
+        cache[bank] = (data, name, (self.source,))
+        self.parts[key] = {'data': data, 'count': palette.count, 'origin': origin,
                            'size': palette.size, 'name': name, 'bank': bank, 'cache': cache,
                            'pending': bool(name), 'version': self.version, 'source': self.source,
                            'pending_at': time.time(),

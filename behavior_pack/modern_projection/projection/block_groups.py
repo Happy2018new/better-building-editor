@@ -2,8 +2,11 @@
 """Resolve vanilla multi-block part relationships from native block states."""
 from __future__ import unicode_literals
 from . import block_registry as registry
+from .cell import actor_data, foreground, integer_types
+from .nbt_spatial import scalar
 
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
+_NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
 
 
 def from_states(name, properties):
@@ -17,6 +20,16 @@ def from_states(name, properties):
     return None
 
 
+def _part_key(name, properties):
+    if 'upper_block_bit' in properties and name not in _NON_PAIRED_UPPER_BLOCKS:
+        return 'upper_block_bit'
+    if properties.get('sea_grass_type') in ('double_bot', 'double_top'):
+        return 'sea_grass_type'
+    if 'head_piece_bit' in properties:
+        return 'head_piece_bit'
+    return None
+
+
 def group_partner(value):
     """Return ``(offset, value)`` for the reciprocal half, or None if ungrouped."""
     try:
@@ -26,24 +39,22 @@ def group_partner(value):
     properties = registry.states(value)
     if properties is None:
         return None
-    if 'upper_block_bit' in properties:
+    key = _part_key(value[0], properties)
+    if key == 'upper_block_bit':
         upper = properties['upper_block_bit']
         offset = (0, -1 if upper else 1, 0)
-        key = 'upper_block_bit'
         paired_value = not upper
-    elif properties.get('sea_grass_type') in ('double_bot', 'double_top'):
+    elif key == 'sea_grass_type':
         lower = properties['sea_grass_type'] == 'double_bot'
         offset = (0, 1 if lower else -1, 0)
-        key = 'sea_grass_type'
         paired_value = 'double_top' if lower else 'double_bot'
-    elif 'head_piece_bit' in properties:
+    elif key == 'head_piece_bit':
         head = properties['head_piece_bit']
         direction = properties.get('direction')
         if type(direction) is not int or not 0 <= direction < len(_BED_DIRECTIONS):
             raise ValueError('床方向状态无效，无法解析床头与床脚')
         sign = -1 if head else 1
         offset = tuple(sign * value for value in _BED_DIRECTIONS[direction])
-        key = 'head_piece_bit'
         paired_value = not head
     else:
         return None
@@ -67,10 +78,11 @@ def preserve_group_part(value, original):
     value_states = registry.states(value)
     if original_states is None or value_states is None:
         return value
-    for key in ('upper_block_bit', 'sea_grass_type', 'head_piece_bit'):
-        if key in original_states and key in value_states:
-            value_states[key] = original_states[key]
-            return from_states(value[0], value_states) or requested
+    original_key = _part_key(original[0], original_states)
+    value_key = _part_key(value[0], value_states)
+    if original_key is not None and original_key == value_key:
+        value_states[value_key] = original_states[original_key]
+        return from_states(value[0], value_states) or requested
     return requested
 
 
@@ -80,9 +92,14 @@ def group_is_upper(value):
     except ValueError:
         return False
     properties = registry.states(value) or {}
-    return (properties.get('upper_block_bit') is True or
-            properties.get('sea_grass_type') == 'double_top' or
-            properties.get('head_piece_bit') is True)
+    key = _part_key(value[0], properties)
+    if key == 'upper_block_bit':
+        return properties[key] is True
+    if key == 'sea_grass_type':
+        return properties[key] == 'double_top'
+    if key == 'head_piece_bit':
+        return properties[key] is True
+    return False
 
 
 def expand_group_changes(changes, can_change):
@@ -139,3 +156,70 @@ def paired_position(get_block, pos):
     if actual != expected:
         raise ValueError('多格方块对应部件状态不匹配：%s' % value[0])
     return partner_pos
+
+
+def actor_pair_position(value, pos):
+    """Return a chest actor's linked half using its local pair coordinates."""
+    if foreground(value)[0] not in ('minecraft:chest', 'minecraft:trapped_chest'):
+        return None
+    actor = actor_data(value)
+    if actor is None:
+        return None
+    pair_x, pair_z = scalar(actor, 'pairx'), scalar(actor, 'pairz')
+    if (not isinstance(pair_x, integer_types) or type(pair_x) is bool or
+            not isinstance(pair_z, integer_types) or type(pair_z) is bool):
+        return None
+    partner = (pair_x, pos[1], pair_z)
+    return None if partner == pos else partner
+
+
+def _chest_direction(value):
+    properties = registry.states(foreground(value)) or {}
+    return properties.get('minecraft:cardinal_direction')
+
+
+def _adjacent_chest_position(get_cell, value, pos):
+    name = foreground(value)[0]
+    direction = _chest_direction(value)
+    if direction not in ('north', 'south', 'east', 'west'):
+        return None
+    offsets = ((1, 0, 0), (-1, 0, 0)) if direction in ('north', 'south') else (
+        (0, 0, 1), (0, 0, -1))
+    candidates = []
+    for offset in offsets:
+        target = tuple(pos[i] + offset[i] for i in range(3))
+        other = get_cell(target)
+        if (other is not None and foreground(other)[0] == name and
+                _chest_direction(other) == direction):
+            candidates.append(target)
+    return candidates[0] if len(candidates) == 1 else None
+
+
+def paired_cell_position(get_cell, pos):
+    """Resolve a paired block from either block states or actor coordinates."""
+    value = get_cell(pos)
+    if value is None:
+        return None
+    front = foreground(value)
+    if group_partner(front) is not None:
+        def get_block(target):
+            cell = get_cell(target)
+            return foreground(cell) if cell is not None else None
+        return paired_position(get_block, pos)
+    partner_pos = actor_pair_position(value, pos)
+    if partner_pos is None:
+        return _adjacent_chest_position(get_cell, value, pos)
+    partner = get_cell(partner_pos)
+    if (partner is None or foreground(partner)[0] != front[0] or
+            _chest_direction(partner) != _chest_direction(value)):
+        raise ValueError('双箱缺少相同种类的对应箱子')
+    reciprocal = actor_pair_position(partner, partner_pos)
+    if reciprocal is not None and reciprocal != pos:
+        raise ValueError('双箱方块实体的配对坐标不一致')
+    return partner_pos
+
+
+def has_group_link(value, pos, get_cell=None):
+    return (group_partner(foreground(value)) is not None or
+            actor_pair_position(value, pos) is not None or
+            (get_cell is not None and _adjacent_chest_position(get_cell, value, pos) is not None))

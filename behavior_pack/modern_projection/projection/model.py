@@ -46,31 +46,26 @@ def box_points(lo, hi):
 
 def close_group_selection(document, selection, strict=True):
     """Expand a selection to include complete native multi-cell structures."""
-    from .block_groups import group_partner, paired_position
+    from .block_groups import has_group_link, paired_cell_position
 
     result = selection.copy() if isinstance(selection, Selection) else Selection(selection)
 
-    def get_block(pos):
-        return foreground(document.get(pos)) if document.contains(pos) else None
+    def get_cell(pos):
+        return document.get(pos) if document.contains(pos) else None
 
     for key, mask in tuple(result.chunks.items()):
         chunk = document.blocks.chunks.get(key, 0)
         if isinstance(chunk, integer_types):
             if not chunk:
                 continue
-            try:
-                relationship = group_partner(foreground(document.blocks.palette[chunk]))
-            except ValueError:
-                if strict:
-                    raise
-                continue
-            if relationship is None:
-                continue
             candidates = indices(mask)
             for index in candidates:
                 pos = position(key, index)
+                value = document.get(pos)
                 try:
-                    partner = paired_position(get_block, pos)
+                    if not has_group_link(value, pos, get_cell):
+                        continue
+                    partner = paired_cell_position(get_cell, pos)
                 except ValueError:
                     if strict:
                         raise
@@ -83,17 +78,11 @@ def close_group_selection(document, selection, strict=True):
             if not identity:
                 continue
             pos = position(key, index)
-            value = foreground(document.blocks.palette[identity])
+            value = document.blocks.palette[identity]
             try:
-                relationship = group_partner(value)
-            except ValueError:
-                if strict:
-                    raise
-                continue
-            if relationship is None:
-                continue
-            try:
-                partner = paired_position(get_block, pos)
+                if not has_group_link(value, pos, get_cell):
+                    continue
+                partner = paired_cell_position(get_cell, pos)
             except ValueError:
                 if strict:
                     raise
@@ -485,14 +474,14 @@ class Editor(object):
             return 0
         changes = {pos: AIR if erase else block(self.material)}
         if self.edit_layer == 0:
-            from .block_groups import group_partner, paired_position
+            from .block_groups import group_partner, paired_cell_position
 
             document = self.document
 
-            def get_block(target):
-                return foreground(document.get(target)) if document.contains(target) else None
+            def get_cell(target):
+                return document.get(target) if document.contains(target) else None
 
-            old_partner = paired_position(get_block, pos)
+            old_partner = paired_cell_position(get_cell, pos)
             if old_partner is not None:
                 changes[old_partner] = AIR
             if not erase:
@@ -778,11 +767,9 @@ class Editor(object):
             elif tool == "replace" and old == self.source:
                 out[p] = self.material
                 if self.edit_layer == 0:
-                    from .block_groups import paired_position
-                    partner = paired_position(
-                        lambda target: foreground(doc.get(target)) if doc.contains(target) else None,
-                        p,
-                    )
+                    from .block_groups import paired_cell_position
+                    partner = paired_cell_position(
+                        lambda target: doc.get(target) if doc.contains(target) else None, p)
                     if partner is not None and partner in self.selection:
                         out[partner] = self.material
             elif tool == "paint" and self.surface(p):

@@ -133,21 +133,12 @@ class ServerStreamTests(unittest.TestCase):
         self.assertEqual({}, self.host.uploads)
         self.assertTrue(self.replies[-1][2]['done'])
 
-    def test_capture_yields_packets_then_publishes_one_complete_document(self):
-        stone = ('minecraft:stone', 0)
-        adapter = types.SimpleNamespace(
-            read=lambda p: stone if p == (0, 0, 0) else AIR,
-            rebase=lambda value, offset: value)
-        doc = Document((17, 16, 16))
-        for unused in self.host.read_job('player', 7, 'capture', adapter, doc, (0, 0, 0)):
-            pass
-        receiver = Receiver()
-        for unused_player, unused_request, data in self.replies:
-            if 'documentPacket' in data:
-                receiver.feed(data['documentPacket'])
-        self.assertTrue(self.replies[-1][2]['streamed'])
-        self.assertEqual(stone, receiver.result.get((0, 0, 0)))
-        self.assertEqual(1, len(receiver.result.blocks))
+    def test_server_side_capture_without_client_palette_is_rejected(self):
+        self.host.request({'__id__':'player','request':7,'action':'capture',
+                           'origin':(0,64,0),'size':(1,1,1)})
+        self.assertIn('客户端 palette', self.replies[-1][2]['error'])
+        self.assertFalse(self.host.jobs)
+        self.assertFalse(self.writes)
 
     def test_client_palette_capture_upload_is_validated_without_server_reread(self):
         self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
@@ -213,13 +204,15 @@ class ServerStreamTests(unittest.TestCase):
     def test_world_tool_capture_cannot_forge_an_unselected_region(self):
         self.host.world_regions['player'] = (0, (0,64,0), (2,2,2))
         self.host.request({'__id__':'player', 'request':21, 'action':'capture',
-                           'source':'world_item', 'origin':(1,64,0), 'size':(2,2,2)})
+                           'source':'world_item', 'clientCapture':True,
+                           'origin':(1,64,0), 'size':(2,2,2)})
         self.assertFalse(self.host.jobs)
         self.assertIn('重新选择', self.replies[-1][2]['error'])
         self.host.request({'__id__':'player', 'request':22, 'action':'capture',
-                           'source':'world_item', 'origin':(0,64,0), 'size':(2,2,2)})
-        self.assertIn('player', self.host.jobs)
-        self.finish()
+                           'source':'world_item', 'clientCapture':True,
+                           'origin':(0,64,0), 'size':(2,2,2)})
+        self.assertFalse(self.host.jobs)
+        self.assertIn('客户端世界读取缺少完整建筑数据', self.replies[-1][2]['error'])
         self.assertFalse(self.writes)
 
     def test_world_tool_hud_requests_require_holding_wand_and_nearby_target(self):
@@ -407,33 +400,33 @@ class ServerStreamTests(unittest.TestCase):
         self.assertIn((b'minecraft:oak_stairs',0),data['states'])
         self.assertFalse(data['eliminateAir'])
 
-    def test_capture_reads_liquid_background_and_typed_actor_data(self):
+    def test_progress_read_keeps_liquid_background_without_server_actor_read(self):
         from modern_projection.projection.cell import background, actor_data
         front = {'name':'minecraft:oak_stairs', 'aux':0}
         self.blocks[(1,64,2)] = ('minecraft:oak_stairs',0)
         self.liquids[(1,64,2)] = {'name':'minecraft:water', 'aux':0}
-        typed_actor = {'x': {'__type__':3, '__value__':1},
-                       'y': {'__type__':3, '__value__':64},
-                       'z': {'__type__':3, '__value__':2},
-                       b'pairx': {'__type__':3, '__value__':9},
-                       b'pairz': {'__type__':3, '__value__':10}}
-        self.actors[(1,64,2)] = typed_actor
+        actor_reads = []
         self.factory.CreateBlockInfo = lambda level: types.SimpleNamespace(
             GetBlockNew=lambda pos, dim: front if pos == (1,64,2) else {'name':'minecraft:air','aux':0},
             GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
-            GetBlockEntityData=lambda dim,pos: self.actors.get(pos),
+            GetBlockEntityData=lambda dim,pos: actor_reads.append(pos),
             GetBlockBasicInfo=lambda name: {'name':name}, SetBlockNew=self.write,
             SetBlockEntityData=self.set_actor)
         adapter = server.WorldAdapter('player')
         cell = adapter.read((1,64,2))
         self.assertEqual(('minecraft:water',0), background(cell))
-        self.assertEqual(typed_actor, actor_data(cell))
+        self.assertIsNone(actor_data(cell))
+        self.assertEqual([], actor_reads)
         local = adapter.rebase(cell, (-1,-64,-2))
-        self.assertEqual(0, actor_data(local)['x']['__value__'])
-        self.assertEqual(0, actor_data(local)['y']['__value__'])
-        self.assertEqual(0, actor_data(local)['z']['__value__'])
-        self.assertEqual(8, actor_data(local)[b'pairx']['__value__'])
-        self.assertEqual(8, actor_data(local)[b'pairz']['__value__'])
+        self.assertEqual(('minecraft:oak_stairs',0), tuple(local))
+        self.assertEqual(('minecraft:water',0), background(local))
+        doc = Document((1,1,1), {(0,0,0): make_cell(
+            ('minecraft:oak_stairs',0), ('minecraft:water',0),
+            {'id':'Chest','Items':[{'Slot':0}]})})
+        for unused in self.host.read_job('player', 77, 'check', adapter, doc, (1,64,2)):
+            pass
+        self.assertEqual(1, self.replies[-1][2]['progress']['correct'])
+        self.assertEqual([], actor_reads)
 
     def test_actor_nbt_is_written_after_palette_with_rebased_coordinates(self):
         actor = {'id': {'__type__':8, '__value__':'Chest'},

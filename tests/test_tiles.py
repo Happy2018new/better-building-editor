@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.model import AIR, Document, Editor
+from projection.cell import make_cell
 from projection.session import Session
 from projection.tiles import tile_edge
 import projection.tiles as tiles
@@ -27,7 +28,7 @@ def scene_cells(session):
         part = session.tiles.parts[key]
         sx, unused, sz = part['size']
         ox, oy, oz = part['origin']
-        for material, values in part['data'].items():
+        for material, values in part['data'][0].items():
             for index in values:
                 x, y, z = index//sz%sx+ox, index//(sx*sz)+oy, index%sz+oz
                 result.add((material,y*dx*dz+x*dz+z))
@@ -36,12 +37,13 @@ def scene_cells(session):
 
 class Bridge:
     def __init__(self):
-        self.queue, self.builds = [], []
+        self.queue, self.builds, self.inputs = [], [], []
     def later(self, delay, callback):
         self.queue.append(callback)
     def geometry(self, palette, name=None):
         self.builds.append((name, cells(palette)))
-        return name if palette.common else None
+        self.inputs.append((dict(palette.common), dict(palette.extra), dict(palette.actor)))
+        return name if palette.common or palette.extra else None
     def settle(self, session):
         for _ in range(10000):
             for part in session.tiles.parts.values():
@@ -53,6 +55,35 @@ class Bridge:
 
 
 class TileTests(unittest.TestCase):
+    def test_preview_cache_tracks_background_and_actor_and_renders_background_only_cells(self):
+        water = ('minecraft:water', 0)
+        stone = ('minecraft:stone', 0)
+        glass = ('minecraft:glass', 0)
+        document = Document((4, 1, 1), {
+            (0, 0, 0): make_cell(AIR, water),
+            (1, 0, 0): make_cell(stone, water),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+        self.assertEqual({water: [0, 1]}, bridge.inputs[-1][1])
+
+        builds = len(bridge.builds)
+        session.editor.edit_layer = 1
+        session.editor.selection = {(1, 0, 0)}
+        session.editor.material = glass
+        session.editor.paint_at((1, 0, 0), respect_selection=False)
+        session.refresh_preview(); bridge.settle(session)
+        self.assertEqual(builds + 1, len(bridge.builds))
+        self.assertEqual({glass: [1], water: [0]}, bridge.inputs[-1][1])
+
+        builds = len(bridge.builds)
+        actor = {'id': 'Chest', 'Items': []}
+        session.editor._commit('actor', {
+            (1, 0, 0): make_cell(stone, glass, actor)}, whole=True)
+        session.refresh_preview(); bridge.settle(session)
+        self.assertEqual(builds + 1, len(bridge.builds))
+        self.assertEqual({'minecraft:stone': {1: actor}}, bridge.inputs[-1][2])
+
     def test_mixed_chunk_surface_matches_voxel_oracle_with_holes_and_clipping(self):
         rng = random.Random(47)
         doc = Document((19,18,17))

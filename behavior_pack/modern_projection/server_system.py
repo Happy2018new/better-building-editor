@@ -108,8 +108,7 @@ class WorldAdapter(object):
         back = AIR
         if liquid and liquid.get('name') and liquid['name'] != 'minecraft:air':
             back = block((liquid['name'], liquid.get('aux', 0)))
-        actor = self.info.GetBlockEntityData(self.dimension, pos)
-        return make_cell(front, back, actor)
+        return make_cell(front, back)
 
     def write(self, pos, value, origin=(0, 0, 0)):
         value = self.canonical(value)
@@ -144,11 +143,6 @@ class WorldAdapter(object):
             return self.info.SetBlockEntityData(
                 self.dimension, pos, self._native_tree(world_actor))
         return True
-
-    def protected(self, pos, value):
-        if value[0] in ('minecraft:bedrock', 'minecraft:barrier', 'minecraft:allow', 'minecraft:deny'):
-            return True
-        return self.info.GetBlockEntityData(self.dimension, pos) is not None
 
     def valid(self, value):
         try:
@@ -367,6 +361,8 @@ class ModernProjectionServerSystem(ServerSystem):
                 region = self.world_regions.get(player)
                 if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
                     raise ValueError('世界选区已改变，请重新选择两个角点')
+            if action == 'capture' and args.get('clientCapture') is not True:
+                raise ValueError('世界选区必须通过客户端 palette 读取')
             if action == 'apply' and upload_adapter is None and not adapter.allowed():
                 raise ValueError('世界写入需要创造模式、操作员和建造权限')
             if action == 'resolve':
@@ -446,7 +442,8 @@ class ModernProjectionServerSystem(ServerSystem):
             if action == 'capture':
                 if value != AIR:
                     doc.blocks[pos] = value
-            elif value == adapter.canonical(doc.get(pos)):
+            elif (foreground(value), background(value)) == (
+                    foreground(doc.get(pos)), background(doc.get(pos))):
                 stats['correct'] += 1
             elif value == AIR:
                 stats['missing'] += 1
