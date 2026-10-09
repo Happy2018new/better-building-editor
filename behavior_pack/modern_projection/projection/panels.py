@@ -293,6 +293,9 @@ def Parameters(session=None, revision=0, height=330):
         retained_text(tool[2], 20, width=216, slots=16),
         # Split help by sentence length into readable, deliberate lines.
         retained_text(tool[3], 11, Theme.muted, width=216, slots=48, lines=2),
+        row([text('编辑层', 11, Theme.muted, flex=1),
+             Segments(items=[(0, '前景'), (1, '背景')], value=e.edit_layer,
+                      onChange=partial(session.set_editor, 'edit_layer'), width=150)]),
         optional('erase_scope', session.direct_mode == 'erase', [
             text('擦除范围', 12),
             Segments(items=[('single', '单格'), ('selection', '选区')], value=session.erase_scope,

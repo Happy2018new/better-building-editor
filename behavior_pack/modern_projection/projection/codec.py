@@ -6,6 +6,7 @@ import zlib
 from .packed import IntegerBuffer
 from collections import Counter
 from .storage import CELLS, integer_types, position
+from .cell import encode as encode_cell, decode as decode_cell, has_complete_cells
 
 
 def encode_chunk(key, chunk):
@@ -68,13 +69,16 @@ def decode_chunk(document, row):
 
 def to_data(document):
     store = document.blocks
-    return {'version': 2, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
-            'blockCount': len(store), 'palette': [list(v) for v in store.palette],
+    return {'version': 4 if has_complete_cells(store) else 2, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
+            'blockCount': len(store), 'palette': [encode_cell(v) for v in store.palette],
             'chunks': [encode_chunk(k, store.chunks[k]) for k in sorted(store.chunks)]}
 
 
 def load_steps(data):
     from .model import AIR, Document, block
+    version = data.get('version')
+    if type(version) is not int or version not in (2, 4):
+        raise ValueError('不支持的分块配置版本')
     doc = Document(data.get('size', ()), name=data.get('name', '未命名建筑'), biome=data.get('biome', 'plains'))
     palette = data.get('palette')
     chunks = data.get('chunks')
@@ -82,7 +86,8 @@ def load_steps(data):
         raise ValueError('配置材质表无效')
     if not isinstance(chunks, list) or len(chunks) > 6144:
         raise ValueError('配置分块数量超限')
-    values = [block(v) for v in palette]
+    decoder = decode_cell if version == 4 else block
+    values = [decoder(v) for v in palette]
     if values[0] != AIR or len(set(values)) != len(values):
         raise ValueError('配置材质表有重复或缺少空气')
     doc.blocks.palette, doc.blocks.palette_ids = values, dict((v, i) for i, v in enumerate(values))

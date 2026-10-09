@@ -346,15 +346,18 @@ def transform(value, operation):
     """Transform one name/aux pair; moves and stacks preserve its state."""
     if operation.startswith(('move_', 'stack_')):
         return value
+    original = value
     value = registry.canonical(value)
-    key = (value, operation)
-    if key in _cache:
-        return _cache[key]
     properties = registry.states(value)
     if properties is None:
         raise ValueError('方块不在状态表中，无法安全转换朝向：%s' % value[0])
     result_states = transform_states(properties, operation)
-    result = value if result_states == properties else registry.from_states(value[0], result_states)
+    if result_states == properties:
+        return original
+    key = (value, operation)
+    if key in _cache:
+        return _cache[key]
+    result = registry.from_states(value[0], result_states)
     if result is None:
         raise UnrepresentableTransform('原版没有所需的方块朝向：%s / %s' % (value[0], operation))
     _cache[key] = result

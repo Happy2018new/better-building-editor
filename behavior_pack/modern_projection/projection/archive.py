@@ -3,10 +3,12 @@
 from __future__ import unicode_literals
 from .transfer import packets, Receiver
 from .model import Document
+from .cell import has_complete_cells
 
 
 def validate(data):
-    if not isinstance(data, dict) or data.get('version') != 3:
+    if (not isinstance(data, dict) or type(data.get('version')) is not int or
+            data.get('version') not in (3, 5)):
         raise ValueError('无效的建筑存储索引')
     name = data.get('name')
     if isinstance(name, bytes):
@@ -38,7 +40,7 @@ def save_steps(bridge, document, identity):
             raise ValueError('建筑分块保存失败，草稿已保留')
         count += 1
         yield None
-    yield {'version': 3, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
+    yield {'version': 5 if has_complete_cells(document.blocks) else 3, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
            'blockCount': len(document.blocks), 'parts': count}
 
 
@@ -52,6 +54,9 @@ def load_steps(bridge, identity, data):
         for packet in page['packets']:
             receiver.feed(packet)
             yield None
+    expected = 3 if data['version'] == 5 else 2
+    if receiver.version != expected:
+        raise ValueError('建筑存储版本与分块协议不一致')
     doc = receiver.result
     if doc is None or list(doc.size) != data['size'] or len(doc.blocks) != data['blockCount']:
         raise ValueError('建筑存储不完整，当前草稿已保留')

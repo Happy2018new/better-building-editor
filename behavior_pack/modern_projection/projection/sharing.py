@@ -115,7 +115,7 @@ class Sharing(object):
                 if entry is None:
                     raise ValueError('这份配置已不存在')
                 data = dict(entry['data'])
-                if data.get('version') == 3:
+                if data.get('version') in (3, 5):
                     from .archive import load_steps
                     iterator = load_steps(s.bridge, identity, data)
                 elif data.get('version') == 2:

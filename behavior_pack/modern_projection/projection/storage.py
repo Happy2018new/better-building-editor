@@ -156,6 +156,17 @@ class BlockStore(object):
         self.owned.clear()
         return out
 
+    def __copy__(self):
+        return self.copy()
+
+    def __deepcopy__(self, memo):
+        found = memo.get(id(self))
+        if found is not None:
+            return found
+        out = self.copy()
+        memo[id(self)] = out
+        return out
+
     def palette_id(self, value):
         found = self.palette_ids.get(value)
         if found is None:
@@ -280,7 +291,14 @@ class BlockStore(object):
         return changed
 
     def memory_bytes(self):
-        return len(self.chunks) * 128 + sum(CELLS * 2 for c in self.chunks.values() if not isinstance(c, integer_types))
+        chunk_bytes = len(self.chunks) * 128 + sum(
+            CELLS * 2 for c in self.chunks.values()
+            if not isinstance(c, integer_types))
+        palette_bytes = sum(
+            estimate() for value in self.palette
+            for estimate in (getattr(value, 'memory_bytes', None),)
+            if estimate is not None)
+        return chunk_bytes + palette_bytes
 
     def fill_mask(self, key, mask, value, allowed=None):
         """Fill selected bits once, preserving copy-on-write and all counters.

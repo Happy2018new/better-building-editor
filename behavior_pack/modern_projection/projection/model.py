@@ -6,7 +6,10 @@ import math
 import random
 from collections import Counter, deque
 from .catalog import BY_ID
-from .storage import BlockStore, Selection
+from .storage import BlockStore, Selection, integer_types, indices, position
+from .cell import (Cell, foreground, background, actor_data, make_cell, layer,
+                   replace_layer, has_complete_cells, rebase as rebase_cell,
+                   transform as transform_cell)
 
 AIR = ("minecraft:air", 0)
 MAX_VOLUME = 64 * 128 * 64
@@ -14,6 +17,7 @@ MAX_AXES = (64, 128, 64)
 MAX_AXIS = 128
 SMALL_VOLUME = 32768
 MAX_HISTORY_CELLS = 262144
+MAX_HISTORY_BYTES = 64 * 1024 * 1024
 DIRECTIONS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
 
 
@@ -40,6 +44,65 @@ def box_points(lo, hi):
                 yield (x, y, z)
 
 
+def close_group_selection(document, selection, strict=True):
+    """Expand a selection to include complete native multi-cell structures."""
+    from .block_groups import group_partner, paired_position
+
+    result = selection.copy() if isinstance(selection, Selection) else Selection(selection)
+
+    def get_block(pos):
+        return foreground(document.get(pos)) if document.contains(pos) else None
+
+    for key, mask in tuple(result.chunks.items()):
+        chunk = document.blocks.chunks.get(key, 0)
+        if isinstance(chunk, integer_types):
+            if not chunk:
+                continue
+            try:
+                relationship = group_partner(foreground(document.blocks.palette[chunk]))
+            except ValueError:
+                if strict:
+                    raise
+                continue
+            if relationship is None:
+                continue
+            candidates = indices(mask)
+            for index in candidates:
+                pos = position(key, index)
+                try:
+                    partner = paired_position(get_block, pos)
+                except ValueError:
+                    if strict:
+                        raise
+                    continue
+                if partner is not None and partner not in result:
+                    result.add(partner)
+            continue
+        for index in indices(mask):
+            identity = chunk[index]
+            if not identity:
+                continue
+            pos = position(key, index)
+            value = foreground(document.blocks.palette[identity])
+            try:
+                relationship = group_partner(value)
+            except ValueError:
+                if strict:
+                    raise
+                continue
+            if relationship is None:
+                continue
+            try:
+                partner = paired_position(get_block, pos)
+            except ValueError:
+                if strict:
+                    raise
+                continue
+            if partner is not None and partner not in result:
+                result.add(partner)
+    return result
+
+
 def block(value):
     if not isinstance(value, (list, tuple)) or len(value) != 2:
         raise ValueError("无效的方块数据")
@@ -52,7 +115,7 @@ def block(value):
             raise ValueError("无效的方块标识符")
     if ":" not in name or not isinstance(aux, int) or not 0 <= aux <= 32767:
         raise ValueError("无效的方块附加值")
-    return (name, aux)
+    return value if isinstance(value, Cell) else (name, aux)
 
 
 class RegionSizeError(ValueError):
@@ -88,11 +151,24 @@ class Document(object):
     def get(self, pos):
         return self.blocks.get(tuple(pos), AIR)
 
+    get_cell = get
+
+    def get_layer(self, pos, index=0):
+        return layer(self.get(pos), index)
+
+    def set_cell(self, pos, value):
+        if not self.contains(pos):
+            raise ValueError("方块超出建筑范围")
+        self.blocks[tuple(pos)] = block(value)
+
+    def set_layer(self, pos, value, index=0):
+        self.set_cell(pos, replace_layer(self.get(pos), value, index))
+
     def points(self):
         return iter(Selection.box((0, 0, 0), tuple(v - 1 for v in self.size)))
 
     def to_data(self):
-        if self.volume > SMALL_VOLUME:
+        if self.volume > SMALL_VOLUME or has_complete_cells(self.blocks):
             from .codec import to_data
 
             return to_data(self)
@@ -108,14 +184,19 @@ class Document(object):
 
     @classmethod
     def from_data(cls, data):
-        if not isinstance(data, dict) or data.get("version") not in (1, 2):
+        if not isinstance(data, dict):
             raise ValueError("不支持的建筑配置版本")
+        version = data.get("version", 1)
+        if type(version) is not int or version not in (1, 2, 4):
+            raise ValueError("不支持的建筑配置版本")
+        if version == 1 and ("palette" in data or "chunks" in data):
+            raise ValueError("分块配置缺少有效版本号")
         name = data.get("name", "未命名建筑")
         if isinstance(name, bytes):
             name = name.decode("utf8")
         if not isinstance(name, type("")) or not 1 <= len(name) <= 64:
             raise ValueError("名称长度须为 1–64 字")
-        if data.get("version") == 2:
+        if version in (2, 4):
             from .codec import load_steps
 
             result = None
@@ -145,9 +226,14 @@ class Document(object):
         return cls(data.get("size", ()), values, name, data.get("biome", "plains"))
 
     def materials(self):
-        return [
-            (v, count) for v, count in self.blocks.counts.most_common() if count > 0
-        ]
+        counts = Counter()
+        for value, count in self.blocks.counts.items():
+            if count <= 0:
+                continue
+            for material in (foreground(value), background(value)):
+                if material != AIR:
+                    counts[material] += count
+        return counts.most_common()
 
     @property
     def volume(self):
@@ -158,6 +244,8 @@ class Document(object):
 
     def palette_data(self, visible=None):
         common = {}
+        extra = {}
+        actor = {}
         sx, sy, sz = self.size
         for pos, value in self.blocks.items():
             if not self.contains(pos):
@@ -167,10 +255,17 @@ class Document(object):
                 # Native SDK volume is (z, x, y), with z contiguous, then x, then y.
                 # Verified by GetLocalPosListOfBlocks on asymmetric (2, 3, 4) palettes.
                 index = pos[1] * sx * sz + pos[0] * sz + pos[2]
-                common.setdefault(value, []).append(index)
+                front, back = foreground(value), background(value)
+                if front != AIR:
+                    common.setdefault(front, []).append(index)
+                if back != AIR:
+                    extra.setdefault(back, []).append(index)
+                nbt = actor_data(value)
+                if nbt is not None:
+                    actor.setdefault(front[0], {})[index] = nbt
         return {
-            "extra": {},
-            "actor": {},
+            "extra": extra,
+            "actor": actor,
             "void": False,
             "volume": (sz, sx, sy),
             "common": common,
@@ -190,6 +285,7 @@ class Editor(object):
         self.filter_material = ("minecraft:stone", 0)
         self.start = (0, 0, 0)
         self.end = tuple(v - 1 for v in self.document.size)
+        self.edit_layer = 0
         self.layer = 0
         self.thickness = 1
         self.step = 2
@@ -208,7 +304,7 @@ class Editor(object):
         self.message = "工作台已就绪"
 
     def _writable(self, pos, respect_selection=True):
-        value = self.document.get(pos)
+        value = self.document.get_layer(pos, self.edit_layer)
         return (
             (not respect_selection or pos in self.selection)
             and pos[1] not in self.locked_layers
@@ -220,7 +316,12 @@ class Editor(object):
             )
         )
 
-    def _commit(self, name, changes, respect_selection=True):
+    def _commit(self, name, changes, respect_selection=True, whole=False):
+        if not whole and self.edit_layer == 0:
+            from .block_groups import expand_group_changes
+            changes = expand_group_changes(changes, lambda pos: (
+                self.document.contains(pos) and pos[1] not in self.locked_layers and
+                (not respect_selection or self._writable(pos))))
         delta = {}
         for pos, new in changes.items():
             if not self.document.contains(pos):
@@ -230,6 +331,13 @@ class Editor(object):
             if respect_selection and not self._writable(pos):
                 continue
             old = self.document.get(pos)
+            if whole:
+                new = block(new)
+            else:
+                if self.edit_layer == 0:
+                    from .block_groups import preserve_group_part
+                    new = preserve_group_part(new, foreground(old))
+                new = replace_layer(old, new, self.edit_layer)
             if old != new:
                 delta[pos] = (old, new)
         if not delta:
@@ -246,15 +354,18 @@ class Editor(object):
 
         def cost(item):
             value = item[1]
-            return (
-                value.memory_bytes()
-                if hasattr(value, "memory_bytes")
-                else len(value) * 96
-            )
+            if hasattr(value, "memory_bytes"):
+                return value.memory_bytes()
+            size = len(value) * 96
+            if isinstance(value, dict):
+                size += sum(cell.memory_bytes()
+                            for pair in value.values() for cell in pair
+                            if isinstance(cell, Cell))
+            return size
 
         while len(self.undo_stack) > 1 and (
             len(self.undo_stack) > 50
-            or sum(cost(item) for item in self.undo_stack) > 64 * 1024 * 1024
+            or sum(cost(item) for item in self.undo_stack) > MAX_HISTORY_BYTES
         ):
             self.undo_stack.pop(0)
 
@@ -303,7 +414,8 @@ class Editor(object):
             raise ValueError("选区起终点必须位于建筑范围内")
         lo, hi = bounds((start, end))
         self.start, self.end = tuple(start), tuple(end)
-        self.selection = Selection.box(lo, hi)
+        self.selection = close_group_selection(self.document, Selection.box(lo, hi), strict=False)
+        self.sync_selection_bounds()
         self.selection_revision += 1
 
     def sync_selection_bounds(self):
@@ -325,7 +437,7 @@ class Editor(object):
         elif tool == "select_air":
             self.selection = all_points.difference(doc.blocks)
         elif tool == "select_material":
-            self.selection = set(p for p, b in doc.blocks.items() if b == self.source)
+            self.selection = set(p for p, b in doc.blocks.items() if layer(b, self.edit_layer) == self.source)
             if self.source == AIR:
                 self.selection = all_points.difference(doc.blocks)
         elif tool == "select_layer":
@@ -351,6 +463,7 @@ class Editor(object):
             self.selection = set(p for p in doc.blocks if self.surface(p))
         elif tool == "select_box":
             self.select_box(self.start, self.end)
+        self.selection = close_group_selection(doc, self.selection, strict=False)
         self.selection_revision += 1
         self.sync_selection_bounds()
         self.message = "已选择 %d 格" % len(self.selection)
@@ -370,16 +483,43 @@ class Editor(object):
                 )
             )
             return 0
+        changes = {pos: AIR if erase else block(self.material)}
+        if self.edit_layer == 0:
+            from .block_groups import group_partner, paired_position
+
+            document = self.document
+
+            def get_block(target):
+                return foreground(document.get(target)) if document.contains(target) else None
+
+            old_partner = paired_position(get_block, pos)
+            if old_partner is not None:
+                changes[old_partner] = AIR
+            if not erase:
+                relationship = group_partner(foreground(changes[pos]))
+                if relationship is not None:
+                    offset, partner_value = relationship
+                    partner = tuple(pos[i] + offset[i] for i in range(3))
+                    changes[partner] = partner_value
+            for target in changes:
+                if not document.contains(target):
+                    raise ValueError("多格方块对应部件超出建筑范围")
+                if not self._writable(target, respect_selection):
+                    self.message = "多格方块完整部件受到选区、蒙版或图层锁定限制"
+                    return 0
         return self._commit(
             "擦除单格" if erase else "绘制单格",
-            {pos: AIR if erase else block(self.material)},
+            changes,
             respect_selection=False,
         )
 
     def _copy(self):
+        self.selection = close_group_selection(self.document, self.selection)
+        self.sync_selection_bounds()
         lo, hi = bounds(self.selection)
         self.clipboard = {
             "size": tuple(hi[i] - lo[i] + 1 for i in range(3)),
+            "origin": lo,
             "blocks": dict(
                 (tuple(p[i] - lo[i] for i in range(3)), self.document.get(p))
                 for p in self.selection
@@ -392,34 +532,6 @@ class Editor(object):
         source = dict((p, self.document.get(p)) for p in self.selection)
         if self.mask != "all" or any(p[1] in self.locked_layers for p in source):
             raise ValueError("整体变换前请关闭蒙版并解锁选区内图层")
-        # Directional metadata must not silently acquire an incorrect orientation.
-        neutral = (
-            "stone",
-            "stonebrick",
-            "planks",
-            "quartz_block",
-            "concrete",
-            "wool",
-            "glass",
-            "stained_glass",
-            "leaves",
-            "grass",
-            "sea_lantern",
-            "brick_block",
-            "sandstone",
-            "air",
-            "dirt",
-            "cobblestone",
-        )
-        if tool.startswith(("rotate", "mirror")):
-            if any(
-                b[0].split(":")[-1] not in neutral
-                or (b[0] == "minecraft:quartz_block" and b[1] > 1)
-                for b in source.values()
-            ):
-                raise ValueError(
-                    "此选区含方向性或未知方块；为保留朝向，请先替换为普通建材"
-                )
         mapping = {}
         for pos, value in source.items():
             q = [pos[i] - lo[i] for i in range(3)]
@@ -443,10 +555,11 @@ class Editor(object):
                 raise ValueError("变换将超出建筑范围，操作已取消")
             if target[1] in self.locked_layers:
                 raise ValueError("目标图层已锁定，操作已取消")
-            mapping[target] = value
+            value = transform_cell(value, tool, pos)
+            mapping[target] = rebase_cell(value, tuple(target[i] - pos[i] for i in range(3)))
         changes = {} if tool.startswith("stack_") else dict((p, AIR) for p in source)
         changes.update(mapping)
-        count = self._commit(BY_ID[tool][2], changes, False)
+        count = self._commit(BY_ID[tool][2], changes, False, whole=True)
         self.selection = set(mapping)
         self.selection_revision += 1
         self.sync_selection_bounds()
@@ -617,6 +730,9 @@ class Editor(object):
         group = BY_ID[tool][1]
         if group == "select":
             return self._select(tool)
+        if self.edit_layer == 0 or group == "transform" or tool in ("copy", "cut"):
+            self.selection = close_group_selection(self.document, self.selection)
+            self.sync_selection_bounds()
         if not self.selection:
             raise ValueError("选区为空，请先框选或全选")
         lo, hi = bounds(self.selection)
@@ -632,7 +748,7 @@ class Editor(object):
             changes = self._edit(tool)
             if changes is None:
                 return 0
-        return self._commit(BY_ID[tool][2], changes)
+        return self._commit(BY_ID[tool][2], changes, whole=tool in ("cut", "gravity", "foundation", "heightmap"))
 
     def _edit(self, tool):
         doc = self.document
@@ -643,24 +759,32 @@ class Editor(object):
         if tool == "flood":
             if self.start not in self.selection:
                 raise ValueError("填充起点不在选区内")
-            old = doc.get(self.start)
+            old = doc.get_layer(self.start, self.edit_layer)
             visited, pending = set(), deque([self.start])
             while pending:
                 p = pending.popleft()
-                if p in visited or not self._writable(p) or doc.get(p) != old:
+                if p in visited or not self._writable(p) or doc.get_layer(p, self.edit_layer) != old:
                     continue
                 visited.add(p)
                 pending.extend(add(p, d) for d in DIRECTIONS)
             return dict((p, self.material) for p in visited)
         out = {}
         for p in self.selection:
-            old = doc.get(p)
+            old = doc.get_layer(p, self.edit_layer)
             if tool == "erase":
                 out[p] = AIR
             elif tool == "fill" or (tool == "fill_air" and old == AIR):
                 out[p] = self.material
             elif tool == "replace" and old == self.source:
                 out[p] = self.material
+                if self.edit_layer == 0:
+                    from .block_groups import paired_position
+                    partner = paired_position(
+                        lambda target: foreground(doc.get(target)) if doc.contains(target) else None,
+                        p,
+                    )
+                    if partner is not None and partner in self.selection:
+                        out[partner] = self.material
             elif tool == "paint" and self.surface(p):
                 out[p] = self.material
             elif tool == "swap":

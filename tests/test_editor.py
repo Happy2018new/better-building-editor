@@ -139,11 +139,11 @@ class EditorTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 doc.palette_data()
 
-    def test_directional_blocks_cannot_silently_rotate_with_wrong_metadata(self):
+    def test_directional_blocks_rotate_with_matching_metadata(self):
         e = Editor(Document((3, 3, 3), {(1, 1, 1): ('minecraft:oak_stairs', 0)}))
-        with self.assertRaises(ValueError):
-            e.run('rotate_y90')
-        self.assertEqual(0, e.revision)
+        e.run('rotate_y90')
+        self.assertEqual(('minecraft:oak_stairs', 2), e.document.get((1, 1, 1)))
+        self.assertEqual(1, e.revision)
 
     def test_new_edit_invalidates_redo_and_history_is_bounded(self):
         e = Editor(Document((1, 1, 1)))

@@ -7,6 +7,7 @@ import json
 import re
 import zlib
 from .transfer import packets, Receiver
+from .cell import has_complete_cells, foreground, background, decode as decode_cell
 
 MAX_TEXT = 8 * 1024 * 1024
 MAX_RAW = 16 * 1024 * 1024
@@ -30,11 +31,12 @@ def validate_materials(packet):
     rows = packet.get('rows')
     if not isinstance(rows, list):
         raise ValueError('分享码材质表无效')
-    for value in rows:
-        if (not isinstance(value, list) or len(value) != 2 or
-                not isinstance(value[0], type('')) or len(value[0]) > 160 or
-                not IDENTIFIER.match(value[0]) or type(value[1]) is not int):
-            raise ValueError('分享码包含无效的方块标识')
+    for row in rows:
+        value = decode_cell(row)
+        for material in (foreground(value), background(value)):
+            if (not isinstance(material[0], type('')) or len(material[0]) > 160 or
+                    not IDENTIFIER.match(material[0]) or type(material[1]) is not int):
+                raise ValueError('分享码包含无效的方块标识')
 
 
 def encode_steps(document):
@@ -57,7 +59,8 @@ def encode_steps(document):
         done += len(packet['rows']) if 'rows' in packet else 1
         yield {'progress': (done, total)}
     output.append(compressor.flush())
-    text = 'MP2:'+base64.b64encode(b''.join(output)).decode('ascii')+':%08x' % (crc & 0xffffffff)
+    prefix = 'MP3:' if has_complete_cells(document.blocks) else 'MP2:'
+    text = prefix+base64.b64encode(b''.join(output)).decode('ascii')+':%08x' % (crc & 0xffffffff)
     if len(text) > MAX_TEXT:
         raise ValueError('建筑分享码过长')
     yield {'text': text}
@@ -70,8 +73,8 @@ def decode_steps(text):
         if not isinstance(text, type('')) or not 1 <= len(text) <= MAX_TEXT:
             raise ValueError('剪贴板没有有效分享码，或内容过长')
         fields = text.strip().split(':')
-        if len(fields) != 3 or fields[0] != 'MP2':
-            raise ValueError('不是支持的建筑分享码（需要 MP2）')
+        if len(fields) != 3 or fields[0] not in ('MP2', 'MP3'):
+            raise ValueError('不是支持的建筑分享码（需要 MP2 或 MP3）')
         encoded, expected = fields[1:]
         if (not encoded or len(encoded)%4 or not BASE64.match(encoded) or
                 not re.match(r'^[0-9a-f]{8}$', expected)):
@@ -100,6 +103,10 @@ def decode_steps(text):
                     if not isinstance(packet, dict):
                         raise ValueError('分享码记录无效')
                     validate_materials(packet)
+                    if packet.get('kind') == 'begin':
+                        rich = packet.get('version', 2) == 3
+                        if rich != (fields[0] == 'MP3'):
+                            raise ValueError('分享码外层版本与方块数据版本不一致')
                     receiver.feed(packet)
                     yield {'progress': (start+len(piece), len(encoded))}
                 if len(buffer) > MAX_RECORD:
@@ -122,7 +129,8 @@ def split_text(text, part_size=PART_SIZE):
         raise ValueError('不支持的分段长度')
     identity = checksum(text.encode('ascii'))
     total = (len(text)+part_size-1)//part_size
-    return ['MPS2:%s:%d:%d:%s:%s' % (identity, index+1, total, checksum(piece.encode('ascii')), piece)
+    prefix = 'MPS3' if text.startswith('MP3:') else 'MPS2'
+    return [('%s:%%s:%%d:%%d:%%s:%%s' % prefix) % (identity, index+1, total, checksum(piece.encode('ascii')), piece)
             for index, piece in enumerate(text[start:start+part_size] for start in range(0,len(text),part_size))]
 
 
@@ -131,6 +139,7 @@ class Inbox(object):
         self.identity = None
         self.total = 0
         self.parts = {}
+        self.protocol = None
 
     def missing(self):
         return [index for index in range(1,self.total+1) if index not in self.parts]
@@ -151,12 +160,12 @@ class Inbox(object):
         if not isinstance(text, type('')) or len(text) > MAX_TEXT:
             raise ValueError('剪贴板内容过长或不是文字')
         text = text.strip()
-        if not text.startswith('MPS2:'):
+        if not text.startswith(('MPS2:', 'MPS3:')):
             return text
         fields = text.split(':', 5)
         if len(fields) != 6:
             raise ValueError('分段分享码格式无效')
-        unused, identity, index, total, crc, data = fields
+        protocol, identity, index, total, crc, data = fields
         if not index.isdigit() or not total.isdigit() or len(index)>5 or len(total)>5:
             raise ValueError('分享码分段序号无效')
         index, total = int(index), int(total)
@@ -165,9 +174,11 @@ class Inbox(object):
             raise ValueError('分享码分段损坏或超限')
         if self.identity is not None and (identity != self.identity or total != self.total):
             raise ValueError('这是另一份建筑的分段，请先清空已接收内容')
+        if self.protocol is not None and protocol != self.protocol:
+            raise ValueError('分享码分段格式不一致，请重新接收')
         if index in self.parts and self.parts[index] != data:
             raise ValueError('同一段的内容不一致，请重新复制')
-        self.identity, self.total = identity, total
+        self.identity, self.total, self.protocol = identity, total, protocol
         self.parts[index] = data
         if sum(len(v) for v in self.parts.values()) > MAX_TEXT:
             raise ValueError('分享码累计长度超过限制')
@@ -175,5 +186,7 @@ class Inbox(object):
             result = ''.join(self.parts[i] for i in range(1,total+1))
             if checksum(result.encode('ascii')) != identity:
                 raise ValueError('完整分享码校验失败')
+            if (protocol == 'MPS3') != result.startswith('MP3:'):
+                raise ValueError('分享码分段版本与内容不一致')
             return result
         return None

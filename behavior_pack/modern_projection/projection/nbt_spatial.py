@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Translate only documented block-entity root coordinates, preserving NBT tags.
+"""Translate documented block-entity coordinates while preserving NBT tags.
 
 Inventories, item tags, commands and arbitrary nested coordinates are data, not
 positions of this block entity. They must never be rewritten recursively.
@@ -48,7 +48,7 @@ def set_scalar(data, name, value):
 
 
 def rebase(data, delta):
-    """Clone a block actor and translate root x/y/z and chest pairx/pairz."""
+    """Clone an actor and translate root position and chest-pair coordinates."""
     if data is None:
         return None
     result = thaw(freeze(data))
@@ -59,4 +59,30 @@ def rebase(data, delta):
         value = scalar(root, name)
         if isinstance(value, integer_types) and type(value) is not bool:
             set_scalar(root, name, value + delta[axis])
+    return result
+
+
+def transform_pair(data, origin, operation):
+    """Transform chest pair offsets around the actor before its position moves."""
+    if operation not in ('rotate_y90', 'rotate_y180', 'rotate_y270',
+                         'mirror_x', 'mirror_z') or data is None:
+        return data
+    result = thaw(freeze(data))
+    root = root_payload(result)
+    if root is None:
+        raise ValueError('Block entity payload must be a compound')
+    pair_x, pair_z = scalar(root, 'pairx'), scalar(root, 'pairz')
+    if (not isinstance(pair_x, integer_types) or type(pair_x) is bool or
+            not isinstance(pair_z, integer_types) or type(pair_z) is bool):
+        return result
+    dx, dz = pair_x - origin[0], pair_z - origin[2]
+    if operation.startswith('rotate_y'):
+        for unused in range(int(operation[8:]) // 90):
+            dx, dz = -dz, dx
+    elif operation == 'mirror_x':
+        dx = -dx
+    else:
+        dz = -dz
+    set_scalar(root, 'pairx', origin[0] + dx)
+    set_scalar(root, 'pairz', origin[2] + dz)
     return result

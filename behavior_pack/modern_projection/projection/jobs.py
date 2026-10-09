@@ -6,8 +6,9 @@ import math
 import random
 import time
 from collections import deque
-from .model import AIR, BY_ID, DIRECTIONS, add, bounds, box_points
+from .model import AIR, BY_ID, DIRECTIONS, add, bounds, box_points, close_group_selection
 from .storage import Selection, FULL, CELLS, integer_types, indices, position
+from .cell import Cell, foreground, layer, replace_layer, has_complete_cells, rebase as rebase_cell, transform as transform_cell
 
 
 class SnapshotDelta(object):
@@ -35,11 +36,15 @@ class EditJob(object):
         self.editor, self.tool = editor, tool
         self.source = editor.document
         self.selection = editor.selection.copy() if isinstance(editor.selection, Selection) else Selection(editor.selection)
+        if (BY_ID[tool][1] != 'select' and
+                (editor.edit_layer == 0 or BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut'))):
+            self.selection = close_group_selection(self.source, self.selection)
         self.work = copy.copy(editor)
         self.work.locked_layers = set(editor.locked_layers)
         self.work.hidden_layers = set(editor.hidden_layers)
         self.work.selection = self.selection
         self.staged = self.source.blocks.copy()
+        self.group_written = set()
         self.result_selection = None
         self.result_clipboard = None
         self.changed = self.processed = 0
@@ -74,7 +79,7 @@ class EditJob(object):
     def _publish(self):
         e = self.editor
         if self.result_selection is not None:
-            e.selection = self.result_selection
+            e.selection = close_group_selection(self.source, self.result_selection, strict=False)
             e.selection_revision += 1
             e.sync_selection_bounds()
         if self.result_clipboard is not None:
@@ -90,7 +95,33 @@ class EditJob(object):
                      '已复制 %d 格' % len(self.selection) if self.tool == 'copy' else
                      '%s，已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
 
-    def _set(self, pos, value, respect=True):
+    def _set(self, pos, value, respect=True, whole=False):
+        if not whole and self.work.edit_layer == 0:
+            from .block_groups import group_is_upper, group_partner
+            relationship = group_partner(value)
+            if relationship is not None:
+                offset, reciprocal = relationship
+                if group_is_upper(value):
+                    anchor = tuple(pos[i] + offset[i] for i in range(3))
+                    partner = pos
+                    anchor_value, partner_value = reciprocal, value
+                else:
+                    anchor = pos
+                    partner = tuple(pos[i] + offset[i] for i in range(3))
+                    anchor_value, partner_value = value, reciprocal
+                if anchor in self.group_written or partner in self.group_written:
+                    return
+                if (anchor not in self.selection or partner not in self.selection or
+                        not self.source.contains(anchor) or not self.source.contains(partner) or
+                        not self.work._writable(anchor, respect) or not self.work._writable(partner, respect)):
+                    return
+                self.group_written.update((anchor, partner))
+                self._set_one(anchor, anchor_value, respect, False)
+                self._set_one(partner, partner_value, respect, False)
+                return
+        self._set_one(pos, value, respect, whole)
+
+    def _set_one(self, pos, value, respect=True, whole=False):
         if not self.source.contains(pos):
             raise ValueError('操作超出建筑范围，草稿未改变')
         if not self.work._writable(pos, respect):
@@ -98,6 +129,11 @@ class EditJob(object):
         if pos[1] in self.work.locked_layers:
             return
         original, previous = self.source.get(pos), self.staged.get(pos, AIR)
+        if not whole:
+            if self.work.edit_layer == 0:
+                from .block_groups import preserve_group_part
+                value = preserve_group_part(value, foreground(original))
+            value = replace_layer(previous, value, self.work.edit_layer)
         self.changed += int(value != original) - int(previous != original)
         self.staged[pos] = value
 
@@ -122,6 +158,22 @@ class EditJob(object):
             local_y = y-(key[1] << 4)
             if 0 <= local_y < 16:
                 mask &= ~(((1 << 256)-1) << (local_y << 8))
+        grouped = False
+        if self.work.edit_layer == 0:
+            from .block_groups import group_partner
+            grouped = group_partner(value) is not None
+            if not grouped:
+                chunk = self.staged.chunks.get(key, 0)
+                palette = self.staged.palette
+                if isinstance(chunk, integer_types):
+                    grouped = bool(mask) and group_partner(palette[chunk]) is not None
+                else:
+                    grouped = any(mask & (1 << index) and group_partner(palette[chunk[index]]) is not None
+                                  for index in range(CELLS))
+        if self.work.edit_layer or has_complete_cells(self.staged) or grouped:
+            for index in indices(mask):
+                self._set(position(key, index), value)
+            return
         mode = self.work.mask
         allowed = None
         if mode != 'all':
@@ -163,7 +215,7 @@ class EditJob(object):
                     if isinstance(chunk, integer_types) and tool != 'select_surface':
                         value = doc.blocks.palette[chunk]
                         selected = (bool(chunk) if tool == 'select_nonair' else
-                                    not chunk if tool == 'select_air' else value == self.work.source)
+                                    not chunk if tool == 'select_air' else layer(value, self.work.edit_layer) == self.work.source)
                         if selected:
                             result.chunks[key] = mask
                             result.count += bin(mask).count('1')
@@ -174,7 +226,7 @@ class EditJob(object):
                         pos = position(key, index)
                         value = doc.get(pos)
                         selected = (value != AIR if tool == 'select_nonair' else value == AIR if tool == 'select_air' else
-                                    self.work.surface(pos) if tool == 'select_surface' else value == self.work.source)
+                                    self.work.surface(pos) if tool == 'select_surface' else layer(value, self.work.edit_layer) == self.work.source)
                         if selected:
                             result.add(pos)
                         self.processed += 1
@@ -206,13 +258,7 @@ class EditJob(object):
         target_lo, target_hi = bounds(corners)
         if self.work.mask != 'all' or any(lo[1] <= y <= hi[1] or target_lo[1] <= y <= target_hi[1] for y in self.work.locked_layers):
             raise ValueError('整体变换前请关闭蒙版并解锁相关图层')
-        neutral = ('stone', 'stonebrick', 'planks', 'quartz_block', 'concrete', 'wool', 'glass', 'stained_glass',
-                   'leaves', 'grass', 'sea_lantern', 'brick_block', 'sandstone', 'air', 'dirt', 'cobblestone')
-        def validate(value):
-            if self.tool.startswith(('rotate', 'mirror')) and (value[0].split(':')[-1] not in neutral or
-                    (value[0] == 'minecraft:quartz_block' and value[1] > 1)):
-                raise ValueError('此选区含方向性或未知方块；请先替换为普通建材')
-        compact = (all(mask == FULL and isinstance(self.source.blocks.chunks.get(key, 0), integer_types)
+        compact = (not has_complete_cells(self.source.blocks) and all(mask == FULL and isinstance(self.source.blocks.chunks.get(key, 0), integer_types)
                        for key, mask in self.selection.chunks.items()) and
                    all(v % 16 == 0 for v in lo + ext + target_lo))
         if compact:
@@ -220,7 +266,7 @@ class EditJob(object):
             result = Selection()
             for key in self.selection.chunks:
                 value = self.source.blocks.palette[self.source.blocks.chunks.get(key, 0)]
-                validate(value)
+                value = transform_cell(value, self.tool)
                 a = position(key, 0); b = position(key, CELLS - 1)
                 target = bounds([self._target((x, y, z), lo, ext) for x in (a[0], b[0]) for y in (a[1], b[1]) for z in (a[2], b[2])])[0]
                 new_key = tuple(v >> 4 for v in target)
@@ -238,14 +284,15 @@ class EditJob(object):
             return
         if not self.tool.startswith('stack_'):
             for pos in self.selection:
-                self._set(pos, AIR, False)
+                self._set(pos, AIR, False, whole=True)
                 yield None
         result = Selection()
         for pos in self.selection:
             value = self.source.get(pos)
-            validate(value)
+            value = transform_cell(value, self.tool, pos)
             target = self._target(pos, lo, ext)
-            self._set(target, value, False)
+            value = rebase_cell(value, tuple(target[i] - pos[i] for i in range(3)))
+            self._set(target, value, False, whole=True)
             result.add(target)
             self.processed += 1
             yield None
@@ -301,12 +348,19 @@ class EditJob(object):
                 raise ValueError(error)
             points = clip.get('selection', clip['blocks'])
             origin = clip.get('origin', (0, 0, 0))
+            relative_clip = 'selection' not in clip
             self.total = max(1, len(points))
             for pos in points:
                 value = clip['blocks'].get(pos, AIR)
                 if tool == 'paste' or value != AIR:
-                    target = tuple(pos[i]-origin[i]+work.start[i] for i in range(3))
-                    self._set(target, value, False)
+                    if relative_clip:
+                        source_pos = tuple(pos[i] + origin[i] for i in range(3))
+                        target = tuple(pos[i] + work.start[i] for i in range(3))
+                    else:
+                        source_pos = pos
+                        target = tuple(pos[i]-origin[i]+work.start[i] for i in range(3))
+                    value = rebase_cell(value, tuple(target[i] - source_pos[i] for i in range(3)))
+                    self._set(target, value, False, whole=True)
                 self.processed += 1
                 yield None
             self.result_selection = Selection.box(*paste_bounds(clip, work.start))
@@ -327,15 +381,18 @@ class EditJob(object):
                 'blocks': self.source.blocks.copy(), 'origin': lo, 'selection': self.selection.copy()}
             if tool == 'copy':
                 return
-            tool = 'erase'
+            for pos in self.selection:
+                self._set(pos, AIR, whole=True)
+                yield None
+            return
         if tool == 'flood':
             if work.start not in self.selection:
                 raise ValueError('填充起点不在选区内')
-            old = self.source.get(work.start)
+            old = self.source.get_layer(work.start, work.edit_layer)
             seen, pending = Selection([work.start]), deque([work.start])
             while pending:
                 pos = pending.popleft()
-                if work._writable(pos) and self.source.get(pos) == old:
+                if work._writable(pos) and self.source.get_layer(pos, work.edit_layer) == old:
                     self._set(pos, work.material)
                     for direction in DIRECTIONS:
                         target = add(pos, direction)
@@ -350,7 +407,7 @@ class EditJob(object):
                 for z in range(lo[2], hi[2] + 1):
                     changes = work._finish(tool, (x, lo[1], z), (x, hi[1], z))
                     for pos, value in changes.items():
-                        self._set(pos, value)
+                        self._set(pos, value, whole=True)
                     self.processed += hi[1] - lo[1] + 1
                     yield None
             return
@@ -433,6 +490,15 @@ class EditJob(object):
             changes = work._finish(tool, lo, hi)
         else:
             changes = work._edit(tool)
+        if tool == 'replace' and work.edit_layer == 0 and changes:
+            from .block_groups import paired_position
+            for pos in tuple(changes):
+                partner = paired_position(
+                    lambda target: foreground(self.source.get(target)) if self.source.contains(target) else None,
+                    pos,
+                )
+                if partner is not None and partner in self.selection:
+                    changes[partner] = changes[pos]
         # All changes in this batch are still part of the original selection.
         for pos, value in changes.items():
             self._set(pos, value)

@@ -137,7 +137,7 @@ class Session(object):
         if isinstance(data, dict):
             for entry in data.get('buildings', [])[:32]:
                 try:
-                    if entry['data'].get('version') == 3:
+                    if entry['data'].get('version') in (3, 5):
                         from .archive import validate
                         validate(entry['data'])
                     else:
@@ -149,7 +149,7 @@ class Session(object):
                     # when another configuration is saved or renamed.
                     saved = entry['data']
                     name = as_text(saved.get('name', ''))
-                    if (type(entry.get('id')) is int and saved.get('version') in (1, 2, 3)
+                    if (type(entry.get('id')) is int and saved.get('version') in (1, 2, 3, 4, 5)
                             and isinstance(name, type('')) and 1 <= len(name) <= 64):
                         saved['name'] = name
                         self.library.append(entry)
@@ -181,6 +181,8 @@ class Session(object):
         self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm', 'outline_style', 'projection_outline') else None)
 
     def set_editor(self, field, value):
+        if field == 'edit_layer' and (type(value) is not int or value not in (0, 1)):
+            raise ValueError('编辑图层必须为前景或背景')
         if field in MATERIAL_CHANNELS:
             value = material_value(value)
             self.describe_material(value)
@@ -593,7 +595,7 @@ class Session(object):
     def paint(self, x, z):
         pos = (x, self.editor.layer, z)
         if self.paint_mode == 'pick':
-            self.editor.material = self.editor.document.get(pos)
+            self.editor.material = self.editor.document.get_layer(pos, self.editor.edit_layer)
             self.editor.message = '已吸取当前格材质'
             self.emit()
         elif self.paint_mode in ('start', 'end'):
@@ -652,7 +654,7 @@ class Session(object):
             return target, '目标位置不可见，请先后退或显示该图层'
         if target[1] in e.locked_layers:
             return target, '目标图层已锁定'
-        if e.document.get(target) != AIR:
+        if e.document.get_layer(target, e.edit_layer) != AIR:
             return target, '放置位置已有方块，请使用换材质'
         if not e._writable(target, False) or e.material == AIR:
             return target, '放置条件不匹配，请检查材质与方块条件'
@@ -698,7 +700,7 @@ class Session(object):
         elif mode == 'pick':
             e.select_box(pos, pos)
             if e.document.get(pos) != AIR:
-                e.material = e.document.get(pos)
+                e.material = e.document.get_layer(pos, e.edit_layer)
                 e.message = '已吸取材质：' + e.material[0]
                 self.emit('materials')
         elif mode == 'select':
@@ -791,7 +793,7 @@ class Session(object):
             raise ValueError('找不到这份配置')
         data = entry['data']
         Document(data.get('size', ()))
-        if data.get('version') == 3:
+        if data.get('version') in (3, 5):
             from .archive import load_steps
             self._start_io(load_steps(self.bridge, identity, data), self._loaded, '正在载入建筑')
         elif data.get('version') == 2:
@@ -820,7 +822,7 @@ class Session(object):
         if not self.bridge.save_library({'version': 1, 'serial': self.library_serial, 'buildings': candidate}):
             raise ValueError('删除失败，原配置已保留')
         self.library = candidate
-        if previous and previous['data'].get('version') == 3:
+        if previous and previous['data'].get('version') in (3, 5):
             self.bridge.clear_archive(identity, previous['data']['parts'])
         self.editor.message = '已删除建筑配置'
 
