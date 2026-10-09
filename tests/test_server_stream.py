@@ -149,6 +149,47 @@ class ServerStreamTests(unittest.TestCase):
         self.assertEqual(stone, receiver.result.get((0, 0, 0)))
         self.assertEqual(1, len(receiver.result.blocks))
 
+    def test_client_palette_capture_upload_is_validated_without_server_reread(self):
+        self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
+        doc = Document((1,1,1), {(0,0,0):('minecraft:oak_stairs',0)})
+        for packet in packets(doc):
+            self.host.request({
+                '__id__':'player', 'request':31,
+                'action':'capture' if packet['seq'] == 0 else 'upload',
+                'source':'world_item', 'clientCapture':True,
+                'origin':(0,64,0), 'size':(1,1,1), 'stream':packet,
+            })
+        self.assertFalse(self.host.jobs)
+        self.assertFalse(self.host.uploads)
+        self.assertEqual([], self.writes)
+        self.assertEqual(0, self.allowed_checks)
+        self.assertTrue(self.replies[-1][2]['done'])
+        self.assertTrue(self.replies[-1][2]['clientCapture'])
+
+    def test_client_palette_capture_rejects_unselected_or_mismatched_region(self):
+        doc = Document((1,1,1), {(0,0,0):('minecraft:stone',0)})
+        self.host.world_regions['player'] = (0, (4,64,0), (1,1,1))
+        for packet in packets(doc):
+            self.host.request({
+                '__id__':'player', 'request':32,
+                'action':'capture' if packet['seq'] == 0 else 'upload',
+                'source':'world_item', 'clientCapture':True,
+                'origin':(0,64,0), 'size':(1,1,1), 'stream':packet,
+            })
+        self.assertIn('重新选择', self.replies[-1][2]['error'])
+        self.assertFalse(self.host.uploads)
+
+        self.host.world_regions.pop('player')
+        for packet in packets(doc):
+            self.host.request({
+                '__id__':'player', 'request':33,
+                'action':'capture' if packet['seq'] == 0 else 'upload',
+                'clientCapture':True, 'origin':(0,64,0),
+                'size':(2,1,1), 'stream':packet,
+            })
+        self.assertIn('尺寸不匹配', self.replies[-1][2]['error'])
+        self.assertFalse(self.host.uploads)
+
     def test_survey_wand_marks_two_authorized_corners_without_world_writes(self):
         self.host.world_points = {}
         sent = []

@@ -60,6 +60,9 @@ class ClientBridge(object):
         self.upload = None
         self.upload_sequence = None
         self.download = None
+        self.capture_serial = 0
+        self.capture_active = None
+        self.capture_dimension = None
         self.projection_serial = 0
         self.projection_entities = {}
         self.projection_work = None
@@ -302,7 +305,7 @@ class ClientBridge(object):
             raise ValueError('请先用投影测绘器选择两个角点')
         from .tool_items import selection
         origin, size = selection(*self.corners)
-        self.request('capture', {'origin': origin, 'size': size, 'source': 'world_item'})
+        self.capture_region(origin, size, source='world_item')
 
     def use_player_origin(self):
         self.session.origin = self.player_origin()
@@ -386,8 +389,8 @@ class ClientBridge(object):
         self.pending_state = (id(self.session.editor), self.session.editor.revision, tuple(self.session.origin))
         data = dict(data, action=action, request=self.request_id)
         self.session.busy = True
-        self.download = Receiver() if action == 'capture' else None
-        if action == 'capture':
+        self.download = Receiver() if action == 'capture' and not data.get('clientCapture') else None
+        if action == 'capture' and not data.get('clientCapture'):
             self.capture_activity = time.time()
             request = self.pending
             def watchdog():
@@ -421,8 +424,71 @@ class ClientBridge(object):
             raise ValueError('尚未设置世界选区，无法读取')
         lo, hi = bounds(self.corners)
         size = tuple(hi[i] - lo[i] + 1 for i in range(3))
-        Document(size)
-        self.request('capture', {'origin': lo, 'size': size})
+        self.capture_region(lo, size)
+
+    def capture_region(self, origin, size, source=None):
+        document = Document(size)
+        self.capture_serial += 1
+        serial = self.capture_serial
+        self.capture_active = serial
+        self.capture_dimension = self.factory.CreateGame(self.level).GetCurrentDimension()
+        self.session.busy = True
+        self.session.editor.message = '正在读取世界方块层与方块实体…'
+        self.session.emit()
+        block_component = self.factory.CreateBlock(self.level)
+        block_info = self.factory.CreateBlockInfo(self.level)
+        loaded_chunks = getattr(self.system, 'projection_loaded_chunks', None)
+        chunks = []
+        for cy in range((size[1] + 15) // 16):
+            for cx in range((size[0] + 15) // 16):
+                for cz in range((size[2] + 15) // 16):
+                    local = (cx * 16, cy * 16, cz * 16)
+                    chunk_size = tuple(min(16, size[i] - local[i]) for i in range(3))
+                    chunks.append((local, chunk_size))
+
+        def read_chunk(index=0):
+            if self.capture_active != serial:
+                return
+            if self.factory.CreateGame(self.level).GetCurrentDimension() != self.capture_dimension:
+                self.capture_active = None
+                self.capture_dimension = None
+                self.session.busy = False
+                self.session.editor.message = '维度已改变，已取消世界读取'
+                self.session.emit()
+                return
+            if index >= len(chunks):
+                self.capture_active = None
+                self.capture_dimension = None
+                self.request('capture', {
+                    'origin': origin, 'size': size, 'source': source,
+                    'clientCapture': True, 'document': document,
+                })
+                return
+            local, chunk_size = chunks[index]
+            low = tuple(origin[i] + local[i] for i in range(3))
+            high = tuple(low[i] + chunk_size[i] - 1 for i in range(3))
+            try:
+                from .world_capture import validate_loaded_chunk
+                validate_loaded_chunk(loaded_chunks, self.capture_dimension, low, high,
+                                      block_info.GetBlock)
+                palette = block_component.GetBlockPaletteBetweenPos(low, high, False)
+                if palette is None:
+                    raise ValueError('世界选区有未加载区块或无法读取的 palette，请靠近后重试')
+                from .world_capture import merge_palette
+                merge_palette(document, palette.SerializeBlockPalette(), local,
+                              chunk_size, origin)
+            except Exception as error:
+                self.capture_active = None
+                self.capture_dimension = None
+                self.session.busy = False
+                self.session.editor.message = str(error)
+                self.session.emit()
+                return
+            self.session.editor.message = '正在读取世界方块层与方块实体… %d/%d' % (index + 1, len(chunks))
+            self.session.emit()
+            self.next_frame(lambda: read_chunk(index + 1))
+
+        read_chunk()
 
     def check_progress(self):
         s = self.session
@@ -433,6 +499,12 @@ class ClientBridge(object):
         self.request('apply', {'origin': coordinate(s.origin), 'document': s.editor.document, 'includeAir': s.apply_air})
 
     def cancel_world(self):
+        if self.capture_active is not None:
+            self.capture_active = None
+            self.capture_dimension = None
+            self.session.busy = False
+            self.session.editor.message = '已取消世界读取'
+            self.session.emit()
         if self.pending is not None:
             self.upload = None
             self.system.NotifyToServer('ProjectionRequest', {'request': self.pending, 'action': 'cancel'})
@@ -499,7 +571,9 @@ class ClientBridge(object):
                 except (ValueError, TypeError, RuntimeError) as error:
                     s.editor.message = type('')(error)
         elif action == 'capture':
-            document = self.download.result if args.get('streamed') and self.download else Document.from_data(args['document'])
+            document = (sent['document'] if sent.get('clientCapture') else
+                        self.download.result if args.get('streamed') and self.download else
+                        Document.from_data(args['document']))
             self.download = None
             if document is None:
                 s.editor.message = '建筑传输不完整，请重新读取'
@@ -520,7 +594,7 @@ class ClientBridge(object):
             s.canvas_x = s.canvas_z = 0
             s.progress = None
             s.reset_camera(False)
-            s.editor.message = '已读取世界选区，方块实体内容不包含在草稿中'
+            s.editor.message = '已读取世界选区，包括方块状态、背景层和方块实体数据'
             s.refresh_preview()
         elif action == 'check':
             s.progress = args['progress']
@@ -706,7 +780,7 @@ class ClientBridge(object):
         if loaded is not None:
             dimension = self.factory.CreateGame(self.level).GetCurrentDimension()
             loaded.intersection_update(key for key in tuple(loaded) if key[0] == dimension)
-        if self.pending_data and self.pending_data[0] == 'capture':
+        if self.capture_active is not None or (self.pending_data and self.pending_data[0] == 'capture'):
             self.cancel_world()
         self.stop_projection()
         self.corners = [None, None]

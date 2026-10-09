@@ -45,18 +45,18 @@ class WorldJob(object):
         for unused in range(budget):
             if unused and time.time() >= deadline:
                 return
-            try:
-                pos, value = next(self.source)
-            except StopIteration:
+            item = next(self.source, None)
+            if item is None:
                 self.done = True
                 if self.failed:
                     self.error = '写入完成：%d 格成功，%d 格失败' % (
                         self.written, self.failed)
                 return
+            pos, value = item
             self.cursor += 1
             try:
                 result = self.adapter.write(pos, value, self.origin)
-            except (ValueError, TypeError, KeyError, RuntimeError, AttributeError) as error:
+            except Exception as error:
                 result = False
                 detail = '%s' % error
             else:

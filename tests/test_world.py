@@ -66,6 +66,23 @@ class WorldTests(unittest.TestCase):
         self.assertEqual((1, 0, 0), job.failures[0][0])
         self.assertEqual('setter failed', job.failures[0][1])
 
+    def test_unexpected_sdk_exception_is_recorded_and_later_cells_are_written(self):
+        world = World()
+        original = world.write
+
+        def write(pos, value, origin):
+            if pos == (1, 0, 0):
+                raise Exception('native setter fault')
+            return original(pos, value, origin)
+
+        world.write = write
+        doc = Document((3, 1, 1), {(i, 0, 0): STONE for i in range(3)})
+        job = WorldJob(world, doc, (0, 0, 0))
+        complete(job)
+        self.assertEqual((2, 1), (job.written, job.failed))
+        self.assertEqual(STONE, world.blocks[(2, 0, 0)])
+        self.assertEqual('native setter fault', job.failures[0][1])
+
     def test_cancel_stops_only_future_writes(self):
         world = World()
         doc = Document((3, 1, 1), {(i, 0, 0): STONE for i in range(3)})

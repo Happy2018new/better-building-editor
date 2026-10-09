@@ -6,6 +6,7 @@ from .projection.cell import actor_data, background, foreground, make_cell
 from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
+from .projection.nbt_spatial import rebase as rebase_actor
 from .projection.tool_items import SURVEY_WAND, TERMINAL, item_name, selection
 import time
 
@@ -73,27 +74,8 @@ class WorldAdapter(object):
         value = self.canonical(value)
         actor = actor_data(value)
         if actor is not None:
-            actor = self._move_actor(actor, offset)
+            actor = rebase_actor(actor, offset)
         return make_cell(foreground(value), background(value), actor)
-
-    @staticmethod
-    def _move_actor(actor, offset):
-        if not isinstance(actor, dict):
-            return actor
-        result = dict(actor)
-        for axis, delta in (('x', offset[0]), ('y', offset[1]),
-                            ('z', offset[2]), ('pairx', offset[0]),
-                            ('pairz', offset[2])):
-            key = axis if axis in result else axis.encode('ascii')
-            field = result.get(key)
-            if isinstance(field, dict) and ('__value__' in field or b'__value__' in field):
-                adjusted = dict(field)
-                value_key = '__value__' if '__value__' in adjusted else b'__value__'
-                adjusted[value_key] += delta
-                result[key] = adjusted
-            elif isinstance(field, (int, float)) and type(field) is not bool:
-                result[key] = field + delta
-        return result
 
     @staticmethod
     def _native_tree(value):
@@ -158,7 +140,7 @@ class WorldAdapter(object):
             return False
         raw_actor = actor_data(value)
         if raw_actor is not None:
-            world_actor = self._move_actor(raw_actor, origin)
+            world_actor = rebase_actor(raw_actor, origin)
             return self.info.SetBlockEntityData(
                 self.dimension, pos, self._native_tree(world_actor))
         return True
@@ -340,7 +322,7 @@ class ModernProjectionServerSystem(ServerSystem):
         if args.get('action') == 'upload' or args.get('stream') is not None:
             try:
                 if args.get('action') != 'upload':
-                    if player in self.jobs or player in self.uploads or args.get('action') not in ('apply', 'check'):
+                    if player in self.jobs or player in self.uploads or args.get('action') not in ('apply', 'check', 'capture'):
                         raise ValueError('已有世界操作正在进行')
                     adapter = WorldAdapter(player)
                     if args['action'] == 'apply' and not adapter.allowed():
@@ -396,8 +378,19 @@ class ModernProjectionServerSystem(ServerSystem):
                 origin = coordinate(args.get('origin'))
                 if action != 'capture' and transferred is None:
                     raise ValueError('请使用完整的建筑分包传输')
-                doc = Document(tuple(args.get('size', ()))) if action == 'capture' else transferred
+                if action == 'capture' and args.get('clientCapture') is True:
+                    if transferred is None:
+                        raise ValueError('客户端世界读取缺少完整建筑数据')
+                    declared_size = tuple(args.get('size', ()))
+                    if declared_size != transferred.size:
+                        raise ValueError('客户端世界读取尺寸不匹配')
+                    doc = transferred
+                else:
+                    doc = Document(tuple(args.get('size', ()))) if action == 'capture' else transferred
                 self.validate_target(adapter, origin, doc)
+                if action == 'capture' and args.get('clientCapture') is True:
+                    self.reply(player, request, done=True, clientCapture=True)
+                    return
                 if action == 'apply':
                     job = WorldJob(adapter, doc, origin, include_air=args.get('includeAir') is True)
                 else:

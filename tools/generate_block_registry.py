@@ -56,7 +56,7 @@ def generate(source, source_version=None, check=False):
     generated = '\n'.join(lines)
     manifest_path = ROOT/'tools/data/block_registry_manifest.json'
     previous_manifest = json.loads(manifest_path.read_text(encoding='ascii')) if manifest_path.exists() else {}
-    if (previous_manifest.get('source_sha256') == source_sha and
+    if (previous_manifest.get('source_sha256', '').lower() == source_sha and
             previous_manifest.get('game_version') == source_version):
         exported_at = previous_manifest['source_exported_at_utc']
     else:
