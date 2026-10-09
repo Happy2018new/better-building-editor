@@ -51,7 +51,7 @@ def prepare_palette(source):
                 record = states(value) if record is None else record
             else:
                 record = states(value)
-            if record is not None:
+            if record is not None and (proxy is None or record):
                 records[value] = record
         for positions in entries.values():
             positions.sort()

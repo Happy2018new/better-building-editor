@@ -346,6 +346,27 @@ class CompleteCellTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             close_group_selection(malformed, [(0, 1, 0)], strict=True)
 
+    def test_large_job_fill_and_replace_keep_door_and_plant_pairs(self):
+        from projection.block_groups import group_partner
+
+        for base in (('minecraft:wooden_door', 0),
+                     ('minecraft:tall_grass', 0)):
+            with self.subTest(base=base):
+                editor = Editor(Document((64, 128, 64)))
+                offset, reciprocal = group_partner(base)
+                pos = (4, 4, 4)
+                partner = tuple(pos[i] + offset[i] for i in range(3))
+                editor.select_box(pos, partner)
+                editor.material = base
+                self.assertEqual(2, editor.run('fill'))
+                self.assertEqual(base, editor.document.get(pos))
+                self.assertEqual(reciprocal, editor.document.get(partner))
+                editor.source = base
+                editor.material = STONE
+                self.assertEqual(2, editor.run('replace'))
+                self.assertEqual(STONE, editor.document.get(pos))
+                self.assertEqual(STONE, editor.document.get(partner))
+
     def test_rich_and_legacy_share_versions_cannot_be_mislabeled(self):
         rich = finish(encode_steps(Document((1, 1, 1), {
             (0, 0, 0): make_cell(STONE, GLASS, {'id': 'Chest'})})))['text']
