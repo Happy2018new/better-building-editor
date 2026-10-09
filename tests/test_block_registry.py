@@ -19,14 +19,18 @@ class BlockRegistryTests(unittest.TestCase):
                 self.assertIsInstance(states,dict)
                 self.assertTrue(all(type(v) in (str,int,bool) for v in states.values()))
                 count+=1
-        self.assertEqual(15839,count)
-        self.assertEqual(1321,len(registry.BLOCKS))
+        self.assertEqual(registry.RECORD_COUNT,count)
 
     def test_source_file_matches_every_name_aux_and_typed_state(self):
-        path=Path('C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/logs/block_palette.json')
-        if not path.exists():self.skipTest('Native source export is external; shipped coverage is tested separately')
+        root=Path(__file__).resolve().parents[1]
+        manifest=json.loads((root/'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
+        path=root/manifest['source_file']
         raw=path.read_bytes()
         self.assertEqual(registry.SOURCE_SHA256,hashlib.sha256(raw).hexdigest())
+        self.assertEqual(manifest['game_version'],registry.source_version())
+        self.assertEqual(registry.SOURCE_SHA256.upper(),manifest['source_sha256'])
+        self.assertEqual(registry.RECORD_COUNT,manifest['record_count'])
+        self.assertEqual(len(registry.BLOCKS),manifest['name_count'])
         for row in json.loads(raw)['blocks']:
             expected={s['name']:bool(s['value']) if s['type']=='byte' else s['value'] for s in row['states']}
             actual=registry.states((row['name'],row['data']))
@@ -55,6 +59,7 @@ class BlockRegistryTests(unittest.TestCase):
     def test_catalogue_and_aux_steps_only_offer_native_values(self):
         catalogue=registry.catalogue_values()
         self.assertEqual(1321,len(catalogue))
+        self.assertNotIn(('modern_projection:preview_oak_leaves',0),catalogue)
         self.assertNotIn(('minecraft:stained_glass',9),catalogue)
         self.assertIn(('minecraft:cyan_stained_glass',0),catalogue)
         self.assertEqual(('minecraft:oak_log',2),registry.next_aux(('minecraft:oak_log',1),1))
