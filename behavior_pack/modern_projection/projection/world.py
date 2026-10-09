@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Bounded world jobs. Preflight every cell; preserve a recovery journal on failure."""
+"""Bounded world jobs that continue after individual cell write failures."""
 from __future__ import unicode_literals
-from .model import AIR, Document, add, block
-from .journal import Journal
+from .model import Document, add
 import time
 
 
@@ -15,153 +14,62 @@ def coordinate(value):
 
 
 class WorldJob(object):
-    """Adapter implements read / write / protected / valid / allowed, for one dimension."""
+    """Adapter implements write for one dimension."""
     def __init__(self, adapter, document, origin, include_air=False):
         self.adapter = adapter
         self.origin = coordinate(origin)
         self.document = document
-        self.source = (
-            (add(self.origin, p), None, document.get(p)) for p in
-            (document.points() if include_air else document.blocks))
-        self.next_source = None
-        self.phase = 'preflight'
+        points = document.points() if include_air else iter(document.blocks)
+        self.source = ((add(self.origin, pos), document.get(pos)) for pos in points)
+        self.total = document.volume if include_air else len(document.blocks)
         self.cursor = 0
-        self.plan = Journal()
-        self.journal = Journal()
-        self.recovery = Journal()
+        self.written = 0
+        self.failed = 0
+        self.failures = []
         self.error = ''
+        self.cancelled = False
         self.done = False
 
-    def _canonical(self, value):
-        """Compare engine block identities, not legacy aliases or raw aux values."""
-        if value is None:
-            return None
-        canonical = getattr(self.adapter, 'canonical', None)
-        if callable(canonical):
-            try:
-                return canonical(value)
-            except (ValueError, TypeError):
-                # Keep custom/future block IDs comparable when the adapter has
-                # no registry entry for them.
-                pass
-        return value
-
-    def fail(self, message):
-        self.error = message
-        self.phase = 'rollback'
-        self.cursor = len(self.journal) - 1
+    def cancel(self, message='操作已取消'):
+        if self.done:
+            return
+        self.cancelled = True
+        self.done = True
+        self.error = '%s：已写入 %d 格，%d 格失败，停止后续写入' % (
+            message, self.written, self.failed)
 
     def step(self, budget=2048):
         if self.done:
             return
-        try:
-            # Server callbacks cannot interleave this synchronous batch. Check
-            # once per bounded step, not three engine APIs for every cell.
-            if self.phase in ('preflight', 'write') and not self.adapter.allowed():
-                if self.phase == 'preflight':
-                    self.error, self.done = '世界写入需要创造模式、操作员和建造权限', True
-                else:
-                    self.fail('权限发生变化，正在恢复本次修改')
-                return
-            self._step(budget)
-        except (ValueError, TypeError, KeyError, RuntimeError, AttributeError) as error:
-            message = '世界接口异常：%s' % error
-            if self.phase == 'rollback':
-                self.error += '；部分方块未能恢复，请检查目标范围'
-                self.done = True
-            elif self.journal:
-                self.fail(message)
-            else:
-                self.error, self.done = message, True
-
-    def _step(self, budget):
         deadline = time.time() + .006
         for unused in range(budget):
             if unused and time.time() >= deadline:
                 return
-            if self.phase == 'preflight':
-                if self.next_source is None:
-                    try:
-                        self.next_source = next(self.source)
-                    except StopIteration:
-                        self.phase, self.cursor = 'write', 0
-                        continue
-                pos, before, after = self.next_source
-                current = self.adapter.read(pos)
-                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
-                    return
-                desired = after
-                current = self._canonical(current)
-                desired = self._canonical(desired)
-                if current is None:
-                    self.error, self.done = '区域尚未加载，请靠近后重试；未写入方块', True
-                    return
-                if current != desired:
-                    if self.adapter.protected(pos, current) or not self.adapter.valid(desired):
-                        self.error, self.done = '目标含受保护方块实体，或材质无效；未写入方块', True
-                        return
-                    self.plan.append((pos, current, desired))
-                self.cursor += 1
-                self.next_source = None
-            elif self.phase == 'write':
-                if self.cursor == len(self.plan):
-                    self.done = True
-                    return
-                pos, before, after = self.plan[self.cursor]
-                current = self.adapter.read(pos)
-                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
-                    return
-                current = self._canonical(current)
-                if current is None:
-                    self.fail('区域尚未加载，正在回滚本次写入')
-                    continue
-                if current == after:
-                    self.cursor += 1
-                    continue
-                if self.adapter.protected(pos, current):
-                    self.fail('目标含受保护方块实体，正在回滚本次写入')
-                    continue
-                # Applying a draft replaces the current permitted contents.
-                # Earlier writes can update leaves or remove linked blocks even
-                # with updateNeighbors=False. A preflight snapshot is therefore
-                # stale; journal the value immediately before this write.
-                before = current
-                try:
-                    changed = self.adapter.write(pos, after)
-                    actual = self.adapter.read(pos)
-                except (ValueError, TypeError, KeyError, RuntimeError, AttributeError):
-                    # A setter can succeed before readback fails. Include this
-                    # cell in recovery rather than losing its original value.
-                    self.journal.append((pos, before, after))
-                    raise
-                actual = self._canonical(actual)
-                after = self._canonical(after)
-                if actual is None:
-                    self.journal.append((pos, before, after))
-                elif actual != before:
-                    self.journal.append((pos, before, actual))
-                if not changed or actual != after:
-                    self.fail('方块写入失败，已尝试恢复本次修改')
-                    continue
-                self.cursor += 1
+            try:
+                pos, value = next(self.source)
+            except StopIteration:
+                self.done = True
+                if self.failed:
+                    self.error = '写入完成：%d 格成功，%d 格失败' % (
+                        self.written, self.failed)
+                return
+            self.cursor += 1
+            try:
+                result = self.adapter.write(pos, value, self.origin)
+            except (ValueError, TypeError, KeyError, RuntimeError, AttributeError) as error:
+                result = False
+                detail = '%s' % error
             else:
-                if self.cursor < 0:
-                    self.journal = self.recovery
-                    if self.recovery:
-                        self.error += '；仍有 %d 格未能恢复，请检查目标范围' % len(self.recovery)
-                    self.done = True
-                    return
-                pos, before, after = self.journal[self.cursor]
-                current = self.adapter.read(pos)
-                if current is None and hasattr(self.adapter, 'ensure') and self.adapter.ensure(pos) is None:
-                    return
-                current = self._canonical(current)
-                after = self._canonical(after)
-                before = self._canonical(before)
-                if current == after and not self.adapter.protected(pos, current):
-                    self.adapter.write(pos, before)
-                    if self._canonical(self.adapter.read(pos)) != before:
-                        self.recovery.append((pos, before, after))
-                elif current is None:
-                    self.recovery.append((pos, before, after))
-                self.cursor -= 1
+                detail = '写入接口返回失败'
+            if not result:
+                self.failed += 1
+                if len(self.failures) < 32:
+                    self.failures.append((pos, detail))
+                continue
+            self.written += 1
+
+        if self.cursor >= self.total:
+            self.done = True
+            if self.failed:
+                self.error = '写入完成：%d 格成功，%d 格失败' % (
+                    self.written, self.failed)

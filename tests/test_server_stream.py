@@ -12,6 +12,13 @@ sys.modules['mod.server.extraServerApi'].GetServerSystemCls = lambda: object
 from modern_projection import server_system as server
 from modern_projection.projection.model import Document, AIR
 from modern_projection.projection.transfer import packets, Receiver
+from modern_projection.projection.cell import make_cell
+
+
+class Palette(object):
+    def DeserializeBlockPalette(self, data):
+        self.data = data
+        return True
 
 
 class ServerStreamTests(unittest.TestCase):
@@ -33,6 +40,11 @@ class ServerStreamTests(unittest.TestCase):
         self.abilities = dict(op=True, build=True, mine=True)
         self.blocks = {}
         self.writes = []
+        self.palette_writes = []
+        self.actor_writes = []
+        self.allowed_checks = 0
+        self.liquids = {}
+        self.actors = {}
         self.factory = types.SimpleNamespace(
             CreateGame=lambda level: types.SimpleNamespace(GetPlayerGameType=lambda player: 1 if self.creative else 0),
             CreateDimension=lambda player: types.SimpleNamespace(GetEntityDimensionId=lambda: self.dimension),
@@ -41,7 +53,11 @@ class ServerStreamTests(unittest.TestCase):
             CreateBlockInfo=lambda level: types.SimpleNamespace(
                 GetBlockNew=lambda pos, dim: dict(zip(('name','aux'),self.blocks.get(pos,AIR))),
                 GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=lambda dim,pos: None,
-                SetBlockNew=self.write),
+                GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
+                SetBlockEntityData=self.set_actor, SetBlockNew=self.write),
+            CreateBlock=lambda level: types.SimpleNamespace(
+                GetBlankBlockPalette=Palette,
+                SetBlockByBlockPalette=self.write_palette),
             CreateItem=lambda level: types.SimpleNamespace(GetItemInfoByBlockName=lambda n,a: {},
                 GetPlayerItem=lambda kind,slot: {'newItemName':'minecraft:stick'}))
         for name,value in [('GetPlayerList',lambda:['real_player','player']), ('GetLevelId',lambda:'level'),
@@ -50,10 +66,29 @@ class ServerStreamTests(unittest.TestCase):
                                ItemPosType=types.SimpleNamespace(CARRIED=1)))]:
             p = patch.object(server.serverApi,name,value,create=True)
             p.start(); self.addCleanup(p.stop)
+        original_allowed = server.WorldAdapter.allowed
+        def count_allowed(adapter):
+            self.allowed_checks += 1
+            return original_allowed(adapter)
+        p = patch.object(server.WorldAdapter, 'allowed', count_allowed)
+        p.start(); self.addCleanup(p.stop)
 
     def write(self, pos, data, *unused):
         self.blocks[pos]=(data['name'].decode('utf8'),data['aux'])
         self.writes.append(pos)
+        return True
+
+    def write_palette(self, palette, dimension, pos, rotation, conflict):
+        self.palette_writes.append((palette.data, dimension, pos, rotation, conflict))
+        (name, aux), unused_positions = next(iter(palette.data['common'].items()))
+        if isinstance(name, bytes):
+            name = name.decode('utf8')
+        self.blocks[pos] = (name, aux)
+        self.writes.append(pos)
+        return True
+
+    def set_actor(self, dimension, pos, actor):
+        self.actor_writes.append((dimension, pos, actor))
         return True
 
     def test_staff_state_snapshot_uses_server_equipment(self):
@@ -100,7 +135,9 @@ class ServerStreamTests(unittest.TestCase):
 
     def test_capture_yields_packets_then_publishes_one_complete_document(self):
         stone = ('minecraft:stone', 0)
-        adapter = types.SimpleNamespace(read=lambda p: stone if p == (0, 0, 0) else AIR)
+        adapter = types.SimpleNamespace(
+            read=lambda p: stone if p == (0, 0, 0) else AIR,
+            rebase=lambda value, offset: value)
         doc = Document((17, 16, 16))
         for unused in self.host.read_job('player', 7, 'capture', adapter, doc, (0, 0, 0)):
             pass
@@ -202,7 +239,7 @@ class ServerStreamTests(unittest.TestCase):
         self.assertEqual('test read error', self.replies[-1][2]['error'])
 
     def test_server_authorizes_creative_operator_build_and_mine_before_upload(self):
-        first=next(packets(Document((1,1,1))))
+        first=next(packets(Document((1,1,1), {(0,0,0):('minecraft:stone',0)})))
         args={'__id__':'player','request':1,'action':'apply','origin':(0,64,0),'stream':first,
               'isCreative':True,'isOperator':True,'player':'real_player'}
         for missing in ('op','build','mine'):
@@ -224,18 +261,38 @@ class ServerStreamTests(unittest.TestCase):
         self.assertEqual(('minecraft:stone',0),self.blocks[(0,64,0)])
         self.assertIn('未知',self.replies[-1][2]['error'])
 
-    def test_revocation_during_upload_or_before_first_write_prevents_changes(self):
-        first=next(packets(Document((1,1,1))))
-        self.host.request({'__id__':'player','request':1,'action':'apply','origin':(0,64,0),'stream':first})
+    def test_cancel_running_apply_keeps_written_prefix_and_stops_future_cells(self):
+        doc = Document((3,1,1), {(i,0,0):('minecraft:stone',0) for i in range(3)})
+        self.send(doc=doc)
+        job = self.host.jobs['player'][2]
+        original_step = job.step
+        job.step = lambda budget=2048: original_step(1)
+        self.host.tick()
+        self.assertEqual([(0,64,0)], self.writes)
+        self.host.request({'__id__':'player','request':1,'action':'cancel'})
+        self.host.tick()
+        self.assertEqual([(0,64,0)], self.writes)
+        self.assertNotIn('player', self.host.jobs)
+        self.assertEqual({'total':3,'processed':1,'written':1,'failed':0},
+                         self.replies[-1][2]['progress'])
+
+    def test_permission_is_checked_once_at_upload_start(self):
+        stream=list(packets(Document((1,1,1), {(0,0,0):('minecraft:stone',0)})))
+        self.host.request({'__id__':'player','request':1,'action':'apply','origin':(0,64,0),'stream':stream[0]})
+        self.assertEqual(1, self.allowed_checks)
         self.abilities['op']=False
-        self.host.request({'__id__':'player','request':1,'action':'upload','stream':{'seq':1,'kind':'end'}})
+        for packet in stream[1:]:
+            self.host.request({'__id__':'player','request':1,'action':'upload','stream':packet})
         self.assertFalse(self.host.uploads)
-        self.assertFalse(self.host.jobs)
-        self.abilities['op']=True
-        self.send(identity=2)
-        self.abilities['build']=False
         self.finish()
-        self.assertFalse(self.writes)
+        self.assertEqual(1, self.allowed_checks)
+        self.assertEqual([(0,64,0)], self.writes)
+
+        self.abilities['build']=False
+        self.host.request({'__id__':'player','request':2,'action':'apply','origin':(0,64,0),'stream':stream[0]})
+        self.assertFalse(self.host.uploads)
+        self.assertEqual(2, self.allowed_checks)
+        self.assertEqual(1, len(self.writes))
 
     def test_wrong_request_cannot_cancel_or_evict_another_upload(self):
         first=next(packets(Document((1,1,1))))
@@ -275,7 +332,7 @@ class ServerStreamTests(unittest.TestCase):
         self.assertFalse(self.host.jobs)
         self.assertTrue(self.replies[-1][2]['error'])
 
-    def test_legacy_ids_preserve_axis_and_leaves_without_changing_dropped_item_blocks(self):
+    def test_legacy_ids_preserve_axis_and_palette_complete_layers(self):
         aliases = {'log': ('log','spruce_log'), 'log2': ('log2','acacia_log'),
                    'leaves': ('oak_leaves','oak_leaves'), 'planks': ('planks','birch_planks'),
                    'grass': ('grass_block','grass_block'), 'stonebrick': ('stone_bricks','stone_bricks'),
@@ -298,26 +355,66 @@ class ServerStreamTests(unittest.TestCase):
                                     ('grass',0,'grass_block',0),('stonebrick',0,'stone_bricks',0),
                                     ('oak_stairs',2,'oak_stairs',2),('lit_redstone_lamp',0,'lit_redstone_lamp',0)]:
             self.assertEqual(('minecraft:'+new,result),adapter.canonical(('minecraft:'+old,data)))
-        calls=[]
-        state_calls=[]
-        self.factory.CreateBlockState=lambda level: types.SimpleNamespace(
-            SetBlockStates=lambda *args: state_calls.append(args) or True)
-        adapter.info.SetBlockNew=lambda *args: calls.append(args) or True
         adapter.write((0,64,0),('minecraft:spruce_log',1))
-        self.assertEqual((True,False),calls[0][-2:])
-        self.assertEqual(0,calls[0][1]['aux'])
-        self.assertEqual({b'pillar_axis':b'x'},state_calls[0][1])
-        adapter.write((0,64,0),('minecraft:quartz_block',1))
-        self.assertEqual({b'pillar_axis':b'x'},state_calls[1][1])
+        data = self.palette_writes[-1][0]
+        self.assertEqual((1,1,1),data['volume'])
+        self.assertEqual({(b'minecraft:spruce_log',0):[0]},data['common'])
+        self.assertEqual({(b'minecraft:spruce_log',0):{b'pillar_axis':b'x'}},data['states'])
+        adapter.write((0,64,0),make_cell(('minecraft:oak_stairs',0),('minecraft:water',0)))
+        data = self.palette_writes[-1][0]
+        self.assertEqual({(b'minecraft:water',0):[0]},data['extra'])
+        self.assertIn((b'minecraft:oak_stairs',0),data['states'])
+        self.assertFalse(data['eliminateAir'])
 
-    def test_apply_over_existing_block_accepts_equivalent_native_aliases(self):
+    def test_capture_reads_liquid_background_and_typed_actor_data(self):
+        from modern_projection.projection.cell import background, actor_data
+        front = {'name':'minecraft:oak_stairs', 'aux':0}
+        self.blocks[(1,64,2)] = ('minecraft:oak_stairs',0)
+        self.liquids[(1,64,2)] = {'name':'minecraft:water', 'aux':0}
+        typed_actor = {'x': {'__type__':3, '__value__':1},
+                       'y': {'__type__':3, '__value__':64},
+                       'z': {'__type__':3, '__value__':2},
+                       b'pairx': {'__type__':3, '__value__':9},
+                       b'pairz': {'__type__':3, '__value__':10}}
+        self.actors[(1,64,2)] = typed_actor
+        self.factory.CreateBlockInfo = lambda level: types.SimpleNamespace(
+            GetBlockNew=lambda pos, dim: front if pos == (1,64,2) else {'name':'minecraft:air','aux':0},
+            GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
+            GetBlockEntityData=lambda dim,pos: self.actors.get(pos),
+            GetBlockBasicInfo=lambda name: {'name':name}, SetBlockNew=self.write,
+            SetBlockEntityData=self.set_actor)
+        adapter = server.WorldAdapter('player')
+        cell = adapter.read((1,64,2))
+        self.assertEqual(('minecraft:water',0), background(cell))
+        self.assertEqual(typed_actor, actor_data(cell))
+        local = adapter.rebase(cell, (-1,-64,-2))
+        self.assertEqual(0, actor_data(local)['x']['__value__'])
+        self.assertEqual(0, actor_data(local)['y']['__value__'])
+        self.assertEqual(0, actor_data(local)['z']['__value__'])
+        self.assertEqual(8, actor_data(local)[b'pairx']['__value__'])
+        self.assertEqual(8, actor_data(local)[b'pairz']['__value__'])
+
+    def test_actor_nbt_is_written_after_palette_with_rebased_coordinates(self):
+        actor = {'id': {'__type__':8, '__value__':'Chest'},
+                 'x': {'__type__':3, '__value__':0},
+                 'y': {'__type__':3, '__value__':0},
+                 'z': {'__type__':3, '__value__':0}}
+        adapter = server.WorldAdapter('player')
+        cell = make_cell(('minecraft:chest',0), AIR, actor)
+        self.assertTrue(adapter.write((8,70,9), cell, (8,70,9)))
+        self.assertEqual((0,(8,70,9)), self.actor_writes[-1][:2])
+        actor = self.actor_writes[-1][2]
+        self.assertEqual(b'Chest', actor[b'id'][b'__value__'])
+        self.assertEqual(8, actor[b'x'][b'__value__'])
+        self.assertEqual(70, actor[b'y'][b'__value__'])
+        self.assertEqual(9, actor[b'z'][b'__value__'])
+
+    def test_apply_writes_palette_without_reading_target_cells(self):
         pos = (0,64,0)
         self.blocks[pos] = ('minecraft:grass',0)
-        reads = [0]
+        reads = []
         def read(pos, dim):
-            reads[0] += 1
-            if pos == (0,64,0) and reads[0] == 2:
-                return {'name':'minecraft:grass_block','aux':0}
+            reads.append(pos)
             name, aux = self.blocks.get(pos, AIR)
             return {'name':name,'aux':aux}
         self.factory.CreateBlockInfo = lambda level: types.SimpleNamespace(
@@ -328,6 +425,7 @@ class ServerStreamTests(unittest.TestCase):
         self.assertFalse(self.replies[-1][2].get('error'))
         self.assertEqual(('minecraft:stone',0), self.blocks[pos])
         self.assertEqual([pos], self.writes)
+        self.assertEqual([], reads)
 
 
 if __name__ == '__main__':

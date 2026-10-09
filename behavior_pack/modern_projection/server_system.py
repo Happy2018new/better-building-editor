@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import mod.server.extraServerApi as serverApi
 from .projection.model import AIR, Document, add, block
+from .projection.cell import actor_data, background, foreground, make_cell
 from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
@@ -27,9 +28,9 @@ class WorldAdapter(object):
         self.level = serverApi.GetLevelId()
         self.dimension = self.factory.CreateDimension(player).GetEntityDimensionId()
         self.info = self.factory.CreateBlockInfo(self.level)
+        self.palette_block = self.factory.CreateBlock(self.level)
         self.validity = {}
         self.canonical_values = {}
-        self.state_values = {}
         self.loading = {}
 
     def ensure(self, pos):
@@ -63,35 +64,103 @@ class WorldAdapter(object):
     def canonical(self, value):
         """Use the same authoritative state identity as the client renderer."""
         if value not in self.canonical_values:
-            self.canonical_values[value] = registry_canonical(value)
+            front = registry_canonical(foreground(value))
+            back = registry_canonical(background(value))
+            self.canonical_values[value] = make_cell(front, back, actor_data(value))
         return self.canonical_values[value]
+
+    def rebase(self, value, offset):
+        value = self.canonical(value)
+        actor = actor_data(value)
+        if actor is not None:
+            actor = self._move_actor(actor, offset)
+        return make_cell(foreground(value), background(value), actor)
+
+    @staticmethod
+    def _move_actor(actor, offset):
+        if not isinstance(actor, dict):
+            return actor
+        result = dict(actor)
+        for axis, delta in (('x', offset[0]), ('y', offset[1]),
+                            ('z', offset[2]), ('pairx', offset[0]),
+                            ('pairz', offset[2])):
+            key = axis if axis in result else axis.encode('ascii')
+            field = result.get(key)
+            if isinstance(field, dict) and ('__value__' in field or b'__value__' in field):
+                adjusted = dict(field)
+                value_key = '__value__' if '__value__' in adjusted else b'__value__'
+                adjusted[value_key] += delta
+                result[key] = adjusted
+            elif isinstance(field, (int, float)) and type(field) is not bool:
+                result[key] = field + delta
+        return result
+
+    @staticmethod
+    def _native_tree(value):
+        if isinstance(value, text_type):
+            return value.encode('utf8')
+        if isinstance(value, list):
+            return [WorldAdapter._native_tree(item) for item in value]
+        if isinstance(value, tuple):
+            return tuple(WorldAdapter._native_tree(item) for item in value)
+        if isinstance(value, dict):
+            return dict((WorldAdapter._native_tree(key), WorldAdapter._native_tree(item))
+                        for key, item in value.items())
+        return value
+
+    def _palette_layer(self, value):
+        value = registry_canonical(value)
+        record = registry_states(value)
+        key = (value[0].encode('utf8'), 0 if record is not None else value[1])
+        if record is not None:
+            record = dict((name.encode('utf8'), self._native_tree(item))
+                          for name, item in record.items())
+        return key, record
 
     def read(self, pos):
         data = self.info.GetBlockNew(pos, self.dimension)
         if not data or not data.get('name') or data['name'] == 'minecraft:unknown':
             return None
-        return block((data['name'], data.get('aux', 0)))
+        front = block((data['name'], data.get('aux', 0)))
+        liquid = self.info.GetLiquidBlock(pos, self.dimension)
+        back = AIR
+        if liquid and liquid.get('name') and liquid['name'] != 'minecraft:air':
+            back = block((liquid['name'], liquid.get('aux', 0)))
+        actor = self.info.GetBlockEntityData(self.dimension, pos)
+        return make_cell(front, back, actor)
 
-    def write(self, pos, value):
+    def write(self, pos, value, origin=(0, 0, 0)):
         value = self.canonical(value)
-        name = value[0].encode('utf8')
-        if value not in self.state_values:
-            record = registry_states(value)
-            self.state_values[value] = (None if record is None else dict(
-                (key.encode('utf8'), item.encode('utf8') if isinstance(item,text_type) else item)
-                for key,item in record.items()))
-        record = self.state_values[value]
-        # SetBlockNew can interpret modern aux as old species (quartz:1 becomes
-        # chiseled quartz). Create the name's default, then apply exact states.
-        # Custom blocks retain their own SDK aux convention. Zero is already
-        # the default state, avoiding a second setter for common bulk fills.
-        aux = value[1] if record is None else 0
-        if not self.info.SetBlockNew(pos, {'name': name, 'aux': aux}, 0, self.dimension, True, False):
-            # Native reports False for an unchanged default block as well.
-            if self.read(pos) != (value[0], aux):
-                return False
-        if record and value[1] != 0:
-            return self.factory.CreateBlockState(self.level).SetBlockStates(pos, record, self.dimension)
+        front, back = foreground(value), background(value)
+        common_key, common_states = self._palette_layer(front)
+        extra, extra_states = {}, {}
+        states = {} if common_states is None else {common_key: common_states}
+        if back != AIR:
+            extra_key, record = self._palette_layer(back)
+            extra[extra_key] = [0]
+            if record is not None:
+                extra_states[extra_key] = record
+        data = {
+            'volume': (1, 1, 1),
+            'common': {common_key: [0]},
+            'states': states,
+            'extra': extra,
+            'extraStates': extra_states,
+            'actor': {},
+            'void': False,
+            'eliminateAir': False,
+        }
+        palette = self.palette_block.GetBlankBlockPalette()
+        if palette is None or not palette.DeserializeBlockPalette(data):
+            return False
+        if not self.palette_block.SetBlockByBlockPalette(
+                palette, self.dimension, pos, 0, 0):
+            return False
+        raw_actor = actor_data(value)
+        if raw_actor is not None:
+            world_actor = self._move_actor(raw_actor, origin)
+            return self.info.SetBlockEntityData(
+                self.dimension, pos, self._native_tree(world_actor))
         return True
 
     def protected(self, pos, value):
@@ -256,7 +325,12 @@ class ModernProjectionServerSystem(ServerSystem):
             entry = self.jobs.get(player)
             if entry and entry[0] == request:
                 if isinstance(entry[2], WorldJob):
-                    entry[2].fail('操作已取消，正在恢复本次修改')
+                    job = entry[2]
+                    job.cancel()
+                    self.jobs.pop(player, None)
+                    self.reply(player, request, done=True, error=job.error,
+                               progress={'total': job.total, 'processed': job.cursor,
+                                         'written': job.written, 'failed': job.failed})
                 else:
                     self.jobs.pop(player, None)
                     self.reply(player, request, done=True, error='世界读取已取消')
@@ -283,9 +357,8 @@ class ModernProjectionServerSystem(ServerSystem):
                 if entry is None or entry[0] != request:
                     raise ValueError('建筑上传请求已失效')
                 unused, initial, receiver, unused_time, adapter = entry
-                if (adapter.factory.CreateDimension(player).GetEntityDimensionId() != adapter.dimension or
-                        (initial['action'] == 'apply' and not adapter.allowed())):
-                    raise ValueError('传输期间权限或维度已改变，请重试')
+                if adapter.factory.CreateDimension(player).GetEntityDimensionId() != adapter.dimension:
+                    raise ValueError('传输期间维度已改变，请重试')
                 packet = args.get('stream')
                 result = receiver.feed(packet)
                 self.uploads[player] = (request, initial, receiver, time.time(), adapter)
@@ -312,7 +385,7 @@ class ModernProjectionServerSystem(ServerSystem):
                 region = self.world_regions.get(player)
                 if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
                     raise ValueError('世界选区已改变，请重新选择两个角点')
-            if action == 'apply' and not adapter.allowed():
+            if action == 'apply' and upload_adapter is None and not adapter.allowed():
                 raise ValueError('世界写入需要创造模式、操作员和建造权限')
             if action == 'resolve':
                 values = args.get('palette')
@@ -376,6 +449,7 @@ class ModernProjectionServerSystem(ServerSystem):
             if value is None:
                 self.reply(player, request, done=True, error='区域尚未加载，请靠近后重试')
                 return
+            value = adapter.rebase(value, tuple(-v for v in origin))
             if action == 'capture':
                 if value != AIR:
                     doc.blocks[pos] = value
@@ -424,10 +498,15 @@ class ModernProjectionServerSystem(ServerSystem):
                     if player not in serverApi.GetPlayerList():
                         self.jobs.pop(player, None)
                         continue
+                    progress = {'total': job.total, 'processed': job.cursor,
+                                'written': job.written, 'failed': job.failed}
                     if job.error:
-                        self.reply(player, request, done=True, error=job.error)
+                        self.reply(player, request, done=True, error=job.error,
+                                   progress=progress)
                     else:
-                        self.reply(player, request, done=True, message='已写入 %d 格' % len(job.journal))
+                        self.reply(player, request, done=True,
+                                   message='已写入 %d 格' % job.written,
+                                   progress=progress)
                     self.jobs.pop(player, None)
             else:
                 try:
@@ -442,8 +521,10 @@ class ModernProjectionServerSystem(ServerSystem):
                     self.reply(player, request, done=True, error=error_text(error))
             if ticks % 10 == 0 and player in self.jobs:
                 if isinstance(job, WorldJob):
-                    phase = {'preflight':'检查目标', 'write':'写入方块', 'rollback':'恢复修改'}[job.phase]
-                    self.reply(player, request, done=False, message='%s，已处理 %d 格' % (phase, max(0,job.cursor)))
+                    self.reply(player, request, done=False,
+                               message='写入方块，已处理 %d/%d 格' % (job.cursor, job.total),
+                               progress={'total': job.total, 'processed': job.cursor,
+                                         'written': job.written, 'failed': job.failed})
                 elif action != 'resolve':
                     total = getattr(adapter, 'read_total', 0)
                     count = getattr(adapter, 'read_processed', 0)
@@ -460,14 +541,11 @@ class ModernProjectionServerSystem(ServerSystem):
         self.uploads.pop(player, None)
         entry = self.jobs.get(player)
         if entry and isinstance(entry[2], WorldJob):
-            entry[2].fail('玩家已离开，恢复本次修改')
-        else:
-            self.jobs.pop(player, None)
+            entry[2].cancel('玩家已离开')
+        self.jobs.pop(player, None)
 
     def Destroy(self):
         for entry in self.jobs.values():
             job = entry[2]
-            if isinstance(job, WorldJob) and job.journal:
-                job.fail('关闭世界，恢复未完成的写入')
-                while not job.done:
-                    job.step(512)
+            if isinstance(job, WorldJob):
+                job.cancel('世界操作已关闭')

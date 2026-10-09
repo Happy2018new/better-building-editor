@@ -176,23 +176,18 @@ class LargeEditorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             Document.from_data(data)
 
-    def test_large_world_source_is_lazy_and_chunk_wait_preserves_first_cell(self):
+    def test_large_world_source_is_lazy_and_cancel_stops_after_written_prefix(self):
         e = Editor(Document(SIZE)); e.material = STONE; e.run('fill')
         world = World()
-        world.unloaded.add((0, 0, 0))
-        world.ensure = lambda pos: None
         job = WorldJob(world, e.document, (0, 0, 0))
-        self.assertEqual(0, len(job.plan))
-        job.step(8)
         self.assertEqual(0, job.cursor)
-        self.assertEqual(0, world.writes)
-        world.unloaded.clear()
         job.step(8)
-        self.assertEqual(8, len(job.plan))
-        self.assertEqual((0, 0, 0), job.plan[0][0])
-        job.fail('cancelled'); job.step()
+        self.assertEqual(8, job.cursor)
+        self.assertEqual(8, job.written)
+        self.assertEqual((0, 0, 0), world.attempts[0][0])
+        job.cancel('cancelled'); job.step()
         self.assertTrue(job.done)
-        self.assertEqual(0, world.writes)
+        self.assertEqual(8, len(world.attempts))
 
     def test_running_edit_keeps_original_lock_snapshot(self):
         e = Editor(Document(SIZE)); e.locked_layers.add(0)
