@@ -9,6 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.block_registry import aux_values, states
 from projection.geometry_palette import LEAF_PROXIES, PLANT_PROXIES, prepare_palette
+from projection.cell import make_cell
+from projection.large_preview import SurfacePalette
 from projection.model import Document
 
 
@@ -110,6 +112,29 @@ class GeometryPaletteTests(unittest.TestCase):
                         self.assertGreaterEqual(min(values), 0., proxy)
                         self.assertLessEqual(max(values), 16., proxy)
                     self.assertEqual((0, 16), (origin[1], origin[1] + size[1]))
+
+    def test_full_cells_keep_background_states_and_actor_data_in_geometry_palette(self):
+        chest_data = {'id': 'Chest', 'Items': [], 'x': 1, 'y': 2, 'z': 3}
+        surface = SurfacePalette((3, 1, 1))
+        surface.add((0, 0, 0), make_cell(
+            ('minecraft:oak_leaves', 0), ('minecraft:snow_layer', 3)))
+        surface.add((1, 0, 0), make_cell(
+            ('minecraft:chest', 0), ('minecraft:water', 0), chest_data))
+        surface.add((2, 0, 0), ('minecraft:stone', 0))
+
+        native_data = surface.palette_data()
+        saved = copy.deepcopy(native_data)
+        render = prepare_palette(native_data)
+
+        self.assertEqual({('minecraft:snow_layer', 3): [0],
+                          ('minecraft:water', 0): [1]}, render['extra'])
+        self.assertIn(('minecraft:water', 0), render['extraStates'])
+        self.assertIn(('minecraft:snow_layer', 3), render['extraStates'])
+        self.assertEqual({('modern_projection:preview_oak_leaves', 0): [0],
+                          ('minecraft:chest', 0): [1],
+                          ('minecraft:stone', 0): [2]}, render['common'])
+        self.assertEqual({'minecraft:chest': {1: chest_data}}, render['actor'])
+        self.assertEqual(saved, native_data)
 
     def test_every_proxy_has_a_hidden_cutout_resource_with_its_own_species_texture(self):
         appearances = json.loads((ROOT / 'resource_pack/blocks.json').read_text(encoding='utf8'))

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from .storage import integer_types
 from .camera import behind_plane
 from .chunks import view_bounds
+from .cell import AIR, actor_data, background, foreground
 
 # Unknown/custom/transparent/non-cubic blocks never conceal their neighbours.
 OPAQUE = frozenset('stone stonebrick planks concrete wool quartz_block dirt grass '
@@ -25,19 +26,31 @@ class SurfacePalette(object):
     def __init__(self, size):
         self.size = size
         self.common = {}
+        self.extra = {}
+        self.actor = {}
         self.count = 0
 
     def add(self, pos, value):
-        self.count += 1
+        x, y, z = pos
+        index = y * self.size[0] * self.size[2] + x * self.size[2] + z
+        front, back = foreground(value), background(value)
+        nbt = actor_data(value)
+        if front != AIR:
+            self.common.setdefault(front, []).append(index)
+            self.count += 1
+        if back != AIR:
+            self.extra.setdefault(back, []).append(index)
+            self.count += 1
+        if nbt is not None:
+            self.actor.setdefault(front[0], {})[index] = nbt
         if self.count > MAX_SURFACE_BLOCKS:
             raise ValueError('可见方块数量过多，请使用精细视图或仅显示当前层；草稿完整保留')
-        x, y, z = pos
-        self.common.setdefault(value, []).append(y * self.size[0] * self.size[2] + x * self.size[2] + z)
 
     def palette_data(self, visible=None):
         sx, sy, sz = self.size
-        return {'extra': {}, 'actor': {}, 'void': False, 'volume': (sz, sx, sy),
-                'common': self.common, 'eliminateAir': True}
+        return {'extra': self.extra, 'actor': self.actor, 'void': False,
+                'volume': (sz, sx, sy), 'common': self.common,
+                'eliminateAir': True}
 
 
 def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None, local=False):

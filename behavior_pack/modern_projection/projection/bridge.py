@@ -16,6 +16,26 @@ def native(value):
     return value.encode('utf8') if bytes is str and isinstance(value, type('')) else value
 
 
+def _native_tree(value):
+    if isinstance(value, dict):
+        return dict((_native_tree(key), _native_tree(item)) for key, item in value.items())
+    if isinstance(value, tuple):
+        return tuple(_native_tree(item) for item in value)
+    if isinstance(value, list):
+        return [_native_tree(item) for item in value]
+    return native(value)
+
+
+def _stable_palette(value):
+    if isinstance(value, dict):
+        rows = [(_stable_palette(key), _stable_palette(item))
+                for key, item in value.items()]
+        return tuple(sorted(rows, key=repr))
+    if isinstance(value, (list, tuple)):
+        return tuple(_stable_palette(item) for item in value)
+    return value
+
+
 class ClientBridge(object):
     def __init__(self, system):
         self.system = system
@@ -293,20 +313,16 @@ class ClientBridge(object):
     def geometry(self, document, visible=None, name=None):
         from .geometry_palette import prepare_palette
         data = prepare_palette(document.palette_data(visible))
-        if not data['common']:
+        if not data['common'] and not data['extra']:
             return None
-        # The embedded Python omits hashlib.sha256. An exact compressed key
-        # avoids collisions and retains no second Python list of voxel indices.
-        state_key = sorted((key, sorted(record.items())) for key,record in data['states'].items())
-        fingerprint = None if name is not None else zlib.compress(repr((document.size, sorted(data['common'].items()), state_key)).encode('utf8'), 1)
+        # Include both layers and actor data so edits cannot reuse stale geometry.
+        fingerprint = (None if name is not None else
+                       zlib.compress(repr(_stable_palette((document.size, data))).encode('utf8'), 1))
         if fingerprint is not None and fingerprint in self.models:
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
         name = native(name or 'modern_projection_%d' % len(self.models))
-        data['common'] = dict(((native(k[0]), k[1]), v) for k, v in data['common'].items())
-        data['states'] = dict(((native(k[0]), k[1]), dict((native(key),native(val))
-                              for key,val in v.items())) for k, v in data['states'].items())
-        data = dict((native(k), v) for k, v in data.items())
+        data = _native_tree(data)
         palette = self.factory.CreateBlock(self.level).GetBlankBlockPalette()
         if palette is None or not palette.DeserializeBlockPalette(data):
             raise ValueError('方块调色板生成失败')

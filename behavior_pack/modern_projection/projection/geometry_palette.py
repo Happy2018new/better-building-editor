@@ -31,22 +31,36 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
 
 
 def prepare_palette(source):
-    """Copy and canonicalize native render data without changing its owner."""
+    """Copy and canonicalize both native layers and actor payloads."""
     data = dict(source)
-    common = {}
-    for value, positions in source['common'].items():
-        value = canonical(value)
-        proxy = LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
-        if proxy is not None:
-            value = (proxy, 0)
-        common.setdefault(value, []).extend(positions)
-    records = {}
-    for value, positions in common.items():
-        # Equivalent leaf lifecycle flags and legacy names reuse one geometry.
-        positions.sort()
-        record = states(value)
-        if record is not None:
-            # Empty records matter for native split blocks, e.g. colored glass.
-            records[value] = record
-    data['common'], data['states'] = common, records
+
+    def prepare_layer(key, proxy_blocks=False):
+        entries, records = {}, {}
+        supplied = source.get('states' if key == 'common' else 'extraStates', {})
+        supplied = dict((canonical(value), dict(record))
+                        for value, record in supplied.items())
+        for original, positions in source.get(key, {}).items():
+            value = canonical(original)
+            proxy = (LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
+                     if proxy_blocks else None)
+            if proxy is not None:
+                value = (proxy, 0)
+            entries.setdefault(value, []).extend(positions)
+            record = supplied.get(canonical(original))
+            if proxy is None:
+                record = states(value) if record is None else record
+            else:
+                record = states(value)
+            if record is not None:
+                records[value] = record
+        for positions in entries.values():
+            positions.sort()
+        return entries, records
+
+    common, common_states = prepare_layer('common', True)
+    extra, extra_states = prepare_layer('extra')
+    actors = dict((name, dict(entries))
+                  for name, entries in source.get('actor', {}).items())
+    data.update(common=common, states=common_states, extra=extra,
+                extraStates=extra_states, actor=actors)
     return data
