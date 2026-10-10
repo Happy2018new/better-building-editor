@@ -2,7 +2,7 @@
 """Deterministic built-in documents for editor and projection acceptance."""
 from __future__ import unicode_literals
 from . import block_registry as registry
-from .cell import AIR, _covered_snow, make_cell
+from .cell import AIR, make_cell
 from .model import Document
 from .block_groups import group_partner, hydrate_chest_actor
 from .visible_actor import compose_actor
@@ -11,13 +11,14 @@ from .debug_sign_blueprints import METADATA as SIGN_METADATA, VISUAL_CASE as SIG
 from .debug_water_blueprints import METADATA as WATER_METADATA, VISUAL_CASE as WATER_VISUAL_CASE
 from .debug_pot_blueprints import METADATA as POT_METADATA, VISUAL_CASE as POT_VISUAL_CASE
 from .debug_dripstone_blueprints import METADATA as DRIPSTONE_METADATA, VISUAL_CASE as DRIPSTONE_VISUAL_CASE
+from .debug_snow_blueprints import METADATA as SNOW_METADATA, VISUAL_CASE as SNOW_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
               ('transforms', '变换'), ('entities', '方块实体'), ('registry', '方块表'))
 BLUEPRINTS = (
     ('test.layers.water', 'layers', '含水方块', (32, 8, 24), 'minecraft:oak_fence'),
-    ('test.layers.snow', 'layers', '含雪方块', (32, 8, 24), 'minecraft:snow_layer'),
+    SNOW_METADATA,
     ('test.groups.parts', 'groups', '门、床与高植物', (32, 8, 24), 'minecraft:wooden_door'),
     ('test.connections.context', 'connections', '楼梯、铁轨、墙与双箱', (32, 12, 32), 'minecraft:rail'),
     ('test.transforms.directions', 'transforms', '方向与镜像', (32, 12, 32), 'minecraft:oak_stairs'),
@@ -57,16 +58,7 @@ VISUAL_CASES = {
         'camera': {'distance': 6., 'side_height': -2.4},
         'projection_height': 24,
     },
-    'snow_plant_visibility': {
-        'schema': 2, 'fixture': 'test.layers.snow',
-        'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
-                        'covered': ((0, (3 + index * 5, 1, 9)),
-                                    (5, (3 + index * 5, 1, 16)))}
-                       for index, name in enumerate(('short_grass', 'fern', 'dandelion',
-                                                     'poppy', 'blue_orchid', 'allium'))),
-        'size': (3, 3, 3), 'focus': (1, 1, 1),
-        'camera': {'editor': (35., 10., 2.8), 'world_offset': (-2., .15, -2.5)},
-    },
+    'snow_plant_visibility': SNOW_VISUAL_CASE,
     'entity_appearances': {
         'schema': 2, 'fixture': 'test.entities.appearances',
         'size': (40, 12, 44),
@@ -182,21 +174,6 @@ def _water(fixture):
     return fixture.finish()
 
 
-def _snow(fixture):
-    fixture.floor()
-    for row in VISUAL_CASES['snow_plant_visibility']['cells']:
-        value = material(row['plant'])
-        fixture.group(row['standalone'], value)
-        for height, pos in row['covered']:
-            fixture.group(pos, value)
-            snow = _covered_snow(material('snow_layer', {'height': height}), True)
-            fixture.put(pos, snow, value)
-    for x, species in ((5, 'oak_leaves'), (11, 'spruce_leaves'), (17, 'cherry_leaves')):
-        fixture.put((x, 3, 21), material(species))
-        fixture.put((x, 4, 21), material('snow_layer', {'height': 2}))
-    return fixture.finish()
-
-
 def _groups(fixture):
     fixture.floor()
     names = ('wooden_door', 'iron_door', 'mangrove_door', 'bed', 'tall_grass',
@@ -297,7 +274,10 @@ def build(identity):
     if identity == DRIPSTONE_METADATA[0]:
         from .debug_dripstone_blueprints import populate
         return populate(fixture)
-    builders = {'test.layers.water': _water, 'test.layers.snow': _snow,
+    if identity == SNOW_METADATA[0]:
+        from .debug_snow_blueprints import populate
+        return populate(fixture)
+    builders = {'test.layers.water': _water,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':

@@ -97,11 +97,11 @@ class DebugBlueprintTests(unittest.TestCase):
         case = VISUAL_CASES['snow_plant_visibility']
         doc = self.documents[case['fixture']]
         self.assertEqual('test.layers.snow', case['fixture'])
-        self.assertEqual(6, len(case['cells']))
+        self.assertEqual(29, len(case['cells']))
         for row in case['cells']:
             plant = material(row['plant'])
             self.assertEqual(plant, doc.get(row['standalone']))
-            self.assertEqual((0, 5), tuple(height for height, unused in row['covered']))
+            self.assertEqual(tuple(range(8)), tuple(height for height, unused in row['covered']))
             for height, pos in row['covered']:
                 cell = doc.get(pos)
                 self.assertEqual(plant, background(cell))
