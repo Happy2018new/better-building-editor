@@ -507,7 +507,8 @@ class Editor(object):
             self.selection = set(p for p in doc.blocks if self.surface(p))
         elif tool == "select_box":
             self.select_box(self.start, self.end)
-        self.selection = close_group_selection(doc, self.selection, strict=False)
+        selected_layer = self.edit_layer if tool == 'select_material' else None
+        self.selection = close_group_selection(doc, self.selection, strict=False, index=selected_layer)
         self.selection_revision += 1
         self.sync_selection_bounds()
         self.message = "已选择 %d 格" % len(self.selection)

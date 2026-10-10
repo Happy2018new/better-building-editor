@@ -251,6 +251,21 @@ class AutomaticEditorTests(unittest.TestCase):
             editor.undo()
             self.assertEqual(cells, dict(editor.document.blocks.items()))
 
+    def test_material_selection_does_not_expand_groups_from_an_unselected_layer(self):
+        bottom, top = (2, 1, 2), (2, 2, 2)
+        cells = {bottom: DOOR, top: make_cell(group_partner(DOOR)[1], WATER)}
+        for size in SIZES:
+            editor = Editor(Document(size, cells))
+            editor.edit_layer, editor.source = 1, AIR
+            editor.run('select_material')
+            self.assertIn(bottom, editor.selection)
+            self.assertNotIn(top, editor.selection)
+            if size == SIZES[0]:
+                editor.material = STONE
+                editor.run('fill')
+                self.assertEqual(WATER, background(editor.document.get(top)))
+                self.assertEqual(STONE, background(editor.document.get(bottom)))
+
 
 if __name__ == '__main__':
     unittest.main()

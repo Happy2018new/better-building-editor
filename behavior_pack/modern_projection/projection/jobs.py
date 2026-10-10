@@ -102,7 +102,8 @@ class EditJob(object):
         if self.result_selection is not None:
             updated_document = copy.copy(self.source)
             updated_document.blocks = self.staged
-            result = close_group_selection(updated_document, self.result_selection, strict=False)
+            selected_layer = self.work.edit_layer if self.tool == 'select_material' else None
+            result = close_group_selection(updated_document, self.result_selection, strict=False, index=selected_layer)
             selection_after = e._selection_state(result)
         if self.result_clipboard is not None:
             e.clipboard = self.result_clipboard
