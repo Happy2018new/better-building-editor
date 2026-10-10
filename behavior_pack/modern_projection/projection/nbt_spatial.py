@@ -6,7 +6,7 @@ positions of this block entity. They must never be rewritten recursively.
 """
 from .cell import freeze, thaw, integer_types, text_type
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 OPERATIONS = frozenset(('rotate_y90', 'rotate_y180', 'rotate_y270',
                         'mirror_x', 'mirror_y', 'mirror_z'))
 VISIBLE_DIRECTIONS = (('facingDirection', 'facing_direction', 6),
@@ -109,10 +109,31 @@ def _transform_actor(data, origin, operation, material=None, skull_facing=None):
     if root is None:
         raise ValueError('Block entity payload must be a compound')
     _skull_rotation(root, operation, material, skull_facing)
+    _frame_rotation(root, operation, material)
     _bed_direction(root, operation, material)
     _directions(root, operation)
     _chest_roles(root, operation)
     _pair_coordinates(root, origin, operation)
+
+
+def _frame_rotation(root, operation, material):
+    from .native_appearance import FRAME_NAMES, angle, transform_frame_rotation
+    if material is None or material[0] not in FRAME_NAMES:
+        return
+    identifier = scalar(root, 'id')
+    if identifier not in ('ItemFrame', b'ItemFrame', 'GlowItemFrame', b'GlowItemFrame'):
+        return
+    key = field_key(root, 'ItemRotation')
+    raw = root.get(key) if key is not None else None
+    value = scalar(root, 'ItemRotation')
+    if (not isinstance(raw, dict) or scalar(raw, '__type__') != 5 or
+            not angle(value) or not 0 <= value < 360):
+        return
+    from .block_registry import states
+    record = states(material)
+    if record is not None:
+        set_scalar(root, 'ItemRotation',
+                   transform_frame_rotation(value, record['facing_direction'], operation))
 
 
 def _skull_rotation(root, operation, material, facing):

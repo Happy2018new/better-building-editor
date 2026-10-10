@@ -37,7 +37,7 @@ entity or that every enum exists in the current game version.
 
 ## Spatial Field Adapters
 
-The adapter schema in `projection/nbt_spatial.py` is version 1. Its field rules
+The adapter schema in `projection/nbt_spatial.py` is version 2. Its field rules
 are independent of the numeric reference. A field is rewritten only when its
 type and range are valid; missing fields are not added and invalid fields are
 preserved.
@@ -50,6 +50,7 @@ preserved.
 | Client standing sign | `signStandingRotation` | Transform 16 horizontal angles | Renderer convention is the native `ground_sign_direction` convention |
 | Client double chest | `chestMainSubChest`, `chestModelOffset` | Swap halves and update model offset on X/Z mirrors | Requires `chestIsLargeChest=true`; rotations and Y mirror preserve role |
 | NBT `ShulkerBox` | `facing` | Transform six face directions | Native NEMC diagnostic confirmed Byte values 0..5 |
+| NBT `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Transform clockwise Float degrees in the frame's local plane | The native eight-angle API probe confirmed Float degrees; top/bottom frames also change their local angle on Y rotations, walls retain it; all six face normals transform with their block state |
 | NBT `Chest` | `pairlead`, `renderlead` | Flip each valid Boolean/Byte 0..1 on X/Z mirrors | Requires valid pairing coordinates; native main half has `pairlead=1`, `renderlead=0`, and sub half has the opposite; rotations and Y mirror preserve both |
 | Any other root or nested fields | All unrecognized fields | Preserve exactly | An enum reference entry does not create a spatial adapter |
 
@@ -107,7 +108,7 @@ to change NEMC runtime behavior without native observations:
 | Entity | Candidate Fields | Current Handling | Evidence Needed |
 | --- | --- | --- | --- |
 | `Skull` | `Rotation` | Transform floor yaw | Native nondefault player placements confirm Float degrees matching visible `rotation`, zero along +Z and the [-180,180) convention; wall yaw stays unchanged and the block face transforms |
-| `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Preserve | PowerNukkitX uses Byte values modulo 8; other Bedrock implementations also accept Float angles. NEMC type and local frame basis are needed for mirror semantics |
+| `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Transform typed Float clockwise degrees | NEMC `SetFrameRotation` / `GetFrameRotation` confirmed eight angles 0..315; independent 3D-vector tests cover six local face planes and mirrors; native six-face GPU validation remains required |
 | `StructureBlock` | `rotation`, `mirror`, `x/y/zStructureOffset`, `x/y/zStructureSize` | Preserve | Native defaults confirm Byte rotation/mirror and Int offsets/sizes; nondefault value meanings, anchor coordinates and transform composition still need observations |
 | `PistonArm`, `MovingBlock`, `EndGateway` and other spatial entities | Entity-specific coordinates or directions | Preserve | Native data and rules separating world coordinates from opaque saved payloads |
 
@@ -210,6 +211,26 @@ light-blue bed feet are `(9, 1, 19)` and `(15, 1, 19)`, with heads one block alo
 ominous banners are `(33, 1, 19)` / `(3, 1, 27)`. The blueprint uses the actual
 typed payloads and observed visible fields, rebasing coordinates without
 inventing render fields for Frame or Banner.
+
+`tools/data/native_frame_rotations_nemc_3.9.0.401155.json` retains the native
+16-sample frame rotation batch, including both ordinary and glowing frame
+server palettes. Both native palettes expose empty actor dictionaries even for
+filled frames; they are not a usable item-render schema. Its source report hash,
+native version and palette fingerprint are linked by `frame_rotation_data.py`.
+Regenerate or verify the snapshot with:
+
+```powershell
+python tools/generate_native_frame_rotations.py <report.json> --check
+```
+
+Frame angles are rewritten only for original frame materials, recognized root
+entity IDs and existing Float tags in the observed range. Byte rotation schemes,
+unknown entities, nested item tags and future fields remain unchanged. Local
+planes use world up for wall frames and north/south for floor/ceiling frames.
+Rotations and mirrors transform the item's top vector into the new frame plane;
+they preserve representable native item orientation rather than reflecting
+asymmetric item artwork. This geometric rule is distinct from GPU proof of its
+native face-plane basis and from displaying the saved Item contents.
 
 The second real Shulker comparison observed all six native boxes from a low
 side camera, but no native boxes from an upper detached camera, despite intact
