@@ -154,6 +154,29 @@ round-trip. Any additional appearance adapter must use a matching versioned
 native observation, retain native saved/world identities, and have editor and
 actual projection evidence recorded separately.
 
+`tools/verify_native_entity_appearances.py` captures 19 owned native cases in one
+batch: eight floor skull yaw samples, four wall faces, one nondefault dragon
+head yaw, two paired beds with `SetBedColor`, filled ordinary/glowing frames,
+and ordinary/ominous native banners. It preserves the actual item readbacks,
+player angles, server NBT and client palette actor dictionaries before and after
+filling frames. Frame interaction waits for client replication first. Banners
+use the documented native `userData.Type=1` ominous item, so this does not invent
+pattern field names. Failed frame fills remain explicit observations.
+
+The native area consists only of cells checked empty at the beginning. A finally
+block clears all reserved positions in two passes, clears the originally empty
+inventory slot and restores player rotation. The host saves a final partial
+server snapshot before cleanup even if placement or replication fails.
+Run it through the owned development instance:
+
+```powershell
+python tools/verify_native_entity_appearances.py entity-appearances.json
+```
+
+This captures nondefault field evidence, not successful editor/projection
+rendering. Retain the resulting report with its game version and palette hash
+before defining units, direction conventions or additional render adapters.
+
 ## Native Observation Diff
 
 `tools/diff_block_entities.py` compares the reference with an explicit entity
