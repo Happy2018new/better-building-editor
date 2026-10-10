@@ -284,6 +284,17 @@ def _water(material):
     return material[0] in ('minecraft:water', 'minecraft:flowing_water')
 
 
+def can_compose(value, material):
+    """Whether automatic placement belongs inside the clicked existing cell."""
+    from .block_traits import is_snow_coverable, is_waterloggable
+    front, replacement = layer(value, 2), foreground(material)
+    return ((_water(replacement) and is_waterloggable(front)) or
+            (_water(front) and is_waterloggable(replacement)) or
+            (_snow(front) and is_snow_coverable(replacement)) or
+            (_snow(replacement) and (is_snow_coverable(front) or
+             (_snow(front) and is_snow_coverable(background(value))))))
+
+
 def _edit_auto(value, material):
     from .block_traits import is_snow_coverable, is_waterloggable
     front, back, replacement = foreground(value), background(value), foreground(material)

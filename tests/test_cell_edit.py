@@ -5,7 +5,8 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.block_registry import from_states, states
-from projection.cell import AIR, actor_data, background, edit_cell, foreground, layer, make_cell
+from projection.cell import (AIR, actor_data, background, can_compose, edit_cell,
+                             foreground, layer, make_cell)
 
 WATER = ('minecraft:water', 0)
 FENCE = ('minecraft:oak_fence', 0)
@@ -109,6 +110,18 @@ class CellEditTests(unittest.TestCase):
         self.assertEqual(FENCE, layer(make_cell(FENCE, WATER), 2))
         self.assertEqual(WATER, layer(make_cell(AIR, WATER), 2))
         self.assertEqual(AIR, layer(AIR, 2))
+
+    def test_automatic_placement_targets_existing_cells_only_for_native_composition(self):
+        for before, material in ((FENCE, WATER), (WATER, FENCE),
+                                 (PLANT, SNOW), (SNOW, PLANT),
+                                 (make_cell(self.covered(), PLANT), SNOW),
+                                 (make_cell(AIR, WATER), FENCE),
+                                 (make_cell(AIR, PLANT), SNOW)):
+            self.assertTrue(can_compose(before, material), (before, material))
+        for before, material in ((AIR, WATER), (STONE, WATER), (FENCE, STONE),
+                                 (FENCE, SNOW), (SNOW, FENCE),
+                                 (make_cell(FENCE, WATER), FENCE)):
+            self.assertFalse(can_compose(before, material), (before, material))
 
 
 if __name__ == '__main__':
