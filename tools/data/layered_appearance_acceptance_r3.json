@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "cold_instance": "4071527449ff48e58acdb8c86d5c9dc6",
+  "runtime_resource_commit": "a0ad57d",
+  "artifact_root": "C:/Users/Happy2018new/.pyreact-debug/instances/4071527449ff48e58acdb8c86d5c9dc6/artifacts",
+  "snow": {
+    "fixture": "test.layers.snow",
+    "report": "snow-overlay-cold-v9.json",
+    "report_sha256": "2015940a91b406842029a08ee449054010802cbd83ee57ff0cf7d8faf52cb8c7",
+    "completed": true,
+    "restored": true,
+    "passed": false,
+    "short_grass_standalone": {"native_green_pixels": 5859, "proxy_green_pixels": 6835, "recall": 0.888, "precision": 0.855},
+    "fern_standalone": {"native_green_pixels": 4815, "proxy_green_pixels": 3772, "recall": 0.604, "precision": 0.756},
+    "limits": [
+      "The later warm-neutral-snow mask correction is not part of this original report.",
+      "Editor upper foliage retention and thick snow occlusion controls failed.",
+      "Thin covered foliage and both snow-only projection controls passed; this does not establish all editor/projection appearances."
+    ]
+  },
+  "raw_fern": {
+    "fixture": "test.layers.snow",
+    "report": "fern-native-raw-r3.json",
+    "report_sha256": "f917abd38da64cf0a2448cb4b9a03ab07a820614b56f0a6f0d24950f400d4f87",
+    "completed": true,
+    "restored": true,
+    "diagnostic": "Temporarily remove native short-grass/fern proxy mappings and restore them afterwards",
+    "standalone_native_green_pixels": 4772,
+    "standalone_editor_green_pixels": 0,
+    "standalone_projection_green_pixels": 5,
+    "result": "Original native palette submission does not replace the static proxy with visible fern geometry",
+    "limits": ["Only fern and height 0 were requested; this diagnostic is not full two-height snow acceptance."]
+  },
+  "shulker": {
+    "fixture": "test.transforms.directions",
+    "report": "shulker-support-free-r3-v6.json",
+    "report_sha256": "b960985d31404012f5774d47452950a03bf447b9525f575e4ba0e7283ddf523c",
+    "restored": true,
+    "native_cleaned": true,
+    "supports_removed": true,
+    "native_faces_unchanged": true,
+    "synthetic_editor_poses_distinguishable": true,
+    "native_input_editor_poses_distinguishable": true,
+    "actual_projection_poses_distinguishable": true,
+    "native_proxy_comparison_passed": false,
+    "texture_failures": [1, 3, 4],
+    "same_face_texture_cosine": [0.539265, 0.342790, 0.490702, 0.276723, 0.416803, 0.662601],
+    "same_face_shape_iou": [0.968845, 0.958583, 0.965517, 0.958434, 0.957568, 0.890772],
+    "screenshots_manually_inspected": true,
+    "limits": [
+      "Face 5 has foreground foliage in its raw native screenshot; the purple-only mask hides those occluding pixels.",
+      "A masked cavity therefore does not establish an incorrect closed shell model.",
+      "No UV or bone rotation changes were made from these failed or partially occluded references."
+    ]
+  }
+}
