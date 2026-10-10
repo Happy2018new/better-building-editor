@@ -45,6 +45,14 @@ class SignCheck(BlueprintCheck):
         if blank:
             # GPU swap chains can return a black PrintWindow. Activate only
             # this routed instance while run_live_check owns the desktop.
+            activated_window=subprocess.run([sys.executable,'-X','utf8',
+                str(ROOT/'.agents/skills/pyreact-debugging/scripts/resize_window.py'),
+                '--size','%dx%d' % (capture['width'],capture['height']),
+                '--no-center','--settle','.1'],capture_output=True,text=True,check=True)
+            window=json.loads(activated_window.stdout)
+            assert window['ok'] and window['activated'],window
+            assert window['actualClient']==[capture['width'],capture['height']],window
+            assert window['window']['pid']==capture['window']['pid'],window
             activated=self.client.call('mc_input',{'op':'/run','args':{
                 'steps':[{'do':'wait','ms':100}]}})
             state=activated.get('structuredContent',{})
@@ -57,6 +65,7 @@ class SignCheck(BlueprintCheck):
             assert region_capture['ok'],region_capture
             region_capture['window']=capture['window']
             region_capture['activation']=activated
+            region_capture['managed_activation']=window
             capture=region_capture
             payload=path.read_bytes()
         with Image.open(path) as image:
@@ -485,6 +494,10 @@ def main():
     with Client(timeout=30) as client:
         check=SignCheck(client,args.output/'report.json',args.timeout,args.native_resolution)
         try:
+            report['workspace_ready']=check.wait('workspace initializes',bool,lambda:execute(client,
+                "import mod.client.extraClientApi as api\n"
+                "owner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\n"
+                "_result=owner is not None and owner.session is not None",True))
             if args.reload_shaders:
                 report['shader_reload']=check.run('''_result=json.dumps(dict((name,api.ReloadOneShader(name)) for name in
  ('modern_projection_native_actor.fragment','modern_projection_sign_text.vertex','modern_projection_sign_text.fragment')))''')
