@@ -18,6 +18,7 @@ class ProbeRuntime(object):
         self.fluids, self.air_none = fluids, air_none
         self.paired, self.native_bed_water = paired, native_bed_water
         self.pair_palettes = []
+        self.bed_states = []
         self.entity_reads = []
         self.logs = []
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
@@ -124,6 +125,10 @@ class ProbeRuntime(object):
         if self.wet_changes and value['name'] == 'minecraft:stairs' and pos in self.liquids:
             value = {'name': 'minecraft:water', 'aux': 0}
         self.blocks[pos] = value
+        if value['name'] == 'minecraft:bed':
+            value['states'] = {'direction': value['aux'] % 2,
+                               'head_piece_bit': value['aux'] >= 2, 'occupied_bit': False}
+            self.bed_states.append(value['states'])
         if value['name'] == 'minecraft:water':
             self.liquids[pos] = value
         elif (value['name'] != 'minecraft:fence' and
@@ -336,14 +341,17 @@ class WaterProbeTests(unittest.TestCase):
         self.assertEqual({}, state['readback_states']['minecraft:air']['0']['dry']['states'])
         self.assertFalse(state['results']['minecraft:air'])
 
-    def test_paired_beds_write_both_precise_halves_and_preserve_only_native_retained_water(self):
+    def test_paired_beds_write_both_precise_halves_head_first_and_measure_retained_water(self):
         runtime = ProbeRuntime(paired=True)
         state = self.start(runtime)
         self.finish(runtime)
         self.assertIsNone(state['failure'])
         self.assertTrue(state['results']['minecraft:bed'])
-        self.assertEqual(8, len(runtime.pair_palettes))
-        self.assertTrue(any('paired SetBlockByBlockPalette begin' in line for line in runtime.logs))
+        self.assertEqual(16, len(runtime.bed_states))
+        for index in range(0, len(runtime.bed_states), 2):
+            self.assertTrue(runtime.bed_states[index]['head_piece_bit'])
+            self.assertFalse(runtime.bed_states[index + 1]['head_piece_bit'])
+        self.assertTrue(any('head_first=True' in line for line in runtime.logs))
         self.assertTrue(any('paired fixture complete' in line for line in runtime.logs))
         for aux in range(4):
             record = state['readback_states']['minecraft:bed'][str(aux)]

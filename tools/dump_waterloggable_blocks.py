@@ -14,8 +14,8 @@ LEVELS_PER_COLUMN = 13
 COLUMNS_PER_SIDE = 7
 AIR = {'name': 'minecraft:air', 'aux': 0}
 WATER = {'name': 'minecraft:water', 'aux': 0}
-PROBE_METHOD = ('Native default seed + semantic states and supported paired fixtures '
-                'before/after over water, isLegacy=True, updateNeighbors=False; v4')
+PROBE_METHOD = ('Native default seed + semantic states and supported head-first paired fixtures '
+                'before/after over water, isLegacy=True, updateNeighbors=False; v5')
 FLUID_ALIASES = {'minecraft:flowing_water': 'minecraft:water',
                  'minecraft:flowing_lava': 'minecraft:lava'}
 LIQUID_BLOCKS = frozenset(('minecraft:water', 'minecraft:flowing_water',
@@ -189,9 +189,8 @@ class WaterOverlayProbe(object):
         if self.name == 'minecraft:bubble_column':
             self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
 
-    def place_pair(self, aux, liquid=None):
-        print('[P0WaterProbe] paired fixture begin %s aux=%d retained_water=%s' %
-              (self.name, aux, bool(liquid)))
+    def place_pair(self, aux):
+        print('[P0WaterProbe] paired fixture begin %s aux=%d head_first=True' % (self.name, aux))
         relationship = block_groups.group_partner((self.name, aux))
         if relationship is None:
             raise ValueError('Missing native paired fixture relationship: ' + self.name)
@@ -199,38 +198,13 @@ class WaterOverlayProbe(object):
         partner = tuple(self.target[i] + offset[i] for i in range(3))
         if partner not in self.fixture_cells:
             raise ValueError('Native paired fixture exceeds its protected scratch cells')
-        origin = tuple(min(self.target[i], partner[i]) for i in range(3))
-        size = tuple(abs(offset[i]) + 1 for i in range(3))
-        common, records = {}, {}
-        target_index = None
-        for pos, value in ((self.target, (self.name, aux)), (partner, paired)):
-            local = tuple(pos[i] - origin[i] for i in range(3))
-            index = local[1] * size[0] * size[2] + local[0] * size[2] + local[2]
-            key = (value[0].encode('utf8'), value[1])
-            common.setdefault(key, []).append(index)
-            records[key] = native_tree(block_registry.states(value))
-            if pos == self.target:
-                target_index = index
-        extra, extra_states = {}, {}
-        if liquid and liquid.get('name') == 'minecraft:water':
-            value = block_registry.canonical((liquid['name'], liquid.get('aux', 0)))
-            key = (value[0].encode('utf8'), value[1])
-            extra[key] = [target_index]
-            extra_states[key] = native_tree(block_registry.states(value))
-        data = {'volume': (size[2], size[0], size[1]), 'common': common, 'states': records,
-                'extra': extra, 'extraStates': extra_states, 'actor': {},
-                'void': False, 'eliminateAir': False}
-        palette = self.palette_block.GetBlankBlockPalette()
-        if palette is None:
-            raise ValueError('Could not create a native paired fixture palette')
-        print('[P0WaterProbe] paired Deserialize begin %s aux=%d volume=%r' %
-              (self.name, aux, data['volume']))
-        if not palette.DeserializeBlockPalette(data):
-            raise ValueError('Could not deserialize a native paired fixture palette')
-        print('[P0WaterProbe] paired SetBlockByBlockPalette begin %s aux=%d origin=%r' %
-              (self.name, aux, origin))
-        if not self.palette_block.SetBlockByBlockPalette(palette, self.dimension, origin, 0, 0):
-            raise ValueError('Could not write an exact native paired fixture')
+        pair = [(self.target, (self.name, aux)), (partner, paired)]
+        pair.sort(key=lambda row: not block_registry.states(row[1])['head_piece_bit'])
+        for pos, value in pair:
+            native_aux = self.blockstate.GetBlockAuxValueFromStates(
+                value[0].encode('utf8'), block_registry.states(value))
+            self.info.SetBlockNew(pos, {'name': value[0].encode('utf8'), 'aux': native_aux},
+                                  0, self.dimension, True, False)
         print('[P0WaterProbe] paired fixture complete %s aux=%d' % (self.name, aux))
 
     def step(self):
@@ -311,13 +285,13 @@ class WaterOverlayProbe(object):
                         'expected': expected, 'actual': dry_states, 'front': dry_front})
                 self.clear_fixture_blocks()
                 self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
-                self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
+                if paired:
+                    self.place_pair(aux)
+                else:
+                    self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
                 placed = self.info.GetBlockNew(self.target, self.dimension)
                 retained_liquid = self.info.GetLiquidBlock(self.target, self.dimension)
-                if paired:
-                    self.place_pair(aux, retained_liquid if placed and
-                                    placed.get('name') == native_name else None)
-                elif expected and placed and placed.get('name') == native_name:
+                if not paired and expected and placed and placed.get('name') == native_name:
                     self.blockstate.SetBlockStates(self.target, expected, self.dimension)
                 front = self.info.GetBlockNew(self.target, self.dimension)
                 liquid = self.info.GetLiquidBlock(self.target, self.dimension)
