@@ -90,6 +90,10 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 最小隔离顺序固定为：同一 y=90 正控／相机先添加一块前方玻璃，移除后确认恢复而不重写陶罐；再分别在新原生陶罐上只调用 `SetBlockStates(direction=0)` 或只调用 `SetLiquidBlock(air)`；随后比较 palette-only 干燥数据与追加 fixture NBT，必要时单独测 `extra air`；最后再测 y=110／-36 和完整玻璃／水围挡。每阶段独立记录实际本体像素、客户端 actor 字段、前景／背景和服务端 NBT，陶片字段复制继续单独判定，不因本体可见而接受。
 
+**第五轮 07:10 最终收尾：** `43b2a8b` 集成验收工具修复：actor 色彩判定只使用既有 actor／occupied ROI，棕色栅栏不能再提供陶罐／告示牌本体阳性；水面仍使用既有区域，阈值和图像未改。新增栅栏-only 阴性测试与既有 actor／水阳性共六项定点测试通过。冻结湿 actor 原图离线诊断确认两种 adjacent-water 场景的 keep ROI 各有 **41,768** 原生水像素，context／dynamic／initial 投影贡献全为零；对应逻辑 context batches 仍保留水，不能归因于丢失背景层，也不能只调颜色。原 fence-context 的 actor 色彩几乎全来自栅栏，实际 actor ROI 仅八像素，旧局部“阳性”无效。详细报告为 [湿 actor 离线诊断](WET_ACTOR_OFFLINE_DIAGNOSIS_R6.md)，诊断保护的 50 个输入文件指纹前后保持一致；原始 `0/6` 失败结果仍保留。
+
+最终 `tools/check_version_bundle.py --tests --output .runtime/version-bundle-r5-final.json` 在 `43b2a8b` 对应代码上 **全部通过：1,000 项测试、35 份来源检查、15,858 状态 × 六操作以及全部生成资源**。这仍是离线快照，F01／F03／F04 的未通过像素矩阵保持待办。三个 agent 均已结束，没有剩余执行会话；根和代理本轮 MC／MCDK 实例均已停止。07:05 后未新增实现，只复核、集成已完成的验收工具修复并保存检查点。休眠任务再次核对的 `NextRunTime` 为 `2026-10-11 07:30:00`，任务启用且动作仍为 `shutdown.exe /h`；本记录不宣称尚未发生的休眠已经执行。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。
