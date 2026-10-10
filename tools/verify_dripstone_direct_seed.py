@@ -1,0 +1,310 @@
+"""Diagnose native world mesh versus live and deserialized palette meshes.
+
+The same supported cells, anchor transform and camera are used for every
+path. This preserves failures without fitting image translations or changing
+production geometry. Run only through the owned run_live_check.py runner.
+"""
+import argparse
+import hashlib
+import importlib.util
+import itertools
+import json
+import os
+from pathlib import Path
+import time
+import uuid
+
+from PIL import Image, ImageChops, ImageDraw
+
+import verify_neighbor_world_visuals as world
+from context_test_environment import run, SETUP, RESTORE as RESTORE_ENVIRONMENT
+from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, write_json
+from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
+from verify_dripstone_native_boxes import SERVER_BOXES, CLIENT_BOXES
+from verify_neighbor_native_png import restore_owned_window
+from release_owned_game_focus import main as release_focus
+
+native = world.native
+ROOT = Path(__file__).resolve().parents[1]
+PATHS = ('direct_world', 'direct_palette', 'captured_palette', 'roundtrip')
+ROOT_CELL = (6, -37, 6)
+
+
+GENERATE = '''positions=%r
+prefix=%r
+low=tuple(min(pos[i] for pos in positions) for i in range(3))
+high=tuple(max(pos[i] for pos in positions) for i in range(3))
+assert not hasattr(sys,'_dripstone_direct_seed')
+geometry=b.factory.CreateBlockGeometry(b.level)
+names=dict((key,prefix+'_'+key) for key in %r)
+direct=geometry.CombineBlockFromPosListToGeometry(positions,names['direct_world'],0,False)
+assert direct is not None,'Direct native world Combine failed'
+assert geometry.CombineBlockPaletteToGeometry(direct,names['direct_palette'],0)==names['direct_palette']
+captured=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(low,high,False)
+assert captured is not None
+raw=captured.SerializeBlockPalette()
+assert geometry.CombineBlockPaletteToGeometry(captured,names['captured_palette'],0)==names['captured_palette']
+copy=b.factory.CreateBlock(b.level).GetBlankBlockPalette()
+assert copy is not None and copy.DeserializeBlockPalette(raw)
+assert geometry.CombineBlockPaletteToGeometry(copy,names['roundtrip'],0)==names['roundtrip']
+def tagged(value):
+ if isinstance(value,dict):return {'type':'dict','items':[[tagged(k),tagged(v)] for k,v in sorted(value.items(),key=lambda item:repr(item[0]))]}
+ if isinstance(value,(tuple,list)):return {'type':'tuple' if isinstance(value,tuple) else 'list','items':[tagged(v) for v in value]}
+ if isinstance(value,str):return {'type':'bytes','value':value.decode('utf8')}
+ if isinstance(value,unicode):return {'type':'unicode','value':value}
+ if value is None or isinstance(value,(bool,int,long,float)):return {'type':type(value).__name__,'value':value}
+ raise TypeError('Unsupported native palette type: '+repr(type(value)))
+entity=b.system.CreateClientEntityByTypeStr(b'modern_projection:anchor',low,(0.,0.))
+assert entity
+sys._dripstone_direct_seed={'entity':entity,'names':names,'attached':None,'origin':low}
+_result=json.dumps({'names':names,'actor':entity,'origin':low,'low':low,'high':high,
+ 'volume':raw.get('volume'),'offset':(-.5,0.,-.5),'rotation':(0.,180.,0.),
+ 'uniform4':(19487.,0.,0.,0.),'runtime':api.GetMinecraftVersion(),
+ 'direct_palette':tagged(direct.SerializeBlockPalette()),'captured_palette':tagged(raw),
+ 'roundtrip_palette':tagged(copy.SerializeBlockPalette()),
+ 'roundtrip_equal':copy.SerializeBlockPalette()==raw})
+'''
+
+ATTACH = '''saved=sys._dripstone_direct_seed
+render=b.factory.CreateActorRender(saved['entity'])
+if saved['attached'] is not None:
+ assert render.DeleteActorBlockGeometry(saved['attached'])
+ saved['attached']=None
+key=%r
+name=saved['names'][key]
+assert render.AddActorBlockGeometry(name,(-.5,0.,-.5),(0.,180.,0.))
+saved['attached']=name
+assert render.EnableActorBlockGeometryTransparent(name,True)
+assert render.SetActorBlockGeometryTransparency(name,1.)
+assert render.SetEntityExtraUniforms(4,(19487.,0.,0.,0.))
+assert tuple(render.GetActorBlockGeometryScale(name) or ())==(1.,1.,1.)
+_result=json.dumps({'actor':saved['entity'],'model':name,
+ 'position':b.factory.CreatePos(saved['entity']).GetPos(),
+ 'scale':render.GetActorBlockGeometryScale(name),'offset':(-.5,0.,-.5),'rotation':(0.,180.,0.)})
+'''
+
+VISIBILITY = '''saved=sys._dripstone_direct_seed
+assert saved['attached'] is not None
+assert b.factory.CreateActorRender(saved['entity']).SetActorBlockGeometryTransparency(saved['attached'],%r)
+_result=True
+'''
+
+CLEANUP = '''if hasattr(sys,'_dripstone_direct_seed'):
+ b.system.DestroyClientEntity(sys._dripstone_direct_seed['entity'])
+ del sys._dripstone_direct_seed
+_result=True
+'''
+
+CAMERA = '''root=%r
+target=(root[0]+.5,root[1]+1.,root[2]+.5)
+position=(target[0],target[1],target[2]-9.)
+direction=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
+rotation=(direction[0],direction[1]+180.,0.)
+cam=b.factory.CreateCamera(b.level)
+cam.DepartCamera();cam.LockModCameraPitch(True);cam.LockModCameraYaw(True)
+assert cam.SetCameraPos(position) and cam.SetCameraRotation(rotation)
+_result=json.dumps({'position':position,'rotation':rotation,'target':target})
+'''
+
+ROIS = '''positions=%r
+target=%r
+cam=b.factory.CreateCamera(b.level)
+points=[]
+for pos in positions:
+ corners=[tuple(pos[i]+offset[i] for i in range(3))
+  for offset in ((x,y,z) for x in (0.,1.) for y in (0.,1.) for z in (0.,1.))]
+ points.append({'pos':pos,'world_points':corners,
+  'native_points':[cam.WorldToScreenPoint(*point) for point in corners] if hasattr(cam,'WorldToScreenPoint') else []})
+_result=json.dumps({'cells':points,'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'target':target,'fov':cam.GetFov(),'screen':b.factory.CreateGame(b.level).GetScreenSize(),
+ 'runtime_minecraft_version':api.GetMinecraftVersion(),
+ 'projection_method':'native' if hasattr(cam,'WorldToScreenPoint') else 'analytic_vertical_fov'})
+'''
+
+
+def fingerprint(path):
+    payload = path.read_bytes()
+    return {'path': str(path.resolve()), 'sha256': hashlib.sha256(payload).hexdigest(),
+            'bytes': len(payload)}
+
+
+def capture(check, label, expected):
+    before = check.run(native.CAMERA_STATE)
+    assert native.camera_matches(before, expected), before
+    result = check.capture(label)
+    after = check.run(native.CAMERA_STATE)
+    assert native.camera_matches(after, expected), after
+    assert before['screen'] == after['screen'], (before, after)
+    result.update(camera_before=before, camera_after=after)
+    return result
+
+
+def compare(first, second, mask, threshold, minimum):
+    empty = Image.new('L', mask.size)
+    result = native.compare_complete(first, second, (mask, empty), threshold, minimum // 2)
+    result.update(threshold=threshold, minimum_pixels=minimum, translation=(0, 0))
+    return result
+
+
+def execute(check, args, report):
+    lower = ROOT_CELL
+    upper = (lower[0], lower[1] + 1, lower[2])
+    cells = [(lower, ('minecraft:pointed_dripstone', 4)),
+             (upper, ('minecraft:pointed_dripstone', 12))]
+    supports = [((lower[0], lower[1] - 1, lower[2]), ('minecraft:stone', 0)),
+                ((upper[0], upper[1] + 1, upper[2]), ('minecraft:stone', 0))]
+    all_cells = supports + cells
+    positions = [pos for pos, value in all_cells]
+    report.update(cells=cells, supports=supports)
+    report['world_setup'] = run(check.client, world.RESERVE % (cells, supports))
+    report['near_player'] = run(check.client, world.NEAR_PLAYER % (cells,))
+    world.player_ready(check, report['near_player']['after'])
+    report['replication'] = world.replication(check, all_cells, False)
+    report['native_aabb'] = {'server': run(check.client, SERVER_BOXES % (positions,)),
+                             'client': check.run(CLIENT_BOXES % (positions,))}
+    expected = dict(all_cells)
+    for row in report['native_aabb']['server']['rows']:
+        assert (row['value']['name'], row['value']['aux']) == expected[tuple(row['pos'])], row
+    report['generation'] = check.run(GENERATE % (positions, 'seed_diag_' + uuid.uuid4().hex, PATHS))
+    assert report['generation']['volume'] == [1, 4, 1], report['generation']['volume']
+    time.sleep(.3)
+    pose = check.run(CAMERA % (ROOT_CELL,))
+    time.sleep(.35)
+    shown = capture(check, 'world', pose)
+    run(check.client, world.CLEAR_SOURCE % (all_cells,))
+    report['cleared'] = world.replication(check, all_cells, True)
+    time.sleep(.35)
+    hidden = capture(check, 'world_empty', pose)
+    baseline = native.signal(shown['path'], hidden['path'])
+    projection = check.run(ROIS % ([lower, upper], tuple(pose['target'])))
+    masks = native.roi_masks(projection, baseline.size, lower, upper, args.calibration)
+    dripstone_mask = ImageChops.lighter(masks[0], masks[1])
+    support_mask, support_hulls = world.support_roi(projection, baseline.size, supports)
+    report['camera'] = pose
+    report['world'] = {'shown': shown, 'hidden': hidden, 'dripstone_roi': masks[2],
+                       'support_hulls': support_hulls}
+    signals = {}
+    report['paths'] = {}
+    for key in PATHS:
+        item = {'attachment': check.run(ATTACH % key)}
+        time.sleep(.35)
+        item['shown'] = capture(check, key + '_shown', pose)
+        check.run(VISIBILITY % 0.)
+        time.sleep(.35)
+        item['hidden'] = capture(check, key + '_hidden', pose)
+        actual = native.signal(item['shown']['path'], item['hidden']['path'])
+        signals[key] = actual
+        item['world_dripstone'] = compare(baseline, actual, dripstone_mask, args.threshold, args.min_pixels * 2)
+        item['world_supports'] = compare(baseline, actual, support_mask, args.threshold, args.min_pixels * 2)
+        path = args.output.with_name(args.output.stem + '_' + key + '_signal.png')
+        actual.save(path)
+        item['signal'] = fingerprint(path)
+        report['paths'][key] = item
+        write_json(args.output, report)
+    report['pairwise'] = {}
+    for first, second in itertools.combinations(PATHS, 2):
+        report['pairwise'][first + '_vs_' + second] = {
+            'dripstone': compare(signals[first], signals[second], dripstone_mask, args.threshold, args.min_pixels * 2),
+            'supports': compare(signals[first], signals[second], support_mask, args.threshold, args.min_pixels * 2)}
+    report['completed'] = True
+    report['all_paths_match_world'] = all(
+        item['world_dripstone']['passed'] and item['world_supports']['passed']
+        for item in report['paths'].values())
+    report['pairwise_equal_under_contract'] = all(
+        item['dripstone']['passed'] and item['supports']['passed'] for item in report['pairwise'].values())
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('output', type=Path)
+    parser.add_argument('--capture-helper', type=Path, required=True)
+    parser.add_argument('--camera-calibration', type=Path, required=True)
+    parser.add_argument('--threshold', type=int, default=16)
+    parser.add_argument('--min-pixels', type=int, default=80)
+    args = parser.parse_args()
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.calibration = json.loads(args.camera_calibration.read_text(encoding='utf8'))
+    helper = args.capture_helper.resolve(strict=True)
+    spec = importlib.util.spec_from_file_location('direct_seed_capture', helper)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    report = {'schema': 1, 'completed': False, 'restored': False,
+              'session_file': os.environ.get('MCDEV_SESSION_FILE'), 'owner': os.environ.get('MCDEV_OWNER'),
+              'method': 'Native world/list Combine, returned palette, captured palette and Deserialize roundtrip',
+              'limits': 'Diagnostic only; fixed origin/offset/rotation; no pixel fitting or production correction',
+              'helper': fingerprint(helper), 'calibration': fingerprint(args.camera_calibration),
+              'native_aabb_reference': fingerprint(ROOT / 'tools/data/native_dripstone_boxes_r5.json'),
+              'resources': [fingerprint(ROOT / path) for path in (
+                  'resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex',
+                  'resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment',
+                  'resource_pack/materials/terrain.material',
+                  'behavior_pack/entities/modern_projection_anchor.json',
+                  'resource_pack/entity/modern_projection_anchor.entity.json')
+                  if (ROOT / path).is_file()]}
+    try:
+        from _session import load_session
+        report['activation'] = restore_owned_window(load_session(live=True))
+        with Client(timeout=30) as client:
+            check = module.SignCheck(client, args.output, 90, native_resolution=True)
+            environment = installed = visual = options = False
+            try:
+                report['environment_before'] = run(client, SETUP)
+                environment = True
+                check.run(INSTALL_PROBE)
+                installed = True
+                check.run(SAVE_VISUAL)
+                visual = True
+                report['capture_options'] = check.run(world.CAPTURE_OPTIONS)
+                options = True
+                if check.navigation()['open']:
+                    check.run('navigator.pop()\n_result=True')
+                    check.wait('close workspace', lambda value: not value['open'] and not value['transition'], check.navigation)
+                report['seed'] = run(client, 'import mod.server.extraServerApi as api\n'
+                    '_result=api.GetEngineCompFactory().CreateGame(api.GetLevelId()).GetSeed()')
+                execute(check, args, report)
+            finally:
+                errors = []
+                cleanup = [('actor', CLEANUP)]
+                if visual:
+                    cleanup.append(('camera', camera_restore_code(False)))
+                    cleanup.append(('visual', 'del sys._blueprint_visual_saved\n_result=True'))
+                if installed:
+                    cleanup.append(('probe', 'workspace_before=sys._blueprint_qa_saved["workspace"]\n' +
+                                    RESTORE + '\nif workspace_before:owner.open_workspace()\n_result=True'))
+                if options:
+                    cleanup.append(('options', world.RESTORE_OPTIONS))
+                for label, code in cleanup:
+                    try:
+                        check.run(code)
+                    except Exception as error:
+                        errors.append('%s: %s' % (label, error))
+                try:
+                    report['world_cleanup'] = world.clear_world(client)
+                    if report['world_cleanup']['player_foot'] is not None:
+                        world.player_ready(check, report['world_cleanup']['player_foot'])
+                except Exception as error:
+                    errors.append('world: %s' % error)
+                if environment:
+                    try:
+                        run(client, RESTORE_ENVIRONMENT)
+                    except Exception as error:
+                        errors.append('environment: %s' % error)
+                report['cleanup_errors'] = errors
+                report['restored'] = not errors
+    except Exception as error:
+        report['error'] = '%s: %s' % (type(error).__name__, error)
+        raise
+    finally:
+        try:
+            report['focus_release'] = release_focus()
+        except Exception as error:
+            report['focus_release'] = {'error': '%s: %s' % (type(error).__name__, error)}
+        write_json(args.output, report)
+    print(json.dumps({'completed': report['completed'], 'restored': report['restored'],
+                      'all_paths_match_world': report.get('all_paths_match_world'),
+                      'pairwise_equal_under_contract': report.get('pairwise_equal_under_contract')}))
+    return 0 if report['completed'] and report['restored'] and 'error' not in report['focus_release'] else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
