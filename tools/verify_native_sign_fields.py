@@ -105,7 +105,7 @@ for source in sys._native_sign_probe_rows:
   actor=next(iter(payloads.values()),None)
   expected=(source['block']['name'],source['block']['aux'])
   actual=next(iter(data.get('common',{})),None)
-  if not actor or actual!=expected:ready=False
+  if (not source.get('allow_empty_actor') and not actor) or actual!=expected:ready=False
   if source.get('sides') and (actor.get('signRealText')!='Front\\nNative' or actor.get('signRealTextBack')!='Back\\nNative'):ready=False
  else:ready=False
  rows.append(row)
@@ -134,23 +134,30 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--poses', action='store_true', help='Capture species defaults and all oak hanging-sign states')
+    parser.add_argument('--entities', action='store_true', help='Capture default client render schemas for every observed block entity')
+    parser.add_argument('--states', action='append', default=[], help='Capture every state of an observed native block entity name')
+    parser.add_argument('--defaults', type=Path, default=Path(__file__).resolve().parents[1]/'tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json')
     args = parser.parse_args()
     report = {'schema':1,'completed':False,'scope':'native field mapping only; GPU acceptance separate'}
     with Client(timeout=30) as client:
         try:
             code = SETUP
-            if args.poses:
+            if args.poses or args.entities or args.states:
                 import sys
                 root = Path(__file__).resolve().parents[1]
                 sys.path.insert(0,str(root/'behavior_pack/modern_projection'))
                 from projection import block_registry
                 from projection.nbt_spatial import scalar
-                data = json.loads((root/'tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json').read_text())
-                names = [name for name,row in data['block_entities'].items() if scalar(row['nbt'],'id') in ('Sign','HangingSign')]
+                data = json.loads(args.defaults.read_text())
+                names = list(args.states) if args.states else [name for name,row in data['block_entities'].items() if args.entities or scalar(row['nbt'],'id') in ('Sign','HangingSign')]
                 plans = [(name,data['block_entities'][name]['aux']) for name in sorted(names)]
-                plans.extend(('minecraft:oak_hanging_sign',aux) for aux in block_registry.aux_values('minecraft:oak_hanging_sign') if aux!=data['block_entities']['minecraft:oak_hanging_sign']['aux'])
+                if args.poses:plans.extend(('minecraft:oak_hanging_sign',aux) for aux in block_registry.aux_values('minecraft:oak_hanging_sign') if aux!=data['block_entities']['minecraft:oak_hanging_sign']['aux'])
+                for name in args.states:plans.extend((name,aux) for aux in block_registry.aux_values(name) if aux!=data['block_entities'][name]['aux'])
                 code = POSE_SETUP % plans
             report['native'] = execute(client, code)
+            if args.entities:
+                report['scope']='native default renderer fields; nondefault appearance and GPU acceptance separate'
+                for row in report['native']['rows']:row['allow_empty_actor']=True
             execute(client, 'import sys\nsys._native_sign_probe_rows=%r\n_result=True' % report['native']['rows'], True)
             deadline = time.monotonic()+12
             while True:
