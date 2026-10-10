@@ -13,6 +13,31 @@ from verify_missing_neighbor_visuals import camera_matches
 from verify_shulker_orientations import viewport_crop
 
 ROOT = Path(__file__).resolve().parents[1]
+PROJECTION_SOURCE = '''import zlib
+from modern_projection.projection.bridge import _stable_palette
+from modern_projection.projection.geometry_palette import prepare_palette
+work=b.projection_work
+doc=s.editor.document
+data=prepare_palette(doc.palette_data())
+fingerprint=zlib.compress(repr(_stable_palette((doc.size,data))).encode('utf8'),1)
+model=b.projection_mesh[1] if b.projection_mesh else None
+_result=json.dumps({'editor_id':id(s.editor),'document_id':id(doc),'fixture':sys._blueprint_qa_identity,
+ 'nonce':sys._blueprint_qa_nonce,'serial':b.projection_serial,
+ 'work_current':work is not None and work.serial==b.projection_serial and work.ready and
+  work.model==model and work.document.size==doc.size and work.document.blocks==doc.blocks,
+ 'cache_model':b.models.get(fingerprint),'model':model,
+ 'cache_current':model is not None and b.models.get(fingerprint)==model,
+ 'origin_current':work is not None and tuple(work.origin)==tuple(s.origin),
+ 'fingerprint_bytes':len(fingerprint)})
+'''
+
+
+def projection_source_matches(actual, expected):
+    fields = ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model')
+    return (all(actual.get(field) == expected.get(field) for field in fields) and
+            actual.get('work_current') and actual.get('cache_current') and actual.get('origin_current'))
+
+
 LOAD = '''from modern_projection.projection.model import Document
 from modern_projection.projection.cell import _covered_snow,foreground,background,rebase
 from modern_projection.projection.debug_blueprints import build,VISUAL_CASES
@@ -185,6 +210,8 @@ _result=True
                 state['actors'] == 1 and state['mesh'] and state['scale'] is not None)
 
     state = check.wait('snow native projection', ready, lambda: check.run(PROJECTION_STATUS))
+    source = check.run(PROJECTION_SOURCE)
+    assert projection_source_matches(source, source), source
     check.run('navigator.pop()\n_result=True')
     check.wait('close workspace for snow projection',
                lambda nav: not nav['open'] and not nav['transition'], check.navigation)
@@ -220,9 +247,15 @@ _result=json.dumps({'target':target,'position':position,'rotation':rotation})
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert saved_player == final['player'], (saved_player, final['player'])
     calls = check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % native_before)
-    assert calls and all(row.get('result') and not row.get('error') for row in calls), calls
+    current_source = check.run(PROJECTION_SOURCE)
+    assert projection_source_matches(current_source, source), (source, current_source)
+    assert all(row.get('result') and not row.get('error') and
+               row.get('editor_id') == source['editor_id'] and
+               row.get('document_id') == source['document_id'] and row.get('nonce') == source['nonce']
+               for row in calls), calls
     state.update(pose=pose, final=final, camera=actual_camera, screenshot=shown,
-                 hidden_screenshot=hidden, native_calls=calls)
+                 hidden_screenshot=hidden, native_calls=calls, source=current_source,
+                 native_evidence='current_source_submission' if calls else 'current_source_cached_geometry')
     return state
 
 

@@ -6,7 +6,8 @@ from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from verify_snow_plant_visibility import changed, compare_controls, green_mask, scope_checks
+from verify_snow_plant_visibility import (PROJECTION_SOURCE, changed, compare_controls, green_mask,
+                                         projection_source_matches, scope_checks)
 
 
 def frame(image):
@@ -35,6 +36,19 @@ def controls():
 
 
 class SnowPlantVisibilityTests(unittest.TestCase):
+    def test_projection_cache_acceptance_requires_exact_current_source(self):
+        source = {'editor_id': 1, 'document_id': 2, 'fixture': 'snow.fern.covered.5',
+                  'nonce': 3, 'serial': 4, 'model': 'native_snow_model',
+                  'work_current': True, 'cache_current': True, 'origin_current': True}
+        self.assertTrue(projection_source_matches(source, source))
+        for field, value in (('editor_id', 9), ('document_id', 9), ('fixture', 'garden'),
+                             ('nonce', 9), ('serial', 9), ('model', 'old_model'),
+                             ('work_current', False), ('cache_current', False), ('origin_current', False)):
+            with self.subTest(field=field):
+                stale = dict(source, **{field: value})
+                self.assertFalse(projection_source_matches(stale, source))
+        compile(PROJECTION_SOURCE, '<projection-source>', 'exec')
+
     def test_two_height_occlusion_and_preserved_upper_foliage_pass(self):
         plant, values = controls()
         sampled = {('fern', 'plant', 0): plant}
