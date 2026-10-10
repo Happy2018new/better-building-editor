@@ -30,6 +30,7 @@ varying vec4 light;
 varying highp float previewClip;
 varying highp vec2 gridPosition;
 varying highp float outlineHue;
+varying highp vec4 renderContext;
 
 #include "uniformShaderConstants.h"
 #include "uniformWorldConstants.h"
@@ -113,6 +114,10 @@ vec3 grassSideSource(vec3 pixel) {
 
 void main()
 {
+    // Tessellate the complete neighbor tile, but show only its center cell.
+    if (renderContext.w > 0.5 &&
+        (any(lessThan(renderContext.xyz,vec3(0.9999))) ||
+         any(greaterThan(renderContext.xyz,vec3(2.0001))))) discard;
     if (previewClip > 0.0) discard;
     float overlayTag = floor(CURRENT_COLOR.r*255.0+0.5);
     if (abs(PROJ[3][3]) > 0.5 && overlayTag >= 223.0 && overlayTag <= 226.0) {

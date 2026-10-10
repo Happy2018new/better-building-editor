@@ -346,7 +346,9 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 # neither a camera submission nor a UI acknowledgement.
                 part['pending'] = False
                 continue
-            tint_color = depth_color(distance, biome)
+            layout = getattr(session.bridge, 'model_layouts', {}).get(part['name'])
+            preview_layout = (part['size'][1], part['size'][1]) if layout is None else (layout[0][1], layout[1][2])
+            tint_color = depth_color(distance, biome, preview_layout)
             if getattr(preview, 'tint_color', None) != tint_color:
                 preview.tint.current.asImage().SetSpriteColor(tint_color)
                 preview.tint_color = tint_color

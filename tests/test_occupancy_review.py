@@ -80,7 +80,7 @@ class Runtime:
         self.removed.append((self.rendering, model))
         return True
 
-    def geometry(self, output, name=None):
+    def geometry(self, output, name=None, context_document=None, prepared=None):
         self.geometry_calls.append((name, {key: tuple(values) for key, values in output.common.items()}))
         return name
 

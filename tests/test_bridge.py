@@ -136,15 +136,22 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def drain_projection(self, limit=200):
+        """Pump scheduled frames in the fake game until no work remains."""
+        for unused in range(limit):
+            if not self.runtime.timers:
+                return
+            self.runtime.timers.pop(0)()
+
     def test_client_occupancy_start_interaction_and_stop_send_no_network_events(self):
         b, r = self.bridge, self.runtime
         b.session.projection_missing = True
+        b.entity = None
         b.session.editor = Editor(Document((1, 1, 1), {(0, 0, 0): ('minecraft:stone', 0)}))
         b.session.origin = (10, 64, 20)
-        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible), name or 'model')[1]
+        b.geometry = lambda document, visible=None, name=None, **kwargs: (document.palette_data(visible), name or 'model')[1]
         b.project()
-        while r.timers:
-            r.timers.pop(0)()
+        self.drain_projection()
         watcher = b.projection_occupancy
         self.assertIsNotNone(watcher)
         r.PickFacing = lambda: dict(type='Block', x=10, y=64, z=20)
@@ -158,11 +165,12 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_occupancy_updates_camera_origin_when_anchor_is_unchanged(self):
         b, r = self.bridge, self.runtime
         b.session.projection_missing = True
+        b.entity = None
         b.session.editor = Editor(Document((1,1,1), {(0,0,0): ('minecraft:stone',0)}))
         b.session.origin = (10,64,20)
-        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible),name or 'model')[1]
+        b.geometry = lambda document, visible=None, name=None, **kwargs: (document.palette_data(visible),name or 'model')[1]
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         b.follow_projection()
         anchor = b.projection_mesh[3]
         r.camera_pos, r.camera_forward = (0.,64.,8.), (0.,0.,-1.)
@@ -173,17 +181,24 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_occupancy_buffer_failure_keeps_previous_projection(self):
         b, r = self.bridge, self.runtime
         b.session.projection_missing = True
+        b.entity = None
         b.session.editor = Editor(Document((1,1,1), {(0,0,0): ('minecraft:stone',0)}))
-        b.geometry = lambda document, visible=None, name=None: (document.palette_data(visible),name or 'model')[1]
+        b.geometry = lambda document, visible=None, name=None, **kwargs: (document.palette_data(visible),name or 'model')[1]
         b.project()
-        while r.timers:
-            r.timers.pop(0)()
+        self.drain_projection()
         old, tracker = b.entity, b.projection_occupancy
         b.project()
-        pending = b.preparing_entity
-        r.SetEntityExtraUniforms = lambda slot, values: slot != 4
-        while r.timers:
+        pending = None
+        for unused in range(200):
+            if b.preparing_entity is not None:
+                pending = b.preparing_entity
+                break
+            if not r.timers:
+                break
             r.timers.pop(0)()
+        self.assertIsNotNone(pending)
+        r.SetEntityExtraUniforms = lambda slot, values: slot != 4
+        self.drain_projection()
         self.assertEqual(old,b.entity)
         self.assertIs(tracker,b.projection_occupancy)
         self.assertNotIn(old,r.destroyed)
@@ -367,6 +382,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         boundary.clientApi = types.SimpleNamespace(GetEngineCompFactory=lambda: self.runtime,
             GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player')
         self.bridge = boundary.ClientBridge(self.runtime)
+        self.bridge.model_layouts = {}
         self.bridge.geometry = lambda *unused: 'model'
         self.bridge.session = Session(self.bridge)
         # General actor/outline tests exercise the unfiltered rendering path.
@@ -780,46 +796,59 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_filter_hides_any_occupied_block_without_resolving_materials(self):
         b,s=self.bridge,self.bridge.session
         s.projection_missing=True
+        b.entity=None
         old=('minecraft:planks',0)
         s.origin=(0,0,0)
         s.editor=Editor(Document((3,1,1),dict(((x,0,0),old) for x in range(3))))
         self.runtime.world={(0,0,0):('minecraft:oak_planks',0),(1,0,0):('minecraft:stone',0)}
         observed=[]
-        def geometry(doc,visible=None,name=None):
+        prepared_calls=[]
+        def geometry(doc,visible=None,name=None,**kwargs):
             if hasattr(doc, 'common'):
-                return name or 'model'
+                prepared=kwargs.get('prepared')
+                context_cells=(sum(len(values) for values in prepared['common'].values())
+                               if prepared else None)
+                prepared_calls.append((doc.count,prepared['volume'] if prepared else None,
+                                       context_cells))
+                return (name or 'model') if doc.count else None
             observed.append([p for p in doc.blocks if visible is None or visible(p)])
             return (name or 'model') if observed[-1] else None
         b.geometry=geometry
         b.project()
+        self.drain_projection()
         self.assertTrue(s.projection_missing)
         self.assertFalse(any(v.get('action') == 'resolve' for v in self.runtime.sent))
-        self.assertEqual([[(2,0,0)]],observed)
-        self.runtime.timers.pop(0)()
+        self.assertTrue(b.projection_work.ready)
+        self.assertEqual([(1, (4, 12, 516), 2), (1, None, None)], prepared_calls)
         b.toggle_missing()
+        self.drain_projection()
         self.assertEqual([(0,0,0),(1,0,0),(2,0,0)],observed[-1])
         self.assertFalse(s.projection_missing)
 
     def test_completed_projection_retains_bounds_and_can_restore_all_blocks(self):
         b,s=self.bridge,self.bridge.session
         s.projection_missing=True
+        b.entity=None
         value=('minecraft:stone',0)
         s.origin=(0,0,0);s.editor=Editor(Document((1,1,1),{(0,0,0):value}))
         b.projection_palette[value]=value
         self.runtime.world[(0,0,0)]=value
-        b.geometry=lambda doc,visible=None,name=None: (name or 'model') if visible is None or visible((0,0,0)) else None
+        b.geometry=lambda doc,visible=None,name=None,**kwargs: ((name or 'model') if
+            (doc.count if hasattr(doc, 'common') else visible is None or visible((0,0,0))) else None)
         b.project()
+        self.drain_projection()
         self.assertIsNone(b.entity)
         self.assertTrue(s.projection_active)
         self.assertEqual(((0,0,0),(1,1,1)),b.projection_outline.bounds)
         b.toggle_missing()
-        for callback in list(self.runtime.timers): callback()
+        self.drain_projection()
         self.assertIsNotNone(b.entity)
 
     def test_stopping_filtered_projection_cancels_pending_attachment(self):
         b=self.bridge
         b.session.projection_missing=True
-        b.geometry=lambda doc,visible=None,name=None: (doc.palette_data(visible), name or 'model')[1]
+        b.entity=None
+        b.geometry=lambda doc,visible=None,name=None,**kwargs: (doc.palette_data(visible), name or 'model')[1]
         b.project()
         callbacks=list(self.runtime.timers)
         b.stop_projection()

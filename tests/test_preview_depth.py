@@ -2,6 +2,7 @@
 import itertools
 import math
 import sys
+import struct
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
@@ -16,6 +17,20 @@ def decode(rgb):
 
 
 class PreviewDepthTests(unittest.TestCase):
+    def test_layout_packet_survives_native_float32_without_depth_or_center_drift(self):
+        from projection.render_layout import OVERLAY_BASE
+        for biome, height, overlay in itertools.product(KEYS, (1, 3, 16, 127, 128), (0, OVERLAY_BASE)):
+            for depth in (-200.125, -.001, 0., 8.5, 155.99):
+                rgb = depth_color(depth, biome, (height, height + overlay))
+                r, g, b = (struct.unpack('f', struct.pack('f', value))[0] for value in rgb)
+                self.assertEqual(KEYS.index(biome) + 209, math.floor(r * 255. + .5))
+                self.assertGreater(r * 255. % 1., .125)
+                packet = math.floor(g * 1024. + .5)
+                self.assertEqual(height, packet % 256)
+                self.assertEqual(height + overlay, packet % 256 + packet // 256 * 256)
+                actual = (math.floor(b * 65536. + .5) - 32768.) / 64.
+                self.assertLessEqual(abs(actual - depth), 1. / 128. + 1e-8)
+
     def test_distance_and_biome_roundtrip(self):
         for biome in KEYS:
             for distance in (-200.125, -64.507, -16.001, -8.5, -.001, 0, 8.5, 155.99):
