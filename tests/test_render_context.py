@@ -1,0 +1,134 @@
+import copy
+import sys
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
+from projection import block_registry as registry
+from projection.cell import make_cell
+from projection.debug_blueprints import build, material
+from projection.model import Document
+from projection.render_context import prepare_context_palette
+from projection.render_layout import (CONTEXT_BASE, OVERLAY_BASE, context_center,
+                                      context_position, logical_position)
+from projection.visible_actor import compose_actor
+
+
+def index(pos, volume):
+    return (pos[1] * volume[1] + pos[0]) * volume[0] + pos[2]
+
+
+def position(value, volume):
+    return (value // volume[0] % volume[1], value // (volume[0] * volume[1]), value % volume[0])
+
+
+class RenderContextTests(unittest.TestCase):
+    def test_hidden_neighbor_stairs_and_both_layers_survive_in_one_context_tile(self):
+        stair = lambda direction: material('oak_stairs', {'weirdo_direction': direction})
+        base, neighbor = (15, 1, 8), (16, 1, 8)
+        water = material('water')
+        doc = Document((32, 16, 16), {base: make_cell(stair(0), water),
+                                    neighbor: make_cell(stair(3), water)})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+        result = prepare_context_palette(source, doc.palette_data(lambda pos: pos == base))
+        volume = result['volume']
+        self.assertEqual((36, 64, CONTEXT_BASE + 8), volume)
+        center_index = index(context_position(base), volume)
+        neighbor_index = index(context_position(base, (1, 0, 0)), volume)
+        self.assertEqual([center_index], result['common'][stair(0)])
+        self.assertEqual([neighbor_index], result['common'][stair(3)])
+        self.assertEqual({center_index, neighbor_index}, set(result['extra'][water]))
+        visible_centers = {logical_position(tuple(axis + .5 for axis in position(cell, volume)))
+                           for entries in result['common'].values() for cell in entries
+                           if context_center(tuple(axis + .5 for axis in position(cell, volume)))}
+        self.assertEqual({(15.5, 1.5, 8.5)}, visible_centers)
+        self.assertEqual(saved, source)
+
+    def test_each_target_has_independent_neighbor_geometry_across_chunk_boundary(self):
+        doc = Document((32, 4, 4), {(15, 1, 1): material('oak_fence'),
+                                  (16, 1, 1): material('stone')})
+        result = prepare_context_palette(doc.palette_data(), doc.palette_data())
+        volume = result['volume']
+        for target in doc.blocks:
+            for original, value in doc.blocks.items():
+                delta = tuple(original[axis] - target[axis] for axis in range(3))
+                self.assertIn(index(context_position(target, delta), volume), result['common'][value])
+
+    def test_actor_absolute_positions_pair_coordinates_and_nested_item_data_are_independent(self):
+        first, second = (5, 2, 3), (6, 2, 3)
+        chest = material('chest')
+        actor = {'x': 6, 'y': 2, 'z': 3, 'pairx': 5, 'pairz': 3,
+                 'chestIsLargeChest': True, 'chestModelOffset': -.5,
+                 'opaque': {'x': 99, 'y': 98, 'z': 97}}
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'x': {'__type__': 3, '__value__': 6}}
+        doc = Document((8, 4, 5), {first: chest, second: make_cell(chest, nbt=compose_actor(actor, nbt))})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+        result = prepare_context_palette(source, source)
+        values = []
+        for target in (first, second):
+            delta = tuple(second[axis] - target[axis] for axis in range(3))
+            encoded = context_position(target, delta)
+            payload = result['actor'][chest[0]][index(encoded, result['volume'])]
+            self.assertEqual(encoded, tuple(payload[axis] for axis in ('x', 'y', 'z')))
+            self.assertEqual(encoded[0] - 1, payload['pairx'])
+            self.assertEqual(encoded[2], payload['pairz'])
+            self.assertEqual(actor['opaque'], payload['opaque'])
+            self.assertNotIn('nbt', payload)
+            values.append(payload)
+        values[0]['opaque']['x'] = 0
+        self.assertEqual(99, values[1]['opaque']['x'])
+        self.assertEqual(saved, source)
+
+    def test_snow_overlay_remains_in_its_own_region_and_hidden_plants_are_not_overlaid(self):
+        source = build('test.layers.snow')
+        target = (3, 1, 9)
+        result = prepare_context_palette(source.palette_data(), source.palette_data(lambda pos: pos == target))
+        volume = result['volume']
+        proxy = ('modern_projection:preview_short_grass', 0)
+        overlay = index((target[0], target[1] + OVERLAY_BASE, target[2]), volume)
+        self.assertEqual([overlay], result['common'][proxy])
+        self.assertEqual((3, 257, 9), position(overlay, volume))
+        snow = material('snow_layer', {'height': 0, 'covered_bit': True})
+        self.assertEqual([index(context_position(target), volume)], result['common'][snow])
+        grass = material('short_grass')
+        self.assertEqual([index(context_position(target), volume)], result['extra'][grass])
+
+    def test_native_static_shulker_pose_survives_context_without_actor_reintroduction(self):
+        source = build('test.transforms.directions')
+        target = (3 + 5 * 5, 3, 28)
+        result = prepare_context_palette(source.palette_data(), source.palette_data(lambda pos: pos == target))
+        proxy = ('modern_projection:preview_shulker_purple_5', 0)
+        self.assertEqual([index(context_position(target), result['volume'])], result['common'][proxy])
+        self.assertEqual({}, result['actor'])
+
+    def test_no_visible_targets_and_boundary_cells_do_not_manufacture_neighbors(self):
+        doc = Document((1, 1, 1), {(0, 0, 0): material('stone')})
+        blank = prepare_context_palette(doc.palette_data(), doc.palette_data(lambda pos: False))
+        self.assertEqual({}, blank['common'])
+        result = prepare_context_palette(doc.palette_data(), doc.palette_data())
+        self.assertEqual(1, sum(len(entries) for entries in result['common'].values()))
+        self.assertEqual((4, 4, CONTEXT_BASE + 4), result['volume'])
+
+    def test_invalid_target_and_geometry_budget_fail_without_mutating_source(self):
+        doc = Document((3, 3, 3), {(1, 1, 1): material('stone'), (2, 1, 1): material('stone')})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+        with patch('projection.render_context.MAX_SURFACE_BLOCKS', 1):
+            with self.assertRaisesRegex(ValueError, 'budget'):
+                prepare_context_palette(source, source)
+        invalid = dict(source, volume=(3, 4, 3))
+        with self.assertRaisesRegex(ValueError, 'matching'):
+            prepare_context_palette(source, invalid)
+        invalid = dict(source, common={material('stone'): [27]})
+        with self.assertRaisesRegex(ValueError, 'outside'):
+            prepare_context_palette(source, invalid)
+        self.assertEqual(saved, source)
+
+
+if __name__ == '__main__':
+    unittest.main()
