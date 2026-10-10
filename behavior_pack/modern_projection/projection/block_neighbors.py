@@ -8,6 +8,7 @@ responsible for stair corners, fence arms and pane arms which have no states.
 """
 from __future__ import unicode_literals
 from . import block_registry as registry
+from .static_neighbor_data import HANGING_MOSS_NAMES
 from .block_traits import is_solid
 from .cell import actor_data, foreground, replace_layer
 from .block_groups import (actor_pair_position, chest_pair_actor,
@@ -82,6 +83,8 @@ def _kind(value):
         return 'gate'
     if 'dripstone_thickness' in properties:
         return 'dripstone'
+    if foreground(value)[0] in HANGING_MOSS_NAMES:
+        return 'hanging_moss'
     return 'chest' if properties and foreground(value)[0] in _CHESTS else None
 
 
@@ -354,6 +357,8 @@ def _context_offsets(kind):
         return tuple((offset[0], height, offset[2]) for offset in OFFSETS.values() for height in (0, 1, -1))
     if kind == 'dripstone':
         return tuple((0, height, 0) for height in (-2, -1, 1, 2))
+    if kind == 'hanging_moss':
+        return ((0, -1, 0),)
     offsets = tuple(OFFSETS.values())
     return offsets + ((0, 1, 0),) if kind == 'wall' else offsets
 
@@ -420,6 +425,9 @@ def reconcile_steps(document, after, write, locked_layers, preserve=()):
             updated = _gate(value, pos, get_cell)
         elif kind == 'dripstone':
             updated = _dripstone(value, pos, get_cell)
+        elif kind == 'hanging_moss':
+            below = foreground(get_cell(_add(pos, (0, -1, 0))))[0]
+            updated = _with_properties(value, {'tip': below != foreground(value)[0]})
         else:
             updated = _rail(value, pos, context)
         if updated != value:
