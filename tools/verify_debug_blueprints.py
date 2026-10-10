@@ -167,7 +167,7 @@ class BlueprintCheck:
                         '"top":navigator.top.key if navigator.top else None})')
 
     def refresh(self):
-        for name in ('debug_blueprints', 'debug_entity_blueprints', 'debug_blueprint_ui', 'ui'):
+        for name in ('debug_blueprints', 'debug_entity_blueprints', 'debug_blueprint_ui', 'panels', 'ui'):
             path = ROOT / ('behavior_pack/modern_projection/projection/' + name + '.py')
             encoded = base64.b64encode(path.read_bytes()).decode('ascii')
             self.run('import base64\n'
