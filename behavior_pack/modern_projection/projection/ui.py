@@ -27,6 +27,7 @@ from .sharing_ui import SharingDialog
 from .typography import layout as text_layout
 from .widgets import Pointer, rounded_skin
 from .input_mode import is_touch
+from .debug_blueprint_ui import TestBlueprints
 
 
 def use_session_fields(session, fields):
@@ -470,8 +471,9 @@ def PageNavigation(session=None, revision=0, focus=False):
     use_session_fields(session, ('page', 'point_edit'))
     e = session.editor
     return row([
-        Segments(items=[('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'), ('guide', '入门指南')],
-                 value=session.page, onChange=partial(session.set, 'page'), width=340),
+        Segments(items=[('workspace', '工作台'), ('library', '建筑库'), ('projection', '投影'),
+                        ('testing', '测试蓝图'), ('guide', '入门指南')],
+                 value=session.page, onChange=partial(session.set, 'page'), width=430),
         Panel(style=S(flex=1)), text(e.document.name[:24], 11, Theme.muted),
         Action(glyph='undo', width=29, height=28, onClick=partial(session.action, e.undo), enabled=bool(e.undo_stack)),
         Action(glyph='redo', width=29, height=28, onClick=partial(session.action, e.redo), enabled=bool(e.redo_stack)),
@@ -557,6 +559,9 @@ def PageContent(session=None, revision=0, width=760, height=440, focus=False, en
         RetainedPane(key='guide', active=page == 'guide', session=session,
             style=S(position=Position.absolute, width=width, height=height),
             children=Guide(session=session, revision=session.reduced_motion, width=width, height=height)),
+        RetainedPane(key='testing', active=page == 'testing', session=session,
+            style=S(position=Position.absolute, width=width, height=height),
+            children=TestBlueprints(session=session, revision=revision, width=width, height=height)),
     ]
     return PageMotion(page=page, width=width, height=height, children=panes)
 

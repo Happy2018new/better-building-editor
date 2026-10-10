@@ -1,0 +1,101 @@
+# Built-In Test Blueprints
+
+The public `测试蓝图` navigation tab is independent of the saved building library
+and needs no operator permission. Loading uses the normal draft replacement
+confirmation and returns to the workspace. Every load builds a fresh document;
+edits, undo history and saves cannot change the next copy of a fixture.
+
+## Stable Identities
+
+Blueprint metadata and entity fixture metadata each use schema version 1.
+The category identity, blueprint identity and card `key` are stable automation
+targets. Categories are separate pages within the test tab.
+
+| Blueprint Identity | Category | Size | Coverage |
+| --- | --- | --- | --- |
+| `test.layers.water` | `layers` | 32 × 8 × 24 | Dry, waterlogged and background-only comparisons for twelve materials |
+| `test.layers.snow` | `layers` | 32 × 8 × 24 | Six measured coverable plants, two snow depths and snow above leaves |
+| `test.groups.parts` | `groups` | 32 × 8 × 24 | Wood/iron doors, beds in four directions and tall plants |
+| `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
+| `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
+| `test.entities.classic` | `entities` | 40 × 10 × 36 | Classic native entity associations |
+| `test.entities.mechanisms` | `entities` | 32 × 10 × 28 | Structure/logic and utility entity associations |
+| `test.entities.recent` | `entities` | 32 × 10 × 28 | Recent entity associations available in the current registry |
+| `test.registry.vanilla` | `registry` | 64 × 64 × 64 | Every vanilla block type in the current inventory catalogue, with complete grouped parts |
+
+The grey/white floor has grid lines every four cells. Cyan and magenta plinths
+provide a visible placement reference. The fixtures are regular editor documents
+and can be copied, transformed, exported, shared and projected.
+
+## Coordinates For Acceptance
+
+All coordinates are local to the document, with X/Y/Z in editor order.
+
+- Water fixtures use X `3 + 5 × column`, with six columns. The first row's dry,
+  waterlogged and background-only copies are at Z 3, 6 and 9; the second row
+  uses Z 13, 16 and 19. The first material is an oak fence at X 3.
+- Snow fixtures use X 3, 8, 13, 18, 23 and 28 for short grass, fern, dandelion,
+  poppy, blue orchid and allium. Dry copies use Z 3, one-layer snow uses Z 9
+  and six-layer snow uses Z 16. The covered cell is at Y 1. Native storage is
+  foreground covered snow plus background plant.
+- The rail loop covers X/Z 3..11 at Y 1. Its four corners have shapes 6, 7, 8
+  and 9. Sloping rails are at X 17, Z 3..8 and Y 1..3.
+- The wall cross is centred on `(7,1,17)`. Panes and bars run along Z 19..25 at
+  X 17 and 22. Fences and the gate occupy X 17..26 at Z 17.
+- Bottom stair corners are centred at `(3,1,23)`, `(8,1,23)`, `(3,1,28)` and
+  `(8,1,28)`. The front-adjacent pairs form outer corners; the back-adjacent
+  pairs form inner corners. Their top-half equivalents are offset +12 on X.
+- Double chests occupy `(26,1,5)` / `(27,1,5)` and the copper equivalents use
+  Z 10. Both halves contain reciprocal local pairing coordinates and native
+  complementary `pairlead` / `renderlead` fields.
+- The vanilla gallery has fourteen columns and rows per level, four cells
+  between plinth centres and eight cells between levels. Its order is the
+  sorted native catalogue order, so a registry update produces a deterministic
+  new gallery.
+
+In automatic edit mode, erasing a wet fence removes the fence first and leaves
+ordinary foreground water. Erasing covered snow removes the snow first and
+restores the plant to the foreground; the next erase removes the plant.
+Explicit foreground/background modes act on the chosen
+layer. Undo restores the complete cells and grouped parts.
+
+## Native Evidence And Limitations
+
+Materials and all requested properties resolve through the checked-in native
+registry. No fixture constructs aux values by arithmetic. Missing required
+materials or states fail before replacing the draft. Newer optional entity
+associations absent from the registry are omitted and reported by `coverage()`.
+
+Entity metadata covers the user's 59-entry reference through 56 candidate test
+associations and three explicit exclusions: `CraftingTable`, `NeteaseContainer`
+and `ModBlock`. A reference enum or a native block name alone does not prove a
+native entity payload schema. These exclusions and unavailable associations
+remain visible in the coverage report and are not runtime allowlists.
+
+Covered tall grass and large fern await a native probe with complete lower and
+upper parts; their grouped editing cases remain in `test.groups.parts`.
+
+At the initial fixture milestone, entity payloads contain typed identity and
+local coordinates, plus independently observed Shulker direction, double-chest
+pairing and client sign renderer fields. Other entity default payloads await
+native capture. A successful pure-Python fixture test verifies data preservation
+and legal states; it does not certify the native renderer for every entity.
+See [Block Entity Data Coverage](block-entity-data.md) for adapter evidence and
+pending native-specific fields.
+
+## Version Updates And Verification
+
+Regenerate the native registry from the new game's dump using the normal block
+registry workflow, retain the old versioned source and inspect its diff. Run:
+
+```powershell
+python -X utf8 -m unittest discover -s tests -p test_debug_blueprints.py
+```
+
+The tests verify legal foreground/background states, palette preparation,
+independent loads, config/MP4 round trips, reciprocal groups, rail corners,
+double-chest fields, automatic erase history and all six whole-document
+transform inverses. The catalogue fixture expands automatically from the
+regenerated registry. Real-game acceptance should load these same fixture keys
+once and inspect both the workspace preview and world projection, then exercise
+placement and erasure at the listed coordinates.

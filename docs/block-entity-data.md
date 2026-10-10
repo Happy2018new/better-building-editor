@@ -25,12 +25,15 @@ without requiring an identifier from the reference. Coordinates and recognized
 spatial fields can be transformed while tags, key types and unrelated metadata
 are retained. Nested item data, commands and unknown fields remain opaque.
 
-Production capture is limited to client-visible data, as requested. The saved
-format can represent inventories, but capture does not promise to obtain hidden
-container `Items`. Reference entries are not proof that client palettes expose
-every payload or that the native renderer can display every entity. Server NBT
-used in isolated diagnostics is evidence for field semantics, not a new
-production inventory-reading or authorization channel.
+Production world import combines client renderer data with authoritative server
+NBT for the survey wand's registered selection. The server captures full entity
+payloads, including available container `Items`, and locks the selection for the
+transfer. Out-of-scope or invalid requests are rejected silently; registration
+and transfer state are cleared after completion or cancellation. This keeps NBT
+capture tied to the selected import rather than exposing arbitrary coordinate
+reads. The actor envelope and versioned saved formats preserve both sources.
+Reference entries are still not proof that a native renderer can display every
+entity or that every enum exists in the current game version.
 
 ## Spatial Field Adapters
 
