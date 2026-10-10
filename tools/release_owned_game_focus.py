@@ -38,9 +38,11 @@ def main():
             time.sleep(2.)
         with Client(timeout=30) as client:
             released = client.call('mc_input', {'op': '/release-all', 'args': {}})
-        user32.ShowWindow(hwnd, 6)
+        user32.ShowWindowAsync.argtypes = (wintypes.HWND, ctypes.c_int)
+        user32.ShowWindowAsync.restype = wintypes.BOOL
+        assert user32.ShowWindowAsync(hwnd, 6), 'Cannot request owned game minimization'
         deadline = time.monotonic() + 2.
-        while user32.GetForegroundWindow() == hwnd and time.monotonic() < deadline:
+        while (not user32.IsIconic(hwnd) or user32.GetForegroundWindow() == hwnd) and time.monotonic() < deadline:
             time.sleep(.05)
         assert user32.IsIconic(hwnd), hwnd
         if user32.GetForegroundWindow() == hwnd:
