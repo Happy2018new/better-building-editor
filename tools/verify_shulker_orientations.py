@@ -152,6 +152,15 @@ def server_run(client, code):
 
 def native_setup(client, check):
     rows = server_run(client, (ROOT / 'tools/p0_shulker_orientations_setup.py').read_text(encoding='utf8'))
+    time.sleep(.25)
+    rows['supports_removed'] = server_run(client, '''import json,sys
+import mod.server.extraServerApi as api
+saved=sys._p0_shulker_faces
+info=api.GetEngineCompFactory().CreateBlockInfo(api.GetLevelId())
+for row in saved['rows']:
+ info.SetBlockNew(tuple(row['support']),{'name':'minecraft:air','aux':0},0,saved['dimension'],True,True)
+_result=json.dumps([info.GetBlockNew(tuple(row['support']),saved['dimension']) for row in saved['rows']])
+''')
     check.run('sys._p0_shulker_face_positions=%r\n_result=True' % rows['rows'])
     code = (ROOT / 'tools/p0_shulker_orientations_read.py').read_text(encoding='utf8')
     time.sleep(.5)
@@ -166,11 +175,11 @@ from modern_projection.projection.nbt_spatial import root_payload,scalar
 saved=sys._p0_shulker_faces
 info=api.GetEngineCompFactory().CreateBlockInfo(api.GetLevelId())
 for row in saved['rows']:
- assert info.GetBlockNew(tuple(row['support']),saved['dimension'])['name']=='minecraft:stone',row
+ assert info.GetBlockNew(tuple(row['support']),saved['dimension'])['name']=='minecraft:air',row
  assert info.GetBlockNew(tuple(row['pos']),saved['dimension'])['name']=='minecraft:purple_shulker_box',row
  current=info.GetBlockEntityData(saved['dimension'],tuple(row['pos']))
  assert scalar(root_payload(current),'facing')==row['server_facing'],row
-_result=json.dumps({'supports_preserved':True,'native_faces_unchanged':True})
+_result=json.dumps({'supports_removed':True,'native_faces_unchanged':True})
 ''')
 
 
