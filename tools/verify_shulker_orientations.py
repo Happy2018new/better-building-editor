@@ -237,31 +237,44 @@ def main():
                 assert not failed, 'All six shulker poses render identically: ' + ', '.join(failed)
                 evidence['completed'] = True
             finally:
+                prior_error = sys.exc_info()[0]
+                cleanup_errors = []
                 if visual_saved:
-                    check.run('b.stop_projection()\n_result=True')
-                    check.run(camera_restore_code(False))
-                    check.run('saved=sys._blueprint_visual_saved\ns.origin=saved["origin"]\n'
-                              's.opacity=saved["opacity"]\ns.projection_missing=saved["missing"]\n'
-                              's.projection_outline=saved["outline"]\ndel sys._blueprint_visual_saved\n_result=True')
+                    actions = (
+                        ('projection', 'b.stop_projection()\n_result=True'),
+                        ('camera', camera_restore_code(False)),
+                        ('visual_fields', 'saved=sys._blueprint_visual_saved\ns.origin=saved["origin"]\n'
+                         's.opacity=saved["opacity"]\ns.projection_missing=saved["missing"]\n'
+                         's.projection_outline=saved["outline"]\ndel sys._blueprint_visual_saved\n_result=True'),
+                    )
+                    for label, code in actions:
+                        try:
+                            check.run(code)
+                        except Exception as cleanup_error:
+                            cleanup_errors.append('%s: %s' % (label, cleanup_error))
                 if installed:
-                    opened = check.run('_result=sys._blueprint_qa_saved["workspace"]')
-                    check.run(RESTORE)
-                    if opened:
-                        check.run('owner.open_workspace()\n_result=True')
-                    elif check.navigation()['open']:
-                        check.run('navigator.pop()\n_result=True')
-                    evidence['restored'] = True
+                    try:
+                        opened = check.run('_result=sys._blueprint_qa_saved["workspace"]')
+                        check.run(RESTORE)
+                        if opened:
+                            check.run('owner.open_workspace()\n_result=True')
+                        elif check.navigation()['open']:
+                            check.run('navigator.pop()\n_result=True')
+                        evidence['restored'] = True
+                    except Exception as cleanup_error:
+                        cleanup_errors.append('workspace: %s' % cleanup_error)
                 if native_created:
-                    prior_error = sys.exc_info()[0]
                     try:
                         saved = server_run(client, 'import sys\n_result=hasattr(sys,"_p0_shulker_faces")')
                         if saved:
                             server_run(client, (ROOT / 'tools/p0_shulker_orientations_cleanup.py').read_text(encoding='utf8'))
                         evidence['native_cleaned'] = True
                     except Exception as cleanup_error:
-                        evidence['native_cleanup_error'] = '%s: %s' % (type(cleanup_error).__name__, cleanup_error)
-                        if prior_error is None:
-                            raise
+                        cleanup_errors.append('native_fixture: %s' % cleanup_error)
+                if cleanup_errors:
+                    evidence['cleanup_errors'] = cleanup_errors
+                    if prior_error is None:
+                        raise RuntimeError('Shulker acceptance cleanup failed: ' + '; '.join(cleanup_errors))
     except Exception as error:
         evidence['error'] = '%s: %s' % (type(error).__name__, error)
         raise

@@ -14,12 +14,12 @@ for row in saved['rows']:
         actual = info.GetBlockNew(tuple(pos), saved['dimension'])
         if not actual or actual.get('name') != 'minecraft:air':
             failures.append(pos)
-assert not failures, ('Native fixture cleanup failed', failures)
 if 'slot' in saved:
     items = factory.CreateItem(player)
     items.SetInvItemNum(saved['slot'], 0)
     remaining = items.GetPlayerItem(api.GetMinecraftEnum().ItemPosType.INVENTORY,
                                    saved['slot'], True)
     assert not remaining or not remaining.get('count'), ('Native fixture item cleanup failed', remaining)
+assert not failures, ('Native fixture cleanup failed', failures)
 del sys._p0_shulker_faces
 _result = True
