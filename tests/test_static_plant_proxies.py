@@ -1,0 +1,125 @@
+"""Native-source plant candidates preserve strict layers and source contracts."""
+from copy import deepcopy
+import json
+from pathlib import Path
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/'tools'))
+from generate_static_plant_proxies import SOURCE, validate, outputs, SPECIAL, CANDIDATES
+
+
+class StaticPlantProxyTests(unittest.TestCase):
+    def setUp(self):
+        self.source = json.loads(SOURCE.read_text(encoding='utf8'))
+
+    def test_native_texture_identity_and_special_material_boundaries(self):
+        validate(self.source)
+        files = outputs(self.source)
+        atlas = files[ROOT/'resource_pack/textures/terrain_texture.json']['texture_data']
+        for name in CANDIDATES:
+            record = self.source['plants'][name]
+            self.assertNotIn(name, SPECIAL)
+            self.assertEqual(record['texture_path'].rsplit('.', 1)[0],
+                             atlas['modern_projection_static_'+name]['textures'])
+            model = files[ROOT/'resource_pack/models/netease_block'/('preview_'+name+'.json')]
+            expected = deepcopy(self.source['template']['netease:block_geometry']['bones'])
+            for bone in expected:
+                bone['pivot'][1] = 8
+                for cube in bone['cubes']:
+                    cube['size'][1] = 16
+            self.assertEqual(expected, model['netease:block_geometry']['bones'])
+
+    def test_unmeasured_plants_are_not_registered_and_height_uses_native_alpha(self):
+        files = outputs(self.source)
+        blocks = files[ROOT/'resource_pack/blocks.json']
+        atlas = files[ROOT/'resource_pack/textures/terrain_texture.json']['texture_data']
+        data = {}
+        exec(files[ROOT/'behavior_pack/modern_projection/projection/plant_proxy_data.py'], data)
+        self.assertEqual(set(('minecraft:'+name, 0) for name in CANDIDATES),
+                         set(data['STATIC_PLANT_PROXIES']))
+        for name, record in self.source['plants'].items():
+            material = ('minecraft:'+name, 0)
+            proxy = 'modern_projection:preview_'+name
+            key = 'modern_projection_static_'+name
+            if name in CANDIDATES:
+                expected = 1. - record['alpha_bounds'][1]/float(record['texture_size'][1])
+                self.assertEqual(expected, data['STATIC_PLANT_MAX_Y'][material])
+            else:
+                self.assertNotIn(material, data['STATIC_PLANT_MAX_Y'])
+                self.assertNotIn(proxy, blocks)
+                self.assertNotIn(key, atlas)
+                self.assertNotIn(ROOT/'behavior_pack/netease_blocks'/('preview_'+name+'.json'), files)
+
+    def test_missing_native_source_or_changed_mapping_is_rejected(self):
+        for kind in ('missing_plant', 'missing_hash', 'texture_path', 'version', 'geometry_evidence'):
+            with self.subTest(kind=kind):
+                modified = deepcopy(self.source)
+                if kind == 'missing_plant':
+                    del modified['plants']['poppy']
+                elif kind == 'missing_hash':
+                    del modified['sha256']['texture_poppy']
+                elif kind == 'texture_path':
+                    modified['plants']['poppy']['texture_path'] = 'textures/blocks/flower_allium.tga'
+                elif kind == 'version':
+                    modified['game_version'] = 'Different native version'
+                else:
+                    modified['geometry_evidence']['brown_mushroom']['texture_alpha_top_row'] = 7
+                with self.assertRaises(ValueError):
+                    validate(modified)
+
+    def test_render_adapter_keeps_source_document_layers_and_actor(self):
+        from projection.geometry_palette import prepare_palette
+        from projection.cell import make_cell
+        from projection.model import Document
+        for name in sorted(CANDIDATES):
+            material = ('minecraft:'+name, 0)
+            document = Document((1, 1, 1), {(0, 0, 0): make_cell(
+                material, ('minecraft:water', 0), {'opaque': {'plant': name}})})
+            original = deepcopy(document.to_data())
+            rendered = prepare_palette(document.palette_data())
+            self.assertEqual(original, document.to_data())
+            self.assertEqual([0], rendered['common'][('modern_projection:preview_'+name, 0)])
+            self.assertEqual([0], rendered['extra'][('minecraft:water', 0)])
+
+    def test_buried_mushroom_overlays_keep_logical_layers_at_and_above_alpha_top(self):
+        from projection import block_registry as registry
+        from projection.geometry_palette import prepare_palette
+        from projection.cell import make_cell
+        from projection.model import Document
+        from projection.render_layout import overlay_index
+        for name in sorted(CANDIDATES):
+            with self.subTest(plant=name):
+                material = ('minecraft:'+name, 0)
+                proxy = ('modern_projection:preview_'+name, 0)
+                document = Document((8, 1, 1), {
+                    (height, 0, 0): make_cell(registry.from_states('minecraft:snow_layer',
+                        {'height': height, 'covered_bit': True}), material,
+                        {'opaque': {'height': height}})
+                    for height in range(8)})
+                saved_document = deepcopy(document.to_data())
+                source = document.palette_data()
+                source['extraStates'] = {material: registry.states(material)}
+                saved = deepcopy(source)
+                rendered = prepare_palette(source)
+                self.assertEqual([overlay_index(height, source['volume']) for height in range(3)],
+                                 rendered['common'][proxy])
+                self.assertEqual(source['extra'], rendered['extra'])
+                self.assertEqual(source['extraStates'], rendered['extraStates'])
+                self.assertEqual(saved_document, document.to_data())
+                self.assertEqual(saved, source)
+                for height in (3, 4, 7):
+                    buried = Document((1, 1, 1), {(0, 0, 0): make_cell(
+                        registry.from_states('minecraft:snow_layer',
+                            {'height': height, 'covered_bit': True}), material)})
+                    original = deepcopy(buried.palette_data())
+                    result = prepare_palette(original)
+                    self.assertNotIn(proxy, result['common'])
+                    self.assertEqual(original['volume'], result['volume'])
+                    self.assertEqual(original['extra'], result['extra'])
+                    self.assertEqual(original, buried.palette_data())
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -6,6 +6,7 @@ from .visible_actor import render_actor
 from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entities
 from .block_traits import is_snow_coverable
 from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
+from .plant_proxy_data import STATIC_PLANT_PROXIES, STATIC_PLANT_MAX_Y
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -28,6 +29,7 @@ PLANT_PROXIES = {
     ('minecraft:large_fern', 0): 'modern_projection:preview_large_fern_bottom',
     ('minecraft:large_fern', 1): 'modern_projection:preview_large_fern_top',
 }
+PLANT_PROXIES.update(STATIC_PLANT_PROXIES)
 
 # The engine can return item metadata for hidden custom blocks despite
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
@@ -50,15 +52,24 @@ def _proxy_foreground(entries, records):
 
 def _append_snow_overlays(common, common_states, extra, extra_states, volume, overlay_base):
     """Give native-ignored plants independent geometry in the same mesh."""
-    snow_positions = set(index for value, positions in common.items()
-                         if value[0] == 'minecraft:snow_layer' for index in positions)
-    if not snow_positions:
+    snow_surfaces = {}
+    for value, positions in common.items():
+        if value[0] == 'minecraft:snow_layer':
+            height = common_states.get(value, {}).get('height')
+            if height is None:
+                height = states(value)['height']
+            surface = (height + 1) / 8.
+            snow_surfaces.update((index, surface) for index in positions)
+    if not snow_surfaces:
         return volume
     overlays = {}
     for value, positions in extra.items():
         if not is_snow_coverable(value):
             continue
-        selected = [index for index in positions if index in snow_positions]
+        max_y = STATIC_PLANT_MAX_Y.get(value)
+        # Native alpha bounds define complete burial, including exact surface equality.
+        selected = [index for index in positions if index in snow_surfaces and
+                    (max_y is None or snow_surfaces[index] < max_y)]
         if selected:
             overlays[value] = selected
     if not overlays:

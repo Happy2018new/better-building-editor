@@ -14,7 +14,7 @@ MODULES = (
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
     'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
-    'water_interaction_data',
+    'water_interaction_data', 'plant_proxy_data',
     'static_neighbor_data',
     'native_palette_actor_data',
     'native_entity_write_data',
@@ -26,7 +26,7 @@ SNAPSHOTS = (
     'native_frame_rotations', 'native_signs', 'native_pot_poses', 'native_pot_sherds', 'native_pot_faces',
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
-    'native_snow_states',
+    'native_snow_states', 'static_plant_sources',
     'native_static_neighbors',
     'native_palette_actors',
     'native_bed_capture',
@@ -98,6 +98,7 @@ def commands(manifest, tests=False):
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],
+        ['tools/generate_static_plant_proxies.py', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

@@ -17,6 +17,7 @@ from projection.visible_actor import compose_actor, render_actor
 from projection.render_layout import OVERLAY_BASE, overlay_index
 from projection.debug_blueprints import build
 from projection.entity_render import COPPER_CHEST_PROXIES
+from projection.plant_proxy_data import STATIC_PLANT_PROXIES
 
 
 class GeometryPaletteTests(unittest.TestCase):
@@ -117,7 +118,10 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertEqual(proxy, model['description']['identifier'])
             self.assertEqual(2, len(model['bones']))
             self.assertEqual(proxy, appearances[proxy]['netease_model'])
-            self.assertEqual('textures/colormap/grass', appearances[proxy]['use_colormap'])
+            if proxy not in STATIC_PLANT_PROXIES.values():
+                self.assertEqual('textures/colormap/grass', appearances[proxy]['use_colormap'])
+            else:
+                self.assertNotIn('use_colormap', appearances[proxy])
 
     def test_grass_geometry_is_centered_inside_its_block(self):
         # Native palette conversion mirrors the model's X axis: a block spans
@@ -142,8 +146,8 @@ class GeometryPaletteTests(unittest.TestCase):
                         self.assertAlmostEqual(8., sum(values) / len(values), msg=proxy)
                         self.assertGreaterEqual(min(values), 0., proxy)
                         self.assertLessEqual(max(values), 16., proxy)
-                    height = 12.8 if proxy in ('modern_projection:preview_short_grass',
-                                               'modern_projection:preview_fern') else 16
+                    height = 16 if (proxy.endswith(('_bottom', '_top')) or
+                                    proxy in STATIC_PLANT_PROXIES.values()) else 12.8
                     self.assertEqual((0, height), (origin[1], origin[1] + size[1]))
 
     def test_full_cells_keep_background_states_and_actor_data_in_geometry_palette(self):

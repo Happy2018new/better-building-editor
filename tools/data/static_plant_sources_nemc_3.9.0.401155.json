@@ -1,0 +1,728 @@
+{
+  "schema": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "paths": {
+    "blocks": "blocks.json",
+    "terrain": "textures/terrain_texture.json",
+    "texture_dandelion": "textures/blocks/flower_dandelion.png",
+    "texture_poppy": "textures/blocks/flower_rose.png",
+    "texture_blue_orchid": "textures/blocks/flower_blue_orchid.png",
+    "texture_allium": "textures/blocks/flower_allium.png",
+    "texture_azure_bluet": "textures/blocks/flower_houstonia.png",
+    "texture_brown_mushroom": "textures/blocks/mushroom_brown.png",
+    "texture_bush": "textures/blocks/bush.png",
+    "texture_cornflower": "textures/blocks/flower_cornflower.png",
+    "texture_crimson_fungus": "textures/blocks/crimson_fungus.png",
+    "texture_crimson_roots": "textures/blocks/crimson_roots.png",
+    "texture_lily_of_the_valley": "textures/blocks/flower_lily_of_the_valley.png",
+    "texture_nether_sprouts": "textures/blocks/nether_sprouts.png",
+    "texture_orange_tulip": "textures/blocks/flower_tulip_orange.png",
+    "texture_oxeye_daisy": "textures/blocks/flower_oxeye_daisy.png",
+    "texture_pink_tulip": "textures/blocks/flower_tulip_pink.png",
+    "texture_red_mushroom": "textures/blocks/mushroom_red.png",
+    "texture_red_tulip": "textures/blocks/flower_tulip_red.png",
+    "texture_short_dry_grass": "textures/blocks/short_dry_grass.png",
+    "texture_tall_dry_grass": "textures/blocks/tall_dry_grass.png",
+    "texture_torchflower": "textures/blocks/torchflower.png",
+    "texture_warped_fungus": "textures/blocks/warped_fungus.png",
+    "texture_warped_roots": "textures/blocks/warped_roots.png",
+    "texture_white_tulip": "textures/blocks/flower_tulip_white.png",
+    "texture_wither_rose": "textures/blocks/flower_wither_rose.png"
+  },
+  "sha256": {
+    "blocks": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "terrain": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c",
+    "texture_dandelion": "4159ebc9fa9471539d4a642e03ed89889cee8cade58e94491a6ee382bcd8e840",
+    "texture_poppy": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+    "texture_blue_orchid": "65b6f59ee89737be93f7332598f512b4ab67160f431ea7f3f66fbf09f9c6bd21",
+    "texture_allium": "1a9886ff4971c2b0c63e77fffe3729cb2f513cc34a398e9c0bdcddbcb3dbdd96",
+    "texture_azure_bluet": "04d767af56fc6a6157eebd9ee6b4cf09e1e60692218d7c25fed17b6bc3a46bbb",
+    "texture_brown_mushroom": "f433e450abb552e61e2694caabad2eaa9f194419ad1e386967960d05850dff7d",
+    "texture_bush": "4cb3e64a82805901edec3c2d1e4e6dec94051d55e94c7457a58a7bcf99fdc7ae",
+    "texture_cornflower": "46e0817fc9f1b22ad6f32f8eae35e046486cdf19f91869709f8c05a313e6f4df",
+    "texture_crimson_fungus": "ada86936e7065c44d36ca7d3918f09487c0caa11be306e93ef4263950e4e1db7",
+    "texture_crimson_roots": "84df9b4174b275a4e32b315ea9ebdb603e2c83ccd35655cb955a509988724cde",
+    "texture_lily_of_the_valley": "61d8ead7ee390fff51182c063be57bd79d83b2655f9b4fa0b5cb26d8f1666d12",
+    "texture_nether_sprouts": "baaeee83b48793981e089f39db83cad894437e3d1d785b02caf980593cca7021",
+    "texture_orange_tulip": "0961bb7951474c0f53bad2e05c7f547c4c4387005f908a72bcf833e9c0209e94",
+    "texture_oxeye_daisy": "1f53ae122968558bba4f227fe84289ba901741078a80798867eaefa28a086a32",
+    "texture_pink_tulip": "ba31bf0a61d7548df4ee5b11e50e20894cdefc754d9e39693e45cef0eb3ece5f",
+    "texture_red_mushroom": "7118fe38a670fe6e7b3085f3135fba2945dcba9f7524186057776c9eb0a19605",
+    "texture_red_tulip": "edbeecab9d7f37b279c3755ec22abc9ef22ad2cf74f7ffc0bb1cdbf0b446f735",
+    "texture_short_dry_grass": "cee6902754d9614f4be0a14e17c7a33b32cdd2baa9229e623d0cb5fa4d7559b4",
+    "texture_tall_dry_grass": "a60a108ed0644b9145733575c76684c33788016d37d6fd56b2b433b8783c28a6",
+    "texture_torchflower": "26aaa5789eed28dc4ffa355d5117fc18b12176538286d743d495a67d48ea4004",
+    "texture_warped_fungus": "fdc0f10c9c6fab584a2fcebeb7183119f1e8316da5788a8016f6eb92105aafb5",
+    "texture_warped_roots": "1d223d047475c84adcadc3ce4b2a0a7f23cfd3a123360eba737625ca428962ff",
+    "texture_white_tulip": "190be6e1fc5bda204c9c70c7f2e86c8a63f2a9ef72097da0cd1c6c013735de9a",
+    "texture_wither_rose": "e8a6682a22a32daeb2b67e7e6e3e83e955088d7237b0116d849f1c2bfc881a72"
+  },
+  "plants": {
+    "dandelion": {
+      "definition": {
+        "textures": "dandelion",
+        "sound": "grass"
+      },
+      "texture_key": "dandelion",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_dandelion"
+      },
+      "texture_path": "textures/blocks/flower_dandelion.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        5,
+        7,
+        11,
+        16
+      ]
+    },
+    "poppy": {
+      "definition": {
+        "textures": "poppy",
+        "sound": "grass"
+      },
+      "texture_key": "poppy",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_rose"
+      },
+      "texture_path": "textures/blocks/flower_rose.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        5,
+        5,
+        12,
+        16
+      ]
+    },
+    "blue_orchid": {
+      "definition": {
+        "textures": "blue_orchid",
+        "sound": "grass"
+      },
+      "texture_key": "blue_orchid",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_blue_orchid"
+      },
+      "texture_path": "textures/blocks/flower_blue_orchid.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        2,
+        4,
+        15,
+        16
+      ]
+    },
+    "allium": {
+      "definition": {
+        "textures": "allium",
+        "sound": "grass"
+      },
+      "texture_key": "allium",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_allium"
+      },
+      "texture_path": "textures/blocks/flower_allium.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        2,
+        11,
+        16
+      ]
+    },
+    "azure_bluet": {
+      "definition": {
+        "textures": "azure_bluet",
+        "sound": "grass"
+      },
+      "texture_key": "azure_bluet",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_houstonia"
+      },
+      "texture_path": "textures/blocks/flower_houstonia.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        3,
+        6,
+        12,
+        16
+      ]
+    },
+    "brown_mushroom": {
+      "definition": {
+        "textures": "mushroom_brown",
+        "sound": "grass"
+      },
+      "texture_key": "mushroom_brown",
+      "atlas_record": {
+        "textures": "textures/blocks/mushroom_brown"
+      },
+      "texture_path": "textures/blocks/mushroom_brown.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        8,
+        12,
+        16
+      ]
+    },
+    "bush": {
+      "definition": {
+        "textures": "bush",
+        "carried_textures": "bush_carried",
+        "sound": "grass"
+      },
+      "texture_key": "bush",
+      "atlas_record": {
+        "textures": "textures/blocks/bush"
+      },
+      "texture_path": "textures/blocks/bush.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        4,
+        16,
+        16
+      ]
+    },
+    "cornflower": {
+      "definition": {
+        "textures": "cornflower",
+        "sound": "grass"
+      },
+      "texture_key": "cornflower",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_cornflower"
+      },
+      "texture_path": "textures/blocks/flower_cornflower.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        4,
+        11,
+        16
+      ]
+    },
+    "crimson_fungus": {
+      "definition": {
+        "textures": "nether_shroom_red",
+        "sound": "fungus"
+      },
+      "texture_key": "nether_shroom_red",
+      "atlas_record": {
+        "textures": "textures/blocks/crimson_fungus"
+      },
+      "texture_path": "textures/blocks/crimson_fungus.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        3,
+        4,
+        13,
+        16
+      ]
+    },
+    "crimson_roots": {
+      "definition": {
+        "textures": {
+          "up": "crimson_roots",
+          "down": "crimson_roots",
+          "north": "crimson_roots",
+          "south": "crimson_roots_pot",
+          "west": "crimson_roots",
+          "east": "crimson_roots"
+        },
+        "sound": "roots"
+      },
+      "texture_key": "crimson_roots",
+      "atlas_record": {
+        "textures": "textures/blocks/crimson_roots"
+      },
+      "texture_path": "textures/blocks/crimson_roots.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        4,
+        15,
+        16
+      ]
+    },
+    "lily_of_the_valley": {
+      "definition": {
+        "textures": "lily_of_the_valley",
+        "sound": "grass"
+      },
+      "texture_key": "lily_of_the_valley",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_lily_of_the_valley"
+      },
+      "texture_path": "textures/blocks/flower_lily_of_the_valley.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        3,
+        4,
+        13,
+        16
+      ]
+    },
+    "nether_sprouts": {
+      "definition": {
+        "textures": "nether_sprouts",
+        "sound": "nether_sprouts"
+      },
+      "texture_key": "nether_sprouts",
+      "atlas_record": {
+        "textures": [
+          "textures/blocks/nether_sprouts"
+        ]
+      },
+      "texture_path": "textures/blocks/nether_sprouts.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        11,
+        15,
+        16
+      ]
+    },
+    "orange_tulip": {
+      "definition": {
+        "textures": "orange_tulip",
+        "sound": "grass"
+      },
+      "texture_key": "orange_tulip",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_tulip_orange"
+      },
+      "texture_path": "textures/blocks/flower_tulip_orange.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        5,
+        3,
+        10,
+        16
+      ]
+    },
+    "oxeye_daisy": {
+      "definition": {
+        "textures": "oxeye_daisy",
+        "sound": "grass"
+      },
+      "texture_key": "oxeye_daisy",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_oxeye_daisy"
+      },
+      "texture_path": "textures/blocks/flower_oxeye_daisy.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        2,
+        11,
+        16
+      ]
+    },
+    "pink_tulip": {
+      "definition": {
+        "textures": "pink_tulip",
+        "sound": "grass"
+      },
+      "texture_key": "pink_tulip",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_tulip_pink"
+      },
+      "texture_path": "textures/blocks/flower_tulip_pink.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        5,
+        3,
+        10,
+        16
+      ]
+    },
+    "red_mushroom": {
+      "definition": {
+        "textures": "mushroom_red",
+        "sound": "grass"
+      },
+      "texture_key": "mushroom_red",
+      "atlas_record": {
+        "textures": "textures/blocks/mushroom_red"
+      },
+      "texture_path": "textures/blocks/mushroom_red.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        9,
+        12,
+        16
+      ]
+    },
+    "red_tulip": {
+      "definition": {
+        "textures": "red_tulip",
+        "sound": "grass"
+      },
+      "texture_key": "red_tulip",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_tulip_red"
+      },
+      "texture_path": "textures/blocks/flower_tulip_red.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        3,
+        12,
+        16
+      ]
+    },
+    "short_dry_grass": {
+      "definition": {
+        "textures": "short_dry_grass",
+        "sound": "grass"
+      },
+      "texture_key": "short_dry_grass",
+      "atlas_record": {
+        "textures": [
+          "textures/blocks/short_dry_grass"
+        ]
+      },
+      "texture_path": "textures/blocks/short_dry_grass.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        3,
+        7,
+        14,
+        16
+      ]
+    },
+    "tall_dry_grass": {
+      "definition": {
+        "textures": "tall_dry_grass",
+        "sound": "grass"
+      },
+      "texture_key": "tall_dry_grass",
+      "atlas_record": {
+        "textures": [
+          "textures/blocks/tall_dry_grass"
+        ]
+      },
+      "texture_path": "textures/blocks/tall_dry_grass.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        1,
+        0,
+        15,
+        16
+      ]
+    },
+    "torchflower": {
+      "definition": {
+        "textures": "torchflower",
+        "sound": "grass"
+      },
+      "texture_key": "torchflower",
+      "atlas_record": {
+        "textures": "textures/blocks/torchflower"
+      },
+      "texture_path": "textures/blocks/torchflower.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    "warped_fungus": {
+      "definition": {
+        "textures": "nether_shroom_blue",
+        "sound": "fungus"
+      },
+      "texture_key": "nether_shroom_blue",
+      "atlas_record": {
+        "textures": "textures/blocks/warped_fungus"
+      },
+      "texture_path": "textures/blocks/warped_fungus.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        3,
+        7,
+        13,
+        16
+      ]
+    },
+    "warped_roots": {
+      "definition": {
+        "textures": {
+          "up": "warped_roots",
+          "down": "warped_roots",
+          "north": "warped_roots",
+          "south": "warped_roots_pot",
+          "west": "warped_roots",
+          "east": "warped_roots"
+        },
+        "sound": "roots"
+      },
+      "texture_key": "warped_roots",
+      "atlas_record": {
+        "textures": "textures/blocks/warped_roots"
+      },
+      "texture_path": "textures/blocks/warped_roots.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        2,
+        1,
+        15,
+        16
+      ]
+    },
+    "white_tulip": {
+      "definition": {
+        "textures": "white_tulip",
+        "sound": "grass"
+      },
+      "texture_key": "white_tulip",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_tulip_white"
+      },
+      "texture_path": "textures/blocks/flower_tulip_white.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        4,
+        3,
+        11,
+        16
+      ]
+    },
+    "wither_rose": {
+      "definition": {
+        "textures": "wither_rose",
+        "sound": "grass"
+      },
+      "texture_key": "wither_rose",
+      "atlas_record": {
+        "textures": "textures/blocks/flower_wither_rose"
+      },
+      "texture_path": "textures/blocks/flower_wither_rose.png",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        5,
+        5,
+        12,
+        16
+      ]
+    }
+  },
+  "excluded": {
+    "firefly_bush": "Emissive animated texture requires a separate material and phase contract",
+    "open_eyeblossom": "Emissive texture and day/night lifecycle require separate evidence",
+    "closed_eyeblossom": "Day/night lifecycle requires separate evidence"
+  },
+  "template": {
+    "format_version": "1.13.0",
+    "netease:block_geometry": {
+      "description": {
+        "identifier": "modern_projection:preview_fern",
+        "textures": [
+          "fern"
+        ],
+        "item_texture": "fern",
+        "use_ao": false
+      },
+      "bones": [
+        {
+          "name": "cross_0",
+          "pivot": [
+            -8,
+            6.4,
+            8
+          ],
+          "rotation": [
+            0,
+            45,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -17.0509668,
+                0,
+                8
+              ],
+              "size": [
+                18.1019336,
+                12.8,
+                0
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    16
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    -16,
+                    16
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "cross_1",
+          "pivot": [
+            -8,
+            6.4,
+            8
+          ],
+          "rotation": [
+            0,
+            -45,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -17.0509668,
+                0,
+                8
+              ],
+              "size": [
+                18.1019336,
+                12.8,
+                0
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    16
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    -16,
+                    16
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "template_path": "resource_pack/models/netease_block/preview_fern.json",
+  "template_sha256_utf8_lf": "b91d7e75e55456ad914825fb0b44a7e277ab52ff195cfe9f4efb65b5c8235adb",
+  "geometry_contract": "Centered crossed template with unchanged XZ spans .1-.9, rotations and UV; new static candidates use height 1 and pivot Y .5. Native texture alpha-height anchors support this vertical extent; no native random offset is fitted. Whole rendered silhouettes require independent captures.",
+  "geometry_evidence": {
+    "report": "snow-poppy-mushroom-native-baseline-r5.json",
+    "report_sha256": "212579fad73d4b3679b68325abf4bbafa6dac017003f004b97a2a7c2628d0962",
+    "method": "Native alpha-row and calibrated world-height anchors; no whole-mask fitting",
+    "brown_mushroom": {
+      "native_png_sha256": "4fff2278eb483287a8107420238b36a18f7158d73ae8fe1de616b129c0b6cfd7",
+      "texture_alpha_top_row": 8,
+      "texture_height": 16,
+      "native_top_screen_y_approx": 550,
+      "calibrated_half_block_screen_y_approx": 552
+    },
+    "poppy": {
+      "native_png_sha256": "825e889cef9bd98e96aa42a8b435dfbec6f7ab27ae3e04c64a6fc65d5df9fa76",
+      "texture_alpha_top_row": 5,
+      "texture_height": 16,
+      "native_visible_height_pixels": 191
+    }
+  },
+  "scope": "Exact native texture identities for static candidates; source hashes do not certify rendered pixels"
+}
