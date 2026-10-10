@@ -1,6 +1,6 @@
 """Pixel contracts for connected native projections with one occupied neighbor.
 
-Run with run_live_check.py in the parent's owned game. Client occupancy reads
+Run with run_live_check.py in a managed game instance. Client occupancy reads
 are replaced temporarily; no world blocks, server data or player position are
 changed. Baseline, dynamic hiding and initial regeneration use the same camera.
 """
@@ -510,7 +510,9 @@ def main():
     evidence = {'schema': 2, 'fixture': FIXTURE, 'cases': [], 'completed': False, 'passed': False,
                 'views': args.view or VIEWS,
                 'occupancy_source': 'temporary client observation replacement; no world writes',
-                'baseline': 'native complete palette in missing mode with all observations air',
+                'baseline': ('complete native projection; context all-air independently compared'
+                             if args.normal_oracle else
+                             'native complete palette in missing mode with all observations air'),
                 'visual_contract': 'remaining pixels match baseline; occupied-cell actor pixels disappear',
                 'limitations': ['Selected views require observable remaining and occupied native surfaces.',
                                 'Invisible or occluded baseline surfaces fail validity; they do not establish a rendering regression.',
