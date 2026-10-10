@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 import time
 from .large_preview import build_preview, MAX_SURFACE_BLOCKS
 from .chunks import EDGE, tile_bounds, keys_in
+from .preview_regions import regions
+from .large_preview import SurfacePalette
 try:
     text_type = unicode
 except NameError:
@@ -42,6 +44,9 @@ class TiledPreview(object):
         self.serial = 0
         self.point_defer_started = 0.
         self.point_defer_until = 0.
+        self.regions = {}
+        self.region_source = None
+        self.region_owners = set()
 
     def cancel(self):
         self.serial += 1
@@ -69,8 +74,11 @@ class TiledPreview(object):
 
     def source_state(self, key):
         store = self.session.editor.document.blocks
-        neighbours = [tuple(key[i]+offset[i] for i in range(3)) for offset in
-                      ((0,0,0),(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1))]
+        region = self.regions[key]
+        neighbours = set(tuple(member[i]+offset[i] for i in range(3))
+                         for member in region[3] for offset in
+                         ((0,0,0),(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)))
+        neighbours = tuple(sorted(neighbours))
         # Retained arrays become snapshots: later writes copy them. This makes
         # undo/repeated neighbours comparable without rebuilding their surfaces.
         for neighbour in neighbours:
@@ -81,7 +89,13 @@ class TiledPreview(object):
         # The editor identity changes on reload; equal content and visibility
         # still describe exactly the same mesh, including its boundary halo.
         context = (self.session.editor.document.size,) + self.context[1:]
-        return (context, tuple(store.palette), tuple(store.chunks.get(k, 0) for k in neighbours))
+        return (context, region, tuple(store.palette), tuple(store.chunks.get(k, 0) for k in neighbours))
+
+    def region_bounds(self, key):
+        root, low, high, unused = self.regions[key]
+        if root != key:
+            return tile_bounds(self.session.editor.document.size, key)
+        return low, tuple(high[i] - low[i] for i in range(3))
 
     def restore_cached(self, key, source):
         part = self.parts.get(key)
@@ -93,7 +107,9 @@ class TiledPreview(object):
         for bank, entry in part['cache'].items():
             if source not in entry[2]:
                 continue
+            origin, size = self.region_bounds(key)
             part.update(data=entry[0], name=entry[1], source=source, bank=bank,
+                        origin=origin, size=size,
                         count=sum(len(v) for layer in entry[0][:2] for v in layer.values()),
                         pending=bool(entry[1]),
                         pending_at=time.time(),
@@ -107,6 +123,13 @@ class TiledPreview(object):
         signature = s.preview_signature()
         context = signature[:1] + signature[2:]
         changed_context = context != self.context
+        region_source = (id(s.editor.document.blocks), s.editor.revision)
+        changed_regions = False
+        if region_source != self.region_source:
+            updated = regions(s.editor.document)
+            changed_regions = updated != self.regions
+            self.regions, self.region_source = updated, region_source
+            self.region_owners = set(entry[0] for entry in updated.values())
         if positions is None and not changed_context and signature != s.model_revision:
             positions = getattr(s.editor, 'last_changed_positions', None)
         if changed_context:
@@ -145,7 +168,7 @@ class TiledPreview(object):
                     point = tuple(pos[i]+offset[i] for i in range(3))
                     if s.editor.document.contains(point):
                         changed.add(tuple(v//EDGE for v in point))
-            self.dirty.update(changed.intersection(self.slots))
+            self.dirty.update(self.regions[k][0] for k in changed.intersection(self.slots))
         elif signature != s.model_revision:
             self.point_defer_started = self.point_defer_until = 0.
             changed = getattr(s.editor, 'last_changed_chunks', set(self.slots))
@@ -153,7 +176,9 @@ class TiledPreview(object):
                 for offset in ((0,0,0), (1,0,0), (-1,0,0), (0,1,0), (0,-1,0), (0,0,1), (0,0,-1)):
                     neighbour = tuple(key[i]+offset[i] for i in range(3))
                     if neighbour in self.slots:
-                        self.dirty.add(neighbour)
+                        self.dirty.add(self.regions[neighbour][0])
+        if changed_regions:
+            self.dirty.update(self.slots)
         keys = tuple(sorted(set(self.render_keys).union(s.editor.document.blocks.chunks)))
         if keys != self.render_keys:
             self.render_keys = keys
@@ -238,11 +263,14 @@ class TiledPreview(object):
                     if self.restore_cached(self.key, self.source):
                         self.done += 1
                         continue
-                    low, size = tile_bounds(s.editor.document.size, self.key)
+                    low, size = self.region_bounds(self.key)
                     high = tuple(low[i]+size[i] for i in range(3))
-                    self.iterator = build_preview(s.editor.document, s.preview_hidden(),
-                        s.editor.layer if s.solo_layer else None,
-                        None, None, (low, high), True)
+                    if self.key not in self.region_owners:
+                        self.iterator = iter(((SurfacePalette(size), low, 1),))
+                    else:
+                        self.iterator = build_preview(s.editor.document, s.preview_hidden(),
+                            s.editor.layer if s.solo_layer else None,
+                            None, None, (low, high), True)
                     self.extractions += 1
                 result = next(self.iterator)
                 if result is None:
@@ -272,7 +300,7 @@ class TiledPreview(object):
             self.seconds += time.time()-started
 
     def submit(self, key, palette, origin):
-        data = (palette.common, palette.extra, palette.actor)
+        data = (palette.common, palette.extra, palette.actor, palette.size)
         part = self.parts.get(key)
         if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()
@@ -280,7 +308,8 @@ class TiledPreview(object):
             sources = part['cache'][part['bank']][2]
             part['cache'][part['bank']] = (part['data'], part['name'], (sources+(self.source,))[-2:])
             return
-        total = palette.count + sum(p['count'] for k,p in self.parts.items() if k != key and k in self.slots)
+        total = palette.count + sum(p['count'] for k,p in self.parts.items()
+                                    if k != key and k in self.region_owners)
         if total > MAX_SURFACE_BLOCKS:
             raise ValueError('可见方块过多，请使用切面或单层；草稿完整保留')
         bank = 1-part['bank'] if part else 0

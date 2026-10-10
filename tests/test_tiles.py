@@ -116,6 +116,90 @@ class TileTests(unittest.TestCase):
         self.assertEqual(1, restored['count'])
         self.assertEqual(builds, len(bridge.builds))
 
+    def test_connected_stairs_share_one_native_palette_across_tile_boundary(self):
+        stairs = ('minecraft:oak_stairs', 0)
+        water = ('minecraft:water', 0)
+        document = Document((32, 1, 1), {
+            (15, 0, 0): make_cell(stairs, water),
+            (16, 0, 0): ('minecraft:oak_stairs', 1),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+        owner, other = session.tiles.parts[(0, 0, 0)], session.tiles.parts[(1, 0, 0)]
+        self.assertEqual((32, 1, 1), owner['size'])
+        self.assertEqual((0, 0, 0), owner['origin'])
+        self.assertEqual({stairs: [15], ('minecraft:oak_stairs', 1): [16]}, owner['data'][0])
+        self.assertEqual({water: [15]}, owner['data'][1])
+        self.assertIsNone(other['name'])
+        self.assertEqual(3, owner['count'])
+        self.assertEqual(1, len(bridge.builds))
+
+    def test_region_split_and_cached_undo_restore_geometry_size_without_duplicates(self):
+        document = Document((32, 1, 1), {
+            (15, 0, 0): ('minecraft:oak_stairs', 0),
+            (16, 0, 0): ('minecraft:oak_stairs', 1),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+        before = scene_cells(session)
+        session.editor.paint_at((16, 0, 0), erase=True, respect_selection=False)
+        session.refresh_preview(); bridge.settle(session)
+        self.assertEqual((16, 1, 1), session.tiles.parts[(0, 0, 0)]['size'])
+        self.assertEqual({(('minecraft:oak_stairs', 0), 15)}, scene_cells(session))
+        builds = len(bridge.builds)
+
+        session.action(session.editor.undo); bridge.settle(session)
+
+        self.assertFalse(session.preview_error)
+        self.assertEqual(before, scene_cells(session))
+        self.assertEqual((32, 1, 1), session.tiles.parts[(0, 0, 0)]['size'])
+        self.assertEqual(builds, len(bridge.builds))
+
+        session.action(session.editor.redo); bridge.settle(session)
+
+        self.assertFalse(session.preview_error)
+        self.assertEqual((16, 1, 1), session.tiles.parts[(0, 0, 0)]['size'])
+        self.assertEqual({(('minecraft:oak_stairs', 0), 15)}, scene_cells(session))
+        self.assertEqual(builds, len(bridge.builds))
+
+    def test_edit_in_joined_non_owner_tile_rebuilds_owner_and_retains_far_tile(self):
+        document = Document((48, 1, 1), {
+            (15, 0, 0): ('minecraft:oak_fence', 0),
+            (16, 0, 0): ('minecraft:oak_fence', 0),
+            (47, 0, 0): ('minecraft:stone', 0),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+        far = session.tiles.parts[(2, 0, 0)]
+        builds = len(bridge.builds)
+        session.editor.material = ('minecraft:glass', 0)
+        session.editor.paint_at((20, 0, 0), respect_selection=False)
+        session.refresh_preview()
+        self.assertEqual({(0, 0, 0)}, session.tiles.dirty)
+        bridge.settle(session)
+        self.assertEqual(builds + 1, len(bridge.builds))
+        self.assertIs(far, session.tiles.parts[(2, 0, 0)])
+        self.assertEqual(cells(list(build_preview(session.editor.document))[-1][0]), scene_cells(session))
+
+    def test_joined_double_chest_keeps_actor_indices_and_nonzero_region_origin(self):
+        chest = ('minecraft:chest', 2)
+        main = {'chestMainSubChest': True, 'chestIsLargeChest': True, 'chestModelOffset': 0.}
+        secondary = dict(main, chestMainSubChest=False, chestModelOffset=-.5)
+        document = Document((48, 2, 16), {
+            (31, 1, 10): make_cell(chest, AIR, main),
+            (32, 1, 10): make_cell(chest, AIR, secondary),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+
+        part = session.tiles.parts[(1, 0, 0)]
+        self.assertEqual((16, 0, 0), part['origin'])
+        self.assertEqual((32, 2, 16), part['size'])
+        self.assertEqual({chest: [762, 778]}, part['data'][0])
+        self.assertEqual({'minecraft:chest': {762: main, 778: secondary}}, part['data'][2])
+        self.assertIsNone(session.tiles.parts[(2, 0, 0)]['name'])
+        self.assertEqual(cells(list(build_preview(document))[-1][0]), scene_cells(session))
+
     def test_mixed_chunk_surface_matches_voxel_oracle_with_holes_and_clipping(self):
         rng = random.Random(47)
         doc = Document((19,18,17))
