@@ -3,8 +3,9 @@
 
 Axes match Editor._transform: rotate_y90 maps (x,z) to (-z,x).
 Rules are attached to state properties, not a whitelist of block names. Unknown
-properties fail closed until the palette upgrade audit classifies them. Block
-textures without a state for their reflected appearance remain engine textures.
+properties fail closed until the palette upgrade audit classifies them. Mirroring
+reflects positions and expressible native states, not arbitrary render geometry:
+blocks without an upside-down state retain their native upright appearance.
 """
 from __future__ import unicode_literals
 from . import block_registry as registry
@@ -162,11 +163,9 @@ def _lever(value, operation):
 
 def _mushroom(value, operation):
     # 1..9 encode NW,N,NE,W,centre,E,SW,S,SE top-cap positions.
-    if value in (11, 12, 13):
-        raise UnrepresentableTransform('原版没有可转换的蘑菇方块方向状态：%d' % value)
-    if operation == 'mirror_y' and 1 <= value <= 9:
-        raise UnrepresentableTransform('原版没有倒置蘑菇菌盖状态')
-    if not 1 <= value <= 9:
+    # 11..13 are reserved palette codes with no named directional semantics.
+    # Preserve them, just as all-inside/all-outside/all-stem variants are kept.
+    if not 1 <= value <= 9 or operation == 'mirror_y':
         return value
     x, z = (value - 1) % 3 - 1, (value - 1) // 3 - 1
     if operation.startswith('rotate_y'):
@@ -180,8 +179,6 @@ def _mushroom(value, operation):
 
 
 def _books(value, operation):
-    if operation == 'mirror_y':
-        raise UnrepresentableTransform('原版没有倒置雕纹书架状态')
     slots = range(6)
     if operation in ('mirror_x', 'mirror_z'):
         slots = (2, 1, 0, 5, 4, 3)
@@ -217,7 +214,6 @@ def transform_states(properties, operation):
         raise ValueError('方块表包含尚未审查的状态，请更新适配规则：%s' % ', '.join(unknown))
     for key, value in properties.items():
         _validate_value(key, value)
-    _validate_vertical_reflection(properties, operation)
     result = dict(properties)
     for key, value in properties.items():
         if key in INVARIANT_STATES:
@@ -250,39 +246,11 @@ def _validate_value(key, value):
             raise ValueError('尚未审查的连接状态值：%s=%r' % (key, value))
 
 
-def _validate_vertical_reflection(properties, operation):
-    if operation != 'mirror_y':
-        return
-    vertical_state = ('upper_block_bit', 'upside_down_bit',
-                      'minecraft:vertical_half', 'orientation')
-    if 'minecraft:cardinal_direction' in properties and not any(
-            key in properties for key in vertical_state):
-        raise UnrepresentableTransform('原版没有该方块的上下朝向：minecraft:cardinal_direction')
-    if 'direction' in properties and (
-            not any(key in properties for key in vertical_state + ('attachment',)) or
-            'head_piece_bit' in properties):
-        raise UnrepresentableTransform('原版没有该方块的上下朝向：direction')
-    for key in ('ground_sign_direction', 'coral_direction', 'coral_fan_direction',
-                'minecraft:corner'):
-        if key in properties:
-            raise UnrepresentableTransform('原版没有该方块的上下朝向：%s' % key)
-    if 'lever_direction' in properties and properties['lever_direction'] in _HORIZONTAL:
-        raise UnrepresentableTransform('原版没有墙上拉杆的上下朝向')
-    if properties.get('sea_grass_type') == 'default':
-        raise UnrepresentableTransform('原版没有单株海草的倒置状态')
-    if any(key.startswith('pale_moss_carpet_side_') for key in properties):
-        raise UnrepresentableTransform('原版没有倒置苍白苔藓地毯状态')
-    if properties.get('attachment') in ('side', 'multiple'):
-        raise UnrepresentableTransform('原版没有该附着方块的上下朝向')
-
-
 def _property(key, value, properties, operation):
     horizontal_mirror = operation in ('mirror_x', 'mirror_z')
     vertical_mirror = operation == 'mirror_y'
     if key in ('minecraft:block_face', 'minecraft:cardinal_direction',
                'minecraft:facing_direction', 'torch_facing_direction'):
-        if key == 'torch_facing_direction' and operation == 'mirror_y' and value == 'top':
-            return 'bottom'
         return direction(value, operation)
     if key == 'facing_direction':
         return _number(value, _FACING, operation)
@@ -308,16 +276,16 @@ def _property(key, value, properties, operation):
     if key == 'minecraft:vertical_half' and vertical_mirror:
         return 'top' if value == 'bottom' else 'bottom'
     if key == 'hanging' and vertical_mirror:
-        if ('brushed_progress' in properties):
+        if 'brushed_progress' in properties:
             return value
         if (len(properties) == 1 or 'dripstone_thickness' in properties or
                 'propagule_stage' in properties):
             return not value
-        raise UnrepresentableTransform('原版没有该悬挂方块的倒置状态')
+        return value
     if key == 'attachment' and vertical_mirror:
         if value in ('standing', 'hanging'):
             return {'standing': 'hanging', 'hanging': 'standing'}[value]
-        raise UnrepresentableTransform('原版没有该附着方块的上下朝向')
+        return value
     if key == 'sea_grass_type' and vertical_mirror:
         if value in ('double_bot', 'double_top'):
             return {'double_bot': 'double_top', 'double_top': 'double_bot'}[value]
@@ -338,7 +306,9 @@ def _property(key, value, properties, operation):
     if key == 'minecraft:corner' and horizontal_mirror:
         return value.replace('left', 'RIGHT').replace('right', 'left').replace('RIGHT', 'right')
     if key == 'orientation':
-        return '_'.join(direction(face, operation) for face in value.split('_'))
+        result = '_'.join(direction(face, operation) for face in value.split('_'))
+        # Crafters have down_* / up_* pairs but no horizontal *_down variants.
+        return result if result in _STATE_VALUES[key] else value
     return value
 
 

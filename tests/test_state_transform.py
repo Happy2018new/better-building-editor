@@ -1,5 +1,4 @@
 """Native block-state transforms use semantic fixtures and audit all records."""
-import collections
 import sys
 import unittest
 from pathlib import Path
@@ -58,9 +57,23 @@ class StateTransformTests(unittest.TestCase):
                 self.assertEqual(directions[direction], result['direction'])
                 self.assertTrue(result['head_piece_bit'])
                 self.assertFalse(result['occupied_bit'])
-        with self.assertRaises(transform.UnrepresentableTransform):
-            transform.transform_states({'direction': 0, 'head_piece_bit': True,
-                                        'occupied_bit': False}, 'mirror_y')
+        properties = {'direction': 0, 'head_piece_bit': True, 'occupied_bit': False}
+        self.assertEqual(properties, transform.transform_states(properties, 'mirror_y'))
+
+    def test_trapdoor_encoding_differs_from_bed_encoding(self):
+        for name in registry.BLOCKS:
+            if not name.endswith('_trapdoor') and name != 'minecraft:trapdoor':
+                continue
+            for aux in registry.aux_values(name):
+                properties = registry.states((name, aux))
+                quarter_turns = {0: 2, 1: 3, 2: 1, 3: 0}
+                result = transform.transform_states(properties, 'rotate_y90')
+                self.assertEqual(quarter_turns[properties['direction']], result['direction'])
+                self.assertEqual(properties['open_bit'], result['open_bit'])
+                self.assertEqual(properties['upside_down_bit'], result['upside_down_bit'])
+                reflected = transform.transform_states(properties, 'mirror_y')
+                self.assertEqual(not properties['upside_down_bit'], reflected['upside_down_bit'])
+                self.assertEqual(properties['direction'], reflected['direction'])
 
     def test_doors_tall_plants_and_vertical_halves(self):
         door = registry.states(('minecraft:acacia_door', 0))
@@ -90,46 +103,85 @@ class StateTransformTests(unittest.TestCase):
                           'wall_connection_type_east': 'tall'},
                          transform.transform_states(source, 'rotate_y90'))
 
-    def test_unrepresentable_and_unreviewed_states_fail(self):
-        with self.assertRaises(transform.UnrepresentableTransform):
-            transform.transform(('minecraft:torch', 5), 'mirror_y')
-        with self.assertRaises(transform.UnrepresentableTransform):
-            transform.transform(('minecraft:crafter', 8), 'mirror_y')
-        with self.assertRaises(transform.UnrepresentableTransform):
-            transform.transform(('minecraft:chiseled_bookshelf', 0), 'mirror_y')
-        with self.assertRaises(transform.UnrepresentableTransform):
-            transform.transform(('minecraft:brown_mushroom_block', 11), 'rotate_y90')
+    def test_vertical_mirror_keeps_upright_only_native_states(self):
+        # Native state mirroring does not invent bottom torches or horizontal
+        # crafters with a nonexistent *_down orientation.
+        unchanged = (('minecraft:torch', 5), ('minecraft:crafter', 8),
+                     ('minecraft:chest', 0), ('minecraft:furnace', 0),
+                     ('minecraft:bell', 12), ('minecraft:lever', 1),
+                     ('minecraft:brown_mushroom_block', 3),
+                     ('minecraft:seagrass', 0), ('minecraft:bed', 4),
+                     ('minecraft:acacia_standing_sign', 7))
+        for value in unchanged:
+            self.assertEqual(value, transform.transform(value, 'mirror_y'))
+        self.assertEqual({'orientation': 'down_east'},
+                         transform.transform_states({'orientation': 'up_east'}, 'mirror_y'))
+        self.assertEqual({'attachment': 'hanging', 'direction': 1},
+                         transform.transform_states({'attachment': 'standing', 'direction': 1}, 'mirror_y'))
+        self.assertEqual({'lever_direction': 'down_east_west'},
+                         transform.transform_states({'lever_direction': 'up_east_west'}, 'mirror_y'))
+
+    def test_bookshelf_content_reflects_slots_without_inventing_orientation(self):
+        source = {'books_stored': 1, 'direction': 0}
+        self.assertEqual({'books_stored': 4, 'direction': 0},
+                         transform.transform_states(source, 'mirror_x'))
+        self.assertEqual({'books_stored': 8, 'direction': 0},
+                         transform.transform_states(source, 'mirror_y'))
+        self.assertEqual({'books_stored': 4, 'direction': 2},
+                         transform.transform_states(source, 'mirror_z'))
+
+    def test_mushroom_cap_faces_and_reserved_palette_codes(self):
+        expected = {'rotate_y90': [3, 6, 9, 2, 5, 8, 1, 4, 7],
+                    'mirror_x': [3, 2, 1, 6, 5, 4, 9, 8, 7],
+                    'mirror_z': [7, 8, 9, 4, 5, 6, 1, 2, 3]}
+        for operation, values in expected.items():
+            for source, target in enumerate(values, 1):
+                self.assertEqual({'huge_mushroom_bits': target},
+                                 transform.transform_states({'huge_mushroom_bits': source}, operation))
+        for operation in transform.OPERATIONS:
+            for reserved in (11, 12, 13):
+                value = ('minecraft:brown_mushroom_block', reserved)
+                self.assertEqual(value, transform.transform(value, operation))
+
+    def test_jigsaw_secondary_axis_respects_up_and_down_encodings(self):
+        cases = (({'facing_direction': 0, 'rotation': 1}, 'rotate_y90',
+                  {'facing_direction': 0, 'rotation': 0}),
+                 ({'facing_direction': 1, 'rotation': 1}, 'rotate_y90',
+                  {'facing_direction': 1, 'rotation': 2}),
+                 ({'facing_direction': 0, 'rotation': 1}, 'mirror_y',
+                  {'facing_direction': 1, 'rotation': 3}),
+                 ({'facing_direction': 2, 'rotation': 3}, 'rotate_y90',
+                  {'facing_direction': 5, 'rotation': 3}))
+        for source, operation, target in cases:
+            self.assertEqual(target, transform.transform_states(source, operation))
+
+    def test_unreviewed_states_and_values_fail(self):
         with self.assertRaises(ValueError):
             transform.transform_states({'minecraft:future_direction': 'north'}, 'rotate_y90')
         with self.assertRaises(ValueError):
             transform.transform_states({'minecraft:cardinal_direction': 'north_up'}, 'rotate_y90')
+        with self.assertRaises(ValueError):
+            transform.transform_states({'huge_mushroom_bits': 16}, 'rotate_y90')
+        with self.assertRaises(ValueError):
+            transform.transform_states({'upside_down_bit': 1}, 'rotate_y90')
 
-    def test_all_palette_states_transform_or_fail_explicitly(self):
-        resolved = collections.Counter()
-        unavailable = collections.Counter()
+    def test_every_palette_state_has_a_native_target_and_restores_under_inverse(self):
+        inverse = {'rotate_y90': 'rotate_y270', 'rotate_y180': 'rotate_y180',
+                   'rotate_y270': 'rotate_y90', 'mirror_x': 'mirror_x',
+                   'mirror_y': 'mirror_y', 'mirror_z': 'mirror_z'}
+        count = 0
         for name in registry.BLOCKS:
             for aux in registry.aux_values(name):
                 value = (name, aux)
                 properties = registry.states(value)
                 for operation in transform.OPERATIONS:
-                    try:
-                        target_properties = transform.transform_states(properties, operation)
-                    except transform.UnrepresentableTransform:
-                        with self.assertRaises(transform.UnrepresentableTransform):
-                            transform.transform(value, operation)
-                        unavailable[operation] += 1
-                        continue
-                    target = registry.from_states(name, target_properties)
-                    if target is None:
-                        with self.assertRaises(transform.UnrepresentableTransform):
-                            transform.transform(value, operation)
-                        unavailable[operation] += 1
-                    else:
-                        self.assertEqual(target, transform.transform(value, operation))
-                        self.assertEqual(target_properties, registry.states(target))
-                        resolved[operation] += 1
-        self.assertEqual(set(transform.OPERATIONS), set(resolved) | set(unavailable))
-        self.assertTrue(all(resolved[operation] for operation in transform.OPERATIONS))
+                    target = transform.transform(value, operation)
+                    self.assertEqual(name, target[0])
+                    self.assertIn(target[1], registry.aux_values(name))
+                    restored = transform.transform(target, inverse[operation])
+                    self.assertEqual(properties, registry.states(restored))
+                count += 1
+        self.assertEqual(registry.RECORD_COUNT, count)
 
 
 if __name__ == '__main__':
