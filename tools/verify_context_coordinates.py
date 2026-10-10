@@ -9,8 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 VERTEX = ROOT / 'resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex'
 
 
-def decoder(source):
-    start = source.index('if (logicalPosition.y >= 511.5) {')
+def decoder(source, local=False):
+    start = source.index('if (localContextActor && localContextMesh) {' if local else
+                         'if (logicalPosition.y >= 511.5) {')
     depth = 0
     for end in range(start, len(source)):
         if source[end] == '{':
@@ -22,7 +23,7 @@ def decoder(source):
     raise ValueError('Unclosed context decoder')
 
 
-def fixtures():
+def fixtures(local=False):
     rows = []
     for tx, ty, tz in ((0, 0, 0), (15, 15, 15), (16, 16, 16)):
         for ny in (-1, 0, 1):
@@ -31,10 +32,11 @@ def fixtures():
                     for fy in (0., .001, .25, .5, .75, .999, 1.):
                         for fx in (0., .001, .25, .5, .75, .999, 1.):
                             for fz in (0., .001, .25, .5, .75, .999, 1.):
-                                palette = (4*tx+1+nx+fx, 512+4*ty+1+ny+fy,
-                                           4*tz+1+nz+fz)
+                                lx, ly, lz = ((tx % 16, ty % 16, tz % 16) if local else (tx, ty, tz))
+                                palette = (4*lx+1+nx+fx, (0 if local else 512)+4*ly+1+ny+fy,
+                                           4*lz+1+nz+fz)
                                 native = tuple(axis - .5 for axis in palette)
-                                logical = (tx+nx+fx, ty+ny+fy, tz+nz+fz)
+                                logical = (lx+nx+fx, ly+ny+fy, lz+nz+fz)
                                 phase = tuple(value % 4. for value in palette)
                                 visible = all(1. <= value <= 2. for value in phase)
                                 rows.append((native, phase, logical, visible, (nx, ny, nz)))
@@ -79,8 +81,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--browser', required=True, type=Path)
     parser.add_argument('--report', type=Path)
+    parser.add_argument('--local-context', action='store_true')
     args = parser.parse_args()
-    block = decoder(VERTEX.read_text(encoding='utf8'))
+    block = decoder(VERTEX.read_text(encoding='utf8'), args.local_context)
     vertex = '''#version 300 es
 precision highp float;
 in vec3 POSITION;
@@ -89,12 +92,14 @@ out vec3 decodedPosition;
 void main() {
     vec3 logicalPosition = POSITION;
     vec4 renderContext = vec4(0.0);
+    bool localContextActor = true;
+    bool localContextMesh = true;
     %s
     decodedContext = renderContext;
     decodedPosition = logicalPosition;
     gl_Position = vec4(0.0,0.0,0.0,1.0);
 }''' % block
-    cases = fixtures()
+    cases = fixtures(args.local_context)
     positions = [axis for row in cases for axis in row[0]]
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=str(args.browser), headless=True,

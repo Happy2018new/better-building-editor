@@ -265,8 +265,8 @@ class ProjectionOccupancy(object):
                 if indices:
                     self.output.add_indices(value, indices)
             yield True
-        from .render_context import ContextPaletteBuilder
-        builder = ContextPaletteBuilder(self.document, self.output.palette_data())
+        from .render_context import ContextBatchBuilder
+        builder = ContextBatchBuilder(self.document, self.output.palette_data())
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data

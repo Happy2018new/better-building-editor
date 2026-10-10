@@ -253,3 +253,63 @@ def prepare_document_context(document, targets):
     for unused in builder.prepare():
         pass
     return builder.data
+
+
+class ContextBatchBuilder(ContextPaletteBuilder):
+    """Bound native input positions to 64 while preserving complete neighbors."""
+    def prepare(self):
+        for unused in self.collect():
+            yield True
+        batches = {}
+        for number, target in enumerate(self.positions, 1):
+            origin = tuple((axis >> 4) << 4 for axis in target)
+            batch = batches.get(origin)
+            if batch is None:
+                def palette(volume):
+                    return {'volume': volume, 'common': {}, 'extra': {}, 'actor': {},
+                            'states': {}, 'extraStates': {}, 'void': False, 'eliminateAir': True}
+                batch = (palette((64, 64, 64)), palette((16, 16, 16)))
+                batches[origin] = batch
+            context, overlay = batch
+            center = self.material(*target)
+            if center is None or center[0] is None:
+                raise ValueError('Context target is absent from its source')
+            local = tuple(target[axis] - origin[axis] for axis in range(3))
+            encoded = tuple(axis * CONTEXT_STRIDE + CONTEXT_CENTER for axis in local)
+            delta = tuple(encoded[axis] - target[axis] for axis in range(3))
+            for neighbor in NEIGHBORS:
+                original = tuple(target[axis] + neighbor[axis] for axis in range(3))
+                if any(not 0 <= original[axis] < self.document.size[axis] for axis in range(3)):
+                    continue
+                rendered = center if neighbor == (0, 0, 0) else self.material(*original)
+                if rendered is None or rendered[0] is None:
+                    continue
+                position = tuple(encoded[axis] + neighbor[axis] for axis in range(3))
+                _put_encoded(context, rendered[0], _index(position, context['volume']), delta)
+                context['states'].update(rendered[2])
+                context['extraStates'].update(rendered[3])
+            if center[1] is not None:
+                overlay['common'].setdefault(center[1], []).append(_index(local, overlay['volume']))
+                overlay['states'].update(center[2])
+            if number % TARGETS_PER_UNIT == 0:
+                yield True
+        rows = []
+        for origin, palettes in sorted(batches.items()):
+            for kind, palette in enumerate(palettes):
+                if not palette['common'] and not palette['extra']:
+                    continue
+                for key, layer in (('states', 'common'), ('extraStates', 'extra')):
+                    palette[key] = dict((value, record) for value, record in palette[key].items()
+                                        if value in palette[layer])
+                rows.append((origin, kind == 0, palette))
+        from .render_layout import LOCAL_CONTEXT_SCHEMA_VERSION
+        self.data = {'_context_batches': rows, '_context_schema': LOCAL_CONTEXT_SCHEMA_VERSION,
+                     'volume': self.logical_volume}
+        yield True
+
+
+def prepare_context_batches(document, targets):
+    builder = ContextBatchBuilder(document, targets)
+    for unused in builder.prepare():
+        pass
+    return builder.data

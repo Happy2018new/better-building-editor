@@ -2,6 +2,8 @@
 import math
 
 SCHEMA_VERSION = 1
+LOCAL_CONTEXT_SCHEMA_VERSION = 2
+LOCAL_CONTEXT_CHUNK_SIZE = 16
 MAX_LOGICAL_HEIGHT = 128
 OVERLAY_BASE = 256
 CONTEXT_BASE = 512
@@ -49,3 +51,18 @@ def context_center(position):
 def native_mesh_position(position):
     """Map positive palette corners to native block-mesh coordinates."""
     return tuple(axis - 0.5 for axis in position)
+
+
+def local_context_position(position, neighbor=(0, 0, 0)):
+    return tuple((position[axis] % LOCAL_CONTEXT_CHUNK_SIZE) * CONTEXT_STRIDE +
+                 CONTEXT_CENTER + neighbor[axis] for axis in range(3))
+
+
+def local_context_center(position):
+    phases = tuple((axis + 0.5) % CONTEXT_STRIDE for axis in position)
+    return all(CONTEXT_CENTER <= axis <= CONTEXT_CENTER + 1 for axis in phases)
+
+
+def local_context_logical(position):
+    return tuple(math.floor(axis / CONTEXT_STRIDE) + axis % CONTEXT_STRIDE -
+                 CONTEXT_CENTER for axis in position)

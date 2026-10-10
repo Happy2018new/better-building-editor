@@ -825,7 +825,8 @@ class ProjectionLifecycleTests(unittest.TestCase):
         def geometry(doc,visible=None,name=None,**kwargs):
             if hasattr(doc, 'common'):
                 prepared=kwargs.get('prepared')
-                context_cells=(sum(len(values) for values in prepared['common'].values())
+                context_cells=(sum(len(values) for unused, unused2, batch in prepared['_context_batches']
+                                   for values in batch['common'].values())
                                if prepared else None)
                 prepared_calls.append((doc.count,prepared['volume'] if prepared else None,
                                        context_cells))
@@ -838,7 +839,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertTrue(s.projection_missing)
         self.assertFalse(any(v.get('action') == 'resolve' for v in self.runtime.sent))
         self.assertTrue(b.projection_work.ready)
-        self.assertEqual([(1, (4, 12, 516), 2), (1, None, None)], prepared_calls)
+        self.assertEqual([(1, (1, 3, 1), 2), (1, None, None)], prepared_calls)
         b.toggle_missing()
         self.drain_projection()
         self.assertEqual([(0,0,0),(1,0,0),(2,0,0)],observed[-1])

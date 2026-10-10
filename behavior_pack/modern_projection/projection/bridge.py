@@ -69,6 +69,7 @@ class ClientBridge(object):
         self.pending_state = None
         self.models = {}
         self.model_layouts = {}
+        self.context_models = {}
         self.alive = True
         self.upload = None
         self.upload_sequence = None
@@ -335,11 +336,29 @@ class ClientBridge(object):
         if prepared is not None:
             data = prepared
         elif context_document is not None:
-            from .render_context import prepare_document_context
-            data = prepare_document_context(context_document, document.palette_data(visible))
+            from .render_context import prepare_context_batches
+            data = prepare_context_batches(context_document, document.palette_data(visible))
         else:
             from .geometry_palette import prepare_palette
             data = prepare_palette(document.palette_data(visible))
+        if '_context_batches' in data:
+            if not hasattr(self, 'context_models'):
+                self.context_models = {}
+            base = native(name or 'modern_projection_context_%d' % len(self.context_models))
+            parts = []
+            for origin, context, palette in data['_context_batches']:
+                suffix = '_%s_%d_%d_%d' % ('c' if context else 'o', origin[0], origin[1], origin[2])
+                part = self.geometry(document, name=base + native(suffix), prepared=palette)
+                if not part:
+                    raise ValueError('Context chunk geometry generation failed')
+                parts.append((part, origin, context))
+            self.context_models[base] = tuple(parts)
+            alternate = base.decode('utf8') if isinstance(base, bytes) else base.encode('utf8')
+            self.context_models[alternate] = tuple(parts)
+            if parts:
+                layout = (tuple(document.size), tuple(data['_context_batches'][0][2]['volume']))
+                self.model_layouts[base] = self.model_layouts[alternate] = layout
+            return base if parts else None
         if not data['common'] and not data['extra']:
             return None
         # Include both layers and actor data so edits cannot reuse stale geometry.

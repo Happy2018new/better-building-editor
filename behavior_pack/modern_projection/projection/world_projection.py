@@ -64,8 +64,8 @@ class WorldProjection(object):
                 yield None
             self.completed.add(key)
         if self.occupancy is not None:
-            from .render_context import ContextPaletteBuilder
-            builder = ContextPaletteBuilder(self.document, self.output.palette_data())
+            from .render_context import ContextBatchBuilder
+            builder = ContextBatchBuilder(self.document, self.output.palette_data())
             for unused in builder.prepare():
                 yield None
             self.prepared = builder.data
@@ -129,14 +129,15 @@ class WorldProjection(object):
             # visibility, preserving exact origin + document voxel coordinates.
             offset = (self.center[0]-.5, -self.center[1], self.center[2]-.5)
             from .biomes import actor_uniform
-            success = (render.AddActorBlockGeometry(self.model, offset, (0.,180.,0.)) and
-                       render.EnableActorBlockGeometryTransparent(self.model, True) and
-                       render.SetActorBlockGeometryTransparency(self.model, self.opacity) and
-                       render.SetEntityExtraUniforms(4, actor_uniform(self.document.biome)))
-            if not success:
-                raise ValueError('透明投影生成失败，原投影已保留，请重试')
             if self.occupancy is not None:
-                self.occupancy.shader.bind(entity, self.model, self.anchor, attached=True)
+                self.occupancy.shader.bind(entity, self.model, self.anchor)
+            else:
+                success = (render.AddActorBlockGeometry(self.model, offset, (0.,180.,0.)) and
+                           render.EnableActorBlockGeometryTransparent(self.model, True) and
+                           render.SetActorBlockGeometryTransparency(self.model, self.opacity) and
+                           render.SetEntityExtraUniforms(4, actor_uniform(self.document.biome)))
+                if not success:
+                    raise ValueError('透明投影生成失败，原投影已保留，请重试')
             self.commit(entity)
         except Exception as exc:
             self.fail(type('')(exc))

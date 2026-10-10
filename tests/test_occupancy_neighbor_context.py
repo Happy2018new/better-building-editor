@@ -17,6 +17,8 @@ from modern_projection.projection.bridge import ClientBridge
 from modern_projection.projection.render_context import ContextPaletteBuilder
 from modern_projection.projection.render_layout import (context_center, context_position,
                                                         logical_position, native_mesh_position)
+from modern_projection.projection.render_layout import (local_context_center, local_context_position,
+                                                        local_context_logical)
 
 
 class MissingOnlyNeighborContextTests(unittest.TestCase):
@@ -61,11 +63,15 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
 
     def assert_context(self, actual, document, target):
         volume = actual['volume']
-        self.assertEqual((36, 64, 520), volume)
+        local = volume == (64, 64, 64)
+        self.assertIn(volume, ((36, 64, 520), (64, 64, 64)))
+        encode = local_context_position if local else context_position
+        center = local_context_center if local else context_center
+        decode = local_context_logical if local else logical_position
         occupied = set()
         for original, value in document.blocks.items():
             neighbor = tuple(original[axis] - target[axis] for axis in range(3))
-            pos = context_position(target, neighbor)
+            pos = encode(target, neighbor)
             index = (pos[1] * volume[1] + pos[0]) * volume[0] + pos[2]
             occupied.add(index)
             self.assertIn(index, actual['common'][tuple(value)])
@@ -73,14 +79,14 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         self.assertEqual(occupied, set(actual['extra'][('minecraft:water', 0)]))
         actor = next(iter(actual['actor']['minecraft:barrel'].values()))
         self.assertNotIn('nbt', actor)
-        self.assertEqual(context_position(target, (-1, 0, 0)), tuple(actor[axis] for axis in ('x', 'y', 'z')))
+        self.assertEqual(encode(target, (-1, 0, 0)), tuple(actor[axis] for axis in ('x', 'y', 'z')))
         centers = set()
         for entries in actual['common'].values():
             for index in entries:
                 pos = (index // volume[0] % volume[1], index // (volume[0] * volume[1]), index % volume[0])
                 fragment = tuple(axis + .5 for axis in pos)
-                if context_center(native_mesh_position(fragment)):
-                    centers.add(logical_position(fragment))
+                if center(native_mesh_position(fragment)):
+                    centers.add(decode(fragment))
         self.assertEqual({tuple(axis + .5 for axis in target)}, centers)
 
     def test_complete_context_control_preserves_stairs_water_and_actor(self):

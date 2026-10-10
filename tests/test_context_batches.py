@@ -1,0 +1,90 @@
+import unittest
+from types import SimpleNamespace
+
+import test_render_context
+from projection.cell import make_cell
+from projection.debug_blueprints import material
+from projection.model import Document
+from projection.render_context import prepare_context_batches
+from projection.render_layout import (LOCAL_CONTEXT_SCHEMA_VERSION, local_context_position)
+from test_occupancy_review import Runtime
+from modern_projection.projection.occupancy_shader import OccupancyShader
+
+
+class ContextBatchTests(unittest.TestCase):
+    def test_atomic_bank_replacement_retires_removed_chunks_and_tracks_offsets(self):
+        runtime = Runtime()
+        document = Document((32, 32, 32), {(1, 1, 1): material('stone')})
+        bridge = SimpleNamespace(projection_occupancy=None, factory=runtime, level='level',
+                                 session=SimpleNamespace(opacity=.6), context_models={})
+        tracker = SimpleNamespace(bridge=bridge, document=document, size=document.size,
+                                  targets={(1, 1, 1)}, origin=(100, 64, 200))
+        shader = OccupancyShader(tracker)
+        first, second = shader.names
+        bridge.context_models[first] = (('first_chunk', (0, 0, 0), True),
+                                        ('last_chunk', (16, 16, 16), True))
+        def seed(unused, name=None, **kwargs):
+            bridge.context_models[name] = (('spare_chunk', (0, 0, 0), True),)
+            return name
+        bridge.geometry = seed
+        entity = runtime.CreateClientEntityByTypeStr('anchor', (116, 80, 216), (0, 0))
+        changes = []
+        runtime.SetActorBlockGeometryTransparency = lambda name, value: changes.append((name, value)) or True
+        shader.bind(entity, first, (116, 80, 216))
+        self.assertEqual(1, len(runtime.created))
+        self.assertEqual((0., 0., 0., 19490.), runtime.uniforms[1])
+        bridge.context_models[second] = (('other_chunk', (16, 16, 16), True),)
+        shader.commit(second)
+        self.assertIn(('spare_chunk', 1.), changes)
+        self.assertEqual(2., runtime.uniforms[4][2])
+        self.assertTrue(shader.follow((120, 84, 220), None))
+        self.assertEqual((3.5, -4, 3.5), runtime.offsets['other_chunk'])
+        self.assertEqual(1, len(runtime.created))
+
+    def test_every_axis_stays_bounded_at_full_document_height(self):
+        stone = material('stone')
+        positions = ((0, 0, 0), (15, 15, 15), (16, 16, 16), (63, 127, 63))
+        document = Document((64, 128, 64), dict((pos, stone) for pos in positions))
+        saved = document.blocks.copy()
+        result = prepare_context_batches(document, document.palette_data())
+        self.assertEqual(LOCAL_CONTEXT_SCHEMA_VERSION, result['_context_schema'])
+        self.assertEqual(3, len(result['_context_batches']))
+        for origin, context, palette in result['_context_batches']:
+            self.assertTrue(context)
+            self.assertEqual((64, 64, 64), palette['volume'])
+            for values in palette['common'].values():
+                for index in values:
+                    pos = (index // 64 % 64, index // 4096, index % 64)
+                    self.assertTrue(all(0 <= axis < 64 for axis in pos))
+        self.assertEqual(saved, document.blocks)
+
+    def test_hidden_cross_chunk_neighbor_retains_both_layers(self):
+        first, second = (15, 15, 15), (16, 15, 15)
+        stair = material('oak_stairs', {'weirdo_direction': 0})
+        water = material('water')
+        document = Document((32, 32, 32), {first: make_cell(stair, water), second: make_cell(stair, water)})
+        result = prepare_context_batches(document, document.palette_data(lambda pos: pos == first))
+        origin, context, palette = result['_context_batches'][0]
+        self.assertEqual((0, 0, 0), origin)
+        expected = set()
+        for neighbor in ((0, 0, 0), (1, 0, 0)):
+            x, y, z = local_context_position(first, neighbor)
+            expected.add((y * 64 + x) * 64 + z)
+        self.assertEqual(expected, set(palette['common'][stair]))
+        self.assertEqual(expected, set(palette['extra'][water]))
+
+    def test_snow_foreground_overlay_uses_independent_low_coordinates(self):
+        snow, fern = material('snow_layer'), material('fern')
+        position = (17, 40, 17)
+        document = Document((32, 64, 32), {position: make_cell(snow, fern)})
+        result = prepare_context_batches(document, document.palette_data())
+        self.assertEqual(2, len(result['_context_batches']))
+        origin, context, overlay = result['_context_batches'][1]
+        self.assertEqual((16, 32, 16), origin)
+        self.assertFalse(context)
+        self.assertEqual((16, 16, 16), overlay['volume'])
+        self.assertEqual([2065], next(iter(overlay['common'].values())))
+
+
+if __name__ == '__main__':
+    unittest.main()
