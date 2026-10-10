@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "producer_worktree": ".runtime/p0-neighbors-r4",
+  "fixture": "test.connections.context",
+  "scope": "Native world blocks and client projections at identical positions and camera poses; all-air, dynamic occupied, and initial occupied observations",
+  "production_commits": ["6e4a0d1", "4465db3"],
+  "native_state_commit": "019bf25",
+  "visual_harness_commits": ["41036ac", "f8b22ee"],
+  "thresholds_changed": false,
+  "boundary_guard": {
+    "pixels": 2,
+    "method": "Maximum independently measured native cube silhouette boundary error in the same game session",
+    "scope": "Expand exclusion of adjacent hull edges only; occupied-cell interiors remain tested",
+    "sensitivity_test": "tests/test_neighbor_visual_masks.py: genuine occupied-cell interior residue still fails"
+  },
+  "calibrations": [
+    {
+      "path": ".runtime/camera-calibration-native-r4.json",
+      "sha256": "854795c7fe8f86ebf3770902798d235cf30a752068f8432f3a8d7057507e4178",
+      "session": "01e1c2cb935b43908f7e5c68cdb90c7a",
+      "views": 3,
+      "passed": true,
+      "reported_fov": 60.0,
+      "effective_vertical_fov": 67.0
+    },
+    {
+      "path": ".runtime/camera-calibration-final-r4.json",
+      "sha256": "03a76b2db0682c8d33a73e3ed0805a5f070f5b2605cdc391357c1edbf27c5980",
+      "session": "7fff7ca1e6424a56843d3df692fa4497",
+      "views": 3,
+      "passed": true,
+      "reported_fov": 60.0,
+      "effective_vertical_fov": 67.8
+    }
+  ],
+  "final_pipeline": [
+    {
+      "path": ".runtime/neighbors-world-rail-near-final-r4-v2.json",
+      "sha256": "8b499def9b903d1be0c12b3c3b3395185375909f3148e1151f76d18e8b8f886b",
+      "replay_path": ".runtime/neighbors-world-rail-near-final-r4-v2-replay.json",
+      "replay_sha256": "48fe0301dc9be480119f9fff35ede59ed07e2b4c3dea2e297d39acd67669eb2b",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "cases": ["rail", "rail_cross_chunk"],
+      "view": "top",
+      "native_baseline_pixels": 3255,
+      "native_support_positive_control_pixels": 24948,
+      "all_air_recall_1px": 0.992626728110599,
+      "all_air_precision_1px": 0.9975247524752475,
+      "dynamic_hidden_residual": 0.0,
+      "initial_hidden_residual": 0.0,
+      "review_sheet": ".runtime/neighbors-world-rail-near-final-r4-v2_review_sheet.png",
+      "review_sheet_sha256": "31085829777b6da9fba40775a3bfd91d2663502a97b3296c06d5d78483d899e8",
+      "visual_review": "Read all rows; curves and retained rails match native, selected middle-cell gaps are visible"
+    }
+  ],
+  "earlier_pipeline": [
+    {
+      "path": ".runtime/neighbors-world-pane-bars-sky-r4.json",
+      "sha256": "c74b1a97a9dd679b10e6d347aa22dd0923e652bf0c68f9a0e836bc175cbec378",
+      "completed": true,
+      "restored": true,
+      "passed": false,
+      "raw_pane_dynamic_residual": [0.03927813163481953, 0.07330415754923414],
+      "raw_pane_initial_residual": [0.07006369426751592, 0.047045951859956234],
+      "replay_path": ".runtime/neighbors-world-pane-bars-sky-r4-replay-final.json",
+      "replay_sha256": "c9712af209e874f7f34ee29fad5d47eb50189b6f908aa0d0537b5ee74eeddcb5",
+      "guarded_passed": true,
+      "guarded_cases": ["pane", "pane_cross_chunk", "iron_bars", "iron_bars_cross_chunk"],
+      "guarded_pane_dynamic_residual": [0.0, 0.028720626631853787],
+      "guarded_pane_initial_residual": [0.03164556962025317, 0.0013054830287206266],
+      "review_sheet": ".runtime/neighbors-world-pane-bars-sky-r4-replay-final_review_sheet.png",
+      "review_sheet_sha256": "d5fb412cca69b6aeec8df7ce92fd61a0ef78a42f7f49a1e3cf2d3553fe6f9f47",
+      "visual_review": "Read all rows; pane gaps are visible and remaining outlines match native"
+    },
+    {
+      "path": ".runtime/neighbors-world-static-r4.json",
+      "sha256": "d3d28788ba1fcfa9a79196eeb22c9adbe39b0dc2edbeed11a7ac5479c3207aa9",
+      "completed": false,
+      "restored": true,
+      "passed": false,
+      "completed_passed_cases": ["pane", "pane_cross_chunk", "wall", "wall_cross_chunk"],
+      "dynamic_hidden_residual": 0.0,
+      "initial_hidden_residual": 0.0,
+      "interruption": "MCDK binding probe returned no explicit value before fence started; incomplete group is not accepted"
+    },
+    {
+      "path": ".runtime/neighbors-world-fence-r4.json",
+      "sha256": "9abe0c8e9c986f420829d3aaeaf89ffbdaeff0c968cb870c727fb22a29084b3c",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "cases": ["fence", "fence_cross_chunk"],
+      "dynamic_hidden_residual": 0.0,
+      "initial_hidden_residual": 0.0,
+      "review_sheet": ".runtime/neighbors-world-fence-r4_review_sheet.png",
+      "review_sheet_sha256": "5de29bca68bd3c6b757d749308448fd253e009c7bf0b16632b70f4ba938e3b06",
+      "visual_review": "Read all rows; retained arms and occupied-cell gaps match native"
+    }
+  ],
+  "preserved_rejections": [
+    {
+      "path": ".runtime/neighbors-world-pane-wall-r4.json",
+      "sha256": "a22b6154cdb3d3d0caf4385f5372570f997672b7fb7c6b6f5fd35dfcb7a285c6",
+      "reason": "Camera intersected leaves; pane raw residual failed; retained for diagnosis"
+    },
+    {
+      "path": ".runtime/neighbors-world-rail-r4.json",
+      "sha256": "b4cc8870a219f623e8c73b5fb6abd7f51199b90b0070aec47b7e6f23b5403284",
+      "reason": "Unsupported native rails disappeared; no pixel verdict; 41 reserved positions independently confirmed restored air"
+    },
+    {
+      "path": ".runtime/neighbors-world-rail-final-r4.json",
+      "sha256": "5cf0a81c3efc7b028a30cb43252e2a19778f86116b47ff408bff84c59947f49f",
+      "reason": "Native state replicated but rails and supports did not render away from actual player; zero baseline was rejected"
+    },
+    {
+      "path": ".runtime/neighbors-world-rail-near-final-r4.json",
+      "sha256": "892a4d80d7f2b4e7f09635a007ec5e5f200e92eddaaf43dbaae82dfc38d41226",
+      "reason": "Native pixels became visible; host positive-control RGB versus L mismatch interrupted; world and player restored"
+    }
+  ],
+  "limits": [
+    "Host observation replacement simulates occupied-cell changes after the native world baseline is cleared.",
+    "Pixel acceptance applies only to preserved fixture cases, views, opacity 1.0, NEMC 1.21.120.0 and instance-specific camera measurements.",
+    "Earlier pipeline evidence does not substitute for final pipeline parity checks.",
+    "Connected families still pending final pipeline acceptance beyond rails.",
+    "Pointed dripstone has 28 native state observations; its pixel acceptance is pending."
+  ]
+}
