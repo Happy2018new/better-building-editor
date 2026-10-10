@@ -12,9 +12,11 @@ if state.get('cleanup_failure'):
 if state.get('done'):
     result = dict((key, state[key]) for key in (
         'schema', 'game_version', 'palette_sha256', 'blocks', 'tested_states',
-        'total_states', 'method', 'elapsed_seconds'))
+        'total_states', 'method', 'elapsed_seconds', 'verified_states',
+        'states_per_subchunk', 'readback_states'))
 else:
     result = dict((key, state.get(key)) for key in (
         'running', 'done', 'progress', 'tested_states', 'total_states',
-        'completed_blocks', 'total_blocks', 'current_name', 'current_aux', 'elapsed_seconds'))
+        'completed_blocks', 'total_blocks', 'current_name', 'current_aux', 'elapsed_seconds',
+        'verified_states', 'subchunk_index'))
 _result = json.dumps(result, sort_keys=True)
