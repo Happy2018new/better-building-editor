@@ -2,6 +2,7 @@
 import argparse
 import base64
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -32,6 +33,7 @@ NATIVE_MUTATE = '''import json,sys
 import mod.server.extraServerApi as server_api
 from modern_projection.server_system import WorldAdapter
 from modern_projection.projection.debug_blueprints import material
+from modern_projection.projection import block_registry as registry
 saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
 target=saved['target']
@@ -39,19 +41,33 @@ plant,kind,height=%r,%r,%d
 adapter.write(target,('minecraft:air',0))
 if kind!='blank':
  value=material('snow_layer',{'height':height,'covered_bit':False}) if kind=='snow' else material(plant)
- assert adapter.write(target,value), ('Could not place native snow oracle',value)
- if kind=='covered':assert adapter.info.SetSnowBlock(target,saved['dimension'],height+1)
+ state=server_api.GetEngineCompFactory().CreateBlockState(server_api.GetLevelId())
+ aux=state.GetBlockAuxValueFromStates(value[0].encode('utf8'),registry.states(value))
+ assert aux is not None and aux>=0, ('Native state mapping unavailable',value)
+ assert adapter.info.SetBlockNew(target,{'name':value[0].encode('utf8'),'aux':aux},0,saved['dimension'],True,False), ('Could not place native snow oracle',value)
 state=server_api.GetEngineCompFactory().CreateBlockState(server_api.GetLevelId())
 _result=json.dumps({'front':adapter.info.GetBlockNew(target,saved['dimension']),
  'states':state.GetBlockStates(target,saved['dimension']),'target':target,'kind':kind,'height':height})
+'''
+NATIVE_SNOW = '''import json,sys
+import mod.server.extraServerApi as server_api
+saved=sys._snow_visibility_native
+factory=server_api.GetEngineCompFactory()
+info=factory.CreateBlockInfo(saved['player'])
+result=info.SetSnowBlock(saved['target'],saved['dimension'],%d)
+state=factory.CreateBlockState(server_api.GetLevelId())
+_result=json.dumps({'result':result,'front':info.GetBlockNew(saved['target'],saved['dimension']),
+ 'states':state.GetBlockStates(saved['target'],saved['dimension']),'target':saved['target']})
 '''
 NATIVE_CLEANUP = '''import sys
 from modern_projection.server_system import WorldAdapter
 saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
-for pos in (saved['target'],saved['support']):adapter.write(pos,('minecraft:air',0))
+results=[]
+for pos in (saved['target'],saved['support']):
+ results.append((pos,adapter.write(pos,('minecraft:air',0))))
 del sys._snow_visibility_native
-_result=True
+_result=json.dumps(results)
 '''
 PROJECTION_SOURCE = '''import zlib
 from modern_projection.projection.bridge import _stable_palette,coordinate
@@ -181,6 +197,8 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     # snow control does not cover in this camera. Plant texture bounds vary.
     upper = ImageChops.subtract(upper, snow_mask.filter(ImageFilter.MaxFilter(3)))
     upper_count, lower_count = count(upper), count(lower)
+    uncovered = count(ImageChops.subtract(plant_mask, snow_mask.filter(ImageFilter.MaxFilter(3))))
+    fully_occluded = height == 5 and uncovered <= count(plant_mask) * .02
     upper_retained = count(ImageChops.multiply(contribution, upper)) / max(1, upper_count)
     lower_retained = count(ImageChops.multiply(contribution, lower)) / max(1, lower_count)
     covered_lower_by_snow = count(ImageChops.multiply(snow_mask, lower)) / max(1, lower_count)
@@ -192,23 +210,28 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     color_changed = changed(covered['image'], plant['image'], 35)
     color_match = 1. - count(ImageChops.multiply(color_changed, matched)) / max(1, count(matched))
     observability = (count(plant_mask) >= minimum and count(snow_mask) >= minimum and
-                     upper_count >= max(8, minimum // 10) and lower_count >= max(12, minimum // 4))
+                     (fully_occluded or upper_count >= max(8, minimum // 10)) and
+                     lower_count >= max(12, minimum // 4))
     if height == 5:
         observability = observability and covered_lower_by_snow >= .65
     checks = {
         'observable_controls': observability,
-        'plant_contributes_beyond_snow': count(contribution) >= max(20, minimum // 4),
-        'upper_foliage_retained': upper_retained >= .65,
         'foliage_stays_at_standalone_position': outside_ratio <= .15,
         'remaining_foliage_matches_standalone': color_match >= .60,
         'snow_stays_at_control_position': snow_retained >= .90,
     }
+    if fully_occluded:
+        checks['fully_covered_plant_stays_occluded'] = count(contribution) <= max(8, minimum // 10)
+    else:
+        checks['plant_contributes_beyond_snow'] = count(contribution) >= max(20, minimum // 4)
+        checks['upper_foliage_retained'] = upper_retained >= .65
     if height == 5:
         checks['high_snow_occludes_lower_foliage'] = lower_retained <= .25
     return {'height': height, 'passed': all(checks.values()), 'valid_baseline': observability,
             'checks': checks, 'failures': [key for key, value in checks.items() if not value],
             'plant_pixels': count(plant_mask), 'snow_pixels': count(snow_mask),
             'covered_contribution_pixels': count(contribution), 'upper_pixels': upper_count,
+            'standalone_uncovered_pixels': uncovered, 'fully_occluded_by_snow_control': fully_occluded,
             'lower_pixels': lower_count, 'upper_retained': upper_retained,
             'lower_retained': lower_retained, 'lower_snow_control_coverage': covered_lower_by_snow,
             'outside_standalone_ratio': outside_ratio, 'remaining_color_match': color_match,
@@ -235,12 +258,14 @@ def scope_checks(frames, plants, heights, minimum=80):
             'scope': 'Fixed-camera visible upper and occluded lower foliage, snow position and two-height difference; no world writes'}
 
 
-def compare_native(reference, actual, minimum=80):
+def compare_native(reference, actual, minimum=80, foliage=True):
     """Match native-world silhouettes; do not assume foliage survives deep snow."""
     if reference['image'].size != actual['image'].size:
         raise AssertionError('Native and projection crops must have identical dimensions')
     rows = {}
     for key in ('object', 'green'):
+        if key == 'green' and not foliage:
+            continue
         expected, observed = reference[key], actual[key]
         expected_count, observed_count = count(expected), count(observed)
         expected_expanded = expected.filter(ImageFilter.MaxFilter(7))
@@ -265,6 +290,10 @@ def native_capture(check, plant, kind, height, target, offset):
         check.wait('close workspace for native snow oracle',
                    lambda nav: not nav['open'] and not nav['transition'], check.navigation)
     readback = server_run(check.client, NATIVE_MUTATE % (plant, kind, height))
+    if kind == 'covered':
+        time.sleep(.2)
+        readback = server_run(check.client, NATIVE_SNOW % (height + 1))
+        assert readback['result'], readback
     name = 'minecraft:air' if kind == 'blank' else ('minecraft:snow_layer' if kind in ('snow', 'covered') else 'minecraft:' + plant)
     assert readback['front']['name'] == name, readback
     if kind in ('snow', 'covered'):
@@ -388,6 +417,8 @@ def main():
     parser.add_argument('--height', type=int, action='append', choices=(0, 5))
     parser.add_argument('--timeout', type=float, default=60)
     parser.add_argument('--min-pixels', type=int, default=80)
+    parser.add_argument('--raw-plants', action='store_true',
+                        help='Diagnostic: bypass grass/fern proxies; always restored afterwards')
     args = parser.parse_args()
     if args.timeout <= 0 or args.min_pixels <= 0:
         parser.error('Timeout and minimum observable pixels must be positive')
@@ -401,7 +432,8 @@ def main():
                 'native_reference': {'captured': False,
                                      'capability_source': 'tools/data/native_snow_overlays_nemc_3.9.0.401155.json',
                                      'method': 'Place actual blocks at the exact projection focus cell; SetSnowBlock heights 1 and 6; verify native states 0 and 5; capture same measured side camera.'}}
-    installed = visual_saved = native_created = False
+    evidence['raw_plants_diagnostic'] = args.raw_plants
+    installed = visual_saved = native_created = raw_saved = False
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, args.timeout)
@@ -411,6 +443,14 @@ def main():
                 check.run(SAVE_VISUAL)
                 visual_saved = True
                 check.refresh()
+                if args.raw_plants:
+                    check.run('''from modern_projection.projection import geometry_palette
+sys._snow_raw_plant_proxies=dict(geometry_palette.PLANT_PROXIES)
+for key in (('minecraft:short_grass',0),('minecraft:fern',0)):
+ geometry_palette.PLANT_PROXIES.pop(key,None)
+_result=True
+''')
+                    raw_saved = True
                 blueprint_path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprints.py'
                 case = check.run('import base64\nimport modern_projection.projection.debug_blueprints as refreshed\n'
                                  'eval(compile(base64.b64decode(%r),%r,"exec"),refreshed.__dict__)\n'
@@ -475,7 +515,8 @@ def main():
                         native_frames[(plant, kind, height)] = native_frame
                         native['pixels'] = analyze(native_frame, crop,
                             args.output.with_name(args.output.stem + '_' + label + '_native_mask.png'))
-                        native_comparison = compare_native(native_frame, projection_frame, args.min_pixels)
+                        native_comparison = compare_native(native_frame, projection_frame, args.min_pixels,
+                                                           foliage=kind != 'snow')
                         stable_source = check.run('from modern_projection.projection.cell import foreground,background\n'
                                                   '_result=json.dumps({"front":foreground(s.editor.document.get(%r)),'
                                                   '"back":background(s.editor.document.get(%r)),'
@@ -527,26 +568,51 @@ def main():
                 evidence['completed'] = True
                 evidence['passed'] = all(scope['passed'] for scope in evidence['scopes'].values())
             finally:
+                prior_error = sys.exc_info()[0]
+                cleanup_errors = []
+                actions = []
+                if raw_saved:
+                    actions.append(('plant_proxies', lambda: check.run('''geometry_palette.PLANT_PROXIES.clear()
+geometry_palette.PLANT_PROXIES.update(sys._snow_raw_plant_proxies)
+del sys._snow_raw_plant_proxies
+_result=True
+''')))
                 if native_created:
-                    server_run(client, NATIVE_CLEANUP)
-                    evidence['native_reference']['cleaned'] = True
+                    actions.append(('native_fixture', lambda: server_run(client, NATIVE_CLEANUP)))
                 if visual_saved:
-                    check.run('b.stop_projection()\n_result=True')
-                    check.run(camera_restore_code(False))
-                    check.run('saved=sys._blueprint_visual_saved\n'
+                    actions.extend((
+                        ('projection', lambda: check.run('b.stop_projection()\n_result=True')),
+                        ('camera', lambda: check.run(camera_restore_code(False))),
+                        ('visual_fields', lambda: check.run('saved=sys._blueprint_visual_saved\n'
                               's.origin=saved["origin"]\ns.opacity=saved["opacity"]\n'
                               's.projection_missing=saved["missing"]\ns.projection_outline=saved["outline"]\n'
-                              'del sys._blueprint_visual_saved\n_result=True')
+                              'del sys._blueprint_visual_saved\n_result=True')),
+                    ))
+                for label, action in actions:
+                    try:
+                        action()
+                        if label == 'native_fixture':
+                            evidence['native_reference']['cleaned'] = True
+                    except Exception as cleanup_error:
+                        cleanup_errors.append('%s: %s' % (label, cleanup_error))
                 if installed:
-                    was_open = check.run('_result=sys._blueprint_qa_saved["workspace"]')
-                    check.run(RESTORE)
-                    if was_open:
-                        check.run('owner.open_workspace()\n_result=True')
-                        check.wait('restore workspace', lambda nav: nav['open'] and not nav['transition'], check.navigation)
-                    elif check.navigation()['open']:
-                        check.run('navigator.pop()\n_result=True')
-                        check.wait('restore closed workspace', lambda nav: not nav['open'] and not nav['transition'], check.navigation)
-                    evidence['restored'] = True
+                    try:
+                        was_open = check.run('_result=sys._blueprint_qa_saved["workspace"]')
+                        check.run(RESTORE)
+                        if was_open:
+                            check.run('owner.open_workspace()\n_result=True')
+                            check.wait('restore workspace', lambda nav: nav['open'] and not nav['transition'], check.navigation)
+                        elif check.navigation()['open']:
+                            check.run('navigator.pop()\n_result=True')
+                            check.wait('restore closed workspace', lambda nav: not nav['open'] and not nav['transition'], check.navigation)
+                        evidence['restored'] = True
+                    except Exception as cleanup_error:
+                        cleanup_errors.append('workspace: %s' % cleanup_error)
+                if cleanup_errors:
+                    evidence['cleanup_errors'] = cleanup_errors
+                    evidence['completed'] = evidence['passed'] = False
+                    if prior_error is None:
+                        raise RuntimeError('Snow acceptance cleanup failed: ' + '; '.join(cleanup_errors))
     except Exception as error:
         evidence['error'] = '%s: %s' % (type(error).__name__, error)
         raise

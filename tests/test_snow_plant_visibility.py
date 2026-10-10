@@ -37,6 +37,19 @@ def controls():
 
 
 class SnowPlantVisibilityTests(unittest.TestCase):
+    def test_high_snow_can_naturally_cover_a_shorter_standalone_plant(self):
+        plant, values = controls()
+        snow, unused = values[5]
+        short = Image.new('RGB', plant['image'].size)
+        ImageDraw.Draw(short).rectangle((28, 62, 49, 101), fill=(35, 155, 45))
+        result = compare_controls(frame(short), snow, snow, 5)
+        self.assertTrue(result['passed'], result)
+        self.assertTrue(result['fully_occluded_by_snow_control'])
+        self.assertTrue(result['checks']['fully_covered_plant_stays_occluded'])
+        visible = snow['image'].copy()
+        visible.paste(short, mask=changed(short, Image.new('RGB', short.size)))
+        self.assertFalse(compare_controls(frame(short), snow, frame(visible), 5)['passed'])
+
     def test_native_oracle_rejects_missing_shifted_foliage_and_missing_snow(self):
         plant, values = controls()
         snow, covered = values[5]

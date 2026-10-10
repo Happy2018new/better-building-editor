@@ -116,7 +116,9 @@ class GeometryPaletteTests(unittest.TestCase):
                         self.assertAlmostEqual(8., sum(values) / len(values), msg=proxy)
                         self.assertGreaterEqual(min(values), 0., proxy)
                         self.assertLessEqual(max(values), 16., proxy)
-                    self.assertEqual((0, 16), (origin[1], origin[1] + size[1]))
+                    height = 12.8 if proxy in ('modern_projection:preview_short_grass',
+                                               'modern_projection:preview_fern') else 16
+                    self.assertEqual((0, height), (origin[1], origin[1] + size[1]))
 
     def test_full_cells_keep_background_states_and_actor_data_in_geometry_palette(self):
         chest_data = {'id': 'Chest', 'Items': [], 'x': 1, 'y': 2, 'z': 3}
