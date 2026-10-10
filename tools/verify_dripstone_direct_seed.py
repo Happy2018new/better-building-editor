@@ -77,6 +77,7 @@ saved['attached']=name
 assert render.EnableActorBlockGeometryTransparent(name,True)
 assert render.SetActorBlockGeometryTransparency(name,1.)
 assert render.SetEntityExtraUniforms(4,(19487.,0.,0.,0.))
+assert render.SetNotRenderAtAll(False)
 assert tuple(render.GetActorBlockGeometryScale(name) or ())==(1.,1.,1.)
 _result=json.dumps({'actor':saved['entity'],'model':name,
  'position':b.factory.CreatePos(saved['entity']).GetPos(),
@@ -85,7 +86,7 @@ _result=json.dumps({'actor':saved['entity'],'model':name,
 
 VISIBILITY = '''saved=sys._dripstone_direct_seed
 assert saved['attached'] is not None
-assert b.factory.CreateActorRender(saved['entity']).SetActorBlockGeometryTransparency(saved['attached'],%r)
+assert b.factory.CreateActorRender(saved['entity']).SetNotRenderAtAll(%r)
 _result=True
 '''
 
@@ -210,7 +211,7 @@ def execute(check, args, report):
         item = {'attachment': check.run(ATTACH % key)}
         time.sleep(.35)
         item['shown'] = capture(check, key + '_shown', pose)
-        check.run(VISIBILITY % 0.)
+        check.run(VISIBILITY % True)
         time.sleep(.35)
         item['hidden'] = capture(check, key + '_hidden', pose)
         actual = native.signal(item['shown']['path'], item['hidden']['path'])

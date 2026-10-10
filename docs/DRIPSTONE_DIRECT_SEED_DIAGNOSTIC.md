@@ -29,7 +29,8 @@ selection minimum `(6,-38,6)`, using the established attachment offset
 `(19487,0,0,0)`. The anchor does not use the packed-context shader marker.
 
 A fixed horizontal camera views the scene from nine blocks along negative Z. Native
-PNG captures are taken before and after hiding each model. Camera poses and
+PNG captures are taken before and after `SetNotRenderAtAll` hides the whole
+temporary actor, using the existing native capture pattern. Camera poses and
 viewport sizes are checked around every capture. Comparison masks come
 from the calibrated camera and complete cell hulls; they are not fitted to
 any of the four model images. The two stone supports are separate geometric

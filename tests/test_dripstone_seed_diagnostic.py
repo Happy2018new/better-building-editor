@@ -68,7 +68,7 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
             self.skipTest('Local game-compatible Python 2 interpreter is unavailable')
         positions = [(6, -38, 6), (6, -37, 6), (6, -36, 6), (6, -35, 6)]
         generate = diagnostic.GENERATE % (positions, 'test_seed', diagnostic.PATHS)
-        payloads = [generate, diagnostic.ATTACH % 'direct_world', diagnostic.VISIBILITY % 0.,
+        payloads = [generate, diagnostic.ATTACH % 'direct_world', diagnostic.VISIBILITY % True,
                     diagnostic.CLEANUP, diagnostic.CAMERA % ((6, -37, 6),),
                     diagnostic.ROIS % (positions, (6.5, -36., 6.5))]
         mock = '''import json,sys
