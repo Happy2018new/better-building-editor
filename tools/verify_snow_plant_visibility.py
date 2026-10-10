@@ -1,7 +1,10 @@
 """Compare native snow and plant visibility at one fixed editor/world position."""
 import argparse
 import base64
+import hashlib
 import json
+import math
+import os
 import sys
 import time
 from pathlib import Path
@@ -9,11 +12,16 @@ from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, RESTORE,
                                      write_json)
-from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
+from verify_debug_visuals import (SAVE_VISUAL, PROJECTION_STATUS, PROJECTION_SOURCE,
+                                  camera_restore_code, projection_source_matches)
 from verify_missing_neighbor_visuals import camera_matches
 from verify_shulker_orientations import viewport_crop, server_run
+from _session import load_session
+from camera_projection import project_points
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
+from projection.camera import OrbitCamera
 NATIVE_SETUP = '''import json,sys
 import mod.server.extraServerApi as server_api
 from modern_projection.server_system import WorldAdapter
@@ -83,35 +91,6 @@ results.append({'resource':'daylight_cycle','clean':bool(game.SetGameRulesInfoSe
 del sys._snow_visibility_native
 _result=json.dumps(results)
 '''
-PROJECTION_SOURCE = '''import zlib
-from modern_projection.projection.bridge import _stable_palette,coordinate
-from modern_projection.projection.geometry_palette import prepare_palette
-work=b.projection_work
-doc=s.editor.document
-data=prepare_palette(doc.palette_data())
-fingerprint=zlib.compress(repr(_stable_palette((doc.size,data))).encode('utf8'),1)
-model=b.projection_mesh[1] if b.projection_mesh else None
-_result=json.dumps({'editor_id':id(s.editor),'document_id':id(doc),'fixture':sys._blueprint_qa_identity,
- 'nonce':sys._blueprint_qa_nonce,'serial':b.projection_serial,
- 'work_current':(not s.projection_missing if work is None else
-  work.serial==b.projection_serial and work.ready and work.model==model and
-  work.document.size==doc.size and work.document.blocks==doc.blocks),
- 'path':'synchronous' if work is None else 'incremental',
- 'cache_model':b.models.get(fingerprint),'model':model,
- 'cache_current':model is not None and b.models.get(fingerprint)==model,
- 'origin_current':b.projection_mesh is not None and
-  tuple(b.projection_mesh[2])==tuple(coordinate(s.origin)) and
-  (work is None or tuple(work.origin)==tuple(coordinate(s.origin))),
- 'fingerprint_bytes':len(fingerprint)})
-'''
-
-
-def projection_source_matches(actual, expected):
-    fields = ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model', 'path')
-    return (all(actual.get(field) == expected.get(field) for field in fields) and
-            actual.get('work_current') and actual.get('cache_current') and actual.get('origin_current'))
-
-
 LOAD = '''from modern_projection.projection.model import Document
 from modern_projection.projection.cell import _covered_snow,foreground,background,rebase
 from modern_projection.projection.debug_blueprints import build,VISUAL_CASES
@@ -181,7 +160,7 @@ def changed(first, second, threshold=20):
     return maximum(ImageChops.difference(first, second)).point(lambda value: 255 if value > threshold else 0)
 
 
-def capture_frame(path, crop, hidden, segmented=False):
+def capture_frame(path, crop, hidden, segmented=False, geometry=None, roi=None):
     with Image.open(path) as source:
         frame = source.convert('RGB').crop(crop)
     with Image.open(hidden) as source:
@@ -189,8 +168,142 @@ def capture_frame(path, crop, hidden, segmented=False):
     presence = changed(frame, reference)
     if segmented:
         presence = ImageChops.multiply(presence, snow_plant_mask(frame))
-    return {'image': frame, 'object': presence,
-            'green': ImageChops.multiply(green_mask(frame), presence)}
+    if roi is not None:
+        presence = ImageChops.multiply(presence, roi)
+    result = {'image': frame, 'object': presence,
+              'green': ImageChops.multiply(green_mask(frame), presence)}
+    if geometry is not None:
+        result['geometry'] = geometry
+    return result
+
+
+def convex_hull(points):
+    ordered = sorted(set(points))
+    if len(ordered) < 3:
+        return ordered
+
+    def cross(a, b, c):
+        return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+
+    sides = []
+    for values in (ordered, list(reversed(ordered))):
+        side = []
+        for point in values:
+            while len(side) >= 2 and cross(side[-2], side[-1], point) <= 0:
+                side.pop()
+            side.append(point)
+        sides.append(side[:-1])
+    return sides[0] + sides[1]
+
+
+def editor_snow_geometry(crop, camera_state, focus, height):
+    """Opaque snow hull from the calibrated editor camera, including white faces."""
+    width, pixels_high = crop[2]-crop[0], crop[3]-crop[1]
+    camera = OrbitCamera(*camera_state['pose'])
+    camera.pivot = tuple(camera_state['pivot']) if camera_state['pivot'] is not None else None
+    camera.pan = tuple(camera_state['pan'])
+    size = tuple(camera_state['size'])
+    unit = min(width, pixels_high) * camera.zoom * .72 / max(size)
+    project = camera.projector(size, width, pixels_high, unit)
+    points = [project((focus[0]+x, focus[1]+y, focus[2]+z))
+              for x in (0., 1.) for y in (0., (height+1)/8.) for z in (0., 1.)]
+    polygon = convex_hull(points)
+    mask = Image.new('L', (width, pixels_high))
+    ImageDraw.Draw(mask).polygon(polygon, fill=255)
+    return mask, {'polygon': polygon, 'bounds': mask.getbbox(), 'unit': unit,
+                  'method': 'OrbitCamera affine projector at the actual preview pose',
+                  'height_blocks': (height+1)/8., 'camera': camera_state}
+
+
+def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
+    """Project opaque plant texels above snow; screen hulls cannot express depth."""
+    width, pixels_high = crop[2]-crop[0], crop[3]-crop[1]
+    camera = OrbitCamera(*camera_state['pose'])
+    camera.pivot = tuple(camera_state['pivot']) if camera_state['pivot'] is not None else None
+    camera.pan = tuple(camera_state['pan'])
+    size = tuple(camera_state['size'])
+    unit = min(width, pixels_high) * camera.zoom * .72 / max(size)
+    project = camera.projector(size, width, pixels_high, unit)
+    mask = Image.new('L', (width, pixels_high))
+    draw = ImageDraw.Draw(mask)
+    assert camera.pitch > 0, 'Above-snow texels require a camera above the snow surface'
+    snow_top = (height+1)/8.
+    for bone in model['netease:block_geometry']['bones']:
+        angle = math.radians(bone['rotation'][1])
+        px, unused, pz = bone['pivot']
+        for cube in bone['cubes']:
+            ox, oy, oz = cube['origin']
+            sx, sy, sz = cube['size']
+            assert sz == 0 and bone['rotation'][0] == bone['rotation'][2] == 0
+
+            def point(u, y):
+                dx, dz = ox+sx*u-px, oz-pz
+                x = px+dx*math.cos(angle)+dz*math.sin(angle)
+                z = pz-dx*math.sin(angle)+dz*math.cos(angle)
+                return project((focus[0]-x/16., focus[1]+y, focus[2]+z/16.))
+
+            for row in range(texture.height):
+                low = max(snow_top, (oy+sy*(1.-(row+1)/float(texture.height)))/16.)
+                high = (oy+sy*(1.-row/float(texture.height)))/16.
+                if high <= low:
+                    continue
+                for col in range(texture.width):
+                    if texture.getpixel((col, row))[3] <= 127:
+                        continue
+                    left, right = col/float(texture.width), (col+1)/float(texture.width)
+                    # Both native faces have mirrored winding; the standalone
+                    # pixel mask selects the face actually visible in this pose.
+                    for a, b in ((left, right), (1.-right, 1.-left)):
+                        draw.polygon((point(a, low), point(b, low), point(b, high), point(a, high)), fill=255)
+    return mask
+
+
+def cross_assets(session, plant):
+    native_name = {'short_grass': 'tallgrass', 'fern': 'fern'}.get(plant)
+    if native_name is None:
+        return None
+    texture_path = (Path(session['game_executable']).parent / 'data/resource_packs/vanilla/'
+                    'textures/blocks' / (native_name+'.tga'))
+    model_path = ROOT / 'resource_pack/models/netease_block' / ('preview_'+plant+'.json')
+    texture_raw, model_raw = texture_path.read_bytes(), model_path.read_bytes()
+    with Image.open(texture_path) as source:
+        texture = source.convert('RGBA')
+    return json.loads(model_raw), texture, {
+        'model': str(model_path), 'model_sha256': hashlib.sha256(model_raw).hexdigest(),
+        'texture': str(texture_path), 'texture_sha256': hashlib.sha256(texture_raw).hexdigest(),
+        'texture_size': texture.size, 'texture_alpha_bounds': texture.getchannel('A').getbbox(),
+        'method': 'Actual proxy model and native TGA alpha, clipped by world-space snow height'}
+
+
+def world_cell_roi(check, crop, screenshot_size, base, pose, calibration):
+    data = check.run('''base=%r
+cam=b.factory.CreateCamera(b.level)
+points=[tuple(base[i]+delta[i] for i in range(3))
+ for delta in ((x,y,z) for x in (0.,1.) for y in (0.,1.) for z in (0.,1.))]
+native=[cam.WorldToScreenPoint(*point) for point in points] if hasattr(cam,'WorldToScreenPoint') else None
+_result=json.dumps({'points':points,'native':native,'fov':cam.GetFov(),
+ 'screen':b.factory.CreateGame(b.level).GetScreenSize(),'version':api.GetMinecraftVersion()})
+''' % (tuple(base),))
+    if data['native'] is not None:
+        projected = data['native']
+        method = 'native WorldToScreenPoint'
+    else:
+        assert calibration is not None and calibration['completed'] and calibration['passed'], 'A native cube camera calibration is required on this game version'
+        assert calibration['session_file'] == os.environ.get('MCDEV_SESSION_FILE'), 'Calibration belongs to another instance'
+        assert calibration['runtime_minecraft_version'] == data['version'], 'Calibration game version changed'
+        assert abs(calibration['reported_fov']-data['fov']) < .01, 'Camera FOV changed since calibration'
+        assert abs(calibration['screen_aspect']-data['screen'][0]/data['screen'][1]) < .01, 'Viewport aspect changed since calibration'
+        projected = project_points(data['points'], pose['position'], pose['target'],
+                                   data['screen'], calibration['vertical_fov'], pose['rotation'][2])
+        method = 'native-cube calibrated perspective projection'
+    assert all(row['isInScreen'] for row in projected), 'Plant cell lies outside the screen'
+    scale = (screenshot_size[0]/data['screen'][0], screenshot_size[1]/data['screen'][1])
+    polygon = convex_hull((row['screenX']*scale[0]-crop[0], row['screenY']*scale[1]-crop[1])
+                          for row in projected)
+    mask = Image.new('L', (crop[2]-crop[0], crop[3]-crop[1]))
+    ImageDraw.Draw(mask).polygon(polygon, fill=255)
+    return mask, {'method': method, 'polygon': polygon, 'camera': pose, 'screen': data['screen'],
+                  'world_base': base, 'bounds': mask.getbbox(), 'calibration': calibration}
 
 
 def analyze(frame, crop, output):
@@ -217,7 +330,7 @@ def bands(mask):
 def compare_controls(plant, snow, covered, height, minimum=80):
     if len({row['image'].size for row in (plant, snow, covered)}) != 1:
         raise AssertionError('Snow controls must have identical crop dimensions')
-    plant_mask, snow_mask = plant['object'], snow['object']
+    plant_mask, snow_mask = plant['object'], snow.get('geometry', snow['object'])
     footprint = plant_mask.filter(ImageFilter.MaxFilter(5))
     difference = ImageChops.multiply(changed(covered['image'], snow['image']),
                                      ImageChops.lighter(covered['object'], snow_mask))
@@ -225,11 +338,16 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     upper, lower = bands(plant_mask)
     # Only require foliage in an upper region that the independent opaque
     # snow control does not cover in this camera. Plant texture bounds vary.
-    upper = ImageChops.subtract(upper, snow_mask.filter(ImageFilter.MaxFilter(3)))
+    visible_texels = plant.get('above_snow', {}).get(height)
+    if visible_texels is None:
+        upper = ImageChops.subtract(upper, snow_mask.filter(ImageFilter.MaxFilter(3)))
+    else:
+        upper = ImageChops.multiply(upper, visible_texels)
     upper_count, lower_count = count(upper), count(lower)
     uncovered = count(ImageChops.subtract(plant_mask, snow_mask.filter(ImageFilter.MaxFilter(3))))
-    fully_occluded = height == 5 and uncovered <= count(plant_mask) * .02
-    upper_retained = count(ImageChops.multiply(contribution, upper)) / max(1, upper_count)
+    fully_occluded = height == 5 and (uncovered <= count(plant_mask)*.02 if visible_texels is None else upper_count == 0)
+    upper_observed = contribution if visible_texels is None else contribution.filter(ImageFilter.MaxFilter(7))
+    upper_retained = count(ImageChops.multiply(upper_observed, upper)) / max(1, upper_count)
     lower_retained = count(ImageChops.multiply(contribution, lower)) / max(1, lower_count)
     covered_lower_by_snow = count(ImageChops.multiply(snow_mask, lower)) / max(1, lower_count)
     outside = ImageChops.multiply(difference, ImageChops.invert(footprint))
@@ -239,7 +357,7 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     matched = ImageChops.multiply(contribution, plant_mask)
     color_changed = changed(covered['image'], plant['image'], 35)
     color_match = 1. - count(ImageChops.multiply(color_changed, matched)) / max(1, count(matched))
-    observability = (count(plant_mask) >= minimum and count(snow_mask) >= minimum and
+    observability = (count(plant_mask) >= minimum and count(snow['object']) >= minimum and
                      (fully_occluded or upper_count >= max(8, minimum // 10)) and
                      lower_count >= max(12, minimum // 4))
     if height == 5:
@@ -265,6 +383,8 @@ def compare_controls(plant, snow, covered, height, minimum=80):
             'lower_pixels': lower_count, 'upper_retained': upper_retained,
             'lower_retained': lower_retained, 'lower_snow_control_coverage': covered_lower_by_snow,
             'outside_standalone_ratio': outside_ratio, 'remaining_color_match': color_match,
+            'upper_geometry': 'native alpha texels above snow' if visible_texels is not None else 'snow silhouette difference',
+            'upper_edge_tolerance_pixels': 3 if visible_texels is not None else 0,
             'snow_outside_plant_retained': snow_retained,
             'limits': {'minimum_baseline_pixels': minimum, 'upper_retention': .65,
                        'high_lower_retention': .25, 'high_lower_snow_coverage': .65,
@@ -452,11 +572,16 @@ def main():
     parser.add_argument('--min-pixels', type=int, default=80)
     parser.add_argument('--raw-plants', action='store_true',
                         help='Diagnostic: bypass grass/fern proxies; always restored afterwards')
+    parser.add_argument('--camera-calibration', type=Path,
+                        help='Native cube calibration for this instance when WorldToScreenPoint is unavailable')
     args = parser.parse_args()
     if args.timeout <= 0 or args.min_pixels <= 0:
         parser.error('Timeout and minimum observable pixels must be positive')
     plants = tuple(dict.fromkeys(args.plant or ('short_grass', 'fern')))
     heights = sorted(set(args.height or (0, 5)))
+    session = load_session(live=True)
+    calibration = (json.loads(args.camera_calibration.read_text(encoding='utf8'))
+                   if args.camera_calibration is not None else None)
     frames = {'editor': {}, 'projection': {}}
     evidence = {'schema': 5, 'completed': False, 'passed': False, 'rows': [],
                 'scopes': {'editor': {'passed': False}, 'projection': {'passed': False}},
@@ -495,6 +620,9 @@ _result=True
                 evidence['native_reference']['fixture'] = server_run(client, NATIVE_SETUP % (native_target,))
                 native_created = True
                 for plant in plants:
+                    assets = cross_assets(session, plant)
+                    if assets is not None:
+                        evidence.setdefault('plant_assets', {})[plant] = assets[2]
                     cases = [('blank', 0), ('plant', 0)] + [(kind, height)
                             for height in heights for kind in ('snow', 'covered')]
                     editor_crop = None
@@ -526,15 +654,35 @@ _result=True
                                                      'editor_camera': camera, 'native': native})
                             write_json(args.output, evidence)
                             continue
-                        editor_frame = capture_frame(editor['path'], editor_crop, blank_editor)
+                        editor_state = check.run('_result=json.dumps({"pose":s.camera_pose,'
+                                                 '"pan":s.camera_pan,"pivot":s.camera_pivot,'
+                                                 '"size":s.scene_size})')
+                        geometry = geometry_record = None
+                        if kind == 'snow':
+                            geometry, geometry_record = editor_snow_geometry(editor_crop, editor_state, focus, height)
+                        editor_frame = capture_frame(editor['path'], editor_crop, blank_editor, geometry=geometry)
+                        upper_geometry_record = None
+                        if kind == 'plant' and assets is not None:
+                            model, texture, unused = assets
+                            editor_frame['above_snow'] = {
+                                h: editor_cross_above_snow(editor_crop, editor_state, focus, h, model, texture)
+                                for h in heights}
+                            upper_geometry_record = {}
+                            for h, mask in editor_frame['above_snow'].items():
+                                path = args.output.with_name(args.output.stem+'_'+plant+'_h%d_upper_geometry.png' % h)
+                                mask.save(path)
+                                upper_geometry_record[h] = {'mask': str(path.resolve()),
+                                    'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'bounds': mask.getbbox()}
                         frames['editor'][(plant, kind, height)] = editor_frame
                         pixels = analyze(editor_frame, editor_crop,
                                          args.output.with_name(args.output.stem + '_' + label + '_editor_mask.png'))
                         world = projection_capture(check, label, focus, tuple(case['camera']['world_offset']))
                         width, height_pixels = world['screenshot']['size']
                         crop = (width // 4, height_pixels // 4, width * 3 // 4, height_pixels * 3 // 4)
+                        roi, roi_record = world_cell_roi(check, crop, (width, height_pixels), native_target,
+                                                         world['pose'], calibration)
                         projection_frame = capture_frame(world['screenshot']['path'], crop,
-                                                         world['hidden_screenshot']['path'], segmented=True)
+                                                         world['hidden_screenshot']['path'], segmented=True, roi=roi)
                         frames['projection'][(plant, kind, height)] = projection_frame
                         world_pixels = analyze(projection_frame, crop,
                                                args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
@@ -542,7 +690,7 @@ _result=True
                                                 tuple(case['camera']['world_offset']))
                         assert native['pose'] == world['pose'], (native['pose'], world['pose'])
                         native_frame = capture_frame(native['screenshot']['path'], crop,
-                                                     native['hidden_screenshot']['path'], segmented=True)
+                                                     native['hidden_screenshot']['path'], segmented=True, roi=roi)
                         native['pixels'] = analyze(native_frame, crop,
                             args.output.with_name(args.output.stem + '_' + label + '_native_mask.png'))
                         native_comparison = compare_native(native_frame, projection_frame, args.min_pixels,
@@ -556,6 +704,9 @@ _result=True
                             source['front'], source['back'], source['runtime_minecraft_version']), (source, stable_source)
                         evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height, 'source': source,
                                                  'editor': editor, 'editor_pixels': pixels, 'editor_camera': camera,
+                                                 'editor_state': editor_state, 'editor_geometry': geometry_record,
+                                                 'upper_geometry': upper_geometry_record,
+                                                 'world_roi': roi_record,
                                                  'world': world, 'world_pixels': world_pixels,
                                                  'native': native, 'native_comparison': native_comparison})
                         write_json(args.output, evidence)

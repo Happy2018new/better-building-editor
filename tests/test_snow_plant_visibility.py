@@ -1,4 +1,7 @@
 import sys
+import json
+import hashlib
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -9,7 +12,8 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from verify_snow_plant_visibility import (PROJECTION_SOURCE, changed, compare_controls, green_mask,
                                          compare_native, projection_source_matches, scope_checks,
                                          NATIVE_SETUP, NATIVE_MUTATE, NATIVE_CLEANUP,
-                                         snow_plant_mask)
+                                         snow_plant_mask, editor_cross_above_snow, capture_frame)
+from reanalyze_snow_visibility import stored_upper
 
 
 def frame(image):
@@ -38,6 +42,56 @@ def controls():
 
 
 class SnowPlantVisibilityTests(unittest.TestCase):
+    def test_world_roi_rejects_changed_background_foliage_outside_the_cell(self):
+        with tempfile.TemporaryDirectory() as directory:
+            shown_path, hidden_path = Path(directory)/'shown.png', Path(directory)/'hidden.png'
+            shown = Image.new('RGB', (80, 80))
+            ImageDraw.Draw(shown).rectangle((30, 30, 49, 49), fill=(35, 155, 45))
+            ImageDraw.Draw(shown).rectangle((0, 0, 9, 9), fill=(35, 155, 45))
+            shown.save(shown_path)
+            Image.new('RGB', shown.size).save(hidden_path)
+            roi = Image.new('L', shown.size)
+            ImageDraw.Draw(roi).rectangle((20, 20, 59, 59), fill=255)
+            sampled = capture_frame(shown_path, (0, 0, 80, 80), hidden_path, segmented=True, roi=roi)
+            self.assertEqual((30, 30, 50, 50), sampled['green'].getbbox())
+            self.assertEqual(400, sampled['green'].histogram()[255])
+
+    def test_replay_preserves_upper_geometry_and_rejects_changed_mask_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'upper.png'
+            mask = Image.new('L', (80, 80))
+            ImageDraw.Draw(mask).rectangle((30, 30, 49, 49), fill=255)
+            mask.save(path)
+            record = {'5': {'mask': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}
+            restored = stored_upper(record, mask.size)
+            self.assertIsNone(ImageChops.difference(mask, restored[5]).getbbox())
+            Image.new('L', mask.size).save(path)
+            with self.assertRaises(ValueError):
+                stored_upper(record, mask.size)
+
+    def test_three_dimensional_upper_texels_survive_inside_snow_screen_hull(self):
+        plant, values = controls()
+        snow, covered = values[5]
+        snow['geometry'] = plant['object'].copy()
+        plant['above_snow'] = {5: plant['object'].copy()}
+        ImageDraw.Draw(plant['above_snow'][5]).rectangle((0, 48, 79, 119), fill=0)
+        result = compare_controls(plant, snow, covered, 5)
+        self.assertTrue(result['passed'], result)
+        self.assertFalse(result['fully_occluded_by_snow_control'])
+        self.assertFalse(compare_controls(plant, snow, snow, 5)['passed'])
+
+    def test_alpha_bounds_distinguish_short_grass_from_fern_tip_above_high_snow(self):
+        state = {'pose': (35., 10., 2.8), 'pan': (0., 0.), 'pivot': (1.5, 1.5, 1.5), 'size': (3, 3, 3)}
+        model = json.loads((ROOT/'resource_pack/models/netease_block/preview_fern.json').read_text(encoding='utf8'))
+        fern = Image.new('RGBA', (16, 16))
+        fern.putpixel((7, 0), (35, 155, 45, 255))
+        grass = Image.new('RGBA', (16, 16))
+        ImageDraw.Draw(grass).rectangle((0, 2, 15, 15), fill=(35, 155, 45, 255))
+        fern_mask = editor_cross_above_snow((0, 0, 465, 213), state, (1, 1, 1), 5, model, fern)
+        grass_mask = editor_cross_above_snow((0, 0, 465, 213), state, (1, 1, 1), 5, model, grass)
+        self.assertIsNotNone(fern_mask.getbbox())
+        self.assertIsNone(grass_mask.getbbox())
+
     def test_native_segmentation_keeps_dry_grass_and_snow_and_rejects_sky_dirt(self):
         image = Image.new('RGB', (5, 1))
         image.putdata(((145, 129, 77), (35, 155, 45), (195, 200, 205),

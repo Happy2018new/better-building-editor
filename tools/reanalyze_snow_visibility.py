@@ -3,8 +3,32 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from PIL import Image, ImageDraw
 
 from verify_snow_plant_visibility import capture_frame, compare_native, scope_checks
+
+
+def stored_geometry(record, size):
+    if record is None:
+        return None
+    mask = Image.new('L', size)
+    ImageDraw.Draw(mask).polygon(record['polygon'], fill=255)
+    return mask
+
+
+def stored_upper(record, size):
+    if record is None:
+        return {}
+    result = {}
+    for height, row in record.items():
+        path = Path(row['mask'])
+        if hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
+            raise ValueError('The saved upper-texel geometry mask changed: %s' % path)
+        with Image.open(path) as source:
+            result[int(height)] = source.convert('L')
+        if result[int(height)].size != size:
+            raise ValueError('The upper-texel geometry dimensions changed')
+    return result
 
 
 def reanalyze(source):
@@ -21,12 +45,17 @@ def reanalyze(source):
         plant, kind, height = row['plant'], row['kind'], row['height']
         if kind == 'blank':
             continue
-        editor = capture_frame(row['editor']['path'], row['editor_pixels']['crop'], blank[plant])
+        editor_crop = row['editor_pixels']['crop']
+        editor_size = (editor_crop[2]-editor_crop[0], editor_crop[3]-editor_crop[1])
+        editor = capture_frame(row['editor']['path'], editor_crop, blank[plant],
+                               geometry=stored_geometry(row.get('editor_geometry'), editor_size))
+        editor['above_snow'] = stored_upper(row.get('upper_geometry'), editor_size)
         crop = row['world_pixels']['crop']
+        roi = stored_geometry(row.get('world_roi'), (crop[2]-crop[0], crop[3]-crop[1]))
         projection = capture_frame(row['world']['screenshot']['path'], crop,
-                                   row['world']['hidden_screenshot']['path'], segmented=True)
+                                   row['world']['hidden_screenshot']['path'], segmented=True, roi=roi)
         native = capture_frame(row['native']['screenshot']['path'], crop,
-                               row['native']['hidden_screenshot']['path'], segmented=True)
+                               row['native']['hidden_screenshot']['path'], segmented=True, roi=roi)
         frames['editor'][(plant, kind, height)] = editor
         frames['projection'][(plant, kind, height)] = projection
         rows.append({'plant': plant, 'kind': kind, 'height': height,
