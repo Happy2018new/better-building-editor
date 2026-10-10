@@ -1,0 +1,109 @@
+{
+  "format_version": "1.13.0",
+  "netease:block_geometry": {
+    "description": {
+      "identifier": "modern_projection:preview_skeleton_skull_floor_9",
+      "textures": [
+        "modern_projection_static_skeleton_skull"
+      ],
+      "textures_descriptions": [
+        {
+          "width": 64,
+          "length": 32
+        }
+      ],
+      "use_ao": true
+    },
+    "bones": [
+      {
+        "name": "head",
+        "pivot": [
+          -8.0,
+          0.0,
+          8.0
+        ],
+        "rotation": [
+          0.0,
+          202.5,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -12.0,
+              0.0,
+              4.0
+            ],
+            "size": [
+              8,
+              8,
+              8
+            ],
+            "uv": {
+              "east": {
+                "uv": [
+                  0,
+                  8
+                ],
+                "uv_size": [
+                  8,
+                  8
+                ]
+              },
+              "west": {
+                "uv": [
+                  16,
+                  8
+                ],
+                "uv_size": [
+                  8,
+                  8
+                ]
+              },
+              "up": {
+                "uv": [
+                  8,
+                  0
+                ],
+                "uv_size": [
+                  8,
+                  8
+                ]
+              },
+              "down": {
+                "uv": [
+                  24,
+                  0
+                ],
+                "uv_size": [
+                  -8,
+                  8
+                ]
+              },
+              "south": {
+                "uv": [
+                  24,
+                  8
+                ],
+                "uv_size": [
+                  8,
+                  8
+                ]
+              },
+              "north": {
+                "uv": [
+                  8,
+                  8
+                ],
+                "uv_size": [
+                  8,
+                  8
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

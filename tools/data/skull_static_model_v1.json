@@ -1,0 +1,54 @@
+{
+  "game_version": "NEMC 3.9.0.401155",
+  "geometry": {
+    "bones": [
+      {
+        "cubes": [
+          {
+            "origin": [
+              -4.0,
+              24.0,
+              -4.0
+            ],
+            "size": [
+              8,
+              8,
+              8
+            ],
+            "uv": [
+              0,
+              0
+            ]
+          }
+        ],
+        "name": "head",
+        "pivot": [
+          0.0,
+          24.0,
+          0.0
+        ]
+      }
+    ],
+    "textureheight": 32,
+    "texturewidth": 64,
+    "visible_bounds_height": 1,
+    "visible_bounds_offset": [
+      0,
+      0.5,
+      0
+    ],
+    "visible_bounds_width": 1
+  },
+  "paths": {
+    "entity": "entity/skull.entity.json",
+    "geometry": "models/mobs.json",
+    "texture": "textures/entity/skulls/skeleton.png"
+  },
+  "schema": 1,
+  "scope": "Vanilla mob_head closed cube; pose acceptance is separately measured against player-placed native skulls.",
+  "sha256": {
+    "entity": "e697804cd4d636c4d921df8b84857c76022e642fa6c13aa55d6cdc2f65f7cad0",
+    "geometry": "f56926de442bd26a75dfc077d5322d0432a83b1a86e8c14ce687a5c9716ba12c",
+    "texture": "850d5eb0178465c2661e5bf0bde5d9485f8de23c4a75590205acc968f7e000b1"
+  }
+}

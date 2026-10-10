@@ -97,10 +97,15 @@ def masked_frame(path, crop, output):
     return result, record
 
 
-def opacity_comparison(shown, translucent, hidden, crop):
+def opacity_comparison(shown, translucent, hidden, crop, object_mask=None):
     with Image.open(shown) as full, Image.open(translucent) as half, Image.open(hidden) as empty:
         frames = [source.convert('RGB').crop(crop) for source in (full, half, empty)]
-    unused, mask, record = central_object(frames[0])
+    if object_mask is None:
+        unused, mask, record = central_object(frames[0])
+    else:
+        if object_mask.size != frames[0].size:
+            raise AssertionError('Opacity mask dimensions differ from the measured crop')
+        mask, record = object_mask, {'bbox': object_mask.getbbox()}
     eligible = list(mask.filter(ImageFilter.MinFilter(5)).tobytes())
     full_signal, half_signal = [], []
     for channel in range(3):

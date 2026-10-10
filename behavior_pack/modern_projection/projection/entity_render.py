@@ -4,6 +4,7 @@ from .cell import actor_data, foreground, integer_types, freeze, thaw
 from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import render_actor, entity_nbt
+from .static_skull import SKULL_PROXIES, skull_proxy
 
 SCHEMA_VERSION = 3
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
@@ -31,7 +32,8 @@ CHEST_PROXIES.update(dict(
     for name, stage in (('chest', 'normal'), ('trapped_chest', 'trapped'), ('ender_chest', 'ender'))))
 INTERNAL_BLOCKS = frozenset(
     [name for names in SHULKER_PROXIES.values() for name in names] +
-    [name for names in CHEST_PROXIES.values() for name in names.values()])
+    [name for names in CHEST_PROXIES.values() for name in names.values()] +
+    [name for names in SKULL_PROXIES.values() for name in names.values()])
 
 
 def native_actor(material, actor):
@@ -122,6 +124,9 @@ def chest_proxy(material, actor, inferred_part=None):
 
 
 def static_proxy(material, actor, inferred_part=None):
+    skull = skull_proxy(material, actor)
+    if skull is not None:
+        return skull
     chest = chest_proxy(material, actor, inferred_part)
     if chest is not None:
         return chest
@@ -200,7 +205,7 @@ def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=N
     """Replace only render cells; return actor slots consumed by static meshes."""
     result, replaced = {}, set()
     for value, positions in entries.items():
-        if value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES:
+        if value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES and value[0] not in SKULL_PROXIES:
             result.setdefault(value, []).extend(positions)
             continue
         payloads = actors.get(value[0], actors.get(value[0].encode('utf8'), {}))

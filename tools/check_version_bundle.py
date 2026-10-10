@@ -76,6 +76,7 @@ def commands(manifest, tests=False):
         ['tools/generate_copper_chest_proxies.py', '--check'],
         ['tools/generate_water_interactions.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
+        ['tools/generate_skull_proxies.py', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

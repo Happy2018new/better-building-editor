@@ -37,13 +37,18 @@ _result=json.dumps({'ready':ready,'common':list(data.get('common',{})) if data e
 '''
 
 SAVE_ADAPTER='''import modern_projection.projection.geometry_palette as gp
+import modern_projection.projection.entity_render as er
 from modern_projection.projection.native_appearance import SKULL_NAMES
 from modern_projection.projection.cell import freeze,thaw
 from modern_projection.projection.nbt_spatial import set_scalar
 assert not hasattr(sys,'_skull_mesh_probe')
-saved={'native_actor':gp.native_actor,'enum':None,'geometry':b.geometry,'serial':0,
+saved={'native_actor':gp.native_actor,'static_proxy':er.static_proxy,'enum':None,'geometry':b.geometry,'serial':0,
  'model_prefix':'skull_mesh_probe_'+str(int(time.time()*1000000))}
 sys._skull_mesh_probe=saved
+def skull_mesh_probe_static(material,actor,inferred_part=None):
+ if material[0] in SKULL_NAMES:return None
+ return saved['static_proxy'](material,actor,inferred_part)
+er.static_proxy=skull_mesh_probe_static
 def skull_mesh_probe_actor(material,actor):
  result=saved['native_actor'](material,actor)
  if material[0] not in SKULL_NAMES or saved['enum'] is None:return result
@@ -128,6 +133,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output',type=Path)
     parser.add_argument('--all-types',action='store_true')
+    parser.add_argument('--native-only',action='store_true',
+                        help='Keep observed native fields; do not probe renderer enum overrides')
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
     evidence={'schema':1,'completed':False,'rows':[],'scope':'Diagnostic renderer enum probe; no production remapping or saved NBT change'}
@@ -148,7 +155,9 @@ def main():
             evidence['native_palette']=replicated_palettes(client,READ.replace('b.factory','api.GetEngineCompFactory()').replace('b.level','api.GetLevelId()'))
             check.run(SAVE_ADAPTER)
             adapter_saved=True
-            variants=[('empty',None),('stone',None),('native',None)]+[('enum'+str(value),value) for value in (range(7) if args.all_types else (0,))]
+            variants=[('empty',None),('stone',None),('native',None)]
+            if not args.native_only:
+                variants.extend(('enum'+str(value),value) for value in (range(7) if args.all_types else (0,)))
             blank=None
             for label,enum in variants:
                 loaded=check.run(LOAD % (label,enum,FOCUS))
@@ -171,13 +180,19 @@ def main():
                     check.run('b.stop_projection()\n_result=True')
                 evidence['rows'].append(row)
                 write_json(args.output/'report.json',evidence)
+                if label=='stone':
+                    evidence['positive_control']=all(row[scope]['visibly_nonblank'] for scope in ('editor','projection'))
+                    if not evidence['positive_control']:
+                        raise AssertionError('The matched stone control has no visible geometry')
             evidence['positive_control']=all(evidence['rows'][1][scope]['visibly_nonblank'] for scope in ('editor','projection'))
+            native=next(row for row in evidence['rows'] if row['id']=='native')
+            evidence['native_renderer_nonblank']=all(native[scope]['visibly_nonblank'] for scope in ('editor','projection'))
             evidence['completed']=True
         finally:
             errors=[]
             actions=[('projection',lambda:check.run('b.stop_projection()\n_result=True'))]
             if adapter_saved:
-                actions.append(('adapter',lambda:check.run('import modern_projection.projection.geometry_palette as gp\ngp.native_actor=sys._skull_mesh_probe["native_actor"]\nb.geometry=sys._skull_mesh_probe["geometry"]\ndel sys._skull_mesh_probe\n_result=True')))
+                actions.append(('adapter',lambda:check.run('import modern_projection.projection.geometry_palette as gp\nimport modern_projection.projection.entity_render as er\ngp.native_actor=sys._skull_mesh_probe["native_actor"]\ner.static_proxy=sys._skull_mesh_probe["static_proxy"]\nb.geometry=sys._skull_mesh_probe["geometry"]\ndel sys._skull_mesh_probe\n_result=True')))
             actions.append(('native',lambda:execute(client,CLEANUP) if execute(client,'import sys\n_result=hasattr(sys,"_native_sign_probe")') else True))
             actions.append(('native_client',lambda:execute(client,'import sys\nfor name in ("_native_sign_probe_rows","_skull_probe_palette"):\n if hasattr(sys,name):delattr(sys,name)\n_result=True',True)))
             if daylight_saved:actions.append(('daylight',lambda:execute(client,RESTORE_DAYLIGHT)))

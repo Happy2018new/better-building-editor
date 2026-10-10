@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "material": "minecraft:skeleton_skull",
+  "cold_instance": "caecf99e55e64777bbddee0a2b07351c",
+  "source_spec": "tools/data/skull_static_model_v1.json",
+  "source_geometry": "geometry.mob_head",
+  "source_texture": "textures/entity/skulls/skeleton",
+  "native_reference": "PlayerUseItemToPos with unchanged native typed NBT; the player remains near the detached camera",
+  "native_visibility_diagnostic": {
+    "report": ".runtime/skull-near-player-r4/report.json",
+    "sha256": "3e7abc5b1ce7b3c20b46274bb62464df1d1b005ad85b6fa3f0b3befd2276beff",
+    "completed": true,
+    "restored": true,
+    "positive_control": true,
+    "native_nonblank": true,
+    "native_pixels": [3564, 3370],
+    "stone_pixels": [15404, 14200]
+  },
+  "floor": {
+    "report": ".runtime/skull-static-cold-mask-r4/report.json",
+    "sha256": "90e7f6411a165bed2cb1b92658ecec70ec0b51628343b7e9672481c3f5554a94",
+    "completed": true,
+    "restored": true,
+    "full_report_passed": false,
+    "accepted_subset_passed": true,
+    "accepted_subset": [
+      {
+        "case": "skull_floor_yaw_0",
+        "editor_changed_pixels": 0,
+        "native_pixels": 3564,
+        "projection_pixels": 3981,
+        "recall": 1.0,
+        "precision": 0.9402160261240894,
+        "interior_color_agreement": 1.0,
+        "texture_cosine": 0.9350767731215068,
+        "opacity_gain": 0.478136080016969,
+        "opacity_residual": 0.06590582678567415,
+        "native_screenshot_sha256": "b675eb018efc9ce7a6fbb92a3885bc4fcd0f2db40fdbf8f6bdbc194af181790d",
+        "projection_screenshot_sha256": "f89a096517780005f3382c1d7a2819a61b0932804409fd0d72a2ff709083e6a0"
+      },
+      {
+        "case": "skull_floor_yaw_45",
+        "editor_changed_pixels": 0,
+        "native_pixels": 3084,
+        "projection_pixels": 3437,
+        "recall": 0.9996757457846952,
+        "precision": 0.936572592377073,
+        "interior_color_agreement": 1.0,
+        "texture_cosine": 0.9416599912935115,
+        "opacity_gain": 0.47611783366707494,
+        "opacity_residual": 0.06531610968414464,
+        "native_screenshot_sha256": "c5807633f6d507f7da172d78a60c9e32580e802f984ca5d6293fe4734c3a1a2c",
+        "projection_screenshot_sha256": "193114bc633f4c8a0d16b1babeaec9dc06c272bb0dcc91771c14341829f39572"
+      },
+      {
+        "case": "skull_floor_yaw_90",
+        "editor_changed_pixels": 0,
+        "native_pixels": 3562,
+        "projection_pixels": 3981,
+        "recall": 1.0,
+        "precision": 0.9409696056267269,
+        "interior_color_agreement": 1.0,
+        "texture_cosine": 0.8768038452892438,
+        "opacity_gain": 0.4761428961323557,
+        "opacity_residual": 0.0591126609049873,
+        "native_screenshot_sha256": "5a0b4dbbc3fa09b7cc2084c3a6acd3e0ad942f3b1b6ed0e453cd22ed00eb1ac2",
+        "projection_screenshot_sha256": "77081f87b296946eee6ad05aa13fb9db9e927f1f57cebf85c0d00a07845def55"
+      }
+    ]
+  },
+  "wall": {
+    "report": ".runtime/skull-static-wall-contrast-r4/report.json",
+    "sha256": "f88aae66bbabad01de18268e28d46f3e0331b95a8ffeaf05d2308a45d44dc01d",
+    "completed": true,
+    "restored": true,
+    "passed": true,
+    "reference_support": "minecraft:magenta_concrete",
+    "reference_camera": "Exposed wall face; identical native/projection target and offset",
+    "accepted_subset": [
+      {
+        "case": "skull_wall_face2",
+        "editor_changed_pixels": 0,
+        "native_pixels": 3598,
+        "projection_pixels": 3493,
+        "recall": 0.9966648137854364,
+        "precision": 1.0,
+        "interior_color_agreement": 0.9891992551210428,
+        "texture_cosine": 0.8220891138290227,
+        "opacity_gain": 0.46417955313262926,
+        "opacity_residual": 0.1045443990020192,
+        "native_screenshot_sha256": "b4fd71d31b19fc5643d0812622e8c8cc75e6c7fa77f7e9714992122af51e1630",
+        "projection_screenshot_sha256": "48dfe6f32f6ea7c48930ff1915eb81d31ac4a54fc8cf55cde07498eb9b9208b6"
+      },
+      {
+        "case": "skull_wall_face5",
+        "editor_changed_pixels": 0,
+        "native_pixels": 3558,
+        "projection_pixels": 3476,
+        "recall": 0.9980326025857224,
+        "precision": 1.0,
+        "interior_color_agreement": 0.9725975975975976,
+        "texture_cosine": 0.7877880588584465,
+        "opacity_gain": 0.46398292367564153,
+        "opacity_residual": 0.10789907826764035,
+        "native_screenshot_sha256": "eaa857bfba13adb14e0fab91fdb88b2a355dc87d3682435470bcf0d811e890aa",
+        "projection_screenshot_sha256": "da85c49545481fcde66fc01086da195558e5b77196039c8c038ac3317941a4ea"
+      }
+    ]
+  },
+  "screenshots_manually_inspected": true,
+  "thresholds": {
+    "minimum_recall": 0.85,
+    "minimum_precision": 0.85,
+    "minimum_interior_color_agreement": 0.65,
+    "minimum_texture_cosine": 0.45,
+    "opacity_gain": [0.35, 0.65],
+    "maximum_opacity_residual": 0.15
+  },
+  "limits": [
+    "The full floor report also includes two failed wall references. The later wall report supersedes those references with a contrast support and exposed-side camera; thresholds are unchanged.",
+    "Sixteen floor and four wall models are generated from the source cube and rotation rule; only explicitly listed poses have independent visual evidence.",
+    "This record does not establish acceptance for other skull species, player skins, animated dragon or piglin heads."
+  ]
+}
