@@ -191,7 +191,20 @@ The batch also found that `SetBedColor` changes the head entity to colours 8/3,
 while the foot NBT remains colour 0 and the sampled client palette exposes only
 the head. Filled frame and banner actor dictionaries are empty. These samples
 are not evidence that Items, banner Base/Type or bed foot colours are obtainable
-through the ordinary client import path.
+through the ordinary client import path. The authorized server capture path
+preserves their complete typed NBT independently of the client render schema.
+The Bed adapter converts the observed Byte colour and current material direction
+to native actor fields; visible bed direction now follows rotations and mirrors.
+This conversion still needs separate GPU verification for its two physical halves.
+
+`test.entities.appearances` retains all 19 sample cases. Their stable coordinates
+are defined by `debug_appearance_blueprints.CASE_POSITIONS`: columns advance six
+blocks and rows advance eight blocks, starting at `(3, 1, 3)`. The silver and
+light-blue bed feet are `(9, 1, 19)` and `(15, 1, 19)`, with heads one block along
++Z. Filled ordinary/glowing frames are `(21, 1, 19)` / `(27, 1, 19)`; ordinary and
+ominous banners are `(33, 1, 19)` / `(3, 1, 27)`. The blueprint uses the actual
+typed payloads and observed visible fields, rebasing coordinates without
+inventing render fields for Frame or Banner.
 
 The second real Shulker comparison observed all six native boxes from a low
 side camera, but no native boxes from an upper detached camera, despite intact

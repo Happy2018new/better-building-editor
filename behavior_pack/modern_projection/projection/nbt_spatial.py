@@ -109,6 +109,7 @@ def _transform_actor(data, origin, operation, material=None, skull_facing=None):
     if root is None:
         raise ValueError('Block entity payload must be a compound')
     _skull_rotation(root, operation, material, skull_facing)
+    _bed_direction(root, operation, material)
     _directions(root, operation)
     _chest_roles(root, operation)
     _pair_coordinates(root, origin, operation)
@@ -137,6 +138,19 @@ def _skull_rotation(root, operation, material, facing):
     value = scalar(root, field)
     if angle(value):
         set_scalar(root, field, transform_yaw(value, operation))
+
+
+def _bed_direction(root, operation, material):
+    if material is None or material[0] != 'minecraft:bed' or scalar(root, 'id') is not None:
+        return
+    value = scalar(root, 'direction')
+    if not isinstance(value, integer_types) or type(value) is bool or not 0 <= value < 4:
+        return
+    from .state_transform import transform_states
+    from .block_registry import states
+    record = states(material)
+    if record is not None:
+        set_scalar(root, 'direction', transform_states(record, operation)['direction'])
 
 
 def _directions(root, operation):

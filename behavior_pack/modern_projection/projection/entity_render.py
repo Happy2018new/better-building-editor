@@ -19,6 +19,8 @@ def native_actor(material, actor):
     """Supply only observed Skull fields; saved payloads remain untouched."""
     from .native_appearance import SKULL_NAMES, angle, validate_source
     renderer = render_actor(actor)
+    if material[0] == 'minecraft:bed':
+        return _bed_actor(material, actor, renderer)
     if material[0] not in SKULL_NAMES:
         return renderer
     root = root_payload(entity_nbt(actor))
@@ -40,6 +42,31 @@ def native_actor(material, actor):
     result.update(facingDirection=record['facing_direction'], rotation=rotation,
                   skullType=skull_type)
     return result
+
+
+def _bed_actor(material, actor, renderer):
+    from .block_registry import states
+    from .native_appearance import validate_source
+    root = root_payload(entity_nbt(actor))
+    record = states(material)
+    if record is None:
+        return renderer
+    if root is not None and scalar(root, 'id') in ('Bed', b'Bed'):
+        tag = root.get(field_key(root, 'color'))
+        color = scalar(root, 'color')
+        if (not isinstance(tag, dict) or scalar(tag, '__type__') != 1 or
+                not isinstance(color, integer_types) or type(color) is bool or not 0 <= color < 16):
+            return renderer
+        validate_source()
+        result = thaw(freeze(renderer)) if renderer is not None else {}
+        result.update(color=color, direction=record['direction'])
+        return result
+    if renderer is not None and field_key(renderer, 'direction') is not None:
+        result = thaw(freeze(renderer))
+        from .nbt_spatial import set_scalar
+        set_scalar(result, 'direction', record['direction'])
+        return result
+    return renderer
 
 
 def static_proxy(material, actor):

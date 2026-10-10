@@ -27,7 +27,7 @@ class DebugBlueprintTests(unittest.TestCase):
         cls.documents = dict((row[0], build(row[0])) for row in BLUEPRINTS)
 
     def test_all_fixtures_have_legal_native_layers_and_prepare_without_mutation(self):
-        self.assertEqual(9, len(self.documents))
+        self.assertEqual(len(BLUEPRINTS), len(self.documents))
         self.assertEqual(6, len(CATEGORIES))
         self.assertEqual(set(self.documents), {row[0] for category, unused in CATEGORIES
                                               for row in entries(category)})

@@ -16,6 +16,7 @@ targets. Categories are separate pages within the test tab.
 | `test.layers.water` | `layers` | 32 × 8 × 24 | Dry, waterlogged and background-only comparisons for twelve materials |
 | `test.layers.snow` | `layers` | 32 × 8 × 24 | Six measured coverable plants, two snow depths and snow above leaves |
 | `test.groups.parts` | `groups` | 32 × 8 × 24 | Wood/iron doors, beds in four directions and tall plants |
+| `test.entities.appearances` | `entities` | 40 × 12 × 36 | 19 actual native nondefault Skull/Bed/Frame/Banner observations |
 | `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
 | `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
 | `test.entities.classic` | `entities` | 40 × 10 × 36 | Classic native entity associations |

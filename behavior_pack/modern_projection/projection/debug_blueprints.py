@@ -20,6 +20,7 @@ BLUEPRINTS = (
     ('test.entities.classic', 'entities', '方块实体 · 基础', (40, 10, 36), 'minecraft:chest'),
     ('test.entities.mechanisms', 'entities', '方块实体 · 机关', (32, 10, 28), 'minecraft:structure_block'),
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
+    ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 36), 'minecraft:skeleton_skull'),
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
 )
 VISUAL_CASES = {
@@ -32,6 +33,11 @@ VISUAL_CASES = {
                                                      'poppy', 'blue_orchid', 'allium'))),
         'size': (3, 3, 3), 'focus': (1, 1, 1),
         'camera': {'editor': (35., 10., 2.8), 'world_offset': (-2., .15, -2.5)},
+    },
+    'entity_appearances': {
+        'schema': 1, 'fixture': 'test.entities.appearances',
+        'size': (40, 12, 36),
+        'camera': {'editor': (35., 25., 4.), 'world_offset': (-3.5, -3., -5.)},
     },
     'shulker_orientations': {
         'schema': 1, 'fixture': 'test.transforms.directions',
@@ -245,6 +251,9 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == 'test.entities.appearances':
+            from .debug_appearance_blueprints import populate
+            return populate(fixture)
         from .debug_entity_blueprints import populate
         return populate(fixture, identity)
     return builders[identity](fixture)
