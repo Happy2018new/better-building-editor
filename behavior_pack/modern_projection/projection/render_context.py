@@ -74,6 +74,8 @@ def prepare_context_palette(source, targets):
     Neighbors use document data, never reads of the target Minecraft world.
     """
     positions = _targets(source, targets)
+    if len(positions) > MAX_SURFACE_BLOCKS:
+        raise ValueError('Context targets exceed the visible block budget')
     if not positions:
         data = dict(source)
         data.update(common={}, extra={}, actor={}, states={}, extraStates={})
@@ -86,7 +88,6 @@ def prepare_context_palette(source, targets):
               CONTEXT_BASE + CONTEXT_STRIDE * (max(pos[1] for pos in positions) + 1))
     data = dict(prepared)
     data.update(volume=volume, common={}, extra={}, actor={})
-    count = 0
     for target in positions:
         target_index = _index(target, logical_volume)
         if target_index not in cells:
@@ -99,9 +100,6 @@ def prepare_context_palette(source, targets):
             cell = cells.get(_index(original, logical_volume))
             if cell is None:
                 continue
-            count += 1
-            if count > MAX_SURFACE_BLOCKS:
-                raise ValueError('Neighbor context geometry exceeds the visible block budget')
             _put(data, cell, context_position(target, neighbor), original)
         overlay = overlays.get(target_index)
         if overlay is not None:

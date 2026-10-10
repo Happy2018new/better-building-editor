@@ -42,7 +42,7 @@ class OccupancyShader(object):
         seed = SurfacePalette(tracker.size)
         pos = next(iter(tracker.targets))
         seed.add(pos, tracker.document.blocks[pos])
-        if not b.geometry(seed, name=self.names[spare]):
+        if not b.geometry(seed, name=self.names[spare], context_document=tracker.document):
             raise ValueError('Could not prepare projection shader buffer')
         for bank, name in enumerate(self.names):
             offset = self.offset(anchor)

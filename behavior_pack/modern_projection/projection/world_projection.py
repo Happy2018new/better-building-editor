@@ -136,7 +136,8 @@ class WorldProjection(object):
 
     def submit(self):
         b = self.bridge
-        self.model = (b.geometry(self.output, name=self.occupancy.shader.names[0])
+        self.model = (b.geometry(self.output, name=self.occupancy.shader.names[0],
+                                 context_document=self.document)
                       if self.occupancy else b.geometry(self.output))
         if not self.model:
             if self.output.count:

@@ -317,7 +317,8 @@ class ProjectionOccupancy(object):
         self.bank = 1-self.shader.bank if self.entity is not None else 0
         name = self.shader.names[self.bank]
         started = time.time()
-        model = self.bridge.geometry(self.output, name=name) if self.output.count else None
+        model = (self.bridge.geometry(self.output, name=name, context_document=self.document)
+                 if self.output.count else None)
         self.last_build_ms = (time.time()-started)*1000.
         # Combine returning a name is not a render-thread completion fence.
         # Full-volume captures measured >0.5s of deferred generation, despite

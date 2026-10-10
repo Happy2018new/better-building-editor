@@ -318,9 +318,15 @@ class ClientBridge(object):
         self.session.editor.message = '已将投影原点设为玩家脚下'
         self.session.emit()
 
-    def geometry(self, document, visible=None, name=None):
-        from .geometry_palette import prepare_palette
-        data = prepare_palette(document.palette_data(visible))
+    def geometry(self, document, visible=None, name=None, context_document=None, prepared=None):
+        if prepared is not None:
+            data = prepared
+        elif context_document is not None:
+            from .render_context import prepare_context_palette
+            data = prepare_context_palette(context_document.palette_data(), document.palette_data(visible))
+        else:
+            from .geometry_palette import prepare_palette
+            data = prepare_palette(document.palette_data(visible))
         if not data['common'] and not data['extra']:
             return None
         # Include both layers and actor data so edits cannot reuse stale geometry.
@@ -650,7 +656,8 @@ class ClientBridge(object):
             if not s.visible_layer(pos[1]):
                 return False
             return True
-        name = (self.geometry(s.editor.document, visible, name=occupancy.shader.names[0])
+        name = (self.geometry(s.editor.document, visible, name=occupancy.shader.names[0],
+                              context_document=occupancy.document)
                 if occupancy is not None else self.geometry(s.editor.document, visible))
         if not name:
             self.stop_projection()
