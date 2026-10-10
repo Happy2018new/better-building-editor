@@ -1,15 +1,26 @@
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from verify_entity_appearance_visuals import LOAD, comparison
+from verify_entity_appearance_visuals import LOAD, comparison, cleanup_native_fixture
 
 
 class EntityAppearanceVisualTests(unittest.TestCase):
+    def test_preflight_failure_does_not_cleanup_nonexistent_native_fixture(self):
+        with patch('verify_entity_appearance_visuals.execute', return_value=False) as execute:
+            self.assertEqual(cleanup_native_fixture(object()), {'created': False})
+            self.assertEqual(execute.call_count, 1)
+
+    def test_partial_native_setup_still_invokes_fixture_cleanup(self):
+        with patch('verify_entity_appearance_visuals.execute', side_effect=[True, {'cleaned': True}]) as execute:
+            self.assertEqual(cleanup_native_fixture(object()), {'cleaned': True})
+            self.assertEqual(execute.call_count, 2)
+
     def test_native_and_builtin_load_code_compile(self):
         for source in ('native', 'synthetic'):
             compile(LOAD % ('bed_silver', source), '<entity-appearance-load>', 'exec')

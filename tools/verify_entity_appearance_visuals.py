@@ -129,6 +129,13 @@ _result=json.dumps(names)
     return pose
 
 
+def cleanup_native_fixture(client):
+    saved = execute(client, 'import sys\n_result=hasattr(sys,"_p0_entity_appearances")')
+    if saved:
+        return execute(client, (ROOT / 'tools/p0_entity_appearance_cleanup.py').read_text(encoding='utf8'))
+    return {'created': False}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
@@ -155,8 +162,9 @@ def main():
                 evidence['blueprint_case'] = case
                 selected = args.case or case['acceptance_cases']
                 assert all(name in case['acceptance_cases'] for name in selected), selected
+                setup_code = (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8')
                 native_created = True
-                setup = execute(client, (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8'))
+                setup = execute(client, 'import sys\nsys._p0_entity_appearance_selected=%r\n' % (tuple(selected),) + setup_code)
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % setup['rows'], True)
                 inputs = replicated_palettes(client, (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8'))
                 evidence['native_inputs'] = inputs
@@ -211,7 +219,7 @@ def main():
                                       's.projection_missing=saved["missing"]\ns.projection_outline=saved["outline"]\n'
                                       'del sys._blueprint_visual_saved\n_result=True'))))
                 if native_created:
-                    actions.append(('native', lambda: execute(client, (ROOT / 'tools/p0_entity_appearance_cleanup.py').read_text(encoding='utf8'))))
+                    actions.append(('native', lambda: cleanup_native_fixture(client)))
                 if daylight_saved:
                     actions.append(('daylight', lambda: execute(client, RESTORE_DAYLIGHT)))
                 if installed:

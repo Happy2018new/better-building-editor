@@ -165,6 +165,17 @@ class NativeAppearanceProbeTests(unittest.TestCase):
     def helper(self, phase):
         return runpy.run_path(str(ROOT / ('tools/p0_entity_appearance_' + phase + '.py')))
 
+    def test_selected_case_ignores_unrelated_occupied_fixture_cells(self):
+        fixture = NativeFixture()
+        fixture.world[(41, 80, -20)] = {'name': 'minecraft:oak_leaves', 'aux': 0}
+        with fake_api(fixture):
+            sys._p0_entity_appearance_selected = ('bed_silver',)
+            result = json.loads(self.helper('setup')['_result'])
+            self.assertEqual([row['case'] for row in result['rows']], ['bed_silver'])
+            self.assertFalse(hasattr(sys, '_p0_entity_appearance_selected'))
+            self.helper('cleanup')
+            self.assertEqual(fixture.world[(41, 80, -20)]['name'], 'minecraft:oak_leaves')
+
     def test_complete_batch_uses_native_items_colors_and_preserves_raw_frame_compounds(self):
         fixture = NativeFixture()
         with fake_api(fixture):

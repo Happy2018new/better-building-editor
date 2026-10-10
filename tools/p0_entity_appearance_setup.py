@@ -41,6 +41,12 @@ plans.extend((
     {'case': 'banner_ominous', 'name': 'minecraft:banner', 'yaw': 0., 'face': 1,
      'aux': 15, 'userData': {'Type': 1}},
 ))
+selected = getattr(sys, '_p0_entity_appearance_selected', None)
+if selected is not None:
+    del sys._p0_entity_appearance_selected
+    assert set(selected).issubset(set(plan['case'] for plan in plans)), selected
+    plans = [plan for plan in plans if plan['case'] in selected]
+    assert plans, 'At least one native appearance case is required'
 reserved, rows = set(), []
 for index, plan in enumerate(plans):
     target = (origin[0] + index % 5 * 7, origin[1], origin[2] + index // 5 * 7)
