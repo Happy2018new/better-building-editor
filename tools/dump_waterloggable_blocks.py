@@ -157,26 +157,35 @@ class WaterOverlayProbe(object):
                     self.game.AddTimer(TICK_DELAY, self.step)
                     return
                 expected = block_registry.states((self.name, aux))
-                native_aux = self.blockstate.GetBlockAuxValueFromStates(self.name, expected)
+                native_aux = self.blockstate.GetBlockAuxValueFromStates(self.name.encode('utf8'), expected)
                 if native_aux is None or native_aux < 0:
                     raise ValueError('Could not resolve native aux: %s [%d]' % (self.name, aux))
                 self.info.SetLiquidBlock(self.target, AIR, self.dimension)
                 self.info.SetBlockNew(self.target, AIR, 0, self.dimension, True, False)
-                self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
-                self.info.SetBlockNew(self.target, {'name': self.name.encode('utf8'), 'aux': native_aux},
-                                      0, self.dimension, True, False)
-                front = self.info.GetBlockNew(self.target, self.dimension)
-                liquid = self.info.GetLiquidBlock(self.target, self.dimension)
-                actual = self.blockstate.GetBlockStates(self.target, self.dimension)
-                self.state['readback_states'].setdefault(self.name, {})[str(aux)] = actual
-                matched = bool(front and front.get('name') == self.name and actual == expected)
-                if matched:
+                native = {'name': self.name.encode('utf8'), 'aux': native_aux}
+                self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
+                dry_front = self.info.GetBlockNew(self.target, self.dimension)
+                dry_states = self.blockstate.GetBlockStates(self.target, self.dimension)
+                dry_matched = bool(dry_front and dry_front.get('name') == self.name and
+                                   dry_states == expected)
+                if dry_matched:
                     self.state['verified_states'] += 1
                 else:
                     self.state['state_mismatches'].append({
                         'name': self.name, 'aux': aux, 'native_aux': native_aux,
-                        'expected': expected, 'actual': actual, 'front': front})
-                if (matched and liquid and
+                        'expected': expected, 'actual': dry_states, 'front': dry_front})
+                self.info.SetLiquidBlock(self.target, AIR, self.dimension)
+                self.info.SetBlockNew(self.target, AIR, 0, self.dimension, True, False)
+                self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
+                self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
+                front = self.info.GetBlockNew(self.target, self.dimension)
+                liquid = self.info.GetLiquidBlock(self.target, self.dimension)
+                actual = self.blockstate.GetBlockStates(self.target, self.dimension)
+                self.state['readback_states'].setdefault(self.name, {})[str(aux)] = {
+                    'native_aux': native_aux, 'dry': {'front': dry_front, 'states': dry_states},
+                    'wet': {'front': front, 'states': actual}, 'liquid': liquid}
+                matched = bool(front and front.get('name') == self.name and actual == expected)
+                if (dry_matched and matched and liquid and
                         liquid.get('name') == 'minecraft:water' and
                         self.name not in ('minecraft:water', 'minecraft:flowing_water', 'minecraft:air')):
                     self.accepted.append(aux)

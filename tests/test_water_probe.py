@@ -9,10 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ProbeRuntime(object):
-    def __init__(self, fail=False, extra_states=0, load_delay=0, mismatch=False):
+    def __init__(self, fail=False, extra_states=0, load_delay=0, mismatch=False, wet_changes=False):
         self.blocks, self.liquids, self.callbacks = {}, {}, []
         self.calls, self.clock, self.fail = 0, 0.0, fail
         self.extra_states, self.load_delay, self.mismatch = extra_states, load_delay, mismatch
+        self.wet_changes = wet_changes
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
 
     def time(self):
@@ -63,6 +64,8 @@ class ProbeRuntime(object):
             self.subchunk_states.setdefault(subchunk, set()).add((value['name'], value['aux']))
         if self.fail and value['name'] == 'minecraft:stairs':
             raise RuntimeError('native probe failure')
+        if self.wet_changes and value['name'] == 'minecraft:stairs' and pos in self.liquids:
+            value = {'name': 'minecraft:water', 'aux': 0}
         self.blocks[pos] = value
         if value['name'] == 'minecraft:water':
             self.liquids[pos] = value
@@ -134,7 +137,8 @@ class WaterProbeTests(unittest.TestCase):
         self.assertEqual('minecraft:air', runtime.blocks[state['target']]['name'])
         self.assertEqual('minecraft:air', runtime.blocks[state['support']]['name'])
         self.assertEqual(state['tested_states'], state['verified_states'])
-        self.assertEqual(state['readback_states']['minecraft:stairs']['3'], {'test_aux': 3})
+        self.assertEqual(state['readback_states']['minecraft:stairs']['3']['dry']['states'],
+                         {'test_aux': 3})
         self.assertEqual([state['area_key']], runtime.deleted)
         self.assertTrue(all(aux >= 16 for aux in runtime.requested_aux))
 
@@ -187,10 +191,23 @@ class WaterProbeTests(unittest.TestCase):
         self.finish(runtime)
         self.assertIn('readback mismatch: 4 states', state['failure'])
         self.assertEqual(4, len(state['state_mismatches']))
-        self.assertEqual({'test_aux': 1}, state['readback_states']['minecraft:stairs']['0'])
+        self.assertEqual({'test_aux': 1}, state['readback_states']['minecraft:stairs']['0']['dry']['states'])
         self.assertEqual(4, state['verified_states'])
         with patch('time.time', runtime.time), self.assertRaisesRegex(ValueError, 'probe failed'):
             runpy.run_path(str(ROOT / 'tools/p0_water_probe_read.py'))
+
+    def test_normal_wet_block_replacement_is_negative_without_invalidating_dry_state_verification(self):
+        runtime = ProbeRuntime(wet_changes=True)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertEqual([], state['state_mismatches'])
+        self.assertEqual(state['tested_states'], state['verified_states'])
+        self.assertFalse(state['results']['minecraft:stairs'])
+        self.assertEqual('minecraft:stairs',
+                         state['readback_states']['minecraft:stairs']['0']['dry']['front']['name'])
+        self.assertEqual('minecraft:water',
+                         state['readback_states']['minecraft:stairs']['0']['wet']['front']['name'])
 
 
 if __name__ == '__main__':
