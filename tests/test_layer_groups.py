@@ -94,6 +94,22 @@ class LayerGroupTests(unittest.TestCase):
         self.assertEqual({bottom, back}, set(close_group_selection(document, [bottom], index=1)))
         self.assertEqual({bottom, top, back, back_top}, set(close_group_selection(document, [bottom])))
 
+    def test_matching_groups_in_both_layers_are_edited_independently(self):
+        bottom, top = (2, 1, 2), (2, 2, 2)
+        paired = group_partner(PLANT)[1]
+        original = {bottom: make_cell(PLANT, PLANT), top: make_cell(paired, paired)}
+        for mode in (0, 1):
+            with self.subTest(mode=mode):
+                editor = Editor(Document(SIZES[0], original))
+                editor.edit_layer = mode
+                self.assertEqual(2, editor.paint_at(bottom, erase=True, respect_selection=False))
+                if mode == 0:
+                    self.assertEqual(make_cell(AIR, PLANT), editor.document.get(bottom))
+                    self.assertEqual(make_cell(AIR, paired), editor.document.get(top))
+                else:
+                    self.assertEqual(PLANT, editor.document.get(bottom))
+                    self.assertEqual(paired, editor.document.get(top))
+
 
 if __name__ == '__main__':
     unittest.main()

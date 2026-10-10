@@ -314,45 +314,43 @@ class Editor(object):
         self.selection_revision += 1
 
     def _commit(self, name, changes, respect_selection=True, whole=False, selection_after=None):
-        if not whole:
+        from .block_edits import CellChanges, edit_material, material_changes
+        prepared = isinstance(changes, CellChanges)
+        if not whole and not prepared:
             from .block_groups import expand_group_changes
             changes = expand_group_changes(changes, lambda pos: (
                 self.document.contains(pos) and pos[1] not in self.locked_layers and
                 (not respect_selection or self._writable(pos))))
-        delta = {}
+        delta, handled = {}, set()
+
+        def get_cell(pos):
+            return self.document.get(pos) if self.document.contains(pos) else None
+
         for pos, new in changes.items():
+            if pos in handled:
+                continue
             if not self.document.contains(pos):
                 raise ValueError("操作超出建筑范围，请缩小选区或调整起点")
             if pos[1] in self.locked_layers:
                 continue
             if respect_selection and not self._writable(pos):
                 continue
-            old = self.document.get(pos)
-            if whole:
-                new = block(new)
-            else:
-                from .block_groups import preserve_group_part
-                new = preserve_group_part(new, layer(old, self.edit_layer))
-                new = replace_layer(old, new, self.edit_layer)
-            if old != new:
-                delta[pos] = (old, new)
-        if any(foreground(old) != foreground(new) for old, new in delta.values()):
-            from .block_neighbors import reconcile_steps
-            staged = self.document.blocks.copy()
-            for pos, pair in delta.items():
-                staged[pos] = pair[1]
-
-            def write_neighbor(pos, value):
-                old = self.document.get(pos)
-                staged[pos] = value
-                if value == old:
-                    delta.pop(pos, None)
-                else:
-                    delta[pos] = old, value
-
-            for unused in reconcile_steps(self.document, staged, write_neighbor, self.locked_layers,
-                                          changes if whole else ()):
-                pass
+            planned = {pos: block(new)} if whole or prepared else material_changes(get_cell, pos, new, self.edit_layer)
+            if not whole and not prepared:
+                for target in planned.removed:
+                    requested = changes.get(target, AIR)
+                    if requested != AIR:
+                        planned[target] = edit_material(self.document.get(target), requested, self.edit_layer)
+            if any(not self.document.contains(target) or not self._writable(target, respect_selection)
+                   for target in planned):
+                continue
+            if len(planned) > 1:
+                handled.update(planned)
+            for target, value in planned.items():
+                old = self.document.get(target)
+                if old != value:
+                    delta[target] = old, value
+        self._reconcile_delta(delta, changes if whole else ())
         if selection_after is not None:
             selections = (self._selection_state(), self._selection_state(selection_after))
             if selections[0] != selections[1]:
@@ -364,6 +362,25 @@ class Editor(object):
         self._remember(name, delta)
         self.message = "%s，已修改 %d 格" % (name, len(delta))
         return len(delta)
+
+    def _reconcile_delta(self, delta, preserve):
+        if not any(foreground(old) != foreground(new) for old, new in delta.values()):
+            return
+        from .block_neighbors import reconcile_steps
+        staged = self.document.blocks.copy()
+        for pos, pair in delta.items():
+            staged[pos] = pair[1]
+
+        def write_neighbor(pos, value):
+            old = self.document.get(pos)
+            staged[pos] = value
+            if value == old:
+                delta.pop(pos, None)
+            else:
+                delta[pos] = old, value
+
+        for unused in reconcile_steps(self.document, staged, write_neighbor, self.locked_layers, preserve):
+            pass
 
     def _remember(self, name, delta):
         self.undo_stack.append((name, delta))
@@ -503,30 +520,18 @@ class Editor(object):
                 )
             )
             return 0
-        changes = {pos: AIR if erase else block(self.material)}
-        if self.edit_layer in (0, 1):
-            from .block_groups import group_partner, paired_cell_position
+        from .block_edits import material_changes
 
-            document = self.document
+        def get_cell(target):
+            return self.document.get(target) if self.document.contains(target) else None
 
-            def get_cell(target):
-                return document.get(target) if document.contains(target) else None
-
-            old_partner = paired_cell_position(get_cell, pos, self.edit_layer)
-            if old_partner is not None and (erase or foreground(changes[pos]) != document.get_layer(pos, self.edit_layer)):
-                changes[old_partner] = AIR
-            if not erase:
-                relationship = group_partner(foreground(changes[pos]))
-                if relationship is not None:
-                    offset, partner_value = relationship
-                    partner = tuple(pos[i] + offset[i] for i in range(3))
-                    changes[partner] = partner_value
-            for target in changes:
-                if not document.contains(target):
-                    raise ValueError("多格方块对应部件超出建筑范围")
-                if not self._writable(target, respect_selection):
-                    self.message = "多格方块完整部件受到选区、蒙版或图层锁定限制"
-                    return 0
+        changes = material_changes(get_cell, pos, AIR if erase else block(self.material), self.edit_layer)
+        for target in changes:
+            if not self.document.contains(target):
+                raise ValueError("多格方块对应部件超出建筑范围")
+            if not self._writable(target, respect_selection):
+                self.message = "多格方块完整部件受到选区、蒙版或图层锁定限制"
+                return 0
         return self._commit(
             "擦除单格" if erase else "绘制单格",
             changes,
@@ -748,7 +753,7 @@ class Editor(object):
         group = BY_ID[tool][1]
         if group == "select":
             return self._select(tool)
-        selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") else self.edit_layer
+        selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") or (self.edit_layer == 2 and tool != 'erase') else self.edit_layer
         self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
         self.sync_selection_bounds()
         if not self.selection:

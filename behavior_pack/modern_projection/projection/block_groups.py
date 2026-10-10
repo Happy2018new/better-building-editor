@@ -279,14 +279,13 @@ def paired_cell_position(get_cell, pos, index=None):
     value = get_cell(pos)
     if value is None:
         return None
+    if index == 2:
+        index = 0 if foreground(value) != ('minecraft:air', 0) else 1
     if index is None:
         index = 0 if group_partner(foreground(value)) is not None or foreground(value)[0] in _CHESTS else 1
     front = layer(value, index)
     if group_partner(front) is not None:
-        def get_block(target):
-            cell = get_cell(target)
-            return layer(cell, index) if cell is not None else None
-        return paired_position(get_block, pos)
+        return paired_cell_part(get_cell, pos, index)[0]
     if index or front[0] not in _CHESTS:
         return None
     partner_pos = actor_pair_position(value, pos) or chest_render_pair_position(value, pos)
@@ -308,6 +307,27 @@ def paired_cell_position(get_cell, pos, index=None):
     return partner_pos
 
 
+def paired_cell_part(get_cell, pos, index=0):
+    """Return the partner position and its actual layer, including snowy parts."""
+    value = get_cell(pos)
+    if value is None:
+        return None
+    if index == 2:
+        index = 0 if foreground(value) != ('minecraft:air', 0) else 1
+    relationship = group_partner(layer(value, index))
+    if relationship is None:
+        partner = paired_cell_position(get_cell, pos, index)
+        return (partner, 0) if partner is not None else None
+    offset, expected = relationship
+    partner = tuple(pos[i] + offset[i] for i in range(3))
+    other = get_cell(partner)
+    if other is not None:
+        for selected in (index, 1 - index):
+            if registry.try_canonical(layer(other, selected)) == expected:
+                return partner, selected
+    raise ValueError('多格方块缺少对应部件或状态不匹配：%s' % layer(value, index)[0])
+
+
 def paired_cell_positions(get_cell, pos, index=None):
     indices = (0, 1) if index is None else (index,)
     return tuple(set(partner for selected in indices
@@ -316,6 +336,8 @@ def paired_cell_positions(get_cell, pos, index=None):
 
 
 def has_group_link(value, pos, get_cell=None, index=None):
+    if index == 2:
+        index = 0 if foreground(value) != ('minecraft:air', 0) else 1
     indices = (0, 1) if index is None else (index,)
     if any(group_partner(layer(value, selected)) is not None for selected in indices):
         return True

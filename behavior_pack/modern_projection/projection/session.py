@@ -14,6 +14,7 @@ class Session(object):
     def __init__(self, bridge):
         self.bridge = bridge
         self.editor = Editor(demo_document())
+        self.editor.edit_layer = 2
         self.page = 'workspace'
         self.group = 'edit'
         self.tool = 'fill'
@@ -122,6 +123,12 @@ class Session(object):
     def _load_preferences(self):
         if hasattr(self.bridge, 'load_preferences'):
             preferences = self.bridge.load_preferences() or {}
+            if isinstance(preferences, dict):
+                version = preferences.get('version', 1)
+                if type(version) is int and version in (1, 2) and preferences:
+                    edit_layer = preferences.get('edit_layer', 0 if version == 1 else 2)
+                    if type(edit_layer) is int and edit_layer in (0, 1, 2):
+                        self.editor.edit_layer = edit_layer
             speed = preferences.get('spectrum_speed', 3.) if isinstance(preferences, dict) else 3.
             if isinstance(speed, (int, float)) and .25 <= speed <= 6.:
                 self.spectrum_speed = float(speed)
@@ -222,8 +229,8 @@ class Session(object):
         self.emit(field if field in ('inspector', 'view', 'page', 'group', 'query', 'material_browser', 'name', 'pending_rename', 'pending_confirm', 'outline_style', 'projection_outline') else None)
 
     def set_editor(self, field, value):
-        if field == 'edit_layer' and (type(value) is not int or value not in (0, 1)):
-            raise ValueError('编辑图层必须为前景或背景')
+        if field == 'edit_layer' and (type(value) is not int or value not in (0, 1, 2)):
+            raise ValueError('编辑模式必须为前景、背景或自动')
         if field in MATERIAL_CHANNELS:
             value = material_value(value)
             self.describe_material(value)
@@ -235,6 +242,8 @@ class Session(object):
             self.box_anchor = None
             return self.action(self.editor.select_box, start, end)
         setattr(self.editor, field, value)
+        if field == 'edit_layer':
+            self.save_preferences()
         self.emit('materials' if field in MATERIAL_CHANNELS else None)
 
     def range_value(self, field, value, editor=True):
@@ -283,7 +292,8 @@ class Session(object):
                 data = {'version': 2, 'cellVersion': CELL_VERSION, 'registry': provenance(),
                         'palette': [encode_material(value) for value in self.palette]}
                 self.unresolved_palette_preferences = None
-            data.update({'spectrum_speed': self.spectrum_speed, 'projection_outline': self.projection_outline,
+            data.update({'edit_layer': self.editor.edit_layer,
+                         'spectrum_speed': self.spectrum_speed, 'projection_outline': self.projection_outline,
                          'outline_style': self.outline_style, 'outline_options': self.outline_options})
             self.bridge.save_preferences(data)
 
@@ -695,15 +705,17 @@ class Session(object):
         self.emit('view')
 
     def placement_target(self, pos, normal):
-        target = tuple(pos[i] + normal[i] for i in range(3))
         e = self.editor
+        from .cell import can_compose
+        combine = e.edit_layer == 2 and can_compose(e.document.get(pos), e.material)
+        target = pos if e.edit_layer == 1 or combine else tuple(pos[i] + normal[i] for i in range(3))
         if not e.document.contains(target):
             return target, '目标超出建筑范围'
         if not self.visible_position(target):
             return target, '目标位置不可见，请先后退或显示该图层'
         if target[1] in e.locked_layers:
             return target, '目标图层已锁定'
-        if e.document.get_layer(target, e.edit_layer) != AIR:
+        if not combine and e.document.get_layer(target, e.edit_layer) != AIR:
             return target, '放置位置已有方块，请使用换材质'
         if not e._writable(target, False) or e.material == AIR:
             return target, '放置条件不匹配，请检查材质与方块条件'
@@ -853,7 +865,9 @@ class Session(object):
 
     def _loaded(self, document):
         self.camera_focus_request = None
+        edit_layer = self.editor.edit_layer
         self.editor = Editor(document)
+        self.editor.edit_layer = edit_layer
         self.section = self.solo_layer = False
         self.camera_pan = (0., 0.)
         self.canvas_x = self.canvas_z = 0

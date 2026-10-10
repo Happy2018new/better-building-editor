@@ -8,7 +8,8 @@ import time
 from collections import deque
 from .model import AIR, BY_ID, DIRECTIONS, add, bounds, box_points, close_group_selection
 from .storage import Selection, FULL, CELLS, integer_types, indices, position
-from .cell import Cell, foreground, layer, replace_layer, has_complete_cells, rebase as rebase_cell, transform as transform_cell
+from .cell import Cell, foreground, layer, has_complete_cells, rebase as rebase_cell, transform as transform_cell
+from .block_edits import edit_material, material_changes
 
 
 class SnapshotDelta(object):
@@ -38,7 +39,7 @@ class EditJob(object):
         self.selection_before = editor._selection_state()
         self.selection = editor.selection.copy() if isinstance(editor.selection, Selection) else Selection(editor.selection)
         if BY_ID[tool][1] != 'select':
-            selected_layer = None if BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut', 'gravity', 'foundation', 'heightmap') else editor.edit_layer
+            selected_layer = None if BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut', 'gravity', 'foundation', 'heightmap') or (editor.edit_layer == 2 and tool != 'erase') else editor.edit_layer
             self.selection = close_group_selection(self.source, self.selection, index=selected_layer)
         self.work = copy.copy(editor)
         self.work.locked_layers = set(editor.locked_layers)
@@ -46,6 +47,7 @@ class EditJob(object):
         self.work.selection = self.selection
         self.staged = self.source.blocks.copy()
         self.group_written = set()
+        self.batch_changes = None
         self.preserve_connections = Selection()
         self.result_selection = None
         self.result_clipboard = None
@@ -61,8 +63,7 @@ class EditJob(object):
     def _run_with_neighbors(self):
         for step in self._run():
             yield step
-        if not self.changed or (self.work.edit_layer and BY_ID[self.tool][1] != 'transform' and
-                                not self.tool.startswith('paste') and self.tool != 'cut'):
+        if not self.changed:
             return
         from .block_neighbors import reconcile_steps
 
@@ -119,30 +120,27 @@ class EditJob(object):
                      '%s，已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
 
     def _set(self, pos, value, respect=True, whole=False):
-        if not whole:
-            from .block_groups import group_is_upper, group_partner
-            relationship = group_partner(value)
-            if relationship is not None:
-                offset, reciprocal = relationship
-                if group_is_upper(value):
-                    anchor = tuple(pos[i] + offset[i] for i in range(3))
-                    partner = pos
-                    anchor_value, partner_value = reciprocal, value
-                else:
-                    anchor = pos
-                    partner = tuple(pos[i] + offset[i] for i in range(3))
-                    anchor_value, partner_value = value, reciprocal
-                if anchor in self.group_written or partner in self.group_written:
-                    return
-                if (anchor not in self.selection or partner not in self.selection or
-                        not self.source.contains(anchor) or not self.source.contains(partner) or
-                        not self.work._writable(anchor, respect) or not self.work._writable(partner, respect)):
-                    return
-                self.group_written.update((anchor, partner))
-                self._set_one(anchor, anchor_value, respect, False)
-                self._set_one(partner, partner_value, respect, False)
-                return
-        self._set_one(pos, value, respect, whole)
+        if whole:
+            self._set_one(pos, value, respect, True)
+            return
+        if pos in self.group_written:
+            return
+
+        def get_cell(target):
+            return self.staged.get(target, AIR) if self.source.contains(target) else None
+
+        planned = material_changes(get_cell, pos, value, self.work.edit_layer)
+        for target in planned.removed:
+            requested = self.batch_changes.get(target, AIR) if self.batch_changes is not None else value
+            if requested != AIR:
+                planned[target] = edit_material(get_cell(target) or AIR, requested, self.work.edit_layer)
+        if any(not self.source.contains(target) or not self.work._writable(target, respect)
+               for target in planned):
+            return
+        if len(planned) > 1:
+            self.group_written.update(planned)
+        for target, cell in planned.items():
+            self._store(target, cell)
 
     def _set_one(self, pos, value, respect=True, whole=False):
         if not self.source.contains(pos):
@@ -153,13 +151,16 @@ class EditJob(object):
             return
         original, previous = self.source.get(pos), self.staged.get(pos, AIR)
         if not whole:
-            from .block_groups import preserve_group_part
-            value = preserve_group_part(value, layer(original, self.work.edit_layer))
-            value = replace_layer(previous, value, self.work.edit_layer)
+            value = edit_material(previous, value, self.work.edit_layer)
         self.changed += int(value != original) - int(previous != original)
         self.staged[pos] = value
         if whole:
             self.preserve_connections.add(pos)
+
+    def _store(self, pos, value):
+        original, previous = self.source.get(pos), self.staged.get(pos, AIR)
+        self.changed += int(value != original) - int(previous != original)
+        self.staged[pos] = value
 
     def _chunk(self, key, value):
         identity = self.staged.palette_id(value)
@@ -186,7 +187,7 @@ class EditJob(object):
             if 0 <= local_y < 16:
                 mask &= ~(((1 << 256)-1) << (local_y << 8))
         grouped = False
-        if self.work.edit_layer == 0:
+        if self.work.edit_layer != 1:
             from .block_groups import group_partner
             grouped = group_partner(value) is not None
             if not grouped:
@@ -197,7 +198,13 @@ class EditJob(object):
                 else:
                     grouped = any(mask & (1 << index) and group_partner(palette[chunk[index]]) is not None
                                   for index in range(CELLS))
-        if self.work.edit_layer or has_complete_cells(self.staged) or grouped:
+        automatic = False
+        if self.work.edit_layer == 2:
+            chunk = self.staged.chunks.get(key, 0)
+            identities = (chunk,) if isinstance(chunk, integer_types) else set(chunk)
+            automatic = any(edit_material(self.staged.palette[identity], value, 2) != value
+                            for identity in identities)
+        if self.work.edit_layer == 1 or has_complete_cells(self.staged) or grouped or automatic:
             for index in indices(mask):
                 self._set(position(key, index), value)
             return
@@ -525,8 +532,10 @@ class EditJob(object):
                 if partner is not None and partner in self.selection:
                     changes[partner] = changes[pos]
         # All changes in this batch are still part of the original selection.
+        self.batch_changes = changes
         for pos, value in changes.items():
             self._set(pos, value)
+        self.batch_changes = None
         work.selection = self.selection
         self.processed += len(batch)
         yield None
