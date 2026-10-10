@@ -12,6 +12,7 @@ from projection import block_registry as registry
 from projection.native_sign import native_sign_actor
 from projection.native_sign_data import TEMPLATES
 from projection.visible_actor import compose_actor
+from projection.geometry_palette import prepare_palette
 
 
 def tag(kind,value):
@@ -34,6 +35,16 @@ class NativeSignTests(unittest.TestCase):
             before=copy.deepcopy(actor)
             self.assertEqual(row['actor'],native_sign_actor(tuple(row['material']),actor,None))
             self.assertEqual(before,actor)
+
+    def test_production_palette_applies_observed_two_sided_text(self):
+        for row in self.evidence['styles']:
+            material = tuple(row['material'])
+            source = {'volume': (1, 1, 1), 'common': {material: [0]},
+                      'actor': {material[0]: {0: compose_actor({}, row['nbt'])}}}
+            before = copy.deepcopy(source)
+            rendered = prepare_palette(source)
+            self.assertEqual(row['actor'], rendered['actor'][material[0]][0])
+            self.assertEqual(before, source)
 
     def test_all_species_states_produce_known_native_pose_fields(self):
         count=0

@@ -11,6 +11,8 @@ sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.native_pot import native_pot_actor
 from projection.state_transform import transform
+from projection.geometry_palette import prepare_palette
+from projection.visible_actor import compose_actor
 
 
 class NativePotTests(unittest.TestCase):
@@ -41,6 +43,17 @@ class NativePotTests(unittest.TestCase):
         self.assertEqual(registry.states(('minecraft:decorated_pot',2))['direction'],result[b'direction'])
         self.assertNotIn('direction',result)
         self.assertIsNone(native_pot_actor(('minecraft:stone',0),{}))
+
+    def test_production_palette_refreshes_pose_without_altering_artwork(self):
+        material = ('minecraft:decorated_pot', 2)
+        renderer = {'direction': 0, 'decoratedPotShredNames0': 'angler_pottery_sherd'}
+        source = {'volume': (1, 1, 1), 'common': {material: [0]},
+                  'actor': {material[0]: {0: compose_actor(renderer, None)}}}
+        before = copy.deepcopy(source)
+        actual = prepare_palette(source)['actor'][material[0]][0]
+        self.assertEqual(registry.states(material)['direction'], actual['direction'])
+        self.assertEqual('angler_pottery_sherd', actual['decoratedPotShredNames0'])
+        self.assertEqual(before, source)
 
     def test_other_registry_requires_new_observations(self):
         with patch.object(registry,'fingerprint',return_value='future'):

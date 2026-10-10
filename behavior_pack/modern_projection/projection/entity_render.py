@@ -5,7 +5,7 @@ from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import render_actor, entity_nbt
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
                   'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
                   'brown', 'green', 'red', 'black')
@@ -35,9 +35,17 @@ INTERNAL_BLOCKS = frozenset(
 
 
 def native_actor(material, actor):
-    """Supply only observed Skull fields; saved payloads remain untouched."""
+    """Refresh observed render fields; saved payloads remain untouched."""
     from .native_appearance import SKULL_NAMES, angle, validate_source
+    from .native_sign import native_sign_actor
+    from .native_pot import native_pot_actor
     renderer = render_actor(actor)
+    sign = native_sign_actor(material, actor, renderer)
+    if sign is not None:
+        return sign
+    pot = native_pot_actor(material, renderer)
+    if pot is not None:
+        return pot
     if material[0] == 'minecraft:bed':
         return _bed_actor(material, actor, renderer)
     if material[0] not in SKULL_NAMES:
