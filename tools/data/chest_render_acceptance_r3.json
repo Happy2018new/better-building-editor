@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "captured_at": "2026-10-10T16:56:45+08:00",
+  "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+  "source_commit": "78816409eb9292ac52e413dd5ec8354d13805725",
+  "artifact_root": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-snow-qa-r3/artifacts",
+  "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/a710a2a602f347619174a9716e9393e8/session.json",
+  "world_alignment": {
+    "native_reference": "Native player-placed chest actors in the owned world; placement supports removed before capture",
+    "scope": "Closed ordinary chest, north facing, single and double; identical world origin and measured camera",
+    "single": {
+      "passed": true,
+      "report": "chest-native-world-alignment-r4.json",
+      "report_sha256": "a5f166e9e435157598cee949479e0b6e1f285850a30ebffbab780d3f2ac81815",
+      "source_case": 0,
+      "source_run_completed": false,
+      "source_run_restored": true,
+      "source_run_limit": "Second case interrupted by a QA assertion when rewriting an already-air support; fixed before the separate double-case run",
+      "shape_iou": 0.9845425867507887,
+      "texture_cosine": 0.8226861457107839,
+      "center_distance_pixels": 0.0,
+      "boundary_rms_pixels": 0.0
+    },
+    "double": {
+      "passed": true,
+      "report": "chest-native-world-alignment-double-r5.json",
+      "report_sha256": "37f8daa5798de064b48d66ab7b3eb173326db2667fc178c878f3c821f7eb72a9",
+      "source_case": 0,
+      "source_run_completed": true,
+      "source_run_restored": true,
+      "shape_iou": 0.9832306639288159,
+      "texture_cosine": 0.592187044671097,
+      "center_distance_pixels": 0.5,
+      "boundary_rms_pixels": 0.5
+    }
+  },
+  "camera_calibration": {
+    "passed": true,
+    "completed": true,
+    "restored": true,
+    "report": "camera-calibration-chests-r3.json",
+    "report_sha256": "9f049587db2e33d93a8ced7a1d067f88467a1d872c0fc1c4b5185c95e1ed9986",
+    "views": 3,
+    "reported_fov_degrees": 60.0,
+    "effective_vertical_fov_degrees": 67.8,
+    "maximum_boundary_rms_pixels": 0.8660254037844386
+  },
+  "missing_projection_halves": {
+    "passed": false,
+    "completed": true,
+    "restored": true,
+    "report": "chest-hidden-half-native-oracle-r3.json",
+    "report_sha256": "cee775f7858f44347d5cc509b7ac362a595cc3082f47a09a3073915c8a57d3be",
+    "scope": "Side view; complete native projection oracle versus dynamic hiding and initial regeneration",
+    "occupied_half_correctly_hidden": true,
+    "remaining_half_fidelity_passed": false,
+    "source_history_document_player_preserved": true,
+    "cases": ["chest_keep_main", "chest_keep_sub", "copper_chest_keep_main", "copper_chest_keep_sub"],
+    "remaining_half_baseline_pixels": [3582, 3708, 3717, 3768],
+    "remaining_half_initial_pixels": [3989, 3905, 4132, 4143],
+    "maximum_hidden_residual": 0.026754890678941313,
+    "observed_failure": "Remaining native model edges thicken and red channel error reaches 21.8-24.7; the high virtual-coordinate context path remains unaccepted"
+  },
+  "independent_native_ui": {
+    "report": "chest-packed-ui-all-r3.json",
+    "report_sha256": "8e938fee8dd686a6cb60c607cbbecb047608e3da37e43bedb65b7ec44c1fc68d",
+    "accepted_cases": 16,
+    "scope": "Ordinary/trapped, single/double, four directions; independent native actor and static palettes in one UI control",
+    "limits": "Bounds are normalized, so this is appearance evidence only. Four Ender baselines used empty renderer data and are invalid; the corrected observed Ender renderer has not yet been captured. Copper materials are not covered by this report."
+  }
+}
