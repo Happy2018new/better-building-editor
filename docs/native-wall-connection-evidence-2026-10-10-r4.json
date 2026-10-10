@@ -1,0 +1,1488 @@
+{
+  "schema": 1,
+  "runtime": "NEMC 3.9.0.401155",
+  "session_id": "b3152ca6826844739987bc48d1c3f650",
+  "owner": "p0-neighbors-r4",
+  "scope": "Native wall persistent connection state after neighboring block placement",
+  "method": "SetBlockNew legacy aux resolved by GetBlockAuxValueFromStates, updateNeighbors=True; GetBlockStates after next native timer tick",
+  "axes": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "placement_orders": [
+    "wall_then_neighbor",
+    "neighbor_then_wall"
+  ],
+  "cases": 112,
+  "completed": true,
+  "restored": true,
+  "origin": [
+    6,
+    -48,
+    6
+  ],
+  "rows": [
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:air",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:air",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:air",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:air",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:air",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:air",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:air",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:air",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:stone",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:stone",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:stone",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:stone",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:stone",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:stone",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:stone",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:stone",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:iron_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:iron_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:iron_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:iron_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:iron_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:iron_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:iron_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:iron_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:glass_pane",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:glass_pane",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:glass_pane",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:glass_pane",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:glass_pane",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:glass_pane",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:glass_pane",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:glass_pane",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:hard_glass_pane",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:hard_glass_pane",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:hard_glass_pane",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:hard_glass_pane",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:hard_glass_pane",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:hard_glass_pane",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:hard_glass_pane",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:hard_glass_pane",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:oak_fence",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:oak_fence",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:oak_fence",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:oak_fence",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:oak_fence",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:oak_fence",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 0,
+      "name": "minecraft:oak_fence",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "none",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "none",
+      "order": 1,
+      "name": "minecraft:oak_fence",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "none",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": false,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "none"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "none",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:exposed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:oxidized_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_exposed_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_oxidized_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:waxed_weathered_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "east"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "west"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "south"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 0,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "north"
+    },
+    {
+      "wall": {
+        "wall_post_bit": true,
+        "wall_connection_type_east": "short",
+        "wall_connection_type_north": "short",
+        "wall_connection_type_west": "short",
+        "wall_connection_type_south": "short"
+      },
+      "connection": "short",
+      "order": 1,
+      "name": "minecraft:weathered_copper_bars",
+      "face": "north"
+    }
+  ],
+  "limitations": [
+    "Persistent wall connection states only; native pixel rendering is accepted separately.",
+    "These are dedicated verification readbacks; production WorldAdapter does not gain per-cell reads or rollback."
+  ]
+}

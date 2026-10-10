@@ -114,6 +114,29 @@ class BlockNeighborTests(unittest.TestCase):
                 editor.paint_at((3, 1, 2), erase=True, respect_selection=False)
                 self.assertEqual('none', states(editor, (2, 1, 2))['wall_connection_type_east'])
 
+    def test_all_copper_bar_variants_connect_walls_in_both_placement_orders_and_undo(self):
+        # NEMC 3.9 native probe: all eight variants form short arms in all
+        # four directions, independent of whether the wall or bar is placed first.
+        names = sorted(name for name in registry.BLOCKS if name.endswith('copper_bars'))
+        self.assertEqual(8, len(names))
+        center = (15, 1, 15)
+        neighbors = {'east': (16, 1, 15), 'west': (14, 1, 15),
+                     'south': (15, 1, 16), 'north': (15, 1, 14)}
+        for name in names:
+            for face, target in neighbors.items():
+                for wall_first in (False, True):
+                    with self.subTest(name=name, face=face, wall_first=wall_first):
+                        editor = Editor(Document((32, 4, 32)))
+                        entries = [(center, WALL), (target, (name, registry.DEFAULT_AUX[name]))]
+                        for pos, value in entries if wall_first else reversed(entries):
+                            place(editor, pos, value)
+                        self.assertEqual('short', states(editor, center)['wall_connection_type_' + face])
+                        connected = editor.document.blocks.copy()
+                        editor.paint_at(target, erase=True, respect_selection=False)
+                        self.assertEqual('none', states(editor, center)['wall_connection_type_' + face])
+                        editor.undo()
+                        self.assertEqual(connected, editor.document.blocks)
+
     def test_stair_corners_and_side_blockers_provide_complete_faces(self):
         pos = (3, 1, 3)
         for upside_down in (False, True):

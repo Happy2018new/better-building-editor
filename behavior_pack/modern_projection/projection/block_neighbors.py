@@ -95,7 +95,8 @@ def _with_properties(value, changes):
 
 def _thin(value):
     name = foreground(value)[0]
-    return name.endswith('_glass_pane') or name in ('minecraft:glass_pane', 'minecraft:iron_bars')
+    return (name.endswith('_glass_pane') or name.endswith('copper_bars') or
+            name in ('minecraft:glass_pane', 'minecraft:iron_bars'))
 
 
 def _full_cube(value):
