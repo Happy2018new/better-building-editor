@@ -17,7 +17,7 @@ from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 ROOT = Path(__file__).resolve().parents[1]
 LOAD = '''from copy import deepcopy
 from modern_projection.projection.model import Document
-from modern_projection.projection.world_capture import merge_palette
+from modern_projection.projection.world_capture import merge_palette,restore_omitted_palette_cells
 from modern_projection.projection.cell import rebase,foreground,background,actor_data,make_cell
 from modern_projection.projection.visible_actor import compose_actor,render_actor
 from modern_projection.projection.nbt_spatial import rebase as rebase_nbt
@@ -35,6 +35,8 @@ if source=='native':
  size=tuple(max(point[axis] for point in row['cells'])-lo[axis]+1 for axis in range(3))
  destination=tuple(lo[axis]-origin[axis] for axis in range(3))
  merge_palette(doc,deepcopy(sys._p0_entity_appearance_palettes[index]),destination,size,origin)
+ restore_omitted_palette_cells(doc,sys._p0_entity_appearance_palettes[index],destination,size,origin,
+                              b.factory.CreateBlockInfo(b.level).GetBlock)
  for cell in row['cell_nbt']:
   pos=tuple(cell['pos'][axis]-origin[axis] for axis in range(3))
   value=doc.get(pos)
@@ -211,7 +213,16 @@ def main():
                 if daylight_saved:
                     actions.append(('daylight', lambda: execute(client, RESTORE_DAYLIGHT)))
                 if installed:
-                    actions.append(('workspace', lambda: check.run(RESTORE)))
+                    def restore_workspace():
+                        was_open=check.run('_result=sys._blueprint_qa_saved["workspace"]')
+                        check.run(RESTORE)
+                        if was_open:
+                            check.run('owner.open_workspace()\n_result=True')
+                            check.wait('restored workspace opened',lambda state:state['open'] and not state['transition'],check.navigation)
+                        elif check.navigation()['open']:
+                            check.run('navigator.pop()\n_result=True')
+                            check.wait('restored workspace closed',lambda state:not state['open'] and not state['transition'],check.navigation)
+                    actions.append(('workspace',restore_workspace))
                 for label, action in actions:
                     try:
                         action()
