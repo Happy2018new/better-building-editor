@@ -11,6 +11,7 @@ from projection.block_groups import group_partner, actor_pair_position
 from projection.cell import AIR, actor_data, background, foreground
 from projection.debug_blueprints import BLUEPRINTS, CATEGORIES, build, entries, material, open_blueprint
 from projection.debug_entity_blueprints import ENTITY_CASES, REFERENCE_EXCLUSIONS, coverage
+from projection.debug_entity_defaults import evidence, nbt as native_nbt
 from projection.geometry_palette import prepare_palette
 from projection.model import Document, Editor
 from projection.nbt_spatial import root_payload, scalar
@@ -143,12 +144,53 @@ class DebugBlueprintTests(unittest.TestCase):
         expected = {row['name'] for row in reference['entities']}
         self.assertEqual(expected, {row[1] for row in ENTITY_CASES} | {row[0] for row in REFERENCE_EXCLUSIONS})
         report = coverage()
-        self.assertEqual(56, len(report['present']) + len(report['unavailable']))
+        self.assertEqual(57, len(report['present']) + len(report['unavailable']))
+        self.assertEqual([], report['native_unobserved'])
+        self.assertEqual(155, report['native_evidence']['native_block_count'])
         for doc in self.documents.values():
             for pos, value in doc.blocks.items():
                 nbt = root_payload(entity_nbt(actor_data(value)))
                 if nbt is not None:
                     self.assertEqual(pos, tuple(scalar(nbt, axis) for axis in ('x', 'y', 'z')))
+
+    def test_entities_use_all_observed_native_identities_and_preserve_complete_defaults(self):
+        actual = set()
+        for category in ('classic', 'mechanisms', 'recent'):
+            doc = self.documents['test.entities.' + category]
+            for unused_pos, value in doc.blocks.items():
+                root = root_payload(entity_nbt(actor_data(value)))
+                if root is not None:
+                    actual.add(scalar(root, 'id'))
+        self.assertEqual({row[1] for row in ENTITY_CASES}, actual)
+        chest = native_nbt('minecraft:chest', (2, 3, 4))
+        self.assertIn('Items', root_payload(chest))
+        root_payload(chest)['Items'].append({'custom': 'independent copy'})
+        self.assertEqual([], root_payload(native_nbt('minecraft:chest', (2, 3, 4)))['Items'])
+        for category in ('classic', 'recent'):
+            doc = self.documents['test.entities.' + category]
+            for unused_pos, value in doc.blocks.items():
+                data = actor_data(value)
+                root = root_payload(entity_nbt(data))
+                if root is not None and scalar(root, 'id') in ('Sign', 'HangingSign'):
+                    self.assertEqual(render_actor(data)['signRealText'], scalar(root['FrontText'], 'Text'))
+                    self.assertEqual(render_actor(data)['signColor'], scalar(root['FrontText'], 'SignTextColor'))
+
+    def test_native_default_snapshot_matches_generated_provenance_and_observed_aux(self):
+        import hashlib
+        from projection import debug_entity_defaults_data as defaults
+        from projection.debug_entity_defaults import material as native_material
+        source = ROOT / 'tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json'
+        raw = source.read_bytes()
+        snapshot = json.loads(raw)
+        canonical = json.dumps(snapshot, ensure_ascii=True, sort_keys=True,
+                               separators=(',', ':')).encode('ascii')
+        self.assertEqual(hashlib.sha256(canonical).hexdigest(), evidence()['source_sha256'])
+        self.assertEqual('canonical-json-v1', evidence()['source_hash_format'])
+        self.assertEqual(set(snapshot['block_entities']), set(defaults.DEFAULTS))
+        for name, row in snapshot['block_entities'].items():
+            self.assertEqual((name, row['aux']), native_material(name))
+            origin = tuple(scalar(root_payload(row['nbt']), axis) for axis in ('x', 'y', 'z'))
+            self.assertEqual(row['nbt'], native_nbt(name, origin))
 
 
 class DebugBlueprintSessionTests(unittest.TestCase):

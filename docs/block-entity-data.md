@@ -61,6 +61,28 @@ Pure geometry tests check all six Shulker faces, pair coordinate offsets, both
 chest lead fields, Byte/Boolean and byte-key preservation, inverse operations,
 four-turn closure, and unchanged inventories or nested custom fields.
 
+## Observed Native Defaults
+
+`tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json` retains the
+versioned default NBT snapshot from the 2026-10-10 disposable native probe. It
+contains 155 block payloads and 57 distinct root identifiers. The original probe
+SHA-256 and native version/palette hash are retained. All payloads were captured
+after individual block states matched the native table. The complete combined
+water probe verified 15,831 of 15,839 states; its eight bed state mismatches are
+recorded separately from these successfully observed defaults.
+
+The native default field audit is
+`reference/block_entities/nemc_3.9_default_fields.json`. The adjacent observed
+reference diff confirms 57 names, including native `CraftingTable`, and leaves
+`NeteaseContainer` and `ModBlock` unobserved in this vanilla sample. Numeric enum
+IDs remain unverified. `PistonArm` is observed on `piston` / `sticky_piston`,
+rather than inferred from the `piston_arm_collision` helper block.
+
+The public entity blueprints use these complete tagged payloads. The generator
+preserves unknown fields and lazily compressed templates; it never fabricates a
+missing entity identity. See [Built-In Test Blueprints](debug-blueprints.md) for
+fixture coordinates and regeneration commands.
+
 ## Fields Awaiting Native Evidence
 
 The adjacent `bedrock-world-operator` checkout stores and encodes arbitrary
@@ -74,9 +96,9 @@ to change NEMC runtime behavior without native observations:
 
 | Entity | Candidate Fields | Current Handling | Evidence Needed |
 | --- | --- | --- | --- |
-| `Skull` | `Rot` | Preserve | PowerNukkitX initializes a Byte. Native NEMC field type, 16-angle convention and wall/floor applicability still need confirmation |
+| `Skull` | `Rotation` | Preserve | Native defaults expose Float `Rotation=0.0`, not PowerNukkitX's Byte `Rot`; angle units, convention and wall/floor applicability require nondefault native observations |
 | `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Preserve | PowerNukkitX uses Byte values modulo 8; other Bedrock implementations also accept Float angles. NEMC type and local frame basis are needed for mirror semantics |
-| `StructureBlock` | Rotation, mirror, offset and size fields | Preserve | No entity schema exists in the inspected BWO checkout; native names/types and coordinate semantics must be observed |
+| `StructureBlock` | `rotation`, `mirror`, `x/y/zStructureOffset`, `x/y/zStructureSize` | Preserve | Native defaults confirm Byte rotation/mirror and Int offsets/sizes; nondefault value meanings, anchor coordinates and transform composition still need observations |
 | `PistonArm`, `MovingBlock`, `EndGateway` and other spatial entities | Entity-specific coordinates or directions | Preserve | Native data and rules separating world coordinates from opaque saved payloads |
 
 Block-state rotation and mirroring continue to use the native registry for all
@@ -85,8 +107,8 @@ block-state support.
 
 ## Native Observation Diff
 
-`tools/diff_block_entities.py` compares the reference with either an explicit
-entity list or the existing native placement report:
+`tools/diff_block_entities.py` compares the reference with an explicit entity
+list, the native placement report, or a versioned native default probe:
 
 ```powershell
 python tools/diff_block_entities.py `
@@ -94,7 +116,8 @@ python tools/diff_block_entities.py `
   --output native-block-entity-diff.json
 ```
 
-The native report path uses `actors[].cells[].nbt` root string IDs. Typed
+The native report paths use `actors[].cells[].nbt` or `block_entities.*.nbt`
+root string IDs. Typed
 compounds and typed ID tags are supported; block names and case labels are
 never interpreted as entity identifiers. A client palette stored as a Python
 `repr` string is not parsed or executed.

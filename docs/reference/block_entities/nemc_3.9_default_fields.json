@@ -1,0 +1,4168 @@
+{
+  "entities": {
+    "Banner": {
+      "blocks": [
+        "minecraft:standing_banner",
+        "minecraft:wall_banner"
+      ],
+      "root_fields": {
+        "Base": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "Type": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Barrel": {
+      "blocks": [
+        "minecraft:barrel"
+      ],
+      "root_fields": {
+        "Findable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Beacon": {
+      "blocks": [
+        "minecraft:beacon"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "primary": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "secondary": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Bed": {
+      "blocks": [
+        "minecraft:bed"
+      ],
+      "root_fields": {
+        "color": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Beehive": {
+      "blocks": [
+        "minecraft:bee_nest",
+        "minecraft:beehive"
+      ],
+      "root_fields": {
+        "ShouldSpawnBees": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Bell": {
+      "blocks": [
+        "minecraft:bell"
+      ],
+      "root_fields": {
+        "Direction": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "Ringing": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Ticks": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "BlastFurnace": {
+      "blocks": [
+        "minecraft:blast_furnace",
+        "minecraft:lit_blast_furnace"
+      ],
+      "root_fields": {
+        "BurnDuration": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "BurnTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "CookTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "StoredXPInt": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "BrewingStand": {
+      "blocks": [
+        "minecraft:brewing_stand"
+      ],
+      "root_fields": {
+        "CookTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "FuelAmount": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "FuelTotal": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "BrushableBlock": {
+      "blocks": [
+        "minecraft:suspicious_gravel",
+        "minecraft:suspicious_sand"
+      ],
+      "root_fields": {
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "LootTable": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "LootTableSeed": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "brush_count": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "brush_direction": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "type": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "CalibratedSculkSensor": {
+      "blocks": [
+        "minecraft:calibrated_sculk_sensor"
+      ],
+      "root_fields": {
+        "VibrationListener": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Campfire": {
+      "blocks": [
+        "minecraft:campfire",
+        "minecraft:soul_campfire"
+      ],
+      "root_fields": {
+        "ItemTime1": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "ItemTime2": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "ItemTime3": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "ItemTime4": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Cauldron": {
+      "blocks": [
+        "minecraft:cauldron"
+      ],
+      "root_fields": {
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "PotionId": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "PotionType": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "ChemistryTable": {
+      "blocks": [
+        "minecraft:compound_creator",
+        "minecraft:element_constructor",
+        "minecraft:lab_table",
+        "minecraft:material_reducer"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Chest": {
+      "blocks": [
+        "minecraft:chest",
+        "minecraft:copper_chest",
+        "minecraft:exposed_copper_chest",
+        "minecraft:oxidized_copper_chest",
+        "minecraft:trapped_chest",
+        "minecraft:waxed_copper_chest",
+        "minecraft:waxed_exposed_copper_chest",
+        "minecraft:waxed_oxidized_copper_chest",
+        "minecraft:waxed_weathered_copper_chest",
+        "minecraft:weathered_copper_chest"
+      ],
+      "root_fields": {
+        "Findable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "ChiseledBookshelf": {
+      "blocks": [
+        "minecraft:chiseled_bookshelf"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "CommandBlock": {
+      "blocks": [
+        "minecraft:chain_command_block",
+        "minecraft:command_block",
+        "minecraft:repeating_command_block"
+      ],
+      "root_fields": {
+        "Command": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "CustomName": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "ExecuteOnFirstTick": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "LPCommandMode": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "LPCondionalMode": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "LPRedstoneMode": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "LastExecution": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "LastOutput": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "LastOutputParams": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "SuccessCount": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "TickDelay": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "TrackOutput": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Version": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "auto": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "conditionMet": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "powered": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Comparator": {
+      "blocks": [
+        "minecraft:powered_comparator",
+        "minecraft:unpowered_comparator"
+      ],
+      "root_fields": {
+        "OutputSignal": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Conduit": {
+      "blocks": [
+        "minecraft:conduit"
+      ],
+      "root_fields": {
+        "Active": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Target": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "CopperGolemStatue": {
+      "blocks": [
+        "minecraft:copper_golem_statue",
+        "minecraft:exposed_copper_golem_statue",
+        "minecraft:oxidized_copper_golem_statue",
+        "minecraft:waxed_copper_golem_statue",
+        "minecraft:waxed_exposed_copper_golem_statue",
+        "minecraft:waxed_oxidized_copper_golem_statue",
+        "minecraft:waxed_weathered_copper_golem_statue",
+        "minecraft:weathered_copper_golem_statue"
+      ],
+      "root_fields": {
+        "Actor": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "Pose": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Crafter": {
+      "blocks": [
+        "minecraft:crafter"
+      ],
+      "root_fields": {
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "disabled_slots": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "CraftingTable": {
+      "blocks": [
+        "minecraft:crafting_table"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "CreakingHeart": {
+      "blocks": [
+        "minecraft:creaking_heart"
+      ],
+      "root_fields": {
+        "Cooldown": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "DaylightDetector": {
+      "blocks": [
+        "minecraft:daylight_detector",
+        "minecraft:daylight_detector_inverted"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "DecoratedPot": {
+      "blocks": [
+        "minecraft:decorated_pot"
+      ],
+      "root_fields": {
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "animation": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "item": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Dispenser": {
+      "blocks": [
+        "minecraft:dispenser"
+      ],
+      "root_fields": {
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Dropper": {
+      "blocks": [
+        "minecraft:dropper"
+      ],
+      "root_fields": {
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "EnchantTable": {
+      "blocks": [
+        "minecraft:enchanting_table"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "rott": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "EndGateway": {
+      "blocks": [
+        "minecraft:end_gateway"
+      ],
+      "root_fields": {
+        "Age": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "EndGatewayBadPosChecked": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "ExitPortal": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "EndPortal": {
+      "blocks": [
+        "minecraft:end_portal"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "EnderChest": {
+      "blocks": [
+        "minecraft:ender_chest"
+      ],
+      "root_fields": {
+        "Findable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "FlowerPot": {
+      "blocks": [
+        "minecraft:flower_pot"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Furnace": {
+      "blocks": [
+        "minecraft:furnace",
+        "minecraft:lit_furnace"
+      ],
+      "root_fields": {
+        "BurnDuration": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "BurnTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "CookTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "StoredXPInt": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "GlowItemFrame": {
+      "blocks": [
+        "minecraft:glow_frame"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "HangingSign": {
+      "blocks": [
+        "minecraft:acacia_hanging_sign",
+        "minecraft:bamboo_hanging_sign",
+        "minecraft:birch_hanging_sign",
+        "minecraft:cherry_hanging_sign",
+        "minecraft:crimson_hanging_sign",
+        "minecraft:dark_oak_hanging_sign",
+        "minecraft:jungle_hanging_sign",
+        "minecraft:mangrove_hanging_sign",
+        "minecraft:oak_hanging_sign",
+        "minecraft:pale_oak_hanging_sign",
+        "minecraft:spruce_hanging_sign",
+        "minecraft:warped_hanging_sign"
+      ],
+      "root_fields": {
+        "BackText": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "FrontText": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "IsWaxed": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Hopper": {
+      "blocks": [
+        "minecraft:hopper"
+      ],
+      "root_fields": {
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "MoveItemSpeed": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "TransferCooldown": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "ItemFrame": {
+      "blocks": [
+        "minecraft:frame"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "JigsawBlock": {
+      "blocks": [
+        "minecraft:jigsaw"
+      ],
+      "root_fields": {
+        "final_state": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "joint": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "name": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "placement_priority": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "selection_priority": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "target": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "target_pool": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Jukebox": {
+      "blocks": [
+        "minecraft:jukebox"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Lectern": {
+      "blocks": [
+        "minecraft:lectern"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Lodestone": {
+      "blocks": [
+        "minecraft:lodestone"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "MobSpawner": {
+      "blocks": [
+        "minecraft:mob_spawner"
+      ],
+      "root_fields": {
+        "Delay": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "DisplayEntityHeight": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "DisplayEntityScale": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "DisplayEntityWidth": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "EntityIdentifier": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "MaxNearbyEntities": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "MaxSpawnDelay": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "MinSpawnDelay": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "RequiredPlayerRange": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "SpawnCount": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "SpawnRange": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "MovingBlock": {
+      "blocks": [
+        "minecraft:moving_block"
+      ],
+      "root_fields": {
+        "expanding": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "movingBlock": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "movingBlockExtra": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "pistonPosX": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "pistonPosY": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "pistonPosZ": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Music": {
+      "blocks": [
+        "minecraft:noteblock"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "note": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "NetherReactor": {
+      "blocks": [
+        "minecraft:netherreactor"
+      ],
+      "root_fields": {
+        "HasFinished": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsInitialized": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Progress": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "PistonArm": {
+      "blocks": [
+        "minecraft:piston",
+        "minecraft:sticky_piston"
+      ],
+      "root_fields": {
+        "AttachedBlocks": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "BreakBlocks": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "LastProgress": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "NewState": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Progress": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "State": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Sticky": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "SculkCatalyst": {
+      "blocks": [
+        "minecraft:sculk_catalyst"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "SculkSensor": {
+      "blocks": [
+        "minecraft:sculk_sensor"
+      ],
+      "root_fields": {
+        "VibrationListener": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "SculkShrieker": {
+      "blocks": [
+        "minecraft:sculk_shrieker"
+      ],
+      "root_fields": {
+        "VibrationListener": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Shelf": {
+      "blocks": [
+        "minecraft:acacia_shelf",
+        "minecraft:bamboo_shelf",
+        "minecraft:birch_shelf",
+        "minecraft:cherry_shelf",
+        "minecraft:crimson_shelf",
+        "minecraft:dark_oak_shelf",
+        "minecraft:jungle_shelf",
+        "minecraft:mangrove_shelf",
+        "minecraft:oak_shelf",
+        "minecraft:pale_oak_shelf",
+        "minecraft:spruce_shelf",
+        "minecraft:warped_shelf"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "ShulkerBox": {
+      "blocks": [
+        "minecraft:black_shulker_box",
+        "minecraft:blue_shulker_box",
+        "minecraft:brown_shulker_box",
+        "minecraft:cyan_shulker_box",
+        "minecraft:gray_shulker_box",
+        "minecraft:green_shulker_box",
+        "minecraft:light_blue_shulker_box",
+        "minecraft:light_gray_shulker_box",
+        "minecraft:lime_shulker_box",
+        "minecraft:magenta_shulker_box",
+        "minecraft:orange_shulker_box",
+        "minecraft:pink_shulker_box",
+        "minecraft:purple_shulker_box",
+        "minecraft:red_shulker_box",
+        "minecraft:undyed_shulker_box",
+        "minecraft:white_shulker_box",
+        "minecraft:yellow_shulker_box"
+      ],
+      "root_fields": {
+        "Findable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsIgnoreShuffle": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "IsOpened": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "facing": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Sign": {
+      "blocks": [
+        "minecraft:acacia_standing_sign",
+        "minecraft:acacia_wall_sign",
+        "minecraft:bamboo_standing_sign",
+        "minecraft:bamboo_wall_sign",
+        "minecraft:birch_standing_sign",
+        "minecraft:birch_wall_sign",
+        "minecraft:cherry_standing_sign",
+        "minecraft:cherry_wall_sign",
+        "minecraft:crimson_standing_sign",
+        "minecraft:crimson_wall_sign",
+        "minecraft:darkoak_standing_sign",
+        "minecraft:darkoak_wall_sign",
+        "minecraft:jungle_standing_sign",
+        "minecraft:jungle_wall_sign",
+        "minecraft:mangrove_standing_sign",
+        "minecraft:mangrove_wall_sign",
+        "minecraft:pale_oak_standing_sign",
+        "minecraft:pale_oak_wall_sign",
+        "minecraft:spruce_standing_sign",
+        "minecraft:spruce_wall_sign",
+        "minecraft:standing_sign",
+        "minecraft:wall_sign",
+        "minecraft:warped_standing_sign",
+        "minecraft:warped_wall_sign"
+      ],
+      "root_fields": {
+        "BackText": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "FrontText": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "IsWaxed": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Skull": {
+      "blocks": [
+        "minecraft:creeper_head",
+        "minecraft:dragon_head",
+        "minecraft:piglin_head",
+        "minecraft:player_head",
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:zombie_head"
+      ],
+      "root_fields": {
+        "DoingAnimation": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "MouthTickCount": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "Rotation": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "SkullType": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Smoker": {
+      "blocks": [
+        "minecraft:lit_smoker",
+        "minecraft:smoker"
+      ],
+      "root_fields": {
+        "BurnDuration": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "BurnTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "CookTime": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            2
+          ]
+        },
+        "Items": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "StoredXPInt": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "SporeBlossom": {
+      "blocks": [
+        "minecraft:spore_blossom"
+      ],
+      "root_fields": {
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "StructureBlock": {
+      "blocks": [
+        "minecraft:structure_block"
+      ],
+      "root_fields": {
+        "animationMode": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "animationSeconds": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "data": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "dataField": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "ignoreEntities": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "includePlayers": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "integrity": {
+          "python_types": [
+            "float"
+          ],
+          "sdk_tag_types": [
+            5
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "isPowered": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "lastTouchedPlayerId": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "mirror": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "redstoneSaveMode": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "removeBlocks": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "rotation": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "seed": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "showBoundingBox": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "structureName": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "xStructureOffset": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "xStructureSize": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "yStructureOffset": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "yStructureSize": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "zStructureOffset": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "zStructureSize": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "TrialSpawner": {
+      "blocks": [
+        "minecraft:trial_spawner"
+      ],
+      "root_fields": {
+        "cooldown_end_at": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "current_mobs": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "next_mob_spawns_at": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            4
+          ]
+        },
+        "normal_config": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "ominous_config": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "registered_players": {
+          "python_types": [
+            "list"
+          ],
+          "sdk_tag_types": []
+        },
+        "required_player_range": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    },
+    "Vault": {
+      "blocks": [
+        "minecraft:vault"
+      ],
+      "root_fields": {
+        "config": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "data": {
+          "python_types": [
+            "NoneType"
+          ],
+          "sdk_tag_types": []
+        },
+        "id": {
+          "python_types": [
+            "str"
+          ],
+          "sdk_tag_types": [
+            8
+          ]
+        },
+        "isMovable": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            1
+          ]
+        },
+        "x": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "y": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        },
+        "z": {
+          "python_types": [
+            "int"
+          ],
+          "sdk_tag_types": [
+            3
+          ]
+        }
+      }
+    }
+  },
+  "game_version": "NEMC 3.9.0.401155",
+  "notes": [
+    "Observed default fields and types do not establish transform semantics.",
+    "NBT root string identifiers do not verify numeric enum IDs."
+  ],
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "schema_version": 1
+}

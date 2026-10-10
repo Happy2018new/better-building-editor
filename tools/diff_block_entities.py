@@ -57,8 +57,19 @@ def observations(data):
                     records.append({'name': name, 'enum_id': None, 'source': 'actors.cells.nbt',
                                     'case': actor.get('name'), 'pos': cell.get('pos'),
                                     'block': cell.get('front')})
+    if 'block_entities' in data:
+        supported = True
+        if not isinstance(data['block_entities'], dict):
+            raise ValueError('block_entities must be an object')
+        for block, row in sorted(data['block_entities'].items()):
+            if not isinstance(row, dict):
+                raise ValueError('Native default entity records must be objects')
+            name = nbt_identifier(row.get('nbt'))
+            if name is not None:
+                records.append({'name': name, 'enum_id': None, 'source': 'block_entities.nbt',
+                                'block': {'name': block, 'aux': row.get('aux')}})
     if not supported:
-        raise ValueError('Expected entities, observations, or native placement actors')
+        raise ValueError('Expected entities, observations, native actors, or block_entities')
     return records
 
 
@@ -97,6 +108,8 @@ def compare(reference, observed):
         'schema_version': 1,
         'reference_source': reference.get('source'),
         'reference_version': reference.get('version'),
+        'observed_version': observed.get('game_version'),
+        'observed_palette_sha256': observed.get('palette_sha256'),
         'reference_entity_count': len(expected),
         'observed_entity_name_count': len(grouped),
         'matched_names': matches,

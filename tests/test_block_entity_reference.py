@@ -45,6 +45,21 @@ class BlockEntityReferenceTests(unittest.TestCase):
         self.assertEqual(0, report['observed_entity_name_count'])
         self.assertIsNone(nbt_identifier({'id': 2}))
 
+    def test_versioned_default_probe_reads_only_actual_nbt_identifiers(self):
+        observed = {'schema': 1, 'block_entities': {
+            'minecraft:chest': {'aux': 2, 'nbt': {'id': {'__type__': 8, '__value__': 'Chest'}}},
+            'minecraft:purple_shulker_box': {'aux': 0, 'nbt': {'id': {'__type__': 8,
+                                                                      '__value__': 'ShulkerBox'}}},
+            'minecraft:stone': {'aux': 0, 'nbt': {}},
+        }}
+        report = compare(self.reference, observed)
+        self.assertEqual(2, report['observed_entity_name_count'])
+        self.assertEqual([], report['reference_names_unobserved_in_sample'])
+        self.assertTrue(all(not row['numeric_id_verified_by_input'] for row in report['matched_names']))
+        self.assertEqual('block_entities.nbt', report['matched_names'][0]['examples'][0]['source'])
+        with self.assertRaises(ValueError):
+            compare(self.reference, {'block_entities': []})
+
     def test_explicit_numeric_enum_ids_report_conflicts_and_unknown_names(self):
         report = compare(self.reference, {'schema_version': 1, 'entities': [
             {'name': 'Chest', 'enum_id': 2}, {'name': 'ShulkerBox', 'id': 26},

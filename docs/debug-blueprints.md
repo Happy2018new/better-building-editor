@@ -66,30 +66,64 @@ registry. No fixture constructs aux values by arithmetic. Missing required
 materials or states fail before replacing the draft. Newer optional entity
 associations absent from the registry are omitted and reported by `coverage()`.
 
-Entity metadata covers the user's 59-entry reference through 56 candidate test
-associations and three explicit exclusions: `CraftingTable`, `NeteaseContainer`
-and `ModBlock`. A reference enum or a native block name alone does not prove a
-native entity payload schema. These exclusions and unavailable associations
-remain visible in the coverage report and are not runtime allowlists.
+Entity metadata covers the user's 59-entry reference through 57 native-observed
+test associations and two exclusions: `NeteaseContainer` and `ModBlock`, which
+need real registered definitions. Actual NEMC observations confirm
+`CraftingTable` on `minecraft:crafting_table` and `PistonArm` on the piston body.
+The exclusions and unavailable associations remain visible in the coverage
+report and are not runtime allowlists.
 
-Covered tall grass and large fern await a native probe with complete lower and
-upper parts; their grouped editing cases remain in `test.groups.parts`.
+The complete-pair snow probe confirmed that native `SetSnow` rejects tall grass,
+large fern and the other two-cell plants even with valid upper halves and soil.
+Their grouped editing cases remain in `test.groups.parts`. Imported background
+data can still be preserved and erased independently of new placement traits.
 
-At the initial fixture milestone, entity payloads contain typed identity and
-local coordinates, plus independently observed Shulker direction, double-chest
-pairing and client sign renderer fields. Other entity default payloads await
-native capture. A successful pure-Python fixture test verifies data preservation
-and legal states; it does not certify the native renderer for every entity.
+The versioned default snapshot retains actual NBT from 155 native blocks and
+57 observed root identifiers. `debug_entity_defaults_data.py` stores compact
+frozen templates, which decode lazily and rebase into local fixture coordinates.
+Every fixture and every vanilla-gallery entry with an observed native default
+uses the complete payload. The three entity pages include all 57 observed
+identifiers. Signs use matching NBT and renderer text/colour/glow fields, while
+Shulker and chest variations use the independently observed direction and pair
+fields. Fixture state aux values are the observed native ones.
+
+The snapshot records its game version, palette hash, original probe hash and
+tested/verified state counts. The underlying combined water probe completed
+15,839 states, with eight unrelated bed state mismatches; these do not invalidate
+the individually verified default payloads. The checked-in field audit records
+the observed root fields and SDK tag types. Default scalar values do not prove
+direction semantics for entities such as skulls or structure blocks.
+
+A successful pure-Python fixture test verifies data preservation and legal
+states; it does not certify the native renderer for every entity.
 See [Block Entity Data Coverage](block-entity-data.md) for adapter evidence and
 pending native-specific fields.
 
 ## Version Updates And Verification
 
 Regenerate the native registry from the new game's dump using the normal block
-registry workflow, retain the old versioned source and inspect its diff. Run:
+registry workflow, retain the old versioned source and inspect its diff. Capture
+the new native entity defaults and run the matching generator and audit:
+
+```powershell
+python tools/generate_entity_blueprints.py native-probe.json `
+  --snapshot tools/data/native_block_entity_defaults_nemc_<version>.json `
+  --audit docs/reference/block_entities/nemc_<version>_default_fields.json
+python tools/diff_block_entities.py `
+  --observed tools/data/native_block_entity_defaults_nemc_<version>.json `
+  --output docs/reference/block_entities/nemc_<version>_observed_default_diff.json
+```
+
+The generator checks the game version, block table hash, exact native aux,
+observed entity identifier and root coordinate types. Generation is deterministic
+and has `--check` support. The template snapshot fingerprint uses canonical JSON
+so checkout line endings do not change it; the original native probe retains its
+exact byte hash separately. The public fixtures reject stale templates before
+replacing the current draft. Run:
 
 ```powershell
 python -X utf8 -m unittest discover -s tests -p test_debug_blueprints.py
+python -X utf8 -m unittest discover -s tests -p test_entity_blueprint_generator.py
 ```
 
 The tests verify legal foreground/background states, palette preparation,

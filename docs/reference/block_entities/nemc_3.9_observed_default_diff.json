@@ -1,0 +1,1319 @@
+{
+  "inputs": {
+    "observed": {
+      "file": "native_block_entity_defaults_nemc_3.9.0.401155.json",
+      "sha256": "fe4ac46846b506a51551775b81e0ca22dc8ff33591cb62f072423bbc2c3aaa0e"
+    },
+    "reference": {
+      "file": "nemc_3.9_reference.json",
+      "sha256": "6097ef7846f127d35c8bb0d868f60a7d4b13801c624badf3466eab3a0931d23d"
+    }
+  },
+  "matched_names": [
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:standing_banner"
+          },
+          "enum_id": null,
+          "name": "Banner",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:wall_banner"
+          },
+          "enum_id": null,
+          "name": "Banner",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Banner",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 28
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:barrel"
+          },
+          "enum_id": null,
+          "name": "Barrel",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Barrel",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 42
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:beacon"
+          },
+          "enum_id": null,
+          "name": "Beacon",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Beacon",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 21
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 3,
+            "name": "minecraft:bed"
+          },
+          "enum_id": null,
+          "name": "Bed",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Bed",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 27
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:bee_nest"
+          },
+          "enum_id": null,
+          "name": "Beehive",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:beehive"
+          },
+          "enum_id": null,
+          "name": "Beehive",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Beehive",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 43
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:bell"
+          },
+          "enum_id": null,
+          "name": "Bell",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Bell",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 40
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:blast_furnace"
+          },
+          "enum_id": null,
+          "name": "BlastFurnace",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lit_blast_furnace"
+          },
+          "enum_id": null,
+          "name": "BlastFurnace",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "BlastFurnace",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 38
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:brewing_stand"
+          },
+          "enum_id": null,
+          "name": "BrewingStand",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "BrewingStand",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 8
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:suspicious_gravel"
+          },
+          "enum_id": null,
+          "name": "BrushableBlock",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:suspicious_sand"
+          },
+          "enum_id": null,
+          "name": "BrushableBlock",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "BrushableBlock",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 52
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:calibrated_sculk_sensor"
+          },
+          "enum_id": null,
+          "name": "CalibratedSculkSensor",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "CalibratedSculkSensor",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 54
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:campfire"
+          },
+          "enum_id": null,
+          "name": "Campfire",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:soul_campfire"
+          },
+          "enum_id": null,
+          "name": "Campfire",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Campfire",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 41
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "enum_id": null,
+          "name": "Cauldron",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Cauldron",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 16
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:compound_creator"
+          },
+          "enum_id": null,
+          "name": "ChemistryTable",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:element_constructor"
+          },
+          "enum_id": null,
+          "name": "ChemistryTable",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lab_table"
+          },
+          "enum_id": null,
+          "name": "ChemistryTable",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "ChemistryTable",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 4,
+      "observed_enum_ids": [],
+      "reference_enum_id": 34
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:chest"
+          },
+          "enum_id": null,
+          "name": "Chest",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:copper_chest"
+          },
+          "enum_id": null,
+          "name": "Chest",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:exposed_copper_chest"
+          },
+          "enum_id": null,
+          "name": "Chest",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Chest",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 10,
+      "observed_enum_ids": [],
+      "reference_enum_id": 2
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:chiseled_bookshelf"
+          },
+          "enum_id": null,
+          "name": "ChiseledBookshelf",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "ChiseledBookshelf",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 51
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:chain_command_block"
+          },
+          "enum_id": null,
+          "name": "CommandBlock",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:command_block"
+          },
+          "enum_id": null,
+          "name": "CommandBlock",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:repeating_command_block"
+          },
+          "enum_id": null,
+          "name": "CommandBlock",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "CommandBlock",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 3,
+      "observed_enum_ids": [],
+      "reference_enum_id": 26
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:powered_comparator"
+          },
+          "enum_id": null,
+          "name": "Comparator",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:unpowered_comparator"
+          },
+          "enum_id": null,
+          "name": "Comparator",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Comparator",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 12
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:conduit"
+          },
+          "enum_id": null,
+          "name": "Conduit",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Conduit",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 35
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:copper_golem_statue"
+          },
+          "enum_id": null,
+          "name": "CopperGolemStatue",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:exposed_copper_golem_statue"
+          },
+          "enum_id": null,
+          "name": "CopperGolemStatue",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:oxidized_copper_golem_statue"
+          },
+          "enum_id": null,
+          "name": "CopperGolemStatue",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "CopperGolemStatue",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 8,
+      "observed_enum_ids": [],
+      "reference_enum_id": 60
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:crafter"
+          },
+          "enum_id": null,
+          "name": "Crafter",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Crafter",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 55
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:crafting_table"
+          },
+          "enum_id": null,
+          "name": "CraftingTable",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "CraftingTable",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 253
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:creaking_heart"
+          },
+          "enum_id": null,
+          "name": "CreakingHeart",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "CreakingHeart",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 58
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:daylight_detector"
+          },
+          "enum_id": null,
+          "name": "DaylightDetector",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:daylight_detector_inverted"
+          },
+          "enum_id": null,
+          "name": "DaylightDetector",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "DaylightDetector",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 10
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:decorated_pot"
+          },
+          "enum_id": null,
+          "name": "DecoratedPot",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "DecoratedPot",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 53
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:dispenser"
+          },
+          "enum_id": null,
+          "name": "Dispenser",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Dispenser",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 13
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:dropper"
+          },
+          "enum_id": null,
+          "name": "Dropper",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Dropper",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 14
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:enchanting_table"
+          },
+          "enum_id": null,
+          "name": "EnchantTable",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "EnchantTable",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 9
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:end_gateway"
+          },
+          "enum_id": null,
+          "name": "EndGateway",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "EndGateway",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 24
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:end_portal"
+          },
+          "enum_id": null,
+          "name": "EndPortal",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "EndPortal",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 22
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:ender_chest"
+          },
+          "enum_id": null,
+          "name": "EnderChest",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "EnderChest",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 23
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:flower_pot"
+          },
+          "enum_id": null,
+          "name": "FlowerPot",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "FlowerPot",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 7
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:furnace"
+          },
+          "enum_id": null,
+          "name": "Furnace",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lit_furnace"
+          },
+          "enum_id": null,
+          "name": "Furnace",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Furnace",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 1
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:glow_frame"
+          },
+          "enum_id": null,
+          "name": "GlowItemFrame",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "GlowItemFrame",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 47
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:acacia_hanging_sign"
+          },
+          "enum_id": null,
+          "name": "HangingSign",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:bamboo_hanging_sign"
+          },
+          "enum_id": null,
+          "name": "HangingSign",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:birch_hanging_sign"
+          },
+          "enum_id": null,
+          "name": "HangingSign",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "HangingSign",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 12,
+      "observed_enum_ids": [],
+      "reference_enum_id": 50
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:hopper"
+          },
+          "enum_id": null,
+          "name": "Hopper",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Hopper",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 15
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:frame"
+          },
+          "enum_id": null,
+          "name": "ItemFrame",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "ItemFrame",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 17
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:jigsaw"
+          },
+          "enum_id": null,
+          "name": "JigsawBlock",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "JigsawBlock",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 36
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:jukebox"
+          },
+          "enum_id": null,
+          "name": "Jukebox",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Jukebox",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 33
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lectern"
+          },
+          "enum_id": null,
+          "name": "Lectern",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Lectern",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 37
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lodestone"
+          },
+          "enum_id": null,
+          "name": "Lodestone",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Lodestone",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 44
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:mob_spawner"
+          },
+          "enum_id": null,
+          "name": "MobSpawner",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "MobSpawner",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 5
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:moving_block"
+          },
+          "enum_id": null,
+          "name": "MovingBlock",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "MovingBlock",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 19
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:noteblock"
+          },
+          "enum_id": null,
+          "name": "Music",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Music",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 11
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:netherreactor"
+          },
+          "enum_id": null,
+          "name": "NetherReactor",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "NetherReactor",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 3
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:piston"
+          },
+          "enum_id": null,
+          "name": "PistonArm",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:sticky_piston"
+          },
+          "enum_id": null,
+          "name": "PistonArm",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "PistonArm",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 18
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:sculk_catalyst"
+          },
+          "enum_id": null,
+          "name": "SculkCatalyst",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "SculkCatalyst",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 48
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:sculk_sensor"
+          },
+          "enum_id": null,
+          "name": "SculkSensor",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "SculkSensor",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 45
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:sculk_shrieker"
+          },
+          "enum_id": null,
+          "name": "SculkShrieker",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "SculkShrieker",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 49
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:acacia_shelf"
+          },
+          "enum_id": null,
+          "name": "Shelf",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:bamboo_shelf"
+          },
+          "enum_id": null,
+          "name": "Shelf",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:birch_shelf"
+          },
+          "enum_id": null,
+          "name": "Shelf",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Shelf",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 12,
+      "observed_enum_ids": [],
+      "reference_enum_id": 59
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:black_shulker_box"
+          },
+          "enum_id": null,
+          "name": "ShulkerBox",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:blue_shulker_box"
+          },
+          "enum_id": null,
+          "name": "ShulkerBox",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:brown_shulker_box"
+          },
+          "enum_id": null,
+          "name": "ShulkerBox",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "ShulkerBox",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 17,
+      "observed_enum_ids": [],
+      "reference_enum_id": 25
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:acacia_standing_sign"
+          },
+          "enum_id": null,
+          "name": "Sign",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:acacia_wall_sign"
+          },
+          "enum_id": null,
+          "name": "Sign",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:bamboo_standing_sign"
+          },
+          "enum_id": null,
+          "name": "Sign",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Sign",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 24,
+      "observed_enum_ids": [],
+      "reference_enum_id": 4
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:creeper_head"
+          },
+          "enum_id": null,
+          "name": "Skull",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:dragon_head"
+          },
+          "enum_id": null,
+          "name": "Skull",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:piglin_head"
+          },
+          "enum_id": null,
+          "name": "Skull",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Skull",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 7,
+      "observed_enum_ids": [],
+      "reference_enum_id": 6
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:lit_smoker"
+          },
+          "enum_id": null,
+          "name": "Smoker",
+          "source": "block_entities.nbt"
+        },
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:smoker"
+          },
+          "enum_id": null,
+          "name": "Smoker",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Smoker",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 2,
+      "observed_enum_ids": [],
+      "reference_enum_id": 39
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:spore_blossom"
+          },
+          "enum_id": null,
+          "name": "SporeBlossom",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "SporeBlossom",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 46
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:structure_block"
+          },
+          "enum_id": null,
+          "name": "StructureBlock",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "StructureBlock",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 32
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:trial_spawner"
+          },
+          "enum_id": null,
+          "name": "TrialSpawner",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "TrialSpawner",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 56
+    },
+    {
+      "examples": [
+        {
+          "block": {
+            "aux": 0,
+            "name": "minecraft:vault"
+          },
+          "enum_id": null,
+          "name": "Vault",
+          "source": "block_entities.nbt"
+        }
+      ],
+      "name": "Vault",
+      "numeric_id_verified_by_input": false,
+      "observed_count": 1,
+      "observed_enum_ids": [],
+      "reference_enum_id": 57
+    }
+  ],
+  "notes": [
+    "Root NBT string IDs confirm observed names only, not numeric enum IDs.",
+    "Unobserved names are not evidence of missing native support.",
+    "Input provenance and native version must be verified independently.",
+    "This audit never changes the reference or runtime block entity policy."
+  ],
+  "numeric_id_conflicts": [],
+  "observed_entity_name_count": 57,
+  "observed_palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "observed_version": "NEMC 3.9.0.401155",
+  "reference_entity_count": 59,
+  "reference_names_unobserved_in_sample": [
+    "ModBlock",
+    "NeteaseContainer"
+  ],
+  "reference_source": {
+    "description": "BlockEntity enum numeric IDs and names transcribed from the user's complete reference list",
+    "kind": "user_provided",
+    "provided_date": "2026-10-10"
+  },
+  "reference_version": {
+    "label": "nemc_3.9_reference",
+    "native_verified": false,
+    "status": "unconfirmed_until_native_observation"
+  },
+  "schema_version": 1,
+  "unknown_observed_names": []
+}

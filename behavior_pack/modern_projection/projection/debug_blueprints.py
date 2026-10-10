@@ -6,6 +6,7 @@ from .cell import AIR, _covered_snow, make_cell
 from .model import Document
 from .block_groups import group_partner, hydrate_chest_actor
 from .visible_actor import compose_actor
+from .nbt_spatial import root_payload, scalar
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -55,10 +56,15 @@ class Fixture(object):
         if not self.document.contains(pos):
             raise ValueError('测试场景超出蓝图范围')
         actor = None
+        from .debug_entity_defaults import nbt as native_nbt
+        nbt = native_nbt(value[0], pos)
         if entity is not None:
-            nbt = {'id': tag(entity, 8)}
-            nbt.update((axis, tag(pos[index], 3)) for index, axis in enumerate(('x', 'y', 'z')))
-            nbt.update(fields or {})
+            if nbt is None:
+                raise ValueError('Native default entity payload is unavailable: ' + value[0])
+            if scalar(root_payload(nbt), 'id') != entity:
+                raise ValueError('Native fixture entity association needs updating: ' + value[0])
+            root_payload(nbt).update(fields or {})
+        if nbt is not None:
             actor = compose_actor({} if render is None else render, nbt)
         self.document.blocks[pos] = make_cell(value, back, actor)
 
