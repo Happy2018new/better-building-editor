@@ -87,6 +87,53 @@ class WorldCaptureTests(unittest.TestCase):
 
         self.assertEqual(wall, foreground(document.get((0, 0, 0))))
 
+    def test_real_snowlogging_uses_snow_foreground_and_plant_background(self):
+        snow = ('minecraft:snow_layer', 9)
+        grass = ('minecraft:short_grass', 0)
+        source = {
+            'volume': (1, 1, 1),
+            'common': {snow: [0]},
+            'states': {snow: {'covered_bit': True, 'height': 1}},
+            'extra': {grass: [0]},
+            'extraStates': {grass: {}},
+            'actor': {},
+        }
+        document = Document((1, 1, 1))
+
+        merge_palette(document, source, (0, 0, 0), (1, 1, 1), (100, 64, 200))
+
+        cell = document.get((0, 0, 0))
+        self.assertEqual(snow, foreground(cell))
+        self.assertEqual(grass, background(cell))
+        self.assertIsNone(actor_data(cell))
+        output = document.palette_data()
+        self.assertEqual(source['common'], output['common'])
+        self.assertEqual(source['extra'], output['extra'])
+
+    def test_real_client_double_chest_actor_render_data_stays_independent(self):
+        chest = ('minecraft:chest', 2)
+        main = {'chestMainSubChest': True, 'chestModelOffset': 0.,
+                'chestIsLargeChest': True, 'facingDirection': 2,
+                'chestOpenness': 0., 'chestOldOpenness': 0.,
+                'chestIsGlobalChest': False}
+        secondary = dict(main, chestMainSubChest=False, chestModelOffset=-.5)
+        source = {
+            'volume': (1, 2, 1), 'common': {chest: [0, 1]},
+            'states': {chest: states(chest)},
+            'actor': {'minecraft:chest': {0: main, 1: secondary}},
+        }
+        document = Document((2, 1, 1))
+
+        merge_palette(document, source, (0, 0, 0), (2, 1, 1), (100, 64, 200))
+
+        self.assertEqual(main, actor_data(document.get((0, 0, 0))))
+        self.assertEqual(secondary, actor_data(document.get((1, 0, 0))))
+        output = document.palette_data()
+        self.assertEqual(source['actor'], output['actor'])
+        actor_data(document.get((0, 0, 0)))['chestModelOffset'] = 10.
+        self.assertEqual(0., actor_data(document.get((0, 0, 0)))['chestModelOffset'])
+        self.assertEqual(-.5, actor_data(document.get((1, 0, 0)))['chestModelOffset'])
+
     def test_capture_rejects_unloaded_or_unknown_chunk_edges(self):
         loaded = {(0, 0, 0), (0, 0, 1)}
         with self.assertRaisesRegex(ValueError, '未加载区块'):
