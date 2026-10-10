@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack'))
 from modern_projection.projection.model import Document, AIR
 from modern_projection.projection.large_preview import SurfacePalette
 from modern_projection.projection.occupancy import ProjectionOccupancy, POLL_LIMIT, MAX_HINTS
+from modern_projection.projection.cell import make_cell
 
 STONE = ('minecraft:stone', 0)
 
@@ -128,6 +129,35 @@ class OccupancyReviewTests(unittest.TestCase):
         model, anchor, unused = o.pending_model
         o.pending_model = None
         o.replace(model, anchor)
+
+    def test_cached_projection_updates_preserve_background_and_actor(self):
+        water = ('minecraft:water', 0)
+        chest = ('minecraft:chest', 2)
+        actor = {'id': 'Chest', 'x': 1, 'y': 0, 'z': 0}
+        document = Document((2, 1, 1), {
+            (0, 0, 0): make_cell(AIR, water),
+            (1, 0, 0): make_cell(chest, water, actor),
+        })
+        o, unused, runtime = self.tracker(document)
+        self.prepare(o)
+        self.assertEqual({chest: [1]}, o.output.common)
+        self.assertEqual({water: [0, 1]}, o.output.extra)
+        self.assertEqual({'minecraft:chest': {1: actor}}, o.output.actor)
+        self.assertEqual(3, o.output.count)
+
+        self.set_world(o, runtime, (1, 0, 0), STONE)
+        self.prepare(o)
+        self.assertEqual({}, o.output.common)
+        self.assertEqual({water: [0]}, o.output.extra)
+        self.assertEqual({}, o.output.actor)
+        self.assertEqual(1, o.output.count)
+
+        self.set_world(o, runtime, (1, 0, 0), AIR)
+        self.prepare(o)
+        self.assertEqual({chest: [1]}, o.output.common)
+        self.assertEqual({water: [0, 1]}, o.output.extra)
+        self.assertEqual({'minecraft:chest': {1: actor}}, o.output.actor)
+        self.assertEqual(3, o.output.count)
 
     def test_nonair_types_hide_and_restore_with_batched_buffers(self):
         for value in (('minecraft:glass', 0), ('minecraft:stone_slab', 3),

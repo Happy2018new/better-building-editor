@@ -6,6 +6,7 @@ from modern_projection.projection.model import Document
 from modern_projection.projection.occupancy import ProjectionOccupancy
 from modern_projection.projection.occupancy_initial import prepare_chunk
 from modern_projection.projection.large_preview import SurfacePalette
+from modern_projection.projection.cell import AIR, make_cell
 
 class InitialChunkTests(unittest.TestCase):
     def build(self, document, state=1, hidden=(), layer=None):
@@ -23,13 +24,18 @@ class InitialChunkTests(unittest.TestCase):
         for key in sorted(document.blocks.chunks):
             size=tuple(min(16,document.size[i]-key[i]*16) for i in range(3))
             for unused in prepare_chunk(o,document.blocks,key,size,output):pass
-        expected=[p for p in document.blocks if p[1] not in hidden and (layer is None or p[1]==layer)]
-        self.assertEqual(set(expected),set(o.targets))
-        expected_indices={o.index(p) for p in expected} if state!=2 else set()
-        actual=[i for group in output.common.values() for i in group]
-        self.assertEqual(expected_indices,set(actual))
-        self.assertEqual(len(expected_indices),output.count)
-        self.assertEqual(len(actual),len(set(actual)))
+        expected={p for p in document.blocks if p[1] not in hidden and (layer is None or p[1]==layer)}
+        self.assertEqual(expected,set(o.targets))
+        expected_data = document.palette_data(lambda p: p in expected and state != 2)
+        for key in ('common', 'extra'):
+            self.assertEqual(dict((value, sorted(indices)) for value, indices in expected_data[key].items()),
+                             dict((value, sorted(indices)) for value, indices in getattr(output, key).items()))
+        self.assertEqual(expected_data['actor'], output.actor)
+        self.assertEqual(sum(len(indices) for key in ('common', 'extra')
+                             for indices in expected_data[key].values()), output.count)
+        for data in (output.common, output.extra):
+            actual=[i for group in data.values() for i in group]
+            self.assertEqual(len(actual),len(set(actual)))
         for key,common in o.cached.items():
             for value,indices in common.items():
                 for slot,index in enumerate(indices):self.assertEqual(slot,o.slots[index])
@@ -50,5 +56,26 @@ class InitialChunkTests(unittest.TestCase):
             for y in range(21) for z in range(23) if (x+y+z)%5==0})
         self.build(document,hidden=(3,17))
         self.build(document,layer=20)
+
+    def test_initial_chunk_keeps_background_only_cells_and_client_actors(self):
+        water = ('minecraft:water', 0)
+        chest = ('minecraft:chest', 2)
+        snow = ('minecraft:snow_layer', 2)
+        actor = {'id': 'Chest', 'x': 16, 'y': 0, 'z': 0}
+        document = Document((32, 16, 16), {
+            (15, 0, 0): make_cell(AIR, water),
+            (16, 0, 0): make_cell(chest, water, actor),
+            (16, 1, 0): make_cell(('minecraft:short_grass', 0), snow),
+        })
+        self.build(document)
+        self.build(document, state=2)
+        self.build(document, hidden=(1,))
+
+    def test_uniform_complete_chunk_expands_both_layers_without_world_reads(self):
+        document = Document((32, 16, 16))
+        document.blocks.fill_chunk((0, 0, 0), make_cell(STONE, ('minecraft:water', 0)))
+        document.blocks.fill_chunk((1, 0, 0), make_cell(AIR, ('minecraft:water', 0)))
+        self.build(document)
+        self.build(document, state=2)
 
 if __name__=='__main__':unittest.main()

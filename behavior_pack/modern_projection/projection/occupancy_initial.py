@@ -62,5 +62,4 @@ def prepare_chunk(tracker, store, key, size, output):
         t.targets.count += count
     for value, indices in common.items():
         if indices:
-            output.common.setdefault(value, []).extend(indices)
-            output.count += len(indices)
+            output.add_indices(value, indices)

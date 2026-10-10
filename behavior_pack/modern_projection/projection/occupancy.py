@@ -262,8 +262,7 @@ class ProjectionOccupancy(object):
         for common in self.cached.values():
             for value, indices in common.items():
                 if indices:
-                    self.output.common.setdefault(value, []).extend(indices)
-                    self.output.count += len(indices)
+                    self.output.add_indices(value, indices)
             yield True
 
     def tick(self):
