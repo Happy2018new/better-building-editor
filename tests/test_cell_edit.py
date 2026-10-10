@@ -100,6 +100,20 @@ class CellEditTests(unittest.TestCase):
         self.assertEqual(PLANT, edit_cell(combined, AIR, 2))
         self.assertEqual(STONE, edit_cell(combined, STONE, 2))
 
+    def test_automatic_erasure_preserves_imported_background_without_capability_queries(self):
+        for front, back in ((self.covered(), ('minecraft:tall_grass', 0)),
+                            (STONE, FERN), (FENCE, WATER)):
+            with self.subTest(front=front, back=back), \
+                    patch('projection.block_traits.is_snow_coverable',
+                          side_effect=AssertionError('erasure does not validate placement')), \
+                    patch('projection.block_traits.is_waterloggable',
+                          side_effect=AssertionError('erasure does not validate placement')):
+                combined = make_cell(front, back, {'source': 'foreground'})
+                result = edit_cell(combined, AIR, 2)
+                self.assertEqual(back, result)
+                self.assertIsNone(actor_data(result))
+                self.assertEqual(AIR, edit_cell(result, AIR, 2))
+
     def test_automatic_mode_handles_background_only_cells_without_extra_steps(self):
         self.assertEqual(make_cell(FENCE, WATER), edit_cell(make_cell(AIR, WATER), FENCE, 2))
         self.assertEqual(make_cell(self.covered(), PLANT), edit_cell(make_cell(AIR, PLANT), SNOW, 2))

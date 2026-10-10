@@ -301,11 +301,9 @@ def _edit_auto(value, material):
     if front == AIR:
         front, back = back, AIR
         value = make_cell(front)
-    covered_plant = _snow(front) and is_snow_coverable(back)
     if replacement == AIR:
-        if covered_plant or _water(back):
-            return make_cell(back)
-        return replace_layer(value, AIR)
+        return make_cell(back)
+    covered_plant = _snow(front) and is_snow_coverable(back)
     if _snow(front) and is_snow_coverable(replacement):
         return make_cell(_covered_snow(front, True), replacement)
     if _snow(replacement):
