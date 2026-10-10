@@ -123,6 +123,19 @@ for pos,value in cells:assert adapter.write(pos,tuple(value)),(pos,value)
 _result=True
 '''
 
+SUPPORT_CONTEXT = '''supports=%r
+origin=tuple(s.origin)
+cells=[]
+for world,value in supports:
+ pos=tuple(world[i]-origin[i] for i in range(3))
+ assert all(0<=pos[i]<s.editor.document.size[i] for i in range(3)),pos
+ s.editor.document.blocks[pos]=tuple(value)
+ sys._neighbor_qa_occupied.add(pos)
+ cells.append((pos,value))
+sys._neighbor_qa_document=s.editor.document.blocks.copy()
+_result=json.dumps({'cells':cells,'rendered':False,'native_context':True})
+'''
+
 REPLICATION = '''from modern_projection.projection.model import Document
 from modern_projection.projection.world_capture import merge_palette
 from modern_projection.projection.cell import foreground
@@ -354,6 +367,9 @@ def world_case(check, label, args, row):
             run(check.client, WRITE_SUPPORTS % (supports,))
             replication(check, supports, False)
             assert control_pixels >= args.min_pixels, row['views'][view]['support_positive_control']
+    # Real supports influence native tessellation even when they are occupied
+    # and therefore absent from the missing-only projection's rendered cells.
+    row['support_context'] = check.run(SUPPORT_CONTEXT % (supports,))
     check.run('b.project()\n_result=True')
     initial_air = native.projection_ready(check, occupied)
     assert initial_air['state'] == 1, initial_air

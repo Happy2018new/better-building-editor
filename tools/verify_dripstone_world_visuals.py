@@ -18,14 +18,14 @@ native.VISUAL_CASES = {
     'merged_tips': metadata['merged_tips'],
 }
 world.CASES = tuple(native.VISUAL_CASES)
-world.CELL_HEIGHT = 1.
+world.CELL_HEIGHT = metadata['camera']['cell_hull_height']
 native.CELL_ROIS = native.CELL_ROIS.replace('(0.,1.6)', '(0.,1.)')
 original_offset = native.view_offset
 
 
 def side_offset(keep, occupied, view, override=None):
     if override is None and view == 'side':
-        return (0., 0., 8.)
+        return metadata['camera']['offset']
     return original_offset(keep, occupied, view, override)
 
 

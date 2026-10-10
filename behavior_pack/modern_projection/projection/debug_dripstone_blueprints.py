@@ -12,6 +12,7 @@ VISUAL_CASE = {
                     for index, length in enumerate(range(1, 6))),
     'merged_tips': ((27, 3, 18), (27, 4, 18)),
     'vertical_chunk_cells': ((23, 16, 11), (23, 15, 11)),
+    'camera': {'view': 'side', 'offset': (0., 0., 8.), 'cell_hull_height': 1.},
 }
 
 
