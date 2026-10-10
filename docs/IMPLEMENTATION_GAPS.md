@@ -56,6 +56,10 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **第五轮 04:55 工具接续：** 集成 `894c7f7` 将 palette／`SetBlockNew`／物品放置的本体正控分别按干／湿格计数，`385beec` 为相机标定加入可恢复的晴天中午／关云和 10 秒天气过渡等待，`f391b5c` 通过实际语义状态计算原生 aux；16 项相机工具检查通过，像素门槛和相机数学未修改。实体代理的首两次三写法测试分别遇到路由绑定和旧工作树 actor 归属解析问题，均在正控采集前失败且现场已恢复，不计作本体证据；已补入接受的 `f47b2a6` 数据适配后继续。三个代理状态已核对，实际有效游戏窗口为三个；根工作树随后冷启动湿六例，静态连缀和蘑菇边界依次取得桌面。07:30 任务再次确认为 Ready／Enabled，动作 `shutdown.exe /h`，Windows 明确支持休眠。截止与收尾时刻不变。
 
+**第五轮 05:28 接续：** 液体候选 `96e80f8` 的冷启动实例 `1d68d2be68cb45fe83f8f4be373af02d` 在入世界前触发原生断言：`Nested variant is missing a parent instantiation`，条件 `leafVariantName.empty()`，`cg::RenderMaterialBase::parseVariantWithInheritance`，`RenderMaterialBase.cpp:216`。该实例及其 MCDK 进程已按 owner 校验后停止，世界和 `.runtime/root-r5-liquids-cold-assert.png` 保留；不能算作湿六例执行。生成器现改为保留原生 `name:parent` 身份、完整祖先及 `fog.underwater` 变体，并合并自定义 additive flags；7 项定点测试和生成一致性检查通过，仍待冷启动及独立水面／本体验收。
+
+实体代理的干燥三写法报告 `.runtime/native-actor-three-write-r5-dry-final.json` 已完成／恢复且无清理错误；陶罐的 palette／`SetBlockNew`／物品三个本体正控均为零像素，全部仍失败。三种写法都追加相同的 `SetBlockEntityData`，因此尚未排除其影响，也没有证据证明 shader uniform 实际泄漏；需增加赋 NBT 前后对照。湿告示牌因跳过逻辑仍发送 Esc 导致暂停，其物品路径不作为有效本体证据。`d838520` 保存重放原始正控、防止跳过时误发 Esc 及 raw/canonical 液体读回；`38c2c20` 保存原生 AABB 空值／非有限／零体积拒绝，四个相等 `None` 不再被误判为一致。桌面当前交给冻结的邻接验收，随后含雪边界和根含水冷启动；截止与休眠任务不变。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。

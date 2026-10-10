@@ -1,5 +1,6 @@
 """Bind native liquid mesh descendants explicitly instead of relying on inheritance."""
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -70,12 +71,58 @@ def checked_descendants(source, manifest):
     return result
 
 
-def adapted_materials(current, descendants):
-    result = dict(current)
+def material_entries(materials):
+    entries = {}
+    for key, definition in materials.items():
+        if key == 'version':
+            continue
+        name, separator, parent = key.partition(':')
+        if name in entries:
+            raise ValueError('Duplicate material identity: ' + name)
+        entries[name] = (key, parent if separator else None, definition)
+    return entries
+
+
+def merge_overrides(native, overrides):
+    result = copy.deepcopy(native)
+    for key, value in overrides.items():
+        if key.startswith('+') and isinstance(value, list):
+            existing = result.get(key, [])
+            if not isinstance(existing, list):
+                raise ValueError('Native additive material property is not a list: ' + key)
+            result[key] = existing + [copy.deepcopy(item) for item in value if item not in existing]
+        else:
+            result[key] = copy.deepcopy(value)
+    return result
+
+
+def adapted_materials(current, descendants, native_materials):
+    entries = material_entries(native_materials)
+    overrides = material_entries(current)
+    required = set()
     for name in descendants:
-        definition = dict(result.get(name, {}))
-        definition.update(vertexShader=VERTEX, fragmentShader=FRAGMENT)
-        result[name] = definition
+        chain = set()
+        while name is not None:
+            if name in chain:
+                raise ValueError('Native material inheritance cycle: ' + name)
+            if name not in entries:
+                raise ValueError('Native material ancestor is missing: ' + name)
+            chain.add(name)
+            required.add(name)
+            name = entries[name][1]
+    result = copy.deepcopy(current)
+    # A bare override loses the parent variants needed by nested fog.underwater.
+    for name in sorted(required):
+        key, parent, definition = entries[name]
+        previous = overrides.get(name)
+        if previous is not None:
+            result.pop(previous[0])
+            definition = merge_overrides(definition, previous[2])
+        else:
+            definition = copy.deepcopy(definition)
+        if name in descendants:
+            definition.update(vertexShader=VERTEX, fragmentShader=FRAGMENT)
+        result[key] = definition
     return result
 
 
@@ -100,7 +147,7 @@ def main():
     destination = ROOT/'resource_pack/materials/terrain.material'
     data = json.loads(destination.read_text(encoding='utf8'))
     materials = data['materials']
-    adapted = adapted_materials(materials, descendants)
+    adapted = adapted_materials(materials, descendants, parse_native(source['native_text']))
     if args.check:
         if adapted != materials:
             raise ValueError('Native liquid shader bindings are stale')
