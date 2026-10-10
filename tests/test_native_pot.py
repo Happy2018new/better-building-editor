@@ -13,6 +13,9 @@ from projection.native_pot import native_pot_actor
 from projection.state_transform import transform
 from projection.geometry_palette import prepare_palette
 from projection.visible_actor import compose_actor
+from projection.cell import actor_data, foreground
+from projection.debug_blueprints import build, VISUAL_CASES
+from projection.entity_render import native_actor
 
 
 class NativePotTests(unittest.TestCase):
@@ -59,6 +62,43 @@ class NativePotTests(unittest.TestCase):
         with patch.object(registry,'fingerprint',return_value='future'):
             with self.assertRaisesRegex(ValueError,'observations'):
                 native_pot_actor(('minecraft:decorated_pot',0),None)
+
+    def test_full_nbt_alone_rebuilds_each_observed_nondefault_renderer(self):
+        data = json.loads((ROOT / 'tools/data/native_pot_sherds_nemc_3.9.0.401155.json').read_text())
+        for row in data['rows']:
+            actor = compose_actor({}, copy.deepcopy(row['nbt']))
+            before = copy.deepcopy(actor)
+            material = ('minecraft:decorated_pot', row['aux'])
+            self.assertEqual(row['client']['actor'], native_pot_actor(material, {}, actor))
+            source = {'volume': (1, 1, 1), 'common': {material: [0]},
+                      'actor': {material[0]: {0: actor}}}
+            self.assertEqual(row['client']['actor'], prepare_palette(source)['actor'][material[0]][0])
+            self.assertEqual(before, actor)
+
+    def test_invalid_sherd_payload_keeps_client_artwork_without_partial_overwrite(self):
+        material = ('minecraft:decorated_pot', 0)
+        renderer = {'decoratedPotShredNames0': 'minecraft:angler_pottery_sherd'}
+        for sherds in ([], [{'__type__': 3, '__value__': 'minecraft:brick'}] * 4,
+                       [{'__type__': 8, '__value__': 'minecraft:brick'}] * 3 + [None]):
+            actor = compose_actor(renderer, {'id': {'__type__': 8, '__value__': 'DecoratedPot'},
+                                             'sherds': sherds})
+            before = copy.deepcopy(actor)
+            result = native_pot_actor(material, renderer, actor)
+            self.assertEqual('minecraft:angler_pottery_sherd', result['decoratedPotShredNames0'])
+            self.assertEqual('', result['decoratedPotShredNames1'])
+            self.assertEqual(before, actor)
+
+    def test_public_pottery_cases_use_full_nbt_without_cached_renderer_fields(self):
+        from projection.debug_pot_blueprints import SHERDS
+        case = VISUAL_CASES['pot_artwork']
+        document = build(case['fixture'])
+        self.assertEqual(4, len(case['cases']))
+        for row in case['cases']:
+            value = document.get(row['position'])
+            renderer = native_actor(foreground(value), actor_data(value))
+            self.assertEqual(row['direction'], renderer['direction'])
+            self.assertEqual(list(SHERDS), [renderer['decoratedPotShredNames' + str(index)]
+                                          for index in range(4)])
 
 
 if __name__=='__main__':

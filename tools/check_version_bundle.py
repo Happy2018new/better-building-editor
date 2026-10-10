@@ -11,14 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 MODULES = (
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
-    'native_sign_data', 'native_pot_data',
+    'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
     'water_interaction_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
     'native_paired_snow', 'native_block_entity_defaults',
     'native_entity_appearances', 'native_entity_renderers',
-    'native_frame_rotations', 'native_signs', 'native_pot_poses',
+    'native_frame_rotations', 'native_signs', 'native_pot_poses', 'native_pot_sherds',
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
     'native_snow_states',
@@ -75,6 +75,7 @@ def commands(manifest, tests=False):
         ['tools/generate_shulker_proxies.py', '--check'],
         ['tools/generate_copper_chest_proxies.py', '--check'],
         ['tools/generate_water_interactions.py', '--check'],
+        ['tools/generate_native_pot_sherds.py', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

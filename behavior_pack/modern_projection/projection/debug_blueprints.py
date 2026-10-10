@@ -9,6 +9,7 @@ from .visible_actor import compose_actor
 from .nbt_spatial import root_payload, scalar
 from .debug_sign_blueprints import METADATA as SIGN_METADATA, VISUAL_CASE as SIGN_VISUAL_CASE
 from .debug_water_blueprints import METADATA as WATER_METADATA, VISUAL_CASE as WATER_VISUAL_CASE
+from .debug_pot_blueprints import METADATA as POT_METADATA, VISUAL_CASE as POT_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -26,10 +27,12 @@ BLUEPRINTS = (
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
     WATER_METADATA,
+    POT_METADATA,
 )
 VISUAL_CASES = {
     'water_behaviors': WATER_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
+    'pot_artwork': POT_VISUAL_CASE,
     'snow_plant_visibility': {
         'schema': 2, 'fixture': 'test.layers.snow',
         'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
@@ -268,6 +271,9 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == POT_METADATA[0]:
+            from .debug_pot_blueprints import populate
+            return populate(fixture)
         if identity == SIGN_METADATA[0]:
             from .debug_sign_blueprints import populate
             return populate(fixture)

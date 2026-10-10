@@ -43,7 +43,7 @@ def native_actor(material, actor):
     sign = native_sign_actor(material, actor, renderer)
     if sign is not None:
         return sign
-    pot = native_pot_actor(material, renderer)
+    pot = native_pot_actor(material, renderer, actor)
     if pot is not None:
         return pot
     if material[0] == 'minecraft:bed':
