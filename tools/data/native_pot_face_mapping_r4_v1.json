@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "scope": "Native NBT sherd index to world face, manually identified from original pattern textures and eight native screenshots. Mirror rule verifies artwork face placement; no independent live mirror capture or texture pixel reflection is claimed.",
+  "source_report": {
+    "path": ".runtime/pot-four-directions-r4-v3/report.json",
+    "sha256": "0e3edaef15d3e13b8a146d174a5891bf1fdae5bffc1de95efc400a7618eed68a",
+    "completed": true,
+    "passed": true,
+    "restored": true,
+    "native_position": [12, -20, 12],
+    "nbt_id": "DecoratedPot",
+    "nbt_to_renderer": "sherds[i] -> decoratedPotShredNames{i}"
+  },
+  "sherds": [
+    {"index": 0, "name": "minecraft:angler_pottery_sherd", "pattern": "textures/blocks/angler_pottery_pattern.png", "pattern_sha256": "0ec259dd0c4b36dcdede6052de9a76e82560ca1d7ad4c7b3980553aff31afcd3", "observed_motif": "fishing rod"},
+    {"index": 1, "name": "minecraft:archer_pottery_sherd", "pattern": "textures/blocks/archer_pottery_pattern.png", "pattern_sha256": "d9ba5bc02c649840d714d2250ca8f2a179d3f62d5e6caab33049e398b83e1337", "observed_motif": "bow and arrow"},
+    {"index": 2, "name": "minecraft:arms_up_pottery_sherd", "pattern": "textures/blocks/arms_up_pottery_pattern.png", "pattern_sha256": "839bfdddfb54547ab2fff99a731cb2b90a21b64290af2f3f47732576226fe04e", "observed_motif": "raised-arms figure"},
+    {"index": 3, "name": "minecraft:blade_pottery_sherd", "pattern": "textures/blocks/blade_pottery_pattern.png", "pattern_sha256": "a0616a77058242514a898212b0c7304b6057ef27286a1150c2a5598e957fb021", "observed_motif": "sword"}
+  ],
+  "cameras": {
+    "front": {
+      "position": [10.0, -19.8, 9.0], "target": [12.5, -19.5, 12.5],
+      "visible_world_faces": ["north", "west"],
+      "screen_left_face": "north", "screen_right_face": "west",
+      "reason": "Camera is northwest of the pot. The horizontal screen-right vector is (-3.5, 2.5) in world (x,z); from the northwest pot corner the north face extends toward +x and screen left, while the west face extends toward +z and screen right."
+    },
+    "back": {
+      "position": [15.0, -19.2, 16.0], "target": [12.5, -19.5, 12.5],
+      "visible_world_faces": ["south", "east"],
+      "screen_left_face": "south", "screen_right_face": "east",
+      "reason": "Camera is southeast. The horizontal screen-right vector is (3.5, -2.5); the south face extends toward -x and screen left, and the east face extends toward -z and screen right. View labels front/back are capture labels, not the pot's logical local front/back."
+    }
+  },
+  "directions": [
+    {"direction": 0, "index_to_world_face": ["north", "west", "east", "south"],
+     "views": [
+       {"camera": "front", "screen_left_index": 0, "screen_right_index": 1, "native": "report_direction_0_front_native.jpg", "sha256": "e48b71da9c7c71c56c2878346b7504afb54b1e40c936c2afaa7c513fe7ae63b7"},
+       {"camera": "back", "screen_left_index": 3, "screen_right_index": 2, "native": "report_direction_0_back_native.jpg", "sha256": "82701d3897d6068e2519d23f51064571b2ac256141778c0d505053f29ddf76f1"}]},
+    {"direction": 1, "index_to_world_face": ["east", "north", "south", "west"],
+     "views": [
+       {"camera": "front", "screen_left_index": 1, "screen_right_index": 3, "native": "report_direction_1_front_native.jpg", "sha256": "f4927a30abf0cceb4f78cd82b170835f924318cc2a2b65f76249184d315435e7"},
+       {"camera": "back", "screen_left_index": 2, "screen_right_index": 0, "native": "report_direction_1_back_native.jpg", "sha256": "0785bd81680d7ecd857a2361c1ee673e7f05d37f6036e7c782691f87bb347f6b"}]},
+    {"direction": 2, "index_to_world_face": ["south", "east", "west", "north"],
+     "views": [
+       {"camera": "front", "screen_left_index": 3, "screen_right_index": 2, "native": "report_direction_2_front_native.jpg", "sha256": "bb49ef981fe7b952bb36b7f341d647e06e10a2233a91f5b3899df8e6f78a43cf"},
+       {"camera": "back", "screen_left_index": 0, "screen_right_index": 1, "native": "report_direction_2_back_native.jpg", "sha256": "8b4267f7380393f9ab143757a20393f1601287b30ef04e6ecf59a9f355956b81"}]},
+    {"direction": 3, "index_to_world_face": ["west", "south", "north", "east"],
+     "views": [
+       {"camera": "front", "screen_left_index": 2, "screen_right_index": 0, "native": "report_direction_3_front_native.jpg", "sha256": "cff37b43f3406ea79ac7f0601ac0090afdcbfed3d53d59289ad4eb8e63a12a75"},
+       {"camera": "back", "screen_left_index": 1, "screen_right_index": 3, "native": "report_direction_3_back_native.jpg", "sha256": "e5c53cba2545c4d097d8a31dc974d73b7a95425104a50a30d50752bf9a053a7e"}]}
+  ],
+  "offline_validation": {
+    "native_screenshots_manually_inspected": 8,
+    "pattern_textures_manually_inspected": 4,
+    "report_screenshot_and_pattern_hashes_verified": true,
+    "all_four_native_nbt_and_renderer_lists_verified": true,
+    "tests": ["test_native_pot_spatial", "test_nbt_spatial", "test_visible_actor_transforms", "test_native_pot"],
+    "tests_passed": 18,
+    "geometric_cases": "4 directions x 6 operations for native NBT; same matrix for renderer-only and full envelopes",
+    "structural_review_files_scanned": 1,
+    "structural_review_findings": 0
+  },
+  "transform_rule": {
+    "direction_front_normals": [[0, 1], [-1, 0], [0, -1], [1, 0]],
+    "rotate_y90_normal": "(x,z) -> (-z,x)",
+    "mirror_x_normal": "(x,z) -> (-x,z)",
+    "mirror_z_normal": "(x,z) -> (x,-z)",
+    "mirror_x_index_permutation": [0, 2, 1, 3],
+    "mirror_z_index_permutation": [0, 2, 1, 3],
+    "rotations_and_mirror_y_index_permutation": [0, 1, 2, 3],
+    "derivation": "Index 3 follows the material front and index 0 its opposite. Reflecting the material front therefore preserves these slots. Either horizontal reflection reverses the two local side normals, requiring slots 1 and 2 to exchange. Four observed directions independently identify all four world faces."
+  }
+}

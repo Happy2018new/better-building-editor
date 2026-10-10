@@ -6,7 +6,7 @@ positions of this block entity. They must never be rewritten recursively.
 """
 from .cell import freeze, thaw, integer_types, text_type
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 OPERATIONS = frozenset(('rotate_y90', 'rotate_y180', 'rotate_y270',
                         'mirror_x', 'mirror_y', 'mirror_z'))
 VISIBLE_DIRECTIONS = (('facingDirection', 'facing_direction', 6),
@@ -111,6 +111,7 @@ def _transform_actor(data, origin, operation, material=None, skull_facing=None):
     _skull_rotation(root, operation, material, skull_facing)
     _frame_rotation(root, operation, material)
     _bed_direction(root, operation, material)
+    _pot_sherds(root, operation, material)
     _directions(root, operation)
     _chest_roles(root, operation)
     _pair_coordinates(root, origin, operation)
@@ -172,6 +173,27 @@ def _bed_direction(root, operation, material):
     record = states(material)
     if record is not None:
         set_scalar(root, 'direction', transform_states(record, operation)['direction'])
+
+
+def _pot_sherds(root, operation, material):
+    if (operation not in ('mirror_x', 'mirror_z') or material is None or
+            material[0] != 'minecraft:decorated_pot'):
+        return
+    identifier = scalar(root, 'id')
+    # Native four-direction captures establish side slots 1/2; front/back stay put.
+    if identifier in ('DecoratedPot', b'DecoratedPot'):
+        sherds = root.get(field_key(root, 'sherds'))
+        if (isinstance(sherds, list) and len(sherds) == 4 and
+                all(isinstance(tag, dict) and scalar(tag, '__type__') == 8 and
+                    isinstance(scalar(tag, '__value__'), (bytes, text_type))
+                    for tag in sherds)):
+            sherds[1], sherds[2] = sherds[2], sherds[1]
+    elif identifier is None and scalar(root, 'decoratedPotShredNamesSize') == 4:
+        fields = tuple('decoratedPotShredNames' + str(index) for index in range(4))
+        names = tuple(scalar(root, field) for field in fields)
+        if all(isinstance(name, (bytes, text_type)) for name in names):
+            set_scalar(root, fields[1], names[2])
+            set_scalar(root, fields[2], names[1])
 
 
 def _directions(root, operation):
