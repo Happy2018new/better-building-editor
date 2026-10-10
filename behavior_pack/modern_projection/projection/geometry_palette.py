@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
-from .block_traits import is_snow_coverable
-from .cell import AIR, _covered_snow
+from .block_traits import is_snow_coverable, is_waterloggable
+from .cell import AIR, _covered_snow, _water
 from .visible_actor import render_actor
 
 
@@ -86,7 +86,8 @@ def _promote_standalone(common, common_states, extra, extra_states):
 
 def _normalize_native_layers(common, common_states, extra, extra_states):
     # Logical layers remain untouched. Native tessellation needs standalone
-    # background blocks in common, and snow before its covered plant.
+    # background blocks in common, snow before its covered plant, and water
+    # after the block whose native state supports that liquid overlay.
     if not extra:
         for value, positions in list(common.items()):
             if value[0] != 'minecraft:snow_layer':
@@ -97,7 +98,8 @@ def _normalize_native_layers(common, common_states, extra, extra_states):
                 common.setdefault(replacement, []).extend(positions)
                 common_states[replacement] = states(replacement)
         return
-    if not any(value[0] == 'minecraft:snow_layer' for value in list(common) + list(extra)):
+    has_snow = any(value[0] == 'minecraft:snow_layer' for value in list(common) + list(extra))
+    if not has_snow and not any(_water(value) for value in common):
         _promote_standalone(common, common_states, extra, extra_states)
         return
     variants = {}
@@ -115,6 +117,7 @@ def _normalize_native_layers(common, common_states, extra, extra_states):
         fronts = dict((index, value) for value, positions in common.items()
                       if value != AIR for index in positions if index in backs)
     front_changes, back_changes = {}, {}
+    water_capabilities = {}
     for index, back in backs.items():
         front = fronts.get(index, AIR)
         if front == AIR:
@@ -124,6 +127,12 @@ def _normalize_native_layers(common, common_states, extra, extra_states):
         elif back[0] == 'minecraft:snow_layer' and is_snow_coverable(front):
             front_changes[index] = snow(back, True)
             back_changes[index] = front
+        elif _water(front):
+            if back not in water_capabilities:
+                water_capabilities[back] = is_waterloggable(back)
+            if water_capabilities[back]:
+                front_changes[index] = back
+                back_changes[index] = front
     for front, positions in common.items():
         if front[0] != 'minecraft:snow_layer':
             continue

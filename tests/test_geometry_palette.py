@@ -4,6 +4,7 @@ import math
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -210,6 +211,42 @@ class GeometryPaletteTests(unittest.TestCase):
         result = prepare_palette({'common': {fence: [0]}, 'extra': {snow: [0]}})
         self.assertEqual({fence: [0]}, result['common'])
         self.assertEqual({snow: [0]}, result['extra'])
+
+    def test_water_in_either_logical_layer_uses_measured_native_foreground_and_liquid_back(self):
+        water = ('minecraft:water', 0)
+        fence = ('minecraft:oak_fence', 0)
+        stone = ('minecraft:stone', 0)
+        slab = ('minecraft:oak_slab', 1)
+        doc = Document((5, 1, 1), {
+            (0, 0, 0): make_cell(fence, water),
+            (1, 0, 0): make_cell(water, fence),
+            (2, 0, 0): make_cell(water, stone),
+            (3, 0, 0): make_cell(back=water),
+            (4, 0, 0): make_cell(water, ('minecraft:wooden_slab', 8))})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+        with patch('projection.geometry_palette.is_waterloggable',
+                   side_effect=lambda value: value in (fence, slab)):
+            result = prepare_palette(source)
+
+        self.assertEqual({fence: [0, 1], water: [2, 3], slab: [4]}, result['common'])
+        self.assertEqual({water: [0, 1, 4], stone: [2]}, result['extra'])
+        self.assertEqual(states(fence), result['states'][fence])
+        self.assertEqual(states(slab), result['states'][slab])
+        self.assertEqual(states(water), result['extraStates'][water])
+        self.assertEqual(saved, source)
+        self.assertEqual(('minecraft:water', 0), tuple(doc.blocks[(1, 0, 0)]))
+
+    def test_water_normalization_respects_partial_native_aux_capabilities(self):
+        water = ('minecraft:water', 0)
+        bottom = ('minecraft:oak_stairs', 0)
+        top = ('minecraft:oak_stairs', 1)
+        source = {'common': {water: [0, 1]}, 'extra': {bottom: [0], top: [1]}}
+        with patch('projection.geometry_palette.is_waterloggable',
+                   side_effect=lambda value: value == bottom):
+            result = prepare_palette(source)
+        self.assertEqual({bottom: [0], water: [1]}, result['common'])
+        self.assertEqual({water: [0], top: [1]}, result['extra'])
 
     def test_mixed_background_promotion_respects_foreground_occupancy_and_native_states(self):
         water = ('minecraft:water', 0)
