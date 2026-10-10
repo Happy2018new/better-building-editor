@@ -11,9 +11,11 @@ from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 from camera_projection import project_points
+from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
 from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, write_json
 from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
 from verify_missing_neighbor_visuals import camera_matches, hull, maximum, signal
+from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
 
 LOAD_CUBE = '''from modern_projection.projection.model import Document,block
 doc=Document((3,3,3),name='Native camera calibration cube')
@@ -178,7 +180,7 @@ def main():
     evidence = {'schema': 1, 'passed': False, 'completed': False, 'views': [],
                 'scope': 'Exact full native client cube; world blocks and player position untouched',
                 'session_file': os.environ.get('MCDEV_SESSION_FILE')}
-    installed = saved = False
+    installed = saved = environment_saved = options_saved = False
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, args.timeout)
@@ -187,6 +189,12 @@ def main():
                 installed = True
                 check.run(SAVE_VISUAL)
                 saved = True
+                evidence['environment'] = run_environment(client, SETUP_ENVIRONMENT)
+                environment_saved = True
+                evidence['capture_options'] = check.run(CAPTURE_OPTIONS)
+                options_saved = True
+                evidence['weather_settle_seconds'] = 10.
+                time.sleep(evidence['weather_settle_seconds'])
                 check.run(LOAD_CUBE)
                 state = check.wait('calibration cube projection',
                                    lambda value: value['active'] and value['ready'] and not value['preparing'] and
@@ -255,16 +263,24 @@ def main():
                 evidence['runtime_minecraft_version'] = check.run('_result=json.dumps(api.GetMinecraftVersion())')
                 analyze_calibration(evidence)
             finally:
-                if saved:
-                    check.run('b.stop_projection()\n_result=True')
-                    check.run(camera_restore_code(False))
-                    check.run('saved=sys._blueprint_visual_saved\n'
-                              's.origin=saved["origin"]\ns.opacity=saved["opacity"]\n'
-                              's.projection_missing=saved["missing"]\ns.projection_outline=saved["outline"]\n'
-                              'del sys._blueprint_visual_saved\n_result=True')
-                if installed:
-                    check.run(RESTORE)
-                    evidence['restored'] = True
+                cleanup_errors = []
+                for label, action in (
+                        ('environment', lambda: run_environment(client, RESTORE_ENVIRONMENT) if environment_saved else True),
+                        ('capture_options', lambda: check.run(RESTORE_OPTIONS) if options_saved else True),
+                        ('projection', lambda: check.run('b.stop_projection()\n_result=True') if saved else True),
+                        ('camera', lambda: check.run(camera_restore_code(False)) if saved else True),
+                        ('visual', lambda: check.run('saved=sys._blueprint_visual_saved\n'
+                             's.origin=saved["origin"]\ns.opacity=saved["opacity"]\n'
+                             's.projection_missing=saved["missing"]\ns.projection_outline=saved["outline"]\n'
+                             'del sys._blueprint_visual_saved\n_result=True') if saved else True),
+                        ('editor', lambda: check.run(RESTORE) if installed else True)):
+                    try:
+                        evidence[label + '_restored'] = action()
+                    except Exception as error:
+                        cleanup_errors.append(label + ': ' + str(error))
+                evidence['cleanup_errors'] = cleanup_errors
+                evidence['restored'] = installed and not cleanup_errors
+                evidence['passed'] = evidence['passed'] and evidence['restored']
     except Exception as error:
         evidence['error'] = '%s: %s' % (type(error).__name__, error)
         raise
