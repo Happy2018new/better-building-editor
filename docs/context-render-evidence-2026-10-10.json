@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "production_commit": "4361717",
+  "runtime": "NEMC 3.9.0.401155",
+  "layout_schema": 2,
+  "coordinate_contract": {
+    "chunk_size": 16,
+    "context_native_volume": [64, 64, 64],
+    "overlay_native_volume": [16, 16, 16],
+    "actor_count": 1,
+    "buffers": 2,
+    "context_marker": 19490,
+    "shared_world_tint_and_opacity_slot": 4,
+    "local_layout_slot": 1,
+    "retired_chunk_bank": 3
+  },
+  "verification": {
+    "unit_tests": 848,
+    "unit_tests_passed": true,
+    "unit_test_command": "python -X utf8 -m unittest discover -s tests",
+    "legacy_gpu_coordinate_checks": 27783,
+    "local_gpu_coordinate_checks": 27783,
+    "gpu_coordinate_failures": 0,
+    "cold_native_cases": [
+      {"case": "stairs", "passed": true, "remaining_iou": 0.9908202547, "hidden_residual": 0.0},
+      {"case": "fence", "passed": true, "remaining_iou": 0.9854570637, "hidden_residual": 0.0476878613},
+      {"case": "fence_cross_chunk", "passed": true, "remaining_iou": 0.9854570637, "hidden_residual": 0.0476878613},
+      {"case": "pane", "passed": false, "remaining_passed": true, "hidden_passed": false,
+       "remaining_iou": 0.9702183984, "hidden_residual": 0.1497504160}
+    ]
+  },
+  "precision_diagnosis": {
+    "same_tagged_lighting": true,
+    "decoder_disabled_for_translated_palettes": true,
+    "clear_noon": true,
+    "native_fence_y64_iou": 1.0,
+    "native_fence_y256_iou": 0.8168546782,
+    "native_fence_y512_iou": 0.6414715719,
+    "explicit_highp_changed_result": false,
+    "conclusion": "Large native input coordinates lose thin geometry before the layout decoder. Explicit highp declarations did not recover it."
+  },
+  "pane_hidden_diagnostic": {
+    "actual_cell_polygon_inset": 0.0,
+    "threshold": 16,
+    "remaining_shape_recall": 1.0,
+    "remaining_shape_precision": 0.9986550101,
+    "hidden_baseline_pixels": 1202,
+    "hidden_actual_pixels": 180,
+    "cropped_hidden_size": [67, 121],
+    "residual_columns": {"5": 1, "6": 4, "7": 26, "8": 41, "9": 38, "10": 16, "11": 5, "66": 49},
+    "interpretation": "There are two residual groups. A boundary-only explanation is not proven; moving world actors may also contaminate the signal. Hidden-pixel acceptance remains failed."
+  },
+  "native_performance_prepare_only": {
+    "completed": true,
+    "camera_changes": false,
+    "world_writes": false,
+    "rows": [
+      {"side": 16, "initial_wall_seconds": 3.6308085, "actors": 1, "attached_meshes": 2},
+      {"side": 32, "initial_wall_seconds": 18.4939367, "actors": 1, "attached_meshes": 9}
+    ],
+    "limitation": "Concurrent instances share CPU/GPU. This only measures initial submission and attachment; it does not certify visual performance or deferred render completion.",
+    "regression": "The prior virtual-band 32-cube path measured about 6.26 seconds. The bounded builder currently has a CPU preparation regression."
+  },
+  "reports": [
+    {"worktree": "p0-context-mapping-r9", "path": ".runtime/context-native-precision-r15.json",
+     "sha256": "0aaae0fea8dfe8a5f1f95e2a0946f0bc8935af692c4c82e2276e0f1d79fbf7ec"},
+    {"worktree": "p0-context-mapping-r9", "path": ".runtime/context-native-precision-r16-highp.json",
+     "sha256": "ce4914c4dc7526a71b2942dcd4d83448dd4a001e693c32a031526818cccaa235"},
+    {"worktree": "p0-context-precision-r16", "path": ".runtime/context-batches-r17.json",
+     "sha256": "5b7051467f0c16673e1c7a0afe540437c9031ed8c82e07d7ac10643a6bf14749"},
+    {"worktree": "p0-context-precision-r16", "path": ".runtime/context-batches-r18-pane.json",
+     "sha256": "28f2a8ce06159cdab833f28dfcebae21d9e4aa89fb7a7ff6ba4510059152a74a"},
+    {"worktree": "p0-context-precision-r16", "path": ".runtime/context-batches-performance-r19.json",
+     "sha256": "42642fd6574ad7ef2300c1fd6433eea650d6d60d0183483a5ef72fa604dccc2b"}
+  ],
+  "limits": [
+    "Normal editor and complete world snow overlays still use the legacy high-Y layout.",
+    "Walls, rails and iron bars were not independently accepted on the bounded layout in this round.",
+    "Pane hidden-border acceptance requires isolated background and independent camera calibration.",
+    "The temporary diagnostic shader overrides in p0-context-mapping-r9 are not production changes."
+  ],
+  "owned_instances": "All context-mapping r7 through r17 instances are confirmed stopped; managed status reported game and MCDK processes dead."
+}

@@ -52,11 +52,14 @@ def wrap_geometry(original,records,clock):
         started=clock()
         prepared=kwargs.get("prepared")
         result=original(*args,**kwargs)
+        batches=prepared.get("_context_batches",()) if prepared else ()
+        encoded=(sum(len(entries) for unused,unused2,palette in batches
+                     for entries in palette["common"].values()) if batches else
+                 sum(len(entries) for entries in prepared["common"].values()) if prepared else None)
         records.append({"name":result,"seconds":clock()-started,
                         "logical_size":args[0].size,
                         "native_volume":prepared["volume"] if prepared else None,
-                        "encoded_cells":sum(len(entries) for entries in
-                            prepared["common"].values()) if prepared else None})
+                        "context_chunks":len(batches),"encoded_cells":encoded})
         return result
     return geometry
 b.geometry=wrap_geometry(b.geometry,api._context_perf_records,time.clock)
@@ -75,6 +78,7 @@ _result={"active":s.projection_active,"preparing":bool(b.preparing_entity),
          "work_error":work.error if work is not None else None,
          "actor":b.entity,"actors":len(b.projection_entities)+int(bool(b.entity)),
          "mesh":b.projection_mesh,"message":s.editor.message,
+         "context_attached":sum(len(parts) for parts in o.shader.parts) if o is not None else 0,
          "geometry":api._context_perf_records,"native":api._context_perf_native,
          "ticks":api._context_perf_ticks,
          "occupancy":None if o is None else {"bank":o.shader.bank,"commits":o.commits,
@@ -133,6 +137,8 @@ def main():
     parser.add_argument('--sides', type=int, nargs='+', default=[16, 24, 32])
     parser.add_argument('--timeout', type=float, default=120.)
     parser.add_argument('--no-screenshots', action='store_true')
+    parser.add_argument('--prepare-only', action='store_true',
+                        help='Measure initial native submission without camera or world mutations')
     args = parser.parse_args()
     session = load_session(live=True)
     session = dict((key, value) for key, value in session.items() if key != 'token')
@@ -148,14 +154,15 @@ def main():
     try:
         report['setup'] = game(INSTALL)
         installed = True
-        server('''from modern_projection.server_system import WorldAdapter
+        if not args.prepare_only:
+            server('''from modern_projection.server_system import WorldAdapter
 a=WorldAdapter(p)
 position=''' + repr(tuple(report['setup']['origin'])) + '''
 value=a.read(position)
 assert value==("minecraft:air",0),"Refuse nonair mutation fixture"
 api._context_perf_saved_world=(position,value)
 _result=True''')
-        saved_world = True
+            saved_world = True
         for side in args.sides:
             assert 1 <= side <= 64
             previous_actor = game('_result=s.bridge.entity')
@@ -178,6 +185,13 @@ _result=True''')
             initial = wait_active(args.timeout, previous_actor)
             elapsed = time.monotonic() - started
             assert initial['actors'] == 1, initial
+            if args.prepare_only:
+                row={'side':side,'logical_cells':side**3,'initial_wall_seconds':elapsed,'initial':initial}
+                report['rows'].append(row)
+                print(json.dumps({'side':side,'initial_wall_seconds':elapsed,
+                                  'actors':initial['actors'],'attached':initial['context_attached'],
+                                  'geometry':initial['geometry'],'native':initial['native']}),flush=True)
+                continue
             game('''from modern_projection.pyreact import navigator
 if navigator.contains("modern_projection_workspace"):
     navigator.pop()
