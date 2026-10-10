@@ -19,7 +19,8 @@ from verify_debug_visuals import SAVE_VISUAL,camera_restore_code,PROJECTION_STAT
 from verify_native_entity_appearances import execute,replicated_palettes
 from verify_native_sign_fields import SETUP,READ,CLEANUP
 from verify_shulker_orientations import viewport_crop,wait_camera_pose,opacity_comparison
-from visual_environment import SETUP_DAYLIGHT,RESTORE_DAYLIGHT
+from context_test_environment import SETUP as SETUP_DAYLIGHT,RESTORE as RESTORE_DAYLIGHT
+from verify_neighbor_world_visuals import CAPTURE_OPTIONS,RESTORE_OPTIONS
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -490,6 +491,7 @@ def main():
     installed=False
     visual_saved=False
     daylight_saved=False
+    options_saved=False
     masks={}
     with Client(timeout=30) as client:
         check=SignCheck(client,args.output/'report.json',args.timeout,args.native_resolution)
@@ -512,6 +514,8 @@ def main():
             visual_saved=True
             report['daylight']=execute(client,SETUP_DAYLIGHT)
             daylight_saved=True
+            report['capture_options']=check.run(CAPTURE_OPTIONS)
+            options_saved=True
             report['height_offset']=args.height_offset
             report['native']=execute(client,'_native_sign_height_offset=%r\n' % args.height_offset+SETUP)
             execute(client,'import sys\nsys._native_sign_probe_rows=%r\n_result=True' % report['native']['rows'],True)
@@ -580,6 +584,7 @@ def main():
                     ('native',lambda:execute(client,CLEANUP) if execute(client,'import sys\n_result=hasattr(sys,"_native_sign_probe")') else {'cleaned':True}),
                     ('native_client',lambda:execute(client,'import sys\nif hasattr(sys,"_native_sign_probe_rows"):del sys._native_sign_probe_rows\n_result=True',True)),
                     ('daylight',lambda:execute(client,RESTORE_DAYLIGHT) if daylight_saved else True),
+                    ('capture_options',lambda:check.run(RESTORE_OPTIONS) if options_saved else True),
                     ('projection',lambda:check.run('b.stop_projection()\n_result=True')),
                     ('camera',lambda:check.run(camera_restore_code(False)) if visual_saved else True),
                     ('visual_fields',lambda:check.run('saved=sys._blueprint_visual_saved\ns.grid=saved["grid"]\n'
