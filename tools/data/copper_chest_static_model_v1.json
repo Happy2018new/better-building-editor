@@ -1,13 +1,15 @@
 {
-  "schema": 1,
+  "schema": 2,
   "source": {
     "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
     "textures": "data/resource_packs/vanilla/textures/entity/chest",
+    "texture_packing_version": 1,
+    "regenerate": "python tools/generate_copper_chest_proxies.py --native-resource-root <installed game>/data/resource_packs/vanilla",
     "geometry_reference": "https://github.com/eldariamc/client/tree/c01d23eb05ed83abb4fee00f9bf603b6bc3e2e27/src/main/java/net/minecraft/client/model",
     "single_geometry_blob_sha1": "d696245e214bd249cabe9564c65ba14ccdc6a03f",
     "double_geometry_blob_sha1": "a6b2ec8d8a8f699b839c97b42eb87391d77dfd3f",
-    "attribution": "Minecraft ModelChest / ModelLargeChest, Mojang AB. Dimensions and UV offsets transcribed; no source code or texture bytes distributed.",
-    "evidence": "Native copper atlases have the same 64x64 / 128x64 box layout as ordinary closed chests. Static appearance requires separate native world pixel comparison."
+    "attribution": "Minecraft ModelChest / ModelLargeChest and native chest artwork, Mojang AB. No Java source code distributed. Native 128x64 artwork is repacked without resampling into derived 64x64 face atlases for the NEMC custom block texture limit.",
+    "evidence": "NEMC custom block model documentation limits each texture to 64x64; UI native single-chest comparison passed. Double-chest adapters require independent same-camera visual comparison after packing."
   },
   "single": {
     "texturewidth": 64,
@@ -38,5 +40,13 @@
     "normal": {"single": "textures/entity/chest/normal", "double": "textures/entity/chest/double_normal"},
     "trapped": {"single": "textures/entity/chest/trapped", "double": "textures/entity/chest/trapped_double"},
     "ender": {"single": "textures/entity/chest/ender"}
+  },
+  "double_texture_sha256": {
+    "default": "75fd91e699b10c7a8b2e9cec725e87efedc746a944abe331d04b1fd04e9516fe",
+    "exposed": "5813bd98ff8aebbb46e8bf6287ef2a762d4a01cf05fe2382af9343062e7d33c4",
+    "weathered": "d271c63af8b05045fa70c03dc948ad2ad901c942e5ef50e91ce7509c3506fae2",
+    "oxidized": "01229af68f99397fe004090611a13d8ea98be583b9c29cd9d677b1fc07950e13",
+    "normal": "57920539731b605383ec47aaf31debd95463f654781f8fa4dac1416081639e00",
+    "trapped": "ca85988335b647cf9b76f9acd6c9a2aae36c9354cbea69cb4781ee86d81acc44"
   }
 }

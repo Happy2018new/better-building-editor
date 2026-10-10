@@ -5,6 +5,8 @@ from itertools import product
 from pathlib import Path
 import sys
 import unittest
+from PIL import Image
+from io import BytesIO
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -17,7 +19,7 @@ from projection.entity_render import (CHEST_PROXIES, COPPER_CHEST_PROXIES, COPPE
 from projection.geometry_palette import INTERNAL_RENDER_BLOCKS, prepare_palette
 from projection.model import Document
 from projection.visible_actor import compose_actor
-from generate_copper_chest_proxies import clipped_cube, model
+from generate_copper_chest_proxies import clipped_cube, model, packed_geometry, packed_texture
 from generate_shulker_proxies import box_uv
 from test_static_shulker_render import world_rotation
 
@@ -75,9 +77,41 @@ class CopperChestTests(unittest.TestCase):
                     self.assertTrue(all(-.00001 <= value + 8 <= 16.00001 for value in rotated),
                                     (stage, direction, part, point, rotated))
                 for face in cube['uv'].values():
-                    for axis, maximum in enumerate((128 if part != 'single' else 64, 64)):
+                    for axis, maximum in enumerate((64, 64)):
                         low, extent = face['uv'][axis], face['uv_size'][axis]
                         self.assertTrue(0 <= low <= maximum and 0 <= low + extent <= maximum)
+
+    def test_double_chest_face_packing_preserves_source_pixels_without_resampling(self):
+        source = Image.new('RGBA', (128, 64))
+        source.putdata([(x, y, (x * y) % 256, 255) for y in range(64) for x in range(128)])
+        for part in ('main', 'sub'):
+            cubes, patches = packed_geometry(self.spec, part)
+            before = [clipped_cube(original, part) for original in self.spec['double']['cubes']]
+            occupied = set()
+            with Image.open(BytesIO(packed_texture(source, patches))) as packed:
+                self.assertEqual((64, 64), packed.size)
+                for rectangle, (x, y) in patches:
+                    width, height = rectangle[2] - rectangle[0], rectangle[3] - rectangle[1]
+                    self.assertEqual(source.crop(rectangle).tobytes(),
+                                     packed.crop((x, y, x + width, y + height)).tobytes())
+                    cells = {(x + dx, y + dy) for dx in range(-1, width + 1)
+                             for dy in range(-1, height + 1)}
+                    self.assertFalse(occupied.intersection(cells))
+                    self.assertTrue(all(0 <= px < 64 and 0 <= py < 64 for px, py in cells))
+                    occupied.update(cells)
+                for original, repacked in zip(before, cubes):
+                    self.assertEqual(original['origin'], repacked['origin'])
+                    self.assertEqual(original['size'], repacked['size'])
+                    self.assertEqual(set(original['uv']), set(repacked['uv']))
+                    for face, record in original['uv'].items():
+                        candidate = repacked['uv'][face]
+                        self.assertEqual(record['uv_size'], candidate['uv_size'])
+                        for fraction in (.25, .75):
+                            old = tuple(int(record['uv'][axis] + fraction * record['uv_size'][axis])
+                                        for axis in range(2))
+                            new = tuple(int(candidate['uv'][axis] + fraction * candidate['uv_size'][axis])
+                                        for axis in range(2))
+                            self.assertEqual(source.getpixel(old), packed.getpixel(new))
 
     def test_actor_pair_role_and_state_direction_select_render_only_cells(self):
         for direction in CHEST_DIRECTIONS:
