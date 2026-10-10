@@ -24,9 +24,10 @@ for pos in cells + supports:
 
 
 def clear():
-    for pos in cells:
-        info.SetLiquidBlock(pos, AIR, dimension)
-        info.SetBlockNew(pos, AIR, 0, dimension, True, False)
+    for unused in range(2):
+        for pos in cells:
+            info.SetLiquidBlock(pos, AIR, dimension)
+            info.SetBlockNew(pos, AIR, 0, dimension, True, False)
 
 
 def read(pos):

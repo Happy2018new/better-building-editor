@@ -15,8 +15,8 @@ dimension = factory.CreateDimension(player).GetEntityDimensionId()
 info = factory.CreateBlockInfo(player)
 blockstate = factory.CreateBlockState(api.GetLevelId())
 foot = factory.CreatePos(player).GetFootPos()
-target = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 12,
-          int(math.floor(foot[2])) + 5)
+target = (int(math.floor(foot[0])) + 14, int(math.floor(foot[1])) + 16,
+          int(math.floor(foot[2])) - 7)
 x, y, z = target
 cells = ((x, y, z), (x - 1, y, z), (x + 1, y, z), (x, y, z - 1), (x, y, z + 1))
 supports = tuple((pos[0], pos[1] - 1, pos[2]) for pos in cells)
@@ -29,9 +29,12 @@ for pos in cells + supports:
 
 
 def clear():
-    for pos in cells:
-        info.SetLiquidBlock(pos, AIR, dimension)
-        info.SetBlockNew(pos, AIR, 0, dimension, True, False)
+    # Removing one half can promote the reciprocal half's water after it
+    # was cleared; a second pass removes that native paired side effect.
+    for unused in range(2):
+        for pos in cells:
+            info.SetLiquidBlock(pos, AIR, dimension)
+            info.SetBlockNew(pos, AIR, 0, dimension, True, False)
 
 
 def payload(pos):

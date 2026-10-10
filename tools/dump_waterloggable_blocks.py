@@ -129,9 +129,10 @@ class WaterOverlayProbe(object):
             self.cell_ready = False
 
     def clear_fixture_blocks(self):
-        for pos in self.fixture_cells:
-            self.info.SetLiquidBlock(pos, AIR, self.dimension)
-            self.info.SetBlockNew(pos, AIR, 0, self.dimension, True, False)
+        for unused in range(2):
+            for pos in self.fixture_cells:
+                self.info.SetLiquidBlock(pos, AIR, self.dimension)
+                self.info.SetBlockNew(pos, AIR, 0, self.dimension, True, False)
 
     def select_cell(self):
         index = self.state['tested_states'] // STATES_PER_SUBCHUNK
