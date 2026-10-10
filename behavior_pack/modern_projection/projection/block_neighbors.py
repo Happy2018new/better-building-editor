@@ -12,7 +12,7 @@ from .block_traits import is_solid
 from .cell import actor_data, foreground, replace_layer
 from .block_groups import (actor_pair_position, chest_pair_actor,
                            chest_render_pair_position, _adjacent_chest_position,
-                           _chest_candidates)
+                           _chest_candidates, _CHESTS)
 from .storage import Selection, integer_types, position
 
 AIR = ('minecraft:air', 0)
@@ -24,7 +24,6 @@ RAIL_ENDS = (('north', 'south'), ('east', 'west'), ('east', 'west'),
              ('east', 'west'), ('north', 'south'), ('north', 'south'),
              ('south', 'east'), ('south', 'west'), ('north', 'west'), ('north', 'east'))
 RAIL_HIGH = {2: 'east', 3: 'west', 4: 'north', 5: 'south'}
-_CHESTS = frozenset(('minecraft:chest', 'minecraft:trapped_chest'))
 _cache = {}
 _STAIR_HALF = {'north': 3, 'east': 10, 'south': 12, 'west': 5}
 

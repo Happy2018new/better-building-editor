@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.block_groups import (chest_pair_actor, paired_cell_position,
-                                     chest_render_pair_position)
+                                     chest_render_pair_position, hydrate_chest_actor)
 from projection.block_neighbors import _solid_face, _stair_mask
 from projection.cell import actor_data, background, foreground, make_cell
 from projection.jobs import EditJob
@@ -332,6 +332,46 @@ class BlockNeighborTests(unittest.TestCase):
         self.assertEqual(nbt, entity_nbt(actor_data(updated)))
         self.assertTrue(render_actor(actor_data(updated))['chestIsLargeChest'])
         self.assertEqual((3, 1, 2), chest_render_pair_position(updated, (2, 1, 2)))
+
+    def test_all_native_pairable_chest_families_use_the_same_editor_connection_path(self):
+        families = [name for name in registry.BLOCKS
+                    if (name == 'minecraft:chest' or name.endswith('_chest')) and
+                    name != 'minecraft:ender_chest']
+        self.assertEqual(10, len(families))
+        for name in families:
+            with self.subTest(name=name):
+                material = registry.from_states(name, {'minecraft:cardinal_direction': 'north'})
+                editor = Editor(Document(SIZES[0]))
+                place(editor, (2, 1, 2), material)
+                place(editor, (3, 1, 2), material)
+                self.assertTrue(render_actor(actor_data(editor.document.get((2, 1, 2))))['chestIsLargeChest'])
+                self.assertEqual({(2, 1, 2), (3, 1, 2)},
+                                 set(close_group_selection(editor.document, [(2, 1, 2)])))
+                editor.paint_at((2, 1, 2), erase=True, respect_selection=False)
+                self.assertEqual(AIR, editor.document.get((3, 1, 2)))
+
+    def test_copper_chest_missing_client_actor_is_hydrated_from_separate_server_pairing_nbt(self):
+        material = registry.from_states('minecraft:copper_chest',
+                                        {'minecraft:cardinal_direction': 'north'})
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'pairx': {'__type__': 3, '__value__': 3},
+               'pairz': {'__type__': 3, '__value__': 2},
+               'pairlead': {'__type__': 1, '__value__': 1},
+               'Items': [{'Slot': 0, 'Count': 5}]}
+        original = make_cell(material, WATER, compose_actor({}, nbt))
+        updated = hydrate_chest_actor(original, (2, 1, 2))
+        payload = actor_data(updated)
+        self.assertEqual(nbt, entity_nbt(payload))
+        self.assertTrue(render_actor(payload)['chestIsLargeChest'])
+        self.assertTrue(render_actor(payload)['chestMainSubChest'])
+        self.assertEqual(0.0, render_actor(payload)['chestModelOffset'])
+        self.assertEqual((3, 1, 2), chest_render_pair_position(updated, (2, 1, 2)))
+        self.assertEqual(WATER, background(updated))
+        self.assertEqual(updated, hydrate_chest_actor(updated, (2, 1, 2)))
+        sub_nbt = dict(nbt, pairx={'__type__': 3, '__value__': 2})
+        sub = hydrate_chest_actor(make_cell(material, AIR, compose_actor({}, sub_nbt)), (3, 1, 2))
+        self.assertFalse(render_actor(actor_data(sub))['chestMainSubChest'])
+        self.assertEqual(-0.5, render_actor(actor_data(sub))['chestModelOffset'])
 
     def test_cancelled_job_during_neighbor_reconciliation_does_not_publish(self):
         editor = Editor(Document(SIZES[1], {(2, 1, 2): WALL}))

@@ -9,7 +9,10 @@ from .visible_actor import compose_actor, entity_nbt, render_actor
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
 _NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
 _MIN_GROUP_GROWTH = {'minecraft:pitcher_crop': 3}
-_CHESTS = frozenset(('minecraft:chest', 'minecraft:trapped_chest'))
+_CHESTS = frozenset(name for name in registry.BLOCKS
+                    if name.startswith('minecraft:') and
+                    (name == 'minecraft:chest' or name.endswith('_chest')) and
+                    name != 'minecraft:ender_chest')
 _CHEST_PARTNER = {'north': (1, 0, 0), 'east': (0, 0, 1),
                   'south': (-1, 0, 0), 'west': (0, 0, -1)}
 _CHEST_FACING = {'north': 2, 'south': 3, 'west': 4, 'east': 5}
@@ -275,6 +278,16 @@ def chest_pair_actor(value, pos, partner=None):
             else:
                 set_scalar(pair_root, name, partner[axis])
     return make_cell(foreground(value), background(value), compose_actor(render, nbt))
+
+
+def hydrate_chest_actor(value, pos):
+    """Fill missing client chest geometry fields from captured pairing NBT."""
+    if foreground(value)[0] not in _CHESTS:
+        return value
+    root = root_payload(render_actor(actor_data(value)))
+    if root is not None and field_key(root, 'chestIsLargeChest') is not None:
+        return value
+    return chest_pair_actor(value, pos, actor_pair_position(value, pos))
 
 
 def paired_cell_position(get_cell, pos, index=None):
