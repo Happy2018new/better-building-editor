@@ -13,6 +13,18 @@ from verify_dripstone_native_boxes import holdout_samples, matrix
 
 
 class DirectSeedDiagnosticTests(unittest.TestCase):
+    def test_calibration_rejects_failed_foreign_and_stale_provenance(self):
+        session = {'session_file': str(diagnostic.ROOT / '.runtime/test-session.json'),
+                   'project': str(diagnostic.ROOT), 'id': 'owned', 'game_identity': '123'}
+        good = {'completed': True, 'passed': True, 'session_file': session['session_file'],
+                'instance_id': 'owned', 'game_identity': '123', 'restored': True}
+        self.assertEqual(diagnostic.validate_calibration(good, session)['game_identity'], '123')
+        for changes in ({'completed': False}, {'passed': False}, {'restored': False},
+                        {'session_file': str(diagnostic.ROOT / '.runtime/foreign-session.json')},
+                        {'instance_id': 'other'}, {'game_identity': '999'}):
+            with self.assertRaises(AssertionError):
+                diagnostic.validate_calibration(dict(good, **changes), session)
+
     def test_holdout_covers_signed_chunk_edges_without_overlapping_supports(self):
         plan = holdout_samples()
         cells, supports, rows = matrix(plan)

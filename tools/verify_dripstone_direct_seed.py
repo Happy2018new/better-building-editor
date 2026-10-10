@@ -128,6 +128,27 @@ def fingerprint(path):
             'bytes': len(payload)}
 
 
+def validate_calibration(calibration, session):
+    assert session is not None, 'A validated managed instance is required'
+    assert calibration.get('completed') is True and calibration.get('passed') is True, \
+        'The camera calibration must be completed and passed'
+    assert calibration.get('session_file'), 'Camera calibration has no session provenance'
+    assert Path(calibration['session_file']).resolve() == Path(session['session_file']).resolve(), \
+        'Camera calibration belongs to a different instance/session'
+    assert Path(session['project']).resolve() == ROOT, 'Managed instance belongs to a different project'
+    checked = {'completed': True, 'passed': True, 'session_file': session['session_file']}
+    for key, target in (('session_id', 'id'), ('instance_id', 'id'), ('owner', 'owner'),
+                        ('game_pid', 'game_pid'), ('game_identity', 'game_identity'),
+                        ('mcdk_pid', 'mcdk_pid'), ('mcdk_identity', 'mcdk_identity')):
+        if key in calibration:
+            assert str(calibration[key]) == str(session[target]), 'Camera calibration mismatch: ' + key
+            checked[key] = calibration[key]
+    if 'restored' in calibration:
+        assert calibration['restored'] is True, 'Camera calibration did not restore its instance'
+        checked['restored'] = True
+    return checked
+
+
 def capture(check, label, expected):
     before = check.run(native.CAMERA_STATE)
     assert native.camera_matches(before, expected), before
@@ -243,8 +264,10 @@ def main():
                   if (ROOT / path).is_file()]}
     try:
         from _session import load_session
-        report['activation'] = restore_owned_window(load_session(live=True))
+        session = load_session(live=True)
+        report['calibration_validation'] = validate_calibration(args.calibration, session)
         with Client(timeout=30) as client:
+            report['activation'] = restore_owned_window(session)
             check = module.SignCheck(client, args.output, 90, native_resolution=True)
             environment = installed = visual = options = False
             try:

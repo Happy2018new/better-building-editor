@@ -60,6 +60,13 @@ same session. The tool restores temporary cells, player, camera, options,
 probe and environment in `finally`, then releases input and minimizes only
 the owned game window.
 
+Before activating the window or changing the world, the tool requires a
+completed, passing calibration from the validated session's exact manifest
+path and project. When the calibration records instance ID, owner, process
+PID or process creation identity, those fields must also match. A recorded
+failed calibration restoration is rejected. Runtime version, reported FOV
+and viewport aspect are checked again by the shared ROI projection logic.
+
 ```powershell
 python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> `
   verify_dripstone_direct_seed.py .runtime/dripstone-direct-seed.json `
