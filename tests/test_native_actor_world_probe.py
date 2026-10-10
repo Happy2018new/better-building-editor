@@ -105,6 +105,8 @@ class NativeActorWorldProbeTests(unittest.TestCase):
         self.assertTrue(record['capture_before_nbt'])
         self.assertIn('set_block_before_nbt_capture', record)
         self.assertIn('item_before_nbt_capture', record)
+        self.assertEqual('After native placement and state/layer alignment; before fixture NBT',
+                         record['item_before_nbt_stage'])
 
 
 if __name__ == '__main__':

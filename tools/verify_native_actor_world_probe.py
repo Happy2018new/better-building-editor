@@ -68,7 +68,11 @@ try:
    assert info.PlayerUseItemToPos(support,slot_kind,slot,1),(name,support)
   placed=info.GetBlockNew(position,dimension)
   assert placed['name']==name,placed
+  raw_placement={'foreground':placed,'states':blockstate.GetBlockStates(position,dimension),
+   'liquid':info.GetLiquidBlock(position,dimension),'nbt':info.GetBlockEntityData(dimension,position)}
   assert blockstate.SetBlockStates(position,record,dimension)
+  actual_states=blockstate.GetBlockStates(position,dimension)
+  assert actual_states==record,(position,record,actual_states)
   liquid=background(value)
   liquid_result=info.SetLiquidBlock(position,{'name':liquid[0].encode('utf8'),'aux':liquid[1]},dimension)
   liquid_raw=info.GetLiquidBlock(position,dimension)
@@ -79,16 +83,18 @@ try:
   if apply_fixture_nbt:
    assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
   rows.append({'position':position,'requested':wire,'method':method,'native_aux':native_aux,'placed':placed,
+   'raw_placement':raw_placement,'states_requested':record,
    'liquid_result':liquid_result,'liquid_raw':liquid_raw,
    'aligned':info.GetBlockNew(position,dimension),
-   'states':blockstate.GetBlockStates(position,dimension),'liquid':liquid_readback,
+   'states':actual_states,'liquid':liquid_readback,
    'fixture_nbt_applied':apply_fixture_nbt,'nbt':info.GetBlockEntityData(dimension,position)})
   items.SetInvItemNum(slot,0)
 finally:
  items.SetInvItemNum(slot,0)
  assert rotation.SetRot(before)
 assert rows,'No supported native block actor was placed'
-_result=json.dumps({'rows':rows,'slot_restored':True,'rotation_restored':True})
+_result=json.dumps({'rows':rows,'native_write_count':sum(not row.get('skipped_native_write') for row in rows),
+ 'slot_restored':True,'rotation_restored':True})
 '''
 
 APPLY_NBT = '''import json,sys
@@ -154,6 +160,7 @@ def camera_capture(check, label, keep, occupied, view):
             time.sleep(1.)
             pose, capture = _camera_capture(check, label + '_' + key + '_before_nbt', keep, occupied, view)
             record[key + '_before_nbt_camera'], record[key + '_before_nbt_capture'] = pose, capture
+            record[key + '_before_nbt_stage'] = 'After native placement and state/layer alignment; before fixture NBT'
             assert native.camera_matches(before_pose['stable'], pose['stable']), record
             after_nbt = world.run(check.client, APPLY_NBT % (tuple(origin), wet.wire_json(placement['rows'])))
             record[key + '_fixture_nbt_assignment'] = after_nbt
