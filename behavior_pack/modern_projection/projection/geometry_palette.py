@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
-from .block_traits import is_snow_coverable, is_waterloggable
-from .cell import AIR, _covered_snow, _water
+from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
 
 
@@ -31,118 +30,6 @@ PLANT_PROXIES = {
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
 INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
-
-
-def _replace_positions(entries, records, changes, other_records):
-    if not changes:
-        return
-    for value, positions in list(entries.items()):
-        remaining = [index for index in positions if index not in changes]
-        if remaining:
-            entries[value] = remaining
-        else:
-            entries.pop(value)
-    for index, value in changes.items():
-        if value == AIR:
-            continue
-        entries.setdefault(value, []).append(index)
-    for value in set(changes.values()):
-        if value == AIR:
-            continue
-        if value[0] == 'minecraft:snow_layer':
-            record = states(value)
-        elif value in other_records:
-            record = other_records[value]
-        else:
-            record = states(value)
-        if record is not None:
-            records[value] = record
-
-
-def _promote_standalone(common, common_states, extra, extra_states):
-    occupied = set(index for value, positions in common.items()
-                   if value != AIR for index in positions)
-    for value, positions in list(extra.items()):
-        if value == AIR:
-            continue
-        promoted = [index for index in positions if index not in occupied]
-        if not promoted:
-            continue
-        remaining = [index for index in positions if index in occupied]
-        common.setdefault(value, []).extend(promoted)
-        if value in extra_states:
-            common_states[value] = extra_states[value]
-        if remaining:
-            extra[value] = remaining
-        else:
-            extra.pop(value)
-        if AIR in common:
-            occupied.update(promoted)
-    if AIR in common:
-        common[AIR] = [index for index in common[AIR] if index not in occupied]
-        if not common[AIR]:
-            common.pop(AIR)
-
-
-def _normalize_native_layers(common, common_states, extra, extra_states):
-    # Logical layers remain untouched. Native tessellation needs standalone
-    # background blocks in common, snow before its covered plant, and water
-    # after the block whose native state supports that liquid overlay.
-    if not extra:
-        for value, positions in list(common.items()):
-            if value[0] != 'minecraft:snow_layer':
-                continue
-            replacement = _covered_snow(value, False)
-            if replacement != value:
-                common.pop(value)
-                common.setdefault(replacement, []).extend(positions)
-                common_states[replacement] = states(replacement)
-        return
-    has_snow = any(value[0] == 'minecraft:snow_layer' for value in list(common) + list(extra))
-    if not has_snow and not any(_water(value) for value in common):
-        _promote_standalone(common, common_states, extra, extra_states)
-        return
-    variants = {}
-
-    def snow(value, covered):
-        key = (value, covered)
-        if key not in variants:
-            variants[key] = _covered_snow(value, covered)
-        return variants[key]
-
-    backs = dict((index, value) for value, positions in extra.items()
-                 if value != AIR for index in positions)
-    fronts = {}
-    if backs:
-        fronts = dict((index, value) for value, positions in common.items()
-                      if value != AIR for index in positions if index in backs)
-    front_changes, back_changes = {}, {}
-    water_capabilities = {}
-    for index, back in backs.items():
-        front = fronts.get(index, AIR)
-        if front == AIR:
-            front_changes[index] = (snow(back, False)
-                                    if back[0] == 'minecraft:snow_layer' else back)
-            back_changes[index] = AIR
-        elif back[0] == 'minecraft:snow_layer' and is_snow_coverable(front):
-            front_changes[index] = snow(back, True)
-            back_changes[index] = front
-        elif _water(front):
-            if back not in water_capabilities:
-                water_capabilities[back] = is_waterloggable(back)
-            if water_capabilities[back]:
-                front_changes[index] = back
-                back_changes[index] = front
-    for front, positions in common.items():
-        if front[0] != 'minecraft:snow_layer':
-            continue
-        for index in positions:
-            replacement = snow(front, is_snow_coverable(backs.get(index, AIR)))
-            if replacement != front:
-                front_changes[index] = replacement
-    old_common_states = dict(common_states)
-    _replace_positions(common, common_states, front_changes, extra_states)
-    _replace_positions(extra, extra_states, back_changes, old_common_states)
 
 
 def _proxy_foreground(entries, records):
@@ -179,7 +66,7 @@ def prepare_palette(source):
 
     common, common_states = prepare_layer('common')
     extra, extra_states = prepare_layer('extra')
-    _normalize_native_layers(common, common_states, extra, extra_states)
+    normalize_palette_layers(common, common_states, extra, extra_states)
     common, common_states = _proxy_foreground(common, common_states)
     for entries in (common, extra):
         for positions in entries.values():

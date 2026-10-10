@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import mod.server.extraServerApi as serverApi
 from .projection.model import AIR, Document, add, block
 from .projection.cell import actor_data, background, foreground, make_cell
+from .projection.native_layers import native_cell
 from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
@@ -115,7 +116,7 @@ class WorldAdapter(object):
         return make_cell(front, back)
 
     def write(self, pos, value, origin=(0, 0, 0)):
-        value = self.canonical(value)
+        value = native_cell(self.canonical(value))
         front, back = foreground(value), background(value)
         common_key, common_states = self._palette_layer(front)
         extra, extra_states = {}, {}

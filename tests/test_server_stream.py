@@ -523,6 +523,35 @@ class ServerStreamTests(unittest.TestCase):
         self.liquids[(0,64,0)] = {'name':'minecraft:water','aux':0}
         self.assertEqual(('minecraft:water',0), server.WorldAdapter('player').read((0,64,0)))
 
+    def test_world_write_uses_native_layer_order_without_mutating_logical_cells_or_render_ids(self):
+        from modern_projection.projection.cell import foreground, background
+        adapter = server.WorldAdapter('player')
+        water = ('minecraft:water', 0)
+        fence = ('minecraft:oak_fence', 0)
+        grass = ('minecraft:short_grass', 0)
+        cell = make_cell(water, fence)
+        with patch('modern_projection.projection.native_layers.is_waterloggable', return_value=True):
+            self.assertTrue(adapter.write((0,64,0), cell))
+        data = self.palette_writes[-1][0]
+        self.assertEqual({(b'minecraft:oak_fence',0): [0]}, data['common'])
+        self.assertEqual({(b'minecraft:water',0): [0]}, data['extra'])
+        self.assertEqual(water, foreground(cell))
+        self.assertEqual(fence, background(cell))
+        self.assertTrue(adapter.write((1,64,0), make_cell(grass, ('minecraft:snow_layer',2))))
+        data = self.palette_writes[-1][0]
+        self.assertEqual({(b'minecraft:snow_layer',0): [0]}, data['common'])
+        self.assertTrue(data['states'][(b'minecraft:snow_layer',0)][b'covered_bit'])
+        self.assertEqual({(b'minecraft:short_grass',0): [0]}, data['extra'])
+        self.assertTrue(adapter.write((2,64,0), make_cell(back=water)))
+        data = self.palette_writes[-1][0]
+        self.assertEqual({(b'minecraft:water',0): [0]}, data['common'])
+        self.assertEqual({(b'minecraft:air',0): [0]}, data['extra'])
+        self.assertTrue(adapter.write((3,64,0), make_cell(('minecraft:oak_leaves',3), water)))
+        self.assertEqual({(b'minecraft:oak_leaves',0): [0]}, self.palette_writes[-1][0]['common'])
+        self.assertFalse(any(b'modern_projection:preview_' in key[0]
+                             for data, unused_dim, unused_pos, unused_rot, unused_conflict
+                             in self.palette_writes for key in data['common']))
+
     def test_visible_chest_actor_is_not_sent_to_server_nbt_setter(self):
         payload = {'chestIsLargeChest':True, 'chestMainSubChest':True,
                    'facingDirection':2, 'chestModelOffset':0.0}

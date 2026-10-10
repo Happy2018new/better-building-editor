@@ -227,7 +227,7 @@ class GeometryPaletteTests(unittest.TestCase):
             (4, 0, 0): make_cell(water, ('minecraft:wooden_slab', 8))})
         source = doc.palette_data()
         saved = copy.deepcopy(source)
-        with patch('projection.geometry_palette.is_waterloggable',
+        with patch('projection.native_layers.is_waterloggable',
                    side_effect=lambda value: value in (fence, slab)):
             result = prepare_palette(source)
 
@@ -244,7 +244,7 @@ class GeometryPaletteTests(unittest.TestCase):
         bottom = ('minecraft:oak_stairs', 0)
         top = ('minecraft:oak_stairs', 1)
         source = {'common': {water: [0, 1]}, 'extra': {bottom: [0], top: [1]}}
-        with patch('projection.geometry_palette.is_waterloggable',
+        with patch('projection.native_layers.is_waterloggable',
                    side_effect=lambda value: value == bottom):
             result = prepare_palette(source)
         self.assertEqual({bottom: [0], water: [1]}, result['common'])
