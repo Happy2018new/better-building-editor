@@ -26,6 +26,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 恢复旧提交时先执行 `git bundle verify .runtime/worktree-archive-r5/p0-branches.bundle`，再用 `git fetch .runtime/worktree-archive-r5/p0-branches.bundle refs/heads/<原分支>:refs/heads/codex/recovered-<名称>` 创建恢复分支；在新工作树中按对应 `manifest.json` 恢复文件和二进制 patch。不要把旧实验分支整体合入当前集成树；它们可能包含已经被替代的渲染候选。
 
+**Windows 换行指纹修复：** 原生材质来源检查改为 schema 2，生产适配文本采用 `sha256-utf8-lf-v1`，仅把 CRLF 标准化为 LF；干净 Windows 工作树不再因为 Git 换行转换被误拒绝，原生安装源仍按原始字节校验。现有 entity.material 原始指纹先与旧记录核对一致后转换到 LF 指纹，其他四份适配指纹不变，没有修改生产 shader 或重新采集以隐藏失败。9 项定点测试通过，覆盖 LF／CRLF 等价、真实内容修改拒绝、原生源字节变化拒绝及未知 hash 契约拒绝。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。

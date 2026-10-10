@@ -75,7 +75,12 @@ separate cold-resource acceptance step.
 Native block actors and sign text also use a versioned material snapshot:
 `tools/data/native_actor_materials_nemc_<version>.json`. It records six original
 shader/material sources and hashes of the five projection adaptations. The
-version-bundle check rejects changed adaptations and mismatched native sources.
+schema-2 adapted hashes use `sha256-utf8-lf-v1`: only CRLF is normalized to LF,
+so Windows Git checkouts compare equally while content edits still fail.
+Original installed shader/material hashes remain byte-exact. Source snapshots
+and adaptation fingerprints must not be recaptured to conceal a failed visual
+check; review real changes and repeat the affected blueprint checks first.
+The version-bundle check rejects changed adaptations and mismatched native sources.
 Compare the installed game before accepting an upgrade:
 
 ```powershell

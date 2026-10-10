@@ -30,6 +30,43 @@ class VersionBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Native source snapshot changed'):
             bundle.check_actor_materials(data,manifest)
 
+    def test_adapted_text_checkout_newlines_do_not_change_fingerprints(self):
+        manifest, data = self.actor_snapshot()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for newline in (b'\n', b'\r\n'):
+                for name in data['adapted']:
+                    path = root / name
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    raw = (ROOT / name).read_bytes().replace(b'\r\n', b'\n')
+                    path.write_bytes(raw.replace(b'\n', newline))
+                bundle.check_actor_materials(data, manifest, root=root)
+            path.write_bytes(path.read_bytes() + b'\r\n// changed content\r\n')
+            with self.assertRaisesRegex(ValueError, 'repeat shader and visual checks'):
+                bundle.check_actor_materials(data, manifest, root=root)
+
+    def test_native_source_bytes_are_still_checked_without_newline_normalization(self):
+        manifest, data = self.actor_snapshot()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name, value in data['sources'].items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(value['text'].encode('utf8'))
+                import hashlib
+                value['native_sha256'] = hashlib.sha256(path.read_bytes()).hexdigest()
+            bundle.check_actor_materials(data, manifest, game_data=root)
+            path = root / 'shaders/glsl/text.fragment'
+            path.write_bytes(path.read_bytes().replace(b'\n', b'\r\n'))
+            with self.assertRaisesRegex(ValueError, 'Installed native source changed'):
+                bundle.check_actor_materials(data, manifest, game_data=root)
+
+    def test_unknown_adapted_text_hash_contract_is_rejected(self):
+        manifest, data = self.actor_snapshot()
+        data['adapted_hash_format'] = 'sha256-unknown'
+        with self.assertRaises(ValueError):
+            bundle.check_actor_materials(data, manifest)
+
     def test_current_sources_and_runtime_observations_match(self):
         manifest, files = bundle.check_provenance()
         self.assertGreater(len(files), 15)
