@@ -188,7 +188,7 @@ def execute(check, args, report):
     report['native_aabb']['verification'] = verify_scene_boxes(
         report['native_aabb']['server'], report['native_aabb']['client'], expected)
     report['generation'] = check.run(GENERATE % (positions, 'seed_diag_' + uuid.uuid4().hex, PATHS))
-    assert report['generation']['volume'] == [1, 4, 1], report['generation']['volume']
+    assert report['generation']['volume'] == [1, 1, 4], report['generation']['volume']
     time.sleep(.3)
     pose = check.run(CAMERA % (ROOT_CELL,))
     time.sleep(.35)

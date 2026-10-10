@@ -13,6 +13,8 @@ The scene contains standing/hanging merged-tip cells at `(6,-37,6)` and
 same X/Z coordinates as the existing native AABB probe. All four scene
 cells are placed in verified air, replicated to the client, and read through
 native clip/collision APIs on both sides before generation.
+The selection is physically `(1,4,1)` in X/Y/Z; native palette `volume`
+is `(1,1,4)` in Z/X/Y, as required by the existing document serializer.
 
 While that native scene still exists, the tool generates four models:
 

@@ -96,7 +96,7 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
                     diagnostic.ROIS % (positions, (6.5, -36., 6.5))]
         mock = '''import json,sys
 class Palette(object):
- def __init__(self,data=None):self.data=data or {'volume':(1,4,1),'common':{('minecraft:stone',0):[0,3]},'states':{('minecraft:stone',0):{u'key':True}}}
+ def __init__(self,data=None):self.data=data or {'volume':(1,1,4),'common':{('minecraft:stone',0):[0,3]},'states':{('minecraft:stone',0):{u'key':True}}}
  def SerializeBlockPalette(self):return self.data
  def DeserializeBlockPalette(self,data):self.data=data;return True
 class Factory(object):
@@ -121,6 +121,7 @@ b=Bridge();api=Api()
         result = json.loads(completed.stdout)
         self.assertTrue(result['roundtrip_equal'])
         self.assertEqual(result['origin'], [6, -38, 6])
+        self.assertEqual(result['volume'], [1, 1, 4])
         self.assertEqual(result['offset'], [-.5, 0., -.5])
         self.assertEqual(result['direct_palette'], result['captured_palette'])
         self.assertEqual(result['captured_palette'], result['roundtrip_palette'])
