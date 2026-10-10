@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 
@@ -43,9 +44,24 @@ def main():
     helper_snapshot = output.with_name(output.stem + '_capture_helper.py')
     helper_snapshot.parent.mkdir(parents=True, exist_ok=True)
     helper_snapshot.write_bytes(payload)
+    managed_live = bool(os.environ.get('MCDEV_SESSION_FILE')) and '--replay' not in remaining
+    activation = None
+    if managed_live:
+        from _session import desktop_lock, load_session
+        from _window import _activate_window, _list_windows
+        session = load_session(live=True)
+        with desktop_lock():
+            windows = [window for window in _list_windows() if window['pid'] == session['game_pid']]
+            assert len(windows) == 1, windows
+            assert _activate_window(windows[0]['hwnd']), 'Cannot restore owned game window'
+            activation = {'pid': session['game_pid'], 'hwnd': windows[0]['hwnd'], 'restored': True}
     try:
         return world.main()
     finally:
+        focus_release = None
+        if managed_live:
+            from release_owned_game_focus import main as release_focus
+            focus_release = release_focus()
         if output.is_file():
             report = json.loads(output.read_text(encoding='utf8'))
             report['native_png_capture_helper'] = {
@@ -53,6 +69,8 @@ def main():
                 'snapshot': str(helper_snapshot.resolve()),
                 'class': 'SignCheck', 'native_resolution': True,
                 'desktop_ownership': 'Caller must hold run_live_check.py desktop lock.'}
+            report['owned_window_activation'] = activation
+            report['owned_focus_release'] = focus_release
             write_json(output, report)
 
 
