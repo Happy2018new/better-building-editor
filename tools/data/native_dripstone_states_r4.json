@@ -1,0 +1,707 @@
+{
+  "schema": 1,
+  "completed": true,
+  "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/01e1c2cb935b43908f7e5c68cdb90c7a/session.json",
+  "owner": "p0-neighbors-r4",
+  "method": "Legacy aux resolved from states; neighbor updates enabled; read after .15s native timer",
+  "limits": [
+    "State observations only; not pixel acceptance.",
+    "Opposed tips are API placements; no player use-item merge claim.",
+    "No gravity simulation or deletion of unsupported editor segments."
+  ],
+  "start": {
+    "started": true,
+    "origin": [
+      -767,
+      104,
+      -205
+    ],
+    "cases": 28,
+    "runtime": "1.21.120.0"
+  },
+  "native": {
+    "origin": [
+      -767,
+      104,
+      -205
+    ],
+    "index": 28,
+    "cases": 28,
+    "rows": [
+      {
+        "action": [
+          "reset",
+          false,
+          null
+        ],
+        "cells": []
+      },
+      {
+        "action": [
+          "extend",
+          false,
+          0
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          false,
+          1
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          false,
+          2
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 2,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          false,
+          3
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": false
+            }
+          },
+          {
+            "y": 2,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 3,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          false,
+          4
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": false
+            }
+          },
+          {
+            "y": 2,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": false
+            }
+          },
+          {
+            "y": 3,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 4,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          false,
+          4
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": false
+            }
+          },
+          {
+            "y": 2,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 3,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          false,
+          3
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 2,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          false,
+          2
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          false,
+          1
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          false,
+          0
+        ],
+        "cells": []
+      },
+      {
+        "action": [
+          "reset",
+          true,
+          null
+        ],
+        "cells": []
+      },
+      {
+        "action": [
+          "extend",
+          true,
+          0
+        ],
+        "cells": [
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          true,
+          1
+        ],
+        "cells": [
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          true,
+          2
+        ],
+        "cells": [
+          {
+            "y": 5,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          true,
+          3
+        ],
+        "cells": [
+          {
+            "y": 4,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 5,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          },
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "extend",
+          true,
+          4
+        ],
+        "cells": [
+          {
+            "y": 3,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 4,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          },
+          {
+            "y": 5,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": true
+            }
+          },
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          true,
+          4
+        ],
+        "cells": [
+          {
+            "y": 4,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 5,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          },
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "middle",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          true,
+          3
+        ],
+        "cells": [
+          {
+            "y": 5,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "base",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          true,
+          2
+        ],
+        "cells": [
+          {
+            "y": 6,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          },
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "frustum",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          true,
+          1
+        ],
+        "cells": [
+          {
+            "y": 7,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase",
+          true,
+          0
+        ],
+        "cells": []
+      },
+      {
+        "action": [
+          "opposed",
+          false,
+          0
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "merge",
+          false,
+          null
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "merge",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "merge",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase_pair",
+          false,
+          0
+        ],
+        "cells": [
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "opposed",
+          false,
+          1
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "merge",
+          false,
+          null
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "merge",
+              "hanging": false
+            }
+          },
+          {
+            "y": 1,
+            "states": {
+              "dripstone_thickness": "merge",
+              "hanging": true
+            }
+          }
+        ]
+      },
+      {
+        "action": [
+          "erase_pair",
+          false,
+          1
+        ],
+        "cells": [
+          {
+            "y": 0,
+            "states": {
+              "dripstone_thickness": "tip",
+              "hanging": false
+            }
+          }
+        ]
+      }
+    ],
+    "done": true
+  },
+  "cleanup": {
+    "reserved_air": 90,
+    "restored": true
+  },
+  "restored": true
+}

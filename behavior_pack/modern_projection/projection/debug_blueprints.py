@@ -10,6 +10,7 @@ from .nbt_spatial import root_payload, scalar
 from .debug_sign_blueprints import METADATA as SIGN_METADATA, VISUAL_CASE as SIGN_VISUAL_CASE
 from .debug_water_blueprints import METADATA as WATER_METADATA, VISUAL_CASE as WATER_VISUAL_CASE
 from .debug_pot_blueprints import METADATA as POT_METADATA, VISUAL_CASE as POT_VISUAL_CASE
+from .debug_dripstone_blueprints import METADATA as DRIPSTONE_METADATA, VISUAL_CASE as DRIPSTONE_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -28,11 +29,34 @@ BLUEPRINTS = (
     SIGN_METADATA,
     WATER_METADATA,
     POT_METADATA,
+    DRIPSTONE_METADATA,
 )
 VISUAL_CASES = {
     'water_behaviors': WATER_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
     'pot_artwork': POT_VISUAL_CASE,
+    'dripstone_neighbors': DRIPSTONE_VISUAL_CASE,
+    'neighbor_context': {
+        'schema': 1, 'fixture': 'test.connections.context',
+        'cells': {
+            'stairs': ((3, 1, 23), (4, 1, 23)),
+            'rail': ((3, 1, 3), (4, 1, 3)),
+            'wall': ((7, 1, 17), (7, 1, 16)),
+            'fence': ((17, 1, 17), (18, 1, 17)),
+            'pane': ((17, 1, 20), (17, 1, 21)),
+            'iron_bars': ((22, 1, 20), (22, 1, 21)),
+        },
+        'cross_chunk_cells': {
+            'stairs': ((15, 1, 23), (16, 1, 23)),
+            'rail': ((15, 1, 3), (16, 1, 3)),
+            'wall': ((7, 1, 16), (7, 1, 15)),
+            'fence': ((15, 1, 17), (16, 1, 17)),
+            'pane': ((17, 1, 15), (17, 1, 16)),
+            'iron_bars': ((22, 1, 15), (22, 1, 16)),
+        },
+        'camera': {'distance': 6., 'side_height': -2.4},
+        'projection_height': 24,
+    },
     'snow_plant_visibility': {
         'schema': 2, 'fixture': 'test.layers.snow',
         'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
@@ -266,6 +290,9 @@ def build(identity):
     fixture = Fixture(metadata)
     if identity == WATER_METADATA[0]:
         from .debug_water_blueprints import populate
+        return populate(fixture)
+    if identity == DRIPSTONE_METADATA[0]:
+        from .debug_dripstone_blueprints import populate
         return populate(fixture)
     builders = {'test.layers.water': _water, 'test.layers.snow': _snow,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,

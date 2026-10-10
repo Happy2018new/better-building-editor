@@ -80,6 +80,8 @@ def _kind(value):
         return 'wall'
     if 'in_wall_bit' in properties:
         return 'gate'
+    if 'dripstone_thickness' in properties:
+        return 'dripstone'
     return 'chest' if properties and foreground(value)[0] in _CHESTS else None
 
 
@@ -322,9 +324,36 @@ def _chest(value, pos, context):
     return chest_pair_actor(value, pos, partner)
 
 
+def _same_dripstone(value, hanging):
+    properties = _properties(value)
+    return 'dripstone_thickness' in properties and properties.get('hanging') == hanging
+
+
+def _dripstone(value, pos, get_cell):
+    properties = _properties(value)
+    hanging = properties['hanging']
+    direction = -1 if hanging else 1
+    next_pos = _add(pos, (0, direction, 0))
+    following = get_cell(next_pos)
+    if _same_dripstone(following, hanging):
+        if _same_dripstone(get_cell(_add(next_pos, (0, direction, 0))), hanging):
+            thickness = ('middle' if _same_dripstone(get_cell(_add(pos, (0, -direction, 0))), hanging)
+                         else 'base')
+        else:
+            thickness = 'frustum'
+    else:
+        paired_merge = (properties['dripstone_thickness'] == 'merge' and
+                        _same_dripstone(following, not hanging) and
+                        _properties(following)['dripstone_thickness'] == 'merge')
+        thickness = 'merge' if paired_merge else 'tip'
+    return _with_properties(value, {'dripstone_thickness': thickness})
+
+
 def _context_offsets(kind):
     if kind == 'rail':
         return tuple((offset[0], height, offset[2]) for offset in OFFSETS.values() for height in (0, 1, -1))
+    if kind == 'dripstone':
+        return tuple((0, height, 0) for height in (-2, -1, 1, 2))
     offsets = tuple(OFFSETS.values())
     return offsets + ((0, 1, 0),) if kind == 'wall' else offsets
 
@@ -389,6 +418,8 @@ def reconcile_steps(document, after, write, locked_layers, preserve=()):
             updated = _wall(value, pos, context)
         elif kind == 'gate':
             updated = _gate(value, pos, get_cell)
+        elif kind == 'dripstone':
+            updated = _dripstone(value, pos, get_cell)
         else:
             updated = _rail(value, pos, context)
         if updated != value:

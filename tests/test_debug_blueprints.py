@@ -64,6 +64,23 @@ class DebugBlueprintTests(unittest.TestCase):
         self.assertEqual(AIR, foreground(doc.get((3, 1, 9))))
         self.assertEqual(water, background(doc.get((3, 1, 9))))
 
+    def test_neighbor_visual_metadata_resolves_source_and_cross_chunk_cells(self):
+        case = VISUAL_CASES['neighbor_context']
+        doc = self.documents[case['fixture']]
+        self.assertEqual(6, len(case['cells']))
+        self.assertEqual(set(case['cells']), set(case['cross_chunk_cells']))
+        for family, (keep, occupied) in case['cells'].items():
+            with self.subTest(family=family):
+                front = foreground(doc.get(keep))
+                self.assertNotEqual(AIR, front)
+                self.assertEqual(front[0], foreground(doc.get(occupied))[0])
+                target, partner = case['cross_chunk_cells'][family]
+                delta = tuple(target[i] - keep[i] for i in range(3))
+                self.assertEqual(partner, tuple(occupied[i] + delta[i] for i in range(3)))
+                self.assertNotEqual(tuple(v >> 4 for v in target), tuple(v >> 4 for v in partner))
+                for position in (target, partner):
+                    self.assertTrue(doc.contains(position))
+
     def test_snow_native_order_uses_measured_coverable_plants(self):
         doc = self.documents['test.layers.snow']
         for x, name in ((3, 'short_grass'), (8, 'fern'), (13, 'dandelion'), (18, 'poppy')):
