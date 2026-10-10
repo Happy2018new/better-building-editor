@@ -35,9 +35,15 @@ VISUAL_CASES = {
         'camera': {'editor': (35., 10., 2.8), 'world_offset': (-2., .15, -2.5)},
     },
     'entity_appearances': {
-        'schema': 1, 'fixture': 'test.entities.appearances',
+        'schema': 2, 'fixture': 'test.entities.appearances',
         'size': (40, 12, 36),
         'camera': {'editor': (35., 25., 4.), 'world_offset': (-3.5, -3., -5.)},
+        'isolated_size': (8, 8, 8), 'focus': (3, 3, 3),
+        'isolated_camera': {'editor': (35., 25., 3.), 'world_offset': (-2., -.8, -3.)},
+        'acceptance_cases': ('skull_floor_yaw_0', 'skull_floor_yaw_45',
+                             'skull_floor_yaw_90', 'skull_wall_face2',
+                             'skull_wall_face5', 'dragon_floor_yaw45',
+                             'bed_silver', 'bed_light_blue'),
     },
     'shulker_orientations': {
         'schema': 1, 'fixture': 'test.transforms.directions',
