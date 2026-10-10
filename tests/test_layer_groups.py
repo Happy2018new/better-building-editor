@@ -147,6 +147,62 @@ class LayerGroupTests(unittest.TestCase):
         self.assertEqual(1, len(editor.clipboard['blocks']))
         self.assertEqual(1, editor.run('erase'))
 
+    def test_new_group_cleans_up_a_different_group_covered_by_its_other_part(self):
+        door, bed = ('minecraft:wooden_door', 0), ('minecraft:bed', 0)
+        bottom, top, old_head = (2, 1, 2), (2, 2, 2), (2, 2, 3)
+        bed_head, door_top = group_partner(bed)[1], group_partner(door)[1]
+        for size in SIZES:
+            for mode in (0, 1):
+                with self.subTest(size=size, mode=mode):
+                    original = {top: bed, old_head: bed_head}
+                    if mode == 1:
+                        original = {pos: make_cell(STONE, value) for pos, value in original.items()}
+                    editor = Editor(Document(size, original))
+                    editor.edit_layer, editor.material = mode, door
+                    self.assertEqual(3, editor.paint_at(bottom, respect_selection=False))
+                    self.assertEqual(door, foreground(editor.document.get(bottom)) if mode == 0 else
+                                     background(editor.document.get(bottom)))
+                    self.assertEqual(door_top, foreground(editor.document.get(top)) if mode == 0 else
+                                     background(editor.document.get(top)))
+                    self.assertEqual(AIR if mode == 0 else STONE, editor.document.get(old_head))
+                    editor.undo()
+                    self.assertEqual(original, dict(editor.document.blocks.items()))
+                    editor.locked_layers.add(old_head[1])
+                    self.assertEqual(0, editor.paint_at(bottom, respect_selection=False))
+                    self.assertEqual(original, dict(editor.document.blocks.items()))
+
+    def test_group_generated_parts_keep_the_requested_half_when_covering_an_existing_group(self):
+        door = ('minecraft:wooden_door', 0)
+        bottom, top, old_top = (2, 1, 2), (2, 2, 2), (2, 3, 2)
+        door_top = group_partner(door)[1]
+        editor = Editor(Document(SIZES[0], {top: door, old_top: door_top}))
+        editor.material = door
+        self.assertEqual(3, editor.paint_at(bottom, respect_selection=False))
+        self.assertEqual(door, editor.document.get(bottom))
+        self.assertEqual(door_top, editor.document.get(top))
+        self.assertEqual(AIR, editor.document.get(old_top))
+
+    def test_grouped_fill_does_not_reinsert_a_removed_half_without_its_new_partner(self):
+        door, bed = ('minecraft:wooden_door', 0), ('minecraft:bed', 0)
+        bottom, top, old_head = (2, 1, 2), (2, 2, 2), (2, 2, 3)
+        for size in SIZES:
+            for mode in (0, 1):
+                with self.subTest(size=size, mode=mode):
+                    original = {top: bed, old_head: group_partner(bed)[1]}
+                    if mode == 1:
+                        original = {pos: make_cell(STONE, value) for pos, value in original.items()}
+                    editor = Editor(Document(size, original))
+                    editor.edit_layer, editor.material = mode, door
+                    editor.selection = {bottom, top, old_head}
+                    self.assertEqual(3, editor.run('fill'))
+                    self.assertEqual(door, foreground(editor.document.get(bottom)) if mode == 0 else
+                                     background(editor.document.get(bottom)))
+                    self.assertEqual(group_partner(door)[1], foreground(editor.document.get(top)) if mode == 0 else
+                                     background(editor.document.get(top)))
+                    self.assertEqual(AIR if mode == 0 else STONE, editor.document.get(old_head))
+                    editor.undo()
+                    self.assertEqual(original, dict(editor.document.blocks.items()))
+
 
 if __name__ == '__main__':
     unittest.main()

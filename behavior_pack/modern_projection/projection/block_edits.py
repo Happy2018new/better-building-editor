@@ -19,11 +19,8 @@ def edit_material(value, material, mode):
     return edit_cell(value, material, mode)
 
 
-def material_changes(get_cell, pos, material, mode):
-    """Preserve relocated groups; remove or place their actual partner layers."""
-    previous = get_cell(pos) or AIR
-    updated = edit_material(previous, material, mode)
-    result = CellChanges({pos: updated})
+def _remove_replaced_parts(get_cell, result, pos, mode):
+    previous, updated = get_cell(pos) or AIR, result[pos]
     remaining = (foreground(updated), background(updated)) if mode == 2 else (layer(updated, mode),)
     selected = (0, 1) if mode == 2 else (mode,)
     for index in selected:
@@ -35,12 +32,24 @@ def material_changes(get_cell, pos, material, mode):
             continue
         partner, partner_index = linked
         other = result.get(partner, get_cell(partner) or AIR)
+        original_other = get_cell(partner) or AIR
+        if layer(other, partner_index) != layer(original_other, partner_index):
+            continue
         erase_mode = 2 if mode == 2 and partner_index == 0 else partner_index
         result[partner] = edit_cell(other, AIR, erase_mode)
         result.removed.add(partner)
+
+
+def material_changes(get_cell, pos, material, mode):
+    """Preserve relocated groups; remove or place their actual partner layers."""
+    previous = get_cell(pos) or AIR
+    updated = edit_material(previous, material, mode)
+    result = CellChanges({pos: updated})
+    _remove_replaced_parts(get_cell, result, pos, mode)
     requested = foreground(material)
     if group_partner(requested) is None:
         return result
+    selected = (0, 1) if mode == 2 else (mode,)
     for index in selected:
         part = layer(updated, index)
         if part[0] != requested[0]:
@@ -51,7 +60,10 @@ def material_changes(get_cell, pos, material, mode):
         offset, reciprocal = relationship
         partner = tuple(pos[i] + offset[i] for i in range(3))
         other = result.get(partner, get_cell(partner) or AIR)
-        result[partner] = edit_material(other, reciprocal, mode if mode == 2 else index)
+        partner_mode = mode if mode == 2 else index
+        # Generated parts keep the reciprocal half, never the overwritten half.
+        result[partner] = edit_cell(other, reciprocal, partner_mode)
         result.removed.discard(partner)
+        _remove_replaced_parts(get_cell, result, partner, partner_mode)
         break
     return result

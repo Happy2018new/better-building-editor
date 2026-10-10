@@ -130,9 +130,10 @@ class EditJob(object):
             return self.staged.get(target, AIR) if self.source.contains(target) else None
 
         planned = material_changes(get_cell, pos, value, self.work.edit_layer)
+        from .block_groups import group_partner
         for target in planned.removed:
             requested = self.batch_changes.get(target, AIR) if self.batch_changes is not None else value
-            if requested != AIR:
+            if requested != AIR and group_partner(requested) is None:
                 planned[target] = edit_material(get_cell(target) or AIR, requested, self.work.edit_layer)
         if any(not self.source.contains(target) or not self.work._writable(target, respect)
                for target in planned):

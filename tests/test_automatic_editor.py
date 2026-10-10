@@ -237,6 +237,20 @@ class AutomaticEditorTests(unittest.TestCase):
                         self.assertEqual(pos not in occupied, pos in editor.selection)
                     self.assertIn((0, 0, 0), editor.selection)
 
+    def test_automatic_group_overlap_removes_only_the_old_parts_and_promotes_their_water(self):
+        bed = ('minecraft:bed', 0)
+        bottom, top, old_head = (2, 1, 2), (2, 2, 2), (2, 2, 3)
+        cells = {top: make_cell(bed, WATER), old_head: make_cell(group_partner(bed)[1], WATER)}
+        for size in SIZES:
+            editor = Editor(Document(size, cells))
+            editor.edit_layer, editor.material = 2, DOOR
+            self.assertEqual(3, editor.paint_at(bottom, respect_selection=False))
+            self.assertEqual(DOOR, editor.document.get(bottom))
+            self.assertEqual(make_cell(group_partner(DOOR)[1], WATER), editor.document.get(top))
+            self.assertEqual(WATER, editor.document.get(old_head))
+            editor.undo()
+            self.assertEqual(cells, dict(editor.document.blocks.items()))
+
 
 if __name__ == '__main__':
     unittest.main()

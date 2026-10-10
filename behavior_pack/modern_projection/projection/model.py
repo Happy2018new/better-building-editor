@@ -337,9 +337,10 @@ class Editor(object):
                 continue
             planned = {pos: block(new)} if whole or prepared else material_changes(get_cell, pos, new, self.edit_layer)
             if not whole and not prepared:
+                from .block_groups import group_partner
                 for target in planned.removed:
                     requested = changes.get(target, AIR)
-                    if requested != AIR:
+                    if requested != AIR and group_partner(requested) is None:
                         planned[target] = edit_material(self.document.get(target), requested, self.edit_layer)
             if any(not self.document.contains(target) or not self._writable(target, respect_selection)
                    for target in planned):
