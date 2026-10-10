@@ -145,9 +145,23 @@ _result=json.dumps({'target':target,'position':position,'rotation':rotation})'''
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert final['player'] == saved_player, (saved_player, final['player'])
     calls = check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % before)
-    assert calls and any(row.get('result') and not row.get('error') for row in calls), calls
+    source = check.run('''import zlib
+from modern_projection.projection.bridge import _stable_palette
+from modern_projection.projection.geometry_palette import prepare_palette
+doc=s.editor.document
+data=prepare_palette(doc.palette_data())
+fingerprint=zlib.compress(repr(_stable_palette((doc.size,data))).encode('utf8'),1)
+_result=json.dumps({'fixture':sys._blueprint_qa_identity,'editor_id':id(s.editor),
+ 'document_id':id(doc),'model':b.projection_mesh[1], 'cached_model':b.models.get(fingerprint),
+ 'missing':s.projection_missing})
+''')
+    assert not source['missing'] and source['model'] == source['cached_model'], source
+    assert all(row.get('result') and not row.get('error') and
+               row.get('editor_id') == source['editor_id'] and
+               row.get('document_id') == source['document_id'] for row in calls), calls
     state.update(pose=pose, final=final, screenshot=shown, hidden_screenshot=hidden,
-                 pixel_difference=delta, native_calls=calls)
+                 pixel_difference=delta, native_calls=calls, source=source,
+                 native_evidence='current_source_submission' if calls else 'current_source_cached_geometry')
     return state
 
 
