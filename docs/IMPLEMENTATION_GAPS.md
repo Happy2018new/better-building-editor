@@ -60,6 +60,10 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 实体代理的干燥三写法报告 `.runtime/native-actor-three-write-r5-dry-final.json` 已完成／恢复且无清理错误；陶罐的 palette／`SetBlockNew`／物品三个本体正控均为零像素，全部仍失败。三种写法都追加相同的 `SetBlockEntityData`，因此尚未排除其影响，也没有证据证明 shader uniform 实际泄漏；需增加赋 NBT 前后对照。湿告示牌因跳过逻辑仍发送 Esc 导致暂停，其物品路径不作为有效本体证据。`d838520` 保存重放原始正控、防止跳过时误发 Esc 及 raw/canonical 液体读回；`38c2c20` 保存原生 AABB 空值／非有限／零体积拒绝，四个相等 `None` 不再被误判为一致。桌面当前交给冻结的邻接验收，随后含雪边界和根含水冷启动；截止与休眠任务不变。
 
+**第五轮 05:32 离线闸门：** `60adbfd` 将原生液体材质祖先修复、7 项液体定点测试、回归文档和生成资源纳入集成树。`tools/check_version_bundle.py --tests --output .runtime/version-bundle-r5-0532.json` 通过：**992 项离线测试、34 份来源检查、15,858 状态 × 六操作**及全部生成资源检查。普通 `python` 默认编码运行的单独测试曾因 Windows GBK 读取旧 shader 而出现环境性错误；统一闸门使用 `-X utf8`，结果为全通过。
+
+邻接代理的冷启动标定两次完成并清理恢复，但固定前视角通过、右视角和倾斜视角失败（r6 SHA-256 `a0502195d1428aadccba95cf0804e40a9539514c63867a2c1ff1191e1eeb6cdd`；r6b SHA-256 `11adfaca5d62a99e0aa9faedf43d3fb1912030dcee0f4dab2002e7d9325afa57`）。两次均未进入静态连缀或 92 对 AABB holdout，不能作为邻接通过证据；实例已正常停止、桌面已释放，失败报告保留在受管实例 artifacts。含雪边界测试随后接管桌面。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。
