@@ -1,0 +1,1169 @@
+{
+  "game_version": "NEMC 3.9.0.401155",
+  "method": "complete supported tall-plant palette then SetSnowBlock bottom",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "rows": [
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:short_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:short_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {}
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:air",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": null
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:short_grass",
+      "paired": false,
+      "set_snow": true,
+      "snowy": [
+        {
+          "front": {
+            "aux": 8,
+            "name": "minecraft:snow_layer"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:snow_layer",
+                8,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": [
+              [
+                "minecraft:short_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ]
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "covered_bit": true,
+            "height": 0
+          }
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:air",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": null
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:tall_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:tall_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:tall_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:tall_grass",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:tall_grass",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:tall_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:tall_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:tall_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:tall_grass",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:large_fern"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:large_fern",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:large_fern"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:large_fern",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:large_fern",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:large_fern"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:large_fern",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:large_fern"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:large_fern",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:lilac"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:lilac",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:lilac"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:lilac",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:lilac",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:lilac"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:lilac",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:lilac"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:lilac",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:sunflower"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:sunflower",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:sunflower"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:sunflower",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:sunflower",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:sunflower"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:sunflower",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:sunflower"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:sunflower",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:rose_bush"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:rose_bush",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:rose_bush"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:rose_bush",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:rose_bush",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:rose_bush"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:rose_bush",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:rose_bush"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:rose_bush",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:peony"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:peony",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:peony"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:peony",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:peony",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:peony"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:peony",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:peony"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:peony",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:pitcher_plant"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_plant",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:pitcher_plant"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_plant",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:pitcher_plant",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:pitcher_plant"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_plant",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 1,
+            "name": "minecraft:pitcher_plant"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_plant",
+                1,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 14,
+      "dry": [
+        {
+          "front": {
+            "aux": 14,
+            "name": "minecraft:pitcher_crop"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_crop",
+                14,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "growth": 7,
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 15,
+            "name": "minecraft:pitcher_crop"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_crop",
+                15,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "growth": 7,
+            "upper_block_bit": true
+          }
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:pitcher_crop",
+      "paired": true,
+      "set_snow": false,
+      "snowy": [
+        {
+          "front": {
+            "aux": 14,
+            "name": "minecraft:pitcher_crop"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_crop",
+                14,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "growth": 7,
+            "upper_block_bit": false
+          }
+        },
+        {
+          "front": {
+            "aux": 15,
+            "name": "minecraft:pitcher_crop"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:pitcher_crop",
+                15,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": {
+            "growth": 7,
+            "upper_block_bit": true
+          }
+        }
+      ]
+    },
+    {
+      "aux": 0,
+      "dry": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:tall_dry_grass"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:tall_dry_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {}
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:air",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": null
+        }
+      ],
+      "dry_verified": true,
+      "name": "minecraft:tall_dry_grass",
+      "paired": false,
+      "set_snow": true,
+      "snowy": [
+        {
+          "front": {
+            "aux": 8,
+            "name": "minecraft:snow_layer"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:snow_layer",
+                8,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": [
+              [
+                "minecraft:tall_dry_grass",
+                0,
+                [
+                  0
+                ]
+              ]
+            ]
+          },
+          "pos": [
+            11,
+            118,
+            15
+          ],
+          "states": {
+            "covered_bit": true,
+            "height": 0
+          }
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "layers": {
+            "common": [
+              [
+                "minecraft:air",
+                0,
+                [
+                  0
+                ]
+              ]
+            ],
+            "extra": []
+          },
+          "pos": [
+            11,
+            119,
+            15
+          ],
+          "states": null
+        }
+      ]
+    }
+  ],
+  "schema": 1,
+  "export_tag": "paired-snow-player-bound-v1"
+}
