@@ -205,6 +205,8 @@ def component_checks(baseline, actual, masks, native_path, threshold, min_pixels
         mask = Image.new('L', baseline.size)
         mask.putdata([255 if predicate(*pixel) else 0 for pixel in pixels])
         mask = ImageChops.multiply(mask, presence)
+        if name == 'actor':
+            mask = ImageChops.multiply(mask, masks[1])
         result[name] = native.compare_complete(baseline, actual,
                                               (mask, Image.new('L', baseline.size)),
                                               threshold, min_pixels)

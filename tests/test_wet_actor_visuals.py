@@ -104,7 +104,9 @@ class WetActorFixtureTests(unittest.TestCase):
             draw.rectangle((10, 10, 40, 65), fill=(20, 60, 170))
             draw.rectangle((55, 15, 85, 65), fill=(150, 100, 50))
             baseline.save(path)
-            masks = (Image.new('L', baseline.size, 255), Image.new('L', baseline.size))
+            masks = (Image.new('L', baseline.size), Image.new('L', baseline.size))
+            ImageDraw.Draw(masks[0]).rectangle((10, 10, 40, 65), fill=255)
+            ImageDraw.Draw(masks[1]).rectangle((55, 15, 85, 65), fill=255)
             same = component_checks(baseline, baseline, masks, path, 16, 80)
             self.assertTrue(all(row['passed'] for row in same.values()))
             for name, box in (('water', (10, 10, 40, 65)), ('actor', (55, 15, 85, 65))):
@@ -113,6 +115,25 @@ class WetActorFixtureTests(unittest.TestCase):
                 checks = component_checks(baseline, actual, masks, path, 16, 80)
                 self.assertFalse(checks[name]['passed'])
                 self.assertTrue(checks['actor' if name == 'water' else 'water']['passed'])
+
+    def test_keep_fence_cannot_supply_native_actor_positive_control(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'fence.png'
+            baseline = Image.new('RGB', (100, 80))
+            draw = ImageDraw.Draw(baseline)
+            draw.rectangle((10, 10, 25, 65), fill=(20, 60, 170))
+            draw.rectangle((30, 15, 40, 65), fill=(150, 100, 50))
+            baseline.save(path)
+            masks = (Image.new('L', baseline.size), Image.new('L', baseline.size))
+            ImageDraw.Draw(masks[0]).rectangle((5, 5, 45, 70), fill=255)
+            ImageDraw.Draw(masks[1]).rectangle((55, 5, 95, 70), fill=255)
+
+            result = component_checks(baseline, baseline, masks, path, 16, 80)
+
+            self.assertTrue(result['water']['valid_baseline'])
+            self.assertTrue(result['water']['passed'])
+            self.assertFalse(result['actor']['valid_baseline'])
+            self.assertFalse(result['actor']['passed'])
 
     def test_no_native_component_cannot_be_accepted(self):
         with tempfile.TemporaryDirectory() as directory:
