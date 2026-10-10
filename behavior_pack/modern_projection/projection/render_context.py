@@ -11,6 +11,7 @@ from .storage import integer_types
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
 MAX_CONTEXT_CHUNK_CACHE = 32
+TARGETS_PER_UNIT = 16
 
 
 def _position(index, volume):
@@ -232,8 +233,11 @@ class ContextPaletteBuilder(object):
         for unused in self.collect():
             yield True
         self.initialize()
-        for target in self.positions:
+        for number, target in enumerate(self.positions, 1):
             self.put_target(target)
+            if number % TARGETS_PER_UNIT == 0:
+                yield True
+        if self.positions and len(self.positions) % TARGETS_PER_UNIT:
             yield True
         for key, layer in (('states', 'common'), ('extraStates', 'extra')):
             self.data[key] = dict((value, record) for value, record in self.data[key].items()

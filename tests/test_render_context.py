@@ -10,8 +10,8 @@ from projection import block_registry as registry
 from projection.cell import make_cell
 from projection.debug_blueprints import BLUEPRINTS, build, material
 from projection.model import Document
-from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, ContextPaletteBuilder,
-                                       prepare_context_palette)
+from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, TARGETS_PER_UNIT,
+                                       ContextPaletteBuilder, prepare_context_palette)
 from projection.render_layout import (CONTEXT_BASE, OVERLAY_BASE, context_center,
                                       context_position, logical_position)
 from projection.visible_actor import compose_actor
@@ -57,6 +57,22 @@ class RenderContextTests(unittest.TestCase):
         self.assertEqual(MAX_CONTEXT_CHUNK_CACHE, len(builder.chunk_cache))
         self.assertEqual(len(values), len(builder.positions))
         self.assertEqual(saved, document.blocks)
+
+    def test_preparation_batches_remain_bounded_and_yield_final_partial_unit(self):
+        stone = material('stone')
+        document = Document((33, 1, 1), {(x, 0, 0): stone for x in range(33)})
+        builder = ContextPaletteBuilder(document, document.palette_data())
+        observed = []
+        with patch.object(builder, 'put_target', wraps=builder.put_target) as put:
+            previous = 0
+            for unused in builder.prepare():
+                count = put.call_count - previous
+                self.assertLessEqual(count, TARGETS_PER_UNIT)
+                if count:
+                    observed.append(count)
+                previous = put.call_count
+        self.assertEqual([16, 16, 1], observed)
+        self.assertEqual(33, sum(observed))
 
     def test_hidden_neighbor_stairs_and_both_layers_survive_in_one_context_tile(self):
         stair = lambda direction: material('oak_stairs', {'weirdo_direction': direction})

@@ -136,6 +136,25 @@ class Runtime:
 
 
 class ProjectionLifecycleTests(unittest.TestCase):
+    def test_render_callback_advances_pending_model_without_changing_previous_actor(self):
+        bridge = self.bridge
+        observed = []
+        bridge.projection_work = types.SimpleNamespace(
+            ready=False, error=None, advance=lambda schedule: observed.append(schedule))
+        bridge.projection_occupancy = None
+        previous = bridge.entity
+        bridge.update_projection_occupancy()
+        self.assertEqual([False], observed)
+        self.assertEqual(previous, bridge.entity)
+        self.assertNotIn(previous, self.runtime.destroyed)
+        bridge.projection_work.ready = True
+        bridge.update_projection_occupancy()
+        self.assertEqual([False], observed)
+        bridge.projection_work.ready = False
+        bridge.projection_work.error = 'failed'
+        bridge.update_projection_occupancy()
+        self.assertEqual([False], observed)
+
     def drain_projection(self, limit=200):
         """Pump scheduled frames in the fake game until no work remains."""
         for unused in range(limit):

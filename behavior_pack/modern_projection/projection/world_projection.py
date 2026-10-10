@@ -157,7 +157,7 @@ class WorldProjection(object):
         b.preparing_entity = entity
         b.later(.2, lambda: self.attach(entity))
 
-    def advance(self):
+    def advance(self, schedule=True):
         if not self.active() or self.iterator is None:
             return
         deadline = time.time()+.003
@@ -172,4 +172,5 @@ class WorldProjection(object):
             self.fail(type('')(exc))
             return
         self.publish()
-        self.bridge.next_frame(self.advance)
+        if schedule:
+            self.bridge.next_frame(self.advance)

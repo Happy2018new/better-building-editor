@@ -763,6 +763,11 @@ class ClientBridge(object):
         occupancy.hint(pos)
 
     def update_projection_occupancy(self):
+        work = self.projection_work
+        if work is not None and not work.ready and not work.error:
+            # Render frames continue while the editor is closed; SDK timers
+            # alone may advance only every 50-100 ms on this engine version.
+            work.advance(False)
         if self.projection_occupancy is not None:
             self.projection_occupancy.tick()
 
