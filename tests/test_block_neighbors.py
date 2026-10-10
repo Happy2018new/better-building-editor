@@ -12,6 +12,7 @@ from projection.cell import actor_data, background, foreground, make_cell
 from projection.jobs import EditJob
 from projection.model import AIR, Document, Editor, close_group_selection
 from projection.nbt_spatial import root_payload, scalar
+from projection.visible_actor import compose_actor, entity_nbt, render_actor
 
 SIZES = ((8, 5, 8), (64, 128, 64))
 STONE = ('minecraft:stone', 0)
@@ -302,6 +303,35 @@ class BlockNeighborTests(unittest.TestCase):
         editor = Editor(Document(SIZES[0], {(x, 1, 2): CHEST for x in (1, 2, 3)}))
         for x in (1, 2, 3):
             self.assertEqual({(x, 1, 2)}, set(close_group_selection(editor.document, [(x, 1, 2)])))
+
+    def test_chest_pairing_preserves_full_nbt_separate_from_renderer_fields(self):
+        nbt = {'pairx': {'__type__': 3, '__value__': 3},
+               'pairz': {'__type__': 3, '__value__': 2},
+               'Items': {'__type__': 9, '__value__': [{'Slot': 0, 'Count': 5}]},
+               'CustomName': {'__type__': 8, '__value__': 'kept'}}
+        render = {'chestOpenness': 0.25}
+        left = make_cell(CHEST, WATER, compose_actor(render, nbt))
+        updated = chest_pair_actor(left, (2, 1, 2), (3, 1, 2))
+        actor = actor_data(updated)
+        self.assertEqual(nbt, entity_nbt(actor))
+        self.assertNotIn('chestIsLargeChest', entity_nbt(actor))
+        self.assertTrue(render_actor(actor)['chestIsLargeChest'])
+        self.assertEqual(0.25, render_actor(actor)['chestOpenness'])
+        self.assertEqual((3, 1, 2), chest_render_pair_position(updated, (2, 1, 2)))
+        unpaired = chest_pair_actor(updated, (2, 1, 2))
+        self.assertNotIn('pairx', entity_nbt(actor_data(unpaired)))
+        self.assertNotIn('pairz', entity_nbt(actor_data(unpaired)))
+        self.assertEqual(nbt['Items'], entity_nbt(actor_data(unpaired))['Items'])
+        self.assertFalse(render_actor(actor_data(unpaired))['chestIsLargeChest'])
+        self.assertEqual(WATER, background(unpaired))
+
+    def test_chest_pairing_adds_renderer_fields_to_nbt_only_cell_without_mixing(self):
+        nbt = {'Items': {'__type__': 9, '__value__': []}}
+        left = make_cell(CHEST, AIR, nbt)
+        updated = chest_pair_actor(left, (2, 1, 2), (3, 1, 2))
+        self.assertEqual(nbt, entity_nbt(actor_data(updated)))
+        self.assertTrue(render_actor(actor_data(updated))['chestIsLargeChest'])
+        self.assertEqual((3, 1, 2), chest_render_pair_position(updated, (2, 1, 2)))
 
     def test_cancelled_job_during_neighbor_reconciliation_does_not_publish(self):
         editor = Editor(Document(SIZES[1], {(2, 1, 2): WALL}))

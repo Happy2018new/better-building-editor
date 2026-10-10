@@ -37,9 +37,9 @@ class EditJob(object):
         self.source = editor.document
         self.selection_before = editor._selection_state()
         self.selection = editor.selection.copy() if isinstance(editor.selection, Selection) else Selection(editor.selection)
-        if (BY_ID[tool][1] != 'select' and
-                (editor.edit_layer == 0 or BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut'))):
-            self.selection = close_group_selection(self.source, self.selection)
+        if BY_ID[tool][1] != 'select':
+            selected_layer = None if BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut', 'gravity', 'foundation', 'heightmap') else editor.edit_layer
+            self.selection = close_group_selection(self.source, self.selection, index=selected_layer)
         self.work = copy.copy(editor)
         self.work.locked_layers = set(editor.locked_layers)
         self.work.hidden_layers = set(editor.hidden_layers)
@@ -119,7 +119,7 @@ class EditJob(object):
                      '%s，已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
 
     def _set(self, pos, value, respect=True, whole=False):
-        if not whole and self.work.edit_layer == 0:
+        if not whole:
             from .block_groups import group_is_upper, group_partner
             relationship = group_partner(value)
             if relationship is not None:
@@ -153,9 +153,8 @@ class EditJob(object):
             return
         original, previous = self.source.get(pos), self.staged.get(pos, AIR)
         if not whole:
-            if self.work.edit_layer == 0:
-                from .block_groups import preserve_group_part
-                value = preserve_group_part(value, foreground(original))
+            from .block_groups import preserve_group_part
+            value = preserve_group_part(value, layer(original, self.work.edit_layer))
             value = replace_layer(previous, value, self.work.edit_layer)
         self.changed += int(value != original) - int(previous != original)
         self.staged[pos] = value
@@ -518,11 +517,11 @@ class EditJob(object):
             changes = work._finish(tool, lo, hi)
         else:
             changes = work._edit(tool)
-        if tool == 'replace' and work.edit_layer == 0 and changes:
+        if tool == 'replace' and changes:
             from .block_groups import paired_cell_position
             for pos in tuple(changes):
                 partner = paired_cell_position(
-                    lambda target: self.source.get(target) if self.source.contains(target) else None, pos)
+                    lambda target: self.source.get(target) if self.source.contains(target) else None, pos, work.edit_layer)
                 if partner is not None and partner in self.selection:
                     changes[partner] = changes[pos]
         # All changes in this batch are still part of the original selection.

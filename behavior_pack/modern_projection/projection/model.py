@@ -44,51 +44,43 @@ def box_points(lo, hi):
                 yield (x, y, z)
 
 
-def close_group_selection(document, selection, strict=True):
+def close_group_selection(document, selection, strict=True, index=None):
     """Expand a selection to include complete native multi-cell structures."""
-    from .block_groups import has_group_link, paired_cell_position
+    from .block_groups import has_group_link, paired_cell_positions
 
+    selected_layer = index
     result = selection.copy() if isinstance(selection, Selection) else Selection(selection)
 
     def get_cell(pos):
         return document.get(pos) if document.contains(pos) else None
 
+    pending = deque()
+
+    def expand(pos, value):
+        try:
+            if not has_group_link(value, pos, get_cell, selected_layer):
+                return
+            partners = paired_cell_positions(get_cell, pos, selected_layer)
+        except ValueError:
+            if strict:
+                raise
+            return
+        for partner in partners:
+            if partner not in result:
+                result.add(partner)
+                pending.append(partner)
+
     for key, mask in tuple(result.chunks.items()):
         chunk = document.blocks.chunks.get(key, 0)
-        if isinstance(chunk, integer_types):
-            if not chunk:
-                continue
-            candidates = indices(mask)
-            for index in candidates:
-                pos = position(key, index)
-                value = document.get(pos)
-                try:
-                    if not has_group_link(value, pos, get_cell):
-                        continue
-                    partner = paired_cell_position(get_cell, pos)
-                except ValueError:
-                    if strict:
-                        raise
-                    continue
-                if partner is not None and partner not in result:
-                    result.add(partner)
+        if isinstance(chunk, integer_types) and not chunk:
             continue
-        for index in indices(mask):
-            identity = chunk[index]
-            if not identity:
-                continue
-            pos = position(key, index)
-            value = document.blocks.palette[identity]
-            try:
-                if not has_group_link(value, pos, get_cell):
-                    continue
-                partner = paired_cell_position(get_cell, pos)
-            except ValueError:
-                if strict:
-                    raise
-                continue
-            if partner is not None and partner not in result:
-                result.add(partner)
+        for cell_index in indices(mask):
+            identity = chunk if isinstance(chunk, integer_types) else chunk[cell_index]
+            if identity:
+                expand(position(key, cell_index), document.blocks.palette[identity])
+    while pending:
+        pos = pending.popleft()
+        expand(pos, document.get(pos))
     return result
 
 
@@ -322,7 +314,7 @@ class Editor(object):
         self.selection_revision += 1
 
     def _commit(self, name, changes, respect_selection=True, whole=False, selection_after=None):
-        if not whole and self.edit_layer == 0:
+        if not whole:
             from .block_groups import expand_group_changes
             changes = expand_group_changes(changes, lambda pos: (
                 self.document.contains(pos) and pos[1] not in self.locked_layers and
@@ -339,9 +331,8 @@ class Editor(object):
             if whole:
                 new = block(new)
             else:
-                if self.edit_layer == 0:
-                    from .block_groups import preserve_group_part
-                    new = preserve_group_part(new, foreground(old))
+                from .block_groups import preserve_group_part
+                new = preserve_group_part(new, layer(old, self.edit_layer))
                 new = replace_layer(old, new, self.edit_layer)
             if old != new:
                 delta[pos] = (old, new)
@@ -513,7 +504,7 @@ class Editor(object):
             )
             return 0
         changes = {pos: AIR if erase else block(self.material)}
-        if self.edit_layer == 0:
+        if self.edit_layer in (0, 1):
             from .block_groups import group_partner, paired_cell_position
 
             document = self.document
@@ -521,8 +512,8 @@ class Editor(object):
             def get_cell(target):
                 return document.get(target) if document.contains(target) else None
 
-            old_partner = paired_cell_position(get_cell, pos)
-            if old_partner is not None and (erase or foreground(changes[pos]) != foreground(document.get(pos))):
+            old_partner = paired_cell_position(get_cell, pos, self.edit_layer)
+            if old_partner is not None and (erase or foreground(changes[pos]) != document.get_layer(pos, self.edit_layer)):
                 changes[old_partner] = AIR
             if not erase:
                 relationship = group_partner(foreground(changes[pos]))
@@ -757,9 +748,9 @@ class Editor(object):
         group = BY_ID[tool][1]
         if group == "select":
             return self._select(tool)
-        if self.edit_layer == 0 or group == "transform" or tool in ("copy", "cut"):
-            self.selection = close_group_selection(self.document, self.selection)
-            self.sync_selection_bounds()
+        selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") else self.edit_layer
+        self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
+        self.sync_selection_bounds()
         if not self.selection:
             raise ValueError("选区为空，请先框选或全选")
         lo, hi = bounds(self.selection)
@@ -804,12 +795,11 @@ class Editor(object):
                 out[p] = self.material
             elif tool == "replace" and old == self.source:
                 out[p] = self.material
-                if self.edit_layer == 0:
-                    from .block_groups import paired_cell_position
-                    partner = paired_cell_position(
-                        lambda target: doc.get(target) if doc.contains(target) else None, p)
-                    if partner is not None and partner in self.selection:
-                        out[partner] = self.material
+                from .block_groups import paired_cell_position
+                partner = paired_cell_position(
+                    lambda target: doc.get(target) if doc.contains(target) else None, p, self.edit_layer)
+                if partner is not None and partner in self.selection:
+                    out[partner] = self.material
             elif tool == "paint" and self.surface(p):
                 out[p] = self.material
             elif tool == "swap":

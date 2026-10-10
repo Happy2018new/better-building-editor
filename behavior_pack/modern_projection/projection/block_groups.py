@@ -2,8 +2,9 @@
 """Resolve vanilla multi-block part relationships from native block states."""
 from __future__ import unicode_literals
 from . import block_registry as registry
-from .cell import actor_data, background, foreground, integer_types, make_cell
+from .cell import actor_data, background, foreground, integer_types, layer, make_cell
 from .nbt_spatial import field_key, root_payload, scalar, set_scalar
+from .visible_actor import compose_actor, entity_nbt, render_actor
 
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
 _NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
@@ -166,7 +167,8 @@ def actor_pair_position(value, pos):
     """Return a chest actor's linked half using its local pair coordinates."""
     if foreground(value)[0] not in _CHESTS:
         return None
-    actor = root_payload(actor_data(value))
+    data = actor_data(value)
+    actor = root_payload(entity_nbt(data) or data)
     if actor is None:
         return None
     pair_x, pair_z = scalar(actor, 'pairx'), scalar(actor, 'pairz')
@@ -187,7 +189,8 @@ def chest_render_pair_position(value, pos):
     """Resolve the native client chest renderer's main/sub half relationship."""
     if foreground(value)[0] not in _CHESTS:
         return None
-    actor = root_payload(actor_data(value))
+    data = actor_data(value)
+    actor = root_payload(render_actor(data) or entity_nbt(data))
     if actor is None or scalar(actor, 'chestIsLargeChest') is not True:
         return None
     main = scalar(actor, 'chestMainSubChest')
@@ -238,8 +241,11 @@ def chest_pair_actor(value, pos, partner=None):
     direction = _chest_direction(value)
     if direction not in _CHEST_PARTNER:
         return value
-    data = actor_data(value) or {}
-    root = root_payload(data)
+    data = actor_data(value)
+    nbt = entity_nbt(data)
+    render = render_actor(data)
+    render = {} if render is None else render
+    root = root_payload(render)
     if root is None:
         return value
     main_partner = tuple(pos[i] + _CHEST_PARTNER[direction][i] for i in range(3))
@@ -254,28 +260,35 @@ def chest_pair_actor(value, pos, partner=None):
                           ('chestOldOpenness', 0.0)):
         if field_key(root, name) is None:
             root[name] = default
-    for name, axis in (('pairx', 0), ('pairz', 2)):
-        key = field_key(root, name)
-        if key is None:
+    for pair_root in (root, root_payload(nbt)):
+        if pair_root is None:
             continue
-        if partner is None:
-            del root[key]
-        else:
-            set_scalar(root, name, partner[axis])
-    return make_cell(foreground(value), background(value), data)
+        for name, axis in (('pairx', 0), ('pairz', 2)):
+            key = field_key(pair_root, name)
+            if key is None:
+                continue
+            if partner is None:
+                del pair_root[key]
+            else:
+                set_scalar(pair_root, name, partner[axis])
+    return make_cell(foreground(value), background(value), compose_actor(render, nbt))
 
 
-def paired_cell_position(get_cell, pos):
+def paired_cell_position(get_cell, pos, index=None):
     """Resolve a paired block from either block states or actor coordinates."""
     value = get_cell(pos)
     if value is None:
         return None
-    front = foreground(value)
+    if index is None:
+        index = 0 if group_partner(foreground(value)) is not None or foreground(value)[0] in _CHESTS else 1
+    front = layer(value, index)
     if group_partner(front) is not None:
         def get_block(target):
             cell = get_cell(target)
-            return foreground(cell) if cell is not None else None
+            return layer(cell, index) if cell is not None else None
         return paired_position(get_block, pos)
+    if index or front[0] not in _CHESTS:
+        return None
     partner_pos = actor_pair_position(value, pos) or chest_render_pair_position(value, pos)
     if partner_pos is None:
         return _adjacent_chest_position(get_cell, value, pos)
@@ -295,8 +308,20 @@ def paired_cell_position(get_cell, pos):
     return partner_pos
 
 
-def has_group_link(value, pos, get_cell=None):
-    return (group_partner(foreground(value)) is not None or
+def paired_cell_positions(get_cell, pos, index=None):
+    indices = (0, 1) if index is None else (index,)
+    return tuple(set(partner for selected in indices
+                     for partner in (paired_cell_position(get_cell, pos, selected),)
+                     if partner is not None))
+
+
+def has_group_link(value, pos, get_cell=None, index=None):
+    indices = (0, 1) if index is None else (index,)
+    if any(group_partner(layer(value, selected)) is not None for selected in indices):
+        return True
+    if index == 1:
+        return False
+    return (
             actor_pair_position(value, pos) is not None or
             chest_render_pair_position(value, pos) is not None or
             (get_cell is not None and _adjacent_chest_position(get_cell, value, pos) is not None))
