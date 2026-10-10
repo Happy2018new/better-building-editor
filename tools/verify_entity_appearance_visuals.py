@@ -12,6 +12,7 @@ from verify_debug_visuals import SAVE_VISUAL, camera_restore_code, world_closeup
 from verify_native_entity_appearances import execute, replicated_palettes
 from verify_shulker_orientations import viewport_crop, wait_camera_pose
 from verify_snow_plant_visibility import changed, count
+from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 
 ROOT = Path(__file__).resolve().parents[1]
 LOAD = '''from copy import deepcopy
@@ -131,7 +132,7 @@ def main():
     args = parser.parse_args()
     evidence = {'schema': 1, 'completed': False, 'passed': False, 'rows': [],
                 'scope': 'Native actual block comparison is independent of native and built-in editor inputs.'}
-    installed = saved_visual = native_created = False
+    installed = saved_visual = native_created = daylight_saved = False
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, 60)
@@ -140,6 +141,8 @@ def main():
                 installed = True
                 check.run(SAVE_VISUAL)
                 saved_visual = True
+                daylight_saved = True
+                evidence['daylight'] = execute(client, SETUP_DAYLIGHT)
                 path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprints.py'
                 case = check.run('import base64\nimport modern_projection.projection.debug_blueprints as refreshed\n'
                                  'eval(compile(base64.b64decode(%r),%r,"exec"),refreshed.__dict__)\n'
@@ -205,6 +208,8 @@ def main():
                                       'del sys._blueprint_visual_saved\n_result=True'))))
                 if native_created:
                     actions.append(('native', lambda: execute(client, (ROOT / 'tools/p0_entity_appearance_cleanup.py').read_text(encoding='utf8'))))
+                if daylight_saved:
+                    actions.append(('daylight', lambda: execute(client, RESTORE_DAYLIGHT)))
                 if installed:
                     actions.append(('workspace', lambda: check.run(RESTORE)))
                 for label, action in actions:

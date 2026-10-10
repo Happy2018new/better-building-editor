@@ -13,6 +13,7 @@ from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw
 from shulker_pixels import central_object, native_proxy_comparison
+from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -228,7 +229,7 @@ def main():
     evidence = {'schema': 3, 'completed': False, 'sources': {},
                 'source': 'Built-in test.transforms.directions blueprint cells',
                 'camera_policy': 'One low side offset for all native/proxy pairs; no high-camera or opening-face claim'}
-    installed = visual_saved = native_created = False
+    installed = visual_saved = native_created = daylight_saved = False
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, args.timeout)
@@ -237,6 +238,8 @@ def main():
                 installed = True
                 check.run(SAVE_VISUAL)
                 visual_saved = True
+                daylight_saved = True
+                evidence['daylight'] = server_run(client, SETUP_DAYLIGHT)
                 blueprint_path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprints.py'
                 check.run('import base64\nimport modern_projection.projection.debug_blueprints as refreshed\n'
                           'eval(compile(base64.b64decode(%r),%r,"exec"),refreshed.__dict__)\n'
@@ -392,6 +395,11 @@ def main():
                         evidence['native_cleaned'] = True
                     except Exception as cleanup_error:
                         cleanup_errors.append('native_fixture: %s' % cleanup_error)
+                if daylight_saved:
+                    try:
+                        evidence['daylight_restored'] = server_run(client, RESTORE_DAYLIGHT)
+                    except Exception as cleanup_error:
+                        cleanup_errors.append('daylight: %s' % cleanup_error)
                 if cleanup_errors:
                     evidence['cleanup_errors'] = cleanup_errors
                     if prior_error is None:
