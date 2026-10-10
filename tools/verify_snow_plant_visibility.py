@@ -59,7 +59,7 @@ state=factory.CreateBlockState(server_api.GetLevelId())
 _result=json.dumps({'result':result,'front':info.GetBlockNew(saved['target'],saved['dimension']),
  'states':state.GetBlockStates(saved['target'],saved['dimension']),'target':saved['target']})
 '''
-NATIVE_CLEANUP = '''import sys
+NATIVE_CLEANUP = '''import json,sys
 from modern_projection.server_system import WorldAdapter
 saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
@@ -590,8 +590,10 @@ _result=True
                     ))
                 for label, action in actions:
                     try:
-                        action()
+                        result = action()
                         if label == 'native_fixture':
+                            if not result or not all(row[1] for row in result):
+                                raise RuntimeError('Native snow fixture cleanup did not restore every cell: %r' % (result,))
                             evidence['native_reference']['cleaned'] = True
                     except Exception as cleanup_error:
                         cleanup_errors.append('%s: %s' % (label, cleanup_error))
