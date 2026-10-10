@@ -1,5 +1,6 @@
 """Reject version mixtures before any game or resource tests are started."""
 import importlib.util
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -11,6 +12,24 @@ spec.loader.exec_module(bundle)
 
 
 class VersionBundleTests(unittest.TestCase):
+    def actor_snapshot(self):
+        manifest=json.loads((ROOT/'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
+        version=manifest['game_version'].removeprefix('NEMC ')
+        data=json.loads((ROOT/('tools/data/native_actor_materials_nemc_'+version+'.json')).read_text(encoding='utf8'))
+        return manifest,data
+
+    def test_stale_native_actor_shader_cannot_pass_version_bundle(self):
+        manifest,data=self.actor_snapshot()
+        data['adapted']['resource_pack/shaders/glsl/modern_projection_sign_text.fragment']='0'*64
+        with self.assertRaisesRegex(ValueError,'repeat shader and visual checks'):
+            bundle.check_actor_materials(data,manifest)
+
+    def test_altered_native_source_snapshot_cannot_pass(self):
+        manifest,data=self.actor_snapshot()
+        data['sources']['shaders/glsl/text.fragment']['text']+='\n// stale source\n'
+        with self.assertRaisesRegex(ValueError,'Native source snapshot changed'):
+            bundle.check_actor_materials(data,manifest)
+
     def test_current_sources_and_runtime_observations_match(self):
         manifest, files = bundle.check_provenance()
         self.assertGreater(len(files), 15)

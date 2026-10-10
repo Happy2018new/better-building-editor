@@ -239,3 +239,34 @@ front/back text styles. Saved tagged NBT supplies both text sides to the native
 render adapter. Successful field reconstruction or a visible board does not
 establish glyph rendering; `tools/verify_sign_visuals.py` checks coloured glyph
 pixels for each measured side and saves both editor and projection evidence.
+
+The schema-3 sign visual case includes a complete text ROI and tolerances for
+glyph position and size relative to the wooden panel. The image oracle rejects
+identical glyphs that have moved or changed size; a normalized glyph match alone
+is insufficient. Native non-glowing back text remains an unaccepted sample until
+its independent pixel checks pass.
+
+`tools/verify_pot_visuals.py` uses the public `pot_artwork` case for four native
+directions at two camera sides. `--operation mirror_x` or `mirror_z` transforms
+the actual blueprint cell, while an independent world-face calculation supplies
+the expected native pot direction and artwork. It checks body, texture and
+absolute alignment. Editor captures are diagnostic and do not certify world
+projection, or vice versa.
+
+Wet sign and pot scenes live in each public fixture's `WET_VISUAL_CASE`: a wet
+actor with an independent dry control, adjacent water, and a wet fence. Glass
+containment and stone supports are retained in both the native world and the
+projection context. The wet harness requires observable native water and actor
+pixels separately, then compares the full projection and the dynamic/initial
+hidden actor cases. Calibrate the currently owned instance first:
+
+```powershell
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> verify_camera_projection.py .runtime/camera.json
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> verify_wet_actor_visuals.py .runtime/wet-actors.json --camera-calibration .runtime/camera.json
+```
+
+These commands operate only the validated test instance and restore their
+temporary world, editor, camera and player state. A failed cleanup or missing
+native component prevents acceptance. Preserved captures can be reanalyzed
+without launching another game using `--replay <report.json>` with the matching
+calibration. Keep the current P0 status in `IMPLEMENTATION_GAPS.md`.

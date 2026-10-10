@@ -63,7 +63,7 @@ capabilities, entity defaults and native renderer observations using the workflo
 in [Built-In Test Blueprints](debug-blueprints.md) and
 [Block Entity Data Coverage](block-entity-data.md). Retain earlier source dumps.
 The version-bundle checker derives snapshot names from the current registry
-manifest, verifies the dump SHA-256 and matching provenance for 19 current source
+manifest, verifies the dump SHA-256 and matching provenance for current source
 and runtime files, then runs the full state audit and deterministic traits,
 entity-default, Shulker and chest generators in check mode. `--tests` also runs
 the complete offline suite; `--output <path>` preserves a schema-1 JSON report.
@@ -71,6 +71,22 @@ the complete offline suite; `--output <path>` preserves a schema-1 JSON report.
 It never rewrites files or silently accepts stale native mappings. Newly added
 direction properties still require review, and engine appearance remains a
 separate cold-resource acceptance step.
+
+Native block actors and sign text also use a versioned material snapshot:
+`tools/data/native_actor_materials_nemc_<version>.json`. It records six original
+shader/material sources and hashes of the five projection adaptations. The
+version-bundle check rejects changed adaptations and mismatched native sources.
+Compare the installed game before accepting an upgrade:
+
+```powershell
+python -X utf8 tools/check_native_actor_materials.py --game-data <installed-game>/data
+```
+
+Review the original source diff and rerun shader and built-in blueprint visual
+checks before using `--capture --game-data <installed-game>/data` to record a
+reviewed adaptation. Capturing a new hash is provenance bookkeeping; it does not
+make a failed visual check pass. The GLES fixture uses actual game headers, and
+the real game checks remain necessary for native actor and glyph packet behavior.
 
 The registry generator preserves each block's native aux IDs and state value
 types. Existing property rules apply automatically to newly added materials

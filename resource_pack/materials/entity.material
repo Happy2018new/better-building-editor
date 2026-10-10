@@ -1,6 +1,9 @@
 {
   "materials": {
     "version": "1.0.0",
+    "netease_block_as_entity_transparency": {
+      "fragmentShader": "shaders/glsl/modern_projection_native_actor.fragment"
+    },
     "modern_projection_staff_gem:entity_alphatest": {
       "vertexShader": "shaders/glsl/modern_projection_staff.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_staff.fragment"

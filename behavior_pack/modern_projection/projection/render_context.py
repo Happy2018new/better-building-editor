@@ -4,7 +4,8 @@ from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
 from .entity_render import CHEST_PROXIES, document_chest_part
 from .large_preview import MAX_SURFACE_BLOCKS
-from .nbt_spatial import rebase
+from .native_layers import normalize_palette_layers
+from .nbt_spatial import field_key, rebase
 from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
                             MAX_LOGICAL_HEIGHT, OVERLAY_BASE, context_position)
 from .storage import integer_types
@@ -75,6 +76,14 @@ def _put_encoded(data, cell, index, delta):
     if actor is not None:
         name, payload = actor
         data['actor'].setdefault(name, {})[index] = rebase(payload, delta)
+
+
+def _native_actor_mesh(cell):
+    actor = cell.get('actor')
+    if actor is None or not isinstance(actor[1], dict):
+        return False
+    return (field_key(actor[1], 'signType') is not None or
+            field_key(actor[1], 'decoratedPotShredNamesSize') is not None)
 
 
 def prepare_context_palette(source, targets):
@@ -293,6 +302,13 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                           lz * CONTEXT_STRIDE + CONTEXT_CENTER)
             delta = (cx - tx, cy - ty, cz - tz)
             center_index = (cy * 64 + cx) * 64 + cz
+            if _native_actor_mesh(center[0]):
+                # Native block actors carry a model-local POSITION. Their
+                # model transform cannot use the packed neighbor-tile decoder.
+                actor_cell = {'common': center[0].get('common'),
+                              'actor': center[0].get('actor')}
+                _put_encoded(overlay, actor_cell, (ly * 16 + lx) * 16 + lz,
+                             tuple(-value for value in origin))
             for nx, ny, nz, index_delta in LOCAL_NEIGHBORS:
                 x, y, z = tx + nx, ty + ny, tz + nz
                 if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
@@ -300,11 +316,18 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
                 if rendered is None or rendered[0] is None:
                     continue
-                _put_encoded(context, rendered[0], center_index + index_delta, delta)
+                cell = rendered[0]
+                if _native_actor_mesh(cell):
+                    cell = {'extra': cell.get('extra')}
+                _put_encoded(context, cell, center_index + index_delta, delta)
             if center[1] is not None:
                 overlay['common'].setdefault(center[1], []).append((ly * 16 + lx) * 16 + lz)
             if number % TARGETS_PER_UNIT == 0:
                 yield True
+        self.finish(batches)
+        yield True
+
+    def finish(self, batches):
         rows = []
         for origin, palettes in sorted(batches.items()):
             for kind, palette in enumerate(palettes):
@@ -314,11 +337,17 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                                              ('extraStates', 'extra', self.extra_states)):
                     palette[key] = dict((value, records[value]) for value in palette[layer]
                                         if value in records)
+                if kind == 0 and palette['extra']:
+                    # Splitting actor meshes can leave secondary layers without a foreground.
+                    normalize_palette_layers(palette['common'], palette['states'],
+                                             palette['extra'], palette['extraStates'])
+                    for key, layer in (('states', 'common'), ('extraStates', 'extra')):
+                        palette[key] = dict((value, record) for value, record in palette[key].items()
+                                            if value in palette[layer])
                 rows.append((origin, kind == 0, palette))
         from .render_layout import LOCAL_CONTEXT_SCHEMA_VERSION
         self.data = {'_context_batches': rows, '_context_schema': LOCAL_CONTEXT_SCHEMA_VERSION,
                      'volume': self.logical_volume}
-        yield True
 
 
 def prepare_context_batches(document, targets):

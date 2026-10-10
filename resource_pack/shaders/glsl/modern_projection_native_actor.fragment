@@ -1,0 +1,75 @@
+// __multiversion__
+// Native entity fragments retain their own texture, pose and material defines.
+// Only tagged projections decode our geometry bank and shared opacity packet.
+precision highp float;
+#if defined(GLINT) && defined(USE_BLOOM)
+#define GLINT_BLEND_BLOOM
+#endif
+#include "uniformPerFrameConstants.h"
+#include "entityFragmentUtil.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+LAYOUT_BINDING(1) uniform sampler2D TEXTURE_1;
+#if defined(USE_MULTITEXTURE) || defined(GLINT_BLEND_BLOOM)
+LAYOUT_BINDING(2) uniform sampler2D TEXTURE_2;
+#endif
+
+#ifdef ENABLE_SET_TRANSPARENCY
+uniform float COMMON_BLOCK_GEO_FLOAT1_1;
+#endif
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+
+varying vec4 light;
+varying vec4 fogColor;
+#ifdef RNGL_LOCAL_LIGHT
+varying vec4 worldSpacePos;
+varying vec4 worldSpaceNormal;
+#endif
+
+void main() {
+    bool projection = abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
+    #ifdef ENABLE_SET_TRANSPARENCY
+    if (projection && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5) {
+        bool local = abs(EXTRA_ACTOR_UNIFORM1.w-19490.0) < 0.25;
+        float bank = local ? floor(COMMON_BLOCK_GEO_FLOAT1_1*2.0)+1.0 :
+                            (COMMON_BLOCK_GEO_FLOAT1_1 < 0.5 ? 1.0 : 2.0);
+        if (abs(bank-EXTRA_ACTOR_UNIFORM4.z) > 0.25) discard;
+    }
+    #endif
+
+    vec4 color = getSampledColor(TEXTURE_0, uv);
+    #if defined(USE_MULTITEXTURE) || defined(GLINT_BLEND_BLOOM)
+    entityCommonFrag(color, TEXTURE_0, TEXTURE_1, TEXTURE_2);
+    #else
+    entityCommonFrag(color, TEXTURE_0, TEXTURE_1);
+    #endif
+
+    #ifdef GLINT_BLEND_BLOOM
+    lowp float emissive = getEmissive(TEXTURE_2, uv);
+    #else
+    lowp float emissive = getEmissive(TEXTURE_1, uv);
+    #endif
+
+    if (!projection) {
+        #ifdef USE_EMISSIVE
+        color *= mix(vec4(1.0), light, color.a);
+        #else
+        #ifdef RNGL_LOCAL_LIGHT
+        vec4 lightCol = getLightColor(worldSpacePos, worldSpaceNormal);
+        vec4 totalLight = light.rgba*LIGHT_NUM_STRENGTH.y+vec4(lightCol.xyz, 1.0);
+        color.rgb *= emissive < 0.1 ? totalLight.rgb : vec3(emissive);
+        #else
+        color.rgb *= emissive < 0.1 ? light.rgb : vec3(emissive);
+        #endif
+        #endif
+    }
+    applyOverlayColor(color);
+    applyGlint(TEXTURE_1, color);
+    if (!projection) applyFog(color, fogColor);
+    #ifdef ENABLE_SET_TRANSPARENCY
+    color.a = projection && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5 ?
+              EXTRA_ACTOR_UNIFORM4.w : COMMON_BLOCK_GEO_FLOAT1_1;
+    #endif
+    gl_FragColor = color;
+}

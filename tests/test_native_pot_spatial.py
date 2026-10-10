@@ -12,7 +12,8 @@ from projection.cell import actor_data, make_cell, transform
 from projection.nbt_spatial import field_key, root_payload, scalar, transform_pair
 from projection.visible_actor import compose_actor, entity_nbt, render_actor
 
-EVIDENCE = json.loads((ROOT / 'tools/data/native_pot_face_mapping_r4_v1.json').read_text())
+VERSION = registry.source_version().removeprefix('NEMC ')
+EVIDENCE = json.loads((ROOT / ('tools/data/native_pot_faces_nemc_' + VERSION + '.json')).read_text())
 SHERDS = tuple(row['name'] for row in EVIDENCE['sherds'])
 NORMALS = {'north': (0, -1), 'west': (-1, 0), 'east': (1, 0), 'south': (0, 1)}
 FACES = {row['direction']: row['index_to_world_face'] for row in EVIDENCE['directions']}

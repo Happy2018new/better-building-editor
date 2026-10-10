@@ -8,6 +8,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
+from check_native_actor_materials import check as check_actor_materials
 MODULES = (
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
@@ -18,7 +20,7 @@ SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
     'native_paired_snow', 'native_block_entity_defaults',
     'native_entity_appearances', 'native_entity_renderers',
-    'native_frame_rotations', 'native_signs', 'native_pot_poses', 'native_pot_sherds',
+    'native_frame_rotations', 'native_signs', 'native_pot_poses', 'native_pot_sherds', 'native_pot_faces',
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
     'native_snow_states',
@@ -63,6 +65,9 @@ def check_provenance(root=ROOT):
         data = json.loads(path.read_text(encoding='utf8'))
         provenance_matches(name, data.get('game_version'), data.get('palette_sha256'), manifest)
         checked.append(str(path.relative_to(root)))
+    path = root / 'tools/data' / ('native_actor_materials_nemc_' + version + '.json')
+    check_actor_materials(json.loads(path.read_text(encoding='utf8')), manifest, root=root)
+    checked.append(str(path.relative_to(root)))
     return manifest, checked
 
 

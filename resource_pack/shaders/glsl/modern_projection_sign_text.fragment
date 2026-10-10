@@ -1,0 +1,58 @@
+// __multiversion__
+// Based on NEMC text.fragment; glyph alpha and formatting remain native.
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformShaderConstants.h"
+#include "uniformTextConstants.h"
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+varying vec4 color;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM1;
+uniform float COMMON_BLOCK_GEO_FLOAT1_1;
+
+float median(float a, float b, float c) {
+    return max(min(a, b), min(max(a, b), c));
+}
+const float GLYPH_UV_SIZE = 1.0/16.0;
+const float ALPHA_THRESHOLD = 0.4;
+
+void main() {
+    bool projection = abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
+    if (projection && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5) {
+        bool local = abs(EXTRA_ACTOR_UNIFORM1.w-19490.0) < 0.25;
+        float bank = local ? floor(COMMON_BLOCK_GEO_FLOAT1_1*2.0)+1.0 :
+                            (COMMON_BLOCK_GEO_FLOAT1_1 < 0.5 ? 1.0 : 2.0);
+        if (abs(bank-EXTRA_ACTOR_UNIFORM4.z) > 0.25) discard;
+    }
+    vec4 diffuse = texture2D(TEXTURE_0, uv);
+    #ifdef SMOOTH
+    const float center = 0.4;
+    const float radius = 0.1;
+    diffuse = smoothstep(center-radius, center+radius, diffuse);
+    #endif
+    #ifdef ALPHA_TEST
+    if (diffuse.a < 0.5) discard;
+    #endif
+    vec4 glyphColor = color;
+    if (projection && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5)
+        glyphColor.a /= max(COMMON_BLOCK_GEO_FLOAT1_1, 0.001);
+    #ifdef MSDF
+    vec4 resultColor = glyphColor;
+    float sampleDistance = median(diffuse.r, diffuse.g, diffuse.b);
+    float outerEdgeAlpha = smoothstep(max(0.0, OUTLINE_CUTOFF-GLYPH_SMOOTH_RADIUS),
+        min(1.0, OUTLINE_CUTOFF+GLYPH_SMOOTH_RADIUS), sampleDistance);
+    resultColor = vec4(resultColor.rgb, resultColor.a*outerEdgeAlpha);
+    vec2 topLeft = floor(uv/GLYPH_UV_SIZE)*GLYPH_UV_SIZE;
+    vec2 bottomRight = topLeft+vec2(GLYPH_UV_SIZE, GLYPH_UV_SIZE);
+    vec4 shadowSample = texture2D(TEXTURE_0, clamp(uv-SHADOW_OFFSET, topLeft, bottomRight));
+    float shadowAlpha = smoothstep(max(0.0, OUTLINE_CUTOFF-SHADOW_SMOOTH_RADIUS),
+        min(1.0, OUTLINE_CUTOFF+SHADOW_SMOOTH_RADIUS), shadowSample.a);
+    resultColor = mix(vec4(SHADOW_COLOR.rgb, SHADOW_COLOR.a*shadowAlpha), resultColor, outerEdgeAlpha);
+    gl_FragColor = resultColor*DARKEN;
+    #else
+    gl_FragColor = vec4(diffuse.rrr*DARKEN.rgb*glyphColor.rgb,
+                       smoothstep(ALPHA_THRESHOLD, 1.0, diffuse.r)*glyphColor.a*DARKEN.a);
+    #endif
+    if (projection && abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5)
+        gl_FragColor.a *= EXTRA_ACTOR_UNIFORM4.w;
+}

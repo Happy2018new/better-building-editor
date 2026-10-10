@@ -1,0 +1,1537 @@
+{
+  "pot_mirrors": [
+    {
+      "report": ".runtime/pot-mirror-x-final-r4/report.json",
+      "sha256": "3bdb24bf3df3bac46befbae58376bca318dd905012f064525ad560793b8f74cc",
+      "completed": true,
+      "passed": true,
+      "restored": true,
+      "cases": [
+        {
+          "id": "direction_0",
+          "operation": "mirror_x",
+          "expected_direction": 0,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "117e50a1a62b1fd88f3e9483d32eec12eac04a83997dff29c5f46ba84624f8d2",
+              "projection_sha256": "db2c2b36f9b32fd638ce11fd13e7a2ceb36300546ffba5916584c731331b53cf"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "8be0814df48e27f9769a9cd53af50e307c014166811914a9680aec0fc90cb20a",
+              "projection_sha256": "334f4e8537b829cacf5ca8bf505f826ba6458498f8a632d18919a092509f544c"
+            }
+          ]
+        },
+        {
+          "id": "direction_1",
+          "operation": "mirror_x",
+          "expected_direction": 3,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "3f72b4459a3a6e143f01fa48f07effbd33b74a103060a8347d222cd2d741612d",
+              "projection_sha256": "cdd3310c74a26f752562d697c1c3f3961d4369e6f041d31d849abccfe629f128"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 0.9999965655802475,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "47c33778267a8b1d0c1ba605741b90a2a402e4bfc7f64a2a9892e376e1498579",
+              "projection_sha256": "fceabbddfffb415e6d47c6d0d010bb71c8c858bd7b6b41aeebecbed06cb6869f"
+            }
+          ]
+        },
+        {
+          "id": "direction_2",
+          "operation": "mirror_x",
+          "expected_direction": 2,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "d75bc3c68b58f2cc50e0f20df92f30181295546d223d338eae19598ddf2571d9",
+              "projection_sha256": "d6986d85fd891c73f2d86b0b3e2e5d6f807545fa19afea15dfde9037679adcf4"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "461ed8e86f14c9aba0ac7d2fcd1b9a3dc94f0c5be338525ef0dd9f347c5abd80",
+              "projection_sha256": "60a708c9d51fa24f9f86c48a5ff6c35be512b6c52c385baaf4f7b36eeea14b5d"
+            }
+          ]
+        },
+        {
+          "id": "direction_3",
+          "operation": "mirror_x",
+          "expected_direction": 1,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "2ef4a5ec1711dc07fe2c01d1af1b4826069222eaf2c85120674cbd5df07a2fe3",
+              "projection_sha256": "099bab215e8767530c789b753919871146b3574b6230e7af92504b50682076ee"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 0.9999981264057813,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "1f9e6f26e056226e9f8ea14044277aeb06447c15f1b8716eece81e63ab5547fa",
+              "projection_sha256": "b386d29a92cacc99062599e5c2076c00a753e21d70c595ea8d17abcfadd66d97"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "report": ".runtime/pot-mirror-z-final-r4/report.json",
+      "sha256": "bcc6e5b9963563d129b6c1133f307bce2deb9984f00338cd96ad5b920fe2d3e0",
+      "completed": true,
+      "passed": true,
+      "restored": true,
+      "cases": [
+        {
+          "id": "direction_0",
+          "operation": "mirror_z",
+          "expected_direction": 2,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "f6d0a83de03c6c6b7684da10eef876268d4052fe15086312c44e8a37a238e353",
+              "projection_sha256": "94c9a4cf63b717f37a266884be5ee9a665c6f1029851d091d1450cd1cf6eeabc"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "dc18f3edefec64628e0b9a7c6c8a3934d06eb2a5fa6da4597adac39abb6da0ea",
+              "projection_sha256": "fd6854f2ab6373bff12a89c6fe84dcc8c473bf056e5a96bae05aeed51e4317fe"
+            }
+          ]
+        },
+        {
+          "id": "direction_1",
+          "operation": "mirror_z",
+          "expected_direction": 1,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "04a473717f05e02f3edbb17f3e20db94ca2134b4c56818866861765483282e82",
+              "projection_sha256": "60d7d106ccf0047b3a37eafbb458e670b52af4ddf30d8034aea03a8761b343b0"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 0.9999981264057813,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "3c00349f7966a5a872b34f4a3f3e61388d14205f2d7c9db8c772f22888ee6b4d",
+              "projection_sha256": "c7f8a476e9f3e8f73727081fe38ac556f93ba435d27226c83d4cb24302b2fa3f"
+            }
+          ]
+        },
+        {
+          "id": "direction_2",
+          "operation": "mirror_z",
+          "expected_direction": 0,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "19a970cd4991b186ba23b9ce54e66a8384a019c7e91409b861ee45092c3fa378",
+              "projection_sha256": "060bbea11b54881029af165154705a9461d52ecaa431aeb20d19d6ac667e1bb5"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "7aac0737bae4fc0fae0dde4c63a5397a323ba4e721b34ad949f3694e663f7201",
+              "projection_sha256": "7c29f60ebea444d916f6c23d3bbba2ac8bef305cb108db8009248b9eab5bc7d2"
+            }
+          ]
+        },
+        {
+          "id": "direction_3",
+          "operation": "mirror_z",
+          "expected_direction": 3,
+          "expected_sherds": [
+            "minecraft:angler_pottery_sherd",
+            "minecraft:arms_up_pottery_sherd",
+            "minecraft:archer_pottery_sherd",
+            "minecraft:blade_pottery_sherd"
+          ],
+          "passed": true,
+          "views": [
+            {
+              "sign": 1,
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "de9787bd841519333a79a6d38d4f290a6a362d2b979bc518826d6a706c0fdd64",
+              "projection_sha256": "78e762a2b464db562d785dd18c56c4bfdc3d8478020c53f22a44ab96d99ca707"
+            },
+            {
+              "sign": -1,
+              "shape_iou": 1,
+              "texture_cosine": 0.9999965655802475,
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true,
+              "native_sha256": "d72e6f069d799bdd0491d0f0796b3d50fcd6cc97585485a1db09eac1daed5267",
+              "projection_sha256": "3b419561bbe5e77f35992a8df4089185479c471db8a18d4192908fa5ea6ec76f"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "recorded_at": "2026-10-10T23:07:41.5518147+08:00",
+  "scope": "Fourth-round native actor checkpoint. Pot projection is accepted for the captured directions; sign back faces remain failed. GLES pixel success does not override native visual failures.",
+  "adapted": {
+    "resource_pack/materials/entity.material": "ca72faf3bbf69a99624fc0312619764fa2243feb43fb590d436c8c180adf1622",
+    "resource_pack/shaders/glsl/modern_projection_native_actor.fragment": "71a69024226655d3e7ea4fabe70a08e7001a7e23e1db0737b909f96630841f66",
+    "resource_pack/shaders/glsl/modern_projection_sign_text.vertex": "19d7d71b889d94f28439ca92723124bf066146818db55c38862799d734b2b3a4",
+    "resource_pack/shaders/glsl/modern_projection_sign_text.fragment": "ee3c887c6ddf2ebff210cdbbbdfd3625d153ce4060eb21038ba160bf00852f5f",
+    "resource_pack/materials/ui3D.material": "98331de2f192a39186bbda684740a3cdf68bd1347c59b864c630fd0b69305244"
+  },
+  "pot": {
+    "report": ".runtime/pot-four-directions-r4-v3/report.json",
+    "sha256": "0e3edaef15d3e13b8a146d174a5891bf1fdae5bffc1de95efc400a7618eed68a",
+    "completed": true,
+    "passed": true,
+    "restored": true,
+    "editor_scope": "Diagnostic captures only",
+    "cases": [
+      {
+        "id": "direction_0",
+        "passed": true,
+        "views": [
+          {
+            "sign": 1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                162,
+                73,
+                270,
+                190
+              ],
+              "proxy_bbox": [
+                162,
+                73,
+                270,
+                190
+              ],
+              "texture_samples": 7632,
+              "texture_energy": [
+                687996,
+                687996
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "e48b71da9c7c71c56c2878346b7504afb54b1e40c936c2afaa7c513fe7ae63b7",
+            "projection_sha256": "1629cefce4f2c6d94a46bb7946eeb0b27809e924cb783f2d6422aa64a16cf507"
+          },
+          {
+            "sign": -1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "proxy_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "texture_samples": 6138,
+              "texture_energy": [
+                247018,
+                247018
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "82701d3897d6068e2519d23f51064571b2ac256141778c0d505053f29ddf76f1",
+            "projection_sha256": "e1a0f1e0939b328de94b47f950740589a1366ab4801e5a8c273ef1e348622c06"
+          }
+        ]
+      },
+      {
+        "id": "direction_1",
+        "passed": true,
+        "views": [
+          {
+            "sign": 1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "proxy_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "texture_samples": 7569,
+              "texture_energy": [
+                648452,
+                648452
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "f4927a30abf0cceb4f78cd82b170835f924318cc2a2b65f76249184d315435e7",
+            "projection_sha256": "22c5d1e7c299b64fb7513a1ef1dd3f212df6a6d1ba5a4653e21259ce1de253e6"
+          },
+          {
+            "sign": -1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 0.9999983197612046,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "proxy_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "texture_samples": 5988,
+              "texture_energy": [
+                297576,
+                297573
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "0785bd81680d7ecd857a2361c1ee673e7f05d37f6036e7c782691f87bb347f6b",
+            "projection_sha256": "bca151b4f0d64026adeef91e1bba48e5575f36f19342bab681b7f374e2900cf3"
+          }
+        ]
+      },
+      {
+        "id": "direction_2",
+        "passed": true,
+        "views": [
+          {
+            "sign": 1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "proxy_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "texture_samples": 7572,
+              "texture_energy": [
+                504120,
+                504120
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "bb49ef981fe7b952bb36b7f341d647e06e10a2233a91f5b3899df8e6f78a43cf",
+            "projection_sha256": "14aa65bab14eadab61c81d712662efc7a32ff1c216e218ebfbc672d2b21ecf88"
+          },
+          {
+            "sign": -1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "proxy_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "texture_samples": 6144,
+              "texture_energy": [
+                275577,
+                275577
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "8b4267f7380393f9ab143757a20393f1601287b30ef04e6ecf59a9f355956b81",
+            "projection_sha256": "aa9dcbe20f52ebbb3fece15576e74609e29bfdd11dad170a6a9d9b8fca9f4406"
+          }
+        ]
+      },
+      {
+        "id": "direction_3",
+        "passed": true,
+        "views": [
+          {
+            "sign": 1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 1,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "proxy_bbox": [
+                161,
+                73,
+                270,
+                190
+              ],
+              "texture_samples": 7572,
+              "texture_energy": [
+                559733,
+                559733
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "proxy_world_bounds": [
+                  377,
+                  169,
+                  486,
+                  286
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "cff37b43f3406ea79ac7f0601ac0090afdcbfed3d53d59289ad4eb8e63a12a75",
+            "projection_sha256": "4f6d9e29f71af4803ece587a53c9877ae2f298169340b80495610e7409c293ff"
+          },
+          {
+            "sign": -1,
+            "comparison": {
+              "shape_iou": 1,
+              "texture_cosine": 0.9999961628487042,
+              "interior_missing_fraction": 0,
+              "scale_relative_error": 0,
+              "native_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "proxy_bbox": [
+                162,
+                75,
+                270,
+                197
+              ],
+              "texture_samples": 6126,
+              "texture_energy": [
+                260598,
+                260606
+              ],
+              "alignment": {
+                "native_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "proxy_world_bounds": [
+                  378,
+                  171,
+                  486,
+                  293
+                ],
+                "center_delta_pixels": [
+                  0,
+                  0
+                ],
+                "center_distance_pixels": 0,
+                "boundary_rms_pixels": 0,
+                "passed": true,
+                "limits": {
+                  "center_distance_pixels": 3,
+                  "boundary_rms_pixels": 4
+                }
+              },
+              "passed": true
+            },
+            "native_sha256": "e5c53cba2545c4d097d8a31dc974d73b7a95425104a50a30d50752bf9a053a7e",
+            "projection_sha256": "72f7cc7f04237d1fdd31d524ab036b78a6dfcdd4b2d14d29b1d0070b9f677948"
+          }
+        ]
+      }
+    ]
+  },
+  "sign": {
+    "report": ".runtime/sign-layout-final-cold-r4/report.json",
+    "sha256": "11f676855d35f444f64be7a66dc19951000185035233a052347113a532f0aeaa",
+    "completed": true,
+    "passed": false,
+    "restored": true,
+    "native_cleaned": true,
+    "visual_case": {
+      "views": [
+        {
+          "color": "green",
+          "id": "front",
+          "world_offset": [
+            0,
+            0,
+            2.3
+          ],
+          "editor": [
+            0,
+            0,
+            3
+          ]
+        },
+        {
+          "color": "red",
+          "id": "back",
+          "world_offset": [
+            0,
+            0,
+            -2.3
+          ],
+          "editor": [
+            180,
+            0,
+            3
+          ]
+        }
+      ],
+      "isolated_size": [
+        3,
+        3,
+        3
+      ],
+      "world_text_roi": [
+        0.37,
+        0.28,
+        0.63,
+        0.69
+      ],
+      "cases": [
+        {
+          "position": [
+            3,
+            1,
+            3
+          ],
+          "support": [
+            3,
+            0,
+            3
+          ],
+          "id": "standing_front_back",
+          "name": "minecraft:standing_sign"
+        },
+        {
+          "position": [
+            9,
+            2,
+            3
+          ],
+          "support": [
+            9,
+            3,
+            3
+          ],
+          "id": "hanging_front_back",
+          "name": "minecraft:oak_hanging_sign"
+        }
+      ],
+      "text_layout_tolerance": {
+        "center": 0.1,
+        "size": 0.2
+      },
+      "fixture": "test.entities.signs",
+      "focus": [
+        1,
+        1,
+        1
+      ],
+      "schema": 3
+    },
+    "cases": [
+      {
+        "id": "standing_front_back",
+        "view": "front",
+        "passed": true,
+        "editor_shape": {
+          "determinate": true,
+          "passed": true,
+          "normalized_glyph_iou": 0.7018854176154476,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "editor_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.49683544303797467,
+            0.27564102564102566,
+            0.34810126582278483,
+            0.44871794871794873
+          ],
+          "actual_relative": [
+            0.4899328859060403,
+            0.2972972972972973,
+            0.348993288590604,
+            0.4594594594594595
+          ],
+          "center_error": 0.021656271656271653,
+          "size_relative_error": 0.02393822393822396,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "projection_shape": {
+          "determinate": true,
+          "passed": true,
+          "normalized_glyph_iou": 0.8304928604329802,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "projection_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.49683544303797467,
+            0.27564102564102566,
+            0.34810126582278483,
+            0.44871794871794873
+          ],
+          "actual_relative": [
+            0.5,
+            0.27564102564102566,
+            0.34177215189873417,
+            0.44871794871794873
+          ],
+          "center_error": 0.0031645569620253333,
+          "size_relative_error": 0.018181818181818278,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "native_sha256": "a7228788cd6d9d646695dcf731ec766f2d4feb56e2cb66615b8be81e1fe320e2",
+        "editor_sha256": "fbfe5c01d08d22134587e43baa99efc772ac67857c3a8803619f2414a7af0719",
+        "projection_sha256": "c4197a50ec27ac739028cf0ededd15448914df7839bfb9f155185fbe0bd309fe"
+      },
+      {
+        "id": "standing_front_back",
+        "view": "back",
+        "passed": false,
+        "editor_shape": {
+          "determinate": true,
+          "passed": false,
+          "normalized_glyph_iou": 0.3123048094940662,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "editor_layout": {
+          "determinate": true,
+          "passed": false,
+          "native_relative": [
+            0.4936708860759494,
+            0.2857142857142857,
+            0.3037974683544304,
+            0.36363636363636365
+          ],
+          "actual_relative": [
+            0.49333333333333335,
+            0.2808219178082192,
+            0.3333333333333333,
+            0.4520547945205479
+          ],
+          "center_error": 0.004892367906066508,
+          "size_relative_error": 0.24315068493150674,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "projection_shape": {
+          "determinate": true,
+          "passed": false,
+          "normalized_glyph_iou": 0.3725955533349988,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "projection_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.4936708860759494,
+            0.2857142857142857,
+            0.3037974683544304,
+            0.36363636363636365
+          ],
+          "actual_relative": [
+            0.49683544303797467,
+            0.2727272727272727,
+            0.33544303797468356,
+            0.4155844155844156
+          ],
+          "center_error": 0.012987012987012991,
+          "size_relative_error": 0.1428571428571429,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "native_sha256": "8deb98c01a9cc5bd83d760b956dfd17387b25f907cad0192e8379fb77f0e2e60",
+        "editor_sha256": "6501bfe352cdff1fc2df4bb134fe3f4733fcb2a5e1d0454b5032707ab883f836",
+        "projection_sha256": "fa595ab45441248507be0ba77d0a764b5dc1593323e19fc1df5b33f1b5fe2129"
+      },
+      {
+        "id": "hanging_front_back",
+        "view": "front",
+        "passed": true,
+        "editor_shape": {
+          "determinate": true,
+          "passed": true,
+          "normalized_glyph_iou": 0.7253542357552005,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "editor_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.48951048951048953,
+            0.27450980392156865,
+            0.5034965034965035,
+            0.45098039215686275
+          ],
+          "actual_relative": [
+            0.48880597014925375,
+            0.27835051546391754,
+            0.5,
+            0.4329896907216495
+          ],
+          "center_error": 0.0038407115423488847,
+          "size_relative_error": 0.03989242492155982,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "projection_shape": {
+          "determinate": true,
+          "passed": true,
+          "normalized_glyph_iou": 0.7844210526315789,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "projection_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.48951048951048953,
+            0.27450980392156865,
+            0.5034965034965035,
+            0.45098039215686275
+          ],
+          "actual_relative": [
+            0.48951048951048953,
+            0.28365384615384615,
+            0.5034965034965035,
+            0.4519230769230769
+          ],
+          "center_error": 0.009144042232277494,
+          "size_relative_error": 0.002090301003344474,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "native_sha256": "f8de05211b631ba658695a93b432a5c0f46a2bf7bb640762e28e8d91cfecd3bc",
+        "editor_sha256": "ea5daeef20b0258882d4da54c2fd627c6af3b5a72688a0bfc6d205f68a27fdbc",
+        "projection_sha256": "5debb3bccec37309ab6e223c8bd3cabea356319c6a5dde0649197b2851b3ae19"
+      },
+      {
+        "id": "hanging_front_back",
+        "view": "back",
+        "passed": false,
+        "editor_shape": {
+          "determinate": true,
+          "passed": false,
+          "normalized_glyph_iou": 0.2344327008786451,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "editor_layout": {
+          "determinate": true,
+          "passed": true,
+          "native_relative": [
+            0.486013986013986,
+            0.2815533980582524,
+            0.45454545454545453,
+            0.36893203883495146
+          ],
+          "actual_relative": [
+            0.48880597014925375,
+            0.27835051546391754,
+            0.48507462686567165,
+            0.41237113402061853
+          ],
+          "center_error": 0.003202882594334877,
+          "size_relative_error": 0.11774281063483444,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "projection_shape": {
+          "determinate": true,
+          "passed": false,
+          "normalized_glyph_iou": 0.2191495688373476,
+          "minimum_iou": 0.45,
+          "normalized_size": [
+            180,
+            90
+          ]
+        },
+        "projection_layout": {
+          "determinate": true,
+          "passed": false,
+          "native_relative": [
+            0.486013986013986,
+            0.2815533980582524,
+            0.45454545454545453,
+            0.36893203883495146
+          ],
+          "actual_relative": [
+            0.486013986013986,
+            0.2932692307692308,
+            0.4825174825174825,
+            0.4519230769230769
+          ],
+          "center_error": 0.011715832710978369,
+          "size_relative_error": 0.2249493927125506,
+          "tolerance": {
+            "center": 0.1,
+            "size": 0.2
+          }
+        },
+        "native_sha256": "a253b82a5623a08941144ada5daee56f9537c508238c5ffbfb8aa232ba6afb28",
+        "editor_sha256": "fcbffcf79cafd2237e1748c454dbe489cf91f29ff36c6f49775196aa1dfb2f15",
+        "projection_sha256": "17910d7e23c997fe67914432a50360646be64c5891962d1e5d287bdab7bc4e5e"
+      }
+    ]
+  },
+  "gles": {
+    "report": ".runtime/native-actor-shaders-r4-final.json",
+    "sha256": "86909910ce23559019278579b94d390240aa7ce3ecac0bf64d262493e49464c7",
+    "completed": true,
+    "passed": false,
+    "programs": 40,
+    "linked_programs": 36,
+    "pixel_checks": 400,
+    "pixel_failures": 0,
+    "msdf_shadow_checks": 80,
+    "body_checks": 192,
+    "sources_unchanged": true,
+    "headers_unchanged": true,
+    "scope": "Actual game GLSL include expansion, WebGL1/2 compile/link and synthetic actor/sign pixels; no native appearance claim"
+  }
+}
