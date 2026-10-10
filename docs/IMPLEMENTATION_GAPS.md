@@ -76,6 +76,20 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 07:30 休眠任务 `Codex-BBE-R5-Hibernate-20261011-0730` 已确认 `Ready`、`Enabled=true`，动作仅为 `shutdown.exe /h`；系统支持休眠。07:05 后停止新增实现，07:15 前只收集 agent 检查点、回收本轮自有 MC 实例、更新交接并提交，不把半成品视觉候选合入。
 
+**第五轮最终接续状态（2026-10-11 07:00）：** 冷启动陶罐诊断工具与两项顺序／独立恢复回归以 `f511bde` 集成；`8032ba8` 集成固定整数 `--fixture-lift-y`（范围 `-64..64`），合并时保留根分支的天气、云与恢复逻辑，没有修改像素阈值。`cc114fb` 明确记录正常启动的预生成几何，并修复把 `model_name` 当作已创建投影的错误判定；新增回归确认已有启动预览名称可以进入正控，任何非零投影 serial 仍拒绝。
+
+根实例 `e3373a81cc364934887beaa039c7afc6`／owner `p0-root-r5-final` 以正式集成源码冷启动，首次前置检查在世界／相机修改前拒绝了启动预览名称；失败报告 `native-pot-before-first-projection-r5.json` 保留。修正后在同一、仍未建立投影的实例完成 `native-pot-before-first-projection-r5-v2.json`，`completed=true`、`passed=true`、`restored=true`，无清理错误，SHA-256 为 `b8996c82a43c6ff890c05b304904ecc3804301254667b1ffad89ed15ace00792`。普通物品放置和 `SetBlockNew` 的干燥陶罐分别有 **55,076／54,862** 个独立本体阳性像素；赋 fixture NBT 后和首次投影后本体像素数保持。已实际打开赋值前／首次投影后的无损 PNG 确认本体可见；这证明干燥正控有效，不能推论所有湿 actor、全部方向或 NBT 纹饰画面已通过。两种写入的客户端陶片字段在赋值后仍为空并超时，报告完整保留服务端 NBT 和客户端字段；工具的 `passed` 仅代表原生本体正控，不代表该 NBT 复制成功。
+
+原生夹具为 y=90 的干燥陶罐，初始 `projection_serial=0`、无投影实体／shader／工作区，正常启动已存在一份预览 layout，报告已记录，不能称为完全未生成任何几何的环境。现有湿 actor 失败夹具在低坐标、使用 palette 写入，与该干燥原始正控不同；旧三写法诊断还含状态／液体对齐，生产 `WorldAdapter.write` 的陶罐路径实际为 `SetBlockByBlockPalette`＋`SetBlockEntityData`，不可把诊断的 setter 等同于生产链路。实体代理进一步检查发现旧 y=110 干燥正控的陶罐也被前方玻璃围挡遮住，必须优先补无玻璃／有玻璃的独立控制；负高度不能单独解释所有旧失败。下一轮分别隔离围挡、写入步骤和坐标，不能据新正控通过归因于统一 shader 泄漏，也不能据此前缺失像素认定 NBT setter 是唯一原因。源归档 `native-pot-cold-r5-source.zip` 对应 `cc114fb`，SHA-256 为 `7f8d1ed106086e5ea0d31b200b51a6847e5451377498d1fbf1f69a6de9cbcec0`；它与上述报告均在该实例 `artifacts`。根实例已正常停止，世界和证据保留。
+
+含雪三视角上移标定 SHA-256 为 `215ab0b5c98fddf25bab9e9405a963b37b81909511af54eabfa05be53cfe2ddc`；独立原生 AABB 报告 `native-plant-boxes-active-cold-r5.json` 完成／恢复且客户端／服务端相等，SHA-256 为 `60087038f848e7d3c04c1386aa5b9530ffe2ab4adbdb843a32902aca31b6c81b`，不代替形状像素验收。蘑菇部分矩阵 SHA-256 为 `d6fe671d0e580592fd3986197fd658d84681abeb8e63aae5ab458727697af554`，棕色 h3/h4 未到达、红色未执行。异常全文保存在同一实例 `artifacts/snow-brown-boundary-traceback-complete-r5.txt`，SHA-256 为 `339047348ab695b9228bce896ce434d95155ca98e0936608a37eb8cfc7568c2e`。接续命令和冻结资源位于 `.runtime/p0-blueprint-qa-r3/.runtime/snow-r5-final-checkpoint.md`，候选 `bb8df6a`／`2d734f9` 继续隔离，不合入集成树。上移工具初次使用浮点 16.0 时的空报告未保留，但对应坐标类型异常已单独记录；新的通过报告及所有原始失败像素文件保持不变。
+
+最新完整离线快照 `.runtime/version-bundle-r5-closeout.json` 在 `cc114fb` 对应代码上通过 **999 项测试、35 份来源检查、15,858 状态 × 六操作**及全部生成资源。若后续只集成验收工具修复，应更新最终定点／全量测试数量；不得沿用该快照宣称新生产修复已验收。当前无可见 MC 窗口，本轮实例均已恢复后停止。
+
+下一轮先阅读本节，再按以下顺序接续：隔离湿 actor 的玻璃围挡、palette 写入、诊断中的状态／背景对齐和坐标，建立有效原生本体；修复实际投影水面缺失并重跑六个公共湿 actor 场景；完成棕色蘑菇 h3/h4 与红色边界、严格全部高度和其余短植物；补齐悬挂告示牌／missing bank／消隐、床颜色、箱子余面、其余头型与实体附件；最后完成静态关联家族及合尖滴水石的独立像素矩阵。六类既有邻接和潜影盒等已登记的通过范围仍有效，不重新宣称所有家族通过。继续使用 `.runtime/p0-integration`／`codex/p0-integration`，`main` 合并和剩余五棵工作树的回收等待最终验收，历史未跟踪探针不批量暂存。
+
+最小隔离顺序固定为：同一 y=90 正控／相机先添加一块前方玻璃，移除后确认恢复而不重写陶罐；再分别在新原生陶罐上只调用 `SetBlockStates(direction=0)` 或只调用 `SetLiquidBlock(air)`；随后比较 palette-only 干燥数据与追加 fixture NBT，必要时单独测 `extra air`；最后再测 y=110／-36 和完整玻璃／水围挡。每阶段独立记录实际本体像素、客户端 actor 字段、前景／背景和服务端 NBT，陶片字段复制继续单独判定，不因本体可见而接受。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。
