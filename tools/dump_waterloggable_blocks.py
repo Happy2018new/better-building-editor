@@ -14,8 +14,12 @@ LEVELS_PER_COLUMN = 13
 COLUMNS_PER_SIDE = 7
 AIR = {'name': 'minecraft:air', 'aux': 0}
 WATER = {'name': 'minecraft:water', 'aux': 0}
-PROBE_METHOD = ('Dry-verified SetBlockNew+SetBlockStates over water, '
-                'isLegacy=True, updateNeighbors=False; v2')
+PROBE_METHOD = ('Native default seed + semantic SetBlockStates before/after over water, '
+                'isLegacy=True, updateNeighbors=False; v3')
+FLUID_ALIASES = {'minecraft:flowing_water': 'minecraft:water',
+                 'minecraft:flowing_lava': 'minecraft:lava'}
+LIQUID_BLOCKS = frozenset(('minecraft:water', 'minecraft:flowing_water',
+                          'minecraft:lava', 'minecraft:flowing_lava'))
 
 
 class WaterOverlayProbe(object):
@@ -33,7 +37,9 @@ class WaterOverlayProbe(object):
         if self.dimension != 0:
             raise ValueError('Distributed fluid export requires the overworld height range')
         foot = factory.CreatePos(player).GetFootPos()
-        self.origin = (int(math.floor(foot[0] / 16.0)) * 16 + 40,
+        run_index = getattr(sys, '_p0_probe_run', 0) + 1
+        sys._p0_probe_run = run_index
+        self.origin = (int(math.floor(foot[0] / 16.0)) * 16 + 40 + run_index * 160,
                        int(math.floor(foot[2] / 16.0)) * 16 + 40)
         self.target = self.support = None
         self.cell_index = None
@@ -47,6 +53,7 @@ class WaterOverlayProbe(object):
         self.values = ()
         self.cursor = 0
         self.accepted = []
+        self.seeds = {}
         self.state = {
             'schema': 1, 'game_version': block_registry.source_version(),
             'palette_sha256': block_registry.fingerprint(), 'blocks': {},
@@ -57,6 +64,7 @@ class WaterOverlayProbe(object):
             'target': self.target, 'support': self.support, 'readback_states': {},
             'verified_states': 0, 'state_mismatches': [],
             'states_per_subchunk': STATES_PER_SUBCHUNK,
+            'probe_run': run_index,
             'method': PROBE_METHOD,
             'tick_budget_seconds': TICK_SECONDS}
         self.state['blocks'] = self.state['results']
@@ -162,9 +170,18 @@ class WaterOverlayProbe(object):
                 native_aux = self.blockstate.GetBlockAuxValueFromStates(self.name.encode('utf8'), expected)
                 if native_aux is None or native_aux < 0:
                     raise ValueError('Could not resolve native aux: %s [%d]' % (self.name, aux))
+                if self.name not in self.seeds:
+                    default_aux = block_registry.DEFAULT_AUX.get(self.name, self.values[0])
+                    default_states = block_registry.states((self.name, default_aux))
+                    seed_aux = self.blockstate.GetBlockAuxValueFromStates(self.name.encode('utf8'),
+                                                                         default_states)
+                    if seed_aux is None or seed_aux < 0:
+                        raise ValueError('Could not resolve native default seed: ' + self.name)
+                    self.seeds[self.name] = seed_aux
+                seed_aux = self.seeds[self.name]
                 self.info.SetLiquidBlock(self.target, AIR, self.dimension)
                 self.info.SetBlockNew(self.target, AIR, 0, self.dimension, True, False)
-                native = {'name': self.name.encode('utf8'), 'aux': native_aux}
+                native = {'name': self.name.encode('utf8'), 'aux': seed_aux}
                 self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
                 if expected:
                     self.blockstate.SetBlockStates(self.target, expected, self.dimension)
@@ -172,7 +189,8 @@ class WaterOverlayProbe(object):
                 dry_states = self.blockstate.GetBlockStates(self.target, self.dimension)
                 if self.name == 'minecraft:air' and dry_states is None:
                     dry_states = {}
-                dry_matched = bool(dry_front and dry_front.get('name') == self.name and
+                native_name = FLUID_ALIASES.get(self.name, self.name)
+                dry_matched = bool(dry_front and dry_front.get('name') == native_name and
                                    dry_states == expected)
                 if dry_matched:
                     self.state['verified_states'] += 1
@@ -185,18 +203,19 @@ class WaterOverlayProbe(object):
                 self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
                 self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
                 placed = self.info.GetBlockNew(self.target, self.dimension)
-                if expected and placed and placed.get('name') == self.name:
+                if expected and placed and placed.get('name') == native_name:
                     self.blockstate.SetBlockStates(self.target, expected, self.dimension)
                 front = self.info.GetBlockNew(self.target, self.dimension)
                 liquid = self.info.GetLiquidBlock(self.target, self.dimension)
                 actual = self.blockstate.GetBlockStates(self.target, self.dimension)
                 self.state['readback_states'].setdefault(self.name, {})[str(aux)] = {
-                    'native_aux': native_aux, 'dry': {'front': dry_front, 'states': dry_states},
+                    'native_aux': native_aux, 'seed_aux': seed_aux,
+                    'dry': {'front': dry_front, 'states': dry_states},
                     'wet': {'front': front, 'states': actual}, 'liquid': liquid}
-                matched = bool(front and front.get('name') == self.name and actual == expected)
+                matched = bool(front and front.get('name') == native_name and actual == expected)
                 if (dry_matched and matched and liquid and
                         liquid.get('name') == 'minecraft:water' and
-                        self.name not in ('minecraft:water', 'minecraft:flowing_water', 'minecraft:air')):
+                        self.name not in LIQUID_BLOCKS and self.name != 'minecraft:air'):
                     self.accepted.append(aux)
                 self.cursor += 1
                 self.state['tested_states'] += 1

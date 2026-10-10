@@ -9,11 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ProbeRuntime(object):
-    def __init__(self, fail=False, extra_states=0, load_delay=0, mismatch=False, wet_changes=False):
+    def __init__(self, fail=False, extra_states=0, load_delay=0, mismatch=False, wet_changes=False,
+                 fluids=False, air_none=False):
         self.blocks, self.liquids, self.callbacks = {}, {}, []
         self.calls, self.clock, self.fail = 0, 0.0, fail
         self.extra_states, self.load_delay, self.mismatch = extra_states, load_delay, mismatch
         self.wet_changes = wet_changes
+        self.fluids, self.air_none = fluids, air_none
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
 
     def time(self):
@@ -27,15 +29,20 @@ class ProbeRuntime(object):
         return self.liquids.get(pos)
 
     def GetBlockAuxValueFromStates(self, name, states):
-        return states['test_aux'] + 16
+        return states.get('test_aux', 0) + 16
 
     def GetBlockStates(self, pos, dimension):
         value = self.blocks[pos]
+        if self.air_none and value['name'] == 'minecraft:air':
+            return None
         aux = value['aux']
         return {'test_aux': aux + 1 if self.mismatch and value['name'] == 'minecraft:stairs' else aux}
 
     def SetBlockStates(self, pos, states, dimension):
         self.blocks[pos]['aux'] = states['test_aux']
+        value = self.blocks[pos]
+        if value['name'] == 'minecraft:stairs' and value['aux'] != 0:
+            self.liquids.pop(pos, None)
         return True
 
     def SetAddArea(self, key, dimension, minimum, maximum):
@@ -66,6 +73,9 @@ class ProbeRuntime(object):
             value['aux'] -= 16
             subchunk = tuple(coord // 16 for coord in pos)
             self.subchunk_states.setdefault(subchunk, set()).add((value['name'], value['aux']))
+            if self.fluids:
+                value['name'] = {'minecraft:flowing_water': 'minecraft:water',
+                                 'minecraft:flowing_lava': 'minecraft:lava'}.get(value['name'], value['name'])
         if self.fail and value['name'] == 'minecraft:stairs':
             raise RuntimeError('native probe failure')
         if self.wet_changes and value['name'] == 'minecraft:stairs' and pos in self.liquids:
@@ -95,9 +105,14 @@ class ProbeRuntime(object):
                   'minecraft:stairs': (0, 1, 2, 3), 'minecraft:stone': (0,)}
         if self.extra_states:
             values['minecraft:probe'] = tuple(range(self.extra_states))
+        if self.fluids:
+            for name in ('water', 'flowing_water', 'lava', 'flowing_lava'):
+                values['minecraft:' + name] = (0, 1)
         registry = types.SimpleNamespace(
-            BLOCKS=values, aux_values=lambda name: values[name],
-            states=lambda value: {'test_aux': value[1]},
+            BLOCKS=values, DEFAULT_AUX=dict((name, 0) for name in values),
+            aux_values=lambda name: values[name],
+            states=lambda value: ({} if self.air_none and value[0] == 'minecraft:air' else
+                                  {'test_aux': value[1]}),
             source_version=lambda: 'Test native version', fingerprint=lambda: 'native-hash')
         return {'mod': types.ModuleType('mod'), 'mod.server': types.ModuleType('mod.server'),
                 'mod.server.extraServerApi': api,
@@ -109,6 +124,8 @@ class WaterProbeTests(unittest.TestCase):
     def tearDown(self):
         if hasattr(sys, '_p0_native_probe'):
             del sys._p0_native_probe
+        if hasattr(sys, '_p0_probe_run'):
+            del sys._p0_probe_run
 
     def start(self, runtime):
         with patch.dict(sys.modules, runtime.modules()), patch('time.time', runtime.time):
@@ -212,6 +229,48 @@ class WaterProbeTests(unittest.TestCase):
                          state['readback_states']['minecraft:stairs']['0']['dry']['front']['name'])
         self.assertEqual('minecraft:water',
                          state['readback_states']['minecraft:stairs']['0']['wet']['front']['name'])
+
+    def test_successive_probe_runs_use_fresh_subchunk_columns(self):
+        runtime = ProbeRuntime()
+        first = self.start(runtime)
+        self.finish(runtime)
+        second = self.start(runtime)
+        self.finish(runtime)
+        self.assertEqual(1, first['probe_run'])
+        self.assertEqual(2, second['probe_run'])
+        self.assertEqual(160, second['target'][0] - first['target'][0])
+        self.assertEqual(160, second['min_pos'][0] - first['min_pos'][0])
+        self.assertNotEqual(first['area_key'], second['area_key'])
+
+    def test_semantic_aux_variants_use_native_default_seed_before_explicit_states(self):
+        runtime = ProbeRuntime(extra_states=40)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertEqual({16}, set(runtime.requested_aux))
+        record = state['readback_states']['minecraft:probe']['39']
+        self.assertEqual(55, record['native_aux'])
+        self.assertEqual(16, record['seed_aux'])
+        self.assertEqual({'test_aux': 39}, record['dry']['states'])
+
+    def test_native_flowing_liquid_aliases_verify_semantically_and_never_compose(self):
+        runtime = ProbeRuntime(fluids=True)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertEqual(state['tested_states'], state['verified_states'])
+        for name in ('water', 'flowing_water', 'lava', 'flowing_lava'):
+            self.assertFalse(state['results']['minecraft:' + name])
+        self.assertEqual('minecraft:water',
+                         state['readback_states']['minecraft:flowing_water']['1']['dry']['front']['name'])
+
+    def test_native_air_without_state_dictionary_is_an_empty_verified_state(self):
+        runtime = ProbeRuntime(air_none=True)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertEqual({}, state['readback_states']['minecraft:air']['0']['dry']['states'])
+        self.assertFalse(state['results']['minecraft:air'])
 
 
 if __name__ == '__main__':
