@@ -1,5 +1,6 @@
 """Replay native palette ownership; malformed or stale evidence stays rejected."""
 import json
+import copy
 import sys
 import unittest
 from pathlib import Path
@@ -8,6 +9,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from generate_native_palette_adapter import SIDES, inspect, palette, snapshot_fingerprint
+from native_bed_evidence import inspect as inspect_beds
 from projection import native_palette_actor_data as source
 from projection.cell import actor_data, freeze
 from projection.model import Document
@@ -21,15 +23,63 @@ class NativePaletteEvidenceTests(unittest.TestCase):
         cls.manifest = json.loads((ROOT / 'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
         version = cls.manifest['game_version'].removeprefix('NEMC ')
         cls.report = json.loads((ROOT / 'tools/data' / ('native_palette_actors_nemc_' + version + '.json')).read_text(encoding='utf8'))
+        cls.beds = json.loads((ROOT / 'tools/data' / ('native_bed_capture_nemc_' + version + '.json')).read_text(encoding='utf8'))
 
     def test_observed_wet_names_and_explicit_unusable_cases_match_generated_rules(self):
         names, unusable = inspect(self.report, self.manifest)
-        self.assertEqual(set(names), source.WET_ACTOR_NAMES)
+        bed_names, checked = inspect_beds(self.beds, self.manifest)
+        self.assertEqual(set(names) | set(bed_names), source.WET_ACTOR_NAMES)
+        self.assertEqual(128, checked)
+        self.assertEqual(checked, source.PAIRED_BED_PALETTES)
         self.assertEqual(tuple(unusable), source.UNUSABLE_NATIVE_CASES)
         self.assertIn('minecraft:standing_sign', names)
         self.assertIn('minecraft:decorated_pot', names)
         self.assertNotIn('minecraft:bed', names)
         self.assertNotIn('minecraft:moving_block', names)
+        self.assertIn('minecraft:bed', source.WET_ACTOR_NAMES)
+
+    def test_paired_bed_evidence_rejects_coverage_identity_and_cleanup_changes(self):
+        for key, value in (('completed', False), ('restored', False),
+                           ('palette_sha256', '0' * 64), ('game_version', 'NEMC next')):
+            report = dict(self.beds, **{key: value})
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                inspect_beds(report, self.manifest)
+        for change in ('missing_case', 'missing_actor', 'wrong_color', 'wrong_bounds'):
+            report = copy.deepcopy(self.beds)
+            if change == 'missing_case':
+                report['rows'].pop()
+            elif change == 'missing_actor':
+                report['rows'][0]['server']['actors'].pop()
+            elif change == 'wrong_color':
+                report['rows'][0]['server']['actors'][0]['color'] = 14
+            else:
+                report['rows'][0]['padded_low'][0] -= 1
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                inspect_beds(report, self.manifest)
+
+    def test_all_paired_bed_palettes_recover_both_halves_with_bounded_native_reads(self):
+        for row in self.beds['rows']:
+            for side in ('server', 'client'):
+                for scope in ('exact', 'padded'):
+                    tree = row[side]['palettes'][scope]
+                    if side == 'server':
+                        tree = tree['palette']
+                    native = palette(tree)
+                    low, high = ((row['low'], row['high']) if scope == 'exact' else
+                                 (row['padded_low'], row['padded_high']))
+                    size = tuple(high[i] - low[i] + 1 for i in range(3))
+                    wanted = {tuple(observed['pos'][i] - low[i] for i in range(3)):
+                              tuple(observed['front']) for observed in row['observed']}
+                    reads = []
+                    def read(pos):
+                        reads.append(pos)
+                        return wanted.get(pos, ('minecraft:air', 0))
+                    before = freeze(native)
+                    self.assertEqual(wanted, dict(native_actor_cells(native, (0, 0, 0), size, read)),
+                                     (row['case'], side, scope))
+                    self.assertEqual(1, len(reads), (row['case'], side, scope))
+                    self.assertIn(reads[0], wanted)
+                    self.assertEqual(before, freeze(native))
 
     def test_every_verified_native_actor_payload_survives_client_and_server_capture(self):
         excluded = {case for case, side, reason in source.UNUSABLE_NATIVE_CASES}
@@ -76,9 +126,12 @@ class NativePaletteEvidenceTests(unittest.TestCase):
 
     def test_native_json_fingerprint_survives_windows_checkout_but_detects_content_changes(self):
         raw = json.dumps(self.report, indent=2).replace('\n', '\r\n')
-        self.assertEqual(source.SOURCE_SHA256, snapshot_fingerprint(json.loads(raw)))
+        self.assertEqual(source.SINGLE_CELL_SHA256, snapshot_fingerprint(json.loads(raw)))
+        self.assertEqual(source.PAIRED_BED_SHA256, snapshot_fingerprint(self.beds))
+        self.assertEqual(source.SOURCE_SHA256, snapshot_fingerprint({
+            'single_cells': self.report, 'paired_beds': self.beds}))
         changed = dict(self.report, game_version='NEMC next')
-        self.assertNotEqual(source.SOURCE_SHA256, snapshot_fingerprint(changed))
+        self.assertNotEqual(source.SINGLE_CELL_SHA256, snapshot_fingerprint(changed))
 
 
 if __name__ == '__main__':

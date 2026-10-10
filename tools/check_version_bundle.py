@@ -28,6 +28,7 @@ SNAPSHOTS = (
     'native_snow_states',
     'native_static_neighbors',
     'native_palette_actors',
+    'native_bed_capture',
 )
 
 

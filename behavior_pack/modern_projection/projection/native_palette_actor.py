@@ -7,7 +7,7 @@ from . import native_palette_actor_data as source
 def resolve_name(name, front, back):
     if front[0] == name and front[0] != 'minecraft:air':
         return name
-    if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != registry.source_version() or
+    if (source.SCHEMA_VERSION != 2 or source.SOURCE_VERSION != registry.source_version() or
             source.PALETTE_SHA256.lower() != registry.fingerprint().lower()):
         raise ValueError('Native palette actor rules need regeneration for this block registry')
     # Native serializer groups foreground actors by their background water,

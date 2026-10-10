@@ -22,18 +22,37 @@ def merge_entity_document(document, entities):
         nbt = entity_nbt(actor_data(captured))
         actor = compose_actor(render_actor(actor_data(current)), nbt)
         changes.append((pos, hydrate_chest_actor(
-            make_cell(foreground(current), background(current), actor), pos)))
+            make_cell(foreground(current), background(captured), actor), pos)))
     for pos, value in changes:
         document.blocks[pos] = value
 
 
-def native_actor_cells(source, chunk_origin, chunk_size):
+def native_actor_cells(source, chunk_origin, chunk_size, read_block=None):
     sx, sy, sz = chunk_size
     fronts, backs = native_palette_layers(source, chunk_size)
-    for index, name, payload in native_palette_actors(source, fronts, backs, sx * sy * sz):
+    actors = native_palette_actors(source, fronts, backs, sx * sy * sz)
+    candidates = dict((index, fronts[index]) for index, name, payload in actors)
+    if read_block is not None:
+        from . import entity_defaults
+        entity_defaults.validate_source()
+        names = entity_defaults.source.DEFAULTS
+        # Native palettes can omit one paired cell or only its actor. Inspect
+        # omitted cells and observed entity names within this authorized chunk.
+        for index in range(sx * sy * sz):
+            material = fronts.get(index)
+            if material is None:
+                y, rem = divmod(index, sx * sz)
+                x, z = divmod(rem, sz)
+                actual = read_block(add_local(chunk_origin, (x, y, z)))
+                if not actual or foreground(actual)[0] in UNKNOWN_NAMES:
+                    raise ValueError('无法读取 palette 省略的方块实体，请靠近后重新导入')
+                material = foreground(actual)
+            if material[0] in names:
+                candidates[index] = material
+    for index, material in sorted(candidates.items()):
         y, rem = divmod(index, sx * sz)
         x, z = divmod(rem, sz)
-        yield add_local(chunk_origin, (x, y, z)), fronts[index]
+        yield add_local(chunk_origin, (x, y, z)), material
 
 
 def add_local(origin, pos):

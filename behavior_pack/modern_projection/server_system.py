@@ -499,11 +499,16 @@ class ModernProjectionServerSystem(ServerSystem):
                     if palette is None:
                         raise ValueError('服务端选区未加载，请靠近后重新读取')
                     for pos, material in native_actor_cells(
-                            palette.SerializeBlockPalette(), local, size):
+                            palette.SerializeBlockPalette(), local, size,
+                            lambda pos: adapter.read(add(origin, pos))):
                         nbt = adapter.info.GetBlockEntityData(adapter.dimension, add(origin, pos))
                         if nbt is not None:
+                            actual = adapter.read(add(origin, pos))
+                            if actual is None:
+                                raise ValueError('服务端方块实体未加载，请靠近后重新读取')
                             nbt = rebase_actor(nbt, tuple(-value for value in origin))
-                            document.blocks[pos] = make_cell(material, AIR, compose_actor(None, nbt))
+                            document.blocks[pos] = make_cell(
+                                material, background(actual), compose_actor(None, nbt))
                     adapter.read_processed += size[0] * size[1] * size[2]
                     yield None
         for packet in packets(document):

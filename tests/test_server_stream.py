@@ -235,6 +235,52 @@ class ServerStreamTests(unittest.TestCase):
         self.host.world_tool_request({'__id__':'player', 'action':'reset'})
         self.assertTrue(sent[-1]['clear'])
 
+    def test_registered_capture_recovers_wet_bed_nbt_across_palette_chunk_boundary(self):
+        from modern_projection.projection.cell import AIR, actor_data, background, foreground
+        from modern_projection.projection.visible_actor import entity_nbt
+        self.host.world_regions['player'] = (0, (0, 64, 0), (18, 1, 1))
+        foot, head = (15, 64, 0), (16, 64, 0)
+        for pos, material in ((foot, ('minecraft:bed', 3)), (head, ('minecraft:bed', 11))):
+            self.blocks[pos] = material
+            self.liquids[pos] = {'name': 'minecraft:water', 'aux': 0}
+            self.actors[pos] = {'id': {'__type__': 8, '__value__': 'Bed'},
+                                'color': {'__type__': 1, '__value__': 7},
+                                'x': {'__type__': 3, '__value__': pos[0]},
+                                'y': {'__type__': 3, '__value__': pos[1]},
+                                'z': {'__type__': 3, '__value__': pos[2]}}
+        original_read = self.read_palette
+        def omitted_palette(dim, low, high, eliminate):
+            source = original_read(dim, low, high, eliminate).SerializeBlockPalette()
+            if low[0] <= foot[0] <= high[0]:
+                omitted = foot[0] - low[0]
+                for key in ('common', 'actor'):
+                    for entries in source[key].values():
+                        if isinstance(entries, dict):
+                            entries.pop(omitted, None)
+                        elif omitted in entries:
+                            entries.remove(omitted)
+            return types.SimpleNamespace(SerializeBlockPalette=lambda: source)
+        self.factory.CreateBlock = lambda level: types.SimpleNamespace(
+            GetBlockPaletteBetweenPos=omitted_palette)
+        self.host.request({'__id__': 'player', 'request': 54, 'action': 'capture',
+                           'clientCapture': True, 'origin': (0, 64, 0), 'size': (18, 1, 1)})
+        self.finish()
+        self.assertTrue(self.replies[-1][2].get('clientCapture'))
+        self.assertEqual([(0, foot), (0, head)], self.entity_reads)
+        receiver = Receiver()
+        for player, request, response in self.replies:
+            if 'documentPacket' in response:
+                receiver.feed(response['documentPacket'])
+        for pos in ((15, 0, 0), (16, 0, 0)):
+            value = receiver.result.get(pos)
+            self.assertEqual(self.blocks[(pos[0], 64, 0)], foreground(value))
+            self.assertEqual(('minecraft:water', 0), background(value))
+            nbt = entity_nbt(actor_data(value))
+            self.assertEqual(7, nbt['color']['__value__'])
+            self.assertEqual(0, nbt['y']['__value__'])
+        self.assertFalse(self.writes)
+        self.assertFalse(self.host.selection_locked('player'))
+
     def test_capture_missing_ack_times_out_and_unlocks_selection(self):
         self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
         self.host.request({'__id__':'player', 'request':52, 'action':'capture',

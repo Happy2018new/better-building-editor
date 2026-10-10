@@ -106,6 +106,43 @@ class WorldCaptureTests(unittest.TestCase):
             self.assertEqual(2, rendered['facingDirection'])
             self.assertEqual(originals[x], entity_nbt(actor))
 
+    def test_entity_merge_restores_omitted_wet_bed_background_and_full_payload(self):
+        foot, head = ('minecraft:bed', 3), ('minecraft:bed', 11)
+        water = ('minecraft:water', 0)
+        document = Document((2, 1, 1), {(0, 0, 0): foot,
+                                      (1, 0, 0): make_cell(head, water, {'color': 7})})
+        entities = Document(document.size)
+        for x, material in enumerate((foot, head)):
+            nbt = {'id': {'__type__': 8, '__value__': 'Bed'},
+                   'color': {'__type__': 1, '__value__': 7},
+                   'custom': {'__type__': 8, '__value__': 'retained'}}
+            entities.blocks[(x, 0, 0)] = make_cell(material, water, compose_actor(None, nbt))
+        merge_entity_document(document, entities)
+        for pos in entities.blocks:
+            self.assertEqual(water, background(document.get(pos)))
+            self.assertEqual(entity_nbt(actor_data(entities.get(pos))),
+                             entity_nbt(actor_data(document.get(pos))))
+        self.assertIsNone(render_actor(actor_data(document.get((0, 0, 0)))))
+        self.assertEqual({'color': 7}, render_actor(actor_data(document.get((1, 0, 0)))))
+
+    def test_entity_discovery_uses_bounded_missing_cells_and_existing_entity_names(self):
+        head = ('minecraft:bed', 11)
+        chest = ('minecraft:chest', 2)
+        source = {'volume': (1, 4, 1), 'common': {head: [1], chest: [2], AIR: [3]},
+                  'actor': {'minecraft:bed': {1: {'color': 7}}}}
+        calls = []
+        def read(pos):
+            calls.append(pos)
+            return ('minecraft:bed', 3)
+        self.assertEqual([((16, 0, 32), ('minecraft:bed', 3)),
+                          ((17, 0, 32), head), ((18, 0, 32), chest)],
+                         list(native_actor_cells(source, (16, 0, 32), (4, 1, 1), read)))
+        self.assertEqual([(16, 0, 32)], calls)
+        self.assertEqual([((17, 0, 32), head), ((18, 0, 32), chest)],
+                         list(native_actor_cells(source, (16, 0, 32), (4, 1, 1), lambda pos: AIR)))
+        with self.assertRaises(ValueError):
+            list(native_actor_cells(source, (16, 0, 32), (4, 1, 1), lambda pos: None))
+
     def test_native_omitted_door_half_is_read_from_world_without_synthesizing_it(self):
         door = ('minecraft:wooden_door', 1)
         upper = ('minecraft:wooden_door', 9)
