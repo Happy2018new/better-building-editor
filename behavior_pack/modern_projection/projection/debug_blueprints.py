@@ -12,6 +12,7 @@ from .debug_water_blueprints import METADATA as WATER_METADATA, VISUAL_CASE as W
 from .debug_pot_blueprints import METADATA as POT_METADATA, VISUAL_CASE as POT_VISUAL_CASE
 from .debug_dripstone_blueprints import METADATA as DRIPSTONE_METADATA, VISUAL_CASE as DRIPSTONE_VISUAL_CASE
 from .debug_snow_blueprints import METADATA as SNOW_METADATA, VISUAL_CASE as SNOW_VISUAL_CASE
+from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL_CASE as CONNECTION_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -31,12 +32,14 @@ BLUEPRINTS = (
     WATER_METADATA,
     POT_METADATA,
     DRIPSTONE_METADATA,
+    CONNECTION_METADATA,
 )
 VISUAL_CASES = {
     'water_behaviors': WATER_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
     'pot_artwork': POT_VISUAL_CASE,
     'dripstone_neighbors': DRIPSTONE_VISUAL_CASE,
+    'static_neighbors': CONNECTION_VISUAL_CASE,
     'neighbor_context': {
         'schema': 1, 'fixture': 'test.connections.context',
         'cells': {
@@ -276,6 +279,9 @@ def build(identity):
         return populate(fixture)
     if identity == SNOW_METADATA[0]:
         from .debug_snow_blueprints import populate
+        return populate(fixture)
+    if identity == CONNECTION_METADATA[0]:
+        from .debug_connection_blueprints import populate
         return populate(fixture)
     builders = {'test.layers.water': _water,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
