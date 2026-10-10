@@ -32,7 +32,9 @@ def clipped_cube(original, part):
         record = faces[face]
         extent = record['uv_size'][0]
         ratio = extent / original['size'][0]
-        record['uv'][0] += (low - start) * ratio
+        # The front UV traverses reflected model X in the opposite direction.
+        offset = end - high if face == 'south' else low - start
+        record['uv'][0] += offset * ratio
         record['uv_size'][0] = (high - low) * ratio
     if low != start:
         del faces['east']

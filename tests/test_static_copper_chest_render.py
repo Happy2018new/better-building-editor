@@ -53,8 +53,24 @@ class CopperChestTests(unittest.TestCase):
                     self.assertEqual(half['size'][0], abs(half['uv'][face]['uv_size'][0]))
                 self.assertEqual(5, len(half['uv']))
             for face in ('north', 'south', 'up', 'down'):
-                extent = main['uv'][face]['uv_size'][0]
-                self.assertEqual(main['uv'][face]['uv'][0] + extent, sub['uv'][face]['uv'][0])
+                first, second = (sub, main) if face == 'south' else (main, sub)
+                extent = first['uv'][face]['uv_size'][0]
+                self.assertEqual(first['uv'][face]['uv'][0] + extent, second['uv'][face]['uv'][0])
+
+    def test_front_samples_match_unsplit_native_surface_across_both_halves(self):
+        for original in self.spec['double']['cubes']:
+            face = box_uv(original['uv'], original['size'])['south']
+            end = original['origin'][0] + original['size'][0]
+            for part in ('main', 'sub'):
+                half = clipped_cube(original, part)
+                low = half['origin'][0] + (16 if part == 'sub' else 0)
+                high = low + half['size'][0]
+                candidate = half['uv']['south']
+                for fraction in (.1, .5, .9):
+                    position = low + fraction * half['size'][0]
+                    native_u = face['uv'][0] + (end - position) / original['size'][0] * face['uv_size'][0]
+                    split_u = candidate['uv'][0] + (high - position) / half['size'][0] * candidate['uv_size'][0]
+                    self.assertAlmostEqual(native_u, split_u)
 
     def test_generated_bounds_front_vectors_and_native_texture_paths(self):
         fronts = {'north': (0, 0, -1), 'east': (1, 0, 0),
