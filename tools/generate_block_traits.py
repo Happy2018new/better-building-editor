@@ -72,7 +72,7 @@ def generate(source, check=False, snow_source=None, water_source=None):
     lines.extend('    ' + repr(name) + ',' for name in names)
     lines.extend(('))', 'SNOW_COVERABLE_BLOCKS = frozenset(('))
     lines.extend('    ' + repr(name) + ',' for name in snow_names)
-    lines.extend(('))', 'WATERLOGGABLE_BLOCKS = frozenset(('))
+    lines.extend(('))', 'WATERLOGGABLE_COMPLETE = True', 'WATERLOGGABLE_BLOCKS = frozenset(('))
     lines.extend('    ' + repr(name) + ',' for name in water_names)
     lines.extend(('))', 'WATERLOGGABLE_AUX = {'))
     lines.extend('    %r: frozenset(%r),' % (name, tuple(values))
