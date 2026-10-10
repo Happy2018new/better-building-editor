@@ -17,7 +17,7 @@ def generate(source, check=False, snow_source=None):
     names = sorted(name for name, row in data['blocks'].items()
                    if row.get('solid') is True)
     snow_source = snow_source or source.with_name(
-        'native_snow_overlays_nemc_%s.json' % data['game_version'])
+        'native_snow_overlays_nemc_%s.json' % data['game_version'].split()[-1])
     snow = json.loads(snow_source.read_text(encoding='utf8'))
     if (snow.get('schema') != 1 or snow.get('game_version') != data['game_version'] or
             snow.get('palette_sha256') != data['palette_sha256']):
