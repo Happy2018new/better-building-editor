@@ -29,6 +29,7 @@ SNAPSHOTS = (
     'native_static_neighbors',
     'native_palette_actors',
     'native_bed_capture',
+    'native_liquid_materials',
 )
 
 
@@ -87,6 +88,7 @@ def commands(manifest, tests=False):
         ['tools/generate_water_interactions.py', '--check'],
         ['tools/generate_static_neighbor_rules.py', '--check'],
         ['tools/generate_native_palette_adapter.py', '--check'],
+        ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],

@@ -89,6 +89,7 @@ class VersionBundleTests(unittest.TestCase):
         commands = bundle.commands(manifest, tests=True)
         self.assertIn(manifest['source_file'], commands[0])
         self.assertIn('tools/data/native_block_metadata_nemc_next.json', commands[1])
+        self.assertIn(['tools/generate_liquid_materials.py', '--check'], [row[3:] for row in commands])
         self.assertEqual(commands[-1][3:], ['-m', 'unittest', 'discover', '-s', 'tests', '-q'])
 
 
