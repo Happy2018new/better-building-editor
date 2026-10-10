@@ -130,10 +130,12 @@ def write_report(path, report):
             for key in ('palette', 'set_block', 'item'):
                 capture = record[key + '_capture']
                 signal = native.signal(capture['path'], frames['empty']['path'])
-                roi = Image.new('L', signal.size)
-                draw = ImageDraw.Draw(roi)
+                cell_masks = {}
                 for cell in ('keep', 'occupied'):
-                    draw.polygon([tuple(point) for point in frames['roi'][cell]], fill=255)
+                    cell_mask = Image.new('L', signal.size)
+                    ImageDraw.Draw(cell_mask).polygon([tuple(point) for point in frames['roi'][cell]], fill=255)
+                    cell_masks[cell] = cell_mask
+                roi = ImageChops.lighter(cell_masks['keep'], cell_masks['occupied'])
                 with Image.open(capture['path']) as image:
                     actor = Image.new('L', signal.size)
                     actor.putdata([255 if r > b * 1.1 and r > g * .9 else 0
@@ -143,6 +145,8 @@ def write_report(path, report):
                 mask_path = path.with_name(path.stem + '_' + label + '_' + key + '_body.png')
                 actor.save(mask_path)
                 metrics[key] = {'actor_pixels_above_16': native.count(actor),
+                                'cell_actor_pixels_above_16': dict((cell, native.count(
+                                    ImageChops.multiply(actor, cell_mask))) for cell, cell_mask in cell_masks.items()),
                                 'mask': str(mask_path.resolve())}
             record['native_body_controls'] = metrics
             record['body_control_limits'] = ('Original brown actor color mask, union of calibrated keep/occupied cells; '
