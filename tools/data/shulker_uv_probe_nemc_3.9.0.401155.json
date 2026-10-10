@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "integration_base": "ca85ad5",
+  "candidate_commit": "1451f00",
+  "candidate_test_commit": "dc813b4",
+  "candidate_status": "isolated_pending_complete_native_visual_acceptance",
+  "observed_at": "2026-10-10T17:26:00+08:00",
+  "cold_instance": "b51e79e3ec3841a1ad9bfaa980fc5b19",
+  "report": ".runtime/p0-shulker-uv-r3/.runtime/shulker-up-uv-cold-r3/report.json",
+  "report_sha256": "5811519e7bc7cc7039b5e012ff1ecb5004ab2519497a3486b154449dbc707c2b",
+  "native_source": {
+    "geometry": "GameAssets/resource_packs/vanilla/models/entity/shulker.geo.json",
+    "geometry_sha256": "385eab9758754fef606cef427b7acd55fc49a21cf6aee042db2fadf742bd7634",
+    "source_bones_and_dimensions_preserved": true,
+    "converter": "MCStudio MCX64Editor/Plugins/MC/script.zip:MC/AddonHelper/bbmodel.pyc dumpCube._makeFace",
+    "converter_sha256": "0165af704520d5b6337fd6fcc5de17812cae5427e9da9f0bd9e0694e25123678",
+    "up_face_uv": "Reverse both endpoints relative to Blockbench internal face UVs.",
+    "other_face_uv": "Keep all other endpoints, including down, unchanged."
+  },
+  "fixture": {
+    "native_height_above_player": 20,
+    "all_target_and_support_cells_preflight_air": true,
+    "supports_removed": true,
+    "native_facing_nbt_unchanged": true,
+    "camera_policy": "One measured low side offset for all native/proxy pairs.",
+    "native_world_references": 6,
+    "projection_references": 6,
+    "native_palette_editor_references": 6,
+    "synthetic_editor_references": 6
+  },
+  "comparison": {
+    "passed": false,
+    "texture_threshold": 0.45,
+    "shape_iou": [0.9582450832, 0.9656833233, 0.9677611940, 0.9669996972, 0.9622188906, 0.9752415459],
+    "texture_cosine": [0.5499596400, 0.4427967343, 0.4367972931, 0.5897079616, 0.5719012930, 0.6000200561],
+    "passing_directions": [0, 3, 4, 5],
+    "pending_directions": [1, 2],
+    "thresholds_relaxed": false
+  },
+  "limits": [
+    "The earlier v6 face-5 lower-left cavity is foliage occlusion in the raw native screenshot; it is not an opening pose or missing shell geometry.",
+    "The elevated cold face-5 reference is a complete closed cuboid.",
+    "Source entity geometry matches the versioned model, but native block renderer internals are not supplied by this JSON.",
+    "Directions 1 and 2 fail the fixed texture threshold, so the candidate is not accepted for production.",
+    "This low-camera comparison does not establish high-camera or top-opening-face appearance.",
+    "The shared box_uv helper and all chest assets remain unchanged."
+  ],
+  "continuation": [
+    "Keep the exact installed MCStudio up-face conversion when investigating the remaining discrepancies.",
+    "Use the saved raw native and projection images for offline face alignment before requesting another live capture.",
+    "Check native/proxy scale and local face alignment before changing UV labels or rotation roll.",
+    "Do not lower the texture threshold to turn the two remaining failures into acceptance."
+  ],
+  "cleanup": {
+    "editor_restored": true,
+    "camera_restored": true,
+    "native_cells_restored": true,
+    "daylight_restored": true
+  }
+}

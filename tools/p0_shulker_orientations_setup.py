@@ -25,7 +25,7 @@ for candidate in range(36):
         break
 assert slot is not None, 'Native face fixture needs one empty inventory slot'
 foot = factory.CreatePos(player).GetFootPos()
-origin = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 12,
+origin = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 20,
           int(math.floor(foot[2])) + 10)
 normals = ((0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1),
            (-1, 0, 0), (1, 0, 0))
