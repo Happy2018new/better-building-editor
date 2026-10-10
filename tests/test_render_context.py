@@ -183,7 +183,8 @@ class RenderContextTests(unittest.TestCase):
                                              result['common'][proxy])
                         centers = {logical_position(tuple(axis + .5 for axis in position(cell, result['volume'])))
                                    for entries in result['common'].values() for cell in entries
-                                   if context_center(tuple(axis + .5 for axis in position(cell, result['volume'])))}
+                                   if context_center(native_mesh_position(tuple(
+                                       axis + .5 for axis in position(cell, result['volume']))))}
                         self.assertEqual({tuple(axis + .5 for axis in visible)}, centers)
                 self.assertEqual(saved, doc.to_data())
 
