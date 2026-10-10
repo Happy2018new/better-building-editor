@@ -32,6 +32,7 @@ def replicated_palettes(client, code, timeout=12):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--frame-rotations', action='store_true', help='Observe eight documented angles in each filled frame')
     args = parser.parse_args()
     evidence = {'schema': 1, 'completed': False,
                 'scope': 'Native player-placed nondefault data and actual client palettes, not visual acceptance'}
@@ -44,6 +45,9 @@ def main():
                 evidence['before_fill'] = replicated_palettes(client, read_code)
                 write_json(args.output, evidence)
                 evidence['filled'] = execute(client, (ROOT / 'tools/p0_entity_appearance_fill.py').read_text(encoding='utf8'))
+                if args.frame_rotations:
+                    evidence['frame_rotations'] = execute(client,
+                        (ROOT / 'tools/p0_entity_appearance_rotations.py').read_text(encoding='utf8'))
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % evidence['filled']['rows'], True)
                 evidence['client'] = replicated_palettes(client, read_code)
                 evidence['completed'] = True

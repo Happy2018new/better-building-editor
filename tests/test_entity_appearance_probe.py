@@ -82,6 +82,18 @@ class NativeFixture:
     def GetBedColor(self, pos, unused_dimension):
         return scalar(self.entities[tuple(pos)], 'color')
 
+    def GetFrameRotation(self, pos, unused_dimension):
+        return scalar(self.entities[tuple(pos)], 'ItemRotation')
+
+    def SetFrameRotation(self, pos, unused_dimension, angle):
+        self.entities[tuple(pos)]['ItemRotation'] = tag(angle, 5)
+        return True
+
+    def GetBlockPaletteBetweenPos(self, unused_dimension, pos, unused_hi, unused_flag):
+        value = self.world[tuple(pos)]
+        return types.SimpleNamespace(SerializeBlockPalette=lambda: {
+            'common': {(value['name'], value['aux']): [0]}, 'actor': {value['name']: {0: {}}}})
+
     def PlayerUseItemToPos(self, support, unused_type, unused_slot, face):
         if tuple(support) in self.entities and self.inventory['itemName'] == 'minecraft:diamond_sword':
             self.entities[tuple(support)]['Item'] = {'Name': tag('minecraft:diamond_sword', 8)}
@@ -235,6 +247,43 @@ class NativeAppearanceProbeTests(unittest.TestCase):
                     self.helper('cleanup')
             self.assertEqual(fixture.original_rotation, fixture.rotation)
             self.assertTrue(all(row['name'] == 'minecraft:air' for row in fixture.world.values()))
+            self.helper('cleanup')
+
+    def test_documented_frame_rotations_capture_raw_tags_and_restore_original_angles(self):
+        fixture = NativeFixture()
+        with fake_api(fixture):
+            self.helper('setup')
+            self.helper('fill')
+            data = json.loads(self.helper('rotations')['_result'])
+            self.assertEqual(16, len(data['samples']))
+            self.assertTrue(data['rotations_restored'])
+            for row in data['samples']:
+                self.assertEqual(row['api_requested_degrees'], row['api_observed_degrees'])
+                self.assertEqual(tag(row['api_requested_degrees'], 5), row['nbt_item_rotation'])
+            for row in sys._p0_entity_appearances['rows']:
+                if row.get('fill_item'):
+                    self.assertEqual(0., fixture.GetFrameRotation(tuple(row['pos']), 0))
+            self.helper('cleanup')
+
+    def test_frame_rotation_api_failure_retains_partial_evidence_and_restores_original(self):
+        fixture = NativeFixture()
+        with fake_api(fixture):
+            self.helper('setup')
+            self.helper('fill')
+            setter = fixture.SetFrameRotation
+
+            def fail_at_ninety(pos, dimension, angle):
+                if angle == 90.:
+                    raise RuntimeError('Injected frame rotation failure')
+                return setter(pos, dimension, angle)
+
+            fixture.SetFrameRotation = fail_at_ninety
+            with self.assertRaisesRegex(RuntimeError, 'frame rotation failure'):
+                self.helper('rotations')
+            self.assertEqual(2, len(sys._p0_entity_appearances['frame_rotation_samples']))
+            self.assertEqual([], sys._p0_entity_appearances['frame_rotation_cleanup_errors'])
+            first_frame = next(row for row in sys._p0_entity_appearances['rows'] if row.get('fill_item'))
+            self.assertEqual(0., fixture.GetFrameRotation(tuple(first_frame['pos']), 0))
             self.helper('cleanup')
 
 
