@@ -107,6 +107,16 @@ class WorldAdapter(object):
         if not data or not data.get('name') or data['name'] == 'minecraft:unknown':
             return None
         front = block((data['name'], data.get('aux', 0)))
+        if front[0] == 'minecraft:snow_layer':
+            from .projection.world_capture import merge_palette
+            palette = self.palette_block.GetBlockPaletteBetweenPos(self.dimension, pos, pos, False)
+            if palette is None:
+                return None
+            source = dict(palette.SerializeBlockPalette())
+            source['actor'] = {}
+            cell = Document((1, 1, 1))
+            merge_palette(cell, source, (0, 0, 0), (1, 1, 1), pos)
+            return cell.get((0, 0, 0))
         liquid = self.info.GetLiquidBlock(pos, self.dimension)
         back = AIR
         if liquid and liquid.get('name') and liquid['name'] != 'minecraft:air':
@@ -513,13 +523,15 @@ class ModernProjectionServerSystem(ServerSystem):
             if action == 'capture':
                 if value != AIR:
                     doc.blocks[pos] = value
-            elif (foreground(value), background(value)) == (
-                    foreground(doc.get(pos)), background(doc.get(pos))):
-                stats['correct'] += 1
-            elif value == AIR:
-                stats['missing'] += 1
             else:
-                stats['wrong'] += 1
+                expected = native_cell(adapter.canonical(doc.get(pos)))
+                if (foreground(value), background(value)) == (
+                        foreground(expected), background(expected)):
+                    stats['correct'] += 1
+                elif value == AIR:
+                    stats['missing'] += 1
+                else:
+                    stats['wrong'] += 1
             batch += 1
             if batch >= 2048 or time.time() >= deadline:
                 adapter.read_processed = index + 1

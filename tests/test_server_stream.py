@@ -523,6 +523,40 @@ class ServerStreamTests(unittest.TestCase):
         self.liquids[(0,64,0)] = {'name':'minecraft:water','aux':0}
         self.assertEqual(('minecraft:water',0), server.WorldAdapter('player').read((0,64,0)))
 
+    def test_progress_checks_compare_native_layers_and_read_snow_background_without_entity_queries(self):
+        from modern_projection.projection.cell import background, foreground, actor_data
+        from modern_projection.projection.native_layers import native_cell
+        water = ('minecraft:water', 0)
+        grass = ('minecraft:short_grass', 0)
+        fence = ('minecraft:oak_fence', 0)
+        snow = ('minecraft:snow_layer', 2)
+        cases = (make_cell(AIR, water), make_cell(AIR, grass),
+                 make_cell(water, fence), make_cell(grass, snow))
+        with patch('modern_projection.projection.native_layers.is_waterloggable', return_value=True):
+            for logical in cases:
+                with self.subTest(logical=logical):
+                    native = native_cell(logical)
+                    world_pos = (1, 64, 2)
+                    self.blocks[world_pos] = foreground(native)
+                    self.liquids[world_pos] = dict(zip(('name', 'aux'), background(native)))
+                    data = Document((1, 1, 1), {(0, 0, 0): native}).palette_data()
+                    data['actor'] = {'minecraft:snow_layer': {0: {'ignored': 'native actor'}}}
+                    self.factory.CreateBlock = lambda level: types.SimpleNamespace(
+                        GetBlockPaletteBetweenPos=lambda dim, low, high, eliminate:
+                            types.SimpleNamespace(SerializeBlockPalette=lambda: data))
+                    adapter = server.WorldAdapter('player')
+                    result = adapter.read(world_pos)
+                    self.assertEqual((foreground(native), background(native)),
+                                     (foreground(result), background(result)))
+                    self.assertIsNone(actor_data(result))
+                    doc = Document((1, 1, 1), {(0, 0, 0): logical})
+                    for unused in self.host.read_job('player', 81, 'check', adapter, doc, world_pos):
+                        pass
+                    self.assertEqual({'total': 1, 'correct': 1, 'missing': 0, 'wrong': 0},
+                                     self.replies[-1][2]['progress'])
+                    self.assertEqual(logical, doc.get((0, 0, 0)))
+        self.assertEqual([], self.entity_reads)
+
     def test_world_write_uses_native_layer_order_without_mutating_logical_cells_or_render_ids(self):
         from modern_projection.projection.cell import foreground, background
         adapter = server.WorldAdapter('player')
