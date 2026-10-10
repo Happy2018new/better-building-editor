@@ -211,6 +211,19 @@ class GeometryPaletteTests(unittest.TestCase):
         self.assertEqual({fence: [0]}, result['common'])
         self.assertEqual({snow: [0]}, result['extra'])
 
+    def test_mixed_background_promotion_respects_foreground_occupancy_and_native_states(self):
+        water = ('minecraft:water', 0)
+        stone = ('minecraft:stone', 0)
+        custom = ('custom:background', 7)
+        source = {'common': {('minecraft:air', 0): [0, 1, 2], stone: [1]},
+                  'extra': {water: [0, 1], custom: [2]},
+                  'extraStates': {custom: {'some_flag': True}}}
+        result = prepare_palette(source)
+        self.assertEqual({water: [0], stone: [1], custom: [2]}, result['common'])
+        self.assertEqual({water: [1]}, result['extra'])
+        self.assertEqual({'some_flag': True}, result['states'][custom])
+        self.assertEqual([0, 1, 2], source['common'][('minecraft:air', 0)])
+
     def test_every_proxy_has_a_hidden_cutout_resource_with_its_own_species_texture(self):
         appearances = json.loads((ROOT / 'resource_pack/blocks.json').read_text(encoding='utf8'))
         for native, proxy in LEAF_PROXIES.items():

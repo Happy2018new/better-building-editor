@@ -59,9 +59,47 @@ def _replace_positions(entries, records, changes, other_records):
             records[value] = record
 
 
+def _promote_standalone(common, common_states, extra, extra_states):
+    occupied = set(index for value, positions in common.items()
+                   if value != AIR for index in positions)
+    for value, positions in list(extra.items()):
+        if value == AIR:
+            continue
+        promoted = [index for index in positions if index not in occupied]
+        if not promoted:
+            continue
+        remaining = [index for index in positions if index in occupied]
+        common.setdefault(value, []).extend(promoted)
+        if value in extra_states:
+            common_states[value] = extra_states[value]
+        if remaining:
+            extra[value] = remaining
+        else:
+            extra.pop(value)
+        if AIR in common:
+            occupied.update(promoted)
+    if AIR in common:
+        common[AIR] = [index for index in common[AIR] if index not in occupied]
+        if not common[AIR]:
+            common.pop(AIR)
+
+
 def _normalize_native_layers(common, common_states, extra, extra_states):
     # Logical layers remain untouched. Native tessellation needs standalone
     # background blocks in common, and snow before its covered plant.
+    if not extra:
+        for value, positions in list(common.items()):
+            if value[0] != 'minecraft:snow_layer':
+                continue
+            replacement = _covered_snow(value, False)
+            if replacement != value:
+                common.pop(value)
+                common.setdefault(replacement, []).extend(positions)
+                common_states[replacement] = states(replacement)
+        return
+    if not any(value[0] == 'minecraft:snow_layer' for value in list(common) + list(extra)):
+        _promote_standalone(common, common_states, extra, extra_states)
+        return
     variants = {}
 
     def snow(value, covered):
