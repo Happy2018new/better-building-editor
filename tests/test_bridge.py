@@ -637,6 +637,44 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(72.,self.runtime.render_distance)
         self.assertTrue(all(a in self.runtime.destroyed for a in self.runtime.created))
 
+    def test_full_projection_encodes_only_exposed_opaque_cells(self):
+        b = self.bridge
+        b.player_origin = lambda: (0, 0, 0)
+        values = {(x, y, z): ('minecraft:stone', 0)
+                  for x in range(5) for y in range(5) for z in range(5)}
+        b.session.editor = Editor(Document((5, 5, 5), values))
+        submitted = []
+        b.geometry = lambda doc, **kwargs: submitted.append(doc.palette_data()) or kwargs['name']
+        b.project()
+        self.drain_projection()
+        self.assertEqual(98, sum(len(v) for v in submitted[0]['common'].values()))
+        self.assertEqual(125, len(b.projection_work.document.blocks))
+        indices = next(iter(submitted[0]['common'].values()))
+        self.assertIn(0, indices)
+        self.assertIn(124, indices)
+        self.assertNotIn((2*5+2)*5+2, indices)
+
+    def test_full_projection_keeps_transparent_cells_and_layer_boundaries(self):
+        b = self.bridge
+        b.player_origin = lambda: (0, 0, 0)
+        values = {(x, y, z): ('minecraft:glass', 0)
+                  for x in range(5) for y in range(5) for z in range(5)}
+        b.session.editor = Editor(Document((5, 5, 5), values))
+        submitted = []
+        b.geometry = lambda doc, **kwargs: submitted.append(doc.palette_data()) or kwargs['name']
+        b.project()
+        self.drain_projection()
+        self.assertEqual(125, sum(len(v) for v in submitted[0]['common'].values()))
+        b.stop_projection()
+        b.session.editor = Editor(Document((5, 5, 5), {
+            pos: ('minecraft:stone', 0) for pos in values}))
+        b.session.solo_layer = True
+        b.session.editor.layer = 2
+        submitted[:] = []
+        b.project()
+        self.drain_projection()
+        self.assertEqual(25, sum(len(v) for v in submitted[0]['common'].values()))
+
     def test_full_projection_respects_layer_filters_and_partial_tile_coordinates(self):
         b = self.bridge
         b.player_origin = lambda: (0,0,0)

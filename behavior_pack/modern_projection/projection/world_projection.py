@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import time
 from .model import Document, add
 from .storage import integer_types
-from .large_preview import SurfacePalette
+from .large_preview import SurfacePalette, build_preview
 
 
 class WorldProjection(object):
@@ -43,6 +43,13 @@ class WorldProjection(object):
         for key in self.keys:
             start = tuple(v*16 for v in key)
             size = tuple(min(16, self.document.size[i]-start[i]) for i in range(3))
+            if self.occupancy is None:
+                end = tuple(start[i]+size[i] for i in range(3))
+                for result in build_preview(self.document, self.hidden, self.layer, region=(start, end),
+                                            chunks=(key,), output=self.output):
+                    yield None
+                self.completed.add(key)
+                continue
             chunk = store.chunks[key]
             uniform = isinstance(chunk, integer_types)
             if self.occupancy is not None and self.occupancy.bulk is not None:

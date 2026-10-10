@@ -62,14 +62,16 @@ class SurfacePalette(object):
                 'eliminateAir': True}
 
 
-def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None, local=False):
+def build_preview(document, hidden=(), layer=None, focus=None, plane=None, region=None, local=False,
+                  chunks=None, output=None):
     hidden = set(hidden)
     origin, size = view_bounds(document.size, focus)
     end = tuple(origin[i] + size[i] for i in range(3))
     scan_lo = origin if region is None else tuple(max(origin[i], region[0][i]) for i in range(3))
     scan_hi = end if region is None else tuple(min(end[i], region[1][i]) for i in range(3))
     palette_origin = scan_lo if local else origin
-    out = SurfacePalette(tuple(scan_hi[i]-scan_lo[i] for i in range(3)) if local else size)
+    out = output if output is not None else SurfacePalette(
+        tuple(scan_hi[i]-scan_lo[i] for i in range(3)) if local else size)
     store = document.blocks
     opaque = [is_opaque(value) for value in store.palette]
     ys = set(y for y in range(origin[1], end[1]) if y not in hidden and (layer is None or y == layer))
@@ -83,7 +85,7 @@ def build_preview(document, hidden=(), layer=None, focus=None, plane=None, regio
         value = chunk if isinstance(chunk, integer_types) else chunk[((y & 15) << 8) | ((z & 15) << 4) | (x & 15)]
         return opaque[value]
 
-    for key in sorted(store.chunks):
+    for key in sorted(store.chunks) if chunks is None else chunks:
         base = tuple(v * 16 for v in key)
         if any(base[i] >= scan_hi[i] or base[i] + 16 <= scan_lo[i] for i in range(3)):
             continue

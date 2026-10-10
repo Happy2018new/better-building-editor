@@ -78,7 +78,7 @@ _result={"active":s.projection_active,"preparing":bool(b.preparing_entity),
          "work_error":work.error if work is not None else None,
          "actor":b.entity,"actors":len(b.projection_entities)+int(bool(b.entity)),
          "mesh":b.projection_mesh,"message":s.editor.message,
-         "context_attached":sum(len(parts) for parts in o.shader.parts) if o is not None else 0,
+         "context_attached":sum(len(parts) for parts in b.projection_shader.parts) if b.projection_shader is not None else 0,
          "geometry":api._context_perf_records,"native":api._context_perf_native,
          "ticks":api._context_perf_ticks,
          "occupancy":None if o is None else {"bank":o.shader.bank,"commits":o.commits,
@@ -139,7 +139,11 @@ def main():
     parser.add_argument('--no-screenshots', action='store_true')
     parser.add_argument('--prepare-only', action='store_true',
                         help='Measure initial native submission without camera or world mutations')
+    parser.add_argument('--full', action='store_true',
+                        help='Measure full projection preparation without occupancy scans; requires --prepare-only')
     args = parser.parse_args()
+    if args.full and not args.prepare_only:
+        parser.error('--full requires --prepare-only')
     session = load_session(live=True)
     session = dict((key, value) for key, value in session.items() if key != 'token')
     report = {'schema': 1, 'kind': 'native production missing-projection performance',
@@ -154,6 +158,9 @@ def main():
     try:
         report['setup'] = game(INSTALL)
         installed = True
+        if args.full:
+            game('s.projection_missing=False\n_result=True')
+            report['kind'] = 'native full-projection preparation performance'
         if not args.prepare_only:
             server('''from modern_projection.server_system import WorldAdapter
 a=WorldAdapter(p)
@@ -262,10 +269,11 @@ if adapter.read(position)!=value:
     assert adapter.write(position,value)
 _result=True''')
         if installed:
+            if not args.prepare_only:
+                game('s.bridge.factory.CreateCamera(s.bridge.level).UnDepartCamera()\n_result=True')
             game('''b=s.bridge
 b.stop_projection()
 api._context_perf_probe["active"]=False
-b.factory.CreateCamera(b.level).UnDepartCamera()
 s.editor,s.origin,s.projection_missing,s.projection_outline,s.solo_layer,b.geometry,b.factory=api._context_perf_saved
 s.refresh_preview()
 s.emit()

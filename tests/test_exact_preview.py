@@ -1,9 +1,10 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.model import Document, Editor, AIR, DIRECTIONS, add
-from projection.large_preview import build_preview
+from projection.large_preview import SurfacePalette, build_preview
 from projection.scene_lines import grid_lines, clip_line, clip_depth
 from projection.session import Session
 from test_session import Bridge
@@ -21,6 +22,27 @@ def preview_cells(doc, **kwargs):
 
 
 class ExactPreviewTests(unittest.TestCase):
+    def test_chunk_accumulation_preserves_global_surface_and_budget(self):
+        e = Editor(Document((33, 18, 17))); e.material = STONE; e.run('fill')
+        e.document.blocks[(16, 8, 8)] = GLASS
+        expected = next(v[0] for v in build_preview(e.document) if v is not None)
+        actual = SurfacePalette(e.document.size)
+        for key in sorted(e.document.blocks.chunks):
+            start = tuple(v*16 for v in key)
+            end = tuple(min(start[i]+16, e.document.size[i]) for i in range(3))
+            list(build_preview(e.document, region=(start, end), chunks=(key,), output=actual))
+        self.assertEqual(expected.palette_data(), actual.palette_data())
+        self.assertEqual(expected.count, actual.count)
+        self.assertEqual(expected.layer_count, actual.layer_count)
+        sparse = Document((17, 1, 1), {(0, 0, 0): GLASS, (16, 0, 0): GLASS})
+        limited = SurfacePalette(sparse.size)
+        with patch('projection.large_preview.MAX_SURFACE_BLOCKS', 1):
+            list(build_preview(sparse, chunks=((0, 0, 0),), output=limited))
+            with self.assertRaises(ValueError):
+                list(build_preview(sparse, chunks=((1, 0, 0),), output=limited))
+        self.assertEqual(1, limited.count)
+        self.assertEqual({GLASS: [0]}, limited.common)
+
     def test_modern_opaque_variants_cull_only_enclosed_full_cubes(self):
         from projection.large_preview import is_opaque
         for name in ('oak_planks','cyan_concrete','white_wool','stone_bricks','grass_block'):
