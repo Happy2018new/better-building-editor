@@ -3,11 +3,15 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
+
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
-from generate_static_plant_proxies import SOURCE, validate, outputs, SPECIAL, CANDIDATES
+from generate_static_plant_proxies import (SOURCE, validate, outputs, SPECIAL, CANDIDATES,
+                                          source_path, digest)
 
 
 class StaticPlantProxyTests(unittest.TestCase):
@@ -53,7 +57,8 @@ class StaticPlantProxyTests(unittest.TestCase):
                 self.assertNotIn(ROOT/'behavior_pack/netease_blocks'/('preview_'+name+'.json'), files)
 
     def test_missing_native_source_or_changed_mapping_is_rejected(self):
-        for kind in ('missing_plant', 'missing_hash', 'texture_path', 'version', 'geometry_evidence'):
+        for kind in ('missing_plant', 'missing_hash', 'texture_path', 'version', 'geometry_evidence',
+                     'alpha_bounds'):
             with self.subTest(kind=kind):
                 modified = deepcopy(self.source)
                 if kind == 'missing_plant':
@@ -64,10 +69,45 @@ class StaticPlantProxyTests(unittest.TestCase):
                     modified['plants']['poppy']['texture_path'] = 'textures/blocks/flower_allium.tga'
                 elif kind == 'version':
                     modified['game_version'] = 'Different native version'
+                elif kind == 'alpha_bounds':
+                    modified['plants']['brown_mushroom']['alpha_bounds'] = [4, 16, 12, 16]
                 else:
                     modified['geometry_evidence']['brown_mushroom']['texture_alpha_top_row'] = 7
                 with self.assertRaises(ValueError):
                     validate(modified)
+
+    def test_source_snapshot_follows_the_registry_version(self):
+        self.assertEqual(ROOT/'tools/data/static_plant_sources_nemc_4.0.0.123.json',
+                         source_path({'game_version': 'NEMC 4.0.0.123'}))
+        for version in ('NEMC ', 'Other 4.0.0.123'):
+            with self.subTest(version=version), self.assertRaises(ValueError):
+                source_path({'game_version': version})
+
+    def test_native_alpha_metadata_matches_the_fingerprinted_texture(self):
+        source = deepcopy(self.source)
+        with tempfile.TemporaryDirectory() as directory:
+            native = Path(directory)
+            for relative in source['paths'].values():
+                (native/relative).parent.mkdir(parents=True, exist_ok=True)
+            for key in ('blocks', 'terrain'):
+                (native/source['paths'][key]).write_text('{}', encoding='utf8')
+            for record in source['plants'].values():
+                image = Image.new('RGBA', tuple(record['texture_size']))
+                left, top, right, bottom = record['alpha_bounds']
+                ImageDraw.Draw(image).rectangle((left, top, right-1, bottom-1),
+                                                fill=(180, 90, 40, 255))
+                image.save(native/record['texture_path'])
+            source['sha256'] = {key: digest(native/path) for key, path in source['paths'].items()}
+            validate(source, native)
+            modified = deepcopy(source)
+            modified['plants']['brown_mushroom']['alpha_bounds'][1] -= 1
+            with self.assertRaisesRegex(ValueError, 'alpha metadata changed: brown_mushroom'):
+                validate(modified, native)
+            path = native/source['plants']['brown_mushroom']['texture_path']
+            Image.new('RGBA', (32, 16), (180, 90, 40, 255)).save(path)
+            source['sha256']['texture_brown_mushroom'] = digest(path)
+            with self.assertRaisesRegex(ValueError, 'alpha metadata changed: brown_mushroom'):
+                validate(source, native)
 
     def test_render_adapter_keeps_source_document_layers_and_actor(self):
         from projection.geometry_palette import prepare_palette

@@ -13,7 +13,17 @@ sys.path.insert(0, str(ROOT/'behavior_pack/modern_projection'))
 from projection.debug_snow_blueprints import NAMES
 from generate_shulker_proxies import behavior
 
-SOURCE = ROOT/'tools/data/static_plant_sources_nemc_3.9.0.401155.json'
+MANIFEST = ROOT/'tools/data/block_registry_manifest.json'
+
+
+def source_path(manifest):
+    version = manifest['game_version'].removeprefix('NEMC ')
+    if version == manifest['game_version'] or not version:
+        raise ValueError('Expected a versioned NEMC source manifest')
+    return ROOT/'tools/data'/('static_plant_sources_nemc_'+version+'.json')
+
+
+SOURCE = source_path(json.loads(MANIFEST.read_text(encoding='utf8')))
 TEMPLATE = ROOT/'resource_pack/models/netease_block/preview_fern.json'
 EXISTING = frozenset(('short_grass', 'fern'))
 CANDIDATES = frozenset(('brown_mushroom', 'red_mushroom'))
@@ -69,7 +79,7 @@ def capture_source(native):
     paths = {'blocks': 'blocks.json', 'terrain': 'textures/terrain_texture.json'}
     blocks, terrain = (json.loads((native/paths[key]).read_text(encoding='utf8'))
                        for key in ('blocks', 'terrain'))
-    manifest = json.loads((ROOT/'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
+    manifest = json.loads(MANIFEST.read_text(encoding='utf8'))
     plants = {}
     for name in NAMES:
         if name in EXISTING or name in SPECIAL:
@@ -101,7 +111,7 @@ def capture_source(native):
 
 
 def validate(spec, native=None):
-    manifest = json.loads((ROOT/'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
+    manifest = json.loads(MANIFEST.read_text(encoding='utf8'))
     if (spec.get('schema') != 1 or spec.get('game_version') != manifest['game_version'] or
             spec.get('palette_sha256', '').lower() != manifest['source_sha256'].lower()):
         raise ValueError('Static plant sources do not match the native registry')
@@ -135,6 +145,12 @@ def validate(spec, native=None):
         for key, path in spec['paths'].items():
             if digest(native/path) != spec['sha256'][key]:
                 raise ValueError('Installed native plant source changed: '+path)
+        for name, plant in spec['plants'].items():
+            with Image.open(native/plant['texture_path']) as image:
+                alpha = image.convert('RGBA').getchannel('A').getbbox()
+                if (list(image.size) != plant['texture_size'] or
+                        (list(alpha) if alpha is not None else None) != plant['alpha_bounds']):
+                    raise ValueError('Installed native plant alpha metadata changed: '+name)
 
 
 def outputs(spec):
