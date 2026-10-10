@@ -22,6 +22,8 @@ def compose_actor(render, nbt):
 def render_actor(data):
     if is_envelope(data):
         return data['render']
+    if isinstance(data, dict) and ENVELOPE_KEY in data:
+        return None
     return None if is_tagged_nbt(data) else data
 
 
@@ -36,6 +38,10 @@ def is_tagged_nbt(data):
         return False
     if field_key(data, '__type__') is not None and field_key(data, '__value__') is not None:
         return isinstance(root_payload(data), dict)
+    identity = data.get(field_key(data, 'id'))
+    if (isinstance(identity, dict) and scalar(identity, '__type__') == 8 and
+            isinstance(scalar(identity, '__value__'), (bytes, type('')))):
+        return True
     return all(isinstance(value, dict) and field_key(value, '__type__') is not None
                and field_key(value, '__value__') is not None for value in data.values())
 

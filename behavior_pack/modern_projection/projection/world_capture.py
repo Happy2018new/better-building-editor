@@ -5,8 +5,52 @@ from .cell import AIR, actor_data, background, foreground, make_cell
 from .model import block
 from .nbt_spatial import rebase
 from .block_registry import from_states
+from .visible_actor import compose_actor, entity_nbt, render_actor
 
 UNKNOWN_NAMES = ('minecraft:unknown', b'minecraft:unknown')
+
+
+def merge_entity_document(document, entities):
+    if document is None or document.size != entities.size:
+        raise ValueError('方块实体与客户端选区尺寸不匹配')
+    changes = []
+    for pos, captured in entities.blocks.items():
+        current = document.get(pos)
+        if foreground(current) != foreground(captured):
+            raise ValueError('读取期间世界方块已变化，请重新导入选区')
+        nbt = entity_nbt(actor_data(captured))
+        actor = compose_actor(render_actor(actor_data(current)), nbt)
+        changes.append((pos, make_cell(foreground(current), background(current), actor)))
+    for pos, value in changes:
+        document.blocks[pos] = value
+
+
+def native_actor_cells(source, chunk_origin, chunk_size):
+    sx, sy, sz = chunk_size
+    if tuple(source.get('volume', ())) != (sz, sx, sy):
+        raise ValueError('服务端方块实体 palette 尺寸无效')
+    materials = {}
+    records = _states(source, 'states')
+    for value, positions in source.get('common', {}).items():
+        material = _material(value, records)
+        for index in positions:
+            materials[index] = material
+    for name, entries in source.get('actor', {}).items():
+        if isinstance(name, bytes):
+            name = name.decode('utf8')
+        for index in entries:
+            if type(index) is not int or not 0 <= index < sx * sy * sz:
+                raise ValueError('服务端方块实体 palette 坐标无效')
+            material = materials.get(index)
+            if material is None or material[0] != name:
+                raise ValueError('服务端方块实体 palette 名称不匹配')
+            y, rem = divmod(index, sx * sz)
+            x, z = divmod(rem, sz)
+            yield add_local(chunk_origin, (x, y, z)), material
+
+
+def add_local(origin, pos):
+    return tuple(origin[i] + pos[i] for i in range(3))
 
 
 def validate_loaded_chunk(loaded_chunks, dimension, low, high, read_block):

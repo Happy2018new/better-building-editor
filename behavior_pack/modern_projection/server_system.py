@@ -7,7 +7,7 @@ from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
 from .projection.nbt_spatial import rebase as rebase_actor
-from .projection.visible_actor import entity_nbt, sign_sides
+from .projection.visible_actor import compose_actor, entity_nbt, sign_sides
 from .projection.tool_items import SURVEY_WAND, TERMINAL, item_name, selection
 import time
 
@@ -120,11 +120,10 @@ class WorldAdapter(object):
         common_key, common_states = self._palette_layer(front)
         extra, extra_states = {}, {}
         states = {} if common_states is None else {common_key: common_states}
-        if back != AIR:
-            extra_key, record = self._palette_layer(back)
-            extra[extra_key] = [0]
-            if record is not None:
-                extra_states[extra_key] = record
+        extra_key, record = self._palette_layer(back)
+        extra[extra_key] = [0]
+        if record is not None:
+            extra_states[extra_key] = record
         data = {
             'volume': (1, 1, 1),
             'common': {common_key: [0]},
@@ -187,10 +186,16 @@ class ModernProjectionServerSystem(ServerSystem):
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'OnScriptTickServer', self, self.tick)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent', self, self.leave)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerItemUseOnEvent', self, self.tool_use_on)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerBlockUseEvent', self, self.tool_block_use)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerItemTryUseEvent', self, self.tool_try_use)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DimensionChangeFinishServerEvent', self, self.tool_dimension_changed)
         for event in ('StartDestroyBlockServerEvent', 'ServerPlayerTryDestroyBlockEvent'):
             self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), event, self, self.tool_prevent_break)
+        factory = serverApi.GetEngineCompFactory()
+        self.block_use_listener = factory.CreateBlockUseEventWhiteList(serverApi.GetLevelId())
+        self.block_use_names = factory.CreateBlockInfo(serverApi.GetLevelId()).GetLoadBlocks()
+        for name in self.block_use_names:
+            self.block_use_listener.AddBlockItemListenForUseEvent(name)
 
     def held_tool(self, player):
         item = serverApi.GetEngineCompFactory().CreateItem(player).GetPlayerItem(
@@ -212,23 +217,26 @@ class ModernProjectionServerSystem(ServerSystem):
         if not isinstance(args, dict):
             return
         player = args.get('__id__')
-        if player not in serverApi.GetPlayerList() or self.held_tool(player) != SURVEY_WAND:
+        if player not in serverApi.GetPlayerList():
             return
         if args.get('action') == 'reset':
+            if self.selection_locked(player):
+                self.NotifyToClient(player, 'WorldToolPoint', {
+                    'success': False, 'silent': True, 'createBounds': False})
+                return
             self.world_points.pop(player, None)
             self.world_regions.pop(player, None)
-            self.NotifyToClient(player, 'WorldToolPoint', {'clear': True})
-        elif args.get('action') == 'point':
-            try:
-                pos = coordinate(args.get('pos'))
-                foot = serverApi.GetEngineCompFactory().CreatePos(player).GetFootPos()
-                if foot is None or sum((pos[i] + .5 - foot[i]) ** 2 for i in range(3)) > 144.:
-                    raise ValueError('请在 12 格以内选取方块')
-                dimension = serverApi.GetEngineCompFactory().CreateDimension(player).GetEntityDimensionId()
-                self.tool_use_on(dict(zip(('x','y','z'),pos), entityId=player, dimensionId=dimension,
-                                      itemDict={'newItemName': SURVEY_WAND}, face=args.get('face')))
-            except (ValueError, TypeError, KeyError) as error:
-                self.NotifyToClient(player, 'WorldToolPoint', {'error': error_text(error)})
+            self.NotifyToClient(player, 'WorldToolPoint', {
+                'success': True, 'clear': True, 'createBounds': False})
+        # Coordinates from a client packet can never establish a selection.
+
+    def selection_locked(self, player):
+        entry = self.jobs.get(player)
+        return bool(entry and entry[1] == 'capture')
+
+    def tool_block_use(self, args):
+        event = dict(args, entityId=args.get('playerId'))
+        self.tool_use_on(event)
 
     def tool_try_use(self, args):
         if item_name(args.get('itemDict')) != TERMINAL:
@@ -250,9 +258,13 @@ class ModernProjectionServerSystem(ServerSystem):
         player = args.get('entityId')
         if name not in (SURVEY_WAND, TERMINAL) or player not in serverApi.GetPlayerList():
             return
-        args['ret'] = True
         if name == TERMINAL:
+            args['ret'] = True
             self.open_terminal(player)
+            return
+        if self.selection_locked(player):
+            self.NotifyToClient(player, 'WorldToolPoint', {
+                'success': False, 'silent': True, 'createBounds': False})
             return
         try:
             adapter = WorldAdapter(player)
@@ -269,6 +281,8 @@ class ModernProjectionServerSystem(ServerSystem):
             last = self.tool_last_use.get(player)
             self.tool_last_use[player] = now
             if last is not None and now - last < .2:
+                self.NotifyToClient(player, 'WorldToolPoint', {
+                    'success': False, 'silent': True, 'createBounds': False})
                 return
             previous = self.world_points.get(player)
             if previous and previous[1] == dimension and now - previous[2] < 600.:
@@ -276,17 +290,20 @@ class ModernProjectionServerSystem(ServerSystem):
                 self.validate_target(adapter, origin, Document(size))
                 self.world_points.pop(player, None)
                 self.world_regions[player] = (dimension, origin, size)
-                self.NotifyToClient(player, 'WorldToolPoint', {'index': 1, 'pos': pos,
+                self.NotifyToClient(player, 'WorldToolPoint', {'success': True, 'createBounds': True,
+                    'first': previous[0], 'index': 1, 'pos': pos,
                     'face': face, 'dimension': dimension, 'origin': origin, 'size': size})
             else:
                 self.world_regions.pop(player, None)
                 self.world_points[player] = (pos, dimension, now)
-                self.NotifyToClient(player, 'WorldToolPoint', {'index': 0, 'pos': pos,
+                self.NotifyToClient(player, 'WorldToolPoint', {'success': True, 'createBounds': True,
+                    'index': 0, 'pos': pos,
                     'face': face, 'dimension': dimension})
         except (ValueError, TypeError, KeyError) as error:
             self.world_points.pop(player, None)
             self.world_regions.pop(player, None)
-            self.NotifyToClient(player, 'WorldToolPoint', {'error': error_text(error), 'clear': True})
+            self.NotifyToClient(player, 'WorldToolPoint', {'success': False,
+                'error': error_text(error), 'clear': True, 'createBounds': False})
 
     def reply(self, player, request, **data):
         data['request'] = request
@@ -305,6 +322,14 @@ class ModernProjectionServerSystem(ServerSystem):
             return
         player, request = args.get('__id__'), args.get('request')
         if not player or player not in serverApi.GetPlayerList() or type(request) is not int or not 0 < request <= 2147483647:
+            return
+        if args.get('action') == 'captureAck':
+            entry = self.jobs.get(player)
+            if (entry and entry[0] == request and entry[1] == 'capture' and
+                    type(args.get('sequence')) is int and
+                    args['sequence'] == getattr(entry[3], 'capture_wait', None)):
+                entry[3].capture_wait = None
+                entry[3].capture_activity = time.time()
             return
         if args.get('action') == 'cancel':
             upload = self.uploads.get(player)
@@ -371,7 +396,7 @@ class ModernProjectionServerSystem(ServerSystem):
             if action not in ('capture', 'check', 'apply', 'resolve'):
                 raise ValueError('未知的世界操作')
             adapter = upload_adapter or WorldAdapter(player)
-            if action == 'capture' and args.get('source') == 'world_item':
+            if action == 'capture':
                 region = self.world_regions.get(player)
                 if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
                     raise ValueError('世界选区已改变，请重新选择两个角点')
@@ -389,25 +414,56 @@ class ModernProjectionServerSystem(ServerSystem):
                 if action != 'capture' and transferred is None:
                     raise ValueError('请使用完整的建筑分包传输')
                 if action == 'capture' and args.get('clientCapture') is True:
-                    if transferred is None:
-                        raise ValueError('客户端世界读取缺少完整建筑数据')
                     declared_size = tuple(args.get('size', ()))
-                    if declared_size != transferred.size:
+                    if transferred is not None and declared_size != transferred.size:
                         raise ValueError('客户端世界读取尺寸不匹配')
-                    doc = transferred
+                    doc = Document(declared_size)
                 else:
                     doc = Document(tuple(args.get('size', ()))) if action == 'capture' else transferred
                 self.validate_target(adapter, origin, doc)
                 if action == 'capture' and args.get('clientCapture') is True:
-                    self.reply(player, request, done=True, clientCapture=True)
-                    return
-                if action == 'apply':
+                    job = self.capture_entities(player, request, adapter, doc, origin)
+                elif action == 'apply':
                     job = WorldJob(adapter, doc, origin, include_air=args.get('includeAir') is True)
                 else:
                     job = self.read_job(player, request, action, adapter, doc, origin)
             self.jobs[player] = (request, action, job, adapter, 0)
         except (ValueError, TypeError, KeyError) as error:
             self.reply(player, request, done=True, error=error_text(error))
+
+    def capture_entities(self, player, request, adapter, document, origin):
+        from .projection.world_capture import native_actor_cells
+        adapter.read_processed, adapter.read_total = 0, document.volume
+        adapter.capture_wait = None
+        adapter.capture_activity = time.time()
+        for y in range(0, document.size[1], 16):
+            for x in range(0, document.size[0], 16):
+                for z in range(0, document.size[2], 16):
+                    local = (x, y, z)
+                    size = tuple(min(16, document.size[i] - local[i]) for i in range(3))
+                    low = add(origin, local)
+                    high = tuple(low[i] + size[i] - 1 for i in range(3))
+                    palette = adapter.palette_block.GetBlockPaletteBetweenPos(
+                        adapter.dimension, low, high, False)
+                    if palette is None:
+                        raise ValueError('服务端选区未加载，请靠近后重新读取')
+                    for pos, material in native_actor_cells(
+                            palette.SerializeBlockPalette(), local, size):
+                        nbt = adapter.info.GetBlockEntityData(adapter.dimension, add(origin, pos))
+                        if nbt is not None:
+                            nbt = rebase_actor(nbt, tuple(-value for value in origin))
+                            document.blocks[pos] = make_cell(material, AIR, compose_actor(None, nbt))
+                    adapter.read_processed += size[0] * size[1] * size[2]
+                    yield None
+        for packet in packets(document):
+            adapter.capture_wait = packet['seq']
+            adapter.capture_activity = time.time()
+            self.reply(player, request, done=False, documentPacket=packet)
+            while adapter.capture_wait is not None:
+                if time.time() - adapter.capture_activity > 30.:
+                    raise ValueError('方块实体传输超时，请重新导入')
+                yield None
+        self.reply(player, request, done=True, streamed=True, clientCapture=True)
 
     def resolve_palette(self, player, request, adapter, values):
         # Read-only identity/state conversion. No world cells or actors are
@@ -553,3 +609,6 @@ class ModernProjectionServerSystem(ServerSystem):
             job = entry[2]
             if isinstance(job, WorldJob):
                 job.cancel('世界操作已关闭')
+        for name in getattr(self, 'block_use_names', ()):
+            self.block_use_listener.RemoveBlockItemListenForUseEvent(name)
+        self.UnListenAllEvents()

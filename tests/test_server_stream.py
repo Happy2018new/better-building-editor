@@ -45,6 +45,8 @@ class ServerStreamTests(unittest.TestCase):
         self.allowed_checks = 0
         self.liquids = {}
         self.actors = {}
+        self.entity_reads = []
+        self.palette_reads = []
         self.factory = types.SimpleNamespace(
             CreateGame=lambda level: types.SimpleNamespace(GetPlayerGameType=lambda player: 1 if self.creative else 0),
             CreateDimension=lambda player: types.SimpleNamespace(GetEntityDimensionId=lambda: self.dimension),
@@ -52,7 +54,7 @@ class ServerStreamTests(unittest.TestCase):
             CreatePos=lambda player: types.SimpleNamespace(GetFootPos=lambda: (0,64,0)),
             CreateBlockInfo=lambda level: types.SimpleNamespace(
                 GetBlockNew=lambda pos, dim: dict(zip(('name','aux'),self.blocks.get(pos,AIR))),
-                GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=lambda dim,pos: None,
+                GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=self.read_entity,
                 GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
                 SetSignBlockText=lambda pos, text, dim, side: True,
                 SetBlockEntityData=self.set_actor, SetBlockNew=self.write),
@@ -60,6 +62,7 @@ class ServerStreamTests(unittest.TestCase):
                 SetSignTextStyle=lambda pos, dim, color, glow, side: True),
             CreateBlock=lambda level: types.SimpleNamespace(
                 GetBlankBlockPalette=Palette,
+                GetBlockPaletteBetweenPos=self.read_palette,
                 SetBlockByBlockPalette=self.write_palette),
             CreateItem=lambda level: types.SimpleNamespace(GetItemInfoByBlockName=lambda n,a: {},
                 GetPlayerItem=lambda kind,slot: {'newItemName':'minecraft:stick'}))
@@ -75,6 +78,21 @@ class ServerStreamTests(unittest.TestCase):
             return original_allowed(adapter)
         p = patch.object(server.WorldAdapter, 'allowed', count_allowed)
         p.start(); self.addCleanup(p.stop)
+
+    def read_entity(self, dim, pos):
+        self.entity_reads.append((dim, pos))
+        return self.actors.get(pos)
+
+    def read_palette(self, dim, low, high, eliminate):
+        self.palette_reads.append((dim, low, high))
+        size = tuple(high[i] - low[i] + 1 for i in range(3))
+        doc = Document(size)
+        for local in doc.points():
+            pos = tuple(low[i] + local[i] for i in range(3))
+            value = self.blocks.get(pos, AIR)
+            if value != AIR:
+                doc.blocks[local] = make_cell(value, nbt={} if pos in self.actors else None)
+        return types.SimpleNamespace(SerializeBlockPalette=doc.palette_data)
 
     def write(self, pos, data, *unused):
         self.blocks[pos]=(data['name'].decode('utf8'),data['aux'])
@@ -108,9 +126,15 @@ class ServerStreamTests(unittest.TestCase):
                                'origin':(0,64,0),'stream':packet})
 
     def finish(self):
+        replied = 0
         for unused in range(100):
             if not self.host.jobs: return
             self.host.tick()
+            for player, request, data in self.replies[replied:]:
+                if 'documentPacket' in data:
+                    self.host.request({'__id__': player, 'request': request,
+                                       'action': 'captureAck', 'sequence': data['documentPacket']['seq']})
+            replied = len(self.replies)
         self.fail('world job did not finish')
 
     def test_upload_cancellation_and_timeout_release_state(self):
@@ -137,28 +161,87 @@ class ServerStreamTests(unittest.TestCase):
         self.assertTrue(self.replies[-1][2]['done'])
 
     def test_server_side_capture_without_client_palette_is_rejected(self):
+        self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
         self.host.request({'__id__':'player','request':7,'action':'capture',
                            'origin':(0,64,0),'size':(1,1,1)})
         self.assertIn('客户端 palette', self.replies[-1][2]['error'])
         self.assertFalse(self.host.jobs)
         self.assertFalse(self.writes)
 
-    def test_client_palette_capture_upload_is_validated_without_server_reread(self):
+    def test_capture_reads_registered_native_actors_without_uploading_client_blocks(self):
         self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
-        doc = Document((1,1,1), {(0,0,0):('minecraft:oak_stairs',0)})
-        for packet in packets(doc):
-            self.host.request({
-                '__id__':'player', 'request':31,
-                'action':'capture' if packet['seq'] == 0 else 'upload',
-                'source':'world_item', 'clientCapture':True,
-                'origin':(0,64,0), 'size':(1,1,1), 'stream':packet,
-            })
+        self.host.request({'__id__':'player', 'request':31, 'action':'capture',
+                           'clientCapture':True, 'origin':(0,64,0), 'size':(1,1,1)})
+        self.assertTrue(self.host.selection_locked('player'))
+        self.finish()
         self.assertFalse(self.host.jobs)
         self.assertFalse(self.host.uploads)
         self.assertEqual([], self.writes)
         self.assertEqual(0, self.allowed_checks)
         self.assertTrue(self.replies[-1][2]['done'])
         self.assertTrue(self.replies[-1][2]['clientCapture'])
+        self.assertEqual([(0, (0,64,0), (0,64,0))], self.palette_reads)
+        self.assertEqual([], self.entity_reads)
+
+    def test_locked_selection_rejects_points_and_clear_silently_until_final_ack(self):
+        self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
+        self.blocks[(0,64,0)] = ('minecraft:purple_shulker_box', 0)
+        self.actors[(0,64,0)] = {
+            'id': {'__type__': 8, '__value__': 'ShulkerBox'},
+            'Items': [{'Slot': {'__type__': 1, '__value__': 0}, 'tag': {'x': 999}}],
+            'x': {'__type__': 3, '__value__': 0},
+            'y': {'__type__': 3, '__value__': 64},
+            'z': {'__type__': 3, '__value__': 0}}
+        self.host.request({'__id__':'player', 'request':51, 'action':'capture',
+                           'clientCapture':True, 'origin':(0,64,0), 'size':(1,1,1)})
+        sent = []
+        self.host.NotifyToClient = lambda player, event, payload: sent.append(payload)
+        click = {'entityId':'player', 'itemDict':{'newItemName':'modern_projection:survey_wand'},
+                 'dimensionId':0, 'x':3, 'y':64, 'z':0, 'face':4}
+        self.host.tool_use_on(click)
+        self.host.world_tool_request({'__id__':'player', 'action':'reset'})
+        self.assertEqual([{'success':False, 'silent':True, 'createBounds':False}] * 2, sent)
+        self.assertEqual((0, (0,64,0), (1,1,1)), self.host.world_regions['player'])
+        self.assertFalse(click.get('ret', False))
+        self.assertEqual([], self.entity_reads)
+        self.finish()
+        receiver = Receiver()
+        for unused_player, request, response in self.replies:
+            if 'documentPacket' in response:
+                receiver.feed(response['documentPacket'])
+        from modern_projection.projection.cell import actor_data
+        from modern_projection.projection.visible_actor import entity_nbt
+        entity = entity_nbt(actor_data(receiver.result.get((0,0,0))))
+        self.assertEqual(0, entity['y']['__value__'])
+        self.assertEqual(999, entity['Items'][0]['tag']['x'])
+        self.assertEqual([(0, (0,64,0))], self.entity_reads)
+        self.assertFalse(self.host.selection_locked('player'))
+        self.host.world_tool_request({'__id__':'player', 'action':'reset'})
+        self.assertTrue(sent[-1]['clear'])
+
+    def test_capture_missing_ack_times_out_and_unlocks_selection(self):
+        self.host.world_regions['player'] = (0, (0,64,0), (1,1,1))
+        self.host.request({'__id__':'player', 'request':52, 'action':'capture',
+                           'clientCapture':True, 'origin':(0,64,0), 'size':(1,1,1)})
+        self.host.tick()
+        self.host.tick()
+        adapter = self.host.jobs['player'][3]
+        self.assertEqual(0, adapter.capture_wait)
+        self.host.request({'__id__':'player', 'request':52, 'action':'captureAck', 'sequence':1})
+        self.assertEqual(0, adapter.capture_wait)
+        adapter.capture_activity = 0.
+        self.host.tick()
+        self.assertFalse(self.host.selection_locked('player'))
+        self.assertIn('超时', self.replies[-1][2]['error'])
+
+    def test_capture_cancellation_releases_lock_without_clearing_registered_region(self):
+        region = (0, (0,64,0), (1,1,1))
+        self.host.world_regions['player'] = region
+        self.host.request({'__id__':'player', 'request':53, 'action':'capture',
+                           'clientCapture':True, 'origin':region[1], 'size':region[2]})
+        self.host.request({'__id__':'player', 'request':53, 'action':'cancel'})
+        self.assertFalse(self.host.selection_locked('player'))
+        self.assertEqual(region, self.host.world_regions['player'])
 
     def test_client_palette_capture_rejects_unselected_or_mismatched_region(self):
         doc = Document((1,1,1), {(0,0,0):('minecraft:stone',0)})
@@ -181,7 +264,7 @@ class ServerStreamTests(unittest.TestCase):
                 'clientCapture':True, 'origin':(0,64,0),
                 'size':(2,1,1), 'stream':packet,
             })
-        self.assertIn('尺寸不匹配', self.replies[-1][2]['error'])
+        self.assertIn('重新选择', self.replies[-1][2]['error'])
         self.assertFalse(self.host.uploads)
 
     def test_survey_wand_marks_two_authorized_corners_without_world_writes(self):
@@ -194,8 +277,10 @@ class ServerStreamTests(unittest.TestCase):
         with patch.object(server.time, 'time', side_effect=(10., 11.)):
             self.host.tool_use_on(first)
             self.host.tool_use_on(second)
-        self.assertTrue(first['ret'])
-        self.assertTrue(second['ret'])
+        self.assertFalse(first.get('ret', False))
+        self.assertFalse(second.get('ret', False))
+        self.assertTrue(sent[0][2]['success'])
+        self.assertTrue(sent[1][2]['createBounds'])
         self.assertEqual((0,64,0), sent[1][2]['origin'])
         self.assertEqual((4,3,3), sent[1][2]['size'])
         self.assertEqual(4, sent[0][2]['face'])
@@ -214,11 +299,12 @@ class ServerStreamTests(unittest.TestCase):
         self.host.request({'__id__':'player', 'request':22, 'action':'capture',
                            'source':'world_item', 'clientCapture':True,
                            'origin':(0,64,0), 'size':(2,2,2)})
-        self.assertFalse(self.host.jobs)
-        self.assertIn('客户端世界读取缺少完整建筑数据', self.replies[-1][2]['error'])
+        self.assertTrue(self.host.jobs)
+        self.finish()
+        self.assertTrue(self.replies[-1][2]['done'])
         self.assertFalse(self.writes)
 
-    def test_world_tool_hud_requests_require_holding_wand_and_nearby_target(self):
+    def test_remote_points_never_establish_a_selection_and_client_can_clear_without_wand(self):
         original = self.factory.CreateItem
         carried = {'newItemName':'minecraft:stick'}
         self.factory.CreateItem = lambda player: types.SimpleNamespace(
@@ -234,10 +320,11 @@ class ServerStreamTests(unittest.TestCase):
         self.assertFalse(sent)
         carried['newItemName']='modern_projection:survey_wand'
         self.host.world_tool_request(dict(request, pos=(50,64,0)))
-        self.assertIn('12 格', sent[-1]['error'])
         self.host.world_tool_request(request)
-        self.assertEqual(0, sent[-1]['index'])
-        self.assertEqual(5, sent[-1]['face'])
+        self.assertFalse(sent)
+        self.assertFalse(self.host.world_points)
+        self.host.world_points['player'] = ((0,64,0), 0, 1.)
+        carried['newItemName'] = 'minecraft:stick'
         self.host.world_tool_request({'__id__':'player','action':'reset'})
         self.assertTrue(sent[-1]['clear'])
         self.assertFalse(self.host.world_points)

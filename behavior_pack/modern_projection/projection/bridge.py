@@ -273,6 +273,8 @@ class ClientBridge(object):
             hud.show_tip(message)
 
     def world_tool_point(self, args):
+        if args.get('silent'):
+            return
         if args.get('clear'):
             self.corners = [None, None]
             self.corner_faces = [None, None]
@@ -282,6 +284,8 @@ class ClientBridge(object):
             self.session.editor.message = args['error']
             self.session.emit()
             return
+        if args.get('success') is not True or args.get('createBounds') is not True:
+            return
         index = args.get('index')
         pos = args.get('pos')
         if index not in (0, 1) or not isinstance(pos, (tuple, list)) or len(pos) != 3:
@@ -290,7 +294,8 @@ class ClientBridge(object):
             self.corners = [tuple(pos), None]
             self.corner_faces = [args.get('face'), None]
             self.survey_tip('第一个角点已设置，请选择另一方块')
-        elif self.corners[0] is not None:
+        elif isinstance(args.get('first'), (tuple, list)) and len(args['first']) == 3:
+            self.corners[0] = tuple(args['first'])
             self.corners[1] = tuple(pos)
             self.corner_faces[1] = args.get('face')
             self.survey_tip('已选择 %d × %d × %d' % tuple(args['size']))
@@ -360,14 +365,7 @@ class ClientBridge(object):
         self.session.set_biome(value)
 
     def mark(self, index):
-        pick = self.factory.CreateCamera(self.level).PickFacing()
-        pos = tuple(int(pick[k]) for k in ('x', 'y', 'z')) if pick and pick.get('type') == 'Block' else self.player_origin()
-        self.corners[index] = pos
-        self.corner_faces[index] = pick.get('face') if pick and pick.get('type') == 'Block' else None
-        self.draw_bounds()
-        self.session.editor.message = '已标记%s：%d, %d, %d' % tuple(['起点' if index == 0 else '终点'] + list(pos))
-        self.factory.CreateTextNotifyClient(self.level).SetLeftCornerNotify(native(self.session.editor.message))
-        self.session.emit()
+        raise ValueError('请使用测绘器点击实际方块来选择角点')
 
     def draw_bounds(self):
         points = [p for p in self.corners if p is not None]
@@ -389,8 +387,8 @@ class ClientBridge(object):
         self.pending_state = (id(self.session.editor), self.session.editor.revision, tuple(self.session.origin))
         data = dict(data, action=action, request=self.request_id)
         self.session.busy = True
-        self.download = Receiver() if action == 'capture' and not data.get('clientCapture') else None
-        if action == 'capture' and not data.get('clientCapture'):
+        self.download = Receiver() if action == 'capture' else None
+        if action == 'capture':
             self.capture_activity = time.time()
             request = self.pending
             def watchdog():
@@ -416,6 +414,7 @@ class ClientBridge(object):
             packet = next(self.upload)
             self.upload_sequence = packet['seq']
             data['stream'] = packet
+        data.pop('captureDocument', None)
         self.system.NotifyToServer('ProjectionRequest', data)
         self.session.emit()
 
@@ -469,7 +468,7 @@ class ClientBridge(object):
                 self.capture_dimension = None
                 self.request('capture', {
                     'origin': origin, 'size': size, 'source': source,
-                    'clientCapture': True, 'document': document,
+                    'clientCapture': True, 'captureDocument': document,
                 })
                 return
             local, chunk_size = chunks[index]
@@ -541,6 +540,9 @@ class ClientBridge(object):
             if 'documentPacket' in args:
                 try:
                     self.download.feed(args['documentPacket'])
+                    self.system.NotifyToServer('ProjectionRequest', {
+                        'request': self.pending, 'action': 'captureAck',
+                        'sequence': args['documentPacket']['seq']})
                 except (ValueError, TypeError, KeyError) as error:
                     self.cancel_world()
                     s.editor.message = str(error)
@@ -579,9 +581,20 @@ class ClientBridge(object):
                 except (ValueError, TypeError, RuntimeError) as error:
                     s.editor.message = type('')(error)
         elif action == 'capture':
-            document = (sent['document'] if sent.get('clientCapture') else
+            document = (sent.get('captureDocument') if sent.get('clientCapture') else
                         self.download.result if args.get('streamed') and self.download else
                         Document.from_data(args['document']))
+            if sent.get('clientCapture'):
+                try:
+                    from .world_capture import merge_entity_document
+                    if self.download is None or self.download.result is None:
+                        raise ValueError('方块实体传输不完整，请重新读取')
+                    merge_entity_document(document, self.download.result)
+                except (ValueError, TypeError, KeyError) as error:
+                    self.download = None
+                    s.editor.message = str(error)
+                    s.emit()
+                    return
             self.download = None
             if document is None:
                 s.editor.message = '建筑传输不完整，请重新读取'

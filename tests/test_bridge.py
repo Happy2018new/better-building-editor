@@ -465,6 +465,51 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual((35., 25., 1.), s.camera_pose)
         self.assertEqual(previous_reset + 1, s.camera_reset_revision)
 
+    def test_only_server_approved_points_change_bounds_and_play_click_effects(self):
+        b = self.bridge
+        effects, messages = [], []
+        b.draw_bounds = lambda: effects.append('bounds')
+        b.survey_effects.pulse_point = lambda index: effects.append(index)
+        b.survey_tip = lambda message: messages.append(message)
+        point = {'index':0, 'pos':(3,64,4), 'face':1}
+        b.world_tool_point(point)
+        b.world_tool_point(dict(point, success=False, silent=True))
+        self.assertEqual([None, None], b.corners)
+        self.assertEqual([], effects)
+        self.assertEqual([], messages)
+        b.world_tool_point(dict(point, success=True, createBounds=True))
+        self.assertEqual([(3,64,4), None], b.corners)
+        self.assertEqual(['bounds', 0], effects)
+        b.world_tool_point({'success':False, 'silent':True, 'clear':True})
+        self.assertEqual([(3,64,4), None], b.corners)
+        b.world_tool_point({'success':True, 'clear':True, 'createBounds':False})
+        self.assertEqual([None, None], b.corners)
+        self.assertEqual(['bounds', 0, 'bounds'], effects)
+
+    def test_capture_keeps_local_document_off_wire_and_merges_acknowledged_server_nbt(self):
+        from projection.cell import actor_data, make_cell
+        from projection.transfer import packets
+        from projection.visible_actor import compose_actor, entity_nbt, render_actor
+        b = self.bridge
+        render = {'facingDirection':2, 'chestIsLargeChest':False}
+        local = Document((1,1,1), {(0,0,0):make_cell(('minecraft:chest',2), nbt=render)})
+        entity = {'id':{'__type__':8, '__value__':'Chest'}, 'Items':[{'Slot':0}]}
+        captured = Document((1,1,1), {(0,0,0):make_cell(
+            ('minecraft:chest',2), nbt=compose_actor(None, entity))})
+        b.request('capture', {'origin':(0,64,0), 'size':(1,1,1),
+                              'clientCapture':True, 'captureDocument':local})
+        self.assertNotIn('captureDocument', self.runtime.sent[-1])
+        self.assertNotIn('stream', self.runtime.sent[-1])
+        request = b.pending
+        for packet in packets(captured):
+            b.receive({'request':request, 'done':False, 'documentPacket':packet})
+            self.assertEqual('captureAck', self.runtime.sent[-1]['action'])
+            self.assertEqual(packet['seq'], self.runtime.sent[-1]['sequence'])
+        b.receive({'request':request, 'done':True, 'streamed':True, 'clientCapture':True})
+        result = actor_data(b.session.editor.document.get((0,0,0)))
+        self.assertEqual(entity, entity_nbt(result))
+        self.assertEqual(render, render_actor(result))
+
     def test_large_projection_snapshot_and_stop_cancel_all_future_actors(self):
         b = self.bridge
         b.player_origin = lambda: (0, 0, 0)

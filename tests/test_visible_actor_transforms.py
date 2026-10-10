@@ -31,6 +31,14 @@ class VisibleActorTransformTests(unittest.TestCase):
         self.assertIsNone(render_actor(compose_actor(None, nbt)))
         self.assertIsNone(render_actor(nbt))
 
+    def test_native_mixed_tagged_root_and_plain_inventory_is_nbt(self):
+        nbt = {'id':{'__type__':8, '__value__':'ShulkerBox'},
+               'facing':{'__type__':1, '__value__':1}, 'Items':[]}
+        self.assertEqual(nbt, entity_nbt(nbt))
+        self.assertIsNone(render_actor(nbt))
+        self.assertIsNone(render_actor({'__modern_projection_actor__':2,
+                                        'render':{}, 'nbt':nbt}))
+
     def test_double_chest_horizontal_mirror_swaps_render_roles_and_is_reversible(self):
         payload = {'facingDirection': 2, 'chestIsLargeChest': True,
                    'chestMainSubChest': True, 'chestModelOffset': 0.0,
