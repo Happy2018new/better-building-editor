@@ -20,6 +20,12 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 `git cherry codex/p0-integration main` 已核对先前主线历史独有的 18 个提交：全部存在等价 patch，没有发现因此遗漏的主线修复。历史分叉本身不等于缺失代码；最终仍在 P0 验收后处理合入 main 与工作树／分支清理。当前三轮旧估计保留作历史，新工作证据完成后在本节逐项登记。
 
+**第五轮提交与工作树整理（2026-10-11）：** 第四轮完整检查点 `75c071f` 和第五轮原生含水 actor 诊断／计划检查点 `a2d55b1` 已提交。按用户要求，先归档并校验，再移除 **17 个闲置工作树、24 个旧 P0 分支**；其中历史含雪工作树的两份未提交 UV 候选在 agent 完成读取后单独归档。29 个 P0 分支当时的完整提交历史保存在 `.runtime/worktree-archive-r5/p0-branches.bundle`，`git bundle verify` 通过；每棵删除树的 working／staged 二进制 patch、未跟踪及忽略文件另存到同名目录，合计 **3,088 个文件**逐一通过 SHA-256 校验。总清单为 `.runtime/worktree-archive-r5/summary.json`，每树 `manifest.json` 记录原路径、分支、HEAD、状态及文件指纹；首次和最终审计分别保存在 `worktree-audit.json`、`worktree-audit-final.json`。归档属于本机恢复材料，未提交到 Git，也不作为功能验收证据。
+
+目前保留 **5 个工作树／5 个 P0 分支**：原仓库 `codex/p0-block-data`、集成 `codex/p0-integration`，以及当前三个 agent 的 `codex/p0-entities-r5`、`codex/p0-neighbors-r5`、`codex/p0-snow-r5`。原仓库和集成树中的历史未跟踪探针保留，没有混入提交；`main`、`dev`、`realm`、`uncomplete` 仍保留。当前修复继续集成到 `codex/p0-integration`，验收后再合入 `main` 并回收本轮 agent 树。
+
+恢复旧提交时先执行 `git bundle verify .runtime/worktree-archive-r5/p0-branches.bundle`，再用 `git fetch .runtime/worktree-archive-r5/p0-branches.bundle refs/heads/<原分支>:refs/heads/codex/recovered-<名称>` 创建恢复分支；在新工作树中按对应 `manifest.json` 恢复文件和二进制 patch。不要把旧实验分支整体合入当前集成树；它们可能包含已经被替代的渲染候选。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。
