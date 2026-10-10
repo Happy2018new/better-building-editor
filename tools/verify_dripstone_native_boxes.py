@@ -48,11 +48,20 @@ _result=json.dumps({'runtime':api.GetMinecraftVersion(),'dimension':dimension,'r
 
 CLIENT_BOXES = '''import json
 import mod.client.extraClientApi as api
-info=api.GetEngineCompFactory().CreateBlockInfo(api.GetLevelId())
+factory=api.GetEngineCompFactory()
+level=api.GetLevelId()
+info=factory.CreateBlockInfo(level)
 positions=%r
 rows=[{'pos':pos,'value':info.GetBlock(pos),'clip':info.GetBlockClip(pos),
  'collision':info.GetBlockCollision(pos)} for pos in positions]
-_result=json.dumps({'runtime':api.GetMinecraftVersion(),'rows':rows})
+low=tuple(min(pos[i] for pos in positions) for i in range(3))
+high=tuple(max(pos[i] for pos in positions) for i in range(3))
+palette=factory.CreateBlock(level).GetBlockPaletteBetweenPos(low,high,False)
+assert palette is not None
+serialized=palette.SerializeBlockPalette()
+header=dict((key,value) for key,value in serialized.items()
+ if key not in ('common','extra','actor','states','extraStates'))
+_result=json.dumps({'runtime':api.GetMinecraftVersion(),'rows':rows,'native_palette_header':header})
 '''
 
 
