@@ -83,6 +83,16 @@ preserves unknown fields and lazily compressed templates; it never fabricates a
 missing entity identity. See [Built-In Test Blueprints](debug-blueprints.md) for
 fixture coordinates and regeneration commands.
 
+`projection/entity_defaults.py` and its generated `entity_defaults_data.py`
+share the same native snapshot between production editing and those fixtures.
+Before a rotation or mirror, a cell without complete NBT may acquire a native
+template only when its observed entity has a verified actor-only direction rule.
+This currently applies to all 17 Shulker colours. The template is rebased to the
+cell, and a valid old client `facingDirection` initializes native Byte `facing`.
+Existing complete NBT, inventories and unknown envelope fields are preserved.
+The snapshot version and registry fingerprint must match before initialization;
+stale templates fail the editor operation before any document change.
+
 ## Fields Awaiting Native Evidence
 
 The adjacent `bedrock-world-operator` checkout stores and encodes arbitrary
@@ -122,6 +132,27 @@ model. The saved/native block identifier, full NBT and world-writing data stay
 intact. No extra coordinate-read channel is introduced. Its generated closed
 lid/base geometry covers all 17 colours and six faces; cold-resource native
 visual acceptance is required separately from pure data and geometry tests.
+
+## Visual Coverage Boundaries
+
+The native snapshot is evidence of available data and field types. It is not
+proof that `CombineBlockPaletteToGeometry` displays every nondefault appearance.
+The current fixture and adapter audit leaves the following concrete checks open:
+
+| Entity | Available Native Evidence | Remaining Appearance Or Direction Check |
+| --- | --- | --- |
+| `ShulkerBox` | All 17 block names, native default Byte `facing=1`, actual player placement on six support faces | Compare actual native MC blocks with editor/projection static meshes; also check that real-world generated boxes show their written orientation, because an NBT setter alone does not guarantee a pose update |
+| `Bed` | Default Byte `color=14`; production writer readback checks `color=7`, both halves, all 16 states and both write orders | Nondefault colours in client palettes and actual editor/projection pixels; correct server readback does not establish displayed colour |
+| `Skull` | Seven modern block names, native Float `Rotation=0.0`, Byte `SkullType=255` in API-created defaults | Native player-placed floor yaw samples, rotation units and mirror convention; floor `facing_direction=1` has no yaw state, so retaining `Rotation` cannot implement a horizontal turn |
+| `Banner` | Default Int `Base=0`, `Type=0` | Nondefault base colours and pattern-bearing native client palettes; empty/default samples do not cover patterns |
+| `ItemFrame`, `GlowItemFrame` | Native default payload has no displayed item or item rotation | Filled frame item appearance and local rotation, including mirrors; no default field value establishes their semantics |
+| `DecoratedPot`, `FlowerPot` | Native empty/default payloads; decorated pot records an empty `item` compound | Nonempty decoration or plant appearance; preservation of future fields is separate from render support |
+| `MobSpawner`, `TrialSpawner`, `Vault`, `Lectern` and other contents-driven entities | Complete available native default payloads | Nondefault displayed contents; a successfully combined static default pose does not certify the displayed item/entity or animation |
+
+No new runtime allowlist follows from this table. Unknown entity payloads still
+round-trip. Any additional appearance adapter must use a matching versioned
+native observation, retain native saved/world identities, and have editor and
+actual projection evidence recorded separately.
 
 ## Native Observation Diff
 
