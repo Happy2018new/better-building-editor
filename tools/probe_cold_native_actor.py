@@ -38,12 +38,14 @@ state={'projection_serial':b.projection_serial,'entity':b.entity,
  'projection_work':b.projection_work is not None,'projection_shader':b.projection_shader is not None,
  'projection_occupancy':b.projection_occupancy is not None,'projection_active':s.projection_active,
  'projection_requested':b.projection_requested,'model_name':s.model_name,'models':len(b.models),
+ 'bootstrap_context_models':len(getattr(b,'context_models',{})),
+ 'bootstrap_model_layouts':len(getattr(b,'model_layouts',{})),
  'workspace_open':bool(nav and nav.contains('modern_projection_workspace')),
  'navigation_top':nav.top.key if nav and nav.top else None,
  'navigator_transitioning':bool(nav and nav.is_transitioning)}
 state['cold']=(state['projection_serial']==0 and not any(state[key] for key in
  ('entity','projection_entities','preparing_entity','projection_work','projection_shader',
-  'projection_occupancy','projection_active','projection_requested','model_name','models',
+  'projection_occupancy','projection_active','projection_requested','models',
   'workspace_open','navigation_top','navigator_transitioning')))
 _result=json.dumps(state)
 '''
@@ -452,7 +454,7 @@ def main():
         parser.error('Timeouts must be positive and settle duration nonnegative')
     report = {'schema': 1, 'completed': False, 'passed': False, 'restored': False, 'controls': {},
               'session_file': os.environ.get('MCDEV_SESSION_FILE'),
-              'scope': 'Untouched native pots, then fixture NBT, then first projection; no SetBlockStates/SetLiquidBlock or editor opening',
+              'scope': 'Untouched native pots, then fixture NBT, then first projection; normal bootstrap preview geometry is recorded; no SetBlockStates/SetLiquidBlock or editor opening',
               'native_body_capture': {'native_resolution': True, 'format': 'Lossless client-area PNG with SHA256'},
               'causal_claim': None}
     args.output.parent.mkdir(parents=True, exist_ok=True)

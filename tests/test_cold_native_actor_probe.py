@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import unittest
 from unittest.mock import Mock, patch
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -12,6 +13,23 @@ import probe_cold_native_actor as probe
 
 
 class ColdNativeActorProbeTests(unittest.TestCase):
+    def test_bootstrap_preview_name_does_not_imply_a_created_projection(self):
+        bridge = SimpleNamespace(projection_serial=0, entity=None, projection_entities={},
+                                 preparing_entity=None, projection_work=None, projection_shader=None,
+                                 projection_occupancy=None, projection_requested=False, models={},
+                                 context_models={'bootstrap': ()}, model_layouts={'bootstrap': (1, 1, 1)})
+        owner = SimpleNamespace(bridge=bridge, session=SimpleNamespace(
+            projection_active=False, model_name='modern_projection_chunk_1_0_0_0_0'))
+        namespace = {'api': Mock(GetSystem=Mock(return_value=owner)), 'sys': sys, 'json': probe.json}
+        exec(probe.COLD_STATE, namespace)
+        state = probe.json.loads(namespace['_result'])
+        self.assertTrue(state['cold'])
+        self.assertEqual(1, state['bootstrap_context_models'])
+        self.assertEqual(1, state['bootstrap_model_layouts'])
+        bridge.projection_serial = 1
+        exec(probe.COLD_STATE, namespace)
+        self.assertFalse(probe.json.loads(namespace['_result'])['cold'])
+
     def test_both_raw_captures_precede_nbt_and_mismatches_do_not_stop_captures(self):
         report = {'controls': {}}
         check = Mock()
