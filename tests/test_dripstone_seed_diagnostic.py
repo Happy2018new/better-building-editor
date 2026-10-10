@@ -9,10 +9,33 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import verify_dripstone_direct_seed as diagnostic
-from verify_dripstone_native_boxes import holdout_samples, matrix
+from verify_dripstone_native_boxes import holdout_samples, matrix, verify_scene_boxes
 
 
 class DirectSeedDiagnosticTests(unittest.TestCase):
+    def test_scene_verification_rejects_stale_aux_mismatched_boxes_and_nonunit_stone(self):
+        import copy
+        pos = (6, -38, 6)
+        row = {'pos': pos, 'value': {'name': 'minecraft:stone', 'aux': 0},
+               'clip': {'min': pos, 'max': (7, -37, 7)}}
+        row['collision'] = dict(row['clip'])
+        source = {'rows': [row]}
+        expected = {pos: ('minecraft:stone', 0)}
+        self.assertTrue(verify_scene_boxes(source, source, expected)['stone_unit_boxes'])
+        stale = copy.deepcopy(source)
+        stale['rows'][0]['value']['aux'] = 1
+        with self.assertRaises(AssertionError):
+            verify_scene_boxes(source, stale, expected)
+        mismatch = copy.deepcopy(source)
+        mismatch['rows'][0]['collision']['min'] = (6.1, -38, 6)
+        with self.assertRaises(AssertionError):
+            verify_scene_boxes(source, mismatch, expected)
+        nonunit = copy.deepcopy(source)
+        nonunit['rows'][0]['clip']['max'] = (6.9, -37, 7)
+        nonunit['rows'][0]['collision'] = dict(nonunit['rows'][0]['clip'])
+        with self.assertRaises(AssertionError):
+            verify_scene_boxes(nonunit, nonunit, expected)
+
     def test_calibration_rejects_failed_foreign_and_stale_provenance(self):
         session = {'session_file': str(diagnostic.ROOT / '.runtime/test-session.json'),
                    'project': str(diagnostic.ROOT), 'id': 'owned', 'game_identity': '123'}

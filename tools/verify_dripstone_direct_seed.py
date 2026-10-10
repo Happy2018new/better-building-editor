@@ -20,7 +20,7 @@ import verify_neighbor_world_visuals as world
 from context_test_environment import run, SETUP, RESTORE as RESTORE_ENVIRONMENT
 from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, write_json
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
-from verify_dripstone_native_boxes import SERVER_BOXES, CLIENT_BOXES
+from verify_dripstone_native_boxes import SERVER_BOXES, CLIENT_BOXES, verify_scene_boxes
 from verify_neighbor_native_png import restore_owned_window
 from release_owned_game_focus import main as release_focus
 
@@ -185,8 +185,8 @@ def execute(check, args, report):
     report['native_aabb'] = {'server': run(check.client, SERVER_BOXES % (positions,)),
                              'client': check.run(CLIENT_BOXES % (positions,))}
     expected = dict(all_cells)
-    for row in report['native_aabb']['server']['rows']:
-        assert (row['value']['name'], row['value']['aux']) == expected[tuple(row['pos'])], row
+    report['native_aabb']['verification'] = verify_scene_boxes(
+        report['native_aabb']['server'], report['native_aabb']['client'], expected)
     report['generation'] = check.run(GENERATE % (positions, 'seed_diag_' + uuid.uuid4().hex, PATHS))
     assert report['generation']['volume'] == [1, 4, 1], report['generation']['volume']
     time.sleep(.3)

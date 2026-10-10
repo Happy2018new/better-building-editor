@@ -41,6 +41,22 @@ def matrix(source_samples=SAMPLES):
     return sorted(cells.items()), sorted(supports.items()), samples
 
 
+def verify_scene_boxes(server, client, expected):
+    server_rows = dict((tuple(row['pos']), row) for row in server['rows'])
+    client_rows = dict((tuple(row['pos']), row) for row in client['rows'])
+    assert set(server_rows) == set(client_rows) == set(expected)
+    for pos, value in expected.items():
+        first, second = server_rows[pos], client_rows[pos]
+        for row in (first, second):
+            assert (row['value']['name'], row['value']['aux']) == value, row
+        assert first['clip'] == first['collision'] == second['clip'] == second['collision'], (first, second)
+        if value[0] == 'minecraft:stone':
+            assert tuple(first['clip']['min']) == pos, first
+            assert tuple(first['clip']['max']) == tuple(axis + 1 for axis in pos), first
+    return {'all_values_equal': True, 'all_box_methods_equal': True, 'stone_unit_boxes': True,
+            'cells': len(expected)}
+
+
 SERVER_BOXES = '''import json
 import mod.server.extraServerApi as api
 factory=api.GetEngineCompFactory()
@@ -112,14 +128,8 @@ def main():
                 report['seed'] = run(client, 'import mod.server.extraServerApi as api\n'
                     '_result=api.GetEngineCompFactory().CreateGame(api.GetLevelId()).GetSeed()')
                 expected = dict(cells + supports)
-                for row in report['server']['rows']:
-                    value = row['value']
-                    assert (value['name'], value['aux']) == expected[tuple(row['pos'])], row
-                server_rows = dict((tuple(row['pos']), row) for row in report['server']['rows'])
-                for row in report['client']['rows']:
-                    server = server_rows[tuple(row['pos'])]
-                    assert row['clip'] == row['collision'] == server['clip'] == server['collision'], (row, server)
-                report['all_box_methods_equal'] = True
+                report['scene_verification'] = verify_scene_boxes(report['server'], report['client'], expected)
+                report['all_box_methods_equal'] = report['scene_verification']['all_box_methods_equal']
                 report['completed'] = True
             finally:
                 report['cleanup'] = world.clear_world(client)
