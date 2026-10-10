@@ -76,11 +76,13 @@ void main()
         abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25;
     float nativeHeight = 0.0;
     float logicalHeight = 0.0;
+    float overlayBase = 0.0;
     bool layoutPacket = taggedPreview && fract(CURRENT_COLOR.r*255.0) > 0.125;
     if (layoutPacket) {
-        float packet = floor(CURRENT_COLOR.g*1024.0+0.5);
+        float packet = floor(CURRENT_COLOR.g*131072.0+0.5);
         logicalHeight = mod(packet,256.0);
-        nativeHeight = logicalHeight + floor(packet/256.0)*256.0;
+        overlayBase = floor(packet/256.0);
+        nativeHeight = logicalHeight + overlayBase;
         logicalPosition.y += nativeHeight*0.5;
     }
     bool localContextActor = taggedWorld && abs(EXTRA_ACTOR_UNIFORM1.w-19490.0) < 0.25;
@@ -100,7 +102,11 @@ void main()
             renderContext = vec4(mod(encoded,4.0),1.0);
             vec3 decoded = floor(encoded/4.0)+mod(encoded,4.0)-vec3(1.0);
             logicalPosition.xyz = decoded-vec3(0.5);
-        } else if (logicalPosition.y >= 255.5) {
+        } else if (layoutPacket && overlayBase > 0.5 && logicalPosition.y >= overlayBase-0.5) {
+            // UI tiles put the independent plant immediately above their
+            // bounded source volume, retaining the engine's packed precision.
+            logicalPosition.y -= overlayBase;
+        } else if (!layoutPacket && logicalPosition.y >= 255.5) {
             logicalPosition.y -= 256.0;
         }
     }

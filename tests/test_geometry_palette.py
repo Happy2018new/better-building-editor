@@ -261,6 +261,23 @@ class GeometryPaletteTests(unittest.TestCase):
         self.assertEqual(states(flower), result['states'][flower])
         self.assertEqual(saved, source)
 
+    def test_editor_overlay_stays_bounded_and_does_not_mutate_logical_layers(self):
+        snow, grass = ('minecraft:snow_layer', 13), ('minecraft:fern', 0)
+        for height in (1, 6, 16):
+            document = Document((16, height, 16), {
+                (15, height - 1, 15): make_cell(snow, grass)})
+            source = document.palette_data()
+            saved = copy.deepcopy(source)
+            rendered = prepare_palette(source, overlay_base=height+1)
+            self.assertEqual((16, 16, height * 2+1), rendered['volume'])
+            index, = rendered['common'][('modern_projection:preview_fern', 0)]
+            self.assertEqual((height * 2, 15, 15),
+                             (index // 256, index // 16 % 16, index % 16))
+            self.assertLessEqual(index // 256 + 1, 33)
+            self.assertEqual(saved, source)
+        with self.assertRaises(ValueError):
+            prepare_palette(source, overlay_base=height)
+
     def test_palette_without_snow_keeps_original_dimensions(self):
         doc = Document((5, 7, 3), {(4, 6, 2): ('minecraft:oak_fence', 0)})
         self.assertEqual((3, 5, 7), prepare_palette(doc.palette_data())['volume'])

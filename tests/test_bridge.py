@@ -14,6 +14,18 @@ from projection.transfer import Receiver
 from test_native_glow import FakeParticleSystem
 
 
+class ActorRender:
+    def __init__(self, runtime, entity):
+        self.runtime, self.entity = runtime, entity
+
+    def __getattr__(self, name):
+        method = getattr(self.runtime, name)
+        def invoke(*args, **kwargs):
+            self.runtime.rendering = self.entity
+            return method(*args, **kwargs)
+        return invoke
+
+
 class Runtime:
     def __init__(self):
         self.timers = []
@@ -95,7 +107,7 @@ class Runtime:
 
     def CreateActorRender(self, entity):
         self.rendering = entity
-        return self
+        return ActorRender(self, entity)
 
     def CreateModel(self, entity):
         self.shadow_entity = entity
@@ -267,7 +279,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual('rainbow', s.outline_style)
         self.assertTrue(s.projection_outline)
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         building, bounds = b.entity, b.projection_outline.bounds
         b.geometry = lambda *a, **k: self.fail('Style change must not rebuild building')
         s.origin = (100,100,100)
@@ -278,7 +290,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             self.assertIn(old, r.destroyed)
             self.assertEqual(building, b.entity)
             self.assertEqual(bounds, b.projection_outline.bounds)
-            self.assertEqual([building], r.attached)
+            self.assertEqual([building, building], r.attached)
             self.assertEqual(0 if style == 'rainbow' else 1, len(r.particles.live))
         ids = [item['id'] for item in b.projection_outline.effects.layers]
         s.outline_parameter('golden', 'speed', 4.)
@@ -309,13 +321,13 @@ class ProjectionLifecycleTests(unittest.TestCase):
         from projection.biomes import actor_uniform
         b, r = self.bridge, self.runtime
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         entity = b.entity
         b.geometry = lambda *args, **kwargs: self.fail('tint must not rebuild geometry')
         b.session.set_biome('desert')
         self.assertEqual(entity, b.entity)
-        self.assertEqual(actor_uniform('desert'), r.uniform_slots[entity, 4])
-        b.geometry = lambda *args, **kwargs: 'pending_biome_model'
+        self.assertEqual(actor_uniform('desert')[:2] + (1., b.session.opacity), r.uniform_slots[entity, 4])
+        b.geometry = lambda *args, **kwargs: kwargs.get('name') or 'pending_biome_model'
         b.project_large((0, 64, 0))
         b.session.set_biome('jungle')
         for unused in range(200):
@@ -324,13 +336,13 @@ class ProjectionLifecycleTests(unittest.TestCase):
             r.timers.pop(0)()
         self.assertTrue(b.projection_work.ready)
         self.assertEqual('jungle', b.projection_work.document.biome)
-        self.assertEqual(actor_uniform('jungle'), r.uniform_slots[b.entity, 4])
+        self.assertEqual(actor_uniform('jungle')[:2] + (1., b.session.opacity), r.uniform_slots[b.entity, 4])
 
     def test_camera_anchor_retries_transient_native_failure_without_camera_motion(self):
         b, r = self.bridge, self.runtime
         b.session.origin = (0,64,0)
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         setter = r.SetActorBlockGeometryOffset
         r.SetActorBlockGeometryOffset = lambda *a: False
         b.follow_projection()
@@ -344,7 +356,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b, r = self.bridge, self.runtime
         b.session.origin = (-30, 64, 5)
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         mesh, outline = b.entity, b.projection_outline.entity
         b.geometry = lambda *a: self.fail('camera movement must not rebuild geometry')
         for position, forward in [((0., 66., 0.), (0., 0., 1.)),
@@ -362,7 +374,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             calls = len(r.moves)
             b.follow_projection()
             self.assertEqual(calls, len(r.moves), 'stationary frames submit no transforms')
-        self.assertEqual([mesh], r.attached)
+        self.assertEqual([mesh, mesh], r.attached)
         b.stop_projection()
         self.assertIsNone(b.projection_mesh)
         calls = len(r.moves)
@@ -373,7 +385,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b, r = self.bridge, self.runtime
         b.session.origin = (-30, 64, 5)
         b.project()
-        r.timers.pop(0)()
+        self.drain_projection()
         mesh = b.entity
         b.follow_projection()
         b.session.set('projection_outline', False)
@@ -402,7 +414,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             GetLevelId=lambda: 'level', GetLocalPlayerId=lambda: 'player')
         self.bridge = boundary.ClientBridge(self.runtime)
         self.bridge.model_layouts = {}
-        self.bridge.geometry = lambda *unused: 'model'
+        self.bridge.geometry = lambda *unused, **kwargs: kwargs.get('name') or 'model'
         self.bridge.session = Session(self.bridge)
         # General actor/outline tests exercise the unfiltered rendering path.
         # Shader filtering and its persistent buffers have dedicated tests.
@@ -433,16 +445,20 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.bridge.project()
         self.assertEqual([], self.runtime.attached)
         self.assertEqual([], self.runtime.destroyed)
-        self.runtime.timers.pop()()
-        self.assertEqual(['actor_0'], self.runtime.attached)
+        self.drain_projection()
+        self.assertEqual(['actor_0', 'actor_0'], self.runtime.attached)
         self.assertEqual(['previous_projection'], self.runtime.destroyed)
         self.assertEqual('actor_0', self.bridge.entity)
-        self.assertEqual(((-.5, 0., -.5), (0., 180., 0.)), self.runtime.geometry_transform)
+        self.assertEqual(((11.5, -8., 11.5), (0., 180., 0.)), self.runtime.geometry_transform)
 
     def test_stop_cancels_staged_actor_and_ignores_delayed_callback(self):
         self.bridge.project()
+        for unused in range(200):
+            if self.bridge.preparing_entity:
+                break
+            self.runtime.timers.pop(0)()
         self.bridge.stop_projection()
-        self.runtime.timers.pop()()
+        self.drain_projection()
         self.assertEqual([], self.runtime.attached)
         self.assertEqual({'actor_0', 'previous_projection'}, set(self.runtime.destroyed))
         self.assertFalse(self.bridge.session.projection_active)
@@ -450,7 +466,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_failed_attachment_retains_previous_projection(self):
         self.runtime.success = False
         self.bridge.project()
-        self.runtime.timers.pop()()
+        self.drain_projection()
         self.assertEqual(['actor_0'], self.runtime.destroyed)
         self.assertEqual('previous_projection', self.bridge.entity)
         self.assertTrue(self.bridge.session.projection_active)
@@ -458,10 +474,9 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_new_request_discards_stale_preparation(self):
         self.bridge.project()
         self.bridge.project()
-        for callback in self.runtime.timers:
-            callback()
-        self.assertEqual(['actor_1'], self.runtime.attached)
-        self.assertEqual('actor_1', self.bridge.entity)
+        self.drain_projection()
+        self.assertEqual(['actor_0', 'actor_0'], self.runtime.attached)
+        self.assertEqual('actor_0', self.bridge.entity)
 
     def test_stream_upload_is_snapshot_and_ack_driven(self):
         b = self.bridge
@@ -550,7 +565,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.player_origin = lambda: (0, 0, 0)
         b.session.editor = Editor(Document((64, 100, 64), {(0, 0, 0): ('minecraft:stone', 0)}))
         observed = []
-        b.geometry = lambda doc: observed.extend(doc.palette_data()['common']) or 'model'
+        b.geometry = lambda doc, **kwargs: observed.extend(doc.palette_data()['common']) or kwargs.get('name') or 'model'
         b.project_large((0, 0, 0))
         b.session.editor.document.blocks[(0, 0, 0)] = AIR
         for unused in range(20):
@@ -572,7 +587,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         # Pending settings changes must not move/resize the committed projection.
         s.origin = (100, 80, 100)
         s.editor = Editor(Document((64, 128, 64)))
-        self.runtime.timers.pop(0)()
+        self.drain_projection()
         outline = b.projection_outline
         self.assertEqual(((-30, 64, 5), (24, 16, 24)), outline.bounds)
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
@@ -586,7 +601,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertFalse(self.runtime.preferences['projection_outline'])
         s.set('projection_outline', True)
         self.assertEqual((-18., 72., 17.), self.runtime.actor_positions[outline.entity][1])
-        self.assertEqual(['actor_0'], self.runtime.attached)
+        self.assertEqual(['actor_0', 'actor_0'], self.runtime.attached)
         s.set('reduced_motion', True)
         self.assertEqual(0., self.runtime.uniform_slots[outline.entity, 1][3])
         b.stop_projection()
@@ -602,7 +617,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.session.editor = Editor(Document((64,128,64),values))
         b.player_origin = lambda: (0,0,0)
         palettes = []
-        b.geometry = lambda doc: palettes.append(doc.palette_data()) or 'model'
+        b.geometry = lambda doc, **kwargs: palettes.append(doc.palette_data()) or kwargs.get('name') or 'model'
         b.project_large((0,0,0))
         b.player_origin = lambda: (1000,1000,1000)
         for unused in range(1000):
@@ -612,12 +627,12 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertFalse(b.projection_entities)
         self.assertEqual(set(keys),b.projection_work.completed)
         self.assertTrue(b.projection_work.ready)
-        self.assertEqual(1,len(palettes))
+        self.assertEqual(2,len(palettes))
         self.assertEqual((64,64,128),palettes[0]['volume'])
         self.assertEqual(128,sum(len(v) for v in palettes[0]['common'].values()))
         self.assertFalse(self.runtime.timers)
         self.assertEqual(256.,self.runtime.render_distance)
-        self.assertEqual((19487., 1., 0., 0.), self.runtime.uniforms[b.entity])
+        self.assertEqual((19487., 1., 1., b.session.opacity), self.runtime.uniforms[b.entity])
         b.stop_projection()
         self.assertEqual(72.,self.runtime.render_distance)
         self.assertTrue(all(a in self.runtime.destroyed for a in self.runtime.created))
@@ -629,7 +644,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             (32,39,34):('minecraft:planks',3), (16,0,16):('minecraft:stone',0)}))
         b.session.editor.hidden_layers.add(0)
         palettes = []
-        b.geometry = lambda doc: palettes.append(doc.palette_data()) or ('model' if doc.count else None)
+        b.geometry = lambda doc, **kwargs: palettes.append(doc.palette_data()) or ((kwargs.get('name') or 'model') if doc.count else None)
         b.project_large((10,20,30))
         for unused in range(80):
             if not self.runtime.timers: break
@@ -653,7 +668,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b.player_origin = lambda: (0,0,0)
         b.session.editor = Editor(Document((64,128,64),{(63,127,63):('minecraft:stone',0)}))
         built = []
-        b.geometry = lambda doc: built.append(True) or 'model'
+        b.geometry = lambda doc, **kwargs: built.append(True) or kwargs.get('name') or 'model'
         self.runtime.success = False
         b.project_large((0,0,0))
         for unused in range(40):
@@ -679,7 +694,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         b = self.bridge
         b.player_origin = lambda: (0,0,0)
         b.session.editor = Editor(Document((64,128,64),{(63,127,63):('minecraft:stone',0)}))
-        b.geometry = lambda doc: None
+        b.geometry = lambda doc, **kwargs: None
         b.project_large((0,0,0))
         for unused in range(40):
             if not self.runtime.timers: break
@@ -689,7 +704,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertIsNone(b.projection_work.model)
         self.assertEqual('previous_projection', b.entity)
         self.assertFalse(self.runtime.timers)
-        b.geometry = lambda doc: 'recovered'
+        b.geometry = lambda doc, **kwargs: kwargs.get('name') or 'recovered'
         b.project_large((0,0,0))
         for unused in range(80):
             if not self.runtime.timers: break
@@ -784,7 +799,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
     def test_failed_replacement_preserves_old_outline_until_projection_succeeds(self):
         b = self.bridge
         b.project()
-        self.runtime.timers.pop(0)()
+        self.drain_projection()
         previous = b.projection_outline.entity
         previous_bounds = b.projection_outline.bounds
         self.runtime.success = False
@@ -842,7 +857,9 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual([(1, (1, 3, 1), 2), (1, None, None)], prepared_calls)
         b.toggle_missing()
         self.drain_projection()
-        self.assertEqual([(0,0,0),(1,0,0),(2,0,0)],observed[-1])
+        self.assertEqual(3,prepared_calls[-2][0])
+        self.assertIsNone(b.projection_occupancy)
+        self.assertIs(b.projection_shader, b.projection_work.shader)
         self.assertFalse(s.projection_missing)
 
     def test_completed_projection_retains_bounds_and_can_restore_all_blocks(self):

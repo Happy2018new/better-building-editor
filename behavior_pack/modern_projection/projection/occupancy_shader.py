@@ -7,8 +7,10 @@ from .large_preview import SurfacePalette
 class OccupancyShader(object):
     def __init__(self, tracker):
         self.tracker = tracker
-        old = tracker.bridge.projection_occupancy
-        self.pool = 1-old.shader.pool if old is not None else 0
+        old = getattr(tracker.bridge, 'projection_shader', None)
+        if old is None and tracker.bridge.projection_occupancy is not None:
+            old = tracker.bridge.projection_occupancy.shader
+        self.pool = 1-old.pool if old is not None else 0
         self.names = tuple('modern_projection_buffer_%d_%d' % (self.pool, bank)
                            for bank in range(2))
         self.render = None

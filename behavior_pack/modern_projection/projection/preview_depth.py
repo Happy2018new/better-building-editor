@@ -14,12 +14,12 @@ def depth_color(distance, biome, layout=None):
     if layout is not None:
         from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
         height, native_height = layout
-        if not 1 <= height <= MAX_LOGICAL_HEIGHT or native_height not in (height, height + OVERLAY_BASE):
+        if not 1 <= height <= MAX_LOGICAL_HEIGHT or native_height not in (height, height * 2 + 1, height + OVERLAY_BASE):
             raise ValueError('Unsupported preview render layout')
         # Dyadic channels keep depth and native centering exact in float32.
         # The quarter-step red tag distinguishes this packet from old RGB.
-        packet = height + (OVERLAY_BASE if native_height != height else 0)
-        return ((208 + shader_index(biome) + .25) / 255., packet / 1024., value / 65536.)
+        packet = height + (native_height - height) * 256
+        return ((208 + shader_index(biome) + .25) / 255., packet / 131072., value / 65536.)
     return ((208 + shader_index(biome)) / 255., (value >> 8) / 255., (value & 255) / 255.)
 
 

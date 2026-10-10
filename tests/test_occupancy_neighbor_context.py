@@ -123,6 +123,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         work = WorldProjection.__new__(WorldProjection)
         work.document, work.keys = tracker.document, tuple(sorted(document.blocks.chunks))
         work.occupancy, work.completed = tracker, set()
+        work.shader = tracker.shader
         work.hidden, work.layer = set(), None
         work.output, work.prepared = SurfacePalette(document.size), None
         for unused in work.prepare():

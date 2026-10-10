@@ -1,7 +1,7 @@
 """Versioned virtual palette coordinates shared by CPU and render shaders."""
 import math
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 LOCAL_CONTEXT_SCHEMA_VERSION = 2
 LOCAL_CONTEXT_CHUNK_SIZE = 16
 MAX_LOGICAL_HEIGHT = 128

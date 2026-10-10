@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Prepare an exact full-size world palette incrementally, submit one mesh."""
+"""Prepare bounded native palettes incrementally and attach them to one actor."""
 from __future__ import unicode_literals
 import time
 from .model import Document, add
@@ -20,6 +20,10 @@ class WorldProjection(object):
         self.opacity, self.missing = s.opacity, s.projection_missing
         from .occupancy import ProjectionOccupancy
         self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
+        self.size = tuple(self.document.size)
+        self.targets = ()
+        from .occupancy_shader import OccupancyShader
+        self.shader = self.occupancy.shader if self.occupancy is not None else OccupancyShader(self)
         self.keys = tuple(sorted(self.document.blocks.chunks))
         self.total, self.completed = len(self.keys), set()
         self.output = SurfacePalette(self.document.size)
@@ -63,12 +67,12 @@ class WorldProjection(object):
                             self.output.add(pos, value)
                 yield None
             self.completed.add(key)
-        if self.occupancy is not None:
-            from .render_context import ContextBatchBuilder
-            builder = ContextBatchBuilder(self.document, self.output.palette_data())
-            for unused in builder.prepare():
-                yield None
-            self.prepared = builder.data
+        from .render_context import ContextBatchBuilder
+        builder = ContextBatchBuilder(self.document, self.output.palette_data())
+        for unused in builder.prepare():
+            yield None
+        self.prepared = builder.data
+        self.targets = builder.positions[:1]
 
     def publish(self, force=False):
         if not self.active():
@@ -114,6 +118,7 @@ class WorldProjection(object):
         b.session.projection_active = True
         b.projection_outline.replace(self.origin, self.document.size)
         b.set_projection_occupancy(self.occupancy, entity, self.model)
+        b.projection_shader = self.shader if entity else None
         self.ready = True
         self.output = self.prepared = None
         self.publish(True)
@@ -124,29 +129,14 @@ class WorldProjection(object):
             return
         try:
             b.factory.CreateModel(entity).SetEntityShadowShow(False)
-            render = b.factory.CreateActorRender(entity)
-            # Rotation applies after offset. Anchor at the centre for native
-            # visibility, preserving exact origin + document voxel coordinates.
-            offset = (self.center[0]-.5, -self.center[1], self.center[2]-.5)
-            from .biomes import actor_uniform
-            if self.occupancy is not None:
-                self.occupancy.shader.bind(entity, self.model, self.anchor)
-            else:
-                success = (render.AddActorBlockGeometry(self.model, offset, (0.,180.,0.)) and
-                           render.EnableActorBlockGeometryTransparent(self.model, True) and
-                           render.SetActorBlockGeometryTransparency(self.model, self.opacity) and
-                           render.SetEntityExtraUniforms(4, actor_uniform(self.document.biome)))
-                if not success:
-                    raise ValueError('透明投影生成失败，原投影已保留，请重试')
+            self.shader.bind(entity, self.model, self.anchor)
             self.commit(entity)
         except Exception as exc:
             self.fail(type('')(exc))
 
     def submit(self):
         b = self.bridge
-        self.model = (b.geometry(self.output, name=self.occupancy.shader.names[0],
-                                 prepared=self.prepared)
-                      if self.occupancy else b.geometry(self.output))
+        self.model = b.geometry(self.output, name=self.shader.names[0], prepared=self.prepared)
         if not self.model:
             if self.output.count:
                 raise ValueError('投影模型生成失败，原投影已保留，请重试')
@@ -167,7 +157,7 @@ class WorldProjection(object):
                 if next(self.iterator, False) is False:
                     self.iterator = None
                     self.publish(True)
-                    self.submit()  # One native model; no transparent tile seams.
+                    self.submit()  # One actor; all chunks share world depth.
                     return
         except Exception as exc:
             self.fail(type('')(exc))

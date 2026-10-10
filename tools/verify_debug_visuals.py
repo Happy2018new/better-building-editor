@@ -30,17 +30,44 @@ _result=True
 '''
 
 PROJECTION_STATUS = '''work=b.projection_work
+model=b.projection_mesh[1] if b.projection_mesh else None
+parts=b.context_models.get(model,())
+scales=[b.factory.CreateActorRender(b.entity).GetActorBlockGeometryScale(name) for name,origin,context in parts] if b.entity else []
 _result=json.dumps({'active':s.projection_active,'actor':b.entity,
  'actors':len(b.projection_entities)+int(bool(b.entity)),
  'preparing':bool(b.preparing_entity),'ready':work is None or work.ready,
  'error':work.error if work is not None else None,'message':s.editor.message,
  'mesh':b.projection_mesh,'origin':s.origin,
- 'scale':b.factory.CreateActorRender(b.entity).GetActorBlockGeometryScale(
-  b.projection_mesh[1]) if b.entity and b.projection_mesh else None,
+ 'scale':scales[0] if scales and all(scale is not None for scale in scales) else None,
+ 'part_scales':scales,'parts':parts,
  'camera':b.factory.CreateCamera(b.level).GetPosition(),
  'rotation':b.factory.CreateCamera(b.level).GetCameraRotation(),
  'player':b.player_position.GetFootPos()})
 '''
+
+PROJECTION_SOURCE = '''from modern_projection.projection.bridge import coordinate
+work=b.projection_work
+doc=s.editor.document
+model=b.projection_mesh[1] if b.projection_mesh else None
+parts=b.context_models.get(model,())
+_result=json.dumps({'editor_id':id(s.editor),'document_id':id(doc),'fixture':sys._blueprint_qa_identity,
+ 'nonce':sys._blueprint_qa_nonce,'serial':b.projection_serial,
+ 'work_current':work is not None and work.serial==b.projection_serial and work.ready and
+  work.model==model and work.document.size==doc.size and work.document.blocks==doc.blocks,
+ 'path':'incremental','cache_model':model,'model':model,
+ 'cache_current':model is not None and work is not None and model==work.shader.names[work.shader.bank]
+  and bool(parts) and all(name in work.shader.parts[work.shader.bank] for name,origin,context in parts),
+ 'origin_current':b.projection_mesh is not None and
+  tuple(b.projection_mesh[2])==tuple(coordinate(s.origin)) and work is not None and
+  tuple(work.origin)==tuple(coordinate(s.origin)),
+ 'missing':s.projection_missing,'parts':parts})
+'''
+
+
+def projection_source_matches(actual, expected):
+    fields = ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model', 'path')
+    return (all(actual.get(field) == expected.get(field) for field in fields) and
+            actual.get('work_current') and actual.get('cache_current') and actual.get('origin_current'))
 
 
 def camera_restore_code(detached):
@@ -145,17 +172,8 @@ _result=json.dumps({'target':target,'position':position,'rotation':rotation})'''
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert final['player'] == saved_player, (saved_player, final['player'])
     calls = check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % before)
-    source = check.run('''import zlib
-from modern_projection.projection.bridge import _stable_palette
-from modern_projection.projection.geometry_palette import prepare_palette
-doc=s.editor.document
-data=prepare_palette(doc.palette_data())
-fingerprint=zlib.compress(repr(_stable_palette((doc.size,data))).encode('utf8'),1)
-_result=json.dumps({'fixture':sys._blueprint_qa_identity,'editor_id':id(s.editor),
- 'document_id':id(doc),'model':b.projection_mesh[1], 'cached_model':b.models.get(fingerprint),
- 'missing':s.projection_missing})
-''')
-    assert not source['missing'] and source['model'] == source['cached_model'], source
+    source = check.run(PROJECTION_SOURCE)
+    assert not source['missing'] and projection_source_matches(source, source), source
     assert all(row.get('result') and not row.get('error') and
                row.get('editor_id') == source['editor_id'] and
                row.get('document_id') == source['document_id'] for row in calls), calls
