@@ -660,7 +660,7 @@ class ClientBridge(object):
         origin = coordinate(s.origin)
         self.ensure_projection_distance(s.editor.document.size)
         self.projection_requested = True
-        if s.editor.document.volume > SMALL_VOLUME:
+        if s.projection_missing or s.editor.document.volume > SMALL_VOLUME:
             return self.project_large(origin)
         self.projection_serial += 1
         self.projection_work = None

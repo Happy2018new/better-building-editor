@@ -159,6 +159,24 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         self.assert_context(builder.data, document, base)
         self.assertEqual(3, len(builder.cache))
 
+    def test_missing_even_small_documents_route_through_incremental_world_projection(self):
+        document, tracker, unused, unused2, unused3, unused4 = self.fixture()
+        bridge = tracker.bridge
+        bridge.session.origin = tracker.origin
+        bridge.ensure_projection_distance = lambda size: None
+        work = SimpleNamespace(incremental=True)
+        bridge.project_large = lambda origin: work if origin == tracker.origin else None
+        bridge.geometry = lambda *args, **kwargs: self.fail('Missing projection must prepare incrementally')
+        self.assertLess(document.volume, 32768)
+        self.assertIs(work, ClientBridge.project(bridge))
+
+    def test_nonmissing_small_geometry_keeps_native_logical_palette(self):
+        document, tracker, unused, unused2, unused3, unused4 = self.fixture()
+        boundary = self.capture_boundary(tracker.bridge)
+        tracker.bridge.geometry(document, name='ordinary')
+        self.assertEqual((16, 32, 16), boundary['data']['volume'])
+        self.assertEqual(document.palette_data()['common'], boundary['data']['common'])
+
 
 if __name__ == '__main__':
     unittest.main()
