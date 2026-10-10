@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = (
     'shaders/glsl/entity.vertex',
+    'shaders/glsl/entity.fragment',
     'shaders/glsl/netease_block_as_entity_specified.fragment',
     'shaders/glsl/color_uv.vertex',
     'shaders/glsl/text.fragment',
@@ -16,6 +17,8 @@ SOURCES = (
 ADAPTED = (
     'resource_pack/materials/entity.material',
     'resource_pack/shaders/glsl/modern_projection_native_actor.fragment',
+    'resource_pack/shaders/glsl/modern_projection_sign_body.vertex',
+    'resource_pack/shaders/glsl/modern_projection_sign_body.fragment',
     'resource_pack/shaders/glsl/modern_projection_sign_text.vertex',
     'resource_pack/shaders/glsl/modern_projection_sign_text.fragment',
     'resource_pack/materials/ui3D.material',

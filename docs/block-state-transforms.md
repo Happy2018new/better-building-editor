@@ -73,8 +73,9 @@ direction properties still require review, and engine appearance remains a
 separate cold-resource acceptance step.
 
 Native block actors and sign text also use a versioned material snapshot:
-`tools/data/native_actor_materials_nemc_<version>.json`. It records six original
-shader/material sources and hashes of the five projection adaptations. The
+`tools/data/native_actor_materials_nemc_<version>.json`. It records seven original
+shader/material sources and hashes of seven projection adaptations, including
+the explicit native sign body stages. The
 schema-2 adapted hashes use `sha256-utf8-lf-v1`: only CRLF is normalized to LF,
 so Windows Git checkouts compare equally while content edits still fail.
 Original installed shader/material hashes remain byte-exact. Source snapshots
@@ -92,6 +93,16 @@ checks before using `--capture --game-data <installed-game>/data` to record a
 reviewed adaptation. Capturing a new hash is provenance bookkeeping; it does not
 make a failed visual check pass. The GLES fixture uses actual game headers, and
 the real game checks remain necessary for native actor and glyph packet behavior.
+
+Liquid mesh materials also have inheritance-derived capture tooling. Install
+`json5` in the host Python environment with `python -m pip install json5` before
+using `tools/generate_liquid_materials.py`. Its versioned snapshot records the
+unaltered native terrain material and the liquid descendant identities; the
+generator follows inheritance, so new descendants do not need a Python list.
+`--capture --game-data <installed-game>/data` records the reviewed version and
+generates explicit bindings, while `--check` rejects stale sources or bindings.
+These bindings remain a visual candidate until the independent public wet-actor
+blueprint cases pass; this tool is not yet part of the final version-bundle gate.
 
 The registry generator preserves each block's native aux IDs and state value
 types. Existing property rules apply automatically to newly added materials
