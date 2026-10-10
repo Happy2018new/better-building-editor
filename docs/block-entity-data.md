@@ -114,6 +114,15 @@ static default poses and no animation support, so successful submissions alone
 do not establish that the client's block entity pose has been reproduced. See
 the six-face regression in [Built-In Test Blueprints](debug-blueprints.md).
 
+The render adapter in `projection/entity_render.py` schema 1 resolves closed
+Shulker poses from the complete tagged NBT already captured for the registered
+selection, falling back to an observed client renderer direction and finally
+the native up default. It changes only native geometry input to a hidden static
+model. The saved/native block identifier, full NBT and world-writing data stay
+intact. No extra coordinate-read channel is introduced. Its generated closed
+lid/base geometry covers all 17 colours and six faces; cold-resource native
+visual acceptance is required separately from pure data and geometry tests.
+
 ## Native Observation Diff
 
 `tools/diff_block_entities.py` compares the reference with an explicit entity

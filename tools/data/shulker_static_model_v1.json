@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "source": {
+    "geometry": "GameAssets/resource_packs/vanilla/models/entity/shulker.geo.json",
+    "textures": "GameAssets/resource_packs/vanilla/entity/shulker.entity.json",
+    "uv_layout": "https://github.com/JannisX11/blockbench/blob/7c92e27d237e365110030d73e92c5d1605f0d311/js/outliner/types/cube.js",
+    "rotation_convention": "https://github.com/JannisX11/blockbench/blob/7c92e27d237e365110030d73e92c5d1605f0d311/js/formats/bedrock/bedrock.js",
+    "uv_layout_blob_sha1": "70cb939ab827f999f9178fac05839a2ecb005d5b",
+    "rotation_convention_blob_sha1": "f27d89e774003486b1161b0578971f686fece0a8",
+    "format_version": "1.8.0",
+    "evidence": "Official vanilla closed shell geometry; native NEMC pose and texture acceptance are separate."
+  },
+  "geometry": {
+    "texturewidth": 64,
+    "textureheight": 64,
+    "bones": [
+      {"name": "lid", "parent": "base", "pivot": [0, 0, 0], "cubes": [{"origin": [-8, 4, -8], "size": [16, 12, 16], "uv": [0, 0]}]},
+      {"name": "base", "pivot": [0, 0, 0], "cubes": [{"origin": [-8, 0, -8], "size": [16, 8, 16], "uv": [0, 28]}]},
+      {"name": "head", "parent": "base", "pivot": [0, 12, 0], "cubes": [{"origin": [-3, 6, -3], "size": [6, 6, 6], "uv": [0, 52]}]}
+    ]
+  },
+  "visible_closed_bones": ["lid", "base"],
+  "poses": [
+    {"facing": 0, "opening": [0, -1, 0], "rotation": [180, 0, 0]},
+    {"facing": 1, "opening": [0, 1, 0], "rotation": [0, 0, 0]},
+    {"facing": 2, "opening": [0, 0, -1], "rotation": [90, 0, 0]},
+    {"facing": 3, "opening": [0, 0, 1], "rotation": [-90, 0, 0]},
+    {"facing": 4, "opening": [-1, 0, 0], "rotation": [0, 0, 90]},
+    {"facing": 5, "opening": [1, 0, 0], "rotation": [0, 0, -90]}
+  ],
+  "texture_paths": {
+    "undyed": "textures/entity/shulker/shulker_undyed",
+    "white": "textures/entity/shulker/shulker_white",
+    "orange": "textures/entity/shulker/shulker_orange",
+    "magenta": "textures/entity/shulker/shulker_magenta",
+    "light_blue": "textures/entity/shulker/shulker_light_blue",
+    "yellow": "textures/entity/shulker/shulker_yellow",
+    "lime": "textures/entity/shulker/shulker_lime",
+    "pink": "textures/entity/shulker/shulker_pink",
+    "gray": "textures/entity/shulker/shulker_gray",
+    "light_gray": "textures/entity/shulker/shulker_silver",
+    "cyan": "textures/entity/shulker/shulker_cyan",
+    "purple": "textures/entity/shulker/shulker_purple",
+    "blue": "textures/entity/shulker/shulker_blue",
+    "brown": "textures/entity/shulker/shulker_brown",
+    "green": "textures/entity/shulker/shulker_green",
+    "red": "textures/entity/shulker/shulker_red",
+    "black": "textures/entity/shulker/shulker_black"
+  }
+}

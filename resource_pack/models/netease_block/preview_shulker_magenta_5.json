@@ -1,0 +1,199 @@
+{
+  "format_version": "1.13.0",
+  "netease:block_geometry": {
+    "description": {
+      "identifier": "modern_projection:preview_shulker_magenta_5",
+      "textures": [
+        "modern_projection_shulker_magenta"
+      ],
+      "textures_descriptions": [
+        {
+          "width": 64,
+          "length": 64
+        }
+      ],
+      "item_texture": "magenta_shulker_box",
+      "use_ao": false
+    },
+    "bones": [
+      {
+        "name": "lid",
+        "pivot": [
+          -8,
+          8,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          -90
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -16,
+              4,
+              0
+            ],
+            "size": [
+              16,
+              12,
+              16
+            ],
+            "uv": {
+              "east": {
+                "uv": [
+                  0,
+                  16
+                ],
+                "uv_size": [
+                  16,
+                  12
+                ]
+              },
+              "west": {
+                "uv": [
+                  32,
+                  16
+                ],
+                "uv_size": [
+                  16,
+                  12
+                ]
+              },
+              "up": {
+                "uv": [
+                  32,
+                  16
+                ],
+                "uv_size": [
+                  -16,
+                  -16
+                ]
+              },
+              "down": {
+                "uv": [
+                  48,
+                  0
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              },
+              "south": {
+                "uv": [
+                  48,
+                  16
+                ],
+                "uv_size": [
+                  16,
+                  12
+                ]
+              },
+              "north": {
+                "uv": [
+                  16,
+                  16
+                ],
+                "uv_size": [
+                  16,
+                  12
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "base",
+        "pivot": [
+          -8,
+          8,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          -90
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -16,
+              0,
+              0
+            ],
+            "size": [
+              16,
+              8,
+              16
+            ],
+            "uv": {
+              "east": {
+                "uv": [
+                  0,
+                  44
+                ],
+                "uv_size": [
+                  16,
+                  8
+                ]
+              },
+              "west": {
+                "uv": [
+                  32,
+                  44
+                ],
+                "uv_size": [
+                  16,
+                  8
+                ]
+              },
+              "up": {
+                "uv": [
+                  32,
+                  44
+                ],
+                "uv_size": [
+                  -16,
+                  -16
+                ]
+              },
+              "down": {
+                "uv": [
+                  48,
+                  28
+                ],
+                "uv_size": [
+                  -16,
+                  16
+                ]
+              },
+              "south": {
+                "uv": [
+                  48,
+                  44
+                ],
+                "uv_size": [
+                  16,
+                  8
+                ]
+              },
+              "north": {
+                "uv": [
+                  16,
+                  44
+                ],
+                "uv_size": [
+                  16,
+                  8
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

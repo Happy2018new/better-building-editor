@@ -3,6 +3,7 @@
 from .block_registry import canonical, states
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
+from .entity_render import INTERNAL_BLOCKS, prepare_static_entities
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -29,6 +30,7 @@ PLANT_PROXIES = {
 # The engine can return item metadata for hidden custom blocks despite
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
 INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()) +
+                                 list(INTERNAL_BLOCKS) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
@@ -67,6 +69,7 @@ def prepare_palette(source):
     common, common_states = prepare_layer('common')
     extra, extra_states = prepare_layer('extra')
     normalize_palette_layers(common, common_states, extra, extra_states)
+    common, static_actors = prepare_static_entities(common, source.get('actor', {}))
     common, common_states = _proxy_foreground(common, common_states)
     for entries in (common, extra):
         for positions in entries.values():
@@ -75,8 +78,11 @@ def prepare_palette(source):
                         if value in extra)
     actors = {}
     for name, entries in source.get('actor', {}).items():
+        normalized_name = name.decode('utf8') if isinstance(name, bytes) else name
         rendered = {}
         for index, payload in entries.items():
+            if (normalized_name, index) in static_actors:
+                continue
             actor = render_actor(payload)
             if actor is not None:
                 rendered[index] = actor

@@ -160,8 +160,43 @@ python tools/verify_shulker_orientations.py unused.json --self-test
 `--setup-native` temporarily uses a previously empty inventory slot and twelve
 previously empty debug-world cells, restores the slot and removes the fixtures
 after capture. The native setup uses `PlayerUseItemToPos` on six support faces,
-not NBT direction setters. Only client-visible palettes are read. The exported
-observed `facingDirection` values must cover all six directions, and the tool
-sorts native samples by that observed value before comparing synthetic inputs.
+not NBT direction setters. The server reads NBT only for those debug-created
+fixtures; the client exports their actual palettes. NEMC can export an empty
+Shulker renderer payload, so the sample explicitly records the missing client
+field and the authoritative fixture NBT direction. It sorts the samples by
+that observed direction before comparing blueprint inputs. Native render input
+uses the actual client payload plus complete tagged fixture NBT, matching the
+ordinary registered-selection capture envelope. These debug helpers do not
+create a new production read channel or bypass selection registration.
 `--synthetic-only` isolates the editor/projection bug when no native sample is
 available; it cannot certify native agreement. No persistent draft is saved.
+
+### Static Shulker Render Adapter
+
+`entity_render.py` schema 1 substitutes render-only static meshes for all
+17 vanilla colours and six directions. Complete tagged `ShulkerBox.facing`
+has priority over a client's `facingDirection`; absent or invalid direction
+uses the observed native default, up. Only the render palette changes, and
+consumed actor slots are omitted from the SDK input. Documents, clipboard,
+sharing and real-world placement retain native identities, states and complete
+tagged entity data. The 102 internal identifiers are excluded from the picker
+and creative registration.
+
+`tools/data/shulker_static_model_v1.json` keeps the official closed lid/base
+geometry, original box UVs and all texture paths, including light gray's native
+`silver` texture name. The head is fully enclosed in a closed box and omitted.
+`tools/generate_shulker_proxies.py` generates block definitions, models and
+terrain aliases; `--check` verifies deterministic output. Face UV expansion is
+based on Blockbench's box-UV layout. Models use documented 64x64 texture
+descriptions, alpha rendering and individual baked bone rotations.
+
+Pure tests independently check six opening vectors, all rotated cube bounds,
+all 17 colour associations, original UV regions, internal identifier exclusion
+and unchanged source documents/NBT. Bone angle conventions and native appearance
+still require the cold-resource visual check. Adding asset definitions requires
+a fresh game load; Python hot refresh alone does not register those blocks.
+
+```powershell
+python tools/generate_shulker_proxies.py --check
+python -X utf8 -m unittest discover -s tests -p test_static_shulker_render.py
+```

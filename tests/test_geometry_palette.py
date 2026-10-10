@@ -155,8 +155,8 @@ class GeometryPaletteTests(unittest.TestCase):
 
         result = prepare_palette(source)
 
-        self.assertEqual({'minecraft:chest': {0: render},
-                          'minecraft:purple_shulker_box': {3: {}, 4: {}}}, result['actor'])
+        self.assertEqual({'minecraft:chest': {0: render}}, result['actor'])
+        self.assertEqual([3, 4], result['common'][('modern_projection:preview_shulker_purple_1', 0)])
         self.assertEqual(saved, source)
         self.assertNotIn('Items', result['actor']['minecraft:chest'][0])
 
