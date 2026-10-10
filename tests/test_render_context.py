@@ -13,7 +13,8 @@ from projection.model import Document
 from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, TARGETS_PER_UNIT,
                                        ContextPaletteBuilder, prepare_context_palette)
 from projection.render_layout import (CONTEXT_BASE, OVERLAY_BASE, context_center,
-                                      context_position, logical_position)
+                                      context_position, logical_position,
+                                      native_mesh_position)
 from projection.visible_actor import compose_actor
 
 
@@ -92,7 +93,8 @@ class RenderContextTests(unittest.TestCase):
         self.assertEqual({center_index, neighbor_index}, set(result['extra'][water]))
         visible_centers = {logical_position(tuple(axis + .5 for axis in position(cell, volume)))
                            for entries in result['common'].values() for cell in entries
-                           if context_center(tuple(axis + .5 for axis in position(cell, volume)))}
+                           if context_center(native_mesh_position(
+                               tuple(axis + .5 for axis in position(cell, volume))))}
         self.assertEqual({(15.5, 1.5, 8.5)}, visible_centers)
         self.assertEqual(saved, source)
 

@@ -36,9 +36,16 @@ def logical_position(position):
 
 
 def context_center(position):
-    """Whether a context fragment lies inside its one visible center block."""
+    """Whether a native mesh vertex lies within the center tile's clip box."""
     if position[1] < CONTEXT_BASE:
         return True
-    value = (position[0], position[1] - CONTEXT_BASE, position[2])
-    return all(CONTEXT_CENTER <= axis % CONTEXT_STRIDE <= CONTEXT_CENTER + 1
-               for axis in value)
+    value = (0.5 - position[0], position[1] - CONTEXT_BASE,
+             0.5 - position[2])
+    phases = tuple(axis % CONTEXT_STRIDE for axis in value)
+    return all(CONTEXT_CENTER <= axis <= CONTEXT_CENTER + 1
+               for axis in phases)
+
+
+def native_mesh_position(position):
+    """Map positive palette corners to native block-mesh coordinates."""
+    return (0.5 - position[0], position[1], 0.5 - position[2])

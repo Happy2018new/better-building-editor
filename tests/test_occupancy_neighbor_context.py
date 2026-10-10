@@ -15,7 +15,8 @@ from modern_projection.projection.world_projection import WorldProjection
 from modern_projection.projection.visible_actor import compose_actor
 from modern_projection.projection.bridge import ClientBridge
 from modern_projection.projection.render_context import ContextPaletteBuilder
-from modern_projection.projection.render_layout import context_center, context_position, logical_position
+from modern_projection.projection.render_layout import (context_center, context_position,
+                                                        logical_position, native_mesh_position)
 
 
 class MissingOnlyNeighborContextTests(unittest.TestCase):
@@ -79,7 +80,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
             for index in entries:
                 pos = (index // volume[0] % volume[1], index // (volume[0] * volume[1]), index % volume[0])
                 fragment = tuple(axis + .5 for axis in pos)
-                if context_center(fragment):
+                if context_center(native_mesh_position(fragment)):
                     centers.add(logical_position(fragment))
         self.assertEqual({tuple(axis + .5 for axis in target)}, centers)
 

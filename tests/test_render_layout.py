@@ -7,6 +7,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.render_layout import (CONTEXT_BASE, CONTEXT_STRIDE, MAX_LOGICAL_HEIGHT,
                                       OVERLAY_BASE, context_center, context_position,
                                       logical_position, overlay_index, overlay_position)
+from projection.render_layout import native_mesh_position
 
 
 class RenderLayoutTests(unittest.TestCase):
@@ -31,9 +32,29 @@ class RenderLayoutTests(unittest.TestCase):
                     vertex = tuple(axis + fraction for axis in encoded)
                     expected = tuple(pos[axis] + neighbor[axis] + fraction for axis in range(3))
                     self.assertEqual(expected, logical_position(vertex))
-                    self.assertEqual(neighbor == (0, 0, 0), context_center(vertex))
+                    self.assertEqual(neighbor == (0, 0, 0),
+                                     context_center(native_mesh_position(vertex)))
         self.assertEqual(CONTEXT_BASE + CONTEXT_STRIDE * 15 + 1,
                          context_position((7, 15, 3))[1])
+
+    def test_native_mesh_context_covers_negative_and_positive_palette_axes(self):
+        for target in ((0, 0, 0), (15, 15, 15), (16, 16, 16)):
+            for neighbor in ((0, 0, 0), (-1, 0, 1), (1, 0, -1),
+                             (0, -1, 0), (0, 1, 0)):
+                encoded = context_position(target, neighbor)
+                samples = [tuple(encoded[i] + f for i, f in enumerate(fraction))
+                           for fraction in ((0.001, 0.001, 0.001), (0.5, 0.5, 0.5),
+                                            (0.999, 0.999, 0.999))]
+                for vertex in samples:
+                    native = native_mesh_position(vertex)
+                    self.assertEqual(neighbor == (0, 0, 0), context_center(native))
+                    restored = tuple((0.5-native[0], native[1], 0.5-native[2]))
+                    for actual, expected in zip(restored, vertex):
+                        self.assertAlmostEqual(expected, actual)
+        self.assertGreater(native_mesh_position((0, 0, 0))[0], 0)
+        self.assertLess(native_mesh_position((1, 0, 0))[0], 0)
+        self.assertGreater(native_mesh_position((0, 0, 0))[2], 0)
+        self.assertLess(native_mesh_position((0, 0, 1))[2], 0)
 
 
 if __name__ == '__main__':
