@@ -30,7 +30,11 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **含水 actor 归属适配：** 初始六个原生烟测证明失配在服务端／客户端和立即／延迟读回均稳定存在，并非复制延迟；湿告示牌与湿陶罐可共享一个 water bucket，但各 index 的 payload 分别属于原前景。后续完整探测在 120 个原生实体模板名称上执行干／湿及三个混合场景，共 243 场景；修正相邻支撑和合法水平朝向夹具后全部采集完成，`completed=true`、`restored=true`。版本化原始记录为 `tools/data/native_palette_actors_nemc_3.9.0.401155.json`；规则由 `generate_native_palette_adapter.py` 生成，确认 118 个名称的归属失配，床／移动方块的 12 条省略或单格写入失败观测独立记录，不算能力阴性，也不加入适配规则。早期无支撑脱落、黏性活塞客户端序列化错误和中止记录保留 `.runtime/native-palette-actors-r5-*`。
 
-客户端 `merge_palette` 和服务端 `native_actor_cells` 使用相同的逐 index 解析：water 标签必须等于该位置的实际背景，前景必须为当前版本已验证实体，才解析为对应前景名称；payload、字节键、带类型值和源 palette 不改写。非预期标签、无背景、普通方块、重复／越界坐标仍拒绝。离线回放 717 份有效客户端／服务端 palette，所有实体 payload 保持且源数据未变；另有混合桶、错误名称／层／坐标及旧版本拒绝测试。湿 actor 像素工具也使用生产解析，继续保留原始失配诊断；六个公开湿 actor 蓝图的独立水面／隐藏画面仍待执行，不能以数据通过关闭视觉验收。
+客户端 `merge_palette` 和服务端 `native_actor_cells` 使用相同的逐 index 解析：water 标签必须等于该位置的实际背景，前景必须为当前版本已验证实体，才解析为对应前景名称；payload、字节键、带类型值和源 palette 不改写。非预期标签、无背景、普通方块、重复／越界坐标仍拒绝。离线回放 717 份有效客户端／服务端 palette，所有实体 payload 保持且源数据未变；另有混合桶、错误名称／层／坐标及旧版本拒绝测试。生产修复检查点为 `f47b2a6`；六个公开湿 actor 蓝图随后完成首轮独立水面／隐藏实测，结果如下，不能以数据通过关闭视觉验收。
+
+**湿 actor 无损像素首轮（约 01:45–01:49）：** `.runtime/wet-actor-world-r5.json` 六场景均执行完毕，`completed=true`、`restored=true`、`cleanup_errors=[]`，但 **0/6 视觉通过**。测试先刷新客户端／服务端最新归属解析，再用 native-resolution 1994×1105 PNG 比较；保留 MCDK 原始 JPEG、源 palette 和 SHA-256，阈值未修改。当前实例三视角相机标定为 `.runtime/camera-calibration-root-r5.json`，完整轮廓通过且现场已恢复。
+
+全部场景的双层／actor 归属及 NBT 复制均通过；实际世界参考有水面，却没有告示牌／陶罐本体阳性像素，连干对照也不可见。因此 `WorldAdapter.write` 的 palette 写入＋`SetBlockEntityData` 是否初始化了世界实体外观，必须与原生物品放置或 `SetBlockNew` 正控比较，不能把此参考直接当作正确本体画面。投影有本体，却缺少水面；动态标记占用后本体残留，而初始占用的本体残留为零，指向旧 overlay 几何在切换 bank 后没有隐藏。分别检查原生 actor 材质／COMMON transparency、actor overlay 挂载生命周期，以及普通／上下文水几何；修复后须重跑六例和独立本体／水面阳性控制。当前结果保留为自动检出证据，F01／F03 未关闭。
 
 **第五轮当前统一检查：** `.runtime/version-bundle-r5-palette-checkpoint.json` 通过 **955 项完整离线测试**、33 份来源检查、15,858 状态 × 六操作及全部生成资源检查。已集成公开含雪 29×8 蓝图矩阵、栅栏门／六面紫颂连接蓝图及悬挂苔藓尖端更新；12 材料栅栏门的 576 条原生关联状态观测与既有规则一致。悬挂苔藓只实现静态尖端更新，不模拟游戏因支撑破坏而删除整串植物；对应完整／缺失投影的独立像素矩阵还未全部完成。
 

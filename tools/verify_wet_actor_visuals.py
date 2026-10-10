@@ -6,9 +6,10 @@ This is an unaccepted harness until its preserved native captures pass.
 """
 import time
 import json
+import base64
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 import verify_neighbor_world_visuals as world
-from verify_sign_visuals import refresh
+from verify_sign_visuals import ROOT, SignCheck, refresh
 from projection.debug_sign_blueprints import WET_VISUAL_CASE as SIGNS
 from projection.debug_pot_blueprints import WET_VISUAL_CASE as POTS
 
@@ -20,6 +21,27 @@ world.CASES = tuple(sorted(CASES))
 native.VIEWS = ('side',)
 native.VISUAL_CASES = dict((label, (row['keep'], row['actor']))
                           for label, (metadata, row) in CASES.items())
+
+
+class WetActorCheck(SignCheck):
+    def __init__(self, client, output, timeout):
+        SignCheck.__init__(self, client, output, timeout, native_resolution=True)
+
+
+world.BlueprintCheck = WetActorCheck
+
+
+def refresh_capture(check):
+    refresh(check)
+    for name in ('native_palette_actor_data', 'native_palette_actor', 'world_capture'):
+        path = ROOT / ('behavior_pack/modern_projection/projection/' + name + '.py')
+        encoded = base64.b64encode(path.read_bytes()).decode('ascii')
+        code = ('import base64\nimport modern_projection.projection.%s as module\n'
+                'eval(compile(base64.b64decode(%r),%r,"exec"),module.__dict__)\n_result=True' %
+                (name, encoded, str(path)))
+        check.run(code)
+        world.run(check.client, code)
+
 
 CROP = '''from modern_projection.projection.cell import AIR
 keep,neighbor,opacity=%r,%r,%r
@@ -192,7 +214,7 @@ def component_checks(baseline, actual, masks, native_path, threshold, min_pixels
 def wet_case(check, label, args, row):
     metadata, scene = CASES[label]
     if not hasattr(check, '_wet_actor_refreshed'):
-        refresh(check)
+        refresh_capture(check)
         check._wet_actor_refreshed = True
     native.FIXTURE = metadata['fixture']
     native.CROP_FIXTURE = CROP
@@ -272,6 +294,7 @@ _save = world.write_json
 def write_report(path, report):
     report['fixture'] = [metadata['fixture'] for metadata in METADATA.values()]
     report['scope'] = 'Contained public wet actors: native/projection full silhouette, fixed native water/actor masks, and dynamic/initial occupancy'
+    report['native_resolution'] = True
     report['limits'] = 'Unaccepted until native execution; component color masks require observable native pixels; no threshold reductions'
     report['passed'] = report['passed'] and report.get('restored', True)
     _save(path, report)
