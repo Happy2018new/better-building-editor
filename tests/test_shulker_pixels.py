@@ -65,6 +65,17 @@ class ShulkerPixelTests(unittest.TestCase):
         evidence = pair_comparison(frame, proxy)
         self.assertGreater(evidence['scale_relative_error'], .4)
 
+    def test_interior_alpha_cutout_fails_even_when_overall_silhouette_is_close(self):
+        native = [patterned(facing) for facing in range(6)]
+        proxy = [frame.copy() for frame in native]
+        for frame in proxy:
+            ImageDraw.Draw(frame).rectangle((62, 84, 85, 111), fill=(110, 170, 210))
+        evidence = native_proxy_comparison(native, proxy)
+        self.assertFalse(evidence['passed'])
+        for row in evidence['same_face']:
+            self.assertGreater(row['shape_iou'], .82)
+            self.assertGreater(row['interior_missing_fraction'], .02)
+
 
 if __name__ == '__main__':
     unittest.main()

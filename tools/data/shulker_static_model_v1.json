@@ -7,26 +7,185 @@
     "rotation_convention": "https://github.com/JannisX11/blockbench/blob/7c92e27d237e365110030d73e92c5d1605f0d311/js/formats/bedrock/bedrock.js",
     "uv_layout_blob_sha1": "70cb939ab827f999f9178fac05839a2ecb005d5b",
     "rotation_convention_blob_sha1": "f27d89e774003486b1161b0578971f686fece0a8",
+    "netease_uv_converter": "MCStudio MCX64Editor/Plugins/MC/script.zip:MC/AddonHelper/bbmodel.pyc dumpCube._makeFace",
+    "netease_uv_converter_sha256": "0165af704520d5b6337fd6fcc5de17812cae5427e9da9f0bd9e0694e25123678",
+    "netease_uv_convention_version": 1,
+    "netease_uv_convention": "Reverse both up endpoints relative to Blockbench internal box UVs; preserve down and all side endpoints.",
+    "closed_shell_version": 3,
+    "closed_shell": "Composite complementary native lid/base alpha cutouts at world Y=4..8 into the lid texture; clip the base geometry to Y=0..4 retaining original texel density. Omit lid down and base up interior faces. Enable use_ao for native directional lighting; opaque layer retains back-face culling during projection transparency.",
     "format_version": "1.8.0",
-    "evidence": "Official vanilla closed shell geometry; native NEMC pose and texture acceptance are separate."
+    "evidence": "Official vanilla closed shell geometry; native NEMC pose and texture acceptance are separate.",
+    "geometry_sha256": "385eab9758754fef606cef427b7acd55fc49a21cf6aee042db2fadf742bd7634"
   },
   "geometry": {
     "texturewidth": 64,
     "textureheight": 64,
     "bones": [
-      {"name": "lid", "parent": "base", "pivot": [0, 0, 0], "cubes": [{"origin": [-8, 4, -8], "size": [16, 12, 16], "uv": [0, 0]}]},
-      {"name": "base", "pivot": [0, 0, 0], "cubes": [{"origin": [-8, 0, -8], "size": [16, 8, 16], "uv": [0, 28]}]},
-      {"name": "head", "parent": "base", "pivot": [0, 12, 0], "cubes": [{"origin": [-3, 6, -3], "size": [6, 6, 6], "uv": [0, 52]}]}
+      {
+        "name": "lid",
+        "parent": "base",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -8,
+              4,
+              -8
+            ],
+            "size": [
+              16,
+              12,
+              16
+            ],
+            "uv": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "name": "base",
+        "pivot": [
+          0,
+          0,
+          0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -8,
+              0,
+              -8
+            ],
+            "size": [
+              16,
+              8,
+              16
+            ],
+            "uv": [
+              0,
+              28
+            ]
+          }
+        ]
+      },
+      {
+        "name": "head",
+        "parent": "base",
+        "pivot": [
+          0,
+          12,
+          0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              -3,
+              6,
+              -3
+            ],
+            "size": [
+              6,
+              6,
+              6
+            ],
+            "uv": [
+              0,
+              52
+            ]
+          }
+        ]
+      }
     ]
   },
-  "visible_closed_bones": ["lid", "base"],
+  "visible_closed_bones": [
+    "lid",
+    "base"
+  ],
   "poses": [
-    {"facing": 0, "opening": [0, -1, 0], "rotation": [180, 0, 0]},
-    {"facing": 1, "opening": [0, 1, 0], "rotation": [0, 0, 0]},
-    {"facing": 2, "opening": [0, 0, -1], "rotation": [90, 0, 0]},
-    {"facing": 3, "opening": [0, 0, 1], "rotation": [-90, 0, 0]},
-    {"facing": 4, "opening": [-1, 0, 0], "rotation": [0, 0, 90]},
-    {"facing": 5, "opening": [1, 0, 0], "rotation": [0, 0, -90]}
+    {
+      "facing": 0,
+      "opening": [
+        0,
+        -1,
+        0
+      ],
+      "rotation": [
+        180,
+        0,
+        0
+      ]
+    },
+    {
+      "facing": 1,
+      "opening": [
+        0,
+        1,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "facing": 2,
+      "opening": [
+        0,
+        0,
+        -1
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ]
+    },
+    {
+      "facing": 3,
+      "opening": [
+        0,
+        0,
+        1
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ]
+    },
+    {
+      "facing": 4,
+      "opening": [
+        -1,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ]
+    },
+    {
+      "facing": 5,
+      "opening": [
+        1,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        -90
+      ]
+    }
   ],
   "texture_paths": {
     "undyed": "textures/entity/shulker/shulker_undyed",
@@ -46,5 +205,24 @@
     "green": "textures/entity/shulker/shulker_green",
     "red": "textures/entity/shulker/shulker_red",
     "black": "textures/entity/shulker/shulker_black"
+  },
+  "texture_sha256": {
+    "undyed": "312641c04dd9ed443815fd7c305c8a91fb33118ebb5ba8bb5c143623d7549ce2",
+    "white": "e399b578e5a54c84a6bbd56df410b4b699b50049cf14395b1b0a826a990671fe",
+    "orange": "6947053a5d0aed02a138592d28f41d238fa8866d6176d76816ca3b852bf5526b",
+    "magenta": "3d73488a6142cdfd49e621845e63e8d4245a04fb40c89164e13d4bdc0a1844af",
+    "light_blue": "f9b2c709d2ca40fba106635193d9e99bac16eadba800869336e774ce81bc67ff",
+    "yellow": "64f5550cef76add870dcf9b06952ae1666a10950206ca3663c0bd6a6acbbb0c7",
+    "lime": "97db536417aef42611551b80b6b720e56225adcf02c84d1ed2de2bd501a133b2",
+    "pink": "0a611b450b49c1e7d8569aedf03f6b63f08b610112722cb9569d25fed9fffa85",
+    "gray": "ad43f49f518c993ab7dd034267b79941fd918cdc077813df5aaf997c3b05b812",
+    "light_gray": "28f94c0bb60b60d328ee7c8e47b8325fe730229b99f94b41edbf5dc2fe0bce90",
+    "cyan": "7ee42f0a30ebc36cfab9de56ac54c14c3b1b2e0a2d2e93d414a7e7977528d49c",
+    "purple": "c2649541a86a8b4df519d33dffca24f856aca8082197ed1d55bde3d5f4f61529",
+    "blue": "9986fe2aeb34373f92b806e3755aa3d27dc2ede6f644a7a42abe6bcad3b82f26",
+    "brown": "97722c95d453dcecaafd6622460a2594d2f8129cc0209186804801b4963d64e6",
+    "green": "45533f8f4240f7561ed72cc26515210bc2b56dc5a2ffb6a8d74ec556a802ccdb",
+    "red": "68a69a14928e91084dd1282575f5fbb76bb67040b410d0ebea90c23cb99f9228",
+    "black": "a68c27b7fac20507020b0d0664f9ded81eec0a5b96b5e7d8ef21936e437d8c04"
   }
 }

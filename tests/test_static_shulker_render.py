@@ -4,8 +4,11 @@ import math
 import sys
 import unittest
 from copy import deepcopy
+from io import BytesIO
 from itertools import product
 from pathlib import Path
+
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -16,7 +19,7 @@ from projection.entity_render import SHULKER_COLORS, SHULKER_PROXIES, static_pro
 from projection.geometry_palette import INTERNAL_RENDER_BLOCKS, prepare_palette
 from projection.nbt_spatial import root_payload
 from projection.visible_actor import entity_nbt, compose_actor
-from generate_shulker_proxies import model, box_uv
+from generate_shulker_proxies import model, box_uv, netease_box_uv, closed_cube, closed_texture
 
 
 def world_rotation(vector, rotation):
@@ -65,8 +68,9 @@ class StaticShulkerTests(unittest.TestCase):
                     self.assertEqual(1, len(bone['cubes']))
                     cube = bone['cubes'][0]
                     source = original[bone['name']]['cubes'][0]
-                    self.assertEqual(box_uv(source['uv'], source['size']), cube['uv'])
-                    self.assertEqual(source['size'], cube['size'])
+                    expected = closed_cube(source, bone['name'], 4)
+                    self.assertEqual(expected['uv'], cube['uv'])
+                    self.assertEqual(expected['size'], cube['size'])
                     for offsets in product((0, 1), repeat=3):
                         point = [cube['origin'][axis] + offsets[axis] * cube['size'][axis] for axis in range(3)]
                         point[0] *= -1
@@ -82,6 +86,55 @@ class StaticShulkerTests(unittest.TestCase):
         self.assertEqual({'uv': [16, 16], 'uv_size': [16, 12]}, faces['north'])
         self.assertEqual({'uv': [32, 16], 'uv_size': [-16, -16]}, faces['up'])
         self.assertEqual({'uv': [48, 0], 'uv_size': [-16, 16]}, faces['down'])
+
+    def test_mcstudio_up_endpoints_match_non_square_import_fixture(self):
+        faces = netease_box_uv([3, 7], [10, 12, 6])
+        self.assertEqual({'uv': [9, 7], 'uv_size': [10, 6]}, faces['up'])
+        self.assertEqual({'uv': [29, 7], 'uv_size': [-10, 6]}, faces['down'])
+        self.assertEqual({'uv': [3, 13], 'uv_size': [6, 12]}, faces['east'])
+        self.assertEqual({'uv': [19, 13], 'uv_size': [6, 12]}, faces['west'])
+        self.assertEqual({'uv': [9, 13], 'uv_size': [10, 12]}, faces['north'])
+        self.assertEqual({'uv': [25, 13], 'uv_size': [10, 12]}, faces['south'])
+
+    def test_closed_shell_removes_internal_and_duplicate_faces_without_stretching(self):
+        lid, base = model(self.spec, 'purple', 1)['netease:block_geometry']['bones']
+        lid, base = lid['cubes'][0], base['cubes'][0]
+        self.assertNotIn('down', lid['uv'])
+        self.assertNotIn('up', base['uv'])
+        self.assertEqual([16, 4, 16], base['size'])
+        self.assertEqual(lid['origin'][1], base['origin'][1] + base['size'][1])
+        for face in ('east', 'west', 'north', 'south'):
+            self.assertEqual(48, base['uv'][face]['uv'][1])
+            self.assertEqual(4, base['uv'][face]['uv_size'][1])
+        self.assertEqual({'uv': [48, 28], 'uv_size': [-16, 16]}, base['uv']['down'])
+
+    def test_closed_texture_preserves_complementary_native_lid_and_base_artwork(self):
+        source = Image.new('RGBA', (64, 64), (100, 30, 140, 255))
+        source.paste((30, 10, 60, 255), (0, 44, 64, 48))
+        source.paste((20, 20, 20, 0), (4, 24, 12, 28))
+        before = source.tobytes()
+        with Image.open(BytesIO(closed_texture(source))) as result:
+            self.assertEqual((30, 10, 60, 255), result.getpixel((4, 24)))
+            self.assertEqual((100, 30, 140, 255), result.getpixel((3, 24)))
+            self.assertEqual((100, 30, 140, 255), result.getpixel((4, 48)))
+            self.assertEqual((100, 30, 140, 255), result.getpixel((16, 0)))
+        self.assertEqual(before, source.tobytes())
+        source.paste((20, 20, 20, 0), (4, 44, 12, 48))
+        with self.assertRaisesRegex(ValueError, 'no longer closes'):
+            closed_texture(source)
+
+    def test_every_generated_shell_face_is_opaque_for_all_native_colors(self):
+        for color in SHULKER_COLORS:
+            path = ROOT / 'resource_pack/textures/blocks' / ('preview_shulker_' + color + '_closed.png')
+            with Image.open(path) as texture:
+                for bone in model(self.spec, color, 1)['netease:block_geometry']['bones']:
+                    for face in bone['cubes'][0]['uv'].values():
+                        u, v = face['uv']
+                        width, height = face['uv_size']
+                        rectangle = (min(u, u + width), min(v, v + height),
+                                     max(u, u + width), max(v, v + height))
+                        self.assertEqual((255, 255), texture.crop(rectangle).getchannel('A').getextrema(),
+                                         (color, rectangle))
 
     def test_builtin_source_and_full_actor_data_are_not_mutated_or_serialized_as_proxies(self):
         case = VISUAL_CASES['shulker_orientations']
@@ -123,6 +176,7 @@ class StaticShulkerTests(unittest.TestCase):
                 path = ROOT / 'behavior_pack/netease_blocks' / (identifier.split(':')[1] + '.json')
                 behavior = json.loads(path.read_text(encoding='utf8'))['minecraft:block']
                 self.assertFalse(behavior['description']['register_to_creative_menu'])
+                self.assertEqual('opaque', behavior['components']['netease:render_layer']['value'])
                 self.assertEqual(0, behavior['components']['minecraft:block_light_absorption']['value'])
 
 

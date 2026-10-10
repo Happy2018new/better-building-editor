@@ -11,7 +11,7 @@ import sys
 import time
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 from shulker_pixels import central_object, native_proxy_comparison
 from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 
@@ -95,6 +95,29 @@ def masked_frame(path, crop, output):
     result.save(output)
     record.update(crop=crop, image=str(output.resolve()))
     return result, record
+
+
+def opacity_comparison(shown, translucent, hidden, crop):
+    with Image.open(shown) as full, Image.open(translucent) as half, Image.open(hidden) as empty:
+        frames = [source.convert('RGB').crop(crop) for source in (full, half, empty)]
+    unused, mask, record = central_object(frames[0])
+    eligible = list(mask.filter(ImageFilter.MinFilter(5)).tobytes())
+    full_signal, half_signal = [], []
+    for channel in range(3):
+        values = [frame.split()[channel].tobytes() for frame in frames]
+        for opaque, faded, background, use in zip(*values, eligible):
+            if use:
+                full_signal.append(opaque - background)
+                half_signal.append(faded - background)
+    energy = sum(value * value for value in full_signal)
+    if len(full_signal) < 450 or energy <= 100:
+        raise AssertionError('The opacity probe lacks an opaque object signal')
+    gain = sum(left * right for left, right in zip(full_signal, half_signal)) / float(energy)
+    residual = (sum((right - .5 * left) ** 2 for left, right in zip(full_signal, half_signal)) / energy) ** .5
+    return {'requested_opacity': .5, 'measured_contrast_gain': gain,
+            'half_blend_relative_residual': residual, 'samples': len(full_signal),
+            'object_bbox': record['bbox'], 'passed': .35 <= gain <= .65 and residual <= .15,
+            'limits': {'contrast_gain': [.35, .65], 'half_blend_relative_residual': .15}}
 
 
 def pixel_comparison(frames, minimum=150, threshold=24):
@@ -219,6 +242,10 @@ def main():
     parser.add_argument('--setup-native', action='store_true')
     parser.add_argument('--synthetic-only', action='store_true', help='Check built-in editor poses without projection/native world acceptance')
     parser.add_argument('--timeout', type=float, default=45)
+    parser.add_argument('--offset-scale', type=float, default=1.,
+                        help='Scale the same native/projection camera offset for closer texture diagnosis')
+    parser.add_argument('--opacity-probe', action='store_true',
+                        help='Also compare half-transparent projection pixels with the opaque and hidden captures')
     parser.add_argument('--self-test', action='store_true')
     args = parser.parse_args()
     if args.self_test:
@@ -257,7 +284,8 @@ def main():
                 case = check.run('from modern_projection.projection.debug_blueprints import VISUAL_CASES\n'
                                  '_result=json.dumps(VISUAL_CASES["shulker_orientations"])')
                 focus = tuple(case['focus'])
-                world_offset = reference_offset(case['camera']['world_offset'])
+                world_offset = tuple(value * args.offset_scale for value in
+                                     reference_offset(case['camera']['world_offset']))
                 evidence['reference_camera_offset'] = world_offset
                 evidence['blueprint_case'] = case
                 if args.setup_native:
@@ -314,6 +342,17 @@ def main():
                             frame, world_pixels = masked_frame(world['screenshot']['path'], crop,
                                 args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
                             world_frames.append(frame)
+                            if args.opacity_probe:
+                                check.run('assert b.factory.CreateActorRender(b.entity).SetActorBlockGeometryTransparency(b.projection_mesh[1],.5)\n_result=True')
+                                try:
+                                    time.sleep(.3)
+                                    faded = check.capture(label + '_world_opacity_half')
+                                    opacity = opacity_comparison(world['screenshot']['path'], faded['path'],
+                                                                 world['hidden_screenshot']['path'], crop)
+                                    rows[-1]['opacity_probe'] = dict(opacity, screenshot=faded)
+                                    assert opacity['passed'], opacity
+                                finally:
+                                    check.run('assert b.factory.CreateActorRender(b.entity).SetActorBlockGeometryTransparency(b.projection_mesh[1],1.)\n_result=True')
                             real = actual_native_closeup(check, facing, offset)
                             rows[-1]['real_native'] = real
                             try:

@@ -86,6 +86,10 @@ def _prepared_pair(native, proxy):
     width, height = intersection.size
     interior = ImageOps.expand(intersection, border=4, fill=0).filter(ImageFilter.MinFilter(9)).crop(
         (4, 4, width + 4, height + 4))
+    native_interior = ImageOps.expand(first_mask, border=2, fill=0).filter(ImageFilter.MinFilter(5)).crop(
+        (2, 2, width + 2, height + 2))
+    missing = ImageChops.subtract(native_interior, second_mask.filter(ImageFilter.MaxFilter(3)))
+    missing_fraction = missing.histogram()[255] / float(max(1, native_interior.histogram()[255]))
     eligible = list(interior.tobytes())
     features = []
     for image in (first, second):
@@ -104,13 +108,15 @@ def _prepared_pair(native, proxy):
         dimensions.append((box[2] - box[0], box[3] - box[1]))
     scale_error = max(abs(right / float(left) - 1) for left, right in zip(*dimensions))
     return {'shape_iou': iou, 'texture_cosine': cosine,
+            'interior_missing_fraction': missing_fraction,
             'scale_relative_error': scale_error,
             'native_bbox': first_record['bbox'], 'proxy_bbox': second_record['bbox'],
             'texture_samples': len(features[0]), 'texture_energy': energies}
 
 
 def native_proxy_comparison(native, proxy, minimum_iou=.82, minimum_texture=.45,
-                            maximum_scale_error=.2, alternative_margin=.03):
+                            maximum_scale_error=.2, alternative_margin=.03,
+                            maximum_interior_missing=.02):
     if len(native) != 6 or len(proxy) != 6:
         raise AssertionError('Six real native references and six proxy images are required')
     references = [normalized_object(frame) for frame in native]
@@ -125,6 +131,7 @@ def native_proxy_comparison(native, proxy, minimum_iou=.82, minimum_texture=.45,
             index for index, score in enumerate(scores)
             if score is not None and score >= best - alternative_margin]
         record['passed'] = (record['shape_iou'] >= minimum_iou and
+                            record['interior_missing_fraction'] <= maximum_interior_missing and
                             record['scale_relative_error'] <= maximum_scale_error and
                             record['texture_cosine'] is not None and
                             record['texture_cosine'] >= minimum_texture and
@@ -135,6 +142,7 @@ def native_proxy_comparison(native, proxy, minimum_iou=.82, minimum_texture=.45,
                 [row['texture_cosine'] for row in scores] for scores in matrix],
             'thresholds': {'shape_iou': minimum_iou, 'texture_cosine': minimum_texture,
                            'scale_relative_error': maximum_scale_error,
-                           'alternative_margin': alternative_margin},
+                           'alternative_margin': alternative_margin,
+                           'interior_missing_fraction': maximum_interior_missing},
             'scope': 'Same-camera native world pixels versus actual projection pixels; '
                      'closed-box silhouette and local texture contrast. Symmetric faces may tie.'}
