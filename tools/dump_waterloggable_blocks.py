@@ -69,6 +69,7 @@ class WaterOverlayProbe(object):
         self.cursor = 0
         self.accepted = []
         self.seeds = {}
+        self.entity_names = set()
         self.state = {
             'schema': 1, 'game_version': block_registry.source_version(),
             'palette_sha256': block_registry.fingerprint(), 'blocks': {},
@@ -77,6 +78,7 @@ class WaterOverlayProbe(object):
             'total_states': sum(len(block_registry.aux_values(name)) for name in names),
             'completed_blocks': 0, 'total_blocks': len(names),
             'target': self.target, 'support': self.support, 'readback_states': {},
+            'block_entities': {}, 'block_entity_names': [],
             'verified_states': 0, 'state_mismatches': [],
             'states_per_subchunk': STATES_PER_SUBCHUNK,
             'probe_run': run_index,
@@ -271,6 +273,12 @@ class WaterOverlayProbe(object):
                                    dry_states == expected)
                 if dry_matched:
                     self.state['verified_states'] += 1
+                    if self.name not in self.entity_names:
+                        nbt = self.info.GetBlockEntityData(self.dimension, self.target)
+                        self.entity_names.add(self.name)
+                        self.state['block_entity_names'].append(self.name)
+                        if nbt:
+                            self.state['block_entities'][self.name] = {'aux': aux, 'nbt': nbt}
                 else:
                     self.state['state_mismatches'].append({
                         'name': self.name, 'aux': aux, 'native_aux': native_aux,

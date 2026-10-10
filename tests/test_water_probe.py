@@ -18,6 +18,7 @@ class ProbeRuntime(object):
         self.fluids, self.air_none = fluids, air_none
         self.paired, self.native_bed_water = paired, native_bed_water
         self.pair_palettes = []
+        self.entity_reads = []
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
 
     def time(self):
@@ -29,6 +30,14 @@ class ProbeRuntime(object):
 
     def GetLiquidBlock(self, pos, dimension):
         return self.liquids.get(pos)
+
+    def GetBlockEntityData(self, dimension, pos):
+        value = self.blocks[pos]
+        self.entity_reads.append(value['name'])
+        if value['name'] == 'minecraft:fence':
+            return {'id': {'__type__': 8, '__value__': 'MockNativeFixtureEntity'},
+                    'x': {'__type__': 3, '__value__': pos[0]}}
+        return None
 
     def GetBlockAuxValueFromStates(self, name, states):
         return (states.get('test_aux', states.get('direction', 0) +
@@ -356,6 +365,21 @@ class WaterProbeTests(unittest.TestCase):
         self.assertIn('empty disposable cells', state['failure'])
         self.assertEqual(0, runtime.calls)
         self.assertEqual('minecraft:stone', runtime.blocks[(201, 113, 40)]['name'])
+
+    def test_default_entity_nbt_is_read_once_per_verified_native_name_and_exported(self):
+        runtime = ProbeRuntime()
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertEqual(4, len(runtime.entity_reads))
+        self.assertEqual(1, runtime.entity_reads.count('minecraft:fence'))
+        self.assertEqual(1, runtime.entity_reads.count('minecraft:stone'))
+        self.assertEqual(set(state['results']), set(state['block_entity_names']))
+        self.assertEqual({'minecraft:fence'}, set(state['block_entities']))
+        self.assertEqual(0, state['block_entities']['minecraft:fence']['aux'])
+        self.assertEqual({'__type__': 8, '__value__': 'MockNativeFixtureEntity'},
+                         state['block_entities']['minecraft:fence']['nbt']['id'])
+        export = runpy.run_path(str(ROOT / 'tools/p0_water_probe_read.py'))
+        self.assertIn('block_entities', export['_result'])
 
 
 if __name__ == '__main__':

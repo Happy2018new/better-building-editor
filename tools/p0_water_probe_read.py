@@ -13,7 +13,7 @@ if state.get('done'):
     result = dict((key, state[key]) for key in (
         'schema', 'game_version', 'palette_sha256', 'blocks', 'tested_states',
         'total_states', 'method', 'elapsed_seconds', 'verified_states',
-        'states_per_subchunk', 'readback_states'))
+        'states_per_subchunk', 'readback_states', 'block_entities', 'block_entity_names'))
 else:
     result = dict((key, state.get(key)) for key in (
         'running', 'done', 'progress', 'tested_states', 'total_states',
