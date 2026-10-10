@@ -1,4 +1,5 @@
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -9,7 +10,7 @@ from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
                                      editor_preview_ready, source_matches)
 from verify_missing_neighbor_visuals import CELL_ROIS, compare_complete
 from verify_snow_plant_visibility import LOAD
-from verify_camera_projection import fit_fov, largest_component, projected_mask
+from verify_camera_projection import fit_fov, largest_component, projected_mask, stone_signal
 from PIL import Image, ImageDraw
 
 
@@ -77,6 +78,47 @@ class CameraProjectionTests(unittest.TestCase):
         draw.rectangle((40, 30, 59, 49), fill=255)
         draw.rectangle((1, 1, 5, 4), fill=255)
         self.assertEqual(largest_component(mask).getbbox(), (40, 30, 60, 50))
+
+    def _stone_signal(self, shown, hidden):
+        with tempfile.TemporaryDirectory() as directory:
+            shown_path, hidden_path = (Path(directory) / name for name in ('shown.png', 'hidden.png'))
+            shown.save(shown_path)
+            hidden.save(hidden_path)
+            return stone_signal(shown_path, hidden_path)
+
+    def test_calibration_rejects_unchanged_connected_neutral_background(self):
+        hidden = Image.new('RGB', (200, 160), (20, 60, 20))
+        ImageDraw.Draw(hidden).rectangle((75, 95, 91, 114), fill=(110, 110, 110))
+        shown = hidden.copy()
+        ImageDraw.Draw(shown).rectangle((65, 50, 114, 94), fill=(120, 120, 120))
+        mask = self._stone_signal(shown, hidden)
+        self.assertEqual(mask.getbbox(), (65, 50, 115, 95))
+        self.assertEqual(mask.getpixel((80, 108)), 0)
+
+    def test_calibration_fills_enclosed_cursor_and_texture_holes(self):
+        hidden = Image.new('RGB', (200, 160), (20, 60, 20))
+        shown = hidden.copy()
+        ImageDraw.Draw(shown).rectangle((65, 50, 114, 94), fill=(120, 120, 120))
+        for image in (shown, hidden):
+            draw = ImageDraw.Draw(image)
+            draw.rectangle((83, 68, 99, 70), fill=(245, 245, 245))
+            draw.rectangle((90, 61, 92, 78), fill=(245, 245, 245))
+        ImageDraw.Draw(shown).rectangle((72, 56, 78, 61), fill=(110, 70, 40))
+        mask = self._stone_signal(shown, hidden)
+        self.assertEqual(mask.getbbox(), (65, 50, 115, 95))
+        self.assertEqual(mask.getpixel((91, 69)), 255)
+        self.assertEqual(mask.getpixel((75, 58)), 255)
+
+    def test_calibration_preserves_open_missing_edge_notch(self):
+        hidden = Image.new('RGB', (200, 160), (20, 60, 20))
+        shown = hidden.copy()
+        draw = ImageDraw.Draw(shown)
+        draw.rectangle((65, 50, 114, 94), fill=(120, 120, 120))
+        draw.rectangle((93, 49, 100, 68), fill=(20, 60, 20))
+        mask = self._stone_signal(shown, hidden)
+        self.assertEqual(mask.getbbox(), (65, 50, 115, 95))
+        self.assertEqual(mask.getpixel((96, 57)), 0)
+        self.assertEqual(mask.getpixel((88, 57)), 255)
 
     def test_context_baseline_must_match_independent_complete_geometry(self):
         native = Image.new('RGB', (100, 80))

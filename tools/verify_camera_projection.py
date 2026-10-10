@@ -104,11 +104,22 @@ def stone_signal(shown, hidden):
         width, height = image.size
         ImageDraw.Draw(center).rectangle((width * .3, height * .25, width * .7, height * .75), fill=255)
         mask = ImageChops.multiply(mask, center)
-    outline = largest_component(mask).filter(ImageFilter.MedianFilter(3))
-    outline = outline.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
     contribution = maximum(signal(shown, hidden)).point(lambda value: 255 if value > 20 else 0)
+    mask = largest_component(ImageChops.multiply(mask, contribution))
+    outline = fill_enclosed_holes(mask).filter(ImageFilter.MedianFilter(3))
+    outline = outline.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
     assert ImageChops.multiply(outline, contribution).histogram()[255] >= 1000, 'Native cube contribution is not observable'
     return outline
+
+
+def fill_enclosed_holes(mask):
+    """Fill binary mask holes disconnected from the boundary by four-neighbor paths."""
+    # Padding connects all exterior regions; cursor and texture holes remain unfilled by the flood.
+    padded = Image.new('L', (mask.width + 2, mask.height + 2))
+    padded.paste(mask, (1, 1))
+    ImageDraw.floodfill(padded, (0, 0), 128)
+    filled = padded.point(lambda value: 0 if value == 128 else 255)
+    return filled.crop((1, 1, mask.width + 1, mask.height + 1))
 
 
 def largest_component(mask):
