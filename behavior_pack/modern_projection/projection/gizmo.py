@@ -6,7 +6,7 @@ import math
 from ..pyreact import *
 from ..pyreact.hooks import use_animation_frame
 from .camera import OrbitCamera
-from .native_layers import apply_layers
+from .ui_layers import apply_layers
 from .widgets import Theme, S, TEX, text, use_theme
 
 
