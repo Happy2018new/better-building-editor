@@ -1,10 +1,11 @@
 """Prepare one missing-only mesh while retaining each cell's native neighbors."""
-from .cell import AIR
+from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
 from .large_preview import MAX_SURFACE_BLOCKS
 from .nbt_spatial import rebase
 from .render_layout import (CONTEXT_BASE, CONTEXT_STRIDE, MAX_LOGICAL_HEIGHT,
                             OVERLAY_BASE, context_position)
+from .storage import address, integer_types
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -112,3 +113,107 @@ def prepare_context_palette(source, targets):
         data[key] = dict((value, record) for value, record in prepared.get(key, {}).items()
                          if value in data[layer])
     return data
+
+
+class ContextPaletteBuilder(object):
+    """Read snapshot chunks directly and yield between small preparation units."""
+    def __init__(self, document, targets):
+        self.document, self.targets = document, targets
+        sx, sy, sz = document.size
+        self.logical_volume = (sz, sx, sy)
+        if (tuple(targets.get('volume', ())) != self.logical_volume or
+                not 0 < sy <= MAX_LOGICAL_HEIGHT):
+            raise ValueError('Context palettes require matching supported logical volumes')
+        self.cache, self.data = {}, None
+        self.positions = []
+
+    def material(self, position):
+        key, index = address(position)
+        chunk = self.document.blocks.chunks.get(key, 0)
+        identity = chunk if isinstance(chunk, integer_types) else chunk[index]
+        if not identity:
+            return None
+        if identity in self.cache:
+            return self.cache[identity]
+        value = self.document.blocks.palette[identity]
+        front, back, actor = foreground(value), background(value), actor_data(value)
+        source = {'volume': (1, 1, 1), 'common': {}, 'extra': {}, 'actor': {}}
+        if front != AIR:
+            source['common'][front] = [0]
+        if back != AIR:
+            source['extra'][back] = [0]
+        if actor is not None:
+            source['actor'][front[0]] = {0: actor}
+        rendered = prepare_palette(source)
+        cells, overlays = _cells(rendered, (1, 1, 1))
+        result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
+        self.cache[identity] = result
+        return result
+
+    def collect(self):
+        total = self.logical_volume[0] * self.logical_volume[1] * self.logical_volume[2]
+        seen, units = set(), 0
+        for layer in ('common', 'extra'):
+            for value, indices in self.targets.get(layer, {}).items():
+                if value == AIR:
+                    continue
+                for index in indices:
+                    if index < 0 or index >= total:
+                        raise ValueError('Context target is outside its logical palette volume')
+                    if index not in seen:
+                        seen.add(index)
+                        self.positions.append(_position(index, self.logical_volume))
+                    units += 1
+                    if units % 128 == 0:
+                        yield True
+        if len(self.positions) > MAX_SURFACE_BLOCKS:
+            raise ValueError('Context targets exceed the visible block budget')
+        yield True
+
+    def initialize(self):
+        if self.positions:
+            volume = (CONTEXT_STRIDE * (max(pos[2] for pos in self.positions) + 1),
+                      CONTEXT_STRIDE * (max(pos[0] for pos in self.positions) + 1),
+                      CONTEXT_BASE + CONTEXT_STRIDE * (max(pos[1] for pos in self.positions) + 1))
+        else:
+            volume = self.logical_volume
+        self.data = {'volume': volume, 'common': {}, 'extra': {}, 'actor': {},
+                     'states': {}, 'extraStates': {}, 'void': False, 'eliminateAir': True}
+
+    def put_target(self, target):
+        center = self.material(target)
+        if center is None or center[0] is None:
+            raise ValueError('Context target is absent from the complete source palette')
+        for neighbor in NEIGHBORS:
+            original = tuple(target[axis] + neighbor[axis] for axis in range(3))
+            if not self.document.contains(original):
+                continue
+            rendered = self.material(original)
+            if rendered is None or rendered[0] is None:
+                continue
+            cell, unused_overlay, states, extra_states = rendered
+            _put(self.data, cell, context_position(target, neighbor), original)
+            self.data['states'].update(states)
+            self.data['extraStates'].update(extra_states)
+        if center[1] is not None:
+            pos = (target[0], target[1] + OVERLAY_BASE, target[2])
+            self.data['common'].setdefault(center[1], []).append(_index(pos, self.data['volume']))
+
+    def prepare(self):
+        for unused in self.collect():
+            yield True
+        self.initialize()
+        for target in self.positions:
+            self.put_target(target)
+            yield True
+        for key, layer in (('states', 'common'), ('extraStates', 'extra')):
+            self.data[key] = dict((value, record) for value, record in self.data[key].items()
+                                  if value in self.data[layer])
+
+
+def prepare_document_context(document, targets):
+    """Synchronously adapt a small palette without serializing the whole source."""
+    builder = ContextPaletteBuilder(document, targets)
+    for unused in builder.prepare():
+        pass
+    return builder.data

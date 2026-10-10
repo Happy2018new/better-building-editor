@@ -51,6 +51,7 @@ class ProjectionOccupancy(object):
         self.scan, self.near = None, None
         self.next_poll = self.next_near = self.next_build = 0.
         self.build = self.output = self.snapshot = None
+        self.prepared = None
         self.entity = self.model = None
         self.anchor = tuple(origin[i]+self.size[i]/2. for i in range(3))
         self.bank = 0
@@ -264,6 +265,11 @@ class ProjectionOccupancy(object):
                 if indices:
                     self.output.add_indices(value, indices)
             yield True
+        from .render_context import ContextPaletteBuilder
+        builder = ContextPaletteBuilder(self.document, self.output.palette_data())
+        for unused in builder.prepare():
+            yield True
+        self.prepared = builder.data
 
     def tick(self):
         if not self.active() or self.failed or not self.targets or self.bridge.preparing_entity:
@@ -292,6 +298,7 @@ class ProjectionOccupancy(object):
                 self.snapshot = self.state[:]
                 self.after_build.clear()
                 self.output = SurfacePalette(self.size)
+                self.prepared = None
                 self.build = self.prepare()
                 self.build_started = now
             deadline = time.time() + BUILD_BUDGET
@@ -304,20 +311,20 @@ class ProjectionOccupancy(object):
         except (ValueError, TypeError, KeyError, RuntimeError) as error:
             traceback.print_exc()
             self.failed = True
-            self.build = self.output = self.snapshot = None
+            self.build = self.output = self.snapshot = self.prepared = None
             self.bridge.session.editor.message = u'投影自动更新失败，请点击更新投影：%s' % error
             self.bridge.session.emit()
 
     def submit(self):
         # A short place/remove burst can cancel out while preparing.
         if not self.changed:
-            self.output = self.snapshot = None
+            self.output = self.snapshot = self.prepared = None
             self.after_build.clear()
             return
         self.bank = 1-self.shader.bank if self.entity is not None else 0
         name = self.shader.names[self.bank]
         started = time.time()
-        model = (self.bridge.geometry(self.output, name=name, context_document=self.document)
+        model = (self.bridge.geometry(self.output, name=name, prepared=self.prepared)
                  if self.output.count else None)
         self.last_build_ms = (time.time()-started)*1000.
         # Combine returning a name is not a render-thread completion fence.
@@ -328,7 +335,7 @@ class ProjectionOccupancy(object):
         if self.output.count and not model:
             raise ValueError('Could not generate occupancy projection')
         self.builds += 1
-        self.output = None
+        self.output = self.prepared = None
         if self.entity is None and model is not None:
             self.bridge.ensure_projection_distance(self.size)
             anchor = tuple(self.origin[i]+self.size[i]/2. for i in range(3))

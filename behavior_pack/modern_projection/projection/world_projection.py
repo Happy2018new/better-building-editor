@@ -23,6 +23,7 @@ class WorldProjection(object):
         self.keys = tuple(sorted(self.document.blocks.chunks))
         self.total, self.completed = len(self.keys), set()
         self.output = SurfacePalette(self.document.size)
+        self.prepared = None
         self.iterator = self.prepare()
         self.published = 0.
         self.ready, self.error, self.model = False, None, None
@@ -62,6 +63,12 @@ class WorldProjection(object):
                             self.output.add(pos, value)
                 yield None
             self.completed.add(key)
+        if self.occupancy is not None:
+            from .render_context import ContextPaletteBuilder
+            builder = ContextPaletteBuilder(self.document, self.output.palette_data())
+            for unused in builder.prepare():
+                yield None
+            self.prepared = builder.data
 
     def publish(self, force=False):
         if not self.active():
@@ -89,7 +96,7 @@ class WorldProjection(object):
             b.preparing_entity = None
         # Keep the previous projection on failure; never retry forever.
         self.error = message
-        self.iterator = self.output = None
+        self.iterator = self.output = self.prepared = None
         b.projection_requested = bool(b.session.projection_active)
         if not b.session.projection_active:
             b.restore_projection_distance()
@@ -108,7 +115,7 @@ class WorldProjection(object):
         b.projection_outline.replace(self.origin, self.document.size)
         b.set_projection_occupancy(self.occupancy, entity, self.model)
         self.ready = True
-        self.output = None
+        self.output = self.prepared = None
         self.publish(True)
 
     def attach(self, entity):
@@ -137,7 +144,7 @@ class WorldProjection(object):
     def submit(self):
         b = self.bridge
         self.model = (b.geometry(self.output, name=self.occupancy.shader.names[0],
-                                 context_document=self.document)
+                                 prepared=self.prepared)
                       if self.occupancy else b.geometry(self.output))
         if not self.model:
             if self.output.count:

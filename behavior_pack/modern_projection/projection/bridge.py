@@ -36,6 +36,18 @@ def _stable_palette(value):
     return value
 
 
+def _native_palette(data):
+    """Convert SDK strings without copying the potentially large integer lists."""
+    result = {}
+    for key, value in data.items():
+        if key in ('common', 'extra'):
+            result[native(key)] = dict((_native_tree(material), indices)
+                                       for material, indices in value.items())
+        else:
+            result[native(key)] = _native_tree(value)
+    return result
+
+
 class ClientBridge(object):
     def __init__(self, system):
         self.system = system
@@ -56,6 +68,7 @@ class ClientBridge(object):
         self.pending_data = None
         self.pending_state = None
         self.models = {}
+        self.model_layouts = {}
         self.alive = True
         self.upload = None
         self.upload_sequence = None
@@ -322,8 +335,8 @@ class ClientBridge(object):
         if prepared is not None:
             data = prepared
         elif context_document is not None:
-            from .render_context import prepare_context_palette
-            data = prepare_context_palette(context_document.palette_data(), document.palette_data(visible))
+            from .render_context import prepare_document_context
+            data = prepare_document_context(context_document, document.palette_data(visible))
         else:
             from .geometry_palette import prepare_palette
             data = prepare_palette(document.palette_data(visible))
@@ -336,13 +349,20 @@ class ClientBridge(object):
             return self.models[fingerprint]
         # Identical content reuses native geometry across undo and page changes.
         name = native(name or 'modern_projection_%d' % len(self.models))
-        data = _native_tree(data)
+        data = _native_palette(data)
         palette = self.factory.CreateBlock(self.level).GetBlankBlockPalette()
         if palette is None or not palette.DeserializeBlockPalette(data):
             raise ValueError('方块调色板生成失败')
         result = self.factory.CreateBlockGeometry(self.level).CombineBlockPaletteToGeometry(palette, name, 0)
-        if result and fingerprint is not None:
-            self.models[fingerprint] = result
+        if result:
+            if fingerprint is not None:
+                self.models[fingerprint] = result
+            layout = (tuple(document.size), tuple(data.get(native('volume'), ())))
+            self.model_layouts[name] = layout
+            self.model_layouts[result] = layout
+            for key in (name, result):
+                alternate = key.decode('utf8') if isinstance(key, bytes) else key.encode('utf8')
+                self.model_layouts[alternate] = layout
         return result
 
     def update_biome_tint(self, value):

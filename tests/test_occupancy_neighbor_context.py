@@ -1,11 +1,9 @@
-"""Known F10 gap: missing-only tessellation loses occupied neighbor context.
-
-These expected failures describe palette inputs, not native visual outcomes.
-Remove the decorators when a generic context-preserving renderer is implemented.
-"""
+"""Production F10 entrypoints retain hidden native neighbors in one mesh."""
 import unittest
 from types import SimpleNamespace
+from unittest.mock import patch
 
+import test_bridge
 from test_occupancy_review import Runtime, STONE
 from modern_projection.projection import block_registry as registry
 from modern_projection.projection.cell import make_cell
@@ -13,11 +11,14 @@ from modern_projection.projection.geometry_palette import prepare_palette
 from modern_projection.projection.large_preview import SurfacePalette
 from modern_projection.projection.model import Document
 from modern_projection.projection.occupancy import ProjectionOccupancy
-from modern_projection.projection.occupancy_initial import prepare_chunk
+from modern_projection.projection.world_projection import WorldProjection
 from modern_projection.projection.visible_actor import compose_actor
+from modern_projection.projection.bridge import ClientBridge
+from modern_projection.projection.render_context import ContextPaletteBuilder
+from modern_projection.projection.render_layout import context_center, context_position, logical_position
 
 
-class MissingOnlyNeighborContextKnownGapTests(unittest.TestCase):
+class MissingOnlyNeighborContextTests(unittest.TestCase):
     def fixture(self):
         base, corner, chest_pos = (15, 1, 8), (16, 1, 8), (14, 1, 8)
         stair = lambda direction: registry.from_states('minecraft:oak_stairs', {
@@ -25,7 +26,7 @@ class MissingOnlyNeighborContextKnownGapTests(unittest.TestCase):
         water = ('minecraft:water', 0)
         chest = registry.from_states('minecraft:chest', {
             'minecraft:cardinal_direction': 'north'})
-        render = {'chestIsLargeChest': False}
+        render = {'chestIsLargeChest': False, 'x': 14, 'y': 1, 'z': 8}
         nbt = {'id': {'__type__': 8, '__value__': 'Chest'}}
         document = Document((32, 16, 16), {
             base: make_cell(stair(0), water),
@@ -36,37 +37,71 @@ class MissingOnlyNeighborContextKnownGapTests(unittest.TestCase):
         for pos in (corner, chest_pos):
             runtime.world[tuple(origin[i] + pos[i] for i in range(3))] = STONE
         session = SimpleNamespace(editor=SimpleNamespace(document=document, layer=None),
-                                  preview_hidden=lambda: (), solo_layer=False)
+                                  preview_hidden=lambda: (), solo_layer=False,
+                                  opacity=.5, projection_missing=True)
         bridge = SimpleNamespace(session=session, factory=runtime, system=runtime,
-                                 level='level', projection_serial=1,
-                                 projection_occupancy=None)
+                                 level='level', projection_serial=1, models={}, model_layouts={},
+                                 projection_occupancy=None, projection_mesh=None,
+                                 alive=True, entity=None)
         tracker = ProjectionOccupancy(bridge, origin)
         return document, tracker, base, corner, chest_pos, render
 
     def native(self, source):
         return prepare_palette(source.palette_data())
 
+    def capture_boundary(self, bridge):
+        result = {}
+        palette = SimpleNamespace(DeserializeBlockPalette=lambda data: result.update(data=data) or True)
+        bridge.factory = SimpleNamespace(
+            CreateBlock=lambda level: SimpleNamespace(GetBlankBlockPalette=lambda: palette),
+            CreateBlockGeometry=lambda level: SimpleNamespace(
+                CombineBlockPaletteToGeometry=lambda palette, name, mode: name))
+        bridge.geometry = lambda *args, **kwargs: ClientBridge.geometry(bridge, *args, **kwargs)
+        return result
+
+    def assert_context(self, actual, document, target):
+        volume = actual['volume']
+        self.assertEqual((36, 64, 520), volume)
+        occupied = set()
+        for original, value in document.blocks.items():
+            neighbor = tuple(original[axis] - target[axis] for axis in range(3))
+            pos = context_position(target, neighbor)
+            index = (pos[1] * volume[1] + pos[0]) * volume[0] + pos[2]
+            occupied.add(index)
+            self.assertIn(index, actual['common'][tuple(value)])
+            self.assertEqual(registry.states(tuple(value)), actual['states'][tuple(value)])
+        self.assertEqual(occupied, set(actual['extra'][('minecraft:water', 0)]))
+        actor = next(iter(actual['actor']['minecraft:chest'].values()))
+        self.assertNotIn('nbt', actor)
+        self.assertEqual(context_position(target, (-1, 0, 0)), tuple(actor[axis] for axis in ('x', 'y', 'z')))
+        centers = set()
+        for entries in actual['common'].values():
+            for index in entries:
+                pos = (index // volume[0] % volume[1], index // (volume[0] * volume[1]), index % volume[0])
+                fragment = tuple(axis + .5 for axis in pos)
+                if context_center(fragment):
+                    centers.add(logical_position(fragment))
+        self.assertEqual({tuple(axis + .5 for axis in target)}, centers)
+
     def test_complete_context_control_preserves_stairs_water_and_actor(self):
         document, tracker, base, corner, chest, render = self.fixture()
         data = self.native(document)
         indices = {tracker.index(pos) for pos in (base, corner, chest)}
-        self.assertEqual(indices, {index for group in data['common'].values()
-                                   for index in group})
+        self.assertEqual(indices, {index for group in data['common'].values() for index in group})
         self.assertEqual(indices, set(data['extra'][('minecraft:water', 0)]))
         self.assertEqual({'minecraft:chest': {tracker.index(chest): render}}, data['actor'])
-        self.assertNotIn('nbt', data['actor']['minecraft:chest'][tracker.index(chest)])
 
-    @unittest.expectedFailure
-    def test_small_initial_palette_retains_full_native_context(self):
-        document, tracker, unused, unused2, unused3, unused4 = self.fixture()
-        # This is the same document.palette_data(visible) path used by bridge.
-        actual = prepare_palette(document.palette_data(tracker.initial_visible))
-        self.assertEqual(self.native(document), actual)
+    def test_small_initial_geometry_submits_full_context_to_actual_native_boundary(self):
+        document, tracker, base, unused, unused2, unused3 = self.fixture()
+        boundary = self.capture_boundary(tracker.bridge)
+        tracker.bridge.geometry(document, tracker.initial_visible, name='small', context_document=tracker.document)
+        self.assert_context(boundary['data'], document, base)
+        self.assertEqual((document.size, boundary['data']['volume']), tracker.bridge.model_layouts['small'])
+        self.assertEqual(tracker.bridge.model_layouts['small'], tracker.bridge.model_layouts[b'small'])
 
-    @unittest.expectedFailure
-    def test_chunk_initial_palette_retains_full_native_context(self):
-        document, tracker, unused, unused2, unused3, unused4 = self.fixture()
-
+    def test_chunk_initial_world_projection_submits_prepared_neighbor_context(self):
+        document, tracker, base, unused, unused2, unused3 = self.fixture()
+        tracker.bulk = SimpleNamespace(initial=None)
         def begin(key):
             size = tuple(min(16, document.size[i] - key[i] * 16) for i in range(3))
             values = bytearray([1]) * (size[0] * size[1] * size[2])
@@ -78,19 +113,23 @@ class MissingOnlyNeighborContextKnownGapTests(unittest.TestCase):
                     local = tuple(pos[i] - key[i] * 16 for i in range(3))
                     values[(local[1] * size[0] + local[0]) * size[2] + local[2]] = 2
             tracker.bulk.initial = (key, (values, size))
-
         tracker.bulk.begin = begin
-        output = SurfacePalette(document.size)
-        for key in sorted(document.blocks.chunks):
-            size = tuple(min(16, document.size[i] - key[i] * 16) for i in range(3))
-            for unused in prepare_chunk(tracker, document.blocks, key, size, output):
-                pass
-        self.assertEqual(set(document.blocks), set(tracker.targets))
-        self.assertEqual(self.native(document), self.native(output))
+        work = WorldProjection.__new__(WorldProjection)
+        work.document, work.keys = tracker.document, tuple(sorted(document.blocks.chunks))
+        work.occupancy, work.completed = tracker, set()
+        work.hidden, work.layer = set(), None
+        work.output, work.prepared = SurfacePalette(document.size), None
+        for unused in work.prepare():
+            pass
+        boundary = self.capture_boundary(tracker.bridge)
+        work.bridge, work.origin, work.anchor = tracker.bridge, tracker.origin, tracker.anchor
+        tracker.bridge.later = lambda delay, callback: None
+        tracker.bridge.preparing_entity = None
+        work.submit()
+        self.assert_context(boundary['data'], document, base)
 
-    @unittest.expectedFailure
-    def test_dynamic_rebuild_retains_full_native_context(self):
-        document, tracker, unused, unused2, unused3, unused4 = self.fixture()
+    def test_dynamic_rebuild_submits_context_and_keeps_entire_source_snapshot(self):
+        document, tracker, base, unused, unused2, unused3 = self.fixture()
         runtime = tracker.bridge.system
         occupied = dict(runtime.world)
         runtime.world.clear()
@@ -105,7 +144,20 @@ class MissingOnlyNeighborContextKnownGapTests(unittest.TestCase):
         for unused in tracker.prepare():
             pass
         self.assertEqual(set(document.blocks), set(tracker.document.blocks))
-        self.assertEqual(self.native(document), self.native(tracker.output))
+        boundary = self.capture_boundary(tracker.bridge)
+        tracker.entity = 'existing'
+        tracker.submit()
+        self.assert_context(boundary['data'], document, base)
+
+    def test_block_store_builder_yields_and_never_serializes_whole_source(self):
+        document, tracker, base, unused, unused2, unused3 = self.fixture()
+        target = document.palette_data(lambda pos: pos == base)
+        builder = ContextPaletteBuilder(document, target)
+        with patch.object(Document, 'palette_data', side_effect=AssertionError('whole source serialized')):
+            units = sum(1 for unused in builder.prepare())
+        self.assertGreater(units, 1)
+        self.assert_context(builder.data, document, base)
+        self.assertEqual(3, len(builder.cache))
 
 
 if __name__ == '__main__':
