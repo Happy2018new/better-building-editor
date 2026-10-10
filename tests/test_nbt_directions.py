@@ -112,6 +112,7 @@ class NbtDirectionTests(unittest.TestCase):
         for offset in ((1, 0, 0), (0, 0, -1)):
             for lead in (False, True, 0, 1):
                 nbt = {'id': tagged('Chest', 8), 'pairlead': tagged(lead, 1),
+                       'renderlead': tagged(not lead if type(lead) is bool else 1 - lead, 1),
                        'pairx': tagged(origin[0] + offset[0], 3),
                        'pairz': tagged(origin[2] + offset[2], 3),
                        'Items': tagged([{'Slot': 0, 'tag': {'pairlead': lead}}], 9)}
@@ -128,6 +129,9 @@ class NbtDirectionTests(unittest.TestCase):
                     self.assertEqual(bool(lead) != mirrored, bool(scalar(changed_nbt, 'pairlead')))
                     self.assertIs(type(scalar(changed_nbt, 'pairlead')), type(lead))
                     self.assertEqual(1, changed_nbt['pairlead']['__type__'])
+                    self.assertEqual(bool(lead) == mirrored, bool(scalar(changed_nbt, 'renderlead')))
+                    self.assertIs(type(scalar(changed_nbt, 'renderlead')), type(lead))
+                    self.assertEqual(1, changed_nbt['renderlead']['__type__'])
                     self.assertEqual(bool(lead) != mirrored, render_actor(changed)['chestMainSubChest'])
                     self.assertEqual(nbt['Items'], changed_nbt['Items'])
                     inverse = {'rotate_y90': 'rotate_y270', 'rotate_y270': 'rotate_y90'}.get(operation, operation)
@@ -139,6 +143,31 @@ class NbtDirectionTests(unittest.TestCase):
                       {'id': 'Chest', 'pairx': 1, 'pairz': 0, 'pairlead': 3}):
             changed = transform_pair(actor, (0, 0, 0), 'mirror_x')
             self.assertEqual(actor['pairlead'], changed['pairlead'])
+
+    def test_renderlead_missing_invalid_or_unpaired_fields_are_not_invented(self):
+        for actor in ({'id': 'Chest', 'renderlead': True},
+                      {'id': 'Unknown', 'pairx': 1, 'pairz': 0, 'renderlead': 1},
+                      {'id': 'Chest', 'pairx': True, 'pairz': 0, 'renderlead': False},
+                      {'id': 'Chest', 'pairx': 1, 'pairz': 0, 'renderlead': 3},
+                      {'id': 'Chest', 'pairx': 1, 'pairz': 0, 'renderlead': 0.0},
+                      {'id': 'Chest', 'pairx': 1, 'pairz': 0, 'pairlead': 1}):
+            changed = transform_pair(actor, (0, 0, 0), 'mirror_x')
+            self.assertEqual(actor.get('renderlead'), changed.get('renderlead'))
+            self.assertEqual('renderlead' in actor, 'renderlead' in changed)
+
+    def test_native_double_chest_preserves_lead_complement_after_mirrors(self):
+        origin = (10, 3, -8)
+        for pairlead in (0, 1):
+            actor = {b'id': tagged(b'Chest', 8),
+                     b'pairlead': tagged(pairlead, 1),
+                     b'renderlead': tagged(1 - pairlead, 1),
+                     b'pairx': tagged(11, 3), b'pairz': tagged(-8, 3)}
+            for operation in ('mirror_x', 'mirror_z'):
+                changed = transform_pair(actor, origin, operation)
+                self.assertEqual(1 - pairlead, scalar(changed, 'pairlead'))
+                self.assertEqual(pairlead, scalar(changed, 'renderlead'))
+                self.assertEqual(1, scalar(changed, 'pairlead') + scalar(changed, 'renderlead'))
+                self.assertEqual(actor, transform_pair(changed, origin, operation))
 
 
 if __name__ == '__main__':

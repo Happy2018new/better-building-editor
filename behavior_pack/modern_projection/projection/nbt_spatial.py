@@ -135,11 +135,12 @@ def _chest_roles(root, operation):
     pair = (scalar(root, 'pairx'), scalar(root, 'pairz'))
     if any(not isinstance(value, integer_types) or type(value) is bool for value in pair):
         return
-    lead = scalar(root, 'pairlead')
-    if type(lead) is bool:
-        set_scalar(root, 'pairlead', not lead)
-    elif isinstance(lead, integer_types) and lead in (0, 1):
-        set_scalar(root, 'pairlead', 1 - lead)
+    for field in ('pairlead', 'renderlead'):
+        lead = scalar(root, field)
+        if type(lead) is bool:
+            set_scalar(root, field, not lead)
+        elif isinstance(lead, integer_types) and lead in (0, 1):
+            set_scalar(root, field, 1 - lead)
 
 
 def _pair_coordinates(root, origin, operation):
