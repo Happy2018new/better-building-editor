@@ -9,6 +9,8 @@ from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
                                      editor_preview_ready, source_matches)
 from verify_missing_neighbor_visuals import CELL_ROIS
 from verify_snow_plant_visibility import LOAD
+from verify_camera_projection import fit_fov, largest_component, projected_mask
+from PIL import Image, ImageDraw
 
 
 class CameraProjectionTests(unittest.TestCase):
@@ -60,6 +62,21 @@ class CameraProjectionTests(unittest.TestCase):
                      ((0., 0., 0.), (0., 0., 10.), (0., 0., 0.), (0, 600), 60.)):
             with self.subTest(args=args), self.assertRaises(ValueError):
                 project_points((args[0],), args[1], args[2], args[3], args[4])
+
+    def test_calibration_recovers_native_cube_fov(self):
+        pose = {'position': (0., 0., 6.), 'target': (0., 0., 0.)}
+        cube = projected_mask(pose, (800, 600), 80.)
+        fitted = fit_fov(cube, pose)
+        self.assertLessEqual(abs(fitted['vertical_fov'] - 80.), 1.)
+        self.assertEqual(fitted['boundary_rms_pixels'], 0.)
+        self.assertEqual(fitted['mask_iou'], 1.)
+
+    def test_calibration_excludes_disconnected_background_changes(self):
+        mask = Image.new('L', (100, 80))
+        draw = ImageDraw.Draw(mask)
+        draw.rectangle((40, 30, 59, 49), fill=255)
+        draw.rectangle((1, 1, 5, 4), fill=255)
+        self.assertEqual(largest_component(mask).getbbox(), (40, 30, 60, 50))
 
 
 class BlueprintSourceIdentityTests(unittest.TestCase):

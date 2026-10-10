@@ -7,6 +7,7 @@ changed. Baseline, dynamic hiding and initial regeneration use the same camera.
 import argparse
 import json
 import math
+import os
 import time
 from pathlib import Path
 
@@ -149,6 +150,7 @@ for pos in s.editor.document.blocks:
  cells.append({'pos':pos,'world_points':world_points,'native_points':points})
 _result=json.dumps({'cells':cells,'screen':game.GetScreenSize(),'position':position,
  'rotation':cam.GetCameraRotation(),'target':target,'fov':fov,
+ 'runtime_minecraft_version':api.GetMinecraftVersion(),
  'projection_method':'native' if hasattr(cam,'WorldToScreenPoint') else 'analytic_vertical_fov'})
 '''
 
@@ -189,7 +191,15 @@ def signal(shown, hidden):
         return ImageChops.difference(first, second)
 
 
-def roi_masks(projection, size, keep, occupied):
+def roi_masks(projection, size, keep, occupied, calibration=None):
+    effective_fov = projection['fov']
+    if calibration is not None and projection['projection_method'] != 'native':
+        assert calibration.get('passed') and calibration.get('completed'), calibration
+        assert calibration['session_file'] == os.environ.get('MCDEV_SESSION_FILE'), calibration
+        assert calibration['runtime_minecraft_version'] == projection['runtime_minecraft_version'], calibration
+        assert abs(calibration['reported_fov'] - projection['fov']) < .01, calibration
+        assert abs(calibration['screen_aspect'] - projection['screen'][0] / projection['screen'][1]) < .01, calibration
+        effective_fov = calibration['vertical_fov']
     if projection['projection_method'] == 'native':
         for row in projection['cells']:
             row['points'] = row.pop('native_points')
@@ -197,11 +207,13 @@ def roi_masks(projection, size, keep, occupied):
         for row in projection['cells']:
             row['points'] = project_box_corners(row['world_points'], projection['position'],
                                                 projection['target'], projection['screen'],
-                                                projection['fov'], projection['rotation'][2])
+                                                effective_fov, projection['rotation'][2])
             del row['world_points']
     projection['projection_details'] = {
         'method': projection['projection_method'],
         'fov_degrees': projection['fov'],
+        'effective_vertical_fov': effective_fov,
+        'calibration': calibration,
         'fov_convention': 'vertical' if projection['projection_method'] != 'native' else 'native engine',
         'position': projection['position'], 'target': projection['target'],
         'rotation': projection['rotation'], 'screen': projection['screen']}
@@ -400,7 +412,7 @@ def case(check, label, keep, occupied, args):
         pose = select_view(check, keep, occupied, view, args.offset)
         baseline, capture = capture_signal(check, label + '_' + view + '_baseline', occupied)
         rois = check.run(CELL_ROIS)
-        keep_roi, hidden_roi, roi_record = roi_masks(rois, baseline.size, keep, occupied)
+        keep_roi, hidden_roi, roi_record = roi_masks(rois, baseline.size, keep, occupied, args.camera_calibration)
         baselines[view], masks[view] = baseline, (keep_roi, hidden_roi)
         before['views'][view] = {'camera': pose, 'capture': capture, 'roi': roi_record}
     check.run('sys._neighbor_qa_occupied.add(%r)\nb.projection_occupancy.read(%r)\n_result=True' % (occupied, occupied))
@@ -444,7 +456,11 @@ def main():
     parser.add_argument('--threshold', type=int, default=16)
     parser.add_argument('--refresh', action='store_true')
     parser.add_argument('--restore-detached', action='store_true')
+    parser.add_argument('--camera-calibration', type=Path,
+                        help='Passed native-cube FOV calibration evidence JSON')
     args = parser.parse_args()
+    if args.camera_calibration is not None:
+        args.camera_calibration = json.loads(args.camera_calibration.read_text(encoding='utf8'))
     if args.timeout <= 0 or args.min_pixels <= 0 or not 0 < args.opacity <= 1 or not 0 <= args.threshold < 255:
         parser.error('Invalid timeout, pixel minimum, opacity or threshold')
     if args.offset is not None and len(args.view or ()) != 1:
