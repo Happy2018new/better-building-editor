@@ -19,6 +19,7 @@ from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTO
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
 
 native = bounded.native
+CELL_HEIGHT = 1.6
 CASES = tuple(bounded.METADATA['cells']) + tuple(
     family + '_cross_chunk' for family in bounded.METADATA['cross_chunk_cells'])
 
@@ -69,11 +70,16 @@ from modern_projection.server_system import WorldAdapter
 from modern_projection.projection.cell import AIR
 saved=sys._neighbor_world_saved
 adapter=WorldAdapter(saved['player'])
+player_foot=saved.get('player_foot')
+if player_foot is not None:
+ assert api.GetEngineCompFactory().CreatePos(saved['player']).SetFootPos(tuple(player_foot))
 for pos,value in reversed(saved['cells']):
  if adapter.read(pos)!=AIR:assert adapter.write(pos,AIR), pos
+for pos in saved['reserved']:
+ if adapter.read(pos)!=AIR:assert adapter.write(pos,AIR),pos
 for pos in saved['reserved']:assert adapter.read(pos)==AIR, (pos,adapter.read(pos))
 del sys._neighbor_world_saved
-_result=True
+_result=json.dumps({'restored':True,'player_foot':player_foot})
 '''
 
 CLEAR_SOURCE = '''import sys
@@ -85,6 +91,35 @@ cells=%r
 for pos,value in cells:
  if adapter.read(pos)!=AIR:assert adapter.write(pos,AIR), pos
 for pos,value in cells:assert adapter.read(pos)==AIR,(pos,adapter.read(pos))
+_result=True
+'''
+
+NEAR_PLAYER = '''import sys,json
+import mod.server.extraServerApi as api
+from modern_projection.server_system import WorldAdapter
+from modern_projection.projection.cell import AIR
+saved=sys._neighbor_world_saved
+adapter=WorldAdapter(saved['player'])
+position=api.GetEngineCompFactory().CreatePos(saved['player'])
+assert 'player_foot' not in saved
+saved['player_foot']=position.GetFootPos()
+source=%r
+lo=tuple(min(pos[i] for pos,value in source) for i in range(3))
+platform=(lo[0]-4,lo[1]-1,lo[2]-4)
+assert adapter.read(platform)==AIR,(platform,adapter.read(platform))
+saved['reserved'].add(platform)
+assert adapter.write(platform,('minecraft:stone',0))
+point=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+assert position.SetFootPos(point)
+_result=json.dumps({'before':saved['player_foot'],'after':point,'platform':platform})
+'''
+
+WRITE_SUPPORTS = '''import sys
+from modern_projection.server_system import WorldAdapter
+saved=sys._neighbor_world_saved
+adapter=WorldAdapter(saved['player'])
+cells=%r
+for pos,value in cells:assert adapter.write(pos,tuple(value)),(pos,value)
 _result=True
 '''
 
@@ -163,7 +198,8 @@ def replay(args):
                               runtime_minecraft_version=calibration['runtime_minecraft_version'], cells=[])
             for pos, value in row['source']['cells']:
                 points = [tuple(origin[i] + pos[i] + offset[i] for i in range(3))
-                          for offset in ((x, y, z) for x in (0., 1.) for y in (0., 1.6) for z in (0., 1.))]
+                          for offset in ((x, y, z) for x in (0., 1.)
+                                         for y in (0., row.get('cell_height', 1.6)) for z in (0., 1.))]
                 projection['cells'].append({'pos': pos, 'world_points': points})
             for capture in (frames['world'], frames['empty']):
                 assert hashlib.sha256(Path(capture['path']).read_bytes()).hexdigest() == capture['sha256'], capture
@@ -171,6 +207,16 @@ def replay(args):
             first, second, record = native.roi_masks(projection, baseline.size, keep, occupied, calibration)
             masks = first, second
             frames['roi'] = record
+            if 'support_positive_control' in frames:
+                control = frames['support_positive_control']
+                for capture in (control['shown'], control['hidden']):
+                    assert hashlib.sha256(Path(capture['path']).read_bytes()).hexdigest() == capture['sha256'], capture
+                support_signal = native.signal(control['shown']['path'], control['hidden']['path'])
+                support_mask, polygons = support_roi(projection, baseline.size, row['native_supports'])
+                control['pixels'] = native.count(native.ImageChops.multiply(
+                    native.binary(native.maximum(support_signal), args.threshold), support_mask))
+                control['cell_hulls'] = polygons
+                control['passed'] = control['pixels'] >= args.min_pixels
             context = frames['context']
             for capture in (context['shown'], context['actor_hidden']):
                 assert hashlib.sha256(Path(capture['path']).read_bytes()).hexdigest() == capture['sha256'], capture
@@ -183,7 +229,9 @@ def replay(args):
                 actual = native.signal(item['capture']['shown']['path'], item['capture']['actor_hidden']['path'])
                 prefix = args.output.with_name(args.output.stem + '_' + row['case'] + '_' + view + '_' + stage)
                 item['pixels'] = native.compare_pixels(baseline, actual, masks, prefix, args.min_pixels, args.threshold)
-        row['passed'] = (all(item['context_matches_world']['passed'] for item in row['views'].values()) and
+        row['passed'] = (all(item['context_matches_world']['passed'] and
+                             item.get('support_positive_control', {'passed': True})['passed']
+                             for item in row['views'].values()) and
                          all(item['pixels']['passed'] for stage in ('dynamic', 'initial')
                              for item in row[stage]['views'].values()))
     report['replay_source'] = {'path': str(args.replay.resolve()),
@@ -197,16 +245,50 @@ def replay(args):
 
 
 def clear_world(client):
-    return run(client, 'import sys\nif hasattr(sys,"_neighbor_world_saved"):\n' +
-               '\n'.join(' ' + line for line in CLEAR.splitlines()) + '\n_result=True')
+    return run(client, 'import sys\n_result={"restored":True,"player_foot":None}\n'
+               'if hasattr(sys,"_neighbor_world_saved"):\n' +
+               '\n'.join(' ' + line for line in CLEAR.splitlines()))
+
+
+def player_ready(check, point):
+    return check.wait('client player position',
+                      lambda value: all(abs(value[i] - point[i]) < .2 for i in range(3)),
+                      lambda: check.run('_result=json.dumps(b.player_position.GetFootPos())'))
 
 
 def case(check, label, args, row):
     try:
         return world_case(check, label, args, row)
     finally:
-        clear_world(check.client)
+        restored = clear_world(check.client)
+        if restored.get('player_foot') is not None:
+            player_ready(check, restored['player_foot'])
+        row['world_cleanup'] = restored
         row['world_restored'] = True
+
+
+def native_supports(cells):
+    return [(tuple(pos[i] - (i == 1) for i in range(3)), ('minecraft:stone', 0))
+            for pos, value in cells if value[0] == 'minecraft:rail']
+
+
+def support_roi(projection, size, supports):
+    details = projection['projection_details']
+    assert details['method'] != 'native', 'This support control needs the calibrated NEMC 3.9 camera'
+    mask = Image.new('L', size)
+    scale = size[0] / details['screen'][0], size[1] / details['screen'][1]
+    polygons = []
+    for pos, value in supports:
+        corners = [tuple(pos[i] + offset[i] for i in range(3))
+                   for offset in ((x, y, z) for x in (0., 1.) for y in (0., 1.) for z in (0., 1.))]
+        points = native.project_box_corners(corners, details['position'], details['target'],
+                                           details['screen'], details['effective_vertical_fov'],
+                                           details['rotation'][2])
+        polygon = native.hull((point['screenX'] * scale[0], point['screenY'] * scale[1]) for point in points)
+        assert polygon, (pos, details)
+        ImageDraw.Draw(mask).polygon(polygon, fill=255)
+        polygons.append({'position': pos, 'polygon': polygon})
+    return mask, polygons
 
 
 def world_case(check, label, args, row):
@@ -217,13 +299,15 @@ def world_case(check, label, args, row):
                        '[(pos,foreground(value)) for pos,value in s.editor.document.blocks.items()]})')
     cells = [(tuple(source['origin'][i] + pos[i] for i in range(3)), tuple(value))
              for pos, value in source['cells']]
-    row.update(keep=keep, occupied=occupied, source=source, fixture=before, views={})
+    row.update(keep=keep, occupied=occupied, source=source, fixture=before,
+               cell_height=CELL_HEIGHT, views={})
     check.run('b.stop_projection()\n_result=True')
-    supports = [(tuple(pos[i] - (i == 1) for i in range(3)), ('minecraft:stone', 0))
-                for pos, value in cells if value[0] == 'minecraft:rail']
+    supports = native_supports(cells)
     row['native_supports'] = supports
     world_frames = {}
     row['world_setup'] = run(check.client, RESERVE % (cells, supports))
+    row['near_player'] = run(check.client, NEAR_PLAYER % (cells,))
+    row['near_player']['client'] = player_ready(check, row['near_player']['after'])
     row['world_replication'] = replication(check, cells, False)
     # Capture persistent wall/rail states after native placement. Rail supports
     # remain in every shown/hidden frame, so subtraction isolates the rails.
@@ -255,6 +339,21 @@ def world_case(check, label, args, row):
             projection, baseline.size, keep, occupied, args.calibration)
         baselines[view], masks[view] = baseline, (keep_roi, hidden_roi)
         row['views'][view].update(empty=empty, roi=roi_record, world_signal=str(baseline_path.resolve()))
+        if supports:
+            run(check.client, CLEAR_SOURCE % (supports,))
+            replication(check, supports, True)
+            pose, support_hidden = camera_capture(check, label + '_' + view + '_support_hidden', keep, occupied, view)
+            control = native.signal(empty['path'], support_hidden['path'])
+            mask, polygons = support_roi(projection, baseline.size, supports)
+            control_pixels = native.count(native.ImageChops.multiply(
+                native.binary(native.maximum(control), args.threshold), mask))
+            row['views'][view]['support_positive_control'] = {
+                'shown': empty, 'hidden': support_hidden, 'pixels': control_pixels,
+                'cell_hulls': polygons,
+                'minimum_pixels': args.min_pixels, 'passed': control_pixels >= args.min_pixels}
+            run(check.client, WRITE_SUPPORTS % (supports,))
+            replication(check, supports, False)
+            assert control_pixels >= args.min_pixels, row['views'][view]['support_positive_control']
     check.run('b.project()\n_result=True')
     initial_air = native.projection_ready(check, occupied)
     assert initial_air['state'] == 1, initial_air
@@ -281,7 +380,9 @@ def world_case(check, label, args, row):
             pixels = native.compare_pixels(baselines[view], actual, masks[view], prefix,
                                            args.min_pixels, args.threshold)
             row[stage]['views'][view] = {'capture': capture, 'pixels': pixels}
-    row['passed'] = (all(value['context_matches_world']['passed'] for value in row['views'].values()) and
+    row['passed'] = (all(value['context_matches_world']['passed'] and
+                         value.get('support_positive_control', {'passed': True})['passed']
+                         for value in row['views'].values()) and
                      all(value['pixels']['passed'] for stage in ('dynamic', 'initial')
                          for value in row[stage]['views'].values()))
     row['completed'] = True
@@ -310,7 +411,7 @@ def main():
     report = {'schema': 1, 'completed': False, 'passed': False, 'cases': [],
               'session_file': os.environ.get('MCDEV_SESSION_FILE'),
               'owner': os.environ.get('MCDEV_OWNER'),
-              'fixture': bounded.METADATA['fixture'],
+              'fixture': native.FIXTURE,
               'scope': 'Real world native blocks versus bounded client projection at identical position/camera',
               'occupancy_source': 'Temporary client observation replacement after world baseline is cleared',
               'limits': 'Unchanged missing-neighbor pixel contracts; camera calibrated in this session'}
