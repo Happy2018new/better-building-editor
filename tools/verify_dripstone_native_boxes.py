@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 
@@ -49,11 +50,20 @@ def verify_scene_boxes(server, client, expected):
         first, second = server_rows[pos], client_rows[pos]
         for row in (first, second):
             assert (row['value']['name'], row['value']['aux']) == value, row
+            for kind in ('clip', 'collision'):
+                box = row[kind]
+                assert isinstance(box, dict), (pos, kind, box)
+                for bound in ('min', 'max'):
+                    axes = box.get(bound)
+                    assert isinstance(axes, (tuple, list)) and len(axes) == 3, (pos, kind, box)
+                    assert all(isinstance(axis, (int, float)) and math.isfinite(axis) for axis in axes), (pos, kind, box)
+                assert all(box['min'][axis] < box['max'][axis] for axis in range(3)), (pos, kind, box)
         assert first['clip'] == first['collision'] == second['clip'] == second['collision'], (first, second)
         if value[0] == 'minecraft:stone':
             assert tuple(first['clip']['min']) == pos, first
             assert tuple(first['clip']['max']) == tuple(axis + 1 for axis in pos), first
-    return {'all_values_equal': True, 'all_box_methods_equal': True, 'stone_unit_boxes': True,
+    return {'all_values_equal': True, 'all_boxes_valid': True,
+            'all_box_methods_equal': True, 'stone_unit_boxes': True,
             'cells': len(expected)}
 
 

@@ -13,6 +13,22 @@ from verify_dripstone_native_boxes import holdout_samples, matrix, verify_scene_
 
 
 class DirectSeedDiagnosticTests(unittest.TestCase):
+    def test_equal_missing_or_invalid_native_boxes_never_accept(self):
+        pos = (6, -37, 6)
+        valid = {'min': (6.3125, -37, 6.3125), 'max': (6.6875, -36, 6.6875)}
+        expected = {pos: ('minecraft:pointed_dripstone', 4)}
+        for box in (None, {}, {'min': valid['min']},
+                    {'min': valid['min'], 'max': valid['min']},
+                    {'min': (float('nan'), -37, 6.3125), 'max': valid['max']}):
+            row = {'pos': pos, 'value': {'name': 'minecraft:pointed_dripstone', 'aux': 4},
+                   'clip': box, 'collision': box}
+            source = {'rows': [row]}
+            with self.subTest(box=box), self.assertRaises(AssertionError):
+                verify_scene_boxes(source, source, expected)
+        row = {'pos': pos, 'value': {'name': 'minecraft:pointed_dripstone', 'aux': 4},
+               'clip': valid, 'collision': valid}
+        self.assertTrue(verify_scene_boxes({'rows': [row]}, {'rows': [row]}, expected)['all_boxes_valid'])
+
     def test_scene_verification_rejects_stale_aux_mismatched_boxes_and_nonunit_stone(self):
         import copy
         pos = (6, -38, 6)

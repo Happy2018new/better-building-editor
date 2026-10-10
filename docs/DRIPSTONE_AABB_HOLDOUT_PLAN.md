@@ -22,7 +22,9 @@ chunk boundaries and Y independence are measured together.
 The report retains every native client/server clip and collision box,
 stored native states, world seed, runtime versions, the source tool hash
 and the original AABB evidence fingerprint. It requires exact agreement
-between all four box methods for every cell. This provides raw holdout
+between all four box methods for every cell, and each returned box must
+have three finite coordinates per bound and positive extent on every axis.
+Equal null or malformed results cannot count as native measurements. This provides raw holdout
 evidence; it does not fit a screen-space correction or implement a table
 of native offsets.
 
