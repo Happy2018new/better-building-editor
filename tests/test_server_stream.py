@@ -47,6 +47,7 @@ class ServerStreamTests(unittest.TestCase):
         self.actors = {}
         self.entity_reads = []
         self.palette_reads = []
+        self.state_writes = []
         self.factory = types.SimpleNamespace(
             CreateGame=lambda level: types.SimpleNamespace(GetPlayerGameType=lambda player: 1 if self.creative else 0),
             CreateDimension=lambda player: types.SimpleNamespace(GetEntityDimensionId=lambda: self.dimension),
@@ -57,7 +58,14 @@ class ServerStreamTests(unittest.TestCase):
                 GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=self.read_entity,
                 GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
                 SetSignBlockText=lambda pos, text, dim, side: True,
-                SetBlockEntityData=self.set_actor, SetBlockNew=self.write),
+                SetBlockEntityData=self.set_actor, SetBlockNew=self.write,
+                SetLiquidBlock=self.set_liquid),
+            CreateBlockState=lambda level: types.SimpleNamespace(
+                GetBlockAuxValueFromStates=lambda name, properties:
+                    properties['direction'] + 8 * int(properties['head_piece_bit']) +
+                    4 * int(properties['occupied_bit']),
+                SetBlockStates=lambda pos, properties, dimension:
+                    self.state_writes.append((pos, properties, dimension)) or True),
             CreateBlockEntity=lambda level: types.SimpleNamespace(
                 SetSignTextStyle=lambda pos, dim, color, glow, side: True),
             CreateBlock=lambda level: types.SimpleNamespace(
@@ -110,6 +118,14 @@ class ServerStreamTests(unittest.TestCase):
 
     def set_actor(self, dimension, pos, actor):
         self.actor_writes.append((dimension, pos, actor))
+        return True
+
+    def set_liquid(self, pos, value, dimension):
+        name = value['name'].decode('utf8')
+        if name == 'minecraft:air':
+            self.liquids.pop(pos, None)
+        else:
+            self.liquids[pos] = {'name': name, 'aux': value['aux']}
         return True
 
     def test_staff_state_snapshot_uses_server_equipment(self):
@@ -585,6 +601,37 @@ class ServerStreamTests(unittest.TestCase):
         self.assertFalse(any(b'modern_projection:preview_' in key[0]
                              for data, unused_dim, unused_pos, unused_rot, unused_conflict
                              in self.palette_writes for key in data['common']))
+
+    def test_native_bed_writes_use_one_head_with_exact_states_and_no_world_readback(self):
+        from modern_projection.projection.block_registry import aux_values, states
+        from modern_projection.projection.block_groups import group_partner
+        adapter = server.WorldAdapter('player')
+        adapter.info.GetBlockNew = lambda *args: self.fail('world writes do not read target blocks')
+        adapter.info.GetLiquidBlock = lambda *args: self.fail('world writes do not read liquids')
+        old_write = adapter.info.SetBlockNew
+        def unchanged_head(pos, value, *unused):
+            old_write(pos, value)
+            return False
+        adapter.info.SetBlockNew = unchanged_head
+        for aux in aux_values('minecraft:bed'):
+            with self.subTest(aux=aux):
+                value = ('minecraft:bed', aux)
+                properties = states(value)
+                pos = (4, 64, 4)
+                head = value
+                if not properties['head_piece_bit']:
+                    offset, head = group_partner(value)
+                    pos = tuple(pos[i] + offset[i] for i in range(3))
+                before = len(self.writes)
+                self.assertTrue(adapter.write((4, 64, 4), make_cell(value, ('minecraft:water', 0))))
+                self.assertEqual(before + 1, len(self.writes))
+                self.assertEqual(pos, self.writes[-1])
+                self.assertEqual((pos, states(head), 0), self.state_writes[-1])
+                self.assertEqual({'name': 'minecraft:water', 'aux': 0}, self.liquids[(4, 64, 4)])
+        self.assertEqual([], self.palette_writes)
+        self.assertEqual([], self.entity_reads)
+        adapter.blockstate_component.SetBlockStates = lambda *args: False
+        self.assertFalse(adapter.write((4, 64, 4), ('minecraft:bed', 8)))
 
     def test_visible_chest_actor_is_not_sent_to_server_nbt_setter(self):
         payload = {'chestIsLargeChest':True, 'chestMainSubChest':True,

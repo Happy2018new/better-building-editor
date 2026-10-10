@@ -36,6 +36,8 @@ class WorldAdapter(object):
         self.canonical_values = {}
         self.loading = {}
         self.sign_component = None
+        self.blockstate_component = None
+        self.native_aux_values = {}
 
     def ensure(self, pos):
         key = (pos[0] // 16, pos[2] // 16)
@@ -145,12 +147,17 @@ class WorldAdapter(object):
             'void': False,
             'eliminateAir': False,
         }
-        palette = self.palette_block.GetBlankBlockPalette()
-        if palette is None or not palette.DeserializeBlockPalette(data):
-            return False
-        if not self.palette_block.SetBlockByBlockPalette(
-                palette, self.dimension, pos, 0, 0):
-            return False
+        properties = registry_states(front)
+        if properties is not None and 'head_piece_bit' in properties:
+            if not self._write_head_first_pair(pos, front, back, properties):
+                return False
+        else:
+            palette = self.palette_block.GetBlankBlockPalette()
+            if palette is None or not palette.DeserializeBlockPalette(data):
+                return False
+            if not self.palette_block.SetBlockByBlockPalette(
+                    palette, self.dimension, pos, 0, 0):
+                return False
         raw_actor = actor_data(value)
         nbt = entity_nbt(raw_actor)
         if nbt is not None:
@@ -167,6 +174,32 @@ class WorldAdapter(object):
                 result = bool(self.sign_component.SetSignTextStyle(
                     pos, self.dimension, color, glow, side)) and result
         return result
+
+    def _write_head_first_pair(self, pos, front, back, properties):
+        from .projection.block_groups import group_partner
+        head_pos, head = pos, front
+        if not properties['head_piece_bit']:
+            offset, head = group_partner(front)
+            head_pos = tuple(pos[i] + offset[i] for i in range(3))
+            properties = registry_states(head)
+        if self.blockstate_component is None:
+            self.blockstate_component = self.factory.CreateBlockState(self.level)
+        if head not in self.native_aux_values:
+            aux = self.blockstate_component.GetBlockAuxValueFromStates(
+                head[0].encode('utf8'), properties)
+            if aux is None or aux < 0:
+                return False
+            self.native_aux_values[head] = aux
+        # Native bed placement creates its reciprocal foot. Replacing an
+        # already equal head reports False, so use the state setter's result.
+        self.info.SetBlockNew(head_pos, {
+            'name': head[0].encode('utf8'), 'aux': self.native_aux_values[head]},
+            0, self.dimension, True, False)
+        if not self.blockstate_component.SetBlockStates(head_pos, properties, self.dimension):
+            return False
+        liquid = {'name': back[0].encode('utf8'), 'aux': back[1]}
+        result = self.info.SetLiquidBlock(pos, liquid, self.dimension)
+        return result is not False if back != AIR else True
 
     def valid(self, value):
         try:
