@@ -153,7 +153,10 @@ def green_mask(frame):
     first = ImageChops.subtract(green, red.point(lambda value: int(value * .85))).point(lambda value: 255 if value > 0 else 0)
     second = ImageChops.subtract(green, blue.point(lambda value: min(255, int(value * 1.05)))).point(lambda value: 255 if value > 0 else 0)
     brightness = green.point(lambda value: 255 if value > 25 else 0)
-    return ImageChops.multiply(ImageChops.multiply(first, second), brightness)
+    light = ImageChops.darker(ImageChops.darker(red, green), blue)
+    shade = ImageChops.lighter(ImageChops.lighter(red, green), blue)
+    chroma = ImageChops.subtract(shade, light).point(lambda value: 255 if value > 24 else 0)
+    return ImageChops.multiply(ImageChops.multiply(ImageChops.multiply(first, second), brightness), chroma)
 
 
 def snow_plant_mask(frame):

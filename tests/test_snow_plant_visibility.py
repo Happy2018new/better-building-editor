@@ -45,6 +45,13 @@ class SnowPlantVisibilityTests(unittest.TestCase):
         self.assertEqual([255, 255, 255, 0, 0], list(snow_plant_mask(image).getdata()))
         self.assertEqual([255, 255, 0, 0, 0], list(green_mask(image).getdata()))
 
+    def test_warm_neutral_snow_is_not_mistaken_for_foliage(self):
+        image = Image.new('RGB', (4, 1))
+        image.putdata(((216, 215, 204), (160, 161, 148),
+                       (145, 129, 77), (35, 155, 45)))
+        self.assertEqual([0, 0, 255, 255], list(green_mask(image).getdata()))
+        self.assertEqual([255, 255, 255, 255], list(snow_plant_mask(image).getdata()))
+
     def test_high_snow_can_naturally_cover_a_shorter_standalone_plant(self):
         plant, values = controls()
         snow, unused = values[5]
