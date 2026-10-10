@@ -15,6 +15,7 @@ MODULES = (
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
     'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
     'water_interaction_data',
+    'static_neighbor_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -24,6 +25,7 @@ SNAPSHOTS = (
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
     'native_snow_states',
+    'native_static_neighbors',
 )
 
 
@@ -80,6 +82,7 @@ def commands(manifest, tests=False):
         ['tools/generate_shulker_proxies.py', '--check'],
         ['tools/generate_copper_chest_proxies.py', '--check'],
         ['tools/generate_water_interactions.py', '--check'],
+        ['tools/generate_static_neighbor_rules.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],
