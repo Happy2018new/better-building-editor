@@ -27,12 +27,13 @@ sys._blueprint_qa_expected={'metadata':{'name':doc.name,'size':doc.size,'blocks'
 s._loaded(doc)
 s.emit()
 foot=b.player_origin()
-s.origin=(foot[0]+5,foot[1]+7,foot[2]+5)
+s.origin=(foot[0]+5,foot[1]+7+%r,foot[2]+5)
 s.opacity=1.
 s.projection_missing=False
 s.projection_outline=False
 b.project()
-_result=True
+_result=json.dumps({'player_origin':foot,'projection_origin':s.origin,'cube_size':doc.size,
+ 'cube_material':('minecraft:stone',0),'cube_cell':(1,1,1)})
 '''
 
 POSE = '''offset=%r
@@ -179,6 +180,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--timeout', type=float, default=90.)
+    parser.add_argument('--fixture-lift-y', type=int, default=0,
+                        help='Fixed world-space lift of the entire cube and camera fixture, chosen before capture')
     parser.add_argument('--replay', type=Path, help='Reanalyze preserved native captures without calling a game')
     args = parser.parse_args()
     if args.replay is not None:
@@ -188,9 +191,12 @@ def main():
         print(json.dumps({'passed': evidence['passed'], 'vertical_fov': evidence['vertical_fov'],
                           'replayed': str(args.replay)}))
         return 0 if evidence['passed'] else 1
+    if not -64 <= args.fixture_lift_y <= 64:
+        parser.error('Fixture lift must be between -64 and 64 blocks')
     evidence = {'schema': 1, 'passed': False, 'completed': False, 'views': [],
                 'scope': 'Exact full native client cube; world blocks and player position untouched',
-                'session_file': os.environ.get('MCDEV_SESSION_FILE')}
+                'session_file': os.environ.get('MCDEV_SESSION_FILE'),
+                'fixture_lift_y': args.fixture_lift_y}
     installed = saved = environment_saved = options_saved = False
     try:
         with Client(timeout=30) as client:
@@ -206,7 +212,7 @@ def main():
                 options_saved = True
                 evidence['weather_settle_seconds'] = 10.
                 time.sleep(evidence['weather_settle_seconds'])
-                check.run(LOAD_CUBE)
+                evidence['fixture'] = check.run(LOAD_CUBE % args.fixture_lift_y)
                 state = check.wait('calibration cube projection',
                                    lambda value: value['active'] and value['ready'] and not value['preparing'] and
                                    value['actors'] == 1 and bool(value['mesh']),
