@@ -312,6 +312,22 @@ def compare_pixels(baseline, actual, masks, prefix, min_pixels, threshold):
             'artifacts': artifacts}
 
 
+def compare_complete(baseline, actual, masks, threshold, min_pixels):
+    """Require the all-air context mesh to match the complete native mesh."""
+    roi = ImageChops.lighter(*masks)
+    first, second = (ImageChops.multiply(binary(maximum(value), threshold), roi)
+                     for value in (baseline, actual))
+    overlap = feature_overlap(first, second)
+    shared = ImageChops.multiply(first, second)
+    color = (ImageStat.Stat(ImageChops.difference(baseline, actual), mask=shared).mean
+             if count(shared) else [255., 255., 255.])
+    valid = overlap['baseline_pixels'] >= min_pixels * 2
+    return {'passed': valid and overlap['recall_1px'] >= .93 and
+            overlap['precision_1px'] >= .93 and max(color) <= 20,
+            'valid_baseline': valid, 'shape': overlap, 'color_error': color,
+            'limits': {'shape_recall': .93, 'shape_precision': .93, 'color_channel_error': 20}}
+
+
 def camera_matches(actual, expected):
     position = all(abs(actual['position'][i] - expected['position'][i]) < .02 for i in range(3))
     rotation = all(abs((actual['rotation'][i] - expected['rotation'][i] + 180.) % 360. - 180.) < .2
@@ -415,6 +431,24 @@ def case(check, label, keep, occupied, args):
         keep_roi, hidden_roi, roi_record = roi_masks(rois, baseline.size, keep, occupied, args.camera_calibration)
         baselines[view], masks[view] = baseline, (keep_roi, hidden_roi)
         before['views'][view] = {'camera': pose, 'capture': capture, 'roi': roi_record}
+    if args.normal_oracle:
+        check.run('s.projection_missing=False\nb.project()\n_result=True')
+        check.wait('complete native projection', lambda state: state['active'] and
+                   state['ready'] and state['actors'] and state['model'] and not
+                   state['has_occupancy'] and not state['preparing'],
+                   lambda: source_state(check, occupied))
+        before['normal_oracle'] = {}
+        for view in baselines:
+            pose = select_view(check, keep, occupied, view, args.offset)
+            native, capture = capture_signal(check, label + '_' + view + '_native_complete', occupied)
+            comparison = compare_complete(native, baselines[view], masks[view],
+                                          args.threshold, args.min_pixels)
+            before['normal_oracle'][view] = {'camera': pose, 'capture': capture,
+                                            'context_matches_complete': comparison}
+            baselines[view] = native
+        check.run('s.projection_missing=True\nb.project()\n_result=True')
+        before['projection'] = projection_ready(check, occupied)
+        assert before['projection']['state'] == 1, before['projection']
     check.run('sys._neighbor_qa_occupied.add(%r)\nb.projection_occupancy.read(%r)\n_result=True' % (occupied, occupied))
     dynamic = projection_ready(check, occupied, before['projection']['commits'] + 1)
     assert dynamic['state'] == 2, dynamic
@@ -438,6 +472,9 @@ def case(check, label, keep, occupied, args):
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert initial['player'] == saved_player and dynamic['player'] == saved_player, (saved_player, initial, dynamic)
     passed = all(row['pixels']['passed'] for stage in (dynamic, initial) for row in stage['views'].values())
+    if args.normal_oracle:
+        passed = passed and all(row['context_matches_complete']['passed']
+                                for row in before['normal_oracle'].values())
     return {'case': label, 'keep': keep, 'occupied': occupied, 'passed': passed,
             'baseline': before, 'dynamic': dynamic, 'initial': initial}
 
@@ -458,6 +495,8 @@ def main():
     parser.add_argument('--restore-detached', action='store_true')
     parser.add_argument('--camera-calibration', type=Path,
                         help='Passed native-cube FOV calibration evidence JSON')
+    parser.add_argument('--normal-oracle', action='store_true',
+                        help='Use the complete native projection as the independent pixel baseline')
     args = parser.parse_args()
     if args.camera_calibration is not None:
         args.camera_calibration = json.loads(args.camera_calibration.read_text(encoding='utf8'))

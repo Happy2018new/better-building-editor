@@ -7,7 +7,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from camera_projection import project_box_corners, project_points
 from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
                                      editor_preview_ready, source_matches)
-from verify_missing_neighbor_visuals import CELL_ROIS
+from verify_missing_neighbor_visuals import CELL_ROIS, compare_complete
 from verify_snow_plant_visibility import LOAD
 from verify_camera_projection import fit_fov, largest_component, projected_mask
 from PIL import Image, ImageDraw
@@ -77,6 +77,26 @@ class CameraProjectionTests(unittest.TestCase):
         draw.rectangle((40, 30, 59, 49), fill=255)
         draw.rectangle((1, 1, 5, 4), fill=255)
         self.assertEqual(largest_component(mask).getbbox(), (40, 30, 60, 50))
+
+    def test_context_baseline_must_match_independent_complete_geometry(self):
+        native = Image.new('RGB', (100, 80))
+        ImageDraw.Draw(native).rectangle((30, 30, 69, 49), fill=(150, 100, 60))
+        left, right = Image.new('L', native.size), Image.new('L', native.size)
+        ImageDraw.Draw(left).rectangle((10, 20, 49, 59), fill=255)
+        ImageDraw.Draw(right).rectangle((50, 20, 89, 59), fill=255)
+        self.assertTrue(compare_complete(native, native, (left, right), 16, 80)['passed'])
+        shifted = Image.new('RGB', native.size)
+        ImageDraw.Draw(shifted).rectangle((10, 30, 49, 49), fill=(150, 100, 60))
+        report = compare_complete(native, shifted, (left, right), 16, 80)
+        self.assertTrue(report['valid_baseline'])
+        self.assertFalse(report['passed'])
+
+    def test_invisible_complete_geometry_cannot_validate_context(self):
+        blank = Image.new('RGB', (100, 80))
+        roi = Image.new('L', blank.size, 255)
+        report = compare_complete(blank, blank, (roi, roi), 16, 80)
+        self.assertFalse(report['valid_baseline'])
+        self.assertFalse(report['passed'])
 
 
 class BlueprintSourceIdentityTests(unittest.TestCase):
