@@ -12,6 +12,7 @@ from projection.geometry_palette import LEAF_PROXIES, PLANT_PROXIES, prepare_pal
 from projection.cell import make_cell
 from projection.large_preview import SurfacePalette
 from projection.model import Document
+from projection.visible_actor import compose_actor
 
 
 class GeometryPaletteTests(unittest.TestCase):
@@ -135,6 +136,32 @@ class GeometryPaletteTests(unittest.TestCase):
                           ('minecraft:stone', 0): [2]}, render['common'])
         self.assertEqual({'minecraft:chest': {1: chest_data}}, render['actor'])
         self.assertEqual(saved, native_data)
+
+    def test_native_actor_boundary_only_exposes_client_render_payload(self):
+        render = {'facingDirection': 2, 'chestIsLargeChest': True,
+                  'chestMainSubChest': True, 'chestModelOffset': 0.0}
+        nbt = {'Items': {'__type__': 9, '__value__': [
+            {'Name': {'__type__': 8, '__value__': 'minecraft:diamond'}}]}}
+        source = {'common': {('minecraft:chest', 2): [0, 1, 2],
+                             ('minecraft:purple_shulker_box', 0): [3, 4]},
+                  'actor': {'minecraft:chest': {0: compose_actor(render, nbt),
+                                               1: nbt, 2: compose_actor(None, nbt)},
+                            'minecraft:purple_shulker_box': {
+                                3: compose_actor({}, nbt), 4: {}}}}
+        saved = copy.deepcopy(source)
+
+        result = prepare_palette(source)
+
+        self.assertEqual({'minecraft:chest': {0: render},
+                          'minecraft:purple_shulker_box': {3: {}, 4: {}}}, result['actor'])
+        self.assertEqual(saved, source)
+        self.assertNotIn('Items', result['actor']['minecraft:chest'][0])
+
+    def test_native_actor_boundary_drops_names_with_no_client_payload(self):
+        typed = {'__type__': 10, '__value__': {
+            'Items': {'__type__': 9, '__value__': []}}}
+        self.assertEqual({}, prepare_palette({
+            'actor': {'minecraft:chest': {0: typed}}})['actor'])
 
     def test_every_proxy_has_a_hidden_cutout_resource_with_its_own_species_texture(self):
         appearances = json.loads((ROOT / 'resource_pack/blocks.json').read_text(encoding='utf8'))

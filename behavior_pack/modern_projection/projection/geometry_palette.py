@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
+from .visible_actor import render_actor
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -59,8 +60,15 @@ def prepare_palette(source):
 
     common, common_states = prepare_layer('common', True)
     extra, extra_states = prepare_layer('extra')
-    actors = dict((name, dict(entries))
-                  for name, entries in source.get('actor', {}).items())
+    actors = {}
+    for name, entries in source.get('actor', {}).items():
+        rendered = {}
+        for index, payload in entries.items():
+            actor = render_actor(payload)
+            if actor is not None:
+                rendered[index] = actor
+        if rendered:
+            actors[name] = rendered
     data.update(common=common, states=common_states, extra=extra,
                 extraStates=extra_states, actor=actors)
     return data
