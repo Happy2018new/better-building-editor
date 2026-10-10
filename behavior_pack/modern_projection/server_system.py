@@ -38,6 +38,7 @@ class WorldAdapter(object):
         self.sign_component = None
         self.blockstate_component = None
         self.native_aux_values = {}
+        self.native_pairs_written = set()
 
     def ensure(self, pos):
         key = (pos[0] // 16, pos[2] // 16)
@@ -192,14 +193,17 @@ class WorldAdapter(object):
             self.native_aux_values[head] = aux
         # Native bed placement creates its reciprocal foot. Replacing an
         # already equal head reports False, so use the state setter's result.
-        self.info.SetBlockNew(head_pos, {
-            'name': head[0].encode('utf8'), 'aux': self.native_aux_values[head]},
-            0, self.dimension, True, False)
+        identity = (head_pos, head)
+        if identity not in self.native_pairs_written:
+            self.info.SetBlockNew(head_pos, {
+                'name': head[0].encode('utf8'), 'aux': self.native_aux_values[head]},
+                0, self.dimension, True, False)
         if not self.blockstate_component.SetBlockStates(head_pos, properties, self.dimension):
             return False
+        self.native_pairs_written.add(identity)
         liquid = {'name': back[0].encode('utf8'), 'aux': back[1]}
         result = self.info.SetLiquidBlock(pos, liquid, self.dimension)
-        return result is not False if back != AIR else True
+        return back == AIR or result is not False
 
     def valid(self, value):
         try:

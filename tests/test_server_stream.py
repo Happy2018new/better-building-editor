@@ -633,6 +633,20 @@ class ServerStreamTests(unittest.TestCase):
         adapter.blockstate_component.SetBlockStates = lambda *args: False
         self.assertFalse(adapter.write((4, 64, 4), ('minecraft:bed', 8)))
 
+    def test_second_bed_half_does_not_recreate_and_reset_previous_head_entity_data(self):
+        from modern_projection.projection.block_groups import group_partner
+        adapter = server.WorldAdapter('player')
+        foot = ('minecraft:bed', 0)
+        offset, head = group_partner(foot)
+        foot_pos = (4, 64, 4)
+        head_pos = tuple(foot_pos[i] + offset[i] for i in range(3))
+        actor = {'id': {'__type__': 8, '__value__': 'Bed'},
+                 'color': {'__type__': 1, '__value__': 7}}
+        self.assertTrue(adapter.write(head_pos, make_cell(head, nbt=actor)))
+        self.assertTrue(adapter.write(foot_pos, make_cell(foot, nbt=actor)))
+        self.assertEqual([head_pos], self.writes)
+        self.assertEqual([head_pos, foot_pos], [record[1] for record in self.actor_writes])
+
     def test_visible_chest_actor_is_not_sent_to_server_nbt_setter(self):
         payload = {'chestIsLargeChest':True, 'chestMainSubChest':True,
                    'facingDirection':2, 'chestModelOffset':0.0}
