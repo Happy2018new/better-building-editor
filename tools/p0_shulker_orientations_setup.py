@@ -16,8 +16,12 @@ dimension = factory.CreateDimension(player).GetEntityDimensionId()
 info = factory.CreateBlockInfo(player)
 items = factory.CreateItem(player)
 item_type = api.GetMinecraftEnum().ItemPosType.INVENTORY
-slot = next((slot for slot in range(36)
-             if not items.GetPlayerItem(item_type, slot, True)), None)
+slot = None
+for candidate in range(36):
+    existing = items.GetPlayerItem(item_type, candidate, True)
+    if not existing or not existing.get('count') or existing.get('itemName') == 'minecraft:air':
+        slot = candidate
+        break
 assert slot is not None, 'Native face fixture needs one empty inventory slot'
 foot = factory.CreatePos(player).GetFootPos()
 origin = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 12,
@@ -33,17 +37,28 @@ for facing, normal in enumerate(normals):
         assert before and before.get('name') == 'minecraft:air', (pos, before)
     rows.append({'support_face': facing, 'pos': target, 'support': support})
 sys._p0_shulker_faces = {'schema': 1, 'dimension': dimension, 'rows': rows,
+                         'slot': slot,
                          'placement': 'PlayerUseItemToPos support face'}
 try:
     for row in rows:
         assert info.SetBlockNew(row['support'], {'name': 'minecraft:stone', 'aux': 0},
                                 0, dimension, True, False)
-        assert items.SpawnItemToPlayerInv({'itemName': 'minecraft:purple_shulker_box',
-                                         'count': 1, 'auxValue': 0}, player, slot)
+        row['spawn_return'] = items.SpawnItemToPlayerInv(
+            {'itemName': 'minecraft:purple_shulker_box', 'count': 1, 'auxValue': 0}, player, slot)
+        temporary = items.GetPlayerItem(item_type, slot, True)
+        row['temporary_item'] = temporary
+        assert temporary and temporary.get('count', 0) >= 1 and (
+            temporary.get('itemName', temporary.get('newItemName')) == 'minecraft:purple_shulker_box'), row
         row['placed'] = info.PlayerUseItemToPos(row['support'], item_type, slot,
                                                row['support_face'])
         row['block'] = info.GetBlockNew(row['pos'], dimension)
         assert row['placed'] and row['block']['name'] == 'minecraft:purple_shulker_box', row
 finally:
-    assert items.SetInvItemNum(slot, 0), 'Failed to clear the temporary empty-slot item'
+    prior_error = sys.exc_info()[0]
+    items.SetInvItemNum(slot, 0)
+    remaining = items.GetPlayerItem(item_type, slot, True)
+    if remaining and remaining.get('count'):
+        sys._p0_shulker_faces['slot_cleanup_error'] = remaining
+        if prior_error is None:
+            raise AssertionError('Failed to clear the temporary empty-slot item')
 _result = json.dumps(sys._p0_shulker_faces)

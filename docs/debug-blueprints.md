@@ -137,7 +137,11 @@ placement and erasure at the listed coordinates.
 ### Six-Face Shulker Pixel Regression
 
 `tools/verify_shulker_orientations.py` captures each of six orientations at the
-same single-cell position, with the same document size and camera. It checks
+same single-cell position, with the same document size and camera. Input cells
+are extracted from `build('test.transforms.directions')`; no independent
+synthetic fixture is constructed. `VISUAL_CASES['shulker_orientations']` records
+the source cells, clip size, focus and both camera poses with schema version 1.
+It checks
 both the editor preview and world projection. Native player placements and
 synthetic renderer payloads are separate sources, and their same-direction
 pixel differences are retained. All six visually identical poses fail even

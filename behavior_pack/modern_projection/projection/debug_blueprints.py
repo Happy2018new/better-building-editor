@@ -22,6 +22,14 @@ BLUEPRINTS = (
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
 )
+VISUAL_CASES = {
+    'shulker_orientations': {
+        'schema': 1, 'fixture': 'test.transforms.directions',
+        'cells': tuple((3 + index * 5, 3, 28) for index in range(6)),
+        'size': (8, 8, 8), 'focus': (3, 3, 3),
+        'camera': {'editor': (35., 25., 2.8), 'world_offset': (-3.5, 3., -5.)},
+    },
+}
 
 
 def entries(category=None):
@@ -200,8 +208,8 @@ def _directions(fixture):
     for row, (name, key, values) in enumerate(rows):
         for index, value in enumerate(values):
             fixture.put((2 + index * 3, 1, 2 + row * 5), material(name, {key: value}))
-    for index, facing in enumerate(range(6)):
-        fixture.put((3 + index * 5, 3, 28), material('purple_shulker_box'),
+    for facing, pos in enumerate(VISUAL_CASES['shulker_orientations']['cells']):
+        fixture.put(pos, material('purple_shulker_box'),
                     entity='ShulkerBox', render={'facingDirection': facing},
                     fields={'facing': tag(facing, 1)})
     for index in range(4):
