@@ -125,7 +125,7 @@ static default poses and no animation support, so successful submissions alone
 do not establish that the client's block entity pose has been reproduced. See
 the six-face regression in [Built-In Test Blueprints](debug-blueprints.md).
 
-The render adapter in `projection/entity_render.py` schema 1 resolves closed
+The render adapter in `projection/entity_render.py` schema 3 resolves closed
 Shulker poses from the complete tagged NBT already captured for the registered
 selection, falling back to an observed client renderer direction and finally
 the native up default. It changes only native geometry input to a hidden static
@@ -133,6 +133,13 @@ model. The saved/native block identifier, full NBT and world-writing data stay
 intact. No extra coordinate-read channel is introduced. Its generated closed
 lid/base geometry covers all 17 colours and six faces; cold-resource native
 visual acceptance is required separately from pure data and geometry tests.
+
+The same production adapter now refreshes observed sign front/back text, colour,
+glow and rotation fields, and decorated-pot cardinal direction. Their matching
+versioned observations and palette tests verify the reconstructed input, while
+glyph pixels and mirrored four-face pot decorations remain separate acceptance
+requirements. Ordinary, trapped, ender and copper chest static adapters use
+64x64 packed face textures and retain the complete saved/native payloads.
 
 ## Visual Coverage Boundaries
 

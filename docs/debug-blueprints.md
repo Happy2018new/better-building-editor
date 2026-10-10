@@ -17,6 +17,7 @@ targets. Categories are separate pages within the test tab.
 | `test.layers.snow` | `layers` | 32 × 8 × 24 | Six measured coverable plants, two snow depths and snow above leaves |
 | `test.groups.parts` | `groups` | 32 × 8 × 24 | Wood/iron doors, beds in four directions and tall plants |
 | `test.entities.appearances` | `entities` | 40 × 12 × 36 | 19 actual native nondefault Skull/Bed/Frame/Banner observations |
+| `test.entities.signs` | `entities` | 16 × 8 × 10 | Observed two-sided standing and hanging sign text, colour and glow |
 | `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
 | `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
 | `test.entities.classic` | `entities` | 40 × 10 × 36 | Classic native entity associations |
@@ -147,7 +148,7 @@ placement and erasure at the listed coordinates.
 same single-cell position, with the same document size and camera. Input cells
 are extracted from `build('test.transforms.directions')`; no independent
 synthetic fixture is constructed. `VISUAL_CASES['shulker_orientations']` records
-the source cells, clip size, focus and both camera poses with schema version 1.
+the source cells, clip size, focus and both camera poses with schema version 2.
 The built-in fixture checks only the editor preview. The separate world
 projection path uses actual native player placements, their client palettes
 and complete entity payloads. Their same-direction editor pixel differences
@@ -155,8 +156,10 @@ are retained. All six visually identical poses fail even
 when the native geometry submission and source data are valid. The image check
 rejects missing/too-small models and saves masked images and six-image sheets.
 The world check also photographs the six actual MC blocks, using the same
-camera offset as each matching projection. Each pair views the opening side,
-so the supporting block does not occlude the shell. The central purple connected component
+camera offset as each matching projection. All pairs use one low side view;
+the tool records the measured camera rather than assuming it views the opening
+face. Supports are removed before capture to avoid hiding native shell faces.
+The central purple connected component
 excludes adjacent fixtures and HUD pixels. A schema-1 image comparison records
 each same-face silhouette IoU, relative size error and a six-by-six local
 texture-contrast correlation matrix. A mismatched face, missing texture evidence
@@ -177,10 +180,10 @@ after capture. The native setup uses `PlayerUseItemToPos` on six support faces,
 not NBT direction setters. The server reads NBT only for those debug-created
 fixtures; the client exports their actual palettes. NEMC can export an empty
 Shulker renderer payload, so the sample explicitly records the missing client
-field and the authoritative fixture NBT direction. Supporting stones remain in
-place until cleanup; immediate readback after removing a support is insufficient
-to exclude later native removal. Server and client readback confirm the native
-boxes before photography. It sorts the samples by
+field and the authoritative fixture NBT direction. The tool removes supporting
+stones, waits for replication and checks both server and client block readback
+before photography. A missing native model invalidates the reference and cannot
+be accepted as a proxy failure or pass. It sorts the samples by
 that observed direction before comparing blueprint inputs. Native render input
 uses the actual client payload plus complete tagged fixture NBT, matching the
 ordinary registered-selection capture envelope. These debug helpers do not
@@ -191,7 +194,7 @@ draft is saved.
 
 ### Static Shulker Render Adapter
 
-`entity_render.py` schema 1 substitutes render-only static meshes for all
+`entity_render.py` schema 3 substitutes render-only static meshes for all
 17 vanilla colours and six directions. Complete tagged `ShulkerBox.facing`
 has priority over a client's `facingDirection`; absent or invalid direction
 uses the observed native default, up. Only the render palette changes, and
@@ -218,3 +221,21 @@ a fresh game load; Python hot refresh alone does not register those blocks.
 python tools/generate_shulker_proxies.py --check
 python -X utf8 -m unittest discover -s tests -p test_static_shulker_render.py
 ```
+
+### Chest And Sign Adapters
+
+The same schema-3 adapter covers ordinary, trapped and ender chests, plus all
+copper and waxed stages. Double-chest face rectangles are packed without
+resampling into 64x64 textures, matching the custom block model texture limit.
+`tools/data/copper_chest_static_model_v1.json` schema 2 records original geometry,
+UVs and source hashes. `tools/generate_copper_chest_proxies.py --check` verifies
+checked-in derivatives; regeneration additionally takes `--native-resource-root`.
+The complete logical document supplies pairing context even when an occupied
+projection cell hides the other half. Editor appearance, world alignment and
+initial/dynamic projection occupancy need independent visual evidence.
+
+`VISUAL_CASES['sign_styles']` references `test.entities.signs` and its observed
+front/back text styles. Saved tagged NBT supplies both text sides to the native
+render adapter. Successful field reconstruction or a visible board does not
+establish glyph rendering; `tools/verify_sign_visuals.py` checks coloured glyph
+pixels for each measured side and saves both editor and projection evidence.
