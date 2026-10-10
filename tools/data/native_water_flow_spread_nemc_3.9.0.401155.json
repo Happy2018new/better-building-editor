@@ -1,0 +1,1368 @@
+{
+  "active": null,
+  "cleanup_residue": [],
+  "delayed_seconds": 2.0,
+  "done": true,
+  "failure": null,
+  "game_version": "NEMC 3.9.0.401155",
+  "method": "UseItemToPos on basin support; no post-use SetBlockStates; v1",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "profile": "flow_spread",
+  "restored": true,
+  "rows": [
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_fence"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_fence"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "dry_valid": true,
+      "expected_seed": {},
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_fence"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:oak_fence"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_stairs"
+        },
+        "liquid": null,
+        "states": {
+          "upside_down_bit": false,
+          "weirdo_direction": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_stairs"
+        },
+        "liquid": null,
+        "states": {
+          "upside_down_bit": false,
+          "weirdo_direction": 0
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "upside_down_bit": false,
+        "weirdo_direction": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_stairs"
+        },
+        "liquid": null,
+        "states": {
+          "upside_down_bit": false,
+          "weirdo_direction": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:oak_stairs"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_slab"
+        },
+        "liquid": null,
+        "states": {
+          "minecraft:vertical_half": "bottom"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_slab"
+        },
+        "liquid": null,
+        "states": {
+          "minecraft:vertical_half": "bottom"
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "minecraft:vertical_half": "bottom"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:oak_slab"
+        },
+        "liquid": null,
+        "states": {
+          "minecraft:vertical_half": "bottom"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:oak_slab"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:rail"
+        },
+        "liquid": null,
+        "states": {
+          "rail_direction": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "rail_direction": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:rail"
+        },
+        "liquid": null,
+        "states": {
+          "rail_direction": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:rail"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_carpet"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {},
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_carpet"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:white_carpet"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:web"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {},
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:web"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:web"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:sea_pickle"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "cluster_count": 0,
+          "dead_bit": false
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:sea_pickle"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "cluster_count": 0,
+          "dead_bit": false
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "cluster_count": 0,
+        "dead_bit": false
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:sea_pickle"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "cluster_count": 0,
+          "dead_bit": false
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:sea_pickle"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "candles": 0,
+        "lit": false
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:candle"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "candles": 0,
+        "lit": false
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle"
+        },
+        "liquid": null,
+        "states": {
+          "candles": 0,
+          "lit": false
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:white_candle"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "lit": false
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:candle_cake"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "lit": false
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:white_candle_cake"
+        },
+        "liquid": null,
+        "states": {
+          "lit": false
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:white_candle_cake"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "extinguished": false,
+        "minecraft:cardinal_direction": "south"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:campfire"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:soul_campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:soul_campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "extinguished": false,
+        "minecraft:cardinal_direction": "south"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:soul_campfire"
+        },
+        "liquid": null,
+        "states": {
+          "extinguished": false,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:soul_campfire"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:cactus"
+        },
+        "liquid": null,
+        "states": {
+          "age": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "age": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:cactus"
+        },
+        "liquid": null,
+        "states": {
+          "age": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:cactus"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:cocoa"
+        },
+        "liquid": null,
+        "states": {
+          "age": 0,
+          "direction": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "age": 0,
+        "direction": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:cocoa"
+        },
+        "liquid": null,
+        "states": {
+          "age": 0,
+          "direction": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:cocoa"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:leaf_litter"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "growth": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:leaf_litter"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:leaf_litter"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:pink_petals"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "growth": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:pink_petals"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:pink_petals"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:snow_layer"
+        },
+        "liquid": null,
+        "states": {
+          "covered_bit": false,
+          "height": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "covered_bit": false,
+        "height": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:snow_layer"
+        },
+        "liquid": null,
+        "states": {
+          "covered_bit": false,
+          "height": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:snow_layer"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:wildflowers"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "growth": 0,
+        "minecraft:cardinal_direction": "south"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:wildflowers"
+        },
+        "liquid": null,
+        "states": {
+          "growth": 0,
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:wildflowers"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:hanging_roots"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "delayed": {
+        "front": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "liquid": {
+          "aux": 1,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "liquid_depth": 1
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {},
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:hanging_roots"
+        },
+        "liquid": null,
+        "states": {}
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:hanging_roots"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:kelp"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "kelp_age": 0
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:kelp"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "kelp_age": 0
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "kelp_age": 0
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:kelp"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "kelp_age": 0
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:kelp"
+    },
+    {
+      "action": "flow_spread",
+      "aux": 0,
+      "before": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:seagrass"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "sea_grass_type": "default"
+        }
+      },
+      "delayed": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:seagrass"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "sea_grass_type": "default"
+        }
+      },
+      "dry_valid": true,
+      "expected_seed": {
+        "sea_grass_type": "default"
+      },
+      "immediate": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:seagrass"
+        },
+        "liquid": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "states": {
+          "sea_grass_type": "default"
+        }
+      },
+      "item": "minecraft:water_bucket",
+      "item_result": {
+        "auxValue": 0,
+        "count": 1,
+        "customTips": "",
+        "durability": 0,
+        "enchantData": [],
+        "extraId": "",
+        "isDiggerItem": false,
+        "itemId": 325,
+        "itemName": "minecraft:bucket",
+        "modEnchantData": [],
+        "modId": "",
+        "modItemId": "",
+        "newAuxValue": 0,
+        "newItemName": "minecraft:bucket",
+        "showInHand": true,
+        "userData": null
+      },
+      "name": "minecraft:seagrass"
+    }
+  ],
+  "running": false,
+  "schema": 1,
+  "source_scope": "engine item use, not player events",
+  "target": [
+    12,
+    -52,
+    4
+  ]
+}

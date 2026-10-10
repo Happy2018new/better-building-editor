@@ -281,14 +281,17 @@ def edit_cell(value, material, index=0):
 
 
 def _water(material):
-    return material[0] in ('minecraft:water', 'minecraft:flowing_water')
+    from .water_interactions import is_water
+    return is_water(material)
 
 
 def can_compose(value, material):
     """Whether automatic placement belongs inside the clicked existing cell."""
     from .block_traits import is_snow_coverable, is_waterloggable
+    from .water_interactions import accepts_source, is_source
     front, replacement = layer(value, 2), foreground(material)
-    return ((_water(replacement) and is_waterloggable(front)) or
+    return ((is_source(replacement) and accepts_source(front)) or
+            (_water(replacement) and not is_source(replacement) and is_waterloggable(front)) or
             (_water(front) and is_waterloggable(replacement)) or
             (_snow(front) and is_snow_coverable(replacement)) or
             (_snow(replacement) and (is_snow_coverable(front) or
@@ -296,7 +299,8 @@ def can_compose(value, material):
 
 
 def _edit_auto(value, material):
-    from .block_traits import is_snow_coverable, is_waterloggable
+    from .block_traits import is_snow_coverable
+    from .water_interactions import accepts_source, is_source, source_state
     front, back, replacement = foreground(value), background(value), foreground(material)
     if front == AIR:
         front, back = back, AIR
@@ -311,13 +315,23 @@ def _edit_auto(value, material):
         if is_snow_coverable(plant):
             return make_cell(_covered_snow(replacement, True), plant)
         replacement = _covered_snow(replacement, False)
-    if _water(replacement) and is_waterloggable(front):
-        return replace_layer(value, replacement, 1)
-    if _water(front) and is_waterloggable(replacement):
-        return make_cell(replacement, front)
+    if is_source(replacement) and accepts_source(front):
+        return make_cell(source_state(front), replacement, actor_data(value))
+    if _water(front):
+        if is_source(front) and accepts_source(replacement):
+            return make_cell(source_state(replacement), front)
+        return make_cell(replacement)
+    if _water(replacement):
+        # Flowing water is not a stored waterlogged source. Automatic editing
+        # keeps the selected solid dry; it does not run fluid-spread ticks.
+        from .block_traits import is_waterloggable
+        if not is_source(replacement) and is_waterloggable(front):
+            return make_cell(front, AIR, actor_data(value))
     result = replace_layer(value, replacement)
-    if covered_plant or (_water(back) and not is_waterloggable(replacement)):
+    if covered_plant or (_water(back) and not accepts_source(replacement)):
         result = make_cell(foreground(result), AIR, actor_data(result))
+    elif is_source(back):
+        result = make_cell(source_state(foreground(result)), back, actor_data(result))
     return result
 
 

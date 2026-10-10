@@ -8,6 +8,7 @@ from .block_groups import group_partner, hydrate_chest_actor
 from .visible_actor import compose_actor
 from .nbt_spatial import root_payload, scalar
 from .debug_sign_blueprints import METADATA as SIGN_METADATA, VISUAL_CASE as SIGN_VISUAL_CASE
+from .debug_water_blueprints import METADATA as WATER_METADATA, VISUAL_CASE as WATER_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -24,8 +25,10 @@ BLUEPRINTS = (
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 36), 'minecraft:skeleton_skull'),
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
+    WATER_METADATA,
 )
 VISUAL_CASES = {
+    'water_behaviors': WATER_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
     'snow_plant_visibility': {
         'schema': 2, 'fixture': 'test.layers.snow',
@@ -258,6 +261,9 @@ def build(identity):
     if metadata is None:
         raise ValueError('找不到这份测试蓝图')
     fixture = Fixture(metadata)
+    if identity == WATER_METADATA[0]:
+        from .debug_water_blueprints import populate
+        return populate(fixture)
     builders = {'test.layers.water': _water, 'test.layers.snow': _snow,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
