@@ -187,6 +187,43 @@ def actor_fixtures(flags, baseline=False):
     return fixtures
 
 
+def sign_body_fixtures(flags, baseline=False):
+    fixtures = []
+
+    def add(name, tagged=False, bank=0., common=.125, local=False, opacity=1., alpha=255, blank=False):
+        pixel = [180, 120, 60, alpha]
+        expected = actor_expected(flags, tagged, common, opacity,
+                                  [pixel, [0.]*4, [0.]*4], bank)
+        if tagged and bank:
+            expected[3] *= opacity
+        fixtures.append({'name': name, 'packet': [19487. if tagged else 0., 0., bank, opacity],
+                         'local': [0., 0., 0., 19490. if local else 0.], 'common': common,
+                         'vertex_color': [1.]*4, 'shadow_color': [0.]*4, 'pixel': pixel,
+                         'expected': [0.]*4 if blank else expected,
+                         'blank': blank, 'tolerance': 2})
+
+    for common in (0., .5, 1.):
+        for alpha in (32, 160, 255):
+            add('sign_body_untagged_common_%s_texture_alpha_%d' % (common, alpha),
+                common=common, alpha=alpha, bank=2., opacity=.33)
+    if baseline:
+        return fixtures
+    add('sign_body_tagged_unbanked_unlit', True, opacity=0.)
+    for local in (False, True):
+        scope = 'sign_body_local' if local else 'sign_body_world'
+        for bank, common in ((1., .125), (2., .625)):
+            for opacity in (0., .5, 1.):
+                add('%s_bank%d_opacity_%s' % (scope, bank, opacity), True, bank, common,
+                    local, opacity, blank=opacity == 0.)
+            add('%s_bank%d_texture_alpha_times_opacity' % (scope, bank), True, bank,
+                common, local, .5, alpha=160)
+            add('%s_retired_bank%d' % (scope, bank), True, bank, 1.-common, local, blank=True)
+        add(scope+'_empty_gate', True, bank=-1., local=local, blank=True)
+    for bank in (1., 2.):
+        add('sign_body_local_hidden_code_bank%d' % bank, True, bank, 1., True, blank=True)
+    return fixtures
+
+
 RENDER = r'''cases => {
   const results = [];
   const identity = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
@@ -303,11 +340,28 @@ def build_cases(project, headers):
     native_fragment = headers/native_material['fragmentShader'].removeprefix('shaders/')
     paths = {'native_vertex': native_vertex,
              'entity_fragment': project/'resource_pack/shaders/glsl/modern_projection_native_actor.fragment',
+             'sign_body_vertex': project/'resource_pack/shaders/glsl/modern_projection_sign_body.vertex',
+             'sign_body_fragment': project/'resource_pack/shaders/glsl/modern_projection_sign_body.fragment',
+             'native_sign_body_fragment': headers/'entity.fragment',
              'sign_vertex': project/'resource_pack/shaders/glsl/modern_projection_sign_text.vertex',
              'sign_fragment': project/'resource_pack/shaders/glsl/modern_projection_sign_text.fragment',
              'native_fragment': native_fragment}
     cases = []
     for version in (100, 300):
+        for name, flags in (('normal', ()), ('local_light', ('RNGL_LOCAL_LIGHT',))):
+            for kind, source, baseline in (
+                    ('sign_body', paths['sign_body_fragment'], False),
+                    ('native_sign_body_baseline', paths['native_sign_body_fragment'], True)):
+                fragment = shader_source(source, headers, version, flags)
+                if baseline:
+                    version_end = fragment.index('\n')+1
+                    fragment = (fragment[:version_end]+'precision highp float;\nprecision highp int;\n'+
+                                fragment[version_end:])
+                cases.append({'name': '%s/%d/%s' % (kind, version, name), 'kind': kind,
+                              'version': version, 'flags': flags,
+                              'v': shader_source(native_vertex if baseline else paths['sign_body_vertex'],
+                                                 headers, version, flags),
+                              'f': fragment, 'fixtures': sign_body_fixtures(flags, baseline)})
         for name, flags in ENTITY_VARIANTS:
             cases.append({'name': 'entity/%d/%s' % (version, name), 'kind': 'entity', 'version': version,
                           'flags': flags, 'v': shader_source(paths['native_vertex'], headers, version, flags),
@@ -364,7 +418,8 @@ def main():
                 browser.close()
         report['sources_unchanged_after_render'] = all(
             digest(Path(identities[key]['path']))['sha256'] == identities[key]['sha256']
-            for key in ('native_vertex', 'native_fragment', 'entity_fragment', 'sign_vertex', 'sign_fragment', 'native_material'))
+            for key in ('native_vertex', 'native_fragment', 'entity_fragment', 'sign_body_vertex', 'sign_body_fragment',
+                        'native_sign_body_fragment', 'sign_vertex', 'sign_fragment', 'native_material'))
         report['headers_unchanged_after_render'] = all(
             digest(Path(row['path']))['sha256'] == row['sha256']
             for row in identities['expanded_headers'].values())

@@ -4,6 +4,12 @@
     "netease_block_as_entity_transparency": {
       "fragmentShader": "shaders/glsl/modern_projection_native_actor.fragment"
     },
+    "sign:entity_static": {
+      "vertexShader": "shaders/glsl/modern_projection_sign_body.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_sign_body.fragment",
+      "+states": ["Blending"],
+      "blendSrc": "SourceAlpha", "blendDst": "OneMinusSrcAlpha"
+    },
     "modern_projection_staff_gem:entity_alphatest": {
       "vertexShader": "shaders/glsl/modern_projection_staff.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_staff.fragment"
