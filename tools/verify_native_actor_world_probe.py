@@ -39,6 +39,7 @@ rows=[]
 origin=%r
 method=%r
 dry_only=%r
+apply_fixture_nbt=%r
 try:
  for position,wire in saved['cells']:
   value=decode(wire)
@@ -74,11 +75,12 @@ try:
   assert liquid_readback['name']==liquid[0] and liquid_readback.get('aux',0)==liquid[1],(position,liquid_result,liquid_readback,liquid)
   nbt=entity_nbt(actor_data(value))
   assert nbt is not None,(name,position)
-  assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
+  if apply_fixture_nbt:
+   assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
   rows.append({'position':position,'requested':wire,'method':method,'native_aux':native_aux,'placed':placed,
    'liquid_result':liquid_result,'liquid_raw':liquid_raw,
    'aligned':info.GetBlockNew(position,dimension),'liquid':liquid_readback,
-   'nbt':info.GetBlockEntityData(dimension,position)})
+   'fixture_nbt_applied':apply_fixture_nbt,'nbt':info.GetBlockEntityData(dimension,position)})
   items.SetInvItemNum(slot,0)
 finally:
  items.SetInvItemNum(slot,0)
@@ -87,8 +89,32 @@ assert rows,'No supported native block actor was placed'
 _result=json.dumps({'rows':rows,'slot_restored':True,'rotation_restored':True})
 '''
 
+APPLY_NBT = '''import json,sys
+import mod.server.extraServerApi as api
+from modern_projection.server_system import WorldAdapter
+from modern_projection.projection.cell import decode,actor_data
+from modern_projection.projection.visible_actor import entity_nbt
+from modern_projection.projection.nbt_spatial import rebase
+player=sys._neighbor_world_saved['player']
+factory=api.GetEngineCompFactory()
+dimension=factory.CreateDimension(player).GetEntityDimensionId()
+info=factory.CreateBlockInfo(player)
+origin=%r
+rows=json.loads(%r)
+applied=[]
+for row in rows:
+ if row.get('skipped_native_write'):continue
+ position=tuple(row['position'])
+ nbt=entity_nbt(actor_data(decode(row['requested'])))
+ assert nbt is not None,position
+ assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
+ applied.append({'position':position,'nbt':info.GetBlockEntityData(dimension,position)})
+_result=json.dumps({'rows':applied,'fixture_nbt_applied':True})
+'''
+
 PROBES = []
 DRY_ONLY = False
+CAPTURE_BEFORE_NBT = False
 _camera_capture = world.camera_capture
 _write_report = world.write_json
 
@@ -105,11 +131,12 @@ def camera_capture(check, label, keep, occupied, view):
     origin = check.run('_result=json.dumps(tuple(s.origin))')
     record = {'label': label, 'palette_camera': before_pose, 'palette_capture': before,
               'completed': False, 'dry_only': DRY_ONLY,
+              'capture_before_nbt': CAPTURE_BEFORE_NBT,
               'scope': ('Native writes only to dry cells; wet cells remain palette-seeded' if DRY_ONLY else
                         'Same cells, NBT and camera after palette, SetBlockNew and native item placement')}
     PROBES.append(record)
     for key, method in (('set_block', 'SetBlockNew'), ('item', 'PlayerUseItemToPos')):
-        placement = world.run(check.client, PLACE % (tuple(origin), method, DRY_ONLY))
+        placement = world.run(check.client, PLACE % (tuple(origin), method, DRY_ONLY, not CAPTURE_BEFORE_NBT))
         record[key + '_placement'] = placement
         if method == 'PlayerUseItemToPos' and any(not row.get('skipped_native_write') and
                                                 row['placed']['name'] == 'minecraft:standing_sign'
@@ -117,6 +144,17 @@ def camera_capture(check, label, keep, occupied, view):
             placement['dismiss_native_editor'] = check.client.call('mc_input', {'op': '/run', 'args': {
                 'steps': [{'do': 'key', 'keys': 'esc'}, {'do': 'wait', 'ms': 250}]}})
         cells = [(tuple(row['position']), row['requested']) for row in placement['rows']]
+        if CAPTURE_BEFORE_NBT:
+            record[key + '_before_nbt_placement'] = placement
+            record[key + '_before_nbt_replication'] = check.wait(
+                'native layers and actor ownership before fixture NBT', lambda value: value['matches'],
+                lambda: check.run(wet.PALETTE_PROBE % (wet.wire_json(cells), False)))
+            time.sleep(1.)
+            pose, capture = _camera_capture(check, label + '_' + key + '_before_nbt', keep, occupied, view)
+            record[key + '_before_nbt_camera'], record[key + '_before_nbt_capture'] = pose, capture
+            assert native.camera_matches(before_pose['stable'], pose['stable']), record
+            after_nbt = world.run(check.client, APPLY_NBT % (tuple(origin), wet.wire_json(placement['rows'])))
+            record[key + '_fixture_nbt_assignment'] = after_nbt
         diagnostics = {}
         record[key + '_client_replication'] = wet.replication(check, cells, diagnostics=diagnostics)
         record[key + '_client_replication_diagnostics'] = diagnostics
@@ -145,7 +183,9 @@ def write_report(path, report):
             if 'native_body_controls' in record:
                 continue
             metrics = {}
-            for key in ('palette', 'set_block', 'item'):
+            keys = ('palette', 'set_block', 'item') + tuple(
+                key for key in ('set_block_before_nbt', 'item_before_nbt') if key + '_capture' in record)
+            for key in keys:
                 capture = record[key + '_capture']
                 signal = native.signal(capture['path'], frames['empty']['path'])
                 cell_masks = {}
@@ -179,6 +219,9 @@ if __name__ == '__main__':
     DRY_ONLY = '--native-dry-only' in sys.argv
     if DRY_ONLY:
         sys.argv.remove('--native-dry-only')
+    CAPTURE_BEFORE_NBT = '--capture-before-nbt' in sys.argv
+    if CAPTURE_BEFORE_NBT:
+        sys.argv.remove('--capture-before-nbt')
     world.camera_capture = camera_capture
     world.write_json = write_report
     world.BlueprintCheck = NativeWorldCheck

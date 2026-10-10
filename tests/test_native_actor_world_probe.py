@@ -66,6 +66,46 @@ class NativeActorWorldProbeTests(unittest.TestCase):
         check.client.call.assert_not_called()
         self.assertTrue(probe.PROBES[0]['completed'])
 
+    def test_before_nbt_capture_precedes_fixture_assignment_and_full_replication(self):
+        events = []
+        check = Mock()
+        check.run.return_value = (0, 0, 0)
+        check.wait.return_value = {'matches': True}
+        placement = {'rows': [{'position': [1, 2, 3], 'requested': [],
+                               'placed': {'name': 'minecraft:decorated_pot'}}]}
+
+        def run(client, code):
+            compile(code, '<native-probe>', 'exec')
+            if 'method=' in code:
+                self.assertIn('apply_fixture_nbt=False', code)
+                events.append('place')
+                return copy.deepcopy(placement)
+            events.append('assign_fixture_nbt')
+            return {'fixture_nbt_applied': True, 'rows': []}
+
+        def capture(unused, label, keep, occupied, view):
+            events.append('before_nbt_capture' if label.endswith('_before_nbt') else 'final_capture')
+            return {'stable': {}}, {'path': label + '.png'}
+
+        def replicated(*args, **kwargs):
+            events.append('full_fixture_replication')
+            return {'matches': True}
+
+        with patch.object(probe, 'CAPTURE_BEFORE_NBT', True), \
+                patch.object(probe.world, 'run', side_effect=run), \
+                patch.object(probe.wet, 'replication', side_effect=replicated), \
+                patch.object(probe, '_camera_capture', side_effect=capture), \
+                patch.object(probe.native, 'camera_matches', return_value=True), \
+                patch.object(probe.time, 'sleep'):
+            probe.camera_capture(check, 'pot_isolated_side_world', (0, 0, 0), (1, 0, 0), 'side')
+        expected = ['place', 'before_nbt_capture', 'assign_fixture_nbt',
+                    'full_fixture_replication', 'final_capture']
+        self.assertEqual(['final_capture'] + expected * 2, events)
+        record = probe.PROBES[0]
+        self.assertTrue(record['capture_before_nbt'])
+        self.assertIn('set_block_before_nbt_capture', record)
+        self.assertIn('item_before_nbt_capture', record)
+
 
 if __name__ == '__main__':
     unittest.main()
