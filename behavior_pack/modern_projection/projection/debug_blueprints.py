@@ -7,6 +7,7 @@ from .model import Document
 from .block_groups import group_partner, hydrate_chest_actor
 from .visible_actor import compose_actor
 from .nbt_spatial import root_payload, scalar
+from .debug_sign_blueprints import METADATA as SIGN_METADATA, VISUAL_CASE as SIGN_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -22,8 +23,10 @@ BLUEPRINTS = (
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 36), 'minecraft:skeleton_skull'),
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
+    SIGN_METADATA,
 )
 VISUAL_CASES = {
+    'sign_styles': SIGN_VISUAL_CASE,
     'snow_plant_visibility': {
         'schema': 2, 'fixture': 'test.layers.snow',
         'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
@@ -259,6 +262,9 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == SIGN_METADATA[0]:
+            from .debug_sign_blueprints import populate
+            return populate(fixture)
         if identity == 'test.entities.appearances':
             from .debug_appearance_blueprints import populate
             return populate(fixture)
