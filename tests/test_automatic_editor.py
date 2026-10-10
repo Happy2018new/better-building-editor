@@ -219,6 +219,24 @@ class AutomaticEditorTests(unittest.TestCase):
         session.editor.edit_layer = 1
         self.assertEqual((pos, None), session.placement_target(pos, (1, 0, 0)))
 
+    def test_air_material_selection_checks_the_selected_layer_in_small_and_large_documents(self):
+        cells = {(2, 1, 2): STONE,
+                 (3, 1, 2): make_cell(AIR, WATER),
+                 (4, 1, 2): make_cell(FENCE, WATER)}
+        for size in SIZES:
+            for mode in (0, 1, 2):
+                with self.subTest(size=size, mode=mode):
+                    editor = Editor(Document(size, cells))
+                    editor.edit_layer, editor.source = mode, AIR
+                    occupied = ((2, 1, 2), (4, 1, 2)) if mode == 0 else (
+                        ((3, 1, 2), (4, 1, 2)) if mode == 1 else tuple(cells))
+                    editor.run('select_material')
+                    self.assertEqual(size[0] * size[1] * size[2] - len(occupied),
+                                     len(editor.selection))
+                    for pos in cells:
+                        self.assertEqual(pos not in occupied, pos in editor.selection)
+                    self.assertIn((0, 0, 0), editor.selection)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -474,9 +474,11 @@ class Editor(object):
         elif tool == "select_air":
             self.selection = all_points.difference(doc.blocks)
         elif tool == "select_material":
-            self.selection = set(p for p, b in doc.blocks.items() if layer(b, self.edit_layer) == self.source)
             if self.source == AIR:
-                self.selection = all_points.difference(doc.blocks)
+                occupied = (p for p, b in doc.blocks.items() if layer(b, self.edit_layer) != AIR)
+                self.selection = all_points.difference(occupied)
+            else:
+                self.selection = set(p for p, b in doc.blocks.items() if layer(b, self.edit_layer) == self.source)
         elif tool == "select_layer":
             self.selection = Selection.box(
                 (0, self.layer, 0), (doc.size[0] - 1, self.layer, doc.size[2] - 1)
