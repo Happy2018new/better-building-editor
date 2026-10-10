@@ -70,6 +70,12 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 `16a5e9b` 修复相机验收掩膜把未改变的中性背景误并入石块轮廓的问题：使用原生可见性切换的逐像素差值筛选，随后仅填充封闭孔洞，保留真实开放缺口；像素阈值／相机／轮廓标准不变，19 项相机工具测试通过。旧 r6/r6b 的 26 个文件 SHA 未变；固定旧 FOV／姿态的另存回放通过，但 `accepted_calibration=false`，没有伪造新实机标定。详细证据见 [标定掩膜报告](CAMERA_CALIBRATION_SEGMENTATION_R6.md)。含雪旧实例重载遇到 `DisabledSkinScreenController.cpp:46` 原生皮肤界面断言，尚未建立任何边界夹具就停止；失败报告及截图保留，新的冷实例正在单独验收。
 
+**第五轮 06:30 收尾检查点：** 根工作树重新执行 `python -X utf8 tools/check_version_bundle.py --tests --output .runtime/version-bundle-r5-current.json`，通过 **996 项测试、35 份来源检查、15,858 状态 × 六种变换**及全部生成资源；该报告的 `passed=true`，不能替代实机像素验收。含雪代理在同一冷实例以固定 `+16` 高度偏移完成全新三视角标定，front/right/tilted 均通过，IoU 分别为 `.9828/.9676/.9768`，outline recall/precision 均为 `1.0`，报告为 `snow-camera-calibration-cold-lift16-r5.json`（`C:/Users/Happy2018new/.pyreact-debug/instances/da649264990f4d24ba0a5f1999636674/artifacts`）。随后蘑菇边界矩阵只完成部分干燥、h0 和 h2 样本，在第四个投影相机调用处遇到 `list index out of range`；报告 `snow-brown-alpha-cutoff-boundary-cold-r5.json` 为 `completed=false`、`restored=true`，因此不接受候选修复，也不降低阈值。该实例随后应停止并释放桌面。
+
+原生陶罐正控代理完成了未赋 NBT 前置阶段的宿主脚本和 16 项离线测试（服务端／客户端片段编译、`py_compile`、`tests.test_native_actor_world_probe`、`tests.test_native_actor_context`、`tests.test_native_pot` 全部通过），但本轮未启动 MC，不能作为原生本体阳性或 NBT 渲染通过证据。脚本暂存于 agent 工作树 `.runtime/p0-entities-r4/tools/probe_cold_native_actor.py`；下一轮如需实机，必须使用全新且未创建投影的实例，并先完成 PlayerUseItemToPos／SetBlockNew 的干燥正控，再赋 NBT。当前含水 actor 仍为 `0/6` 视觉通过，F01/F03 保持未关闭。
+
+07:30 休眠任务 `Codex-BBE-R5-Hibernate-20261011-0730` 已确认 `Ready`、`Enabled=true`，动作仅为 `shutdown.exe /h`；系统支持休眠。07:05 后停止新增实现，07:15 前只收集 agent 检查点、回收本轮自有 MC 实例、更新交接并提交，不把半成品视觉候选合入。
+
 ### 第四轮累计结果
 
 当前集成工作树为 `.runtime/p0-integration`，分支为 `codex/p0-integration`。双层格、严格前景／背景和默认自动模式、语义序列化、通用状态变换、多格编辑、服务端登记选区 NBT 捕获、渲染适配与逐格继续写入已进入代码。第四轮收尾统一检查 `check_version_bundle.py --tests` **全部通过，包含 928 项全量测试**、15,858 状态 × 6 操作审计、29 份来源一致性和全部派生模型检查。报告保存在 `.runtime/version-bundle-r4-closeout.json`；第三轮 856 项的旧报告保留作历史记录。测试工具最后补入的诊断会另做定点验证；不能用离线通过、提交成功或性能通过代替像素保真。
