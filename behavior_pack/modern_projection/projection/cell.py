@@ -346,8 +346,11 @@ def has_complete_cells(store):
 def transform(value, tool, origin=None):
     from .state_transform import transform as transform_block
     nbt = actor_data(value)
-    if nbt is not None and origin is not None:
-        from .nbt_spatial import transform_pair
+    from .nbt_spatial import OPERATIONS, transform_pair
+    if tool in OPERATIONS:
+        from .entity_defaults import direction_actor
+        origin = (0, 0, 0) if origin is None else origin
+        nbt = direction_actor(foreground(value), nbt, origin)
         nbt = transform_pair(nbt, origin, tool)
     return make_cell(transform_block(foreground(value), tool),
                      transform_block(background(value), tool), nbt)

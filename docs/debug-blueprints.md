@@ -79,8 +79,14 @@ Their grouped editing cases remain in `test.groups.parts`. Imported background
 data can still be preserved and erased independently of new placement traits.
 
 The versioned default snapshot retains actual NBT from 155 native blocks and
-57 observed root identifiers. `debug_entity_defaults_data.py` stores compact
+57 observed root identifiers. `entity_defaults_data.py` stores compact
 frozen templates, which decode lazily and rebase into local fixture coordinates.
+The editor shares this versioned snapshot when a newly created cell needs an
+actor-only direction before rotation or mirroring. Existing complete NBT remains
+authoritative; old renderer-only Shulker directions become native typed `facing`
+fields while retaining their renderer payload. This prevents a new upward-facing
+Shulker from remaining upward after a vertical mirror and makes the resulting
+direction available to sharing, clipboard imports and world writes.
 Every fixture and every vanilla-gallery entry with an observed native default
 uses the complete payload. The three entity pages include all 57 observed
 identifiers. Signs use matching NBT and renderer text/colour/glow fields, while

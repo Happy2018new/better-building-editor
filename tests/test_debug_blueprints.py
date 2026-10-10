@@ -194,7 +194,7 @@ class DebugBlueprintTests(unittest.TestCase):
 
     def test_native_default_snapshot_matches_generated_provenance_and_observed_aux(self):
         import hashlib
-        from projection import debug_entity_defaults_data as defaults
+        from projection import entity_defaults_data as defaults
         from projection.debug_entity_defaults import material as native_material
         source = ROOT / 'tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json'
         raw = source.read_bytes()
