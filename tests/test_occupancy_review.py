@@ -268,7 +268,8 @@ class OccupancyReviewTests(unittest.TestCase):
         for x in range(10):
             self.set_world(o, r, (x, 0, 0), STONE)
         current = o.model
-        o.tick()
+        with patch('modern_projection.projection.occupancy.time.time', return_value=100.):
+            o.tick()
         self.assertEqual(10, len(o.changed))
         self.assertEqual(current, o.model)
         self.assertEqual(o.shader.names[1], r.geometry_calls[-1][0])
