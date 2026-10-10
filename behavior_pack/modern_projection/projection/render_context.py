@@ -2,7 +2,7 @@
 from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
-from .entity_render import document_chest_part
+from .entity_render import CHEST_PROXIES, document_chest_part
 from .large_preview import MAX_SURFACE_BLOCKS
 from .nbt_spatial import rebase
 from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
@@ -13,6 +13,8 @@ NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
 MAX_CONTEXT_CHUNK_CACHE = 32
 TARGETS_PER_UNIT = 16
+LOCAL_NEIGHBORS = tuple((x, y, z, (y * 64 + x) * 64 + z)
+                        for x, y, z in NEIGHBORS)
 
 
 def _position(index, volume):
@@ -133,6 +135,9 @@ class ContextPaletteBuilder(object):
                 not 0 < sy <= MAX_LOGICAL_HEIGHT):
             raise ValueError('Context palettes require matching supported logical volumes')
         self.cache, self.data = {}, None
+        self.chest_identities = frozenset(identity for identity, value in enumerate(document.blocks.palette)
+                                          if foreground(value)[0] in CHEST_PROXIES)
+        self.states, self.extra_states = {}, {}
         self.chunk_cache = OrderedDict()
         self.positions = []
 
@@ -151,6 +156,10 @@ class ContextPaletteBuilder(object):
         identity = chunk if isinstance(chunk, integer_types) else chunk[index]
         if not identity:
             return None
+        if identity not in self.chest_identities:
+            cached = self.cache.get(identity)
+            if cached is not None:
+                return cached
         value = self.document.blocks.palette[identity]
         front, back, actor = foreground(value), background(value), actor_data(value)
         part = document_chest_part(self.document, (x, y, z), front)
@@ -168,6 +177,8 @@ class ContextPaletteBuilder(object):
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
+        self.states.update(result[2])
+        self.extra_states.update(result[3])
         if self.data is not None:
             self.data['states'].update(result[2])
             self.data['extraStates'].update(result[3])
@@ -261,8 +272,10 @@ class ContextBatchBuilder(ContextPaletteBuilder):
         for unused in self.collect():
             yield True
         batches = {}
+        sx, sy, sz = self.document.size
         for number, target in enumerate(self.positions, 1):
-            origin = tuple((axis >> 4) << 4 for axis in target)
+            tx, ty, tz = target
+            origin = (tx & ~15, ty & ~15, tz & ~15)
             batch = batches.get(origin)
             if batch is None:
                 def palette(volume):
@@ -274,23 +287,22 @@ class ContextBatchBuilder(ContextPaletteBuilder):
             center = self.material(*target)
             if center is None or center[0] is None:
                 raise ValueError('Context target is absent from its source')
-            local = tuple(target[axis] - origin[axis] for axis in range(3))
-            encoded = tuple(axis * CONTEXT_STRIDE + CONTEXT_CENTER for axis in local)
-            delta = tuple(encoded[axis] - target[axis] for axis in range(3))
-            for neighbor in NEIGHBORS:
-                original = tuple(target[axis] + neighbor[axis] for axis in range(3))
-                if any(not 0 <= original[axis] < self.document.size[axis] for axis in range(3)):
+            lx, ly, lz = tx - origin[0], ty - origin[1], tz - origin[2]
+            cx, cy, cz = (lx * CONTEXT_STRIDE + CONTEXT_CENTER,
+                          ly * CONTEXT_STRIDE + CONTEXT_CENTER,
+                          lz * CONTEXT_STRIDE + CONTEXT_CENTER)
+            delta = (cx - tx, cy - ty, cz - tz)
+            center_index = (cy * 64 + cx) * 64 + cz
+            for nx, ny, nz, index_delta in LOCAL_NEIGHBORS:
+                x, y, z = tx + nx, ty + ny, tz + nz
+                if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
                     continue
-                rendered = center if neighbor == (0, 0, 0) else self.material(*original)
+                rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
                 if rendered is None or rendered[0] is None:
                     continue
-                position = tuple(encoded[axis] + neighbor[axis] for axis in range(3))
-                _put_encoded(context, rendered[0], _index(position, context['volume']), delta)
-                context['states'].update(rendered[2])
-                context['extraStates'].update(rendered[3])
+                _put_encoded(context, rendered[0], center_index + index_delta, delta)
             if center[1] is not None:
-                overlay['common'].setdefault(center[1], []).append(_index(local, overlay['volume']))
-                overlay['states'].update(center[2])
+                overlay['common'].setdefault(center[1], []).append((ly * 16 + lx) * 16 + lz)
             if number % TARGETS_PER_UNIT == 0:
                 yield True
         rows = []
@@ -298,9 +310,10 @@ class ContextBatchBuilder(ContextPaletteBuilder):
             for kind, palette in enumerate(palettes):
                 if not palette['common'] and not palette['extra']:
                     continue
-                for key, layer in (('states', 'common'), ('extraStates', 'extra')):
-                    palette[key] = dict((value, record) for value, record in palette[key].items()
-                                        if value in palette[layer])
+                for key, layer, records in (('states', 'common', self.states),
+                                             ('extraStates', 'extra', self.extra_states)):
+                    palette[key] = dict((value, records[value]) for value in palette[layer]
+                                        if value in records)
                 rows.append((origin, kind == 0, palette))
         from .render_layout import LOCAL_CONTEXT_SCHEMA_VERSION
         self.data = {'_context_batches': rows, '_context_schema': LOCAL_CONTEXT_SCHEMA_VERSION,
