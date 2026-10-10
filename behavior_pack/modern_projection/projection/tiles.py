@@ -47,6 +47,7 @@ class TiledPreview(object):
         self.regions = {}
         self.region_source = None
         self.region_owners = set()
+        self.source_palette = ()
 
     def cancel(self):
         self.serial += 1
@@ -89,7 +90,7 @@ class TiledPreview(object):
         # The editor identity changes on reload; equal content and visibility
         # still describe exactly the same mesh, including its boundary halo.
         context = (self.session.editor.document.size,) + self.context[1:]
-        return (context, region, tuple(store.palette), tuple(store.chunks.get(k, 0) for k in neighbours))
+        return (context, region, self.source_palette, tuple(store.chunks.get(k, 0) for k in neighbours))
 
     def region_bounds(self, key):
         root, low, high, unused = self.regions[key]
@@ -130,6 +131,7 @@ class TiledPreview(object):
             changed_regions = updated != self.regions
             self.regions, self.region_source = updated, region_source
             self.region_owners = set(entry[0] for entry in updated.values())
+            self.source_palette = tuple(s.editor.document.blocks.palette)
         if positions is None and not changed_context and signature != s.model_revision:
             positions = getattr(s.editor, 'last_changed_positions', None)
         if changed_context:
