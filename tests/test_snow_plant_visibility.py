@@ -39,11 +39,13 @@ class SnowPlantVisibilityTests(unittest.TestCase):
     def test_projection_cache_acceptance_requires_exact_current_source(self):
         source = {'editor_id': 1, 'document_id': 2, 'fixture': 'snow.fern.covered.5',
                   'nonce': 3, 'serial': 4, 'model': 'native_snow_model',
-                  'work_current': True, 'cache_current': True, 'origin_current': True}
+                  'work_current': True, 'cache_current': True, 'origin_current': True,
+                  'path': 'synchronous'}
         self.assertTrue(projection_source_matches(source, source))
         for field, value in (('editor_id', 9), ('document_id', 9), ('fixture', 'garden'),
                              ('nonce', 9), ('serial', 9), ('model', 'old_model'),
-                             ('work_current', False), ('cache_current', False), ('origin_current', False)):
+                             ('work_current', False), ('cache_current', False), ('origin_current', False),
+                             ('path', 'incremental')):
             with self.subTest(field=field):
                 stale = dict(source, **{field: value})
                 self.assertFalse(projection_source_matches(stale, source))

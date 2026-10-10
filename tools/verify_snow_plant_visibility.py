@@ -14,7 +14,7 @@ from verify_shulker_orientations import viewport_crop
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTION_SOURCE = '''import zlib
-from modern_projection.projection.bridge import _stable_palette
+from modern_projection.projection.bridge import _stable_palette,coordinate
 from modern_projection.projection.geometry_palette import prepare_palette
 work=b.projection_work
 doc=s.editor.document
@@ -23,17 +23,21 @@ fingerprint=zlib.compress(repr(_stable_palette((doc.size,data))).encode('utf8'),
 model=b.projection_mesh[1] if b.projection_mesh else None
 _result=json.dumps({'editor_id':id(s.editor),'document_id':id(doc),'fixture':sys._blueprint_qa_identity,
  'nonce':sys._blueprint_qa_nonce,'serial':b.projection_serial,
- 'work_current':work is not None and work.serial==b.projection_serial and work.ready and
-  work.model==model and work.document.size==doc.size and work.document.blocks==doc.blocks,
+ 'work_current':(not s.projection_missing if work is None else
+  work.serial==b.projection_serial and work.ready and work.model==model and
+  work.document.size==doc.size and work.document.blocks==doc.blocks),
+ 'path':'synchronous' if work is None else 'incremental',
  'cache_model':b.models.get(fingerprint),'model':model,
  'cache_current':model is not None and b.models.get(fingerprint)==model,
- 'origin_current':work is not None and tuple(work.origin)==tuple(s.origin),
+ 'origin_current':b.projection_mesh is not None and
+  tuple(b.projection_mesh[2])==tuple(coordinate(s.origin)) and
+  (work is None or tuple(work.origin)==tuple(coordinate(s.origin))),
  'fingerprint_bytes':len(fingerprint)})
 '''
 
 
 def projection_source_matches(actual, expected):
-    fields = ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model')
+    fields = ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model', 'path')
     return (all(actual.get(field) == expected.get(field) for field in fields) and
             actual.get('work_current') and actual.get('cache_current') and actual.get('origin_current'))
 
