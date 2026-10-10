@@ -1,14 +1,16 @@
 """Prepare one missing-only mesh while retaining each cell's native neighbors."""
+from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
 from .large_preview import MAX_SURFACE_BLOCKS
 from .nbt_spatial import rebase
-from .render_layout import (CONTEXT_BASE, CONTEXT_STRIDE, MAX_LOGICAL_HEIGHT,
-                            OVERLAY_BASE, context_position)
-from .storage import address, integer_types
+from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
+                            MAX_LOGICAL_HEIGHT, OVERLAY_BASE, context_position)
+from .storage import integer_types
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
+MAX_CONTEXT_CHUNK_CACHE = 32
 
 
 def _position(index, volume):
@@ -56,6 +58,11 @@ def _cells(prepared, logical_volume):
 
 def _put(data, cell, position, original):
     index = _index(position, data['volume'])
+    delta = tuple(position[axis] - original[axis] for axis in range(3))
+    _put_encoded(data, cell, index, delta)
+
+
+def _put_encoded(data, cell, index, delta):
     for layer in ('common', 'extra'):
         value = cell.get(layer)
         if value is not None and value != AIR:
@@ -63,7 +70,6 @@ def _put(data, cell, position, original):
     actor = cell.get('actor')
     if actor is not None:
         name, payload = actor
-        delta = tuple(position[axis] - original[axis] for axis in range(3))
         data['actor'].setdefault(name, {})[index] = rebase(payload, delta)
 
 
@@ -125,11 +131,21 @@ class ContextPaletteBuilder(object):
                 not 0 < sy <= MAX_LOGICAL_HEIGHT):
             raise ValueError('Context palettes require matching supported logical volumes')
         self.cache, self.data = {}, None
+        self.chunk_cache = OrderedDict()
         self.positions = []
 
-    def material(self, position):
-        key, index = address(position)
-        chunk = self.document.blocks.chunks.get(key, 0)
+    def material(self, x, y, z):
+        key = (x >> 4, y >> 4, z >> 4)
+        chunk = self.chunk_cache.get(key)
+        if chunk is None:
+            chunk = self.document.blocks.chunks.get(key, 0)
+            if not isinstance(chunk, integer_types):
+                chunk = tuple(chunk)
+            # Bound expanded Python integers even for large sparse snapshots.
+            if len(self.chunk_cache) == MAX_CONTEXT_CHUNK_CACHE:
+                self.chunk_cache.popitem(last=False)
+            self.chunk_cache[key] = chunk
+        index = ((y & 15) << 8) | ((z & 15) << 4) | (x & 15)
         identity = chunk if isinstance(chunk, integer_types) else chunk[index]
         if not identity:
             return None
@@ -148,6 +164,9 @@ class ContextPaletteBuilder(object):
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[identity] = result
+        if self.data is not None:
+            self.data['states'].update(result[2])
+            self.data['extraStates'].update(result[3])
         return result
 
     def collect(self):
@@ -179,22 +198,32 @@ class ContextPaletteBuilder(object):
             volume = self.logical_volume
         self.data = {'volume': volume, 'common': {}, 'extra': {}, 'actor': {},
                      'states': {}, 'extraStates': {}, 'void': False, 'eliminateAir': True}
+        self.neighbors = tuple((x, y, z, (y * volume[1] + x) * volume[0] + z)
+                               for x, y, z in NEIGHBORS)
+        for result in self.cache.values():
+            self.data['states'].update(result[2])
+            self.data['extraStates'].update(result[3])
 
     def put_target(self, target):
-        center = self.material(target)
+        tx, ty, tz = target
+        center = self.material(tx, ty, tz)
         if center is None or center[0] is None:
             raise ValueError('Context target is absent from the complete source palette')
-        for neighbor in NEIGHBORS:
-            original = tuple(target[axis] + neighbor[axis] for axis in range(3))
-            if not self.document.contains(original):
+        cx = tx * CONTEXT_STRIDE + CONTEXT_CENTER
+        cy = ty * CONTEXT_STRIDE + CONTEXT_CENTER + CONTEXT_BASE
+        cz = tz * CONTEXT_STRIDE + CONTEXT_CENTER
+        center_index = _index((cx, cy, cz), self.data['volume'])
+        delta = (cx - tx, cy - ty, cz - tz)
+        sx, sy, sz = self.document.size
+        for nx, ny, nz, index_delta in self.neighbors:
+            x, y, z = tx + nx, ty + ny, tz + nz
+            if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
                 continue
-            rendered = self.material(original)
+            rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
             if rendered is None or rendered[0] is None:
                 continue
-            cell, unused_overlay, states, extra_states = rendered
-            _put(self.data, cell, context_position(target, neighbor), original)
-            self.data['states'].update(states)
-            self.data['extraStates'].update(extra_states)
+            # All 27 cells move by the same delta into this target's tile.
+            _put_encoded(self.data, rendered[0], center_index + index_delta, delta)
         if center[1] is not None:
             pos = (target[0], target[1] + OVERLAY_BASE, target[2])
             self.data['common'].setdefault(center[1], []).append(_index(pos, self.data['volume']))

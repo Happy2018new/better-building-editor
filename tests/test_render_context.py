@@ -8,9 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.cell import make_cell
-from projection.debug_blueprints import build, material
+from projection.debug_blueprints import BLUEPRINTS, build, material
 from projection.model import Document
-from projection.render_context import prepare_context_palette
+from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, ContextPaletteBuilder,
+                                       prepare_context_palette)
 from projection.render_layout import (CONTEXT_BASE, OVERLAY_BASE, context_center,
                                       context_position, logical_position)
 from projection.visible_actor import compose_actor
@@ -25,6 +26,38 @@ def position(value, volume):
 
 
 class RenderContextTests(unittest.TestCase):
+    def assert_incremental_matches_reference(self, document, targets):
+        expected = prepare_context_palette(document.palette_data(), targets)
+        builder = ContextPaletteBuilder(document, targets)
+        for unused in builder.prepare():
+            pass
+        actual = copy.deepcopy(builder.data)
+        for layer in ('common', 'extra'):
+            actual[layer] = dict((value, sorted(entries))
+                                 for value, entries in actual[layer].items())
+        self.assertEqual(expected, actual)
+        return builder
+
+    def test_incremental_preparation_matches_complete_palette_for_eight_blueprints(self):
+        for name, unused_category, unused_label, unused_size, unused_block in BLUEPRINTS:
+            if name == 'test.registry.vanilla':
+                continue
+            with self.subTest(blueprint=name):
+                document = build(name)
+                targets = document.palette_data(lambda pos: pos[1] > 0)
+                self.assert_incremental_matches_reference(document, targets)
+
+    def test_chunk_decode_cache_stays_bounded_and_eviction_keeps_all_targets(self):
+        stone = material('stone')
+        values = {(x * 16 + 1, y * 16 + 1, z * 16 + 1): stone
+                  for y in range(8) for x in range(4) for z in range(4)}
+        document = Document((64, 128, 64), values)
+        saved = document.blocks.copy()
+        builder = self.assert_incremental_matches_reference(document, document.palette_data())
+        self.assertEqual(MAX_CONTEXT_CHUNK_CACHE, len(builder.chunk_cache))
+        self.assertEqual(len(values), len(builder.positions))
+        self.assertEqual(saved, document.blocks)
+
     def test_hidden_neighbor_stairs_and_both_layers_survive_in_one_context_tile(self):
         stair = lambda direction: material('oak_stairs', {'weirdo_direction': direction})
         base, neighbor = (15, 1, 8), (16, 1, 8)
