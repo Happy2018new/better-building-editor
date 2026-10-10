@@ -39,6 +39,7 @@ class WorldAdapter(object):
         self.blockstate_component = None
         self.native_aux_values = {}
         self.native_pairs_written = set()
+        self.layer_info_component = None
 
     def ensure(self, pos):
         key = (pos[0] // 16, pos[2] // 16)
@@ -202,7 +203,9 @@ class WorldAdapter(object):
             return False
         self.native_pairs_written.add(identity)
         liquid = {'name': back[0].encode('utf8'), 'aux': back[1]}
-        result = self.info.SetLiquidBlock(pos, liquid, self.dimension)
+        if self.layer_info_component is None:
+            self.layer_info_component = self.factory.CreateBlockInfo(self.player)
+        result = self.layer_info_component.SetLiquidBlock(pos, liquid, self.dimension)
         return back == AIR or result is not False
 
     def valid(self, value):
