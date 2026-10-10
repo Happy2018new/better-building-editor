@@ -91,7 +91,8 @@ def generate(styles_path,poses_path,target,snapshot,check):
         'from __future__ import unicode_literals','SCHEMA_VERSION = 1',
         'SOURCE_VERSION = '+repr(registry.source_version()),'PALETTE_SHA256 = '+repr(registry.fingerprint()),
         'SOURCE_SHA256 = '+repr(hashlib.sha256(snapshot_text.encode('ascii')).hexdigest()),
-        'TEMPLATES = '+repr(templates),'STYLE_FIELDS = '+repr(STYLE_FIELDS),''))
+        'TEMPLATES = '+repr(templates),'STYLE_FIELDS = '+repr(STYLE_FIELDS),
+        'OBSERVED_STYLES = '+repr(observed_styles),''))
     for path,content in ((target,text),(snapshot,snapshot_text)):
         if check:
             if not path.exists() or path.read_text(encoding='ascii')!=content:raise ValueError('Stale native signs: '+str(path))
