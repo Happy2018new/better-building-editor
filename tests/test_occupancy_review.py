@@ -143,7 +143,7 @@ class OccupancyReviewTests(unittest.TestCase):
         self.assertEqual({chest: [1]}, o.output.common)
         self.assertEqual({water: [0, 1]}, o.output.extra)
         self.assertEqual({'minecraft:chest': {1: actor}}, o.output.actor)
-        self.assertEqual(3, o.output.count)
+        self.assertEqual(2, o.output.count)
 
         self.set_world(o, runtime, (1, 0, 0), STONE)
         self.prepare(o)
@@ -157,7 +157,7 @@ class OccupancyReviewTests(unittest.TestCase):
         self.assertEqual({chest: [1]}, o.output.common)
         self.assertEqual({water: [0, 1]}, o.output.extra)
         self.assertEqual({'minecraft:chest': {1: actor}}, o.output.actor)
-        self.assertEqual(3, o.output.count)
+        self.assertEqual(2, o.output.count)
 
     def test_nonair_types_hide_and_restore_with_batched_buffers(self):
         for value in (('minecraft:glass', 0), ('minecraft:stone_slab', 3),

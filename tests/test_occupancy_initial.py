@@ -31,8 +31,11 @@ class InitialChunkTests(unittest.TestCase):
             self.assertEqual(dict((value, sorted(indices)) for value, indices in expected_data[key].items()),
                              dict((value, sorted(indices)) for value, indices in getattr(output, key).items()))
         self.assertEqual(expected_data['actor'], output.actor)
+        self.assertEqual(len(set(index for key in ('common', 'extra')
+                                 for indices in expected_data[key].values() for index in indices)),
+                         output.count)
         self.assertEqual(sum(len(indices) for key in ('common', 'extra')
-                             for indices in expected_data[key].values()), output.count)
+                             for indices in expected_data[key].values()), output.layer_count)
         for data in (output.common, output.extra):
             actual=[i for group in data.values() for i in group]
             self.assertEqual(len(actual),len(set(actual)))

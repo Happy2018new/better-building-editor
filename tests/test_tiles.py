@@ -84,7 +84,7 @@ class TileTests(unittest.TestCase):
         self.assertEqual(builds + 1, len(bridge.builds))
         self.assertEqual({'minecraft:stone': {1: actor}}, bridge.inputs[-1][2])
 
-    def test_cached_undo_redo_restores_complete_cell_and_two_layer_count(self):
+    def test_cached_undo_redo_restores_complete_cell_and_occupied_cell_count(self):
         chest = ('minecraft:chest', 2)
         water = ('minecraft:water', 0)
         actor = {'id': 'Chest', 'x': 2, 'y': 0, 'z': 0}
@@ -105,7 +105,7 @@ class TileTests(unittest.TestCase):
         restored = session.tiles.parts[(0, 0, 0)]
         self.assertFalse(session.preview_error)
         self.assertEqual(original, restored['data'])
-        self.assertEqual(2, restored['count'])
+        self.assertEqual(1, restored['count'])
         self.assertEqual(builds, len(bridge.builds))
 
         session.action(session.editor.redo); bridge.settle(session)
@@ -115,6 +115,33 @@ class TileTests(unittest.TestCase):
         self.assertEqual(edited, restored['data'])
         self.assertEqual(1, restored['count'])
         self.assertEqual(builds, len(bridge.builds))
+
+    def test_double_layer_budget_and_legacy_cached_counts_use_occupied_cells(self):
+        glass, water = ('minecraft:glass', 0), ('minecraft:water', 0)
+        document = Document((4, 1, 1), {
+            (0, 0, 0): make_cell(glass, water),
+            (1, 0, 0): make_cell(glass, water)})
+        bridge = Bridge()
+        session = Session(bridge)
+        with patch('projection.tiles.MAX_SURFACE_BLOCKS', 2), \
+                patch('projection.large_preview.MAX_SURFACE_BLOCKS', 2):
+            session._loaded(document)
+            bridge.settle(session)
+            self.assertFalse(session.preview_error)
+            part = session.tiles.parts[(0, 0, 0)]
+            self.assertEqual(2, part['count'])
+            part['cache'][part['bank']] = part['cache'][part['bank']][:3]
+            session.editor.edit_layer = 1
+            session.editor.material = ('minecraft:stone', 0)
+            session.editor.paint_at((0, 0, 0), respect_selection=False)
+            session.refresh_preview()
+            bridge.settle(session)
+            builds = len(bridge.builds)
+            session.action(session.editor.undo)
+            bridge.settle(session)
+            self.assertFalse(session.preview_error)
+            self.assertEqual(2, session.tiles.parts[(0, 0, 0)]['count'])
+            self.assertEqual(builds, len(bridge.builds))
 
     def test_connected_stairs_share_one_native_palette_across_tile_boundary(self):
         stairs = ('minecraft:oak_stairs', 0)
@@ -131,7 +158,7 @@ class TileTests(unittest.TestCase):
         self.assertEqual({stairs: [15], ('minecraft:oak_stairs', 1): [16]}, owner['data'][0])
         self.assertEqual({water: [15]}, owner['data'][1])
         self.assertIsNone(other['name'])
-        self.assertEqual(3, owner['count'])
+        self.assertEqual(2, owner['count'])
         self.assertEqual(1, len(bridge.builds))
 
     def test_region_split_and_cached_undo_restore_geometry_size_without_duplicates(self):

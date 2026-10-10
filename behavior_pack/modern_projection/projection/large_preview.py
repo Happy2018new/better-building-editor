@@ -29,6 +29,7 @@ class SurfacePalette(object):
         self.extra = {}
         self.actor = {}
         self.count = 0
+        self.layer_count = 0
 
     def add(self, pos, value):
         x, y, z = pos
@@ -38,18 +39,21 @@ class SurfacePalette(object):
     def add_indices(self, value, indices):
         """Expand cached complete cells without repeating a document lookup."""
         front, back = foreground(value), background(value)
+        occupied = front != AIR or back != AIR
+        count = self.count + (len(indices) if occupied else 0)
+        if count > MAX_SURFACE_BLOCKS:
+            raise ValueError('可见方块数量过多，请使用精细视图或仅显示当前层；草稿完整保留')
         nbt = actor_data(value)
         if front != AIR:
             self.common.setdefault(front, []).extend(indices)
-            self.count += len(indices)
+            self.layer_count += len(indices)
         if back != AIR:
             self.extra.setdefault(back, []).extend(indices)
-            self.count += len(indices)
+            self.layer_count += len(indices)
         if nbt is not None:
             actors = self.actor.setdefault(front[0], {})
             actors.update((index, nbt) for index in indices)
-        if self.count > MAX_SURFACE_BLOCKS:
-            raise ValueError('可见方块数量过多，请使用精细视图或仅显示当前层；草稿完整保留')
+        self.count = count
 
     def palette_data(self, visible=None):
         sx, sy, sz = self.size

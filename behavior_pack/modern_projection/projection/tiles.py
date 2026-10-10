@@ -109,9 +109,12 @@ class TiledPreview(object):
             if source not in entry[2]:
                 continue
             origin, size = self.region_bounds(key)
+            count = (entry[3] if len(entry) > 3 else
+                     len(set(index for layer in entry[0][:2]
+                             for values in layer.values() for index in values)))
             part.update(data=entry[0], name=entry[1], source=source, bank=bank,
                         origin=origin, size=size,
-                        count=sum(len(v) for layer in entry[0][:2] for v in layer.values()),
+                        count=count,
                         pending=bool(entry[1]),
                         pending_at=time.time(),
                         signature=self.session.preview_signature())
@@ -308,7 +311,9 @@ class TiledPreview(object):
             part['signature'] = self.session.preview_signature()
             part['source'] = self.source
             sources = part['cache'][part['bank']][2]
-            part['cache'][part['bank']] = (part['data'], part['name'], (sources+(self.source,))[-2:])
+            part['count'] = palette.count
+            part['cache'][part['bank']] = (part['data'], part['name'],
+                                          (sources+(self.source,))[-2:], palette.count)
             return
         total = palette.count + sum(p['count'] for k,p in self.parts.items()
                                     if k != key and k in self.region_owners)
@@ -324,7 +329,7 @@ class TiledPreview(object):
             if palette.common or palette.extra:
                 name = self.session.bridge.geometry(palette, name='modern_projection_chunk_%d_%d_%d_%d_%d' % ((self.generation,)+key+(bank,)))
                 self.builds += 1
-        cache[bank] = (data, name, (self.source,))
+        cache[bank] = (data, name, (self.source,), palette.count)
         self.parts[key] = {'data': data, 'count': palette.count, 'origin': origin,
                            'size': palette.size, 'name': name, 'bank': bank, 'cache': cache,
                            'pending': bool(name), 'version': self.version, 'source': self.source,
