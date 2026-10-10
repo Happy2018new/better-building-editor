@@ -5,6 +5,7 @@
 - 编辑器的前景／背景是逻辑层。原生提交由 `projection/native_layers.py` 临时转换：背景独立方块提升到原生前景；植物＋雪调整为原生雪前景／植物背景；前景水＋可含水背景调整为原生实体前景／水背景。转换不修改文档、分享、配置或撤销数据，也不向世界写入隐藏的渲染代理。自动模式擦除已有组合时优先擦前景、提升保留的背景，不重新检查新放置资格；严格前景／背景模式只修改指定层。
 - 固体定义、含雪资格和含水资格分别来自 `tools/data/native_block_metadata_nemc_<version>.json`、`native_snow_overlays_nemc_<version>.json`、`native_water_overlays_nemc_<version>.json`。导出均绑定游戏版本与方块表 SHA-256；`tools/generate_block_traits.py` 拒绝版本或指纹不一致的输入。含水表必须完整覆盖该版本所有原版名称与状态，并且每个干态实际读回都已核实；未验证状态不会被当作不支持。
 - `tools/dump_waterloggable_blocks.py` 在独立开发世界分批测试，每个 16³ 子区块最多 32 个状态。它先验证目标与支撑为空，遇到地形安全跳过；没有足够空夹具时明确失败。床使用双格夹具，灵魂火与气泡柱使用原生必要支撑。完整 `readback_states` 必须分页导出，以免单次诊断响应超出 IPC 容量；紧凑的资格汇总和逐态证据都应保留，不能根据未完成导出猜测能力。
+- 当前含水证据完整核实 **15,839 个原版状态、609 个可含水名称**，没有同名的部分状态集合。v4 全表导出只有床的 8 个干态读回不匹配；另用原生床头优先的完整双格夹具补测全部 16 个床状态，干／湿两半状态与目标水背景均正确。`tools/merge_native_water_evidence.py` 严格验证两份来源版本、指纹、方法及逐态读回，只替换床的 16 个记录，并保存输入 SHA-256 和来源方法，最终输出 v5 完整证据。任何其他未验证状态仍会阻止生成。
 - 高植物的补充验证保存在 `tools/data/native_paired_snow_nemc_3.9.0.401155.json`，标签 `paired-snow-player-bound-v1`。`tools/verify_native_paired_snow.py` 同时放置合法上下两半并确认实际状态，使用绑定玩家的 `BlockInfo` 调用 `SetSnowBlock`。短草与高干草阳性对照通过；高草、高蕨、丁香、向日葵、玫瑰丛、牡丹、瓶子草及成熟瓶子草作物的两半都放置正确，但原生含雪返回 False。因此现版本不会自动把这些双格植物视作可含雪材料。绑定 level 的同接口调用连阳性对照也返回 False，不作为资格证据。
 - 适配后续版本时，先保留新版本 `dump` 方块表并生成 registry，再在对应版本独立世界运行 metadata／snow／water 探针。检查新旧名称、状态属性和值的 diff，复用现有语义变换与成组规则；仅新增原生状态或能力差异需要审查。最终运行 `python tools/generate_block_traits.py --check` 与 `python -X utf8 -m unittest discover -s tests`。能力源文件与生成的运行时表一起提交，运行时不需要游戏外路径或服务端能力查询。
 

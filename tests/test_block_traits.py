@@ -26,6 +26,25 @@ class NativeTraitTests(unittest.TestCase):
             self.assertFalse(block_traits.is_solid(('minecraft:' + name, 0)), name)
         self.assertFalse(block_traits.is_solid(('custom:unknown', 0)))
 
+    def test_checked_in_native_water_evidence_drives_both_orders_and_layer_erasure(self):
+        from projection.cell import AIR, background, edit_cell, foreground, make_cell
+        self.assertEqual('complete', block_traits.water_capabilities_status())
+        fence, water = ('minecraft:oak_fence', 0), ('minecraft:water', 0)
+        wet = make_cell(fence, water)
+        self.assertTrue(block_traits.is_waterloggable(fence))
+        self.assertFalse(block_traits.is_waterloggable(('minecraft:stone', 0)))
+        self.assertEqual(wet, edit_cell(fence, water, 2))
+        self.assertEqual(wet, edit_cell(water, fence, 2))
+        self.assertEqual(wet, edit_cell(fence, water, 1))
+        erased_front = edit_cell(wet, AIR, 0)
+        self.assertEqual(AIR, foreground(erased_front))
+        self.assertEqual(water, background(erased_front))
+        self.assertEqual(fence, edit_cell(wet, AIR, 1))
+        self.assertEqual(water, edit_cell(wet, AIR, 2))
+        self.assertEqual(AIR, edit_cell(edit_cell(wet, AIR, 2), AIR, 2))
+        for aux in block_registry.aux_values('minecraft:bed'):
+            self.assertTrue(block_traits.is_waterloggable(('minecraft:bed', aux)))
+
     def provisional(self):
         fields = {'WATERLOGGABLE_BLOCKS': frozenset(('minecraft:oak_fence',)),
                   'WATERLOGGABLE_AUX': {'minecraft:oak_stairs': frozenset((0,))},
