@@ -10,14 +10,32 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.block_registry import aux_values, states
 from projection.geometry_palette import LEAF_PROXIES, PLANT_PROXIES, prepare_palette
-from projection.cell import make_cell
+from projection.cell import actor_data, make_cell
 from projection.large_preview import SurfacePalette
 from projection.model import Document
-from projection.visible_actor import compose_actor
+from projection.visible_actor import compose_actor, render_actor
 from projection.render_layout import OVERLAY_BASE, overlay_index
+from projection.debug_blueprints import build
 
 
 class GeometryPaletteTests(unittest.TestCase):
+    def test_copper_double_chest_fixture_reaches_native_palette_with_both_roles(self):
+        document = build('test.connections.context')
+        result = prepare_palette(document.palette_data())
+        material = ('minecraft:copper_chest', 2)
+        positions = ((26, 1, 10), (27, 1, 10))
+        indices = tuple((pos[1] * 32 + pos[0]) * 32 + pos[2] for pos in positions)
+        self.assertEqual(list(indices), result['common'][material])
+        self.assertEqual({'minecraft:cardinal_direction': 'north'}, result['states'][material])
+        self.assertEqual(set(indices), set(result['actor'][material[0]]))
+        for pos, index, main in zip(positions, indices, (True, False)):
+            payload = result['actor'][material[0]][index]
+            self.assertEqual(render_actor(actor_data(document.get(pos))), payload)
+            self.assertTrue(payload['chestIsLargeChest'])
+            self.assertEqual(main, payload['chestMainSubChest'])
+            self.assertEqual(0. if main else -.5, payload['chestModelOffset'])
+            self.assertEqual(2, payload['facingDirection'])
+
     def test_all_legacy_species_and_lifecycle_bits_use_the_matching_proxy(self):
         species = ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak')
         for index, name in enumerate(species):
