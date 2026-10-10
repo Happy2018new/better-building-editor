@@ -5,6 +5,16 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import time
+
+
+def restore_owned_window(session):
+    from _window import _activate_window
+    from release_owned_game_focus import owned_game_hwnd
+    hwnd = owned_game_hwnd(session)
+    assert _activate_window(hwnd), 'Cannot restore owned game window'
+    time.sleep(2.)
+    return {'pid': session['game_pid'], 'hwnd': hwnd, 'restored': True}
 
 
 def main():
@@ -48,20 +58,20 @@ def main():
     activation = None
     if managed_live:
         from _session import desktop_lock, load_session
-        from _window import _activate_window, _list_windows
         session = load_session(live=True)
         with desktop_lock():
-            windows = [window for window in _list_windows() if window['pid'] == session['game_pid']]
-            assert len(windows) == 1, windows
-            assert _activate_window(windows[0]['hwnd']), 'Cannot restore owned game window'
-            activation = {'pid': session['game_pid'], 'hwnd': windows[0]['hwnd'], 'restored': True}
+            # Minimized Minecraft windows can have a zero-size client area.
+            activation = restore_owned_window(session)
     try:
-        return world.main()
+        exit_code = world.main()
     finally:
         focus_release = None
         if managed_live:
             from release_owned_game_focus import main as release_focus
-            focus_release = release_focus()
+            try:
+                focus_release = release_focus()
+            except Exception as error:
+                focus_release = {'error': '%s: %s' % (type(error).__name__, error)}
         if output.is_file():
             report = json.loads(output.read_text(encoding='utf8'))
             report['native_png_capture_helper'] = {
@@ -71,7 +81,10 @@ def main():
                 'desktop_ownership': 'Caller must hold run_live_check.py desktop lock.'}
             report['owned_window_activation'] = activation
             report['owned_focus_release'] = focus_release
+            if focus_release and 'error' in focus_release:
+                report['passed'] = False
             write_json(output, report)
+    return 1 if focus_release and 'error' in focus_release else exit_code
 
 
 if __name__ == '__main__':
