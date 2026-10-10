@@ -180,12 +180,16 @@ class NativeAppearanceProbeTests(unittest.TestCase):
         fixture = NativeFixture()
         with fake_api(fixture):
             data = json.loads(self.helper('setup')['_result'])
-            self.assertEqual(19, len(data['rows']))
+            self.assertEqual(25, len(data['rows']))
             self.assertEqual(fixture.original_rotation, fixture.rotation)
             self.assertIsNone(fixture.inventory)
             native = [row for row in data['rows'] if row['case'].startswith('skull_floor')]
             self.assertEqual(8, len(native))
             self.assertTrue(all(row['observed_rotation'] == row['yaw'] for row in native))
+            mob_heads = data['rows'][-6:]
+            self.assertEqual({'minecraft:wither_skeleton_skull', 'minecraft:zombie_head',
+                              'minecraft:creeper_head'}, {row['name'] for row in mob_heads})
+            self.assertEqual([45., 0.] * 3, [row['observed_rotation'] for row in mob_heads])
             filled = json.loads(self.helper('fill')['_result'])
             frames = [row for row in filled['rows'] if row.get('fill_item')]
             self.assertTrue(all(row['fill_observed'] for row in frames))

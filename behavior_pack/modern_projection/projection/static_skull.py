@@ -5,7 +5,8 @@ from .native_appearance import angle, validate_source
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import entity_nbt, render_actor
 
-SKULL_MATERIALS = ('minecraft:skeleton_skull',)
+SKULL_MATERIALS = ('minecraft:skeleton_skull', 'minecraft:wither_skeleton_skull',
+                   'minecraft:zombie_head', 'minecraft:creeper_head')
 SKULL_POSES = tuple('floor_' + str(index) for index in range(16)) + tuple(
     'wall_' + str(face) for face in (2, 3, 4, 5))
 SKULL_PROXIES = dict((name, dict((pose, 'modern_projection:preview_' +

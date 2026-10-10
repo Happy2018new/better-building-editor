@@ -42,13 +42,19 @@
   "paths": {
     "entity": "entity/skull.entity.json",
     "geometry": "models/mobs.json",
-    "texture": "textures/entity/skulls/skeleton.png"
+    "texture_creeper_head": "textures/entity/skulls/creeper.png",
+    "texture_skeleton_skull": "textures/entity/skulls/skeleton.png",
+    "texture_wither_skeleton_skull": "textures/entity/skulls/wither_skeleton.png",
+    "texture_zombie_head": "textures/entity/skulls/zombie.png"
   },
-  "schema": 1,
+  "schema": 2,
   "scope": "Vanilla mob_head closed cube; pose acceptance is separately measured against player-placed native skulls.",
   "sha256": {
     "entity": "e697804cd4d636c4d921df8b84857c76022e642fa6c13aa55d6cdc2f65f7cad0",
     "geometry": "f56926de442bd26a75dfc077d5322d0432a83b1a86e8c14ce687a5c9716ba12c",
-    "texture": "850d5eb0178465c2661e5bf0bde5d9485f8de23c4a75590205acc968f7e000b1"
+    "texture_creeper_head": "de7cb032dc9a81732535c66aaf55dba03e29a4463219403d6d9573018191790a",
+    "texture_skeleton_skull": "850d5eb0178465c2661e5bf0bde5d9485f8de23c4a75590205acc968f7e000b1",
+    "texture_wither_skeleton_skull": "fdfae927fd8ad6e4fc991f756488d5ca00b83e8a894f4c28eceb33475ce8f9b1",
+    "texture_zombie_head": "b172ff1b50c3ce0587cf82a2865bb05b9a22fc54a78d446b7bfcab13ffcea0ab"
   }
 }

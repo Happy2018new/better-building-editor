@@ -19,8 +19,8 @@ from projection.visible_actor import compose_actor, entity_nbt, render_actor
 class AppearanceBlueprintTests(unittest.TestCase):
     def test_all_native_samples_have_unique_positions_and_raw_tags_rebased_to_each_part(self):
         doc = build(IDENTITY)
-        self.assertEqual(19, len(CASE_NAMES))
-        self.assertEqual(19, len(set(CASE_POSITIONS.values())))
+        self.assertEqual(25, len(CASE_NAMES))
+        self.assertEqual(25, len(set(CASE_POSITIONS.values())))
         for row in observations():
             pos = CASE_POSITIONS[row['case']]
             value = doc.get(pos)
@@ -28,7 +28,7 @@ class AppearanceBlueprintTests(unittest.TestCase):
             self.assertEqual(row['observed_id'], scalar(root, 'id'))
             self.assertEqual(pos, tuple(scalar(root, axis) for axis in ('x', 'y', 'z')))
             self.assertEqual((row['block']['name'], row['block']['aux']), foreground(value))
-            if row['case'].startswith('skull_floor') or row['case'] == 'dragon_floor_yaw45':
+            if row['case'].startswith('skull_floor') or row['case'].endswith('floor_yaw45'):
                 self.assertEqual(row['observed_rotation'], scalar(root, 'Rotation'))
                 self.assertEqual(row['observed_rotation'], render_actor(actor_data(value))['rotation'])
             if row.get('fill_observed'):

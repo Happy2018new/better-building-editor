@@ -17,7 +17,10 @@ CASE_NAMES = (
     'skull_floor_yaw_225', 'skull_floor_yaw_270', 'skull_wall_face2',
     'skull_wall_face3', 'skull_wall_face4', 'skull_wall_face5',
     'dragon_floor_yaw45', 'bed_silver', 'bed_light_blue',
-    'frame_filled', 'glow_frame_filled', 'banner_base1', 'banner_ominous')
+    'frame_filled', 'glow_frame_filled', 'banner_base1', 'banner_ominous',
+    'wither_skeleton_skull_floor_yaw45', 'wither_skeleton_skull_wall_face2',
+    'zombie_head_floor_yaw45', 'zombie_head_wall_face2',
+    'creeper_head_floor_yaw45', 'creeper_head_wall_face2')
 CASE_POSITIONS = dict((name, (3 + index % 6 * 6, 1, 3 + index // 6 * 8))
                       for index, name in enumerate(CASE_NAMES))
 

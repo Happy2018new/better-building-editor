@@ -2091,10 +2091,658 @@
         0.0
       ],
       "yaw": 0.0
+    },
+    {
+      "block": {
+        "aux": 1,
+        "name": "minecraft:wither_skeleton_skull"
+      },
+      "case": "wither_skeleton_skull_floor_yaw45",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 45.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 48
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 1
+            }
+          },
+          "pos": [
+            48,
+            -44,
+            1
+          ]
+        }
+      ],
+      "face": 1,
+      "name": "minecraft:wither_skeleton_skull",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 45.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:wither_skeleton_skull": {
+            "0": {
+              "facingDirection": 1,
+              "progress": 0.0,
+              "rotation": 45.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:wither_skeleton_skull",
+              1
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:wither_skeleton_skull",
+              1
+            ],
+            "value": {
+              "facing_direction": 1
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        45.0
+      ],
+      "yaw": 45.0
+    },
+    {
+      "block": {
+        "aux": 2,
+        "name": "minecraft:wither_skeleton_skull"
+      },
+      "case": "wither_skeleton_skull_wall_face2",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 20
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 8
+            }
+          },
+          "pos": [
+            20,
+            -44,
+            8
+          ]
+        }
+      ],
+      "face": 2,
+      "name": "minecraft:wither_skeleton_skull",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 0.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:wither_skeleton_skull": {
+            "0": {
+              "facingDirection": 2,
+              "progress": 0.0,
+              "rotation": 0.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:wither_skeleton_skull",
+              2
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:wither_skeleton_skull",
+              2
+            ],
+            "value": {
+              "facing_direction": 2
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0
+    },
+    {
+      "block": {
+        "aux": 1,
+        "name": "minecraft:zombie_head"
+      },
+      "case": "zombie_head_floor_yaw45",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 45.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 27
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 8
+            }
+          },
+          "pos": [
+            27,
+            -44,
+            8
+          ]
+        }
+      ],
+      "face": 1,
+      "name": "minecraft:zombie_head",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 45.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:zombie_head": {
+            "0": {
+              "facingDirection": 1,
+              "progress": 0.0,
+              "rotation": 45.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:zombie_head",
+              1
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:zombie_head",
+              1
+            ],
+            "value": {
+              "facing_direction": 1
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        45.0
+      ],
+      "yaw": 45.0
+    },
+    {
+      "block": {
+        "aux": 2,
+        "name": "minecraft:zombie_head"
+      },
+      "case": "zombie_head_wall_face2",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 34
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 8
+            }
+          },
+          "pos": [
+            34,
+            -44,
+            8
+          ]
+        }
+      ],
+      "face": 2,
+      "name": "minecraft:zombie_head",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 0.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:zombie_head": {
+            "0": {
+              "facingDirection": 2,
+              "progress": 0.0,
+              "rotation": 0.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:zombie_head",
+              2
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:zombie_head",
+              2
+            ],
+            "value": {
+              "facing_direction": 2
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0
+    },
+    {
+      "block": {
+        "aux": 1,
+        "name": "minecraft:creeper_head"
+      },
+      "case": "creeper_head_floor_yaw45",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 45.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 41
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 8
+            }
+          },
+          "pos": [
+            41,
+            -44,
+            8
+          ]
+        }
+      ],
+      "face": 1,
+      "name": "minecraft:creeper_head",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 45.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:creeper_head": {
+            "0": {
+              "facingDirection": 1,
+              "progress": 0.0,
+              "rotation": 45.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:creeper_head",
+              1
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:creeper_head",
+              1
+            ],
+            "value": {
+              "facing_direction": 1
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        45.0
+      ],
+      "yaw": 45.0
+    },
+    {
+      "block": {
+        "aux": 2,
+        "name": "minecraft:creeper_head"
+      },
+      "case": "creeper_head_wall_face2",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "DoingAnimation": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "MouthTickCount": {
+              "__type__": 3,
+              "__value__": 0
+            },
+            "Rotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "SkullType": {
+              "__type__": 1,
+              "__value__": 255
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Skull"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 48
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 8
+            }
+          },
+          "pos": [
+            48,
+            -44,
+            8
+          ]
+        }
+      ],
+      "face": 2,
+      "name": "minecraft:creeper_head",
+      "observed_color": null,
+      "observed_id": "Skull",
+      "observed_rotation": 0.0,
+      "observed_type": null,
+      "palette": {
+        "actor": {
+          "minecraft:creeper_head": {
+            "0": {
+              "facingDirection": 2,
+              "progress": 0.0,
+              "rotation": 0.0,
+              "skullType": 255
+            }
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:creeper_head",
+              2
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:creeper_head",
+              2
+            ],
+            "value": {
+              "facing_direction": 2
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      "player_rotation": [
+        0.0,
+        0.0
+      ],
+      "yaw": 0.0
     }
   ],
   "schema": 1,
   "scope": "Native player placement and visible palettes; separate from visual acceptance",
   "source_hash_format": "raw_file_bytes",
-  "source_sha256": "2d024ca2f196e88a4ec7ac1ff5e455ca42d901381142a4dd00c53e4b48c307ce"
+  "source_sha256": "bc8bf724087e31ca5e0e0cf9ec3bad4f5693d5833172d96a7a47420d40daf7ff"
 }

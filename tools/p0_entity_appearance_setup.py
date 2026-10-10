@@ -41,6 +41,9 @@ plans.extend((
     {'case': 'banner_ominous', 'name': 'minecraft:banner', 'yaw': 0., 'face': 1,
      'aux': 15, 'userData': {'Type': 1}},
 ))
+for name in ('wither_skeleton_skull', 'zombie_head', 'creeper_head'):
+    plans.extend(({'case': name + '_floor_yaw45', 'name': 'minecraft:' + name, 'yaw': 45., 'face': 1},
+                  {'case': name + '_wall_face2', 'name': 'minecraft:' + name, 'yaw': 0., 'face': 2}))
 selected = getattr(sys, '_p0_entity_appearance_selected', None)
 if selected is not None:
     del sys._p0_entity_appearance_selected

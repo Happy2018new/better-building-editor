@@ -18,8 +18,8 @@ from generate_skull_proxies import model
 
 
 class StaticSkullTests(unittest.TestCase):
-    def source(self, yaw, facing=1):
-        material = from_states('minecraft:skeleton_skull', {'facing_direction': facing})
+    def source(self, yaw, facing=1, name='minecraft:skeleton_skull'):
+        material = from_states(name, {'facing_direction': facing})
         entity = nbt(material[0], (1, 1, 1))
         entity['Rotation']['__value__'] = yaw
         entity['unknown'] = {'value': 123}
@@ -42,6 +42,21 @@ class StaticSkullTests(unittest.TestCase):
         for face in (2, 3, 4, 5):
             material, actor = self.source(13., face)
             self.assertEqual((names['wall_' + str(face)], 0), skull_proxy(material, actor))
+
+    def test_named_mob_head_species_use_distinct_native_textures_and_materials(self):
+        spec = json.loads((ROOT / 'tools/data/skull_static_model_v1.json').read_text(encoding='utf8'))
+        textures = set()
+        for name, variants in SKULL_PROXIES.items():
+            material, actor = self.source(45., name=name)
+            self.assertEqual((variants['floor_2'], 0), skull_proxy(material, actor))
+            material, actor = self.source(13., facing=2, name=name)
+            self.assertEqual((variants['wall_2'], 0), skull_proxy(material, actor))
+            geometry = model(spec, name, 'floor_2')['netease:block_geometry']
+            texture = geometry['description']['textures'][0]
+            textures.add(texture)
+            self.assertEqual('modern_projection_static_' + name.split(':')[1], texture)
+            self.assertIn('texture_' + name.split(':')[1], spec['sha256'])
+        self.assertEqual(4, len(textures))
 
     def test_static_render_consumes_only_renderer_slots_and_preserves_complete_document(self):
         material, actor = self.source(45.)
