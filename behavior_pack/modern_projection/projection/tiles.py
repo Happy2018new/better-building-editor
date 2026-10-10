@@ -94,7 +94,8 @@ class TiledPreview(object):
             if source not in entry[2]:
                 continue
             part.update(data=entry[0], name=entry[1], source=source, bank=bank,
-                        count=sum(len(v) for v in entry[0].values()), pending=bool(entry[1]),
+                        count=sum(len(v) for layer in entry[0][:2] for v in layer.values()),
+                        pending=bool(entry[1]),
                         pending_at=time.time(),
                         signature=self.session.preview_signature())
             self.publish_visible()

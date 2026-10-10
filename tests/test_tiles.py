@@ -84,6 +84,38 @@ class TileTests(unittest.TestCase):
         self.assertEqual(builds + 1, len(bridge.builds))
         self.assertEqual({'minecraft:stone': {1: actor}}, bridge.inputs[-1][2])
 
+    def test_cached_undo_redo_restores_complete_cell_and_two_layer_count(self):
+        chest = ('minecraft:chest', 2)
+        water = ('minecraft:water', 0)
+        actor = {'id': 'Chest', 'x': 2, 'y': 0, 'z': 0}
+        document = Document((4, 1, 1), {
+            (2, 0, 0): make_cell(chest, water, actor),
+        })
+        bridge = Bridge(); session = Session(bridge); session._loaded(document)
+        bridge.settle(session)
+        original = session.tiles.parts[(0, 0, 0)]['data']
+        session.editor.edit_layer = 1
+        session.editor.paint_at((2, 0, 0), erase=True, respect_selection=False)
+        session.refresh_preview(); bridge.settle(session)
+        edited = session.tiles.parts[(0, 0, 0)]['data']
+        builds = len(bridge.builds)
+
+        session.action(session.editor.undo); bridge.settle(session)
+
+        restored = session.tiles.parts[(0, 0, 0)]
+        self.assertFalse(session.preview_error)
+        self.assertEqual(original, restored['data'])
+        self.assertEqual(2, restored['count'])
+        self.assertEqual(builds, len(bridge.builds))
+
+        session.action(session.editor.redo); bridge.settle(session)
+
+        restored = session.tiles.parts[(0, 0, 0)]
+        self.assertFalse(session.preview_error)
+        self.assertEqual(edited, restored['data'])
+        self.assertEqual(1, restored['count'])
+        self.assertEqual(builds, len(bridge.builds))
+
     def test_mixed_chunk_surface_matches_voxel_oracle_with_holes_and_clipping(self):
         rng = random.Random(47)
         doc = Document((19,18,17))
