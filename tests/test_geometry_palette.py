@@ -163,6 +163,54 @@ class GeometryPaletteTests(unittest.TestCase):
         self.assertEqual({}, prepare_palette({
             'actor': {'minecraft:chest': {0: typed}}})['actor'])
 
+    def test_background_only_cells_render_in_common_without_changing_document_layers(self):
+        water = ('minecraft:water', 0)
+        plant = ('minecraft:short_grass', 0)
+        fern = ('minecraft:fern', 0)
+        doc = Document((4, 1, 1), {
+            (0, 0, 0): make_cell(back=water),
+            (1, 0, 0): make_cell(back=plant),
+            (2, 0, 0): make_cell(back=fern),
+            (3, 0, 0): make_cell(back=('custom:background', 7))})
+        saved = copy.deepcopy(doc.to_data())
+
+        result = prepare_palette(doc.palette_data())
+
+        self.assertEqual({water: [0], ('modern_projection:preview_short_grass', 0): [1],
+                          ('modern_projection:preview_fern', 0): [2],
+                          ('custom:background', 7): [3]}, result['common'])
+        self.assertEqual({}, result['extra'])
+        self.assertEqual({}, result['extraStates'])
+        self.assertEqual(saved, doc.to_data())
+
+    def test_snow_in_either_logical_layer_uses_native_snow_front_and_plant_back(self):
+        grass = ('minecraft:short_grass', 0)
+        snow = ('minecraft:snow_layer', 2)
+        covered = ('minecraft:snow_layer', 10)
+        doc = Document((4, 1, 1), {
+            (0, 0, 0): make_cell(grass, snow),
+            (1, 0, 0): make_cell(covered, grass),
+            (2, 0, 0): make_cell(back=covered),
+            (3, 0, 0): covered})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+
+        result = prepare_palette(source)
+
+        self.assertEqual({covered: [0, 1], snow: [2, 3]}, result['common'])
+        self.assertEqual({grass: [0, 1]}, result['extra'])
+        self.assertEqual(states(covered), result['states'][covered])
+        self.assertEqual(states(snow), result['states'][snow])
+        self.assertEqual(states(grass), result['extraStates'][grass])
+        self.assertEqual(saved, source)
+
+    def test_unsupported_legacy_dual_layers_keep_both_materials_in_native_input(self):
+        fence = ('minecraft:oak_fence', 0)
+        snow = ('minecraft:snow_layer', 3)
+        result = prepare_palette({'common': {fence: [0]}, 'extra': {snow: [0]}})
+        self.assertEqual({fence: [0]}, result['common'])
+        self.assertEqual({snow: [0]}, result['extra'])
+
     def test_every_proxy_has_a_hidden_cutout_resource_with_its_own_species_texture(self):
         appearances = json.loads((ROOT / 'resource_pack/blocks.json').read_text(encoding='utf8'))
         for native, proxy in LEAF_PROXIES.items():

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
+from .block_traits import is_snow_coverable
+from .cell import AIR, _covered_snow
 from .visible_actor import render_actor
 
 
@@ -31,35 +33,112 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
+def _replace_positions(entries, records, changes, other_records):
+    if not changes:
+        return
+    for value, positions in list(entries.items()):
+        remaining = [index for index in positions if index not in changes]
+        if remaining:
+            entries[value] = remaining
+        else:
+            entries.pop(value)
+    for index, value in changes.items():
+        if value == AIR:
+            continue
+        entries.setdefault(value, []).append(index)
+    for value in set(changes.values()):
+        if value == AIR:
+            continue
+        if value[0] == 'minecraft:snow_layer':
+            record = states(value)
+        elif value in other_records:
+            record = other_records[value]
+        else:
+            record = states(value)
+        if record is not None:
+            records[value] = record
+
+
+def _normalize_native_layers(common, common_states, extra, extra_states):
+    # Logical layers remain untouched. Native tessellation needs standalone
+    # background blocks in common, and snow before its covered plant.
+    variants = {}
+
+    def snow(value, covered):
+        key = (value, covered)
+        if key not in variants:
+            variants[key] = _covered_snow(value, covered)
+        return variants[key]
+
+    backs = dict((index, value) for value, positions in extra.items()
+                 if value != AIR for index in positions)
+    fronts = {}
+    if backs:
+        fronts = dict((index, value) for value, positions in common.items()
+                      if value != AIR for index in positions if index in backs)
+    front_changes, back_changes = {}, {}
+    for index, back in backs.items():
+        front = fronts.get(index, AIR)
+        if front == AIR:
+            front_changes[index] = (snow(back, False)
+                                    if back[0] == 'minecraft:snow_layer' else back)
+            back_changes[index] = AIR
+        elif back[0] == 'minecraft:snow_layer' and is_snow_coverable(front):
+            front_changes[index] = snow(back, True)
+            back_changes[index] = front
+    for front, positions in common.items():
+        if front[0] != 'minecraft:snow_layer':
+            continue
+        for index in positions:
+            replacement = snow(front, is_snow_coverable(backs.get(index, AIR)))
+            if replacement != front:
+                front_changes[index] = replacement
+    old_common_states = dict(common_states)
+    _replace_positions(common, common_states, front_changes, extra_states)
+    _replace_positions(extra, extra_states, back_changes, old_common_states)
+
+
+def _proxy_foreground(entries, records):
+    result, state_records = {}, {}
+    for value, positions in entries.items():
+        proxy = LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
+        rendered = (proxy, 0) if proxy is not None else value
+        result.setdefault(rendered, []).extend(positions)
+        record = states(rendered) if proxy is not None else records.get(value)
+        if record is not None and (proxy is None or record):
+            state_records[rendered] = record
+    return result, state_records
+
+
 def prepare_palette(source):
     """Copy and canonicalize both native layers and actor payloads."""
     data = dict(source)
 
-    def prepare_layer(key, proxy_blocks=False):
+    def prepare_layer(key):
         entries, records = {}, {}
         supplied = source.get('states' if key == 'common' else 'extraStates', {})
         supplied = dict((canonical(value), dict(record))
                         for value, record in supplied.items())
         for original, positions in source.get(key, {}).items():
             value = canonical(original)
-            proxy = (LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
-                     if proxy_blocks else None)
-            if proxy is not None:
-                value = (proxy, 0)
             entries.setdefault(value, []).extend(positions)
             record = supplied.get(canonical(original))
-            if proxy is None:
-                record = states(value) if record is None else record
-            else:
-                record = states(value)
-            if record is not None and (proxy is None or record):
+            record = states(value) if record is None else record
+            if record is not None:
                 records[value] = record
         for positions in entries.values():
             positions.sort()
         return entries, records
 
-    common, common_states = prepare_layer('common', True)
+    common, common_states = prepare_layer('common')
     extra, extra_states = prepare_layer('extra')
+    _normalize_native_layers(common, common_states, extra, extra_states)
+    common, common_states = _proxy_foreground(common, common_states)
+    for entries in (common, extra):
+        for positions in entries.values():
+            positions.sort()
+    extra_states = dict((value, record) for value, record in extra_states.items()
+                        if value in extra)
     actors = {}
     for name, entries in source.get('actor', {}).items():
         rendered = {}
