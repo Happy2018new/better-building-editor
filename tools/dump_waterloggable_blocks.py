@@ -23,7 +23,7 @@ class WaterOverlayProbe(object):
         self.info = factory.CreateBlockInfo(player)
         self.game = factory.CreateGame(api.GetLevelId())
         foot = factory.CreatePos(player).GetFootPos()
-        self.target = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 3,
+        self.target = (int(math.floor(foot[0])) + 24, int(math.floor(foot[1])) + 10,
                        int(math.floor(foot[2])) - 5)
         self.support = (self.target[0], self.target[1] - 1, self.target[2])
         for pos in (self.target, self.support):
