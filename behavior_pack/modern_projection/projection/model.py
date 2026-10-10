@@ -356,6 +356,23 @@ class Editor(object):
                 new = replace_layer(old, new, self.edit_layer)
             if old != new:
                 delta[pos] = (old, new)
+        if any(foreground(old) != foreground(new) for old, new in delta.values()):
+            from .block_neighbors import reconcile_steps
+            staged = self.document.blocks.copy()
+            for pos, pair in delta.items():
+                staged[pos] = pair[1]
+
+            def write_neighbor(pos, value):
+                old = self.document.get(pos)
+                staged[pos] = value
+                if value == old:
+                    delta.pop(pos, None)
+                else:
+                    delta[pos] = old, value
+
+            for unused in reconcile_steps(self.document, staged, write_neighbor, self.locked_layers,
+                                          changes if whole else ()):
+                pass
         if selection_after is not None:
             selections = (self._selection_state(), self._selection_state(selection_after))
             if selections[0] != selections[1]:
@@ -516,7 +533,7 @@ class Editor(object):
                 return document.get(target) if document.contains(target) else None
 
             old_partner = paired_cell_position(get_cell, pos)
-            if old_partner is not None:
+            if old_partner is not None and (erase or foreground(changes[pos]) != foreground(document.get(pos))):
                 changes[old_partner] = AIR
             if not erase:
                 relationship = group_partner(foreground(changes[pos]))

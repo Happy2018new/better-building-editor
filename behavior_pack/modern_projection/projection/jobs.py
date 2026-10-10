@@ -46,16 +46,34 @@ class EditJob(object):
         self.work.selection = self.selection
         self.staged = self.source.blocks.copy()
         self.group_written = set()
+        self.preserve_connections = Selection()
         self.result_selection = None
         self.result_clipboard = None
         self.changed = self.processed = 0
         self.total = max(1, len(self.selection))
         self.done = self.cancelled = False
         self.error = ''
-        self.iterator = self._run()
+        self.iterator = self._run_with_neighbors()
 
     def cancel(self):
         self.cancelled = True
+
+    def _run_with_neighbors(self):
+        for step in self._run():
+            yield step
+        if not self.changed or (self.work.edit_layer and BY_ID[self.tool][1] != 'transform' and
+                                not self.tool.startswith('paste') and self.tool != 'cut'):
+            return
+        from .block_neighbors import reconcile_steps
+
+        def write_neighbor(pos, value):
+            original, previous = self.source.get(pos), self.staged.get(pos, AIR)
+            self.changed += int(value != original) - int(previous != original)
+            self.staged[pos] = value
+
+        for step in reconcile_steps(self.source, self.staged, write_neighbor, self.work.locked_layers,
+                                    self.preserve_connections):
+            yield step
 
     def step(self, budget=2048, seconds=.006):
         if self.done:
@@ -141,6 +159,8 @@ class EditJob(object):
             value = replace_layer(previous, value, self.work.edit_layer)
         self.changed += int(value != original) - int(previous != original)
         self.staged[pos] = value
+        if whole:
+            self.preserve_connections.add(pos)
 
     def _chunk(self, key, value):
         identity = self.staged.palette_id(value)
@@ -155,6 +175,9 @@ class EditJob(object):
             before = sum(a != b for a, b in zip(original, previous))
         self.changed += difference_count(original, identity) - before
         self.staged.fill_chunk(key, value)
+        if BY_ID[self.tool][1] == 'transform':
+            self.preserve_connections.chunks[key] = FULL
+            self.preserve_connections.count += CELLS
 
     def _fill_selected_chunk(self, key, mask, value):
         """For disjoint fill/shape chunks; source cells are visited only once."""

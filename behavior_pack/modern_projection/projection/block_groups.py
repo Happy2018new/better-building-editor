@@ -2,11 +2,15 @@
 """Resolve vanilla multi-block part relationships from native block states."""
 from __future__ import unicode_literals
 from . import block_registry as registry
-from .cell import actor_data, foreground, integer_types
-from .nbt_spatial import scalar
+from .cell import actor_data, background, foreground, integer_types, make_cell
+from .nbt_spatial import field_key, root_payload, scalar, set_scalar
 
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
 _NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
+_CHESTS = frozenset(('minecraft:chest', 'minecraft:trapped_chest'))
+_CHEST_PARTNER = {'north': (1, 0, 0), 'east': (0, 0, 1),
+                  'south': (-1, 0, 0), 'west': (0, 0, -1)}
+_CHEST_FACING = {'north': 2, 'south': 3, 'west': 4, 'east': 5}
 
 
 def from_states(name, properties):
@@ -160,9 +164,9 @@ def paired_position(get_block, pos):
 
 def actor_pair_position(value, pos):
     """Return a chest actor's linked half using its local pair coordinates."""
-    if foreground(value)[0] not in ('minecraft:chest', 'minecraft:trapped_chest'):
+    if foreground(value)[0] not in _CHESTS:
         return None
-    actor = actor_data(value)
+    actor = root_payload(actor_data(value))
     if actor is None:
         return None
     pair_x, pair_z = scalar(actor, 'pairx'), scalar(actor, 'pairz')
@@ -174,15 +178,33 @@ def actor_pair_position(value, pos):
 
 
 def _chest_direction(value):
-    properties = registry.states(foreground(value)) or {}
+    native = registry.try_canonical(foreground(value))
+    properties = (registry.states(native) or {}) if native is not None else {}
     return properties.get('minecraft:cardinal_direction')
 
 
-def _adjacent_chest_position(get_cell, value, pos):
+def chest_render_pair_position(value, pos):
+    """Resolve the native client chest renderer's main/sub half relationship."""
+    if foreground(value)[0] not in _CHESTS:
+        return None
+    actor = root_payload(actor_data(value))
+    if actor is None or scalar(actor, 'chestIsLargeChest') is not True:
+        return None
+    main = scalar(actor, 'chestMainSubChest')
+    offset = _CHEST_PARTNER.get(_chest_direction(value))
+    if type(main) is not bool or offset is None:
+        return None
+    sign = 1 if main else -1
+    return tuple(pos[i] + sign * offset[i] for i in range(3))
+
+
+def _chest_candidates(get_cell, value, pos):
     name = foreground(value)[0]
+    if name not in _CHESTS:
+        return []
     direction = _chest_direction(value)
     if direction not in ('north', 'south', 'east', 'west'):
-        return None
+        return []
     offsets = ((1, 0, 0), (-1, 0, 0)) if direction in ('north', 'south') else (
         (0, 0, 1), (0, 0, -1))
     candidates = []
@@ -191,8 +213,56 @@ def _adjacent_chest_position(get_cell, value, pos):
         other = get_cell(target)
         if (other is not None and foreground(other)[0] == name and
                 _chest_direction(other) == direction):
-            candidates.append(target)
-    return candidates[0] if len(candidates) == 1 else None
+            linked = actor_pair_position(other, target) or chest_render_pair_position(other, target)
+            if linked is None or linked == pos:
+                candidates.append(target)
+    return candidates
+
+
+def _adjacent_chest_position(get_cell, value, pos):
+    candidates = _chest_candidates(get_cell, value, pos)
+    if len(candidates) != 1:
+        return None
+    partner = candidates[0]
+    other = get_cell(partner)
+    linked = actor_pair_position(other, partner) or chest_render_pair_position(other, partner)
+    if linked == pos or _chest_candidates(get_cell, other, partner) == [pos]:
+        return partner
+    return None
+
+
+def chest_pair_actor(value, pos, partner=None):
+    """Set client-visible chest render fields, preserving unrelated actor data."""
+    if foreground(value)[0] not in _CHESTS:
+        return value
+    direction = _chest_direction(value)
+    if direction not in _CHEST_PARTNER:
+        return value
+    data = actor_data(value) or {}
+    root = root_payload(data)
+    if root is None:
+        return value
+    main_partner = tuple(pos[i] + _CHEST_PARTNER[direction][i] for i in range(3))
+    main = partner is None or partner == main_partner
+    fields = {'chestIsLargeChest': partner is not None,
+              'chestMainSubChest': main, 'chestModelOffset': 0.0 if main else -0.5,
+              'facingDirection': _CHEST_FACING[direction]}
+    for name, new in fields.items():
+        if not set_scalar(root, name, new):
+            root[name] = new
+    for name, default in (('chestIsGlobalChest', False), ('chestOpenness', 0.0),
+                          ('chestOldOpenness', 0.0)):
+        if field_key(root, name) is None:
+            root[name] = default
+    for name, axis in (('pairx', 0), ('pairz', 2)):
+        key = field_key(root, name)
+        if key is None:
+            continue
+        if partner is None:
+            del root[key]
+        else:
+            set_scalar(root, name, partner[axis])
+    return make_cell(foreground(value), background(value), data)
 
 
 def paired_cell_position(get_cell, pos):
@@ -206,14 +276,20 @@ def paired_cell_position(get_cell, pos):
             cell = get_cell(target)
             return foreground(cell) if cell is not None else None
         return paired_position(get_block, pos)
-    partner_pos = actor_pair_position(value, pos)
+    partner_pos = actor_pair_position(value, pos) or chest_render_pair_position(value, pos)
     if partner_pos is None:
         return _adjacent_chest_position(get_cell, value, pos)
     partner = get_cell(partner_pos)
     if (partner is None or foreground(partner)[0] != front[0] or
             _chest_direction(partner) != _chest_direction(value)):
         raise ValueError('双箱缺少相同种类的对应箱子')
-    reciprocal = actor_pair_position(partner, partner_pos)
+    direction = _chest_direction(value)
+    offset = tuple(partner_pos[i] - pos[i] for i in range(3))
+    if (sum(abs(v) for v in offset) != 1 or offset[1] or
+            (direction in ('north', 'south') and offset[2]) or
+            (direction in ('east', 'west') and offset[0])):
+        raise ValueError('双箱对应箱子必须紧邻其侧面')
+    reciprocal = actor_pair_position(partner, partner_pos) or chest_render_pair_position(partner, partner_pos)
     if reciprocal is not None and reciprocal != pos:
         raise ValueError('双箱方块实体的配对坐标不一致')
     return partner_pos
@@ -222,4 +298,5 @@ def paired_cell_position(get_cell, pos):
 def has_group_link(value, pos, get_cell=None):
     return (group_partner(foreground(value)) is not None or
             actor_pair_position(value, pos) is not None or
+            chest_render_pair_position(value, pos) is not None or
             (get_cell is not None and _adjacent_chest_position(get_cell, value, pos) is not None))

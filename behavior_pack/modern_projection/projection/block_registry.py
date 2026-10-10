@@ -21,7 +21,8 @@ def aux_values(name):
     return tuple(sorted(_decode(name, BLOCKS, _records)))
 
 
-def canonical(value):
+def try_canonical(value):
+    """Resolve a stored pair without rejecting unknown historical vanilla data."""
     name, aux = value
     records = _decode(name, BLOCKS, _records)
     if aux in records:
@@ -30,9 +31,16 @@ def canonical(value):
     if alias is not None:
         return tuple(alias)
     if name.startswith('minecraft:'):
-        raise ValueError('方块或附加值不在当前方块表中：%s [%d]' % value)
+        return None
     # Mod blocks have their own definitions and keep the SDK extension path.
     return value
+
+
+def canonical(value):
+    result = try_canonical(value)
+    if result is None:
+        raise ValueError('方块或附加值不在当前方块表中：%s [%d]' % value)
+    return result
 
 
 def states(value):
