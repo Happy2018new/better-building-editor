@@ -126,7 +126,7 @@ class Session(object):
             if isinstance(preferences, dict):
                 version = preferences.get('version', 1)
                 if type(version) is int and version in (1, 2) and preferences:
-                    edit_layer = preferences.get('edit_layer', 0 if version == 1 else 2)
+                    edit_layer = preferences.get('edit_layer', 2)
                     if type(edit_layer) is int and edit_layer in (0, 1, 2):
                         self.editor.edit_layer = edit_layer
             speed = preferences.get('spectrum_speed', 3.) if isinstance(preferences, dict) else 3.
