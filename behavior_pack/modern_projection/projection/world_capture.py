@@ -29,26 +29,11 @@ def merge_entity_document(document, entities):
 
 def native_actor_cells(source, chunk_origin, chunk_size):
     sx, sy, sz = chunk_size
-    if tuple(source.get('volume', ())) != (sz, sx, sy):
-        raise ValueError('服务端方块实体 palette 尺寸无效')
-    materials = {}
-    records = _states(source, 'states')
-    for value, positions in source.get('common', {}).items():
-        material = _material(value, records)
-        for index in positions:
-            materials[index] = material
-    for name, entries in source.get('actor', {}).items():
-        if isinstance(name, bytes):
-            name = name.decode('utf8')
-        for index in entries:
-            if type(index) is not int or not 0 <= index < sx * sy * sz:
-                raise ValueError('服务端方块实体 palette 坐标无效')
-            material = materials.get(index)
-            if material is None or material[0] != name:
-                raise ValueError('服务端方块实体 palette 名称不匹配')
-            y, rem = divmod(index, sx * sz)
-            x, z = divmod(rem, sz)
-            yield add_local(chunk_origin, (x, y, z)), material
+    fronts, backs = native_palette_layers(source, chunk_size)
+    for index, name, payload in native_palette_actors(source, fronts, backs, sx * sy * sz):
+        y, rem = divmod(index, sx * sz)
+        x, z = divmod(rem, sz)
+        yield add_local(chunk_origin, (x, y, z)), fronts[index]
 
 
 def add_local(origin, pos):
@@ -124,14 +109,49 @@ def _material(value, states):
     return resolved
 
 
-def merge_palette(document, source, chunk_origin, chunk_size, world_origin):
-    """Copy native foreground, background and actor data into ``document``."""
+def native_palette_layers(source, chunk_size):
     sx, sy, sz = chunk_size
     if tuple(source.get('volume', ())) != (sz, sx, sy):
         raise ValueError('世界方块 palette 尺寸无效')
     volume = sx * sy * sz
-    front_states = _states(source, 'states')
-    back_states = _states(source, 'extraStates')
+    layers = []
+    for layer, state_key in (('common', 'states'), ('extra', 'extraStates')):
+        materials = {}
+        records = _states(source, state_key)
+        for value, positions in source.get(layer, {}).items():
+            material = _material(value, records)
+            for index in positions:
+                if type(index) is not int or not 0 <= index < volume:
+                    raise ValueError('世界方块 palette 包含无效坐标')
+                if index in materials:
+                    raise ValueError('世界方块 palette 包含重复坐标')
+                materials[index] = material
+        layers.append(materials)
+    return tuple(layers)
+
+
+def native_palette_actors(source, fronts, backs, volume):
+    from .native_palette_actor import resolve_name
+    result, seen = [], set()
+    for name, entries in source.get('actor', {}).items():
+        name = _state_text(name)
+        for index, payload in entries.items():
+            if type(index) is not int or not 0 <= index < volume:
+                raise ValueError('方块实体 palette 坐标无效')
+            if index in seen:
+                raise ValueError('方块实体 palette 包含重复坐标')
+            seen.add(index)
+            resolved = resolve_name(name, fronts.get(index, AIR), backs.get(index, AIR))
+            result.append((index, resolved, payload))
+    return result
+
+
+def merge_palette(document, source, chunk_origin, chunk_size, world_origin):
+    """Copy native foreground, background and actor data into ``document``."""
+    sx, sy, sz = chunk_size
+    volume = sx * sy * sz
+    fronts, backs = native_palette_layers(source, chunk_size)
+    actors = native_palette_actors(source, fronts, backs, volume)
 
     def local_pos(index):
         if type(index) is not int or not 0 <= index < volume:
@@ -140,35 +160,26 @@ def merge_palette(document, source, chunk_origin, chunk_size, world_origin):
         x, z = divmod(rem, sz)
         return (chunk_origin[0] + x, chunk_origin[1] + y, chunk_origin[2] + z)
 
-    for value, positions in source.get('common', {}).items():
-        material = _material(value, front_states)
+    for index, material in fronts.items():
         if material == AIR:
             continue
-        for index in positions:
-            pos = local_pos(index)
-            current = document.get(pos)
-            if foreground(current) != AIR:
-                raise ValueError('世界方块 palette 在前景层包含重复坐标')
-            document.blocks[pos] = make_cell(material, background(current), actor_data(current))
+        pos = local_pos(index)
+        current = document.get(pos)
+        if foreground(current) != AIR:
+            raise ValueError('世界方块 palette 在前景层包含重复坐标')
+        document.blocks[pos] = make_cell(material, background(current), actor_data(current))
 
-    for value, positions in source.get('extra', {}).items():
-        material = _material(value, back_states)
+    for index, material in backs.items():
         if material == AIR:
             continue
-        for index in positions:
-            pos = local_pos(index)
-            current = document.get(pos)
-            if background(current) != AIR:
-                raise ValueError('世界方块 palette 在背景层包含重复坐标')
-            document.blocks[pos] = make_cell(foreground(current), material, actor_data(current))
+        pos = local_pos(index)
+        current = document.get(pos)
+        if background(current) != AIR:
+            raise ValueError('世界方块 palette 在背景层包含重复坐标')
+        document.blocks[pos] = make_cell(foreground(current), material, actor_data(current))
 
-    for name, entries in source.get('actor', {}).items():
-        if isinstance(name, bytes):
-            name = name.decode('utf8')
-        for index, payload in entries.items():
-            pos = local_pos(index)
-            current = document.get(pos)
-            if foreground(current) == AIR or foreground(current)[0] != name:
-                raise ValueError('方块实体与其前景方块不匹配：%s' % name)
-            actor = rebase(payload, tuple(-value for value in world_origin))
-            document.blocks[pos] = make_cell(foreground(current), background(current), actor)
+    for index, name, payload in actors:
+        pos = local_pos(index)
+        current = document.get(pos)
+        actor = rebase(payload, tuple(-value for value in world_origin))
+        document.blocks[pos] = make_cell(foreground(current), background(current), actor)

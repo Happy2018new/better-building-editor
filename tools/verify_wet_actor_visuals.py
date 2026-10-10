@@ -74,7 +74,7 @@ _result=json.dumps({'verified':True,'cells':actual})
 
 PALETTE_PROBE = '''import json,sys
 from modern_projection.projection.cell import AIR,decode,foreground,background,actor_data,freeze
-from modern_projection.projection.world_capture import _states,_material
+from modern_projection.projection.world_capture import native_palette_layers,native_palette_actors
 cells,empty=json.loads(%r),%r
 lo=tuple(min(pos[i] for pos,value in cells) for i in range(3))
 hi=tuple(max(pos[i] for pos,value in cells) for i in range(3))
@@ -85,23 +85,21 @@ if palette is not None:
  source=palette.SerializeBlockPalette()
  sys._wet_actor_qa_palette=source
  result['raw_palette']=freeze(source)
- fronts,backs={},{}
- for layer,destination,state_key in (('common',fronts,'states'),('extra',backs,'extraStates')):
-  records=_states(source,state_key)
-  for value,positions in source.get(layer,{}).items():
-   material=_material(value,records)
-   for index in positions:destination[index]=material
+ fronts,backs=native_palette_layers(source,size)
  layers_match=tuple(source.get('volume',()))==(size[2],size[0],size[1])
  actors_match=True
  actors={}
  for name,entries in source.get('actor',{}).items():
   name=name.decode('utf8') if isinstance(name,bytes) else name
   for index in entries:
-   actors[index]=name
    front=fronts.get(index,AIR)
    if front[0]!=name:
-    actors_match=False
     result['actor_mismatches'].append({'index':index,'actor_name':name,'foreground':front})
+ try:
+  actors=dict((index,name) for index,name,payload in native_palette_actors(source,fronts,backs,size[0]*size[1]*size[2]))
+ except ValueError as error:
+  actors_match=False
+  result['normalization_error']=str(error)
  for pos,value in cells:
   local=tuple(pos[i]-lo[i] for i in range(3))
   index=(local[1]*size[0]+local[0])*size[2]+local[2]

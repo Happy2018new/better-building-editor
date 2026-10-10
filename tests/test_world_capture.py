@@ -1,4 +1,5 @@
 """Native client palette capture preserves both layers and block actors."""
+import copy
 import sys
 import unittest
 from pathlib import Path
@@ -8,11 +9,81 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/mode
 from projection.cell import AIR, actor_data, background, foreground, make_cell
 from projection.block_registry import states
 from projection.model import Document
-from projection.world_capture import merge_entity_document, merge_palette, restore_omitted_palette_cells, validate_loaded_chunk
+from projection.world_capture import merge_entity_document, merge_palette, native_actor_cells, restore_omitted_palette_cells, validate_loaded_chunk
 from projection.visible_actor import compose_actor, entity_nbt, render_actor
 
 
 class WorldCaptureTests(unittest.TestCase):
+    def wet_actor_source(self):
+        sign = ('minecraft:standing_sign', 0)
+        pot = ('minecraft:decorated_pot', 0)
+        chest = ('minecraft:chest', 2)
+        return {
+            'volume': (1, 3, 1),
+            'common': {sign: [0], pot: [1], chest: [2]},
+            'states': {value: states(value) for value in (sign, pot, chest)},
+            'extra': {('minecraft:water', 0): [0, 1]},
+            'actor': {b'minecraft:water': {
+                0: {b'signRealText': b'front', b'signBackText': b'back'},
+                1: {b'sherds': [b'minecraft:angler_pottery_sherd'], b'item': {b'Count': 1}},
+            }, 'minecraft:chest': {2: {'facingDirection': 2}}},
+        }
+
+    def test_native_wet_actor_bucket_is_resolved_per_position_without_mutating_source(self):
+        source = self.wet_actor_source()
+        original = copy.deepcopy(source)
+        document = Document((3, 1, 1))
+        merge_palette(document, source, (0, 0, 0), document.size, (100, 64, 200))
+        for index in (0, 1):
+            self.assertEqual(source['actor'][b'minecraft:water'][index],
+                             actor_data(document.get((index, 0, 0))))
+            self.assertEqual(('minecraft:water', 0), background(document.get((index, 0, 0))))
+        self.assertEqual({'facingDirection': 2}, actor_data(document.get((2, 0, 0))))
+        self.assertEqual({'minecraft:standing_sign', 'minecraft:decorated_pot', 'minecraft:chest'},
+                         set(document.palette_data()['actor']))
+        self.assertEqual(original, source)
+        self.assertEqual([((10, 20, 30), foreground(document.get((0, 0, 0)))),
+                          ((11, 20, 30), foreground(document.get((1, 0, 0)))),
+                          ((12, 20, 30), foreground(document.get((2, 0, 0))))],
+                         list(native_actor_cells(source, (10, 20, 30), document.size)))
+
+    def test_actor_bucket_mismatch_requires_matching_water_and_verified_foreground(self):
+        for case in ('missing_water', 'wrong_background', 'wrong_actor', 'ordinary_front', 'no_front'):
+            source = self.wet_actor_source()
+            if case == 'missing_water':
+                source['extra'] = {}
+            elif case == 'wrong_background':
+                source['extra'] = {('minecraft:flowing_water', 0): [0, 1]}
+            elif case == 'wrong_actor':
+                source['actor']['minecraft:lava'] = source['actor'].pop(b'minecraft:water')
+            else:
+                value = ('minecraft:oak_fence', 0) if case == 'ordinary_front' else AIR
+                source['common'] = {value: [0, 1, 2]}
+                source['states'] = {value: states(value)}
+            with self.subTest(case=case):
+                document = Document((3, 1, 1))
+                with self.assertRaises(ValueError):
+                    merge_palette(document, source, (0, 0, 0), document.size, (0, 0, 0))
+                self.assertEqual({}, document.blocks)
+                with self.assertRaises(ValueError):
+                    list(native_actor_cells(source, (0, 0, 0), document.size))
+
+    def test_native_actor_and_layer_duplicate_or_invalid_indices_are_rejected(self):
+        for case in ('duplicate_actor', 'duplicate_front', 'duplicate_back', 'air_duplicate',
+                     'negative_actor', 'outside_actor', 'bool_actor'):
+            source = self.wet_actor_source()
+            if case == 'duplicate_actor':
+                source['actor']['minecraft:standing_sign'] = {0: {}}
+            elif case in ('duplicate_front', 'air_duplicate'):
+                source['common'][AIR if case == 'air_duplicate' else ('minecraft:stone', 0)] = [0]
+            elif case == 'duplicate_back':
+                source['extra'][AIR] = [0]
+            else:
+                index = {'negative_actor': -1, 'outside_actor': 3, 'bool_actor': False}[case]
+                source['actor']['minecraft:standing_sign'] = {index: {}}
+            with self.subTest(case=case), self.assertRaises(ValueError):
+                merge_palette(Document((3, 1, 1)), source, (0, 0, 0), (3, 1, 1), (0, 0, 0))
+
     def test_copper_chest_full_nbt_hydrates_missing_native_render_fields(self):
         chest = ('minecraft:copper_chest', 2)
         document = Document((2, 1, 1), {(x, 0, 0): make_cell(chest, AIR, {})

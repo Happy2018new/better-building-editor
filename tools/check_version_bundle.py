@@ -16,6 +16,7 @@ MODULES = (
     'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
     'water_interaction_data',
     'static_neighbor_data',
+    'native_palette_actor_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -26,6 +27,7 @@ SNAPSHOTS = (
     'native_water_flow_spread',
     'native_snow_states',
     'native_static_neighbors',
+    'native_palette_actors',
 )
 
 
@@ -83,6 +85,7 @@ def commands(manifest, tests=False):
         ['tools/generate_copper_chest_proxies.py', '--check'],
         ['tools/generate_water_interactions.py', '--check'],
         ['tools/generate_static_neighbor_rules.py', '--check'],
+        ['tools/generate_native_palette_adapter.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],

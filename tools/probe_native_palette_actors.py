@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
-from mcdk import Client, return_value
+from mcdk import Client, MCDKError, return_value
 
 PREPARE = '''import json,sys,math
 import mod.server.extraServerApi as api
@@ -61,12 +61,23 @@ for pos in probe['region']:
 observed=[]
 for name,local,wet in case['cells']:
  pos=tuple(origin[i]+local[i] for i in range(3))
+ for offset in ((-1,0,0),(1,0,0),(0,-1,0),(0,1,0),(0,0,-1),(0,0,1)):
+  support=tuple(pos[i]+offset[i] for i in range(3))
+  if adapter.read(support)!=('minecraft:stone',0):
+   assert adapter.write(support,('minecraft:stone',0)),(support,'adjacent support')
  front=entity_defaults.material(name)
+ from modern_projection.projection import block_registry as registry
+ properties=registry.states(front)
+ if 'facing_direction' in properties:
+  candidate=dict(properties,facing_direction=2)
+  direction=registry.from_states(name,candidate)
+  if direction is not None:front=direction
  value=make_cell(front,('minecraft:water',0) if wet else AIR,
                  compose_actor(None,entity_defaults.nbt(name,pos)))
- assert adapter.write(pos,value),(case,pos,'write')
+ write_ok=adapter.write(pos,value)
  actual=adapter.read(pos)
  observed.append({'name':name,'pos':pos,'local':local,'wet':wet,
+                  'write_ok':bool(write_ok),
                   'front':foreground(actual),'back':background(actual)})
 low=tuple(min(row['pos'][i] for row in observed) for i in range(3))
 high=tuple(max(row['pos'][i] for row in observed) for i in range(3))
@@ -79,8 +90,7 @@ from modern_projection.projection.cell import freeze,foreground,background
 probe=sys._palette_actor_probe
 adapter=probe['adapter']
 palette=adapter.palette_block.GetBlockPaletteBetweenPos(adapter.dimension,probe['low'],probe['high'],False)
-assert palette is not None
-data=palette.SerializeBlockPalette()
+data=None if palette is None else palette.SerializeBlockPalette()
 actors=[]
 for name,local,wet in probe['active']['cells']:
  pos=tuple(probe['origin'][i]+local[i] for i in range(3))
@@ -128,26 +138,53 @@ def write_report(path, report):
     path.write_text(json.dumps(report, ensure_ascii=True, indent=2) + '\n', encoding='ascii')
 
 
+def read_palette(client, code, server=False):
+    try:
+        return run(client, code, server)
+    except MCDKError as error:
+        # Failed reads remain explicit diagnostics, never negative capabilities.
+        response = json.loads(str(error))
+        messages = [item.get('text', '') for item in response.get('content', [])]
+        if not response.get('isError') or not any('Code execution failed:' in text for text in messages):
+            raise
+        return {'read_error': response}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--case', action='append', help='Native case ID, repeat to select')
     parser.add_argument('--delay', type=float, default=.35)
+    parser.add_argument('--resume', type=Path, help='Reuse a restored prefix from the same origin and cases')
     args = parser.parse_args()
-    report = {'schema_version': 1, 'method': 'native dual-layer palette and GetBlockEntityData; no bucket corrections',
+    report = {'schema_version': 1, 'method': 'native dual-layer palette and GetBlockEntityData; six adjacent supports; legal horizontal facing; no bucket corrections; v2',
               'completed': False, 'rows': [], 'restored': False}
     with Client(timeout=30) as client:
         try:
-            report.update(run(client, PREPARE, True))
+            prepared = run(client, PREPARE, True)
+            report.update(prepared)
+            if args.resume:
+                previous = json.loads(args.resume.read_text(encoding='utf8'))
+                if (not previous.get('restored') or any(previous.get(key) != prepared[key]
+                        for key in ('origin', 'cases', 'names', 'game_version', 'palette_sha256'))):
+                    raise ValueError('Resume evidence must have a restored identical origin and coverage')
+                for index, row in enumerate(previous['rows']):
+                    if row['id'] != report['cases'][index]['id']:
+                        raise ValueError('Resume cases are not an ordered prefix')
+                    if any(side not in row for side in ('server_immediate', 'server_delayed', 'client_delayed')):
+                        break
+                    report['rows'].append(row)
             for index, case in enumerate(report['cases']):
+                if index < len(report['rows']):
+                    continue
                 if args.case and case['id'] not in args.case:
                     continue
                 row = run(client, SEED % index, True)
                 report['rows'].append(row)
-                row['server_immediate'] = run(client, SERVER_READ, True)
+                row['server_immediate'] = read_palette(client, SERVER_READ, True)
                 time.sleep(args.delay)
-                row['server_delayed'] = run(client, SERVER_READ, True)
-                row['client_delayed'] = run(client, CLIENT_READ % (tuple(row['low']), tuple(row['high'])))
+                row['server_delayed'] = read_palette(client, SERVER_READ, True)
+                row['client_delayed'] = read_palette(client, CLIENT_READ % (tuple(row['low']), tuple(row['high'])))
                 write_report(args.output, report)
             report['completed'] = True
         except Exception as error:
