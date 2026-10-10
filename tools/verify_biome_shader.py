@@ -264,7 +264,7 @@ def main():
         refs.append(('baseline', args.baseline_ref))
     for label, ref in refs:
         for version in (100, 300):
-            for flags in ((), ('BLEND', 'ALPHA_TEST'), ('SEASONS',), ('SEASONS', 'ALPHA_TEST')):
+            for flags in ((), ('BLEND',), ('BLEND', 'ALPHA_TEST'), ('SEASONS',), ('SEASONS', 'ALPHA_TEST')):
                 cases.append(dict(
                     name=label + '/' + str(version) + '/' + ','.join(flags), version=version,
                     v=shader_source(SHADERS / 'modern_projection_biome_blocks.vertex',
