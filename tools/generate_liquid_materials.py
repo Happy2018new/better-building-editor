@@ -10,6 +10,12 @@ NATIVE_PATH = 'resource_packs/vanilla_netease/materials/terrain.material'
 BASE = 'netease_block_as_mesh_blend'
 VERTEX = 'shaders/glsl/modern_projection_biome_blocks.vertex'
 FRAGMENT = 'shaders/glsl/modern_projection_biome_blocks.fragment'
+# Keep custom policy separate from generated native definitions so upgrades
+# cannot copy an old ancestor's variants over a newly captured native source.
+CUSTOM_OVERRIDES = {
+    'netease_block_as_entity_mesh': {'+states': ['Blending'],
+        'vertexShader': VERTEX, 'fragmentShader': FRAGMENT},
+}
 
 
 def digest(raw):
@@ -96,9 +102,10 @@ def merge_overrides(native, overrides):
     return result
 
 
-def adapted_materials(current, descendants, native_materials):
+def adapted_materials(current, descendants, native_materials, custom_overrides=None):
     entries = material_entries(native_materials)
-    overrides = material_entries(current)
+    previous = material_entries(current)
+    overrides = CUSTOM_OVERRIDES if custom_overrides is None else custom_overrides
     required = set()
     for name in descendants:
         chain = set()
@@ -114,12 +121,10 @@ def adapted_materials(current, descendants, native_materials):
     # A bare override loses the parent variants needed by nested fog.underwater.
     for name in sorted(required):
         key, parent, definition = entries[name]
-        previous = overrides.get(name)
-        if previous is not None:
-            result.pop(previous[0])
-            definition = merge_overrides(definition, previous[2])
-        else:
-            definition = copy.deepcopy(definition)
+        old = previous.get(name)
+        if old is not None:
+            result.pop(old[0])
+        definition = merge_overrides(definition, overrides.get(name, {}))
         if name in descendants:
             definition.update(vertexShader=VERTEX, fragmentShader=FRAGMENT)
         result[key] = definition

@@ -31,7 +31,8 @@ class LiquidMaterialTests(unittest.TestCase):
         original = copy.deepcopy(current)
         native = parse_native(RAW.decode('ascii'))
         native_original = copy.deepcopy(native)
-        adapted = adapted_materials(current, [BASE, 'new_liquid'], native)
+        policy = {BASE: {'depthFunc': 'LessEqual'}}
+        adapted = adapted_materials(current, [BASE, 'new_liquid'], native, policy)
         self.assertEqual(original, current)
         self.assertEqual(native_original, native)
         self.assertEqual(current['non_liquid'], adapted['non_liquid'])
@@ -46,17 +47,32 @@ class LiquidMaterialTests(unittest.TestCase):
         self.assertEqual(native['netease_block_as_entity_mesh']['variants'],
                          adapted['netease_block_as_entity_mesh']['variants'])
         self.assertEqual(native[blend]['+variants'], adapted[blend]['+variants'])
-        self.assertEqual(adapted, adapted_materials(adapted, [BASE, 'new_liquid'], native))
+        self.assertEqual(adapted, adapted_materials(adapted, [BASE, 'new_liquid'], native, policy))
 
     def test_custom_additive_flags_extend_native_ancestors(self):
         native = parse_native(RAW.decode('ascii'))
         current = {'netease_block_as_entity_mesh': {'+states': ['Blending'],
                    'vertexShader': 'custom'}, BASE: {'+defines': ['CUSTOM', 'BLEND']}}
-        result = adapted_materials(current, [BASE], native)
+        result = adapted_materials({}, [BASE], native, current)
         ancestor = result['netease_block_as_entity_mesh']
         self.assertEqual(['DisableAlphaWrite', 'Blending'], ancestor['+states'])
         self.assertEqual('custom', ancestor['vertexShader'])
         self.assertEqual(['BLEND', 'CUSTOM'], result[BASE + ':netease_block_as_entity_mesh']['+defines'])
+
+    def test_new_native_variants_replace_generated_old_ancestors(self):
+        native = parse_native(RAW.decode('ascii'))
+        current = adapted_materials({}, [BASE], native)
+        newer = copy.deepcopy(native)
+        newer['netease_block_as_entity_mesh']['variants'].append({'newfog': {}})
+        newer[BASE + ':netease_block_as_entity_mesh']['+variants'].append({'newfog.underwater': {}})
+        newer['netease_block_as_entity_mesh']['vertexFields'] = [{'field': 'NewField'}]
+        refreshed = adapted_materials(current, [BASE], newer)
+        self.assertEqual(newer['netease_block_as_entity_mesh']['variants'],
+                         refreshed['netease_block_as_entity_mesh']['variants'])
+        self.assertEqual([{'field': 'NewField'}], refreshed['netease_block_as_entity_mesh']['vertexFields'])
+        self.assertEqual(newer[BASE + ':netease_block_as_entity_mesh']['+variants'],
+                         refreshed[BASE + ':netease_block_as_entity_mesh']['+variants'])
+        self.assertEqual(['DisableAlphaWrite', 'Blending'], refreshed['netease_block_as_entity_mesh']['+states'])
 
     def test_missing_ancestor_and_duplicate_override_are_rejected(self):
         native = {BASE + ':missing': {}}
