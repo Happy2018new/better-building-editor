@@ -3,6 +3,57 @@
   "captured_at": "2026-10-10T16:56:45+08:00",
   "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
   "source_commit": "78816409eb9292ac52e413dd5ec8354d13805725",
+  "latest_acceptance": {
+    "captured_at": "2026-10-10T17:20:50+08:00",
+    "source_commit": "e68547d",
+    "front_clipping_fix_commit": "5c36646",
+    "bounded_context_fix_commit": "4361717",
+    "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/de30aa677b0d4dbdb709ddae9270063d/session.json",
+    "native_double_world": {
+      "passed": true,
+      "completed": true,
+      "restored": true,
+      "report": "chest-native-world-front-r6.json",
+      "report_sha256": "ff49bb55be86efa4f1db770f066910ea36c176421f4da0e90c690175217d7f74",
+      "scope": "Ordinary north-facing closed double chest front silhouette and texture at identical native world camera",
+      "shape_iou": 0.9904142416980486,
+      "texture_cosine": 0.8267472678953784,
+      "center_distance_pixels": 0.0,
+      "boundary_rms_pixels": 0.0,
+      "visual_inspection": "Front central border introduced by opposite clipping direction is gone. The bottom still shows a central texture border; bottom and top fidelity remain unaccepted."
+    },
+    "camera_calibration": {
+      "passed": true,
+      "completed": true,
+      "restored": true,
+      "report": "camera-calibration-chests-r4.json",
+      "report_sha256": "bfa57bba1aa6a580e1cc5d9906c71bdc7a9260b09520788f9266fec3be8bb6a8",
+      "effective_vertical_fov_degrees": 67.8,
+      "views": 3
+    },
+    "missing_projection_halves": {
+      "passed": true,
+      "completed": true,
+      "restored": true,
+      "report": "chest-hidden-half-native-oracle-r4.json",
+      "report_sha256": "226a52f98dd28a932aecff733a4d22081a8858fb3fa2c117158f35ce8072ac62",
+      "scope": "Side camera; ordinary/copper main/sub halves; dynamic hiding and initial regeneration, eight comparisons against the complete native projection oracle",
+      "cases": ["chest_keep_main", "chest_keep_sub", "copper_chest_keep_main", "copper_chest_keep_sub"],
+      "remaining_half_baseline_pixels": [3600, 3619, 3717, 3729],
+      "remaining_half_initial_pixels": [3599, 3628, 3723, 3733],
+      "minimum_remaining_shape_iou": 0.9843921139101862,
+      "maximum_color_channel_error": 1.509956942949408,
+      "maximum_hidden_residual": 0.01992997576084029,
+      "source_history_document_player_preserved": true,
+      "limits": "This compares the context path with complete rendering after static adaptation; it validates hidden-neighbor preservation, not top/bottom texture correctness against the real chest actor."
+    },
+    "unaccepted_appearance": {
+      "top": "The installed MCStudio importer reverses the up face UV endpoints. This generator still uses the original box_uv up convention; independent top capture is required before accepting a change.",
+      "bottom": "Actual low-side world pixels show an extra center border. The down face clipped X sampling direction requires a focused source-coordinate audit and native visual rerun.",
+      "ender": "Corrected observed renderer baseline has not yet been captured.",
+      "other_copper_materials_and_directions": "Generated assets and offline tests cover all stages/directions, but this round has no independently accepted native world camera comparisons for each material/direction."
+    }
+  },
   "artifact_root": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-snow-qa-r3/artifacts",
   "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/a710a2a602f347619174a9716e9393e8/session.json",
   "world_alignment": {
