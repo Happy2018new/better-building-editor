@@ -12,6 +12,7 @@ from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageStat
 
+from camera_projection import project_box_corners
 from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, write_json
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
 
@@ -129,16 +130,26 @@ _result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotatio
 '''
 
 CELL_ROIS = '''cam=b.factory.CreateCamera(b.level)
+game=b.factory.CreateGame(b.level)
+target=sys._neighbor_qa_camera['target']
+position=cam.GetPosition()
+assert hasattr(cam,'GetFov'), 'NEMC 3.9 Camera.GetFov is required for fallback projection'
+fov=cam.GetFov()
 cells=[]
 for pos in s.editor.document.blocks:
- points=[]
+ world_points=[]
  for dx in (.03,.97):
   for dy in (0.,1.6):
    for dz in (.03,.97):
     world=tuple(s.origin[i]+pos[i]+(dx,dy,dz)[i] for i in range(3))
-    points.append(cam.WorldToScreenPoint(*world))
- cells.append({'pos':pos,'points':points})
-_result=json.dumps({'cells':cells,'screen':b.factory.CreateGame(b.level).GetScreenSize()})
+    world_points.append(world)
+ points=[]
+ if hasattr(cam,'WorldToScreenPoint'):
+  points=[cam.WorldToScreenPoint(*world) for world in world_points]
+ cells.append({'pos':pos,'world_points':world_points,'native_points':points})
+_result=json.dumps({'cells':cells,'screen':game.GetScreenSize(),'position':position,
+ 'rotation':cam.GetCameraRotation(),'target':target,'fov':fov,
+ 'projection_method':'native' if hasattr(cam,'WorldToScreenPoint') else 'analytic_vertical_fov'})
 '''
 
 
@@ -179,10 +190,29 @@ def signal(shown, hidden):
 
 
 def roi_masks(projection, size, keep, occupied):
+    if projection['projection_method'] == 'native':
+        for row in projection['cells']:
+            row['points'] = row.pop('native_points')
+    else:
+        for row in projection['cells']:
+            row['points'] = project_box_corners(row['world_points'], projection['position'],
+                                                projection['target'], projection['screen'],
+                                                projection['fov'], projection['rotation'][2])
+            del row['world_points']
+    projection['projection_details'] = {
+        'method': projection['projection_method'],
+        'fov_degrees': projection['fov'],
+        'fov_convention': 'vertical' if projection['projection_method'] != 'native' else 'native engine',
+        'position': projection['position'], 'target': projection['target'],
+        'rotation': projection['rotation'], 'screen': projection['screen']}
     scale = (size[0] / projection['screen'][0], size[1] / projection['screen'][1])
     masks, polygons = {}, {}
     for row in projection['cells']:
         pos = tuple(row['pos'])
+        if not row['points']:
+            assert pos not in (keep, occupied), 'A target cell lies behind the camera: %r' % (pos,)
+            masks[pos] = Image.new('L', size)
+            continue
         if pos in (keep, occupied) and not all(point['isInScreen'] for point in row['points']):
             raise AssertionError('A native cell ROI lies outside the viewport: %r' % row)
         polygon = hull((point['screenX'] * scale[0], point['screenY'] * scale[1])
@@ -195,7 +225,8 @@ def roi_masks(projection, size, keep, occupied):
     for pos, mask in masks.items():
         if pos != occupied:
             hidden = ImageChops.subtract(hidden, mask)
-    return remaining, hidden, {'keep': polygons[keep], 'occupied': polygons[occupied],
+    return remaining, hidden, {'projection': projection['projection_details'],
+                               'keep': polygons[keep], 'occupied': polygons[occupied],
                                'remaining_area': count(remaining), 'hidden_area': count(hidden),
                                'viewport_scale': scale}
 

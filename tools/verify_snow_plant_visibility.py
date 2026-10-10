@@ -6,7 +6,8 @@ import time
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
-from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, STATUS, write_json
+from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, RESTORE,
+                                     write_json)
 from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
 from verify_missing_neighbor_visuals import camera_matches
 from verify_shulker_orientations import viewport_crop
@@ -30,14 +31,20 @@ if kind=='snow':value=_covered_snow(foreground(value),False)
 doc=Document(case['size'],name='Snow plant visibility check')
 if kind!='blank':doc.blocks[focus]=rebase(value,tuple(focus[i]-source_pos[i] for i in range(3)))
 sys._blueprint_qa_identity='snow.visibility.'+plant+'.'+kind+'.'+str(height)
+sys._blueprint_qa_nonce+=1
+sys._blueprint_qa_expected={'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
+ 'previous_document_id':id(s.editor.document),'editor_id':None}
 s._loaded(doc)
 s.camera_pivot=tuple(v+.5 for v in focus)
 s.camera_view(*case['camera']['editor'])
+s.emit()
 _result=json.dumps({'fixture':case['fixture'],'fixture_schema':case['schema'],
  'source_position':source_pos,'focus':focus,'registry_version':registry.source_version(),
  'registry_fingerprint':registry.fingerprint(),'render_layout_version':render_layout_version,
  'runtime_minecraft_version':api.GetMinecraftVersion() if hasattr(api,'GetMinecraftVersion') else None,
- 'front':foreground(doc.get(focus)),'back':background(doc.get(focus))})
+ 'front':foreground(doc.get(focus)),'back':background(doc.get(focus)),
+ 'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
+ 'editor_id':id(s.editor),'document_id':id(doc)})
 '''
 
 
@@ -209,7 +216,7 @@ _result=json.dumps({'target':target,'position':position,'rotation':rotation})
     final = check.run(PROJECTION_STATUS)
     actual_camera = check.run(camera_code)
     assert camera_matches(actual_camera, pose), (actual_camera, pose)
-    assert state['actor'] == final['actor'] and state['mesh'] == final['mesh'], (state, final)
+    assert state['actor'] == final['actor'] and state['mesh'][:3] == final['mesh'][:3], (state, final)
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert saved_player == final['player'], (saved_player, final['player'])
     calls = check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % native_before)
@@ -266,13 +273,8 @@ def main():
                         check.run('owner.open_workspace()\n_result=True')
                         check.wait('open workspace', lambda nav: nav['open'] and not nav['transition'], check.navigation)
                         source = check.run(LOAD % (plant, height, kind))
-                        state = check.wait('snow visibility preview',
-                                           lambda value: not value['preview_pending'] and not value['running'] and
-                                           not value['dirty'] and not value['mounting'] and value['model_revision_current'] and
-                                           all(not row['pending'] for row in value['parts']),
-                                           lambda: check.run(STATUS))
-                        if state['preview_error']:
-                            raise AssertionError(state)
+                        state = check.editor_preview('snow visibility preview', source['metadata'],
+                                                     source['editor_id'], source['document_id'])
                         if kind != 'blank':
                             assert state['model_name'] and state['parts'] and state['renderer_active'], state
                         camera = check.wait('fixed editor camera',

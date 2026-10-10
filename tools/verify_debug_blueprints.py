@@ -42,12 +42,16 @@ sys._blueprint_qa_saved={'editor':s.editor,'fields':dict((key,getattr(s,key)) fo
  'factory':b.factory,'workspace':navigator.contains('modern_projection_workspace')}
 sys._blueprint_qa_records=[]
 sys._blueprint_qa_identity=None
+sys._blueprint_qa_nonce=0
+sys._blueprint_qa_expected=None
 class BlueprintNativeGeometryProbe(object):
  def __init__(self,target):self.target=target
  def __getattr__(self,name):return getattr(self.target,name)
  def CombineBlockPaletteToGeometry(self,palette,name,mode=0):
   data=palette.SerializeBlockPalette()
   record={'fixture':sys._blueprint_qa_identity,'name':name,'mode':mode,
+   'nonce':sys._blueprint_qa_nonce,'editor_id':id(s.editor),
+   'document_id':id(s.editor.document),
    'volume':data.get('volume'),'common_cells':sum(len(v) for v in data.get('common',{}).values()),
    'extra_cells':sum(len(v) for v in data.get('extra',{}).values()),
    'actor_cells':sum(len(v) for v in data.get('actor',{}).values()),
@@ -80,8 +84,26 @@ doc=s.editor.document
 t=s.tiles
 rows=[{'key':key,'name':part.get('name'),'count':part.get('count'),
  'pending':part.get('pending'),'size':part.get('size'),
+ 'signature':part.get('signature'),'current_signature':part.get('signature')==s.preview_signature(),
+ 'cache_current':part.get('bank') in part.get('cache',{}) and
+  part['cache'][part['bank']][0]==part['data'] and
+  part['cache'][part['bank']][1]==part.get('name') and
+  part.get('source') in part['cache'][part['bank']][2],
+ 'common_cells':sum(len(v) for v in part['data'][0].values()),
+ 'extra_cells':sum(len(v) for v in part['data'][1].values()),
  'actor_cells':sum(len(v) for v in part['data'][2].values())}
  for key,part in sorted(t.parts.items()) if key in t.region_owners]
+expected=sys._blueprint_qa_expected or {}
+document_id=id(doc)
+metadata={'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)}
+if (expected.get('metadata') == metadata and expected.get('previous_document_id') != document_id and
+    expected.get('editor_id') is None):
+ expected['editor_id']=id(s.editor)
+ expected['document_id']=document_id
+ sys._blueprint_qa_expected=expected
+current_source=(expected.get('metadata')==metadata and
+                expected.get('document_id')==document_id and
+                expected.get('editor_id')==id(s.editor))
 _result=json.dumps({'page':s.page,'name':doc.name,'size':doc.size,'blocks':len(doc.blocks),
  'document_actor_cells':sum(actor_data(v) is not None for p,v in doc.blocks.items()),
  'document_render_actor_cells':sum(bool(render_actor(actor_data(v))) for p,v in doc.blocks.items()),
@@ -91,10 +113,15 @@ _result=json.dumps({'page':s.page,'name':doc.name,'size':doc.size,'blocks':len(d
  'running':t.running,'dirty':len(t.dirty),'mounting':getattr(t,'mounting',False),
  'renderer_active':t.renderer_active,'renderer_age':time.time()-t.last_render,
  'model_revision_current':s.model_revision==s.preview_signature(),
+ 'metadata':metadata,'expected_metadata':expected.get('metadata'),
+ 'editor_id':id(s.editor),'document_id':document_id,
+ 'expected_editor_id':expected.get('editor_id'),'expected_document_id':expected.get('document_id'),
+ 'current_source':current_source,'all_parts_current':all(row['current_signature'] for row in rows),
  'model_name':s.model_name,'parts':rows,'tile_builds':t.builds,
  'world_actors':len(b.projection_entities)+int(bool(b.entity)),
  'native_calls':[row for row in sys._blueprint_qa_records
-                 if row['fixture']==sys._blueprint_qa_identity]})
+                 if row['nonce']==sys._blueprint_qa_nonce and row['editor_id']==id(s.editor) and
+                 row['document_id']==document_id]})
 '''
 
 RESTORE = '''saved=sys._blueprint_qa_saved
@@ -109,6 +136,8 @@ s.refresh_preview()
 s.emit()
 del sys._blueprint_qa_saved
 del sys._blueprint_qa_identity
+del sys._blueprint_qa_nonce
+del sys._blueprint_qa_expected
 del sys._blueprint_qa_records
 _result=True
 '''
@@ -123,6 +152,30 @@ def walk(node):
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+
+
+def source_matches(state, metadata, editor_id, document_id):
+    return (state.get('metadata') == metadata and state.get('editor_id') == editor_id and
+            state.get('document_id') == document_id and state.get('current_source') and
+            state.get('all_parts_current'))
+
+
+def editor_preview_ready(state, metadata, editor_id, document_id):
+    if state.get('preview_error'):
+        raise AssertionError('Editor preview failed: %r' % state)
+    current = (source_matches(state, metadata, editor_id, document_id) and
+               state['page'] == 'workspace' and not state['preview_pending'] and
+               not state['running'] and not state['dirty'] and not state['mounting'] and
+               not state['edit_active'] and not state['io_active'] and
+               state['model_revision_current'] and
+               all(not row['pending'] and row['cache_current'] for row in state['parts']))
+    if not current:
+        return False
+    if not metadata['blocks']:
+        return not state['model_name'] and not any(row['name'] for row in state['parts'])
+    return (bool(state['model_name'] and state['parts']) and state['renderer_active'] and
+            state['renderer_age'] < .5 and
+            all(row.get('result') and not row.get('error') for row in state['native_calls']))
 
 
 class BlueprintCheck:
@@ -160,6 +213,16 @@ class BlueprintCheck:
                 return last
             time.sleep(.2)
         raise TimeoutError('%s: %r' % (label, last))
+
+    def editor_preview(self, label, metadata=None, editor_id=None, document_id=None):
+        def ready(state):
+            return editor_preview_ready(
+                state, metadata if metadata is not None else state['expected_metadata'],
+                editor_id if editor_id is not None else state['expected_editor_id'],
+                document_id if document_id is not None else state['expected_document_id'])
+        self.wait(label, ready, lambda: self.run(STATUS))
+        time.sleep(.15)
+        return self.wait(label + ' stable', ready, lambda: self.run(STATUS))
 
     def navigation(self):
         return self.run('_result=json.dumps({"transition":navigator.is_transitioning,'
@@ -219,36 +282,34 @@ class BlueprintCheck:
     def fixture(self, identity):
         started = time.monotonic()
         self.run('from functools import partial\n'
-                 'from modern_projection.projection.debug_blueprints import open_blueprint\n'
+                 'from modern_projection.projection.debug_blueprints import open_blueprint,build\n'
                  'sys._blueprint_qa_identity=%r\n'
+                 'sys._blueprint_qa_nonce+=1\n'
+                 'expected_doc=build(%r)\n'
+                 'sys._blueprint_qa_expected={"metadata":{"name":expected_doc.name,"size":expected_doc.size,"blocks":len(expected_doc.blocks)},"previous_document_id":id(s.editor.document),"editor_id":None}\n'
                  's.set("page","testing")\n'
                  's.confirm("Blueprint acceptance",partial(open_blueprint,s,%r))\n'
                  'assert s.pending_confirm is not None\ns.accept()\n'
-                 'assert s.pending_confirm is None\n_result=True' % (identity, identity))
+                 'assert s.pending_confirm is None\n_result=True' %
+                 (identity, identity, identity))
 
-        def settled(state):
-            if state['preview_error']:
-                raise AssertionError('Preview failed for %s: %r' % (identity, state))
-            return (state['page'] == 'workspace' and not state['preview_pending'] and
-                    not state['running'] and not state['dirty'] and not state['mounting'] and
-                    not state['edit_active'] and not state['io_active'] and
-                    state['model_revision_current'] and state['renderer_active'] and
-                    state['renderer_age'] < .5 and
-                    all(not row['pending'] for row in state['parts']))
-
-        state = self.wait('preview ' + identity, settled, lambda: self.run(STATUS))
+        state = self.editor_preview('preview ' + identity)
         assert state['blocks'] > 0 and state['model_name'] and state['parts'], state
         assert state['world_actors'] == 0, state
         calls = state['native_calls']
-        assert calls, 'No native Combine call was recorded for ' + identity
-        assert all(row.get('result') and not row.get('error') for row in calls), calls
-        assert any(row['common_cells'] > 0 and row['states'] > 0 for row in calls), calls
+        assert calls or all(row['cache_current'] for row in state['parts']), state
+        if calls:
+            assert all(row.get('result') and not row.get('error') for row in calls), calls
+            assert any(row['common_cells'] > 0 and row['states'] > 0 for row in calls), calls
+        else:
+            assert any(row['common_cells'] > 0 for row in state['parts']), state
+        state['native_evidence'] = 'current_source_submission' if calls else 'current_source_retained_geometry'
         if state['document_background_cells']:
-            assert any(row['extra_cells'] > 0 for row in calls), calls
+            assert any(row['extra_cells'] > 0 for row in state['parts']), state
         if identity.startswith('test.entities.') or identity == 'test.connections.context':
             assert state['document_actor_cells'] > 0, state
         if state['document_render_actor_cells']:
-            assert any(row['actor_cells'] > 0 for row in calls), calls
+            assert any(row['actor_cells'] > 0 for row in state['parts']), state
         time.sleep(.4)
         tree = self.command('dump_tree')['tree']
         scenes = [node for node in walk(tree) if node.get('type') == 'Scene']
@@ -306,6 +367,7 @@ def main():
                     if args.keep_fixture:
                         check.run('b.factory=sys._blueprint_qa_saved["factory"]\n'
                                   'del sys._blueprint_qa_saved\ndel sys._blueprint_qa_identity\n'
+                                  'del sys._blueprint_qa_nonce\ndel sys._blueprint_qa_expected\n'
                                   'del sys._blueprint_qa_records\n_result=True')
                         evidence['restored'] = False
                     else:

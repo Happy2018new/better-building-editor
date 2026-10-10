@@ -1,0 +1,120 @@
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
+from camera_projection import project_box_corners, project_points
+from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
+                                     editor_preview_ready, source_matches)
+from verify_missing_neighbor_visuals import CELL_ROIS
+from verify_snow_plant_visibility import LOAD
+
+
+class CameraProjectionTests(unittest.TestCase):
+    def test_target_projects_to_viewport_center(self):
+        point, = project_points(((0., 0., 0.),), (0., 0., 10.), (0., 0., 0.),
+                                (800, 600), 60.)
+        self.assertAlmostEqual(point['screenX'], 400.)
+        self.assertAlmostEqual(point['screenY'], 300.)
+        self.assertEqual(point['depth'], 10.)
+        self.assertTrue(point['isInScreen'])
+
+    def test_world_right_and_up_follow_screen_axes(self):
+        right, up = project_points(((1., 0., 0.), (0., 1., 0.)),
+                                   (0., 0., 10.), (0., 0., 0.), (800, 600), 60.)
+        self.assertGreater(right['screenX'], 400.)
+        self.assertAlmostEqual(right['screenY'], 300.)
+        self.assertAlmostEqual(up['screenX'], 400.)
+        self.assertLess(up['screenY'], 300.)
+
+    def test_depth_controls_perspective_and_viewport_aspect(self):
+        near, far = project_points(((1., 0., 0.), (1., 0., -10.)),
+                                   (0., 0., 10.), (0., 0., 0.), (800, 600), 60.)
+        self.assertAlmostEqual(near['screenX'] - 400., (far['screenX'] - 400.) * 2.)
+        wide = project_points(((1., 0., 0.),), (0., 0., 10.), (0., 0., 0.),
+                              (1200, 600), 60.)[0]
+        self.assertAlmostEqual(wide['screenX'] - 600., near['screenX'] - 400.)
+
+    def test_points_behind_camera_are_not_visible(self):
+        point, = project_points(((0., 0., 20.),), (0., 0., 10.), (0., 0., 0.),
+                                (800, 600), 60.)
+        self.assertLess(point['depth'], 0.)
+        self.assertFalse(point['isInScreen'])
+
+    def test_box_behind_camera_is_empty_and_crossing_box_is_clipped(self):
+        behind = ((-.5, -.5, 12.), (-.5, -.5, 13.), (-.5, .5, 12.), (-.5, .5, 13.),
+                  (.5, -.5, 12.), (.5, -.5, 13.), (.5, .5, 12.), (.5, .5, 13.))
+        self.assertEqual(project_box_corners(behind, (0., 0., 10.), (0., 0., 0.),
+                                             (800, 600), 60.), [])
+        crossing = ((-.5, -.5, 9.), (-.5, -.5, 11.), (-.5, .5, 9.), (-.5, .5, 11.),
+                    (.5, -.5, 9.), (.5, -.5, 11.), (.5, .5, 9.), (.5, .5, 11.))
+        clipped = project_box_corners(crossing, (0., 0., 10.), (0., 0., 0.),
+                                      (800, 600), 60.)
+        self.assertEqual(len(clipped), 8)
+        self.assertTrue(all(point['depth'] >= .05 for point in clipped))
+
+    def test_invalid_viewport_or_degenerate_camera_fails_explicitly(self):
+        for args in (((0., 0., 0.), (0., 0., 10.), (0., 0., 0.), (800, 600), 180.),
+                     ((0., 0., 0.), (0., 0., 0.), (0., 0., 0.), (800, 600), 60.),
+                     ((0., 0., 0.), (0., 0., 10.), (0., 0., 0.), (0, 600), 60.)):
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                project_points((args[0],), args[1], args[2], args[3], args[4])
+
+
+class BlueprintSourceIdentityTests(unittest.TestCase):
+    def setUp(self):
+        self.metadata = {'name': 'Snow plant visibility check', 'size': [8, 6, 8], 'blocks': 1}
+        self.state = {'metadata': self.metadata, 'editor_id': 21, 'document_id': 34,
+                      'current_source': True, 'all_parts_current': True,
+                      'preview_error': '', 'page': 'workspace', 'preview_pending': False,
+                      'running': False, 'dirty': 0, 'mounting': False, 'edit_active': False,
+                      'io_active': False, 'model_revision_current': True, 'model_name': 'current_model',
+                      'renderer_active': True, 'renderer_age': .1, 'native_calls': [],
+                      'parts': [{'pending': False, 'cache_current': True, 'name': 'current_model'}]}
+
+    def test_current_document_and_geometry_are_required(self):
+        self.assertTrue(source_matches(self.state, self.metadata, 21, 34))
+        for field, value in (('editor_id', 22), ('document_id', 35),
+                             ('current_source', False), ('all_parts_current', False)):
+            with self.subTest(field=field):
+                stale = dict(self.state, **{field: value})
+                self.assertFalse(source_matches(stale, self.metadata, 21, 34))
+
+    def test_old_fixture_metadata_cannot_match(self):
+        old_fixture = dict(self.metadata, name='Garden preview', size=[32, 12, 32], blocks=800)
+        self.assertFalse(source_matches(self.state, old_fixture, 21, 34))
+
+    def test_remote_probe_snippets_compile_after_formatting(self):
+        snippets = (INSTALL_PROBE, STATUS, RESTORE, CELL_ROIS,
+                    LOAD % ('fern', 5, 'covered'))
+        for index, snippet in enumerate(snippets):
+            with self.subTest(index=index):
+                compile(snippet, '<live-qa-snippet-%d>' % index, 'exec')
+
+    def test_current_cached_model_is_allowed_but_stale_renderer_is_not(self):
+        self.assertTrue(editor_preview_ready(self.state, self.metadata, 21, 34))
+        for field, value in (('renderer_age', .8), ('renderer_active', False),
+                             ('model_revision_current', False), ('model_name', None)):
+            with self.subTest(field=field):
+                state = dict(self.state, **{field: value})
+                self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
+        state = dict(self.state, parts=[{'pending': False, 'cache_current': False, 'name': 'old_model'}])
+        self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
+
+    def test_empty_document_cannot_accept_previous_fixture_model(self):
+        metadata = dict(self.metadata, blocks=0)
+        state = dict(self.state, metadata=metadata, model_name=None, parts=[], renderer_active=False)
+        self.assertTrue(editor_preview_ready(state, metadata, 21, 34))
+        state['model_name'] = 'previous_fixture'
+        self.assertFalse(editor_preview_ready(state, metadata, 21, 34))
+
+    def test_failed_native_submission_and_pending_mount_are_rejected(self):
+        state = dict(self.state, native_calls=[{'result': False, 'error': 'native failure'}])
+        self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
+        state = dict(self.state, parts=[{'pending': True, 'cache_current': True, 'name': 'warming_model'}])
+        self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
+
+
+if __name__ == '__main__':
+    unittest.main()
