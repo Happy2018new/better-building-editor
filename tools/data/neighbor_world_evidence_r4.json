@@ -7,6 +7,29 @@
   "native_state_commit": "019bf25",
   "visual_harness_commits": ["41036ac", "f8b22ee"],
   "thresholds_changed": false,
+  "final_connected_acceptance": {
+    "families": ["rail", "stairs", "pane", "wall", "fence", "iron_bars"],
+    "cases": 12,
+    "passed_cases": 12,
+    "coverage": "Ordinary and cross-chunk cases, each with all-air native parity, dynamic occupied hiding, and initial occupied regeneration",
+    "dynamic_hidden_residual": 0.0,
+    "initial_hidden_residual": 0.0
+  },
+  "native_dripstone_states": {
+    "path": "tools/data/native_dripstone_states_r4.json",
+    "sha256": "355d1c78a3841f63e523b9f0c50b432e7d46ac217f2e6c7ac03ad9458b8c4124",
+    "observations": 28,
+    "scope": "Native standing/hanging thickness transitions and explicit merged-tip state preservation; independent of pixel acceptance"
+  },
+  "instance_lifecycle": {
+    "session": "7fff7ca1e6424a56843d3df692fa4497",
+    "owner": "p0-neighbors-r4",
+    "state": "stopped",
+    "game_alive": false,
+    "mcdk_alive": false,
+    "method": "Normal stop; initial command timed out, later status confirmed both processes exited and a second normal stop registered stopped",
+    "evidence_and_world_preserved": true
+  },
   "boundary_guard": {
     "pixels": 2,
     "method": "Maximum independently measured native cube silhouette boundary error in the same game session",
@@ -53,6 +76,73 @@
       "review_sheet": ".runtime/neighbors-world-rail-near-final-r4-v2_review_sheet.png",
       "review_sheet_sha256": "31085829777b6da9fba40775a3bfd91d2663502a97b3296c06d5d78483d899e8",
       "visual_review": "Read all rows; curves and retained rails match native, selected middle-cell gaps are visible"
+    },
+    {
+      "path": ".runtime/neighbors-world-core-final-r4.json",
+      "sha256": "46eb2f61b4081b050feedd480c185215d8d25a4b7a5dcafb8fe81d145c28f404",
+      "replay_path": ".runtime/neighbors-world-core-final-r4-replay.json",
+      "replay_sha256": "1e7c80d6b1c8e9bc5e1230f98aec5af59795859f7764f42cdbc58bb4db5deb2e",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "cases": ["stairs", "stairs_cross_chunk", "pane", "pane_cross_chunk", "wall", "wall_cross_chunk", "fence", "fence_cross_chunk", "iron_bars", "iron_bars_cross_chunk"],
+      "view": "side",
+      "all_air_recall_1px_min": 0.9984607491021037,
+      "all_air_precision_1px_min": 0.9969262295081968,
+      "dynamic_hidden_residual": 0.0,
+      "initial_hidden_residual": 0.0,
+      "review_sheet": ".runtime/neighbors-world-core-final-r4_review_sheet.png",
+      "review_sheet_sha256": "524a25191a2994d5e017e0c6b3e82daec15c6b17ce3d7715c592c84b1a48ecde",
+      "visual_review": "Read all ten rows; retained native shapes match and designated occupied-cell gaps are visible"
+    },
+    {
+      "path": ".runtime/dripstone-world-final-r4.json",
+      "sha256": "d3372b5263bad06934707c20841a42e2d16d3351c24a58a26180a04fc309c271",
+      "replay_path": ".runtime/dripstone-world-final-r4-replay.json",
+      "replay_sha256": "91d60b9ac0393ce042785e3dfaea44ebf42c85d94cabd76e6d835c6972c87360",
+      "fixture": "test.connections.dripstone",
+      "completed": true,
+      "restored": true,
+      "passed": false,
+      "view": "side",
+      "cell_hull_height": 1.0,
+      "cases": ["standing", "hanging_cross_chunk", "merged_tips"],
+      "passed_cases": ["standing", "hanging_cross_chunk"],
+      "failed_cases": ["merged_tips"],
+      "case_results": [
+        {
+          "case": "standing",
+          "passed": true,
+          "dynamic_hidden_residual": 0.021413276231263382,
+          "initial_hidden_residual": 0.021413276231263382
+        },
+        {
+          "case": "hanging_cross_chunk",
+          "passed": true,
+          "dynamic_hidden_residual": 0.0,
+          "initial_hidden_residual": 0.0
+        },
+        {
+          "case": "merged_tips",
+          "passed": false,
+          "native_state_changes": [],
+          "source_aux": [4, 12],
+          "context_recall_1px": 0.9249061326658323,
+          "context_precision_1px": 0.9337121212121212,
+          "context_color_error": [30.60090361445783, 37.42168674698795, 40.59036144578313],
+          "dynamic_remaining_recall_1px": 0.914179104477612,
+          "initial_remaining_recall_1px": 0.914179104477612,
+          "remaining_color_error": [29.873873873873872, 39.37987987987988, 43.430930930930934],
+          "dynamic_hidden_residual": 0.02518891687657431,
+          "initial_hidden_residual": 0.02518891687657431,
+          "hidden_passed": true,
+          "failure": "Remaining native pixels changed: shape recall below 0.93 and per-channel color error above 20; all-air context also fails",
+          "diagnosis": "Local retained outline/color difference is visible in screenshots; no native state changes or source/camera drift recorded. A production cause is not established."
+        }
+      ],
+      "review_sheet": ".runtime/dripstone-world-final-r4_review_sheet.png",
+      "review_sheet_sha256": "2a9db69852a13edea6c0465193e0d29e4b92f2cad4a7f3aa31408a7dfabc4b03",
+      "visual_review": "Read all rows and enlarged merged-tip native/context/occupied captures; standing and hanging match, merged retained geometry/color has a local mismatch and stays rejected"
     }
   ],
   "earlier_pipeline": [
@@ -125,7 +215,8 @@
     "Host observation replacement simulates occupied-cell changes after the native world baseline is cleared.",
     "Pixel acceptance applies only to preserved fixture cases, views, opacity 1.0, NEMC 1.21.120.0 and instance-specific camera measurements.",
     "Earlier pipeline evidence does not substitute for final pipeline parity checks.",
-    "Connected families still pending final pipeline acceptance beyond rails.",
-    "Pointed dripstone has 28 native state observations; its pixel acceptance is pending."
+    "All six connected families pass the preserved final-pipeline ordinary and cross-chunk pixel cases; this does not establish untested states or views.",
+    "Pointed dripstone has 28 native state observations and two accepted pixel cases; merged_tips remains a preserved final-pipeline visual failure despite successful occupied-cell hiding.",
+    "The merged-tip visual mismatch has no established production cause; state parity and stable source/camera do not substitute for pixel acceptance."
   ]
 }
