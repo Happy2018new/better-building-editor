@@ -21,6 +21,7 @@ SNAPSHOTS = (
     'native_frame_rotations', 'native_signs', 'native_pot_poses',
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
+    'native_snow_states',
 )
 
 

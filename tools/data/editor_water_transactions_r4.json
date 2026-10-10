@@ -1,0 +1,333 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "rows": [
+    {
+      "source": {
+        "registry_version": "NEMC 3.9.0.401155",
+        "fixtures": [
+          "test.layers.water",
+          "test.layers.snow",
+          "test.groups.parts",
+          "test.entities.appearances"
+        ],
+        "edit_layer": 2,
+        "registry_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "size": [
+          8,
+          5,
+          8
+        ]
+      },
+      "water": {
+        "automatic_erase": "foreground_then_promoted_water",
+        "orders": 2,
+        "passed": true,
+        "strict_layers": 2
+      },
+      "water_behaviors": {
+        "flow_depth": 3,
+        "passed": true,
+        "keys": [
+          "black_candle",
+          "black_candle_cake",
+          "blue_candle",
+          "blue_candle_cake",
+          "brown_candle",
+          "brown_candle_cake",
+          "campfire",
+          "candle",
+          "candle_cake",
+          "cyan_candle",
+          "cyan_candle_cake",
+          "gray_candle",
+          "gray_candle_cake",
+          "green_candle",
+          "green_candle_cake",
+          "light_blue_candle",
+          "light_blue_candle_cake",
+          "light_gray_candle",
+          "light_gray_candle_cake",
+          "lime_candle",
+          "lime_candle_cake",
+          "magenta_candle",
+          "magenta_candle_cake",
+          "orange_candle",
+          "orange_candle_cake",
+          "pink_candle",
+          "pink_candle_cake",
+          "purple_candle",
+          "purple_candle_cake",
+          "red_candle",
+          "red_candle_cake",
+          "soul_campfire",
+          "white_candle",
+          "white_candle_cake",
+          "yellow_candle",
+          "yellow_candle_cake",
+          "oak_fence",
+          "oak_stairs",
+          "oak_slab",
+          "rail",
+          "white_carpet",
+          "web",
+          "cocoa",
+          "leaf_litter",
+          "pink_petals",
+          "wildflowers",
+          "snow_layer"
+        ],
+        "actor_preserved": true,
+        "cases": 47,
+        "fixture": "test.layers.water_behaviors",
+        "orders": 2,
+        "strict_layer_keeps_snapshot": true
+      },
+      "snow": {
+        "automatic_erase": "snow_then_promoted_plant",
+        "orders": 2,
+        "passed": true,
+        "strict_layers": 2
+      },
+      "groups": {
+        "cases": [
+          {
+            "positions": [
+              [
+                3,
+                1,
+                3
+              ],
+              [
+                3,
+                2,
+                3
+              ]
+            ],
+            "material": "wooden_door"
+          },
+          {
+            "positions": [
+              [
+                3,
+                1,
+                3
+              ],
+              [
+                3,
+                1,
+                4
+              ]
+            ],
+            "material": "bed"
+          },
+          {
+            "positions": [
+              [
+                3,
+                1,
+                3
+              ],
+              [
+                3,
+                2,
+                3
+              ]
+            ],
+            "material": "lilac"
+          }
+        ],
+        "passed": true
+      },
+      "history": {
+        "consecutive_moves": 3,
+        "selection_bounds": [
+          [
+            6,
+            1,
+            3
+          ],
+          [
+            7,
+            1,
+            3
+          ]
+        ],
+        "passed": true
+      },
+      "serialization": {
+        "config_version": 6,
+        "passed": true,
+        "share_prefix": "MP4:",
+        "typed_actor_preserved": true,
+        "legacy_config_version": 1,
+        "share_bytes": 2085
+      }
+    },
+    {
+      "source": {
+        "registry_version": "NEMC 3.9.0.401155",
+        "fixtures": [
+          "test.layers.water",
+          "test.layers.snow",
+          "test.groups.parts",
+          "test.entities.appearances"
+        ],
+        "edit_layer": 2,
+        "registry_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "size": [
+          32,
+          16,
+          32
+        ]
+      },
+      "water": {
+        "automatic_erase": "foreground_then_promoted_water",
+        "orders": 2,
+        "passed": true,
+        "strict_layers": 2
+      },
+      "water_behaviors": {
+        "flow_depth": 3,
+        "passed": true,
+        "keys": [
+          "black_candle",
+          "black_candle_cake",
+          "blue_candle",
+          "blue_candle_cake",
+          "brown_candle",
+          "brown_candle_cake",
+          "campfire",
+          "candle",
+          "candle_cake",
+          "cyan_candle",
+          "cyan_candle_cake",
+          "gray_candle",
+          "gray_candle_cake",
+          "green_candle",
+          "green_candle_cake",
+          "light_blue_candle",
+          "light_blue_candle_cake",
+          "light_gray_candle",
+          "light_gray_candle_cake",
+          "lime_candle",
+          "lime_candle_cake",
+          "magenta_candle",
+          "magenta_candle_cake",
+          "orange_candle",
+          "orange_candle_cake",
+          "pink_candle",
+          "pink_candle_cake",
+          "purple_candle",
+          "purple_candle_cake",
+          "red_candle",
+          "red_candle_cake",
+          "soul_campfire",
+          "white_candle",
+          "white_candle_cake",
+          "yellow_candle",
+          "yellow_candle_cake",
+          "oak_fence",
+          "oak_stairs",
+          "oak_slab",
+          "rail",
+          "white_carpet",
+          "web",
+          "cocoa",
+          "leaf_litter",
+          "pink_petals",
+          "wildflowers",
+          "snow_layer"
+        ],
+        "actor_preserved": true,
+        "cases": 47,
+        "fixture": "test.layers.water_behaviors",
+        "orders": 2,
+        "strict_layer_keeps_snapshot": true
+      },
+      "snow": {
+        "automatic_erase": "snow_then_promoted_plant",
+        "orders": 2,
+        "passed": true,
+        "strict_layers": 2
+      },
+      "groups": {
+        "cases": [
+          {
+            "positions": [
+              [
+                15,
+                7,
+                15
+              ],
+              [
+                15,
+                8,
+                15
+              ]
+            ],
+            "material": "wooden_door"
+          },
+          {
+            "positions": [
+              [
+                15,
+                7,
+                15
+              ],
+              [
+                15,
+                7,
+                16
+              ]
+            ],
+            "material": "bed"
+          },
+          {
+            "positions": [
+              [
+                15,
+                7,
+                15
+              ],
+              [
+                15,
+                8,
+                15
+              ]
+            ],
+            "material": "lilac"
+          }
+        ],
+        "passed": true
+      },
+      "history": {
+        "consecutive_moves": 3,
+        "selection_bounds": [
+          [
+            18,
+            7,
+            15
+          ],
+          [
+            19,
+            7,
+            15
+          ]
+        ],
+        "passed": true
+      },
+      "serialization": {
+        "config_version": 6,
+        "passed": true,
+        "share_prefix": "MP4:",
+        "typed_actor_preserved": true,
+        "legacy_config_version": 1,
+        "share_bytes": 2109
+      }
+    }
+  ],
+  "scope": "Production Session actions in embedded Python; no visual or world-write assertion",
+  "restored": true
+}
