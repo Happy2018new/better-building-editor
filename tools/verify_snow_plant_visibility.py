@@ -10,9 +10,49 @@ from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, REST
                                      write_json)
 from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
 from verify_missing_neighbor_visuals import camera_matches
-from verify_shulker_orientations import viewport_crop
+from verify_shulker_orientations import viewport_crop, server_run
 
 ROOT = Path(__file__).resolve().parents[1]
+NATIVE_SETUP = '''import json,sys
+import mod.server.extraServerApi as server_api
+from modern_projection.server_system import WorldAdapter
+player=server_api.GetPlayerList()[0]
+adapter=WorldAdapter(player)
+target=%r
+support=(target[0],target[1]-1,target[2])
+assert not hasattr(sys,'_snow_visibility_native'), 'Previous native snow fixture needs cleanup'
+for pos in (target,support):
+ value=adapter.info.GetBlockNew(pos,adapter.dimension)
+ assert value is not None and value['name']=='minecraft:air', ('Snow oracle needs empty cells',pos,value)
+sys._snow_visibility_native={'target':target,'support':support,'player':player,'dimension':adapter.dimension}
+assert adapter.write(support,('minecraft:dirt',0))
+_result=json.dumps(sys._snow_visibility_native)
+'''
+NATIVE_MUTATE = '''import json,sys
+import mod.server.extraServerApi as server_api
+from modern_projection.server_system import WorldAdapter
+from modern_projection.projection.debug_blueprints import material
+saved=sys._snow_visibility_native
+adapter=WorldAdapter(saved['player'])
+target=saved['target']
+plant,kind,height=%r,%r,%d
+adapter.write(target,('minecraft:air',0))
+if kind!='blank':
+ value=material('snow_layer',{'height':height,'covered_bit':False}) if kind=='snow' else material(plant)
+ assert adapter.write(target,value), ('Could not place native snow oracle',value)
+ if kind=='covered':assert adapter.info.SetSnowBlock(target,saved['dimension'],height+1)
+state=server_api.GetEngineCompFactory().CreateBlockState(server_api.GetLevelId())
+_result=json.dumps({'front':adapter.info.GetBlockNew(target,saved['dimension']),
+ 'states':state.GetBlockStates(target,saved['dimension']),'target':target,'kind':kind,'height':height})
+'''
+NATIVE_CLEANUP = '''import sys
+from modern_projection.server_system import WorldAdapter
+saved=sys._snow_visibility_native
+adapter=WorldAdapter(saved['player'])
+for pos in (saved['target'],saved['support']):adapter.write(pos,('minecraft:air',0))
+del sys._snow_visibility_native
+_result=True
+'''
 PROJECTION_SOURCE = '''import zlib
 from modern_projection.projection.bridge import _stable_palette,coordinate
 from modern_projection.projection.geometry_palette import prepare_palette
@@ -195,6 +235,84 @@ def scope_checks(frames, plants, heights, minimum=80):
             'scope': 'Fixed-camera visible upper and occluded lower foliage, snow position and two-height difference; no world writes'}
 
 
+def compare_native(reference, actual, minimum=80):
+    """Match native-world silhouettes; do not assume foliage survives deep snow."""
+    if reference['image'].size != actual['image'].size:
+        raise AssertionError('Native and projection crops must have identical dimensions')
+    rows = {}
+    for key in ('object', 'green'):
+        expected, observed = reference[key], actual[key]
+        expected_count, observed_count = count(expected), count(observed)
+        expected_expanded = expected.filter(ImageFilter.MaxFilter(7))
+        observed_expanded = observed.filter(ImageFilter.MaxFilter(7))
+        recall = count(ImageChops.multiply(expected, observed_expanded)) / max(1, expected_count)
+        precision = count(ImageChops.multiply(observed, expected_expanded)) / max(1, observed_count)
+        absent = expected_count < minimum // 4
+        passed = (observed_count < minimum // 2 if absent else
+                  recall >= .75 and precision >= .75 and
+                  .5 <= observed_count / expected_count <= 2.)
+        rows[key] = {'passed': passed, 'expected_pixels': expected_count,
+                     'observed_pixels': observed_count, 'native_absent': absent,
+                     'recall': recall, 'precision': precision, 'edge_tolerance_pixels': 3}
+    return {'passed': all(row['passed'] for row in rows.values()), 'masks': rows,
+            'scope': 'Actual native world at the same cell, camera and crop; silhouette and foliage coverage'}
+
+
+def native_capture(check, plant, kind, height, target, offset):
+    check.run('b.stop_projection()\n_result=True')
+    if check.navigation()['open']:
+        check.run('navigator.pop()\n_result=True')
+        check.wait('close workspace for native snow oracle',
+                   lambda nav: not nav['open'] and not nav['transition'], check.navigation)
+    readback = server_run(check.client, NATIVE_MUTATE % (plant, kind, height))
+    name = 'minecraft:air' if kind == 'blank' else ('minecraft:snow_layer' if kind in ('snow', 'covered') else 'minecraft:' + plant)
+    assert readback['front']['name'] == name, readback
+    if kind in ('snow', 'covered'):
+        assert readback['states']['height'] == height, readback
+        assert bool(readback['states']['covered_bit']) == (kind == 'covered'), readback
+    pose = check.run('''target=%r
+offset=%r
+center=tuple(v+.5 for v in target)
+position=tuple(center[i]+offset[i] for i in range(3))
+direction=api.GetRotFromDir(tuple(center[i]-position[i] for i in range(3)))
+rotation=(direction[0],direction[1]+180.,0.)
+cam=b.factory.CreateCamera(b.level)
+cam.DepartCamera()
+cam.LockModCameraPitch(True)
+cam.LockModCameraYaw(True)
+assert cam.SetCameraPos(position)
+assert cam.SetCameraRotation(rotation)
+_result=json.dumps({'target':center,'position':position,'rotation':rotation})
+''' % (target, offset))
+    camera_code = ('cam=b.factory.CreateCamera(b.level)\n_result=json.dumps({'
+                   '"position":cam.GetPosition(),"rotation":cam.GetCameraRotation()})')
+    check.wait('native snow camera', lambda value: camera_matches(value, pose), lambda: check.run(camera_code))
+    def replicated(data):
+        front = data.get('common', [])
+        back = data.get('extra', [])
+        if kind == 'blank':
+            return all(row[0] == 'minecraft:air' for row in front + back)
+        return (any(row[0] == name for row in front) and
+                (kind != 'covered' or any(row[0] == 'minecraft:' + plant for row in back)))
+    palette = check.wait('native snow client replication', replicated,
+        lambda: check.run('''target=%r
+palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,False)
+data=palette.SerializeBlockPalette() if palette is not None else {}
+_result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
+''' % (target,)))
+    time.sleep(.4)
+    shot = check.capture('%s_%s_h%d_native' % (plant, kind, height))
+    server_run(check.client, NATIVE_MUTATE % (plant, 'blank', 0))
+    check.wait('native snow oracle cleared on client',
+        lambda data: all(row[0] == 'minecraft:air' for rows in data.values() for row in rows),
+        lambda: check.run('''target=%r
+palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,False)
+data=palette.SerializeBlockPalette() if palette is not None else {}
+_result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
+''' % (target,)))
+    return {'readback': readback, 'client_palette': palette, 'pose': pose, 'screenshot': shot}
+
+
 def projection_capture(check, label, focus, offset):
     native_before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
@@ -276,13 +394,14 @@ def main():
     plants = tuple(dict.fromkeys(args.plant or ('short_grass', 'fern')))
     heights = sorted(set(args.height or (0, 5)))
     frames = {'editor': {}, 'projection': {}}
-    evidence = {'schema': 3, 'completed': False, 'passed': False, 'rows': [],
+    native_frames = {}
+    evidence = {'schema': 4, 'completed': False, 'passed': False, 'rows': [],
                 'scopes': {'editor': {'passed': False}, 'projection': {'passed': False}},
                 'scope': 'Independent editor and actual projection assertions with standalone, snow and combined controls at heights 0 and 5.',
                 'native_reference': {'captured': False,
                                      'capability_source': 'tools/data/native_snow_overlays_nemc_3.9.0.401155.json',
-                                     'plan': 'In the root-owned empty fixture, place each standalone plant, call SetSnowBlock at heights 1 and 6, verify native states 0 and 5, then capture the same side camera. Native capability data is not a visual oracle.'}}
-    installed = visual_saved = False
+                                     'method': 'Place actual blocks at the exact projection focus cell; SetSnowBlock heights 1 and 6; verify native states 0 and 5; capture same measured side camera.'}}
+    installed = visual_saved = native_created = False
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, args.timeout)
@@ -300,11 +419,15 @@ def main():
                 focus = tuple(case['focus'])
                 evidence['focus'] = focus
                 evidence['blueprint_case'] = case
+                native_target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,8,6)[i] for i in range(3)))'))
+                evidence['native_reference']['fixture'] = server_run(client, NATIVE_SETUP % (native_target,))
+                native_created = True
                 for plant in plants:
                     cases = [('blank', 0), ('plant', 0)] + [(kind, height)
                             for height in heights for kind in ('snow', 'covered')]
                     editor_crop = None
                     blank_editor = None
+                    blank_native = None
                     for kind, height in cases:
                         label = '%s_%s_h%d' % (plant, kind, height)
                         check.run('owner.open_workspace()\n_result=True')
@@ -325,9 +448,12 @@ def main():
                         editor_crop = actual_crop
                         if kind == 'blank':
                             blank_editor = editor['path']
+                            native = native_capture(check, plant, kind, height, native_target,
+                                                    tuple(case['camera']['world_offset']))
+                            blank_native = native['screenshot']['path']
                             evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height,
                                                      'source': source, 'editor': editor, 'editor_crop': editor_crop,
-                                                     'editor_camera': camera})
+                                                     'editor_camera': camera, 'native': native})
                             write_json(args.output, evidence)
                             continue
                         editor_frame = capture_frame(editor['path'], editor_crop, blank_editor)
@@ -342,6 +468,14 @@ def main():
                         frames['projection'][(plant, kind, height)] = projection_frame
                         world_pixels = analyze(projection_frame, crop,
                                                args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
+                        native = native_capture(check, plant, kind, height, native_target,
+                                                tuple(case['camera']['world_offset']))
+                        assert native['pose'] == world['pose'], (native['pose'], world['pose'])
+                        native_frame = capture_frame(native['screenshot']['path'], crop, blank_native)
+                        native_frames[(plant, kind, height)] = native_frame
+                        native['pixels'] = analyze(native_frame, crop,
+                            args.output.with_name(args.output.stem + '_' + label + '_native_mask.png'))
+                        native_comparison = compare_native(native_frame, projection_frame, args.min_pixels)
                         stable_source = check.run('from modern_projection.projection.cell import foreground,background\n'
                                                   '_result=json.dumps({"front":foreground(s.editor.document.get(%r)),'
                                                   '"back":background(s.editor.document.get(%r)),'
@@ -351,7 +485,8 @@ def main():
                             source['front'], source['back'], source['runtime_minecraft_version']), (source, stable_source)
                         evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height, 'source': source,
                                                  'editor': editor, 'editor_pixels': pixels, 'editor_camera': camera,
-                                                 'world': world, 'world_pixels': world_pixels})
+                                                 'world': world, 'world_pixels': world_pixels,
+                                                 'native': native, 'native_comparison': native_comparison})
                         write_json(args.output, evidence)
                         print(json.dumps({'label': label, 'editor': pixels['green_pixels'],
                                           'world': world_pixels['green_pixels']}), flush=True)
@@ -372,6 +507,13 @@ def main():
                                 contribution.save(path)
                                 row['contribution_mask'] = str(path.resolve())
                     write_json(args.output, evidence)
+                comparisons = [row['native_comparison'] for row in evidence['rows'] if 'native_comparison' in row]
+                evidence['native_reference']['captured'] = True
+                evidence['native_reference']['passed'] = bool(comparisons) and all(row['passed'] for row in comparisons)
+                projection_checks = evidence['scopes']['projection']
+                projection_checks['semantic_controls'] = dict(projection_checks)
+                projection_checks['native_comparisons'] = comparisons
+                projection_checks['passed'] = evidence['native_reference']['passed'] and set(heights) == {0, 5}
                 versions = [dict((key, row['source'][key]) for key in (
                     'fixture', 'fixture_schema', 'registry_version', 'registry_fingerprint',
                     'runtime_minecraft_version', 'render_layout_version')) for row in evidence['rows']]
@@ -385,6 +527,9 @@ def main():
                 evidence['completed'] = True
                 evidence['passed'] = all(scope['passed'] for scope in evidence['scopes'].values())
             finally:
+                if native_created:
+                    server_run(client, NATIVE_CLEANUP)
+                    evidence['native_reference']['cleaned'] = True
                 if visual_saved:
                     check.run('b.stop_projection()\n_result=True')
                     check.run(camera_restore_code(False))

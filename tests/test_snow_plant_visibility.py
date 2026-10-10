@@ -7,7 +7,8 @@ from PIL import Image, ImageChops, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from verify_snow_plant_visibility import (PROJECTION_SOURCE, changed, compare_controls, green_mask,
-                                         projection_source_matches, scope_checks)
+                                         compare_native, projection_source_matches, scope_checks,
+                                         NATIVE_SETUP, NATIVE_MUTATE, NATIVE_CLEANUP)
 
 
 def frame(image):
@@ -36,6 +37,27 @@ def controls():
 
 
 class SnowPlantVisibilityTests(unittest.TestCase):
+    def test_native_oracle_rejects_missing_shifted_foliage_and_missing_snow(self):
+        plant, values = controls()
+        snow, covered = values[5]
+        self.assertTrue(compare_native(covered, covered)['passed'])
+        self.assertFalse(compare_native(covered, snow)['passed'])
+        self.assertFalse(compare_native(covered, plant)['passed'])
+        shifted = Image.new('RGB', plant['image'].size)
+        shifted.paste(covered['image'], (18, 0))
+        self.assertFalse(compare_native(covered, frame(shifted))['passed'])
+
+    def test_native_oracle_allows_foliage_fully_occluded_in_both_images(self):
+        unused, values = controls()
+        snow, unused = values[5]
+        self.assertTrue(compare_native(snow, snow)['passed'])
+        extra_plant = snow['image'].copy()
+        ImageDraw.Draw(extra_plant).rectangle((28, 10, 49, 45), fill=(35, 155, 45))
+        self.assertFalse(compare_native(snow, frame(extra_plant))['passed'])
+        compile(NATIVE_SETUP % ((6, -52, 6),), '<native-setup>', 'exec')
+        compile(NATIVE_MUTATE % ('fern', 'covered', 5), '<native-mutate>', 'exec')
+        compile(NATIVE_CLEANUP, '<native-cleanup>', 'exec')
+
     def test_projection_cache_acceptance_requires_exact_current_source(self):
         source = {'editor_id': 1, 'document_id': 2, 'fixture': 'snow.fern.covered.5',
                   'nonce': 3, 'serial': 4, 'model': 'native_snow_model',

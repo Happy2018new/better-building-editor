@@ -24,14 +24,14 @@ BLUEPRINTS = (
 )
 VISUAL_CASES = {
     'snow_plant_visibility': {
-        'schema': 1, 'fixture': 'test.layers.snow',
+        'schema': 2, 'fixture': 'test.layers.snow',
         'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
                         'covered': ((0, (3 + index * 5, 1, 9)),
                                     (5, (3 + index * 5, 1, 16)))}
                        for index, name in enumerate(('short_grass', 'fern', 'dandelion',
                                                      'poppy', 'blue_orchid', 'allium'))),
         'size': (3, 3, 3), 'focus': (1, 1, 1),
-        'camera': {'editor': (35., 25., 12.), 'world_offset': (-2., 1.6, -2.5)},
+        'camera': {'editor': (35., 10., 2.8), 'world_offset': (-2., .15, -2.5)},
     },
     'shulker_orientations': {
         'schema': 1, 'fixture': 'test.transforms.directions',
