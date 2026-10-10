@@ -12,6 +12,7 @@ import time
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw
+from shulker_pixels import central_object, native_proxy_comparison
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -48,26 +49,13 @@ _result=True
 '''
 
 
-def purple_mask(image):
-    pixels = image.convert('RGB')
-    red, green, blue = pixels.split()
-    first = ImageChops.subtract(red, green).point(lambda value: 255 if value > 14 else 0)
-    second = ImageChops.subtract(blue, green).point(lambda value: 255 if value > 14 else 0)
-    brightness = ImageChops.lighter(red, blue).point(lambda value: 255 if value > 40 else 0)
-    return ImageChops.multiply(ImageChops.multiply(first, second), brightness)
-
-
 def masked_frame(path, crop, output):
     with Image.open(path) as source:
         frame = source.convert('RGB').crop(crop)
-    mask = purple_mask(frame)
-    count = mask.histogram()[255]
-    if count < 150:
-        raise AssertionError('Shulker model is missing or too small: %d purple pixels in %s' % (count, path))
-    result = Image.new('RGB', frame.size, 'black')
-    result.paste(frame, mask=mask)
+    result, unused_mask, record = central_object(frame)
     result.save(output)
-    return result, {'purple_pixels': count, 'crop': crop, 'image': str(output.resolve())}
+    record.update(crop=crop, image=str(output.resolve()))
+    return result, record
 
 
 def pixel_comparison(frames, minimum=150, threshold=24):
@@ -131,11 +119,54 @@ def native_setup(client, check):
     return check.run(code)
 
 
+def clear_native_supports(client):
+    return server_run(client, '''import json
+import sys
+import mod.server.extraServerApi as api
+from modern_projection.projection.nbt_spatial import root_payload,scalar
+saved=sys._p0_shulker_faces
+info=api.GetEngineCompFactory().CreateBlockInfo(api.GetLevelId())
+for row in saved['rows']:
+ info.SetBlockNew(tuple(row['support']),{'name':'minecraft:air','aux':0},0,saved['dimension'],False,False)
+ assert info.GetBlockNew(tuple(row['support']),saved['dimension'])['name']=='minecraft:air',row
+ assert info.GetBlockNew(tuple(row['pos']),saved['dimension'])['name']=='minecraft:purple_shulker_box',row
+ current=info.GetBlockEntityData(saved['dimension'],tuple(row['pos']))
+ assert scalar(root_payload(current),'facing')==row['server_facing'],row
+saved['supports_removed']=True
+_result=json.dumps({'supports_removed':True,'native_faces_unchanged':True})
+''')
+
+
+def actual_native_closeup(check, facing, offset):
+    if check.navigation()['open']:
+        check.run('navigator.pop()\n_result=True')
+        check.wait('close editor for native reference',
+                   lambda nav: not nav['open'] and not nav['transition'], check.navigation)
+    pose = check.run('''b.stop_projection()
+source=sys._p0_shulker_face_entities[%d]
+offset=%r
+target=tuple(value+.5 for value in source['pos'])
+position=tuple(target[i]+offset[i] for i in range(3))
+rotation=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
+cam=b.factory.CreateCamera(b.level)
+cam.DepartCamera()
+cam.LockModCameraPitch(True)
+cam.LockModCameraYaw(True)
+assert cam.SetCameraPos(position)
+assert cam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))
+_result=json.dumps({'target':target,'position':position,'rotation':rotation,
+ 'server_facing':source['server_facing'],'placement':source['support_face'],
+ 'reference':'real native world block, no projection actor'})''' % (facing, tuple(offset)))
+    time.sleep(.7)
+    pose['screenshot'] = check.capture('real_native_facing%d_world' % facing)
+    return pose
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--setup-native', action='store_true')
-    parser.add_argument('--synthetic-only', action='store_true', help='Isolate current rendering failure without native reference')
+    parser.add_argument('--synthetic-only', action='store_true', help='Check built-in editor poses without projection/native world acceptance')
     parser.add_argument('--timeout', type=float, default=45)
     parser.add_argument('--self-test', action='store_true')
     args = parser.parse_args()
@@ -153,7 +184,7 @@ def main():
     from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, RESTORE,
                                          STATUS, write_json)
     from verify_debug_visuals import SAVE_VISUAL, camera_restore_code, world_closeup
-    evidence = {'schema': 1, 'completed': False, 'sources': {},
+    evidence = {'schema': 2, 'completed': False, 'sources': {},
                 'source': 'Built-in test.transforms.directions blueprint cells'}
     installed = visual_saved = native_created = False
     try:
@@ -182,9 +213,13 @@ def main():
                         'assert hasattr(sys,"_p0_shulker_face_palettes") and '
                         'len(sys._p0_shulker_face_palettes)==6, "Run native palette helpers or --setup-native first"\n'
                         '_result=json.dumps([data.get("actor",{}) for data in sys._p0_shulker_face_palettes])')
+                    evidence['support_clearance'] = clear_native_supports(client)
+                    time.sleep(.3)
                 sources = ('synthetic',) if args.synthetic_only else ('native', 'synthetic')
+                real_native_frames = []
                 for source in sources:
                     rows, editor_frames, world_frames = [], [], []
+                    evidence['sources'][source] = {'rows': rows}
                     editor_crop = None
                     for facing in range(6):
                         check.run('owner.open_workspace()\n_result=True')
@@ -205,28 +240,44 @@ def main():
                         frame, pixels = masked_frame(editor['path'], editor_crop,
                                                      args.output.with_name(args.output.stem + '_' + label + '_editor_mask.png'))
                         editor_frames.append(frame)
-                        world = world_closeup(check, label, focus, world_offset, 1.)
-                        width, height = world['screenshot']['size']
-                        crop = (width // 4, height // 4, width * 3 // 4, height * 3 // 4)
-                        frame, world_pixels = masked_frame(world['screenshot']['path'], crop,
-                                                           args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
-                        world_frames.append(frame)
                         rows.append({'facing': facing, 'editor': editor, 'editor_mask': pixels,
-                                     'world': world, 'world_mask': world_pixels})
-                        evidence['sources'][source] = {'rows': rows}
+                                     'source': source})
+                        if source == 'native':
+                            world = world_closeup(check, label, focus, world_offset, 1.)
+                            rows[-1]['world'] = world
+                            width, height = world['screenshot']['size']
+                            crop = (width // 4, height // 4, width * 3 // 4, height * 3 // 4)
+                            frame, world_pixels = masked_frame(world['screenshot']['path'], crop,
+                                args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
+                            world_frames.append(frame)
+                            real = actual_native_closeup(check, facing, world_offset)
+                            rows[-1]['real_native'] = real
+                            real_frame, real_pixels = masked_frame(real['screenshot']['path'], crop,
+                                args.output.with_name(args.output.stem + '_real_native_facing%d_mask.png' % facing))
+                            real_native_frames.append(real_frame)
+                            rows[-1].update(world=world, world_mask=world_pixels,
+                                            real_native=real, real_native_mask=real_pixels)
                         write_json(args.output, evidence)
                         check.run('b.stop_projection()\n_result=True')
                         check.run(camera_restore_code(False))
                     record = evidence['sources'][source]
-                    for label, frames in (('editor', editor_frames), ('world', world_frames)):
+                    views = [('editor', editor_frames)]
+                    if world_frames:
+                        views.append(('world', world_frames))
+                    for label, frames in views:
                         record[label + '_comparison'] = pixel_comparison(frames)
                         sheet = args.output.with_name(args.output.stem + '_' + source + '_' + label + '_six.png')
                         contact_sheet(frames, ['facing %d' % index for index in range(6)], sheet)
                         record[label + '_contact_sheet'] = str(sheet.resolve())
+                    if world_frames:
+                        evidence['real_native_proxy_comparison'] = native_proxy_comparison(real_native_frames, world_frames)
+                        real_sheet = args.output.with_name(args.output.stem + '_real_native_world_six.png')
+                        contact_sheet(real_native_frames, ['native facing %d' % index for index in range(6)], real_sheet)
+                        evidence['real_native_contact_sheet'] = str(real_sheet.resolve())
                     write_json(args.output, evidence)
                 if len(sources) == 2:
                     comparisons = {}
-                    for view in ('editor', 'world'):
+                    for view in ('editor',):
                         comparisons[view] = []
                         for facing in range(6):
                             left = evidence['sources']['native']['rows'][facing][view + '_mask']['image']
@@ -241,8 +292,11 @@ def main():
                                                           'changed_pixels': sum(maximum.histogram()[25:])})
                     evidence['native_synthetic_comparison'] = comparisons
                 failed = ['%s %s' % (source, view) for source, record in evidence['sources'].items()
-                          for view in ('editor', 'world') if not record[view + '_comparison']['passed']]
+                          for view in ('editor', 'world') if view + '_comparison' in record and
+                          not record[view + '_comparison']['passed']]
                 assert not failed, 'All six shulker poses render identically: ' + ', '.join(failed)
+                if not args.synthetic_only:
+                    assert evidence['real_native_proxy_comparison']['passed'], 'Native world shape/texture agreement failed; inspect saved matrices and contact sheets'
                 evidence['completed'] = True
             finally:
                 prior_error = sys.exc_info()[0]

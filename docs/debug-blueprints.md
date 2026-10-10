@@ -147,14 +147,20 @@ same single-cell position, with the same document size and camera. Input cells
 are extracted from `build('test.transforms.directions')`; no independent
 synthetic fixture is constructed. `VISUAL_CASES['shulker_orientations']` records
 the source cells, clip size, focus and both camera poses with schema version 1.
-It checks
-both the editor preview and world projection. Native player placements and
-synthetic renderer payloads are separate sources, and their same-direction
-pixel differences are retained. All six visually identical poses fail even
+The built-in fixture checks only the editor preview. The separate world
+projection path uses actual native player placements, their client palettes
+and complete entity payloads. Their same-direction editor pixel differences
+are retained. All six visually identical poses fail even
 when the native geometry submission and source data are valid. The image check
 rejects missing/too-small models and saves masked images and six-image sheets.
-It detects a collapsed orientation set; visual inspection of the native
-reference is still needed to certify the meaning of every direction.
+The world check also photographs the six actual MC blocks, using the same
+camera offset as their projections. The central purple connected component
+excludes adjacent fixtures and HUD pixels. A schema-1 image comparison records
+each same-face silhouette IoU, relative size error and a six-by-six local
+texture-contrast correlation matrix. A mismatched face, missing texture evidence
+or wrong dimensions fails. Tied symmetric textures remain visible in the
+evidence; inspect the saved real-native/projection sheets before certifying
+engine-specific geometry and UV conventions.
 
 Run through an owned development instance with `run_live_check.py`:
 
@@ -169,13 +175,16 @@ after capture. The native setup uses `PlayerUseItemToPos` on six support faces,
 not NBT direction setters. The server reads NBT only for those debug-created
 fixtures; the client exports their actual palettes. NEMC can export an empty
 Shulker renderer payload, so the sample explicitly records the missing client
-field and the authoritative fixture NBT direction. It sorts the samples by
+field and the authoritative fixture NBT direction. Supports are removed without
+neighbor updates before native photography, with readback confirming all six
+boxes remain present and their directions stay unchanged. It sorts the samples by
 that observed direction before comparing blueprint inputs. Native render input
 uses the actual client payload plus complete tagged fixture NBT, matching the
 ordinary registered-selection capture envelope. These debug helpers do not
 create a new production read channel or bypass selection registration.
-`--synthetic-only` isolates the editor/projection bug when no native sample is
-available; it cannot certify native agreement. No persistent draft is saved.
+`--synthetic-only` checks the blueprint editor poses when no native sample is
+available; it does not run or certify projection/native agreement. No persistent
+draft is saved.
 
 ### Static Shulker Render Adapter
 
