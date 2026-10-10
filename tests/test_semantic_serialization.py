@@ -29,6 +29,26 @@ def envelope(mode, raw):
 
 
 class SemanticSerializationTests(unittest.TestCase):
+    def test_sdk_byte_text_packets_restore_typed_binary_actor_values(self):
+        actor = {b'id': {b'__type__': 8, b'__value__': b'Chest'},
+                 b'Items': [{b'Name': b'minecraft:apple', b'Count': 3}],
+                 b'payload': b'\x00\xff\x80'}
+        doc = Document((1, 1, 1), {(0, 0, 0): make_cell(
+            ('minecraft:chest', 2), ('minecraft:water', 0), actor)})
+        def sdk_text(value):
+            if isinstance(value, str):
+                return value.encode('utf8')
+            if isinstance(value, (list, tuple)):
+                return [sdk_text(item) for item in value]
+            if isinstance(value, dict):
+                return {sdk_text(key): sdk_text(item) for key, item in value.items()}
+            return value
+        receiver = Receiver()
+        for packet in packets(doc):
+            receiver.feed(sdk_text(packet))
+        self.assertEqual(doc.blocks, receiver.result.blocks)
+        self.assertEqual(actor, actor_data(receiver.result.get((0, 0, 0))))
+
     def test_every_exported_material_semantically_round_trips(self):
         source = semantic_wire.provenance()
         for name in registry.BLOCKS:

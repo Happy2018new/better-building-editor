@@ -11,6 +11,7 @@ UNKNOWN_NAMES = ('minecraft:unknown', b'minecraft:unknown')
 
 
 def merge_entity_document(document, entities):
+    from .block_groups import hydrate_chest_actor
     if document is None or document.size != entities.size:
         raise ValueError('方块实体与客户端选区尺寸不匹配')
     changes = []
@@ -20,7 +21,8 @@ def merge_entity_document(document, entities):
             raise ValueError('读取期间世界方块已变化，请重新导入选区')
         nbt = entity_nbt(actor_data(captured))
         actor = compose_actor(render_actor(actor_data(current)), nbt)
-        changes.append((pos, make_cell(foreground(current), background(current), actor)))
+        changes.append((pos, hydrate_chest_actor(
+            make_cell(foreground(current), background(current), actor), pos)))
     for pos, value in changes:
         document.blocks[pos] = value
 

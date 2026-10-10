@@ -5,13 +5,36 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 
-from projection.cell import AIR, actor_data, background, foreground
+from projection.cell import AIR, actor_data, background, foreground, make_cell
 from projection.block_registry import states
 from projection.model import Document
-from projection.world_capture import merge_palette, restore_omitted_palette_cells, validate_loaded_chunk
+from projection.world_capture import merge_entity_document, merge_palette, restore_omitted_palette_cells, validate_loaded_chunk
+from projection.visible_actor import compose_actor, entity_nbt, render_actor
 
 
 class WorldCaptureTests(unittest.TestCase):
+    def test_copper_chest_full_nbt_hydrates_missing_native_render_fields(self):
+        chest = ('minecraft:copper_chest', 2)
+        document = Document((2, 1, 1), {(x, 0, 0): make_cell(chest, AIR, {})
+                                       for x in range(2)})
+        entities = Document(document.size)
+        originals = []
+        for x in range(2):
+            nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+                   'pairx': {'__type__': 3, '__value__': 1 - x},
+                   'pairz': {'__type__': 3, '__value__': 0},
+                   'Items': {'__type__': 9, '__value__': []}}
+            originals.append(nbt)
+            entities.blocks[(x, 0, 0)] = make_cell(chest, AIR, compose_actor(None, nbt))
+        merge_entity_document(document, entities)
+        for x in range(2):
+            actor = actor_data(document.get((x, 0, 0)))
+            rendered = render_actor(actor)
+            self.assertTrue(rendered['chestIsLargeChest'])
+            self.assertEqual(x == 0, rendered['chestMainSubChest'])
+            self.assertEqual(2, rendered['facingDirection'])
+            self.assertEqual(originals[x], entity_nbt(actor))
+
     def test_native_omitted_door_half_is_read_from_world_without_synthesizing_it(self):
         door = ('minecraft:wooden_door', 1)
         upper = ('minecraft:wooden_door', 9)

@@ -11,6 +11,17 @@ MAX_CELL_TEXT = 24 * 1024 * 1024
 PALETTE_PACKET_SIZE = 12000
 
 
+def _wire_text(value):
+    """SDK networking returns protocol text as UTF-8 bytes on Python 2."""
+    if isinstance(value, bytes):
+        return value.decode('utf8')
+    if isinstance(value, (list, tuple)):
+        return [_wire_text(item) for item in value]
+    if isinstance(value, dict):
+        return dict((_wire_text(key), _wire_text(item)) for key, item in value.items())
+    return value
+
+
 def packets(document, version=4):
     store = document.blocks
     if type(version) is not int or version not in (2, 3, 4) or (version == 2 and has_complete_cells(store)):
@@ -105,6 +116,7 @@ class Receiver(object):
         self.partial_size = 0
 
     def feed(self, packet):
+        packet = _wire_text(packet)
         if not isinstance(packet, dict) or type(packet.get('seq')) is not int or packet['seq'] != self.sequence or self.result is not None:
             raise ValueError('建筑分包顺序错误，请重试')
         kind = packet.get('kind')
