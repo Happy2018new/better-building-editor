@@ -48,13 +48,13 @@ class RenderLayoutTests(unittest.TestCase):
                 for vertex in samples:
                     native = native_mesh_position(vertex)
                     self.assertEqual(neighbor == (0, 0, 0), context_center(native))
-                    restored = tuple((0.5-native[0], native[1], 0.5-native[2]))
+                    restored = tuple(axis + 0.5 for axis in native)
                     for actual, expected in zip(restored, vertex):
                         self.assertAlmostEqual(expected, actual)
-        self.assertGreater(native_mesh_position((0, 0, 0))[0], 0)
-        self.assertLess(native_mesh_position((1, 0, 0))[0], 0)
-        self.assertGreater(native_mesh_position((0, 0, 0))[2], 0)
-        self.assertLess(native_mesh_position((0, 0, 1))[2], 0)
+        self.assertLess(native_mesh_position((0, 0, 0))[0], 0)
+        self.assertGreater(native_mesh_position((1, 0, 0))[0], 0)
+        self.assertLess(native_mesh_position((0, 0, 0))[2], 0)
+        self.assertGreater(native_mesh_position((0, 0, 1))[2], 0)
 
 
 if __name__ == '__main__':

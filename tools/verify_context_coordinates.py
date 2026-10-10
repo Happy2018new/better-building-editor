@@ -10,7 +10,7 @@ VERTEX = ROOT / 'resource_pack/shaders/glsl/modern_projection_biome_blocks.verte
 
 
 def decoder(source):
-    start = source.index('if (logicalPosition.y >= 512.0) {')
+    start = source.index('if (logicalPosition.y >= 511.5) {')
     depth = 0
     for end in range(start, len(source)):
         if source[end] == '{':
@@ -28,12 +28,12 @@ def fixtures():
         for ny in (-1, 0, 1):
             for nx in (-1, 0, 1):
                 for nz in (-1, 0, 1):
-                    for fy in (.001, .25, .5, .75, .999):
-                        for fx in (.001, .25, .5, .75, .999):
-                            for fz in (.001, .25, .5, .75, .999):
+                    for fy in (0., .001, .25, .5, .75, .999, 1.):
+                        for fx in (0., .001, .25, .5, .75, .999, 1.):
+                            for fz in (0., .001, .25, .5, .75, .999, 1.):
                                 palette = (4*tx+1+nx+fx, 512+4*ty+1+ny+fy,
                                            4*tz+1+nz+fz)
-                                native = (.5-palette[0], palette[1], .5-palette[2])
+                                native = tuple(axis - .5 for axis in palette)
                                 logical = (tx+nx+fx, ty+ny+fy, tz+nz+fz)
                                 phase = tuple(value % 4. for value in palette)
                                 visible = all(1. <= value <= 2. for value in phase)
@@ -106,18 +106,16 @@ void main() {
     center_visible = 0
     for index, (native, phase, logical, visible, neighbor) in enumerate(cases):
         values = actual[index*7:(index+1)*7]
-        got_phase, got_logical = values[:3], values[4:7]
+        got_phase = values[:3]
         native_signs.update((axis > 0 for axis in (native[0], native[2])))
         if neighbor == (0, 0, 0):
             center_visible += 1
-            expected_context = (phase[0], phase[1], phase[2], 1.)
-        else:
-            expected_context = (phase[0], phase[1], phase[2], 1.)
-        expected_position = (.5-logical[0], logical[1], .5-logical[2])
+        expected_context = (phase[0], phase[1], phase[2], 1.)
+        expected_position = tuple(axis - .5 for axis in logical)
         expected = expected_context + expected_position
         got_visible = all(1. <= value <= 2. for value in got_phase)
         if (any(abs(a-b) > 0.0002 for a, b in zip(values, expected)) or
-                got_visible != visible or visible != (neighbor == (0, 0, 0))):
+                got_visible != visible):
             failures.append({'index': index, 'native': native, 'expected': expected,
                              'actual': values, 'visible': visible,
                              'got_visible': got_visible, 'neighbor': neighbor})
