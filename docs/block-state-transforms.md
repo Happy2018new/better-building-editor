@@ -55,8 +55,22 @@ For a later export, keep the versioned dump under
 python tools/generate_block_registry.py docs/reference/block_palettes/nemc_<version>.json
 python tools/check_block_registry.py docs/reference/block_palettes/nemc_<version>.json
 python tools/diff_block_palettes.py docs/reference/block_palettes/nemc_3.9.0.401155.json docs/reference/block_palettes/nemc_<version>.json
-python -m unittest discover -s tests
+python -X utf8 tools/check_version_bundle.py --tests
 ```
+
+Before the final command, capture and regenerate the matching water/snow
+capabilities, entity defaults and native renderer observations using the workflows
+in [Built-In Test Blueprints](debug-blueprints.md) and
+[Block Entity Data Coverage](block-entity-data.md). Retain earlier source dumps.
+The version-bundle checker derives snapshot names from the current registry
+manifest, verifies the dump SHA-256 and matching provenance for 19 current source
+and runtime files, then runs the full state audit and deterministic traits,
+entity-default, Shulker and chest generators in check mode. `--tests` also runs
+the complete offline suite; `--output <path>` preserves a schema-1 JSON report.
+`--provenance-only` provides a quick consistency check without generation checks.
+It never rewrites files or silently accepts stale native mappings. Newly added
+direction properties still require review, and engine appearance remains a
+separate cold-resource acceptance step.
 
 The registry generator preserves each block's native aux IDs and state value
 types. Existing property rules apply automatically to newly added materials
