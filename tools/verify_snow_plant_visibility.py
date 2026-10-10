@@ -36,8 +36,13 @@ for pos in (target,support):
 game=adapter.factory.CreateGame(adapter.level)
 clock=adapter.factory.CreateTime(adapter.level)
 saved_rules=game.GetGameRulesInfoServer()['cheat_info']
+biome=adapter.factory.CreateBiome(player)
+saved_biome=biome.GetBiomeName(target)
+assert saved_biome, 'Could not read native snow fixture biome'
 sys._snow_visibility_native={'target':target,'support':support,'player':player,'dimension':adapter.dimension,
- 'time':clock.GetTime(),'daylight_cycle':saved_rules['daylight_cycle']}
+ 'time':clock.GetTime(),'daylight_cycle':saved_rules['daylight_cycle'],'biome':saved_biome}
+assert biome.SetBiomeByPos(target,'minecraft:ice_plains',adapter.dimension)
+assert biome.GetBiomeName(target)=='ice_plains'
 assert game.SetGameRulesInfoServer({'cheat_info':{'daylight_cycle':False}})
 assert clock.SetTime((clock.GetTime()//24000)*24000+6000)
 assert adapter.write(support,('minecraft:dirt',0))
@@ -52,6 +57,11 @@ saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
 target=saved['target']
 plant,kind,height=%r,%r,%d
+support_name='minecraft:podzol' if plant in ('brown_mushroom','red_mushroom') else 'minecraft:dirt'
+support_value=(support_name,registry.DEFAULT_AUX[support_name])
+if adapter.read(saved['support'])!=support_value:
+ assert adapter.write(saved['support'],support_value)
+assert adapter.read(saved['support'])==support_value
 adapter.write(target,('minecraft:air',0))
 if kind!='blank':
  value=material('snow_layer',{'height':height,'covered_bit':False}) if kind=='snow' else material(plant)
@@ -86,6 +96,9 @@ for pos in (saved['target'],saved['support']):
  results.append({'pos':pos,'changed':changed,'clean':clean})
 clock=adapter.factory.CreateTime(adapter.level)
 game=adapter.factory.CreateGame(adapter.level)
+biome=adapter.factory.CreateBiome(saved['player'])
+restored_biome=biome.SetBiomeByPos(saved['target'],saved['biome'],saved['dimension'])
+results.append({'resource':'world_biome','clean':bool(restored_biome and biome.GetBiomeName(saved['target'])==saved['biome'])})
 results.append({'resource':'world_time','clean':bool(clock.SetTime(saved['time']))})
 results.append({'resource':'daylight_cycle','clean':bool(game.SetGameRulesInfoServer({'cheat_info':{'daylight_cycle':saved['daylight_cycle']}}))})
 del sys._snow_visibility_native
@@ -260,10 +273,18 @@ def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
 
 def cross_assets(session, plant):
     native_name = {'short_grass': 'tallgrass', 'fern': 'fern'}.get(plant)
+    native_root = Path(session['game_executable']).parent / 'data/resource_packs/vanilla'
     if native_name is None:
-        return None
-    texture_path = (Path(session['game_executable']).parent / 'data/resource_packs/vanilla/'
-                    'textures/blocks' / (native_name+'.tga'))
+        source_path = ROOT/'tools/data/static_plant_sources_nemc_3.9.0.401155.json'
+        source = json.loads(source_path.read_text(encoding='utf8')) if source_path.is_file() else {}
+        record = source.get('plants', {}).get(plant)
+        if record is None:
+            return None
+        texture_path = native_root/record['texture_path']
+        if hashlib.sha256(texture_path.read_bytes()).hexdigest() != source['sha256']['texture_'+plant]:
+            raise ValueError('Installed static plant alpha source changed: '+plant)
+    else:
+        texture_path = native_root/'textures/blocks'/(native_name+'.tga')
     model_path = ROOT / 'resource_pack/models/netease_block' / ('preview_'+plant+'.json')
     texture_raw, model_raw = texture_path.read_bytes(), model_path.read_bytes()
     with Image.open(texture_path) as source:
@@ -342,10 +363,12 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     if visible_texels is None:
         upper = ImageChops.subtract(upper, snow_mask.filter(ImageFilter.MaxFilter(3)))
     else:
-        upper = ImageChops.multiply(upper, visible_texels)
+        # Texture geometry already defines the exposed region independently of the observed bounding box.
+        upper = ImageChops.multiply(plant_mask, visible_texels)
     upper_count, lower_count = count(upper), count(lower)
     uncovered = count(ImageChops.subtract(plant_mask, snow_mask.filter(ImageFilter.MaxFilter(3))))
-    fully_occluded = height == 5 and (uncovered <= count(plant_mask)*.02 if visible_texels is None else upper_count == 0)
+    fully_occluded = (uncovered <= count(plant_mask)*.02 if visible_texels is None
+                      else count(visible_texels) == 0)
     upper_observed = contribution if visible_texels is None else contribution.filter(ImageFilter.MaxFilter(7))
     upper_retained = count(ImageChops.multiply(upper_observed, upper)) / max(1, upper_count)
     lower_retained = count(ImageChops.multiply(contribution, lower)) / max(1, lower_count)
@@ -360,7 +383,7 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     observability = (count(plant_mask) >= minimum and count(snow['object']) >= minimum and
                      (fully_occluded or upper_count >= max(8, minimum // 10)) and
                      lower_count >= max(12, minimum // 4))
-    if height == 5:
+    if height >= 5:
         observability = observability and covered_lower_by_snow >= .65
     checks = {
         'observable_controls': observability,
@@ -373,7 +396,7 @@ def compare_controls(plant, snow, covered, height, minimum=80):
     else:
         checks['plant_contributes_beyond_snow'] = count(contribution) >= max(20, minimum // 4)
         checks['upper_foliage_retained'] = upper_retained >= .65
-    if height == 5:
+    if height >= 5:
         checks['high_snow_occludes_lower_foliage'] = lower_retained <= .25
     return {'height': height, 'passed': all(checks.values()), 'valid_baseline': observability,
             'checks': checks, 'failures': [key for key, value in checks.items() if not value],
@@ -495,17 +518,17 @@ _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in d
             'hidden_screenshot': hidden}
 
 
-def projection_capture(check, label, focus, offset):
+def projection_capture(check, label, focus, offset, missing=False):
     native_before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
 s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1],foot[2]+6-focus[2])
 s.opacity=1.
-s.projection_missing=False
+s.projection_missing=%r
 s.projection_outline=False
 b.project()
 _result=True
-''' % (focus,))
+''' % (focus, missing))
 
     def ready(state):
         if state['error']:
@@ -516,9 +539,10 @@ _result=True
     state = check.wait('snow native projection', ready, lambda: check.run(PROJECTION_STATUS))
     source = check.run(PROJECTION_SOURCE)
     assert projection_source_matches(source, source), source
-    check.run('navigator.pop()\n_result=True')
-    check.wait('close workspace for snow projection',
-               lambda nav: not nav['open'] and not nav['transition'], check.navigation)
+    if check.navigation()['open']:
+        check.run('navigator.pop()\n_result=True')
+        check.wait('close workspace for snow projection',
+                   lambda nav: not nav['open'] and not nav['transition'], check.navigation)
     pose = check.run('''focus=%r
 offset=%r
 target=tuple(s.origin[i]+focus[i]+.5 for i in range(3))
@@ -569,6 +593,7 @@ def main():
     parser.add_argument('--plant', action='append', choices=('short_grass', 'fern', 'dandelion', 'poppy', 'blue_orchid', 'allium'))
     parser.add_argument('--height', type=int, action='append', choices=(0, 5))
     parser.add_argument('--timeout', type=float, default=60)
+    parser.add_argument('--native-resolution', action='store_true')
     parser.add_argument('--min-pixels', type=int, default=80)
     parser.add_argument('--raw-plants', action='store_true',
                         help='Diagnostic: bypass grass/fern proxies; always restored afterwards')
@@ -590,10 +615,12 @@ def main():
                                      'capability_source': 'tools/data/native_snow_overlays_nemc_3.9.0.401155.json',
                                      'method': 'Place actual blocks at the exact projection focus cell; SetSnowBlock heights 1 and 6; verify native states 0 and 5; capture each native control and its immediately cleared background at the same measured side camera; segment foliage and neutral snow to exclude support and sky.'}}
     evidence['raw_plants_diagnostic'] = args.raw_plants
+    evidence['native_resolution'] = args.native_resolution
     installed = visual_saved = native_created = raw_saved = False
     try:
         with Client(timeout=30) as client:
-            check = BlueprintCheck(client, args.output, args.timeout)
+            from verify_sign_visuals import SignCheck
+            check = SignCheck(client, args.output, args.timeout, args.native_resolution)
             try:
                 check.run(INSTALL_PROBE)
                 installed = True

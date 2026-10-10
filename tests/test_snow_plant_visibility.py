@@ -119,6 +119,38 @@ class SnowPlantVisibilityTests(unittest.TestCase):
         visible.paste(short, mask=changed(short, Image.new('RGB', short.size)))
         self.assertFalse(compare_controls(frame(short), snow, frame(visible), 5)['passed'])
 
+    def test_full_occlusion_is_measured_at_each_snow_height(self):
+        plant, values = controls()
+        snow, unused = values[5]
+        short = Image.new('RGB', plant['image'].size)
+        ImageDraw.Draw(short).rectangle((28, 62, 49, 101), fill=(35, 155, 45))
+        exposed = snow['image'].copy()
+        exposed.paste(short, mask=frame(short)['object'])
+        for height in (1, 6, 7):
+            with self.subTest(height=height):
+                result = compare_controls(frame(short), snow, snow, height)
+                self.assertTrue(result['passed'], result)
+                self.assertTrue(result['fully_occluded_by_snow_control'])
+                self.assertFalse(compare_controls(frame(short), snow, frame(exposed), height)['passed'])
+
+    def test_source_alpha_texels_outside_bbox_top_band_require_retention(self):
+        plant, values = controls()
+        snow, covered = values[5]
+        upper = Image.new('L', plant['image'].size)
+        ImageDraw.Draw(upper).rectangle((28, 40, 49, 45), fill=255)
+        plant['above_snow'] = {5: upper}
+        result = compare_controls(plant, snow, covered, 5)
+        self.assertFalse(result['fully_occluded_by_snow_control'])
+        self.assertTrue(result['valid_baseline'])
+        self.assertTrue(result['passed'])
+        self.assertFalse(compare_controls(plant, snow, snow, 5)['passed'])
+        unobserved = Image.new('L', plant['image'].size)
+        ImageDraw.Draw(unobserved).rectangle((0, 40, 9, 45), fill=255)
+        plant['above_snow'] = {5: unobserved}
+        result = compare_controls(plant, snow, covered, 5)
+        self.assertFalse(result['fully_occluded_by_snow_control'])
+        self.assertFalse(result['valid_baseline'])
+
     def test_native_oracle_rejects_missing_shifted_foliage_and_missing_snow(self):
         plant, values = controls()
         snow, covered = values[5]
