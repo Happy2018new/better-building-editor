@@ -38,11 +38,17 @@ before=rotation.GetRot()
 rows=[]
 origin=%r
 method=%r
+dry_only=%r
 try:
  for position,wire in saved['cells']:
   value=decode(wire)
   name,aux=foreground(value)
   if name not in ('minecraft:decorated_pot','minecraft:standing_sign'):continue
+  if dry_only and background(value)[0]!='minecraft:air':
+   rows.append({'position':position,'requested':wire,'method':'palette_preserved',
+    'skipped_native_write':True,'placed':info.GetBlockNew(position,dimension),
+    'liquid':info.GetLiquidBlock(position,dimension),'nbt':info.GetBlockEntityData(dimension,position)})
+   continue
   support=(position[0],position[1]-1,position[2])
   assert info.GetBlockNew(support,dimension)['name']!='minecraft:air',(position,support)
   record=states((name,aux))
@@ -63,12 +69,15 @@ try:
   assert blockstate.SetBlockStates(position,record,dimension)
   liquid=background(value)
   liquid_result=info.SetLiquidBlock(position,{'name':liquid[0].encode('utf8'),'aux':liquid[1]},dimension)
-  assert liquid[0]=='minecraft:air' or liquid_result is not False,(position,liquid_result)
+  liquid_raw=info.GetLiquidBlock(position,dimension)
+  liquid_readback=liquid_raw or {'name':'minecraft:air','aux':0}
+  assert liquid_readback['name']==liquid[0] and liquid_readback.get('aux',0)==liquid[1],(position,liquid_result,liquid_readback,liquid)
   nbt=entity_nbt(actor_data(value))
   assert nbt is not None,(name,position)
   assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
   rows.append({'position':position,'requested':wire,'method':method,'native_aux':native_aux,'placed':placed,
-   'aligned':info.GetBlockNew(position,dimension),'liquid':info.GetLiquidBlock(position,dimension),
+   'liquid_result':liquid_result,'liquid_raw':liquid_raw,
+   'aligned':info.GetBlockNew(position,dimension),'liquid':liquid_readback,
    'nbt':info.GetBlockEntityData(dimension,position)})
   items.SetInvItemNum(slot,0)
 finally:
@@ -79,6 +88,7 @@ _result=json.dumps({'rows':rows,'slot_restored':True,'rotation_restored':True})
 '''
 
 PROBES = []
+DRY_ONLY = False
 _camera_capture = world.camera_capture
 _write_report = world.write_json
 
@@ -94,12 +104,15 @@ def camera_capture(check, label, keep, occupied, view):
     before_pose, before = _camera_capture(check, label + '_palette', keep, occupied, view)
     origin = check.run('_result=json.dumps(tuple(s.origin))')
     record = {'label': label, 'palette_camera': before_pose, 'palette_capture': before,
-              'completed': False, 'scope': 'Same cells, NBT and camera after palette, SetBlockNew and native item placement'}
+              'completed': False, 'dry_only': DRY_ONLY,
+              'scope': ('Native writes only to dry cells; wet cells remain palette-seeded' if DRY_ONLY else
+                        'Same cells, NBT and camera after palette, SetBlockNew and native item placement')}
     PROBES.append(record)
     for key, method in (('set_block', 'SetBlockNew'), ('item', 'PlayerUseItemToPos')):
-        placement = world.run(check.client, PLACE % (tuple(origin), method))
+        placement = world.run(check.client, PLACE % (tuple(origin), method, DRY_ONLY))
         record[key + '_placement'] = placement
-        if method == 'PlayerUseItemToPos' and any(row['placed']['name'] == 'minecraft:standing_sign'
+        if method == 'PlayerUseItemToPos' and any(not row.get('skipped_native_write') and
+                                                row['placed']['name'] == 'minecraft:standing_sign'
                                                 for row in placement['rows']):
             placement['dismiss_native_editor'] = check.client.call('mc_input', {'op': '/run', 'args': {
                 'steps': [{'do': 'key', 'keys': 'esc'}, {'do': 'wait', 'ms': 250}]}})
@@ -120,12 +133,13 @@ def camera_capture(check, label, keep, occupied, view):
 
 
 def write_report(path, report):
+    probes = PROBES or report.get('native_item_world_probes', [])
     for row in report.get('cases', []):
         for view, frames in row.get('views', {}).items():
             if not frames.get('empty') or not frames.get('roi'):
                 continue
             label = row['case'] + '_' + view + '_world'
-            record = next((probe for probe in PROBES if probe['label'] == label), None)
+            record = next((probe for probe in probes if probe['label'] == label), None)
             if record is None or not record['completed']:
                 continue
             if 'native_body_controls' in record:
@@ -155,18 +169,19 @@ def write_report(path, report):
             record['native_body_controls'] = metrics
             record['body_control_limits'] = ('Original brown actor color mask, union of calibrated keep/occupied cells; '
                                               'glass supports and water are outside this color control.')
-    report['native_item_world_probes'] = PROBES
+    report['native_item_world_probes'] = probes
     report['native_body_capture'] = {'class': 'SignCheck', 'native_resolution': True,
                                     'format': 'Lossless client-area PNG with per-capture SHA256'}
     return _write_report(path, report)
 
 
-world.camera_capture = camera_capture
-world.write_json = write_report
-world.BlueprintCheck = NativeWorldCheck
-
-
 if __name__ == '__main__':
+    DRY_ONLY = '--native-dry-only' in sys.argv
+    if DRY_ONLY:
+        sys.argv.remove('--native-dry-only')
+    world.camera_capture = camera_capture
+    world.write_json = write_report
+    world.BlueprintCheck = NativeWorldCheck
     if len(sys.argv) > 1 and sys.argv[1] == '--calibrate':
         del sys.argv[1]
         import verify_camera_projection as calibration
