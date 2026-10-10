@@ -12,10 +12,11 @@ from pathlib import Path
 
 from PIL import Image,ImageChops
 from verify_debug_blueprints import BlueprintCheck,Client,INSTALL_PROBE,RESTORE,write_json
-from verify_debug_visuals import SAVE_VISUAL,camera_restore_code,world_closeup
+from verify_debug_visuals import SAVE_VISUAL,camera_restore_code,PROJECTION_STATUS,projection_pixels
 from verify_native_entity_appearances import execute,replicated_palettes
 from verify_native_sign_fields import SETUP,READ,CLEANUP
 from verify_shulker_orientations import viewport_crop,wait_camera_pose
+from visual_environment import SETUP_DAYLIGHT,RESTORE_DAYLIGHT
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -104,7 +105,8 @@ def shape_match(native,actual):
 
 
 def refresh(check):
-    for name in ('native_sign_data','native_sign','debug_sign_blueprints','entity_render','debug_blueprints'):
+    for name in ('native_sign_data','native_sign','debug_sign_blueprints','entity_render',
+                 'geometry_palette','render_context','debug_blueprints'):
         path=ROOT/('behavior_pack/modern_projection/projection/'+name+'.py')
         encoded=base64.b64encode(path.read_bytes()).decode('ascii')
         check.run('import base64\nimport modern_projection.projection.%s as module\n'
@@ -120,6 +122,53 @@ def load(check,identity,blank,view):
     return result
 
 
+def world_sample(check,label,focus,offset,opacity=1.):
+    """Collect a blank mesh as evidence so later control samples still run."""
+    before=check.run('_result=len(sys._blueprint_qa_records)')
+    check.run('''focus=%r
+foot=b.player_origin()
+s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1],foot[2]+6-focus[2])
+s.opacity=%r
+s.projection_missing=False
+s.projection_outline=False
+b.project()
+_result=True''' % (tuple(focus),opacity))
+    def ready(state):
+        if state['error']:raise AssertionError(state)
+        return state['active'] and state['ready'] and not state['preparing'] and state['actors']==1 and state['mesh'] and state['scale'] is not None
+    state=check.wait('world mesh attaches',ready,lambda:check.run(PROJECTION_STATUS))
+    if check.navigation()['open']:
+        check.run('navigator.pop()\n_result=True')
+        check.wait('workspace closes',lambda row:not row['open'] and not row['transition'],check.navigation)
+    pose=check.run('''focus=%r
+offset=%r
+target=tuple(s.origin[axis]+focus[axis]+.5 for axis in range(3))
+position=tuple(target[axis]+offset[axis] for axis in range(3))
+rotation=api.GetRotFromDir(tuple(target[axis]-position[axis] for axis in range(3)))
+cam=b.factory.CreateCamera(b.level)
+cam.DepartCamera()
+cam.LockModCameraPitch(True)
+cam.LockModCameraYaw(True)
+assert cam.SetCameraPos(position)
+assert cam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))
+_result=json.dumps({'position':position,'rotation':rotation,'target':target})
+''' % (tuple(focus),tuple(offset)))
+    pose['settled']=wait_camera_pose(check,pose)
+    time.sleep(.25)
+    shown=check.capture(label+'_world_shown')
+    try:
+        check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(True)\n_result=True')
+        time.sleep(.25)
+        hidden=check.capture(label+'_world_hidden')
+    finally:
+        check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(False)\n_result=True')
+    delta=projection_pixels(shown['path'],hidden['path'],check.output.parent/(label+'_delta.png'))
+    calls=check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % before)
+    state.update(pose=pose,screenshot=shown,hidden_screenshot=hidden,pixel_difference=delta,native_calls=calls,
+                 visibly_nonblank=delta['changed_pixels']>150)
+    return state
+
+
 def native_sample(check,row,view,blank,label):
     check.run('b.stop_projection()\n_result=True')
     execute(check.client,NATIVE_TEXT % (row['name'],blank))
@@ -127,7 +176,7 @@ def native_sample(check,row,view,blank,label):
     suffix='' if view['id']=='front' else 'Back'
     check.wait('native text replication',lambda value:value==expected,lambda:check.run(
         "data=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(%r,%r,False).SerializeBlockPalette()\n"
-        "_result=next(iter(data['actor'][%r].values()))[%r]" %
+        "_result=json.dumps(next(iter(data['actor'][%r].values()))[%r])" %
         (tuple(row['pos']),tuple(row['pos']),row['name'],'signRealText'+suffix)))
     pose=check.run('''position=%r
 offset=%r
@@ -151,6 +200,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output',type=Path)
     parser.add_argument('--refresh',action='store_true')
+    parser.add_argument('--case',action='append',choices=('standing_front_back','hanging_front_back'))
+    parser.add_argument('--view',action='append',choices=('front','back'))
     parser.add_argument('--timeout',type=float,default=30)
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
@@ -158,6 +209,7 @@ def main():
             'scope':'colored two-sided glyphs and normalized native shape; static text only'}
     installed=False
     visual_saved=False
+    daylight_saved=False
     masks={}
     with Client(timeout=30) as client:
         check=BlueprintCheck(client,args.output/'report.json',args.timeout)
@@ -171,12 +223,18 @@ def main():
             installed=True
             check.run(SAVE_VISUAL+'sys._blueprint_visual_saved["grid"]=s.grid\n_result=True')
             visual_saved=True
-            report['native']=execute(client,SETUP)
+            report['daylight']=execute(client,SETUP_DAYLIGHT)
+            daylight_saved=True
+            report['native']=execute(client,'_native_sign_height_offset=8\n'+SETUP)
             execute(client,'import sys\nsys._native_sign_probe_rows=%r\n_result=True' % report['native']['rows'],True)
             report['native_client']=replicated_palettes(client,READ)
-            for case in metadata['cases']:
+            cases=[row for row in metadata['cases'] if not args.case or row['id'] in args.case]
+            views=[row for row in metadata['views'] if not args.view or row['id'] in args.view]
+            report['selected_cases']=[row['id'] for row in cases]
+            report['selected_views']=[row['id'] for row in views]
+            for case in cases:
                 row=next(row for row in report['native']['rows'] if row['name']==case['name'])
-                for view in metadata['views']:
+                for view in views:
                     label=case['id']+'_'+view['id']
                     result={'id':case['id'],'view':view['id'],'samples':{}}
                     editor={}
@@ -191,7 +249,7 @@ def main():
                     for blank in (False,True):
                         load(check,case['id'],blank,view)
                         key='blank' if blank else 'shown'
-                        world[key]=world_closeup(check,label+'_projection_'+key,metadata['focus'],view['world_offset'],.85)
+                        world[key]=world_sample(check,label+'_projection_'+key,metadata['focus'],view['world_offset'],.85)
                         result['samples']['projection_'+key]=world[key]
                     native={key:native_sample(check,row,view,blank,label+'_native_'+key)
                             for key,blank in (('shown',False),('blank',True))}
@@ -214,6 +272,7 @@ def main():
             for label,action in (
                     ('native',lambda:execute(client,CLEANUP) if execute(client,'import sys\n_result=hasattr(sys,"_native_sign_probe")') else {'cleaned':True}),
                     ('native_client',lambda:execute(client,'import sys\nif hasattr(sys,"_native_sign_probe_rows"):del sys._native_sign_probe_rows\n_result=True',True)),
+                    ('daylight',lambda:execute(client,RESTORE_DAYLIGHT) if daylight_saved else True),
                     ('projection',lambda:check.run('b.stop_projection()\n_result=True')),
                     ('camera',lambda:check.run(camera_restore_code(False)) if visual_saved else True),
                     ('visual_fields',lambda:check.run('saved=sys._blueprint_visual_saved\ns.grid=saved["grid"]\n'

@@ -57,7 +57,8 @@ dim=f.CreateDimension(player).GetEntityDimensionId()
 info=f.CreateBlockInfo(player)
 entity=f.CreateBlockEntity(api.GetLevelId())
 foot=f.CreatePos(player).GetFootPos()
-origin=(int(math.floor(foot[0]))+12,int(math.floor(foot[1]))+40,int(math.floor(foot[2]))+12)
+height_offset=globals().get('_native_sign_height_offset',40)
+origin=(int(math.floor(foot[0]))+12,int(math.floor(foot[1]))+height_offset,int(math.floor(foot[2]))+12)
 rows=[]
 reserved=set()
 for index,name in enumerate(('minecraft:standing_sign','minecraft:oak_hanging_sign')):

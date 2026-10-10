@@ -13,8 +13,8 @@ CASES = (
     {'id':'hanging_front_back','name':'minecraft:oak_hanging_sign','position':(9,2,3),'support':(9,3,3)},
 )
 VISUAL_CASE = {'schema':1,'fixture':IDENTITY,'cases':CASES,'isolated_size':(3,3,3),'focus':(1,1,1),
-               'views':({'id':'front','editor':(0.,0.,5.),'world_offset':(0.,0.,2.3),'color':'green'},
-                        {'id':'back','editor':(180.,0.,5.),'world_offset':(0.,0.,-2.3),'color':'red'})}
+               'views':({'id':'front','editor':(0.,0.,3.),'world_offset':(0.,0.,2.3),'color':'green'},
+                        {'id':'back','editor':(180.,0.,3.),'world_offset':(0.,0.,-2.3),'color':'red'})}
 
 
 def populate(fixture):

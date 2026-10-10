@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "production_commit": "a0ad57d",
+  "cold_instance": "3174160e19704e65b5cdc4bf4ce25c3c",
+  "observed_at": "2026-10-10T16:49:00+08:00",
+  "sign": {
+    "fixture": "test.entities.signs",
+    "case": "standing_front_back",
+    "view": "front",
+    "editor_glyph_pixels": 2225,
+    "projection_glyph_pixels": 7033,
+    "native_reference_glyph_pixels": 0,
+    "screenshots_manually_inspected": true,
+    "editor_and_projection_text_observed": "Front\nNative",
+    "status": "glyph_visibility_observed_native_comparison_indeterminate",
+    "limits": [
+      "The native sign was invisible while its real stone support was visible.",
+      "Editor zoom 5 clipped the top line; the stable blueprint now uses zoom 3.",
+      "Projection background motion can contribute to the colored pixel mask.",
+      "Back text and hanging signs were not rerun in this cold instance."
+    ],
+    "report": ".runtime/sign-visuals-r3-cold/report.json",
+    "report_sha256": "140eda1a8a38962e8d14644e90b93323a3a95a49e9474e319165e63761b5998c"
+  },
+  "skull": {
+    "material": ["minecraft:skeleton_skull", 1],
+    "facing_direction": 1,
+    "rotation": 0,
+    "renderer_types_probed": [255, 0],
+    "combine_mode": 0,
+    "combine_calls_returned_names": true,
+    "unique_model_names": true,
+    "temporary_tile_caches_cleared": true,
+    "saved_nbt_unchanged": true,
+    "positive_stone_control": true,
+    "stone_editor_changed_pixels": 70698,
+    "stone_projection_changed_pixels": 15509,
+    "native_projection_changed_pixels": 0,
+    "type_zero_projection_changed_pixels": 0,
+    "screenshots_manually_inspected": true,
+    "status": "native_and_type_zero_geometry_blank",
+    "limits": [
+      "The 985 editor difference pixels are the disappearing empty-document placeholder, not a skull.",
+      "The probe now measures actual object pixels against the quiet viewport background separately.",
+      "Legacy block identifiers and other renderer types were not tested in the valid cold instance.",
+      "No production renderer type remapping was enabled."
+    ],
+    "report": ".runtime/skull-mesh-types-r3-cold/report.json",
+    "report_sha256": "aee1f151366c6896d0cb6babcc113dbd6995412f48805685ade05c832da032f3"
+  },
+  "cleanup": {
+    "native_cells_restored": true,
+    "daylight_restored": true,
+    "camera_restored": true,
+    "editor_restored": true,
+    "temporary_render_adapter_restored": true
+  }
+}
