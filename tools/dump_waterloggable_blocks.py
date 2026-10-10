@@ -58,6 +58,7 @@ class WaterOverlayProbe(object):
         self.fixture_cells = self.fixture_supports = ()
         self.support_name = None
         self.cell_index = None
+        self.slot_index = -1
         self.cell_ready = False
         self.waiting_since = None
         self.area_key = 'modern_projection_p0_water_%d' % int(time.time() * 1000)
@@ -81,6 +82,7 @@ class WaterOverlayProbe(object):
             'block_entities': {}, 'block_entity_names': [],
             'verified_states': 0, 'state_mismatches': [],
             'states_per_subchunk': STATES_PER_SUBCHUNK,
+            'skipped_subchunks': [],
             'probe_run': run_index,
             'method': PROBE_METHOD,
             'tick_budget_seconds': TICK_SECONDS}
@@ -135,7 +137,10 @@ class WaterOverlayProbe(object):
         index = self.state['tested_states'] // STATES_PER_SUBCHUNK
         if index != self.cell_index:
             self.clear_cell()
-            column, level = divmod(index, LEVELS_PER_COLUMN)
+            self.slot_index += 1
+            if self.slot_index >= COLUMNS_PER_SIDE ** 2 * LEVELS_PER_COLUMN:
+                raise ValueError('No empty protected subchunk remains for the native probe')
+            column, level = divmod(self.slot_index, LEVELS_PER_COLUMN)
             self.target = (self.origin[0] + (column % COLUMNS_PER_SIDE) * 16,
                            113 + level * 16,
                            self.origin[1] + (column // COLUMNS_PER_SIDE) * 16)
@@ -147,7 +152,8 @@ class WaterOverlayProbe(object):
                                            for pos in self.fixture_cells)
             self.cell_index = index
             self.waiting_since = time.time()
-            self.state.update(target=self.target, support=self.support, subchunk_index=index)
+            self.state.update(target=self.target, support=self.support,
+                              subchunk_index=self.slot_index, data_subchunk_index=index)
         if self.cell_ready:
             return True
         if not self.chunks.CheckChunkState(self.dimension, self.target):
@@ -157,7 +163,11 @@ class WaterOverlayProbe(object):
         for pos in self.fixture_cells + self.fixture_supports:
             block = self.info.GetBlockNew(pos, self.dimension)
             if not block or block.get('name') != 'minecraft:air':
-                raise ValueError('Fluid capability export requires empty disposable cells')
+                self.state['skipped_subchunks'].append({
+                    'index': self.slot_index, 'target': self.target,
+                    'occupied_pos': pos, 'block': block})
+                self.cell_index = None
+                return False
         self.cell_ready = True
         for pos in self.fixture_supports:
             if self.info.SetBlockNew(pos, {'name': 'minecraft:stone', 'aux': 0},

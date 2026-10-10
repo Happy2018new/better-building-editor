@@ -361,14 +361,31 @@ class WaterProbeTests(unittest.TestCase):
         self.assertTrue(all(not data['extra'] for data in runtime.pair_palettes))
         self.assertEqual(state['total_states'], state['verified_states'])
 
-    def test_all_paired_scratch_cells_are_checked_before_any_world_mutation(self):
+    def test_occupied_paired_scratch_cells_are_skipped_without_any_world_mutation(self):
         runtime = ProbeRuntime()
         runtime.blocks[(201, 113, 40)] = {'name': 'minecraft:stone', 'aux': 0}
         state = self.start(runtime)
-        self.finish(runtime)
-        self.assertIn('empty disposable cells', state['failure'])
+        with patch('time.time', runtime.time):
+            runtime.callbacks.pop(0)()
         self.assertEqual(0, runtime.calls)
+        self.assertEqual(0, state['tested_states'])
+        self.assertEqual(1, len(state['skipped_subchunks']))
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertEqual(state['total_states'], state['verified_states'])
         self.assertEqual('minecraft:stone', runtime.blocks[(201, 113, 40)]['name'])
+
+    def test_exhausted_empty_subchunk_capacity_fails_without_overwriting_terrain(self):
+        runtime = ProbeRuntime()
+        runtime.GetBlockNew = lambda pos, dimension: {'name': 'minecraft:stone', 'aux': 0}
+        state = self.start(runtime)
+        runtime.probe.select_cell.__globals__['COLUMNS_PER_SIDE'] = 1
+        runtime.probe.select_cell.__globals__['LEVELS_PER_COLUMN'] = 2
+        self.finish(runtime)
+        self.assertIn('No empty protected subchunk remains', state['failure'])
+        self.assertEqual(2, len(state['skipped_subchunks']))
+        self.assertEqual(0, runtime.calls)
+        self.assertEqual([state['area_key']], runtime.deleted)
 
     def test_default_entity_nbt_is_read_once_per_verified_native_name_and_exported(self):
         runtime = ProbeRuntime()
