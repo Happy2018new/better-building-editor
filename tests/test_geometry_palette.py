@@ -85,6 +85,8 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertFalse(definition['description']['register_to_creative_menu'])
             self.assertNotIn('register_to_create_menu', definition['description'])
             self.assertEqual('alpha', definition['components']['netease:render_layer']['value'])
+            self.assertTrue(definition['components']['netease:water_source']['value'])
+            self.assertTrue(definition['components']['netease:water_flow_source']['value'])
             self.assertEqual(proxy, model['description']['identifier'])
             self.assertEqual(2, len(model['bones']))
             self.assertEqual(proxy, appearances[proxy]['netease_model'])
@@ -271,6 +273,8 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertFalse(definition['description']['register_to_creative_menu'])
             self.assertNotIn('register_to_create_menu', definition['description'])
             self.assertEqual('optionalAlpha', definition['components']['netease:render_layer']['value'])
+            self.assertTrue(definition['components']['netease:water_source']['value'])
+            self.assertTrue(definition['components']['netease:water_flow_source']['value'])
             self.assertIn('netease:no_crop_face_block', definition['components'])
             appearance = appearances[proxy]
             species = native.split(':')[1]
