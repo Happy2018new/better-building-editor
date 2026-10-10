@@ -17,13 +17,9 @@ SNOW = ('minecraft:snow_layer', 2)
 
 class CellEditTests(unittest.TestCase):
     def setUp(self):
-        self.water = patch('projection.block_traits.is_waterloggable',
-                           lambda material: material == FENCE, create=True)
         self.snow = patch('projection.block_traits.is_snow_coverable',
                           lambda material: material in (PLANT, FERN), create=True)
-        self.water.start()
         self.snow.start()
-        self.addCleanup(self.water.stop)
         self.addCleanup(self.snow.stop)
 
     def assert_layers(self, value, front, back=AIR):
@@ -33,49 +29,48 @@ class CellEditTests(unittest.TestCase):
     def covered(self, height=2):
         return from_states('minecraft:snow_layer', {'covered_bit': True, 'height': height})
 
-    def test_water_composes_in_both_placement_orders(self):
-        self.assert_layers(edit_cell(FENCE, WATER), FENCE, WATER)
-        self.assert_layers(edit_cell(WATER, FENCE), FENCE, WATER)
+    def test_water_placement_changes_only_the_selected_layer(self):
+        self.assertEqual(WATER, edit_cell(FENCE, WATER))
+        self.assertEqual(FENCE, edit_cell(WATER, FENCE))
         self.assert_layers(edit_cell(FENCE, WATER, 1), FENCE, WATER)
+        self.assert_layers(edit_cell(make_cell(AIR, WATER), FENCE), FENCE, WATER)
 
-    def test_foreground_erasure_leaves_standalone_water(self):
+    def test_erasure_never_promotes_the_other_layer_in_document_data(self):
         combined = make_cell(FENCE, WATER)
-        self.assertEqual(WATER, edit_cell(combined, AIR))
-        self.assertEqual(AIR, edit_cell(edit_cell(combined, AIR), AIR))
+        self.assert_layers(edit_cell(combined, AIR), AIR, WATER)
         self.assertEqual(FENCE, edit_cell(combined, AIR, 1))
+        self.assertEqual(AIR, edit_cell(edit_cell(combined, AIR), AIR, 1))
 
-    def test_plain_replacement_removes_only_incompatible_native_background(self):
-        self.assertEqual(STONE, edit_cell(make_cell(FENCE, WATER), STONE))
-        self.assert_layers(edit_cell(make_cell(FENCE, ('minecraft:glass', 0)), STONE),
-                           STONE, ('minecraft:glass', 0))
+    def test_replacement_keeps_background_even_for_legacy_arbitrary_combinations(self):
+        self.assert_layers(edit_cell(make_cell(FENCE, WATER), STONE), STONE, WATER)
         self.assert_layers(edit_cell(STONE, WATER, 1), STONE, WATER)
 
-    def test_snow_composes_in_both_orders_with_native_layer_order(self):
-        self.assert_layers(edit_cell(PLANT, SNOW), self.covered(), PLANT)
-        self.assert_layers(edit_cell(SNOW, PLANT), self.covered(), PLANT)
-        self.assert_layers(edit_cell(PLANT, SNOW, 1), self.covered(), PLANT)
+    def test_snow_placement_never_swaps_the_user_selected_layers(self):
+        self.assertEqual(SNOW, edit_cell(PLANT, SNOW))
+        self.assertEqual(PLANT, edit_cell(SNOW, PLANT))
+        self.assert_layers(edit_cell(PLANT, SNOW, 1), PLANT, SNOW)
         self.assert_layers(edit_cell(SNOW, PLANT, 1), self.covered(), PLANT)
 
-    def test_snow_erasure_promotes_plant_and_plant_erasure_retains_uncovered_snow(self):
+    def test_each_snow_layer_erases_independently(self):
         combined = make_cell(self.covered(), PLANT)
-        self.assertEqual(PLANT, edit_cell(combined, AIR))
+        self.assert_layers(edit_cell(combined, AIR), AIR, PLANT)
         self.assertEqual(SNOW, edit_cell(combined, AIR, 1))
         self.assertEqual(AIR, edit_cell(edit_cell(combined, AIR, 1), AIR))
 
-    def test_snow_and_plant_replacement_keep_height_and_cover_flag_in_sync(self):
+    def test_native_snow_cover_flag_tracks_background_and_preserves_height(self):
         combined = make_cell(self.covered(), PLANT)
-        self.assert_layers(edit_cell(combined, FERN), self.covered(), FERN)
+        self.assert_layers(edit_cell(combined, FERN, 1), self.covered(), FERN)
         self.assert_layers(edit_cell(combined, ('minecraft:snow_layer', 7)),
                            self.covered(7), PLANT)
-        self.assertEqual(STONE, edit_cell(combined, STONE))
+        self.assert_layers(edit_cell(combined, STONE), STONE, PLANT)
         standalone = edit_cell(AIR, self.covered())
         self.assertEqual(SNOW, standalone)
         self.assertFalse(states(standalone)['covered_bit'])
 
-    def test_water_background_edits_preserve_existing_actor(self):
+    def test_background_edits_preserve_existing_actor(self):
         actor = {'render': {'chestOpenness': 0.0}, 'inventory': ['kept']}
         value = make_cell(FENCE, AIR, actor)
-        result = edit_cell(value, WATER)
+        result = edit_cell(value, WATER, 1)
         self.assertEqual(actor, actor_data(result))
         self.assertEqual(actor, actor_data(edit_cell(result, AIR, 1)))
         self.assertIsNone(actor_data(edit_cell(result, AIR)))
