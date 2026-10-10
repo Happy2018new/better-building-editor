@@ -11,6 +11,9 @@ def root_payload(data):
     """Return a mutable root compound view, with or without an SDK root tag."""
     if not isinstance(data, dict):
         return None
+    from .visible_actor import is_envelope
+    if is_envelope(data):
+        return root_payload(data['nbt'] if data['nbt'] is not None else data['render'])
     tagged = data.get('__value__', data.get(b'__value__'))
     return tagged if isinstance(tagged, dict) else data
 
@@ -51,6 +54,9 @@ def rebase(data, delta):
     """Clone an actor and translate root position and chest-pair coordinates."""
     if data is None:
         return None
+    from .visible_actor import is_envelope, compose_actor
+    if is_envelope(data):
+        return compose_actor(rebase(data['render'], delta), rebase(data['nbt'], delta))
     result = thaw(freeze(data))
     root = root_payload(result)
     if root is None:
@@ -63,14 +69,32 @@ def rebase(data, delta):
 
 
 def transform_pair(data, origin, operation):
-    """Transform chest pair offsets around the actor before its position moves."""
+    """Transform visible actor directions and pair offsets before moving the cell."""
     if operation not in ('rotate_y90', 'rotate_y180', 'rotate_y270',
-                         'mirror_x', 'mirror_z') or data is None:
+                         'mirror_x', 'mirror_y', 'mirror_z') or data is None:
         return data
+    from .visible_actor import is_envelope, compose_actor
+    if is_envelope(data):
+        return compose_actor(transform_pair(data['render'], origin, operation),
+                             transform_pair(data['nbt'], origin, operation))
     result = thaw(freeze(data))
     root = root_payload(result)
     if root is None:
         raise ValueError('Block entity payload must be a compound')
+    from .state_transform import transform_states
+    for field, property_name, maximum in (
+            ('facingDirection', 'facing_direction', 6),
+            ('signStandingRotation', 'ground_sign_direction', 16)):
+        value = scalar(root, field)
+        if isinstance(value, integer_types) and type(value) is not bool and 0 <= value < maximum:
+            set_scalar(root, field, transform_states({property_name: value}, operation)[property_name])
+    if operation in ('mirror_x', 'mirror_z') and scalar(root, 'chestIsLargeChest') is True:
+        main = scalar(root, 'chestMainSubChest')
+        if type(main) is bool:
+            set_scalar(root, 'chestMainSubChest', not main)
+            set_scalar(root, 'chestModelOffset', 0.0 if not main else -0.5)
+    if operation == 'mirror_y':
+        return result
     pair_x, pair_z = scalar(root, 'pairx'), scalar(root, 'pairz')
     if (not isinstance(pair_x, integer_types) or type(pair_x) is bool or
             not isinstance(pair_z, integer_types) or type(pair_z) is bool):

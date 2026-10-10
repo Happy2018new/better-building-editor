@@ -7,6 +7,7 @@ from .projection.world import WorldJob, coordinate
 from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
 from .projection.nbt_spatial import rebase as rebase_actor
+from .projection.visible_actor import entity_nbt, sign_sides
 from .projection.tool_items import SURVEY_WAND, TERMINAL, item_name, selection
 import time
 
@@ -33,6 +34,7 @@ class WorldAdapter(object):
         self.validity = {}
         self.canonical_values = {}
         self.loading = {}
+        self.sign_component = None
 
     def ensure(self, pos):
         key = (pos[0] // 16, pos[2] // 16)
@@ -108,6 +110,8 @@ class WorldAdapter(object):
         back = AIR
         if liquid and liquid.get('name') and liquid['name'] != 'minecraft:air':
             back = block((liquid['name'], liquid.get('aux', 0)))
+            if back == front:
+                back = AIR
         return make_cell(front, back)
 
     def write(self, pos, value, origin=(0, 0, 0)):
@@ -138,11 +142,21 @@ class WorldAdapter(object):
                 palette, self.dimension, pos, 0, 0):
             return False
         raw_actor = actor_data(value)
-        if raw_actor is not None:
-            world_actor = rebase_actor(raw_actor, origin)
+        nbt = entity_nbt(raw_actor)
+        if nbt is not None:
+            world_actor = rebase_actor(nbt, origin)
             return self.info.SetBlockEntityData(
                 self.dimension, pos, self._native_tree(world_actor))
-        return True
+        result = True
+        for side, text, color, glow in sign_sides(raw_actor):
+            result = bool(self.info.SetSignBlockText(
+                pos, self._native_tree(text), self.dimension, side)) and result
+            if color is not None and glow is not None:
+                if self.sign_component is None:
+                    self.sign_component = self.factory.CreateBlockEntity(self.level)
+                result = bool(self.sign_component.SetSignTextStyle(
+                    pos, self.dimension, color, glow, side)) and result
+        return result
 
     def valid(self, value):
         try:

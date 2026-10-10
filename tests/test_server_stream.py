@@ -54,7 +54,10 @@ class ServerStreamTests(unittest.TestCase):
                 GetBlockNew=lambda pos, dim: dict(zip(('name','aux'),self.blocks.get(pos,AIR))),
                 GetBlockBasicInfo=lambda name: {'name':name}, GetBlockEntityData=lambda dim,pos: None,
                 GetLiquidBlock=lambda pos, dim: self.liquids.get(pos),
+                SetSignBlockText=lambda pos, text, dim, side: True,
                 SetBlockEntityData=self.set_actor, SetBlockNew=self.write),
+            CreateBlockEntity=lambda level: types.SimpleNamespace(
+                SetSignTextStyle=lambda pos, dim, color, glow, side: True),
             CreateBlock=lambda level: types.SimpleNamespace(
                 GetBlankBlockPalette=Palette,
                 SetBlockByBlockPalette=self.write_palette),
@@ -427,6 +430,32 @@ class ServerStreamTests(unittest.TestCase):
             pass
         self.assertEqual(1, self.replies[-1][2]['progress']['correct'])
         self.assertEqual([], actor_reads)
+
+    def test_standalone_fluid_is_not_duplicated_in_the_background(self):
+        self.blocks[(0,64,0)] = ('minecraft:water',0)
+        self.liquids[(0,64,0)] = {'name':'minecraft:water','aux':0}
+        self.assertEqual(('minecraft:water',0), server.WorldAdapter('player').read((0,64,0)))
+
+    def test_visible_chest_actor_is_not_sent_to_server_nbt_setter(self):
+        payload = {'chestIsLargeChest':True, 'chestMainSubChest':True,
+                   'facingDirection':2, 'chestModelOffset':0.0}
+        self.assertTrue(server.WorldAdapter('player').write(
+            (0,64,0), make_cell(('minecraft:chest',2), nbt=payload)))
+        self.assertEqual([], self.actor_writes)
+
+    def test_visible_sign_text_and_styles_use_public_write_interfaces(self):
+        adapter = server.WorldAdapter('player')
+        texts, styles = [], []
+        adapter.info.SetSignBlockText = lambda pos,text,dim,side: texts.append((text,side)) or True
+        adapter.factory.CreateBlockEntity = lambda level: types.SimpleNamespace(
+            SetSignTextStyle=lambda pos,dim,color,glow,side: styles.append((color,glow,side)) or True)
+        payload = {'signRealText':'Front P0', 'signRealTextBack':'Back P0',
+                   'signColor':-16777216, 'signColorBack':-65536,
+                   'signGlowing':False, 'signGlowingBack':True}
+        self.assertTrue(adapter.write((0,64,0), make_cell(('minecraft:standing_sign',0), nbt=payload)))
+        self.assertEqual([(b'Front P0',0),(b'Back P0',1)], texts)
+        self.assertEqual([((0.,0.,0.,1.),False,0),((1.,0.,0.,1.),True,1)], styles)
+        self.assertEqual([], self.actor_writes)
 
     def test_actor_nbt_is_written_after_palette_with_rebased_coordinates(self):
         actor = {'id': {'__type__':8, '__value__':'Chest'},
