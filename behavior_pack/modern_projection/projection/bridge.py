@@ -481,9 +481,12 @@ class ClientBridge(object):
                 palette = block_component.GetBlockPaletteBetweenPos(low, high, False)
                 if palette is None:
                     raise ValueError('世界选区有未加载区块或无法读取的 palette，请靠近后重试')
-                from .world_capture import merge_palette
-                merge_palette(document, palette.SerializeBlockPalette(), local,
+                from .world_capture import merge_palette, restore_omitted_palette_cells
+                source_palette = palette.SerializeBlockPalette()
+                merge_palette(document, source_palette, local,
                               chunk_size, origin)
+                restore_omitted_palette_cells(document, source_palette, local,
+                                              chunk_size, origin, block_info.GetBlock)
             except Exception as error:
                 self.capture_active = None
                 self.capture_dimension = None

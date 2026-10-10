@@ -53,6 +53,27 @@ def add_local(origin, pos):
     return tuple(origin[i] + pos[i] for i in range(3))
 
 
+def restore_omitted_palette_cells(document, source, chunk_origin, chunk_size,
+                                  world_origin, read_block):
+    """Read actual cells omitted by the native door/bed palette exporter."""
+    sx, sy, sz = chunk_size
+    recorded = set(index for positions in source.get('common', {}).values()
+                   for index in positions)
+    for index in range(sx * sy * sz):
+        if index in recorded:
+            continue
+        y, rem = divmod(index, sx * sz)
+        x, z = divmod(rem, sz)
+        pos = add_local(chunk_origin, (x, y, z))
+        actual = read_block(add_local(world_origin, pos))
+        if not actual or actual[0] in UNKNOWN_NAMES:
+            raise ValueError('无法读取 palette 省略的方块，请靠近后重新导入')
+        material = block(actual)
+        if material != AIR:
+            current = document.get(pos)
+            document.blocks[pos] = make_cell(material, background(current), actor_data(current))
+
+
 def validate_loaded_chunk(loaded_chunks, dimension, low, high, read_block):
     """Reject chunks whose air data could be caused by client unloads."""
     if loaded_chunks is None:

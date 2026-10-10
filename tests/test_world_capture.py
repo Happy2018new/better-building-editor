@@ -8,10 +8,41 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/mode
 from projection.cell import AIR, actor_data, background, foreground
 from projection.block_registry import states
 from projection.model import Document
-from projection.world_capture import merge_palette, validate_loaded_chunk
+from projection.world_capture import merge_palette, restore_omitted_palette_cells, validate_loaded_chunk
 
 
 class WorldCaptureTests(unittest.TestCase):
+    def test_native_omitted_door_half_is_read_from_world_without_synthesizing_it(self):
+        door = ('minecraft:wooden_door', 1)
+        upper = ('minecraft:wooden_door', 9)
+        source = {'volume': (1, 2, 2), 'common': {door: [0], AIR: [1, 3]},
+                  'states': {door: states(door), AIR: {}}}
+        document = Document((2, 2, 1))
+        origin = (100, 64, 200)
+        merge_palette(document, source, (0, 0, 0), document.size, origin)
+        reads = []
+        def read(pos):
+            reads.append(pos)
+            return upper
+        restore_omitted_palette_cells(document, source, (0, 0, 0),
+                                      document.size, origin, read)
+        self.assertEqual([(100, 65, 200)], reads)
+        self.assertEqual(upper, foreground(document.get((0, 1, 0))))
+        self.assertEqual(AIR, document.get((1, 1, 0)))
+
+    def test_omitted_part_read_preserves_background_and_actual_absence(self):
+        source = {'volume': (1, 1, 1), 'common': {},
+                  'extra': {('minecraft:water', 0): [0]}}
+        document = Document((1, 1, 1))
+        merge_palette(document, source, (0, 0, 0), document.size, (0, 0, 0))
+        restore_omitted_palette_cells(document, source, (0, 0, 0), document.size,
+                                      (0, 0, 0), lambda pos: AIR)
+        self.assertEqual(AIR, foreground(document.get((0, 0, 0))))
+        self.assertEqual(('minecraft:water', 0), background(document.get((0, 0, 0))))
+        with self.assertRaises(ValueError):
+            restore_omitted_palette_cells(document, source, (0, 0, 0), document.size,
+                                          (0, 0, 0), lambda pos: None)
+
     def test_palette_indices_layers_states_and_typed_actor_coordinates(self):
         front_stairs = ('minecraft:oak_stairs', 0)
         front_chest = ('minecraft:chest', 0)

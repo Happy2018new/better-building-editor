@@ -19,5 +19,6 @@ with Client(timeout=60) as client:
         'is_client': args.client, 'direct_return': True}))
 if isinstance(result, str):
     result = json.loads(result)
+args.output.parent.mkdir(parents=True, exist_ok=True)
 args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n', encoding='utf8')
 print('Exported native JSON to %s' % args.output.resolve())
