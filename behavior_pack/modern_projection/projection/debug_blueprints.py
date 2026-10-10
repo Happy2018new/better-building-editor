@@ -39,6 +39,7 @@ VISUAL_CASES = {
         'size': (40, 12, 36),
         'camera': {'editor': (35., 25., 4.), 'world_offset': (-3.5, -3., -5.)},
         'isolated_size': (8, 8, 8), 'focus': (3, 3, 3),
+        'projection_height': 20,
         'isolated_camera': {'editor': (35., 25., 3.), 'world_offset': (-2., -.8, -3.)},
         'acceptance_cases': ('skull_floor_yaw_0', 'skull_floor_yaw_45',
                              'skull_floor_yaw_90', 'skull_wall_face2',
@@ -46,9 +47,10 @@ VISUAL_CASES = {
                              'bed_silver', 'bed_light_blue'),
     },
     'shulker_orientations': {
-        'schema': 1, 'fixture': 'test.transforms.directions',
+        'schema': 2, 'fixture': 'test.transforms.directions',
         'cells': tuple((3 + index * 5, 3, 28) for index in range(6)),
         'size': (8, 8, 8), 'focus': (3, 3, 3),
+        'projection_height': 20,
         'camera': {'editor': (35., 25., 2.8), 'world_offset': (-3.5, 3., -5.)},
     },
 }

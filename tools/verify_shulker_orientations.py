@@ -293,7 +293,7 @@ def main():
                                      'source': source, 'document_identity': actual})
                         if source == 'native':
                             offset = world_offset
-                            world = world_closeup(check, label, focus, offset, 1.)
+                            world = world_closeup(check, label, focus, offset, 1., case['projection_height'])
                             assert matching_camera({'position': world['final']['camera'],
                                                     'rotation': world['final']['rotation']}, world['pose']), world
                             rows[-1]['world'] = world

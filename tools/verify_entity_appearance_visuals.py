@@ -171,7 +171,7 @@ def main():
                         editor_frames[source] = Image.open(shot['path']).convert('RGB').crop(crop)
                         result['scopes'][source + '_editor'] = {'screenshot': shot, 'crop': crop, 'identity': loaded}
                         if source == 'native':
-                            projected = world_closeup(check, identity, case['focus'], case['isolated_camera']['world_offset'], 1.)
+                            projected = world_closeup(check, identity, case['focus'], case['isolated_camera']['world_offset'], 1., case['projection_height'])
                             result['projection'] = projected
                     first, second = editor_frames['native'], editor_frames['synthetic']
                     result['editor_input_agreement'] = {'passed': count(changed(first, second, 35)) <= 100,

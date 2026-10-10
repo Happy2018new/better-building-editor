@@ -95,16 +95,16 @@ def editor_closeup(check, label, focus, zoom):
     return pose
 
 
-def world_closeup(check, label, focus, offset, opacity):
+def world_closeup(check, label, focus, offset, opacity, projection_height=8):
     before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
-s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1],foot[2]+6-focus[2])
+s.origin=(foot[0]+6-focus[0],foot[1]+%r-focus[1],foot[2]+6-focus[2])
 s.opacity=%r
 s.projection_missing=False
 s.projection_outline=False
 b.project()
-_result=True''' % (tuple(focus), opacity))
+_result=True''' % (tuple(focus), projection_height, opacity))
 
     def ready(state):
         if state['error']:
