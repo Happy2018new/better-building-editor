@@ -1,5 +1,6 @@
 """Observe native dripstone boxes independently of screenshot alignment."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -18,9 +19,18 @@ SAMPLES = (('world_original', (6, -37, 6)),
            ('packed_source_shift', (25, 13, 25)))
 
 
-def matrix():
+def holdout_samples():
+    coordinates = (-33, -32, -31, -17, -16, -15, -1, 0, 1, 15, 16, 17, 31, 32, 33)
+    positions = sorted(set([(value, 6) for value in coordinates] +
+                           [(6, value) for value in coordinates] +
+                           list(zip(coordinates, reversed(coordinates))) + [(6, 6)]))
+    return tuple(('holdout_%d_%d_y%d' % (x, z, y), (x, y, z))
+                 for x, z in positions for y in (-47, -31))
+
+
+def matrix(source_samples=SAMPLES):
     cells, supports, samples = {}, {}, []
-    for identity, root in SAMPLES:
+    for identity, root in source_samples:
         positions = (root, (root[0], root[1] + 1, root[2]))
         for pos, aux in zip(positions, (4, 12)):
             cells[pos] = ('minecraft:pointed_dripstone', aux)
@@ -68,6 +78,8 @@ _result=json.dumps({'runtime':api.GetMinecraftVersion(),'rows':rows,'native_pale
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--holdout', action='store_true',
+                        help='Independent signed-coordinate, axis and chunk-boundary matrix')
     args = parser.parse_args()
     from _session import load_session
     report = {'schema': 1, 'completed': False, 'restored': False,
@@ -75,8 +87,16 @@ def main():
               'owner': os.environ.get('MCDEV_OWNER'),
               'method': 'Documented native GetBlockClip/GetBlockCollision at independent coordinates',
               'limits': 'Diagnostic raw boxes only; no fitted image offsets or production rule.'}
-    cells, supports, samples = matrix()
+    source_path = Path(__file__).resolve()
+    report['probe_source_sha256'] = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    reference = source_path.parent / 'data/native_dripstone_boxes_r5.json'
+    if reference.is_file():
+        report['native_aabb_reference'] = {'path': str(reference),
+                                         'sha256': hashlib.sha256(reference.read_bytes()).hexdigest()}
+    cells, supports, samples = matrix(holdout_samples() if args.holdout else SAMPLES)
     report.update(samples=samples, cells=cells, supports=supports)
+    report['sampling_plan'] = ('signed-axis/chunk-boundary holdout; fixed before new native observations'
+                               if args.holdout else 'original world/source/packed controls')
     try:
         report['owned_window_activation'] = restore_owned_window(load_session(live=True))
         with Client(timeout=30) as client:
@@ -89,10 +109,17 @@ def main():
                 positions = [pos for pos, value in cells + supports]
                 report['server'] = run(client, SERVER_BOXES % (positions,))
                 report['client'] = check.run(CLIENT_BOXES % (positions,))
+                report['seed'] = run(client, 'import mod.server.extraServerApi as api\n'
+                    '_result=api.GetEngineCompFactory().CreateGame(api.GetLevelId()).GetSeed()')
                 expected = dict(cells + supports)
                 for row in report['server']['rows']:
                     value = row['value']
                     assert (value['name'], value['aux']) == expected[tuple(row['pos'])], row
+                server_rows = dict((tuple(row['pos']), row) for row in report['server']['rows'])
+                for row in report['client']['rows']:
+                    server = server_rows[tuple(row['pos'])]
+                    assert row['clip'] == row['collision'] == server['clip'] == server['collision'], (row, server)
+                report['all_box_methods_equal'] = True
                 report['completed'] = True
             finally:
                 report['cleanup'] = world.clear_world(client)

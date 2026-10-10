@@ -9,9 +9,23 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import verify_dripstone_direct_seed as diagnostic
+from verify_dripstone_native_boxes import holdout_samples, matrix
 
 
 class DirectSeedDiagnosticTests(unittest.TestCase):
+    def test_holdout_covers_signed_chunk_edges_without_overlapping_supports(self):
+        plan = holdout_samples()
+        cells, supports, rows = matrix(plan)
+        self.assertEqual(len(plan), 92)
+        self.assertEqual(len(cells), 184)
+        self.assertEqual(len(rows), len(cells))
+        self.assertFalse(set(pos for pos, value in cells).intersection(pos for pos, value in supports))
+        roots = set(root for identity, root in plan)
+        for coordinate in (-33, -32, -31, -17, -16, -15, -1, 0, 1, 15, 16, 17, 31, 32, 33):
+            for y in (-47, -31):
+                self.assertIn((coordinate, y, 6), roots)
+                self.assertIn((6, y, coordinate), roots)
+
     def test_comparison_rejects_shift_and_excess_color_error(self):
         baseline = Image.new('RGB', (100, 100))
         ImageDraw.Draw(baseline).rectangle((40, 10, 49, 89), fill=(140, 110, 80))
