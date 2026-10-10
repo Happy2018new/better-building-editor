@@ -110,7 +110,7 @@ class CompleteCellTests(unittest.TestCase):
         self.assertEqual(expected, actor_data(decode(json.loads(json.dumps(older_rich)))))
 
     def test_invalid_layer_indexes_and_malformed_nbt_are_rejected(self):
-        for index in (-1, 2, True, 1.0):
+        for index in (-1, 3, True, 1.0):
             with self.assertRaises(ValueError):
                 layer(make_cell(STONE), index)
             with self.assertRaises(ValueError):

@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.block_registry import from_states, states
-from projection.cell import AIR, actor_data, background, edit_cell, foreground, make_cell
+from projection.cell import AIR, actor_data, background, edit_cell, foreground, layer, make_cell
 
 WATER = ('minecraft:water', 0)
 FENCE = ('minecraft:oak_fence', 0)
@@ -21,6 +21,10 @@ class CellEditTests(unittest.TestCase):
                           lambda material: material in (PLANT, FERN), create=True)
         self.snow.start()
         self.addCleanup(self.snow.stop)
+        self.water = patch('projection.block_traits.is_waterloggable',
+                           lambda material: material == FENCE, create=True)
+        self.water.start()
+        self.addCleanup(self.water.stop)
 
     def assert_layers(self, value, front, back=AIR):
         self.assertEqual(front, foreground(value))
@@ -76,9 +80,35 @@ class CellEditTests(unittest.TestCase):
         self.assertIsNone(actor_data(edit_cell(result, AIR)))
 
     def test_invalid_layer_indexes_are_rejected(self):
-        for index in (-1, 2, True, 1.0):
+        for index in (-1, 3, True, 1.0):
             with self.assertRaises(ValueError):
                 edit_cell(FENCE, WATER, index)
+
+    def test_automatic_water_placement_supports_both_orders_and_erase_priority(self):
+        combined = make_cell(FENCE, WATER)
+        self.assertEqual(combined, edit_cell(FENCE, WATER, 2))
+        self.assertEqual(combined, edit_cell(WATER, FENCE, 2))
+        self.assertEqual(WATER, edit_cell(combined, AIR, 2))
+        self.assertEqual(AIR, edit_cell(edit_cell(combined, AIR, 2), AIR, 2))
+        self.assertEqual(STONE, edit_cell(combined, STONE, 2))
+
+    def test_automatic_snow_placement_supports_both_orders_and_erase_priority(self):
+        combined = make_cell(self.covered(), PLANT)
+        self.assertEqual(combined, edit_cell(PLANT, SNOW, 2))
+        self.assertEqual(combined, edit_cell(SNOW, PLANT, 2))
+        self.assertEqual(PLANT, edit_cell(combined, AIR, 2))
+        self.assertEqual(STONE, edit_cell(combined, STONE, 2))
+
+    def test_automatic_mode_handles_background_only_cells_without_extra_steps(self):
+        self.assertEqual(make_cell(FENCE, WATER), edit_cell(make_cell(AIR, WATER), FENCE, 2))
+        self.assertEqual(make_cell(self.covered(), PLANT), edit_cell(make_cell(AIR, PLANT), SNOW, 2))
+        self.assertEqual(AIR, edit_cell(make_cell(AIR, WATER), AIR, 2))
+        self.assertEqual(AIR, edit_cell(make_cell(AIR, PLANT), AIR, 2))
+
+    def test_automatic_picker_uses_foreground_before_background(self):
+        self.assertEqual(FENCE, layer(make_cell(FENCE, WATER), 2))
+        self.assertEqual(WATER, layer(make_cell(AIR, WATER), 2))
+        self.assertEqual(AIR, layer(AIR, 2))
 
 
 if __name__ == '__main__':
