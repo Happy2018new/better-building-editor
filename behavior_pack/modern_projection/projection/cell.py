@@ -11,7 +11,7 @@ import math
 AIR = ('minecraft:air', 0)
 MAX_NBT_DEPTH = 64
 MAX_NBT_NODES = 65536
-MAX_NBT_BYTES = 512 * 1024
+MAX_NBT_BYTES = 4 * 1024 * 1024
 try:
     integer_types = (int, long)
     text_type = unicode
@@ -246,6 +246,64 @@ def replace_layer(value, material, index=0):
     else:
         back = foreground(material)
     return make_cell(front, back, nbt)
+
+
+def _water(material):
+    return material[0] in ('minecraft:water', 'minecraft:flowing_water')
+
+
+def _snow(material):
+    return material[0] == 'minecraft:snow_layer'
+
+
+def _covered_snow(material, covered):
+    from .block_registry import from_states, states
+    properties = states(material)
+    if properties is None or 'covered_bit' not in properties:
+        return material
+    properties['covered_bit'] = covered
+    result = from_states(material[0], properties)
+    if result is None:
+        raise ValueError('当前方块表缺少对应含雪状态')
+    return result
+
+
+def edit_cell(value, material, index=0):
+    """Apply a selected-layer edit using native water/snow composition rules."""
+    if type(index) is not int or index not in (0, 1):
+        raise ValueError('方块层索引必须为 0 或 1')
+    from .block_traits import is_snow_coverable, is_waterloggable
+    front, back, replacement = foreground(value), background(value), foreground(material)
+    covered_plant = _snow(front) and is_snow_coverable(back)
+
+    if index == 1:
+        if _snow(replacement) and is_snow_coverable(front):
+            return make_cell(_covered_snow(replacement, True), front)
+        if _snow(front):
+            return make_cell(_covered_snow(front, is_snow_coverable(replacement)),
+                             replacement, actor_data(value))
+        return replace_layer(value, replacement, index)
+
+    if replacement == AIR:
+        if covered_plant or _water(back):
+            return make_cell(back)
+        return replace_layer(value, replacement)
+    if _snow(front) and is_snow_coverable(replacement):
+        return make_cell(_covered_snow(front, True), replacement)
+    if _snow(replacement):
+        plant = back if covered_plant else front
+        if is_snow_coverable(plant):
+            return make_cell(_covered_snow(replacement, True), plant)
+        replacement = _covered_snow(replacement, False)
+    if _water(replacement) and is_waterloggable(front):
+        return replace_layer(value, replacement, 1)
+    if _water(front) and is_waterloggable(replacement):
+        return make_cell(replacement, front)
+
+    result = replace_layer(value, replacement)
+    if covered_plant or (_water(back) and not is_waterloggable(replacement)):
+        result = make_cell(foreground(result), AIR, actor_data(result))
+    return result
 
 
 def encode(value):

@@ -123,7 +123,7 @@ class CompleteCellTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             decode({'foreground': list(STONE), 'background': list(AIR), 'nbt': deep})
         with self.assertRaises(ValueError):
-            make_cell(STONE, AIR, {'large': 'x' * (512 * 1024 + 1)})
+            make_cell(STONE, AIR, {'large': 'x' * (4 * 1024 * 1024 + 1)})
         duplicate = ['dict', [[['bool', True], ['int', '1']], [['int', '1'], ['int', '2']]]]
         with self.assertRaises(ValueError):
             decode({'foreground': list(STONE), 'background': list(AIR), 'nbt': duplicate})
