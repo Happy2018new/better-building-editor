@@ -10,12 +10,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ProbeRuntime(object):
     def __init__(self, fail=False, extra_states=0, load_delay=0, mismatch=False, wet_changes=False,
-                 fluids=False, air_none=False):
+                 fluids=False, air_none=False, paired=False, native_bed_water=True):
         self.blocks, self.liquids, self.callbacks = {}, {}, []
         self.calls, self.clock, self.fail = 0, 0.0, fail
         self.extra_states, self.load_delay, self.mismatch = extra_states, load_delay, mismatch
         self.wet_changes = wet_changes
         self.fluids, self.air_none = fluids, air_none
+        self.paired, self.native_bed_water = paired, native_bed_water
+        self.pair_palettes = []
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
 
     def time(self):
@@ -29,13 +31,16 @@ class ProbeRuntime(object):
         return self.liquids.get(pos)
 
     def GetBlockAuxValueFromStates(self, name, states):
-        return states.get('test_aux', 0) + 16
+        return (states.get('test_aux', states.get('direction', 0) +
+                           2 * int(states.get('head_piece_bit', False))) + 16)
 
     def GetBlockStates(self, pos, dimension):
         value = self.blocks[pos]
         if self.air_none and value['name'] == 'minecraft:air':
             return None
         aux = value['aux']
+        if 'states' in value:
+            return dict(value['states'])
         return {'test_aux': aux + 1 if self.mismatch and value['name'] == 'minecraft:stairs' else aux}
 
     def SetBlockStates(self, pos, states, dimension):
@@ -43,6 +48,34 @@ class ProbeRuntime(object):
         value = self.blocks[pos]
         if value['name'] == 'minecraft:stairs' and value['aux'] != 0:
             self.liquids.pop(pos, None)
+        return True
+
+    def GetBlankBlockPalette(self):
+        return self
+
+    def DeserializeBlockPalette(self, data):
+        self.palette_data = data
+        return True
+
+    def SetBlockByBlockPalette(self, palette, dimension, origin, rotation, conflict):
+        data = self.palette_data
+        self.pair_palettes.append(data)
+        sz, sx, sy = data['volume']
+        for key, indices in data['common'].items():
+            properties = data['states'][key]
+            properties = dict((name.decode('utf8') if isinstance(name, bytes) else name, value)
+                              for name, value in properties.items())
+            for index in indices:
+                local = ((index // sz) % sx, index // (sz * sx), index % sz)
+                pos = tuple(origin[i] + local[i] for i in range(3))
+                self.blocks[pos] = {'name': key[0].decode('utf8'), 'aux': key[1],
+                                    'states': properties}
+                self.liquids.pop(pos, None)
+        for key, indices in data['extra'].items():
+            for index in indices:
+                local = ((index // sz) % sx, index // (sz * sx), index % sz)
+                pos = tuple(origin[i] + local[i] for i in range(3))
+                self.liquids[pos] = {'name': key[0].decode('utf8'), 'aux': key[1]}
         return True
 
     def SetAddArea(self, key, dimension, minimum, maximum):
@@ -83,8 +116,9 @@ class ProbeRuntime(object):
         self.blocks[pos] = value
         if value['name'] == 'minecraft:water':
             self.liquids[pos] = value
-        elif value['name'] != 'minecraft:fence' and not (
-                value['name'] == 'minecraft:stairs' and value['aux'] == 0):
+        elif (value['name'] != 'minecraft:fence' and
+              not (value['name'] == 'minecraft:bed' and self.native_bed_water) and not (
+                value['name'] == 'minecraft:stairs' and value['aux'] == 0)):
             self.liquids.pop(pos, None)
         return True
 
@@ -99,6 +133,7 @@ class ProbeRuntime(object):
                 CreateGame=lambda level: self,
                 CreateBlockState=lambda level: self,
                 CreateChunkSource=lambda level: self,
+                CreateBlock=lambda level: self,
                 CreatePos=lambda player: types.SimpleNamespace(GetFootPos=lambda: (0., 64., 0.))),
             GetPlayerList=lambda: ['player'], GetLevelId=lambda: 'level')
         values = {'minecraft:air': (0,), 'minecraft:fence': (0, 1),
@@ -108,16 +143,34 @@ class ProbeRuntime(object):
         if self.fluids:
             for name in ('water', 'flowing_water', 'lava', 'flowing_lava'):
                 values['minecraft:' + name] = (0, 1)
+        if self.paired:
+            values['minecraft:bed'] = (0, 1, 2, 3)
+
+        def states(value):
+            if self.air_none and value[0] == 'minecraft:air':
+                return {}
+            if value[0] == 'minecraft:bed':
+                return {'direction': value[1] % 2, 'head_piece_bit': value[1] >= 2,
+                        'occupied_bit': False}
+            return {'test_aux': value[1]}
+
+        def partner(value):
+            if value[0] != 'minecraft:bed':
+                return None
+            offset = (0, 0, 1) if value[1] % 2 == 0 else (-1, 0, 0)
+            if value[1] >= 2:
+                offset = tuple(-coord for coord in offset)
+            return offset, (value[0], (value[1] + 2) % 4)
         registry = types.SimpleNamespace(
             BLOCKS=values, DEFAULT_AUX=dict((name, 0) for name in values),
             aux_values=lambda name: values[name],
-            states=lambda value: ({} if self.air_none and value[0] == 'minecraft:air' else
-                                  {'test_aux': value[1]}),
+            states=states, canonical=lambda value: value,
             source_version=lambda: 'Test native version', fingerprint=lambda: 'native-hash')
         return {'mod': types.ModuleType('mod'), 'mod.server': types.ModuleType('mod.server'),
                 'mod.server.extraServerApi': api,
                 'modern_projection': types.ModuleType('modern_projection'),
-                'modern_projection.projection': types.SimpleNamespace(block_registry=registry)}
+                'modern_projection.projection': types.SimpleNamespace(
+                    block_registry=registry, block_groups=types.SimpleNamespace(group_partner=partner))}
 
 
 class WaterProbeTests(unittest.TestCase):
@@ -271,6 +324,38 @@ class WaterProbeTests(unittest.TestCase):
         self.assertIsNone(state['failure'])
         self.assertEqual({}, state['readback_states']['minecraft:air']['0']['dry']['states'])
         self.assertFalse(state['results']['minecraft:air'])
+
+    def test_paired_beds_write_both_precise_halves_and_preserve_only_native_retained_water(self):
+        runtime = ProbeRuntime(paired=True)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertTrue(state['results']['minecraft:bed'])
+        self.assertEqual(8, len(runtime.pair_palettes))
+        for aux in range(4):
+            record = state['readback_states']['minecraft:bed'][str(aux)]
+            self.assertEqual(bool(aux >= 2), record['dry']['states']['head_piece_bit'])
+            self.assertTrue(record['fixture']['paired'])
+            self.assertEqual('minecraft:water', record['native_retained_liquid']['name'])
+        self.assertTrue(all(block['name'] == 'minecraft:air' for block in runtime.blocks.values()))
+
+    def test_pair_state_repair_never_adds_water_if_native_placement_did_not_retain_it(self):
+        runtime = ProbeRuntime(paired=True, native_bed_water=False)
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIsNone(state['failure'])
+        self.assertFalse(state['results']['minecraft:bed'])
+        self.assertTrue(all(not data['extra'] for data in runtime.pair_palettes))
+        self.assertEqual(state['total_states'], state['verified_states'])
+
+    def test_all_paired_scratch_cells_are_checked_before_any_world_mutation(self):
+        runtime = ProbeRuntime()
+        runtime.blocks[(201, 113, 40)] = {'name': 'minecraft:stone', 'aux': 0}
+        state = self.start(runtime)
+        self.finish(runtime)
+        self.assertIn('empty disposable cells', state['failure'])
+        self.assertEqual(0, runtime.calls)
+        self.assertEqual('minecraft:stone', runtime.blocks[(201, 113, 40)]['name'])
 
 
 if __name__ == '__main__':

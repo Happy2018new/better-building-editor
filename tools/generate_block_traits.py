@@ -7,8 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-WATER_PROBE_METHOD = ('Native default seed + semantic SetBlockStates before/after over water, '
-                      'isLegacy=True, updateNeighbors=False; v3')
+WATER_PROBE_METHOD = ('Native default seed + semantic states and supported paired fixtures '
+                      'before/after over water, isLegacy=True, updateNeighbors=False; v4')
 
 
 def _water_rows(water, data, palette):
