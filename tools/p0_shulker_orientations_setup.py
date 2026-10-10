@@ -48,7 +48,7 @@ try:
         temporary = items.GetPlayerItem(item_type, slot, True)
         row['temporary_item'] = temporary
         assert temporary and temporary.get('count', 0) >= 1 and (
-            temporary.get('itemName', temporary.get('newItemName')) == 'minecraft:purple_shulker_box'), row
+            (temporary.get('newItemName') or temporary.get('itemName')) == 'minecraft:purple_shulker_box'), row
         row['placed'] = info.PlayerUseItemToPos(row['support'], item_type, slot,
                                                row['support_face'])
         row['block'] = info.GetBlockNew(row['pos'], dimension)
