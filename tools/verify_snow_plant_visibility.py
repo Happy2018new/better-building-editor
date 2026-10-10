@@ -25,7 +25,13 @@ assert not hasattr(sys,'_snow_visibility_native'), 'Previous native snow fixture
 for pos in (target,support):
  value=adapter.info.GetBlockNew(pos,adapter.dimension)
  assert value is not None and value['name']=='minecraft:air', ('Snow oracle needs empty cells',pos,value)
-sys._snow_visibility_native={'target':target,'support':support,'player':player,'dimension':adapter.dimension}
+game=adapter.factory.CreateGame(adapter.level)
+clock=adapter.factory.CreateTime(adapter.level)
+saved_rules=game.GetGameRulesInfoServer()['cheat_info']
+sys._snow_visibility_native={'target':target,'support':support,'player':player,'dimension':adapter.dimension,
+ 'time':clock.GetTime(),'daylight_cycle':saved_rules['daylight_cycle']}
+assert game.SetGameRulesInfoServer({'cheat_info':{'daylight_cycle':False}})
+assert clock.SetTime((clock.GetTime()//24000)*24000+6000)
 assert adapter.write(support,('minecraft:dirt',0))
 _result=json.dumps(sys._snow_visibility_native)
 '''
@@ -70,6 +76,10 @@ for pos in (saved['target'],saved['support']):
  data=palette.SerializeBlockPalette() if palette is not None else None
  clean=data is not None and all(value[0]=='minecraft:air' for key in ('common','extra') for value in data.get(key,{}))
  results.append({'pos':pos,'changed':changed,'clean':clean})
+clock=adapter.factory.CreateTime(adapter.level)
+game=adapter.factory.CreateGame(adapter.level)
+results.append({'resource':'world_time','clean':bool(clock.SetTime(saved['time']))})
+results.append({'resource':'daylight_cycle','clean':bool(game.SetGameRulesInfoServer({'cheat_info':{'daylight_cycle':saved['daylight_cycle']}}))})
 del sys._snow_visibility_native
 _result=json.dumps(results)
 '''
