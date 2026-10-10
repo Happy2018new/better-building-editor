@@ -19,6 +19,7 @@ class ProbeRuntime(object):
         self.paired, self.native_bed_water = paired, native_bed_water
         self.pair_palettes = []
         self.entity_reads = []
+        self.logs = []
         self.area, self.deleted, self.subchunk_states, self.requested_aux = None, [], {}, []
 
     def time(self):
@@ -190,13 +191,14 @@ class WaterProbeTests(unittest.TestCase):
             del sys._p0_probe_run
 
     def start(self, runtime):
-        with patch.dict(sys.modules, runtime.modules()), patch('time.time', runtime.time):
+        with patch.dict(sys.modules, runtime.modules()), patch('time.time', runtime.time), \
+                patch('builtins.print', side_effect=runtime.logs.append):
             values = runpy.run_path(str(ROOT / 'tools/dump_waterloggable_blocks.py'))
             runtime.probe = values['_probe']
         return sys._p0_native_probe
 
     def finish(self, runtime):
-        with patch('time.time', runtime.time):
+        with patch('time.time', runtime.time), patch('builtins.print', side_effect=runtime.logs.append):
             while runtime.callbacks:
                 runtime.callbacks.pop(0)()
 
@@ -341,6 +343,8 @@ class WaterProbeTests(unittest.TestCase):
         self.assertIsNone(state['failure'])
         self.assertTrue(state['results']['minecraft:bed'])
         self.assertEqual(8, len(runtime.pair_palettes))
+        self.assertTrue(any('paired SetBlockByBlockPalette begin' in line for line in runtime.logs))
+        self.assertTrue(any('paired fixture complete' in line for line in runtime.logs))
         for aux in range(4):
             record = state['readback_states']['minecraft:bed'][str(aux)]
             self.assertEqual(bool(aux >= 2), record['dry']['states']['head_piece_bit'])

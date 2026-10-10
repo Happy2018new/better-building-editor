@@ -180,6 +180,8 @@ class WaterOverlayProbe(object):
             self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
 
     def place_pair(self, aux, liquid=None):
+        print('[P0WaterProbe] paired fixture begin %s aux=%d retained_water=%s' %
+              (self.name, aux, bool(liquid)))
         relationship = block_groups.group_partner((self.name, aux))
         if relationship is None:
             raise ValueError('Missing native paired fixture relationship: ' + self.name)
@@ -209,9 +211,17 @@ class WaterOverlayProbe(object):
                 'extra': extra, 'extraStates': extra_states, 'actor': {},
                 'void': False, 'eliminateAir': False}
         palette = self.palette_block.GetBlankBlockPalette()
-        if (palette is None or not palette.DeserializeBlockPalette(data) or
-                not self.palette_block.SetBlockByBlockPalette(palette, self.dimension, origin, 0, 0)):
+        if palette is None:
+            raise ValueError('Could not create a native paired fixture palette')
+        print('[P0WaterProbe] paired Deserialize begin %s aux=%d volume=%r' %
+              (self.name, aux, data['volume']))
+        if not palette.DeserializeBlockPalette(data):
+            raise ValueError('Could not deserialize a native paired fixture palette')
+        print('[P0WaterProbe] paired SetBlockByBlockPalette begin %s aux=%d origin=%r' %
+              (self.name, aux, origin))
+        if not self.palette_block.SetBlockByBlockPalette(palette, self.dimension, origin, 0, 0):
             raise ValueError('Could not write an exact native paired fixture')
+        print('[P0WaterProbe] paired fixture complete %s aux=%d' % (self.name, aux))
 
     def step(self):
         if not self.state['running'] or getattr(sys, '_p0_native_probe', None) is not self.state:
@@ -235,6 +245,9 @@ class WaterOverlayProbe(object):
                         return
                     self.name, self.values = row
                     self.cursor, self.accepted = 0, []
+                    print('[P0WaterProbe] block begin %s states=%d tested=%d/%d' %
+                          (self.name, len(self.values), self.state['tested_states'],
+                           self.state['total_states']))
                     if not self.values:
                         continue
                 aux = self.values[self.cursor]
@@ -274,7 +287,10 @@ class WaterOverlayProbe(object):
                 if dry_matched:
                     self.state['verified_states'] += 1
                     if self.name not in self.entity_names:
+                        print('[P0WaterProbe] default NBT begin %s aux=%d' % (self.name, aux))
                         nbt = self.info.GetBlockEntityData(self.dimension, self.target)
+                        print('[P0WaterProbe] default NBT complete %s has_entity=%s' %
+                              (self.name, bool(nbt)))
                         self.entity_names.add(self.name)
                         self.state['block_entity_names'].append(self.name)
                         if nbt:
