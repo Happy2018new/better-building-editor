@@ -75,7 +75,7 @@ class WaterOverlayProbe(object):
             while time.time() < deadline:
                 if self.cursor >= len(self.values):
                     if self.name is not None:
-                        result = (True if len(self.accepted) == len(self.values) else
+                        result = (True if self.values and len(self.accepted) == len(self.values) else
                                   self.accepted if self.accepted else False)
                         self.state['results'][self.name] = result
                         self.state['completed_blocks'] += 1
@@ -86,6 +86,8 @@ class WaterOverlayProbe(object):
                         return
                     self.name, self.values = row
                     self.cursor, self.accepted = 0, []
+                    if not self.values:
+                        continue
                 aux = self.values[self.cursor]
                 self.state.update(current_name=self.name, current_aux=aux)
                 self.info.SetLiquidBlock(self.target, AIR, self.dimension)
