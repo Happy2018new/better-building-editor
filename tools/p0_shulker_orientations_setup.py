@@ -8,6 +8,7 @@ import json
 import math
 import sys
 import mod.server.extraServerApi as api
+from modern_projection.projection.nbt_spatial import root_payload, scalar
 
 assert not hasattr(sys, '_p0_shulker_faces'), 'Clean up the previous face fixture first'
 factory = api.GetEngineCompFactory()
@@ -53,6 +54,9 @@ try:
                                                row['support_face'])
         row['block'] = info.GetBlockNew(row['pos'], dimension)
         assert row['placed'] and row['block']['name'] == 'minecraft:purple_shulker_box', row
+        row['entity_nbt'] = info.GetBlockEntityData(dimension, row['pos'])
+        row['server_facing'] = scalar(root_payload(row['entity_nbt']), 'facing')
+        assert type(row['server_facing']) is int and 0 <= row['server_facing'] <= 5, row
 finally:
     prior_error = sys.exc_info()[0]
     items.SetInvItemNum(slot, 0)

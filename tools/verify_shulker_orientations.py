@@ -18,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 LOAD = '''from copy import deepcopy
 from modern_projection.projection.model import Document
 from modern_projection.projection.world_capture import merge_palette
-from modern_projection.projection.cell import rebase
+from modern_projection.projection.cell import rebase,foreground,background,actor_data,make_cell
+from modern_projection.projection.visible_actor import compose_actor,render_actor
+from modern_projection.projection.nbt_spatial import rebase as rebase_nbt
 from modern_projection.projection.debug_blueprints import build,VISUAL_CASES
 source=%r
 facing=%d
@@ -27,7 +29,13 @@ focus=case['focus']
 doc=Document(case['size'],name='Shulker orientation pixel check')
 if source=='native':
  data=deepcopy(sys._p0_shulker_face_palettes[facing])
- merge_palette(doc,data,focus,(1,1,1),tuple(-v for v in focus))
+ observation=sys._p0_shulker_face_entities[facing]
+ world_origin=tuple(observation['pos'][i]-focus[i] for i in range(3))
+ merge_palette(doc,data,focus,(1,1,1),world_origin)
+ value=doc.get(focus)
+ if observation.get('entity_nbt'):
+  actor=compose_actor(render_actor(actor_data(value)),rebase_nbt(observation['entity_nbt'],tuple(-v for v in world_origin)))
+  doc.blocks[focus]=make_cell(foreground(value),background(value),actor)
 else:
  blueprint=build(case['fixture'])
  source_pos=case['cells'][facing]
