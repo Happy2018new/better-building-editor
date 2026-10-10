@@ -191,7 +191,7 @@ def signal(shown, hidden):
         return ImageChops.difference(first, second)
 
 
-def roi_masks(projection, size, keep, occupied, calibration=None):
+def roi_masks(projection, size, keep, occupied, calibration=None, boundary_guard=0):
     effective_fov = projection['fov']
     if calibration is not None and projection['projection_method'] != 'native':
         assert calibration.get('passed') and calibration.get('completed'), calibration
@@ -232,15 +232,18 @@ def roi_masks(projection, size, keep, occupied, calibration=None):
         mask = Image.new('L', size)
         ImageDraw.Draw(mask).polygon(polygon, fill=255)
         masks[pos], polygons[pos] = mask, polygon
-    remaining = ImageChops.subtract(masks[keep], masks[occupied])
+    def exclusion(mask):
+        return mask.filter(ImageFilter.MaxFilter(boundary_guard * 2 + 1)) if boundary_guard else mask
+
+    remaining = ImageChops.subtract(masks[keep], exclusion(masks[occupied]))
     hidden = masks[occupied].copy()
     for pos, mask in masks.items():
         if pos != occupied:
-            hidden = ImageChops.subtract(hidden, mask)
+            hidden = ImageChops.subtract(hidden, exclusion(mask))
     return remaining, hidden, {'projection': projection['projection_details'],
                                'keep': polygons[keep], 'occupied': polygons[occupied],
                                'remaining_area': count(remaining), 'hidden_area': count(hidden),
-                               'viewport_scale': scale}
+                               'viewport_scale': scale, 'neighbor_boundary_guard_pixels': boundary_guard}
 
 
 def binary(image, threshold):
