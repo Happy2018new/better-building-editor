@@ -115,10 +115,10 @@ class Sharing(object):
                 if entry is None:
                     raise ValueError('这份配置已不存在')
                 data = dict(entry['data'])
-                if data.get('version') in (3, 5):
+                if data.get('version') in (3, 5, 7):
                     from .archive import load_steps
                     iterator = load_steps(s.bridge, identity, data)
-                elif data.get('version') == 2:
+                elif data.get('version') in (2, 4, 6):
                     from .codec import load_steps
                     iterator = load_steps(data)
                 else:

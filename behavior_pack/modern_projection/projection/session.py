@@ -70,6 +70,8 @@ class Session(object):
         self.outline_parameter_serial = 0
         from .materials import initial_catalogue, normalize_palette
         self.palette = normalize_palette(None)
+        self.unresolved_palette_preferences = None
+        self.preference_palette_baseline = None
         self.block_catalogue = initial_catalogue()
         self.catalogue_loading = False
         self.catalogue_ready = False
@@ -117,7 +119,7 @@ class Session(object):
             if field is None or fields is None or field in fields:
                 callback()
 
-    def initialize(self):
+    def _load_preferences(self):
         if hasattr(self.bridge, 'load_preferences'):
             preferences = self.bridge.load_preferences() or {}
             speed = preferences.get('spectrum_speed', 3.) if isinstance(preferences, dict) else 3.
@@ -125,7 +127,33 @@ class Session(object):
                 self.spectrum_speed = float(speed)
             if isinstance(preferences, dict) and 'palette' in preferences:
                 from .materials import normalize_palette
-                self.palette = normalize_palette(preferences['palette'])
+                preference_version = preferences.get('version', 1)
+                if type(preference_version) is int and preference_version == 2:
+                    from .semantic_wire import validate_header, decode_material
+                    try:
+                        source = validate_header(preferences)
+                        rows = preferences['palette']
+                        if not isinstance(rows, list) or len(rows) > 64:
+                            raise ValueError('常用方块材质数量无效')
+                        self.palette = normalize_palette([decode_material(row, source) for row in rows])
+                    except (ValueError, TypeError):
+                        self.unresolved_palette_preferences = dict(preferences)
+                        self.preference_palette_baseline = list(self.palette)
+                        self.editor.message = '部分常用方块尚未适配当前版本，原配置已保留'
+                elif type(preference_version) is int and preference_version == 1:
+                    self.palette = normalize_palette(preferences['palette'])
+                    from .semantic_wire import encode_material
+                    try:
+                        for material in self.palette:
+                            encode_material(material)
+                    except ValueError:
+                        self.unresolved_palette_preferences = dict(preferences)
+                        self.preference_palette_baseline = list(self.palette)
+                        self.editor.message = '部分旧常用方块尚未适配，原配置已保留'
+                else:
+                    self.unresolved_palette_preferences = dict(preferences)
+                    self.preference_palette_baseline = list(self.palette)
+                    self.editor.message = '常用方块配置版本暂不支持，原配置已保留'
             if isinstance(preferences, dict) and isinstance(preferences.get('projection_outline'), bool):
                 self.projection_outline = preferences['projection_outline']
             if isinstance(preferences, dict):
@@ -133,15 +161,28 @@ class Session(object):
                 if preferences.get('outline_style') in STYLES:
                     self.outline_style = preferences['outline_style']
                 self.outline_options = normalize(preferences.get('outline_options'))
+
+    def initialize(self):
+        self._load_preferences()
         data = self.bridge.load_library()
         if isinstance(data, dict):
             for entry in data.get('buildings', [])[:32]:
                 try:
-                    if entry['data'].get('version') in (3, 5):
+                    if entry['data'].get('version') in (3, 5, 7):
                         from .archive import validate
                         validate(entry['data'])
+                    elif entry['data'].get('version') == 6:
+                        # Keep semantic archives in the library even if a later
+                        # game version cannot yet resolve one of their states.
+                        saved = entry['data']
+                        title = as_text(saved.get('name', ''))
+                        Document(saved.get('size', ()), biome=saved.get('biome', 'plains'))
+                        if not isinstance(title, type('')) or not 1 <= len(title) <= 64:
+                            raise ValueError('建筑名称无效')
+                        saved['name'] = title
                     else:
-                        entry['data'] = Document.from_data(entry['data']).to_data()
+                        restored = Document.from_data(entry['data'])
+                        entry['data']['name'] = restored.name
                     if type(entry['id']) is int:
                         self.library.append(entry)
                 except RegionSizeError:
@@ -149,7 +190,7 @@ class Session(object):
                     # when another configuration is saved or renamed.
                     saved = entry['data']
                     name = as_text(saved.get('name', ''))
-                    if (type(entry.get('id')) is int and saved.get('version') in (1, 2, 3, 4, 5)
+                    if (type(entry.get('id')) is int and saved.get('version') in (1, 2, 3, 4, 5, 6, 7)
                             and isinstance(name, type('')) and 1 <= len(name) <= 64):
                         saved['name'] = name
                         self.library.append(entry)
@@ -234,9 +275,17 @@ class Session(object):
 
     def save_preferences(self):
         if hasattr(self.bridge, 'save_preferences'):
-            self.bridge.save_preferences({'spectrum_speed': self.spectrum_speed, 'palette': self.palette,
-                                          'projection_outline': self.projection_outline,
-                                          'outline_style': self.outline_style, 'outline_options': self.outline_options})
+            from .semantic_wire import provenance, encode_material, CELL_VERSION
+            if (self.unresolved_palette_preferences is not None and
+                    self.palette == self.preference_palette_baseline):
+                data = dict(self.unresolved_palette_preferences)
+            else:
+                data = {'version': 2, 'cellVersion': CELL_VERSION, 'registry': provenance(),
+                        'palette': [encode_material(value) for value in self.palette]}
+                self.unresolved_palette_preferences = None
+            data.update({'spectrum_speed': self.spectrum_speed, 'projection_outline': self.projection_outline,
+                         'outline_style': self.outline_style, 'outline_options': self.outline_options})
+            self.bridge.save_preferences(data)
 
     def set_biome(self, value):
         from .biomes import validate, label
@@ -793,10 +842,10 @@ class Session(object):
             raise ValueError('找不到这份配置')
         data = entry['data']
         Document(data.get('size', ()))
-        if data.get('version') in (3, 5):
+        if data.get('version') in (3, 5, 7):
             from .archive import load_steps
             self._start_io(load_steps(self.bridge, identity, data), self._loaded, '正在载入建筑')
-        elif data.get('version') == 2:
+        elif data.get('version') in (2, 4, 6):
             from .codec import load_steps
             self._start_io(load_steps(data), self._loaded, '正在载入建筑')
         else:
@@ -822,7 +871,7 @@ class Session(object):
         if not self.bridge.save_library({'version': 1, 'serial': self.library_serial, 'buildings': candidate}):
             raise ValueError('删除失败，原配置已保留')
         self.library = candidate
-        if previous and previous['data'].get('version') in (3, 5):
+        if previous and previous['data'].get('version') in (3, 5, 7):
             self.bridge.clear_archive(identity, previous['data']['parts'])
         self.editor.message = '已删除建筑配置'
 

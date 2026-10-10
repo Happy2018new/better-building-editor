@@ -277,7 +277,7 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(1, len(s.library))
         self.assertNotIn('chunks', b.data['buildings'][0]['data'])
         identity = s.library[0]['id']
-        self.assertEqual(3, s.library[0]['data']['version'])
+        self.assertEqual(7, s.library[0]['data']['version'])
         s.editor = Editor(Document())
         s.load(identity)
         while s.io_job is not None:

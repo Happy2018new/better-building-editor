@@ -12,6 +12,7 @@ from .cell import has_complete_cells, foreground, background, decode as decode_c
 MAX_TEXT = 8 * 1024 * 1024
 MAX_RAW = 16 * 1024 * 1024
 MAX_RECORD = 32768
+MAX_RECORDS = 8192
 PART_SIZE = 512
 PART_SIZES = (256, 512, 1024)
 MAX_PART_SIZE = 12000  # Accept archives sent by earlier releases.
@@ -25,7 +26,9 @@ def checksum(data):
     return '%08x' % (zlib.crc32(data) & 0xffffffff)
 
 
-def validate_materials(packet):
+def validate_materials(packet, version=2):
+    if version == 4:
+        return  # Semantic material/cell records are checked by Receiver.
     if packet.get('kind') != 'palette':
         return
     rows = packet.get('rows')
@@ -43,9 +46,14 @@ def encode_steps(document):
     compressor = zlib.compressobj(6)
     output, crc, raw_size, packed_size = [], 0, 0, 0
     total = len(document.blocks.palette) + len(document.blocks.chunks) + 2
-    done = 0
+    done, records = 0, 0
     for packet in packets(document):
-        validate_materials(packet)
+        records += 1
+        if records > MAX_RECORDS:
+            raise ValueError('建筑分享记录数量超过限制')
+        if packet['kind'] == 'begin':
+            total += packet.get('materialCount', 0)
+        validate_materials(packet, 4)
         raw = (json.dumps(packet, ensure_ascii=True, separators=(',', ':'))+'\n').encode('ascii')
         raw_size += len(raw)
         if len(raw) > MAX_RECORD or raw_size > MAX_RAW:
@@ -59,8 +67,7 @@ def encode_steps(document):
         done += len(packet['rows']) if 'rows' in packet else 1
         yield {'progress': (done, total)}
     output.append(compressor.flush())
-    prefix = 'MP3:' if has_complete_cells(document.blocks) else 'MP2:'
-    text = prefix+base64.b64encode(b''.join(output)).decode('ascii')+':%08x' % (crc & 0xffffffff)
+    text = 'MP4:'+base64.b64encode(b''.join(output)).decode('ascii')+':%08x' % (crc & 0xffffffff)
     if len(text) > MAX_TEXT:
         raise ValueError('建筑分享码过长')
     yield {'text': text}
@@ -73,9 +80,10 @@ def decode_steps(text):
         if not isinstance(text, type('')) or not 1 <= len(text) <= MAX_TEXT:
             raise ValueError('剪贴板没有有效分享码，或内容过长')
         fields = text.strip().split(':')
-        if len(fields) != 3 or fields[0] not in ('MP2', 'MP3'):
-            raise ValueError('不是支持的建筑分享码（需要 MP2 或 MP3）')
+        if len(fields) != 3 or fields[0] not in ('MP2', 'MP3', 'MP4'):
+            raise ValueError('不是支持的建筑分享码（需要 MP2、MP3 或 MP4）')
         encoded, expected = fields[1:]
+        record_limit = MAX_RECORDS if fields[0] == 'MP4' else 2048
         if (not encoded or len(encoded)%4 or not BASE64.match(encoded) or
                 not re.match(r'^[0-9a-f]{8}$', expected)):
             raise ValueError('分享码格式损坏，请重新复制')
@@ -88,7 +96,9 @@ def decode_steps(text):
                 packed += TAIL
             while packed:
                 raw = inflater.decompress(packed, MAX_RECORD)
-                packed = inflater.unconsumed_tail
+                # At EOF zlib can expose the sentinel as both tails. Feeding
+                # that tail again never makes progress; validate it below.
+                packed = b'' if inflater.unused_data else inflater.unconsumed_tail
                 total_raw += len(raw)
                 if total_raw > MAX_RAW:
                     raise ValueError('分享码解压后超过容量限制')
@@ -97,15 +107,14 @@ def decode_steps(text):
                 while b'\n' in buffer:
                     line, buffer = buffer.split(b'\n', 1)
                     records += 1
-                    if len(line) > MAX_RECORD or records > 2048:
+                    if len(line) > MAX_RECORD or records > record_limit:
                         raise ValueError('分享码记录过大或过多')
                     packet = json.loads(line.decode('ascii'))
                     if not isinstance(packet, dict):
                         raise ValueError('分享码记录无效')
-                    validate_materials(packet)
+                    validate_materials(packet, receiver.version if packet.get('kind') != 'begin' else packet.get('version', 2))
                     if packet.get('kind') == 'begin':
-                        rich = packet.get('version', 2) == 3
-                        if rich != (fields[0] == 'MP3'):
+                        if packet.get('version', 2) != {'MP2': 2, 'MP3': 3, 'MP4': 4}[fields[0]]:
                             raise ValueError('分享码外层版本与方块数据版本不一致')
                     receiver.feed(packet)
                     yield {'progress': (start+len(piece), len(encoded))}
@@ -129,7 +138,7 @@ def split_text(text, part_size=PART_SIZE):
         raise ValueError('不支持的分段长度')
     identity = checksum(text.encode('ascii'))
     total = (len(text)+part_size-1)//part_size
-    prefix = 'MPS3' if text.startswith('MP3:') else 'MPS2'
+    prefix = 'MPS4' if text.startswith('MP4:') else 'MPS3' if text.startswith('MP3:') else 'MPS2'
     return [('%s:%%s:%%d:%%d:%%s:%%s' % prefix) % (identity, index+1, total, checksum(piece.encode('ascii')), piece)
             for index, piece in enumerate(text[start:start+part_size] for start in range(0,len(text),part_size))]
 
@@ -160,7 +169,7 @@ class Inbox(object):
         if not isinstance(text, type('')) or len(text) > MAX_TEXT:
             raise ValueError('剪贴板内容过长或不是文字')
         text = text.strip()
-        if not text.startswith(('MPS2:', 'MPS3:')):
+        if not text.startswith(('MPS2:', 'MPS3:', 'MPS4:')):
             return text
         fields = text.split(':', 5)
         if len(fields) != 6:
@@ -186,7 +195,7 @@ class Inbox(object):
             result = ''.join(self.parts[i] for i in range(1,total+1))
             if checksum(result.encode('ascii')) != identity:
                 raise ValueError('完整分享码校验失败')
-            if (protocol == 'MPS3') != result.startswith('MP3:'):
+            if not result.startswith({'MPS2': 'MP2:', 'MPS3': 'MP3:', 'MPS4': 'MP4:'}[protocol]):
                 raise ValueError('分享码分段版本与内容不一致')
             return result
         return None

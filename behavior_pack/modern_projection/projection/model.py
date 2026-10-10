@@ -169,26 +169,15 @@ class Document(object):
         return iter(Selection.box((0, 0, 0), tuple(v - 1 for v in self.size)))
 
     def to_data(self):
-        if self.volume > SMALL_VOLUME or has_complete_cells(self.blocks):
-            from .codec import to_data
-
-            return to_data(self)
-        return {
-            "version": 1,
-            "name": self.name,
-            "size": list(self.size),
-            "biome": self.biome,
-            "blocks": [
-                [p[0], p[1], p[2], b[0], b[1]] for p, b in sorted(self.blocks.items())
-            ],
-        }
+        from .codec import to_data
+        return to_data(self)
 
     @classmethod
     def from_data(cls, data):
         if not isinstance(data, dict):
             raise ValueError("不支持的建筑配置版本")
         version = data.get("version", 1)
-        if type(version) is not int or version not in (1, 2, 4):
+        if type(version) is not int or version not in (1, 2, 4, 6):
             raise ValueError("不支持的建筑配置版本")
         if version == 1 and ("palette" in data or "chunks" in data):
             raise ValueError("分块配置缺少有效版本号")
@@ -197,7 +186,7 @@ class Document(object):
             name = name.decode("utf8")
         if not isinstance(name, type("")) or not 1 <= len(name) <= 64:
             raise ValueError("名称长度须为 1–64 字")
-        if version in (2, 4):
+        if version in (2, 4, 6):
             from .codec import load_steps
 
             result = None

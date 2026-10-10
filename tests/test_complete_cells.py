@@ -14,6 +14,7 @@ from projection.cell import (Cell, actor_data, background, decode, encode, foreg
 from projection.model import AIR, Document, Editor, close_group_selection
 from projection.sharing_codec import encode_steps, decode_steps, split_text, Inbox
 from projection.transfer import packets, Receiver
+from projection.codec import to_data as chunk_data
 
 STONE = ('minecraft:stone', 0)
 GLASS = ('minecraft:glass', 0)
@@ -37,14 +38,15 @@ def finish(generator):
     return list(generator)[-1]
 
 
-def legacy_share_without_packet_versions(document):
+def legacy_share(document, version=2, unversioned=False):
     records = []
-    for packet in packets(document):
+    for packet in packets(document, version):
         packet = dict(packet)
-        packet.pop('version', None)
+        if unversioned:
+            packet.pop('version', None)
         records.append(json.dumps(packet, ensure_ascii=True, separators=(',', ':')) + '\n')
     raw = ''.join(records).encode('ascii')
-    return 'MP2:' + base64.b64encode(zlib.compress(raw)).decode('ascii') + ':%08x' % (zlib.crc32(raw) & 0xffffffff)
+    return 'MP%d:' % version + base64.b64encode(zlib.compress(raw)).decode('ascii') + ':%08x' % (zlib.crc32(raw) & 0xffffffff)
 
 
 class CompleteCellTests(unittest.TestCase):
@@ -146,30 +148,32 @@ class CompleteCellTests(unittest.TestCase):
 
     def test_legacy_and_complete_document_round_trips_use_gated_versions(self):
         legacy = Document((2, 2, 2), {(1, 1, 1): STONE})
-        self.assertEqual(1, legacy.to_data()['version'])
+        self.assertEqual(6, legacy.to_data()['version'])
         self.assertEqual(legacy.blocks, Document.from_data(legacy.to_data()).blocks)
         rich = Document((2, 2, 2), {(1, 1, 1): make_cell(STONE, GLASS, self.payload())})
         data = json.loads(json.dumps(rich.to_data()))
-        self.assertEqual(4, data['version'])
+        self.assertEqual(6, data['version'])
         self.assertEqual(rich.blocks, Document.from_data(data).blocks)
-        self.assertEqual(3, next(iter(packets(rich)))['version'])
+        self.assertEqual(rich.blocks, Document.from_data(chunk_data(rich, 4)).blocks)
+        self.assertEqual(legacy.blocks, Document.from_data(chunk_data(legacy, 2)).blocks)
+        self.assertEqual(4, next(iter(packets(rich)))['version'])
         receiver = Receiver()
         for packet in packets(rich):
             receiver.feed(copy.deepcopy(packet))
         self.assertEqual(rich.blocks, receiver.result.blocks)
         rich.blocks[(1, 1, 1)] = AIR
         self.assertFalse(has_complete_cells(rich.blocks))
-        self.assertEqual(1, rich.to_data()['version'])
+        self.assertEqual(6, rich.to_data()['version'])
 
     def test_unversioned_sparse_json_and_legacy_packets_read_as_v1_and_v2(self):
         legacy = Document((2, 2, 2), {(1, 1, 1): STONE})
-        old_json = legacy.to_data()
-        old_json.pop('version')
+        old_json = {'name': legacy.name, 'size': list(legacy.size),
+                    'blocks': [[1, 1, 1, 'minecraft:stone', 0]]}
         restored = Document.from_data(old_json)
         self.assertEqual(legacy.blocks, restored.blocks)
-        self.assertEqual(1, restored.to_data()['version'])
+        self.assertEqual(6, restored.to_data()['version'])
 
-        packets_without_version = [dict(packet) for packet in packets(legacy)]
+        packets_without_version = [dict(packet) for packet in packets(legacy, 2)]
         for packet in packets_without_version:
             packet.pop('version', None)
         receiver = Receiver()
@@ -178,7 +182,7 @@ class CompleteCellTests(unittest.TestCase):
         self.assertEqual(legacy.blocks, receiver.result.blocks)
         self.assertEqual(2, receiver.version)
 
-        imported = finish(decode_steps(legacy_share_without_packet_versions(legacy)))['document']
+        imported = finish(decode_steps(legacy_share(legacy, unversioned=True)))['document']
         self.assertEqual(legacy.blocks, imported.blocks)
         upgraded = Document.from_data(imported.to_data())
         self.assertEqual(legacy.blocks, upgraded.blocks)
@@ -211,15 +215,15 @@ class CompleteCellTests(unittest.TestCase):
         doc = Document((3, 1, 1), {(0, 0, 0): make_cell(STONE, GLASS, self.payload())}, name='完整方块')
         bridge = ArchiveBridge()
         metadata = finish(save_steps(bridge, doc, 'rich'))
-        self.assertEqual(5, metadata['version'])
+        self.assertEqual(7, metadata['version'])
         restored = finish(load_steps(bridge, 'rich', metadata))
         self.assertEqual(doc.blocks, restored.blocks)
         shared = finish(encode_steps(doc))['text']
-        self.assertTrue(shared.startswith('MP3:'))
+        self.assertTrue(shared.startswith('MP4:'))
         imported = finish(decode_steps(shared))['document']
         self.assertEqual(doc.blocks, imported.blocks)
         segmented = split_text(shared, 256)
-        self.assertTrue(all(part.startswith('MPS3:') for part in segmented))
+        self.assertTrue(all(part.startswith('MPS4:') for part in segmented))
         inbox = Inbox()
         complete = None
         for part in segmented:
@@ -229,7 +233,7 @@ class CompleteCellTests(unittest.TestCase):
 
         legacy = Document((3, 1, 1), {(0, 0, 0): STONE})
         legacy_meta = finish(save_steps(bridge, legacy, 'legacy'))
-        self.assertEqual(3, legacy_meta['version'])
+        self.assertEqual(7, legacy_meta['version'])
         self.assertEqual(legacy.blocks, finish(load_steps(bridge, 'legacy', legacy_meta)).blocks)
 
         bad_archive_meta = dict(metadata, version=3)
@@ -238,8 +242,20 @@ class CompleteCellTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             finish(load_steps(bridge, 'rich', dict(metadata, version=True)))
 
+        # Actual old aux-only paged data, independent of the new save output.
+        for version, document in ((2, legacy), (3, doc)):
+            old_packets = list(packets(document, version))
+            identity = 'old%d' % version
+            for page, start in enumerate(range(0, len(old_packets), 8)):
+                bridge.pages[(identity, page)] = {'packets': old_packets[start:start + 8]}
+            old_meta = {'version': 3 if version == 2 else 5, 'name': document.name,
+                        'size': list(document.size), 'biome': document.biome,
+                        'blockCount': len(document.blocks), 'parts': (len(old_packets) + 7) // 8}
+            self.assertEqual(document.blocks, finish(load_steps(bridge, identity, old_meta)).blocks)
+            self.assertEqual(document.blocks, finish(decode_steps(legacy_share(document, version)))['document'].blocks)
+
     def test_legacy_share_keeps_mp2_and_mps2_envelopes(self):
-        shared = finish(encode_steps(Document((2, 1, 1), {(0, 0, 0): STONE})))['text']
+        shared = legacy_share(Document((2, 1, 1), {(0, 0, 0): STONE}))
         self.assertTrue(shared.startswith('MP2:'))
         segments = split_text(shared, 256)
         self.assertTrue(all(part.startswith('MPS2:') for part in segments))
@@ -508,13 +524,13 @@ class CompleteCellTests(unittest.TestCase):
     def test_rich_and_legacy_share_versions_cannot_be_mislabeled(self):
         rich = finish(encode_steps(Document((1, 1, 1), {
             (0, 0, 0): make_cell(STONE, GLASS, {'id': 'Chest'})})))['text']
-        rich_segment = split_text(rich, 256)[0].replace('MPS3:', 'MPS2:', 1)
+        rich_segment = split_text(rich, 256)[0].replace('MPS4:', 'MPS2:', 1)
         inbox = Inbox()
         self.assertIsNone(inbox.add(split_text(rich, 256)[0]))
         with self.assertRaises(ValueError):
             inbox.add(rich_segment)
-        legacy = finish(encode_steps(Document((1, 1, 1))) )['text']
-        legacy_as_rich = split_text(legacy, 256)[0].replace('MPS2:', 'MPS3:', 1)
+        legacy = legacy_share(Document((1, 1, 1)))
+        legacy_as_rich = split_text(legacy, 1024)[0].replace('MPS2:', 'MPS3:', 1)
         with self.assertRaises(ValueError):
             Inbox().add(legacy_as_rich)
 

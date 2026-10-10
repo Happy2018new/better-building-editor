@@ -48,7 +48,7 @@ class SharingTests(unittest.TestCase):
         fields=text.split(':');packed=base64.b64decode(fields[1])
         for raw in (packed[:-1],packed+b'junk'):
             with self.assertRaises(ValueError):decode('MP2:'+base64.b64encode(raw).decode('ascii')+':'+fields[2])
-        for value in (text[:-1]+'g',text.replace('MP2:','MP99:'),'MP2:not-base64:00000000'):
+        for value in (text[:-1]+'g',text.replace('MP4:','MP99:'),'MP2:not-base64:00000000'):
             with self.assertRaises(ValueError):decode(value)
 
     def test_bounded_decompression_and_invalid_structures(self):

@@ -144,7 +144,9 @@ class MaterialsTests(unittest.TestCase):
             self.assertEqual(('minecraft:wool', 15), getattr(s.editor, channel))
             s.set_editor(channel, ('minecraft:wool', 3))
         self.assertEqual(1, s.palette.count(('minecraft:wool', 15)))
-        self.assertIn(('minecraft:wool', 15), normalize_palette(s.bridge.preferences['palette']))
+        from projection.semantic_wire import decode_material, validate_header
+        source = validate_header(s.bridge.preferences)
+        self.assertIn(('minecraft:wool', 15), [decode_material(row, source) for row in s.bridge.preferences['palette']])
         self.assertFalse(workspace)
         self.assertEqual(8, len(palette))
         self.assertEqual(4, len(browser))
@@ -191,10 +193,12 @@ class MaterialsTests(unittest.TestCase):
         s.edit_palette(STONE)
         self.assertEqual([WOOD], s.palette)
         self.assertEqual(before, s.editor.revision)
-        self.assertEqual([WOOD], normalize_palette(s.bridge.preferences['palette']))
+        from projection.semantic_wire import decode_material, validate_header
+        source = validate_header(s.bridge.preferences)
+        self.assertEqual([WOOD], [decode_material(row, source) for row in s.bridge.preferences['palette']])
         s.range_value('spectrum_speed', 4., editor=False); s.bridge.callback()
         self.assertEqual(4., s.bridge.preferences['spectrum_speed'])
-        self.assertEqual([WOOD], s.bridge.preferences['palette'])
+        self.assertEqual([WOOD], [decode_material(row, source) for row in s.bridge.preferences['palette']])
 
 
 if __name__ == '__main__':

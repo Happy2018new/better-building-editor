@@ -166,11 +166,12 @@ class LargeEditorTests(unittest.TestCase):
         d = Document(SIZE)
         d.blocks[(0, 0, 0)] = STONE
         data = d.to_data()
-        packed = base64.b64decode(data['chunks'][0][3])
-        data['chunks'][0][3] = base64.b64encode(packed[:-2]).decode('ascii')
+        prefix = data['chunks'][0][3][:3]
+        packed = base64.b64decode(data['chunks'][0][3][3:])
+        data['chunks'][0][3] = prefix + base64.b64encode(packed[:-2]).decode('ascii')
         with self.assertRaises(ValueError):
             Document.from_data(data)
-        empty = encode_chunk((0, 0, 0), array('H', [0]) * 4096)
+        empty = encode_chunk((0, 0, 0), array('H', [0]) * 4096, 1)
         data = Document(SIZE).to_data()
         data['chunks'] = [empty, empty]
         with self.assertRaises(ValueError):

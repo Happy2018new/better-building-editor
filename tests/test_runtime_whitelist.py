@@ -62,7 +62,8 @@ class RuntimeWhitelistTests(unittest.TestCase):
                   'chunks':[[0,0,0,payload]], 'blockCount':2730}
         restored = Document.from_data(packet)
         self.assertEqual('forest', restored.biome)
-        self.assertEqual(packet['chunks'], to_data(restored)['chunks'])
+        self.assertEqual(packet['chunks'], to_data(restored, 2)['chunks'])
+        self.assertEqual(restored.blocks, Document.from_data(to_data(restored)).blocks)
         for index in range(4096):
             self.assertEqual(tuple(packet['palette'][index % 3]), restored.get(position((0,0,0), index)))
 

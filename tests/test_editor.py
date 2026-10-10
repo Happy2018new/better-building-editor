@@ -117,7 +117,7 @@ class EditorTests(unittest.TestCase):
         doc = demo_document()
         self.assertEqual(doc.blocks, Document.from_data(json.loads(json.dumps(doc.to_data()))).blocks)
         bad = doc.to_data()
-        bad['blocks'].append([99, 0, 0, 'minecraft:stone', 0])
+        bad['chunks'].append([99, 0, 0, 1])
         with self.assertRaises(ValueError):
             Document.from_data(bad)
         with self.assertRaises(ValueError):
