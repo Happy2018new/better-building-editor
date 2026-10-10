@@ -6,19 +6,67 @@ removed. Run through run_live_check.py with owned desktop routing.
 """
 import argparse
 import base64
+import hashlib
 import json
+import subprocess
+import sys
 import time
 from pathlib import Path
 
-from PIL import Image,ImageChops
+from PIL import Image,ImageChops,ImageStat
 from verify_debug_blueprints import BlueprintCheck,Client,INSTALL_PROBE,RESTORE,write_json
 from verify_debug_visuals import SAVE_VISUAL,camera_restore_code,PROJECTION_STATUS,projection_pixels
 from verify_native_entity_appearances import execute,replicated_palettes
 from verify_native_sign_fields import SETUP,READ,CLEANUP
-from verify_shulker_orientations import viewport_crop,wait_camera_pose
+from verify_shulker_orientations import viewport_crop,wait_camera_pose,opacity_comparison
 from visual_environment import SETUP_DAYLIGHT,RESTORE_DAYLIGHT
 
 ROOT=Path(__file__).resolve().parents[1]
+
+
+class SignCheck(BlueprintCheck):
+    def __init__(self,client,output,timeout,native_resolution=False):
+        BlueprintCheck.__init__(self,client,output,timeout)
+        self.native_resolution=native_resolution
+
+    def capture(self,label,tree=None):
+        compact=BlueprintCheck.capture(self,label,tree)
+        if not self.native_resolution:
+            return compact
+        path=self.output.parent/(self.output.stem+'_'+label+'_native.png')
+        completed=subprocess.run([sys.executable,'-X','utf8',
+            str(ROOT/'tools/pyreact_legacy/capture_screen.py'),'--output',str(path)],
+            capture_output=True,text=True,check=True)
+        capture=json.loads(completed.stdout)
+        assert capture['ok'],capture
+        payload=path.read_bytes()
+        with Image.open(path) as image:
+            blank=max(ImageStat.Stat(image.convert('RGB')).var)<=1.
+        if blank:
+            # GPU swap chains can return a black PrintWindow. Activate only
+            # this routed instance while run_live_check owns the desktop.
+            activated=self.client.call('mc_input',{'op':'/run','args':{
+                'steps':[{'do':'wait','ms':100}]}})
+            state=activated.get('structuredContent',{})
+            assert state.get('ok') and state['data']['window']['foreground'],activated
+            completed=subprocess.run([sys.executable,'-X','utf8',
+                str(ROOT/'tools/pyreact_legacy/capture_screen.py'),'--output',str(path),
+                '--region',','.join(str(value) for value in capture['region'])],
+                capture_output=True,text=True,check=True)
+            region_capture=json.loads(completed.stdout)
+            assert region_capture['ok'],region_capture
+            region_capture['window']=capture['window']
+            region_capture['activation']=activated
+            capture=region_capture
+            payload=path.read_bytes()
+        with Image.open(path) as image:
+            variance=ImageStat.Stat(image.convert('RGB')).var
+            assert max(variance)>1.,'Native resolution game capture is blank'
+            record={'path':str(path.resolve()),'bytes':len(payload),
+                    'sha256':hashlib.sha256(payload).hexdigest(),'mime':'image/png',
+                    'size':image.size,'variance':variance,'compact_screenshot':compact,
+                    'capture':capture}
+        return record
 
 LOAD = '''from modern_projection.projection.model import Document
 from modern_projection.projection.cell import rebase,actor_data,make_cell,foreground,background
@@ -147,7 +195,7 @@ _result=True
 '''
 
 
-def colored_text(shown,blank,crop,color,output):
+def colored_text(shown,blank,crop,color,output,relative=False):
     with Image.open(shown) as first,Image.open(blank) as second:
         image=first.convert('RGB').crop(crop)
         baseline=second.convert('RGB').crop(crop)
@@ -156,14 +204,28 @@ def colored_text(shown,blank,crop,color,output):
     mask=Image.new('L',image.size)
     rows=[]
     for pixel,base,difference in zip(image.getdata(),baseline.getdata(),delta.getdata()):
-        red,green,blue=(value-before for value,before in zip(pixel,base))
-        selected=green if color=='green' else red
-        other=red if color=='green' else green
-        rows.append(255 if max(difference)>20 and selected-max(other,blue)>20 else 0)
+        if relative:
+            selected_index=1 if color=='green' else 0
+            selected=pixel[selected_index]
+            # Nonselected channels contain only the retained blank wood for a
+            # pure red/green glyph. Their ratios cancel neutral lighting and
+            # expose the source color of the alpha composite.
+            coverage=min(1.-pixel[axis]/float(max(base[axis],1))
+                         for axis in range(3) if axis!=selected_index)
+            emission=selected-(1.-coverage)*base[selected_index]
+            response=emission/coverage if coverage>0. else 0.
+        else:
+            red,green,blue=(value-before for value,before in zip(pixel,base))
+            selected=green if color=='green' else red
+            other=red if color=='green' else green
+            response=selected-max(other,blue)
+        rows.append(255 if max(difference)>20 and response>20 else 0)
     mask.putdata(rows)
     mask.save(output)
     return mask,{'pixels':sum(mask.histogram()[1:]),'bounds':mask.getbbox(),
-                 'color':color,'mask':str(output.resolve()),'crop':crop}
+                 'color':color,'mask':str(output.resolve()),'crop':crop,
+                 'response':'wood_composite' if relative else 'absolute_delta',
+                 'minimum_difference':20,'minimum_color_response':20}
 
 
 def shape_match(native,actual):
@@ -237,21 +299,34 @@ def load(check,identity,blank,view):
     return result
 
 
-def world_sample(check,label,focus,offset,opacity=1.,height_offset=32):
+def world_sample(check,label,focus,offset,opacity=1.,height_offset=32,missing=False,untagged=False):
     """Collect a blank mesh as evidence so later control samples still run."""
     before=check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
 s.origin=(foot[0]+6-focus[0],foot[1]+%r-focus[1],foot[2]+6-focus[2])
 s.opacity=%r
-s.projection_missing=False
+s.projection_missing=%r
 s.projection_outline=False
 b.project()
-_result=True''' % (tuple(focus),height_offset,opacity))
+_result=True''' % (tuple(focus),height_offset,opacity,missing))
     def ready(state):
         if state['error']:raise AssertionError(state)
         return state['active'] and state['ready'] and not state['preparing'] and state['actors']==1 and state['mesh'] and state['scale'] is not None
     state=check.wait('world mesh attaches',ready,lambda:check.run(PROJECTION_STATUS))
+    if untagged:
+        state['native_material_control']=check.run('''shader=b.projection_shader
+assert shader is not None
+assert shader.render.SetEntityExtraUniforms(4,(1.,1.,1.,1.))
+changes=[]
+for bank,parts in enumerate(shader.parts):
+ for name in parts:
+  value=%r if bank==shader.bank else 0.
+  assert shader.render.EnableActorBlockGeometryTransparent(name,True)
+  assert shader.render.SetActorBlockGeometryTransparency(name,value)
+  changes.append((name,bank,value))
+_result=json.dumps({'tagged':False,'active_bank':shader.bank,'parts':changes})
+''' % opacity)
     if check.navigation()['open']:
         check.run('navigator.pop()\n_result=True')
         check.wait('workspace closes',lambda row:not row['open'] and not row['transition'],check.navigation)
@@ -280,8 +355,57 @@ _result=json.dumps({'position':position,'rotation':rotation,'target':target})
     delta=projection_pixels(shown['path'],hidden['path'],check.output.parent/(label+'_delta.png'))
     calls=check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % before)
     state.update(pose=pose,screenshot=shown,hidden_screenshot=hidden,pixel_difference=delta,native_calls=calls,
-                 visibly_nonblank=delta['changed_pixels']>150)
+                 visibly_nonblank=delta['changed_pixels']>150,requested_opacity=opacity,
+                 projection_missing=missing,untagged_material=untagged)
     return state
+
+
+def masked_difference(shown,reference,crop,mask,output):
+    with Image.open(shown) as first,Image.open(reference) as second:
+        delta=ImageChops.difference(first.convert('RGB').crop(crop),second.convert('RGB').crop(crop))
+    channels=delta.split()
+    signal=ImageChops.lighter(ImageChops.lighter(channels[0],channels[1]),channels[2])
+    changed=ImageChops.multiply(signal.point(lambda value:255 if value>12 else 0),mask)
+    changed.save(output)
+    return {'changed_pixels':sum(changed.histogram()[1:]),'threshold':12,
+            'crop':crop,'mask_pixels':sum(mask.histogram()[1:]),'image':str(output.resolve())}
+
+
+def alpha_samples(check,label,case,view,metadata,height,missing=False,untagged=False):
+    samples={}
+    for key,opacity in (('full',1.),('half',.5),('zero',0.)):
+        load(check,case['id'],True,view)
+        samples[key]=world_sample(check,label+'_'+key,metadata['focus'],
+            view['world_offset'],opacity,height,missing,untagged)
+    full=samples['full']['screenshot']
+    width,height=full['size']
+    crop=tuple(round(value*(width if axis%2==0 else height))
+               for axis,value in enumerate(metadata['world_text_roi']))
+    panel=panel_bounds(full['path'],crop)
+    assert panel,'Alpha check needs a native wooden panel positive control'
+    mask=Image.new('L',(crop[2]-crop[0],crop[3]-crop[1]))
+    from PIL import ImageDraw
+    ImageDraw.Draw(mask).rectangle((panel[0],panel[1],panel[2]-1,panel[3]-1),fill=255)
+    compared=opacity_comparison(full['path'],samples['half']['screenshot']['path'],
+        samples['full']['hidden_screenshot']['path'],crop,mask)
+    zero=projection_pixels(samples['zero']['screenshot']['path'],
+        samples['zero']['hidden_screenshot']['path'],check.output.parent/(label+'_zero_delta.png'))
+    panel_zero=masked_difference(samples['zero']['screenshot']['path'],
+        samples['zero']['hidden_screenshot']['path'],crop,mask,
+        check.output.parent/(label+'_zero_panel_delta.png'))
+    native_contract=None
+    if untagged:
+        native_contract={'source':'vanilla sign:entity_static has no ENABLE_SET_TRANSPARENCY',
+                         'expected':'Native unmarked sign body keeps texture alpha and ignores geometry transparency',
+                         'samples':{}}
+        for key in ('half','zero'):
+            native_contract['samples'][key]=masked_difference(full['path'],samples[key]['screenshot']['path'],
+                crop,mask,check.output.parent/(label+'_'+key+'_native_unchanged.png'))
+        native_contract['passed']=all(row['changed_pixels']==0 for row in native_contract['samples'].values())
+    return {'samples':samples,'comparison':compared,'zero_difference':zero,
+            'zero_panel_difference':panel_zero,'native_contract':native_contract,
+            'positive_control':samples['full']['visibly_nonblank'],
+            'passed':native_contract['passed'] if untagged else compared['passed'] and panel_zero['changed_pixels']==0}
 
 
 def native_sample(check,row,view,blank,label,item_placement=False):
@@ -336,16 +460,30 @@ def main():
     parser.add_argument('--native-item',action='store_true',
                         help='Replace native references using actual player item placement before styling')
     parser.add_argument('--reload-shaders',action='store_true',help='Reload only the candidate actor and text shaders')
+    parser.add_argument('--native-resolution',action='store_true',
+                        help='Keep routed MCDK evidence and compare lossless client-area pixels before JPEG downsampling')
+    parser.add_argument('--response',choices=('absolute_delta','wood_composite'),default='absolute_delta',
+                        help='Diagnostic mask response; original fixed cutoffs and shape threshold stay unchanged')
+    parser.add_argument('--projection-mode',choices=('full','missing'),default='full')
+    parser.add_argument('--alpha-regression',action='store_true',
+                        help='Measure opaque, half-transparent and zero-opacity wooden panels')
+    parser.add_argument('--untagged-regression',action='store_true',
+                        help='Also measure native material transparency without the projection packet marker')
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
-    report={'schema':2,'completed':False,'passed':False,'cases':[],
-            'scope':'colored two-sided glyph shape and position/size relative to wooden panel; static text only. Alpha strength requires a separate pixel check.'}
+    report={'schema':3,'completed':False,'passed':False,'cases':[],
+            'scope':'Static colored two-sided glyph shape/layout; optional panel opacity and original unmarked sign material contract.',
+            'glyph_acceptance':'Original fixed 20-channel-delta/color cutoffs, minimum .45 shape IoU and public layout tolerance',
+            'alpha_acceptance':'Wooden panel only: contrast gain .35-.65, half blend residual <=.15; zero panel has no changed pixels >12',
+            'native_material_acceptance':'Original sign material ignores geometry transparency; unmarked wood must remain unchanged'}
+    report.update(projection_mode=args.projection_mode,response=args.response,
+                  native_resolution=args.native_resolution,alpha_cases=[])
     installed=False
     visual_saved=False
     daylight_saved=False
     masks={}
     with Client(timeout=30) as client:
-        check=BlueprintCheck(client,args.output/'report.json',args.timeout)
+        check=SignCheck(client,args.output/'report.json',args.timeout,args.native_resolution)
         try:
             if args.reload_shaders:
                 report['shader_reload']=check.run('''_result=json.dumps(dict((name,api.ReloadOneShader(name)) for name in
@@ -386,7 +524,8 @@ def main():
                     for blank in (False,True):
                         load(check,case['id'],blank,view)
                         key='blank' if blank else 'shown'
-                        world[key]=world_sample(check,label+'_projection_'+key,metadata['focus'],view['world_offset'],.85,args.height_offset)
+                        world[key]=world_sample(check,label+'_projection_'+key,metadata['focus'],view['world_offset'],.85,args.height_offset,
+                                                args.projection_mode=='missing')
                         result['samples']['projection_'+key]=world[key]
                     native={key:native_sample(check,row,view,blank,label+'_native_'+key,args.native_item)
                             for key,blank in (('shown',False),('blank',True))}
@@ -397,7 +536,8 @@ def main():
                         crop=(shots['shown']['crop'] if scope=='editor' else
                               tuple(round(value*(width if axis%2==0 else height))
                                     for axis,value in enumerate(metadata['world_text_roi'])))
-                        mask,pixels=colored_text(shots['shown']['path'],shots['blank']['path'],crop,view['color'],args.output/(label+'_'+scope+'_text.png'))
+                        mask,pixels=colored_text(shots['shown']['path'],shots['blank']['path'],crop,view['color'],args.output/(label+'_'+scope+'_text.png'),
+                                                 args.response=='wood_composite')
                         masks[(label,scope)]=mask
                         result[scope]=pixels
                         result[scope]['panel_bounds']=panel_bounds(shots['blank']['path'],crop)
@@ -410,8 +550,16 @@ def main():
                                          result[scope]['layout_comparison']['passed'] for scope in ('editor','projection'))
                     report['cases'].append(result)
                     write_json(args.output/'report.json',report)
+                    for untagged in ([False] if args.alpha_regression else [])+([True] if args.untagged_regression else []):
+                        alpha_label=label+('_native_material' if untagged else '_projection_alpha')
+                        alpha=alpha_samples(check,alpha_label,case,view,metadata,args.height_offset,
+                                            args.projection_mode=='missing',untagged)
+                        alpha.update(id=case['id'],view=view['id'],untagged_material=untagged,
+                                     projection_mode=args.projection_mode)
+                        report['alpha_cases'].append(alpha)
+                        write_json(args.output/'report.json',report)
             report['completed']=True
-            report['passed']=all(row['passed'] for row in report['cases'])
+            report['passed']=all(row['passed'] for row in report['cases']+report['alpha_cases'])
         finally:
             cleanup_errors=[]
             for label,action in (
