@@ -1,0 +1,116 @@
+# Block Entity Data Coverage
+
+This document separates the numeric entity reference, preservation of available
+payloads, and spatial field transformations. The reference is not a list of
+allowed runtime entities. Unknown identifiers and unknown fields remain data.
+
+## Versioned Entity Reference
+
+`reference/block_entities/nemc_3.9_reference.json` has `schema_version=1` and
+contains all 59 numeric IDs and names provided by the user on 2026-10-10.
+Its source is `user_provided`; its NEMC version remains unconfirmed until native
+observations provide independent evidence. Unlisted numeric IDs are not declared
+invalid or reserved.
+
+Numeric enum IDs, NBT root `id` strings, block identifiers such as
+`minecraft:chest`, and client renderer fields belong to different interfaces.
+The presence of a block name in the block registry does not prove that it has a
+block entity, and an observed NBT name does not verify its numeric enum ID.
+
+## Payload Preservation
+
+The versioned actor envelope retains separate client renderer data and tagged
+NBT when those are available. Cell storage and serialization preserve both
+without requiring an identifier from the reference. Coordinates and recognized
+spatial fields can be transformed while tags, key types and unrelated metadata
+are retained. Nested item data, commands and unknown fields remain opaque.
+
+Production capture is limited to client-visible data, as requested. The saved
+format can represent inventories, but capture does not promise to obtain hidden
+container `Items`. Reference entries are not proof that client palettes expose
+every payload or that the native renderer can display every entity. Server NBT
+used in isolated diagnostics is evidence for field semantics, not a new
+production inventory-reading or authorization channel.
+
+## Spatial Field Adapters
+
+The adapter schema in `projection/nbt_spatial.py` is version 1. Its field rules
+are independent of the numeric reference. A field is rewritten only when its
+type and range are valid; missing fields are not added and invalid fields are
+preserved.
+
+| Payload Scope | Fields | Behavior | Evidence And Limits |
+| --- | --- | --- | --- |
+| Root entity coordinates | `x`, `y`, `z` | Translate by cell displacement | Root integer coordinates only; nested fields remain opaque |
+| Root chest pairing | `pairx`, `pairz` | Translate with the cell, rotate or mirror pair offset | Valid integer pairs only; Y mirror preserves horizontal offset |
+| Client renderer direction | `facingDirection` | Transform six face directions | Uses the same geometric direction transform as native block states |
+| Client standing sign | `signStandingRotation` | Transform 16 horizontal angles | Renderer convention is the native `ground_sign_direction` convention |
+| Client double chest | `chestMainSubChest`, `chestModelOffset` | Swap halves and update model offset on X/Z mirrors | Requires `chestIsLargeChest=true`; rotations and Y mirror preserve role |
+| NBT `ShulkerBox` | `facing` | Transform six face directions | Native NEMC diagnostic confirmed Byte values 0..5 |
+| NBT `Chest` | `pairlead`, `renderlead` | Flip each valid Boolean/Byte 0..1 on X/Z mirrors | Requires valid pairing coordinates; native main half has `pairlead=1`, `renderlead=0`, and sub half has the opposite; rotations and Y mirror preserve both |
+| Any other root or nested fields | All unrecognized fields | Preserve exactly | An enum reference entry does not create a spatial adapter |
+
+Native ordinary and copper double chest diagnostics expose the same `Chest`
+NBT identifier and complementary lead fields. The rule therefore follows the
+observed entity schema rather than a separate copper block-name list.
+
+Pure geometry tests check all six Shulker faces, pair coordinate offsets, both
+chest lead fields, Byte/Boolean and byte-key preservation, inverse operations,
+four-turn closure, and unchanged inventories or nested custom fields.
+
+## Fields Awaiting Native Evidence
+
+The adjacent `bedrock-world-operator` checkout stores and encodes arbitrary
+block entity NBT but contains no entity-specific direction schemas. It is a
+reference for lossless tagged data and disk encoding, not evidence for direction
+semantics. Its `world/standard_nbt.go` and Python NBT codecs do not define
+`Skull.Rot`, `ItemFrame.ItemRotation`, or `StructureBlock` transformations.
+
+The PowerNukkitX source supplies the following leads. They are not sufficient
+to change NEMC runtime behavior without native observations:
+
+| Entity | Candidate Fields | Current Handling | Evidence Needed |
+| --- | --- | --- | --- |
+| `Skull` | `Rot` | Preserve | PowerNukkitX initializes a Byte. Native NEMC field type, 16-angle convention and wall/floor applicability still need confirmation |
+| `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Preserve | PowerNukkitX uses Byte values modulo 8; other Bedrock implementations also accept Float angles. NEMC type and local frame basis are needed for mirror semantics |
+| `StructureBlock` | Rotation, mirror, offset and size fields | Preserve | No entity schema exists in the inspected BWO checkout; native names/types and coordinate semantics must be observed |
+| `PistonArm`, `MovingBlock`, `EndGateway` and other spatial entities | Entity-specific coordinates or directions | Preserve | Native data and rules separating world coordinates from opaque saved payloads |
+
+Block-state rotation and mirroring continue to use the native registry for all
+vanilla blocks. These pending NBT-specific adapters do not restrict that
+block-state support.
+
+## Native Observation Diff
+
+`tools/diff_block_entities.py` compares the reference with either an explicit
+entity list or the existing native placement report:
+
+```powershell
+python tools/diff_block_entities.py `
+  --observed native-player-placement.json `
+  --output native-block-entity-diff.json
+```
+
+The native report path uses `actors[].cells[].nbt` root string IDs. Typed
+compounds and typed ID tags are supported; block names and case labels are
+never interpreted as entity identifiers. A client palette stored as a Python
+`repr` string is not parsed or executed.
+
+An explicit numeric observation uses this input schema:
+
+```json
+{
+  "schema_version": 1,
+  "entities": [
+    {"name": "Chest", "enum_id": 2},
+    {"name": "ShulkerBox", "enum_id": 25}
+  ]
+}
+```
+
+The versioned diff records input hashes, matched names, numeric conflicts,
+unknown observed names and names unobserved in the sample. Name-only
+observations never confirm numeric IDs. Unobserved names are coverage gaps in
+the sample, not proof of missing native support. New versions should retain
+the old reference and compare independently captured observations before
+updating source/version confirmation or adding a proven spatial field adapter.
