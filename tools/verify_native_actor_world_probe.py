@@ -15,7 +15,8 @@ from verify_sign_visuals import SignCheck
 native = wet.native
 world = wet.world
 
-PLACE = '''import mod.server.extraServerApi as api
+PLACE = '''import json,sys
+import mod.server.extraServerApi as api
 from modern_projection.server_system import WorldAdapter
 from modern_projection.projection.cell import decode,foreground,background,actor_data
 from modern_projection.projection.visible_actor import entity_nbt
@@ -28,6 +29,7 @@ dimension=factory.CreateDimension(player).GetEntityDimensionId()
 info=factory.CreateBlockInfo(player)
 items=factory.CreateItem(player)
 rotation=factory.CreateRot(player)
+blockstate=factory.CreateBlockState(api.GetLevelId())
 slot_kind=api.GetMinecraftEnum().ItemPosType.INVENTORY
 slot=next((slot for slot in range(36) if not items.GetPlayerItem(slot_kind,slot,True) or
            not items.GetPlayerItem(slot_kind,slot,True).get('count')),None)
@@ -43,9 +45,13 @@ try:
   if name not in ('minecraft:decorated_pot','minecraft:standing_sign'):continue
   support=(position[0],position[1]-1,position[2])
   assert info.GetBlockNew(support,dimension)['name']!='minecraft:air',(position,support)
+  record=states((name,aux))
+  assert record is not None,(name,aux)
+  native_aux=blockstate.GetBlockAuxValueFromStates(name.encode('utf8'),record)
+  assert native_aux is not None and native_aux>=0,(name,record,native_aux)
   info.SetBlockNew(position,{'name':'minecraft:air','aux':0},0,dimension,True,False)
   if method=='SetBlockNew':
-   assert info.SetBlockNew(position,{'name':name,'aux':aux},0,dimension,True,False)
+   assert info.SetBlockNew(position,{'name':name.encode('utf8'),'aux':native_aux},0,dimension,True,False)
   else:
    assert method=='PlayerUseItemToPos',method
    assert rotation.SetRot((0.,180.))
@@ -54,16 +60,14 @@ try:
    assert info.PlayerUseItemToPos(support,slot_kind,slot,1),(name,support)
   placed=info.GetBlockNew(position,dimension)
   assert placed['name']==name,placed
-  record=states((name,aux))
-  assert record is not None,(name,aux)
-  assert factory.CreateBlockState(api.GetLevelId()).SetBlockStates(position,record,dimension)
+  assert blockstate.SetBlockStates(position,record,dimension)
   liquid=background(value)
   liquid_result=info.SetLiquidBlock(position,{'name':liquid[0].encode('utf8'),'aux':liquid[1]},dimension)
   assert liquid[0]=='minecraft:air' or liquid_result is not False,(position,liquid_result)
   nbt=entity_nbt(actor_data(value))
   assert nbt is not None,(name,position)
   assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
-  rows.append({'position':position,'requested':wire,'method':method,'placed':placed,
+  rows.append({'position':position,'requested':wire,'method':method,'native_aux':native_aux,'placed':placed,
    'aligned':info.GetBlockNew(position,dimension),'liquid':info.GetLiquidBlock(position,dimension),
    'nbt':info.GetBlockEntityData(dimension,position)})
   items.SetInvItemNum(slot,0)
