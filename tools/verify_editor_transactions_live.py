@@ -136,6 +136,47 @@ _result=json.dumps({'passed':True,'config_version':6,'share_prefix':text[:4],
  'share_bytes':len(text),'typed_actor_preserved':True,'legacy_config_version':1})
 '''
 
+WATER_BEHAVIORS = '''from modern_projection.projection.cell import actor_data
+from modern_projection.projection.debug_blueprints import VISUAL_CASES
+from modern_projection.projection.debug_water_blueprints import dry_state
+case=VISUAL_CASES['water_behaviors']
+source=build(case['fixture'])
+flow=material('water',{'liquid_depth':3})
+rows=[]
+e.edit_layer=2
+for row in case['cells']:
+ dry=dry_state(row['name'])
+ expected_cell=source.get(row['source'])
+ expected=make_cell(foreground(expected_cell),background(expected_cell))
+ for first,second in ((dry,water),(water,dry)):
+  ordered_expected=dry if first==water and foreground(expected)==water else expected
+  e.document.blocks[pos]=AIR
+  before=snapshot()
+  assert place(first)>0
+  first_state=snapshot()
+  assert place(second)>0
+  assert e.document.get(pos)==ordered_expected,(row['name'],e.document.get(pos),ordered_expected)
+  assert s.action(e.undo) and snapshot()==first_state
+  assert s.action(e.redo) and e.document.get(pos)==ordered_expected
+  assert s.action(e.undo) and s.action(e.undo) and snapshot()==before
+ e.document.blocks[pos]=flow
+ assert place(dry)>0
+ assert foreground(e.document.get(pos))==dry and background(e.document.get(pos))==AIR
+ e.document.blocks[pos]=dry
+ e.edit_layer=1
+ assert place(water)>0
+ assert e.document.get(pos)==make_cell(dry,water)
+ e.edit_layer=2
+ e.document.blocks[pos]=AIR
+ rows.append(row['key'])
+e.document.blocks[pos]=make_cell(material('campfire',{'extinguished':False}),AIR,{'retained':7})
+assert place(water)>0
+assert registry.states(foreground(e.document.get(pos)))['extinguished']
+assert actor_data(e.document.get(pos))=={'retained':7}
+_result=json.dumps({'passed':True,'fixture':case['fixture'],'cases':len(rows),
+ 'keys':rows,'orders':2,'flow_depth':3,'strict_layer_keeps_snapshot':True,'actor_preserved':True})
+'''
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -155,6 +196,7 @@ def main():
                     if size[0] > 16:
                         check.run('pos=(15,7,15)\n_result=True')
                     row['water'] = check.run(WATER)
+                    row['water_behaviors'] = check.run(WATER_BEHAVIORS)
                     row['snow'] = check.run(SNOW)
                     row['groups'] = check.run(GROUPS)
                     check.run(SELECTION)
