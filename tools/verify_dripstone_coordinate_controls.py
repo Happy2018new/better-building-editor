@@ -9,7 +9,7 @@ from projection.debug_dripstone_blueprints import METADATA
 from projection.render_context import CONTEXT_CENTER, CONTEXT_STRIDE
 
 
-def configure(source_shift, world_shift):
+def configure(source_shift, world_shift, camera_axis='z'):
     native, world = suite.native, suite.world
     original = tuple(tuple(pos) for pos in suite.metadata['merged_tips'])
     delta = (source_shift[0], 0, source_shift[1])
@@ -32,7 +32,16 @@ s.editor.document=doc
         'sys._neighbor_qa_origin=tuple(s.origin)' % tuple(world_shift), 1)
     native.VISUAL_CASES = {'merged_tips': positions}
     world.CASES = ('merged_tips',)
-    return {'source_shift': source_shift, 'world_shift': world_shift,
+    if camera_axis == 'x':
+        original_offset = native.view_offset
+
+        def orthogonal_offset(keep, occupied, view, override=None):
+            if view == 'side' and override is None:
+                return (8., 0., 0.)
+            return original_offset(keep, occupied, view, override)
+
+        native.view_offset = orthogonal_offset
+    return {'source_shift': source_shift, 'world_shift': world_shift, 'camera_axis': camera_axis,
             'source_positions': positions,
             'packed_positions': [tuple((pos[i] & 15) * CONTEXT_STRIDE + CONTEXT_CENTER for i in range(3))
                                  for pos in positions],
@@ -43,11 +52,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-shift', type=int, nargs=2, default=(0, 0), metavar=('X', 'Z'))
     parser.add_argument('--world-shift', type=int, nargs=2, default=(0, 0), metavar=('X', 'Z'))
+    parser.add_argument('--camera-axis', choices=('x', 'z'), default='z',
+                        help='Fixed distance-eight side view along an independent axis')
     parser.add_argument('--capture-helper', type=Path, required=True)
     options, remaining = parser.parse_known_args()
     if not remaining or remaining[0].startswith('-'):
         parser.error('Supply the output JSON first, followed by the visual suite options')
-    configuration = configure(options.source_shift, options.world_shift)
+    configuration = configure(options.source_shift, options.world_shift, options.camera_axis)
     from verify_neighbor_native_png import main as capture
     sys.argv = [sys.argv[0], '--suite', 'dripstone', '--capture-helper', str(options.capture_helper)] + remaining
     output = Path(remaining[0])
