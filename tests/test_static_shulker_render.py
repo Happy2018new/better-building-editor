@@ -114,7 +114,7 @@ class StaticShulkerTests(unittest.TestCase):
                          static_proxy(foreground(value), {'facingDirection': 3}))
         self.assertEqual(('modern_projection:preview_shulker_purple_1', 0),
                          static_proxy(foreground(value), {'facingDirection': True}))
-        self.assertIsNone(static_proxy(('minecraft:chest', 0), actor))
+        self.assertIsNone(static_proxy(('minecraft:stone', 0), actor))
 
     def test_all_proxy_blocks_are_hidden_from_both_engine_creative_and_material_picker(self):
         for names in SHULKER_PROXIES.values():

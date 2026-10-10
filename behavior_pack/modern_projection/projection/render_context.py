@@ -2,6 +2,7 @@
 from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
+from .entity_render import document_chest_part
 from .large_preview import MAX_SURFACE_BLOCKS
 from .nbt_spatial import rebase
 from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
@@ -150,10 +151,12 @@ class ContextPaletteBuilder(object):
         identity = chunk if isinstance(chunk, integer_types) else chunk[index]
         if not identity:
             return None
-        if identity in self.cache:
-            return self.cache[identity]
         value = self.document.blocks.palette[identity]
         front, back, actor = foreground(value), background(value), actor_data(value)
+        part = document_chest_part(self.document, (x, y, z), front)
+        cache_key = identity if part is None else (identity, part)
+        if cache_key in self.cache:
+            return self.cache[cache_key]
         source = {'volume': (1, 1, 1), 'common': {}, 'extra': {}, 'actor': {}}
         if front != AIR:
             source['common'][front] = [0]
@@ -161,10 +164,10 @@ class ContextPaletteBuilder(object):
             source['extra'][back] = [0]
         if actor is not None:
             source['actor'][front[0]] = {0: actor}
-        rendered = prepare_palette(source)
+        rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
-        self.cache[identity] = result
+        self.cache[cache_key] = result
         if self.data is not None:
             self.data['states'].update(result[2])
             self.data['extraStates'].update(result[3])

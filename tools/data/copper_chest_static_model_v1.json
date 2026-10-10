@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "source": {
+    "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+    "textures": "data/resource_packs/vanilla/textures/entity/chest",
+    "geometry_reference": "https://github.com/eldariamc/client/tree/c01d23eb05ed83abb4fee00f9bf603b6bc3e2e27/src/main/java/net/minecraft/client/model",
+    "single_geometry_blob_sha1": "d696245e214bd249cabe9564c65ba14ccdc6a03f",
+    "double_geometry_blob_sha1": "a6b2ec8d8a8f699b839c97b42eb87391d77dfd3f",
+    "attribution": "Minecraft ModelChest / ModelLargeChest, Mojang AB. Dimensions and UV offsets transcribed; no source code or texture bytes distributed.",
+    "evidence": "Native copper atlases have the same 64x64 / 128x64 box layout as ordinary closed chests. Static appearance requires separate native world pixel comparison."
+  },
+  "single": {
+    "texturewidth": 64,
+    "textureheight": 64,
+    "cubes": [
+      {"name": "base", "origin": [-15, 0, 1], "size": [14, 10, 14], "uv": [0, 19]},
+      {"name": "lid", "origin": [-15, 9, 1], "size": [14, 5, 14], "uv": [0, 0]},
+      {"name": "lock", "origin": [-9, 7, 15], "size": [2, 4, 1], "uv": [0, 0]}
+    ]
+  },
+  "double": {
+    "texturewidth": 128,
+    "textureheight": 64,
+    "cubes": [
+      {"name": "base", "origin": [-15, 0, 1], "size": [30, 10, 14], "uv": [0, 19]},
+      {"name": "lid", "origin": [-15, 9, 1], "size": [30, 5, 14], "uv": [0, 0]},
+      {"name": "lock", "origin": [-1, 7, 15], "size": [2, 4, 1], "uv": [0, 0]}
+    ]
+  },
+  "rotations": {"south": [0, 0, 0], "west": [0, 90, 0], "north": [0, 180, 0], "east": [0, 270, 0]},
+  "texture_paths": {
+    "default": "textures/entity/chest/copper_default",
+    "exposed": "textures/entity/chest/copper_exposed",
+    "weathered": "textures/entity/chest/copper_weathered",
+    "oxidized": "textures/entity/chest/copper_oxidized"
+  },
+  "extra_texture_paths": {
+    "normal": {"single": "textures/entity/chest/normal", "double": "textures/entity/chest/double_normal"},
+    "trapped": {"single": "textures/entity/chest/trapped", "double": "textures/entity/chest/trapped_double"},
+    "ender": {"single": "textures/entity/chest/ender"}
+  }
+}

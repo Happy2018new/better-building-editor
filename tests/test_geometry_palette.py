@@ -16,25 +16,33 @@ from projection.model import Document
 from projection.visible_actor import compose_actor, render_actor
 from projection.render_layout import OVERLAY_BASE, overlay_index
 from projection.debug_blueprints import build
+from projection.entity_render import COPPER_CHEST_PROXIES
 
 
 class GeometryPaletteTests(unittest.TestCase):
-    def test_copper_double_chest_fixture_reaches_native_palette_with_both_roles(self):
+    def test_copper_double_chest_fixture_keeps_both_roles_through_render_adapter(self):
         document = build('test.connections.context')
+        before = copy.deepcopy(document.to_data())
+        source = document.palette_data()
         result = prepare_palette(document.palette_data())
         material = ('minecraft:copper_chest', 2)
         positions = ((26, 1, 10), (27, 1, 10))
         indices = tuple((pos[1] * 32 + pos[0]) * 32 + pos[2] for pos in positions)
-        self.assertEqual(list(indices), result['common'][material])
-        self.assertEqual({'minecraft:cardinal_direction': 'north'}, result['states'][material])
-        self.assertEqual(set(indices), set(result['actor'][material[0]]))
+        self.assertEqual(list(indices), source['common'][material])
+        self.assertEqual({'minecraft:cardinal_direction': 'north'}, states(material))
+        self.assertEqual(set(indices), set(source['actor'][material[0]]))
+        self.assertNotIn(material, result['common'])
+        self.assertNotIn(material[0], result['actor'])
         for pos, index, main in zip(positions, indices, (True, False)):
-            payload = result['actor'][material[0]][index]
+            payload = render_actor(source['actor'][material[0]][index])
             self.assertEqual(render_actor(actor_data(document.get(pos))), payload)
             self.assertTrue(payload['chestIsLargeChest'])
             self.assertEqual(main, payload['chestMainSubChest'])
             self.assertEqual(0. if main else -.5, payload['chestModelOffset'])
             self.assertEqual(2, payload['facingDirection'])
+            proxy = COPPER_CHEST_PROXIES[material[0]][('north', 'main' if main else 'sub')]
+            self.assertEqual([index], result['common'][(proxy, 0)])
+        self.assertEqual(before, document.to_data())
 
     def test_all_legacy_species_and_lifecycle_bits_use_the_matching_proxy(self):
         species = ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak')
@@ -156,9 +164,10 @@ class GeometryPaletteTests(unittest.TestCase):
         self.assertIn(('minecraft:water', 0), render['extraStates'])
         self.assertIn(('minecraft:snow_layer', 3), render['extraStates'])
         self.assertEqual({('modern_projection:preview_oak_leaves', 0): [0],
-                          ('minecraft:chest', 0): [1],
+                      ('modern_projection:preview_chest_normal_south_single', 0): [1],
                           ('minecraft:stone', 0): [2]}, render['common'])
-        self.assertEqual({'minecraft:chest': {1: chest_data}}, render['actor'])
+        self.assertEqual({}, render['actor'])
+        self.assertEqual({'minecraft:chest': {1: chest_data}}, native_data['actor'])
         self.assertEqual(saved, native_data)
 
     def test_native_actor_boundary_only_exposes_client_render_payload(self):
@@ -166,9 +175,9 @@ class GeometryPaletteTests(unittest.TestCase):
                   'chestMainSubChest': True, 'chestModelOffset': 0.0}
         nbt = {'Items': {'__type__': 9, '__value__': [
             {'Name': {'__type__': 8, '__value__': 'minecraft:diamond'}}]}}
-        source = {'common': {('minecraft:chest', 2): [0, 1, 2],
+        source = {'common': {('minecraft:barrel', 2): [0, 1, 2],
                              ('minecraft:purple_shulker_box', 0): [3, 4]},
-                  'actor': {'minecraft:chest': {0: compose_actor(render, nbt),
+                  'actor': {'minecraft:barrel': {0: compose_actor(render, nbt),
                                                1: nbt, 2: compose_actor(None, nbt)},
                             'minecraft:purple_shulker_box': {
                                 3: compose_actor({}, nbt), 4: {}}}}
@@ -176,10 +185,10 @@ class GeometryPaletteTests(unittest.TestCase):
 
         result = prepare_palette(source)
 
-        self.assertEqual({'minecraft:chest': {0: render}}, result['actor'])
+        self.assertEqual({'minecraft:barrel': {0: render}}, result['actor'])
         self.assertEqual([3, 4], result['common'][('modern_projection:preview_shulker_purple_1', 0)])
         self.assertEqual(saved, source)
-        self.assertNotIn('Items', result['actor']['minecraft:chest'][0])
+        self.assertNotIn('Items', result['actor']['minecraft:barrel'][0])
 
     def test_native_actor_boundary_drops_names_with_no_client_payload(self):
         typed = {'__type__': 10, '__value__': {

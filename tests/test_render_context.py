@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.cell import make_cell
+from projection.entity_render import CHEST_DIRECTIONS, CHEST_PROXIES
 from projection.debug_blueprints import BLUEPRINTS, build, material
 from projection.model import Document
 from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, TARGETS_PER_UNIT,
@@ -110,7 +111,7 @@ class RenderContextTests(unittest.TestCase):
 
     def test_actor_absolute_positions_pair_coordinates_and_nested_item_data_are_independent(self):
         first, second = (5, 2, 3), (6, 2, 3)
-        chest = material('chest')
+        chest = material('barrel')
         actor = {'x': 6, 'y': 2, 'z': 3, 'pairx': 5, 'pairz': 3,
                  'chestIsLargeChest': True, 'chestModelOffset': -.5,
                  'opaque': {'x': 99, 'y': 98, 'z': 97}}
@@ -156,6 +157,43 @@ class RenderContextTests(unittest.TestCase):
         proxy = ('modern_projection:preview_shulker_purple_5', 0)
         self.assertEqual([index(context_position(target), result['volume'])], result['common'][proxy])
         self.assertEqual({}, result['actor'])
+
+    def test_hidden_chest_partner_keeps_each_static_half_in_incremental_context(self):
+        deltas = {'north': (1, 0, 0), 'south': (-1, 0, 0),
+                  'east': (0, 0, 1), 'west': (0, 0, -1)}
+        for name in CHEST_PROXIES:
+            if name == 'minecraft:ender_chest':
+                continue
+            for direction in CHEST_DIRECTIONS:
+                front = registry.from_states(name, {'minecraft:cardinal_direction': direction})
+                first = (15, 1, 15)
+                second = tuple(first[axis] + deltas[direction][axis] for axis in range(3))
+                doc = Document((32, 4, 32), {first: front, second: front})
+                saved = copy.deepcopy(doc.to_data())
+                for visible in (first, second):
+                    with self.subTest(name=name, direction=direction, visible=visible):
+                        target = doc.palette_data(lambda pos: pos == visible)
+                        builder = self.assert_incremental_matches_reference(doc, target)
+                        result = builder.data
+                        self.assertEqual({}, result['actor'])
+                        for original, part in ((first, 'main'), (second, 'sub')):
+                            delta = tuple(original[axis] - visible[axis] for axis in range(3))
+                            proxy = (CHEST_PROXIES[name][(direction, part)], 0)
+                            self.assertEqual([index(context_position(visible, delta), result['volume'])],
+                                             result['common'][proxy])
+                        centers = {logical_position(tuple(axis + .5 for axis in position(cell, result['volume'])))
+                                   for entries in result['common'].values() for cell in entries
+                                   if context_center(tuple(axis + .5 for axis in position(cell, result['volume'])))}
+                        self.assertEqual({tuple(axis + .5 for axis in visible)}, centers)
+                self.assertEqual(saved, doc.to_data())
+
+    def test_explicit_single_chest_is_not_inferred_as_a_pair_by_either_context_path(self):
+        chest = material('copper_chest', {'minecraft:cardinal_direction': 'north'})
+        doc = Document((4, 2, 4), {(1, 1, 1): chest, (2, 1, 1): make_cell(
+            chest, nbt=compose_actor({'chestIsLargeChest': False}, None))})
+        builder = self.assert_incremental_matches_reference(doc, doc.palette_data())
+        proxy = (CHEST_PROXIES[chest[0]][('north', 'single')], 0)
+        self.assertEqual({proxy}, set(builder.data['common']))
 
     def test_no_visible_targets_and_boundary_cells_do_not_manufacture_neighbors(self):
         doc = Document((1, 1, 1), {(0, 0, 0): material('stone')})

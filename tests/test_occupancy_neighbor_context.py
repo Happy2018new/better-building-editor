@@ -25,10 +25,9 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         stair = lambda direction: registry.from_states('minecraft:oak_stairs', {
             'weirdo_direction': direction, 'upside_down_bit': False})
         water = ('minecraft:water', 0)
-        chest = registry.from_states('minecraft:chest', {
-            'minecraft:cardinal_direction': 'north'})
-        render = {'chestIsLargeChest': False, 'x': 14, 'y': 1, 'z': 8}
-        nbt = {'id': {'__type__': 8, '__value__': 'Chest'}}
+        chest = registry.from_states('minecraft:barrel', {'facing_direction': 2, 'open_bit': False})
+        render = {'facingDirection': 2, 'x': 14, 'y': 1, 'z': 8}
+        nbt = {'id': {'__type__': 8, '__value__': 'Barrel'}}
         document = Document((32, 16, 16), {
             base: make_cell(stair(0), water),
             corner: make_cell(stair(3), water),
@@ -72,7 +71,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
             self.assertIn(index, actual['common'][tuple(value)])
             self.assertEqual(registry.states(tuple(value)), actual['states'][tuple(value)])
         self.assertEqual(occupied, set(actual['extra'][('minecraft:water', 0)]))
-        actor = next(iter(actual['actor']['minecraft:chest'].values()))
+        actor = next(iter(actual['actor']['minecraft:barrel'].values()))
         self.assertNotIn('nbt', actor)
         self.assertEqual(context_position(target, (-1, 0, 0)), tuple(actor[axis] for axis in ('x', 'y', 'z')))
         centers = set()
@@ -90,7 +89,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         indices = {tracker.index(pos) for pos in (base, corner, chest)}
         self.assertEqual(indices, {index for group in data['common'].values() for index in group})
         self.assertEqual(indices, set(data['extra'][('minecraft:water', 0)]))
-        self.assertEqual({'minecraft:chest': {tracker.index(chest): render}}, data['actor'])
+        self.assertEqual({'minecraft:barrel': {tracker.index(chest): render}}, data['actor'])
 
     def test_small_initial_geometry_submits_full_context_to_actual_native_boundary(self):
         document, tracker, base, unused, unused2, unused3 = self.fixture()

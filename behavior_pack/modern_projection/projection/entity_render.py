@@ -1,6 +1,7 @@
 """Versioned static render adapters for verified native palette pose failures."""
 from __future__ import unicode_literals
-from .cell import integer_types, freeze, thaw
+from .cell import actor_data, foreground, integer_types, freeze, thaw
+from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import render_actor, entity_nbt
 
@@ -12,7 +13,25 @@ SHULKER_PROXIES = dict(
     ('minecraft:' + color + '_shulker_box', tuple(
         'modern_projection:preview_shulker_' + color + '_' + str(facing)
         for facing in range(6))) for color in SHULKER_COLORS)
-INTERNAL_BLOCKS = frozenset(name for names in SHULKER_PROXIES.values() for name in names)
+CHEST_DIRECTIONS = ('south', 'west', 'north', 'east')
+COPPER_CHEST_STAGES = ('default', 'exposed', 'weathered', 'oxidized')
+COPPER_CHEST_PROXIES = dict(
+    ('minecraft:' + ('waxed_' if waxed else '') +
+     ('' if stage == 'default' else stage + '_') + 'copper_chest',
+     dict(((direction, part), 'modern_projection:preview_copper_chest_' +
+           stage + '_' + direction + '_' + part)
+          for direction in CHEST_DIRECTIONS for part in ('single', 'main', 'sub')))
+    for stage in COPPER_CHEST_STAGES for waxed in (False, True))
+CHEST_PROXIES = dict(COPPER_CHEST_PROXIES)
+CHEST_PROXIES.update(dict(
+    ('minecraft:' + name, dict(((direction, part),
+        'modern_projection:preview_chest_' + stage + '_' + direction + '_' + part)
+        for direction in CHEST_DIRECTIONS
+        for part in (('single',) if name == 'ender_chest' else ('single', 'main', 'sub'))))
+    for name, stage in (('chest', 'normal'), ('trapped_chest', 'trapped'), ('ender_chest', 'ender'))))
+INTERNAL_BLOCKS = frozenset(
+    [name for names in SHULKER_PROXIES.values() for name in names] +
+    [name for names in CHEST_PROXIES.values() for name in names.values()])
 
 
 def native_actor(material, actor):
@@ -69,7 +88,35 @@ def _bed_actor(material, actor, renderer):
     return renderer
 
 
-def static_proxy(material, actor):
+def _chest_part(actor):
+    renderer = root_payload(render_actor(actor))
+    paired = scalar(renderer, 'chestIsLargeChest') if renderer is not None else None
+    if paired is None:
+        return None
+    if not paired:
+        return 'single'
+    main = scalar(renderer, 'chestMainSubChest')
+    return None if main is None else ('main' if main else 'sub')
+
+
+def chest_proxy(material, actor, inferred_part=None):
+    names = CHEST_PROXIES.get(material[0])
+    if names is None:
+        return None
+    properties = states(material)
+    direction = properties.get('minecraft:cardinal_direction') if properties else None
+    if direction not in CHEST_DIRECTIONS:
+        return None
+    part = _chest_part(actor) or inferred_part or 'single'
+    if material[0] == 'minecraft:ender_chest':
+        part = 'single'
+    return (names[(direction, part)], 0)
+
+
+def static_proxy(material, actor, inferred_part=None):
+    chest = chest_proxy(material, actor, inferred_part)
+    if chest is not None:
+        return chest
     names = SHULKER_PROXIES.get(material[0])
     if names is None:
         return None
@@ -83,16 +130,79 @@ def static_proxy(material, actor):
     return (names[facing], 0)
 
 
-def prepare_static_entities(entries, actors):
+def _adjacent_chest_parts(value, positions, volume, payloads):
+    if volume is None or value[0] == 'minecraft:ender_chest':
+        return {}
+    properties = states(value)
+    direction = properties.get('minecraft:cardinal_direction') if properties else None
+    if direction not in CHEST_DIRECTIONS:
+        return {}
+    depth, width = volume[:2]
+    delta = {'north': depth, 'south': -depth, 'east': 1, 'west': -1}[direction]
+    available = set(index for index in positions if _chest_part(payloads.get(index)) != 'single')
+    result = {}
+    for index in positions:
+        if index not in available:
+            continue
+        x, z = index // depth % width, index % depth
+        neighbors = []
+        for offset, main in ((delta, True), (-delta, False)):
+            candidate = index + offset
+            if candidate not in available or candidate < 0:
+                continue
+            cx, cz = candidate // depth % width, candidate % depth
+            if index // (width * depth) == candidate // (width * depth) and abs(x - cx) + abs(z - cz) == 1:
+                neighbors.append((candidate, main))
+        if len(neighbors) == 1:
+            result[index] = 'main' if neighbors[0][1] else 'sub'
+    # Only mutual single-neighbor pairs may form a large chest.
+    return dict((index, part) for index, part in result.items()
+                if result.get(index + (delta if part == 'main' else -delta)) ==
+                ('sub' if part == 'main' else 'main'))
+
+
+def document_chest_part(document, position, material):
+    """Infer a missing client pair pose using the complete logical snapshot."""
+    if material[0] not in CHEST_PROXIES or material[0] == 'minecraft:ender_chest':
+        return None
+    properties = states(material)
+    direction = properties.get('minecraft:cardinal_direction') if properties else None
+    delta = {'north': (1, 0, 0), 'south': (-1, 0, 0),
+             'east': (0, 0, 1), 'west': (0, 0, -1)}.get(direction)
+    if delta is None:
+        return None
+
+    def neighbors(pos):
+        result = []
+        for sign in (1, -1):
+            candidate = tuple(pos[axis] + sign * delta[axis] for axis in range(3))
+            value = document.blocks.get(candidate)
+            if (value is not None and foreground(value) == material and
+                    _chest_part(actor_data(value)) != 'single'):
+                result.append((candidate, sign))
+        return result
+
+    adjacent = neighbors(position)
+    if len(adjacent) != 1 or len(neighbors(adjacent[0][0])) != 1:
+        return None
+    return 'main' if adjacent[0][1] == 1 else 'sub'
+
+
+def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=None):
     """Replace only render cells; return actor slots consumed by static meshes."""
     result, replaced = {}, set()
     for value, positions in entries.items():
-        if value[0] not in SHULKER_PROXIES:
+        if value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES:
             result.setdefault(value, []).extend(positions)
             continue
         payloads = actors.get(value[0], actors.get(value[0].encode('utf8'), {}))
+        parts = _adjacent_chest_parts(value, positions, volume, payloads) if value[0] in CHEST_PROXIES else {}
         for index in positions:
-            proxy = static_proxy(value, payloads.get(index))
+            inferred = (inferred_chest_parts or {}).get((value[0], index), parts.get(index))
+            proxy = static_proxy(value, payloads.get(index), inferred)
+            if proxy is None:
+                result.setdefault(value, []).append(index)
+                continue
             result.setdefault(proxy, []).append(index)
             replaced.add((value[0], index))
     return result, replaced
