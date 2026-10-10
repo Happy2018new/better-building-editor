@@ -53,6 +53,8 @@ else:
   doc.blocks[pos]=rebase(blueprint.get(point),delta)
 sys._blueprint_qa_identity='entity.'+source+'.'+identity
 sys._blueprint_qa_nonce+=1
+sys._blueprint_qa_expected={'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
+ 'previous_document_id':id(s.editor.document),'editor_id':None}
 s._loaded(doc)
 s.camera_pivot=tuple(v+.5 for v in focus)
 s.camera_view(*case['isolated_camera']['editor'])
