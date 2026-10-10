@@ -24,7 +24,7 @@ def native_tree(value):
 factory = api.GetEngineCompFactory()
 player = api.GetPlayerList()[0]
 dimension = factory.CreateDimension(player).GetEntityDimensionId()
-info = factory.CreateBlockInfo(api.GetLevelId())
+info = factory.CreateBlockInfo(player)
 blockstate = factory.CreateBlockState(api.GetLevelId())
 blocks = factory.CreateBlock(api.GetLevelId())
 foot = factory.CreatePos(player).GetFootPos()
