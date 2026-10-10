@@ -28,11 +28,13 @@ VISUAL_CASES = {
     'copper_chest_keep_sub': ((27, 1, 10), (26, 1, 10)),
     'copper_chest_keep_main': ((26, 1, 10), (27, 1, 10)),
 }
+VIEWS = ('top', 'side', 'under')
 
 INSTALL_OBSERVER = '''import modern_projection.projection.occupancy as occupancy_module
 assert not hasattr(sys,'_neighbor_qa_saved'), 'A previous neighbor probe needs cleanup'
 sys._neighbor_qa_saved=occupancy_module.ProjectionOccupancy
 sys._neighbor_qa_occupied=set()
+sys._neighbor_qa_owner=owner
 class BlueprintNeighborOccupancy(occupancy_module.ProjectionOccupancy):
  def __init__(self,*args,**kwargs):
   sys._neighbor_qa_saved.__init__(self,*args,**kwargs)
@@ -49,8 +51,9 @@ RESTORE_OBSERVER = '''import modern_projection.projection.occupancy as occupancy
 occupancy_module.ProjectionOccupancy=sys._neighbor_qa_saved
 del sys._neighbor_qa_saved
 del sys._neighbor_qa_occupied
-if hasattr(sys,'_neighbor_qa_document'):del sys._neighbor_qa_document
-if hasattr(sys,'_neighbor_qa_history'):del sys._neighbor_qa_history
+for field in ('document','history','source','editor','origin','owner','camera'):
+ name='_neighbor_qa_'+field
+ if hasattr(sys,name):delattr(sys,name)
 _result=True
 '''
 
@@ -66,10 +69,76 @@ _result=json.dumps({'active':s.projection_active,'actors':ids,'preparing':bool(b
  'changed':len(t.changed) if t is not None else 0,
  'state':t.state[t.index(%r)] if t is not None else None,
  'target_tracked':%r in t.targets if t is not None else False,
+ 'has_occupancy':t is not None,
  'document_preserved':s.editor.document.blocks==sys._neighbor_qa_document,
  'occupancy_document_preserved':t.document.blocks==sys._neighbor_qa_document if t is not None else False,
  'history_preserved':(len(s.editor.undo_stack),len(s.editor.redo_stack))==sys._neighbor_qa_history,
+ 'source_reference_preserved':owner is sys._neighbor_qa_owner and s.editor is sys._neighbor_qa_editor and
+  s.editor.document is sys._neighbor_qa_source and tuple(s.origin)==sys._neighbor_qa_origin,
+ 'fixture_preserved':sys._blueprint_qa_identity==%r,
+ 'projection_serial':b.projection_serial,
  'player':b.player_position.GetFootPos()})
+'''
+
+CROP_FIXTURE = '''from modern_projection.projection.cell import AIR
+keep=%r
+neighbor=%r
+doc=s.editor.document
+assert doc.get(keep)!=AIR and doc.get(neighbor)!=AIR
+for pos in tuple(doc.blocks):
+ if pos[1]==0 or not (min(keep[0],neighbor[0])-3<=pos[0]<=max(keep[0],neighbor[0])+3 and
+                     min(keep[2],neighbor[2])-3<=pos[2]<=max(keep[2],neighbor[2])+3):
+  doc.blocks[pos]=AIR
+sys._neighbor_qa_document=doc.blocks.copy()
+sys._neighbor_qa_history=(len(s.editor.undo_stack),len(s.editor.redo_stack))
+sys._neighbor_qa_editor=s.editor
+sys._neighbor_qa_source=doc
+sys._neighbor_qa_occupied.clear()
+foot=b.player_origin()
+center=tuple((keep[i]+neighbor[i]+1.)/2. for i in range(3))
+s.origin=tuple(int(foot[i]+(6,8,6)[i]-center[i]) for i in range(3))
+sys._neighbor_qa_origin=tuple(s.origin)
+s.opacity=%r
+s.projection_missing=True
+s.projection_outline=False
+b.project()
+_result=json.dumps({'size':doc.size,'cells':len(doc.blocks),'source':'built-in fixture; platform and remote categories cropped'})
+'''
+
+SET_CAMERA = '''keep=%r
+neighbor=%r
+offset=%r
+assert tuple(s.origin)==sys._neighbor_qa_origin
+target=tuple(s.origin[i]+(keep[i]+neighbor[i]+1.)/2. for i in range(3))
+position=tuple(target[i]+offset[i] for i in range(3))
+direction=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
+rotation=(direction[0],direction[1]+180.,0.)
+cam=b.factory.CreateCamera(b.level)
+cam.DepartCamera()
+cam.LockModCameraPitch(True)
+cam.LockModCameraYaw(True)
+assert cam.SetCameraPos(position)
+assert cam.SetCameraRotation(rotation)
+sys._neighbor_qa_camera={'position':position,'rotation':rotation,'target':target}
+_result=json.dumps(sys._neighbor_qa_camera)
+'''
+
+CAMERA_STATE = '''cam=b.factory.CreateCamera(b.level)
+_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'screen':b.factory.CreateGame(b.level).GetScreenSize()})
+'''
+
+CELL_ROIS = '''cam=b.factory.CreateCamera(b.level)
+cells=[]
+for pos in s.editor.document.blocks:
+ points=[]
+ for dx in (.03,.97):
+  for dy in (0.,1.6):
+   for dz in (.03,.97):
+    world=tuple(s.origin[i]+pos[i]+(dx,dy,dz)[i] for i in range(3))
+    points.append(cam.WorldToScreenPoint(*world))
+ cells.append({'pos':pos,'points':points})
+_result=json.dumps({'cells':cells,'screen':b.factory.CreateGame(b.level).GetScreenSize()})
 '''
 
 
@@ -169,22 +238,28 @@ def compare_pixels(baseline, actual, masks, prefix, min_pixels, threshold):
     remaining_passed = (valid and shape['recall_1px'] >= .93 and shape['precision_1px'] >= .93 and
                         edges['recall_1px'] >= .75 and edges['precision_1px'] >= .75 and max(color) <= 20)
     hidden_passed = valid and residual <= .05
+    failures = []
+    if not valid:
+        failures.append('insufficient_observable_native_baseline')
+    else:
+        if not remaining_passed:
+            failures.append('remaining_native_pixels_changed')
+        if not hidden_passed:
+            failures.append('occupied_cell_native_pixels_remain')
     artifacts = {}
     for label, value, roi in (('baseline_remaining', baseline, keep_roi),
                             ('actual_remaining', actual, keep_roi),
                             ('baseline_hidden', baseline, hidden_roi),
                             ('actual_hidden', actual, hidden_roi)):
         path = prefix.with_name(prefix.name + '_' + label + '.png')
-        box = roi.getbbox()
-        if box is None:
-            raise AssertionError('Empty acceptance ROI: ' + label)
+        box = roi.getbbox() or (0, 0, value.width, value.height)
         masked = ImageChops.multiply(value, Image.merge('RGB', (roi, roi, roi)))
         masked.crop(box).save(path)
         artifacts[label] = str(path.resolve())
     delta_path = prefix.with_name(prefix.name + '_signal_delta.png')
     ImageChops.difference(baseline, actual).save(delta_path)
     artifacts['signal_delta'] = str(delta_path.resolve())
-    return {'passed': remaining_passed and hidden_passed, 'valid_baseline': valid,
+    return {'passed': remaining_passed and hidden_passed, 'valid_baseline': valid, 'failures': failures,
             'remaining_passed': remaining_passed, 'hidden_passed': hidden_passed,
             'remaining_shape': shape, 'remaining_edges': edges, 'remaining_color_error': color,
             'hidden_baseline_pixels': hidden_before, 'hidden_actual_pixels': hidden_after,
@@ -194,10 +269,30 @@ def compare_pixels(baseline, actual, masks, prefix, min_pixels, threshold):
             'artifacts': artifacts}
 
 
-def capture_signal(check, label):
-    actors = check.run('_result=json.dumps(list(b.projection_entities.values())+([b.entity] if b.entity else []))')
-    assert actors, 'No projection actors to capture'
+def camera_matches(actual, expected):
+    position = all(abs(actual['position'][i] - expected['position'][i]) < .02 for i in range(3))
+    rotation = all(abs((actual['rotation'][i] - expected['rotation'][i] + 180.) % 360. - 180.) < .2
+                   for i in range(3))
+    return position and rotation
+
+
+def source_state(check, occupied):
+    state = check.run(PROJECTION_STATE % (occupied, occupied, FIXTURE))
+    fields = ('document_preserved', 'history_preserved',
+              'source_reference_preserved', 'fixture_preserved')
+    assert all(state[field] for field in fields), state
+    assert not state['has_occupancy'] or state['occupancy_document_preserved'], state
+    return state
+
+
+def capture_signal(check, label, occupied):
     time.sleep(.35)
+    before = source_state(check, occupied)
+    camera_before = check.run(CAMERA_STATE)
+    expected_camera = check.run('_result=json.dumps(sys._neighbor_qa_camera)')
+    assert camera_matches(camera_before, expected_camera), (camera_before, expected_camera)
+    actors = before['actors']
+    assert actors, 'No projection actors to capture'
     shown = check.capture(label + '_shown')
     try:
         check.run('for entity in %r:\n assert b.factory.CreateActorRender(entity).SetNotRenderAtAll(True)\n_result=True' % actors)
@@ -205,106 +300,102 @@ def capture_signal(check, label):
         hidden = check.capture(label + '_actor_hidden')
     finally:
         check.run('for entity in %r:\n assert b.factory.CreateActorRender(entity).SetNotRenderAtAll(False)\n_result=True' % actors)
-    return signal(shown['path'], hidden['path']), {'shown': shown, 'actor_hidden': hidden, 'actors': actors}
+    after = source_state(check, occupied)
+    camera_after = check.run(CAMERA_STATE)
+    assert camera_matches(camera_after, expected_camera), (camera_after, expected_camera)
+    assert camera_before['screen'] == camera_after['screen'], (camera_before, camera_after)
+    assert (before['projection_serial'], before['actors'], before['model']) == (
+        after['projection_serial'], after['actors'], after['model']), (before, after)
+    return signal(shown['path'], hidden['path']), {
+        'shown': shown, 'actor_hidden': hidden, 'actors': actors,
+        'source_before': before, 'source_after': after,
+        'camera_before': camera_before, 'camera_after': camera_after}
 
 
 def projection_ready(check, occupied, minimum_commit=None):
     def ready(state):
         if state['error'] or state['failed']:
             raise AssertionError(state)
-        settled = (state['active'] and state['ready'] and state['actors'] and state['model'] and
+        settled = (state['active'] and state['ready'] and state['has_occupancy'] and state['actors'] and state['model'] and
                    not state['preparing'] and not state['building'] and not state['pending'] and
                    state['changed'] == 0 and state['target_tracked'])
         return settled and (minimum_commit is None or state['commits'] >= minimum_commit)
     state = check.wait('neighbor projection', ready,
-                       lambda: check.run(PROJECTION_STATE % (occupied, occupied)))
-    assert state['document_preserved'] and state['occupancy_document_preserved'] and state['history_preserved'], state
+                       lambda: source_state(check, occupied))
     return state
 
 
-def prepare_case(check, label, keep, occupied, offset, opacity):
+def prepare_case(check, keep, occupied, opacity):
     check.run('owner.open_workspace()\n_result=True')
     check.wait('workspace opens', lambda nav: nav['open'] and not nav['transition'], check.navigation)
     original = check.fixture(FIXTURE)
-    cropped = check.run('''from modern_projection.projection.cell import AIR
-keep=%r
-neighbor=%r
-doc=s.editor.document
-assert doc.get(keep)!=AIR and doc.get(neighbor)!=AIR
-for pos in tuple(doc.blocks):
- if pos[1]==0 or not (min(keep[0],neighbor[0])-3<=pos[0]<=max(keep[0],neighbor[0])+3 and
-                     min(keep[2],neighbor[2])-3<=pos[2]<=max(keep[2],neighbor[2])+3):
-  del doc.blocks[pos]
-sys._neighbor_qa_document=doc.blocks.copy()
-sys._neighbor_qa_history=(len(s.editor.undo_stack),len(s.editor.redo_stack))
-sys._neighbor_qa_occupied.clear()
-foot=b.player_origin()
-center=tuple((keep[i]+neighbor[i]+1.)/2. for i in range(3))
-s.origin=tuple(int(foot[i]+(6,8,6)[i]-center[i]) for i in range(3))
-s.opacity=%r
-s.projection_missing=True
-s.projection_outline=False
-b.project()
-_result=json.dumps({'size':doc.size,'cells':len(doc.blocks),'source':'built-in fixture; platform and remote categories cropped'})
-''' % (keep, occupied, opacity))
+    cropped = check.run(CROP_FIXTURE % (keep, occupied, opacity))
     state = projection_ready(check, occupied)
     assert state['state'] == 1, state
     check.run('navigator.pop()\n_result=True')
     check.wait('close workspace for world', lambda nav: not nav['open'] and not nav['transition'], check.navigation)
-    pose = check.run('''keep=%r
-neighbor=%r
-offset=%r
-target=tuple(s.origin[i]+(keep[i]+neighbor[i]+1.)/2. for i in range(3))
-position=tuple(target[i]+offset[i] for i in range(3))
-rotation=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
-cam=b.factory.CreateCamera(b.level)
-cam.DepartCamera()
-cam.LockModCameraPitch(True)
-cam.LockModCameraYaw(True)
-assert cam.SetCameraPos(position)
-assert cam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))
-_result=json.dumps({'target':target,'position':position,'rotation':rotation})
-''' % (keep, occupied, tuple(offset)))
-    time.sleep(.7)
-    rois = check.run('''cam=b.factory.CreateCamera(b.level)
-cells=[]
-for pos in s.editor.document.blocks:
- if pos[1]!=%d:continue
- points=[]
- for dx in (.03,.97):
-  for dy in (0.,1.6):
-   for dz in (.03,.97):
-    world=tuple(s.origin[i]+pos[i]+(dx,dy,dz)[i] for i in range(3))
-    points.append(cam.WorldToScreenPoint(*world))
- cells.append({'pos':pos,'points':points})
-_result=json.dumps({'cells':cells,'screen':b.factory.CreateGame(b.level).GetScreenSize()})
-''' % keep[1])
-    baseline_signal, capture = capture_signal(check, label + '_baseline')
-    remaining_roi, hidden_roi, roi_record = roi_masks(rois, baseline_signal.size, keep, occupied)
-    return baseline_signal, (remaining_roi, hidden_roi), {
-        'fixture': original, 'cropped_document': cropped, 'projection': state,
-        'camera': pose, 'capture': capture, 'roi': roi_record}
+    return {'fixture': original, 'cropped_document': cropped, 'projection': state}
+
+
+def view_offset(keep, occupied, view, override=None):
+    if override is not None:
+        return tuple(override)
+    if view == 'top':
+        return (0., 6., .15)
+    if view == 'under':
+        return (0., -6., .15)
+    dx, dz = occupied[0] - keep[0], occupied[2] - keep[2]
+    length = math.sqrt(dx * dx + dz * dz)
+    assert length, 'A side view requires horizontally separated neighboring cells'
+    return (6. * dz / length, 2.4, -6. * dx / length)
+
+
+def select_view(check, keep, occupied, view, override=None):
+    pose = check.run(SET_CAMERA % (keep, occupied, view_offset(keep, occupied, view, override)))
+    stable = check.wait('camera ' + view, lambda value: camera_matches(value, pose),
+                        lambda: check.run(CAMERA_STATE))
+    # Native camera interpolation and the projection-follow transform run on
+    # different ticks. The capture also checks stability across both images.
+    time.sleep(.35)
+    pose.update(view=view, stable=stable)
+    return pose
 
 
 def case(check, label, keep, occupied, args):
-    baseline, masks, before = prepare_case(check, label, keep, occupied, args.offset, args.opacity)
+    before = prepare_case(check, keep, occupied, args.opacity)
+    baselines, masks = {}, {}
+    before['views'] = {}
+    for view in args.view or VIEWS:
+        pose = select_view(check, keep, occupied, view, args.offset)
+        baseline, capture = capture_signal(check, label + '_' + view + '_baseline', occupied)
+        rois = check.run(CELL_ROIS)
+        keep_roi, hidden_roi, roi_record = roi_masks(rois, baseline.size, keep, occupied)
+        baselines[view], masks[view] = baseline, (keep_roi, hidden_roi)
+        before['views'][view] = {'camera': pose, 'capture': capture, 'roi': roi_record}
     check.run('sys._neighbor_qa_occupied.add(%r)\nb.projection_occupancy.read(%r)\n_result=True' % (occupied, occupied))
     dynamic = projection_ready(check, occupied, before['projection']['commits'] + 1)
     assert dynamic['state'] == 2, dynamic
-    actual, capture = capture_signal(check, label + '_dynamic')
-    prefix = args.output.parent / (args.output.stem + '_' + label + '_dynamic')
-    dynamic_pixels = compare_pixels(baseline, actual, masks, prefix, args.min_pixels, args.threshold)
-    dynamic.update(capture=capture, pixels=dynamic_pixels)
+    dynamic['views'] = {}
+    for view, baseline in baselines.items():
+        pose = select_view(check, keep, occupied, view, args.offset)
+        actual, capture = capture_signal(check, label + '_' + view + '_dynamic', occupied)
+        prefix = args.output.parent / (args.output.stem + '_' + label + '_' + view + '_dynamic')
+        pixels = compare_pixels(baseline, actual, masks[view], prefix, args.min_pixels, args.threshold)
+        dynamic['views'][view] = {'camera': pose, 'capture': capture, 'pixels': pixels}
     check.run('b.project()\n_result=True')
     initial = projection_ready(check, occupied)
     assert initial['state'] == 2, initial
-    actual, capture = capture_signal(check, label + '_initial')
-    prefix = args.output.parent / (args.output.stem + '_' + label + '_initial')
-    initial_pixels = compare_pixels(baseline, actual, masks, prefix, args.min_pixels, args.threshold)
-    initial.update(capture=capture, pixels=initial_pixels)
+    initial['views'] = {}
+    for view, baseline in baselines.items():
+        pose = select_view(check, keep, occupied, view, args.offset)
+        actual, capture = capture_signal(check, label + '_' + view + '_initial', occupied)
+        prefix = args.output.parent / (args.output.stem + '_' + label + '_' + view + '_initial')
+        pixels = compare_pixels(baseline, actual, masks[view], prefix, args.min_pixels, args.threshold)
+        initial['views'][view] = {'camera': pose, 'capture': capture, 'pixels': pixels}
     saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
     assert initial['player'] == saved_player and dynamic['player'] == saved_player, (saved_player, initial, dynamic)
-    return {'case': label, 'keep': keep, 'occupied': occupied, 'passed': dynamic_pixels['passed'] and initial_pixels['passed'],
+    passed = all(row['pixels']['passed'] for stage in (dynamic, initial) for row in stage['views'].values())
+    return {'case': label, 'keep': keep, 'occupied': occupied, 'passed': passed,
             'baseline': before, 'dynamic': dynamic, 'initial': initial}
 
 
@@ -312,7 +403,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--case', action='append', choices=tuple(VISUAL_CASES))
-    parser.add_argument('--offset', type=float, nargs=3, default=(0., 6., .15), metavar=('X', 'Y', 'Z'))
+    parser.add_argument('--view', action='append', choices=VIEWS,
+                        help='Repeat to select views; defaults to top, side and under')
+    parser.add_argument('--offset', type=float, nargs=3, metavar=('X', 'Y', 'Z'),
+                        help='Custom camera offset; requires exactly one --view')
     parser.add_argument('--opacity', type=float, default=.85)
     parser.add_argument('--timeout', type=float, default=90)
     parser.add_argument('--min-pixels', type=int, default=80)
@@ -322,14 +416,18 @@ def main():
     args = parser.parse_args()
     if args.timeout <= 0 or args.min_pixels <= 0 or not 0 < args.opacity <= 1 or not 0 <= args.threshold < 255:
         parser.error('Invalid timeout, pixel minimum, opacity or threshold')
-    if math.sqrt(sum(value * value for value in args.offset)) < 3:
+    if args.offset is not None and len(args.view or ()) != 1:
+        parser.error('A custom --offset requires exactly one --view')
+    if args.offset is not None and math.sqrt(sum(value * value for value in args.offset)) < 3:
         parser.error('Use a camera offset at least three blocks from the target')
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    evidence = {'schema': 1, 'fixture': FIXTURE, 'cases': [], 'completed': False, 'passed': False,
+    evidence = {'schema': 2, 'fixture': FIXTURE, 'cases': [], 'completed': False, 'passed': False,
+                'views': args.view or VIEWS,
                 'occupancy_source': 'temporary client observation replacement; no world writes',
                 'baseline': 'native complete palette in missing mode with all observations air',
                 'visual_contract': 'remaining pixels match baseline; occupied-cell actor pixels disappear',
-                'limitations': ['Focused overhead view; side and underside faces need separate views.',
+                'limitations': ['Selected views require observable remaining and occupied native surfaces.',
+                                'Invisible or occluded baseline surfaces fail validity; they do not establish a rendering regression.',
                                 'Pixel tolerances are explicit. Insufficient visible baseline pixels fail.']}
     installed = visual_saved = observer_installed = False
     try:
@@ -350,8 +448,8 @@ def main():
                     evidence['cases'].append(result)
                     write_json(args.output, evidence)
                     print(json.dumps({'case': label, 'passed': result['passed'],
-                                      'dynamic': result['dynamic']['pixels'],
-                                      'initial': result['initial']['pixels']}), flush=True)
+                                      'dynamic': dict((view, row['pixels']) for view, row in result['dynamic']['views'].items()),
+                                      'initial': dict((view, row['pixels']) for view, row in result['initial']['views'].items())}), flush=True)
                     check.run('b.stop_projection()\n_result=True')
                     check.run(camera_restore_code(args.restore_detached))
                 evidence['completed'] = True
