@@ -45,7 +45,20 @@ sys._blueprint_qa_identity='orientation.'+source+'.'+str(facing)
 s._loaded(doc)
 s.camera_pivot=tuple(v+.5 for v in focus)
 s.camera_view(*case['camera']['editor'])
-_result=True
+sys._shulker_qa_document=doc
+_result=json.dumps({'identity':sys._blueprint_qa_identity,'size':doc.size,
+ 'blocks':len(doc.blocks),'focus':focus,'front':foreground(doc.get(focus)),
+ 'facing':static_proxy(foreground(doc.get(focus)),actor_data(doc.get(focus)))[0]})
+'''
+
+IDENTITY = '''from modern_projection.projection.entity_render import static_proxy
+from modern_projection.projection.cell import foreground,actor_data
+doc=s.editor.document
+focus=%r
+_result=json.dumps({'identity':sys._blueprint_qa_identity,'size':doc.size,
+ 'blocks':len(doc.blocks),'front':foreground(doc.get(focus)),
+ 'expected_document':doc is getattr(sys,'_shulker_qa_document',None),
+ 'facing':static_proxy(foreground(doc.get(focus)),actor_data(doc.get(focus)))[0]})
 '''
 
 
@@ -119,7 +132,7 @@ def native_setup(client, check):
     return check.run(code)
 
 
-def clear_native_supports(client):
+def verify_native_fixtures(client):
     return server_run(client, '''import json
 import sys
 import mod.server.extraServerApi as api
@@ -127,13 +140,11 @@ from modern_projection.projection.nbt_spatial import root_payload,scalar
 saved=sys._p0_shulker_faces
 info=api.GetEngineCompFactory().CreateBlockInfo(api.GetLevelId())
 for row in saved['rows']:
- info.SetBlockNew(tuple(row['support']),{'name':'minecraft:air','aux':0},0,saved['dimension'],False,False)
- assert info.GetBlockNew(tuple(row['support']),saved['dimension'])['name']=='minecraft:air',row
+ assert info.GetBlockNew(tuple(row['support']),saved['dimension'])['name']=='minecraft:stone',row
  assert info.GetBlockNew(tuple(row['pos']),saved['dimension'])['name']=='minecraft:purple_shulker_box',row
  current=info.GetBlockEntityData(saved['dimension'],tuple(row['pos']))
  assert scalar(root_payload(current),'facing')==row['server_facing'],row
-saved['supports_removed']=True
-_result=json.dumps({'supports_removed':True,'native_faces_unchanged':True})
+_result=json.dumps({'supports_preserved':True,'native_faces_unchanged':True})
 ''')
 
 
@@ -145,6 +156,10 @@ def actual_native_closeup(check, facing, offset):
     pose = check.run('''b.stop_projection()
 source=sys._p0_shulker_face_entities[%d]
 offset=%r
+pos=tuple(source['pos'])
+block=b.factory.CreateBlock(b.level)
+palette=block.GetBlockPaletteBetweenPos(pos,pos,False)
+assert palette is not None and any(value[0]=='minecraft:purple_shulker_box' for value in palette.SerializeBlockPalette().get('common',{})),source
 target=tuple(value+.5 for value in source['pos'])
 position=tuple(target[i]+offset[i] for i in range(3))
 rotation=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
@@ -213,7 +228,7 @@ def main():
                         'assert hasattr(sys,"_p0_shulker_face_palettes") and '
                         'len(sys._p0_shulker_face_palettes)==6, "Run native palette helpers or --setup-native first"\n'
                         '_result=json.dumps([data.get("actor",{}) for data in sys._p0_shulker_face_palettes])')
-                    evidence['support_clearance'] = clear_native_supports(client)
+                    evidence['native_fixture_readback'] = verify_native_fixtures(client)
                     time.sleep(.3)
                 sources = ('synthetic',) if args.synthetic_only else ('native', 'synthetic')
                 real_native_frames = []
@@ -224,7 +239,11 @@ def main():
                     for facing in range(6):
                         check.run('owner.open_workspace()\n_result=True')
                         check.wait('open workspace', lambda nav: nav['open'] and not nav['transition'], check.navigation)
-                        check.run(LOAD % (source, facing))
+                        loaded = check.run('from modern_projection.projection.entity_render import static_proxy\n' + LOAD % (source, facing))
+                        expected_identity = 'orientation.%s.%d' % (source, facing)
+                        assert loaded['identity'] == expected_identity and loaded['size'] == case['size'] and loaded['blocks'] == 1, loaded
+                        actual = check.run(IDENTITY % (focus,))
+                        assert actual['expected_document'] and actual['facing'].endswith('_%d' % facing), actual
                         state = check.wait('orientation preview',
                                            lambda value: not value['preview_pending'] and not value['running'] and
                                            not value['dirty'] and not value['mounting'] and value['model_revision_current'] and
@@ -232,6 +251,8 @@ def main():
                                            lambda: check.run(STATUS))
                         if state['preview_error']:
                             raise AssertionError(state)
+                        actual = check.run(IDENTITY % (focus,))
+                        assert actual['identity'] == expected_identity and actual['expected_document'] and actual['size'] == case['size'] and actual['blocks'] == 1, actual
                         time.sleep(.35)
                         label = '%s_facing%d' % (source, facing)
                         editor = check.capture(label + '_editor')
@@ -241,22 +262,27 @@ def main():
                                                      args.output.with_name(args.output.stem + '_' + label + '_editor_mask.png'))
                         editor_frames.append(frame)
                         rows.append({'facing': facing, 'editor': editor, 'editor_mask': pixels,
-                                     'source': source})
+                                     'source': source, 'document_identity': actual})
                         if source == 'native':
-                            world = world_closeup(check, label, focus, world_offset, 1.)
+                            offset = list(world_offset)
+                            axis = (1, 1, 2, 2, 0, 0)[facing]
+                            sign = (-1, 1, -1, 1, -1, 1)[facing]
+                            offset[axis] = sign * abs(offset[axis])
+                            world = world_closeup(check, label, focus, offset, 1.)
                             rows[-1]['world'] = world
                             width, height = world['screenshot']['size']
                             crop = (width // 4, height // 4, width * 3 // 4, height * 3 // 4)
                             frame, world_pixels = masked_frame(world['screenshot']['path'], crop,
                                 args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
                             world_frames.append(frame)
-                            real = actual_native_closeup(check, facing, world_offset)
+                            real = actual_native_closeup(check, facing, offset)
                             rows[-1]['real_native'] = real
                             real_frame, real_pixels = masked_frame(real['screenshot']['path'], crop,
                                 args.output.with_name(args.output.stem + '_real_native_facing%d_mask.png' % facing))
                             real_native_frames.append(real_frame)
                             rows[-1].update(world=world, world_mask=world_pixels,
-                                            real_native=real, real_native_mask=real_pixels)
+                                            real_native=real, real_native_mask=real_pixels,
+                                            matching_camera_offset=offset)
                         write_json(args.output, evidence)
                         check.run('b.stop_projection()\n_result=True')
                         check.run(camera_restore_code(False))

@@ -154,7 +154,8 @@ are retained. All six visually identical poses fail even
 when the native geometry submission and source data are valid. The image check
 rejects missing/too-small models and saves masked images and six-image sheets.
 The world check also photographs the six actual MC blocks, using the same
-camera offset as their projections. The central purple connected component
+camera offset as each matching projection. Each pair views the opening side,
+so the supporting block does not occlude the shell. The central purple connected component
 excludes adjacent fixtures and HUD pixels. A schema-1 image comparison records
 each same-face silhouette IoU, relative size error and a six-by-six local
 texture-contrast correlation matrix. A mismatched face, missing texture evidence
@@ -175,9 +176,10 @@ after capture. The native setup uses `PlayerUseItemToPos` on six support faces,
 not NBT direction setters. The server reads NBT only for those debug-created
 fixtures; the client exports their actual palettes. NEMC can export an empty
 Shulker renderer payload, so the sample explicitly records the missing client
-field and the authoritative fixture NBT direction. Supports are removed without
-neighbor updates before native photography, with readback confirming all six
-boxes remain present and their directions stay unchanged. It sorts the samples by
+field and the authoritative fixture NBT direction. Supporting stones remain in
+place until cleanup; immediate readback after removing a support is insufficient
+to exclude later native removal. Server and client readback confirm the native
+boxes before photography. It sorts the samples by
 that observed direction before comparing blueprint inputs. Native render input
 uses the actual client payload plus complete tagged fixture NBT, matching the
 ordinary registered-selection capture envelope. These debug helpers do not
