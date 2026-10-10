@@ -48,6 +48,7 @@ try:
   if dry_only and background(value)[0]!='minecraft:air':
    rows.append({'position':position,'requested':wire,'method':'palette_preserved',
     'skipped_native_write':True,'placed':info.GetBlockNew(position,dimension),
+    'states':blockstate.GetBlockStates(position,dimension),
     'liquid':info.GetLiquidBlock(position,dimension),'nbt':info.GetBlockEntityData(dimension,position)})
    continue
   support=(position[0],position[1]-1,position[2])
@@ -79,7 +80,8 @@ try:
    assert info.SetBlockEntityData(dimension,position,WorldAdapter._native_tree(rebase(nbt,origin)))
   rows.append({'position':position,'requested':wire,'method':method,'native_aux':native_aux,'placed':placed,
    'liquid_result':liquid_result,'liquid_raw':liquid_raw,
-   'aligned':info.GetBlockNew(position,dimension),'liquid':liquid_readback,
+   'aligned':info.GetBlockNew(position,dimension),
+   'states':blockstate.GetBlockStates(position,dimension),'liquid':liquid_readback,
    'fixture_nbt_applied':apply_fixture_nbt,'nbt':info.GetBlockEntityData(dimension,position)})
   items.SetInvItemNum(slot,0)
 finally:
