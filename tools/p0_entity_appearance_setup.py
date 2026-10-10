@@ -111,14 +111,19 @@ try:
         row['observed_type'] = scalar(root, 'Type')
 finally:
     prior_error = sys.exc_info()[0]
-    items.SetInvItemNum(slot, 0)
-    remaining = items.GetPlayerItem(item_type, slot, True)
-    restored = rotation.SetRot(saved_rotation)
     cleanup_errors = []
-    if remaining and remaining.get('count'):
-        cleanup_errors.append('Temporary inventory item was not cleared')
-    if not restored:
-        cleanup_errors.append('Player rotation did not restore')
+    try:
+        items.SetInvItemNum(slot, 0)
+        remaining = items.GetPlayerItem(item_type, slot, True)
+        if remaining and remaining.get('count'):
+            cleanup_errors.append('Temporary inventory item was not cleared')
+    except Exception as error:
+        cleanup_errors.append('Inventory restore: ' + str(error))
+    try:
+        if not rotation.SetRot(saved_rotation):
+            cleanup_errors.append('Player rotation did not restore')
+    except Exception as error:
+        cleanup_errors.append('Rotation restore: ' + str(error))
     sys._p0_entity_appearances['setup_cleanup_errors'] = cleanup_errors
     if cleanup_errors and prior_error is None:
         raise AssertionError(cleanup_errors)

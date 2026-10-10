@@ -4,6 +4,8 @@ import runpy
 import sys
 import types
 import unittest
+from unittest.mock import patch
+from tempfile import TemporaryDirectory
 from contextlib import contextmanager
 from copy import deepcopy
 from pathlib import Path
@@ -178,6 +180,128 @@ class NativeAppearanceProbeTests(unittest.TestCase):
             self.assertIsNone(fixture.inventory)
             self.helper('cleanup')
             self.assertTrue(all(row['name'] == 'minecraft:air' for row in fixture.world.values()))
+
+    def test_inventory_cleanup_exception_keeps_primary_failure_and_still_restores_rotation(self):
+        fixture = NativeFixture(fail_placement=4)
+        clear = fixture.SetInvItemNum
+        calls = [0]
+
+        def fail_once(slot, count):
+            calls[0] += 1
+            if calls[0] == 5:
+                raise RuntimeError('Injected inventory cleanup failure')
+            return clear(slot, count)
+
+        fixture.SetInvItemNum = fail_once
+        with fake_api(fixture):
+            with self.assertRaisesRegex(RuntimeError, 'Injected native player placement'):
+                self.helper('setup')
+            self.assertEqual(fixture.original_rotation, fixture.rotation)
+            self.assertIn('inventory cleanup failure', sys._p0_entity_appearances['setup_cleanup_errors'][0])
+            self.helper('cleanup')
+            self.assertIsNone(fixture.inventory)
+
+    def test_world_cleanup_api_failure_still_clears_inventory_and_restores_rotation(self):
+        fixture = NativeFixture()
+        with fake_api(fixture):
+            self.helper('setup')
+            failed = tuple(sys._p0_entity_appearances['reserved'][0])
+            write = fixture.SetBlockNew
+
+            def fail_one_position(pos, value, *args):
+                if tuple(pos) == failed:
+                    raise RuntimeError('Injected world cleanup failure')
+                return write(pos, value, *args)
+
+            fixture.SetBlockNew = fail_one_position
+            fixture.rotation = (80., 90.)
+            fixture.inventory = {'itemName': 'minecraft:diamond_sword', 'count': 1}
+            with self.assertRaisesRegex(AssertionError, 'Native appearance cleanup failed'):
+                self.helper('cleanup')
+            self.assertIsNone(fixture.inventory)
+            self.assertEqual(fixture.original_rotation, fixture.rotation)
+            self.assertTrue(hasattr(sys, '_p0_entity_appearances'))
+            fixture.SetBlockNew = write
+            self.helper('cleanup')
+            self.assertFalse(hasattr(sys, '_p0_entity_appearances'))
+
+    def test_item_component_failure_does_not_prevent_rotation_cleanup(self):
+        fixture = NativeFixture()
+        with fake_api(fixture):
+            self.helper('setup')
+            fixture.rotation = (80., 90.)
+            with patch.object(fixture, 'CreateItem', side_effect=RuntimeError('Injected component failure')):
+                with self.assertRaisesRegex(AssertionError, 'component failure'):
+                    self.helper('cleanup')
+            self.assertEqual(fixture.original_rotation, fixture.rotation)
+            self.assertTrue(all(row['name'] == 'minecraft:air' for row in fixture.world.values()))
+            self.helper('cleanup')
+
+
+class NativeAppearanceHostCleanupTests(unittest.TestCase):
+    def test_replication_waits_for_actual_palette_instead_of_one_fixed_sleep(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import verify_native_entity_appearances as host
+        ready = {'ready': True, 'rows': [{'case': 'frame_filled'}]}
+        with patch.object(host, 'execute', side_effect=[{'ready': False, 'pending': ['frame_filled']}, ready]) as execute, \
+                patch.object(host.time, 'monotonic', side_effect=[0., 1.]), patch.object(host.time, 'sleep') as sleep:
+            self.assertEqual(ready, host.replicated_palettes(object(), 'read'))
+        self.assertEqual(2, execute.call_count)
+        self.assertTrue(all(call.args[2] for call in execute.call_args_list))
+        sleep.assert_called_once_with(.15)
+
+    def test_replication_timeout_records_the_specific_missing_case(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import verify_native_entity_appearances as host
+        with patch.object(host, 'execute', return_value={'ready': False, 'pending': ['frame_filled']}), \
+                patch.object(host.time, 'monotonic', side_effect=[0., 13.]):
+            with self.assertRaisesRegex(RuntimeError, 'frame_filled'):
+                host.replicated_palettes(object(), 'read')
+
+    def host(self, initial_failure=False):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import verify_native_entity_appearances as host
+        actions = []
+
+        def execute(unused_client, code, client_side=False):
+            if 'Owned native fixtures' in code:
+                if initial_failure:
+                    raise RuntimeError('Primary setup failure')
+                return {'rows': []}
+            if 'json.dumps(getattr(sys' in code:
+                raise RuntimeError('Snapshot unavailable')
+            if 'hasattr(sys,"_p0_entity_appearances")' in code:
+                return True
+            if 'Restore all temporary native' in code:
+                actions.append('native_cleanup')
+                return True
+            if 'for name in (' in code:
+                actions.append('client_cleanup')
+                return True
+            return {'ready': True, 'rows': []}
+
+        with TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'evidence.json'
+            with patch.object(sys, 'argv', ['verify', str(output)]), \
+                    patch.object(host, 'Client'), patch.object(host, 'execute', side_effect=execute), \
+                    patch.object(host.time, 'sleep'):
+                with self.assertRaisesRegex(RuntimeError, 'Primary setup failure' if initial_failure else 'Snapshot unavailable'):
+                    host.main()
+            evidence = json.loads(output.read_text())
+        return actions, evidence
+
+    def test_partial_snapshot_failure_never_skips_native_or_client_cleanup(self):
+        actions, evidence = self.host()
+        self.assertEqual(['native_cleanup', 'client_cleanup'], actions)
+        self.assertTrue(evidence['native_cleaned'])
+        self.assertTrue(evidence['client_cleaned'])
+        self.assertFalse(evidence['completed'])
+
+    def test_cleanup_snapshot_failure_preserves_primary_error_and_attempts_all_restoration(self):
+        actions, evidence = self.host(initial_failure=True)
+        self.assertEqual(['native_cleanup', 'client_cleanup'], actions)
+        self.assertIn('Primary setup failure', evidence['error'])
+        self.assertIn('Snapshot unavailable', evidence['cleanup_errors'][0])
 
 
 if __name__ == '__main__':

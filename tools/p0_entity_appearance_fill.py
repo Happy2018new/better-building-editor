@@ -27,8 +27,15 @@ try:
         row['cell_nbt'] = [{'pos': row['pos'], 'nbt': row['entity_nbt']}]
 finally:
     prior_error = sys.exc_info()[0]
-    items.SetInvItemNum(saved['slot'], 0)
-    remaining = items.GetPlayerItem(item_type, saved['slot'], True)
-    if remaining and remaining.get('count') and prior_error is None:
-        raise AssertionError('Temporary frame-fill item was not cleared')
+    cleanup_errors = []
+    try:
+        items.SetInvItemNum(saved['slot'], 0)
+        remaining = items.GetPlayerItem(item_type, saved['slot'], True)
+        if remaining and remaining.get('count'):
+            cleanup_errors.append('Temporary frame-fill item was not cleared')
+    except Exception as error:
+        cleanup_errors.append('Inventory restore: ' + str(error))
+    saved['fill_cleanup_errors'] = cleanup_errors
+    if cleanup_errors and prior_error is None:
+        raise AssertionError(cleanup_errors)
 _result = json.dumps(saved)

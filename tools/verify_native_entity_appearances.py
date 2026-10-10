@@ -18,6 +18,17 @@ def execute(client, code, client_side=False):
     return json.loads(value) if isinstance(value, str) else value
 
 
+def replicated_palettes(client, code, timeout=12):
+    deadline = time.monotonic() + timeout
+    while True:
+        result = execute(client, code, True)
+        if result.get('ready'):
+            return result
+        if time.monotonic() >= deadline:
+            raise RuntimeError('Native appearance client replication timed out: %r' % result.get('pending'))
+        time.sleep(.15)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
@@ -30,38 +41,40 @@ def main():
                 evidence['setup'] = execute(client, (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8'))
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % evidence['setup']['rows'], True)
                 read_code = (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8')
-                time.sleep(.6)
-                evidence['before_fill'] = execute(client, read_code, True)
+                evidence['before_fill'] = replicated_palettes(client, read_code)
                 write_json(args.output, evidence)
                 evidence['filled'] = execute(client, (ROOT / 'tools/p0_entity_appearance_fill.py').read_text(encoding='utf8'))
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % evidence['filled']['rows'], True)
-                time.sleep(.6)
-                evidence['client'] = execute(client, read_code, True)
+                evidence['client'] = replicated_palettes(client, read_code)
                 evidence['completed'] = True
             finally:
                 prior_error = sys.exc_info()[0]
+                cleanup_errors = []
                 try:
                     evidence['final_server_snapshot'] = execute(client,
                         'import json,sys\n_result=json.dumps(getattr(sys,"_p0_entity_appearances",None))')
+                except Exception as cleanup_error:
+                    cleanup_errors.append('final_server_snapshot: %s' % cleanup_error)
+                try:
                     saved = execute(client, 'import sys\n_result=hasattr(sys,"_p0_entity_appearances")')
                     if saved:
                         execute(client, (ROOT / 'tools/p0_entity_appearance_cleanup.py').read_text(encoding='utf8'))
                     evidence['native_cleaned'] = True
                 except Exception as cleanup_error:
-                    evidence['cleanup_error'] = str(cleanup_error)
+                    cleanup_errors.append('native_fixture: %s' % cleanup_error)
+                try:
+                    execute(client, 'import sys\n'
+                        'for name in ("_p0_entity_appearance_rows","_p0_entity_appearance_palettes",'
+                        '"_p0_entity_appearance_entities"):\n'
+                        ' if hasattr(sys,name):delattr(sys,name)\n_result=True', True)
+                    evidence['client_cleaned'] = True
+                except Exception as cleanup_error:
+                    cleanup_errors.append('client_state: %s' % cleanup_error)
+                if cleanup_errors:
+                    evidence['cleanup_errors'] = cleanup_errors
+                    evidence['completed'] = False
                     if prior_error is None:
-                        raise
-                finally:
-                    try:
-                        execute(client, 'import sys\n'
-                            'for name in ("_p0_entity_appearance_rows","_p0_entity_appearance_palettes",'
-                            '"_p0_entity_appearance_entities"):\n'
-                            ' if hasattr(sys,name):delattr(sys,name)\n_result=True', True)
-                        evidence['client_cleaned'] = True
-                    except Exception as cleanup_error:
-                        evidence['client_cleanup_error'] = str(cleanup_error)
-                        if prior_error is None:
-                            raise
+                        raise RuntimeError('Native appearance cleanup failed: ' + '; '.join(cleanup_errors))
     except Exception as error:
         evidence['error'] = '%s: %s' % (type(error).__name__, error)
         raise

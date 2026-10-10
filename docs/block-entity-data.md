@@ -167,6 +167,11 @@ The native area consists only of cells checked empty at the beginning. A finally
 block clears all reserved positions in two passes, clears the originally empty
 inventory slot and restores player rotation. The host saves a final partial
 server snapshot before cleanup even if placement or replication fails.
+Each resource restore is attempted independently if an API raises, including
+when the final snapshot itself fails. Errors retain the saved fixture state for
+a subsequent cleanup attempt; a cleanup failure cannot be marked completed.
+Client replication is polled until all observed block names are present before
+frame filling, with a bounded timeout listing the missing cases.
 Run it through the owned development instance:
 
 ```powershell
