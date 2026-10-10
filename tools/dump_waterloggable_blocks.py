@@ -14,6 +14,8 @@ LEVELS_PER_COLUMN = 13
 COLUMNS_PER_SIDE = 7
 AIR = {'name': 'minecraft:air', 'aux': 0}
 WATER = {'name': 'minecraft:water', 'aux': 0}
+PROBE_METHOD = ('Dry-verified SetBlockNew+SetBlockStates over water, '
+                'isLegacy=True, updateNeighbors=False; v2')
 
 
 class WaterOverlayProbe(object):
@@ -55,7 +57,7 @@ class WaterOverlayProbe(object):
             'target': self.target, 'support': self.support, 'readback_states': {},
             'verified_states': 0, 'state_mismatches': [],
             'states_per_subchunk': STATES_PER_SUBCHUNK,
-            'method': 'SetBlockNew over water, isLegacy=True, updateNeighbors=False',
+            'method': PROBE_METHOD,
             'tick_budget_seconds': TICK_SECONDS}
         self.state['blocks'] = self.state['results']
         sys._p0_native_probe = self.state
@@ -164,8 +166,12 @@ class WaterOverlayProbe(object):
                 self.info.SetBlockNew(self.target, AIR, 0, self.dimension, True, False)
                 native = {'name': self.name.encode('utf8'), 'aux': native_aux}
                 self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
+                if expected:
+                    self.blockstate.SetBlockStates(self.target, expected, self.dimension)
                 dry_front = self.info.GetBlockNew(self.target, self.dimension)
                 dry_states = self.blockstate.GetBlockStates(self.target, self.dimension)
+                if self.name == 'minecraft:air' and dry_states is None:
+                    dry_states = {}
                 dry_matched = bool(dry_front and dry_front.get('name') == self.name and
                                    dry_states == expected)
                 if dry_matched:
@@ -178,6 +184,9 @@ class WaterOverlayProbe(object):
                 self.info.SetBlockNew(self.target, AIR, 0, self.dimension, True, False)
                 self.info.SetBlockNew(self.target, WATER, 0, self.dimension, True, False)
                 self.info.SetBlockNew(self.target, native, 0, self.dimension, True, False)
+                placed = self.info.GetBlockNew(self.target, self.dimension)
+                if expected and placed and placed.get('name') == self.name:
+                    self.blockstate.SetBlockStates(self.target, expected, self.dimension)
                 front = self.info.GetBlockNew(self.target, self.dimension)
                 liquid = self.info.GetLiquidBlock(self.target, self.dimension)
                 actual = self.blockstate.GetBlockStates(self.target, self.dimension)

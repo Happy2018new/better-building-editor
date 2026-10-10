@@ -34,6 +34,10 @@ class ProbeRuntime(object):
         aux = value['aux']
         return {'test_aux': aux + 1 if self.mismatch and value['name'] == 'minecraft:stairs' else aux}
 
+    def SetBlockStates(self, pos, states, dimension):
+        self.blocks[pos]['aux'] = states['test_aux']
+        return True
+
     def SetAddArea(self, key, dimension, minimum, maximum):
         self.area = (key, dimension, minimum, maximum)
         return True

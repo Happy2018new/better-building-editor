@@ -18,7 +18,7 @@ class WaterTraitGeneratorTests(unittest.TestCase):
             {'name': 'minecraft:none', 'data': 0}, {'name': 'custom:ignored', 'data': 0}]}
         self.water = {'schema': 1, 'game_version': self.data['game_version'],
                       'palette_sha256': 'ABC', 'method': generator.WATER_PROBE_METHOD,
-                      'tested_states': 5, 'total_states': 5,
+                      'tested_states': 5, 'total_states': 5, 'verified_states': 5,
                       'blocks': {'minecraft:full': True, 'minecraft:partial': [3],
                                  'minecraft:none': False}}
 
@@ -36,6 +36,7 @@ class WaterTraitGeneratorTests(unittest.TestCase):
 
     def test_unfinished_wrong_version_and_unproven_old_exports_are_rejected(self):
         for field, value in (('tested_states', 4), ('total_states', 6),
+                             ('verified_states', 4),
                              ('game_version', 'Other version'), ('method', 'CanBlockBePlacedLiquid'),
                              ('palette_sha256', 'wrong'), ('schema', 2)):
             water = dict(self.water, **{field: value})

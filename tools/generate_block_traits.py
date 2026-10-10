@@ -7,7 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-WATER_PROBE_METHOD = 'SetBlockNew over water, isLegacy=True, updateNeighbors=False'
+WATER_PROBE_METHOD = ('Dry-verified SetBlockNew+SetBlockStates over water, '
+                      'isLegacy=True, updateNeighbors=False; v2')
 
 
 def _water_rows(water, data, palette):
@@ -21,7 +22,8 @@ def _water_rows(water, data, palette):
             expected.setdefault(row['name'], set()).add(row['data'])
     state_count = sum(len(values) for values in expected.values())
     if (set(water['blocks']) != set(expected) or
-            water.get('tested_states') != state_count or water.get('total_states') != state_count):
+            water.get('tested_states') != state_count or water.get('total_states') != state_count or
+            water.get('verified_states') != state_count):
         raise ValueError('Water capability export is incomplete')
     names, partial = [], {}
     for name, accepted in sorted(water['blocks'].items()):
