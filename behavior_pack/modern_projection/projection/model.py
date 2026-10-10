@@ -324,7 +324,9 @@ class Editor(object):
         delta, handled = {}, set()
 
         def get_cell(pos):
-            return self.document.get(pos) if self.document.contains(pos) else None
+            if not self.document.contains(pos):
+                return None
+            return delta[pos][1] if pos in delta else self.document.get(pos)
 
         for pos, new in changes.items():
             if pos in handled:
@@ -341,7 +343,7 @@ class Editor(object):
                 for target in planned.removed:
                     requested = changes.get(target, AIR)
                     if requested != AIR and group_partner(requested) is None:
-                        planned[target] = edit_material(self.document.get(target), requested, self.edit_layer)
+                        planned[target] = edit_material(get_cell(target), requested, self.edit_layer)
             if any(not self.document.contains(target) or not self._writable(target, respect_selection)
                    for target in planned):
                 continue
@@ -351,6 +353,8 @@ class Editor(object):
                 old = self.document.get(target)
                 if old != value:
                     delta[target] = old, value
+                else:
+                    delta.pop(target, None)
         self._reconcile_delta(delta, changes if whole else ())
         if selection_after is not None:
             selections = (self._selection_state(), self._selection_state(selection_after))

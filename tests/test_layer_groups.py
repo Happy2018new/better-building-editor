@@ -1,5 +1,6 @@
 """Grouped materials obey the chosen layer and complete-cell operations."""
 import sys
+import random
 import unittest
 from pathlib import Path
 
@@ -202,6 +203,53 @@ class LayerGroupTests(unittest.TestCase):
                     self.assertEqual(AIR if mode == 0 else STONE, editor.document.get(old_head))
                     editor.undo()
                     self.assertEqual(original, dict(editor.document.blocks.items()))
+
+    def test_overlapping_group_placements_never_leave_unpaired_parts(self):
+        materials = [('minecraft:wooden_door', 0), PLANT, ('minecraft:large_fern', 0),
+                     ('minecraft:bed', 0), ('minecraft:bed', 1), ('minecraft:bed', 2),
+                     ('minecraft:bed', 3), STONE, AIR]
+        for size, mode in ((size, mode) for size in SIZES for mode in (0, 1)):
+            editor, randomizer = Editor(Document(size)), random.Random(932)
+            editor.edit_layer = mode
+            for unused in range(120):
+                pos = (randomizer.randrange(1, 7), randomizer.randrange(1, 4),
+                       randomizer.randrange(1, 7))
+                editor.material = randomizer.choice(materials)
+                if unused % 3:
+                    editor.paint_at(pos, respect_selection=False)
+                else:
+                    editor.select_box(pos, tuple(min(pos[i] + 1, editor.document.size[i] - 1)
+                                                 for i in range(3)))
+                    editor.run('fill')
+                for target, cell in editor.document.blocks.items():
+                    value = foreground(cell) if mode == 0 else background(cell)
+                    relationship = group_partner(value)
+                    if relationship is None:
+                        continue
+                    offset, expected = relationship
+                    paired_pos = tuple(target[i] + offset[i] for i in range(3))
+                    other = editor.document.get(paired_pos)
+                    self.assertEqual(expected, foreground(other) if mode == 0 else background(other),
+                                     (size, mode, unused, pos, editor.material, target, value, paired_pos))
+
+    def test_batch_group_cleanup_preserves_parts_already_placed_by_the_same_transaction(self):
+        bottom, top = (2, 1, 3), (2, 2, 3)
+        door, bed = ('minecraft:wooden_door', 0), ('minecraft:bed', 0)
+        for size in SIZES:
+            for mode in (0, 1):
+                original = {bottom: door, top: group_partner(door)[1]}
+                if mode == 1:
+                    original = {pos: make_cell(STONE, value) for pos, value in original.items()}
+                editor = Editor(Document(size, original))
+                editor.edit_layer, editor.material = mode, bed
+                editor.select_box((2, 1, 2), (2, 2, 3))
+                self.assertEqual(4, editor.run('fill'))
+                for y in (1, 2):
+                    foot, head = editor.document.get((2, y, 2)), editor.document.get((2, y, 3))
+                    self.assertEqual(bed, foreground(foot) if mode == 0 else background(foot))
+                    self.assertEqual(group_partner(bed)[1], foreground(head) if mode == 0 else background(head))
+                editor.undo()
+                self.assertEqual(original, dict(editor.document.blocks.items()))
 
 
 if __name__ == '__main__':
