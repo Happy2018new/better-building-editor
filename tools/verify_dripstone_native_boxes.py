@@ -119,7 +119,8 @@ def main():
             check = BlueprintCheck(client, args.output, 90)
             try:
                 report['world_setup'] = run(client, world.RESERVE % (cells, supports))
-                report['near_player'] = run(client, world.NEAR_PLAYER % (cells,))
+                near_cells = ([((0, -47, 0), ('minecraft:air', 0))] if args.holdout else cells)
+                report['near_player'] = run(client, world.NEAR_PLAYER % (near_cells,))
                 report['near_player']['client'] = world.player_ready(check, report['near_player']['after'])
                 report['replication'] = world.replication(check, cells + supports, False)
                 positions = [pos for pos, value in cells + supports]

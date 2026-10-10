@@ -10,6 +10,8 @@ Each root has a standing/hanging merged-tip pair and two stone supports:
 All coordinates remain inside a compact 67 by 20 by 67 selection, with
 no measured/support overlap. Reserved cells and their immediate neighbors
 must be air before placement. World and player restoration are mandatory.
+The temporary player platform is near the selection's horizontal center,
+so the opposite edge does not depend on loading from the minimum corner.
 
 Both axis sweeps use coordinates `-33,-32,-31,-17,-16,-15,-1,0,1,15,16,17,31,32,33`,
 holding the other horizontal axis at `6`. A diagonal sweep pairs that same
