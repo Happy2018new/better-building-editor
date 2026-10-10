@@ -133,3 +133,31 @@ transform inverses. The catalogue fixture expands automatically from the
 regenerated registry. Real-game acceptance should load these same fixture keys
 once and inspect both the workspace preview and world projection, then exercise
 placement and erasure at the listed coordinates.
+
+### Six-Face Shulker Pixel Regression
+
+`tools/verify_shulker_orientations.py` captures each of six orientations at the
+same single-cell position, with the same document size and camera. It checks
+both the editor preview and world projection. Native player placements and
+synthetic renderer payloads are separate sources, and their same-direction
+pixel differences are retained. All six visually identical poses fail even
+when the native geometry submission and source data are valid. The image check
+rejects missing/too-small models and saves masked images and six-image sheets.
+It detects a collapsed orientation set; visual inspection of the native
+reference is still needed to certify the meaning of every direction.
+
+Run through an owned development instance with `run_live_check.py`:
+
+```powershell
+python tools/verify_shulker_orientations.py shulker-orientations.json --setup-native
+python tools/verify_shulker_orientations.py unused.json --self-test
+```
+
+`--setup-native` temporarily uses a previously empty inventory slot and twelve
+previously empty debug-world cells, restores the slot and removes the fixtures
+after capture. The native setup uses `PlayerUseItemToPos` on six support faces,
+not NBT direction setters. Only client-visible palettes are read. The exported
+observed `facingDirection` values must cover all six directions, and the tool
+sorts native samples by that observed value before comparing synthetic inputs.
+`--synthetic-only` isolates the editor/projection bug when no native sample is
+available; it cannot certify native agreement. No persistent draft is saved.

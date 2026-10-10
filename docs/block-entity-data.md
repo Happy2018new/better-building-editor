@@ -105,6 +105,15 @@ Block-state rotation and mirroring continue to use the native registry for all
 vanilla blocks. These pending NBT-specific adapters do not restrict that
 block-state support.
 
+The official `SetBlockEntityData` documentation states that changing facing or
+state fields affects entity data without changing rendering. Therefore six
+NBT `facing` values do not establish six native visual poses. Shulker acceptance
+uses actual player placement on each support face, client palette export and
+fixed-camera pixel comparisons. `CombineBlockPaletteToGeometry` also documents
+static default poses and no animation support, so successful submissions alone
+do not establish that the client's block entity pose has been reproduced. See
+the six-face regression in [Built-In Test Blueprints](debug-blueprints.md).
+
 ## Native Observation Diff
 
 `tools/diff_block_entities.py` compares the reference with an explicit entity
