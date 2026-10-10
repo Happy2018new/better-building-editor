@@ -111,6 +111,18 @@ class RegionSizeError(ValueError):
     """An intact saved document can exceed the current editing limit."""
 
 
+class SelectionDelta(dict):
+    """A cell delta carrying the selection changed by the same operation."""
+    def __init__(self, changes, selections):
+        dict.__init__(self, changes)
+        self.selections = selections
+
+
+def selection_history_bytes(delta):
+    snapshots = getattr(delta, 'selections', ())
+    return sum(192 + len(snapshot[0].chunks) * 640 for snapshot in snapshots)
+
+
 class Document(object):
     def __init__(
         self, size=(24, 16, 24), blocks=None, name="未命名建筑", biome="plains"
@@ -305,7 +317,22 @@ class Editor(object):
             )
         )
 
-    def _commit(self, name, changes, respect_selection=True, whole=False):
+    def _selection_state(self, selection=None):
+        if selection is None:
+            selection = self.selection
+            start, end = self.start, self.end
+        else:
+            start, end = bounds(selection) if selection else (self.start, self.end)
+        selection = selection.copy() if isinstance(selection, Selection) else Selection(selection)
+        return selection, tuple(start), tuple(end)
+
+    def _restore_selection(self, snapshot):
+        selection, start, end = snapshot
+        self.selection = selection.copy()
+        self.start, self.end = start, end
+        self.selection_revision += 1
+
+    def _commit(self, name, changes, respect_selection=True, whole=False, selection_after=None):
         if not whole and self.edit_layer == 0:
             from .block_groups import expand_group_changes
             changes = expand_group_changes(changes, lambda pos: (
@@ -329,7 +356,11 @@ class Editor(object):
                 new = replace_layer(old, new, self.edit_layer)
             if old != new:
                 delta[pos] = (old, new)
-        if not delta:
+        if selection_after is not None:
+            selections = (self._selection_state(), self._selection_state(selection_after))
+            if selections[0] != selections[1]:
+                delta = SelectionDelta(delta, selections)
+        if not delta and not hasattr(delta, 'selections'):
             self.message = "没有方块改变，请检查选区、蒙版和图层锁定"
             return 0
         self._apply(delta, 1)
@@ -344,13 +375,13 @@ class Editor(object):
         def cost(item):
             value = item[1]
             if hasattr(value, "memory_bytes"):
-                return value.memory_bytes()
+                return value.memory_bytes() + selection_history_bytes(value)
             size = len(value) * 96
             if isinstance(value, dict):
                 size += sum(cell.memory_bytes()
                             for pair in value.values() for cell in pair
                             if isinstance(cell, Cell))
-            return size
+            return size + selection_history_bytes(value)
 
         while len(self.undo_stack) > 1 and (
             len(self.undo_stack) > 50
@@ -367,16 +398,19 @@ class Editor(object):
             if hasattr(delta, "changed_chunks")
             else set(tuple(v // 16 for v in pos) for pos in delta)
         )
-        if hasattr(delta, "stores"):
-            self.document.blocks = delta.stores[side].copy()
-            self.revision += 1
-            return
-        for pos, pair in delta.items():
-            if pair[side] == AIR:
-                self.document.blocks.pop(pos, None)
+        if len(delta):
+            if hasattr(delta, "stores"):
+                self.document.blocks = delta.stores[side].copy()
             else:
-                self.document.blocks[pos] = pair[side]
-        self.revision += 1
+                for pos, pair in delta.items():
+                    if pair[side] == AIR:
+                        self.document.blocks.pop(pos, None)
+                    else:
+                        self.document.blocks[pos] = pair[side]
+            self.revision += 1
+        selections = getattr(delta, 'selections', None)
+        if selections is not None:
+            self._restore_selection(selections[side])
 
     def undo(self):
         if not self.undo_stack:
@@ -548,10 +582,8 @@ class Editor(object):
             mapping[target] = rebase_cell(value, tuple(target[i] - pos[i] for i in range(3)))
         changes = {} if tool.startswith("stack_") else dict((p, AIR) for p in source)
         changes.update(mapping)
-        count = self._commit(BY_ID[tool][2], changes, False, whole=True)
-        self.selection = set(mapping)
-        self.selection_revision += 1
-        self.sync_selection_bounds()
+        count = self._commit(BY_ID[tool][2], changes, False, whole=True,
+                             selection_after=Selection(mapping))
         return count
 
     def _shape(self, tool, lo, hi):

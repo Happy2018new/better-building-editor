@@ -35,6 +35,7 @@ class EditJob(object):
             raise ValueError('未知工具')
         self.editor, self.tool = editor, tool
         self.source = editor.document
+        self.selection_before = editor._selection_state()
         self.selection = editor.selection.copy() if isinstance(editor.selection, Selection) else Selection(editor.selection)
         if (BY_ID[tool][1] != 'select' and
                 (editor.edit_layer == 0 or BY_ID[tool][1] == 'transform' or tool in ('copy', 'cut'))):
@@ -78,19 +79,23 @@ class EditJob(object):
 
     def _publish(self):
         e = self.editor
+        selection_after = None
         if self.result_selection is not None:
-            e.selection = close_group_selection(self.source, self.result_selection, strict=False)
-            e.selection_revision += 1
-            e.sync_selection_bounds()
+            updated_document = copy.copy(self.source)
+            updated_document.blocks = self.staged
+            result = close_group_selection(updated_document, self.result_selection, strict=False)
+            selection_after = e._selection_state(result)
         if self.result_clipboard is not None:
             e.clipboard = self.result_clipboard
-        if self.changed:
+        selection_changed = selection_after is not None and self.selection_before != selection_after
+        if self.changed or (selection_changed and BY_ID[self.tool][1] != 'select'):
             delta = SnapshotDelta(self.source.blocks, self.staged, self.changed)
-            self.source.blocks = self.staged
-            e.last_changed_positions = None
-            e.last_changed_chunks = delta.changed_chunks
-            e.revision += 1
+            if selection_changed:
+                delta.selections = self.selection_before, selection_after
+            e._apply(delta, 1)
             e._remember(BY_ID[self.tool][2], delta)
+        elif selection_changed:
+            e._restore_selection(selection_after)
         e.message = ('已选择 %d 格' % len(e.selection) if BY_ID[self.tool][1] == 'select' else
                      '已复制 %d 格' % len(self.selection) if self.tool == 'copy' else
                      '%s，已修改 %d 格' % (BY_ID[self.tool][2], self.changed))
