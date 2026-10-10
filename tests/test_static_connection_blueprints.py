@@ -43,6 +43,19 @@ class StaticConnectionBlueprintTests(unittest.TestCase):
         boundary = next(row for row in rows if row['id'].endswith('cross_chunk'))
         self.assertNotEqual(tuple(v >> 4 for v in boundary['keep']), tuple(v >> 4 for v in boundary['occupied']))
 
+    def test_hanging_moss_has_static_tip_states_and_vertical_chunk_control(self):
+        metadata = VISUAL_CASES['static_neighbors']
+        document = build(metadata['fixture'])
+        rows = [row for row in metadata['cases'] if row['family'] == 'hanging_moss']
+        self.assertEqual(2, len(rows))
+        for row in rows:
+            self.assertEqual([False, False, False, False, True],
+                             [registry.states(foreground(document.get(pos)))['tip'] for pos in row['cells']])
+            root = row['cells'][0]
+            self.assertEqual('minecraft:stone', foreground(document.get((root[0], root[1] + 1, root[2])))[0])
+        boundary = next(row for row in rows if row['id'].endswith('cross_chunk'))
+        self.assertNotEqual(tuple(v >> 4 for v in boundary['keep']), tuple(v >> 4 for v in boundary['occupied']))
+
 
 if __name__ == '__main__':
     unittest.main()

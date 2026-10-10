@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Fixed gate and six-face chorus scenes for independent native comparisons."""
+"""Fixed static adjacency scenes for independent native comparisons."""
 from __future__ import unicode_literals
 from . import block_registry as registry
 
-METADATA = ('test.connections.static', 'connections', '栅栏门与紫颂连接',
-            (64, 12, 64), 'minecraft:fence_gate')
+METADATA = ('test.connections.static', 'connections', '静态方块连接',
+            (64, 24, 64), 'minecraft:fence_gate')
 
 
 def _gate_cases():
@@ -41,11 +41,21 @@ def _chorus_case(identity, center):
             'camera': {'view': 'side', 'offset': (0., -.7, 8.)}}
 
 
+def _moss_case(identity, root, keep_y):
+    cells = tuple((root[0], root[1] - index, root[2]) for index in range(5))
+    keep = (root[0], keep_y, root[2])
+    return {'id': identity, 'family': 'hanging_moss', 'keep': keep,
+            'occupied': (root[0], keep_y - 1, root[2]), 'cells': cells,
+            'camera': {'view': 'side', 'offset': (0., 0., 8.)}}
+
+
 VISUAL_CASE = {'schema': 1, 'fixture': METADATA[0], 'cell_hull_height': 1.,
                'projection_height': 24, 'size': METADATA[3],
                'editor_camera': (35., 25., 4.),
                'cases': _gate_cases() + (_chorus_case('chorus_six_faces', (40, 5, 59)),
-                                        _chorus_case('chorus_six_faces_cross_chunk', (15, 5, 59)))}
+                                        _chorus_case('chorus_six_faces_cross_chunk', (15, 5, 59)),
+                                        _moss_case('hanging_moss', (24, 6, 59), 3),
+                                        _moss_case('hanging_moss_cross_chunk', (32, 18, 59), 16))}
 
 
 def populate(fixture):
@@ -58,9 +68,14 @@ def populate(fixture):
                 'open_bit': row['open'], 'in_wall_bit': row['in_wall']}))
             for pos in row['cells'][1:]:
                 fixture.put(pos, material('cobblestone_wall' if row['in_wall'] else 'oak_fence'))
-        else:
+        elif row['family'] == 'chorus':
             for pos in row['cells']:
                 fixture.put(pos, material('chorus_flower' if pos[1] == row['keep'][1] + 1 else 'chorus_plant'))
             root = min(row['cells'], key=lambda pos: pos[1])
             fixture.put((root[0], root[1] - 1, root[2]), material('end_stone'))
+        else:
+            root = row['cells'][0]
+            fixture.put((root[0], root[1] + 1, root[2]), material('stone'))
+            for index, pos in enumerate(row['cells']):
+                fixture.put(pos, material('pale_hanging_moss', {'tip': index == len(row['cells']) - 1}))
     return fixture.finish(reconnect=True)
