@@ -19,6 +19,8 @@ class OccupancyShader(object):
         self.empty = False
         self.updates = 0
         self.parts = [{}, {}]
+        self.active_parts = [set(), set()]
+        self.overlay_visibility = {}
         self.local = False
         self.anchor = None
 
@@ -47,6 +49,9 @@ class OccupancyShader(object):
         for name in self.parts[bank]:
             if name not in active and not self.render.SetActorBlockGeometryTransparency(name, 1.):
                 raise ValueError('Could not retire projection context chunk')
+            if name not in active and not self.parts[bank][name][1]:
+                self.show_overlay(name, False)
+        self.active_parts[bank] = active
         for name, origin, context in incoming:
             if name not in self.parts[bank] and not self.render.AddActorBlockGeometry(
                     name, self.offset(anchor, origin), (0., 180., 0.)):
@@ -56,6 +61,15 @@ class OccupancyShader(object):
             if not (self.render.EnableActorBlockGeometryTransparent(name, True) and
                     self.render.SetActorBlockGeometryTransparency(name, transparency)):
                 raise ValueError('Could not configure projection context chunk')
+            if not context:
+                self.show_overlay(name, bank == self.bank and not self.empty)
+
+    def show_overlay(self, name, visible):
+        if self.overlay_visibility.get(name) == visible:
+            return
+        if not self.render.SetActorBlockGeometryVisible(name, visible):
+            raise ValueError('Could not update projection overlay visibility')
+        self.overlay_visibility[name] = visible
 
     def bind(self, entity, model, anchor, attached=False):
         tracker, b = self.tracker, self.tracker.bridge
@@ -95,4 +109,11 @@ class OccupancyShader(object):
         tint = actor_uniform(self.tracker.document.biome)
         self.write(4, tint[:2]+(-1. if empty else float(bank+1),
                                self.tracker.bridge.session.opacity))
+        # Native actor materials need not inherit our bank shader. Keep their
+        # attached resources, but hide every inactive or retired overlay.
+        for selected in (bank, 1-bank):
+            for name, value in self.parts[selected].items():
+                if not value[1]:
+                    self.show_overlay(name, not empty and selected == bank and
+                                      name in self.active_parts[selected])
         self.empty, self.bank = empty, bank

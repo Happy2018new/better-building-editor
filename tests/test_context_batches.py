@@ -12,6 +12,52 @@ from modern_projection.projection.occupancy_shader import OccupancyShader
 
 
 class ContextBatchTests(unittest.TestCase):
+    def test_actor_overlays_hide_without_relying_on_material_bank_uniforms(self):
+        runtime = Runtime()
+        visible, calls = {}, []
+        def show(name, enabled):
+            visible[name] = enabled
+            calls.append((name, enabled))
+            return True
+        runtime.SetActorBlockGeometryVisible = show
+        document = Document((32, 4, 4), {(1, 1, 1): material('stone')})
+        bridge = SimpleNamespace(projection_occupancy=None, factory=runtime, level='level',
+                                 session=SimpleNamespace(opacity=.6), context_models={})
+        tracker = SimpleNamespace(bridge=bridge, document=document, size=document.size,
+                                  targets={(1, 1, 1)}, origin=(100, 64, 200))
+        shader = OccupancyShader(tracker)
+        first, second = shader.names
+        bridge.context_models[first] = (('first_context', (0, 0, 0), True),
+                                        ('first_actor', (0, 0, 0), False))
+        def seed(unused, name=None, **kwargs):
+            bridge.context_models[name] = (('seed_actor', (0, 0, 0), False),)
+            return name
+        bridge.geometry = seed
+        entity = runtime.CreateClientEntityByTypeStr('anchor', (116, 66, 202), (0, 0))
+        shader.bind(entity, first, (116, 66, 202))
+        self.assertEqual({'first_actor': True, 'seed_actor': False}, visible)
+        bridge.context_models[second] = (('second_actor', (16, 0, 0), False),)
+        shader.commit(second)
+        self.assertEqual({'first_actor': False, 'seed_actor': False, 'second_actor': True}, visible)
+        self.assertNotIn('first_context', visible)
+        shader.commit(None)
+        self.assertFalse(any(visible.values()))
+        bridge.context_models[first] = (('new_actor', (0, 0, 0), False),)
+        shader.commit(first)
+        self.assertTrue(visible['new_actor'])
+        self.assertFalse(any(value for name, value in visible.items() if name != 'new_actor'))
+        self.assertEqual(1, len(runtime.created))
+        self.assertFalse(runtime.removed)
+        self.assertIn((entity, 'first_actor'), runtime.attached)
+        self.assertLess(calls.index(('second_actor', True)), calls.index(('first_actor', False)))
+
+    def test_failed_native_overlay_visibility_is_not_cached_as_success(self):
+        shader = OccupancyShader(SimpleNamespace(bridge=SimpleNamespace(projection_occupancy=None)))
+        shader.render = SimpleNamespace(SetActorBlockGeometryVisible=lambda name, enabled: False)
+        with self.assertRaisesRegex(ValueError, 'overlay visibility'):
+            shader.show_overlay('actor', False)
+        self.assertNotIn('actor', shader.overlay_visibility)
+
     def test_atomic_bank_replacement_retires_removed_chunks_and_tracks_offsets(self):
         runtime = Runtime()
         document = Document((32, 32, 32), {(1, 1, 1): material('stone')})
