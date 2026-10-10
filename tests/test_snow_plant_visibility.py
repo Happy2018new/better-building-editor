@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from verify_snow_plant_visibility import (PROJECTION_SOURCE, changed, compare_controls, green_mask,
                                          compare_native, projection_source_matches, scope_checks,
-                                         NATIVE_SETUP, NATIVE_MUTATE, NATIVE_CLEANUP)
+                                         NATIVE_SETUP, NATIVE_MUTATE, NATIVE_CLEANUP,
+                                         snow_plant_mask)
 
 
 def frame(image):
@@ -37,6 +38,13 @@ def controls():
 
 
 class SnowPlantVisibilityTests(unittest.TestCase):
+    def test_native_segmentation_keeps_dry_grass_and_snow_and_rejects_sky_dirt(self):
+        image = Image.new('RGB', (5, 1))
+        image.putdata(((145, 129, 77), (35, 155, 45), (195, 200, 205),
+                       (150, 185, 235), (145, 110, 75)))
+        self.assertEqual([255, 255, 255, 0, 0], list(snow_plant_mask(image).getdata()))
+        self.assertEqual([255, 255, 0, 0, 0], list(green_mask(image).getdata()))
+
     def test_high_snow_can_naturally_cover_a_shorter_standalone_plant(self):
         plant, values = controls()
         snow, unused = values[5]

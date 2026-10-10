@@ -65,7 +65,11 @@ saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
 results=[]
 for pos in (saved['target'],saved['support']):
- results.append((pos,adapter.write(pos,('minecraft:air',0))))
+ changed=adapter.write(pos,('minecraft:air',0))
+ palette=adapter.palette_block.GetBlockPaletteBetweenPos(saved['dimension'],pos,pos,False)
+ data=palette.SerializeBlockPalette() if palette is not None else None
+ clean=data is not None and all(value[0]=='minecraft:air' for key in ('common','extra') for value in data.get(key,{}))
+ results.append({'pos':pos,'changed':changed,'clean':clean})
 del sys._snow_visibility_native
 _result=json.dumps(results)
 '''
@@ -135,10 +139,20 @@ _result=json.dumps({'fixture':case['fixture'],'fixture_schema':case['schema'],
 
 def green_mask(frame):
     red, green, blue = frame.convert('RGB').split()
-    first = ImageChops.subtract(green, red).point(lambda value: 255 if value > 7 else 0)
-    second = ImageChops.subtract(green, blue).point(lambda value: 255 if value > 7 else 0)
+    # Dry-biome grass may be yellow; blue sky and neutral snow are excluded.
+    first = ImageChops.subtract(green, red.point(lambda value: int(value * .85))).point(lambda value: 255 if value > 0 else 0)
+    second = ImageChops.subtract(green, blue.point(lambda value: min(255, int(value * 1.05)))).point(lambda value: 255 if value > 0 else 0)
     brightness = green.point(lambda value: 255 if value > 25 else 0)
     return ImageChops.multiply(ImageChops.multiply(first, second), brightness)
+
+
+def snow_plant_mask(frame):
+    red, green, blue = frame.convert('RGB').split()
+    light = ImageChops.darker(ImageChops.darker(red, green), blue)
+    shade = ImageChops.lighter(ImageChops.lighter(red, green), blue)
+    neutral = ImageChops.subtract(shade, light).point(lambda value: 255 if value < 24 else 0)
+    snow = ImageChops.multiply(neutral, light.point(lambda value: 255 if value > 100 else 0))
+    return ImageChops.lighter(snow, green_mask(frame))
 
 
 def maximum(frame):
@@ -154,13 +168,16 @@ def changed(first, second, threshold=20):
     return maximum(ImageChops.difference(first, second)).point(lambda value: 255 if value > threshold else 0)
 
 
-def capture_frame(path, crop, hidden):
+def capture_frame(path, crop, hidden, segmented=False):
     with Image.open(path) as source:
         frame = source.convert('RGB').crop(crop)
     with Image.open(hidden) as source:
         reference = source.convert('RGB').crop(crop)
-    return {'image': frame, 'object': changed(frame, reference),
-            'green': ImageChops.multiply(green_mask(frame), changed(frame, reference))}
+    presence = changed(frame, reference)
+    if segmented:
+        presence = ImageChops.multiply(presence, snow_plant_mask(frame))
+    return {'image': frame, 'object': presence,
+            'green': ImageChops.multiply(green_mask(frame), presence)}
 
 
 def analyze(frame, crop, output):
@@ -339,7 +356,10 @@ palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,F
 data=palette.SerializeBlockPalette() if palette is not None else {}
 _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
 ''' % (target,)))
-    return {'readback': readback, 'client_palette': palette, 'pose': pose, 'screenshot': shot}
+    time.sleep(.2)
+    hidden = check.capture('%s_%s_h%d_native_hidden' % (plant, kind, height))
+    return {'readback': readback, 'client_palette': palette, 'pose': pose, 'screenshot': shot,
+            'hidden_screenshot': hidden}
 
 
 def projection_capture(check, label, focus, offset):
@@ -425,13 +445,12 @@ def main():
     plants = tuple(dict.fromkeys(args.plant or ('short_grass', 'fern')))
     heights = sorted(set(args.height or (0, 5)))
     frames = {'editor': {}, 'projection': {}}
-    native_frames = {}
-    evidence = {'schema': 4, 'completed': False, 'passed': False, 'rows': [],
+    evidence = {'schema': 5, 'completed': False, 'passed': False, 'rows': [],
                 'scopes': {'editor': {'passed': False}, 'projection': {'passed': False}},
                 'scope': 'Independent editor and actual projection assertions with standalone, snow and combined controls at heights 0 and 5.',
                 'native_reference': {'captured': False,
                                      'capability_source': 'tools/data/native_snow_overlays_nemc_3.9.0.401155.json',
-                                     'method': 'Place actual blocks at the exact projection focus cell; SetSnowBlock heights 1 and 6; verify native states 0 and 5; capture same measured side camera.'}}
+                                     'method': 'Place actual blocks at the exact projection focus cell; SetSnowBlock heights 1 and 6; verify native states 0 and 5; capture each native control and its immediately cleared background at the same measured side camera; segment foliage and neutral snow to exclude support and sky.'}}
     evidence['raw_plants_diagnostic'] = args.raw_plants
     installed = visual_saved = native_created = raw_saved = False
     try:
@@ -467,7 +486,6 @@ _result=True
                             for height in heights for kind in ('snow', 'covered')]
                     editor_crop = None
                     blank_editor = None
-                    blank_native = None
                     for kind, height in cases:
                         label = '%s_%s_h%d' % (plant, kind, height)
                         check.run('owner.open_workspace()\n_result=True')
@@ -490,7 +508,6 @@ _result=True
                             blank_editor = editor['path']
                             native = native_capture(check, plant, kind, height, native_target,
                                                     tuple(case['camera']['world_offset']))
-                            blank_native = native['screenshot']['path']
                             evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height,
                                                      'source': source, 'editor': editor, 'editor_crop': editor_crop,
                                                      'editor_camera': camera, 'native': native})
@@ -504,15 +521,15 @@ _result=True
                         width, height_pixels = world['screenshot']['size']
                         crop = (width // 4, height_pixels // 4, width * 3 // 4, height_pixels * 3 // 4)
                         projection_frame = capture_frame(world['screenshot']['path'], crop,
-                                                         world['hidden_screenshot']['path'])
+                                                         world['hidden_screenshot']['path'], segmented=True)
                         frames['projection'][(plant, kind, height)] = projection_frame
                         world_pixels = analyze(projection_frame, crop,
                                                args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'))
                         native = native_capture(check, plant, kind, height, native_target,
                                                 tuple(case['camera']['world_offset']))
                         assert native['pose'] == world['pose'], (native['pose'], world['pose'])
-                        native_frame = capture_frame(native['screenshot']['path'], crop, blank_native)
-                        native_frames[(plant, kind, height)] = native_frame
+                        native_frame = capture_frame(native['screenshot']['path'], crop,
+                                                     native['hidden_screenshot']['path'], segmented=True)
                         native['pixels'] = analyze(native_frame, crop,
                             args.output.with_name(args.output.stem + '_' + label + '_native_mask.png'))
                         native_comparison = compare_native(native_frame, projection_frame, args.min_pixels,
@@ -592,7 +609,7 @@ _result=True
                     try:
                         result = action()
                         if label == 'native_fixture':
-                            if not result or not all(row[1] for row in result):
+                            if not result or not all(row['clean'] for row in result):
                                 raise RuntimeError('Native snow fixture cleanup did not restore every cell: %r' % (result,))
                             evidence['native_reference']['cleaned'] = True
                     except Exception as cleanup_error:
