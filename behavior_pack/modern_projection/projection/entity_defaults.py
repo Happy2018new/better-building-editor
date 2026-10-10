@@ -46,7 +46,9 @@ def nbt(name, pos):
 def direction_actor(value, actor, pos):
     """Give newly created cells native directions before rotating or mirroring."""
     from .visible_actor import compose_actor, entity_nbt, is_envelope, render_actor
-    if value[0] not in source.ACTOR_DIRECTION_NAMES or entity_nbt(actor) is not None:
+    from .native_appearance import SKULL_NAMES, angle, validate_source as validate_appearance
+    if (value[0] not in source.ACTOR_DIRECTION_NAMES and value[0] not in SKULL_NAMES or
+            entity_nbt(actor) is not None):
         return actor
     data = nbt(value[0], pos)
     root = root_payload(data)
@@ -56,6 +58,11 @@ def direction_actor(value, actor, pos):
         facing = scalar(render_root, 'facingDirection')
         if isinstance(facing, integer_types) and type(facing) is not bool and 0 <= facing <= 5:
             set_scalar(root, 'facing', facing)
+    elif scalar(root, 'id') == 'Skull' and render_root is not None:
+        validate_appearance()
+        rotation = scalar(render_root, 'rotation')
+        if angle(rotation):
+            set_scalar(root, 'Rotation', rotation)
     if is_envelope(actor):
         result = dict(actor)
         result['nbt'] = data

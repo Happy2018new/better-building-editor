@@ -16,6 +16,31 @@ from shulker_pixels import central_object, native_proxy_comparison
 
 ROOT = Path(__file__).resolve().parents[1]
 
+
+def reference_offset(configured):
+    # The native block actor batch disappeared from the upper detached camera.
+    return (configured[0], -abs(configured[1]), configured[2])
+
+
+def matching_camera(actual, pose, tolerance=.02):
+    expected = (pose['rotation'][0], pose['rotation'][1] + 180., 0.)
+    return (all(abs(left - right) < tolerance for left, right in zip(actual['position'], pose['position']))
+            and all(abs((left - right + 180.) % 360. - 180.) < tolerance
+                    for left, right in zip(actual['rotation'], expected)))
+
+
+def wait_camera_pose(check, pose):
+    settled = [0]
+
+    def stable(actual):
+        settled[0] = settled[0] + 1 if matching_camera(actual, pose) else 0
+        return settled[0] >= 2
+
+    return check.wait('native camera interpolation settles twice', stable,
+                      lambda: check.run('cam=b.factory.CreateCamera(b.level)\n'
+                                        '_result=json.dumps({"position":cam.GetPosition(),'
+                                        '"rotation":cam.GetCameraRotation()})'))
+
 LOAD = '''from copy import deepcopy
 from modern_projection.projection.model import Document
 from modern_projection.projection.world_capture import merge_palette
@@ -172,7 +197,8 @@ assert cam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))
 _result=json.dumps({'target':target,'position':position,'rotation':rotation,
  'server_facing':source['server_facing'],'placement':source['support_face'],
  'reference':'real native world block, no projection actor'})''' % (facing, tuple(offset)))
-    time.sleep(.7)
+    pose['settled_camera'] = wait_camera_pose(check, pose)
+    time.sleep(.3)
     pose['screenshot'] = check.capture('real_native_facing%d_world' % facing)
     return pose
 
@@ -199,8 +225,9 @@ def main():
     from verify_debug_blueprints import (BlueprintCheck, Client, INSTALL_PROBE, RESTORE,
                                          STATUS, write_json)
     from verify_debug_visuals import SAVE_VISUAL, camera_restore_code, world_closeup
-    evidence = {'schema': 2, 'completed': False, 'sources': {},
-                'source': 'Built-in test.transforms.directions blueprint cells'}
+    evidence = {'schema': 3, 'completed': False, 'sources': {},
+                'source': 'Built-in test.transforms.directions blueprint cells',
+                'camera_policy': 'One low side offset for all native/proxy pairs; no high-camera or opening-face claim'}
     installed = visual_saved = native_created = False
     try:
         with Client(timeout=30) as client:
@@ -218,7 +245,8 @@ def main():
                 case = check.run('from modern_projection.projection.debug_blueprints import VISUAL_CASES\n'
                                  '_result=json.dumps(VISUAL_CASES["shulker_orientations"])')
                 focus = tuple(case['focus'])
-                world_offset = tuple(case['camera']['world_offset'])
+                world_offset = reference_offset(case['camera']['world_offset'])
+                evidence['reference_camera_offset'] = world_offset
                 evidence['blueprint_case'] = case
                 if args.setup_native:
                     native_created = True
@@ -264,11 +292,10 @@ def main():
                         rows.append({'facing': facing, 'editor': editor, 'editor_mask': pixels,
                                      'source': source, 'document_identity': actual})
                         if source == 'native':
-                            offset = list(world_offset)
-                            axis = (1, 1, 2, 2, 0, 0)[facing]
-                            sign = (-1, 1, -1, 1, -1, 1)[facing]
-                            offset[axis] = sign * abs(offset[axis])
+                            offset = world_offset
                             world = world_closeup(check, label, focus, offset, 1.)
+                            assert matching_camera({'position': world['final']['camera'],
+                                                    'rotation': world['final']['rotation']}, world['pose']), world
                             rows[-1]['world'] = world
                             width, height = world['screenshot']['size']
                             crop = (width // 4, height // 4, width * 3 // 4, height * 3 // 4)
@@ -277,8 +304,14 @@ def main():
                             world_frames.append(frame)
                             real = actual_native_closeup(check, facing, offset)
                             rows[-1]['real_native'] = real
-                            real_frame, real_pixels = masked_frame(real['screenshot']['path'], crop,
-                                args.output.with_name(args.output.stem + '_real_native_facing%d_mask.png' % facing))
+                            try:
+                                real_frame, real_pixels = masked_frame(real['screenshot']['path'], crop,
+                                    args.output.with_name(args.output.stem + '_real_native_facing%d_mask.png' % facing))
+                            except AssertionError as visibility_error:
+                                rows[-1]['native_visibility'] = {'observed': False, 'reason': str(visibility_error)}
+                                evidence['proxy_comparison_indeterminate'] = True
+                                raise AssertionError('Native reference is not visible at the measured camera; '
+                                                     'proxy appearance is undetermined: %s' % visibility_error) from visibility_error
                             real_native_frames.append(real_frame)
                             rows[-1].update(world=world, world_mask=world_pixels,
                                             real_native=real, real_native_mask=real_pixels,

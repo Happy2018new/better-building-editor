@@ -106,7 +106,7 @@ to change NEMC runtime behavior without native observations:
 
 | Entity | Candidate Fields | Current Handling | Evidence Needed |
 | --- | --- | --- | --- |
-| `Skull` | `Rotation` | Preserve | Native defaults expose Float `Rotation=0.0`, not PowerNukkitX's Byte `Rot`; angle units, convention and wall/floor applicability require nondefault native observations |
+| `Skull` | `Rotation` | Transform floor yaw | Native nondefault player placements confirm Float degrees matching visible `rotation`, zero along +Z and the [-180,180) convention; wall yaw stays unchanged and the block face transforms |
 | `ItemFrame`, `GlowItemFrame` | `ItemRotation` | Preserve | PowerNukkitX uses Byte values modulo 8; other Bedrock implementations also accept Float angles. NEMC type and local frame basis are needed for mirror semantics |
 | `StructureBlock` | `rotation`, `mirror`, `x/y/zStructureOffset`, `x/y/zStructureSize` | Preserve | Native defaults confirm Byte rotation/mirror and Int offsets/sizes; nondefault value meanings, anchor coordinates and transform composition still need observations |
 | `PistonArm`, `MovingBlock`, `EndGateway` and other spatial entities | Entity-specific coordinates or directions | Preserve | Native data and rules separating world coordinates from opaque saved payloads |
@@ -143,7 +143,7 @@ The current fixture and adapter audit leaves the following concrete checks open:
 | --- | --- | --- |
 | `ShulkerBox` | All 17 block names, native default Byte `facing=1`, actual player placement on six support faces | Compare actual native MC blocks with editor/projection static meshes; also check that real-world generated boxes show their written orientation, because an NBT setter alone does not guarantee a pose update |
 | `Bed` | Default Byte `color=14`; production writer readback checks `color=7`, both halves, all 16 states and both write orders | Nondefault colours in client palettes and actual editor/projection pixels; correct server readback does not establish displayed colour |
-| `Skull` | Seven modern block names, native Float `Rotation=0.0`, Byte `SkullType=255` in API-created defaults | Native player-placed floor yaw samples, rotation units and mirror convention; floor `facing_direction=1` has no yaw state, so retaining `Rotation` cannot implement a horizontal turn |
+| `Skull` | Seven modern block names, Float degree `Rotation`, matching client `rotation`, Byte `SkullType=255`; eight native floor yaw samples and four wall faces | Floor yaw transforms and native field adapter have independent-vector tests; editor and projection GPU appearance remain separately pending |
 | `Banner` | Default Int `Base=0`, `Type=0` | Nondefault base colours and pattern-bearing native client palettes; empty/default samples do not cover patterns |
 | `ItemFrame`, `GlowItemFrame` | Native default payload has no displayed item or item rotation | Filled frame item appearance and local rotation, including mirrors; no default field value establishes their semantics |
 | `DecoratedPot`, `FlowerPot` | Native empty/default payloads; decorated pot records an empty `item` compound | Nonempty decoration or plant appearance; preservation of future fields is separate from render support |
@@ -176,6 +176,30 @@ python tools/verify_native_entity_appearances.py entity-appearances.json
 This captures nondefault field evidence, not successful editor/projection
 rendering. Retain the resulting report with its game version and palette hash
 before defining units, direction conventions or additional render adapters.
+
+The completed 2026-10-10 batch is retained in
+`tools/data/native_entity_appearances_nemc_3.9.0.401155.json`. Regenerate it with
+`tools/generate_native_appearances.py <report> --check` to verify the report hash,
+game version, palette fingerprint and all 19 field observations. Player inventory
+readbacks are omitted; actual per-cell NBT and visible palette data remain.
+`native_appearance.py` rejects a different game version or registry fingerprint.
+The Skull adapter supplies only observed Float rotation and Byte skull type to
+the native renderer, with the face taken from the actual material state. Saved
+payloads, nested unknown data and wall-only unused yaw remain intact.
+
+The batch also found that `SetBedColor` changes the head entity to colours 8/3,
+while the foot NBT remains colour 0 and the sampled client palette exposes only
+the head. Filled frame and banner actor dictionaries are empty. These samples
+are not evidence that Items, banner Base/Type or bed foot colours are obtainable
+through the ordinary client import path.
+
+The second real Shulker comparison observed all six native boxes from a low
+side camera, but no native boxes from an upper detached camera, despite intact
+support cells and server readbacks. The acceptance tool now uses one matching
+low side camera for every direction and waits for two settled camera samples.
+If its native reference is invisible, the proxy comparison is indeterminate.
+The tool does not claim opening-face coverage or correct upper-camera native
+visibility from these samples.
 
 ## Native Observation Diff
 

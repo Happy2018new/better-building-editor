@@ -86,29 +86,57 @@ def _rebase_actor(data, delta):
             set_scalar(root, name, value + delta[axis])
 
 
-def transform_pair(data, origin, operation):
+def transform_pair(data, origin, operation, material=None):
     """Transform visible actor directions and pair offsets before moving the cell."""
     if operation not in OPERATIONS or data is None:
         return data
     result = thaw(freeze(data))
-    _transform_actor(result, origin, operation)
+    _transform_actor(result, origin, operation, material)
     return result
 
 
-def _transform_actor(data, origin, operation):
+def _transform_actor(data, origin, operation, material=None, skull_facing=None):
     if data is None:
         return
     from .visible_actor import is_envelope
     if is_envelope(data):
-        _transform_actor(data['render'], origin, operation)
-        _transform_actor(data['nbt'], origin, operation)
+        renderer = root_payload(data['render'])
+        skull_facing = scalar(renderer, 'facingDirection') if renderer is not None else None
+        _transform_actor(data['render'], origin, operation, material, skull_facing)
+        _transform_actor(data['nbt'], origin, operation, material, skull_facing)
         return
     root = root_payload(data)
     if root is None:
         raise ValueError('Block entity payload must be a compound')
+    _skull_rotation(root, operation, material, skull_facing)
     _directions(root, operation)
     _chest_roles(root, operation)
     _pair_coordinates(root, origin, operation)
+
+
+def _skull_rotation(root, operation, material, facing):
+    from .native_appearance import SKULL_NAMES, angle, transform_yaw
+    identifier = scalar(root, 'id')
+    known_material = material is not None and material[0] in SKULL_NAMES
+    if not known_material:
+        return
+    from .block_registry import states
+    record = states(material)
+    facing = record.get('facing_direction') if record is not None else facing
+    if facing != 1 or operation == 'mirror_y':
+        return
+    if identifier in ('Skull', b'Skull'):
+        field = 'Rotation'
+        raw = root[field_key(root, field)] if field_key(root, field) is not None else None
+        if not isinstance(raw, dict) or scalar(raw, '__type__') != 5:
+            return
+    elif identifier is None and scalar(root, 'skullType') is not None:
+        field = 'rotation'
+    else:
+        return
+    value = scalar(root, field)
+    if angle(value):
+        set_scalar(root, field, transform_yaw(value, operation))
 
 
 def _directions(root, operation):

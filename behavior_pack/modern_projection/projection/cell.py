@@ -351,6 +351,6 @@ def transform(value, tool, origin=None):
         from .entity_defaults import direction_actor
         origin = (0, 0, 0) if origin is None else origin
         nbt = direction_actor(foreground(value), nbt, origin)
-        nbt = transform_pair(nbt, origin, tool)
+        nbt = transform_pair(nbt, origin, tool, foreground(value))
     return make_cell(transform_block(foreground(value), tool),
                      transform_block(background(value), tool), nbt)

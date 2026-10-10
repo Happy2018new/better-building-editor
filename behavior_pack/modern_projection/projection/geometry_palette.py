@@ -3,7 +3,7 @@
 from .block_registry import canonical, states
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
-from .entity_render import INTERNAL_BLOCKS, prepare_static_entities
+from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entities
 from .block_traits import is_snow_coverable
 from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE, overlay_index
 
@@ -105,13 +105,15 @@ def prepare_palette(source):
     extra_states = dict((value, record) for value, record in extra_states.items()
                         if value in extra)
     actors = {}
+    materials = dict((index, value) for value, positions in common.items() for index in positions)
     for name, entries in source.get('actor', {}).items():
         normalized_name = name.decode('utf8') if isinstance(name, bytes) else name
         rendered = {}
         for index, payload in entries.items():
             if (normalized_name, index) in static_actors:
                 continue
-            actor = render_actor(payload)
+            material = materials.get(index)
+            actor = native_actor(material, payload) if material is not None else render_actor(payload)
             if actor is not None:
                 rendered[index] = actor
         if rendered:
