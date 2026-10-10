@@ -8,6 +8,7 @@ from .visible_actor import compose_actor, entity_nbt, render_actor
 
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
 _NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
+_MIN_GROUP_GROWTH = {'minecraft:pitcher_crop': 3}
 _CHESTS = frozenset(('minecraft:chest', 'minecraft:trapped_chest'))
 _CHEST_PARTNER = {'north': (1, 0, 0), 'east': (0, 0, 1),
                   'south': (-1, 0, 0), 'west': (0, 0, -1)}
@@ -26,6 +27,8 @@ def from_states(name, properties):
 
 
 def _part_key(name, properties):
+    if properties.get('growth', 0) < _MIN_GROUP_GROWTH.get(name, 0):
+        return None
     if 'upper_block_bit' in properties and name not in _NON_PAIRED_UPPER_BLOCKS:
         return 'upper_block_bit'
     if properties.get('sea_grass_type') in ('double_bot', 'double_top'):

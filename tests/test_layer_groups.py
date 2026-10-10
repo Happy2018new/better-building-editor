@@ -5,6 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.block_groups import group_partner
+from projection.block_registry import from_states
 from projection.cell import background, foreground, make_cell
 from projection.model import AIR, Document, Editor, close_group_selection
 
@@ -109,6 +110,42 @@ class LayerGroupTests(unittest.TestCase):
                 else:
                     self.assertEqual(PLANT, editor.document.get(bottom))
                     self.assertEqual(paired, editor.document.get(top))
+
+    def test_young_pitcher_crops_are_single_cells_and_mature_crops_are_grouped(self):
+        pos, above = (2, 1, 2), (2, 2, 2)
+        for growth in range(8):
+            with self.subTest(growth=growth):
+                material = from_states('minecraft:pitcher_crop',
+                                       {'growth': growth, 'upper_block_bit': False})
+                for size in SIZES:
+                    editor = Editor(Document(size))
+                    editor.material = material
+                    expected = 1 if growth < 3 else 2
+                    self.assertEqual(expected, editor.paint_at(pos, respect_selection=False))
+                    self.assertEqual(material, editor.document.get(pos))
+                    if growth < 3:
+                        self.assertIsNone(group_partner(material))
+                        self.assertEqual(AIR, editor.document.get(above))
+                    else:
+                        self.assertEqual(group_partner(material)[1], editor.document.get(above))
+                    editor.select_box(pos, pos)
+                    self.assertEqual(expected, len(editor.selection))
+                    editor.run('copy')
+                    self.assertEqual(expected, len(editor.clipboard['blocks']))
+                    before = editor.document.blocks.copy()
+                    self.assertEqual(expected, editor.run('erase'))
+                    self.assertEqual(AIR, editor.document.get(pos))
+                    self.assertEqual(AIR, editor.document.get(above))
+                    editor.undo()
+                    self.assertEqual(before, editor.document.blocks)
+
+    def test_imported_pitcher_seedling_does_not_require_a_missing_upper_part(self):
+        seedling = from_states('minecraft:pitcher_crop', {'growth': 0, 'upper_block_bit': False})
+        editor = Editor(Document(SIZES[0], {(2, 1, 2): seedling}))
+        editor.select_box((2, 1, 2), (2, 1, 2))
+        editor.run('copy')
+        self.assertEqual(1, len(editor.clipboard['blocks']))
+        self.assertEqual(1, editor.run('erase'))
 
 
 if __name__ == '__main__':

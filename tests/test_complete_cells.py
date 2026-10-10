@@ -412,6 +412,8 @@ class CompleteCellTests(unittest.TestCase):
                 properties = registry.states(value)
                 paired = ('upper_block_bit' in properties and
                           name != 'minecraft:pale_moss_carpet')
+                if name == 'minecraft:pitcher_crop' and properties['growth'] < 3:
+                    paired = False
                 paired = paired or properties.get('sea_grass_type') in (
                     'double_bot', 'double_top')
                 paired = paired or 'head_piece_bit' in properties
