@@ -14,6 +14,7 @@ from projection.cell import make_cell
 from projection.large_preview import SurfacePalette
 from projection.model import Document
 from projection.visible_actor import compose_actor
+from projection.render_layout import OVERLAY_BASE, overlay_index
 
 
 class GeometryPaletteTests(unittest.TestCase):
@@ -200,12 +201,40 @@ class GeometryPaletteTests(unittest.TestCase):
 
         result = prepare_palette(source)
 
-        self.assertEqual({covered: [0, 1], snow: [2, 3]}, result['common'])
+        self.assertEqual({covered: [0, 1], snow: [2, 3],
+                          ('modern_projection:preview_short_grass', 0):
+                          [OVERLAY_BASE * 4, OVERLAY_BASE * 4 + 1]}, result['common'])
+        self.assertEqual((1, 4, OVERLAY_BASE + 1), result['volume'])
         self.assertEqual({grass: [0, 1]}, result['extra'])
         self.assertEqual(states(covered), result['states'][covered])
         self.assertEqual(states(snow), result['states'][snow])
         self.assertEqual(states(grass), result['extraStates'][grass])
         self.assertEqual(saved, source)
+
+    def test_snow_overlay_preserves_sparse_coordinates_and_native_layer_states(self):
+        from projection.debug_blueprints import material
+        grass, flower = material('fern'), material('poppy')
+        snow = material('snow_layer', {'height': 5, 'covered_bit': True})
+        doc = Document((5, 7, 3), {
+            (4, 6, 2): make_cell(snow, grass),
+            (0, 0, 0): make_cell(snow, flower),
+            (2, 3, 1): grass,
+            (1, 2, 2): snow})
+        source = doc.palette_data()
+        saved = copy.deepcopy(source)
+        result = prepare_palette(source)
+        native_volume = (3, 5, 7)
+        self.assertEqual((3, 5, OVERLAY_BASE + 7), result['volume'])
+        self.assertEqual([overlay_index(104, native_volume), 52], sorted(
+            result['common'][('modern_projection:preview_fern', 0)], reverse=True))
+        self.assertEqual([overlay_index(0, native_volume)], result['common'][flower])
+        self.assertEqual(source['extra'], result['extra'])
+        self.assertEqual(states(flower), result['states'][flower])
+        self.assertEqual(saved, source)
+
+    def test_palette_without_snow_keeps_original_dimensions(self):
+        doc = Document((5, 7, 3), {(4, 6, 2): ('minecraft:oak_fence', 0)})
+        self.assertEqual((3, 5, 7), prepare_palette(doc.palette_data())['volume'])
 
     def test_unsupported_legacy_dual_layers_keep_both_materials_in_native_input(self):
         fence = ('minecraft:oak_fence', 0)

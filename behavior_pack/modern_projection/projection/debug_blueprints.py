@@ -23,6 +23,16 @@ BLUEPRINTS = (
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
 )
 VISUAL_CASES = {
+    'snow_plant_visibility': {
+        'schema': 1, 'fixture': 'test.layers.snow',
+        'cells': tuple({'plant': name, 'standalone': (3 + index * 5, 1, 3),
+                        'covered': ((0, (3 + index * 5, 1, 9)),
+                                    (5, (3 + index * 5, 1, 16)))}
+                       for index, name in enumerate(('short_grass', 'fern', 'dandelion',
+                                                     'poppy', 'blue_orchid', 'allium'))),
+        'size': (3, 3, 3), 'focus': (1, 1, 1),
+        'camera': {'editor': (35., 25., 12.), 'world_offset': (-2., 1.6, -2.5)},
+    },
     'shulker_orientations': {
         'schema': 1, 'fixture': 'test.transforms.directions',
         'cells': tuple((3 + index * 5, 3, 28) for index in range(6)),
@@ -124,15 +134,11 @@ def _water(fixture):
 
 def _snow(fixture):
     fixture.floor()
-    names = ('short_grass', 'fern', 'dandelion', 'poppy', 'blue_orchid', 'allium')
-    for index, name in enumerate(names):
-        x = 3 + index * 5
-        value = material(name)
-        fixture.group((x, 1, 3), value)
-        fixture.group((x, 1, 9), value)
-        fixture.group((x, 1, 16), value)
-        for z, height in ((9, 0), (16, 5)):
-            pos = (x, 1, z)
+    for row in VISUAL_CASES['snow_plant_visibility']['cells']:
+        value = material(row['plant'])
+        fixture.group(row['standalone'], value)
+        for height, pos in row['covered']:
+            fixture.group(pos, value)
             snow = _covered_snow(material('snow_layer', {'height': height}), True)
             fixture.put(pos, snow, value)
     for x, species in ((5, 'oak_leaves'), (11, 'spruce_leaves'), (17, 'cherry_leaves')):

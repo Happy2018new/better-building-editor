@@ -4,6 +4,8 @@ from .block_registry import canonical, states
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
 from .entity_render import INTERNAL_BLOCKS, prepare_static_entities
+from .block_traits import is_snow_coverable
+from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE, overlay_index
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -46,6 +48,31 @@ def _proxy_foreground(entries, records):
     return result, state_records
 
 
+def _append_snow_overlays(common, common_states, extra, extra_states, volume):
+    """Give native-ignored plants independent geometry in the same mesh."""
+    snow_positions = set(index for value, positions in common.items()
+                         if value[0] == 'minecraft:snow_layer' for index in positions)
+    if not snow_positions:
+        return volume
+    overlays = {}
+    for value, positions in extra.items():
+        if not is_snow_coverable(value):
+            continue
+        selected = [index for index in positions if index in snow_positions]
+        if selected:
+            overlays[value] = selected
+    if not overlays:
+        return volume
+    if volume is None or len(volume) != 3 or not 0 < volume[2] <= MAX_LOGICAL_HEIGHT:
+        raise ValueError('Snow overlay requires a supported native palette volume')
+    for value, positions in overlays.items():
+        common.setdefault(value, []).extend(overlay_index(index, volume) for index in positions)
+        record = extra_states.get(value)
+        if record is not None:
+            common_states[value] = record
+    return (volume[0], volume[1], OVERLAY_BASE + volume[2])
+
+
 def prepare_palette(source):
     """Copy and canonicalize both native layers and actor payloads."""
     data = dict(source)
@@ -69,6 +96,7 @@ def prepare_palette(source):
     common, common_states = prepare_layer('common')
     extra, extra_states = prepare_layer('extra')
     normalize_palette_layers(common, common_states, extra, extra_states)
+    volume = _append_snow_overlays(common, common_states, extra, extra_states, source.get('volume'))
     common, static_actors = prepare_static_entities(common, source.get('actor', {}))
     common, common_states = _proxy_foreground(common, common_states)
     for entries in (common, extra):
@@ -90,4 +118,6 @@ def prepare_palette(source):
             actors[name] = rendered
     data.update(common=common, states=common_states, extra=extra,
                 extraStates=extra_states, actor=actors)
+    if volume is not None:
+        data['volume'] = volume
     return data

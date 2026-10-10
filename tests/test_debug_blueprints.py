@@ -9,7 +9,8 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.block_groups import group_partner, actor_pair_position
 from projection.cell import AIR, actor_data, background, foreground
-from projection.debug_blueprints import BLUEPRINTS, CATEGORIES, build, entries, material, open_blueprint
+from projection.debug_blueprints import BLUEPRINTS, CATEGORIES, VISUAL_CASES, build, entries, material, open_blueprint
+from projection.render_layout import OVERLAY_BASE
 from projection.debug_entity_blueprints import ENTITY_CASES, REFERENCE_EXCLUSIONS, coverage
 from projection.debug_entity_defaults import evidence, nbt as native_nbt
 from projection.geometry_palette import prepare_palette
@@ -37,7 +38,8 @@ class DebugBlueprintTests(unittest.TestCase):
                 for part in (foreground(value), background(value)):
                     self.assertEqual(part, registry.canonical(part))
             prepared = prepare_palette(doc.palette_data())
-            self.assertEqual((doc.size[2], doc.size[0], doc.size[1]), prepared['volume'])
+            height = doc.size[1] + (OVERLAY_BASE if identity == 'test.layers.snow' else 0)
+            self.assertEqual((doc.size[2], doc.size[0], height), prepared['volume'])
             self.assertEqual(before, doc.blocks)
 
     def test_independent_opens_and_config_sharing_round_trip(self):
@@ -73,6 +75,21 @@ class DebugBlueprintTests(unittest.TestCase):
             if relationship is not None:
                 offset, expected = relationship
                 self.assertEqual(expected, foreground(doc.get((x, 1 + offset[1], 9))))
+
+    def test_snow_visual_metadata_resolves_actual_blueprint_cells(self):
+        case = VISUAL_CASES['snow_plant_visibility']
+        doc = self.documents[case['fixture']]
+        self.assertEqual('test.layers.snow', case['fixture'])
+        self.assertEqual(6, len(case['cells']))
+        for row in case['cells']:
+            plant = material(row['plant'])
+            self.assertEqual(plant, doc.get(row['standalone']))
+            self.assertEqual((0, 5), tuple(height for height, unused in row['covered']))
+            for height, pos in row['covered']:
+                cell = doc.get(pos)
+                self.assertEqual(plant, background(cell))
+                self.assertEqual(height, registry.states(foreground(cell))['height'])
+                self.assertTrue(registry.states(foreground(cell))['covered_bit'])
 
     def test_existing_wet_and_snowy_fixtures_follow_automatic_erase_order(self):
         for identity, pos, remainder in (

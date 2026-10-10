@@ -1,5 +1,6 @@
 """Compare native snow and plant visibility at one fixed editor/world position."""
 import argparse
+import base64
 import json
 import time
 from pathlib import Path
@@ -9,22 +10,30 @@ from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTO
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code, world_closeup
 from verify_shulker_orientations import viewport_crop
 
-FOCUS = (1, 1, 1)
+ROOT = Path(__file__).resolve().parents[1]
 LOAD = '''from modern_projection.projection.model import Document
-from modern_projection.projection.cell import AIR,make_cell
-from modern_projection.projection.block_registry import from_states
-doc=Document((3,3,3),name='Snow plant visibility check')
-plant=(%r,0)
+from modern_projection.projection.cell import _covered_snow,foreground,rebase
+from modern_projection.projection.debug_blueprints import build,VISUAL_CASES
+from modern_projection.projection import block_registry as registry
+plant=%r
 height=%d
 kind=%r
-snow=from_states('minecraft:snow_layer',{'height':height,'covered_bit':kind=='covered'})
-value=plant if kind=='plant' else make_cell(snow,plant if kind=='covered' else AIR)
-doc.blocks[(1,1,1)]=value
+case=VISUAL_CASES['snow_plant_visibility']
+focus=case['focus']
+row=next(row for row in case['cells'] if row['plant']==plant)
+source_pos=row['standalone'] if kind=='plant' else next(pos for h,pos in row['covered'] if h==height)
+source=build(case['fixture'])
+value=source.get(source_pos)
+if kind=='snow':value=_covered_snow(foreground(value),False)
+doc=Document(case['size'],name='Snow plant visibility check')
+doc.blocks[focus]=rebase(value,tuple(focus[i]-source_pos[i] for i in range(3)))
 sys._blueprint_qa_identity='snow.visibility.'+kind
 s._loaded(doc)
-s.camera_pivot=(1.5,1.5,1.5)
-s.camera_view(35.,25.,12.)
-_result=True
+s.camera_pivot=tuple(v+.5 for v in focus)
+s.camera_view(*case['camera']['editor'])
+_result=json.dumps({'fixture':case['fixture'],'fixture_schema':case['schema'],
+ 'source_position':source_pos,'focus':focus,'registry_version':registry.source_version(),
+ 'registry_fingerprint':registry.fingerprint()})
 '''
 
 
@@ -56,11 +65,11 @@ def analyze(path, crop, output, hidden=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
-    parser.add_argument('--plant', action='append', choices=('short_grass', 'fern', 'dandelion', 'poppy'))
-    parser.add_argument('--height', type=int, action='append', choices=tuple(range(8)))
+    parser.add_argument('--plant', action='append', choices=('short_grass', 'fern', 'dandelion', 'poppy', 'blue_orchid', 'allium'))
+    parser.add_argument('--height', type=int, action='append', choices=(0, 5))
     parser.add_argument('--timeout', type=float, default=60)
     args = parser.parse_args()
-    evidence = {'schema': 1, 'completed': False, 'rows': [], 'focus': FOCUS,
+    evidence = {'schema': 2, 'completed': False, 'rows': [],
                 'scope': 'Fixed-position green foliage pixels compare plant, snow and covered plant; inspect screenshots for clipping.'}
     installed = visual_saved = False
     try:
@@ -72,6 +81,14 @@ def main():
                 check.run(SAVE_VISUAL)
                 visual_saved = True
                 check.refresh()
+                blueprint_path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprints.py'
+                case = check.run('import base64\nimport modern_projection.projection.debug_blueprints as refreshed\n'
+                                 'eval(compile(base64.b64decode(%r),%r,"exec"),refreshed.__dict__)\n'
+                                 '_result=json.dumps(refreshed.VISUAL_CASES["snow_plant_visibility"])' %
+                                 (base64.b64encode(blueprint_path.read_bytes()).decode('ascii'), str(blueprint_path)))
+                focus = tuple(case['focus'])
+                evidence['focus'] = focus
+                evidence['blueprint_case'] = case
                 for plant in args.plant or ('short_grass', 'fern'):
                     cases = [('plant', 0)] + [(kind, height)
                             for height in args.height or (0, 5) for kind in ('snow', 'covered')]
@@ -80,7 +97,7 @@ def main():
                         label = '%s_%s_h%d' % (plant, kind, height)
                         check.run('owner.open_workspace()\n_result=True')
                         check.wait('open workspace', lambda nav: nav['open'] and not nav['transition'], check.navigation)
-                        check.run(LOAD % ('minecraft:' + plant, height, kind))
+                        source = check.run(LOAD % (plant, height, kind))
                         state = check.wait('snow visibility preview',
                                            lambda value: not value['preview_pending'] and not value['running'] and
                                            not value['dirty'] and not value['mounting'] and value['model_revision_current'] and
@@ -94,13 +111,13 @@ def main():
                             editor_crop = viewport_crop(check, editor)
                         pixels = analyze(editor['path'], editor_crop,
                                          args.output.with_name(args.output.stem + '_' + label + '_editor_mask.png'))
-                        world = world_closeup(check, label, FOCUS, (-2., 1.6, -2.5), 1.)
+                        world = world_closeup(check, label, focus, tuple(case['camera']['world_offset']), 1.)
                         width, height_pixels = world['screenshot']['size']
                         crop = (width // 4, height_pixels // 4, width * 3 // 4, height_pixels * 3 // 4)
                         world_pixels = analyze(world['screenshot']['path'], crop,
                                                args.output.with_name(args.output.stem + '_' + label + '_world_mask.png'),
                                                world['hidden_screenshot']['path'])
-                        evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height,
+                        evidence['rows'].append({'plant': plant, 'kind': kind, 'height': height, 'source': source,
                                                  'editor': editor, 'editor_pixels': pixels,
                                                  'world': world, 'world_pixels': world_pixels})
                         write_json(args.output, evidence)
