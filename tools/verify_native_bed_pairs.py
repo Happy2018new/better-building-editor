@@ -72,21 +72,23 @@ try:
                          'expected': (block_registry.states(value), block_registry.states(other)),
                          'before': before, 'repair_returns': repairs, 'after': after})
         partner = tuple(target[i] + offset[i] for i in range(3))
-        for target_first in (True, False):
-            clear()
-            pair = ((target, value), (partner, other))
-            if not target_first:
-                pair = tuple(reversed(pair))
-            returns = []
-            for pos, material in pair:
-                properties = block_registry.states(material)
-                native_aux = blockstate.GetBlockAuxValueFromStates(material[0].encode('utf8'), properties)
-                returns.append(info.SetBlockNew(pos, {
-                    'name': material[0].encode('utf8'), 'aux': native_aux},
-                    0, dimension, True, False))
-            direct_rows.append({'aux': aux, 'target_first': target_first, 'returns': returns,
-                                'expected': (block_registry.states(value), block_registry.states(other)),
-                                'actual': (read(target), read(partner))})
+        for legacy in (True, False):
+            for target_first in (True, False):
+                clear()
+                pair = ((target, value), (partner, other))
+                if not target_first:
+                    pair = tuple(reversed(pair))
+                returns = []
+                for pos, material in pair:
+                    properties = block_registry.states(material)
+                    native_aux = blockstate.GetBlockAuxValueFromStates(material[0].encode('utf8'), properties)
+                    returns.append(info.SetBlockNew(pos, {
+                        'name': material[0].encode('utf8'), 'aux': native_aux},
+                        0, dimension, legacy, False))
+                direct_rows.append({'aux': aux, 'legacy': legacy, 'target_first': target_first,
+                                    'returns': returns,
+                                    'expected': (block_registry.states(value), block_registry.states(other)),
+                                    'actual': (read(target), read(partner))})
 finally:
     clear()
     for pos in supports:
