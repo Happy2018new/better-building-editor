@@ -59,6 +59,29 @@ class BackgroundNativeCaptureTests(unittest.TestCase):
             helper.write_text('', encoding='utf8')
             self.run_capture(directory, False, str(helper))
 
+    def test_repeated_fixture_label_preserves_every_native_frame(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            check = SignCheck.__new__(SignCheck)
+            check.output = directory / 'report.json'
+            check.native_resolution = check.background_only = True
+            check.native_capture_helper = None
+            def capture(command, **kwargs):
+                path = Path(command[command.index('--output') + 1])
+                self.assertFalse(path.exists())
+                image = Image.new('RGB', (16, 16))
+                image.paste((255, 255, 255), (0, 0, 8, 16))
+                image.save(path)
+                return type('Result', (), {'stdout': json.dumps({'ok': True})})()
+            with patch('verify_sign_visuals.subprocess.run', capture):
+                first = check.capture('public_fixture')
+                original = Path(first['path']).read_bytes()
+                second = check.capture('public_fixture')
+            self.assertNotEqual(first['path'], second['path'])
+            self.assertEqual(original, Path(first['path']).read_bytes())
+            self.assertEqual('public_fixture', second['requested_label'])
+            self.assertEqual(2, second['capture_sequence'])
+
 
 if __name__ == '__main__':
     unittest.main()

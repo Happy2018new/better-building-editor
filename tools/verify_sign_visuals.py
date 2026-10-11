@@ -93,7 +93,13 @@ class SignCheck(BlueprintCheck):
                  BlueprintCheck.capture(self,label,tree))
         if not self.native_resolution:
             return compact
-        path=self.output.parent/(self.output.stem+'_'+label+'_native.png')
+        counts=getattr(self,'native_capture_counts',None)
+        if counts is None:
+            counts=self.native_capture_counts={}
+        sequence=counts.get(label,0)+1
+        counts[label]=sequence
+        capture_label=label if sequence==1 else label+'_'+str(sequence)
+        path=self.output.parent/(self.output.stem+'_'+capture_label+'_native.png')
         helper=getattr(self,'native_capture_helper',None)
         if helper:
             helper=Path(helper).resolve(strict=True)
@@ -148,7 +154,7 @@ class SignCheck(BlueprintCheck):
             record={'path':str(path.resolve()),'bytes':len(payload),
                     'sha256':hashlib.sha256(payload).hexdigest(),'mime':'image/png',
                     'size':image.size,'variance':variance,'compact_screenshot':compact,
-                    'capture':capture}
+                    'capture':capture,'requested_label':label,'capture_sequence':sequence}
             record['background_only']=self.background_only
         if tree is not None and self.background_only:
             tree_path=path.with_suffix('.tree.json')
