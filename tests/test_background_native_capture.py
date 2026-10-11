@@ -13,10 +13,11 @@ from verify_sign_visuals import SignCheck
 
 
 class BackgroundNativeCaptureTests(unittest.TestCase):
-    def run_capture(self, directory, blank):
+    def run_capture(self, directory, blank, helper=None):
         check = SignCheck.__new__(SignCheck)
         check.output = directory / 'report.json'
         check.native_resolution = check.background_only = True
+        check.native_capture_helper = helper
         commands = []
         def capture(command, **kwargs):
             commands.append(command)
@@ -36,7 +37,8 @@ class BackgroundNativeCaptureTests(unittest.TestCase):
                 self.assertTrue(result['background_only'])
                 self.assertIsNone(result['compact_screenshot'])
         self.assertEqual(len(commands), 1)
-        self.assertTrue(commands[0][3].endswith('capture_screen.py'))
+        self.assertTrue(commands[0][3].endswith('capture_screen.py') if helper is None else
+                        commands[0][3] == str(Path(helper).resolve()))
 
     def test_black_frame_is_preserved_and_reported_without_activation(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -49,6 +51,13 @@ class BackgroundNativeCaptureTests(unittest.TestCase):
     def test_nonblank_frame_uses_only_target_window_capture(self):
         with tempfile.TemporaryDirectory() as temporary:
             self.run_capture(Path(temporary), False)
+
+    def test_explicit_native_helper_replaces_printwindow_without_compact_capture(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            helper = directory/'native_helper.py'
+            helper.write_text('', encoding='utf8')
+            self.run_capture(directory, False, str(helper))
 
 
 if __name__ == '__main__':

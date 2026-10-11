@@ -8,6 +8,7 @@ import argparse
 import base64
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import time
@@ -26,10 +27,11 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class SignCheck(BlueprintCheck):
-    def __init__(self,client,output,timeout,native_resolution=False,background_only=True):
+    def __init__(self,client,output,timeout,native_resolution=False,background_only=True,native_capture_helper=None):
         BlueprintCheck.__init__(self,client,output,timeout)
         self.native_resolution=native_resolution
         self.background_only=background_only
+        self.native_capture_helper=native_capture_helper or os.environ.get('MCDEV_NATIVE_CAPTURE_HELPER')
 
     def capture(self,label,tree=None):
         compact=(None if self.background_only and self.native_resolution else
@@ -37,8 +39,13 @@ class SignCheck(BlueprintCheck):
         if not self.native_resolution:
             return compact
         path=self.output.parent/(self.output.stem+'_'+label+'_native.png')
+        helper=getattr(self,'native_capture_helper',None)
+        if helper:
+            helper=Path(helper).resolve(strict=True)
+        else:
+            helper=ROOT/'tools/pyreact_legacy/capture_screen.py'
         completed=subprocess.run([sys.executable,'-X','utf8',
-            str(ROOT/'tools/pyreact_legacy/capture_screen.py'),'--output',str(path)],
+            str(helper),'--output',str(path)],
             capture_output=True,text=True,check=True)
         capture=json.loads(completed.stdout)
         assert capture['ok'],capture
