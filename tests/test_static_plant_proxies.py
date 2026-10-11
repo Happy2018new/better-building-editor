@@ -83,6 +83,29 @@ class StaticPlantProxyTests(unittest.TestCase):
             with self.subTest(version=version), self.assertRaises(ValueError):
                 source_path({'game_version': version})
 
+    def test_fungus_all_height_acceptance_preserves_disjoint_original_evidence(self):
+        evidence = self.source['geometry_evidence']['fungus_all_heights_r8']
+        path = ROOT/evidence['acceptance_manifest']
+        self.assertEqual(evidence['acceptance_manifest_sha256'], digest(path))
+        acceptance = json.loads(path.read_bytes())
+        partitions = acceptance['evidence_partitions']
+        old = partitions['r7_boundary']
+        new = partitions['r8_remaining']
+        self.assertEqual(digest(ROOT/'docs/snow-fungus-boundary-acceptance-r7.json'),
+                         old['acceptance_manifest']['sha256'])
+        for plant in acceptance['accepted_scope']['plants']:
+            boundary = set(old['snow_heights'][plant])
+            remaining = set(new['snow_heights'][plant])
+            self.assertFalse(boundary & remaining)
+            self.assertEqual(set(range(8)), boundary | remaining)
+        self.assertEqual(18, len(new['ordinary_other_application_switch_observations']))
+        self.assertTrue(new['foreground_changes_are_diagnostics'])
+        self.assertFalse(acceptance['geometry']['native_mesh_authority'])
+        self.assertFalse(acceptance['geometry']['random_offset_contract_recovered'])
+        self.assertFalse(acceptance['accepted_scope']['other_positions_or_runtime_versions_accepted'])
+        for relative, expected in acceptance['production_render_asset_sha256'].items():
+            self.assertEqual(expected, digest(ROOT/relative))
+
     def test_native_alpha_metadata_matches_the_fingerprinted_texture(self):
         source = deepcopy(self.source)
         with tempfile.TemporaryDirectory() as directory:

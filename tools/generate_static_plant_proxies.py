@@ -64,6 +64,20 @@ GEOMETRY_EVIDENCE = {
         'public_world_offset': [-2., .15, -2.5],
         'right_world_offset': [2., .15, -2.5],
     },
+    'fungus_all_heights_r8': {
+        'acceptance_manifest': 'tools/data/snow-fungus-all-height-acceptance-r8.json',
+        'acceptance_manifest_sha256': '0dbedac4a965a621c22a6a029cfa1632f6ea83d39175fb714de1d13b7c609542',
+        'remaining_report': 'snow-fungus-remaining-two-view-r8.json',
+        'remaining_report_sha256': '70a82c96ebe5de6386e0f115974774f1cf6a6dd77728918774cd91680fd68fb5',
+        'remaining_audit_sha256': '80a7fc158f31d33b0bc864fb5ab43e145578a5b37369fc81fefade83db34bb78',
+        'accepted_scope': 'Dry plus all eight heights, full/missing and independent editor controls, at the fixed cell and two predefined views only',
+        'all_eight_snow_heights_accepted': True,
+        'native_target': [-47, 117, -70],
+        'public_world_offset': [-2., .15, -2.5],
+        'right_world_offset': [2., .15, -2.5],
+        'geometry_assets_unchanged_since_r7': True,
+        'native_mesh_and_random_offset_contract_recovered': False,
+    },
 }
 
 
