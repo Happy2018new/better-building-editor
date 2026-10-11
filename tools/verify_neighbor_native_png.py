@@ -8,7 +8,10 @@ from pathlib import Path
 import time
 
 
-def restore_owned_window(session):
+def restore_owned_window(session, background_only=False):
+    if background_only:
+        return {'pid': session['game_pid'], 'background_only': True,
+                'restored': False, 'activation_attempted': False}
     from _window import _activate_window
     from release_owned_game_focus import owned_game_hwnd
     hwnd = owned_game_hwnd(session)
@@ -22,6 +25,8 @@ def main():
     parser.add_argument('--suite', choices=('dripstone', 'static'), required=True)
     parser.add_argument('--capture-helper', type=Path, required=True,
                         help='Checkpointed verify_sign_visuals.py exporting SignCheck')
+    parser.add_argument('--background-only', action='store_true', default=True,
+                        help='Do not activate the game, send input or repair blank background captures')
     options, remaining = parser.parse_known_args()
     if not remaining or remaining[0].startswith('-'):
         parser.error('Supply the output JSON first, followed by the visual suite options')
@@ -39,7 +44,10 @@ def main():
 
     class NativePngNeighborCheck(module.SignCheck):
         def __init__(self, client, output, timeout):
-            module.SignCheck.__init__(self, client, output, timeout, native_resolution=True)
+            arguments = {'native_resolution': True}
+            if options.background_only:
+                arguments['background_only'] = True
+            module.SignCheck.__init__(self, client, output, timeout, **arguments)
 
         def run(self, code):
             result = module.SignCheck.run(self, code)
@@ -61,12 +69,12 @@ def main():
         session = load_session(live=True)
         with desktop_lock():
             # Minimized Minecraft windows can have a zero-size client area.
-            activation = restore_owned_window(session)
+            activation = restore_owned_window(session, options.background_only)
     try:
         exit_code = world.main()
     finally:
         focus_release = None
-        if managed_live:
+        if managed_live and not options.background_only:
             from release_owned_game_focus import main as release_focus
             try:
                 focus_release = release_focus()
@@ -80,6 +88,7 @@ def main():
                 'class': 'SignCheck', 'native_resolution': True,
                 'desktop_ownership': 'Caller must hold run_live_check.py desktop lock.'}
             report['owned_window_activation'] = activation
+            report['background_only'] = options.background_only
             report['owned_focus_release'] = focus_release
             if focus_release and 'error' in focus_release:
                 report['passed'] = False

@@ -106,9 +106,12 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--holdout', action='store_true',
                         help='Independent signed-coordinate, axis and chunk-boundary matrix')
+    parser.add_argument('--background-only', action='store_true', default=True,
+                        help='Use only SDK observation without activating or releasing game focus')
     args = parser.parse_args()
     from _session import load_session
     report = {'schema': 1, 'completed': False, 'restored': False,
+              'background_only': args.background_only,
               'session_file': os.environ.get('MCDEV_SESSION_FILE'),
               'owner': os.environ.get('MCDEV_OWNER'),
               'method': 'Documented native GetBlockClip/GetBlockCollision at independent coordinates',
@@ -124,7 +127,7 @@ def main():
     report['sampling_plan'] = ('signed-axis/chunk-boundary holdout; fixed before new native observations'
                                if args.holdout else 'original world/source/packed controls')
     try:
-        report['owned_window_activation'] = restore_owned_window(load_session(live=True))
+        report['owned_window_activation'] = restore_owned_window(load_session(live=True), args.background_only)
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, 90)
             try:
@@ -152,7 +155,8 @@ def main():
         raise
     finally:
         try:
-            report['owned_focus_release'] = release_focus()
+            report['owned_focus_release'] = ({'background_only': True, 'focus_unchanged': True}
+                                            if args.background_only else release_focus())
         except Exception as error:
             report['owned_focus_release'] = {'error': '%s: %s' % (type(error).__name__, error)}
         write_json(args.output, report)

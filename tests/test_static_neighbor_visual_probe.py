@@ -6,6 +6,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from verify_static_neighbor_world_visuals import native_state_comparison
+from verify_neighbor_native_png import restore_owned_window
 
 
 class StaticNeighborStateAcceptanceTests(unittest.TestCase):
@@ -32,6 +33,16 @@ class StaticNeighborStateAcceptanceTests(unittest.TestCase):
             with self.subTest(snapshot=snapshot):
                 self.assertFalse(native_state_comparison(self.source, snapshot)['passed'])
         self.assertFalse(native_state_comparison({'origin': (0, 0, 0), 'cells': []}, {'cells': []})['passed'])
+
+    def test_background_route_never_resolves_or_activates_a_window(self):
+        from unittest.mock import patch
+        import release_owned_game_focus
+        with patch.object(release_owned_game_focus, 'owned_game_hwnd',
+                          side_effect=AssertionError('Background checks must not select a desktop window')):
+            result = restore_owned_window({'game_pid': 123}, background_only=True)
+        self.assertFalse(result['activation_attempted'])
+        self.assertFalse(result['restored'])
+        self.assertTrue(result['background_only'])
 
 
 if __name__ == '__main__':

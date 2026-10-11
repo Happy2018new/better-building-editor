@@ -243,6 +243,8 @@ def main():
     parser.add_argument('--camera-calibration', type=Path, required=True)
     parser.add_argument('--threshold', type=int, default=16)
     parser.add_argument('--min-pixels', type=int, default=80)
+    parser.add_argument('--background-only', action='store_true', default=True,
+                        help='Preserve desktop focus and refuse blank background capture fallback')
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.calibration = json.loads(args.camera_calibration.read_text(encoding='utf8'))
@@ -251,6 +253,7 @@ def main():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     report = {'schema': 1, 'completed': False, 'restored': False,
+              'background_only': args.background_only,
               'session_file': os.environ.get('MCDEV_SESSION_FILE'), 'owner': os.environ.get('MCDEV_OWNER'),
               'method': 'Native world/list Combine, returned palette, captured palette and Deserialize roundtrip',
               'limits': 'Diagnostic only; fixed origin/offset/rotation; no pixel fitting or production correction',
@@ -268,8 +271,11 @@ def main():
         session = load_session(live=True)
         report['calibration_validation'] = validate_calibration(args.calibration, session)
         with Client(timeout=30) as client:
-            report['activation'] = restore_owned_window(session)
-            check = module.SignCheck(client, args.output, 90, native_resolution=True)
+            report['activation'] = restore_owned_window(session, args.background_only)
+            arguments = {'native_resolution': True}
+            if args.background_only:
+                arguments['background_only'] = True
+            check = module.SignCheck(client, args.output, 90, **arguments)
             environment = installed = visual = options = False
             try:
                 report['environment_before'] = run(client, SETUP)
@@ -320,7 +326,8 @@ def main():
         raise
     finally:
         try:
-            report['focus_release'] = release_focus()
+            report['focus_release'] = ({'background_only': True, 'focus_unchanged': True}
+                                       if args.background_only else release_focus())
         except Exception as error:
             report['focus_release'] = {'error': '%s: %s' % (type(error).__name__, error)}
         write_json(args.output, report)
