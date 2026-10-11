@@ -421,7 +421,9 @@ def main():
     args.calibration = json.loads(args.camera_calibration.read_text(encoding='utf8'))
     if args.replay is not None:
         expected_session = json.loads(args.replay.read_text(encoding='utf8'))['session_file']
-        assert args.calibration['session_file'] == expected_session
+        assert expected_session and args.calibration.get('session_file') and \
+            Path(args.calibration['session_file']).resolve() == Path(expected_session).resolve(), \
+            'Calibration belongs to another instance'
         os.environ['MCDEV_SESSION_FILE'] = expected_session
         return replay(args)
     report = {'schema': 1, 'completed': False, 'passed': False, 'cases': [],

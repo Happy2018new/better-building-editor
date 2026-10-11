@@ -196,7 +196,10 @@ def roi_masks(projection, size, keep, occupied, calibration=None, boundary_guard
     effective_fov = projection['fov']
     if calibration is not None and projection['projection_method'] != 'native':
         assert calibration.get('passed') and calibration.get('completed'), calibration
-        assert calibration['session_file'] == os.environ.get('MCDEV_SESSION_FILE'), calibration
+        session = os.environ.get('MCDEV_SESSION_FILE')
+        assert session and calibration.get('session_file') and \
+            Path(calibration['session_file']).resolve() == Path(session).resolve(), \
+            'Calibration belongs to another instance'
         assert calibration['runtime_minecraft_version'] == projection['runtime_minecraft_version'], calibration
         assert abs(calibration['reported_fov'] - projection['fov']) < .01, calibration
         assert abs(calibration['screen_aspect'] - projection['screen'][0] / projection['screen'][1]) < .01, calibration
