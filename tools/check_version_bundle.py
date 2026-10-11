@@ -22,6 +22,7 @@ MODULES = (
     'scaffold_support_data',
     'biome_water_data',
     'liquid_face_texture_data',
+    'liquid_shape_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -113,6 +114,7 @@ def commands(manifest, tests=False):
         ['tools/generate_native_entity_writes.py', '--check'],
         ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_liquid_face_textures.py', '--check'],
+        ['tools/generate_liquid_shapes.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],

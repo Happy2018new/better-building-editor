@@ -1,0 +1,30 @@
+"""Versioned liquid neighborhood rules, independent of native model resources."""
+from . import block_registry, block_traits_data, liquid_shape_data as source
+from .block_traits import is_solid
+from .cell import foreground, background
+from .liquid_shape import DocumentLiquidShapes, LiquidHeightRule
+
+
+def check_version():
+    version, fingerprint = block_registry.source_version(), block_registry.fingerprint().lower()
+    if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != version
+            or source.PALETTE_SHA256.lower() != fingerprint
+            or block_traits_data.SCHEMA_VERSION != 1 or block_traits_data.SOURCE_VERSION != version
+            or block_traits_data.SOURCE_SHA256.lower() != fingerprint):
+        raise ValueError('Native liquid shapes and block traits need regeneration for this registry')
+
+
+def blocks_liquid(cell):
+    return is_solid(foreground(cell)) or is_solid(background(cell))
+
+
+def occludes_liquid(cell, unused_face):
+    return blocks_liquid(cell)
+
+
+def shape_provider(document, flow_uv=None):
+    """Build a source-owned provider; callers own resource and acceptance policy."""
+    check_version()
+    rules = dict((family, LiquidHeightRule(*row)) for family, row in source.HEIGHT_RULES.items())
+    return DocumentLiquidShapes(document, rules, blocks_liquid, occludes_liquid,
+                                source.SUPPORTED_NAMES, flow_uv)
