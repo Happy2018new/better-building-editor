@@ -162,15 +162,19 @@ class ProjectionOccupancy(object):
             self.slots[index] = -1
 
 
-    def start(self, entity, model):
+    def prepare_start(self, entity, model, anchor):
+        """Finish native setup without replacing the currently published tracker."""
         self.entity, self.model = entity, model
         self.rendered = self.state[:]
-        if self.bridge.projection_mesh:
-            self.anchor = self.bridge.projection_mesh[3]
+        self.anchor = anchor
         if entity is not None and self.shader.render is None:
             self.shader.bind(entity, model, self.anchor, attached=True)
-        self.bridge.projection_occupancy = self
         self.next_poll = time.time() + POLL_INTERVAL
+
+    def start(self, entity, model):
+        anchor = self.bridge.projection_mesh[3] if self.bridge.projection_mesh else self.anchor
+        self.prepare_start(entity, model, anchor)
+        self.bridge.projection_occupancy = self
 
     def active(self):
         return (self.bridge.alive and self.bridge.projection_occupancy is self and

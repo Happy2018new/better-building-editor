@@ -2,6 +2,7 @@
 """Prepare bounded native palettes incrementally and attach them to one actor."""
 from __future__ import unicode_literals
 import time
+import traceback
 from .model import Document, add
 from .storage import integer_types
 from .large_preview import SurfacePalette, build_preview
@@ -31,6 +32,7 @@ class WorldProjection(object):
         self.iterator = self.prepare()
         self.published = 0.
         self.ready, self.error, self.model = False, None, None
+        self.cleanup_errors = []
 
     def active(self):
         return self.bridge.alive and self.bridge.projection_serial == self.serial
@@ -94,6 +96,8 @@ class WorldProjection(object):
         elif self.ready:
             s.editor.message = ('完整投影已生成，关闭工作台即可查看' if self.model else
                                 '当前没有需要投影的方块，范围框已保留')
+            if self.cleanup_errors:
+                s.editor.message += '；旧投影资源清理失败，请关闭投影后重试'
         else:
             s.editor.message = '正在准备完整投影 %d%%' % (100*len(self.completed)//max(1,self.total))
         s.emit()
@@ -103,8 +107,11 @@ class WorldProjection(object):
         if not self.active():
             return
         if b.preparing_entity:
-            b.system.DestroyClientEntity(b.preparing_entity)
+            pending = b.preparing_entity
             b.preparing_entity = None
+            cleanup = b.release_projection_resources((pending,))
+            if cleanup:
+                message += '；临时投影资源清理失败，请关闭投影后重试'
         # Keep the previous projection on failure; never retry forever.
         self.error = message
         self.iterator = self.output = self.prepared = None
@@ -115,20 +122,38 @@ class WorldProjection(object):
 
     def commit(self, entity):
         b = self.bridge
-        for old in b.projection_entities.values():
-            b.system.DestroyClientEntity(old)
-        b.projection_entities = {}
-        if b.entity:
-            b.system.DestroyClientEntity(b.entity)
+        from .projection_outline import ProjectionOutline
+        previous_outline = b.projection_outline
+        outline = previous_outline
+        if outline.bounds != (tuple(self.origin), tuple(self.document.size)):
+            outline = ProjectionOutline(b)
+        try:
+            if self.occupancy is not None:
+                self.occupancy.prepare_start(entity, self.model, self.anchor)
+            if outline is not previous_outline:
+                outline.replace(self.origin, self.document.size)
+        except Exception:
+            if outline is not previous_outline:
+                b.release_projection_resources(outlines=(outline,))
+            raise
+        previous_entities = tuple(b.projection_entities.values()) + (b.entity,)
+        # No native calls between publication of the prepared resources.
         b.entity, b.preparing_entity = entity, None
+        b.projection_entities = {}
         b.projection_mesh = (entity, self.model, self.origin, self.anchor) if entity else None
-        b.session.projection_active = True
-        b.projection_outline.replace(self.origin, self.document.size)
-        b.set_projection_occupancy(self.occupancy, entity, self.model)
+        b.projection_outline = outline
+        b.projection_occupancy = self.occupancy
         b.projection_shader = self.shader if entity else None
+        b.session.projection_active = True
         self.ready = True
         self.output = self.prepared = None
-        self.publish(True)
+        self.cleanup_errors = b.release_projection_resources(
+            previous_entities, (previous_outline,) if outline is not previous_outline else ())
+        try:
+            self.publish(True)
+        except Exception:
+            # Rendering is committed; a UI listener cannot turn it into a failed build.
+            traceback.print_exc()
 
     def attach(self, entity):
         b = self.bridge

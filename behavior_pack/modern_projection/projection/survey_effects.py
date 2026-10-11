@@ -17,6 +17,7 @@ class WireEffects(object):
     def __init__(self, bridge):
         self.bridge = bridge
         self.layers = []
+        self.creating = []
         self.points = [None, None]
         self.bounds = None
         self.anchor = None
@@ -48,7 +49,10 @@ class WireEffects(object):
                   'kind': kind, 'face': face, 'started': time.time(), 'anchor': None, 'uniforms': {}}
         record['glow'] = (NativeGlow(self.bridge, 'strike' if kind == 'strike' else 'survey')
                           if kind in ('stars', 'strike') else None)
+        # A setup exception must leave an owned record for explicit cleanup.
+        self.creating.append(record)
         self._configure(record)
+        self.creating.remove(record)
         def ready():
             if any(record is item for item in self._records()):
                 # Native renderer registration can lag behind entity creation.
@@ -194,6 +198,9 @@ class WireEffects(object):
             if record is not None:
                 self._release(record)
         self.points = [None, None]
+        for record in tuple(self.creating):
+            self._release(record)
+            self.creating.remove(record)
         self.anchor = None
         self.camera = None
 

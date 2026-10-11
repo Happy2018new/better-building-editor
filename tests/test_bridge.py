@@ -3,6 +3,7 @@ import sys
 import types
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 
 for name in ('mod', 'mod.client', 'mod.client.extraClientApi'):
@@ -241,6 +242,155 @@ class ProjectionLifecycleTests(unittest.TestCase):
         r.GetChosen = lambda: self.fail('disabled projection must not pick')
         b.projection_interaction()
         b.projection_interaction(touch=True)
+
+    def test_outline_failure_after_creation_preserves_committed_projection(self):
+        from projection.projection_outline import ProjectionOutline
+        b, r = self.bridge, self.runtime
+        b.project()
+        self.drain_projection()
+        previous = (b.entity, b.projection_mesh, b.projection_outline,
+                    b.projection_outline.entity, b.projection_outline.bounds,
+                    b.projection_shader, b.projection_occupancy)
+        created_before = set(r.created)
+        original = ProjectionOutline.replace
+        def broken(outline, origin, size):
+            original(outline, origin, size)
+            raise RuntimeError('injected outline publication failure')
+        b.session.origin = (100, 80, 120)
+        with patch.object(ProjectionOutline, 'replace', broken):
+            b.project()
+            self.drain_projection()
+        self.assertEqual(previous, (b.entity, b.projection_mesh, b.projection_outline,
+                                    b.projection_outline.entity, b.projection_outline.bounds,
+                                    b.projection_shader, b.projection_occupancy))
+        self.assertNotIn(previous[0], r.destroyed)
+        self.assertNotIn(previous[3], r.destroyed)
+        self.assertTrue(set(r.created) - created_before)
+        self.assertTrue((set(r.created) - created_before).issubset(r.destroyed))
+        self.assertIsNone(b.preparing_entity)
+        self.assertTrue(b.session.projection_active)
+        self.assertFalse(b.projection_work.ready)
+        self.assertIn('injected outline publication failure', b.projection_work.error)
+
+    def test_occupancy_start_failure_preserves_previous_tracker_and_world_anchor(self):
+        from projection.occupancy import ProjectionOccupancy
+        b, r = self.bridge, self.runtime
+        b.session.projection_missing = True
+        b.project()
+        self.drain_projection()
+        previous = (b.entity, b.projection_mesh, b.projection_occupancy, b.projection_shader)
+        old_anchor = previous[2].anchor
+        original = ProjectionOccupancy.prepare_start
+        def broken(tracker, entity, model, anchor):
+            original(tracker, entity, model, anchor)
+            self.assertEqual((112., 88., 132.), tracker.anchor)
+            self.assertIs(previous[2], b.projection_occupancy)
+            raise RuntimeError('injected occupancy publication failure')
+        b.session.origin = (100, 80, 120)
+        with patch.object(ProjectionOccupancy, 'prepare_start', broken):
+            b.project()
+            self.drain_projection()
+        self.assertEqual(previous, (b.entity, b.projection_mesh, b.projection_occupancy, b.projection_shader))
+        self.assertEqual(old_anchor, previous[2].anchor)
+        self.assertNotIn(previous[0], r.destroyed)
+        self.assertFalse(b.projection_work.ready)
+
+    def test_old_entity_cleanup_failure_retains_new_projection_and_retries_on_close(self):
+        import contextlib
+        import io
+        b, r = self.bridge, self.runtime
+        b.project()
+        self.drain_projection()
+        old = b.entity
+        destroy = r.DestroyClientEntity
+        def broken(entity):
+            if entity == old:
+                raise RuntimeError('injected entity retirement failure')
+            destroy(entity)
+        r.DestroyClientEntity = broken
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            b.project()
+            self.drain_projection()
+        self.assertIn('injected entity retirement failure', log.getvalue())
+        self.assertTrue(b.projection_work.ready)
+        self.assertNotEqual(old, b.entity)
+        self.assertEqual({old}, b.projection_retired_entities)
+        self.assertIn('injected entity retirement failure', b.projection_work.cleanup_errors)
+        current = b.entity
+        r.DestroyClientEntity = destroy
+        b.stop_projection()
+        self.assertIn(old, r.destroyed)
+        self.assertIn(current, r.destroyed)
+        self.assertFalse(b.projection_retired_entities)
+        self.assertFalse(b.projection_retired_outlines)
+
+    def test_failed_luminous_outline_setup_releases_its_partially_created_actor(self):
+        from projection.survey_effects import WireEffects
+        for style in ('golden', 'starry'):
+            with self.subTest(style=style):
+                b, r = self.bridge, self.runtime
+                b.session.outline_style = style
+                b.project()
+                self.drain_projection()
+                old_entity, old_outline = b.entity, b.projection_outline
+                old_outline_entities = {row['id'] for row in old_outline.effects.layers}
+                created = set(r.created)
+                original = WireEffects._configure
+                def broken(effects, record):
+                    original(effects, record)
+                    raise RuntimeError('injected luminous setup failure')
+                b.session.origin = (100 if style == 'golden' else 200, 80, 120)
+                with patch.object(WireEffects, '_configure', broken):
+                    b.project()
+                    self.drain_projection()
+                self.assertEqual(old_entity, b.entity)
+                self.assertIs(old_outline, b.projection_outline)
+                self.assertFalse(old_outline_entities.intersection(r.destroyed))
+                self.assertTrue((set(r.created) - created).issubset(r.destroyed))
+                self.assertFalse(b.projection_retired_outlines)
+                self.assertFalse(b.projection_work.ready)
+                b.stop_projection()
+
+    def test_old_outline_cleanup_failure_remains_owned_until_close(self):
+        import contextlib
+        import io
+        b, r = self.bridge, self.runtime
+        b.project()
+        self.drain_projection()
+        old = b.projection_outline
+        b.session.origin = (100, 80, 120)
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            with patch.object(old, 'clear', side_effect=RuntimeError('injected outline retirement failure')):
+                b.project()
+                self.drain_projection()
+        self.assertIn('injected outline retirement failure', log.getvalue())
+        self.assertTrue(b.projection_work.ready)
+        self.assertIsNot(old, b.projection_outline)
+        self.assertEqual([old], b.projection_retired_outlines)
+        b.stop_projection()
+        self.assertIsNone(old.entity)
+        self.assertFalse(b.projection_retired_outlines)
+
+    def test_ui_listener_failure_cannot_discard_a_committed_projection(self):
+        import contextlib
+        import io
+        from projection.world_projection import WorldProjection
+        b, r = self.bridge, self.runtime
+        original = WorldProjection.publish
+        def broken(work, force=False):
+            if work.ready:
+                raise RuntimeError('injected UI publication failure')
+            return original(work, force)
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            with patch.object(WorldProjection, 'publish', broken):
+                b.project()
+                self.drain_projection()
+        self.assertIn('injected UI publication failure', log.getvalue())
+        self.assertTrue(b.projection_work.ready)
+        self.assertIsNone(b.projection_work.error)
+        self.assertIsNotNone(b.entity)
+        self.assertNotIn(b.entity, r.destroyed)
+        self.assertIsNone(b.preparing_entity)
 
     def test_current_biome_is_a_one_shot_nearest_preset_selection(self):
         b, r, s = self.bridge, self.runtime, self.bridge.session

@@ -5,6 +5,7 @@ import math
 import zlib
 import json
 import time
+import traceback
 import mod.client.extraClientApi as clientApi
 from .model import AIR, Document, Editor, add, bounds, block
 from .world import coordinate
@@ -78,6 +79,8 @@ class ClientBridge(object):
         self.capture_dimension = None
         self.projection_serial = 0
         self.projection_entities = {}
+        self.projection_retired_entities = set()
+        self.projection_retired_outlines = []
         self.projection_work = None
         self.projection_occupancy = None
         self.projection_shader = None
@@ -727,6 +730,34 @@ class ClientBridge(object):
         if self.projection_occupancy is not None:
             self.projection_occupancy.tick()
 
+    def release_projection_resources(self, entities=(), outlines=()):
+        """Retain failed releases for the next commit or explicit close."""
+        pending = getattr(self, 'projection_retired_entities', set())
+        retired = getattr(self, 'projection_retired_outlines', [])
+        self.projection_retired_entities, self.projection_retired_outlines = pending, retired
+        pending.update(entity for entity in entities if entity is not None)
+        for outline in outlines:
+            if outline not in retired:
+                retired.append(outline)
+        errors = []
+        for entity in tuple(pending):
+            try:
+                self.system.DestroyClientEntity(entity)
+            except Exception as error:
+                traceback.print_exc()
+                errors.append(type('')(error))
+            else:
+                pending.remove(entity)
+        for outline in tuple(retired):
+            try:
+                outline.clear()
+            except Exception as error:
+                traceback.print_exc()
+                errors.append(type('')(error))
+            else:
+                retired.remove(outline)
+        return errors
+
     def stop_projection(self):
         self.projection_occupancy = None
         self.projection_shader = None
@@ -736,20 +767,16 @@ class ClientBridge(object):
         self.projection_serial += 1
         self.projection_work = None
         self.restore_projection_distance()
-        self.projection_outline.clear()
-        for entity in self.projection_entities.values():
-            self.system.DestroyClientEntity(entity)
+        entities = tuple(self.projection_entities.values()) + (self.preparing_entity, self.entity)
         self.projection_entities = {}
-        if self.preparing_entity:
-            self.system.DestroyClientEntity(self.preparing_entity)
         self.preparing_entity = None
-        if self.entity:
-            self.system.DestroyClientEntity(self.entity)
         self.entity = None
         self._projection_follow_position = None
         self.projection_mesh = None
         self.session.projection_active = False
-        self.session.editor.message = '投影已关闭'
+        errors = self.release_projection_resources(entities, (self.projection_outline,))
+        self.session.editor.message = ('投影已关闭' if not errors else
+                                       '投影已关闭，部分资源清理失败，请再次关闭重试')
 
     def project_large(self, origin):
         """Prepare one exact full model while retaining the previous projection."""
