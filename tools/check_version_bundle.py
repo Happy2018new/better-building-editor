@@ -20,6 +20,7 @@ MODULES = (
     'native_entity_write_data',
     'static_bed_data',
     'scaffold_support_data',
+    'biome_water_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -87,6 +88,10 @@ def check_provenance(root=ROOT):
     path = root / 'tools/data' / ('native_actor_materials_nemc_' + version + '.json')
     check_actor_materials(json.loads(path.read_text(encoding='utf8')), manifest, root=root)
     checked.append(str(path.relative_to(root)))
+    from generate_biome_water import validate as validate_water_appearance
+    path = root / 'tools/data' / ('biome_water_appearance_nemc_' + version + '.json')
+    validate_water_appearance(json.loads(path.read_text(encoding='utf8')), manifest)
+    checked.append(str(path.relative_to(root)))
     return manifest, checked
 
 
@@ -109,6 +114,8 @@ def commands(manifest, tests=False):
         ['tools/generate_static_plant_proxies.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
         ['tools/generate_scaffold_support.py', '--check'],
+        ['tools/generate_biome_water.py', '--source',
+         'tools/data/biome_water_appearance_nemc_' + version + '.json', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

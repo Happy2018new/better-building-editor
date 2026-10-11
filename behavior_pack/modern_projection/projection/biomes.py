@@ -126,3 +126,19 @@ def from_native(name):
 
 def actor_uniform(value):
     return (19487., float(shader_index(value)), 0., 0.)
+
+
+def water_appearance(value):
+    """Return preset RGB bytes and optional native opacity, without SDK access.
+
+    None opacity preserves an unspecified engine default. Render adapters must
+    resolve it from their verified material contract, not treat it as opaque.
+    """
+    from . import biome_water_data, block_registry
+    key = validate(value)
+    if (biome_water_data.SCHEMA_VERSION != 1
+            or biome_water_data.SOURCE_VERSION != block_registry.source_version()
+            or biome_water_data.PALETTE_SHA256.lower() != block_registry.fingerprint().lower()):
+        raise ValueError('Water appearance data does not match the current block registry')
+    color, opacity = biome_water_data.WATER_APPEARANCE[key]
+    return _rgb(color), opacity

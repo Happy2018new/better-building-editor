@@ -1,6 +1,7 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.model import Document, Editor
 from projection.session import Session
@@ -140,6 +141,29 @@ class BiomeTests(unittest.TestCase):
                     difference = [abs(int(actual[i:i+2], 16) - int(expected[i:i+2], 16))
                                   for i in (0, 2, 4)]
                     self.assertLessEqual(max(difference), 26)
+
+    def test_water_appearance_uses_the_selected_preset_and_native_optional_opacity(self):
+        self.assertEqual(((68, 175, 245), None), biomes.water_appearance('plains'))
+        self.assertEqual(((97, 123, 100), .65), biomes.water_appearance('swampland'))
+        self.assertEqual(((58, 122, 106), None), biomes.water_appearance('mangrove_swamp'))
+        self.assertEqual(((93, 183, 239), None), biomes.water_appearance('cherry_grove'))
+        self.assertEqual(((118, 136, 157), None), biomes.water_appearance('pale_garden'))
+        for key in biomes.KEYS:
+            rgb, opacity = biomes.water_appearance(key)
+            self.assertEqual(3, len(rgb))
+            self.assertTrue(all(0 <= channel <= 255 for channel in rgb))
+            self.assertTrue(opacity is None or 0 <= opacity <= 1)
+        with self.assertRaises(ValueError):
+            biomes.water_appearance('custom:plains')
+
+    def test_water_appearance_rejects_stale_runtime_data_and_accepts_hash_case(self):
+        from projection import biome_water_data as water
+        for field, value in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'NEMC next'),
+                             ('PALETTE_SHA256', '0' * 64)):
+            with patch.object(water, field, value), self.assertRaises(ValueError):
+                biomes.water_appearance('plains')
+        with patch.object(water, 'PALETTE_SHA256', water.PALETTE_SHA256.lower()):
+            self.assertEqual(((68, 175, 245), None), biomes.water_appearance('plains'))
 
 
 if __name__ == '__main__':
