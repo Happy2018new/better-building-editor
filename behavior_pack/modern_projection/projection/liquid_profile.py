@@ -25,7 +25,7 @@ def _vector(value, positive=False):
 def _models(rows):
     if not isinstance(rows, (tuple, list)) or not rows:
         raise ValueError('Native liquid resources need explicit UI and world model rows')
-    models, world_models = {}, {}
+    models, world_models, names = {}, {}, set()
     for row in rows:
         if not isinstance(row, (tuple, list)) or len(row) != 4:
             raise ValueError('Liquid resource rows need texture, UV template, UI model and world model')
@@ -37,7 +37,10 @@ def _models(rows):
         key = texture, template
         if key in models:
             raise ValueError('Liquid resources repeat a texture/UV template')
+        if ui in names or world in names:
+            raise ValueError('Liquid resources repeat a UI or world model name')
         models[key], world_models[key] = ui, world
+        names.update((ui, world))
     return models, world_models
 
 

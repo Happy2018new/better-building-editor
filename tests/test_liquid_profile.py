@@ -70,6 +70,16 @@ class NativeLiquidProfileTests(unittest.TestCase):
         self.assertEqual(before, document.to_data())
         self.assertEqual(('test_side', 0), adapter.side_templates['flowing_water_grey'])
 
+    def test_model_names_cannot_alias_other_textures_or_render_paths(self):
+        data = resources()
+        first, second = data['models']
+        for ui, world in ((first[2], second[3]), (second[2], first[3]),
+                          (first[3], second[3]), (second[2], first[2]),
+                          (first[3], first[2])):
+            changed = dict(data, models=[first, second[:2] + (ui, world)])
+            with self.subTest(ui=ui, world=world), self.assertRaisesRegex(ValueError, 'model name'):
+                profile(changed)
+
     def test_actual_preview_and_world_plans_share_shapes_but_use_separate_resources(self):
         document = Document((4, 3, 4), {(1, 1, 1): material('water'),
             (2, 1, 1): make_cell(AIR, material('water', {'liquid_depth': 3}))})
