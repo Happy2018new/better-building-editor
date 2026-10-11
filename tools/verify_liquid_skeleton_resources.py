@@ -20,6 +20,7 @@ RENDER = '''async cases => {
    const p=gl.createProgram();gl.attachShader(p,compile(gl.VERTEX_SHADER,item.vertex));
    gl.attachShader(p,compile(gl.FRAGMENT_SHADER,item.fragment));gl.linkProgram(p);
    if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));
+   if(item.compile_only){rows.push({name:item.name,passed:true,compiled:true,checks:0});continue;}
    gl.useProgram(p);gl.viewport(0,0,1,1);
    const matrix=new Float32Array(16);matrix[15]=1;
    gl.uniformMatrix4fv(gl.getUniformLocation(p,'WORLDVIEWPROJ'),false,matrix);
@@ -31,6 +32,7 @@ RENDER = '''async cases => {
    const pixels=Uint8Array.from(atob(item.rgba),c=>c.charCodeAt(0));
    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,item.size[0],item.size[1],0,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
    gl.uniform1i(gl.getUniformLocation(p,'TEXTURE_0'),0);
+   gl.uniform4fv(gl.getUniformLocation(p,'HIDE_COLOR_FRAGMENT'),[1,1,1,1]);
    const position=gl.getAttribLocation(p,'POSITION');gl.disableVertexAttribArray(position);
    const failures=[];
    for(const fixture of item.fixtures){
@@ -95,17 +97,28 @@ def main():
     shaders = args.overlay / 'resource_pack/shaders/glsl'
     cases = []
     for name in contract['models']:
-        key = name.replace('modern_projection_liquid_', '').removesuffix('_frozen')
+        options = contract.get('model_options', {}).get(name, {})
+        if options.get('variant') == 'matrix':
+            for version in (100, 300):
+                cases.append({'name': '%s/%s' % (name, version), 'version': version,
+                              'vertex': shader_source(shaders / (name + '.vertex'), args.headers, version, ()),
+                              'fragment': shader_source(shaders / (name + '.fragment'), args.headers, version, ()),
+                              'compile_only': True})
+            continue
+        if options.get('variant') == 'packet' or name.endswith('_packet'):
+            continue
+        key = options.get('texture') or name.replace('modern_projection_liquid_', '').removesuffix('_frozen')
         texture = contract['textures'][key]
-        path = args.overlay / ('resource_pack/textures/models/liquid_candidate/' + key + '.png')
+        path = args.overlay / ('resource_pack/textures/models/' + contract.get('asset_path', 'liquid_candidate') + '/' + key + '.png')
         with Image.open(path).convert('RGBA') as image:
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
-            inputs = fixtures(image, texture['flipbook']['ticks_per_frame'], name.endswith('_frozen'))
+            inputs = fixtures(image, texture['flipbook']['ticks_per_frame'],
+                              options.get('variant') == 'frozen' or name.endswith('_frozen'))
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):
                 cases.append({'name': '%s/%s/%s' % (name, version, flags), 'version': version,
-                              'vertex': shader_source(shaders / 'liquid_candidate.vertex', args.headers, version, flags),
-                              'fragment': shader_source(shaders / (name + '.fragment'), args.headers, version, flags),
+                              'vertex': shader_source(shaders / (options.get('vertex_shader') or contract.get('vertex_shader', 'liquid_candidate.vertex')), args.headers, version, flags),
+                              'fragment': shader_source(shaders / (options.get('fragment_shader') or name + '.fragment'), args.headers, version, flags),
                               'size': size, 'rgba': pixels, 'fixtures': inputs})
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=args.browser, headless=True,

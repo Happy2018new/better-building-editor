@@ -21,6 +21,20 @@ for position in positions:
  assert info.SetBlockNew(position,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
 _result=json.dumps({'stone_positions':[origin]+positions})
 '''
+REFERENCE = '''import sys,json
+import mod.server.extraServerApi as api
+saved=sys._liquid_pose_world
+info=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])
+positions,visible=%r
+rows=[]
+for offset in positions:
+ position=tuple(saved['origin'][i]+offset[i] for i in range(3))
+ assert position in saved['region']
+ name='minecraft:stone' if visible else 'minecraft:air'
+ assert info.SetBlockNew(position,{'name':name,'aux':0},0,saved['dimension'],True,False)
+ rows.append({'position':position,'name':name})
+_result=json.dumps(rows)
+'''
 CAMERA = '''origin=tuple(sys._liquid_pose_client['origin'])
 target=(origin[0]+2.,origin[1]+.5,origin[2]+1.5)
 position=tuple(target[i]+(6.,5.,8.)[i] for i in range(3))
@@ -34,18 +48,21 @@ _result=json.dumps({'position':position,'rotation':rotation,'target':target,'off
 CREATE = '''saved=sys._liquid_pose_client
 assert not saved.get('free_ids')
 saved['free_ids']=[]
-model=factory.CreateModel(None)
+model=factory.CreateModel(level)
 rows=[]
 origin=saved['origin']
 center=tuple(axis+2. for axis in origin)
-for name in ('modern_projection_liquid_still_water_grey','modern_projection_liquid_still_water_grey_frozen'):
+names,scale,rotation=%r
+for name in names:
  model_id=model.CreateFreeModel(name,0)
  assert model_id
  saved['free_ids'].append(model_id)
- assert model.SetFreeModelScale(model_id,1.,1.,1.)
- assert model.SetFreeModelRot(model_id,0.,0.,0.)
+ assert model.SetFreeModelScale(model_id,scale,scale,scale)
+ assert model.SetFreeModelBoundingBox(model_id,(-4.,-4.,-4.),(4.,4.,4.))
+ assert model.SetFreeModelRot(model_id,*rotation)
  assert model.SetFreeModelPos(model_id,*center)
- rows.append({'model':name,'model_id':model_id,'center':center,'scale':(1.,1.,1.),'rotation':(0.,0.,0.)})
+ rows.append({'model':name,'model_id':model_id,'center':center,'scale':(scale,)*3,
+  'rotation':rotation,'bounding_box':((-4.,-4.,-4.),(4.,4.,4.))})
 assert len(set(saved['free_ids']))==2
 _result=json.dumps(rows)
 '''
@@ -53,15 +70,16 @@ PAYLOAD = '''from collections import namedtuple
 from modern_projection.projection import biomes
 from modern_projection.projection.liquid_transport import pack_group
 Surface=namedtuple('WorldWaterSurface','position layer heights faces texture_key flow_uv')
-height,opacity,faces=%r
+height,opacity,faces,positions,black=%r
 color,native_opacity=biomes.water_appearance('plains')
+if black:color,native_opacity=(0,0,0),1.
 rows=[]
 model=factory.CreateModel(None)
-for model_id,x in zip(sys._liquid_pose_client['free_ids'],(1,3)):
- surfaces=tuple(Surface((x,0,z),0,(height,)*4,faces,'still_water_grey',None) for z in (0,2))
+for model_id,cells in zip(sys._liquid_pose_client['free_ids'],positions):
+ surfaces=tuple(Surface(position,0,(height,)*4,faces,'still_water_grey',None) for position in cells)
  payload=pack_group((0,0,0),surfaces,color,native_opacity,opacity)
  for index,value in enumerate(payload,1):assert model.SetExtraUniformValue(model_id,index,value)
- rows.append({'model_id':model_id,'local_positions':[(x,0,z) for z in (0,2)],'uniforms':payload})
+ rows.append({'model_id':model_id,'local_positions':cells,'uniforms':payload})
 _result=json.dumps(rows)
 '''
 CHECK = '''saved=sys._liquid_pose_client
@@ -92,9 +110,23 @@ def main():
     parser.add_argument('--owner', required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
+    parser.add_argument('--model-name', action='append')
+    parser.add_argument('--scale', type=float, default=1.)
+    parser.add_argument('--rotation', type=float, nargs=3, default=(0., 0., 0.))
+    parser.add_argument('--reference-cells', action='store_true')
+    parser.add_argument('--raised-cells', action='store_true')
+    parser.add_argument('--black', action='store_true')
+    parser.add_argument('--reverse-z', action='store_true')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh report')
+    names = tuple(args.model_name or ('modern_projection_liquid_still_water_grey',
+                                     'modern_projection_liquid_still_water_grey_frozen'))
+    if len(names) != 2 or args.scale <= 0.:
+        parser.error('Supply exactly two models and a positive scale')
+    cells = (((1, 0, 0), (1, 1 if args.raised_cells else 0, 2)),
+             ((3, 0, 0), (3, 2 if args.raised_cells else 0, 2)))
+    encoded_cells = tuple(tuple((x, y, 3 - z) for x, y, z in row) for row in cells) if args.reverse_z else cells
     os.environ.update(MCDEV_SESSION_FILE=str(Path(args.session).resolve(strict=True)), MCDEV_OWNER=args.owner)
     session = load_session(args.session, args.owner, live=True)
     if Path(session['project']).resolve() != base.ROOT:
@@ -127,13 +159,25 @@ def main():
             report['camera'] = base.run(client, CAMERA)
             time.sleep(.5)
             frame('stones')
-            report['free_models'] = base.run(client, CREATE)
+            if args.reference_cells:
+                stakes = ((0, 0, 0), (0, 0, 2), (2, 0, 0), (2, 0, 2))
+                report['stakes_cleanup'] = base.run(client, REFERENCE % ((stakes, False),), True)
+                time.sleep(.3)
+                frame('reference_empty')
+                positions = tuple(position for row in cells for position in row)
+                report['reference_cells'] = base.run(client, REFERENCE % ((positions, True),), True)
+                time.sleep(.3)
+                frame('reference_cells')
+                report['reference_cleanup'] = base.run(client, REFERENCE % ((positions, False),), True)
+                time.sleep(.3)
+                frame('reference_restored')
+            report['free_models'] = base.run(client, CREATE % ((names, args.scale, tuple(args.rotation)),))
             report['coordinates'] = base.run(client, CHECK)
             time.sleep(.2)
             frame('default_zero')
             for label, values in (('full_height', (1., 1., 63)), ('height70', (.7, 1., 63)),
                                   ('half', (.7, .5, 63)), ('top', (.7, 1., 1)), ('hidden', (.7, 0., 63))):
-                report['observations'][label] = base.run(client, PAYLOAD % (values,))
+                report['observations'][label] = base.run(client, PAYLOAD % (values + (encoded_cells, args.black),))
                 time.sleep(.3)
                 frame(label)
                 if label in ('full_height', 'height70'):
