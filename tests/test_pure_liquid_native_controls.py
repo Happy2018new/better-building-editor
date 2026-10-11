@@ -197,6 +197,21 @@ class PureLiquidNativeControlTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'two source foreground'):
             controls.fixture_plan('water_depth_7_background', (0, 0, 0), (-4, -2, -4))
 
+    def test_barrier_shell_preserves_controls_and_requires_its_own_native_readback(self):
+        plan = controls.fixture_plan(controls.CASES[0], self.plan['cell_origin'], self.plan['platform'], 'barrier')
+        self.assertEqual(self.plan['controls'], plan['controls'])
+        self.assertEqual(('minecraft:barrier', 0), plan['shell_value'])
+        harness = FaultHarness(plan, self.output)
+        observed = harness.snapshot(plan['reserved'])
+        requested = plan['controls']['empty']['cells']
+        self.assertTrue(controls.capture_native_gate(observed, observed, plan, requested)['declared_context_state_passed'])
+        self.assertFalse(controls.capture_native_gate(observed, observed, self.plan, requested)['declared_context_state_passed'])
+        self.assertFalse(plan['public_controls_eligible'])
+
+    def test_unknown_shell_is_rejected_before_reservation(self):
+        with self.assertRaisesRegex(ValueError, 'glass or barrier'):
+            controls.fixture_plan(controls.CASES[0], (0, 0, 0), (-4, -2, -4), 'air')
+
     def test_incomplete_shell_prevents_any_requested_liquid_write(self):
         harness = FaultHarness(self.plan, self.output)
         harness.state[self.plan['shell'][0]] = (AIR, AIR, False)

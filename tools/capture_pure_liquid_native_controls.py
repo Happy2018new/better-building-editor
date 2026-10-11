@@ -1,7 +1,7 @@
 """Capture public liquid controls in a sealed, explicitly changed native context.
 
 Run only through the owned live-check harness. This captures diagnostic pixels,
-not geometry acceptance; the fixed glass shell is not part of the public source.
+not geometry acceptance; the selected shell is not part of the public source.
 """
 import argparse
 import copy
@@ -30,9 +30,11 @@ def wire(value):
     return json.dumps(value, ensure_ascii=True, separators=(',', ':'))
 
 
-def fixture_plan(case, cell_origin, platform):
+def fixture_plan(case, cell_origin, platform, shell_block='glass'):
     if case not in CASES:
         raise ValueError('Only the two source foreground cases are supported')
+    if shell_block not in ('glass', 'barrier'):
+        raise ValueError('Only glass or barrier diagnostic shells are supported')
     origin = tuple(cell_origin)
     focus = VISUAL_CASE['focus']
     document_origin = tuple(origin[i] - focus[i] for i in range(3))
@@ -61,7 +63,7 @@ def fixture_plan(case, cell_origin, platform):
             'original_keep': row['keep'], 'isolated_keep': focus,
             'shell': sorted(shell), 'cavity': sorted(cavity), 'reserved': sorted(reserved),
             'platform': tuple(platform), 'controls': controls,
-            'shell_value': ('minecraft:glass', 0), 'context_changed': True,
+            'shell_value': ('minecraft:' + shell_block, 0), 'context_changed': True,
             'public_controls_eligible': False}
 
 
@@ -507,8 +509,8 @@ def execute_controls(harness, options, runtime_args, report):
     cells = [(tuple(source[i] + pos[i] - VISUAL_CASE['focus'][i] for i in range(3)), encode(value))
              for pos, value in supported.blocks.items()]
     platform = wet.camera_side_platform(cells, offset)
-    plan = fixture_plan(options.case[0], source, platform)
-    report.update(schema=1, method='Four native controls in a fixed sealed glass shell',
+    plan = fixture_plan(options.case[0], source, platform, options.shell_block)
+    report.update(schema=1, method='Four native controls in a fixed sealed ' + options.shell_block + ' shell',
                   fixture=VISUAL_CASE['fixture'], context_changed=True, public_controls_eligible=False,
                   native_geometry_accepted=False, native_shape_acceptance='pending', accuracy_accepted=False,
                   registry_version=VISUAL_CASE['registry_version'],
@@ -541,7 +543,7 @@ def execute_controls(harness, options, runtime_args, report):
         raise RuntimeError('Native player is on the opposite camera side')
     expected_size = None
     for case in options.case:
-        case_plan = fixture_plan(case, source, platform)
+        case_plan = fixture_plan(case, source, platform, options.shell_block)
         row = {'case': case, 'source': case_plan, 'controls': {}, 'completed': False,
                'context_changed': True, 'public_controls_eligible': False, 'native_geometry_accepted': False}
         report['cases'].append(row)
@@ -589,6 +591,8 @@ def main(argv=None):
                         help='Explicit world minimum corner of the source cell; reservation must be air')
     parser.add_argument('--capture-helper', type=Path, required=True)
     parser.add_argument('--camera-calibration', type=Path, required=True)
+    parser.add_argument('--shell-block', choices=('glass', 'barrier'), default='glass',
+                        help='Diagnostic containment material; both change the public context')
     parser.add_argument('--threshold', type=int, default=16)
     parser.add_argument('--min-pixels', type=int, default=80)
     parser.add_argument('--settle-seconds', type=float, default=.35)
@@ -619,7 +623,8 @@ def main(argv=None):
                             wet.camera_side_platform([(tuple(options.cell_origin), None),
                                                       ((options.cell_origin[0], options.cell_origin[1] - 1,
                                                         options.cell_origin[2]), None)],
-                                                     VISUAL_CASE['camera']['world_offset']))
+                                                     VISUAL_CASE['camera']['world_offset']),
+                            options.shell_block)
         active.update(harness=harness, plan=plan, report=report)
         execute_controls(harness, options, args, report)
 

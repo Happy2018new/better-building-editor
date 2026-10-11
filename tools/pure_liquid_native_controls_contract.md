@@ -20,6 +20,13 @@ camera and sealed shell after clearing the entire cavity. No background-layer,
 neighbor, flowing-state or uncontained scene is supported by this small runner.
 Choose a new output path and prefix; earlier failed captures are preserved.
 
+`--shell-block barrier` selects a barrier shell for a separate diagnostic of
+otherwise occluded boundaries; the default remains glass. The chosen material
+is recorded in every plan and must match both native readbacks. Invisible
+containment still changes the neighborhood and does not make the observation
+eligible for public geometry acceptance. This runner does not assign corners
+or infer unseen heights for either shell.
+
 The world source cell minimum corner is explicit. The isolated public document
 focus maps to that cell, and requested source/support values come exclusively
 from `source_document(case_id, isolated=True, control=...)`. The fixed public
@@ -27,7 +34,7 @@ world camera offset is `(-5, 4, -7)`. The native player must be on its camera si
 
 Before any mutation, the runner checks the entire reservation for foreground
 and background air, saves a cleanup marker, then writes and verifies a closed
-3 by 5 by 3 glass shell. Its three-cell vertical inner cavity has the requested
+3 by 5 by 3 shell of the selected material. Its three-cell vertical inner cavity has the requested
 source in the middle; the public support is the lower cavity cell. An air guard
 and the player platform/headroom are also reserved. General `WorldAdapter.write`
 uses the current full native palette with explicit common and extra layers.
