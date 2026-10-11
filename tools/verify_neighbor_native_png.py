@@ -48,6 +48,13 @@ def main():
             if options.background_only:
                 arguments['background_only'] = True
             module.SignCheck.__init__(self, client, output, timeout, **arguments)
+            self._neighbor_capture_counts = {}
+
+        def capture(self, label, tree=None):
+            count = self._neighbor_capture_counts.get(label, 0) + 1
+            self._neighbor_capture_counts[label] = count
+            identity = label if count == 1 else label + '_capture%d' % count
+            return module.SignCheck.capture(self, identity, tree)
 
         def run(self, code):
             result = module.SignCheck.run(self, code)
