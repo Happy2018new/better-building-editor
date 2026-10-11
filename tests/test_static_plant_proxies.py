@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from PIL import Image, ImageDraw
 
@@ -41,6 +42,10 @@ class StaticPlantProxyTests(unittest.TestCase):
         atlas = files[ROOT/'resource_pack/textures/terrain_texture.json']['texture_data']
         data = {}
         exec(files[ROOT/'behavior_pack/modern_projection/projection/plant_proxy_data.py'], data)
+        from projection import block_registry as registry
+        self.assertEqual(1, data['SCHEMA_VERSION'])
+        self.assertEqual(registry.source_version(), data['SOURCE_VERSION'])
+        self.assertEqual(registry.fingerprint(), data['PALETTE_SHA256'])
         self.assertEqual(set(('minecraft:'+name, 0) for name in CANDIDATES),
                          set(data['STATIC_PLANT_PROXIES']))
         for name, record in self.source['plants'].items():
@@ -57,7 +62,7 @@ class StaticPlantProxyTests(unittest.TestCase):
                 self.assertNotIn(ROOT/'behavior_pack/netease_blocks'/('preview_'+name+'.json'), files)
 
     def test_missing_native_source_or_changed_mapping_is_rejected(self):
-        for kind in ('missing_plant', 'missing_hash', 'texture_path', 'version', 'geometry_evidence',
+        for kind in ('missing_plant', 'missing_hash', 'texture_path', 'schema', 'version', 'palette', 'geometry_evidence',
                      'alpha_bounds'):
             with self.subTest(kind=kind):
                 modified = deepcopy(self.source)
@@ -69,6 +74,10 @@ class StaticPlantProxyTests(unittest.TestCase):
                     modified['plants']['poppy']['texture_path'] = 'textures/blocks/flower_allium.tga'
                 elif kind == 'version':
                     modified['game_version'] = 'Different native version'
+                elif kind == 'schema':
+                    modified['schema'] = 2
+                elif kind == 'palette':
+                    modified['palette_sha256'] = '0'*64
                 elif kind == 'alpha_bounds':
                     modified['plants']['brown_mushroom']['alpha_bounds'] = [4, 16, 12, 16]
                 else:
@@ -145,6 +154,45 @@ class StaticPlantProxyTests(unittest.TestCase):
             self.assertEqual(original, document.to_data())
             self.assertEqual([0], rendered['common'][('modern_projection:preview_'+name, 0)])
             self.assertEqual([0], rendered['extra'][('minecraft:water', 0)])
+
+    def assert_stale_runtime_table_rejected(self, metadata, fields, snow, message):
+        from projection import block_registry as registry
+        from projection.cell import make_cell
+        from projection.geometry_palette import prepare_palette
+        from projection.model import Document
+        from projection.render_context import prepare_context_batches, prepare_context_palette
+        plant = ('minecraft:brown_mushroom', 0)
+        value = (make_cell(registry.from_states('minecraft:snow_layer',
+                    {'height': 0, 'covered_bit': True}), plant) if snow else plant)
+        document = Document((1, 1, 1), {(0, 0, 0): value})
+        before = deepcopy(document.to_data())
+        source = document.palette_data()
+        original = deepcopy(source)
+        routes = (('palette', lambda: prepare_palette(source)),
+                  ('context', lambda: prepare_context_palette(source, source)),
+                  ('batches', lambda: prepare_context_batches(document, source)))
+        for field, changed in fields:
+            with patch.object(metadata, field, changed):
+                for route, prepare in routes:
+                    with self.subTest(table=metadata.__name__, field=field, route=route):
+                        with self.assertRaisesRegex(ValueError, message):
+                            prepare()
+                        self.assertEqual(original, source)
+                        self.assertEqual(before, document.to_data())
+
+    def test_generated_plant_provenance_is_checked_by_full_and_missing_render_routes(self):
+        from projection import plant_proxy_data
+        self.assert_stale_runtime_table_rejected(plant_proxy_data,
+            (('SCHEMA_VERSION', 2), ('SCHEMA_VERSION', None),
+             ('SOURCE_VERSION', 'NEMC old'), ('PALETTE_SHA256', '0'*64)),
+            False, 'Native plant proxies need regeneration')
+
+    def test_generated_snow_traits_are_checked_before_using_plant_eligibility(self):
+        from projection import block_traits_data
+        self.assert_stale_runtime_table_rejected(block_traits_data,
+            (('SCHEMA_VERSION', 2), ('SCHEMA_VERSION', None),
+             ('SOURCE_VERSION', 'NEMC old'), ('SOURCE_SHA256', '0'*64)),
+            True, 'Native snow capabilities need regeneration')
 
     def test_buried_static_plant_overlays_keep_logical_layers_at_and_above_alpha_top(self):
         from projection import block_registry as registry

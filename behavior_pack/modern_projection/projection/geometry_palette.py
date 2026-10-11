@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
+from . import block_registry as registry
+from . import plant_proxy_data as plant_source
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
 from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entities
 from .block_traits import is_snow_coverable
 from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
 from .plant_proxy_data import STATIC_PLANT_PROXIES, STATIC_PLANT_MAX_Y
+
+
+def validate_plant_source():
+    if (getattr(plant_source, 'SCHEMA_VERSION', None) != 1 or
+            getattr(plant_source, 'SOURCE_VERSION', None) != registry.source_version() or
+            getattr(plant_source, 'PALETTE_SHA256', None) != registry.fingerprint()):
+        raise ValueError('Native plant proxies need regeneration for this block registry')
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -19,6 +28,7 @@ LEAF_PROXIES = dict(('minecraft:' + name, 'modern_projection:preview_' + name)
                                  'azalea_leaves', 'azalea_leaves_flowered',
                                  'mangrove_leaves', 'cherry_leaves', 'pale_oak_leaves'))
 
+# Hand-authored grass/fern mappings are not generated from the native dump.
 # Native cross plants can serialize correctly yet produce no visible faces.
 # Keep each half independent so layer selection still works for tall plants.
 PLANT_PROXIES = {
@@ -90,6 +100,7 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
                     inferred_bed_colors=None):
     """Copy and canonicalize both native layers and actor payloads."""
+    validate_plant_source()
     data = dict(source)
 
     def prepare_layer(key):

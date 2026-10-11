@@ -2,6 +2,7 @@
 from .block_traits_data import (SOLID_BLOCKS, SNOW_COVERABLE_BLOCKS,
                                 SOURCE_SHA256, SOURCE_VERSION)
 from . import block_traits_data as _data
+from . import block_registry as registry
 from .block_registry import canonical
 
 
@@ -10,6 +11,10 @@ def is_solid(value):
 
 
 def is_snow_coverable(value):
+    if (getattr(_data, 'SCHEMA_VERSION', None) != 1 or
+            getattr(_data, 'SOURCE_VERSION', None) != registry.source_version() or
+            getattr(_data, 'SOURCE_SHA256', None) != registry.fingerprint()):
+        raise ValueError('Native snow capabilities need regeneration for this block registry')
     return value[0] in SNOW_COVERABLE_BLOCKS
 
 

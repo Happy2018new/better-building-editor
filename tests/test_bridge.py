@@ -2,6 +2,7 @@
 import sys
 import types
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
@@ -960,6 +961,33 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(expected |
                          {('minecraft:quartz_block', 0)}, set(observed[0]['common']))
         self.assertEqual({('minecraft:quartz_block', 0)}, set(observed[0]['states']))
+
+    def test_stale_plant_tables_cannot_reuse_cached_or_submit_new_native_geometry(self):
+        from projection import block_registry as registry, block_traits_data, plant_proxy_data
+        from projection.cell import make_cell
+        b = self.bridge
+        del b.geometry
+        observed, builds = [], []
+        native_palette = types.SimpleNamespace(DeserializeBlockPalette=lambda data: observed.append(data) or True)
+        self.runtime.CreateBlock = lambda level: types.SimpleNamespace(GetBlankBlockPalette=lambda: native_palette)
+        self.runtime.CreateBlockGeometry = lambda level: types.SimpleNamespace(
+            CombineBlockPaletteToGeometry=lambda p, n, m: builds.append(n) or n)
+        plant = ('minecraft:brown_mushroom', 0)
+        snow = registry.from_states('minecraft:snow_layer', {'height': 0, 'covered_bit': True})
+        for metadata, value, hash_field, message in (
+                (plant_proxy_data, plant, 'PALETTE_SHA256', 'Native plant proxies need regeneration'),
+                (block_traits_data, make_cell(snow, plant), 'SOURCE_SHA256', 'Native snow capabilities need regeneration')):
+            doc = Document((1, 1, 1), {(0, 0, 0): value})
+            self.assertTrue(b.geometry(doc))
+            counts = len(observed), len(builds), len(b.models), len(b.model_layouts)
+            for field, changed in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'NEMC old'),
+                                   (hash_field, '0'*64)):
+                with patch.object(metadata, field, changed):
+                    for context in (None, doc):
+                        with self.subTest(table=metadata.__name__, field=field, missing=context is not None):
+                            with self.assertRaisesRegex(ValueError, message):
+                                b.geometry(doc, context_document=context)
+                            self.assertEqual(counts, (len(observed), len(builds), len(b.models), len(b.model_layouts)))
 
     def test_hidden_leaf_render_proxies_never_enter_material_catalogue(self):
         from projection.geometry_palette import INTERNAL_RENDER_BLOCKS
