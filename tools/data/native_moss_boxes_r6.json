@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "diagnostic_only": true,
+  "pixel_acceptance": false,
+  "runtime_client": "1.21.120.0",
+  "runtime_server": "1.21.120.0",
+  "netease_executable_version": "3.9.0.401155",
+  "instance_id": "4141dd48c22a4e6b884a82c5fbd47937",
+  "owner": "p0-entities-r6-isolation",
+  "project_worktree": "p0-entities-r4",
+  "source_snapshots": ["setup", "server_first", "client_first", "server_later", "client_later"],
+  "raw_evidence_sha256": "20cc18c541666bcb22bd5368bcc51046660164faeb7eb3b6ba048bc254179296",
+  "offline_replay_sha256": "7514af2dc9fd63c5f41de1dd1544ea613584f1a508d80ff1e4a240e9df97e27f",
+  "independent_cleanup_audit_sha256": "4b53ffd58997a2cf117e094b3f0b20731e4d0af7d17129c5580eb8db2596da6e",
+  "raw_host_validation_error": "AssertionError: {'collision': []}",
+  "raw_report_completed": false,
+  "offline_verification_completed": true,
+  "original_names_aux_states_exact": true,
+  "native_boxes_stable_across_client_server_and_time": true,
+  "existing_pixel_threshold": 16,
+  "existing_min_pixels": 80,
+  "samples": [
+    {
+      "case": "pale_moss_carpet_flat_pair",
+      "positions": [[4, 121, 8], [5, 121, 8]],
+      "value": ["minecraft:pale_moss_carpet", 0],
+      "states": {
+        "pale_moss_carpet_side_east": "none",
+        "pale_moss_carpet_side_north": "none",
+        "pale_moss_carpet_side_south": "none",
+        "pale_moss_carpet_side_west": "none",
+        "upper_block_bit": false
+      },
+      "relative_clip": {"min": [0, 0, 0], "max": [1, 0.0625, 1]},
+      "relative_default_collision": {"min": [0, 0, 0], "max": [1, 0.0625, 1]}
+    },
+    {
+      "case": "pale_moss_carpet_wall_pair",
+      "positions": [[12, 121, 8], [12, 121, 9]],
+      "value": ["minecraft:pale_moss_carpet", 8],
+      "states": {
+        "pale_moss_carpet_side_east": "short",
+        "pale_moss_carpet_side_north": "none",
+        "pale_moss_carpet_side_south": "none",
+        "pale_moss_carpet_side_west": "none",
+        "upper_block_bit": false
+      },
+      "relative_clip": {"min": [0, 0, 0], "max": [1, 0.625, 1]},
+      "relative_default_collision": {"min": [0, 0, 0], "max": [1, 0.0625, 1]}
+    },
+    {
+      "case": "hanging_moss_middle",
+      "positions": [[20, 125, 8], [20, 124, 8], [20, 123, 8], [20, 122, 8]],
+      "value": ["minecraft:pale_hanging_moss", 0],
+      "states": {"tip": false},
+      "relative_clip": {"min": [0, 0, 0], "max": [1, 1, 1]},
+      "default_collision_raw": {"min": [0, 0, 0], "max": [0, 0, 0]}
+    },
+    {
+      "case": "hanging_moss_tip",
+      "positions": [[20, 121, 8]],
+      "value": ["minecraft:pale_hanging_moss", 1],
+      "states": {"tip": true},
+      "relative_clip": {"min": [0, 0.125, 0], "max": [1, 1, 1]},
+      "default_collision_raw": {"min": [0, 0, 0], "max": [0, 0, 0]}
+    }
+  ],
+  "stone_positive_control": {"cells": 7, "default_clip_collision_unit_boxes": true},
+  "collision_all": {
+    "all_16_cells_all_5_snapshots": {"collision": []},
+    "uninformative_for_shape": true,
+    "reason": "The same empty envelope occurs for all seven unit stone positive controls."
+  },
+  "cleanup": {
+    "restored": true,
+    "verified_air_cells_server_and_client": 78,
+    "independent_flags_each_side": 20,
+    "all_flags_clear": true,
+    "player_camera_unchanged": true,
+    "errors": []
+  },
+  "limits": "AABBs do not establish native mesh faces, UVs or complete state behavior. Earlier moss pixel omissions remain failures. No production proxy is accepted."
+}

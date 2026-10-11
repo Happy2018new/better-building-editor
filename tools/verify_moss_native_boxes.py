@@ -166,6 +166,7 @@ def value_pair(value):
 
 def replicated(snapshot, expected):
     return (len(snapshot['rows']) == len(expected) and
+            {tuple(row['pos']) for row in snapshot['rows']} == set(expected) and
             all(row['value'] is not None and value_pair(row['value']) == expected[tuple(row['pos'])]
                 for row in snapshot['rows']))
 
@@ -176,6 +177,10 @@ def box_structure(value):
     if isinstance(value, list):
         return {'kind': 'list', 'boxes': [box_structure(item) for item in value]}
     assert isinstance(value, dict), value
+    if set(value) == {'collision'}:
+        assert isinstance(value['collision'], list), value
+        return {'kind': 'collision_envelope',
+                'boxes': [box_structure(item) for item in value['collision']]}
     bounds = [value.get(key) for key in ('min', 'max')]
     assert all(isinstance(axes, (tuple, list)) and len(axes) == 3 for axes in bounds), value
     assert all(isinstance(axis, (int, float)) and math.isfinite(axis)
@@ -189,7 +194,10 @@ def verify_snapshots(snapshots, rows, supports):
     expected = {tuple(row['pos']): (tuple(row['value']), row['states']) for row in rows}
     expected.update((tuple(pos), (tuple(value), {})) for pos, value in supports)
     result = {'original_values_exact': True, 'original_states_exact': True,
-              'all_boxes_structurally_valid': True, 'observations': []}
+              'all_boxes_structurally_valid': True, 'observations': [],
+              'native_boxes_stable_across_client_server_and_time': True,
+              'stone_default_unit_boxes': True}
+    reference = {}
     for name, snapshot in snapshots.items():
         observed = {tuple(row['pos']): row for row in snapshot['rows']}
         assert len(snapshot['rows']) == len(observed) and set(observed) == set(expected), name
@@ -197,21 +205,76 @@ def verify_snapshots(snapshots, rows, supports):
             row = observed[pos]
             assert value_pair(row['value']) == value, (name, pos, value, row)
             assert row['states'] == states, (name, pos, states, row)
+            boxes = {kind: row[kind] for kind in ('clip', 'collision', 'collision_all')}
+            if pos in reference:
+                assert reference[pos] == boxes, (name, pos, reference[pos], boxes)
+            else:
+                reference[pos] = boxes
+            if value[0] == 'minecraft:stone':
+                for kind in ('clip', 'collision'):
+                    assert row[kind] == {'min': list(pos), 'max': [axis + 1 for axis in pos]}, (name, row)
             result['observations'].append({'snapshot': name, 'pos': pos,
                 'boxes': {kind: box_structure(row[kind])
                           for kind in ('clip', 'collision', 'collision_all')}})
     return result
 
 
+def replay(source, output):
+    raw = json.loads(source.read_text(encoding='utf8'))
+    snapshots = {key: raw[key] for key in ('setup', 'server_first', 'client_first',
+                                          'server_later', 'client_later')}
+    rows, supports = matrix()
+    assert raw['requested'] == json.loads(json.dumps(rows)), 'Requested source matrix changed'
+    assert raw['supports'] == json.loads(json.dumps(supports)), 'Support matrix changed'
+    assert raw['restored'] and raw['cleanup']['restored'] and raw['post_cleanup']['clean']
+    runtime = raw['preflight']['server_runtime']
+    assert runtime == raw['preflight']['client_state']['runtime']
+    assert all(snapshot['runtime'] == runtime for snapshot in snapshots.values())
+    air = raw['client_air_after_cleanup']
+    reserved = raw['setup']['reserved_positions']
+    assert replicated(air, dict((tuple(pos), ('minecraft:air', 0)) for pos in reserved))
+    verification = verify_snapshots(snapshots, raw['requested'], raw['supports'])
+    native = {tuple(row['pos']): row for row in raw['server_first']['rows']}
+    sources = []
+    for requested in rows:
+        pos = tuple(requested['pos'])
+        row = native[pos]
+        sources.append({'case': requested['case'], 'pos': pos, 'value': row['value'],
+            'states': row['states'], 'relative_clip': {
+                bound: [row['clip'][bound][axis] - pos[axis] for axis in range(3)]
+                for bound in ('min', 'max')},
+            'collision_raw': row['collision'], 'collision_all_raw': row['collision_all']})
+    report = {'schema': 1, 'completed': True, 'restored': True, 'offline_replay': True,
+        'source': {'path': str(source.resolve()), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+                   'original_completed': raw['completed'], 'original_error': raw.get('error'),
+                   'probe_source_sha256': raw['probe_source_sha256']},
+        'parser_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'instance': raw['instance'], 'runtime': runtime,
+        'existing_pixel_threshold': raw['existing_pixel_threshold'],
+        'existing_min_pixels': raw['existing_min_pixels'],
+        'verification': verification, 'sources': sources, 'cleanup': raw['cleanup'],
+        'client_air_after_cleanup_cells': len(air['rows']),
+        'limits': 'Native AABBs only. Empty getAll envelopes also occur for stone; they do not establish mesh topology. Existing pixel failures remain unchanged.'}
+    write_json(output, report)
+    print(json.dumps({'completed': True, 'restored': True, 'offline_replay': True,
+                      'runtime': runtime, 'source_cells': len(sources), 'output': str(output.resolve())}))
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
-    parser.add_argument('--session', required=True, type=Path)
-    parser.add_argument('--owner', required=True)
-    parser.add_argument('--project', required=True, type=Path)
+    parser.add_argument('--session', type=Path)
+    parser.add_argument('--owner')
+    parser.add_argument('--project', type=Path)
+    parser.add_argument('--replay', type=Path, help='Verify existing raw evidence without a live connection')
     parser.add_argument('--preflight-only', action='store_true')
     parser.add_argument('--audit-flag', action='append', default=[])
     args = parser.parse_args()
+    if args.replay:
+        return replay(args.replay, args.output)
+    if not args.session or not args.owner or not args.project:
+        parser.error('Live checks require explicit --session, --owner and --project')
     os.environ['MCDEV_SESSION_FILE'] = str(args.session.resolve())
     os.environ['MCDEV_OWNER'] = args.owner
     report = {'schema': 1, 'completed': False, 'restored': False, 'background_only': True,
