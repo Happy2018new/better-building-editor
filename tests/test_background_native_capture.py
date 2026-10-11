@@ -36,7 +36,7 @@ class BackgroundNativeCaptureTests(unittest.TestCase):
                 self.assertTrue(result['background_only'])
                 self.assertIsNone(result['compact_screenshot'])
         self.assertEqual(len(commands), 1)
-        self.assertTrue(commands[0][2].endswith('capture_screen.py'))
+        self.assertTrue(commands[0][3].endswith('capture_screen.py'))
 
     def test_black_frame_is_preserved_and_reported_without_activation(self):
         with tempfile.TemporaryDirectory() as temporary:
