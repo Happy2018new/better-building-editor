@@ -106,11 +106,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if liquid is None:
             return
         session.liquid_preview = liquid
+        session.liquid_controls = liquid_controls
         def cleanup():
             liquid_controls.close()
             liquid.close()
             if getattr(session, 'liquid_preview', None) is liquid:
                 session.liquid_preview = None
+                session.liquid_controls = None
+                session.liquid_error = ''
         return cleanup
     use_effect(own_liquid, [liquid, liquid_controls])
     models_signature = use_ref(None)
@@ -411,6 +414,11 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             liquid_pose = liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw)
             liquid_controls.update(liquid.groups, liquid_view, liquid_pose,
                 tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0., 0.), now)
+            error = liquid.error or liquid_controls.error
+            message = '水预览更新失败：%s' % error if error else ''
+            if session.liquid_error != message:
+                session.liquid_error = message
+                session.emit('preview_status')
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
@@ -499,7 +507,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         return x <= point[0] < x+w and y <= point[1] < y+h
 
     def screen_hit(point):
-        status_visible = (session.preview_error or session.edit_job is not None or
+        status_visible = (session.preview_error or session.liquid_error or session.edit_job is not None or
                           (session.preview_pending and session.tiles.report_progress))
         return (active and contains(pointer.current, point) and
                 not (navigation and contains(navigation.current, point)) and

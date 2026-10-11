@@ -217,13 +217,19 @@ def PreviewProgress(session=None, width=400, container=None):
     def stop():
         if session.preview_error:
             session.tiles.retry()
+        elif session.liquid_error:
+            session.liquid_error = ''
+            if session.liquid_preview is not None:
+                session.liquid_preview.retry()
+            if session.liquid_controls is not None:
+                session.liquid_controls.retry()
         elif session.edit_job is not None:
             session.cancel_edit()
         else:
             session.tiles.cancel()
     def tick(now):
         job = session.edit_job
-        error = session.preview_error
+        error = session.preview_error or session.liquid_error
         visible = bool(error) or job is not None or (session.preview_pending and session.tiles.report_progress)
         if not visible and previous.current and not previous.current[0]:
             return
@@ -281,7 +287,7 @@ def Viewport(session=None, revision=0, width=430, height=440):
     area_h = max(130, height - (191 if focus else 203))
     viewport_children = []
     viewport_children.append(Scene(key='scene_model', session=session, revision=revision, width=width, height=area_h, navigation=navigation, preview_status=preview_status))
-    if not session.model_name and not session.preview_pending and not session.preview_error:
+    if not session.model_name and not session.preview_pending and not session.preview_error and not session.liquid_error:
         viewport_children.append(Panel(key='empty_model', style=S(width='100%', height='100%', alignItems=AlignItems.center,
             justifyContent=JustifyContent.center, gap=10), children=[icon('cube', Theme.muted, 36),
                 text('当前没有可见方块，点击网格放置', 12, Theme.muted)]))

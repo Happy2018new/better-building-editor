@@ -195,7 +195,8 @@ def analyze(report_path, profile_path, output, selected=None, tolerance=3):
     if (not calibration.get('completed') or not calibration.get('passed') or not calibration.get('restored') or
             calibration.get('cleanup_errors') or Path(calibration['session_file']).resolve() != session_path):
         raise ValueError('Passed and restored same-session calibration is required')
-    source_names = ('runner_source', 'diagnostic_fixture_source', 'public_fixture_source', 'reviewed_harness_source')
+    source_names = ('runner_source', 'diagnostic_fixture_source', 'public_fixture_source',
+                    'reviewed_harness_source', 'neighbor_backdrop_fixture_source')
     sources = dict((name, checked_fingerprint(report[name])) for name in source_names if name in report)
     pose, rows = report['camera'], []
     output.mkdir(parents=True)

@@ -133,6 +133,18 @@ class LiquidControlsTests(unittest.TestCase):
         self.assertTrue(self.update(.3))
         self.assertTrue(self.update(.4))
 
+    def test_retry_releases_failure_latch_and_reapplies_the_existing_request(self):
+        self.dolls[1].doll.submit_ok = False
+        self.assertFalse(self.update(0.))
+        self.assertIsNotNone(self.controls.error)
+        self.dolls[1].doll.submit_ok = True
+        self.assertFalse(self.update(.1))
+        self.controls.retry()
+        for now in (.2, .225, .25, .3, .4):
+            ready = self.update(now)
+        self.assertTrue(ready)
+        self.assertIsNone(self.controls.error)
+
     def test_offscreen_and_removed_groups_hide_all_banks_and_resume_owned_controls(self):
         self.settle()
         self.view = self.view._replace(clipped=True)

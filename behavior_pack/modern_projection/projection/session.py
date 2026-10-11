@@ -34,6 +34,8 @@ class Session(object):
         self.model_revision = None
         self.preview_pending = False
         self.preview_error = ''
+        self.liquid_error = ''
+        self.liquid_preview = self.liquid_controls = None
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.

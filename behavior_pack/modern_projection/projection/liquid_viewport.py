@@ -87,6 +87,14 @@ class LiquidControls(object):
                 self.error = renderer.error
         return not self.pending
 
+    def retry(self):
+        self.error = None
+        for entry in self.registry.values():
+            renderer = entry.get('renderer')
+            if renderer is not None:
+                renderer.retry()
+            entry.pop('ready_request', None)
+
     def invalidate(self):
         for entry in self.registry.values():
             renderer = entry.get('renderer')
