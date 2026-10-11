@@ -121,6 +121,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **03:45 原生液体分面计划：** 原版 `blocks.json` 对水的 up/down 使用 `still_water_grey`，side 使用 `flowing_water_grey`；熔岩亦区分顶底与侧面。共享计划允许 provider 返回同格同层、同四角的 1–6 个互不重叠面段，分别使用显式纹理／UV 模板；同材质分段另占 transport slot，避免一个 group 重复同层位置。材质计数扫描仅缓存当前活跃液体 palette ID，无液体文档直接跳过 chunk。20 项计划及 11 项投影合同测试通过；这解决分面载荷表达，尚不证明原生 UV 或生产画面通过。接续优先完成 UI／世界坐标、混合深度和含水本体，水色沿用最终 `Document.biome`，草木仍采用已接受的 14 预设近似。
 
+**03:46 原生分面资源来源：** `generate_liquid_face_textures.py` 从当前安装 `vanilla/blocks.json` 捕获四个液体名称的 up/down/side 资源键，保存原字节与行集合 SHA、schema、游戏版本和 palette 指纹，并生成独立 `liquid_face_texture_data.py`。`LiquidFaceTextures` 只做分面资源适配：top 的流向仍由形状 provider 显式给出，side UV 必须由已校准调用者提供；同资源／模板面合并以减少模型数量，不猜 UV 或改变逻辑层。四项资源漂移／分面测试通过，52 个统一来源一致，定点 MOD review 实际解析 1 文件、无发现。资源定义完整不代替动画 UV、世界／UI 坐标和内置蓝图实机验收。
+
 ### 第八轮保存检查点（2026-10-11，截止 23:30）
 
 本轮从 `dev` 的 `67dfc74` 接续；`main` 和 `render-dragon` 保持各自既定用途。用户暂存的五个 `tools/p0_palette_*_probe.py` 文件保留暂存状态，不能混入本轮的路径限定提交。此前归档的 `.runtime/p0-*` 路径只用于读取历史证据，本轮三个代理曾使用新的实际 Git 工作树 `r8-liquid`、`r8-entities`、`r8-snow`；接受提交已统一接入 `dev`，三个工作树及对应临时分支已归档清理，旧路径现在也仅为证据别名。
