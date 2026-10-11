@@ -40,6 +40,16 @@ VISUAL_CASE = {
         'scope': 'Dry and immediately before/at the alpha-derived candidate burial boundary, both modes and both fixed views',
         'all_eight_snow_heights_accepted': False,
     },
+    'fungus_remaining': {
+        'schema': 1,
+        'geometry_status': 'R7 centered cross; remaining-height acceptance pending independent native pixels',
+        'native_target': (-47, 117, -70),
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': {'crimson_fungus': (0, 1, 2, 3, 6, 7),
+                    'warped_fungus': (0, 1, 2, 5, 6, 7)},
+        'scope': 'Dry control and the six heights absent from the R7 boundary matrix, both modes and both fixed views',
+        'all_eight_snow_heights_accepted': False,
+    },
 }
 
 

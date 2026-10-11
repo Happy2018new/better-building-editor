@@ -12,7 +12,8 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
 from verify_snow_catalogue_visuals import (frame_for, compare_world, summarize,
-                                         snow_control_matches, native_boundary, compare_exposed)
+                                         snow_control_matches, native_boundary, compare_exposed,
+                                         profile_offset, VISUAL_CASE)
 from camera_projection import project_points
 from verify_snow_plant_visibility import convex_hull
 from verify_snow_plant_visibility import cross_assets
@@ -66,6 +67,28 @@ class SnowBindingReadTests(unittest.TestCase):
 
 
 class SnowCatalogueVisualTests(unittest.TestCase):
+    def test_remaining_fungus_heights_partition_the_public_catalogue(self):
+        self.assertEqual((-47, 117, -70), VISUAL_CASE['fungus_remaining']['native_target'])
+        for plant in ('crimson_fungus', 'warped_fungus'):
+            boundary = set(VISUAL_CASE['fungus_boundary']['heights'][plant])
+            remaining = list(VISUAL_CASE['fungus_remaining']['heights'][plant])
+            self.assertFalse(boundary.intersection(remaining))
+            self.assertEqual(set(range(8)), boundary.union(remaining))
+            for view in ('public', 'right'):
+                expected = tuple(VISUAL_CASE['fungus_boundary']['views'][view])
+                self.assertEqual(expected, profile_offset((plant,), remaining, ('full', 'missing'), view,
+                                                         'fungus_remaining'))
+
+    def test_fungus_profile_refuses_incomplete_or_different_matrix(self):
+        heights = list(VISUAL_CASE['fungus_remaining']['heights']['crimson_fungus'])
+        for plants, matrix, modes in ((('poppy',), heights, ('full', 'missing')),
+                                     (('crimson_fungus',), heights[:-1], ('full', 'missing')),
+                                     (('crimson_fungus',), heights, ('full',))):
+            with self.subTest(plants=plants, matrix=matrix, modes=modes), self.assertRaisesRegex(ValueError, 'exact height matrix'):
+                profile_offset(plants, matrix, modes, 'right', 'fungus_remaining')
+        with self.assertRaisesRegex(ValueError, 'versioned fungus profile'):
+            profile_offset(('poppy',), [0], ('full', 'missing'), 'right')
+
     def test_unregistered_static_plants_keep_pixel_checks_without_proxy_alpha(self):
         with tempfile.TemporaryDirectory() as directory:
             session = {'game_executable': str(Path(directory)/'Minecraft.Windows.exe')}
