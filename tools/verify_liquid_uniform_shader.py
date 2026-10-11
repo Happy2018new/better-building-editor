@@ -53,6 +53,13 @@ def fixtures():
     return rows
 
 
+def direct_fixtures():
+    from probe_liquid_uniform_transport import HEIGHT_CODES, uniforms
+    return [{'name':'direct/%d' % slot,'position':[slot*16.,0.,0.,1.],
+             'uniforms':[list(value) for group,value in uniforms(2)],
+             'expected':list(heights[:3])+[255]} for slot,heights in enumerate(HEIGHT_CODES)]
+
+
 def main():
     from playwright.sync_api import sync_playwright
     parser=argparse.ArgumentParser(description=__doc__)
@@ -60,18 +67,20 @@ def main():
     parser.add_argument('--headers',required=True,type=Path)
     parser.add_argument('--browser')
     parser.add_argument('--report',required=True,type=Path)
+    parser.add_argument('--direct-entity',action='store_true')
     args=parser.parse_args()
     if args.report.exists():
         parser.error('Choose a fresh report')
     shaders=args.overlay/'resource_pack/shaders/glsl'
-    paths=[shaders/('liquid_uniform_r9.'+extension) for extension in ('vertex','fragment')]
+    prefix='liquid_uniform_direct_r9' if args.direct_entity else 'liquid_uniform_r9'
+    paths=[shaders/(prefix+'.'+extension) for extension in ('vertex','fragment')]
     cases=[]
     for version in (100,300):
         for flags in (('BLEND',),('BLEND','FOG')):
             cases.append({'name':'%s/%s' % (version,flags),'version':version,
                           'vertex':shader_source(paths[0],args.headers,version,flags),
                           'fragment':shader_source(paths[1],args.headers,version,flags),
-                          'fixtures':fixtures()})
+                          'fixtures':direct_fixtures() if args.direct_entity else fixtures()})
     with sync_playwright() as playwright:
         browser=playwright.chromium.launch(executable_path=args.browser,headless=True,
             args=['--use-angle=swiftshader','--enable-unsafe-swiftshader'])
@@ -80,6 +89,7 @@ def main():
         finally:
             browser.close()
     report={'schema':1,'results':results,'checks':sum(row.get('checks',0) for row in results),
+            'direct_entity_diagnostic':args.direct_entity,
             'passed':all(row.get('passed',False) for row in results),
             'shader_sha256':{path.name:hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
             'scope':'Host GLES 2/3 and synthetic attributes; not native rendering acceptance',

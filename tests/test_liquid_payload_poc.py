@@ -111,10 +111,12 @@ class LiquidCarrierTests(unittest.TestCase):
             originals = {
                 'resource_pack/blocks.json': {'format_version': [1, 1, 0], 'minecraft:stone': {'sound': 'stone'}},
                 'resource_pack/textures/terrain_texture.json': {'resource_pack_name': 'original', 'texture_data': {'stone': {'textures': 'stone'}}},
+                'resource_pack/materials/entity.material': {'materials': {'version': '1.0.0', 'existing:base': {'vertexShader': 'original'}}},
                 'resource_pack/materials/terrain.material': {'materials': {'version': '1.0.0', 'blend:base': {'+states': ['Blending'], '+defines': ['BLEND'], 'depthFunc': 'LessEqual'}}}}
             patches = {
                 'resource_pack/blocks.json': {'format_version': [1, 1, 0], 'modern_projection:experiment': {'sound': 'stone'}},
                 'resource_pack/textures/terrain_texture.json': {'texture_data': {'experiment': {'textures': 'experiment'}}},
+                'resource_pack/materials/entity.material': {'materials': {'version': '1.0.0', 'experiment:entity_static': {'vertexShader': 'new'}}},
                 'resource_pack/materials/terrain.material': {'materials': {'version': '1.0.0', 'blend:base': {'vertexShader': 'new', '+states': ['DisableCulling']}}},
                 'resource_pack/shaders/glsl/experiment.vertex': 'shader'}
             original_bytes = {}
@@ -140,6 +142,9 @@ class LiquidCarrierTests(unittest.TestCase):
             self.assertEqual(material['+states'], ['Blending', 'DisableCulling'])
             self.assertEqual(material['+defines'], ['BLEND'])
             self.assertEqual(material['depthFunc'], 'LessEqual')
+            entity_materials = json.loads((project / 'resource_pack/materials/entity.material').read_bytes())['materials']
+            self.assertEqual(entity_materials['existing:base'], {'vertexShader': 'original'})
+            self.assertEqual(entity_materials['experiment:entity_static'], {'vertexShader': 'new'})
             self.assertFalse(report['native_geometry_accepted'])
             after = {path: (project / path).read_bytes() for path in hashes}
             with self.assertRaises(ValueError):

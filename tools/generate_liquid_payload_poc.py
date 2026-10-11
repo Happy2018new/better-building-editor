@@ -232,7 +232,7 @@ def install_overlay(overlay, project, backup):
     if backup.exists():
         raise ValueError('The backup path must be fresh')
     patches = ('resource_pack/blocks.json', 'resource_pack/textures/terrain_texture.json',
-               'resource_pack/materials/terrain.material')
+               'resource_pack/materials/terrain.material', 'resource_pack/materials/entity.material')
     contract = json.loads((overlay / 'contract.json').read_text(encoding='ascii'))
     plans = []
     for relative, expected in contract['output_sha256'].items():
@@ -259,6 +259,11 @@ def install_overlay(overlay, project, backup):
                         continue
                     name = key.split(':')[0]
                     previous = [item for item in current['materials'] if item.split(':')[0] == name]
+                    if relative.endswith('entity.material'):
+                        if previous:
+                            raise ValueError('The experiment entity material already exists: ' + name)
+                        current['materials'][key] = value
+                        continue
                     if len(previous) != 1:
                         raise ValueError('Expected one already validated native descendant: ' + name)
                     definition = current['materials'][previous[0]]
