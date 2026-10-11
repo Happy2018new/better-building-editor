@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "source_commit": "cfd7b96735c9eb614fe6196998a95067f973f3a2",
+  "round": 8,
+  "recorded_at": "2026-10-11T22:41:53+08:00",
+  "command": "python -X utf8 tools/check_version_bundle.py --tests --output .runtime/version-bundle-r8-integrated.json",
+  "report": {
+    "path": ".runtime/version-bundle-r8-integrated.json",
+    "sha256": "a93a7533314d6e8b84fd3d10cc2a9f491adf4d4259b8d32c8e4a77bddf3c45b9",
+    "passed": true,
+    "provenance_files": 47,
+    "check_rows": 18,
+    "failed_checks": 0
+  },
+  "tests": {
+    "count": 1244,
+    "elapsed_seconds": 50.171,
+    "exit_code": 0,
+    "source": "Completed root exec session 21708 stdout; the structured bundle report records exit codes, not test counts or timing."
+  },
+  "registry": {
+    "game_version": "NEMC 3.9.0.401155",
+    "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "names": 1340,
+    "states": 15858,
+    "operations_per_state": 6
+  },
+  "previous_checkpoint": "docs/version-bundle-r7-checkpoint.json",
+  "native_evidence": {
+    "liquid": "tools/data/liquid_payload_r8_checkpoint.md",
+    "entities": "tools/data/entities_visual_acceptance_r8.json",
+    "fungus_snow": "tools/data/snow-fungus-all-height-acceptance-r8.json",
+    "roots_rejected": "tools/data/snow-static-roots-rejected-screening-r8.json"
+  },
+  "scope": "Offline consistency, generated assets and regression tests at source_commit. Native editor and world projection visual acceptance require their separate reports. The liquid backend and complete scaffold support classification remain pending."
+}
