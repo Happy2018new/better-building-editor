@@ -15,8 +15,9 @@ from PIL import Image, ImageChops, ImageDraw
 
 import capture_pure_liquid_native_controls as contained
 from camera_projection import project_points
-from projection.cell import AIR, encode
+from projection.cell import AIR, decode, encode
 from projection.debug_liquid_blueprints import VISUAL_CASE, source_document
+from projection.native_layers import native_cell
 from verify_missing_neighbor_visuals import hull
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,9 +51,10 @@ def fixture_plan(identity, cell_origin, platform):
     controls = {}
     for control in contained.CONTROLS:
         document = source_document(identity, isolated=True, control=control)
-        controls[control] = {'cells': [
+        cells = [
             (tuple(document_origin[i] + pos[i] for i in range(3)), encode(value))
-            for pos, value in sorted(document.blocks.items())]}
+            for pos, value in sorted(document.blocks.items())]
+        controls[control] = {'cells': cells, 'native_cells': native_reference(cells)}
     positions = [pos for pos, unused in controls['supported_positive']['cells']]
     low = tuple(min(pos[i] for pos in positions) - 1 for i in range(3))
     high = tuple(max(pos[i] for pos in positions) + 1 for i in range(3))
@@ -72,8 +74,14 @@ def fixture_plan(identity, cell_origin, platform):
             'context_changed': False, 'flow_disabled': True}
 
 
+def native_reference(cells):
+    """Declare temporary native layers separately from unchanged logical cells."""
+    return [(pos, encode(native_cell(decode(value)))) for pos, value in cells]
+
+
 def native_gate(before, after, plan, requested):
-    expected = requested + [(plan['platform'], encode(('minecraft:stone', 0)))]
+    reference = native_reference(requested)
+    expected = reference + [(plan['platform'], encode(('minecraft:stone', 0)))]
     sides = {}
     for side in ('server', 'client'):
         sides[side] = {
@@ -83,6 +91,8 @@ def native_gate(before, after, plan, requested):
     passed = all(row['before_matches'] and row['after_matches'] and row['changes']['unchanged']
                  for row in sides.values())
     return {'public_snapshot_unchanged': passed, 'sides': sides,
+            'logical_cells': requested, 'native_reference_cells': reference,
+            'native_layer_conversion_required': reference != requested,
             'flow_disabled': True, 'geometry_accepted': False}
 
 

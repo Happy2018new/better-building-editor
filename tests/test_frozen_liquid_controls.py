@@ -70,19 +70,34 @@ class FrozenLiquidControlTests(unittest.TestCase):
     def test_gate_requires_exact_background_and_all_reserved_neighbors(self):
         plan = frozen.fixture_plan('water_depth_0_background', (8, 110, -3), (-10, 105, -20))
         requested = plan['controls']['supported_positive']['cells']
-        expected = requested + [(plan['platform'], encode(('minecraft:stone', 0)))]
+        original = copy.deepcopy(requested)
+        expected = frozen.native_reference(requested) + [(plan['platform'], encode(('minecraft:stone', 0)))]
         state = frozen.contained.expected_native(expected, plan['reserved'])
         observed = {'server': snapshot(state), 'client': snapshot(state)}
         gate = frozen.native_gate(observed, observed, plan, requested)
         self.assertTrue(gate['public_snapshot_unchanged'])
         self.assertFalse(gate['geometry_accepted'])
+        self.assertTrue(gate['native_layer_conversion_required'])
+        self.assertEqual(original, requested)
+        self.assertEqual(original, gate['logical_cells'])
+        self.assertEqual(frozen.native_reference(original), gate['native_reference_cells'])
         for position, replacement in (
-                (tuple(plan['cell_origin']), (('minecraft:water', 0), AIR, False)),
+                (tuple(plan['cell_origin']), (AIR, ('minecraft:water', 0), False)),
                 (tuple(plan['cavity'][0]), (AIR, ('minecraft:flowing_water', 7), False))):
             changed = dict(state)
             changed[position] = replacement
             after = {'server': snapshot(state), 'client': snapshot(changed)}
             self.assertFalse(frozen.native_gate(observed, after, plan, requested)['public_snapshot_unchanged'])
+
+    def test_native_reference_keeps_water_depth_and_does_not_mutate_logical_control(self):
+        from projection.cell import make_cell
+        pos = (8, 110, -3)
+        logical = [(pos, encode(make_cell(AIR, ('minecraft:flowing_water', 3))))]
+        original = copy.deepcopy(logical)
+        self.assertEqual([(pos, encode(('minecraft:flowing_water', 3)))], frozen.native_reference(logical))
+        self.assertEqual(original, logical)
+        logical = [(pos, encode(make_cell(('minecraft:oak_fence', 0), ('minecraft:water', 0))))]
+        self.assertEqual(logical, frozen.native_reference(logical))
 
     def test_invalid_native_snapshot_cannot_pass(self):
         plan = frozen.fixture_plan('water_depth_0_foreground', (8, 110, -3), (-10, 105, -20))
