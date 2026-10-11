@@ -14,6 +14,7 @@ NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
 MAX_CONTEXT_CHUNK_CACHE = 32
 TARGETS_PER_UNIT = 16
+_NOT_RENDERED = object()
 LOCAL_NEIGHBORS = tuple((x, y, z, (y * 64 + x) * 64 + z)
                         for x, y, z in NEIGHBORS)
 
@@ -86,6 +87,36 @@ def _native_actor_mesh(cell):
             field_key(actor[1], 'decoratedPotShredNamesSize') is not None)
 
 
+class _ContextWriter(object):
+    """Resolve each prepared material's output buckets once per native batch."""
+    def __init__(self, palette):
+        self.palette, self.cache = palette, {}
+
+    def put(self, rendered, index, delta):
+        key = id(rendered)
+        plan = self.cache.get(key)
+        if plan is None:
+            cell = rendered[0]
+            layers = ('extra',) if _native_actor_mesh(cell) else ('common', 'extra')
+            buckets = []
+            for layer in layers:
+                value = cell.get(layer)
+                if value is not None and value != AIR:
+                    buckets.append(self.palette[layer].setdefault(value, []))
+            actor = None if layers == ('extra',) else cell.get('actor')
+            if actor is not None:
+                name, payload = actor
+                actor = (self.palette['actor'].setdefault(name, {}), payload)
+            # Retain the rendered object so its id cannot be reused in this cache.
+            plan = (rendered, buckets, actor)
+            self.cache[key] = plan
+        for bucket in plan[1]:
+            bucket.append(index)
+        if plan[2] is not None:
+            bucket, payload = plan[2]
+            bucket[index] = rebase(payload, delta)
+
+
 def prepare_context_palette(source, targets):
     """Return a final native render palette; do not prepare it a second time.
 
@@ -152,29 +183,47 @@ class ContextPaletteBuilder(object):
 
     def material(self, x, y, z):
         key = (x >> 4, y >> 4, z >> 4)
-        chunk = self.chunk_cache.get(key)
-        if chunk is None:
+        entry = self.chunk_cache.get(key)
+        if entry is None:
             chunk = self.document.blocks.chunks.get(key, 0)
             if not isinstance(chunk, integer_types):
                 chunk = tuple(chunk)
+                rendered_cells = [_NOT_RENDERED] * 4096
+            elif not chunk:
+                rendered_cells = None
+            else:
+                # Only chest pairing makes a uniform chunk position-dependent.
+                rendered_cells = [_NOT_RENDERED] * (4096 if chunk in self.chest_identities else 1)
             # Bound expanded Python integers even for large sparse snapshots.
             if len(self.chunk_cache) == MAX_CONTEXT_CHUNK_CACHE:
                 self.chunk_cache.popitem(last=False)
-            self.chunk_cache[key] = chunk
+            entry = (chunk, rendered_cells)
+            self.chunk_cache[key] = entry
+        chunk, rendered_cells = entry
+        if rendered_cells is None:
+            return None
         index = ((y & 15) << 8) | ((z & 15) << 4) | (x & 15)
+        render_index = 0 if len(rendered_cells) == 1 else index
+        result = rendered_cells[render_index]
+        if result is not _NOT_RENDERED:
+            return result
         identity = chunk if isinstance(chunk, integer_types) else chunk[index]
         if not identity:
+            rendered_cells[render_index] = None
             return None
         if identity not in self.chest_identities:
             cached = self.cache.get(identity)
             if cached is not None:
+                rendered_cells[render_index] = cached
                 return cached
         value = self.document.blocks.palette[identity]
         front, back, actor = foreground(value), background(value), actor_data(value)
         part = document_chest_part(self.document, (x, y, z), front)
         cache_key = identity if part is None else (identity, part)
         if cache_key in self.cache:
-            return self.cache[cache_key]
+            result = self.cache[cache_key]
+            rendered_cells[render_index] = result
+            return result
         source = {'volume': (1, 1, 1), 'common': {}, 'extra': {}, 'actor': {}}
         if front != AIR:
             source['common'][front] = [0]
@@ -186,6 +235,7 @@ class ContextPaletteBuilder(object):
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
+        rendered_cells[render_index] = result
         self.states.update(result[2])
         self.extra_states.update(result[3])
         if self.data is not None:
@@ -290,9 +340,10 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 def palette(volume):
                     return {'volume': volume, 'common': {}, 'extra': {}, 'actor': {},
                             'states': {}, 'extraStates': {}, 'void': False, 'eliminateAir': True}
-                batch = (palette((64, 64, 64)), palette((16, 16, 16)))
+                context, overlay = palette((64, 64, 64)), palette((16, 16, 16))
+                batch = (context, overlay, _ContextWriter(context))
                 batches[origin] = batch
-            context, overlay = batch
+            context, overlay, writer = batch
             center = self.material(*target)
             if center is None or center[0] is None:
                 raise ValueError('Context target is absent from its source')
@@ -316,10 +367,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                 rendered = center if nx == ny == nz == 0 else self.material(x, y, z)
                 if rendered is None or rendered[0] is None:
                     continue
-                cell = rendered[0]
-                if _native_actor_mesh(cell):
-                    cell = {'extra': cell.get('extra')}
-                _put_encoded(context, cell, center_index + index_delta, delta)
+                writer.put(rendered, center_index + index_delta, delta)
             if center[1] is not None:
                 overlay['common'].setdefault(center[1], []).append((ly * 16 + lx) * 16 + lz)
             if number % TARGETS_PER_UNIT == 0:
@@ -330,7 +378,7 @@ class ContextBatchBuilder(ContextPaletteBuilder):
     def finish(self, batches):
         rows = []
         for origin, palettes in sorted(batches.items()):
-            for kind, palette in enumerate(palettes):
+            for kind, palette in enumerate(palettes[:2]):
                 if not palette['common'] and not palette['extra']:
                     continue
                 for key, layer, records in (('states', 'common', self.states),

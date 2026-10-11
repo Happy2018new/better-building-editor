@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "sdk_runtime": "1.21.120.0",
+  "registry_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "scope": "Exact context palette equivalence and client Python 2 CPU time only",
+  "candidate_source_raw_sha256": "12071b87c2737c8b874906942fe9593b78dfb17bb46af2416cf8eaceab3ec03c",
+  "host_reference_commit": "581d4d9",
+  "host_reference_dependencies": "Current dependencies; only render_context.py was pinned",
+  "host_blueprints": 16,
+  "host_blueprint_modes": ["complete", "missing_pattern"],
+  "host_output_equal": true,
+  "host_document_unchanged": true,
+  "host_targets_unchanged": true,
+  "host_report": {
+    "path": ".runtime/context-preparation-r6-chunk-cache-v1.json",
+    "sha256": "6172f98ec1022560563049157b38dff8edeb623ec98029f4bcbaad5a69aba680"
+  },
+  "client_report": {
+    "path": ".runtime/context-preparation-r6-client-cache-v3.json",
+    "sha256": "fcd188b83579bd8e213f3edf6f65f49aa77e3d96eac09e4fdfccb859b4da33da",
+    "instance_id": "4141dd48c22a4e6b884a82c5fbd47937",
+    "owner": "p0-entities-r6-isolation",
+    "game_pid": 36288,
+    "game_creation_identity": "134361547496653105",
+    "candidate_base64_roundtrip_verified": true,
+    "loaded_baseline_function_line": 353,
+    "samples": 11,
+    "output_equal": true,
+    "workspace_unchanged": true,
+    "repeats_per_cube": 3,
+    "median_cpu_seconds": {
+      "16": {"baseline": 0.2241068, "candidate": 0.1354091},
+      "24": {"baseline": 0.8116336, "candidate": 0.4821944},
+      "32": {"baseline": 1.9361957, "candidate": 1.1536427}
+    },
+    "world_writes": false,
+    "camera_changes": false,
+    "window_activation": false,
+    "resource_reload": false
+  },
+  "cache_bounds": {
+    "decoded_chunks": 32,
+    "render_slots_max": 131072,
+    "total_memory_is_bounded_by_slots": false,
+    "requires_immutable_source_snapshot": true,
+    "cache_reused_across_jobs": false
+  },
+  "limits": {
+    "native_geometry_calls_measured": false,
+    "full_projection_latency_measured": false,
+    "visual_acceptance": false,
+    "peak_memory_measured": false,
+    "liquid_or_moss_rendering_fixed": false,
+    "first_client_probe_failed_before_measurement": "NEMC hashlib.sha256 unavailable; original report preserved"
+  }
+}
