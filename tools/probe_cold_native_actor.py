@@ -160,10 +160,10 @@ key,sherds=%r,%r
 target=tuple(saved['targets'][key])
 info=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])
 nbt=info.GetBlockEntityData(saved['dimension'],target)
-result={'requested_sherds':sherds,'accepted':False,'nbt_before':nbt,'position':target}
+result={'requested_sherds':sherds,'accepted':False,'nbt_before':json.loads(json.dumps(nbt)),'position':target}
 if nbt and nbt.get('id',{}).get('__value__')=='DecoratedPot':
  nbt['sherds']=[{'__type__':8,'__value__':name} for name in sherds]
- result['requested_nbt']=nbt
+ result['requested_nbt']=json.loads(json.dumps(nbt))
  result['accepted']=info.SetBlockEntityData(saved['dimension'],target,nbt)
  saved['nbt_writes']+=1
 result['nbt_after']=info.GetBlockEntityData(saved['dimension'],target)

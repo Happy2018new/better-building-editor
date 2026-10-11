@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 from verify_copper_chest_render import object_frame, world_alignment
 from shulker_pixels import _prepared_pair
-from verify_pot_visuals import reflected_reference
+from verify_pot_visuals import reflected_reference, editor_object_frame
 
 
 class PotVisualOracleTests(unittest.TestCase):
@@ -41,6 +41,23 @@ class PotVisualOracleTests(unittest.TestCase):
             self.fixture(root/'empty.png')
             with self.assertRaisesRegex(AssertionError,'central'):
                 object_frame(root/'empty.png',root/'empty.png',root/'signal.png')
+
+    def test_editor_oracle_uses_actual_viewport_without_a_second_world_crop(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            empty=Image.new('RGB',(500,300),(245,245,245))
+            shown=empty.copy()
+            ImageDraw.Draw(shown).rectangle((105,85,165,210),fill=(160,78,46))
+            empty.save(root/'empty.png')
+            shown.save(root/'shown.png')
+            crop=(100,70,430,240)
+            first=editor_object_frame({'path':root/'shown.png','crop':crop},
+                                     {'path':root/'empty.png','crop':crop},root/'signal.png')
+            self.assertEqual((5,15,66,141),first[2]['bbox'])
+            self.assertEqual(61*126,first[2]['pixels'])
+            with self.assertRaisesRegex(AssertionError,'1000'):
+                editor_object_frame({'path':root/'empty.png','crop':crop},
+                                    {'path':root/'empty.png','crop':crop},root/'missing.png')
 
     def test_same_body_and_artwork_pass_but_wrong_pattern_fails(self):
         with tempfile.TemporaryDirectory() as directory:

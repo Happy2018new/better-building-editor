@@ -119,6 +119,9 @@ def run_probe(check, report, output, args):
     report['environment'] = execute(check.client, cold.ENVIRONMENT)
     report['camera_saved'] = check.run(cold.SAVE_CAMERA)
     setup = cold.SETUP.replace('height=min(int(math.floor(foot[1]))+24,300)', 'height='+str(args.fixture_y))
+    dx, dz = getattr(args, 'fixture_offset_xz', (8, 8))
+    setup = setup.replace('base=(int(math.floor(foot[0]))+8,height,int(math.floor(foot[2]))+8)',
+                          'base=(int(math.floor(foot[0]))+(%d),height,int(math.floor(foot[2]))+(%d))' % (dx, dz))
     report['setup'] = execute(check.client, setup)
     report['events'].append('world_reserved')
     time.sleep(args.weather_settle)
@@ -161,6 +164,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--fixture-y', type=int, default=90)
+    parser.add_argument('--fixture-offset-xz', type=int, nargs=2, default=(8, 8))
     parser.add_argument('--timeout', type=float, default=30.)
     parser.add_argument('--replication-timeout', type=float, default=6.)
     parser.add_argument('--weather-settle', type=float, default=10.)
@@ -177,6 +181,7 @@ def main():
     report = {'schema': 1, 'completed': False, 'passed': False, 'restored': False,
               'controls': {}, 'mutations': [], 'events': [],
               'session_file': os.environ.get('MCDEV_SESSION_FILE'), 'fixture_y': args.fixture_y,
+              'fixture_offset_xz': args.fixture_offset_xz,
               'scope': 'Ordered native pot isolation; no projection or editor opening; sherd replication separate',
               'causal_claim': None}
     with Client(timeout=30) as client:

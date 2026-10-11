@@ -1,6 +1,7 @@
 """Compare public pottery artwork with real native pots at identical cameras."""
 import argparse
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -9,9 +10,10 @@ from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTO
 from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
 from verify_native_entity_appearances import execute, replicated_palettes
 from verify_native_pot_fields import SETUP, WRITE, READ, CLEANUP, SHERDS
-from verify_sign_visuals import refresh
+from verify_sign_visuals import refresh, SignCheck
 from verify_shulker_orientations import viewport_crop, wait_camera_pose
-from verify_copper_chest_render import object_frame, world_alignment
+from PIL import Image, ImageChops
+from verify_copper_chest_render import object_frame, world_alignment, maximum, largest_component
 from shulker_pixels import _prepared_pair
 from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 
@@ -70,9 +72,12 @@ doc=Document(case['isolated_size'],name='Pot artwork '+identity)
 doc.blocks[focus]=rebase(build(case['fixture']).get(row['position']),delta)
 operation=%r
 if operation:doc.blocks[focus]=transform(doc.blocks[focus],operation)
+if %r:doc.blocks[focus]=('minecraft:air',0)
 sys._blueprint_qa_identity=case['fixture']+'.'+identity
 sys._blueprint_qa_nonce+=1
 s._loaded(doc)
+s.editor._restore_selection(s.editor._selection_state(()))
+s.touch_mode=True
 metadata={'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)}
 sys._blueprint_qa_expected={'metadata':metadata,'editor_id':id(s.editor),
  'document_id':id(doc),'previous_document_id':None}
@@ -119,20 +124,47 @@ def reflected_reference(direction,operation,sherds):
     return expected_direction,tuple(artwork[rotate(face,expected_direction)] for face in faces)
 
 
+def editor_offset(angles, distance):
+    yaw, pitch = (math.radians(value) for value in angles[:2])
+    return (distance*math.sin(yaw)*math.cos(pitch), distance*math.sin(pitch),
+            distance*math.cos(yaw)*math.cos(pitch))
+
+
+def editor_object_frame(shown, empty, output):
+    if shown['crop'] != empty['crop']:
+        raise AssertionError('Actual editor viewport changed between shown and empty')
+    with Image.open(shown['path']) as shown_image, Image.open(empty['path']) as empty_image:
+        first = shown_image.convert('RGB').crop(shown['crop'])
+        second = empty_image.convert('RGB').crop(empty['crop'])
+    delta = maximum(ImageChops.difference(first, second))
+    mask = largest_component(delta.point(lambda value: 255 if value > 25 else 0))
+    pixels, bounds = mask.histogram()[255], mask.getbbox()
+    if pixels < 1000 or bounds is None:
+        raise AssertionError('Editor pot does not contribute 1000 viewport pixels: %r' % pixels)
+    selected = Image.new('RGB', first.size)
+    selected.paste(first, mask=mask)
+    selected.save(output)
+    return (selected.crop(bounds).resize((64,64),Image.Resampling.BILINEAR),
+            mask.crop(bounds).resize((64,64),Image.Resampling.NEAREST),
+            {'bbox':bounds,'pixels':pixels,'crop':shown['crop'],'mask':str(output.resolve())})
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output',type=Path)
     parser.add_argument('--direction',type=int,action='append',choices=range(4))
     parser.add_argument('--refresh',action='store_true')
+    parser.add_argument('--native-resolution', action='store_true',
+                        help='Use the owner-bound native background PNG capture helper')
     parser.add_argument('--operation',choices=('mirror_x','mirror_z'),
                         help='Compare transformed blueprint with independently reflected native artwork')
     args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True)
     report={'schema':1,'completed':False,'passed':False,'cases':[],
-            'scope':'Public NBT-only fixture; same-camera native/projection position, body and artwork. Editor captures are diagnostic.'}
+            'scope':'Public NBT-only fixture; native/editor/projection body and artwork, native/projection identical-camera alignment.'}
     installed=visual=daylight=native=False
     with Client(timeout=30) as client:
-        check=BlueprintCheck(client,args.output/'report.json',45)
+        check=SignCheck(client,args.output/'report.json',45,native_resolution=args.native_resolution)
         try:
             if args.refresh:refresh(check)
             report['visual_case']=check.run('from modern_projection.projection.debug_blueprints import VISUAL_CASES\n'
@@ -140,7 +172,8 @@ def main():
             report['workspace_before']=check.navigation()['open']
             check.run(INSTALL_PROBE)
             installed=True
-            check.run(SAVE_VISUAL+'sys._blueprint_visual_saved["grid"]=s.grid\n_result=True')
+            check.run(SAVE_VISUAL+'sys._blueprint_visual_saved["grid"]=s.grid\n'
+                      'sys._blueprint_visual_saved["touch_mode"]=s.touch_mode\n_result=True')
             visual=True
             execute(client,SETUP_DAYLIGHT)
             daylight=True
@@ -155,14 +188,20 @@ def main():
             metadata=report['visual_case']
             for direction in args.direction or range(4):
                 identity='direction_'+str(direction)
-                state=check.run(LOAD % (identity,args.operation))
+                state=check.run(LOAD % (identity,args.operation,False))
                 check.run('owner.open_workspace()\n_result=True')
                 check.wait('workspace opens',lambda row:row['open'] and not row['transition'],check.navigation)
                 check.editor_preview(identity,state['metadata'],state['editor_id'],state['document_id'])
                 editor=check.capture(identity+'_editor')
                 editor['crop']=viewport_crop(check,editor)
+                blank_state=check.run(LOAD % (identity,args.operation,True))
+                check.editor_preview(identity,blank_state['metadata'],blank_state['editor_id'],blank_state['document_id'])
+                editor_empty=check.capture(identity+'_editor_empty')
+                editor_empty['crop']=viewport_crop(check,editor_empty)
+                state=check.run(LOAD % (identity,args.operation,False))
+                check.editor_preview(identity,state['metadata'],state['editor_id'],state['document_id'])
                 close_workspace(check)
-                row={'id':identity,'direction':direction,'editor':editor,'views':[]}
+                row={'id':identity,'direction':direction,'editor':editor,'editor_empty':editor_empty,'views':[]}
                 expected_direction,expected_sherds=reflected_reference(direction,args.operation,SHERDS)
                 row.update(operation=args.operation,expected_direction=expected_direction,expected_sherds=expected_sherds)
                 report['cases'].append(row)
@@ -208,8 +247,39 @@ def main():
                     row['views'].append(sample)
                     check.run('b.stop_projection()\n_result=True')
                     write_json(args.output/'report.json',report)
-                row['passed']=all(sample['comparison']['passed'] for sample in row['views'])
+                offset=editor_offset(metadata['camera']['editor'],math.sqrt(sum(v*v for v in metadata['camera']['world_offset'])))
+                near=execute(client,NEAR_PLAYER % (offset,))
+                check.wait('player on editor reference side',lambda foot:all(abs(a-b)<.1 for a,b in zip(foot,near['expected'])),
+                           lambda:check.run('_result=json.dumps(b.player_position.GetFootPos())'))
+                row['native_data']=execute(client,WRITE % (expected_direction,expected_sherds))
+                row['native_palette']=replicated_palettes(client,READ % (target,expected_direction,expected_sherds))
+                pose=check.run(CAMERA % (target,offset))
+                pose['settled']=wait_camera_pose(check,pose)
+                time.sleep(.5)
+                editor_native=check.capture(identity+'_editor_reference_native')
+                execute(client,CLEAR_POT)
+                time.sleep(.35)
+                editor_native_empty=check.capture(identity+'_editor_reference_empty')
+                row.update(editor_reference={'camera':pose,'offset':offset,
+                            'near_player':near,
+                            'method':'Declared editor OrbitCamera.basis toward vector; fixed native distance, no pixel fit',
+                            'shown':editor_native,'empty':editor_native_empty})
+                try:
+                    reference=object_frame(editor_native['path'],editor_native_empty['path'],args.output/(identity+'_editor_reference_signal.png'))
+                    editor_frame=editor_object_frame(editor,editor_empty,args.output/(identity+'_editor_signal.png'))
+                    editor_match=_prepared_pair(reference,editor_frame)
+                    editor_match['passed']=(editor_match['shape_iou']>=.82 and
+                        editor_match['texture_cosine'] is not None and editor_match['texture_cosine']>=.45 and
+                        editor_match['interior_missing_fraction']<=.02)
+                    row.update(editor_signal=editor_frame[2],editor_comparison=editor_match)
+                except AssertionError as error:
+                    row['editor_comparison']={'passed':False,'error':str(error)}
+                row['world_passed']=all(sample['comparison']['passed'] for sample in row['views'])
+                row['editor_passed']=row.get('editor_comparison',{}).get('passed',False)
+                row['passed']=row['world_passed'] and row['editor_passed']
             report['completed']=True
+            report['world_passed']=all(row['world_passed'] for row in report['cases'])
+            report['editor_passed']=all(row['editor_passed'] for row in report['cases'])
             report['passed']=all(row['passed'] for row in report['cases'])
         finally:
             errors=[]
@@ -220,6 +290,7 @@ def main():
                 actions.extend((('projection',lambda:check.run('b.stop_projection()\n_result=True')),
                                 ('camera',lambda:check.run(camera_restore_code(False))),
                                 ('fields',lambda:check.run('saved=sys._blueprint_visual_saved\ns.grid=saved["grid"]\n'
+                                     's.touch_mode=saved["touch_mode"]\n'
                                      's.origin=saved["origin"]\ns.opacity=saved["opacity"]\ns.projection_missing=saved["missing"]\n'
                                      's.projection_outline=saved["outline"]\ndel sys._blueprint_visual_saved\n_result=True'))))
             if installed:actions.append(('editor',lambda:check.run(RESTORE)))
