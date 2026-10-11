@@ -54,23 +54,61 @@ class CellEditTests(unittest.TestCase):
         self.assertEqual(SNOW, edit_cell(PLANT, SNOW))
         self.assertEqual(PLANT, edit_cell(SNOW, PLANT))
         self.assert_layers(edit_cell(PLANT, SNOW, 1), PLANT, SNOW)
-        self.assert_layers(edit_cell(SNOW, PLANT, 1), self.covered(), PLANT)
+        self.assert_layers(edit_cell(SNOW, PLANT, 1), SNOW, PLANT)
 
     def test_each_snow_layer_erases_independently(self):
         combined = make_cell(self.covered(), PLANT)
         self.assert_layers(edit_cell(combined, AIR), AIR, PLANT)
-        self.assertEqual(SNOW, edit_cell(combined, AIR, 1))
+        self.assertEqual(self.covered(), edit_cell(combined, AIR, 1))
         self.assertEqual(AIR, edit_cell(edit_cell(combined, AIR, 1), AIR))
 
-    def test_native_snow_cover_flag_tracks_background_and_preserves_height(self):
+    def test_explicit_snow_state_is_preserved_and_native_flags_are_derived_temporarily(self):
+        from projection.native_layers import native_cell
         combined = make_cell(self.covered(), PLANT)
         self.assert_layers(edit_cell(combined, FERN, 1), self.covered(), FERN)
-        self.assert_layers(edit_cell(combined, ('minecraft:snow_layer', 7)),
-                           self.covered(7), PLANT)
+        requested = ('minecraft:snow_layer', 7)
+        edited = edit_cell(combined, requested)
+        self.assert_layers(edited, requested, PLANT)
+        self.assert_layers(native_cell(edited), self.covered(7), PLANT)
+        self.assert_layers(edited, requested, PLANT)
         self.assert_layers(edit_cell(combined, STONE), STONE, PLANT)
         standalone = edit_cell(AIR, self.covered())
-        self.assertEqual(SNOW, standalone)
-        self.assertFalse(states(standalone)['covered_bit'])
+        self.assertEqual(self.covered(), standalone)
+        self.assertTrue(states(standalone)['covered_bit'])
+        self.assertEqual(SNOW, native_cell(standalone))
+        self.assertEqual(self.covered(), standalone)
+
+    def test_explicit_background_snow_edits_leave_foreground_and_actor_unchanged(self):
+        actor = {'source': 'foreground', 'nested': [1, 2]}
+        for front, back in ((SNOW, AIR), (self.covered(), PLANT)):
+            before = make_cell(front, back, actor)
+            for replacement in (PLANT, FERN, STONE, AIR):
+                with self.subTest(front=front, back=back, replacement=replacement):
+                    after = edit_cell(before, replacement, 1)
+                    self.assertEqual(front, foreground(after))
+                    self.assertEqual(actor, actor_data(after))
+                    self.assertEqual(replacement, background(after))
+
+    def test_background_snow_edits_and_history_preserve_the_unselected_layer(self):
+        from projection.model import Document, Editor
+        from projection.native_layers import native_cell
+        for front, back, replacement in ((SNOW, AIR, PLANT), (self.covered(), PLANT, AIR)):
+            with self.subTest(front=front, back=back):
+                position = (1, 1, 1)
+                before = make_cell(front, back)
+                editor = Editor(Document((3, 3, 3), {position: before}))
+                editor.edit_layer = 1
+                editor.material = replacement
+                editor.paint_at(position, respect_selection=False)
+                after = editor.document.get(position)
+                self.assert_layers(after, front, replacement)
+                native = native_cell(after)
+                self.assertEqual(replacement != AIR, states(foreground(native))['covered_bit'])
+                self.assertEqual(after, editor.document.get(position))
+                self.assertTrue(editor.undo())
+                self.assertEqual(before, editor.document.get(position))
+                self.assertTrue(editor.redo())
+                self.assertEqual(after, editor.document.get(position))
 
     def test_background_edits_preserve_existing_actor(self):
         actor = {'render': {'chestOpenness': 0.0}, 'inventory': ['kept']}

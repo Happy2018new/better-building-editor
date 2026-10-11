@@ -272,12 +272,7 @@ def edit_cell(value, material, index=0):
         raise ValueError('方块层索引必须为 0、1 或 2')
     if index == 2:
         return _edit_auto(value, material)
-    result = replace_layer(value, material, index)
-    if _snow(foreground(result)):
-        from .block_traits import is_snow_coverable
-        front = _covered_snow(foreground(result), is_snow_coverable(background(result)))
-        result = make_cell(front, background(result), actor_data(result))
-    return result
+    return replace_layer(value, material, index)
 
 
 def _water(material):
