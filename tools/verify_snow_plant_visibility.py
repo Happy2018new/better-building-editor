@@ -558,7 +558,7 @@ except Exception as error:
  diagnostic['traceback']=traceback.format_exc()
 _result=json.dumps(diagnostic)
 ''' % (focus, offset))
-    if result.get('error'):
+    if 'error_type' in result:
         path = check.output.with_name(check.output.stem+'_'+label+'_camera_error.json')
         write_json(path, result)
         raise RuntimeError('Snow projection camera failed at %s; evidence %s: %s\n%s' %

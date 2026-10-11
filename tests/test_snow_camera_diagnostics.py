@@ -76,6 +76,17 @@ class SnowCameraDiagnosticTests(unittest.TestCase):
             report = json.loads((Path(directory)/'report_case_camera_error.json').read_text(encoding='utf8'))
             self.assertEqual('IndexError', report['error_type'])
 
+    def test_empty_native_direction_retains_raw_return_and_failing_index(self):
+        with tempfile.TemporaryDirectory() as directory:
+            check = Check(Path(directory)/'report.json')
+            check.scope['api'].GetRotFromDir = lambda value: []
+            with self.assertRaisesRegex(RuntimeError, 'failed at rotation'):
+                projection_camera_pose(check, 'case', (1, 1, 1), (-2., .15, -2.5))
+            report = json.loads((Path(directory)/'report_case_camera_error.json').read_text(encoding='utf8'))
+            self.assertEqual([], report['direction'])
+            self.assertIn('list index out of range', report['traceback'])
+            self.assertEqual([], check.camera.calls)
+
     def test_fixed_lift_moves_projection_focus_and_reference_cell_together(self):
         class SetupComplete(Exception):
             pass
