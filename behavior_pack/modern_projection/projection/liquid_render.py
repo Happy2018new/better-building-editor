@@ -82,7 +82,7 @@ class SkeletonLiquidRenderer(object):
 
     def _settle(self, group, pose, now):
         back = 1 - self.front
-        if self.pending != group:
+        if self.pending != (group, pose):
             self._show(back, False)
             self.pending = None
             return True
@@ -128,20 +128,14 @@ class SkeletonLiquidRenderer(object):
         self.error, self.failed_request = None, None
         if self.pending is not None and not self._settle(group, pose, now):
             return False
-        if self.groups[self.front] != group:
+        if self.groups[self.front] != group or self.poses[self.front] != pose:
             back = 1 - self.front
             self._show(back, False)
             self.error = None
             if not self._submit(back, group, pose):
                 self.failed_request = request
                 return False
-            self.pending, self.started, self.frames = group, now, 0
-            return False
-        if self.poses[self.front] != pose:
-            self.error = None
-            if not self._submit(self.front, group, pose):
-                self.failed_request = request
-                return False
+            self.pending, self.started, self.frames = request, now, 0
             return False
         ready = self._payload(self.front)
         if ready:
@@ -175,6 +169,7 @@ class WorldLiquidRenderer(object):
             raise ValueError('Liquid renderer needs an explicit positive group budget')
         self.bridge, self.max_groups = bridge, max_groups
         self.active, self.staging = {}, {}
+        self.retired = {}
         self.wanted = None
         self.anchor = None
         self.visible = True
@@ -189,10 +184,49 @@ class WorldLiquidRenderer(object):
                 anchor[2] - origin[2] - .5)
 
     def _destroy(self, records):
+        self.retired.update((record['entity'], record) for record in records)
         for record in records:
+            entity = record['entity']
+            if not self._show(record, False):
+                self.cleanup_errors.append((entity, 'hide'))
             if record['attached'] and not record['render'].DeleteActorBlockGeometry(record['group'].model_name):
-                self.cleanup_errors.append((record['entity'], record['group'].model_name))
-            self.bridge.system.DestroyClientEntity(record['entity'])
+                self.cleanup_errors.append((entity, 'detach'))
+                self.retired[entity] = record
+                continue
+            record['attached'] = False
+            # The documented API returns None. Treat an explicit False from an
+            # adapter as failure while preserving successful native None returns.
+            if self.bridge.system.DestroyClientEntity(entity) is False:
+                self.cleanup_errors.append((entity, 'destroy'))
+                self.retired[entity] = record
+                continue
+            self.retired.pop(entity, None)
+
+    def retry_retired(self):
+        self.cleanup_errors = []
+        self._destroy(tuple(self.retired.values()))
+        return not self.retired
+
+    @staticmethod
+    def _show(record, visible):
+        if record['visible'] == visible:
+            return True
+        if not record['render'].SetNotRenderAtAll(not visible):
+            return False
+        record['visible'] = visible
+        return True
+
+    def _publish_visibility(self, records, visible):
+        previous = []
+        for record in records:
+            old = record['visible']
+            if not self._show(record, visible):
+                for restored, was_visible in reversed(previous):
+                    if not self._show(restored, was_visible):
+                        self.cleanup_errors.append((restored['entity'], 'visibility_rollback'))
+                return False
+            previous.append((record, old))
+        return True
 
     def _cancel(self):
         self._destroy(tuple(self.staging.values()))
@@ -219,6 +253,11 @@ class WorldLiquidRenderer(object):
             keys.add(group.key)
         anchor = _finite_tuple(anchor, 3, 'world anchor')
         self._cancel()
+        self.retry_retired()
+        created = sum(self.active.get(group.key, {}).get('group') != group for group in groups)
+        if len(self.active) + len(self.retired) + created > self.max_groups * 2:
+            self.error = 'Retired liquid actors still consume the owned group budget'
+            return False
         self.error = None
         if not self.follow(anchor):
             return False
@@ -235,7 +274,7 @@ class WorldLiquidRenderer(object):
                 'group': group, 'entity': entity,
                 'render': self.bridge.factory.CreateActorRender(entity),
                 'position': self.bridge.factory.CreatePos(entity),
-                'anchor': self.anchor, 'attached': False,
+                'anchor': self.anchor, 'attached': False, 'visible': None,
                 'ready_at': now + self.ACTOR_DELAY, 'bound_at': None, 'frames': 0}
         if not self.staging:
             return self._promote()
@@ -243,7 +282,7 @@ class WorldLiquidRenderer(object):
 
     def _bind(self, record, now):
         render, group = record['render'], record['group']
-        if not render.SetNotRenderAtAll(True):
+        if not self._show(record, False):
             return self._fail('Could not hide preparing liquid actor')
         if not render.AddActorBlockGeometry(group.model_name, self.offset(self.anchor, group.origin), (0., 180., 0.)):
             return self._fail('Could not attach liquid carrier')
@@ -260,9 +299,8 @@ class WorldLiquidRenderer(object):
     def _promote(self):
         incoming = dict((group.key, self.staging.get(group.key) or self.active[group.key])
                         for group in self.wanted)
-        for record in incoming.values():
-            if not record['render'].SetNotRenderAtAll(not self.visible):
-                return self._fail('Could not show ready liquid actor')
+        if not self._publish_visibility(tuple(incoming.values()), self.visible):
+            return self._fail('Could not show ready liquid actor')
         retired = tuple(record for key, record in self.active.items()
                         if incoming.get(key) is not record)
         self.active, self.staging, self.wanted = incoming, {}, None
@@ -271,10 +309,11 @@ class WorldLiquidRenderer(object):
 
     def advance(self, now):
         if self.closed:
-            return False
+            return self.retry_retired()
         if not self.bridge.alive:
             self.close()
             return False
+        self.retry_retired()
         if self.wanted is None:
             return self.error is None
         ready = True
@@ -313,10 +352,9 @@ class WorldLiquidRenderer(object):
     def set_visible(self, visible):
         if self.closed or bool(visible) == self.visible:
             return not self.closed
-        for record in self.active.values():
-            if not record['render'].SetNotRenderAtAll(not visible):
-                self.error = 'Could not update owned liquid visibility'
-                return False
+        if not self._publish_visibility(tuple(self.active.values()), bool(visible)):
+            self.error = 'Could not update owned liquid visibility'
+            return False
         self.visible = bool(visible)
         return True
 
@@ -326,4 +364,4 @@ class WorldLiquidRenderer(object):
             self._cancel()
             self._destroy(tuple(self.active.values()))
             self.active.clear()
-        return not self.cleanup_errors
+        return not self.retired

@@ -75,7 +75,7 @@ class SkeletonLiquidTests(unittest.TestCase):
         self.renderer.update(second, POSE, 1.)
         self.renderer.update(third, POSE, 1.01)
         self.assertEqual({0: False, 1: True}, self.shown)
-        self.assertEqual(third, self.renderer.pending)
+        self.assertEqual((third, POSE), self.renderer.pending)
         self.dolls[0].model_id = 2
         for now in (1.04, 1.07, 1.10):
             self.renderer.update(third, POSE, now)
@@ -98,9 +98,40 @@ class SkeletonLiquidTests(unittest.TestCase):
         value = group()
         self.assertTrue(self.settle(value, 0., 1))
         self.assertFalse(self.renderer.update(value, (.15, -45., 0., 0.), 1.))
-        self.dolls[1].model_id = 5
-        self.assertTrue(self.renderer.update(value, (.15, -45., 0., 0.), 1.03))
+        self.dolls[0].model_id = 5
+        for now in (1.03, 1.06, 1.09):
+            ready = self.renderer.update(value, (.15, -45., 0., 0.), now)
+        self.assertTrue(ready)
         self.assertEqual([5] * 4, [call[0] for call in self.model.calls[-4:]])
+
+    def test_pose_changes_while_pending_restart_hidden_slot_and_keep_front_untouched(self):
+        value = group()
+        self.assertTrue(self.settle(value, 0., 1))
+        old_calls = len(self.dolls[1].calls)
+        second_pose, final_pose = (.15, -45., 0., 0.), (.15, -35., 0., 0.)
+        self.renderer.update(value, second_pose, 1.)
+        self.dolls[0].model_id = 2
+        self.renderer.update(value, second_pose, 1.03)
+        self.renderer.update(value, final_pose, 1.04)
+        self.assertEqual((value, final_pose), self.renderer.pending)
+        self.assertEqual(old_calls, len(self.dolls[1].calls))
+        self.assertEqual({0: False, 1: True}, self.shown)
+        for now in (1.07, 1.10, 1.13):
+            self.renderer.update(value, final_pose, now)
+        self.assertEqual(final_pose, self.renderer.poses[self.renderer.front])
+
+    def test_second_uniform_failure_does_not_promote_partial_payload(self):
+        value = group()
+        self.assertTrue(self.settle(value, 0., 1))
+        self.renderer.update(group(height=.3), POSE, 1.)
+        self.dolls[0].model_id = 2
+        original = self.model.SetExtraUniformValue
+        self.model.SetExtraUniformValue = lambda model_id, index, data: (
+            False if index == 2 else original(model_id, index, data))
+        self.renderer.update(group(height=.3), POSE, 1.03)
+        self.assertFalse(self.renderer.update(group(height=.3), POSE, 1.06))
+        self.assertEqual({0: False, 1: True}, self.shown)
+        self.assertEqual(1, len(self.renderer.uniforms[0]))
 
     def test_model_ids_must_be_independent_and_close_is_idempotent(self):
         self.assertTrue(self.settle(group(height=.7), 0., 1))
@@ -125,6 +156,8 @@ class Actor:
         self.uniforms = {}
 
     def SetNotRenderAtAll(self, value):
+        if not value and self.entity == self.runtime.fail_show_entity:
+            return False
         self.hidden = value
         return True
 
@@ -146,7 +179,7 @@ class Actor:
         return True
 
     def SetEntityExtraUniforms(self, index, value):
-        if not self.runtime.uniforms_ok:
+        if not self.runtime.uniforms_ok or index == self.runtime.fail_uniform_index:
             return False
         self.uniforms[index] = value
         self.runtime.uniform_calls.append((self.entity, index, value))
@@ -168,6 +201,8 @@ class Runtime:
         self.actors, self.positions = {}, {}
         self.destroyed, self.removed, self.uniform_calls = [], [], []
         self.attach_ok = self.uniforms_ok = self.delete_ok = True
+        self.destroy_ok = True
+        self.fail_show_entity = self.fail_uniform_index = None
         self.serial = self.peak_live = 0
 
     def CreateClientEntityByTypeStr(self, identifier, position, unused_rotation):
@@ -185,6 +220,8 @@ class Runtime:
         return self.actors[entity]
 
     def DestroyClientEntity(self, entity):
+        if not self.destroy_ok:
+            return False
         self.destroyed.append(entity)
         del self.actors[entity]
         del self.positions[entity]
@@ -279,12 +316,65 @@ class WorldLiquidTests(unittest.TestCase):
         self.assertFalse(self.renderer.advance(2.3))
         self.assertEqual({}, self.runtime.actors)
 
-    def test_geometry_cleanup_failure_is_reported_even_after_actor_is_destroyed(self):
+    def test_geometry_cleanup_failure_retains_ownership_and_retries_after_close(self):
         self.settle((group(),), 0.)
         self.runtime.delete_ok = False
         self.assertFalse(self.renderer.close())
-        self.assertEqual({}, self.runtime.actors)
+        self.assertEqual(1, len(self.runtime.actors))
+        self.assertEqual(1, len(self.renderer.retired))
         self.assertEqual(1, len(self.renderer.cleanup_errors))
+        self.runtime.delete_ok = True
+        self.assertTrue(self.renderer.advance(1.))
+        self.assertEqual({}, self.runtime.actors)
+
+    def test_destroy_failure_retains_detached_actor_until_retry(self):
+        self.settle((group(),), 0.)
+        self.runtime.destroy_ok = False
+        self.assertFalse(self.renderer.close())
+        self.assertEqual(1, len(self.renderer.retired))
+        self.assertIsNone(next(iter(self.runtime.actors.values())).attached)
+        self.runtime.destroy_ok = True
+        self.assertTrue(self.renderer.retry_retired())
+        self.assertEqual({}, self.runtime.actors)
+        self.assertEqual(1, len(self.runtime.removed))
+
+    def test_retired_actors_count_toward_budget_after_failed_replacements(self):
+        self.renderer = WorldLiquidRenderer(self.runtime, 1)
+        self.settle((group(height=.7),), 0.)
+        self.runtime.delete_ok = False
+        self.settle((group(height=.3),), 1.)
+        self.assertEqual(1, len(self.renderer.retired))
+        self.assertFalse(self.renderer.begin((group(height=.5),), ANCHOR, 2.))
+        self.assertEqual(2, self.runtime.peak_live)
+        self.assertEqual(2, len(self.runtime.actors))
+        self.assertIn('Retired', self.renderer.error)
+        self.runtime.delete_ok = True
+        self.settle((group(height=.5),), 3.)
+        self.assertEqual(1, len(self.runtime.actors))
+
+    def test_middle_visibility_failure_rolls_back_old_actors_and_cleans_new(self):
+        self.settle((group(0), group(1)), 0.)
+        old = tuple(record['entity'] for record in self.renderer.active.values())
+        self.renderer.set_visible(False)
+        self.renderer.begin((group(0), group(1, .3)), ANCHOR, 1.)
+        staged = self.renderer.staging[1]['entity']
+        self.runtime.fail_show_entity = staged
+        self.renderer.visible = True
+        for now in (1.21, 1.24, 1.27, 1.31):
+            ready = self.renderer.advance(now)
+        self.assertFalse(ready)
+        self.assertEqual(set(old), set(self.runtime.actors))
+        self.assertTrue(all(actor.hidden for actor in self.runtime.actors.values()))
+        self.assertEqual({}, self.renderer.staging)
+
+    def test_later_uniform_failure_cleans_partial_staged_actor(self):
+        self.settle((group(),), 0.)
+        self.runtime.fail_uniform_index = 2
+        self.renderer.begin((group(height=.3),), ANCHOR, 1.)
+        staged = self.renderer.staging[0]['entity']
+        self.assertFalse(self.renderer.advance(1.21))
+        self.assertEqual(1, len(self.runtime.actors))
+        self.assertIn((staged, 'native_liquid_model'), self.runtime.removed)
 
 
 if __name__ == '__main__':
