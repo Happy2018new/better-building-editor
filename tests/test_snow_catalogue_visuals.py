@@ -16,6 +16,53 @@ from verify_snow_catalogue_visuals import (frame_for, compare_world, summarize,
 from camera_projection import project_points
 from verify_snow_plant_visibility import convex_hull
 from verify_snow_plant_visibility import cross_assets
+from verify_snow_catalogue_visuals import SnowClient
+from mcdk import MCDKError
+
+
+class SnowBindingReadTests(unittest.TestCase):
+    def client(self, responses):
+        client = object.__new__(SnowClient)
+        client.binding = {'token': 'owned-session'}
+        client.binding_read_failures = []
+        client.requests = []
+        def post(method, arguments):
+            client.requests.append((method, arguments))
+            return responses.pop(0)
+        client._post = post
+        return client
+
+    def test_only_missing_fixed_marker_read_retries(self):
+        missing = {'content': [{'type': 'text', 'text': 'No direct return'}]}
+        client = self.client([missing, {'structuredContent': {'return_value': 'owned-session'}}])
+        with patch('verify_snow_catalogue_visuals.load_session'), patch('verify_snow_catalogue_visuals.time.sleep'):
+            client._verify_binding()
+        self.assertEqual(client.binding_read_failures, [{'attempt': 1, 'response': missing}])
+        self.assertEqual(len(client.requests), 2)
+        self.assertTrue(all(row[1]['arguments']['code'] == "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)" for row in client.requests))
+
+    def test_wrong_marker_refuses_without_retry(self):
+        client = self.client([{'structuredContent': {'return_value': 'wrong-session'}}])
+        with patch('verify_snow_catalogue_visuals.load_session'), self.assertRaisesRegex(MCDKError, 'marker changed'):
+            client._verify_binding()
+        self.assertEqual(len(client.requests), 1)
+
+    def test_missing_marker_stops_after_two_rereads(self):
+        client = self.client([{'content': []} for _ in range(3)])
+        with patch('verify_snow_catalogue_visuals.load_session'), patch('verify_snow_catalogue_visuals.time.sleep'), self.assertRaisesRegex(MCDKError, 'returned no value'):
+            client._verify_binding()
+        self.assertEqual(len(client.requests), 3)
+        self.assertEqual(len(client.binding_read_failures), 3)
+
+    def test_business_request_without_return_is_not_replayed(self):
+        missing = {'content': []}
+        client = self.client([{'structuredContent': {'return_value': 'owned-session'}}, missing])
+        with patch('verify_snow_catalogue_visuals.load_session'):
+            response = client.call('execute_code', {'code': 'world_mutation()', 'is_client': False})
+        self.assertEqual(response, missing)
+        self.assertEqual(len(client.requests), 2)
+        self.assertEqual(client.requests[1][1]['arguments']['code'], 'world_mutation()')
+        self.assertEqual(client.binding_read_failures, [])
 
 
 class SnowCatalogueVisualTests(unittest.TestCase):

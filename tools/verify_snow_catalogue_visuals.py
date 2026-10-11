@@ -12,12 +12,13 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, write_json
 from verify_debug_visuals import SAVE_VISUAL, camera_restore_code
 from verify_shulker_orientations import server_run, viewport_crop
-from verify_snow_plant_visibility import (LOAD, NATIVE_SETUP, NATIVE_CLEANUP, native_capture,
+from verify_snow_plant_visibility import (LOAD, NATIVE_SETUP, NATIVE_NEAR_PLAYER, NATIVE_CLEANUP, native_capture,
                                          projection_capture, world_cell_roi, capture_frame,
                                          compare_native, compare_controls, cross_assets,
                                          editor_snow_geometry, editor_cross_above_snow, count)
 from reanalyze_snow_visibility import stored_geometry, stored_upper
 from _session import load_session
+from mcdk import MCDKError, return_value
 from verify_sign_visuals import SignCheck
 from camera_projection import project_points
 from verify_snow_plant_visibility import convex_hull
@@ -25,6 +26,33 @@ from verify_snow_plant_visibility import convex_hull
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'behavior_pack/modern_projection'))
 from projection.debug_snow_blueprints import NAMES, VISUAL_CASE
+
+
+class SnowClient(Client):
+    def __init__(self, *args, **kwargs):
+        Client.__init__(self, *args, **kwargs)
+        self.binding_read_failures = []
+
+    def _verify_binding(self):
+        if not self.binding:
+            return
+        load_session(live=True)
+        # This fixed marker read is the only request retried; tool calls stay single-shot.
+        for attempt in range(3):
+            result = self._post('tools/call', {'name': 'execute_code', 'arguments': {
+                'code': "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+                'is_client': True, 'direct_return': True}})
+            try:
+                marker = return_value(result)
+            except MCDKError as error:
+                self.binding_read_failures.append({'attempt': attempt + 1, 'response': result})
+                if str(error) != 'execute_code returned no value; require direct_return=true and assign _result' or attempt == 2:
+                    raise
+                time.sleep(.2)
+                continue
+            if marker != self.binding['token']:
+                raise MCDKError('Game session marker changed; refuse stale or misrouted command')
+            return
 
 
 def image_record(capture):
@@ -211,6 +239,7 @@ def run(args):
     report = {'schema': 1, 'completed': False, 'restored': False, 'passed': False, 'rows': [],
               'plants': plants, 'heights': heights, 'modes': modes, 'session_file': session['session_file'],
               'native_resolution': args.native_resolution, 'fixture_lift_y': args.fixture_lift_y,
+              'near_player': args.near_player,
               'reuse_snow_controls': args.reuse_snow_controls,
               'calibration': calibration, 'blueprint_case': VISUAL_CASE, 'native_assets': {},
               'limits': {'native_recall': .75, 'native_precision': .75, 'native_edge_tolerance_pixels': 3},
@@ -218,7 +247,7 @@ def run(args):
               'mask_method': 'Immediate shown/cleared pixel difference inside calibrated cell ROI; all colors retained'}
     installed = saved = native_created = False
     frames, snow_controls = {}, {}
-    with Client(timeout=30) as client:
+    with SnowClient(timeout=30) as client:
         check = SignCheck(client, args.output, args.timeout, args.native_resolution)
         try:
             check.run(INSTALL_PROBE)
@@ -233,6 +262,14 @@ def run(args):
             report['native_target'] = native_target
             native_created = True
             report['native_fixture'] = server_run(client, NATIVE_SETUP % (native_target,))
+            if args.near_player:
+                report['player_fixture'] = server_run(client, NATIVE_NEAR_PLAYER)
+                point = report['player_fixture']['after']
+                report['player_client_ready'] = check.wait('native snow player replication',
+                    lambda foot: all(abs(foot[i]-point[i]) < .1 for i in range(3)),
+                    lambda: check.run('_result=json.dumps(b.factory.CreatePos(api.GetLocalPlayerId()).GetFootPos())'))
+                report['native_section_settle_seconds'] = 3.
+                time.sleep(report['native_section_settle_seconds'])
             for plant in plants:
                 report['native_assets'][plant] = native_assets(session, plant)
                 assets = cross_assets(session, plant)
@@ -294,13 +331,15 @@ def run(args):
                     row['masks'] = {'editor': save_mask(editor_frame, args.output, label+'_editor')}
                     world = {}
                     for mode in modes:
-                        world[mode] = projection_capture(check, label+'_'+mode, focus, tuple(VISUAL_CASE['camera']['world_offset']), missing=mode == 'missing', fixture_lift_y=args.fixture_lift_y)
+                        world[mode] = projection_capture(check, label+'_'+mode, focus, tuple(VISUAL_CASE['camera']['world_offset']), missing=mode == 'missing', fixture_lift_y=args.fixture_lift_y,
+                                                         world_target=native_target if args.near_player else None)
                         check.run('b.stop_projection()\n_result=True')
                     capture = world[modes[0]]
                     width, pixels_high = capture['screenshot']['size']
                     world_crop = (width//4, pixels_high//4, width*3//4, pixels_high*3//4)
                     roi, roi_record = world_cell_roi(check, world_crop, (width, pixels_high), native_target, capture['pose'], calibration)
-                    native = native_capture(check, plant, kind, height, native_target, tuple(VISUAL_CASE['camera']['world_offset']))
+                    native = native_capture(check, plant, kind, height, native_target, tuple(VISUAL_CASE['camera']['world_offset']),
+                                            settle_seconds=2. if args.near_player else .4)
                     assert all(value['pose'] == native['pose'] for value in world.values())
                     native_frame = frame_for(native['screenshot'], native['hidden_screenshot'], world_crop, roi)
                     row['masks']['native'] = save_mask(native_frame, args.output, label+'_native')
@@ -341,6 +380,8 @@ def run(args):
             summarize(report)
         finally:
             prior = sys.exc_info()[0]
+            if prior is not None:
+                report['error'] = '%s: %s' % (prior.__name__, sys.exc_info()[1])
             errors = []
             actions = []
             if native_created:
@@ -383,6 +424,7 @@ _result=json.dumps({'origin':s.origin,'opacity':s.opacity,'missing':s.projection
                 except Exception as error:
                     errors.append('restoration_readback: '+str(error))
             report['cleanup_errors'] = errors
+            report['binding_read_failures'] = client.binding_read_failures
             report['restored'] = not errors
             summarize(report)
             write_json(args.output, report)
@@ -400,6 +442,8 @@ def main():
     parser.add_argument('--mode', action='append', choices=('full', 'missing'))
     parser.add_argument('--timeout', type=float, default=60.)
     parser.add_argument('--native-resolution', action='store_true')
+    parser.add_argument('--near-player', action='store_true',
+                        help='Move the player to a temporary nearby platform for native section rendering; restore the player and platform')
     parser.add_argument('--fixture-lift-y', type=int, default=0,
                         help='Fixed world-space lift of the complete plant, reference and camera fixture, chosen before capture')
     parser.add_argument('--reuse-snow-controls', action='store_true',

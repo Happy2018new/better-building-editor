@@ -48,6 +48,27 @@ assert clock.SetTime((clock.GetTime()//24000)*24000+6000)
 assert adapter.write(support,('minecraft:dirt',0))
 _result=json.dumps(sys._snow_visibility_native)
 '''
+NATIVE_NEAR_PLAYER = '''import json,sys
+import mod.server.extraServerApi as server_api
+from modern_projection.server_system import WorldAdapter
+saved=sys._snow_visibility_native
+adapter=WorldAdapter(saved['player'])
+target=saved['target']
+platform=(target[0]-4,target[1]-1,target[2]-4)
+front=adapter.info.GetBlockNew(platform,saved['dimension'])
+back=adapter.info.GetLiquidBlock(platform,saved['dimension'])
+assert front and front['name']=='minecraft:air',(platform,front)
+assert back is None or back['name']=='minecraft:air',(platform,back)
+position=adapter.factory.CreatePos(saved['player'])
+saved['player_foot']=position.GetFootPos()
+saved['player_flying']=adapter.factory.CreateFly(saved['player']).IsPlayerFlying()
+saved['player_platform']=platform
+assert adapter.info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
+point=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+assert position.SetFootPos(point)
+_result=json.dumps({'before':saved['player_foot'],'after':point,'platform':platform,
+ 'flight_before':saved['player_flying'],'flight_modified':False})
+'''
 NATIVE_MUTATE = '''import json,sys
 import mod.server.extraServerApi as server_api
 from modern_projection.server_system import WorldAdapter
@@ -88,7 +109,16 @@ from modern_projection.server_system import WorldAdapter
 saved=sys._snow_visibility_native
 adapter=WorldAdapter(saved['player'])
 results=[]
-for pos in (saved['target'],saved['support']):
+if 'player_foot' in saved:
+ position=adapter.factory.CreatePos(saved['player'])
+ assert position.SetFootPos(tuple(saved['player_foot']))
+ foot=position.GetFootPos()
+ flying=adapter.factory.CreateFly(saved['player']).IsPlayerFlying()
+ results.append({'resource':'player','foot':foot,'flight':flying,
+  'clean':all(abs(foot[i]-saved['player_foot'][i])<.1 for i in range(3)) and flying==saved['player_flying']})
+positions=[saved['target'],saved['support']]
+if 'player_platform' in saved:positions.append(saved['player_platform'])
+for pos in positions:
  changed=adapter.write(pos,('minecraft:air',0))
  palette=adapter.palette_block.GetBlockPaletteBetweenPos(saved['dimension'],pos,pos,False)
  data=palette.SerializeBlockPalette() if palette is not None else None
@@ -460,7 +490,7 @@ def compare_native(reference, actual, minimum=80, foliage=True):
             'scope': 'Actual native world at the same cell, camera and crop; silhouette and foliage coverage'}
 
 
-def native_capture(check, plant, kind, height, target, offset):
+def native_capture(check, plant, kind, height, target, offset, settle_seconds=.4):
     check.run('b.stop_projection()\n_result=True')
     if check.navigation()['open']:
         check.run('navigator.pop()\n_result=True')
@@ -506,7 +536,7 @@ palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,F
 data=palette.SerializeBlockPalette() if palette is not None else {}
 _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
 ''' % (target,)))
-    time.sleep(.4)
+    time.sleep(settle_seconds)
     shot = check.capture('%s_%s_h%d_native' % (plant, kind, height))
     server_run(check.client, NATIVE_MUTATE % (plant, 'blank', 0))
     check.wait('native snow oracle cleared on client',
@@ -516,7 +546,7 @@ palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,F
 data=palette.SerializeBlockPalette() if palette is not None else {}
 _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
 ''' % (target,)))
-    time.sleep(.2)
+    time.sleep(max(.2, settle_seconds))
     hidden = check.capture('%s_%s_h%d_native_hidden' % (plant, kind, height))
     return {'readback': readback, 'client_palette': palette, 'pose': pose, 'screenshot': shot,
             'hidden_screenshot': hidden}
@@ -570,17 +600,19 @@ _result=json.dumps(diagnostic)
     return result['pose']
 
 
-def projection_capture(check, label, focus, offset, missing=False, fixture_lift_y=0):
+def projection_capture(check, label, focus, offset, missing=False, fixture_lift_y=0, world_target=None):
     native_before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
-s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1]+%r,foot[2]+6-focus[2])
+world_target=%r
+s.origin=(tuple(world_target[i]-focus[i] for i in range(3)) if world_target is not None else
+ (foot[0]+6-focus[0],foot[1]+8-focus[1]+%r,foot[2]+6-focus[2]))
 s.opacity=1.
 s.projection_missing=%r
 s.projection_outline=False
 b.project()
 _result=True
-''' % (focus, fixture_lift_y, missing))
+''' % (focus, world_target, fixture_lift_y, missing))
 
     def ready(state):
         if state['error']:
@@ -611,7 +643,8 @@ _result=True
     actual_camera = check.run(camera_code)
     assert camera_matches(actual_camera, pose), (actual_camera, pose)
     assert state['actor'] == final['actor'] and state['mesh'][:3] == final['mesh'][:3], (state, final)
-    saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
+    saved_player = (state['player'] if world_target is not None else
+                    check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])'))
     assert saved_player == final['player'], (saved_player, final['player'])
     calls = check.run('_result=json.dumps(sys._blueprint_qa_records[%d:])' % native_before)
     current_source = check.run(PROJECTION_SOURCE)
