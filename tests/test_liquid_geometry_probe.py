@@ -15,7 +15,7 @@ class LiquidGeometryProbeTests(unittest.TestCase):
         def original(*args, **kwargs):
             calls.append((args, kwargs))
             return 'mesh'
-        bridge = types.SimpleNamespace(geometry=original)
+        bridge = types.SimpleNamespace(geometry=original, context_models={'old': 'layout'})
         state = types.SimpleNamespace()
         namespace = {'sys': state, 'b': bridge, 'json': json}
         exec(probe.INSTALL_PATH % mode, namespace)
@@ -48,6 +48,7 @@ class LiquidGeometryProbeTests(unittest.TestCase):
         exec(probe.RESTORE_PATH, namespace)
         self.assertEqual(calls[-1], ('stopped', False))
         self.assertIs(bridge.geometry, original)
+        self.assertEqual(bridge.context_models, {'old': 'layout'})
         self.assertFalse(hasattr(state, '_liquid_path_geometry_saved'))
 
 

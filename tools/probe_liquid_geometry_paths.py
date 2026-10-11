@@ -14,6 +14,8 @@ SOURCE = wet.CASES[SOURCE_CASE]
 
 INSTALL_PATH = '''assert not hasattr(sys,'_liquid_path_geometry_saved')
 sys._liquid_path_geometry_saved=b.geometry
+sys._liquid_path_context_saved=dict(b.context_models)
+b.context_models.clear()
 sys._liquid_path_mode=%r
 def liquid_path_geometry(document,visible=None,name=None,context_document=None,prepared=None):
  original=sys._liquid_path_geometry_saved
@@ -33,8 +35,11 @@ _result=json.dumps({'mode':sys._liquid_path_mode,'fixture':'test.entities.signs'
 RESTORE_PATH = '''if hasattr(sys,'_liquid_path_geometry_saved'):
  b.stop_projection()
  b.geometry=sys._liquid_path_geometry_saved
+ b.context_models.clear()
+ b.context_models.update(sys._liquid_path_context_saved)
  del sys._liquid_path_geometry_saved
  del sys._liquid_path_mode
+ del sys._liquid_path_context_saved
 _result=True
 '''
 
