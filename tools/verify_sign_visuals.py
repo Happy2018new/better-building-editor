@@ -26,12 +26,14 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 class SignCheck(BlueprintCheck):
-    def __init__(self,client,output,timeout,native_resolution=False):
+    def __init__(self,client,output,timeout,native_resolution=False,background_only=True):
         BlueprintCheck.__init__(self,client,output,timeout)
         self.native_resolution=native_resolution
+        self.background_only=background_only
 
     def capture(self,label,tree=None):
-        compact=BlueprintCheck.capture(self,label,tree)
+        compact=(None if self.background_only and self.native_resolution else
+                 BlueprintCheck.capture(self,label,tree))
         if not self.native_resolution:
             return compact
         path=self.output.parent/(self.output.stem+'_'+label+'_native.png')
@@ -44,6 +46,15 @@ class SignCheck(BlueprintCheck):
         with Image.open(path) as image:
             blank=max(ImageStat.Stat(image.convert('RGB')).var)<=1.
         if blank:
+            if self.background_only:
+                failure={'label':label,'background_only':True,'reliable':False,
+                         'reason':'Native background capture is blank; foreground activation is disabled',
+                         'path':str(path.resolve()),'sha256':hashlib.sha256(payload).hexdigest(),
+                         'capture':capture}
+                diagnostic=path.with_suffix('.capture_error.json')
+                write_json(diagnostic,failure)
+                raise RuntimeError('%s: %s; evidence %s' %
+                                   (label,failure['reason'],diagnostic))
             # GPU swap chains can return a black PrintWindow. Activate only
             # this routed instance while run_live_check owns the desktop.
             activated_window=subprocess.run([sys.executable,'-X','utf8',
@@ -76,6 +87,11 @@ class SignCheck(BlueprintCheck):
                     'sha256':hashlib.sha256(payload).hexdigest(),'mime':'image/png',
                     'size':image.size,'variance':variance,'compact_screenshot':compact,
                     'capture':capture}
+            record['background_only']=self.background_only
+        if tree is not None and self.background_only:
+            tree_path=path.with_suffix('.tree.json')
+            write_json(tree_path,tree)
+            record['tree']=str(tree_path.resolve())
         return record
 
 LOAD = '''from modern_projection.projection.model import Document
