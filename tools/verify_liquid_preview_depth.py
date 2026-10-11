@@ -11,6 +11,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.preview_depth import depth_color
+from projection.liquid_transport import preview_tag
 from verify_biome_shader import shader_source
 
 HEADER = ROOT / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
@@ -19,11 +20,14 @@ VERTEX = '''precision highp float;
 #include "uniformWorldConstants.h"
 #include "modern_projection_liquid_preview_depth.h"
 attribute vec4 POSITION;
+uniform float CHECK_PACKED;
+uniform float CHECK_MODE;
 varying highp vec4 sampleColor;
 void main() {
     vec4 projected = vec4(0.2,0.3,0.4,0.8);
     float clip;
-    liquidPreviewDepth(POSITION.xyz, projected, clip);
+    if (CHECK_MODE > 0.5) liquidUniformPreviewDepth(POSITION.xyz, CHECK_PACKED, projected, clip);
+    else liquidPreviewDepth(POSITION.xyz, projected, clip);
     sampleColor=vec4((clip+256.0)/512.0, (projected.z+1.0)*0.5, projected.x, projected.y);
     gl_Position=vec4(0.0,0.0,0.0,1.0);
     gl_PointSize=1.0;
@@ -50,6 +54,8 @@ RENDER = '''cases => cases.map(item => {
    gl.uniformMatrix4fv(gl.getUniformLocation(program,'WORLDVIEW'),false,fixture.worldview);
    gl.uniformMatrix4fv(gl.getUniformLocation(program,'PROJ'),false,fixture.projection);
    gl.uniform4fv(gl.getUniformLocation(program,'CURRENT_COLOR'),fixture.color);
+   gl.uniform1f(gl.getUniformLocation(program,'CHECK_PACKED'),fixture.packed);
+   gl.uniform1f(gl.getUniformLocation(program,'CHECK_MODE'),fixture.mode);
    gl.vertexAttrib4fv(position,[...fixture.point,1]);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
    gl.drawArrays(gl.POINTS,0,1);const actual=new Uint8Array(4);gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,actual);
    if(actual.some((v,i)=>Math.abs(v-fixture.expected[i])>1))failures.push({name:fixture.name,actual:[...actual],expected:fixture.expected});
@@ -60,7 +66,7 @@ RENDER = '''cases => cases.map(item => {
 })'''
 
 
-def fixtures():
+def fixtures(mode):
     rows = []
     # One world point represented relative to different batch centers must
     # have the same depth. Include zoom-dependent native transform scales.
@@ -85,8 +91,9 @@ def fixtures():
                     depth = (.9 + clip * -.002 * .04) / 1.9
                 expected = [round((clip + 256.) / 512. * 255.),
                             round((depth + 1.) * .5 * 255.), 51, 76]
-                rows.append({'name': '%s/%s/%s/%s' % (center, scale, tagged, perspective),
+                rows.append({'name': '%s/%s/%s/%s/%s' % (mode, center, scale, tagged, perspective),
                              'point': point, 'color': color, 'worldview': world,
+                             'packed': preview_tag(distance) if tagged else 39686., 'mode': mode,
                              'projection': projection, 'expected': expected})
     return rows
 
@@ -109,7 +116,8 @@ def main():
         fragment.write_text(FRAGMENT, encoding='ascii')
         cases = [{'name': 'GLES%d' % version, 'version': version,
                   'vertex': shader_source(vertex, args.headers, version, ()),
-                  'fragment': shader_source(fragment, args.headers, version, ()), 'fixtures': fixtures()}
+                  'fragment': shader_source(fragment, args.headers, version, ()),
+                  'fixtures': fixtures(0) + fixtures(1)}
                  for version in (100, 300)]
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=args.browser, headless=True,
