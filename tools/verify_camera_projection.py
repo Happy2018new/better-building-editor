@@ -12,10 +12,11 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 from camera_projection import project_points
 from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
-from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, write_json
+from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, write_json
 from verify_debug_visuals import SAVE_VISUAL, PROJECTION_STATUS, camera_restore_code
 from verify_missing_neighbor_visuals import camera_matches, hull, maximum, signal
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
+from verify_sign_visuals import SignCheck
 
 LOAD_CUBE = '''from modern_projection.projection.model import Document,block
 doc=Document((3,3,3),name='Native camera calibration cube')
@@ -180,6 +181,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--timeout', type=float, default=90.)
+    parser.add_argument('--native-resolution', action='store_true')
+    parser.add_argument('--skyward-tilted', action='store_true',
+                        help='Calibration-only tilted camera below the cube to use a sky background')
     parser.add_argument('--fixture-lift-y', type=int, default=0,
                         help='Fixed world-space lift of the entire cube and camera fixture, chosen before capture')
     parser.add_argument('--replay', type=Path, help='Reanalyze preserved native captures without calling a game')
@@ -196,11 +200,13 @@ def main():
     evidence = {'schema': 1, 'passed': False, 'completed': False, 'views': [],
                 'scope': 'Exact full native client cube; world blocks and player position untouched',
                 'session_file': os.environ.get('MCDEV_SESSION_FILE'),
+                'native_resolution': args.native_resolution,
+                'skyward_tilted': args.skyward_tilted,
                 'fixture_lift_y': args.fixture_lift_y}
     installed = saved = environment_saved = options_saved = False
     try:
         with Client(timeout=30) as client:
-            check = BlueprintCheck(client, args.output, args.timeout)
+            check = SignCheck(client, args.output, args.timeout, args.native_resolution)
             try:
                 check.run(INSTALL_PROBE)
                 installed = True
@@ -221,8 +227,9 @@ def main():
                     check.run('navigator.pop()\n_result=True')
                     check.wait('close calibration workspace', lambda nav: not nav['open'] and not nav['transition'],
                                check.navigation)
+                tilted_y = -3. if args.skyward_tilted else 3.
                 for label, offset in (('front', (0., 0., 6.)), ('right', (6., 0., 0.)),
-                                      ('tilted', (0., 3., 6.))):
+                                      ('tilted', (0., tilted_y, 6.))):
                     pose = check.run(POSE % (offset,))
                     camera = check.wait('cube camera ' + label, lambda value: camera_matches(value, pose),
                                         lambda: check.run(CAMERA))
