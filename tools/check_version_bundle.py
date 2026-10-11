@@ -18,6 +18,7 @@ MODULES = (
     'static_neighbor_data',
     'native_palette_actor_data',
     'native_entity_write_data',
+    'static_bed_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -76,6 +77,10 @@ def check_provenance(root=ROOT):
         data = json.loads(path.read_text(encoding='utf8'))
         provenance_matches(name, data.get('game_version'), data.get('palette_sha256'), manifest)
         checked.append(str(path.relative_to(root)))
+    path = root / 'tools/data/bed_static_model_v1.json'
+    data = json.loads(path.read_text(encoding='utf8'))
+    provenance_matches('bed_static_model', data.get('game_version'), data.get('palette_sha256'), manifest)
+    checked.append(str(path.relative_to(root)))
     path = root / 'tools/data' / ('native_actor_materials_nemc_' + version + '.json')
     check_actor_materials(json.loads(path.read_text(encoding='utf8')), manifest, root=root)
     checked.append(str(path.relative_to(root)))
@@ -99,6 +104,7 @@ def commands(manifest, tests=False):
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],
         ['tools/generate_static_plant_proxies.py', '--check'],
+        ['tools/generate_bed_proxies.py', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

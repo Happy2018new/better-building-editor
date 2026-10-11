@@ -21,7 +21,7 @@ from projection.render_context import ContextPaletteBuilder, prepare_context_bat
 from projection.storage import Selection
 from projection.static_bed import BED_COLORS, BED_DIRECTIONS, BED_PROXIES, bed_proxy
 from projection.visible_actor import compose_actor, entity_nbt
-from generate_bed_proxies import half_cube, model
+from generate_bed_proxies import half_cube, model, outputs
 from generate_shulker_proxies import netease_box_uv
 from test_static_shulker_render import world_rotation
 
@@ -114,6 +114,20 @@ class StaticBedTests(unittest.TestCase):
         with patch('projection.native_appearance.SOURCE_VERSION', 'unobserved version'):
             with self.assertRaises(ValueError):
                 bed_proxy(foreground(value), actor_data(value))
+
+    def test_old_bed_models_are_rejected_even_after_other_appearance_rules_are_updated(self):
+        value = cell(0, True, 8)
+        for name, changed in (('SOURCE_VERSION', 'NEMC old'), ('PALETTE_SHA256', '0' * 64)):
+            with self.subTest(metadata=name), patch('projection.static_bed.' + name, changed):
+                with self.assertRaisesRegex(ValueError, 'Native bed models need sources'):
+                    bed_proxy(foreground(value), actor_data(value))
+
+    def test_generator_refuses_bed_sources_for_a_different_registry(self):
+        for key, changed in (('game_version', 'NEMC old'), ('palette_sha256', '0' * 64)):
+            source = deepcopy(self.spec)
+            source[key] = changed
+            with self.subTest(metadata=key), self.assertRaisesRegex(ValueError, 'Native bed sources'):
+                outputs(source)
 
     def test_public_bed_mirrors_equal_cardinal_source_layouts_without_swapping_roles(self):
         public = build('test.entities.appearances')

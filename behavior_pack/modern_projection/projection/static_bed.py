@@ -1,9 +1,11 @@
 """Native-textured bed halves constrained to their own logical render cells."""
+from . import block_registry as registry
 from .block_registry import states
 from .cell import actor_data, foreground, integer_types
 from .native_appearance import validate_source
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import entity_nbt, render_actor
+from .static_bed_data import SOURCE_VERSION, PALETTE_SHA256
 
 BED_COLORS = ('white', 'orange', 'magenta', 'light_blue', 'yellow', 'lime',
               'pink', 'gray', 'silver', 'cyan', 'purple', 'blue', 'brown',
@@ -41,6 +43,8 @@ def bed_proxy(material, actor, inferred_color=None):
     color = bed_color(actor) if inferred_color is None else inferred_color
     if color is None:
         return None
+    if SOURCE_VERSION != registry.source_version() or PALETTE_SHA256 != registry.fingerprint():
+        raise ValueError('Native bed models need sources for this block registry')
     validate_source()
     return (BED_PROXIES[(BED_COLORS[color], direction, record['head_piece_bit'])], 0)
 

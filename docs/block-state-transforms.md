@@ -72,6 +72,17 @@ It never rewrites files or silently accepts stale native mappings. Newly added
 direction properties still require review, and engine appearance remains a
 separate cold-resource acceptance step.
 
+Bed halves also carry their own generated version and palette fingerprint in
+`static_bed_data.py`, with source geometry and all 16 native texture hashes in
+`tools/data/bed_static_model_v1.json`. The bundle checks this source and runs
+`generate_bed_proxies.py --check`; refreshing other actor observations does not
+authorize old bed assets. For reviewed installed-resource changes, regenerate
+with `python tools/generate_bed_proxies.py --refresh-source --native-resource-root
+<installed-vanilla>`, inspect the source/model diff, and rerun the affected public
+bed editor and projection cases. Shared block and terrain registries compare
+parsed JSON content so independent generators' key ordering does not invalidate
+unchanged resources; individual model files retain strict content checks.
+
 Native block actors and sign text also use a versioned material snapshot:
 `tools/data/native_actor_materials_nemc_<version>.json`. It records seven original
 shader/material sources and hashes of seven projection adaptations, including

@@ -190,7 +190,11 @@ def main():
     for path, data in outputs(spec).items():
         text = json.dumps(data, ensure_ascii=True, indent=2) + '\n'
         if args.check:
-            if not path.exists() or path.read_text(encoding='utf8') != text:
+            current = path.read_text(encoding='utf8') if path.exists() else None
+            matches = (json.loads(current) == data if current is not None and path in
+                       (ROOT / 'resource_pack/blocks.json', ROOT / 'resource_pack/textures/terrain_texture.json')
+                       else current == text)
+            if not matches:
                 stale.append(str(path.relative_to(ROOT)))
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
