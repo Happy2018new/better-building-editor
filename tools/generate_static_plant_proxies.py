@@ -1,4 +1,4 @@
-"""Generate measured static mushroom candidates from installed native textures."""
+"""Generate measured static mushroom and fungus proxies from native textures."""
 import argparse
 from copy import deepcopy
 import hashlib
@@ -26,7 +26,7 @@ def source_path(manifest):
 SOURCE = source_path(json.loads(MANIFEST.read_text(encoding='utf8')))
 TEMPLATE = ROOT/'resource_pack/models/netease_block/preview_fern.json'
 EXISTING = frozenset(('short_grass', 'fern'))
-CANDIDATES = frozenset(('brown_mushroom', 'red_mushroom'))
+CANDIDATES = frozenset(('brown_mushroom', 'red_mushroom', 'crimson_fungus', 'warped_fungus'))
 SPECIAL = {
     'firefly_bush': 'Emissive animated texture requires a separate material and phase contract',
     'open_eyeblossom': 'Emissive texture and day/night lifecycle require separate evidence',
@@ -52,6 +52,17 @@ GEOMETRY_EVIDENCE = {
         'texture_alpha_top_row': 5,
         'texture_height': 16,
         'native_visible_height_pixels': 191,
+    },
+    'fungus_boundary_r7': {
+        'report': 'fungus-candidate-boundary-two-view-r7.json',
+        'report_sha256': 'cabf1dcdffa514dc81a2614737f87743f40890575bee8541c1f3e11af256d605',
+        'accepted_scope': 'Dry plus crimson h4/h5 and warped h3/h4, both full/missing modes and two predefined views only',
+        'mesh_authority': 'Centered cross copied from the mushroom construction; independent native pixels validate only the fixed accepted scope',
+        'all_eight_snow_heights_accepted': False,
+        'crimson_fungus_alpha_bounds': [3, 4, 13, 16],
+        'warped_fungus_alpha_bounds': [3, 7, 13, 16],
+        'public_world_offset': [-2., .15, -2.5],
+        'right_world_offset': [2., .15, -2.5],
     },
 }
 

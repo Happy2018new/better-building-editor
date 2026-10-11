@@ -79,7 +79,7 @@ Proxy absence means absence from the current measured cross-proxy map. It
 does not claim a measured zero-pixel failure of every general native geometry
 path. Poppy retains its previous separately measured failure.
 
-## Fungus Follow-Up
+## Fungus Follow-Up Before Candidate Tests
 
 Crimson and warped fungus are static 16x16 native textures with alpha bounds
 `[3,4,13,16]` and `[3,7,13,16]`, respectively. A unit-height texture would have
@@ -94,8 +94,12 @@ mesh, XZ placement or position-dependent random-offset contract. MCP vanilla
 asset searches found the same mappings and textures, not an authoritative
 cross model or no-offset rule. Their native inventory shapes are now available
 for an independent fixed-pose candidate test in a fresh frozen-resource launch.
-No fungus model was generated, no fitted shift applied and no new plant was
-registered in this round.
+At the inventory and raw Combine capture time, no fungus model was generated,
+no fitted shift applied and no new plant was registered. A later independent
+frozen candidate matrix passed the two fungi's dry and burial-boundary rows at
+two fixed views; its limited promotion is separately documented in
+[FUNGUS_SNOW_BOUNDARY_R7.md](FUNGUS_SNOW_BOUNDARY_R7.md). The inventory's original
+four-proxy map, report hashes and eligibility flags remain historical facts.
 
 Reference sources are the versioned
 [`static_plant_sources_nemc_3.9.0.401155.json`](../tools/data/static_plant_sources_nemc_3.9.0.401155.json)

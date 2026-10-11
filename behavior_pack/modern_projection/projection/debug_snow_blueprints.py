@@ -28,10 +28,18 @@ def _cells():
 
 
 VISUAL_CASE = {
-    'schema': 3, 'fixture': METADATA[0], 'cells': _cells(),
+    'schema': 4, 'fixture': METADATA[0], 'cells': _cells(),
     'size': (3, 3, 3), 'focus': (1, 1, 1), 'heights': tuple(range(8)),
     'camera': {'editor': (35., 10., 2.8), 'world_offset': (-2., .15, -2.5)},
     'native_biome': 'minecraft:ice_plains',
+    'fungus_boundary': {
+        'schema': 1,
+        'geometry_status': 'Centered cross measured at two fixed views; authoritative native mesh unverified',
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': {'crimson_fungus': (4, 5), 'warped_fungus': (3, 4)},
+        'scope': 'Dry and immediately before/at the alpha-derived candidate burial boundary, both modes and both fixed views',
+        'all_eight_snow_heights_accepted': False,
+    },
 }
 
 

@@ -1,0 +1,1610 @@
+{
+  "schema_version": 1,
+  "accepted_scope": {
+    "plants": [
+      "crimson_fungus",
+      "warped_fungus"
+    ],
+    "dry_native_controls": true,
+    "world_modes": [
+      "full",
+      "missing"
+    ],
+    "independent_editor_controls": true,
+    "views": {
+      "public": [
+        -2.0,
+        0.15,
+        -2.5
+      ],
+      "right": [
+        2.0,
+        0.15,
+        -2.5
+      ]
+    },
+    "snow_heights": {
+      "crimson_fungus": [
+        4,
+        5
+      ],
+      "warped_fungus": [
+        3,
+        4
+      ]
+    },
+    "all_eight_snow_heights_accepted": false,
+    "all_current_plants_accepted": false,
+    "unaccepted_heights": {
+      "crimson_fungus": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7
+      ],
+      "warped_fungus": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        7
+      ]
+    },
+    "other_positions_or_runtime_versions_accepted": false
+  },
+  "geometry": {
+    "native_texture_identity_and_alpha_are_measured_facts": true,
+    "construction": "Accepted mushroom centered-cross construction with origin Y 0, height16, pivotY8 and full V0..16",
+    "native_mesh_authority": false,
+    "random_offset_contract_recovered": false,
+    "fitted_offsets_or_uvs": false,
+    "crimson_opaque_max_y": 0.75,
+    "warped_opaque_max_y": 0.5625,
+    "scope": "Independent actual native silhouettes certify only the fixed measured rows, not every height, position or view"
+  },
+  "environment": {
+    "nemc_version": "3.9.0.401155",
+    "runtime_minecraft_version": "1.21.120.0",
+    "owner": "p0-snow-r7",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\session.json",
+    "game_pid": 33864,
+    "worktree": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-blueprint-qa-r3",
+    "captured_code_head": "74c1164",
+    "instance_state": "stopped",
+    "ready": false,
+    "game_alive": false,
+    "mcdk_alive": false,
+    "stop_condition": "First WM_CLOSE wait exceeded10s; both processes then exited normally. Second stop recorded stopped. No force."
+  },
+  "protected_startup": {
+    "guard_dll": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-integration/.runtime/native_focus_guard-final-r7/native_focus_guard.dll",
+    "guard_sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+    "isolated_mcdk_sha256": "648e5d56b58cb4722235c17212411c633b7b48b6b8e93443a161d9aa87692c35",
+    "loaded_guard_module_verified": true,
+    "window_exstyle": "0x8040110",
+    "window_noactivate": true,
+    "desktop_input_resize_activation_used": false,
+    "guard_bypasses": 0
+  },
+  "public_parameters": {
+    "fixture": "test.layers.snow",
+    "schema": 4,
+    "captured_profile_field": "fungus_candidate_acceptance",
+    "current_profile_field": "fungus_boundary",
+    "views": {
+      "public": [
+        -2.0,
+        0.15,
+        -2.5
+      ],
+      "right": [
+        2.0,
+        0.15,
+        -2.5
+      ]
+    },
+    "heights": {
+      "crimson_fungus": [
+        4,
+        5
+      ],
+      "warped_fungus": [
+        3,
+        4
+      ]
+    },
+    "editor_pose": [
+      35.0,
+      10.0,
+      2.8
+    ],
+    "fixture_lift_y": 16,
+    "calibration_fixture_lift_y": 64,
+    "vertical_fov": 66.6,
+    "numeric_camera_roi_and_height_parameters_changed": false
+  },
+  "original_gates": {
+    "native_recall": 0.75,
+    "native_precision": 0.75,
+    "native_edge_tolerance_pixels": 3,
+    "fixed_calibrated_cell_roi": true,
+    "independent_native_snow_controls": true,
+    "fully_occluded_world_exposed_pixels": 0,
+    "fully_occluded_editor_contribution_pixels": 0,
+    "roi_expansion_or_threshold_changes": false
+  },
+  "matrix": {
+    "nonblank_rows": 20,
+    "covered_editor_cases": 8,
+    "combinations": 4,
+    "full_failures": 0,
+    "missing_failures": 0,
+    "editor_failures": 0,
+    "cleanup_errors": [],
+    "binding_read_failures": [],
+    "source_assets_stable": true,
+    "started_utc": "2026-10-11T08:37:18.196221+00:00",
+    "finished_utc": "2026-10-11T08:47:24.929143+00:00",
+    "original_report_new_production_plant_acceptance": false,
+    "promotion": "Limited measured scope promoted only after frozen experiment completed; original candidate reports unchanged"
+  },
+  "capture_and_source_audit": {
+    "unique_native_pngs": 150,
+    "frozen_files": 961,
+    "integrity_errors": [],
+    "frozen_snapshot": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-blueprint-qa-r3\\.runtime\\snow-r7-fungus-candidate-prelaunch-hashes.json",
+      "sha256": "539060da2ddf644e1b71a21b8763bfc1892060dd1e74218e56a94058b7052f1c"
+    },
+    "production_render_asset_sha256": {
+      "behavior_pack/netease_blocks/preview_crimson_fungus.json": "be208b9a01700763a8393d6217df4dbe1d41a0f075de511d20f80c73b0a83968",
+      "resource_pack/models/netease_block/preview_crimson_fungus.json": "58e8d9e56b38df0330e34ffa9f11803ffa6f1d5c01373e58f35a6640fb292f7a",
+      "behavior_pack/netease_blocks/preview_warped_fungus.json": "4992f4b7574cf73c8cfcbfddeecaeb31f459e60986f71a1dbcc821066ef8e9f1",
+      "resource_pack/models/netease_block/preview_warped_fungus.json": "74a3f071479945a5f30c28b27317059a0267fd117f28460d7351949553a8d2d5"
+    },
+    "current_native_source_metadata_sha256": "e9f1e2a1e8ca20ec7898aa69466635ba833e53757205630f781ec0ef383c7553",
+    "prior_native_source_metadata_sha256": "d53036809f7cd62bfb770316d3a349c1c37708d24bad5ead03908cadda74323c"
+  },
+  "artifacts": [
+    {
+      "role": "fixed_matrix",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7.json",
+      "sha256": "cabf1dcdffa514dc81a2614737f87743f40890575bee8541c1f3e11af256d605"
+    },
+    {
+      "role": "independent_integrity_audit",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_audit.json",
+      "sha256": "8fea4b73feebdebe23e3594ec11ba9bc7c97a630d60b4ec1faedb0526b6a5a34"
+    },
+    {
+      "role": "same_session_calibration",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-camera-calibration-r7-lift64-skyward.json",
+      "sha256": "57fdce39dcb72079265842f8a6ba10fcd2efb1a3335203ca40f90dd6e6a87232"
+    },
+    {
+      "role": "startup_background_capture",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-startup-r7.capture.json",
+      "sha256": "794dfc8ab062bcd7e3fef840a57270576cd51710177ba1ef60dd16cd0d0e9288"
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_crimson_fungus_public.json",
+      "sha256": "48997b5843d01480fd0f9252679b5e9097e2a5671c7640024e847fef91929ff8",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "source_assets_stable": true,
+      "role": "restored_live_scope"
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_warped_fungus_public.json",
+      "sha256": "10b7e6269cfe78841bb05be626ad7ca00717c63adc97a4dec7858d25cf49bd40",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "source_assets_stable": true,
+      "role": "restored_live_scope"
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_crimson_fungus_right.json",
+      "sha256": "bede93803a3d103df53e9ca1b34c6c18de8128ca830aa6a5992b6c0567100585",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "source_assets_stable": true,
+      "role": "restored_live_scope"
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_warped_fungus_right.json",
+      "sha256": "770c728e61d95c4ce3415f685517c0fad34d07d4fe999f12b780a2a54cf0513f",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "source_assets_stable": true,
+      "role": "restored_live_scope"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_crimson_fungus_public_inspect.png",
+      "sha256": "7befb50d3ebc60ffd0454fa34ec62b421f8a77fc8dcf278fe7845102018d939c",
+      "inspection_only": true,
+      "rows": 3,
+      "role": "inspection_only_actually_opened"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_warped_fungus_public_inspect.png",
+      "sha256": "f5fec0128530824b406d786d4775783e6e4af502ec73696d56506f52d1de9ea5",
+      "inspection_only": true,
+      "rows": 3,
+      "role": "inspection_only_actually_opened"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_crimson_fungus_right_inspect.png",
+      "sha256": "1297e9ccfac2a26a485b043dfbb3c3cd3f68222b4f457f7357bd03169e5f828a",
+      "inspection_only": true,
+      "rows": 3,
+      "role": "inspection_only_actually_opened"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-candidate-boundary-two-view-r7_warped_fungus_right_inspect.png",
+      "sha256": "a6b66584673ea58530e394a76c6ea617020a7b76df33a6236cae24009c8bb4da",
+      "inspection_only": true,
+      "rows": 3,
+      "role": "inspection_only_actually_opened"
+    },
+    {
+      "role": "independent_offline_png_replay",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-boundary-r7-crimson_fungus_public-offline-replay.json",
+      "sha256": "5df0f8e2d57779f7dc710a615d9ef213059cbfaa69a3a34165e3c727b8118760",
+      "passed": true
+    },
+    {
+      "role": "independent_offline_png_replay",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-boundary-r7-warped_fungus_public-offline-replay.json",
+      "sha256": "c7cd5b89138b0093de7da3a920633e83baf56db2b760a7af3ae9a99cb03802a9",
+      "passed": true
+    },
+    {
+      "role": "independent_offline_png_replay",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-boundary-r7-crimson_fungus_right-offline-replay.json",
+      "sha256": "fe4d6b078eb974e8af8ad9b43f8949f1753dfad3614d70745db9070ca8c9cc77",
+      "passed": true
+    },
+    {
+      "role": "independent_offline_png_replay",
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b770c534bae472dbb413ed061a97bc6\\artifacts\\fungus-boundary-r7-warped_fungus_right-offline-replay.json",
+      "sha256": "37b51936bb85dd17b901f6a15e97d8ec641b4a19e34207678cf2b98bb7947520",
+      "passed": true
+    }
+  ],
+  "offline_verification": {
+    "tests": 1167,
+    "tests_passed": true,
+    "test_command": "python -X utf8 -m unittest discover -s tests -q",
+    "version_bundle": ".runtime/version-bundle-fungus-boundary-r7.json",
+    "version_bundle_sha256": "f2c76ea00d1b0fbd5169658bfbdbb914199b5404abc39d7075ce28e7caa3bf1e",
+    "version_bundle_passed": true,
+    "provenance_files": 40,
+    "states": 15858,
+    "transforms_per_state": 6,
+    "all_default_generators_passed": true,
+    "actual_installed_native_plant_source_check_passed": true,
+    "four_original_png_replays_passed": true,
+    "preserved_initial_test_condition": "Running without -X utf8 produced only the existing test_survey_effects shader read UnicodeDecodeError under default GBK. Full UTF8 rerun passed.",
+    "minecraft_py_review": {
+      "files": 111,
+      "parsed": 111,
+      "existing_advisories": 41,
+      "findings_in_changed_behavior_modules": 0,
+      "zero_file_targeted_review_not_counted_as_success": true
+    }
+  },
+  "preserved_failures": [
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/artifacts/snow-crimson-fungus-raw-dry-h0-r7.json",
+      "sha256": "f6b909b339cf49b8f72ca49e5df375fe33594ce188c791d758bd3875b908216c",
+      "passed": false,
+      "completed": true,
+      "restored": true,
+      "condition": "Raw unregistered native Combine omits crimson dry and h0 pixels. Proxy boundary acceptance does not reclassify that failure."
+    }
+  ],
+  "rows": [
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "kind": "plant",
+      "height": 0,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 20711,
+              "observed_pixels": 18338,
+              "native_absent": false,
+              "recall": 0.9384385109362174,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 20711,
+              "observed_pixels": 18338,
+              "native_absent": false,
+              "recall": 0.9384385109362174,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": {
+        "passed": true,
+        "clipped_boundary_pixels": 0,
+        "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+      }
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "kind": "snow",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "kind": "covered",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 70350,
+              "observed_pixels": 69741,
+              "native_absent": false,
+              "recall": 0.9978535891968727,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 2979,
+              "observed_pixels": 2664,
+              "native_absent": false,
+              "recall": 0.9493118496139644,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 70350,
+              "observed_pixels": 69741,
+              "native_absent": false,
+              "recall": 0.9978535891968727,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 2979,
+              "observed_pixels": 2664,
+              "native_absent": false,
+              "recall": 0.9493118496139644,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 4,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "plant_contributes_beyond_snow": true,
+          "upper_foliage_retained": true
+        },
+        "failures": [],
+        "plant_pixels": 28007,
+        "snow_pixels": 112522,
+        "covered_contribution_pixels": 4792,
+        "upper_pixels": 4742,
+        "standalone_uncovered_pixels": 604,
+        "fully_occluded_by_snow_control": false,
+        "lower_pixels": 3343,
+        "upper_retained": 1.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "kind": "snow",
+      "height": 5,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 80591,
+              "observed_pixels": 80396,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 80591,
+              "observed_pixels": 80396,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "public",
+      "kind": "covered",
+      "height": 5,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 80591,
+              "observed_pixels": 80396,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 80591,
+              "observed_pixels": 80396,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 5,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "fully_covered_plant_stays_occluded": true,
+          "high_snow_occludes_lower_foliage": true
+        },
+        "failures": [],
+        "plant_pixels": 28007,
+        "snow_pixels": 130922,
+        "covered_contribution_pixels": 0,
+        "upper_pixels": 0,
+        "standalone_uncovered_pixels": 0,
+        "fully_occluded_by_snow_control": true,
+        "lower_pixels": 3343,
+        "upper_retained": 0.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "kind": "plant",
+      "height": 0,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 17320,
+              "observed_pixels": 15362,
+              "native_absent": false,
+              "recall": 0.9280023094688221,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 17320,
+              "observed_pixels": 15362,
+              "native_absent": false,
+              "recall": 0.9280023094688221,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": {
+        "passed": true,
+        "clipped_boundary_pixels": 0,
+        "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+      }
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "kind": "snow",
+      "height": 3,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 56001,
+              "observed_pixels": 55796,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 56001,
+              "observed_pixels": 55796,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "kind": "covered",
+      "height": 3,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 58373,
+              "observed_pixels": 57891,
+              "native_absent": false,
+              "recall": 0.996573758415706,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 1702,
+              "observed_pixels": 1449,
+              "native_absent": false,
+              "recall": 0.8830787309048178,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 58373,
+              "observed_pixels": 57891,
+              "native_absent": false,
+              "recall": 0.996573758415706,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 1702,
+              "observed_pixels": 1449,
+              "native_absent": false,
+              "recall": 0.8830787309048178,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 3,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "plant_contributes_beyond_snow": true,
+          "upper_foliage_retained": true
+        },
+        "failures": [],
+        "plant_pixels": 23542,
+        "snow_pixels": 93662,
+        "covered_contribution_pixels": 5097,
+        "upper_pixels": 5085,
+        "standalone_uncovered_pixels": 48,
+        "fully_occluded_by_snow_control": false,
+        "lower_pixels": 2653,
+        "upper_retained": 1.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "kind": "snow",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "public",
+      "kind": "covered",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 66990,
+              "observed_pixels": 66741,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 4,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "fully_covered_plant_stays_occluded": true
+        },
+        "failures": [],
+        "plant_pixels": 23542,
+        "snow_pixels": 112522,
+        "covered_contribution_pixels": 0,
+        "upper_pixels": 0,
+        "standalone_uncovered_pixels": 0,
+        "fully_occluded_by_snow_control": true,
+        "lower_pixels": 2653,
+        "upper_retained": 0.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "kind": "plant",
+      "height": 0,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 20618,
+              "observed_pixels": 18208,
+              "native_absent": false,
+              "recall": 0.9385488408187022,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 20618,
+              "observed_pixels": 18208,
+              "native_absent": false,
+              "recall": 0.9385488408187022,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": {
+        "passed": true,
+        "clipped_boundary_pixels": 0,
+        "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+      }
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "kind": "snow",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "kind": "covered",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 72549,
+              "observed_pixels": 72164,
+              "native_absent": false,
+              "recall": 0.9977256750609933,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 2996,
+              "observed_pixels": 2659,
+              "native_absent": false,
+              "recall": 0.9449265687583445,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 72549,
+              "observed_pixels": 72164,
+              "native_absent": false,
+              "recall": 0.9977256750609933,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 2996,
+              "observed_pixels": 2659,
+              "native_absent": false,
+              "recall": 0.9449265687583445,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 4,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "plant_contributes_beyond_snow": true,
+          "upper_foliage_retained": true
+        },
+        "failures": [],
+        "plant_pixels": 28007,
+        "snow_pixels": 112522,
+        "covered_contribution_pixels": 4792,
+        "upper_pixels": 4742,
+        "standalone_uncovered_pixels": 604,
+        "fully_occluded_by_snow_control": false,
+        "lower_pixels": 3343,
+        "upper_retained": 1.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "kind": "snow",
+      "height": 5,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 82753,
+              "observed_pixels": 82801,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 82753,
+              "observed_pixels": 82801,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "crimson_fungus",
+      "view": "right",
+      "kind": "covered",
+      "height": 5,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 82753,
+              "observed_pixels": 82801,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 82753,
+              "observed_pixels": 82801,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 5,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "fully_covered_plant_stays_occluded": true,
+          "high_snow_occludes_lower_foliage": true
+        },
+        "failures": [],
+        "plant_pixels": 28007,
+        "snow_pixels": 130922,
+        "covered_contribution_pixels": 0,
+        "upper_pixels": 0,
+        "standalone_uncovered_pixels": 0,
+        "fully_occluded_by_snow_control": true,
+        "lower_pixels": 3343,
+        "upper_retained": 0.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "kind": "plant",
+      "height": 0,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 17361,
+              "observed_pixels": 15302,
+              "native_absent": false,
+              "recall": 0.927365935141985,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 17361,
+              "observed_pixels": 15302,
+              "native_absent": false,
+              "recall": 0.927365935141985,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "native_roi_not_clipped": true
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": {
+        "passed": true,
+        "clipped_boundary_pixels": 0,
+        "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+      }
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "kind": "snow",
+      "height": 3,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 58107,
+              "observed_pixels": 58135,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 58107,
+              "observed_pixels": 58135,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "kind": "covered",
+      "height": 3,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 60461,
+              "observed_pixels": 60217,
+              "native_absent": false,
+              "recall": 0.9967582408494732,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 1697,
+              "observed_pixels": 1448,
+              "native_absent": false,
+              "recall": 0.8845020624631703,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 60461,
+              "observed_pixels": 60217,
+              "native_absent": false,
+              "recall": 0.9967582408494732,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 1697,
+              "observed_pixels": 1448,
+              "native_absent": false,
+              "recall": 0.8845020624631703,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 3,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "plant_contributes_beyond_snow": true,
+          "upper_foliage_retained": true
+        },
+        "failures": [],
+        "plant_pixels": 23542,
+        "snow_pixels": 93662,
+        "covered_contribution_pixels": 5097,
+        "upper_pixels": 5085,
+        "standalone_uncovered_pixels": 48,
+        "fully_occluded_by_snow_control": false,
+        "lower_pixels": 2653,
+        "upper_retained": 1.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "kind": "snow",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+        }
+      },
+      "editor_controls": null,
+      "native_roi_boundary": null
+    },
+    {
+      "plant": "warped_fungus",
+      "view": "right",
+      "kind": "covered",
+      "height": 4,
+      "world": {
+        "full": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        },
+        "missing": {
+          "passed": true,
+          "masks": {
+            "object": {
+              "passed": true,
+              "expected_pixels": 69172,
+              "observed_pixels": 69172,
+              "native_absent": false,
+              "recall": 1.0,
+              "precision": 1.0,
+              "edge_tolerance_pixels": 3
+            },
+            "exposed_plant": {
+              "passed": true,
+              "expected_pixels": 0,
+              "observed_pixels": 0,
+              "native_absent": true,
+              "recall": 0.0,
+              "precision": 0.0,
+              "edge_tolerance_pixels": 3
+            }
+          },
+          "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+          "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+        }
+      },
+      "editor_controls": {
+        "height": 4,
+        "passed": true,
+        "valid_baseline": true,
+        "checks": {
+          "observable_controls": true,
+          "foliage_stays_at_standalone_position": true,
+          "remaining_foliage_matches_standalone": true,
+          "snow_stays_at_control_position": true,
+          "fully_covered_plant_stays_occluded": true
+        },
+        "failures": [],
+        "plant_pixels": 23542,
+        "snow_pixels": 112522,
+        "covered_contribution_pixels": 0,
+        "upper_pixels": 0,
+        "standalone_uncovered_pixels": 0,
+        "fully_occluded_by_snow_control": true,
+        "lower_pixels": 2653,
+        "upper_retained": 0.0,
+        "lower_retained": 0.0,
+        "lower_snow_control_coverage": 1.0,
+        "outside_standalone_ratio": 0.0,
+        "remaining_color_match": 1.0,
+        "upper_geometry": "native alpha texels above snow",
+        "upper_edge_tolerance_pixels": 3,
+        "snow_outside_plant_retained": 1.0,
+        "limits": {
+          "minimum_baseline_pixels": 80,
+          "upper_retention": 0.65,
+          "high_lower_retention": 0.25,
+          "high_lower_snow_coverage": 0.65,
+          "outside_standalone_ratio": 0.15,
+          "color_match": 0.6,
+          "snow_retention": 0.9
+        }
+      },
+      "native_roi_boundary": null
+    }
+  ],
+  "reproduction": {
+    "tool": "tools/verify_snow_catalogue_visuals.py",
+    "profile": "--fungus-boundary --view public or right; one plant with exactly its two accepted heights, full and missing",
+    "native_capture_environment_required": [
+      "MCDEV_NATIVE_CAPTURE_HELPER",
+      "MCDEV_NATIVE_CAPTURE_EXE"
+    ],
+    "same_session_calibration_required": true
+  }
+}

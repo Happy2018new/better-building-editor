@@ -722,6 +722,17 @@
       "texture_alpha_top_row": 5,
       "texture_height": 16,
       "native_visible_height_pixels": 191
+    },
+    "fungus_boundary_r7": {
+      "report": "fungus-candidate-boundary-two-view-r7.json",
+      "report_sha256": "cabf1dcdffa514dc81a2614737f87743f40890575bee8541c1f3e11af256d605",
+      "accepted_scope": "Dry plus crimson h4/h5 and warped h3/h4, both full/missing modes and two predefined views only",
+      "mesh_authority": "Centered cross copied from the mushroom construction; independent native pixels validate only the fixed accepted scope",
+      "all_eight_snow_heights_accepted": false,
+      "crimson_fungus_alpha_bounds": [3, 4, 13, 16],
+      "warped_fungus_alpha_bounds": [3, 7, 13, 16],
+      "public_world_offset": [-2.0, 0.15, -2.5],
+      "right_world_offset": [2.0, 0.15, -2.5]
     }
   },
   "scope": "Exact native texture identities for static candidates; source hashes do not certify rendered pixels"

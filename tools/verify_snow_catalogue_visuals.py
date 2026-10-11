@@ -236,10 +236,22 @@ def run(args):
     plants = tuple(dict.fromkeys(args.plant or NAMES))
     heights = sorted(set(args.height or range(8)))
     modes = tuple(dict.fromkeys(args.mode or ('full', 'missing')))
+    view = args.view
+    offset = tuple(VISUAL_CASE['camera']['world_offset'])
+    candidate = VISUAL_CASE['fungus_boundary']
+    if args.fungus_boundary:
+        assert len(plants) == 1 and plants[0] in candidate['heights']
+        assert heights == list(candidate['heights'][plants[0]])
+        assert modes == ('full', 'missing')
+        offset = tuple(candidate['views'][view])
+    elif view != 'public':
+        raise ValueError('The second predefined view is restricted to the versioned fungus boundary matrix')
     report = {'schema': 1, 'completed': False, 'restored': False, 'passed': False, 'rows': [],
               'plants': plants, 'heights': heights, 'modes': modes, 'session_file': session['session_file'],
               'native_resolution': args.native_resolution, 'fixture_lift_y': args.fixture_lift_y,
               'near_player': args.near_player,
+              'view': view, 'world_camera_offset': offset,
+              'fungus_boundary_profile': bool(args.fungus_boundary),
               'reuse_snow_controls': args.reuse_snow_controls,
               'calibration': calibration, 'blueprint_case': VISUAL_CASE, 'native_assets': {},
               'limits': {'native_recall': .75, 'native_precision': .75, 'native_edge_tolerance_pixels': 3},
@@ -331,14 +343,14 @@ def run(args):
                     row['masks'] = {'editor': save_mask(editor_frame, args.output, label+'_editor')}
                     world = {}
                     for mode in modes:
-                        world[mode] = projection_capture(check, label+'_'+mode, focus, tuple(VISUAL_CASE['camera']['world_offset']), missing=mode == 'missing', fixture_lift_y=args.fixture_lift_y,
+                        world[mode] = projection_capture(check, label+'_'+mode, focus, offset, missing=mode == 'missing', fixture_lift_y=args.fixture_lift_y,
                                                          world_target=native_target if args.near_player else None)
                         check.run('b.stop_projection()\n_result=True')
                     capture = world[modes[0]]
                     width, pixels_high = capture['screenshot']['size']
                     world_crop = (width//4, pixels_high//4, width*3//4, pixels_high*3//4)
                     roi, roi_record = world_cell_roi(check, world_crop, (width, pixels_high), native_target, capture['pose'], calibration)
-                    native = native_capture(check, plant, kind, height, native_target, tuple(VISUAL_CASE['camera']['world_offset']),
+                    native = native_capture(check, plant, kind, height, native_target, offset,
                                             settle_seconds=2. if args.near_player else .4)
                     assert all(value['pose'] == native['pose'] for value in world.values())
                     native_frame = frame_for(native['screenshot'], native['hidden_screenshot'], world_crop, roi)
@@ -440,6 +452,9 @@ def main():
     parser.add_argument('--plant', action='append', choices=NAMES)
     parser.add_argument('--height', type=int, action='append', choices=range(8))
     parser.add_argument('--mode', action='append', choices=('full', 'missing'))
+    parser.add_argument('--view', choices=('public', 'right'), default='public')
+    parser.add_argument('--fungus-boundary', action='store_true',
+                        help='Use only the versioned fungus dry/burial-boundary matrix and fixed views')
     parser.add_argument('--timeout', type=float, default=60.)
     parser.add_argument('--native-resolution', action='store_true')
     parser.add_argument('--near-player', action='store_true',

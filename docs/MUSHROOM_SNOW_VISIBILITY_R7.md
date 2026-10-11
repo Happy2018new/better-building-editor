@@ -4,7 +4,9 @@ Brown and red mushroom proxies, including the alpha-derived burial cutoff, are
 accepted for the measured dry controls and all snow heights h0..h7 on NEMC
 3.9.0.401155 / runtime 1.21.120.0. This closes only these two plants. The complete
 29-plant catalogue is not accepted; poppy and the remaining plant gaps retain
-their previous status.
+their previous status. A later fungus dry/boundary matrix is separately
+documented in [FUNGUS_SNOW_BOUNDARY_R7.md](FUNGUS_SNOW_BOUNDARY_R7.md); it does not
+accept all heights for either fungus or alter this mushroom acceptance record.
 
 The machine-readable acceptance record is
 [`snow-mushroom-acceptance-r7.json`](snow-mushroom-acceptance-r7.json).

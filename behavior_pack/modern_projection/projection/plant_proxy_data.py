@@ -4,9 +4,13 @@ SOURCE_VERSION = 'NEMC 3.9.0.401155'
 PALETTE_SHA256 = '6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01'
 STATIC_PLANT_PROXIES = {
     ('minecraft:brown_mushroom', 0): 'modern_projection:preview_brown_mushroom',
+    ('minecraft:crimson_fungus', 0): 'modern_projection:preview_crimson_fungus',
     ('minecraft:red_mushroom', 0): 'modern_projection:preview_red_mushroom',
+    ('minecraft:warped_fungus', 0): 'modern_projection:preview_warped_fungus',
 }
 STATIC_PLANT_MAX_Y = {
     ('minecraft:brown_mushroom', 0): 0.5,
+    ('minecraft:crimson_fungus', 0): 0.75,
     ('minecraft:red_mushroom', 0): 0.4375,
+    ('minecraft:warped_fungus', 0): 0.5625,
 }

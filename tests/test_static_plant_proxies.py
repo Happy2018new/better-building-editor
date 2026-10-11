@@ -123,12 +123,15 @@ class StaticPlantProxyTests(unittest.TestCase):
             self.assertEqual([0], rendered['common'][('modern_projection:preview_'+name, 0)])
             self.assertEqual([0], rendered['extra'][('minecraft:water', 0)])
 
-    def test_buried_mushroom_overlays_keep_logical_layers_at_and_above_alpha_top(self):
+    def test_buried_static_plant_overlays_keep_logical_layers_at_and_above_alpha_top(self):
         from projection import block_registry as registry
         from projection.geometry_palette import prepare_palette
         from projection.cell import make_cell
         from projection.model import Document
         from projection.render_layout import overlay_index
+        burial_height = {'brown_mushroom': 3, 'red_mushroom': 3,
+                         'crimson_fungus': 5, 'warped_fungus': 4}
+        self.assertEqual(set(burial_height), set(CANDIDATES))
         for name in sorted(CANDIDATES):
             with self.subTest(plant=name):
                 material = ('minecraft:'+name, 0)
@@ -143,13 +146,13 @@ class StaticPlantProxyTests(unittest.TestCase):
                 source['extraStates'] = {material: registry.states(material)}
                 saved = deepcopy(source)
                 rendered = prepare_palette(source)
-                self.assertEqual([overlay_index(height, source['volume']) for height in range(3)],
+                self.assertEqual([overlay_index(height, source['volume']) for height in range(burial_height[name])],
                                  rendered['common'][proxy])
                 self.assertEqual(source['extra'], rendered['extra'])
                 self.assertEqual(source['extraStates'], rendered['extraStates'])
                 self.assertEqual(saved_document, document.to_data())
                 self.assertEqual(saved, source)
-                for height in (3, 4, 7):
+                for height in range(burial_height[name], 8):
                     buried = Document((1, 1, 1), {(0, 0, 0): make_cell(
                         registry.from_states('minecraft:snow_layer',
                             {'height': height, 'covered_bit': True}), material)})
