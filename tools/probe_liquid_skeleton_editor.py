@@ -13,6 +13,20 @@ from generate_liquid_skeleton_fixture import MODEL
 from _session import load_session
 
 
+def extended_phases():
+    original=transport.uniforms(5)
+    reverse=transport.uniforms(5,heights=tuple(reversed(transport.HEIGHT_CODES)))
+    badtag=original[:3]+[(4,(0.,1.,16777215.,5.))]
+    left_tint=original[:3]+[(4,(39686.,1.,float(0x123456),6.))]
+    right_tint=reverse[:3]+[(4,(39686.,.5,float(0xABCDEF),6.))]
+    left_opacity=original[:3]+[(4,(39686.,.5,float(0x123456),7.))]
+    right_opacity=reverse[:3]+[(4,(39686.,.25,16777215.,7.))]
+    return [('left_fourth',[(0,original)]),('right_fourth',[(1,reverse)]),
+            ('left_badtag',[(0,badtag)]),('left_tint',[(0,left_tint)]),
+            ('right_tint',[(1,right_tint)]),('left_opacity_code',[(0,left_opacity)]),
+            ('right_opacity_code',[(1,right_opacity)])]
+
+
 OPEN_UI='''from modern_projection.pyreact import Component,Panel,Image,Color,Position,PaperDollRenderType,use_ref,navigator
 from modern_projection.pyreact.hooks import use_animation_frame
 from modern_projection.projection.widgets import Doll,S
@@ -83,6 +97,7 @@ def main():
     parser.add_argument('--owner',required=True)
     parser.add_argument('--output',required=True,type=Path)
     parser.add_argument('--capture-exe',required=True,type=Path)
+    parser.add_argument('--extended',action='store_true')
     args=parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh report')
@@ -91,6 +106,7 @@ def main():
     if Path(session['project']).resolve()!=base.ROOT:
         parser.error('The session belongs to another project')
     report={'schema':1,'completed':False,'restored':False,'captures':{},'observations':{},'metrics':[],
+            'extended_uniforms':args.extended,
             'scope':'Two native skeleton model IDs sharing one static four-plane definition',
             'editor_uniforms_accepted':False,'native_geometry_accepted':False,
             'animated_sampling_accepted':False,'production_memory_accepted':False,
@@ -128,12 +144,15 @@ def main():
             time.sleep(.3)
             report['model_ids']=wait_ready(MODEL_IDS,'ready')
             frame('default_zero')
-            for label,values in (
+            phases=[
                     ('independent',[(0,original),(1,reverse)]),
                     ('left_reversed',[(0,reverse)]),
                     ('left_zero',[(0,zero)]),
                     ('right_original',[(1,original)]),
-                    ('repeat_independent',[(0,original),(1,reverse)])):
+                    ('repeat_independent',[(0,original),(1,reverse)])]
+            if args.extended:
+                phases.extend(extended_phases())
+            for label,values in phases:
                 report['observations'][label]=base.run(client,SET_UNIFORMS % values)
                 record()
                 time.sleep(.3)

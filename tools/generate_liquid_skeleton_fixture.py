@@ -22,8 +22,25 @@ void main() {
     else if (slot < 1.5) payloadCodes = EXTRA_VECTOR2.zw;
     else if (slot < 2.5) payloadCodes = EXTRA_VECTOR3.xy;
     else payloadCodes = EXTRA_VECTOR3.zw;
-    liquidSkeletonDiagnostic = vec3(mod(payloadCodes.x,256.0),floor(payloadCodes.x/256.0),
-                                    mod(payloadCodes.y,256.0)) / 255.0;
+    float index;
+    if (slot < 0.5) index = EXTRA_VECTOR1.x;
+    else if (slot < 1.5) index = EXTRA_VECTOR1.y;
+    else if (slot < 2.5) index = EXTRA_VECTOR1.z;
+    else index = EXTRA_VECTOR1.w;
+    if (abs(EXTRA_VECTOR4.x - 39686.0) > 0.25) {
+        liquidSkeletonDiagnostic = vec3(1.0,0.0,1.0);
+    } else if (EXTRA_VECTOR4.w > 6.5) {
+        liquidSkeletonDiagnostic = vec3(floor(EXTRA_VECTOR4.z/65536.0),
+            mod(floor(EXTRA_VECTOR4.z/256.0),256.0),EXTRA_VECTOR4.y*255.0)/255.0;
+    } else if (EXTRA_VECTOR4.w > 5.5) {
+        liquidSkeletonDiagnostic = vec3(floor(EXTRA_VECTOR4.z/65536.0),
+            mod(floor(EXTRA_VECTOR4.z/256.0),256.0),mod(EXTRA_VECTOR4.z,256.0))/255.0;
+    } else if (EXTRA_VECTOR4.w > 4.5) {
+        liquidSkeletonDiagnostic = vec3(floor(payloadCodes.y/256.0),slot*85.0,index*4.0)/255.0;
+    } else {
+        liquidSkeletonDiagnostic = vec3(mod(payloadCodes.x,256.0),floor(payloadCodes.x/256.0),
+                                        mod(payloadCodes.y,256.0)) / 255.0;
+    }
     gl_Position = WORLDVIEWPROJ * vec4(POSITION.xyz,1.0);
     gl_PointSize = 1.0;
 }

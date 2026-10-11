@@ -1,6 +1,6 @@
 # Liquid Uniform Transport Round 9 Checkpoint
 
-Date: 2026-10-12, 00:42 Shanghai. Owner: `p0-liquid-r9`.
+Date: 2026-10-12, 00:59 Shanghai. Owner: `p0-liquid-r9`.
 Worktree: `.runtime/r9-liquid`, branch `codex/r9-liquid`, base `c249b23`.
 Game: NEMC `3.9.0.401155`, runtime `1.21.120.0`.
 
@@ -22,7 +22,8 @@ not a measured production memory or performance claim.
 Groups 2/3 carry two packed integers per slot: `h00 + 256*h10` and
 `h11 + 256*h01`. Each independently supplied height code is 8 bits.
 Group 4 carries `(39686, opacity, packed RGB tint, diagnostic mode)`.
-Tint/opacity and general 24-bit tint transport have not been accepted.
+Diagnostic packed tint and opacity codes are observed below. Production
+blended opacity and tint behavior have not been accepted.
 
 Two top primitives preserve the source quad's `(00,10,11)` and `(00,11,01)`
 triangles by collapsing the unused corner. Actual triangle topology and UV
@@ -150,6 +151,27 @@ height codes in each of four slots via `EXTRA_VECTOR2/3`, independently per
 native model. Fourth-height decoding, `EXTRA_VECTOR1/4`, liquid deformation,
 native sampling, tint/opacity, and editor integration remain unaccepted.
 
+V3 extends the same two-model diagnostic with seven phases. Independent
+fourth-height code/index observations use `(height3, slot*85, index*4)` RGB;
+the invalid tag becomes magenta only on the selected model. Packed RGB
+`0x123456` and `0xABCDEF` decode independently, followed by opacity codes
+0.5 and 0.25 encoded into an opaque diagnostic blue channel. All thirteen
+captures pass the same separately framed fixed masks, expected RGB tolerance
+1 and minimum 100 pixels. Both IDs remain distinct and stable and all native
+uniform calls return true. Host GLES 2/3 BLEND/BLEND+FOG also passes all 80
+checks against the installed headers. This proves the supplied fourth-height,
+local-index, tag, tint and opacity-code transport. It does not prove shader
+deformation, native UVs/animation, production blended alpha, or a liquid backend.
+
+V3 completes/restores the diagnostic page and seven-file fixture, then its
+owned session is stopped. Game PID 49060 and MCDK PID 27288 are independently
+absent. Session `fda5865d2e774c43874664e8a131a376` is stopped/ready=false.
+The tested extended vertex/fragment hashes are
+`3c22d3e567e93f8589e33251c9a1e11af56cb528fb4afbb676ae255e20378587`
+and `e1020c1ef7c93b0362dea76951e6d0a111a856ee97487df4e92ea4dd8b5a9d02`.
+The twelve payload/fixture-restoration tests pass after the run, all four
+modified diagnostic scripts compile, and `git diff --check` passes.
+
 Both games were recycled. V2 handles grow 61,263 to 63,517 over 12.05 seconds
 and private commit grows 2,571,927,552 to 2,582,814,720 bytes. These include
 background game/capture activity and have no isolated idle baseline; no
@@ -232,6 +254,9 @@ Reports contain original PNG paths/hashes and per-frame metadata.
 | `liquid-skeleton-editor-r9-v1.json` | `db62f60a8b65f49288c01284d2d97fe6ab2f9d847846ca3145c6681a6ad0818c` |
 | `liquid-skeleton-editor-r9-v2.json` | `376c0e65b0a06f1dbfd6dce524d20652fc5e973d50615d93235abd46f2a28f30` |
 | `liquid-skeleton-pixels-r9-v2.json` | `3edbf41a81dee9cd047eb4a750012d50f01a287af74e76982db605f89b77394c` |
+| `liquid-skeleton-gles-r9-v3.json` | `21ff11105ac399e35650bb9461f012844d730c294fa0896e15d70b9dae3e9e47` |
+| `liquid-skeleton-editor-r9-v3.json` | `84855b4ea4ea0b1fde73d77cd680dab12ce11de41bdcf4df26f953f0be5fd636` |
+| `liquid-skeleton-pixels-r9-v3.json` | `ae2b104f689f4220d7d5ecd278790e9a46d38b03d35632c9472fa35564dca052` |
 
 ## Next Acceptance Gates
 

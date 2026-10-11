@@ -50,13 +50,25 @@ def analyze(path):
             masks_framed=masks_framed and framed
             records.append({'bounds':bounds,'pixels':count,'framed':framed})
         mask_records.append(records)
+    zero=(255,0,255) if report.get('extended_uniforms') else (0,0,0)
     expected={
-        'default_zero':([(0,0,0)]*4,[(0,0,0)]*4),
+        'default_zero':([zero]*4,[zero]*4),
         'independent':(colors,reverse),
         'left_reversed':(reverse,reverse),
-        'left_zero':([(0,0,0)]*4,reverse),
-        'right_original':([(0,0,0)]*4,colors),
+        'left_zero':([zero]*4,reverse),
+        'right_original':([zero]*4,colors),
         'repeat_independent':(colors,reverse)}
+    if report.get('extended_uniforms'):
+        fourth=[(row[3],slot*85,index*4) for slot,(row,index) in enumerate(zip(HEIGHT_CODES,(0,5,42,63)))]
+        reverse_fourth=[(row[3],slot*85,index*4) for slot,(row,index) in enumerate(zip(reversed(HEIGHT_CODES),(0,5,42,63)))]
+        expected.update({
+            'left_fourth':(fourth,reverse),
+            'right_fourth':(fourth,reverse_fourth),
+            'left_badtag':([(255,0,255)]*4,reverse_fourth),
+            'left_tint':([(18,52,86)]*4,reverse_fourth),
+            'right_tint':([(18,52,86)]*4,[(171,205,239)]*4),
+            'left_opacity_code':([(18,52,128)]*4,[(171,205,239)]*4),
+            'right_opacity_code':([(18,52,128)]*4,[(255,255,64)]*4)})
     rows={}
     identity=(first['owner'],first['game_pid'],first['game_identity'])
     captures_verified=True
@@ -89,6 +101,7 @@ def analyze(path):
             'input_report_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
             'control_rois':rois,'masks':mask_records,'rows':rows,
             'minimum_pixels':MIN_PIXELS,'rgb_tolerance':TOLERANCE,
+            'extended_uniforms':bool(report.get('extended_uniforms')),
             'mask_source':'Independent frame, exact declared colors, eroded by3pixels; one mask per slot/control',
             'captures_verified':captures_verified,'models_distinct_and_stable':ids_stable,
             'planes_fully_framed':masks_framed,'supplied_skeleton_codes_observed':accepted,
