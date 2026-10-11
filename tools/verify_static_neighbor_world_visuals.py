@@ -91,6 +91,18 @@ def native_state_comparison(source, replication):
             'scope': 'Original public blueprint name/aux must match native readback before state replacement.'}
 
 
+def original_source_projection(projection, source):
+    positions = [tuple(pos) for pos, value in source['cells']]
+    expected = set(positions)
+    cells = dict((tuple(row['pos']), row) for row in projection['cells'])
+    assert expected and len(expected) == len(positions), 'Duplicate or empty public source'
+    assert len(cells) == len(projection['cells']), 'Duplicate projection cells'
+    assert expected.issubset(cells), 'Public source cells missing from projection hulls'
+    result = dict(projection)
+    result['cells'] = [cells[pos] for pos in positions]
+    return result
+
+
 def static_world_case(check, label, args, record):
     result = _world_case(check, label, args, record)
     result['blueprint_states_match_native'] = native_state_comparison(
@@ -106,7 +118,8 @@ def static_world_case(check, label, args, record):
         'capture': dict(source, path=str(path.resolve()), sha256=hashlib.sha256(path.read_bytes()).hexdigest()),
         'image_acceptance': {'passed': None, 'scope': 'Public fixture screenshot and native submission; independent editor image comparison pending.'}}
     keep, occupied = native.VISUAL_CASES[label]
-    result['full'] = {'projection': {}, 'views': {}}
+    result['full'] = {'projection': {}, 'views': {},
+                      'roi_scope': 'Original public source cells only; later supports do not exclude occupied hulls.'}
     try:
         check.run('b.stop_projection()\ns.projection_missing=False\nb.project()\n_result=True')
 
@@ -122,7 +135,7 @@ def static_world_case(check, label, args, record):
             native.select_view(check, keep, occupied, view, None)
             actual, capture = native.capture_signal(check, label + '_' + view + '_full', occupied)
             baseline = native.signal(frames['world']['path'], frames['empty']['path'])
-            projection = check.run(native.CELL_ROIS)
+            projection = original_source_projection(check.run(native.CELL_ROIS), result['source'])
             first, second, roi = native.roi_masks(projection, baseline.size, keep, occupied, args.calibration)
             comparison = native.compare_complete(baseline, actual, (first, second), args.threshold, args.min_pixels)
             result['full']['views'][view] = {'capture': capture, 'roi': roi, 'matches_world': comparison}
@@ -145,6 +158,7 @@ def static_replay(args):
     _replay(args)
     report = json.loads(args.output.read_text(encoding='utf8'))
     for row in report['cases']:
+        row['full']['roi_scope'] = 'Original public source cells only; later supports do not exclude occupied hulls.'
         row['blueprint_states_match_native'] = native_state_comparison(row['source'], row['world_replication'])
         assert row['editor']['native_submission_verified'], row
         capture = row['editor']['capture']
