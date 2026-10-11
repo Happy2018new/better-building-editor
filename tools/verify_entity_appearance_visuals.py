@@ -86,7 +86,8 @@ def require_bed_calibration(calibration, runtime=None):
     assert calibration is not None and calibration.get('completed') and calibration.get('passed'), \
         'Bed comparison requires a completed, passed native cube camera calibration'
     session = os.environ.get('MCDEV_SESSION_FILE')
-    assert session and calibration.get('session_file') == session, 'Calibration belongs to another instance'
+    assert session and calibration.get('session_file') and \
+        Path(calibration['session_file']).resolve() == Path(session).resolve(), 'Calibration belongs to another instance'
     if runtime is not None:
         assert calibration['runtime_minecraft_version'] == runtime['version'], 'Calibration game version changed'
         assert abs(calibration['reported_fov'] - runtime['fov']) < .01, 'Camera FOV changed since calibration'

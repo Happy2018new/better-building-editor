@@ -310,7 +310,8 @@ _result=json.dumps({'points':points,'native':native,'fov':cam.GetFov(),
         method = 'native WorldToScreenPoint'
     else:
         assert calibration is not None and calibration['completed'] and calibration['passed'], 'A native cube camera calibration is required on this game version'
-        assert calibration['session_file'] == os.environ.get('MCDEV_SESSION_FILE'), 'Calibration belongs to another instance'
+        session_file = os.environ.get('MCDEV_SESSION_FILE')
+        assert session_file and Path(calibration['session_file']).resolve() == Path(session_file).resolve(), 'Calibration belongs to another instance'
         assert calibration['runtime_minecraft_version'] == data['version'], 'Calibration game version changed'
         assert abs(calibration['reported_fov']-data['fov']) < .01, 'Camera FOV changed since calibration'
         assert abs(calibration['screen_aspect']-data['screen'][0]/data['screen'][1]) < .01, 'Viewport aspect changed since calibration'

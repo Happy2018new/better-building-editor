@@ -99,6 +99,33 @@ class BedDiagnosticTests(unittest.TestCase):
             with self.subTest(key=key), self.assertRaises(AssertionError):
                 tool.require_bed_calibration(CALIBRATION, dict(runtime, **{key: wrong}))
 
+    def test_windows_session_slashes_and_case_do_not_reject_same_instance(self):
+        session = str((ROOT / 'offline-instance/session.json').resolve())
+        calibration = dict(CALIBRATION, session_file=session.replace('\\', '/'))
+        for equivalent in (session, session.swapcase(), session.replace('\\', '/')):
+            with self.subTest(path=equivalent), patch.dict(os.environ, MCDEV_SESSION_FILE=equivalent):
+                tool.require_bed_calibration(calibration)
+        with patch.dict(os.environ, MCDEV_SESSION_FILE=str(ROOT / 'another-instance/session.json')):
+            with self.assertRaisesRegex(AssertionError, 'another instance'):
+                tool.require_bed_calibration(calibration)
+
+    def test_existing_roi_helper_uses_canonical_same_instance_identity(self):
+        check = RuntimeCheck()
+        check.namespace.update(b=SimpleNamespace(level=1, factory=SimpleNamespace(
+            CreateCamera=lambda level: SimpleNamespace(GetFov=lambda: 70.),
+            CreateGame=lambda level: SimpleNamespace(GetScreenSize=lambda: (100, 100)))),
+            api=SimpleNamespace(GetMinecraftVersion=lambda: 'test-version'))
+        session = str((ROOT / 'offline-instance/session.json').resolve())
+        calibration = dict(CALIBRATION, session_file=session.replace('\\', '/'))
+        pose = {'position': (.5, .5, -5.), 'target': (.5, .5, .5), 'rotation': (0., 0., 0.)}
+        with patch.dict(os.environ, MCDEV_SESSION_FILE=session.swapcase()):
+            roi, evidence = tool.world_cell_roi(check, (0, 0, 100, 100), (100, 100),
+                                               (0, 0, 0), pose, calibration)
+            self.assertIsNotNone(roi.getbbox())
+        with patch.dict(os.environ, MCDEV_SESSION_FILE=str(ROOT / 'another-instance/session.json')):
+            with self.assertRaisesRegex(AssertionError, 'another instance'):
+                tool.world_cell_roi(check, (0, 0, 100, 100), (100, 100), (0, 0, 0), pose, calibration)
+
     def test_public_bed_source_stays_complete_when_fresh_observation_loses_head(self):
         from modern_projection.projection.model import Document
         from modern_projection.projection.cell import foreground
