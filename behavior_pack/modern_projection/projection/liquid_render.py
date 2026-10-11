@@ -103,7 +103,7 @@ class SkeletonLiquidRenderer(object):
 
     def _settle(self, group, pose, now):
         back = 1 - self.front
-        if self.pending != (group, pose):
+        if self.pending[0] != group:
             self._show(back, False)
             self.pending = None
             return True
@@ -116,20 +116,37 @@ class SkeletonLiquidRenderer(object):
             self.error = self.error or 'Liquid skeleton model ID did not become ready'
             self._show(back, False)
             self.pending = None
-            self.failed_request = (group, pose)
+            self.failed_request = (group, None)
             return False
         if self.frames < 3 or now - self.started < self.SETTLE_SECONDS:
+            return False
+        # Pose changes do not restart shape readiness. Apply the latest orbit
+        # while the incoming bank is still masked before publishing it.
+        if not self._update_pose(back, pose, staging=True):
+            self._show(back, False)
+            self.pending = None
+            self.failed_request = (group, None)
             return False
         if not self._payload(back):
             self._show(back, False)
             self.pending = None
-            self.failed_request = (group, pose)
+            self.failed_request = (group, None)
             return False
         previous, self.front = self.front, back
         self.pending = None
         self._show(self.front, True)
         self._show(previous, False)
         return True
+
+    def _update_pose(self, slot, pose, staging=False):
+        if self.poses[slot] != pose:
+            # Same-name submissions preserve IDs in the native orbit probe.
+            # Reapply the payload if a replacement unexpectedly changes it.
+            if not self._render_pose(slot, self.groups[slot], pose):
+                self.error = 'Could not update liquid skeleton pose'
+                return False
+            self.poses[slot] = pose
+        return self._payload(slot, staging=staging)
 
     def update(self, group, pose, now):
         if self.closed:
@@ -149,9 +166,18 @@ class SkeletonLiquidRenderer(object):
         if pose[0] <= 0.:
             raise ValueError('Liquid skeleton scale must be positive')
         request = (group, pose)
-        if self.failed_request == request:
+        latched = self.failed_request in (request, (group, None))
+        previous_error = self.error
+        if not latched:
+            self.error, self.failed_request = None, None
+        if self.groups[self.front] is not None:
+            if not self._update_pose(self.front, pose):
+                self.failed_request = request
+                return False
+            if latched:
+                self.error = previous_error
+        if latched:
             return False
-        self.error, self.failed_request = None, None
         if self.pending is not None and not self._settle(group, pose, now):
             return False
         if self.groups[self.front] != group:
@@ -159,18 +185,10 @@ class SkeletonLiquidRenderer(object):
             self._show(back, False)
             self.error = None
             if not self._submit(back, group, pose):
-                self.failed_request = request
+                self.failed_request = (group, None)
                 return False
             self.pending, self.started, self.frames = request, now, 0
             return False
-        if self.poses[self.front] != pose:
-            # Native same-name submissions keep the instance ID during orbit.
-            # Re-read it below so an unexpected replacement still gets payload.
-            if not self._render_pose(self.front, group, pose):
-                self.error = 'Could not update liquid skeleton pose'
-                self.failed_request = request
-                return False
-            self.poses[self.front] = pose
         ready = self._payload(self.front)
         if ready:
             self._show(self.front, True)

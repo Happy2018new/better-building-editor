@@ -127,21 +127,76 @@ class SkeletonLiquidTests(unittest.TestCase):
         self.assertEqual(POSE, self.renderer.poses[1])
         self.assertEqual({0: False, 1: True}, self.shown)
 
-    def test_pose_changes_while_pending_restart_hidden_slot_and_keep_front_untouched(self):
+    def test_continuous_orbit_during_shape_replace_keeps_front_moving_and_promotes_latest_pose(self):
         self.assertTrue(self.settle(group(), 0., 1))
         value = group(height=.3)
         old_calls = len(self.dolls[1].calls)
-        second_pose, final_pose = (.15, -45., 0., 0.), (.15, -35., 0., 0.)
-        self.renderer.update(value, second_pose, 1.)
+        initial_pose = (.15, -55., 3., 0.)
+        self.renderer.update(value, initial_pose, 1.)
         self.dolls[0].model_id = 2
-        self.renderer.update(value, second_pose, 1.03)
-        self.renderer.update(value, final_pose, 1.04)
-        self.assertEqual((value, final_pose), self.renderer.pending)
-        self.assertEqual(old_calls, len(self.dolls[1].calls))
-        self.assertEqual({0: True, 1: True}, self.shown)
-        for now in (1.07, 1.10, 1.13):
-            self.renderer.update(value, final_pose, now)
+        for frame in range(1, 6):
+            final_pose = (.15, -55., float(frame + 1) * 3., 0.)
+            ready = self.renderer.update(value, final_pose, 1. + frame / 60.)
+            if frame < 5:
+                self.assertFalse(ready)
+                self.assertEqual((value, initial_pose), self.renderer.pending)
+                self.assertEqual(1, len(self.dolls[0].calls))
+                self.assertEqual(final_pose, self.renderer.poses[1])
+                self.assertEqual({0: True, 1: True}, self.shown)
+        self.assertTrue(ready)
+        self.assertIsNone(self.renderer.pending)
+        self.assertEqual(old_calls + 6, len(self.dolls[1].calls))
+        self.assertEqual(2, len(self.dolls[0].calls))
         self.assertEqual(final_pose, self.renderer.poses[self.renderer.front])
+        self.assertEqual({0: True, 1: False}, self.shown)
+
+    def test_initial_shape_becomes_ready_during_continuous_orbit(self):
+        value = group()
+        self.renderer.update(value, POSE, 0.)
+        self.dolls[1].model_id = 1
+        for frame in range(1, 6):
+            pose = (.15, -55., float(frame) * 3., 0.)
+            ready = self.renderer.update(value, pose, frame / 60.)
+        self.assertTrue(ready)
+        self.assertEqual(2, len(self.dolls[1].calls))
+        self.assertEqual(pose, self.renderer.poses[1])
+        self.assertIsNone(self.renderer.pending)
+
+    def test_failed_shape_latches_during_orbit_and_keeps_previous_front_moving(self):
+        self.assertTrue(self.settle(group(), 0., 1))
+        value = group(height=.3)
+        self.renderer.update(value, POSE, 1.)
+        self.dolls[0].model_id = 2
+        original = self.model.SetExtraUniformValue
+        self.model.SetExtraUniformValue = lambda model_id, index, data: (
+            False if model_id == 2 and index == 2 else original(model_id, index, data))
+        self.renderer.update(value, POSE, 1.03)
+        self.assertFalse(self.renderer.update(value, POSE, 1.06))
+        failure = self.renderer.error
+        for frame in range(16):
+            pose = (.15, -55., float(frame + 1) * 3., 0.)
+            self.assertFalse(self.renderer.update(value, pose, 1.1 + frame / 60.))
+            self.assertEqual(1, self.renderer.front)
+            self.assertEqual(pose, self.renderer.poses[1])
+            self.assertEqual(failure, self.renderer.error)
+            self.assertEqual({0: False, 1: True}, self.shown)
+        self.assertEqual(1, len(self.dolls[0].calls))
+        self.assertIsNone(self.renderer.pending)
+
+    def test_latest_pose_failure_does_not_unmask_or_promote_incoming_shape(self):
+        self.assertTrue(self.settle(group(), 0., 1))
+        value = group(height=.3)
+        self.renderer.update(value, POSE, 1.)
+        self.dolls[0].model_id = 2
+        self.renderer.update(value, POSE, 1.03)
+        self.renderer.update(value, POSE, 1.06)
+        self.dolls[0].submit_ok = False
+        pose = (.15, -55., 30., 0.)
+        self.assertFalse(self.renderer.update(value, pose, 1.09))
+        self.assertEqual(1, self.renderer.front)
+        self.assertEqual(pose, self.renderer.poses[1])
+        self.assertEqual(0., self.renderer.uniforms[0][4][3])
+        self.assertEqual({0: False, 1: True}, self.shown)
 
     def test_second_uniform_failure_does_not_promote_partial_payload(self):
         value = group()
