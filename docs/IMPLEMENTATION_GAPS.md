@@ -155,7 +155,7 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **05:12 UV 能力拒绝保护：** `bbe6b56` 将部署 profile schema 升为 2，要求每个 `(texture, template)` 显式声明允许的八位 UV rotation code，并在静态侧面或动态顶面生成前拒绝未声明能力；失败保留上一可见预览／世界模型，修正后可重试恢复。42 项定点测试通过。它防止资源能力不足时静默得到空面，但不伪造原生 UV 结论。
 
-**05:12 统一检查结果：** `check_version_bundle.py --tests --output .runtime/version-bundle-r9-water-current-v1.json` 的版本表、生成器、15,858 状态 × 六变换和离线测试仍通过；液体检查明确标记 `production_accepted=false`。其中后台相机／液体采集缺少 `--native-resolution`、审查 helper 或正确项目的负向 argparse 检查是预期拒绝，不是实机通过；侧面原生采集因所属 MC 窗口仍在前台被可靠捕获门控拒绝，未激活或放宽门控。
+**05:12 统一检查结果：** `check_version_bundle.py --tests --output .runtime/version-bundle-r9-water-current-v1.json` 报告 **1,444 项离线测试通过**，版本表、生成器和 15,858 状态 × 六变换均通过；液体检查明确标记 `production_accepted=false`。其中后台相机／液体采集缺少 `--native-resolution`、审查 helper 或正确项目的负向 argparse 检查是预期拒绝，不是实机通过；侧面原生采集因所属 MC 窗口仍在前台被可靠捕获门控拒绝，未激活或放宽门控。
 
 ### 第八轮保存检查点（2026-10-11，截止 23:30）
 
