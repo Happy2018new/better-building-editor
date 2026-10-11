@@ -3,6 +3,9 @@
 Checkpoint at 2026-10-11 23:23 Shanghai, before the formal R8 cutoff.
 No new plant rendering candidate is accepted. The existing R8 root/sprout
 failures remain failures, and production BP/RP assets are unchanged.
+Later capability probes, startup failures and final restoration are recorded
+in `docs/BUILTIN_PLANT_CAPABILITY_R9.md`. This document retains the original
+23:23 checkpoint and its immutable report hashes.
 
 ## Owned Runtime And Calibration
 
@@ -135,6 +138,8 @@ the native hash or whether NEMC parses these components. Roots/sprouts,
 flowers, grass/fern, torchflower and high-coordinate acceptance remain open.
 Automatic snow-first erasure and explicit-layer independence remain required.
 
-The owned game remains ready for R9. All completed fixtures are restored.
-Experiments must finish and the owned runtime must stop by 06:30 Shanghai on
-2026-10-12, before parent integration and 07:00 hibernation.
+At the 23:23 checkpoint the owned game remained ready and all completed
+fixtures were restored. Later R9 fixtures and resources are also restored;
+owned games/MCDK are stopped, as recorded in the capability checkpoint.
+Cleanup finished before 06:30 Shanghai on 2026-10-12, before parent integration
+and 07:00 hibernation.
