@@ -99,16 +99,37 @@ class SkeletonLiquidTests(unittest.TestCase):
     def test_pose_model_id_change_reapplies_payload_to_new_owned_id(self):
         value = group()
         self.assertTrue(self.settle(value, 0., 1))
-        self.assertFalse(self.renderer.update(value, (.15, -45., 0., 0.), 1.))
-        self.dolls[0].model_id = 5
-        for now in (1.03, 1.06, 1.09):
-            ready = self.renderer.update(value, (.15, -45., 0., 0.), now)
-        self.assertTrue(ready)
+        original = self.dolls[1].RenderSkeletonModel
+        def replace(params):
+            self.dolls[1].model_id = 5
+            return original(params)
+        self.dolls[1].RenderSkeletonModel = replace
+        self.assertTrue(self.renderer.update(value, (.15, -45., 0., 0.), 1.))
         self.assertEqual([5] * 4, [call[0] for call in self.model.calls[-4:]])
 
-    def test_pose_changes_while_pending_restart_hidden_slot_and_keep_front_untouched(self):
+    def test_continuous_same_group_pose_updates_keep_front_payload_and_id(self):
         value = group()
         self.assertTrue(self.settle(value, 0., 1))
+        calls = len(self.model.calls)
+        for frame in range(16):
+            pose = (.15, -55., float(frame + 1) * 3., 0.)
+            self.assertTrue(self.renderer.update(value, pose, 1. + frame / 60.))
+            self.assertIsNone(self.renderer.pending)
+            self.assertEqual(1, self.renderer.front)
+            self.assertEqual({0: False, 1: True}, self.shown)
+        self.assertEqual(calls, len(self.model.calls))
+
+    def test_failed_active_pose_submission_keeps_previous_pose_and_payload(self):
+        value = group()
+        self.assertTrue(self.settle(value, 0., 1))
+        self.dolls[1].submit_ok = False
+        self.assertFalse(self.renderer.update(value, (.15, -45., 0., 0.), 1.))
+        self.assertEqual(POSE, self.renderer.poses[1])
+        self.assertEqual({0: False, 1: True}, self.shown)
+
+    def test_pose_changes_while_pending_restart_hidden_slot_and_keep_front_untouched(self):
+        self.assertTrue(self.settle(group(), 0., 1))
+        value = group(height=.3)
         old_calls = len(self.dolls[1].calls)
         second_pose, final_pose = (.15, -45., 0., 0.), (.15, -35., 0., 0.)
         self.renderer.update(value, second_pose, 1.)

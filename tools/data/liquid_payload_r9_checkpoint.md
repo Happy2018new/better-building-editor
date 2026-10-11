@@ -302,3 +302,58 @@ Preparing-bank opacity is material payload state, not control `SetAlpha`:
 the latter is documented to affect only image and label controls. Continuous
 orbit, shared editor depth, world skeleton placement and production memory
 remain separate acceptance gates.
+
+## Native Original-Artwork Candidate
+
+Candidate v2 corrects the model-relative texture directory to
+`resource_pack/textures/models/liquid_candidate`. The original still-water
+strip is byte-identical to the installed vanilla image (16x512, 32 frames,
+alpha 240/255, explicit two ticks per frame). Animated and frozen materials
+share shape and original artwork; the frozen material fixes frame zero.
+Host GLES 2/3 with BLEND and BLEND+FOG pass 408 pixel/frame/tint/alpha controls.
+
+Native v3 completes/restores 17 owner-bound fresh background WGC captures.
+Its fixed masks contain 134,041 animated pixels and 134,042 frozen pixels.
+Five temporal comparisons change 52,307-83,616 animated pixels above two RGB
+levels, while all frozen pixels stay exact. Both hidden controls match their
+empty background exactly. Original-artwork animation is observed separately
+from native liquid UV orientation and native height rules.
+
+On the frozen top-only control, half projection opacity satisfies
+`half=(full+background)/2` on all 78,600 interior pixels, maximum error 0.5.
+The explicit native swampland opacity 0.65 replaces the original image alpha
+on the same mask, maximum RGB error 1.261. This verifies the candidate alpha
+contract, not the native liquid tessellator's alpha or layered face sorting.
+Appearance is obtained from final `Document.biome` for plains, swampland and
+mangrove swamp; unspecified opacity remains -1 in the payload.
+
+Sixteen consecutive same-name `RenderSkeletonModel` rotation submissions
+retain native model ID 1. The adapter now updates only the active pose for
+unchanged groups, retaining cached uniforms when that ID stays stable. Native
+v5 exercises that adapter path: all sixteen updates succeed without pending
+transactions or bank switches; 133,927 animated-control pixels move while the
+frozen control remains exact. The 29 transport/lifecycle tests pass and scoped
+SDK review parses one module with zero findings.
+
+V4 fails transiently in owner-binding verification (`execute_code returned no
+value`) after the hidden capture, then restores the page. V5 completes and
+restores, but its fifth temporal capture nearly aliases the animation cycle:
+754 pixels exceed two levels, below the fixed 1,000-pixel per-pair threshold.
+That failed all-pairs result is retained; the v3 animation result and v5 pose
+result are distinct evidence, not a relaxed animation threshold.
+
+The separate world v1 probe creates two independent free skeleton IDs 5/6,
+and every payload, scale, rotation, position and removal call succeeds. Its
+fresh screenshots show no skeleton at the expected location beside stone.
+Plain PaperDoll WORLDVIEWPROJ is not accepted for a free world model. All four
+temporary stone cells, the platform, player foot, camera and environment are
+restored. No world or public editor acceptance is claimed.
+
+| Raw File | SHA-256 |
+| --- | --- |
+| `liquid-skeleton-water-native-r9-v3.json` | `66f794288e59250b586b32ae5405a31661e8dc712163184ebbdb9b725d44d3f9` |
+| `liquid-skeleton-water-pixels-r9-v3.json` | `8dd0b619648a3a7e1bb9d936e9e1888344db13dbba135bf1f6b287b242cc7ca8` |
+| `liquid-skeleton-water-gles-r9-v2.json` | `aa259009aec551a36b6e4cdcdebd63d98b4471b2ee7a8824aa7b30ed20562e4a` |
+| `liquid-skeleton-water-native-r9-v5.json` | `12fd49660c4a03e2aa090c59c67c1a187785e5a4b8e4741f6fe17a604c5eb64e` |
+| `liquid-skeleton-water-pixels-r9-v5.json` | `379d98ee11a074ffd013157327365602a539b83b6ff7e852ab87565254ff2627` |
+| `liquid-skeleton-world-native-r9-v1.json` | `0799a982ea1bb3019d617d3ec3af26c412d4fa57cfe3ef373bdbefd76df85e47` |

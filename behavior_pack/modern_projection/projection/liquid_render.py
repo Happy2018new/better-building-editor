@@ -47,6 +47,12 @@ class SkeletonLiquidRenderer(object):
             self.show(slot, value)
             self.visible[slot] = value
 
+    def _render_pose(self, slot, group, pose):
+        scale, rot_x, rot_y, rot_z = pose
+        return self.dolls[slot].RenderSkeletonModel({
+            'skeleton_model_name': group.model_name, 'scale': scale, 'render_depth': -50,
+            'init_rot_x': rot_x, 'init_rot_y': rot_y, 'init_rot_z': rot_z})
+
     def _submit(self, slot, group, pose):
         # Hidden PaperDolls never allocate a native model ID. Mask the old
         # payload before making the preparing control drawable instead.
@@ -60,10 +66,7 @@ class SkeletonLiquidRenderer(object):
                 self.error = 'Could not mask preparing liquid skeleton'
                 return False
         self._show(slot, True)
-        scale, rot_x, rot_y, rot_z = pose
-        returned = self.dolls[slot].RenderSkeletonModel({
-            'skeleton_model_name': group.model_name, 'scale': scale, 'render_depth': -50,
-            'init_rot_x': rot_x, 'init_rot_y': rot_y, 'init_rot_z': rot_z})
+        returned = self._render_pose(slot, group, pose)
         if not returned:
             self.error = 'Could not submit liquid skeleton model'
             self._show(slot, False)
@@ -151,7 +154,7 @@ class SkeletonLiquidRenderer(object):
         self.error, self.failed_request = None, None
         if self.pending is not None and not self._settle(group, pose, now):
             return False
-        if self.groups[self.front] != group or self.poses[self.front] != pose:
+        if self.groups[self.front] != group:
             back = 1 - self.front
             self._show(back, False)
             self.error = None
@@ -160,6 +163,14 @@ class SkeletonLiquidRenderer(object):
                 return False
             self.pending, self.started, self.frames = request, now, 0
             return False
+        if self.poses[self.front] != pose:
+            # Native same-name submissions keep the instance ID during orbit.
+            # Re-read it below so an unexpected replacement still gets payload.
+            if not self._render_pose(self.front, group, pose):
+                self.error = 'Could not update liquid skeleton pose'
+                self.failed_request = request
+                return False
+            self.poses[self.front] = pose
         ready = self._payload(self.front)
         if ready:
             self._show(self.front, True)
