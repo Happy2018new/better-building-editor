@@ -15,7 +15,7 @@ from verify_debug_blueprints import BlueprintCheck, Client, write_json
 from verify_scaffolding_native import registry
 
 MARKER = '_scaffold_support_catalogue_r8'
-METHOD = '8 isolated native legacy-state support/scaffold cells; .35s delayed readback'
+METHOD = '8 isolated native legacy-state support/scaffold cells; tile drops disabled; .35s delayed readback'
 
 START = '''import json,sys,math
 import mod.server.extraServerApi as api
@@ -29,6 +29,7 @@ dim=factory.CreateDimension(player).GetEntityDimensionId()
 foot=factory.CreatePos(player).GetFootPos()
 origin=(int(math.floor(foot[0]))+4,int(math.floor(foot[1]))+18,int(math.floor(foot[2]))+4)
 info=factory.CreateBlockInfo(level)
+game=factory.CreateGame(level)
 slots=[(origin[0]+(i%%4)*3,origin[1],origin[2]+(i//4)*3) for i in range(8)]
 reserved=set((pos[0]+x,pos[1]+y,pos[2]+z) for pos in slots
  for x in (-1,0,1) for y in (-1,0,1,2,3) for z in (-1,0,1))
@@ -37,8 +38,11 @@ for pos in reserved:
  assert value is not None and value['name']=='minecraft:air',('non-air reserve',pos,value)
 source=[(name,aux) for name in sorted(registry.BLOCKS) for aux in registry.aux_values(name)]
 s={'reserved':reserved,'slots':slots,'source':source,'index':0,'rows':[],
- 'done':False,'info':info,'dimension':dim,'factory':factory,'level':level}
+ 'done':False,'info':info,'dimension':dim,'game':game,
+ 'tile_drops':game.GetGameRulesInfoServer()['option_info']['tile_drops']}
 setattr(sys,marker,s)
+assert game.SetGameRulesInfoServer({'option_info':{'tile_drops':False}})
+assert game.GetGameRulesInfoServer()['option_info']['tile_drops'] is False
 def write(pos,value,updates=False):
  before=info.GetBlockNew(pos,dim)
  changed=info.SetBlockNew(pos,{'name':value[0],'aux':value[1]},0,dim,True,updates)
@@ -53,7 +57,7 @@ def advance():
   writes=[write(floor,('minecraft:stone',0)),write(slot,value),write(scaffold,('minecraft:scaffolding',0),True)]
   pending.append({'requested':value,'slot':slot,'writes':writes})
  s['pending']=pending
- factory.CreateGame(level).AddTimer(.35,observe)
+ game.AddTimer(.35,observe)
 def observe():
  for row in s['pending']:
   slot=row.pop('slot')
@@ -68,12 +72,14 @@ def observe():
 advance()
 _result=json.dumps({'origin':origin,'slots':len(slots),'reserved':len(reserved),
  'states':len(source),'runtime':api.GetMinecraftVersion(),
+ 'tile_drops':False,'original_tile_drops':s['tile_drops'],
  'game_version':registry.SOURCE_VERSION,'palette_sha256':registry.SOURCE_SHA256})
 '''
 
 STATUS = '''import json,sys
 s=getattr(sys,%r)
-_result=json.dumps({'done':s['done'],'index':s['index'],'states':len(s['source'])})
+_result=json.dumps({'done':s['done'],'index':s['index'],'states':len(s['source']),
+ 'next_state':s['source'][s['index']] if s['index']<len(s['source']) else None})
 '''
 RESULT = '''import json,sys
 s=getattr(sys,%r)
@@ -84,14 +90,17 @@ RESTORE = '''import json,sys
 marker=%r
 s=getattr(sys,marker,None)
 count=0
+rules_restored=True
 if s is not None:
  s['index']=len(s['source'])
  for pos in s['reserved']:
   s['info'].SetBlockNew(pos,{'name':'minecraft:air','aux':0},0,s['dimension'],True,False)
  for pos in s['reserved']:assert s['info'].GetBlockNew(pos,s['dimension'])['name']=='minecraft:air',pos
  count=len(s['reserved'])
+ rules_restored=bool(s['game'].SetGameRulesInfoServer({'option_info':{'tile_drops':s['tile_drops']}}))
+ rules_restored=rules_restored and s['game'].GetGameRulesInfoServer()['option_info']['tile_drops']==s['tile_drops']
  delattr(sys,marker)
-_result=json.dumps({'restored':True,'reserved_air':count})
+_result=json.dumps({'restored':rules_restored,'rules_restored':rules_restored,'reserved_air':count})
 '''
 
 
@@ -107,21 +116,29 @@ def main():
     try:
         with Client(timeout=60) as client:
             check = BlueprintCheck(client, args.output, 1800)
+            def progress():
+                value = run(client, STATUS % MARKER)
+                report['progress'] = value
+                write_json(args.output, report)
+                return value
             try:
                 report['start'] = run(client, START % MARKER)
                 report.update(game_version=report['start']['game_version'],
                               palette_sha256=report['start']['palette_sha256'])
-                report['progress'] = check.wait('complete scaffold support catalogue', lambda value: value['done'],
-                                               lambda: run(client, STATUS % MARKER))
+                report['progress'] = check.wait('complete scaffold support catalogue', lambda value: value['done'], progress)
                 report['native'] = run(client, RESULT % MARKER)
                 report['completed'] = True
+            except Exception as error:
+                report['error'] = '%s: %s' % (type(error).__name__, error)
             finally:
-                report['cleanup'] = run(client, RESTORE % MARKER)
-                report['restored'] = report['cleanup']['restored']
+                try:
+                    report['cleanup'] = run(client, RESTORE % MARKER)
+                    report['restored'] = report['cleanup']['restored']
+                except Exception as error:
+                    report['cleanup_error'] = '%s: %s' % (type(error).__name__, error)
     finally:
         write_json(args.output, report)
-    print(json.dumps({'completed': report['completed'], 'restored': report['restored'],
-                      'states': report['native']['states'], 'rows': len(report['native']['rows'])}))
+    print(json.dumps({key: report[key] for key in ('completed', 'restored', 'progress', 'error', 'cleanup_error') if key in report}))
     return 0 if report['completed'] and report['restored'] else 1
 
 

@@ -2,9 +2,10 @@
 """Local native connection updates, staged with the edit that caused them.
 
 Imported documents keep their supplied states. Only changed cells and native
-connection blocks whose immediate context changed are considered. Families with
-stored states are detected by their state schema; native geometry remains
-responsible for stair corners, fence arms and pane arms which have no states.
+connection blocks affected by them are considered. Scaffold support propagates
+through its entire affected component. Families with stored states are detected
+by their state schema; native geometry remains responsible for stair corners,
+fence arms and pane arms which have no states.
 """
 from __future__ import unicode_literals
 from . import block_registry as registry
