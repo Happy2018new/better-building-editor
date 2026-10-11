@@ -48,7 +48,7 @@ class LiquidControls(object):
         entry['renderer'] = renderer
         return renderer
 
-    def update(self, groups, view_at, pose, clip_offset, now):
+    def update(self, groups, view_at, pose_at, clip_offset, now):
         if self.closed:
             return False
         self.pending, self.error = any(key not in self.registry for key in groups), None
@@ -61,7 +61,7 @@ class LiquidControls(object):
             group = groups.get(key)
             view = view_at(group.origin) if group is not None else None
             if view is None or view.clipped:
-                renderer.update(None, pose, now)
+                renderer.update(None, None, now)
                 entry.pop('ready_request', None)
                 continue
             if entry.get('clip_offset') != clip_offset:
@@ -75,6 +75,7 @@ class LiquidControls(object):
                     ref.current.SetSize(view.size)
                 entry['geometry'] = geometry
             displayed = with_preview_distance(group, view.distance)
+            pose = pose_at(view)
             request = displayed, pose
             if entry.get('ready_request') == request:
                 continue

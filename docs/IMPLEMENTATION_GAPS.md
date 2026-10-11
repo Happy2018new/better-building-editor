@@ -133,6 +133,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **04:14 水形状运行模块：** `generate_liquid_shapes.py` 将版本化候选转换为独立 `liquid_shape_data.py`，保留候选指纹和 `PRODUCTION_ACCEPTED=False`。`liquid_native_shapes.py` 只负责版本校验、原生 solid 分类和完整文档邻域 provider，不承担模型资源、UI 坐标或生命周期；无 SDK 调用。六项测试覆盖规则／版本漂移、邻石角点与遮面、背景独存／含水层、actor 与文档不变、missing 目标保留来源邻域，以及拒绝未经验证的 flowing 名称。统一入口纳入该生成器和运行数据，54 个来源一致；定点 MOD review 实际解析 2 文件、无发现。默认生产 profile 仍未启用，接下来以实际 Scene 和世界 adapter 独立验收资源及坐标。
 
+**04:16 水批次 UI 尺度适配：** 原生矩阵探针确认 skeleton 显示尺度取决于实际 PaperDoll 宽高，而既有 `render_bounds` 会为偏移后的每批次扩大控件尺寸。`LiquidControls` 因此按当前 `LiquidView` 分别取得姿态，Scene 将 `view.size` 传给版本 profile；裁切隐藏批次不请求姿态。12 项视口／生命周期测试通过，新增拖动／尺寸变化只改姿态而不改形状载荷的检查；定点 MOD review 解析 3 文件，保留既有 Scene 长函数及参数提示。最终原生尺度／中心标定及实际编辑器像素仍待代理完成，不据接口准备宣称画面通过。
+
 ### 第八轮保存检查点（2026-10-11，截止 23:30）
 
 本轮从 `dev` 的 `67dfc74` 接续；`main` 和 `render-dragon` 保持各自既定用途。用户暂存的五个 `tools/p0_palette_*_probe.py` 文件保留暂存状态，不能混入本轮的路径限定提交。此前归档的 `.runtime/p0-*` 路径只用于读取历史证据，本轮三个代理曾使用新的实际 Git 工作树 `r8-liquid`、`r8-entities`、`r8-snow`；接受提交已统一接入 `dev`，三个工作树及对应临时分支已归档清理，旧路径现在也仅为证据别名。

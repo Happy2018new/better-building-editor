@@ -95,7 +95,8 @@ class LiquidControlsTests(unittest.TestCase):
         self.groups = {0: group()}
 
     def update(self, now):
-        return self.controls.update(self.groups, lambda origin: self.view, POSE, (-.5, -.25), now)
+        return self.controls.update(self.groups, lambda origin: self.view,
+                                    lambda view: POSE, (-.5, -.25), now)
 
     def settle(self):
         for now in (0., .025, .05, .1, .2):
@@ -123,6 +124,34 @@ class LiquidControlsTests(unittest.TestCase):
         self.assertNotEqual(tag, self.model.values[(101, 4)][0])
         self.assertEqual(model_calls, sum(len(control.doll.calls) for control in self.dolls))
         self.assertEqual(positions, sum(control.position_calls for control in self.dolls))
+
+    def test_batch_pose_uses_current_native_size_after_pan_and_resize(self):
+        observed = []
+        def pose_at(view):
+            observed.append(view.size)
+            return (20. / min(view.size),) + POSE[1:]
+        def update(now):
+            return self.controls.update(self.groups, lambda origin: self.view,
+                                        pose_at, (-.5, -.25), now)
+        for now in (0., .025, .05, .1, .2):
+            ready = update(now)
+        self.assertTrue(ready)
+        renderer = self.entry['renderer']
+        first_pose = renderer.poses[renderer.front]
+        first_payload = dict(self.model.values)
+        self.view = self.view._replace(position=(-300., -200.), size=(1400., 1000.))
+        self.assertTrue(update(.3))
+        self.assertEqual(self.view.size, observed[-1])
+        self.assertAlmostEqual(.02, renderer.poses[renderer.front][0])
+        self.assertNotEqual(first_pose, renderer.poses[renderer.front])
+        self.assertEqual(first_payload, self.model.values)
+
+    def test_clipped_batch_does_not_request_a_native_pose(self):
+        self.view = self.view._replace(clipped=True)
+        def unexpected_pose(view):
+            self.fail('A hidden batch does not need native coordinate calibration')
+        self.assertTrue(self.controls.update(self.groups, lambda origin: self.view,
+                                            unexpected_pose, (0., 0.), 0.))
 
     def test_stable_frame_does_not_repeat_native_id_queries(self):
         self.settle()

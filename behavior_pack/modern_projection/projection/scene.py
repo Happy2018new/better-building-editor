@@ -411,7 +411,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
             def liquid_view(origin):
                 return group_view(origin, camera, session.scene_origin, session.scene_size,
                                   (native_width, native_height), cell_unit)
-            liquid_pose = liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw)
+            def liquid_pose(view):
+                return liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
             liquid_controls.update(liquid.groups, liquid_view, liquid_pose,
                 tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0., 0.), now)
             error = liquid.error or liquid_controls.error
