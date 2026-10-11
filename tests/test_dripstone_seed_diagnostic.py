@@ -1,5 +1,6 @@
 """The seed diagnostic must reject shifts and preserve native tuple keys."""
 import json
+import copy
 from pathlib import Path
 import subprocess
 import sys
@@ -13,6 +14,12 @@ from verify_dripstone_native_boxes import holdout_samples, matrix, verify_scene_
 
 
 class DirectSeedDiagnosticTests(unittest.TestCase):
+    def native_client(self, server):
+        client = copy.deepcopy(server)
+        for row in client['rows']:
+            row['value'] = [row['value']['name'], row['value']['aux']]
+        return client
+
     def test_equal_missing_or_invalid_native_boxes_never_accept(self):
         pos = (6, -37, 6)
         valid = {'min': (6.3125, -37, 6.3125), 'max': (6.6875, -36, 6.6875)}
@@ -24,25 +31,26 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
                    'clip': box, 'collision': box}
             source = {'rows': [row]}
             with self.subTest(box=box), self.assertRaises(AssertionError):
-                verify_scene_boxes(source, source, expected)
+                verify_scene_boxes(source, self.native_client(source), expected)
         row = {'pos': pos, 'value': {'name': 'minecraft:pointed_dripstone', 'aux': 4},
                'clip': valid, 'collision': valid}
-        self.assertTrue(verify_scene_boxes({'rows': [row]}, {'rows': [row]}, expected)['all_boxes_valid'])
+        source = {'rows': [row]}
+        self.assertTrue(verify_scene_boxes(source, self.native_client(source), expected)['all_boxes_valid'])
 
     def test_scene_verification_rejects_stale_aux_mismatched_boxes_and_nonunit_stone(self):
-        import copy
         pos = (6, -38, 6)
         row = {'pos': pos, 'value': {'name': 'minecraft:stone', 'aux': 0},
                'clip': {'min': pos, 'max': (7, -37, 7)}}
         row['collision'] = dict(row['clip'])
         source = {'rows': [row]}
         expected = {pos: ('minecraft:stone', 0)}
-        self.assertTrue(verify_scene_boxes(source, source, expected)['stone_unit_boxes'])
-        stale = copy.deepcopy(source)
-        stale['rows'][0]['value']['aux'] = 1
+        client = self.native_client(source)
+        self.assertTrue(verify_scene_boxes(source, client, expected)['stone_unit_boxes'])
+        stale = copy.deepcopy(client)
+        stale['rows'][0]['value'][1] = 1
         with self.assertRaises(AssertionError):
             verify_scene_boxes(source, stale, expected)
-        mismatch = copy.deepcopy(source)
+        mismatch = copy.deepcopy(client)
         mismatch['rows'][0]['collision']['min'] = (6.1, -38, 6)
         with self.assertRaises(AssertionError):
             verify_scene_boxes(source, mismatch, expected)
@@ -50,7 +58,26 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
         nonunit['rows'][0]['clip']['max'] = (6.9, -37, 7)
         nonunit['rows'][0]['collision'] = dict(nonunit['rows'][0]['clip'])
         with self.assertRaises(AssertionError):
-            verify_scene_boxes(nonunit, nonunit, expected)
+            verify_scene_boxes(nonunit, self.native_client(nonunit), expected)
+
+    def test_scene_verification_rejects_wrong_native_shapes_and_duplicate_positions(self):
+        pos = (6, -38, 6)
+        row = {'pos': pos, 'value': {'name': 'minecraft:stone', 'aux': 0},
+               'clip': {'min': pos, 'max': (7, -37, 7)}}
+        row['collision'] = dict(row['clip'])
+        source = {'rows': [row]}
+        expected = {pos: ('minecraft:stone', 0)}
+        client = self.native_client(source)
+        for value in (None, 'minecraft:stone', ['minecraft:stone'],
+                      ['minecraft:stone', 0, 1], {'name': 'minecraft:stone', 'aux': 0}):
+            changed = copy.deepcopy(client)
+            changed['rows'][0]['value'] = value
+            with self.subTest(value=value), self.assertRaises(AssertionError):
+                verify_scene_boxes(source, changed, expected)
+        with self.assertRaises(AssertionError):
+            verify_scene_boxes({'rows': source['rows'] * 2}, client, expected)
+        with self.assertRaises(AssertionError):
+            verify_scene_boxes(source, {'rows': client['rows'] * 2}, expected)
 
     def test_calibration_rejects_failed_foreign_and_stale_provenance(self):
         session = {'session_file': str(diagnostic.ROOT / '.runtime/test-session.json'),

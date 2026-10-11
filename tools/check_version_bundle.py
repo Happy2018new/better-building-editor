@@ -33,6 +33,7 @@ SNAPSHOTS = (
     'native_liquid_materials',
     'native_liquid_geometry_support',
     'native_entity_writes',
+    'native_dripstone_holdout',
 )
 
 

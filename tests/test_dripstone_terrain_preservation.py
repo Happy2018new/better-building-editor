@@ -225,7 +225,7 @@ class TerrainPreservationTests(unittest.TestCase):
         import json
         values = dict(self.cells + self.supports)
         values[(7, -37, 6)] = ('minecraft:tuff', 0)
-        info = types.SimpleNamespace(GetBlock=lambda pos: dict(name=values[pos][0], aux=values[pos][1]))
+        info = types.SimpleNamespace(GetBlock=lambda pos: values[pos])
         bridge = types.SimpleNamespace(level='level', factory=types.SimpleNamespace(CreateBlockInfo=lambda level: info))
         namespace = {'b': bridge, 'json': json}
         code = diagnostic.REPLICATION_PRESERVED % (self.cells + self.supports,)

@@ -144,7 +144,7 @@ info=b.factory.CreateBlockInfo(b.level)
 actual=[]
 for pos,value in cells:
  observed=info.GetBlock(tuple(pos))
- actual.append((pos,(observed['name'],observed['aux'])) if observed else (pos,None))
+ actual.append((pos,tuple(observed)) if observed else (pos,None))
 _result=json.dumps({'matches':actual==cells,'cells':actual,
  'method':'individual fixed fixture cells; surrounding saved terrain retained'})
 '''
@@ -204,11 +204,16 @@ def matrix(source_samples=SAMPLES):
 def verify_scene_boxes(server, client, expected):
     server_rows = dict((tuple(row['pos']), row) for row in server['rows'])
     client_rows = dict((tuple(row['pos']), row) for row in client['rows'])
+    assert len(server_rows) == len(server['rows']), 'Duplicate server positions'
+    assert len(client_rows) == len(client['rows']), 'Duplicate client positions'
     assert set(server_rows) == set(client_rows) == set(expected)
     for pos, value in expected.items():
         first, second = server_rows[pos], client_rows[pos]
+        assert isinstance(first['value'], dict), first
+        assert (first['value'].get('name'), first['value'].get('aux')) == value, first
+        assert isinstance(second['value'], (tuple, list)) and len(second['value']) == 2, second
+        assert tuple(second['value']) == value, second
         for row in (first, second):
-            assert (row['value']['name'], row['value']['aux']) == value, row
             for kind in ('clip', 'collision'):
                 box = row[kind]
                 assert isinstance(box, dict), (pos, kind, box)
@@ -330,7 +335,9 @@ def main():
             report['owned_focus_release'] = {'error': '%s: %s' % (type(error).__name__, error)}
         write_json(args.output, report)
     print(json.dumps({'completed': report['completed'], 'restored': report['restored'],
-                      'samples': len(samples), 'server': report['server'], 'client': report['client']}))
+                      'samples': len(samples), 'cells': report['scene_verification']['cells'],
+                      'all_box_methods_equal': report['all_box_methods_equal'],
+                      'report': str(args.output.resolve())}))
     return 0 if (report['completed'] and report['restored'] and
                  'error' not in report['owned_focus_release']) else 1
 

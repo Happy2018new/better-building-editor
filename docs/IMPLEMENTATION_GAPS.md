@@ -28,6 +28,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 根固定 92 对滴水石 holdout 在自有普通世界的 `(3,-45,-1)` 遇到砂砾，于任何写入前拒绝，`.runtime/dripstone-native-holdout-r7-background-v1.json` 的 `completed=false`、`restored=true`。不扩大地形白名单、不移动预注册坐标；后续在独立的自有超平坦实例运行原坐标，原失败继续保存。运行器新增经审查的 `--sdk-background` 入口，仅 SDK-only 的 `verify_dripstone_native_boxes.py` 可跳过桌面输入锁，仍校验 session／owner／项目；四项回归保证默认桌面锁、未经审查用例拒绝和路由校验不变。
 
+根滴水石固定 holdout 已在超平坦实例 `44bbe89af5c24b6fad171cea1a8ed695` 完成：`.runtime/dripstone-native-holdout-r7-flat-v3.json` 的 92 对／184 格滴水石及 184 格石头支撑均通过服务端／客户端、clip／collision 四种读取一致性；全部 3,753 格保存地形及玩家 foot 已恢复，清理错误为空。v2 的客户端 `GetBlock` 二元组被误当成字典已修复，23 项滴水石定点检查通过，旧失败未覆盖。原始报告 SHA-256 `e11a09a241779e06d30bf3907bd8bc75a4cf8565c362d30e492e187a6880d186`；26 MB 原件留在 `.runtime`，经复核的 368 条紧凑数据存入 [版本化原生 holdout](../tools/data/native_dripstone_holdout_nemc_3.9.0.401155.json)，由 [打包工具](../tools/pack_native_dripstone_evidence.py) 校验原坐标、状态表、实例绑定及恢复结果后生成，并纳入版本来源检查。重叠 `(6,6)` 水平坐标在第五／七轮不同高度、不同实例中读出的水平盒一致；仍未确定通用原生位移公式，不引入拟合修正，`native_geometry_accepted`／`visual_accuracy_accepted` 均为 false。根普通／超平坦实例均已核对 PID 退出并标记 stopped；只保留三代理仍使用的实例。
+
 ### 第六轮收尾（2026-10-11，截止 13:00）
 
 本轮从 `1d2a603` 接续，继续使用 `.runtime/p0-integration`。用户明确本轮无需休眠；第五轮一次性休眠任务已移除，不安排休眠、关机或重启。12:35 冻结新增实现，12:45 收集代理检查点，随后统一验证、提交和回收自有 MC 实例。重启 Codex 后三个代理已恢复，使用 `gpt-6.1-sol`／`xhigh`，分别处理原生陶罐写入隔离及方块实体、含雪植物边界、静态连缀及滴水石；根代理处理投影液体与集成。桌面时段串行安排，实际游戏实例仍不超过五个。
