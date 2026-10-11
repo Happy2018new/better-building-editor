@@ -115,9 +115,16 @@ _result=True
 GENERATE = '''saved=sys._liquid_pose_client
 origin=tuple(saved['origin'])
 name=%r
+address=%r
 block=factory.CreateBlock(level)
 live=block.GetBlockPaletteBetweenPos(origin,origin,False)
 raw=live.SerializeBlockPalette()
+if address:
+ assert tuple(raw['volume'])==(1,1,1) and not raw.get('actor')
+ assert all(indices==[0] for indices in raw['common'].values())
+ raw=dict(raw,volume=(1,1,address+1),common=dict((key,[address]) for key in raw['common']))
+ live=block.GetBlankBlockPalette()
+ assert live.DeserializeBlockPalette(raw)
 copy=block.GetBlankBlockPalette()
 deserialized=copy.DeserializeBlockPalette(raw)
 geometry=factory.CreateBlockGeometry(level)
@@ -130,7 +137,8 @@ saved['paths']=paths
 saved['entity']=api.GetSystem('ModernProjection','ModernProjectionClientSystem').CreateClientEntityByTypeStr('modern_projection:anchor',origin,(0.,0.))
 assert saved['entity']
 _result=json.dumps({'deserialized':deserialized,'roundtrip_equal':copy.SerializeBlockPalette()==raw,
- 'paths':paths,'entity':saved['entity']})
+ 'paths':paths,'entity':saved['entity'],'carrier_address':address,
+ 'source':'constructed_from_live_single_cell' if address else 'native_live_single_cell'})
 '''
 ATTACH = '''saved=sys._liquid_pose_client
 render=factory.CreateActorRender(saved['entity'])
@@ -140,11 +148,11 @@ if saved['attached'] is not None:
 path=next(row for row in saved['paths'] if row['path']==%r)
 if path['returned'] is not None:
  name=path['returned']
- assert render.AddActorBlockGeometry(name,(-.5,0.,-.5),(0.,180.,0.))
+ assert render.AddActorBlockGeometry(name,(-.5,%r,-.5),(0.,180.,0.))
  saved['attached']=name
  assert render.EnableActorBlockGeometryTransparent(name,True)
  assert render.SetActorBlockGeometryTransparency(name,1.)
- assert render.SetEntityExtraUniforms(4,(19487.,0.,0.,0.))
+ assert render.SetEntityExtraUniforms(4,%r)
  assert render.SetNotRenderAtAll(False)
 _result=json.dumps({'attached':saved['attached']})
 '''
@@ -234,16 +242,23 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
     parser.add_argument('--block', default=BLOCK, help='Ordinary stone is a camera positive control')
+    parser.add_argument('--actor-uniform', nargs=4, type=float, default=(19487., 0., 0., 0.),
+                        metavar=('TAG', 'Y', 'Z', 'W'), help='Explicit isolated shader discriminator')
+    parser.add_argument('--carrier-address', type=int, default=0,
+                        help='Construct a sparse palette from one native cell at this Y address')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('The report must be fresh: ' + str(args.output))
+    if not 0 <= args.carrier_address <= 447:
+        parser.error('The isolated carrier address must be in 0..447')
     args.capture_exe = args.capture_exe.resolve(strict=True)
     os.environ['MCDEV_SESSION_FILE'] = str(Path(args.session).resolve(strict=True))
     os.environ['MCDEV_OWNER'] = args.owner
     report = {'schema': 1, 'completed': False, 'restored': False, 'native_pose_accepted': False,
               'native_geometry_accepted': False, 'accuracy_accepted': False,
               'production_memory_accepted': False, 'animated_sampling_accepted': False,
-              'scope': 'Isolated custom actor transport; no native liquid height rule', 'rows': []}
+              'scope': 'Isolated custom actor transport; no native liquid height rule', 'rows': [],
+              'carrier_address': args.carrier_address, 'actor_uniform': args.actor_uniform}
     with Client(timeout=45) as client:
         try:
             report['environment'] = run(client, ENVIRONMENT, True)
@@ -294,14 +309,17 @@ def main():
                 report['rows'].append(row)
                 write(args.output, report)
             report['world_shown'] = frame('world')
-            report['geometry'] = run(client, GENERATE % ('liquid_pose_' + uuid.uuid4().hex))
+            report['geometry'] = run(client, GENERATE % ('liquid_pose_' + uuid.uuid4().hex, args.carrier_address))
             report['source_cleared'] = run(client, CLEAR, True)
             time.sleep(.5)
             report['world_hidden'] = frame('empty')
             for key in ('live', 'roundtrip'):
-                row = {'attachment': run(client, ATTACH % key)}
+                row = {'attachment': run(client, ATTACH % (key, -float(args.carrier_address), tuple(args.actor_uniform)))}
                 time.sleep(.4)
                 row['shown'] = frame(key)
+                if key == 'live':
+                    time.sleep(1.1)
+                    row['animation_later'] = frame(key + '_later')
                 row['signal'] = difference(row['shown']['path'], report['world_hidden']['path'],
                     args.output.with_name(args.output.stem + '_' + key + '_signal.png'))
                 report[key] = row
