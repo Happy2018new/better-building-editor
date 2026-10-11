@@ -4,6 +4,7 @@ import math
 from . import biomes
 from .cell import background, foreground, text_type
 from .storage import integer_types, position
+from .liquid_transport import RenderGroup, pack_group
 
 CHUNK_SIDE = 4
 CELLS_PER_GROUP = 4
@@ -126,13 +127,15 @@ def _target_requests(document, targets):
                 yield pos, layer, value
 
 
-def iter_groups(document, shape_provider, targets=None):
+def iter_group_steps(document, shape_provider, targets=None, visible=None):
     """Resolve shapes against the full document, including occupied neighbors.
 
     ``targets`` is an optional unprepared native palette selecting logical
     layers in the document's original (z,x,y) volume. It changes which cells
     are drawn; it never replaces the source supplied to the shape provider.
     A missing shape raises instead of introducing an unverified height fallback.
+    None checkpoints bound scans even when every liquid face is concealed.
+    Visibility filters draws only; the provider still reads the complete source.
     """
     requests = _document_requests(document) if targets is None else _target_requests(document, targets)
     pending, appearance = {}, {}
@@ -145,7 +148,11 @@ def iter_groups(document, shape_provider, targets=None):
         tint, opacity = appearance[texture]
         return LiquidGroup(origin, surfaces, document.biome, tint, opacity)
 
-    for pos, layer, value in requests:
+    for scanned, (pos, layer, value) in enumerate(requests, 1):
+        if scanned % 128 == 0:
+            yield None
+        if visible is not None and not visible(pos):
+            continue
         surface = shape_provider.surface(document, pos, layer, value)
         if not isinstance(surface, LiquidSurface):
             raise ValueError('Liquid shape provider did not return an explicit surface')
@@ -166,3 +173,41 @@ def iter_groups(document, shape_provider, targets=None):
             yield group(key, surfaces)
     for key in sorted(pending, key=lambda item: (item[0], item[1], repr(item[2]))):
         yield group(key, pending[key])
+
+
+def iter_groups(document, shape_provider, targets=None, visible=None):
+    """Synchronous convenience iterator; frame-budgeted callers use steps."""
+    for group in iter_group_steps(document, shape_provider, targets, visible):
+        if group is not None:
+            yield group
+
+
+def render_steps(groups, models, projection_opacity, max_groups):
+    """Pack explicit shapes into stable caller-owned model slots.
+
+    Resource keys are (texture, UV-template) pairs. Model names come from the
+    validated resource profile, never from a guessed path or fallback texture.
+    Checkpoints pass through for incremental UI/world preparation.
+    """
+    if not _integer(max_groups) or max_groups < 1:
+        raise ValueError('Liquid rendering requires a positive model budget')
+    if not _unit(projection_opacity):
+        raise ValueError('Liquid projection opacity must be a finite unit value')
+    slots, count = {}, 0
+    for group in groups:
+        if group is None:
+            yield None
+            continue
+        resource = group.texture_key, group.flow_template
+        model = models.get(resource)
+        if not isinstance(model, (bytes, text_type)) or not 0 < len(model) <= 160:
+            raise ValueError('Liquid texture/UV template has no registered model: ' + repr(resource))
+        key = group.origin, resource
+        slot = slots.get(key, 0)
+        slots[key] = slot + 1
+        count += 1
+        if count > max_groups:
+            raise ValueError('Liquid model budget exceeded; the complete source is retained')
+        uniforms = pack_group(group.origin, group.surfaces, group.tint,
+                              group.opacity, projection_opacity)
+        yield RenderGroup((group.origin, resource, slot), model, group.origin, uniforms)

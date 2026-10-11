@@ -10,7 +10,8 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.cell import AIR, make_cell
 from projection.debug_blueprints import material
 from projection.model import Document
-from projection.liquid_render_plan import ALL_FACES, FACE_NAMES, LiquidGroup, LiquidSurface, iter_groups
+from projection.liquid_render_plan import (ALL_FACES, FACE_NAMES, LiquidGroup, LiquidSurface,
+                                           iter_groups, iter_group_steps, render_steps)
 
 
 class SuppliedShapeProvider(object):
@@ -126,3 +127,42 @@ class LiquidRenderPlanTests(unittest.TestCase):
         document = Document((4, 2, 4), {(1, 1, 1): make_cell(AIR, material('water'))})
         group, = list(iter_groups(document, SuppliedShapeProvider()))
         self.assertEqual(1, group.surfaces[0].layer)
+
+    def test_fully_concealed_scan_yields_frame_checkpoints(self):
+        document = Document((16, 2, 16), {(x, 1, z): material('water')
+                                        for x in range(16) for z in range(16)})
+        shapes = SuppliedShapeProvider(lambda doc, pos, layer, value:
+                                       LiquidSurface(pos, layer, (.5,) * 4, 0, 'still_water_grey'))
+        self.assertEqual([None, None], list(iter_group_steps(document, shapes)))
+        self.assertEqual([], list(iter_groups(document, shapes)))
+
+    def test_visibility_does_not_replace_complete_neighbor_source(self):
+        water = material('water')
+        document = Document((4, 3, 4), {(1, 1, 1): water, (1, 2, 1): water})
+        shapes = SuppliedShapeProvider()
+        groups = list(iter_groups(document, shapes, visible=lambda pos: pos[1] == 1))
+        self.assertEqual(1, len(shapes.requests))
+        self.assertIs(document, shapes.requests[0][0])
+        self.assertEqual(water, shapes.requests[0][0].get((1, 2, 1)))
+        self.assertEqual([(1, 1, 1)], [shape.position for group in groups for shape in group.surfaces])
+
+    def test_render_slots_stay_stable_across_appearance_and_payload_changes(self):
+        document = Document((4, 2, 4), {(x, 1, z): material('water')
+                                       for x in range(4) for z in range(4)})
+        models = {('still_water_grey', None): 'modern_projection_liquid_still_water_grey'}
+        first = list(render_steps(iter_group_steps(document, SuppliedShapeProvider()), models, .4, 4))
+        document.biome = 'swampland'
+        changed = list(render_steps(iter_group_steps(document, SuppliedShapeProvider()), models, .8, 4))
+        self.assertEqual([group.key for group in first], [group.key for group in changed])
+        self.assertEqual([0, 1, 2, 3], [group.key[2] for group in first])
+        self.assertNotEqual(first[0].uniforms, changed[0].uniforms)
+        self.assertEqual(.8, changed[0].uniforms[3][3])
+
+    def test_render_planner_has_no_resource_fallback_and_bounds_models(self):
+        document = Document((4, 2, 4), {(x, 1, z): material('water')
+                                       for x in range(4) for z in range(4)})
+        models = {('still_water_grey', None): 'registered_model'}
+        for resources, budget in (({}, 4), (models, 3), (models, True)):
+            with self.subTest(resources=resources, budget=budget), self.assertRaises(ValueError):
+                list(render_steps(iter_groups(document, SuppliedShapeProvider()), resources, .5, budget))
+        self.assertEqual([None], list(render_steps(iter((None,)), models, .5, 4)))
