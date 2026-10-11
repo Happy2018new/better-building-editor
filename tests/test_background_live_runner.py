@@ -101,6 +101,24 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
         lock.assert_not_called()
         child.assert_not_called()
 
+    def test_frozen_liquid_capture_retains_reviewed_helper_and_owner(self):
+        helper = str(runner.ROOT / 'tools/verify_sign_visuals.py')
+        load, lock, child = self.run_case(['--sdk-background',
+            'capture_frozen_liquid_controls.py', 'evidence.json', '--capture-helper', helper])
+        self.assertEqual(7, runner.main())
+        load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
+        lock.assert_not_called()
+        self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
+
+    def test_frozen_liquid_capture_rejects_other_helper(self):
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'capture_frozen_liquid_controls.py', 'evidence.json',
+            '--capture-helper', str(runner.ROOT / 'tools/verify_debug_visuals.py')])
+        with self.assertRaises(SystemExit):
+            runner.main()
+        lock.assert_not_called()
+        child.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

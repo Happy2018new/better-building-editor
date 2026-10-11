@@ -3,6 +3,7 @@ import copy
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -12,6 +13,35 @@ from test_pure_liquid_native_controls import snapshot
 
 
 class FrozenLiquidControlTests(unittest.TestCase):
+    def test_empty_shell_cleanup_does_not_request_empty_native_snapshot(self):
+        harness = object.__new__(frozen.FrozenHarness)
+        with patch.object(frozen.contained.NativeHarness, 'clear') as native_clear:
+            self.assertEqual({'writes': [], 'empty_positions': True, 'no_native_call': True},
+                             harness.clear([]))
+            native_clear.assert_not_called()
+
+    def test_flow_restore_preserves_preexisting_owner_and_handles_unstarted_freeze(self):
+        from types import SimpleNamespace
+        import json
+        calls = []
+        game = SimpleNamespace(ForbidLiquidFlow=lambda value: calls.append(value) or True)
+        api = SimpleNamespace(GetLevelId=lambda: 'level',
+                              GetEngineCompFactory=lambda: SimpleNamespace(CreateGame=lambda unused: game))
+        for initial in (None, 'owned', 'other'):
+            state = SimpleNamespace()
+            if initial is not None:
+                state._frozen_liquid_flow_owner = initial
+            environment = dict(sys=state, api=api, json=json)
+            calls[:] = []
+            if initial == 'other':
+                with self.assertRaises(AssertionError):
+                    exec(frozen.FLOW_RESTORE % 'owned', environment)
+                self.assertEqual('other', state._frozen_liquid_flow_owner)
+            else:
+                exec(frozen.FLOW_RESTORE % 'owned', environment)
+                self.assertFalse(hasattr(state, '_frozen_liquid_flow_owner'))
+            self.assertEqual([False] if initial == 'owned' else [], calls)
+
     def test_all_public_cases_preserve_exact_control_layers_and_neighbors(self):
         origin, platform = (8, 110, -3), (-10, 105, -20)
         for identity in frozen.CASE_IDS:

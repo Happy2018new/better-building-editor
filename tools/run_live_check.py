@@ -12,7 +12,8 @@ from _session import desktop_lock, load_session, process_identity
 # These suites were checked to use SDK calls only, including their cleanup.
 SDK_BACKGROUND_SCRIPTS = frozenset(('verify_dripstone_native_boxes.py',
                                   'verify_camera_projection.py',
-                                  'capture_pure_liquid_native_controls.py'))
+                                  'capture_pure_liquid_native_controls.py',
+                                  'capture_frozen_liquid_controls.py'))
 
 
 def main():
@@ -39,7 +40,8 @@ def main():
         capture_args, unused = capture_parser.parse_known_args(args.args)
         if path.name == 'verify_camera_projection.py' and not capture_args.native_resolution:
             parser.error('Background camera calibration requires --native-resolution')
-        if path.name == 'capture_pure_liquid_native_controls.py':
+        if path.name in ('capture_pure_liquid_native_controls.py',
+                         'capture_frozen_liquid_controls.py'):
             expected = ROOT / 'tools/verify_sign_visuals.py'
             if capture_args.capture_helper is None or capture_args.capture_helper.resolve() != expected:
                 parser.error('Background liquid capture requires the reviewed SignCheck helper')

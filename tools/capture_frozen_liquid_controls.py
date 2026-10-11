@@ -31,12 +31,14 @@ saved['shell_verified']=True
 _result=json.dumps({'forbidden':True,'baseline':'Fresh owner-bound world; initial flow is allowed',
  'native_return_verified':True,'has_state_getter':False})
 '''
-FLOW_RESTORE = '''assert getattr(sys,'_frozen_liquid_flow_owner',None)==%r
-game=api.GetEngineCompFactory().CreateGame(api.GetLevelId())
-assert game.ForbidLiquidFlow(False), 'Native flow restoration failed'
-del sys._frozen_liquid_flow_owner
-_result=json.dumps({'flow_allowed_requested':True,'native_return_verified':True,
- 'has_state_getter':False})
+FLOW_RESTORE = '''owner=getattr(sys,'_frozen_liquid_flow_owner',None)
+assert owner is None or owner==%r
+if owner is not None:
+ game=api.GetEngineCompFactory().CreateGame(api.GetLevelId())
+ assert game.ForbidLiquidFlow(False), 'Native flow restoration failed'
+ del sys._frozen_liquid_flow_owner
+_result=json.dumps({'flow_allowed_requested':owner is not None,'native_return_verified':owner is not None,
+ 'not_modified':owner is None,'has_state_getter':False})
 '''
 
 
@@ -116,6 +118,11 @@ class FrozenHarness(contained.NativeHarness):
         self.checkpoint()
         return super().delete_marker()
 
+    def clear(self, positions):
+        if not positions:
+            return {'writes': [], 'empty_positions': True, 'no_native_call': True}
+        return super().clear(positions)
+
 
 def execute_controls(harness, options, runtime_args, report):
     direct, wet, check = harness.direct, harness.wet, harness.check
@@ -176,13 +183,19 @@ def execute_controls(harness, options, runtime_args, report):
             harness.settle()
             item['native_before_capture'] = harness.snapshot(plan['reserved'])
             harness.checkpoint()
-            item['capture'] = harness.frame(plan['case'] + '_' + control, pose)
-            item['fixed_viewport'] = contained.fixed_viewport(item['capture'], pose)
-            item['png_validation'] = contained.validate_png(item['capture'], harness.session, expected_size)
-            expected_size = item['png_validation']['size']
-            item['native_after_capture'] = harness.snapshot(plan['reserved'])
-            item['native_gate'] = native_gate(item['native_before_capture'], item['native_after_capture'],
-                                               plan, plan['controls'][control]['cells'])
+            try:
+                item['capture'] = harness.frame(plan['case'] + '_' + control, pose)
+                item['fixed_viewport'] = contained.fixed_viewport(item['capture'], pose)
+                item['png_validation'] = contained.validate_png(item['capture'], harness.session, expected_size)
+                expected_size = item['png_validation']['size']
+            except Exception as error:
+                item['capture_error'] = '%s: %s' % (type(error).__name__, error)
+                raise
+            finally:
+                item['native_after_capture'] = harness.snapshot(plan['reserved'])
+                item['native_gate'] = native_gate(item['native_before_capture'], item['native_after_capture'],
+                                                 plan, plan['controls'][control]['cells'])
+                harness.checkpoint()
             item['completed'] = True
             harness.checkpoint()
             if not item['native_gate']['public_snapshot_unchanged']:
