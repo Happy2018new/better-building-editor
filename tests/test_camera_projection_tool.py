@@ -194,6 +194,28 @@ class BlueprintSourceIdentityTests(unittest.TestCase):
         state = dict(self.state, parts=[{'pending': True, 'cache_current': True, 'name': 'warming_model'}])
         self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
 
+    def test_liquid_plans_and_native_controls_must_both_be_current_when_enabled(self):
+        liquid = {'enabled': True, 'owned': True, 'plan_ready': True,
+                  'controls_pending': False, 'groups': 2, 'error': ''}
+        self.assertTrue(editor_preview_ready(dict(self.state, liquid=liquid), self.metadata, 21, 34))
+        for field, value in (('owned', False), ('plan_ready', False), ('controls_pending', True)):
+            with self.subTest(field=field):
+                state = dict(self.state, liquid=dict(liquid, **{field: value}))
+                self.assertFalse(editor_preview_ready(state, self.metadata, 21, 34))
+        state = dict(self.state, liquid=dict(liquid, error='Liquid model ID did not become ready'))
+        with self.assertRaisesRegex(AssertionError, 'liquid preview failed'):
+            editor_preview_ready(state, self.metadata, 21, 34)
+
+    def test_empty_liquid_plan_still_requires_owner_after_water_removal(self):
+        metadata = dict(self.metadata, blocks=0)
+        liquid = {'enabled': True, 'owned': True, 'plan_ready': True,
+                  'controls_pending': False, 'groups': 0, 'error': ''}
+        state = dict(self.state, metadata=metadata, model_name=None, parts=[],
+                     renderer_active=False, liquid=liquid)
+        self.assertTrue(editor_preview_ready(state, metadata, 21, 34))
+        liquid['plan_ready'] = False
+        self.assertFalse(editor_preview_ready(state, metadata, 21, 34))
+
 
 if __name__ == '__main__':
     unittest.main()

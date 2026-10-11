@@ -104,7 +104,17 @@ if (expected.get('metadata') == metadata and expected.get('previous_document_id'
 current_source=(expected.get('metadata')==metadata and
                 expected.get('document_id')==document_id and
                 expected.get('editor_id')==id(s.editor))
+liquid=getattr(s,'liquid_preview',None)
+liquid_controls=getattr(s,'liquid_controls',None)
+liquid_state={'enabled':getattr(s,'liquid_profile',None) is not None,
+ 'owned':liquid is not None and liquid_controls is not None,
+ 'plan_ready':liquid is not None and liquid.published==liquid.signature(),
+ 'controls_pending':liquid_controls.pending if liquid_controls is not None else True,
+ 'groups':len(liquid.groups) if liquid is not None else 0,
+ 'error':str(liquid.error or liquid_controls.error or getattr(s,'liquid_error',''))
+  if liquid is not None and liquid_controls is not None else getattr(s,'liquid_error','')}
 _result=json.dumps({'page':s.page,'name':doc.name,'size':doc.size,'blocks':len(doc.blocks),
+ 'liquid':liquid_state,
  'document_actor_cells':sum(actor_data(v) is not None for p,v in doc.blocks.items()),
  'document_render_actor_cells':sum(bool(render_actor(actor_data(v))) for p,v in doc.blocks.items()),
  'document_background_cells':sum(background(v)!=AIR for p,v in doc.blocks.items()),
@@ -163,6 +173,12 @@ def source_matches(state, metadata, editor_id, document_id):
 def editor_preview_ready(state, metadata, editor_id, document_id):
     if state.get('preview_error'):
         raise AssertionError('Editor preview failed: %r' % state)
+    liquid = state.get('liquid', {})
+    if liquid.get('enabled'):
+        if liquid.get('error'):
+            raise AssertionError('Editor liquid preview failed: %r' % state)
+        if not liquid.get('owned') or not liquid.get('plan_ready') or liquid.get('controls_pending', True):
+            return False
     current = (source_matches(state, metadata, editor_id, document_id) and
                state['page'] == 'workspace' and not state['preview_pending'] and
                not state['running'] and not state['dirty'] and not state['mounting'] and
