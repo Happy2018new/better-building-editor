@@ -103,3 +103,24 @@ corners in `source_pool`, `flow_corner`, or behind a solid remain unobservable.
 Combine views only after checking matching native source/state/camera
 provenance outside this tool. Do not fill absent corners from a flat-looking
 image or from another control's inferred shape.
+
+## Restored Contained Source Observations
+
+`record_contained_liquid_heights.py REPORT.json OBSERVATIONS.json SESSION.json
+OUTPUT.json` binds explicitly inspected, original-PNG corner pixels to the
+captured source controls. It rechecks all four controls' PNG fingerprints,
+owner/session identity, camera stability, native before/after snapshots, exact
+public source translation and calibration fingerprint. The original capture
+report supplies the independent positive pixel gates. It neither detects
+corners nor verifies a pixel budget as measurement accuracy.
+
+Round seven observations are in
+`tools/data/contained_liquid_corner_observations_r7.json`; the versioned compact
+diagnostic is
+`tools/data/native_liquid_surface_diagnostics_nemc_3.9.0.401155.json`.
+Sixteen explicitly visible corners cover source water/lava and the supported
+and liquid-only controls in a barrier shell. Height intervals account only for
+the declared 3px budget, excluding camera uncertainty. All public/native
+geometry acceptance flags remain false. These observations do not establish
+an uncontained height, a depth-state formula, flowing-state geometry or other
+neighbors' weights, and must not become a production lookup table.

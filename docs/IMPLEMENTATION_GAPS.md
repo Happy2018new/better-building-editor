@@ -30,6 +30,10 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 根滴水石固定 holdout 已在超平坦实例 `44bbe89af5c24b6fad171cea1a8ed695` 完成：`.runtime/dripstone-native-holdout-r7-flat-v3.json` 的 92 对／184 格滴水石及 184 格石头支撑均通过服务端／客户端、clip／collision 四种读取一致性；全部 3,753 格保存地形及玩家 foot 已恢复，清理错误为空。v2 的客户端 `GetBlock` 二元组被误当成字典已修复，23 项滴水石定点检查通过，旧失败未覆盖。原始报告 SHA-256 `e11a09a241779e06d30bf3907bd8bc75a4cf8565c362d30e492e187a6880d186`；26 MB 原件留在 `.runtime`，经复核的 368 条紧凑数据存入 [版本化原生 holdout](../tools/data/native_dripstone_holdout_nemc_3.9.0.401155.json)，由 [打包工具](../tools/pack_native_dripstone_evidence.py) 校验原坐标、状态表、实例绑定及恢复结果后生成，并纳入版本来源检查。重叠 `(6,6)` 水平坐标在第五／七轮不同高度、不同实例中读出的水平盒一致；仍未确定通用原生位移公式，不引入拟合修正，`native_geometry_accepted`／`visual_accuracy_accepted` 均为 false。根普通／超平坦实例均已核对 PID 退出并标记 stopped；只保留三代理仍使用的实例。
 
+15:25 根液体原生诊断取得可见角点：自有后台实例 `ab1048c0ca9b479ca93b3316f392e10c`，有效三视角相机标定 `.runtime/liquid-height-camera-r7-v2-skyward.json` 的 VFOV 为 66.6、已恢复；第一批朝地面的斜视轮廓未通过，v1 原始 PNG／失败门槛继续保留，不能认定取图不可靠。`d13350c` 复用代理已验证的 WGC／朝天空标定入口，`d9d851b` 仅允许经过审查且显式原生后台捕获的相机和纯液体检查跳过桌面锁，保留 owner／项目检查；八项路由回归通过。
+
+纯水源／纯熔岩的玻璃默认围挡保持，`d579946` 另加明确登记的屏障围挡诊断：两源格、四对照各自通过前后原生层／邻域一致性和 reliable／fresh／background-safe WGC，全部恢复、清理错误为空；水液体独立信号 5,176／5,187px，熔岩 5,674／5,674px，原阈值未变。原始报告 `.runtime/pure-liquid-barrier-source-r7-v1.json`；[版本化角点诊断](../tools/data/native_liquid_surface_diagnostics_nemc_3.9.0.401155.json) 保存支持／无支持两控制共 16 个实际可见角点、手工明确像素、校验后的 PNG／相机／来源指纹和条件高度区间。[记录工具](../tools/record_contained_liquid_heights.py) 不检测或补角点，区间只覆盖预声明的 3px，不计相机不确定性；屏障改变邻域，所有 `native_geometry_accepted`／`accuracy_accepted`／`public_controls_eligible` 仍为 false，不引入源高度查表、流体公式或公开液面通过结论。该版本来源纳入统一检查。
+
 ### 第六轮收尾（2026-10-11，截止 13:00）
 
 本轮从 `1d2a603` 接续，继续使用 `.runtime/p0-integration`。用户明确本轮无需休眠；第五轮一次性休眠任务已移除，不安排休眠、关机或重启。12:35 冻结新增实现，12:45 收集代理检查点，随后统一验证、提交和回收自有 MC 实例。重启 Codex 后三个代理已恢复，使用 `gpt-6.1-sol`／`xhigh`，分别处理原生陶罐写入隔离及方块实体、含雪植物边界、静态连缀及滴水石；根代理处理投影液体与集成。桌面时段串行安排，实际游戏实例仍不超过五个。

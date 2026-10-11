@@ -1,0 +1,1880 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "completed": true,
+  "restored": true,
+  "raw_report": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1.json",
+    "sha256": "c3eab6e076b872875e3913ce892901ea0201fca310eff0ab21f99cdbdd4e2647"
+  },
+  "observations": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\tools\\data\\contained_liquid_corner_observations_r7.json",
+    "sha256": "d46e3b057cd57da4b4f8c7529cd72cc7028e0d8b68790997edc120d47bf1fd18"
+  },
+  "recorder": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\tools\\record_contained_liquid_heights.py",
+    "sha256": "608b48950021bcb3b153933060318bf666555a3b59958a7ae147657022b904d1"
+  },
+  "calibration": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\liquid-height-camera-r7-v2-skyward.json",
+    "sha256": "90c6a7054a7b866d01a6252f7ca8b064668ad8e8021cde677f78f32dc175f8a5"
+  },
+  "session": {
+    "id": "ab1048c0ca9b479ca93b3316f392e10c",
+    "owner": "p0-liquid-height-r7",
+    "game_identity": "134361756373051311"
+  },
+  "native_source_controls": [
+    {
+      "case": "water_depth_0_foreground",
+      "control": "supported_positive",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+        "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+      }
+    },
+    {
+      "case": "water_depth_0_foreground",
+      "control": "supported_negative",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_negative_native.png",
+        "sha256": "e3c0fa9db30b4eca63d256b3c2d518d32b4edcf6bef67a4d136d62685dabd69e"
+      }
+    },
+    {
+      "case": "water_depth_0_foreground",
+      "control": "liquid_only",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+        "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+      }
+    },
+    {
+      "case": "water_depth_0_foreground",
+      "control": "empty",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_empty_native.png",
+        "sha256": "fe1ff52584a16513c599556e553c40bcdd92c6876fa4f9198c2d2fdbd40c52a4"
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "supported_positive",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+        "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "supported_negative",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_negative_native.png",
+        "sha256": "3914d0f427e342d9af33f137bda09b3a249f3426b63422c0e6992ad25d08d0f1"
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "liquid_only",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+        "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "empty",
+      "png": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_empty_native.png",
+        "sha256": "b3ec23e98344d7daf4ad7062c3a6c90f794c25f58ed8d36eb220d3e5941b15e3"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "case": "water_depth_0_foreground",
+      "control": "supported_positive",
+      "input_pixels": [
+        {
+          "corner": [
+            0,
+            0
+          ],
+          "pixel": [
+            1008,
+            562.5
+          ]
+        },
+        {
+          "corner": [
+            1,
+            0
+          ],
+          "pixel": [
+            934,
+            539.5
+          ]
+        },
+        {
+          "corner": [
+            1,
+            1
+          ],
+          "pixel": [
+            987.5,
+            511.5
+          ]
+        },
+        {
+          "corner": [
+            0,
+            1
+          ],
+          "pixel": [
+            1058.75,
+            532
+          ]
+        }
+      ],
+      "diagnostic": {
+        "schema_version": 1,
+        "status": "diagnostic_only",
+        "native_geometry_accepted": false,
+        "accuracy_accepted": false,
+        "public_controls_eligible": false,
+        "context_changed": true,
+        "source": {
+          "case": "water_depth_0_foreground",
+          "control": "supported_positive",
+          "fixture": "test.layers.liquids",
+          "context_changed": true,
+          "shell_value": [
+            "minecraft:barrier",
+            0
+          ],
+          "original_keep": [
+            2,
+            3,
+            4
+          ],
+          "isolated_keep": [
+            3,
+            3,
+            3
+          ],
+          "document_origin": [
+            3,
+            125,
+            3
+          ],
+          "png": {
+            "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+            "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+          },
+          "method": "manual_visible_outer_boundary"
+        },
+        "camera": {
+          "position": [
+            1.5,
+            132.5,
+            -0.5
+          ],
+          "target": [
+            6.5,
+            128.5,
+            6.5
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "native_image_screen": [
+            1994,
+            1105
+          ],
+          "vertical_fov": 66.6
+        },
+        "cell_origin": [
+          6.0,
+          128.0,
+          6.0
+        ],
+        "declared_pixel_budget": 3.0,
+        "declared_pixel_budget_units": "native_png_pixels",
+        "pixel_viewport": {
+          "engine_screen": [
+            499.0,
+            277.0
+          ],
+          "observation_screen": [
+            1994.0,
+            1105.0
+          ],
+          "scale": [
+            3.995991983967936,
+            3.9891696750902526
+          ],
+          "declared_pixel_budget_units": "native_png_pixels",
+          "method": "independent_xy_full_viewport_scale",
+          "capture_binding_verified": false,
+          "crop_supported": false
+        },
+        "corners": [
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.17295747571472905,
+            "projected_height_span_pixels": 84.85544499686848,
+            "height_estimate": 0.7093739818454945,
+            "height_interval": [
+              0.6747014894281034,
+              0.7439312121917867
+            ],
+            "interval_width": 0.06922972276368333,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.1729574757147931,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              0
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+                "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.24442030731815817,
+            "projected_height_span_pixels": 81.18923852976883,
+            "height_estimate": 0.7123324543620996,
+            "height_interval": [
+              0.6761264925108531,
+              0.7484198393737294
+            ],
+            "interval_width": 0.07229334686287625,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.24442030731811482,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              0
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+                "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.26626627334337166,
+            "projected_height_span_pixels": 76.42172551722874,
+            "height_estimate": 0.7147792417951246,
+            "height_interval": [
+              0.6762961833420955,
+              0.7531381753474773
+            ],
+            "interval_width": 0.07684199200538178,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.266266273343294,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              1
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+                "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.06142554689561454,
+            "projected_height_span_pixels": 79.7830816528935,
+            "height_estimate": 0.7014655852186383,
+            "height_interval": [
+              0.6644559080069578,
+              0.7383541694519322
+            ],
+            "interval_width": 0.07389826144497447,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.061425546895752574,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              1
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_supported_positive_native.png",
+                "sha256": "5377dd8128be2a6911008e955c0292882e5549f377877e2a58bae3a0da5bf273"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          }
+        ],
+        "four_corners_observed": true,
+        "unobservable_corners": [],
+        "limits": {
+          "pixel_budget_is_verified_accuracy": false,
+          "camera_fit_performed": false,
+          "control_pixels_verified": false,
+          "png_identity_verified": false,
+          "source_snapshot_binding_verified": false,
+          "viewport_capture_binding_verified": false,
+          "corner_assignment": "caller-supplied visible boundary with explicit source",
+          "flatness_inferred": false,
+          "hidden_corners_filled": false
+        }
+      }
+    },
+    {
+      "case": "water_depth_0_foreground",
+      "control": "liquid_only",
+      "input_pixels": [
+        {
+          "corner": [
+            0,
+            0
+          ],
+          "pixel": [
+            1008.25,
+            562.5
+          ]
+        },
+        {
+          "corner": [
+            1,
+            0
+          ],
+          "pixel": [
+            934,
+            539.75
+          ]
+        },
+        {
+          "corner": [
+            1,
+            1
+          ],
+          "pixel": [
+            987.5,
+            511.25
+          ]
+        },
+        {
+          "corner": [
+            0,
+            1
+          ],
+          "pixel": [
+            1058.75,
+            532
+          ]
+        }
+      ],
+      "diagnostic": {
+        "schema_version": 1,
+        "status": "diagnostic_only",
+        "native_geometry_accepted": false,
+        "accuracy_accepted": false,
+        "public_controls_eligible": false,
+        "context_changed": true,
+        "source": {
+          "case": "water_depth_0_foreground",
+          "control": "liquid_only",
+          "fixture": "test.layers.liquids",
+          "context_changed": true,
+          "shell_value": [
+            "minecraft:barrier",
+            0
+          ],
+          "original_keep": [
+            2,
+            3,
+            4
+          ],
+          "isolated_keep": [
+            3,
+            3,
+            3
+          ],
+          "document_origin": [
+            3,
+            125,
+            3
+          ],
+          "png": {
+            "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+            "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+          },
+          "method": "manual_visible_outer_boundary"
+        },
+        "camera": {
+          "position": [
+            1.5,
+            132.5,
+            -0.5
+          ],
+          "target": [
+            6.5,
+            128.5,
+            6.5
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "native_image_screen": [
+            1994,
+            1105
+          ],
+          "vertical_fov": 66.6
+        },
+        "cell_origin": [
+          6.0,
+          128.0,
+          6.0
+        ],
+        "declared_pixel_budget": 3.0,
+        "declared_pixel_budget_units": "native_png_pixels",
+        "pixel_viewport": {
+          "engine_screen": [
+            499.0,
+            277.0
+          ],
+          "observation_screen": [
+            1994.0,
+            1105.0
+          ],
+          "scale": [
+            3.995991983967936,
+            3.9891696750902526
+          ],
+          "declared_pixel_budget_units": "native_png_pixels",
+          "method": "independent_xy_full_viewport_scale",
+          "capture_binding_verified": false,
+          "crop_supported": false
+        },
+        "corners": [
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.07703770212884836,
+            "projected_height_span_pixels": 84.85544499686848,
+            "height_estimate": 0.7093919277881872,
+            "height_interval": [
+              0.6746731044436481,
+              0.7439951812331514
+            ],
+            "interval_width": 0.0693220767895033,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.07703770212875555,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              0
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+                "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.23574694056048628,
+            "projected_height_span_pixels": 81.18923852976883,
+            "height_estimate": 0.7093115975775698,
+            "height_interval": [
+              0.6730872527246822,
+              0.7454172615617453
+            ],
+            "interval_width": 0.07233000883706309,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.23574694056046103,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              0
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+                "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.26758612403778514,
+            "projected_height_span_pixels": 76.42172551722874,
+            "height_estimate": 0.7179931898703704,
+            "height_interval": [
+              0.6795220595210412,
+              0.756340255419866
+            ],
+            "interval_width": 0.07681819589882488,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.2675861240377705,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              1
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+                "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.06142554689561454,
+            "projected_height_span_pixels": 79.7830816528935,
+            "height_estimate": 0.7014655852186383,
+            "height_interval": [
+              0.6644559080069578,
+              0.7383541694519322
+            ],
+            "interval_width": 0.07389826144497447,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.061425546895752574,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              1
+            ],
+            "source": {
+              "case": "water_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                4
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_water_depth_0_foreground_liquid_only_native.png",
+                "sha256": "3f0746beb869b3d26d2f607f7ec9317a13eb85ac9c6e5d2d88e282cdedb5be6c"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          }
+        ],
+        "four_corners_observed": true,
+        "unobservable_corners": [],
+        "limits": {
+          "pixel_budget_is_verified_accuracy": false,
+          "camera_fit_performed": false,
+          "control_pixels_verified": false,
+          "png_identity_verified": false,
+          "source_snapshot_binding_verified": false,
+          "viewport_capture_binding_verified": false,
+          "corner_assignment": "caller-supplied visible boundary with explicit source",
+          "flatness_inferred": false,
+          "hidden_corners_filled": false
+        }
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "supported_positive",
+      "input_pixels": [
+        {
+          "corner": [
+            0,
+            0
+          ],
+          "pixel": [
+            1008,
+            562.25
+          ]
+        },
+        {
+          "corner": [
+            1,
+            0
+          ],
+          "pixel": [
+            934,
+            539.75
+          ]
+        },
+        {
+          "corner": [
+            1,
+            1
+          ],
+          "pixel": [
+            987.5,
+            511.25
+          ]
+        },
+        {
+          "corner": [
+            0,
+            1
+          ],
+          "pixel": [
+            1058.75,
+            532
+          ]
+        }
+      ],
+      "diagnostic": {
+        "schema_version": 1,
+        "status": "diagnostic_only",
+        "native_geometry_accepted": false,
+        "accuracy_accepted": false,
+        "public_controls_eligible": false,
+        "context_changed": true,
+        "source": {
+          "case": "lava_depth_0_foreground",
+          "control": "supported_positive",
+          "fixture": "test.layers.liquids",
+          "context_changed": true,
+          "shell_value": [
+            "minecraft:barrier",
+            0
+          ],
+          "original_keep": [
+            2,
+            3,
+            28
+          ],
+          "isolated_keep": [
+            3,
+            3,
+            3
+          ],
+          "document_origin": [
+            3,
+            125,
+            3
+          ],
+          "png": {
+            "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+            "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+          },
+          "method": "manual_visible_outer_boundary"
+        },
+        "camera": {
+          "position": [
+            1.5,
+            132.5,
+            -0.5
+          ],
+          "target": [
+            6.5,
+            128.5,
+            6.5
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "native_image_screen": [
+            1994,
+            1105
+          ],
+          "vertical_fov": 66.6
+        },
+        "cell_origin": [
+          6.0,
+          128.0,
+          6.0
+        ],
+        "declared_pixel_budget": 3.0,
+        "declared_pixel_budget_units": "native_png_pixels",
+        "pixel_viewport": {
+          "engine_screen": [
+            499.0,
+            277.0
+          ],
+          "observation_screen": [
+            1994.0,
+            1105.0
+          ],
+          "scale": [
+            3.995991983967936,
+            3.9891696750902526
+          ],
+          "declared_pixel_budget_units": "native_png_pixels",
+          "method": "independent_xy_full_viewport_scale",
+          "capture_binding_verified": false,
+          "crop_supported": false
+        },
+        "corners": [
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.1745102329263032,
+            "projected_height_span_pixels": 84.85544499686848,
+            "height_estimate": 0.7122628942759678,
+            "height_interval": [
+              0.677601089095458,
+              0.7468094923566155
+            ],
+            "interval_width": 0.06920840326115751,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.1745102329263574,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              0
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+                "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.23574694056048628,
+            "projected_height_span_pixels": 81.18923852976883,
+            "height_estimate": 0.7093115975775698,
+            "height_interval": [
+              0.6730872527246822,
+              0.7454172615617453
+            ],
+            "interval_width": 0.07233000883706309,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.23574694056046103,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              0
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+                "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.26758612403778514,
+            "projected_height_span_pixels": 76.42172551722874,
+            "height_estimate": 0.7179931898703704,
+            "height_interval": [
+              0.6795220595210412,
+              0.756340255419866
+            ],
+            "interval_width": 0.07681819589882488,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.2675861240377705,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              1
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+                "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.06142554689561454,
+            "projected_height_span_pixels": 79.7830816528935,
+            "height_estimate": 0.7014655852186383,
+            "height_interval": [
+              0.6644559080069578,
+              0.7383541694519322
+            ],
+            "interval_width": 0.07389826144497447,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.061425546895752574,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              1
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "supported_positive",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_supported_positive_native.png",
+                "sha256": "6dce98f388ff49991a872f22ebf552c719c487d8a031babca873d1655c49fb7a"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          }
+        ],
+        "four_corners_observed": true,
+        "unobservable_corners": [],
+        "limits": {
+          "pixel_budget_is_verified_accuracy": false,
+          "camera_fit_performed": false,
+          "control_pixels_verified": false,
+          "png_identity_verified": false,
+          "source_snapshot_binding_verified": false,
+          "viewport_capture_binding_verified": false,
+          "corner_assignment": "caller-supplied visible boundary with explicit source",
+          "flatness_inferred": false,
+          "hidden_corners_filled": false
+        }
+      }
+    },
+    {
+      "case": "lava_depth_0_foreground",
+      "control": "liquid_only",
+      "input_pixels": [
+        {
+          "corner": [
+            0,
+            0
+          ],
+          "pixel": [
+            1008.25,
+            562.5
+          ]
+        },
+        {
+          "corner": [
+            1,
+            0
+          ],
+          "pixel": [
+            934,
+            539.75
+          ]
+        },
+        {
+          "corner": [
+            1,
+            1
+          ],
+          "pixel": [
+            987.5,
+            511.25
+          ]
+        },
+        {
+          "corner": [
+            0,
+            1
+          ],
+          "pixel": [
+            1058.75,
+            532
+          ]
+        }
+      ],
+      "diagnostic": {
+        "schema_version": 1,
+        "status": "diagnostic_only",
+        "native_geometry_accepted": false,
+        "accuracy_accepted": false,
+        "public_controls_eligible": false,
+        "context_changed": true,
+        "source": {
+          "case": "lava_depth_0_foreground",
+          "control": "liquid_only",
+          "fixture": "test.layers.liquids",
+          "context_changed": true,
+          "shell_value": [
+            "minecraft:barrier",
+            0
+          ],
+          "original_keep": [
+            2,
+            3,
+            28
+          ],
+          "isolated_keep": [
+            3,
+            3,
+            3
+          ],
+          "document_origin": [
+            3,
+            125,
+            3
+          ],
+          "png": {
+            "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+            "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+          },
+          "method": "manual_visible_outer_boundary"
+        },
+        "camera": {
+          "position": [
+            1.5,
+            132.5,
+            -0.5
+          ],
+          "target": [
+            6.5,
+            128.5,
+            6.5
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "native_image_screen": [
+            1994,
+            1105
+          ],
+          "vertical_fov": 66.6
+        },
+        "cell_origin": [
+          6.0,
+          128.0,
+          6.0
+        ],
+        "declared_pixel_budget": 3.0,
+        "declared_pixel_budget_units": "native_png_pixels",
+        "pixel_viewport": {
+          "engine_screen": [
+            499.0,
+            277.0
+          ],
+          "observation_screen": [
+            1994.0,
+            1105.0
+          ],
+          "scale": [
+            3.995991983967936,
+            3.9891696750902526
+          ],
+          "declared_pixel_budget_units": "native_png_pixels",
+          "method": "independent_xy_full_viewport_scale",
+          "capture_binding_verified": false,
+          "crop_supported": false
+        },
+        "corners": [
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.07703770212884836,
+            "projected_height_span_pixels": 84.85544499686848,
+            "height_estimate": 0.7093919277881872,
+            "height_interval": [
+              0.6746731044436481,
+              0.7439951812331514
+            ],
+            "interval_width": 0.0693220767895033,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.07703770212875555,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              0
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+                "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              6.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.23574694056048628,
+            "projected_height_span_pixels": 81.18923852976883,
+            "height_estimate": 0.7093115975775698,
+            "height_interval": [
+              0.6730872527246822,
+              0.7454172615617453
+            ],
+            "interval_width": 0.07233000883706309,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.23574694056046103,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              0
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+                "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              7.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.26758612403778514,
+            "projected_height_span_pixels": 76.42172551722874,
+            "height_estimate": 0.7179931898703704,
+            "height_interval": [
+              0.6795220595210412,
+              0.756340255419866
+            ],
+            "interval_width": 0.07681819589882488,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.2675861240377705,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              1,
+              1
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+                "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          },
+          {
+            "status": "diagnostic",
+            "known_xz": [
+              6.0,
+              7.0
+            ],
+            "declared_pixel_budget": 3.0,
+            "declared_pixel_budget_units": "native_png_pixels",
+            "pixel_viewport": {
+              "engine_screen": [
+                499.0,
+                277.0
+              ],
+              "observation_screen": [
+                1994.0,
+                1105.0
+              ],
+              "scale": [
+                3.995991983967936,
+                3.9891696750902526
+              ],
+              "declared_pixel_budget_units": "native_png_pixels",
+              "method": "independent_xy_full_viewport_scale",
+              "capture_binding_verified": false,
+              "crop_supported": false
+            },
+            "perpendicular_residual_pixels": 0.06142554689561454,
+            "projected_height_span_pixels": 79.7830816528935,
+            "height_estimate": 0.7014655852186383,
+            "height_interval": [
+              0.6644559080069578,
+              0.7383541694519322
+            ],
+            "interval_width": 0.07389826144497447,
+            "budget_intersects_unit_endpoint": false,
+            "reprojection_error_pixels": 0.061425546895752574,
+            "accuracy_accepted": false,
+            "interval_scope": "declared_pixel_budget_only",
+            "known_xz_verified_from_image": false,
+            "camera_uncertainty_included": false,
+            "corner": [
+              0,
+              1
+            ],
+            "source": {
+              "case": "lava_depth_0_foreground",
+              "control": "liquid_only",
+              "fixture": "test.layers.liquids",
+              "context_changed": true,
+              "shell_value": [
+                "minecraft:barrier",
+                0
+              ],
+              "original_keep": [
+                2,
+                3,
+                28
+              ],
+              "isolated_keep": [
+                3,
+                3,
+                3
+              ],
+              "document_origin": [
+                3,
+                125,
+                3
+              ],
+              "png": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\p0-integration\\.runtime\\pure-liquid-barrier-source-r7-v1_lava_depth_0_foreground_liquid_only_native.png",
+                "sha256": "d639256d4f4ef8daec607a44541f091d6c7e3a70931d008291d8a6bcc7e14641"
+              },
+              "method": "manual_visible_outer_boundary"
+            }
+          }
+        ],
+        "four_corners_observed": true,
+        "unobservable_corners": [],
+        "limits": {
+          "pixel_budget_is_verified_accuracy": false,
+          "camera_fit_performed": false,
+          "control_pixels_verified": false,
+          "png_identity_verified": false,
+          "source_snapshot_binding_verified": false,
+          "viewport_capture_binding_verified": false,
+          "corner_assignment": "caller-supplied visible boundary with explicit source",
+          "flatness_inferred": false,
+          "hidden_corners_filled": false
+        }
+      }
+    }
+  ],
+  "native_geometry_accepted": false,
+  "accuracy_accepted": false,
+  "public_controls_eligible": false,
+  "scope": "Explicit visible source-water/lava corner intervals in a changed contained context. PNG identity, camera stability and native snapshot gates rechecked; pixel budget is declared, camera uncertainty is excluded, no height rule or public acceptance."
+}

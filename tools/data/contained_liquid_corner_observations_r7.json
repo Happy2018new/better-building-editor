@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "method": "manual_visible_outer_boundary",
+  "declared_pixel_budget": 3,
+  "pixel_units": "original_full_native_png",
+  "inspection_crop": [900, 470, 1100, 650],
+  "inspection_magnification": 4,
+  "inspection_method": "Nearest-neighbor inspection only; pixels below are in the original PNG viewport.",
+  "rows": [
+    {
+      "case": "water_depth_0_foreground", "control": "supported_positive",
+      "observations": [
+        {"corner": [0, 0], "pixel": [1008, 562.5]},
+        {"corner": [1, 0], "pixel": [934, 539.5]},
+        {"corner": [1, 1], "pixel": [987.5, 511.5]},
+        {"corner": [0, 1], "pixel": [1058.75, 532]}
+      ]
+    },
+    {
+      "case": "water_depth_0_foreground", "control": "liquid_only",
+      "observations": [
+        {"corner": [0, 0], "pixel": [1008.25, 562.5]},
+        {"corner": [1, 0], "pixel": [934, 539.75]},
+        {"corner": [1, 1], "pixel": [987.5, 511.25]},
+        {"corner": [0, 1], "pixel": [1058.75, 532]}
+      ]
+    },
+    {
+      "case": "lava_depth_0_foreground", "control": "supported_positive",
+      "observations": [
+        {"corner": [0, 0], "pixel": [1008, 562.25]},
+        {"corner": [1, 0], "pixel": [934, 539.75]},
+        {"corner": [1, 1], "pixel": [987.5, 511.25]},
+        {"corner": [0, 1], "pixel": [1058.75, 532]}
+      ]
+    },
+    {
+      "case": "lava_depth_0_foreground", "control": "liquid_only",
+      "observations": [
+        {"corner": [0, 0], "pixel": [1008.25, 562.5]},
+        {"corner": [1, 0], "pixel": [934, 539.75]},
+        {"corner": [1, 1], "pixel": [987.5, 511.25]},
+        {"corner": [0, 1], "pixel": [1058.75, 532]}
+      ]
+    }
+  ]
+}
