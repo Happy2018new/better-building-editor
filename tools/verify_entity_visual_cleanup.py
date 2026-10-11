@@ -23,7 +23,8 @@ FLAGS = ('_neighbor_visual_options_saved', '_blueprint_qa_saved', '_native_sign_
          '_cold_native_actor_saved', '_neighbor_qa_saved', '_neighbor_qa_occupied',
          '_entities_r7_bed_occupancy_player', '_entities_r7_bed_player',
          '_copper_native_probe', '_copper_native_document', '_copper_native_origin',
-         '_chest_top_public_snapshot', '_entities_r7_chest_top_player')
+         '_chest_top_public_snapshot', '_entities_r7_chest_top_player',
+         '_entity_visual_r8_occupied', '_entity_visual_r8_document', '_entity_visual_r8_history')
 report = {'completed': False, 'restored': False, 'read_only': True}
 try:
     with Client(timeout=30) as client:

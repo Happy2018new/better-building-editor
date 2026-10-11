@@ -57,7 +57,8 @@ position=factory.CreatePos(player)
 flight=factory.CreateFly(player)
 foot=position.GetFootPos()
 sys._entities_r7_chest_top_player={'player':player,'foot':foot,
- 'can_fly':flight.IsPlayerCanFly(),'flying':flight.IsPlayerFlying()}
+ 'can_fly':flight.IsPlayerCanFly(),'flying':flight.IsPlayerFlying(),
+ 'rotation':factory.CreateRot(player).GetRot()}
 assert flight.ChangePlayerFlyState(True,True)
 assert position.SetFootPos((foot[0],127.,foot[2]))
 _result=json.dumps(dict(sys._entities_r7_chest_top_player,after=position.GetFootPos()))
@@ -72,6 +73,7 @@ if saved is not None:
  flight=factory.CreateFly(saved['player'])
  assert position.SetFootPos(tuple(saved['foot']))
  assert flight.ChangePlayerFlyState(saved['can_fly'],saved['flying'])
+ assert factory.CreateRot(saved['player']).SetRot(tuple(saved['rotation']))
  result={'foot':position.GetFootPos(),'can_fly':flight.IsPlayerCanFly(),
   'flying':flight.IsPlayerFlying(),'expected':saved}
  assert tuple(result['foot'])==tuple(saved['foot']),result
@@ -79,6 +81,19 @@ if saved is not None:
  del sys._entities_r7_chest_top_player
 else:result={'saved':False}
 _result=json.dumps(result)
+'''
+
+PLAYER_AT_CAMERA = '''import json,sys
+import mod.server.extraServerApi as api
+saved=sys._entities_r7_chest_top_player
+factory=api.GetEngineCompFactory()
+position,rotation=%r,%r
+assert factory.CreateFly(saved['player']).ChangePlayerFlyState(True,True)
+assert factory.CreatePos(saved['player']).SetFootPos(position)
+assert factory.CreateRot(saved['player']).SetRot(rotation)
+_result=json.dumps({'requested_foot':position,'foot':factory.CreatePos(saved['player']).GetFootPos(),
+ 'requested_rotation':rotation,'rotation':factory.CreateRot(saved['player']).GetRot(),
+ 'flying':factory.CreateFly(saved['player']).IsPlayerFlying()})
 '''
 
 
@@ -97,6 +112,7 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--case-limit', type=int, choices=(1, 2, 3))
     parser.add_argument('--target-height-offset', type=int, choices=(8, 16), default=16)
+    parser.add_argument('--player-at-camera', action='store_true')
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     report = {'schema': 1, 'completed': False, 'passed': False, 'restored': False,
@@ -104,6 +120,7 @@ def main():
               'candidate': '008ca89bf16aab4d12ba2b40bb167844840c18be',
               'candidate_accepted': False, 'cases': [], 'view_offset': [0., 6., .15],
               'native_target_height_offset': args.target_height_offset,
+              'player_at_camera': args.player_at_camera,
               'limits': {'minimum_native_pixels': 1000, 'shape_iou': .82,
                          'scale_relative_error': .2, 'texture_cosine': .45,
                          'center_distance_pixels': 3, 'boundary_rms_pixels': 4}}
@@ -141,6 +158,17 @@ def main():
                     pose = check.run(native.CAPTURE.replace('(-3.5,-3.,-5.)', '(0.,6.,.15)') % (row['cells'],))
                     row['pose'] = pose
                     row['public_source'] = check.run(LOAD_PUBLIC % (fixture, points))
+                    if args.player_at_camera:
+                        row['native_player_camera_side'] = execute(client, PLAYER_AT_CAMERA % (
+                            tuple(pose['position']), (pose['rotation'][0], pose['rotation'][1] - 180.)))
+                        check.wait('native player reaches camera side',
+                            lambda value: all(abs(value[axis]-pose['position'][axis])<.02 for axis in range(3)),
+                            lambda: check.run('_result=b.player_position.GetFootPos()'))
+                        time.sleep(.5)
+                        check.run('cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n'
+                            'cam.LockModCameraPitch(True)\ncam.LockModCameraYaw(True)\n'
+                            'assert cam.SetCameraPos(%r)\nassert cam.SetCameraRotation(%r)\n_result=True' % (
+                                tuple(pose['position']), tuple(pose['rotation'])))
                     check.wait('native top camera settles', lambda value: camera_matches(value, pose),
                                lambda: check.run(native.CAMERA))
                     time.sleep(.5)
