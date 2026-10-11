@@ -120,3 +120,31 @@ compilation checks pass; the final live v2 establishes its actual SDK/capture/
 cleanup behavior. Minecraft Python review excludes host tools and returned
 zero files, so that response is not counted as a review pass. Source and
 cross-thread API boundaries were checked directly against the reused helpers.
+
+## Raw Combine Failure
+
+A separate frozen-source minimum matrix tests one unregistered representative,
+crimson fungus, through the current raw native palette Combine path. Its report
+is `snow-crimson-fungus-raw-dry-h0-r7.json`, SHA256
+`f6b909b339cf49b8f72ca49e5df375fe33594ce188c791d758bd3875b908216c`.
+It is complete/restored/source-stable but **failed**: two failures each in full
+and missing, and one editor failure.
+
+- Dry native fungus: 20,674 pixels; full and missing projected fungus: zero.
+- h0 exposed native fungus after the independent snow control: 18,473 pixels;
+  both projected exposed masks: zero.
+- Editor dry baseline: zero; covered h0 fails `observable_controls`.
+- h0 snow-only full/missing controls pass. Native dry ROI is not clipped.
+- Native Combine returned geometry names for the current one-cell/one-state
+  palette. Both projection sources are work/cache/origin-current, active/ready,
+  with no preparation error. Successful API submission did not render fungus.
+
+This confirms a dry rendering omission for this class, not only a snow overlay
+problem; it does not prove the same outcome for all remaining 24 unregistered
+names. The actual native/full/missing/editor contact sheet was opened and
+inspected: `snow-crimson-fungus-raw-dry-h0-r7-inspect.png`, SHA256
+`a5d661169948551a4e50726d8bf5a7e05786405809c99b1097629607ba37c190`.
+All 28 native PNG references (including the six calibration PNGs) hash-match
+and pass reliable/fresh/background/foreground checks. All 954 frozen source
+hashes match; cleanup and binding-read errors are empty, and every native
+cleanup entry is clean. The report and all comparison failures remain intact.
