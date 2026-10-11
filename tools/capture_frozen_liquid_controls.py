@@ -88,9 +88,20 @@ def native_gate(before, after, plan, requested):
             'before_matches': contained.matches(before[side], expected, plan['reserved']),
             'after_matches': contained.matches(after[side], expected, plan['reserved']),
             'changes': contained.native_changes(before[side], after[side], plan['reserved'])}
-    passed = all(row['before_matches'] and row['after_matches'] and row['changes']['unchanged']
-                 for row in sides.values())
+    failures = []
+    for side, row in sorted(sides.items()):
+        if not row['changes']['observable']:
+            failures.append(side + ':invalid_or_incomplete_snapshot')
+            continue
+        if not row['before_matches']:
+            failures.append(side + ':requested_context_missing_before_capture')
+        if not row['after_matches']:
+            failures.append(side + ':requested_context_missing_after_capture')
+        if not row['changes']['unchanged']:
+            failures.append(side + ':native_layers_changed_during_capture')
+    passed = not failures
     return {'public_snapshot_unchanged': passed, 'sides': sides,
+            'failure_reasons': failures,
             'logical_cells': requested, 'native_reference_cells': reference,
             'native_layer_conversion_required': reference != requested,
             'flow_disabled': True, 'geometry_accepted': False}
@@ -209,7 +220,8 @@ def execute_controls(harness, options, runtime_args, report):
             item['completed'] = True
             harness.checkpoint()
             if not item['native_gate']['public_snapshot_unchanged']:
-                raise RuntimeError('Native source or surrounding layers changed during capture')
+                raise RuntimeError('Native liquid control failed: ' +
+                                   ', '.join(item['native_gate']['failure_reasons']))
         liquid_mask, support_mask = masks(check, direct, plan, pose, expected_size, runtime_args.calibration)
         paths = {key: item['capture']['path'] for key, item in row['controls'].items()}
         row['pixel_controls'], signals = contained.positive_pixel_controls(

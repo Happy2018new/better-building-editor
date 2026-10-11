@@ -108,7 +108,31 @@ class FrozenLiquidControlTests(unittest.TestCase):
         observed = {'server': snapshot(state), 'client': snapshot(state)}
         after = copy.deepcopy(observed)
         after['client']['valid'] = False
-        self.assertFalse(frozen.native_gate(observed, after, plan, [])['public_snapshot_unchanged'])
+        gate = frozen.native_gate(observed, after, plan, [])
+        self.assertFalse(gate['public_snapshot_unchanged'])
+        self.assertEqual(['client:invalid_or_incomplete_snapshot'], gate['failure_reasons'])
+
+    def test_missing_liquid_before_capture_is_distinct_from_capture_time_drift(self):
+        plan = frozen.fixture_plan('flowing_water_depth_1_foreground', (8, 110, -3), (-10, 105, -20))
+        requested = plan['controls']['supported_positive']['cells']
+        expected = frozen.native_reference(requested) + [(plan['platform'], encode(('minecraft:stone', 0)))]
+        present = frozen.contained.expected_native(expected, plan['reserved'])
+        missing = dict(present)
+        missing[plan['cell_origin']] = (AIR, AIR, False)
+        before = {'server': snapshot(missing), 'client': snapshot(missing)}
+        gate = frozen.native_gate(before, before, plan, requested)
+        self.assertFalse(gate['public_snapshot_unchanged'])
+        self.assertTrue(all(row['changes']['unchanged'] for row in gate['sides'].values()))
+        self.assertEqual([
+            'client:requested_context_missing_before_capture',
+            'client:requested_context_missing_after_capture',
+            'server:requested_context_missing_before_capture',
+            'server:requested_context_missing_after_capture'], gate['failure_reasons'])
+        before = {'server': snapshot(present), 'client': snapshot(present)}
+        after = {'server': snapshot(present), 'client': snapshot(missing)}
+        gate = frozen.native_gate(before, after, plan, requested)
+        self.assertEqual(['client:requested_context_missing_after_capture',
+                          'client:native_layers_changed_during_capture'], gate['failure_reasons'])
 
     def frozen_report(self, legacy=False):
         plans = [frozen.fixture_plan(identity, (8, 110, -3), (-10, 105, -20))
