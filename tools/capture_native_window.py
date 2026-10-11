@@ -38,7 +38,7 @@ def capture(session_file, owner, output, executable):
     report_path = output.with_suffix('.capture.json')
     if report_path.exists():
         raise ValueError('Choose a fresh capture report: '+str(report_path))
-    report = {'schema': 1, 'ok': False, 'reliable': False, 'background_only': True,
+    report = {'schema': 2, 'ok': False, 'reliable': False, 'background_only': True,
               'backend': 'Windows.Graphics.Capture', 'native_resolution': True,
               'path': str(output.resolve()), 'started_at': datetime.now(timezone.utc).isoformat()}
     started = time.perf_counter()
@@ -60,11 +60,15 @@ def capture(session_file, owner, output, executable):
                             'sources': {path.name: sha256(path) for path in
                                         sorted((ROOT/'tools/native_wgc').iterdir()) if path.is_file()}}
         report['foreground_before'] = foreground()
+        if report['foreground_before']['pid'] == session['game_pid']:
+            raise RuntimeError('The owned game is foreground; background capture is pending')
         command = [str(executable), str(window['hwnd']), str(session['game_pid']),
                    session['game_identity'], str(output.resolve())]
         result = subprocess.run(command, capture_output=True, text=True, encoding='utf8',
                                 timeout=15, creationflags=subprocess.CREATE_NO_WINDOW)
         report['foreground_after'] = foreground()
+        report['foreground_unchanged'] = report['foreground_before'] == report['foreground_after']
+        report['background_safe'] = report['foreground_after']['pid'] != session['game_pid']
         report.update(helper_returncode=result.returncode, helper_stderr=result.stderr)
         if result.returncode:
             raise RuntimeError(result.stderr.strip() or 'Native WGC helper failed')
@@ -81,9 +85,10 @@ def capture(session_file, owner, output, executable):
                           sha256=sha256(output), bytes=output.stat().st_size)
         if max(report['variance']) <= 1.:
             raise RuntimeError('Native WGC background capture is blank; activation fallback is disabled')
-        report['foreground_unchanged'] = report['foreground_before'] == report['foreground_after']
-        if not report['foreground_unchanged']:
-            raise RuntimeError('Foreground window changed during capture; acceptance is pending')
+        # Switching between other applications is ordinary background use.
+        # The capture helper has no activation path; keep both observations.
+        if not report['background_safe']:
+            raise RuntimeError('The owned game became foreground during capture; acceptance is pending')
         report['ok'] = report['reliable'] = True
         return report
     except Exception as error:

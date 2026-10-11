@@ -34,6 +34,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 液体全状态探针随后完成：当前 dump 四种液体共 **64 状态**全部采集，unsupportedMode=1 均返回 None，石头／玻璃正控仍返回几何名称；世界未修改。版本快照 `tools/data/native_liquid_geometry_support_nemc_3.9.0.401155.json` 记录完整输入／往返、状态、接口返回、实例归属及探针源码 SHA，并纳入统一版本来源校验。滴水石保存地形的第二次前置检查在 `(-17,-34,6)` 的沙砾处拒绝（重力方块），报告 `.runtime/dripstone-native-holdout-r6-preserved-background.json` 为 completed=false/restored=true、没有世界／玩家写入，原 92 对仍待验收；不放宽重力方块检查或挪动坐标。
 
+**后台捕获门控修正：** 静态连缀 smoke 的初次及 retry1 在非 MC 应用之间的正常前台切换时被旧 `foreground_unchanged` 检查拒绝；均保留失败报告并完整恢复，retry1 在夹具写入前退出。此问题已立即向用户报告。捕获报告 schema=2 继续记录真实前后 HWND/PID 及 `foreground_unchanged`，新增 `background_safe`：拥有的 MC 在捕获前后都必须不在前台，但允许用户正常切换其他应用。原尺寸、绑定／创建时间、新帧、非空像素及无激活路径检查保持；任何实际 MC 前台、取图不可靠或测试中断仍必须即时显式报告。不重写历史报告为通过。
+
 ### 第五轮进行中（2026-10-11 00:14 起，截止 07:30）
 
 第四轮检查点为 `75c071f`。用户将本轮截止从 06:00 改为 07:30，并明确要求截止后 Windows 休眠；一次性任务 `Codex-BBE-R5-Hibernate-20261011-0730` 已登记，动作仅为 `shutdown.exe /h`，旧的 06:00 任务已移除。07:05 停止新增实现，07:15 前完成 agent 检查点，随后统一回归、保存现场、提交与停止 MC 实例。

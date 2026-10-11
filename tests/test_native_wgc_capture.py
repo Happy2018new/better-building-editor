@@ -14,7 +14,8 @@ import capture_native_window as capture
 
 class NativeCaptureTests(unittest.TestCase):
     def run_capture(self, temporary, *, blank=False, minimized=False, stale_frame=False,
-                    stale_session=False, foreground_changed=False):
+                    stale_session=False, foreground_changed=False,
+                    game_foreground_before=False, game_foreground_after=False):
         directory = Path(temporary)
         executable = directory/'capture.exe'
         executable.write_bytes(b'host-test')
@@ -35,23 +36,28 @@ class NativeCaptureTests(unittest.TestCase):
             return type('Result', (), {'returncode': 0, 'stdout': json.dumps(frame), 'stderr': ''})()
 
         foreground = [{'hwnd': 42, 'pid': 43}, {'hwnd': 44 if foreground_changed else 42, 'pid': 43}]
+        if game_foreground_before:
+            foreground[0] = {'hwnd': 789, 'pid': 123}
+        if game_foreground_after:
+            foreground[1] = {'hwnd': 789, 'pid': 123}
         with patch.object(capture, 'load_session', side_effect=RuntimeError('Stale instance') if stale_session else None,
                           return_value=session), \
              patch.object(capture, '_list_windows_windows', return_value=[window]), \
              patch.object(capture, '_find_game_window', return_value=window), \
              patch.object(capture, 'foreground', side_effect=foreground), \
              patch.object(capture.subprocess, 'run', side_effect=run):
-            rejected = blank or minimized or stale_frame or stale_session or foreground_changed
+            rejected = blank or minimized or stale_frame or stale_session or game_foreground_before or game_foreground_after
             if rejected:
                 with self.assertRaises(RuntimeError):
                     capture.capture(session['session_file'], session['owner'], output, executable)
             else:
                 result = capture.capture(session['session_file'], session['owner'], output, executable)
-                self.assertTrue(result['ok'] and result['foreground_unchanged'])
+                self.assertTrue(result['ok'] and result['background_safe'])
+                self.assertEqual(result['foreground_unchanged'], not foreground_changed)
                 self.assertEqual((result['width'], result['height']), (64, 48))
         report = json.loads(output.with_suffix('.capture.json').read_text(encoding='utf8'))
         self.assertEqual(report['reliable'], not rejected)
-        self.assertEqual(len(calls), 0 if minimized or stale_session else 1)
+        self.assertEqual(len(calls), 0 if minimized or stale_session or game_foreground_before else 1)
         if calls:
             self.assertEqual(calls[0][0][1:4], ['789', '123', '456'])
             self.assertEqual(calls[0][1]['creationflags'], capture.subprocess.CREATE_NO_WINDOW)
@@ -64,9 +70,14 @@ class NativeCaptureTests(unittest.TestCase):
             self.run_capture(temporary)
 
     def test_rejections_keep_diagnostics_and_do_not_activate(self):
-        for case in ('blank', 'minimized', 'stale_frame', 'stale_session', 'foreground_changed'):
+        for case in ('blank', 'minimized', 'stale_frame', 'stale_session',
+                     'game_foreground_before', 'game_foreground_after'):
             with self.subTest(case=case), tempfile.TemporaryDirectory() as temporary:
                 self.run_capture(temporary, **{case: True})
+
+    def test_switching_other_applications_preserves_accurate_background_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            self.run_capture(temporary, foreground_changed=True)
 
 
 if __name__ == '__main__':
