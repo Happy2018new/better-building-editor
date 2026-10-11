@@ -139,6 +139,8 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **04:23 液体版本 profile 组合：** 新增 `NativeLiquidProfile`，从显式资源数据组合纯形状 provider 与原生分面纹理。它核对游戏／palette、形状候选、分面资源行集合和载荷版本，提前拒绝缺失／重复模型、未登记侧面 UV、UI／世界混用模型、无效预算和世界姿态；内部复制资源映射，不运行 SDK 或读取文件。原生 UI 中心补偿使用单独 `ui_offset(view.size)`，仅改变控件位置。四项合同测试通过，包含真实 `LiquidPreview`／`LiquidProjection` owner 路径共用形状但独立资源、透明准备后发布以及清理；运行时 157 文件白名单无违规，MOD review 解析 1 文件无发现。profile 的存在仍不等于正式资源或实机接受，默认保持未启用；液体代理继续校准三个姿态、两类宽高比和中心偏移。
 
+**04:27 profile 整合离线复核：** `.runtime/version-bundle-r9-native-profile-v1.json` 全过，**1,417 项测试、55 个版本来源、全部生成器和 15,858 状态 × 六操作通过**，测试约 69 秒；这包括前述正式 ±2 包围盒、形状运行模块、逐批次尺寸和 profile 接线。原生编辑器 v5 的三姿态水纹为空白、石块正控正常，保留失败；同候选纯色 packet 在第一姿态可见并与石块对齐，将问题缩小至 bitmap fragment／颜色参数。世界 v14 的 API 调用成功但 bitmap 同样空白，不计为通过。下一候选移除未经实机确认的 `HIDE_COLOR_FRAGMENT`，复用已验证的 UI `CURRENT_COLOR.a` 路径并分别检查世界 bypass；原生镜头／透明度／共享遮挡和实际 Scene 仍待验收。
+
 ### 第八轮保存检查点（2026-10-11，截止 23:30）
 
 本轮从 `dev` 的 `67dfc74` 接续；`main` 和 `render-dragon` 保持各自既定用途。用户暂存的五个 `tools/p0_palette_*_probe.py` 文件保留暂存状态，不能混入本轮的路径限定提交。此前归档的 `.runtime/p0-*` 路径只用于读取历史证据，本轮三个代理曾使用新的实际 Git 工作树 `r8-liquid`、`r8-entities`、`r8-snow`；接受提交已统一接入 `dev`，三个工作树及对应临时分支已归档清理，旧路径现在也仅为证据别名。
