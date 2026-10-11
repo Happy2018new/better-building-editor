@@ -7,8 +7,8 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.liquid_transport import (
-    MAX_HEIGHT_ERROR, PAYLOAD_TAG, UNSPECIFIED_OPACITY,
-    appearance_uniform, pack_group, validate_uniforms)
+    MAX_HEIGHT_ERROR, MAX_DEPTH_ERROR, PAYLOAD_TAG, PREVIEW_TAG_BYTE, UNSPECIFIED_OPACITY,
+    RenderGroup, appearance_uniform, pack_group, preview_tag, validate_uniforms, with_preview_distance)
 
 Surface = namedtuple('Surface', 'position layer heights faces texture_key flow_uv')
 
@@ -80,6 +80,40 @@ class LiquidTransportTests(unittest.TestCase):
             changed[index] = value
             with self.assertRaises(ValueError):
                 validate_uniforms(tuple(changed))
+
+    def test_signed16_preview_depth_and_tag_are_exact_in_float32(self):
+        for code in range(65536):
+            distance = (code - 32768) / 64.
+            tag = preview_tag(distance)
+            encoded = struct.unpack('f', struct.pack('f', tag))[0]
+            self.assertEqual(tag, encoded)
+            self.assertEqual(PREVIEW_TAG_BYTE, int(encoded) % 256)
+            self.assertEqual(distance, (int(encoded) // 256 - 32768) / 64.)
+        for distance in (-511.993, -1.001, -.001, .001, 1.001, 511.977):
+            encoded = preview_tag(distance)
+            self.assertLessEqual(abs((int(encoded) // 256 - 32768) / 64. - distance), MAX_DEPTH_ERROR)
+
+    def test_preview_distance_helper_preserves_shape_appearance_and_identity(self):
+        payload = pack_group((0, 0, 0), (surface(),), (18, 52, 86), None, .4)
+        group = RenderGroup(('stable', 0), 'native_liquid_model', (0, 0, 0), payload)
+        changed = with_preview_distance(group, -4.)
+        self.assertEqual(group[:3], changed[:3])
+        self.assertEqual(payload[:3], changed.uniforms[:3])
+        self.assertEqual(payload[3][1:], changed.uniforms[3][1:])
+        self.assertEqual(preview_tag(-4.), changed.uniforms[3][0])
+        self.assertEqual(changed.uniforms, validate_uniforms(changed.uniforms))
+        self.assertIs(changed, with_preview_distance(changed, -4.))
+        self.assertEqual(group, with_preview_distance(changed, None))
+
+    def test_invalid_preview_depth_and_noninteger_packet_are_rejected(self):
+        for value in (True, float('nan'), float('inf'), -512.01, 512., '4'):
+            with self.assertRaises(ValueError):
+                preview_tag(value)
+        valid = pack_group((0, 0, 0), (surface(),), (1, 2, 3), None, 1., preview_distance=0.)
+        for tag in (valid[3][0] + .5, valid[3][0] + 1., -122.):
+            changed = valid[:3] + ((tag,) + valid[3][1:],)
+            with self.assertRaises(ValueError):
+                validate_uniforms(changed)
 
 
 if __name__ == '__main__':

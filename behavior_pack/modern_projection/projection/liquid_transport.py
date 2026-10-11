@@ -1,8 +1,13 @@
 """Four-cell payload encoding; all shape and UV decisions belong to the provider."""
 from collections import namedtuple
+import math
 from .storage import integer_types
 
 PAYLOAD_TAG = 39686.
+PAYLOAD_VERSION = 2
+PREVIEW_TAG_BYTE = 134
+DEPTH_DENOMINATOR = 64
+MAX_DEPTH_ERROR = .5 / DEPTH_DENOMINATOR
 UNSPECIFIED_OPACITY = -1.
 CELLS_PER_GROUP = 4
 HEIGHT_DENOMINATOR = 255
@@ -43,17 +48,36 @@ def _uv(value):
     return value[0], _integer(value[1], 0, 255, 'UV rotation')
 
 
-def appearance_uniform(color, opacity, projection_opacity):
+def preview_tag(distance):
+    if (isinstance(distance, bool) or not isinstance(distance, integer_types + (float,))
+            or math.isinf(distance) or math.isnan(distance)
+            or not -512. <= distance <= 511.984375):
+        raise ValueError('Liquid preview distance exceeds the signed16 depth range')
+    code = int(math.floor(distance * DEPTH_DENOMINATOR + 32768. + .5))
+    return float((code << 8) | PREVIEW_TAG_BYTE)
+
+
+def appearance_uniform(color, opacity, projection_opacity, preview_distance=None):
     """Keep unspecified material opacity distinct from the projection opacity."""
     if not isinstance(color, tuple) or len(color) != 3:
         raise ValueError('Liquid tint requires three RGB bytes')
     rgb = tuple(_integer(channel, 0, 255, 'tint channel') for channel in color)
     alpha = UNSPECIFIED_OPACITY if opacity is None else _unit(opacity, 'material opacity')
     packed_tint = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
-    return (PAYLOAD_TAG, alpha, float(packed_tint), _unit(projection_opacity, 'projection opacity'))
+    tag = PAYLOAD_TAG if preview_distance is None else preview_tag(preview_distance)
+    return (tag, alpha, float(packed_tint), _unit(projection_opacity, 'projection opacity'))
 
 
-def pack_group(origin, surfaces, color, opacity, projection_opacity):
+def with_preview_distance(group, distance):
+    validate_uniforms(group.uniforms)
+    tag = PAYLOAD_TAG if distance is None else preview_tag(distance)
+    if group.uniforms[3][0] == tag:
+        return group
+    appearance = (tag,) + group.uniforms[3][1:]
+    return group._replace(uniforms=group.uniforms[:3] + (appearance,))
+
+
+def pack_group(origin, surfaces, color, opacity, projection_opacity, preview_distance=None):
     """Encode local address6 + faces6 + rotation8; omit unused slots with faces=0.
 
     Heights use nearest 8-bit codes with maximum normalized error 1/510.
@@ -96,7 +120,7 @@ def pack_group(origin, surfaces, color, opacity, projection_opacity):
     addresses.extend([0.] * (CELLS_PER_GROUP - len(surfaces)))
     height_pairs.extend([0.] * (2 * (CELLS_PER_GROUP - len(surfaces))))
     return (tuple(addresses), tuple(height_pairs[:4]), tuple(height_pairs[4:]),
-            appearance_uniform(color, opacity, projection_opacity))
+            appearance_uniform(color, opacity, projection_opacity, preview_distance))
 
 
 def validate_uniforms(uniforms):
@@ -108,7 +132,9 @@ def validate_uniforms(uniforms):
         if any(isinstance(value, bool) or not isinstance(value, integer_types + (float,))
                or not -16777215. <= value <= 16777215. for value in group):
             raise ValueError('Liquid uniforms require finite float-exact values')
-    if uniforms[3][0] != PAYLOAD_TAG:
+    tag = uniforms[3][0]
+    if tag != PAYLOAD_TAG and not (tag == int(tag) and 0 <= tag <= 16777215
+                                   and int(tag) % 256 == PREVIEW_TAG_BYTE):
         raise ValueError('Liquid payload tag does not match its material')
     if any(value != int(value) or not 0 <= value < 1048576 for value in uniforms[0]):
         raise ValueError('Liquid cell codes must contain address6 + faces6 + rotation8')

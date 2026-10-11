@@ -47,6 +47,10 @@ class SkeletonLiquidRenderer(object):
             self.show(slot, value)
             self.visible[slot] = value
 
+    @staticmethod
+    def _shape(group):
+        return None if group is None else (group.model_name, group.uniforms[:3])
+
     def _render_pose(self, slot, group, pose):
         scale, rot_x, rot_y, rot_z = pose
         return self.dolls[slot].RenderSkeletonModel({
@@ -103,10 +107,11 @@ class SkeletonLiquidRenderer(object):
 
     def _settle(self, group, pose, now):
         back = 1 - self.front
-        if self.pending[0] != group:
+        if self._shape(self.pending[0]) != self._shape(group):
             self._show(back, False)
             self.pending = None
             return True
+        self.groups[back] = group
         self.frames += 1
         if self.frames < 2 and now - self.started < self.READY_TIMEOUT:
             return False
@@ -123,6 +128,9 @@ class SkeletonLiquidRenderer(object):
         # Pose changes do not restart shape readiness. Apply the latest orbit
         # while the incoming bank is still masked before publishing it.
         if not self._update_pose(back, pose, staging=True):
+            if not self.error and now - self.started < self.READY_TIMEOUT:
+                return False
+            self.error = self.error or 'Liquid skeleton pose ID did not become ready'
             self._show(back, False)
             self.pending = None
             self.failed_request = (group, None)
@@ -166,13 +174,20 @@ class SkeletonLiquidRenderer(object):
         if pose[0] <= 0.:
             raise ValueError('Liquid skeleton scale must be positive')
         request = (group, pose)
-        latched = self.failed_request in (request, (group, None))
+        failed = self.failed_request
+        latched = failed in (request, (group, 'appearance')) or (failed is not None
+            and failed[1] is None and self._shape(failed[0]) == self._shape(group))
         previous_error = self.error
         if not latched:
             self.error, self.failed_request = None, None
         if self.groups[self.front] is not None:
+            previous_group = self.groups[self.front]
+            self.groups[self.front] = (group if self._shape(previous_group) == self._shape(group)
+                else previous_group._replace(uniforms=previous_group.uniforms[:3] + group.uniforms[3:]))
             if not self._update_pose(self.front, pose):
-                self.failed_request = request
+                self.groups[self.front] = previous_group
+                if self.error:
+                    self.failed_request = ((group, 'appearance') if 'uniforms' in self.error else request)
                 return False
             if latched:
                 self.error = previous_error
@@ -180,7 +195,7 @@ class SkeletonLiquidRenderer(object):
             return False
         if self.pending is not None and not self._settle(group, pose, now):
             return False
-        if self.groups[self.front] != group:
+        if self._shape(self.groups[self.front]) != self._shape(group):
             back = 1 - self.front
             self._show(back, False)
             self.error = None

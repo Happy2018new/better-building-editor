@@ -5,7 +5,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.liquid_render import SkeletonLiquidRenderer, WorldLiquidRenderer
-from projection.liquid_transport import RenderGroup, pack_group
+from projection.liquid_transport import RenderGroup, pack_group, with_preview_distance
 from tests.test_liquid_transport import surface
 
 POSE = (.15, -55., 0., 0.)
@@ -118,6 +118,43 @@ class SkeletonLiquidTests(unittest.TestCase):
             self.assertEqual(1, self.renderer.front)
             self.assertEqual({0: False, 1: True}, self.shown)
         self.assertEqual(calls, len(self.model.calls))
+
+    def test_view_depth_and_appearance_changes_update_active_uniform_without_bank_switch(self):
+        value = group()
+        self.assertTrue(self.settle(value, 0., 1))
+        calls = len(self.dolls[1].calls)
+        for frame in range(16):
+            changed = with_preview_distance(value, -4. + frame / 8.)
+            changed = changed._replace(uniforms=changed.uniforms[:3] +
+                ((changed.uniforms[3][0], .65, float(0xABCDEF), .25),))
+            self.assertTrue(self.renderer.update(changed, POSE, 1. + frame / 60.))
+            self.assertEqual(1, self.renderer.front)
+            self.assertIsNone(self.renderer.pending)
+            self.assertEqual(changed.uniforms[3], self.renderer.uniforms[1][4])
+        self.assertEqual(calls, len(self.dolls[1].calls))
+
+    def test_depth_changes_during_pending_shape_keep_upload_and_publish_latest_uniform(self):
+        value = group()
+        self.renderer.update(value, POSE, 0.)
+        self.dolls[1].model_id = 1
+        for frame in range(1, 6):
+            changed = with_preview_distance(value, -4. + frame / 8.)
+            self.renderer.update(changed, POSE, frame / 60.)
+        self.assertEqual(1, self.renderer.front)
+        self.assertIsNone(self.renderer.pending)
+        self.assertEqual(1, len(self.dolls[1].calls))
+        self.assertEqual(changed, self.renderer.groups[1])
+        self.assertEqual(changed.uniforms[3], self.renderer.uniforms[1][4])
+
+    def test_failed_active_appearance_keeps_previous_payload_and_front(self):
+        value = group()
+        self.assertTrue(self.settle(value, 0., 1))
+        self.model.ok = False
+        changed = with_preview_distance(value, -4.)
+        self.assertFalse(self.renderer.update(changed, POSE, 1.))
+        self.assertEqual(value, self.renderer.groups[1])
+        self.assertEqual(value.uniforms[3], self.renderer.uniforms[1][4])
+        self.assertEqual({0: False, 1: True}, self.shown)
 
     def test_failed_active_pose_submission_keeps_previous_pose_and_payload(self):
         value = group()
