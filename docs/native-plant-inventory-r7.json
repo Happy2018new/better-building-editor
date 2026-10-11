@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "scope": "Native dry visibility inventory only; no production proxy acceptance",
+  "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/session.json",
+  "artifact_directory": "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/artifacts",
+  "nemc_version": "3.9.0.401155",
+  "runtime_minecraft_version": "1.21.120.0",
+  "report": {
+    "file": "native-plants-all29-dry-r7-v2.json",
+    "sha256": "68ac9d13d8a35d455744181f67004babdf51cd3433c8365ccc00a99e8fe6111d",
+    "completed": true,
+    "restored": true,
+    "inventory_ready": true,
+    "source_assets_stable": true
+  },
+  "inspection_actually_opened": {
+    "file": "native-plants-all29-dry-r7-v2-inspect.png",
+    "sha256": "254e2300ebbc9bf9e1a0513dd3829ae7ce15c9588bffd43f0e4e33a9f49a07e8",
+    "inspection_only": true
+  },
+  "audit": {
+    "requested_native_plants": 29,
+    "observable_requested_native_plants": 29,
+    "native_identity_stable_around_every_shown_png": true,
+    "air_identity_stable_around_every_hidden_png": true,
+    "native_pngs_hash_verified": 58,
+    "native_masks_hash_verified": 29,
+    "all_wgc_reliable_native_resolution_background_safe": true,
+    "all_foreground_unchanged": true,
+    "all_frame_qpc_after_request_qpc": true,
+    "frozen_runtime_resource_files": 954,
+    "frozen_source_changes": [],
+    "cleanup_errors": [],
+    "native_cleanup_all_clean": true,
+    "binding_read_failures": []
+  },
+  "limits": {
+    "minimum_observable_pixels": 80,
+    "native_pixel_change": 20,
+    "native_roi_boundary_contact_pixels": 0,
+    "calibrated_roi_changed": false,
+    "public_controls_eligible": false,
+    "new_production_plant_acceptance": false
+  },
+  "coverage": {
+    "current_registered_cross_proxies": 4,
+    "unregistered_cross_proxy_names": 25,
+    "proxy_absence_is_not_a_measured_general_projection_verdict": true
+  },
+  "rows": [
+    {"plant": "short_grass", "native_pixels": 27525, "cross_proxy": true, "roi_boundary_pixels": 0},
+    {"plant": "fern", "native_pixels": 27910, "cross_proxy": true, "roi_boundary_pixels": 0},
+    {"plant": "dandelion", "native_pixels": 12390, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "poppy", "native_pixels": 13620, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "blue_orchid", "native_pixels": 17390, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "allium", "native_pixels": 15071, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "azure_bluet", "native_pixels": 16888, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "brown_mushroom", "native_pixels": 11843, "cross_proxy": true, "roi_boundary_pixels": 0},
+    {"plant": "bush", "native_pixels": 43098, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "closed_eyeblossom", "native_pixels": 19365, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "cornflower", "native_pixels": 13911, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "crimson_fungus", "native_pixels": 20674, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "crimson_roots", "native_pixels": 36928, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "firefly_bush", "native_pixels": 54407, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "lily_of_the_valley", "native_pixels": 20458, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "nether_sprouts", "native_pixels": 12777, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "open_eyeblossom", "native_pixels": 22464, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "orange_tulip", "native_pixels": 16026, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "oxeye_daisy", "native_pixels": 20075, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "pink_tulip", "native_pixels": 16142, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "red_mushroom", "native_pixels": 11027, "cross_proxy": true, "roi_boundary_pixels": 0},
+    {"plant": "red_tulip", "native_pixels": 19340, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "short_dry_grass", "native_pixels": 6300, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "tall_dry_grass", "native_pixels": 28453, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "torchflower", "native_pixels": 37671, "cross_proxy": false, "roi_boundary_pixels": 14},
+    {"plant": "warped_fungus", "native_pixels": 17330, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "warped_roots", "native_pixels": 37024, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "white_tulip", "native_pixels": 17651, "cross_proxy": false, "roi_boundary_pixels": 0},
+    {"plant": "wither_rose", "native_pixels": 14364, "cross_proxy": false, "roi_boundary_pixels": 0}
+  ],
+  "conditions": [
+    {"plant": "torchflower", "condition": "Fixed calibrated ROI contacts 14 native contribution pixels; complete silhouette not accepted"}
+  ],
+  "preserved_failed_first_attempt": {
+    "file": "native-plants-all29-dry-r7.json",
+    "sha256": "cf29007cf6b66f09c729bc8bfbaf8f2b389f22f8540c4b0c92c2e25d44b5771e",
+    "completed": false,
+    "restored": true,
+    "inventory_ready": false,
+    "error": "AttributeError: 'int' object has no attribute 'command'",
+    "cleanup_errors": [],
+    "completed_rows": 0
+  },
+  "next_candidate_source_limits": {
+    "names": ["crimson_fungus", "warped_fungus"],
+    "static_texture_identity_verified": true,
+    "authoritative_native_mesh_found": false,
+    "native_xz_offset_contract_found": false,
+    "new_models_generated": false,
+    "candidate_names_registered": false
+  },
+  "reference_sources": [
+    {
+      "file": "tools/data/static_plant_sources_nemc_3.9.0.401155.json",
+      "sha256": "d53036809f7cd62bfb770316d3a349c1c37708d24bad5ead03908cadda74323c",
+      "scope": "Native block and atlas mappings, texture hashes and alpha bounds"
+    },
+    {
+      "file": "tools/data/native_block_metadata_nemc_3.9.0.401155.json",
+      "sha256": "1f7f6f2286dc7bd8dee748899ba8f12a973532d151c2047ec400c9ee8342d460",
+      "scope": "Versioned native renderLayer, solid and tag metadata; no mesh or offset contract"
+    }
+  ],
+  "reproduction": {
+    "host_harness": "tools/verify_native_plant_visibility_inventory.py",
+    "camera_calibration": "snow-camera-calibration-r7-lift64-skyward.json",
+    "camera_calibration_sha256": "e812f845206ac99857f1b439914a8aca52462880b781a48f576ba6d2f341e16b",
+    "frozen_source": ".runtime/snow-r7-prelaunch-source-hashes.json",
+    "frozen_source_sha256": "53a6120dcb5679ad60c429bb874c98ba8eb2ea8c1eec9770291f3f09fcf62ca9",
+    "fixture_lift_y": 16,
+    "near_player": true,
+    "flight_modified": false,
+    "world_camera_offset": [-2, 0.15, -2.5],
+    "original_reports_must_not_be_overwritten": true
+  }
+}
