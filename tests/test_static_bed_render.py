@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 sys.path.insert(0, str(ROOT / 'tools'))
 from projection import block_registry
 from projection.block_groups import from_states, group_partner
-from projection.cell import actor_data, foreground, make_cell, rebase
+from projection.cell import actor_data, background, foreground, make_cell, rebase
 from projection.debug_blueprints import build
 from projection.geometry_palette import INTERNAL_RENDER_BLOCKS, prepare_palette
 from projection.model import Document, Editor
@@ -102,6 +102,40 @@ class StaticBedTests(unittest.TestCase):
         builder = ContextPaletteBuilder(doc, doc.palette_data())
         self.assertEqual((BED_PROXIES[('silver', 0, False)], 0), builder.material(1, 1, 1)[0]['common'])
         self.assertEqual((BED_PROXIES[('light_blue', 0, False)], 0), builder.material(5, 1, 1)[0]['common'])
+
+    def test_all_colors_and_directions_keep_wet_bed_halves_across_snapshot_chunks(self):
+        water = ('minecraft:water', 0)
+        for color, direction in product(range(16), range(4)):
+            delta = BED_DIRECTIONS[direction]
+            foot = (15 if delta[0] > 0 else 16, 1, 15 if delta[2] > 0 else 16)
+            head = tuple(foot[axis] + delta[axis] for axis in range(3))
+            self.assertNotEqual(tuple(value >> 4 for value in foot), tuple(value >> 4 for value in head))
+            values = {}
+            for pos, is_head, source_color in ((foot, False, 0), (head, True, color)):
+                value = cell(direction, is_head, source_color)
+                values[pos] = make_cell(foreground(value), water, actor_data(value))
+            document = Document((32, 3, 32), values)
+            before = deepcopy(document.to_data())
+            for kept in (foot, head):
+                with self.subTest(color=color, direction=direction, kept=kept):
+                    targets = document.palette_data(lambda pos: pos == kept)
+                    builder = ContextPaletteBuilder(document, targets)
+                    for pos, is_head in ((foot, False), (head, True)):
+                        rendered = builder.material(*pos)[0]
+                        self.assertEqual((BED_PROXIES[(BED_COLORS[color], direction, is_head)], 0),
+                                         rendered['common'])
+                        self.assertEqual(water, rendered['extra'])
+                        self.assertNotIn('actor', rendered)
+                    batches = prepare_context_batches(document, targets)['_context_batches']
+                    self.assertTrue(batches)
+                    for unused, unused_packed, palette in batches:
+                        self.assertEqual({}, palette['actor'])
+                        self.assertEqual({water}, set(palette['extra']))
+                        self.assertEqual({(BED_PROXIES[(BED_COLORS[color], direction, is_head)], 0)
+                                          for is_head in (False, True)}, set(palette['common']))
+            self.assertEqual(before, document.to_data())
+            self.assertEqual(water, background(document.get(foot)))
+            self.assertEqual(water, background(document.get(head)))
 
     def test_unknown_color_tag_type_does_not_silently_render_white(self):
         value = cell(0, True, 8)
