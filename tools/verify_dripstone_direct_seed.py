@@ -97,6 +97,19 @@ def static_fixture_plan(identity):
     return cells, supports, translated(row['keep']), translated(row['occupied'])
 
 
+def verify_static_values(server, client, expected):
+    for side, result in (('server', server), ('client', client)):
+        observed = {}
+        for row in result['rows']:
+            pos = tuple(row['pos'])
+            assert pos not in observed, ('duplicate native cell', side, pos)
+            value = row['value']
+            observed[pos] = ((value['name'], value['aux']) if side == 'server' else tuple(value))
+        assert observed == expected, (side, expected, observed)
+    return {'original_names_and_aux_equal': True,
+            'limits': 'Plant collision boxes are raw diagnostic fields.'}
+
+
 GENERATE = '''positions=%r
 prefix=%r
 low=tuple(min(pos[i] for pos in positions) for i in range(3))
@@ -261,12 +274,8 @@ def execute(check, args, report):
                              'client': check.run(CLIENT_BOXES % (positions,))}
     expected = dict(all_cells)
     if args.static_case:
-        for side in ('server', 'client'):
-            observed = {tuple(row['pos']): (row['value']['name'], row['value']['aux'])
-                        for row in report['native_aabb'][side]['rows']}
-            assert observed == expected, (side, expected, observed)
-        report['native_aabb']['verification'] = {'original_names_and_aux_equal': True,
-                                                 'limits': 'Plant collision boxes are raw diagnostic fields.'}
+        report['native_aabb']['verification'] = verify_static_values(
+            report['native_aabb']['server'], report['native_aabb']['client'], expected)
         report['native_capability'] = check.run(STATIC_CAPABILITY % (cells, supports))
     else:
         report['native_aabb']['verification'] = verify_scene_boxes(

@@ -91,6 +91,17 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
                 self.assertEqual(keep, (6, keep_y, 6))
                 self.assertEqual(occupied, (6, keep_y - 1, 6))
 
+    def test_static_verification_accepts_native_server_dict_and_client_pair(self):
+        expected = {(6, 86, 6): ('minecraft:pale_hanging_moss', 1)}
+        server = {'rows': [{'pos': [6, 86, 6], 'value': {'name': 'minecraft:pale_hanging_moss', 'aux': 1}}]}
+        client = {'rows': [{'pos': [6, 86, 6], 'value': ['minecraft:pale_hanging_moss', 1]}]}
+        self.assertTrue(diagnostic.verify_static_values(server, client, expected)['original_names_and_aux_equal'])
+        for invalid in ({'rows': []},
+                        {'rows': client['rows'] * 2},
+                        {'rows': [{'pos': [6, 86, 6], 'value': ['minecraft:pale_hanging_moss', 0]}]}):
+            with self.assertRaises(AssertionError):
+                diagnostic.verify_static_values(server, invalid, expected)
+
     def test_comparison_rejects_shift_and_excess_color_error(self):
         baseline = Image.new('RGB', (100, 100))
         ImageDraw.Draw(baseline).rectangle((40, 10, 49, 89), fill=(140, 110, 80))
