@@ -32,6 +32,29 @@ def camera_arguments(camera):
     return position, target, screen, fov, roll
 
 
+def pixel_viewport(camera):
+    """Map a complete engine viewport to a complete native PNG, without fitting."""
+    engine = vector(camera['screen'], 2, 'engine viewport')
+    native = camera.get('native_image_screen')
+    screen = engine if native is None else vector(native, 2, 'native PNG viewport')
+    if any(value <= 0 for value in engine + screen):
+        raise ValueError('Engine and native PNG viewport dimensions must be positive')
+    return {'engine_screen': engine, 'observation_screen': screen,
+            'scale': tuple(screen[i] / engine[i] for i in range(2)),
+            'declared_pixel_budget_units': 'engine_pixels' if native is None else 'native_png_pixels',
+            'method': 'identity' if native is None else 'independent_xy_full_viewport_scale',
+            'capture_binding_verified': False, 'crop_supported': False}
+
+
+def projected_pixels(points, camera, viewport):
+    projected = project_points(points, *camera_arguments(camera))
+    scale = viewport['scale']
+    for point in projected:
+        point['screenX'] *= scale[0]
+        point['screenY'] *= scale[1]
+    return projected
+
+
 def measure_height(camera, xz, base_y, pixel, pixel_budget, near=.05):
     """Invert a known X/Z height line; return an interval conditional on that X/Z."""
     x, z = vector(xz, 2, 'known X/Z')
@@ -39,29 +62,34 @@ def measure_height(camera, xz, base_y, pixel, pixel_budget, near=.05):
     base_y, budget, near = (float(value) for value in (base_y, pixel_budget, near))
     if not all(math.isfinite(value) for value in (base_y, budget, near)) or budget < 0 or near <= 0:
         raise ValueError('Height origin, nonnegative budget and positive near plane must be finite')
-    args = camera_arguments(camera)
-    if not (0 <= pixel[0] < args[2][0] and 0 <= pixel[1] < args[2][1]):
-        return {'status': 'unobservable', 'reason': 'pixel_outside_viewport'}
+    camera_arguments(camera)
+    viewport = pixel_viewport(camera)
+    units = viewport['declared_pixel_budget_units']
+    screen = viewport['observation_screen']
+    result = {'status': 'unobservable', 'known_xz': [x, z],
+              'declared_pixel_budget': budget, 'declared_pixel_budget_units': units,
+              'pixel_viewport': viewport}
+    if not (0 <= pixel[0] < screen[0] and 0 <= pixel[1] < screen[1]):
+        return dict(result, reason='pixel_outside_viewport')
     try:
-        endpoints = project_points(((x, base_y, z), (x, base_y + 1., z)), *args)
+        endpoints = projected_pixels(((x, base_y, z), (x, base_y + 1., z)), camera, viewport)
     except ValueError as error:
-        return {'status': 'unobservable', 'reason': 'invalid_projection', 'error': str(error)}
+        return dict(result, reason='invalid_projection', error=str(error))
     d0, d1 = (point['depth'] for point in endpoints)
     if min(d0, d1) < near:
-        return {'status': 'unobservable', 'reason': 'height_line_near_clipped', 'depths': [d0, d1]}
+        return dict(result, reason='height_line_near_clipped', depths=[d0, d1])
     if not all(point['isInScreen'] for point in endpoints):
-        return {'status': 'unobservable', 'reason': 'height_line_outside_viewport'}
+        return dict(result, reason='height_line_outside_viewport')
     first, last = (tuple(point[key] for key in ('screenX', 'screenY')) for point in endpoints)
     direction = tuple(last[i] - first[i] for i in range(2))
     length_squared = sum(value * value for value in direction)
     if length_squared <= 1e-12:
-        return {'status': 'unobservable', 'reason': 'height_line_degenerate'}
+        return dict(result, reason='height_line_degenerate')
     offset = tuple(pixel[i] - first[i] for i in range(2))
     t = sum(offset[i] * direction[i] for i in range(2)) / length_squared
     residual = math.sqrt(sum((offset[i] - t * direction[i]) ** 2 for i in range(2)))
-    result = {'status': 'unobservable', 'known_xz': [x, z],
-              'perpendicular_residual_pixels': residual, 'declared_pixel_budget': budget,
-              'projected_height_span_pixels': math.sqrt(length_squared)}
+    result.update(perpendicular_residual_pixels=residual,
+                  projected_height_span_pixels=math.sqrt(length_squared))
     if residual > budget + 1e-9:
         return dict(result, reason='pixel_inconsistent_with_known_xz')
     if t < 0. or t > 1.:
@@ -75,7 +103,7 @@ def measure_height(camera, xz, base_y, pixel, pixel_budget, near=.05):
     lower_t, upper_t = max(0., t - radius), min(1., t + radius)
     estimate = height(t)
     interval = (height(lower_t), height(upper_t))
-    projected, = project_points(((x, base_y + estimate, z),), *args)
+    projected, = projected_pixels(((x, base_y + estimate, z),), camera, viewport)
     result.update(status='diagnostic', height_estimate=estimate, height_interval=interval,
                   interval_width=interval[1] - interval[0],
                   budget_intersects_unit_endpoint=lower_t == 0. or upper_t == 1.,
@@ -93,6 +121,7 @@ def analyze_cell(data):
     if not math.isfinite(budget) or budget < 0:
         raise ValueError('Declared pixel budget must be finite and nonnegative')
     camera_arguments(data['camera'])
+    viewport = pixel_viewport(data['camera'])
     supplied = {}
     for observation in data.get('observations', ()):
         corner = tuple(observation['corner'])
@@ -114,13 +143,19 @@ def analyze_cell(data):
                                         float(data.get('near', .05)))
         result.update(corner=corner, source=observation.get('source') if observation else None)
         rows.append(result)
+    source = data.get('source')
+    context_changed = source.get('context_changed') if isinstance(source, dict) else None
     return {'schema_version': 1, 'status': 'diagnostic_only', 'native_geometry_accepted': False,
+            'accuracy_accepted': False, 'public_controls_eligible': False,
+            'context_changed': context_changed,
             'source': data.get('source'), 'camera': data['camera'], 'cell_origin': origin,
-            'declared_pixel_budget': budget, 'corners': rows,
+            'declared_pixel_budget': budget, 'declared_pixel_budget_units': viewport['declared_pixel_budget_units'],
+            'pixel_viewport': viewport, 'corners': rows,
             'four_corners_observed': all(row['status'] == 'diagnostic' for row in rows),
             'unobservable_corners': [row['corner'] for row in rows if row['status'] == 'unobservable'],
             'limits': {'pixel_budget_is_verified_accuracy': False, 'camera_fit_performed': False,
                        'control_pixels_verified': False, 'png_identity_verified': False,
+                       'source_snapshot_binding_verified': False, 'viewport_capture_binding_verified': False,
                        'corner_assignment': 'caller-supplied visible boundary with explicit source',
                        'flatness_inferred': False, 'hidden_corners_filled': False}}
 

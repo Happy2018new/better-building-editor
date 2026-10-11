@@ -12,12 +12,16 @@ preparing observations. The output explicitly records these unverified limits.
 
 Required top-level fields:
 
-- `camera`: fixed `position`, `target`, `screen` in image-pixel units,
+- `camera`: fixed `position`, `target`, `screen` in engine-projector pixel units,
   `vertical_fov` from the frozen compatible calibration, and optional `roll`.
-  Observations and the projector must use exactly the same coordinate system.
-  Do not substitute a compact screenshot, GUI size or raw engine FOV for the
-  calibrated native-image viewport. A crop must retain its established offset;
-  no pixel alignment or camera fit is performed by this tool.
+  Without `native_image_screen`, observations and their budget use that same
+  viewport and output units are `engine_pixels`. An optional full PNG viewport
+  `native_image_screen: [width,height]` maps projected endpoints by independent
+  X/Y ratios; observations and their budget then use `native_png_pixels`.
+  No scale is fitted, inferred from pixels or verified against capture metadata.
+  Do not substitute a compact screenshot or raw engine FOV for the calibrated
+  source. Only complete viewports are supported; cropped images need a separately
+  established coordinate transform and cannot be described by these dimensions.
 - `cell_origin`: known world X/Y/Z of the cell's minimum corner. For a public
   `pure_liquids` case, derive it from the selected exact cell in
   `source_document(case_id, isolated=...)` plus the recorded world document
@@ -41,6 +45,14 @@ Recommended observation source fields are the actual native PNG path/hash,
 view identifier, `control: "supported_positive"` or `"liquid_only"`, and
 `method: "manual_visible_outer_boundary"`. Include the associated control
 report path/hash. No automatic PNG corner assignment is supported.
+
+For the existing `499x277` engine viewport and `1994x1105` complete native PNG,
+keep `camera.screen=[499,277]`, set `camera.native_image_screen=[1994,1105]`,
+and provide the native PNG pixel and declared 3px budget unchanged. Projected
+X/Y use scales `1994/499` and `1105/277` independently. The budget disk remains
+in PNG coordinates, including with unequal scales; it is not approximated by
+a disk in engine coordinates. This is host coordinate mathematics, not proof
+that a PNG uses the supplied viewport or that the calibration remains valid.
 
 The height domain is `[0,1]` blocks above the known cell origin. `near` defaults
 to 0.05 camera-depth units and can be supplied explicitly. The entire declared
@@ -77,8 +89,12 @@ small residual therefore does not verify coordinate identity.
 
 Each corner reports `diagnostic` or an explicit `unobservable` reason.
 `four_corners_observed` is coverage of the four supplied observations, not a
-native four-corner acceptance flag. `native_geometry_accepted` and
-`accuracy_accepted` remain false. No flatness, hidden corner, neighbor face,
+native four-corner acceptance flag. Top-level `native_geometry_accepted`,
+`accuracy_accepted` and `public_controls_eligible` remain false regardless of
+caller-supplied source flags. Declared source `context_changed` is preserved,
+and source snapshot and viewport/capture bindings explicitly remain unverified.
+The sealed-shell capture report cannot become public accuracy evidence through
+this mathematical tool. No flatness, hidden corner, neighbor face,
 UV rule, liquid proxy or production geometry is inferred or generated.
 
 For an isolated source, report only its independently visible external
