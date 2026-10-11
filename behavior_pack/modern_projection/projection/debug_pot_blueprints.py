@@ -13,7 +13,7 @@ CASES = tuple({'id': 'direction_' + str(direction), 'direction': direction,
 VISUAL_CASE = {'schema': 1, 'fixture': IDENTITY, 'cases': CASES,
                'isolated_size': (3, 3, 3), 'focus': (1, 1, 1),
                'projection_height': 32,
-               'camera': {'editor': (35., 10., 2.8),
+               'camera': {'editor': (35., 10., 2.0),
                           'world_offset': (-2.5, -.3, -3.5)}}
 WET_VISUAL_CASE = {'schema': 1, 'fixture': IDENTITY, 'cases': WET_CASES,
                    'camera_offset': (0., .4, 4.), 'projection_height': 24,
