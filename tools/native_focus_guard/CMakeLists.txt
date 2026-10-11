@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.20)
+project(native_focus_guard LANGUAGES C CXX)
+if(NOT WIN32 OR NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+    message(FATAL_ERROR "The isolated focus guard requires Windows x64")
+endif()
+include(FetchContent)
+FetchContent_Declare(minhook
+    GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
+    GIT_TAG c3fcafdc10146beb5919319d0683e44e3c30d537
+    GIT_SHALLOW FALSE)
+FetchContent_MakeAvailable(minhook)
+add_library(native_focus_guard SHARED guard.cpp)
+target_link_libraries(native_focus_guard PRIVATE minhook user32)
+target_compile_features(native_focus_guard PRIVATE cxx_std_20)
+add_executable(native_focus_probe probe.cpp)
+target_link_libraries(native_focus_probe PRIVATE user32)
+target_compile_features(native_focus_probe PRIVATE cxx_std_20)

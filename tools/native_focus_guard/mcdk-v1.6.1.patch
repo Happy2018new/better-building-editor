@@ -1,0 +1,61 @@
+diff --git a/tools/mcdk/src/game_process.cpp b/tools/mcdk/src/game_process.cpp
+index 4eeee87..2dfd7fe 100644
+--- a/tools/mcdk/src/game_process.cpp
++++ b/tools/mcdk/src/game_process.cpp
+@@ -62,6 +62,7 @@
+ 
+ #include "game_process/logging.hpp"
+ #include "game_process/platform.hpp"
++#include <mcdk/focus_guard.hpp>
+ 
+ using mcdk::printColoredAtomic;
+ using mcdk::UserModDirConfig;
+@@ -677,6 +678,8 @@ void mcdk::launchGameExe(
+ 
+     STARTUPINFOW        si = {sizeof(si)};
+     PROCESS_INFORMATION pi = {};
++    si.dwFlags |= STARTF_USESHOWWINDOW;
++    si.wShowWindow = SW_SHOWNOACTIVATE;
+ 
+     SECURITY_ATTRIBUTES sa{};
+     sa.nLength              = sizeof(sa);
+@@ -767,7 +770,11 @@ void mcdk::launchGameExe(
+ 
+     auto cmdUtf16 = convertUtf8ToUtf16(cmd);
+     auto gameEnvironment = std::move(environment).build();
+-    const DWORD creationFlags = CREATE_UNICODE_ENVIRONMENT | (useSafaiaLogs ? CREATE_SUSPENDED : 0);
++    wchar_t focusGuardPath[32768] = {};
++    const DWORD focusGuardLength = GetEnvironmentVariableW(L"MCDK_NOACTIVATE_DLL", focusGuardPath, 32768);
++    const bool useFocusGuard = focusGuardLength > 0;
++    if (focusGuardLength >= 32768) throw std::runtime_error("Focus guard path exceeds buffer");
++    const DWORD creationFlags = CREATE_UNICODE_ENVIRONMENT | ((useSafaiaLogs || useFocusGuard) ? CREATE_SUSPENDED : 0);
+     if (!CreateProcessW(
+             nullptr,
+             cmdUtf16.data(),
+@@ -789,6 +796,15 @@ void mcdk::launchGameExe(
+     nullOutput.reset();
+ 
+     const DWORD pid = pi.dwProcessId;
++    if (useFocusGuard) {
++        try {
++            focus_guard::install(processHandle.get(), pid, pi.dwThreadId, focusGuardPath);
++        } catch (...) {
++            TerminateProcess(processHandle.get(), static_cast<UINT>(-1));
++            WaitForSingleObject(processHandle.get(), 15000);
++            throw;
++        }
++    }
+     std::unique_ptr<SafaiaLogReceiver> safaiaReceiver;
+     if (useSafaiaLogs) {
+         try {
+@@ -814,6 +830,10 @@ void mcdk::launchGameExe(
+             throw;
+         }
+     }
++    if (useFocusGuard && !useSafaiaLogs && ResumeThread(primaryThreadHandle.get()) == static_cast<DWORD>(-1)) {
++        TerminateProcess(processHandle.get(), static_cast<UINT>(-1));
++        throw std::runtime_error("ResumeThread failed for guarded game launch");
++    }
+     profilerGamePid->store(pid, std::memory_order_release);
+     // 设置样式处理器PID
+     styleProcessor.setPid(pid);
