@@ -174,6 +174,136 @@ class LiquidControlsTests(unittest.TestCase):
         self.assertTrue(ready)
         self.assertIsNone(self.controls.error)
 
+    def test_invalid_pose_keeps_the_published_bank_and_native_layout_until_retry(self):
+        self.settle()
+        renderer = self.entry['renderer']
+        for pose in ((0.,) + POSE[1:], (float('nan'),) + POSE[1:]):
+            with self.subTest(pose=pose):
+                old_layout = [(control.position, control.size) for control in self.dolls + self.surfaces]
+                old_payload = dict(self.model.values)
+                old_front = renderer.front
+                old_request = self.entry['ready_request']
+                old_calls = sum(len(control.doll.calls) for control in self.dolls)
+                self.view = self.view._replace(position=(self.view.position[0] + 10., -20.),
+                                               size=(1000., 800.))
+                self.assertFalse(self.controls.update(self.groups, lambda origin: self.view,
+                                                     lambda view: pose, (5., 10.), .3))
+                self.assertTrue(self.controls.pending)
+                self.assertIn('Liquid skeleton scale' if pose[0] == 0. else 'skeleton pose',
+                              self.controls.error)
+                self.assertEqual(old_layout,
+                                 [(control.position, control.size) for control in self.dolls + self.surfaces])
+                self.assertEqual(old_payload, self.model.values)
+                self.assertEqual(old_front, renderer.front)
+                self.assertEqual(old_request, self.entry['ready_request'])
+                self.assertTrue(self.surfaces[old_front].visible)
+                self.assertEqual(old_calls, sum(len(control.doll.calls) for control in self.dolls))
+                self.assertFalse(self.update(.4))
+                self.controls.retry()
+                self.assertTrue(self.update(.5))
+                self.assertIsNone(self.controls.error)
+                self.assertTrue(all(control.position == self.view.position for control in self.dolls))
+
+    def test_view_callback_failure_latches_once_and_removed_groups_still_hide(self):
+        self.settle()
+        calls = []
+        def failed_view(origin):
+            calls.append(origin)
+            raise ValueError('Calibrated liquid offset is unavailable')
+        for now in (.3, .4, .5):
+            self.assertFalse(self.controls.update(self.groups, failed_view, lambda view: POSE,
+                                                 (0., 0.), now))
+            self.assertIn('Calibrated liquid offset', self.controls.error)
+        self.assertEqual(1, len(calls))
+        self.assertTrue(self.surfaces[self.entry['renderer'].front].visible)
+        self.groups = {}
+        self.assertTrue(self.controls.update(self.groups, failed_view, lambda view: POSE,
+                                            (0., 0.), .6))
+        self.assertIsNone(self.controls.error)
+        self.assertFalse(any(control.visible for control in self.surfaces))
+        self.assertEqual(1, len(calls))
+
+    def test_invalid_depth_packet_does_not_apply_new_layout_or_request_pose(self):
+        self.settle()
+        old_layout = [(control.position, control.size) for control in self.dolls + self.surfaces]
+        self.view = self.view._replace(position=(-200., -100.), size=(1400., 1000.), distance=512.)
+        def unexpected_pose(view):
+            self.fail('Invalid depth must be rejected before requesting a pose')
+        self.assertFalse(self.controls.update(self.groups, lambda origin: self.view, unexpected_pose,
+                                             (10., 20.), .3))
+        self.assertIn('signed16 depth range', self.controls.error)
+        self.assertEqual(old_layout,
+                         [(control.position, control.size) for control in self.dolls + self.surfaces])
+        self.view = self.view._replace(distance=-4.)
+        self.controls.retry()
+        self.assertTrue(self.update(.4))
+
+    def test_pose_callback_failure_preserves_geometry_and_retry_can_resume(self):
+        self.settle()
+        old_geometry = self.entry['geometry']
+        self.view = self.view._replace(position=(-200., -100.), size=(1400., 1000.))
+        def failed_pose(view):
+            raise ValueError('Liquid pose calibration could not resolve this viewport')
+        self.assertFalse(self.controls.update(self.groups, lambda origin: self.view, failed_pose,
+                                             (10., 20.), .3))
+        self.assertIn('Liquid pose calibration', self.controls.error)
+        self.assertEqual(old_geometry, self.entry['geometry'])
+        self.assertTrue(all(control.position == old_geometry[0] for control in self.dolls))
+        self.controls.retry()
+        self.assertTrue(self.update(.4))
+        self.assertEqual((self.view.position, self.view.size), self.entry['geometry'])
+
+    def test_one_failed_adapter_does_not_stop_other_owned_entries(self):
+        self.settle()
+        dolls, surfaces = [Control(110), Control(111)], [Control(210), Control(211)]
+        healthy = {'dolls': [SimpleNamespace(current=control) for control in dolls],
+                   'surfaces': [SimpleNamespace(current=control) for control in surfaces]}
+        self.registry[1] = healthy
+        self.groups[1] = group(1)._replace(origin=(8, 0, 8))
+        failed_origin = self.groups[0].origin
+        def view_at(origin):
+            if origin == failed_origin:
+                raise ValueError('First liquid group cannot be calibrated')
+            return self.view
+        for now in (.3, .325, .35, .4, .5):
+            self.assertFalse(self.controls.update(self.groups, view_at, lambda view: POSE,
+                                                 (-.5, -.25), now))
+        self.assertIn('First liquid group', self.controls.error)
+        self.assertIn('ready_request', healthy)
+        self.assertTrue(surfaces[healthy['renderer'].front].visible)
+        self.assertTrue(self.surfaces[self.entry['renderer'].front].visible)
+
+    def test_replacing_invalid_source_group_recovers_without_explicit_retry(self):
+        self.settle()
+        original = self.groups[0]
+        self.groups[0] = original._replace(uniforms=original.uniforms[:3] +
+            (original.uniforms[3][:3] + (2.,),))
+        self.assertFalse(self.update(.3))
+        self.assertIn('projection opacity', self.controls.error)
+        self.assertTrue(self.surfaces[self.entry['renderer'].front].visible)
+        self.assertFalse(self.update(.4))
+        corrected = group(height=.3)
+        self.groups[0] = corrected
+        for now in (.5, .525, .55, .6, .7):
+            ready = self.update(now)
+        self.assertTrue(ready)
+        self.assertIsNone(self.controls.error)
+        self.assertEqual(corrected.uniforms[:3], self.entry['ready_request'][0].uniforms[:3])
+        self.assertTrue(self.surfaces[self.entry['renderer'].front].visible)
+
+    def test_viewport_restore_clears_adapter_latch_and_prepares_current_view(self):
+        self.settle()
+        self.assertFalse(self.controls.update(self.groups, lambda origin: self.view,
+                                             lambda view: (0.,) + POSE[1:], (0., 0.), .3))
+        self.view = self.view._replace(position=(-200., -100.), size=(1400., 1000.))
+        self.controls.invalidate()
+        self.assertFalse(any(control.visible for control in self.surfaces))
+        for now in (.4, .425, .45, .5, .6):
+            ready = self.update(now)
+        self.assertTrue(ready)
+        self.assertIsNone(self.controls.error)
+        self.assertEqual((self.view.position, self.view.size), self.entry['geometry'])
+
     def test_offscreen_and_removed_groups_hide_all_banks_and_resume_owned_controls(self):
         self.settle()
         self.view = self.view._replace(clipped=True)

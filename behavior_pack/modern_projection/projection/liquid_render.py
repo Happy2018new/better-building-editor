@@ -51,6 +51,14 @@ class SkeletonLiquidRenderer(object):
     def _shape(group):
         return None if group is None else (group.model_name, group.uniforms[:3])
 
+    @staticmethod
+    def validate(group, pose):
+        validate_uniforms(group.uniforms)
+        pose = _finite_tuple(pose, 4, 'skeleton pose')
+        if pose[0] <= 0.:
+            raise ValueError('Liquid skeleton scale must be positive')
+        return pose
+
     def _render_pose(self, slot, group, pose):
         scale, rot_x, rot_y, rot_z = pose
         return self.dolls[slot].RenderSkeletonModel({
@@ -169,10 +177,7 @@ class SkeletonLiquidRenderer(object):
             self._show(0, False)
             self._show(1, False)
             return True
-        validate_uniforms(group.uniforms)
-        pose = _finite_tuple(pose, 4, 'skeleton pose')
-        if pose[0] <= 0.:
-            raise ValueError('Liquid skeleton scale must be positive')
+        pose = self.validate(group, pose)
         request = (group, pose)
         failed = self.failed_request
         latched = failed in (request, (group, 'appearance')) or (failed is not None

@@ -59,10 +59,30 @@ class LiquidControls(object):
                 continue
             renderer = self._renderer(entry)
             group = groups.get(key)
-            view = view_at(group.origin) if group is not None else None
-            if view is None or view.clipped:
+            if group is None:
                 renderer.update(None, None, now)
                 entry.pop('ready_request', None)
+                entry.pop('validation_error', None)
+                continue
+            failed = entry.get('validation_error')
+            if failed is not None and failed[0] == group:
+                self.pending = True
+                self.error = self.error or failed[1]
+                continue
+            entry.pop('validation_error', None)
+            try:
+                view = view_at(group.origin)
+                if view is None or view.clipped:
+                    renderer.update(None, None, now)
+                    entry.pop('ready_request', None)
+                    continue
+                displayed = with_preview_distance(group, view.distance)
+                pose = SkeletonLiquidRenderer.validate(displayed, pose_at(view))
+            except ValueError as error:
+                message = str(error) or 'Invalid liquid UI request'
+                entry['validation_error'] = group, message
+                self.pending = True
+                self.error = self.error or message
                 continue
             if entry.get('clip_offset') != clip_offset:
                 for ref in surfaces:
@@ -74,8 +94,6 @@ class LiquidControls(object):
                     ref.current.SetPosition(view.position)
                     ref.current.SetSize(view.size)
                 entry['geometry'] = geometry
-            displayed = with_preview_distance(group, view.distance)
-            pose = pose_at(view)
             request = displayed, pose
             if entry.get('ready_request') == request:
                 continue
@@ -95,6 +113,7 @@ class LiquidControls(object):
             if renderer is not None:
                 renderer.retry()
             entry.pop('ready_request', None)
+            entry.pop('validation_error', None)
 
     def invalidate(self):
         for entry in self.registry.values():
@@ -104,6 +123,7 @@ class LiquidControls(object):
             entry.pop('geometry', None)
             entry.pop('clip_offset', None)
             entry.pop('ready_request', None)
+            entry.pop('validation_error', None)
 
     def close(self):
         self.closed = True
