@@ -50,6 +50,26 @@ VISUAL_CASE = {
         'scope': 'Dry control and the six heights absent from the R7 boundary matrix, both modes and both fixed views',
         'all_eight_snow_heights_accepted': False,
     },
+    'static_root_screen': {
+        'schema': 1,
+        'geometry_status': 'Native omission or centered-cross hypothesis; plant acceptance pending independent pixels',
+        'native_target': (-47, 117, -70),
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': {'crimson_roots': (0,), 'warped_roots': (0,), 'nether_sprouts': (0,)},
+        'scope': 'Dry control and thin snow screening, both modes and fixed views; no all-height acceptance',
+        'all_eight_snow_heights_accepted': False,
+    },
+    'static_root_remaining': {
+        'schema': 1,
+        'geometry_status': 'Centered-cross hypothesis; acceptance requires the independent screen and remaining heights',
+        'native_target': (-47, 117, -70),
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': {'crimson_roots': tuple(range(1, 8)),
+                    'warped_roots': tuple(range(1, 8)),
+                    'nether_sprouts': tuple(range(1, 8))},
+        'scope': 'Seven heights absent from the screening profile, both modes and fixed views',
+        'all_eight_snow_heights_accepted': False,
+    },
 }
 
 

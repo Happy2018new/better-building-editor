@@ -1,0 +1,2231 @@
+{
+  "schema_version": 1,
+  "plants": [
+    "crimson_roots",
+    "nether_sprouts",
+    "warped_roots"
+  ],
+  "production_acceptance": false,
+  "all_eight_snow_heights_accepted": false,
+  "raw_omissions": {
+    "matrix": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8.json",
+      "sha256": "ea0faa8cb8dee8e97479b5d4e6ed01b0f2e727615942e0b8dc16aedd96837514"
+    },
+    "audit": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8-audit.json",
+      "sha256": "584d4d1e11daa7037e9af4b1a2d745bc51d39f851bf68ef6ab656ec3da2a1139"
+    },
+    "passed": false,
+    "completed": true,
+    "restored": true,
+    "source_assets_stable": true,
+    "frozen_source": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r8-snow\\.runtime\\snow-r8-raw-roots-source-hashes.json",
+      "sha256": "eca3fd104dea939155249a21d708733829148ddbb175af50268a90dbfcd858fc"
+    },
+    "calibration": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-camera-calibration-r8-lift64-skyward.json",
+      "sha256": "ee1bc3a7a59782010259c295aabbcdaffa9aab84a7ed04d09693bf213ff0de26"
+    },
+    "environment": {
+      "owner": "p0-snow-r8",
+      "game_pid": 30264,
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\session.json"
+    },
+    "reports": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_crimson_roots_public.json",
+        "sha256": "9b385bf200f96210803c9ed29814874e21f996fbab18e50f12d28a0dc164b100",
+        "plant": "crimson_roots",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_warped_roots_public.json",
+        "sha256": "59b689fb8d377879e2b18bffa8aa17bb4c7d4837411373a518b994432ee144ce",
+        "plant": "warped_roots",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_nether_sprouts_public.json",
+        "sha256": "da6c8abeea5281071d3ff475864b5d64c21e90d86adf3bd329b0fae014ee0229",
+        "plant": "nether_sprouts",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      }
+    ],
+    "rows": [
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36928,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36928,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 49946,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.5143955471909663,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 24214,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 49946,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.5143955471909663,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 24214,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": false,
+          "valid_baseline": false,
+          "checks": {
+            "observable_controls": false,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true
+          },
+          "failures": [
+            "observable_controls"
+          ],
+          "plant_pixels": 0,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 0,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 0.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "snow silhouette difference",
+          "upper_edge_tolerance_pixels": 0,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 37024,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 37024,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 53872,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.47373403623403626,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 28327,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 53872,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.47373403623403626,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 28327,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": false,
+          "valid_baseline": false,
+          "checks": {
+            "observable_controls": false,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true
+          },
+          "failures": [
+            "observable_controls"
+          ],
+          "plant_pixels": 0,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 0,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 0.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "snow silhouette difference",
+          "upper_edge_tolerance_pixels": 0,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 12777,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 12777,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 26832,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.9522957662492546,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1253,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 26832,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 0.9522957662492546,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1253,
+                "observed_pixels": 0,
+                "native_absent": false,
+                "recall": 0.0,
+                "precision": 0.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": false,
+          "valid_baseline": false,
+          "checks": {
+            "observable_controls": false,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "fully_covered_plant_stays_occluded": true
+          },
+          "failures": [
+            "observable_controls"
+          ],
+          "plant_pixels": 0,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 0,
+          "upper_pixels": 0,
+          "standalone_uncovered_pixels": 0,
+          "fully_occluded_by_snow_control": true,
+          "lower_pixels": 0,
+          "upper_retained": 0.0,
+          "lower_retained": 0.0,
+          "lower_snow_control_coverage": 0.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "snow silhouette difference",
+          "upper_edge_tolerance_pixels": 0,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      }
+    ],
+    "independent_png_replays": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_crimson_roots_public-replay.json",
+        "sha256": "365c4199a64ee132132e86b29700a148e6305ca9876d28402f68708debf088cb",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_warped_roots_public-replay.json",
+        "sha256": "ec41bbf83fe3202ef0a772686552c504048f27bad29e865c24f1ec68ea900e34",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_nether_sprouts_public-replay.json",
+        "sha256": "c7984a19c4ccd8c8469831c89714553368ed95701e65a83787b6308c54946a10",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      }
+    ],
+    "unique_native_pngs": 72,
+    "frozen_files": 1282,
+    "inspection_sheets_actually_opened": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_crimson_roots_public_inspect.png",
+        "sha256": "c54561d76742a40ab688541c818f8404d86556d779d92e76a8c8fe7bd5a12103",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_warped_roots_public_inspect.png",
+        "sha256": "e84480921f83c88885069a859b0758aef9c3a416e20c982ed0b686078a948efd",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_nether_sprouts_public_inspect.png",
+        "sha256": "bec13b2f9fd97693b81f593e92c44a3e3831e9ee8e03dd96b7466ff3fb9eec20",
+        "inspection_only": true,
+        "rows": 2
+      }
+    ],
+    "foreground_changes_are_diagnostics": true,
+    "foreground_change_observations": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_crimson_roots_public_crimson_roots_plant_h0_native_native.png",
+        "foreground_before": {
+          "hwnd": 21104136,
+          "pid": 42120
+        },
+        "foreground_after": {
+          "hwnd": 6687558,
+          "pid": 29968
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\093a29fa49aa4d2a8c1b3605cfb83797\\artifacts\\snow-roots-raw-screen-r8_nether_sprouts_public_nether_sprouts_snow_h0_missing_world_hidden_native.png",
+        "foreground_before": {
+          "hwnd": 2297714,
+          "pid": 42636
+        },
+        "foreground_after": {
+          "hwnd": 6687558,
+          "pid": 29968
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      }
+    ],
+    "capture_contract": "Reliable nonblank owner-bound fresh frame; owned game is background before and after; ordinary switching between other applications is allowed"
+  },
+  "centered_cross_hypothesis": {
+    "matrix": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8.json",
+      "sha256": "5f5587a4fd90c93e7cb564ecfa4e37e7a94320c5f923102a57e1d1ce05fe5563"
+    },
+    "audit": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8-audit.json",
+      "sha256": "fe7984ae465b2ce73a1dbf6aedce5b0aae55836cb069e0ec93a568c49d72e34b"
+    },
+    "passed": false,
+    "completed": true,
+    "restored": true,
+    "source_assets_stable": true,
+    "frozen_source": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r8-snow\\.runtime\\snow-r8-root-candidate-prelaunch-source-hashes.json",
+      "sha256": "9a99d560be28a20257578eaf8313d1c6bcb430fae86b2b67d07ef24ac692e221"
+    },
+    "calibration": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-root-camera-calibration-r8-lift64-skyward.json",
+      "sha256": "90db33d2b04eb520a90a7c0a6b1d1798b14291056d46bfa6c4814c30c93e82d5"
+    },
+    "environment": {
+      "owner": "p0-snow-r8",
+      "game_pid": 52004,
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\session.json"
+    },
+    "reports": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_public.json",
+        "sha256": "d44d82093e724f2b4af70d401052cddad2861ade96c2a6372af871c885755544",
+        "plant": "crimson_roots",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_right.json",
+        "sha256": "ebd6ceeb67eca2c716f676a529330a0236605d88f977000526c39b666c3c623e",
+        "plant": "crimson_roots",
+        "view": "right",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_public.json",
+        "sha256": "7ed67c20d23b829631a9d3cc5e8efeea1b0305254a08ddc12d4015912d7bf70d",
+        "plant": "warped_roots",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right.json",
+        "sha256": "88966eca4ae530009a89c9ed229f548205455d812407a0e892687e4d6913f3d7",
+        "plant": "warped_roots",
+        "view": "right",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public.json",
+        "sha256": "d58828e3176f765b5dcd962e7106c1b238d5964e24ae23ee7cfb9dd922fe469b",
+        "plant": "nether_sprouts",
+        "view": "public",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_right.json",
+        "sha256": "9b7ef95a5190f4b1329b80dc6c3b144b16f715ed9894826bd0050f91aa77a715",
+        "plant": "nether_sprouts",
+        "view": "right",
+        "completed": true,
+        "restored": true,
+        "passed": false
+      }
+    ],
+    "rows": [
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36928,
+                "observed_pixels": 29453,
+                "native_absent": false,
+                "recall": 0.7077556325823223,
+                "precision": 0.8510847791396462,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36928,
+                "observed_pixels": 29453,
+                "native_absent": false,
+                "recall": 0.7077556325823223,
+                "precision": 0.8510847791396462,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 49946,
+                "observed_pixels": 45717,
+                "native_absent": false,
+                "recall": 0.8586673607496096,
+                "precision": 0.9277292910733426,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 24214,
+                "observed_pixels": 19931,
+                "native_absent": false,
+                "recall": 0.7085570331213348,
+                "precision": 0.8341277407054337,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 49946,
+                "observed_pixels": 45717,
+                "native_absent": false,
+                "recall": 0.8586673607496096,
+                "precision": 0.9277292910733426,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 24214,
+                "observed_pixels": 19931,
+                "native_absent": false,
+                "recall": 0.7085570331213348,
+                "precision": 0.8341277407054337,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 44667,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 36439,
+          "upper_pixels": 36428,
+          "standalone_uncovered_pixels": 30214,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 13845,
+          "upper_retained": 0.9972274074887449,
+          "lower_retained": 0.40577825929938605,
+          "lower_snow_control_coverage": 0.9632358252076562,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "right",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 32358,
+                "observed_pixels": 29177,
+                "native_absent": false,
+                "recall": 0.6679955497867606,
+                "precision": 0.7207732117763992,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 32358,
+                "observed_pixels": 29177,
+                "native_absent": false,
+                "recall": 0.6679955497867606,
+                "precision": 0.7207732117763992,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": false,
+          "clipped_boundary_pixels": 138,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "right",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "crimson_roots",
+        "view": "right",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 48425,
+                "observed_pixels": 45709,
+                "native_absent": false,
+                "recall": 0.8392772328342798,
+                "precision": 0.8723446148460916,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 22548,
+                "observed_pixels": 19963,
+                "native_absent": false,
+                "recall": 0.6556235586304772,
+                "precision": 0.7068075940489906,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 48425,
+                "observed_pixels": 45709,
+                "native_absent": false,
+                "recall": 0.8392772328342798,
+                "precision": 0.8723446148460916,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 22548,
+                "observed_pixels": 19963,
+                "native_absent": false,
+                "recall": 0.6556235586304772,
+                "precision": 0.7068075940489906,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 44667,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 36439,
+          "upper_pixels": 36428,
+          "standalone_uncovered_pixels": 30214,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 13845,
+          "upper_retained": 0.9972274074887449,
+          "lower_retained": 0.40577825929938605,
+          "lower_snow_control_coverage": 0.9632358252076562,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36939,
+                "observed_pixels": 29650,
+                "native_absent": false,
+                "recall": 0.692249384119765,
+                "precision": 0.8180775716694773,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 36939,
+                "observed_pixels": 29650,
+                "native_absent": false,
+                "recall": 0.692249384119765,
+                "precision": 0.8180775716694773,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 53822,
+                "observed_pixels": 48686,
+                "native_absent": false,
+                "recall": 0.85028427037271,
+                "precision": 0.9179230168837037,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 28276,
+                "observed_pixels": 23197,
+                "native_absent": false,
+                "recall": 0.7155184608855567,
+                "precision": 0.827736345217054,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 53822,
+                "observed_pixels": 48686,
+                "native_absent": false,
+                "recall": 0.85028427037271,
+                "precision": 0.9179230168837037,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 28276,
+                "observed_pixels": 23197,
+                "native_absent": false,
+                "recall": 0.7155184608855567,
+                "precision": 0.827736345217054,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 44857,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 38640,
+          "upper_pixels": 38003,
+          "standalone_uncovered_pixels": 34605,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 11768,
+          "upper_retained": 0.9988158829566087,
+          "lower_retained": 0.4717029231815092,
+          "lower_snow_control_coverage": 0.8602141400407886,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "right",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 33498,
+                "observed_pixels": 29614,
+                "native_absent": false,
+                "recall": 0.5403307660158816,
+                "precision": 0.589518470993449,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 33498,
+                "observed_pixels": 29614,
+                "native_absent": false,
+                "recall": 0.5403307660158816,
+                "precision": 0.589518470993449,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": false,
+          "clipped_boundary_pixels": 34,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "warped_roots",
+        "view": "right",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "warped_roots",
+        "view": "right",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 51912,
+                "observed_pixels": 48765,
+                "native_absent": false,
+                "recall": 0.7612883341038681,
+                "precision": 0.8031990156874808,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 26369,
+                "observed_pixels": 23243,
+                "native_absent": false,
+                "recall": 0.5305851568129243,
+                "precision": 0.5871014929226004,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 51912,
+                "observed_pixels": 48765,
+                "native_absent": false,
+                "recall": 0.7612883341038681,
+                "precision": 0.8031990156874808,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 26369,
+                "observed_pixels": 23243,
+                "native_absent": false,
+                "recall": 0.5305851568129243,
+                "precision": 0.5871014929226004,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 44857,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 38640,
+          "upper_pixels": 38003,
+          "standalone_uncovered_pixels": 34605,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 11768,
+          "upper_retained": 0.9988158829566087,
+          "lower_retained": 0.4717029231815092,
+          "lower_snow_control_coverage": 0.8602141400407886,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 12790,
+                "observed_pixels": 10089,
+                "native_absent": false,
+                "recall": 0.6275996872556685,
+                "precision": 0.7622162751511548,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 12790,
+                "observed_pixels": 10089,
+                "native_absent": false,
+                "recall": 0.6275996872556685,
+                "precision": 0.7622162751511548,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": true
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": true,
+          "clipped_boundary_pixels": 0,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25205,
+                "observed_pixels": 25196,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "public",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 26832,
+                "observed_pixels": 27009,
+                "native_absent": false,
+                "recall": 0.9775641025641025,
+                "precision": 0.9760450220296938,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1253,
+                "observed_pixels": 1444,
+                "native_absent": false,
+                "recall": 0.5315243415802074,
+                "precision": 0.5519390581717452,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 26832,
+                "observed_pixels": 27009,
+                "native_absent": false,
+                "recall": 0.9775641025641025,
+                "precision": 0.9760450220296938,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1253,
+                "observed_pixels": 1444,
+                "native_absent": false,
+                "recall": 0.5315243415802074,
+                "precision": 0.5519390581717452,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 15653,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 6669,
+          "upper_pixels": 7000,
+          "standalone_uncovered_pixels": 2124,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 4385,
+          "upper_retained": 0.9858571428571429,
+          "lower_retained": 0.0006841505131128849,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "right",
+        "kind": "plant",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 11042,
+                "observed_pixels": 9992,
+                "native_absent": false,
+                "recall": 0.5799673972106503,
+                "precision": 0.6286028823058447,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": false,
+                "expected_pixels": 11042,
+                "observed_pixels": 9992,
+                "native_absent": false,
+                "recall": 0.5799673972106503,
+                "precision": 0.6286028823058447,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "native_roi_not_clipped": false
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": {
+          "passed": false,
+          "clipped_boundary_pixels": 6,
+          "method": "Fixed calibrated unit-cell hull boundary, excluding bottom .1-block root/support band; boundary contact is unaccepted, never used to widen the ROI"
+        }
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "right",
+        "kind": "snow",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          },
+          "missing": {
+            "passed": true,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 25225,
+                "observed_pixels": 25203,
+                "native_absent": false,
+                "recall": 1.0,
+                "precision": 1.0,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage"
+          }
+        },
+        "editor_controls": null,
+        "native_roi_boundary": null
+      },
+      {
+        "plant": "nether_sprouts",
+        "view": "right",
+        "kind": "covered",
+        "height": 0,
+        "world": {
+          "full": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 27558,
+                "observed_pixels": 27016,
+                "native_absent": false,
+                "recall": 0.9525364685390812,
+                "precision": 0.9657610305004442,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1879,
+                "observed_pixels": 1466,
+                "native_absent": false,
+                "recall": 0.3145290047897818,
+                "precision": 0.369031377899045,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          },
+          "missing": {
+            "passed": false,
+            "masks": {
+              "object": {
+                "passed": true,
+                "expected_pixels": 27558,
+                "observed_pixels": 27016,
+                "native_absent": false,
+                "recall": 0.9525364685390812,
+                "precision": 0.9657610305004442,
+                "edge_tolerance_pixels": 3
+              },
+              "exposed_plant": {
+                "passed": false,
+                "expected_pixels": 1879,
+                "observed_pixels": 1466,
+                "native_absent": false,
+                "recall": 0.3145290047897818,
+                "precision": 0.369031377899045,
+                "edge_tolerance_pixels": 3
+              }
+            },
+            "scope": "Actual native world at the same cell, camera and crop; silhouette and foliage coverage",
+            "exposed_plant_method": "Independent native snow-only mask expanded by the unchanged 3-pixel edge tolerance; plant pixels must separately pass"
+          }
+        },
+        "editor_controls": {
+          "height": 0,
+          "passed": true,
+          "valid_baseline": true,
+          "checks": {
+            "observable_controls": true,
+            "foliage_stays_at_standalone_position": true,
+            "remaining_foliage_matches_standalone": true,
+            "snow_stays_at_control_position": true,
+            "plant_contributes_beyond_snow": true,
+            "upper_foliage_retained": true
+          },
+          "failures": [],
+          "plant_pixels": 15653,
+          "snow_pixels": 37542,
+          "covered_contribution_pixels": 6669,
+          "upper_pixels": 7000,
+          "standalone_uncovered_pixels": 2124,
+          "fully_occluded_by_snow_control": false,
+          "lower_pixels": 4385,
+          "upper_retained": 0.9858571428571429,
+          "lower_retained": 0.0006841505131128849,
+          "lower_snow_control_coverage": 1.0,
+          "outside_standalone_ratio": 0.0,
+          "remaining_color_match": 1.0,
+          "upper_geometry": "native alpha texels above snow",
+          "upper_edge_tolerance_pixels": 3,
+          "snow_outside_plant_retained": 1.0,
+          "limits": {
+            "minimum_baseline_pixels": 80,
+            "upper_retention": 0.65,
+            "high_lower_retention": 0.25,
+            "high_lower_snow_coverage": 0.65,
+            "outside_standalone_ratio": 0.15,
+            "color_match": 0.6,
+            "snow_retention": 0.9
+          }
+        },
+        "native_roi_boundary": null
+      }
+    ],
+    "independent_png_replays": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_public-replay.json",
+        "sha256": "9a21a4a71cfa96c86896560a7393691a255f98ed02300833791fbadf5a04c99f",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_right-replay.json",
+        "sha256": "e8960b80f987b52af5e4f0753823213ed6350f4342f7742f466e3b0dec145ec6",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_public-replay.json",
+        "sha256": "6bd1924674a1df5c868662c475b8da5365f80197f6181cc795d4ca335c336c8c",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right-replay.json",
+        "sha256": "64add999149665f128ed0585ccb7b4bc34ffc7d22e7d10dc03c6d3135c91119a",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public-replay.json",
+        "sha256": "0b5d98f41051a7c870a1cff6c481329d6052b355fddceb15ae8984187168623e",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_right-replay.json",
+        "sha256": "f19745740d81fa92f248a7d325caf949c2421185d1660741edbfdbd8dc9797eb",
+        "passed": false,
+        "original_failed_verdict_preserved": true
+      }
+    ],
+    "unique_native_pngs": 138,
+    "frozen_files": 1289,
+    "inspection_sheets_actually_opened": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_public_inspect.png",
+        "sha256": "0f43b740f6fa137ae1a128d81ed82c972aee5dd13b0ec836fc5720194b9ce7e6",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_right_inspect.png",
+        "sha256": "799653316b637a9034d7e3d73d032529a32d868ce2e1ec8163b63fc0ba7613d3",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_public_inspect.png",
+        "sha256": "c1a249daf646e7f41e5dcdb07022b956194f6a47ad8fcf8edc1c87d5569020aa",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_inspect.png",
+        "sha256": "ec17848fefd0fd8d1b6f909366fd71fab72fc20ef77bf4205174b62a14be11f2",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_inspect.png",
+        "sha256": "1b702ce2abd4684c73c61b9e40b2b194a81aacbc64bbf162bdb7c414b06bf3b8",
+        "inspection_only": true,
+        "rows": 2
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_right_inspect.png",
+        "sha256": "563a57243f3e44e768caa7d6b0f227cb498c3221579db82bad9e97f935e4a651",
+        "inspection_only": true,
+        "rows": 2
+      }
+    ],
+    "foreground_changes_are_diagnostics": true,
+    "foreground_change_observations": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_crimson_roots_public_crimson_roots_snow_h0_editor_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 37750748,
+          "pid": 42400
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_snow_h0_editor_native.png",
+        "foreground_before": {
+          "hwnd": 37750748,
+          "pid": 42400
+        },
+        "foreground_after": {
+          "hwnd": 21104136,
+          "pid": 42120
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_snow_h0_missing_world_hidden_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 21104136,
+          "pid": 42120
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_snow_h0_native_native.png",
+        "foreground_before": {
+          "hwnd": 462702,
+          "pid": 16652
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_covered_h0_full_world_closeup_native.png",
+        "foreground_before": {
+          "hwnd": 462702,
+          "pid": 16652
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_covered_h0_missing_world_closeup_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 22614060,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_covered_h0_native_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 7276044,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_warped_roots_right_warped_roots_covered_h0_native_hidden_native.png",
+        "foreground_before": {
+          "hwnd": 35849522,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_plant_h0_editor_native.png",
+        "foreground_before": {
+          "hwnd": 462702,
+          "pid": 16652
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_snow_h0_full_world_closeup_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 12390418,
+          "pid": 26876
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_snow_h0_native_native.png",
+        "foreground_before": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 7017328,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_covered_h0_editor_native.png",
+        "foreground_before": {
+          "hwnd": 39714940,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_covered_h0_full_world_closeup_native.png",
+        "foreground_before": {
+          "hwnd": 3806722,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\5c273e2305404cfbb80d9362ba8b51c1\\artifacts\\snow-roots-candidate-screen-two-view-r8_nether_sprouts_public_nether_sprouts_covered_h0_missing_world_closeup_native.png",
+        "foreground_before": {
+          "hwnd": 112135348,
+          "pid": 7520
+        },
+        "foreground_after": {
+          "hwnd": 2429846,
+          "pid": 7520
+        },
+        "background_safe": true,
+        "reliable": true,
+        "classification": "Allowed ordinary switching between other applications"
+      }
+    ],
+    "capture_contract": "Reliable nonblank owner-bound fresh frame; owned game is background before and after; ordinary switching between other applications is allowed"
+  },
+  "construction": "Unchanged mushroom/fungus centered cross: Y origin0, height16, pivotY8 and full original UV; no fitted XZ or UV changes",
+  "geometry_authority": "Native texture identities and alpha are facts; native mesh/random-offset contract remains unrecovered",
+  "original_gates": {
+    "native_recall": 0.75,
+    "native_precision": 0.75,
+    "native_edge_tolerance_pixels": 3
+  },
+  "remaining_height_matrix_started": false,
+  "failed_candidate_render_assets_archived": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source",
+  "archived_candidate_source_files": {
+    "behavior_pack/modern_projection/projection/debug_snow_blueprints.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+      "sha256": "0a15b9babf33a7a4cdcad8c82447b70fd595644cf16fcda92346ffef417411d4"
+    },
+    "behavior_pack/modern_projection/projection/plant_proxy_data.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\behavior_pack\\modern_projection\\projection\\plant_proxy_data.py",
+      "sha256": "b19a9cdbe36c3d72ee4d493b08b7dedc5c62aa64bc193d9f421e8cf5160109ba"
+    },
+    "behavior_pack/netease_blocks/preview_crimson_roots.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\behavior_pack\\netease_blocks\\preview_crimson_roots.json",
+      "sha256": "e5388da7dff9fb4117db7122cc9907c3457da7d7ade3bc6deeacd20f8c1dfd89"
+    },
+    "behavior_pack/netease_blocks/preview_nether_sprouts.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\behavior_pack\\netease_blocks\\preview_nether_sprouts.json",
+      "sha256": "480afc8b41d8349cff19db1a131e68f80935266147ef087354dd9a41bb5a3ff8"
+    },
+    "behavior_pack/netease_blocks/preview_warped_roots.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\behavior_pack\\netease_blocks\\preview_warped_roots.json",
+      "sha256": "70fd41e66a072bf50816fb7df63e9a5228560a6f77770a7acfe1081c645396e2"
+    },
+    "resource_pack/blocks.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\resource_pack\\blocks.json",
+      "sha256": "dd055885a042f23ff03c804045f001b1e3243c75fe5022c7419cbeccb78ac9c3"
+    },
+    "resource_pack/models/netease_block/preview_crimson_roots.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\resource_pack\\models\\netease_block\\preview_crimson_roots.json",
+      "sha256": "81dbbe84868614d9e8c329ab95ee3aae37e957f36347440c66fddb120e47b2f4"
+    },
+    "resource_pack/models/netease_block/preview_nether_sprouts.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\resource_pack\\models\\netease_block\\preview_nether_sprouts.json",
+      "sha256": "2f345a9f7a283077995a708aa95aff069ba9fa598fb5dc63c4157ea806d305ad"
+    },
+    "resource_pack/models/netease_block/preview_warped_roots.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\resource_pack\\models\\netease_block\\preview_warped_roots.json",
+      "sha256": "e1150e702d3662d5defa9e9d3756af6f63ec2c42e59b2528dc3377f8d18f2b00"
+    },
+    "resource_pack/textures/terrain_texture.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\resource_pack\\textures\\terrain_texture.json",
+      "sha256": "b2550359de4354c69108abc76e35b96094791dd1a199367b597436b299638b68"
+    },
+    "tools/audit_static_plant_matrix.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\tools\\audit_static_plant_matrix.py",
+      "sha256": "534fce8d9e1057e5359f666946da78d447caa40b120de75a47ac8c06d59b2bcb"
+    },
+    "tools/data/static_plant_sources_nemc_3.9.0.401155.json": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\tools\\data\\static_plant_sources_nemc_3.9.0.401155.json",
+      "sha256": "433a839c185a28050f0a6446a9b884ff38679ddc7ee51af02168e4ab3d0ebade"
+    },
+    "tools/generate_static_plant_proxies.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\tools\\generate_static_plant_proxies.py",
+      "sha256": "7d563ac59a87bc7a476828eaba65cedd6eb4e4cb382cd1db27d473cb28806e6f"
+    },
+    "tools/verify_fungus_remaining_matrix.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\tools\\verify_fungus_remaining_matrix.py",
+      "sha256": "4dac2a05090979048b63ca1b32ca22d176506124b2e2b2ea0bfce9017e96ed31"
+    },
+    "tools/verify_snow_catalogue_visuals.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\candidate-source\\tools\\verify_snow_catalogue_visuals.py",
+      "sha256": "36c994259cbc3eb6b5402f19faffe0d13fbb8db5f6e3b2271c7b0f84895ab122"
+    }
+  },
+  "process_resource_diagnostics": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\snow-root-rejected-candidate-r8\\root-resource-diagnostics-r8.json",
+    "sha256": "60498f7492d35bfa4b4ce7d79399349b989bef5f81f40d90364f8bfc01e71c6c"
+  },
+  "promotion_policy": "Failed raw Combine and centered-cross experiments remain failed; unaccepted candidates are removed from production registration"
+}

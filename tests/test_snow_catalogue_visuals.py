@@ -86,8 +86,20 @@ class SnowCatalogueVisualTests(unittest.TestCase):
                                      (('crimson_fungus',), heights, ('full',))):
             with self.subTest(plants=plants, matrix=matrix, modes=modes), self.assertRaisesRegex(ValueError, 'exact height matrix'):
                 profile_offset(plants, matrix, modes, 'right', 'fungus_remaining')
-        with self.assertRaisesRegex(ValueError, 'versioned fungus profile'):
+        with self.assertRaisesRegex(ValueError, 'versioned static plant profile'):
             profile_offset(('poppy',), [0], ('full', 'missing'), 'right')
+
+    def test_static_root_screen_and_remaining_profiles_cover_distinct_heights(self):
+        screen = VISUAL_CASE['static_root_screen']
+        remaining = VISUAL_CASE['static_root_remaining']
+        self.assertEqual(screen['views'], VISUAL_CASE['fungus_boundary']['views'])
+        self.assertEqual(screen['native_target'], VISUAL_CASE['fungus_remaining']['native_target'])
+        for plant in ('crimson_roots', 'warped_roots', 'nether_sprouts'):
+            self.assertEqual((0,), screen['heights'][plant])
+            self.assertEqual(tuple(range(1, 8)), remaining['heights'][plant])
+            self.assertEqual((2., .15, -2.5), profile_offset(
+                (plant,), list(remaining['heights'][plant]), ('full', 'missing'), 'right',
+                'static_root_remaining'))
 
     def test_unregistered_static_plants_keep_pixel_checks_without_proxy_alpha(self):
         with tempfile.TemporaryDirectory() as directory:

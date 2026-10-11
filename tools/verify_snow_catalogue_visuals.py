@@ -231,12 +231,12 @@ def replay(source, output):
 def profile_offset(plants, heights, modes, view, profile=None):
     if profile is None:
         if view != 'public':
-            raise ValueError('The second predefined view requires a versioned fungus profile')
+            raise ValueError('The second predefined view requires a versioned static plant profile')
         return tuple(VISUAL_CASE['camera']['world_offset'])
     candidate = VISUAL_CASE[profile]
     if (len(plants) != 1 or plants[0] not in candidate['heights'] or
             heights != list(candidate['heights'][plants[0]]) or modes != ('full', 'missing')):
-        raise ValueError('Fungus profile requires one named plant, its exact height matrix and both modes')
+        raise ValueError('Static plant profile requires one named plant, its exact height matrix and both modes')
     return tuple(candidate['views'][view])
 
 
@@ -249,7 +249,7 @@ def run(args):
     heights = sorted(set(args.height or range(8)))
     modes = tuple(dict.fromkeys(args.mode or ('full', 'missing')))
     view = args.view
-    profile = ('fungus_boundary' if args.fungus_boundary else
+    profile = args.profile or ('fungus_boundary' if args.fungus_boundary else
                'fungus_remaining' if args.fungus_remaining else None)
     offset = profile_offset(plants, heights, modes, view, profile)
     report = {'schema': 1, 'completed': False, 'restored': False, 'passed': False, 'rows': [],
@@ -257,8 +257,9 @@ def run(args):
               'native_resolution': args.native_resolution, 'fixture_lift_y': args.fixture_lift_y,
               'near_player': args.near_player,
               'view': view, 'world_camera_offset': offset,
-              'fungus_boundary_profile': bool(args.fungus_boundary),
-              'fungus_remaining_profile': bool(args.fungus_remaining),
+              'diagnostic_profile': profile,
+              'fungus_boundary_profile': profile == 'fungus_boundary',
+              'fungus_remaining_profile': profile == 'fungus_remaining',
               'reuse_snow_controls': args.reuse_snow_controls,
               'calibration': calibration, 'blueprint_case': VISUAL_CASE, 'native_assets': {},
               'limits': {'native_recall': .75, 'native_precision': .75, 'native_edge_tolerance_pixels': 3},
@@ -278,7 +279,7 @@ def run(args):
             check.refresh()
             focus = tuple(VISUAL_CASE['focus'])
             native_target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,8+%r,6)[i] for i in range(3)))' % args.fixture_lift_y))
-            if profile == 'fungus_remaining':
+            if profile and 'native_target' in VISUAL_CASE[profile]:
                 native_target = tuple(VISUAL_CASE[profile]['native_target'])
             report['native_target'] = native_target
             native_created = True
@@ -467,6 +468,9 @@ def main():
                         help='Use only the versioned fungus dry/burial-boundary matrix and fixed views')
     profiles.add_argument('--fungus-remaining', action='store_true',
                         help='Use exactly the six fungus heights absent from the R7 boundary matrix')
+    profiles.add_argument('--profile', choices=('fungus_boundary', 'fungus_remaining',
+                         'static_root_screen', 'static_root_remaining'),
+                         help='Use an exact versioned static-plant matrix with its fixed target and views')
     parser.add_argument('--timeout', type=float, default=60.)
     parser.add_argument('--native-resolution', action='store_true')
     parser.add_argument('--near-player', action='store_true',

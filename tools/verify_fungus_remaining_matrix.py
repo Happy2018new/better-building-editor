@@ -1,4 +1,4 @@
-"""Run and audit the six fungus heights absent from the R7 boundary evidence."""
+"""Run a frozen versioned static-plant matrix and preserve every original report."""
 import argparse
 import hashlib
 import json
@@ -27,7 +27,8 @@ def freeze(output):
                    if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc')
     paths.extend(ROOT/'tools'/name for name in
                  ('verify_snow_catalogue_visuals.py', 'verify_fungus_remaining_matrix.py',
-                  'verify_snow_plant_visibility.py', 'capture_native_window.py'))
+                  'verify_snow_plant_visibility.py', 'capture_native_window.py',
+                  'audit_static_plant_matrix.py', 'generate_static_plant_proxies.py'))
     value = {'schema': 1, 'project': str(ROOT),
              'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
              'hashes_sha256': {path.relative_to(ROOT).as_posix(): digest(path) for path in paths}}
@@ -40,7 +41,7 @@ def source_errors(frozen):
             if not (ROOT/name).is_file() or digest(ROOT/name) != expected]
 
 
-def run(output, frozen_path, calibration_path):
+def run(output, frozen_path, calibration_path, profile='fungus_remaining', plants=None, views=None):
     if output.exists():
         raise ValueError('Matrix output must be fresh')
     session = load_session(live=True)
@@ -49,17 +50,24 @@ def run(output, frozen_path, calibration_path):
     frozen = json.loads(frozen_path.read_bytes())
     if Path(frozen['project']).resolve() != ROOT or source_errors(frozen):
         raise ValueError('Frozen project source changed before capture')
-    matrix = {'schema': 1, 'profile': 'fungus_remaining', 'completed': False,
+    candidate = VISUAL_CASE[profile]
+    plants = tuple(dict.fromkeys(plants or candidate['heights']))
+    views = tuple(dict.fromkeys(views or ('public', 'right')))
+    if any(plant not in candidate['heights'] for plant in plants):
+        raise ValueError('A selected plant is outside the versioned profile')
+    expected = {(plant, view) for plant in plants for view in views}
+    matrix = {'schema': 1, 'profile': profile, 'plants': plants, 'views': views, 'completed': False,
               'restored': False, 'passed': False, 'rows': [],
               'session_file': session['session_file'], 'owner': session['owner'],
               'game_pid': session['game_pid'], 'frozen_source': record(frozen_path),
-              'calibration': record(calibration_path), 'profile_case': VISUAL_CASE['fungus_remaining'],
+              'calibration': record(calibration_path), 'profile_case': candidate,
               'limits': {'native_recall': .75, 'native_precision': .75,
                          'native_edge_tolerance_pixels': 3},
-              'scope': 'R7 boundary rows plus this independent remaining-height matrix may cover all eight; other plants and positions remain pending'}
+              'scope': candidate['scope']}
     write_json(output, matrix)
-    for plant, heights in VISUAL_CASE['fungus_remaining']['heights'].items():
-        for view in ('public', 'right'):
+    for plant in plants:
+        heights = candidate['heights'][plant]
+        for view in views:
             changed = source_errors(frozen)
             if changed:
                 matrix['source_errors'] = changed
@@ -70,7 +78,7 @@ def run(output, frozen_path, calibration_path):
                 raise ValueError('Matrix case output must be fresh')
             command = [sys.executable, '-X', 'utf8', str(ROOT/'tools/verify_snow_catalogue_visuals.py'),
                        str(report_path), '--camera-calibration', str(calibration_path),
-                       '--plant', plant, '--view', view, '--fungus-remaining', '--native-resolution',
+                       '--plant', plant, '--view', view, '--profile', profile, '--native-resolution',
                        '--near-player', '--fixture-lift-y', '16', '--timeout', '90']
             for height in heights:
                 command.extend(('--height', str(height)))
@@ -93,7 +101,8 @@ def run(output, frozen_path, calibration_path):
         break
     matrix['source_errors'] = source_errors(frozen)
     matrix['source_assets_stable'] = not matrix['source_errors']
-    matrix['completed'] = len(matrix['rows']) == 4 and all(row.get('completed') for row in matrix['rows'])
+    matrix['completed'] = ({(row['plant'], row['view']) for row in matrix['rows']} == expected and
+                           len(matrix['rows']) == len(expected) and all(row.get('completed') for row in matrix['rows']))
     matrix['restored'] = bool(matrix['rows']) and all(row.get('restored') for row in matrix['rows'])
     matrix['passed'] = matrix['completed'] and matrix['restored'] and matrix['source_assets_stable'] and all(row.get('passed') for row in matrix['rows'])
     write_json(output, matrix)
@@ -123,6 +132,10 @@ def main():
     parser.add_argument('--frozen-source', type=Path)
     parser.add_argument('--camera-calibration', type=Path)
     parser.add_argument('--audit', type=Path)
+    parser.add_argument('--profile', choices=('fungus_remaining', 'static_root_screen',
+                         'static_root_remaining'), default='fungus_remaining')
+    parser.add_argument('--plant', action='append')
+    parser.add_argument('--view', choices=('public', 'right'), action='append')
     args = parser.parse_args()
     if args.freeze:
         result = freeze(args.output)
@@ -131,7 +144,8 @@ def main():
     else:
         if args.frozen_source is None or args.camera_calibration is None:
             parser.error('Live matrix requires --frozen-source and --camera-calibration')
-        result = run(args.output, args.frozen_source, args.camera_calibration)
+        result = run(args.output, args.frozen_source, args.camera_calibration,
+                     args.profile, args.plant, args.view)
     print(json.dumps(result, ensure_ascii=True), flush=True)
     return 0 if result.get('passed', result.get('integrity_passed', True)) else 1
 
