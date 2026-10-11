@@ -68,6 +68,39 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
         self.assertEqual(str(os.getpid()), environment['PYREACT_DESKTOP_LOCK_PID'])
         self.assertEqual('parent-identity', environment['PYREACT_DESKTOP_LOCK_IDENTITY'])
 
+    def test_native_camera_calibration_skips_lock_but_retains_session(self):
+        load, lock, child = self.run_case(['--sdk-background',
+            'verify_camera_projection.py', 'evidence.json', '--native-resolution'])
+        self.assertEqual(7, runner.main())
+        load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
+        lock.assert_not_called()
+        self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
+
+    def test_camera_without_native_background_capture_is_rejected(self):
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'verify_camera_projection.py', 'evidence.json'])
+        with self.assertRaises(SystemExit):
+            runner.main()
+        lock.assert_not_called()
+        child.assert_not_called()
+
+    def test_background_liquid_capture_requires_reviewed_helper(self):
+        helper = str(runner.ROOT / 'tools/verify_sign_visuals.py')
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'capture_pure_liquid_native_controls.py', 'evidence.json', '--capture-helper', helper])
+        self.assertEqual(7, runner.main())
+        lock.assert_not_called()
+        self.assertEqual(['--capture-helper', helper], child.call_args.args[0][-2:])
+
+    def test_liquid_capture_cannot_supply_unreviewed_helper(self):
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'capture_pure_liquid_native_controls.py', 'evidence.json',
+            '--capture-helper', str(runner.ROOT / 'tools/verify_debug_visuals.py')])
+        with self.assertRaises(SystemExit):
+            runner.main()
+        lock.assert_not_called()
+        child.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()
