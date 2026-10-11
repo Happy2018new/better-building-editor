@@ -30,6 +30,7 @@ SNAPSHOTS = (
     'native_palette_actors',
     'native_bed_capture',
     'native_liquid_materials',
+    'native_liquid_geometry_support',
 )
 
 
