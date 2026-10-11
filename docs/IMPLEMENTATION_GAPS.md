@@ -135,6 +135,10 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **04:16 水批次 UI 尺度适配：** 原生矩阵探针确认 skeleton 显示尺度取决于实际 PaperDoll 宽高，而既有 `render_bounds` 会为偏移后的每批次扩大控件尺寸。`LiquidControls` 因此按当前 `LiquidView` 分别取得姿态，Scene 将 `view.size` 传给版本 profile；裁切隐藏批次不请求姿态。12 项视口／生命周期测试通过，新增拖动／尺寸变化只改姿态而不改形状载荷的检查；定点 MOD review 解析 3 文件，保留既有 Scene 长函数及参数提示。最终原生尺度／中心标定及实际编辑器像素仍待代理完成，不据接口准备宣称画面通过。
 
+**04:20 原生液体名称／写入路径：** [版本化观测](../tools/data/native_liquid_alias_observations_nemc_3.9.0.401155.json) 保存八个单格和二十个 2×2 水池样本，原始双端 palette、时序、125 格邻域、source SHA 和恢复检查均保留。`flowing_water` 请求同步读回为 `water`；非零深度在后续样本变化，2 秒时两端均为空气，即使调用返回 true。静态 `water` 的 `SetBlockNew` 0／1／3／7／8 保持，而 `SetBlockStates` 的非零深度也会变化并消失，因此名称和 setter 路径要分别判断。深度零 flowing 请求能保持 canonical `water:0`，但不能证明精确 flowing 名称支持；两名的原生 `blockLightAbsorption` 也不同。不得把它们统一别名后通过旧静态门控；几何／UV／生产接受仍为 false。两批现场和流动设置已恢复，无清理错误，不再重复同样失败实验。
+
+**04:23 液体版本 profile 组合：** 新增 `NativeLiquidProfile`，从显式资源数据组合纯形状 provider 与原生分面纹理。它核对游戏／palette、形状候选、分面资源行集合和载荷版本，提前拒绝缺失／重复模型、未登记侧面 UV、UI／世界混用模型、无效预算和世界姿态；内部复制资源映射，不运行 SDK 或读取文件。原生 UI 中心补偿使用单独 `ui_offset(view.size)`，仅改变控件位置。四项合同测试通过，包含真实 `LiquidPreview`／`LiquidProjection` owner 路径共用形状但独立资源、透明准备后发布以及清理；运行时 157 文件白名单无违规，MOD review 解析 1 文件无发现。profile 的存在仍不等于正式资源或实机接受，默认保持未启用；液体代理继续校准三个姿态、两类宽高比和中心偏移。
+
 ### 第八轮保存检查点（2026-10-11，截止 23:30）
 
 本轮从 `dev` 的 `67dfc74` 接续；`main` 和 `render-dragon` 保持各自既定用途。用户暂存的五个 `tools/p0_palette_*_probe.py` 文件保留暂存状态，不能混入本轮的路径限定提交。此前归档的 `.runtime/p0-*` 路径只用于读取历史证据，本轮三个代理曾使用新的实际 Git 工作树 `r8-liquid`、`r8-entities`、`r8-snow`；接受提交已统一接入 `dev`，三个工作树及对应临时分支已归档清理，旧路径现在也仅为证据别名。

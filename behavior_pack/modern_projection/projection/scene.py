@@ -409,8 +409,10 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         if liquid is not None:
             liquid.advance()
             def liquid_view(origin):
-                return group_view(origin, camera, session.scene_origin, session.scene_size,
+                view = group_view(origin, camera, session.scene_origin, session.scene_size,
                                   (native_width, native_height), cell_unit)
+                offset = liquid_profile.ui_offset(view.size)
+                return view._replace(position=tuple(view.position[axis] + offset[axis] for axis in range(2)))
             def liquid_pose(view):
                 return liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw, view.size)
             liquid_controls.update(liquid.groups, liquid_view, liquid_pose,
