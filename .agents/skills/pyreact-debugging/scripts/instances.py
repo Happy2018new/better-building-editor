@@ -61,7 +61,8 @@ def prepare_config(project, config, game_exe, port, instance_id, preset=None):
     if preset == "ui":
         result.update(world_seed=0, world_type=2, game_mode=1,
                       do_weather_cycle=False, do_daylight_cycle=False,
-                      auto_hot_reload_mods=True, auto_hot_reload_ui=True)
+                      auto_hot_reload_mods=config.get('auto_hot_reload_mods', True),
+                      auto_hot_reload_ui=config.get('auto_hot_reload_ui', True))
     return result
 
 
