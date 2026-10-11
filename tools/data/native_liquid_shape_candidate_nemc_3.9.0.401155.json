@@ -12,7 +12,8 @@
     }
   },
   "accepted": false,
-  "scope": "Diagnostic candidate. Independent frozen uniform 2x2 pools pass all sixteen static water depths. General neighbors, face culling, UVs and production rendering remain unaccepted.",
+  "scope": "Diagnostic candidate. Independent frozen uniform 2x2 pools pass all sixteen static water depths, and eight explicit mixed/above/source/gradient/corner/stone-neighbor contexts pass outer silhouettes. General neighbors, hidden faces, UVs and production rendering remain unaccepted.",
+  "neighbor_evidence_file": "tools/data/native_liquid_neighbor_shape_nemc_3.9.0.401155.json",
   "original_candidate_sha256": "6382af0b7014cad5fc6e8358bd04f5f6a629e20839befc738380e16e8e72deb5",
   "evidence": {
     "session": "a0a5ab4f82f44124bd036df9bc6cc2e1",

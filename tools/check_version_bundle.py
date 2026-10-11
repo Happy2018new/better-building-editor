@@ -40,6 +40,7 @@ SNAPSHOTS = (
     'native_dripstone_holdout',
     'native_liquid_surface_diagnostics',
     'native_liquid_shape_candidate',
+    'native_liquid_neighbor_shape',
     'native_liquid_face_textures',
     'native_scaffold_supports',
     'native_scaffold_topology',
