@@ -729,6 +729,105 @@ class ServerStreamTests(unittest.TestCase):
         self.assertEqual(70, actor[b'y'][b'__value__'])
         self.assertEqual(9, actor[b'z'][b'__value__'])
 
+    def test_observed_pot_tile_rebuild_clears_promoted_water_and_preserves_typed_source(self):
+        from modern_projection.projection.cell import encode, actor_data
+        from modern_projection.projection.visible_actor import entity_nbt
+        from modern_projection.projection.debug_blueprints import build
+        from modern_projection.projection.debug_pot_blueprints import CASES
+        from modern_projection.projection.nbt_spatial import rebase
+        actor = entity_nbt(actor_data(build('test.entities.pottery').get(CASES[0]['position'])))
+        actor['future_field'] = {'__type__': 10, '__value__': {
+            'nested': {'__type__': 8, '__value__': 'unknown retained'}}}
+        actor['Items'] = [{'Slot': {'__type__': 1, '__value__': 7},
+                           'Name': {'__type__': 8, '__value__': 'minecraft:diamond'}}]
+        position, origin = (8, 70, 9), (5, 69, 6)
+        adapter = server.WorldAdapter('player')
+        adapter.info.GetBlockNew = lambda *args: self.fail('tile rebuild must not read target blocks')
+        adapter.info.GetLiquidBlock = lambda *args: self.fail('tile rebuild must not read target liquids')
+        adapter.info.GetBlockEntityData = lambda *args: self.fail('tile rebuild must not read target NBT')
+        trace = []
+        native = {'front': 'minecraft:decorated_pot', 'back': 'minecraft:water'}
+        def clear(pos, value, *arguments):
+            trace.append(('clear', pos, value, arguments))
+            changed = native['front'] != 'minecraft:air'
+            if value['name'] == b'minecraft:air':
+                native['front'], native['back'] = native['back'], 'minecraft:air'
+            else:
+                self.assertEqual(b'minecraft:oak_fence', value['name'])
+                native['front'] = 'minecraft:oak_fence'
+            return changed
+        def palette(palette, dim, pos, rotation, conflict):
+            target = next(iter(palette.data['extra']))[0].decode('utf8')
+            self.assertEqual('minecraft:oak_fence' if target == 'minecraft:water' else
+                             'minecraft:air', native['front'])
+            if target == 'minecraft:air':
+                self.assertEqual('minecraft:air', native['back'])
+            trace.append(('palette', palette.data))
+            native['front'] = 'minecraft:decorated_pot'
+            native['back'] = next(iter(palette.data['extra']))[0].decode('utf8')
+            return True
+        def nbt(dim, pos, payload):
+            trace.append(('nbt', payload))
+            self.assertEqual(adapter._native_tree(rebase(actor, origin)), payload)
+            return True
+        adapter.info.SetBlockNew = clear
+        adapter.palette_block.SetBlockByBlockPalette = palette
+        adapter.info.SetBlockEntityData = nbt
+        for wet in (False, True, True, False):
+            value = make_cell(('minecraft:decorated_pot', 0),
+                              ('minecraft:water', 0) if wet else AIR, nbt=actor)
+            before = encode(value)
+            self.assertTrue(adapter.write(position, value, origin))
+            self.assertEqual(before, encode(value))
+            amount = 3 if wet else 4
+            self.assertEqual((['clear'] if wet else ['clear', 'clear']) + ['palette', 'nbt'],
+                             [row[0] for row in trace[-amount:]])
+            for row in trace[-amount:-2]:
+                self.assertEqual((position, {'name': b'minecraft:oak_fence' if wet else b'minecraft:air', 'aux': 0},
+                                  (0, 0, True, False)), row[1:])
+            self.assertEqual('minecraft:water' if wet else 'minecraft:air', native['back'])
+        self.assertEqual([], self.entity_reads)
+        self.assertEqual([], self.palette_reads)
+        self.assertEqual(0, self.allowed_checks)
+
+    def test_pot_rebuild_waits_for_palette_deserialization_and_stops_failed_nbt_write(self):
+        actor = {'id': {'__type__': 8, '__value__': 'DecoratedPot'}}
+        value = make_cell(('minecraft:decorated_pot', 0), nbt=actor)
+        adapter = server.WorldAdapter('player')
+        adapter.palette_block.GetBlankBlockPalette = lambda: types.SimpleNamespace(
+            DeserializeBlockPalette=lambda data: False)
+        self.assertFalse(adapter.write((0, 64, 0), value))
+        self.assertEqual([], self.writes)
+        self.assertEqual([], self.actor_writes)
+        adapter.palette_block.GetBlankBlockPalette = Palette
+        adapter.palette_block.SetBlockByBlockPalette = lambda *args: False
+        self.assertFalse(adapter.write((0, 64, 0), value))
+        self.assertEqual([(0, 64, 0), (0, 64, 0)], self.writes)
+        self.assertEqual([], self.actor_writes)
+        adapter.palette_block.SetBlockByBlockPalette = self.write_palette
+        adapter.info.SetBlockEntityData = lambda *args: False
+        self.assertFalse(adapter.write((0, 64, 0), value))
+
+    def test_tile_rebuild_is_not_generalized_to_unobserved_entities_or_visible_actor_payloads(self):
+        for material, actor in ((('minecraft:chest', 0), {'id': {'__type__': 8, '__value__': 'Chest'}}),
+                                (('minecraft:decorated_pot', 0), {'decoratedPotShredNames0': 'blade'})):
+            self.assertTrue(server.WorldAdapter('player').write((0, 64, 0), make_cell(material, nbt=actor)))
+        self.assertEqual([(0, 64, 0), (0, 64, 0)], self.writes)
+        self.assertEqual(2, len(self.palette_writes))
+
+    def test_failed_pot_cell_keeps_later_world_cells_and_start_only_permission_check(self):
+        actor = {'id': {'__type__': 8, '__value__': 'DecoratedPot'}}
+        doc = Document((2, 1, 1), {(0, 0, 0): make_cell(('minecraft:decorated_pot', 0), nbt=actor),
+                                  (1, 0, 0): ('minecraft:stone', 0)})
+        self.factory.CreateBlockInfo = lambda level: types.SimpleNamespace(
+            GetBlockBasicInfo=lambda name: {'name': name}, SetBlockNew=self.write,
+            SetBlockEntityData=lambda *args: False)
+        self.send(doc=doc)
+        self.finish()
+        self.assertEqual(('minecraft:stone', 0), self.blocks[(1, 64, 0)])
+        self.assertEqual(1, self.allowed_checks)
+        self.assertEqual([], self.entity_reads)
+
     def test_apply_writes_palette_without_reading_target_cells(self):
         pos = (0,64,0)
         self.blocks[pos] = ('minecraft:grass',0)

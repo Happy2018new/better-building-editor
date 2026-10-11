@@ -9,6 +9,7 @@ from .projection.transfer import Receiver, packets
 from .projection.block_registry import canonical as registry_canonical, states as registry_states
 from .projection.nbt_spatial import rebase as rebase_actor
 from .projection.visible_actor import compose_actor, entity_nbt, sign_sides
+from .projection.native_entity_write import tile_rebuild_stages
 from .projection.tool_items import SURVEY_WAND, TERMINAL, item_name, selection
 import time
 
@@ -149,6 +150,9 @@ class WorldAdapter(object):
             'void': False,
             'eliminateAir': False,
         }
+        raw_actor = actor_data(value)
+        nbt = entity_nbt(raw_actor)
+        rebuild_stages = tile_rebuild_stages(front, back, nbt)
         properties = registry_states(front)
         if properties is not None and 'head_piece_bit' in properties:
             if not self._write_head_first_pair(pos, front, back, properties):
@@ -157,11 +161,14 @@ class WorldAdapter(object):
             palette = self.palette_block.GetBlankBlockPalette()
             if palette is None or not palette.DeserializeBlockPalette(data):
                 return False
+            # Rebuild the observed tile while preserving wet layers for client
+            # replication, then apply the final palette and typed NBT together.
+            for name, aux in rebuild_stages:
+                self.info.SetBlockNew(pos, {'name': name.encode('utf8'), 'aux': aux},
+                                      0, self.dimension, True, False)
             if not self.palette_block.SetBlockByBlockPalette(
                     palette, self.dimension, pos, 0, 0):
                 return False
-        raw_actor = actor_data(value)
-        nbt = entity_nbt(raw_actor)
         if nbt is not None:
             world_actor = rebase_actor(nbt, origin)
             return self.info.SetBlockEntityData(

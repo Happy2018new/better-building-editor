@@ -17,6 +17,7 @@ MODULES = (
     'water_interaction_data',
     'static_neighbor_data',
     'native_palette_actor_data',
+    'native_entity_write_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -31,6 +32,7 @@ SNAPSHOTS = (
     'native_bed_capture',
     'native_liquid_materials',
     'native_liquid_geometry_support',
+    'native_entity_writes',
 )
 
 
@@ -89,6 +91,7 @@ def commands(manifest, tests=False):
         ['tools/generate_water_interactions.py', '--check'],
         ['tools/generate_static_neighbor_rules.py', '--check'],
         ['tools/generate_native_palette_adapter.py', '--check'],
+        ['tools/generate_native_entity_writes.py', '--check'],
         ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
