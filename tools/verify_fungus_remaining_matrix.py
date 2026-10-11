@@ -2,12 +2,9 @@
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
 import subprocess
 import sys
-
-from PIL import Image, ImageDraw, ImageOps
 
 from verify_snow_catalogue_visuals import ROOT, VISUAL_CASE
 from verify_debug_blueprints import write_json
@@ -115,77 +112,8 @@ def captures(value):
 
 
 def audit(matrix_path, output):
-    if output.exists():
-        raise ValueError('Audit output must be fresh')
-    matrix = json.loads(matrix_path.read_bytes())
-    errors, images, sheets, reports = [], {}, [], []
-    for case in matrix['rows']:
-        path = Path(case['path'])
-        if digest(path) != case['sha256']:
-            raise ValueError('Original case report changed')
-        value = json.loads(path.read_bytes())
-        reports.append({key: value.get(key) for key in
-                        ('plants', 'view', 'heights', 'completed', 'restored', 'passed',
-                         'scopes', 'cleanup_errors', 'binding_read_failures')})
-        if value['cleanup_errors'] or not all(row['clean'] for row in value['native_cleanup']):
-            errors.append(str(path)+': native cleanup is incomplete')
-        for capture in captures(value):
-            image_path = Path(capture['path'])
-            key = str(image_path.resolve())
-            if key in images:
-                if images[key] != capture['sha256']:
-                    errors.append(key+': duplicate capture hash differs')
-                continue
-            images[key] = capture['sha256']
-            metadata = capture['capture']
-            if digest(image_path) != capture['sha256']:
-                errors.append(key+': original PNG changed')
-            flags = ('ok', 'reliable', 'background_only', 'native_resolution',
-                     'foreground_unchanged', 'background_safe')
-            if not all(metadata.get(flag) for flag in flags):
-                errors.append(key+': background capture gate failed')
-            frame = metadata['frame']
-            if frame['frame_qpc_100ns'] <= frame['request_qpc_100ns']:
-                errors.append(key+': frame predates request')
-            if metadata['game_pid'] != matrix['game_pid'] or metadata['owner'] != matrix['owner']:
-                errors.append(key+': capture ownership differs')
-        rows = [row for row in value['rows'] if row['kind'] != 'blank']
-        for row in rows:
-            for mask in row['masks'].values():
-                if digest(Path(mask['path'])) != mask['sha256']:
-                    errors.append(mask['path']+': verdict mask changed')
-        inspect = [row for row in rows if row['kind'] in ('plant', 'covered')]
-        width, height = 420, 250
-        sheet = Image.new('RGB', (width*4, len(inspect)*(height+28)), 'white')
-        draw = ImageDraw.Draw(sheet)
-        for index, row in enumerate(inspect):
-            cells = [('native', row['native']['screenshot'], row['crop'])]
-            cells.extend((mode, row['world'][mode]['screenshot'], row['crop']) for mode in ('full', 'missing'))
-            cells.append(('editor', row['editor'], row['editor_crop']))
-            for column, (label, capture, crop) in enumerate(cells):
-                with Image.open(capture['path']) as image:
-                    preview = ImageOps.contain(image.convert('RGB').crop(tuple(crop)), (width, height))
-                x, y = column*width, index*(height+28)
-                draw.text((x+8, y+8), '%s %s %s h%d %s' %
-                          (row['plant'], value['view'], row['kind'], row['height'], label), fill='black')
-                sheet.paste(preview, (x+(width-preview.width)//2, y+28))
-        sheet_path = path.with_name(path.stem+'_inspect.png')
-        if sheet_path.exists():
-            raise ValueError('Inspection PNG must be fresh')
-        sheet.save(sheet_path)
-        sheets.append(dict(record(sheet_path), inspection_only=True, rows=len(inspect)))
-    frozen_path = Path(matrix['frozen_source']['path'])
-    if digest(frozen_path) != matrix['frozen_source']['sha256']:
-        errors.append('Frozen source manifest changed')
-    frozen = json.loads(frozen_path.read_bytes())
-    errors.extend('Frozen source changed: '+name for name in source_errors(frozen))
-    result = {'schema': 1, 'matrix': record(matrix_path), 'integrity_passed': not errors,
-              'errors': errors, 'matrix_completed': matrix['completed'],
-              'matrix_restored': matrix['restored'], 'matrix_passed': matrix['passed'],
-              'frozen_source_files_audited': len(frozen['hashes_sha256']),
-              'unique_native_pngs_audited': len(images), 'reports': reports, 'inspection_sheets': sheets}
-    write_json(output, result)
-    return result
+    from audit_static_plant_matrix import audit as audit_background_captures
+    return audit_background_captures(matrix_path, output)
 
 
 def main():

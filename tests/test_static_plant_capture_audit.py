@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from PIL import Image, ImageDraw
 
@@ -14,6 +15,14 @@ from audit_static_plant_matrix import capture_status
 
 
 class StaticPlantCaptureAuditTests(unittest.TestCase):
+    def test_legacy_matrix_audit_uses_the_background_capture_contract(self):
+        from verify_fungus_remaining_matrix import audit
+        matrix, output = Path('matrix.json'), Path('audit.json')
+        expected = {'integrity_passed': True}
+        with patch('audit_static_plant_matrix.audit', return_value=expected) as delegated:
+            self.assertIs(expected, audit(matrix, output))
+        delegated.assert_called_once_with(matrix, output)
+
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
