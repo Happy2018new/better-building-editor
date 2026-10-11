@@ -26,7 +26,7 @@ RENDER = '''cases => cases.map(item => {
     const position=gl.getAttribLocation(program,'POSITION'); gl.disableVertexAttribArray(position);
     const failures=[];
     for (const fixture of item.fixtures) {
-      for (let group=1;group<=4;group++) gl.uniform4fv(gl.getUniformLocation(program,'EXTRA_ACTOR_UNIFORM'+group),fixture.uniforms[group-1]);
+      for (let group=1;group<=4;group++) gl.uniform4fv(gl.getUniformLocation(program,(item.uniformPrefix||'EXTRA_ACTOR_UNIFORM')+group),fixture.uniforms[group-1]);
       gl.vertexAttrib4fv(position,fixture.position);
       gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.POINTS,0,1);
       const actual=new Uint8Array(4); gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,actual);
@@ -68,11 +68,14 @@ def main():
     parser.add_argument('--browser')
     parser.add_argument('--report',required=True,type=Path)
     parser.add_argument('--direct-entity',action='store_true')
+    parser.add_argument('--skeleton',action='store_true')
     args=parser.parse_args()
     if args.report.exists():
         parser.error('Choose a fresh report')
+    if args.direct_entity and args.skeleton:
+        parser.error('Choose one diagnostic model path')
     shaders=args.overlay/'resource_pack/shaders/glsl'
-    prefix='liquid_uniform_direct_r9' if args.direct_entity else 'liquid_uniform_r9'
+    prefix='liquid_skeleton_r9' if args.skeleton else ('liquid_uniform_direct_r9' if args.direct_entity else 'liquid_uniform_r9')
     paths=[shaders/(prefix+'.'+extension) for extension in ('vertex','fragment')]
     cases=[]
     for version in (100,300):
@@ -80,7 +83,11 @@ def main():
             cases.append({'name':'%s/%s' % (version,flags),'version':version,
                           'vertex':shader_source(paths[0],args.headers,version,flags),
                           'fragment':shader_source(paths[1],args.headers,version,flags),
-                          'fixtures':direct_fixtures() if args.direct_entity else fixtures()})
+                          'uniformPrefix':'EXTRA_VECTOR' if args.skeleton else 'EXTRA_ACTOR_UNIFORM',
+                          'fixtures':direct_fixtures() if args.direct_entity or args.skeleton else fixtures()})
+            if args.skeleton:
+                for slot,fixture in enumerate(cases[-1]['fixtures']):
+                    fixture['position']=[slot*1.1-1.65,0.,0.,1.]
     with sync_playwright() as playwright:
         browser=playwright.chromium.launch(executable_path=args.browser,headless=True,
             args=['--use-angle=swiftshader','--enable-unsafe-swiftshader'])
@@ -90,6 +97,7 @@ def main():
             browser.close()
     report={'schema':1,'results':results,'checks':sum(row.get('checks',0) for row in results),
             'direct_entity_diagnostic':args.direct_entity,
+            'skeleton_diagnostic':args.skeleton,
             'passed':all(row.get('passed',False) for row in results),
             'shader_sha256':{path.name:hashlib.sha256(path.read_bytes()).hexdigest() for path in paths},
             'scope':'Host GLES 2/3 and synthetic attributes; not native rendering acceptance',

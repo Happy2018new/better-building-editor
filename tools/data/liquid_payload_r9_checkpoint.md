@@ -1,6 +1,6 @@
 # Liquid Uniform Transport Round 9 Checkpoint
 
-Date: 2026-10-12, 00:27 Shanghai. Owner: `p0-liquid-r9`.
+Date: 2026-10-12, 00:42 Shanghai. Owner: `p0-liquid-r9`.
 Worktree: `.runtime/r9-liquid`, branch `codex/r9-liquid`, base `c249b23`.
 Game: NEMC `3.9.0.401155`, runtime `1.21.120.0`.
 
@@ -109,14 +109,51 @@ The native cow positive control renders but emits a Molang
 
 Identifier-wide payloads cannot independently feed many groups sharing the
 same entity identifier. `GetModelId` and `SetExtraUniformValue` are documented
-for skeleton models, with groups 1..4 mapped to `EXTRA_VECTOR1..4`; a skeleton
-adapter has not yet been tested. No production liquid backend was implemented.
+for skeleton models, with groups 1..4 mapped to `EXTRA_VECTOR1..4`. The isolated
+skeleton diagnostic below does not constitute a production adapter.
+No production liquid backend was implemented.
 
 Parsed native flipbook entries remain: still water ticks/frame 2; flowing
 water `quad:1`, `replicate:2`, no explicit ticks/frame; still lava ticks/frame
 16; flowing lava `quad:1`, `replicate:2`, ticks/frame 10. The snapshot geometry
 does not simulate fluid. Any later tint must use `Document.biome`; the parent
 water provider's unspecified opacity (`None`) must not be replaced with 1.
+
+## Independent Skeleton Payload Observation
+
+The model fixture follows the dictionary-form mesh/skeleton examples parsed
+from installed `for_developer/ceshi_rightlegdown` resources, with one static
+root and 16 vertices/eight triangles. Its material inherits documented
+`entity_for_skeleton`, includes the installed model/extra-vector headers,
+and ignores bone animation for this static diagnostic. The host shader
+passes 16 GLES 2/3 BLEND/BLEND+FOG synthetic checks. The first host invocation
+could not find Playwright's default browser; it was rerun with installed Edge.
+
+Native v1 completed and restored the page, but scale 0.6 clipped and overlapped
+planes. That original remains a failed framing observation. V2 uses scale
+0.15 and separately framed PaperDolls sharing the same model definition.
+`RenderSkeletonModel` returns true, asynchronous `GetModelId` returns distinct
+IDs 1/2, and those IDs remain stable during all updates. All
+`SetExtraUniformValue` calls return true. Reviewed six native PNGs show:
+default-zero on both models; original/reversed independent payloads; left-only
+reversal; left-only zero; right-only original with left still zero; and the
+original/reversed repeat. No actor, world block or environment was changed.
+
+Fixed masks come from the independent frame's declared colors within each
+native control ROI, eroded by a 3-pixel MinFilter. Every plane remains strictly
+inside its own control. Left slot masks contain 8,736/8,652/8,652/8,652 pixels;
+right masks contain 8,652/8,652/8,652/8,736. Every masked pixel matches the
+separately declared expected color in all six frames, RGB tolerance 1 and
+minimum 100. Owner/PID/creation identity, fresh WGC frame times and original
+PNG hashes pass the replay. This observes only the supplied first three
+height codes in each of four slots via `EXTRA_VECTOR2/3`, independently per
+native model. Fourth-height decoding, `EXTRA_VECTOR1/4`, liquid deformation,
+native sampling, tint/opacity, and editor integration remain unaccepted.
+
+Both games were recycled. V2 handles grow 61,263 to 63,517 over 12.05 seconds
+and private commit grows 2,571,927,552 to 2,582,814,720 bytes. These include
+background game/capture activity and have no isolated idle baseline; no
+production memory or retention conclusion is made.
 
 ## Recovery And Resource Identity
 
@@ -150,6 +187,12 @@ MCDK PIDs independently absent:
 | `9bce224f778f416ea22befc0ac16bbd4` | 43408 / 47892 |
 | `e305f44445524ba0a553a6c1f79b664e` | 43856 / 30540 |
 | `9746a4f02fee43d4b9f0015fc056f4db` | 21080 / 11300 |
+| `d4828ed7d84a4584b8a1504b64b285e1` | 32224 / 6936 |
+| `cdd6d478042841a586ef9056a765c921` | 10904 / 46048 |
+
+The skeleton diagnostic's seven-file overlay restored all original/absence
+hashes after both games exited. Both loaded the independently verified final
+focus guard DLL; all captures remained owner-bound background WGC frames.
 
 Session `3992368c8bfc4109aaa5cdcb99366baa` failed before ready with
 `Focus guard module snapshot failed`. Its MCDK PID 14508 exited, no matching
@@ -185,6 +228,10 @@ Reports contain original PNG paths/hashes and per-frame metadata.
 | `liquid-uniform-direct-editor-r9-v2.json` | `626023eea437121389b07ea0e8346301ce8ffc0492c867d540b462385400028c` |
 | `liquid-uniform-direct-editor-r9-v3.json` | `4c341b6212d515ee36ad8abbd7697875d39f687d285550e1d742ad6dcbb0e167` |
 | `liquid-uniform-pixels-r9-v3-masked.json` | `854e598aefbd2bbfc36cba681c48dc0fafbe20164df9fd4f4c4d52f1edf10f5f` |
+| `liquid-skeleton-gles-r9-v1.json` | `39a389613f618803191f0dfd411f73c543c66eddd1731b9d16975b1e9b13ed13` |
+| `liquid-skeleton-editor-r9-v1.json` | `db62f60a8b65f49288c01284d2d97fe6ab2f9d847846ca3145c6681a6ad0818c` |
+| `liquid-skeleton-editor-r9-v2.json` | `376c0e65b0a06f1dbfd6dce524d20652fc5e973d50615d93235abd46f2a28f30` |
+| `liquid-skeleton-pixels-r9-v2.json` | `3edbf41a81dee9cd047eb4a750012d50f01a287af74e76982db605f89b77394c` |
 
 ## Next Acceptance Gates
 
