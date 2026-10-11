@@ -12,11 +12,25 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 ## 2026-10-10 P0 实施状态
 
-### 第七轮后主线同步与闲置分支清理（2026-10-11）
+### 第七轮后提交历史修正（2026-10-11）
+
+用户指出第一次同步引入了 `realm` 专用 UUID、重复历史及不合规范的新增标题。复核确认集成链从 `origin/realm` 的 `587e418` 派生；它与 `origin/main` 的 `160e551` 包含等价功能，但另有 `76ef6a5`（`chore: update packs uuids`），使 BP／RP 的 header 与 module 共四个 UUID 不同。此前 `9afcb5a` 的空内容历史合并同时保留了 18 个等价提交的两套哈希，并未完成正确的主线整理。本节替代下节关于合并历史正确性的判断；工作树清理、原始归档及验收范围不变。
+
+所有更改尚未推送。修正前将全部 Git 引用、五个未跟踪探针及两个 pack manifest 备份到 `.runtime/history-repair-20261011/`；`before-repair.bundle` 保存完整历史并通过 `git bundle verify`，SHA-256 为 `48f4e620ffbbf1c9674f858cdabdaa469b27d903a42268e5d19f37ba3b270f7b`。`backup.json` 保存原引用、工作区状态和本地文件指纹；先前 `.runtime/worktree-archive-r7/` 归档及证据路径没有更改。
+
+现以远端 `main` 的原提交 `160e551667f45af3d540d185f8e1e5efda07c14b` 为基线，重新接入 **329 个本地新增提交**，逐项保留原改动；不接入 UUID 提交、18 个重复的 `realm` 历史提交和空合并 `9afcb5a`。**190 条新增标题**按实际内容补齐 `fix:`、`feat:`、`test:`、`docs:`、`perf:` 等前缀，原本合规范的标题保留。作者、提交者及两者时间均保持；远端历史、`realm`、`dev`、`uncomplete` 和 stash 引用不变。重建完成、追加本节前的主线 HEAD 为 `0efec585184e157ce392c869886205ca9b8e6ee2`；临时重建分支已删除，仍只有原仓库一个工作树。
+
+核验每个中间文件树，差异均仅为两个 pack manifest 的 UUID 恢复；329 个提交的原／新稳定 patch ID 逐一一致，新增链内及与远端基线之间没有重复 patch，没有新增 merge 或不合格式的标题。两个 manifest 与远端 `main` 的完整 Git blob 一致，最终生产代码、其余资源、测试和工具与修正前保持相同。五个未跟踪探针按备份指纹复核；本次没有启动 MC，也没有重跑完整测试，不新增功能接受结论。
+
+旧提交哈希仍用于原始证据与历史开发记录，不批量改写它们的哈希、来源指纹、画面阈值或接受结果。[提交映射](COMMIT_HISTORY_REPAIR_20261011.json) 保存 329 个旧／新提交映射及 18 个去重历史对应关系，可定位同一改动的新主线位置。原对象需要从上述完整 bundle 或此前第七轮归档恢复；恢复分支可用 `git fetch .runtime/history-repair-20261011/before-repair.bundle refs/heads/main:refs/heads/codex/recovered-main-before-repair`。当前 `main` 是远端 `main` 的线性延续，后续推送无需强制；本次没有推送。
+
+`dev` 保留 RenderDragon 实验，核心提交为 `bc376f1`：13 个着色器的离线 HLSL／DXIL 转换与 552 组编译已完成，普通附加包加载／绑定、运行时参数对接及游戏内视觉一致性未完成，仍归 F14。它不是当前 P0 开发入口，也不应作为已交付渲染后端整体合入 `main`。
+
+### 第七轮后主线同步与闲置分支清理（2026-10-11，历史操作）
 
 按用户要求，本次只同步已有提交、归档并清理闲置工作树／分支，没有继续功能开发或启动实机测试。**后续唯一开发入口为原仓库的 `main`**；下文第七轮及第五轮关于保留集成树和代理树的表述是历史状态，已由本节替代。清理不改变 F01–F04 的完成范围或未接受的画面结论。
 
-第七轮集成检查点 `685903d25b9e3e711dc4f51df674352bb8084fa8` 已完整进入 `main`。旧 `main` 独有的 18 个提交经 `git cherry codex/p0-integration main` 确认全部存在等价 patch；`9afcb5a5861ead7c7535b27a2f9dfba82b73f318` 使用 `git merge -s ours --no-ff main` 将这段已保留内容的历史接回，再将原仓库 `main` 快进至该提交。该历史合并的树与 `685903d` 完全相同，未丢弃独立主线修复。箱子候选 `008ca89`、未接受的液体 BP／RP 和已被服务端登记捕获替代的早期 `5ccc405` 客户端实现仅保存在归档历史中，没有重新加入生产实现。
+第一次同步将第七轮集成检查点 `685903d25b9e3e711dc4f51df674352bb8084fa8` 接入原仓库。旧 `main` 独有的 18 个提交经 `git cherry codex/p0-integration main` 确认全部存在等价 patch；`9afcb5a5861ead7c7535b27a2f9dfba82b73f318` 使用 `git merge -s ours --no-ff main` 接回该历史，再将原仓库 `main` 快进至该提交。该合并的树虽然与 `685903d` 相同，但仍包含 `realm` 的 UUID 和重复提交历史，已按上节重构。箱子候选 `008ca89`、未接受的液体 BP／RP 和已被服务端登记捕获替代的早期 `5ccc405` 客户端实现仅保存在归档历史中，没有重新加入生产实现。
 
 本次移除 **5 个闲置工作树、12 个 `codex/p0-*` 分支**；Git 现在只登记原仓库一个工作树。保留 `main`、`dev`、`realm`、`uncomplete` 及远端跟踪引用；没有推送远端。原仓库的五个未跟踪 `tools/p0_palette_*_probe.py` 保持原状。
 
