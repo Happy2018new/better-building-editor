@@ -77,6 +77,20 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
                 self.assertIn((coordinate, y, 6), roots)
                 self.assertIn((6, y, coordinate), roots)
 
+    def test_static_paths_preserve_public_moss_cells_tip_state_and_top_support(self):
+        for identity, keep_y in (('hanging_moss', 87), ('hanging_moss_cross_chunk', 88)):
+            cells, supports, keep, occupied = diagnostic.static_fixture_plan(identity)
+            with self.subTest(identity=identity):
+                self.assertEqual(len(cells), 5)
+                self.assertEqual({pos for pos, value in cells}, {(6, y, 6) for y in range(86, 91)})
+                values = dict(cells)
+                self.assertEqual(values[(6, 86, 6)], ('minecraft:pale_hanging_moss', 1))
+                self.assertTrue(all(values[(6, y, 6)] == ('minecraft:pale_hanging_moss', 0)
+                                    for y in range(87, 91)))
+                self.assertEqual(supports, [((6, 91, 6), ('minecraft:stone', 0))])
+                self.assertEqual(keep, (6, keep_y, 6))
+                self.assertEqual(occupied, (6, keep_y - 1, 6))
+
     def test_comparison_rejects_shift_and_excess_color_error(self):
         baseline = Image.new('RGB', (100, 100))
         ImageDraw.Draw(baseline).rectangle((40, 10, 49, 89), fill=(140, 110, 80))
@@ -109,7 +123,8 @@ class DirectSeedDiagnosticTests(unittest.TestCase):
         generate = diagnostic.GENERATE % (positions, 'test_seed', diagnostic.PATHS)
         payloads = [generate, diagnostic.ATTACH % 'direct_world', diagnostic.VISIBILITY % True,
                     diagnostic.CLEANUP, diagnostic.CAMERA % ((6, -37, 6),),
-                    diagnostic.ROIS % (positions, (6.5, -36., 6.5))]
+                    diagnostic.ROIS % (positions, (6.5, -36., 6.5)),
+                    diagnostic.STATIC_CAPABILITY % ([], [])]
         mock = '''import json,sys
 class Palette(object):
  def __init__(self,data=None):self.data=data or {'volume':(1,1,4),'common':{('minecraft:stone',0):[0,3]},'states':{('minecraft:stone',0):{u'key':True}}}

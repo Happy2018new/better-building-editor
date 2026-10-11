@@ -28,6 +28,73 @@ native = world.native
 ROOT = Path(__file__).resolve().parents[1]
 PATHS = ('direct_world', 'direct_palette', 'captured_palette', 'roundtrip')
 ROOT_CELL = (6, -37, 6)
+STATIC_ROOT = (6, 86, 6)
+
+
+STATIC_CAPABILITY = '''from modern_projection.projection.model import Document
+from modern_projection.projection.debug_blueprints import material
+from modern_projection.projection.geometry_palette import prepare_palette
+from modern_projection.projection.bridge import _native_palette
+from modern_projection.projection.cell import freeze
+import uuid
+cells=%r
+supports=%r
+positions=[pos for pos,value in cells+supports]
+low=tuple(min(pos[i] for pos in positions) for i in range(3))
+high=tuple(max(pos[i] for pos in positions) for i in range(3))
+doc=Document(tuple(high[i]-low[i]+1 for i in range(3)))
+for pos,value in cells+supports:
+ doc.blocks[tuple(pos[i]-low[i] for i in range(3))]=tuple(value)
+sources=[('public_fixture',doc.palette_data())]
+for control in ('stone','glass','pale_moss_carpet','dandelion','fern'):
+ document=Document((1,1,1))
+ document.blocks[(0,0,0)]=material(control)
+ sources.append((control,document.palette_data()))
+block=b.factory.CreateBlock(b.level)
+geometry=b.factory.CreateBlockGeometry(b.level)
+rows=[]
+for kind,raw in sources:
+ row={'kind':kind,'raw':freeze(raw),'prepared':freeze(prepare_palette(raw)),'variants':[]}
+ for variant,data in (('raw',raw),('prepared',prepare_palette(raw))):
+  palette=block.GetBlankBlockPalette()
+  assert palette is not None
+  accepted=palette.DeserializeBlockPalette(_native_palette(data))
+  item={'variant':variant,'deserialized':accepted,'results':[]}
+  if accepted:
+   item['roundtrip']=freeze(palette.SerializeBlockPalette())
+   for mode in (0,1):
+    name='static_capability_'+uuid.uuid4().hex
+    returned=geometry.CombineBlockPaletteToGeometry(palette,name,mode)
+    item['results'].append({'unsupported_mode':mode,'requested_name':name,'returned':returned})
+  row['variants'].append(item)
+ rows.append(row)
+direct=[]
+for mode in (0,1):
+ name='static_list_'+uuid.uuid4().hex
+ palette=geometry.CombineBlockFromPosListToGeometry(positions,name,mode,False)
+ direct.append({'unsupported_mode':mode,'requested_name':name,'returned_palette':palette is not None,
+                'palette':freeze(palette.SerializeBlockPalette()) if palette is not None else None})
+_result=json.dumps({'rows':rows,'direct_world_list':direct,'runtime':api.GetMinecraftVersion(),
+ 'limits':'Native API return values only; four-path pixel checks establish visibility.'})
+'''
+
+
+def static_fixture_plan(identity):
+    from projection.debug_blueprints import build
+    from projection.debug_connection_blueprints import VISUAL_CASE
+    from projection.cell import foreground
+    row = next(item for item in VISUAL_CASE['cases'] if item['id'] == identity)
+    document = build(VISUAL_CASE['fixture'])
+    low = tuple(min(pos[i] for pos in row['cells']) for i in range(3))
+    origin = tuple(STATIC_ROOT[i] - low[i] for i in range(3))
+
+    def translated(pos):
+        return tuple(origin[i] + pos[i] for i in range(3))
+
+    cells = [(translated(pos), foreground(document.get(pos))) for pos in row['cells']]
+    root = max(pos for pos, value in cells)
+    supports = [((root[0], root[1] + 1, root[2]), ('minecraft:stone', 0))]
+    return cells, supports, translated(row['keep']), translated(row['occupied'])
 
 
 GENERATE = '''positions=%r
@@ -169,12 +236,20 @@ def compare(first, second, mask, threshold, minimum):
 
 
 def execute(check, args, report):
-    lower = ROOT_CELL
-    upper = (lower[0], lower[1] + 1, lower[2])
-    cells = [(lower, ('minecraft:pointed_dripstone', 4)),
-             (upper, ('minecraft:pointed_dripstone', 12))]
-    supports = [((lower[0], lower[1] - 1, lower[2]), ('minecraft:stone', 0)),
-                ((upper[0], upper[1] + 1, upper[2]), ('minecraft:stone', 0))]
+    if args.static_case:
+        cells, supports, lower, upper = static_fixture_plan(args.static_case)
+        root = min(pos for pos, value in cells)
+        region = 'static'
+        report['public_fixture'] = {'identity': 'test.connections.static', 'case': args.static_case,
+                                    'fixed_root': STATIC_ROOT, 'keep': lower, 'occupied': upper}
+    else:
+        root = lower = ROOT_CELL
+        upper = (lower[0], lower[1] + 1, lower[2])
+        cells = [(lower, ('minecraft:pointed_dripstone', 4)),
+                 (upper, ('minecraft:pointed_dripstone', 12))]
+        supports = [((lower[0], lower[1] - 1, lower[2]), ('minecraft:stone', 0)),
+                    ((upper[0], upper[1] + 1, upper[2]), ('minecraft:stone', 0))]
+        region = 'dripstone'
     all_cells = supports + cells
     positions = [pos for pos, value in all_cells]
     report.update(cells=cells, supports=supports)
@@ -185,12 +260,22 @@ def execute(check, args, report):
     report['native_aabb'] = {'server': run(check.client, SERVER_BOXES % (positions,)),
                              'client': check.run(CLIENT_BOXES % (positions,))}
     expected = dict(all_cells)
-    report['native_aabb']['verification'] = verify_scene_boxes(
-        report['native_aabb']['server'], report['native_aabb']['client'], expected)
+    if args.static_case:
+        for side in ('server', 'client'):
+            observed = {tuple(row['pos']): (row['value']['name'], row['value']['aux'])
+                        for row in report['native_aabb'][side]['rows']}
+            assert observed == expected, (side, expected, observed)
+        report['native_aabb']['verification'] = {'original_names_and_aux_equal': True,
+                                                 'limits': 'Plant collision boxes are raw diagnostic fields.'}
+        report['native_capability'] = check.run(STATIC_CAPABILITY % (cells, supports))
+    else:
+        report['native_aabb']['verification'] = verify_scene_boxes(
+            report['native_aabb']['server'], report['native_aabb']['client'], expected)
     report['generation'] = check.run(GENERATE % (positions, 'seed_diag_' + uuid.uuid4().hex, PATHS))
-    assert report['generation']['volume'] == [1, 1, 4], report['generation']['volume']
+    expected_volume = ([1, 1, 6] if args.static_case else [1, 1, 4])
+    assert report['generation']['volume'] == expected_volume, report['generation']['volume']
     time.sleep(.3)
-    pose = check.run(CAMERA % (ROOT_CELL,))
+    pose = check.run(CAMERA % (root,))
     time.sleep(.35)
     shown = capture(check, 'world', pose)
     run(check.client, world.CLEAR_SOURCE % (all_cells,))
@@ -203,7 +288,7 @@ def execute(check, args, report):
     dripstone_mask = ImageChops.lighter(masks[0], masks[1])
     support_mask, support_hulls = world.support_roi(projection, baseline.size, supports)
     report['camera'] = pose
-    report['world'] = {'shown': shown, 'hidden': hidden, 'dripstone_roi': masks[2],
+    report['world'] = {'shown': shown, 'hidden': hidden, region + '_roi': masks[2],
                        'support_hulls': support_hulls}
     signals = {}
     report['paths'] = {}
@@ -216,7 +301,7 @@ def execute(check, args, report):
         item['hidden'] = capture(check, key + '_hidden', pose)
         actual = native.signal(item['shown']['path'], item['hidden']['path'])
         signals[key] = actual
-        item['world_dripstone'] = compare(baseline, actual, dripstone_mask, args.threshold, args.min_pixels * 2)
+        item['world_' + region] = compare(baseline, actual, dripstone_mask, args.threshold, args.min_pixels * 2)
         item['world_supports'] = compare(baseline, actual, support_mask, args.threshold, args.min_pixels * 2)
         path = args.output.with_name(args.output.stem + '_' + key + '_signal.png')
         actual.save(path)
@@ -226,14 +311,14 @@ def execute(check, args, report):
     report['pairwise'] = {}
     for first, second in itertools.combinations(PATHS, 2):
         report['pairwise'][first + '_vs_' + second] = {
-            'dripstone': compare(signals[first], signals[second], dripstone_mask, args.threshold, args.min_pixels * 2),
+            region: compare(signals[first], signals[second], dripstone_mask, args.threshold, args.min_pixels * 2),
             'supports': compare(signals[first], signals[second], support_mask, args.threshold, args.min_pixels * 2)}
     report['completed'] = True
     report['all_paths_match_world'] = all(
-        item['world_dripstone']['passed'] and item['world_supports']['passed']
+        item['world_' + region]['passed'] and item['world_supports']['passed']
         for item in report['paths'].values())
     report['pairwise_equal_under_contract'] = all(
-        item['dripstone']['passed'] and item['supports']['passed'] for item in report['pairwise'].values())
+        item[region]['passed'] and item['supports']['passed'] for item in report['pairwise'].values())
 
 
 def main():
@@ -241,6 +326,8 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--capture-helper', type=Path, required=True)
     parser.add_argument('--camera-calibration', type=Path, required=True)
+    parser.add_argument('--static-case', choices=('hanging_moss', 'hanging_moss_cross_chunk'),
+                        help='Use the original public static fixture states and top support')
     parser.add_argument('--threshold', type=int, default=16)
     parser.add_argument('--min-pixels', type=int, default=80)
     parser.add_argument('--background-only', action='store_true', default=True,
@@ -258,7 +345,9 @@ def main():
               'method': 'Native world/list Combine, returned palette, captured palette and Deserialize roundtrip',
               'limits': 'Diagnostic only; fixed origin/offset/rotation; no pixel fitting or production correction',
               'helper': fingerprint(helper), 'calibration': fingerprint(args.camera_calibration),
-              'native_aabb_reference': fingerprint(ROOT / 'tools/data/native_dripstone_boxes_r5.json'),
+              'probe_source': fingerprint(Path(__file__)),
+              'native_aabb_reference': (None if args.static_case else
+                                        fingerprint(ROOT / 'tools/data/native_dripstone_boxes_r5.json')),
               'resources': [fingerprint(ROOT / path) for path in (
                   'resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex',
                   'resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment',
