@@ -1,9 +1,11 @@
 """Colored snow flowers and separate projection scopes retain real failures."""
 import hashlib
+import json
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from PIL import Image, ImageDraw
 
@@ -13,9 +15,27 @@ from verify_snow_catalogue_visuals import (frame_for, compare_world, summarize,
                                          snow_control_matches, native_boundary, compare_exposed)
 from camera_projection import project_points
 from verify_snow_plant_visibility import convex_hull
+from verify_snow_plant_visibility import cross_assets
 
 
 class SnowCatalogueVisualTests(unittest.TestCase):
+    def test_unregistered_static_plants_keep_pixel_checks_without_proxy_alpha(self):
+        with tempfile.TemporaryDirectory() as directory:
+            session = {'game_executable': str(Path(directory)/'Minecraft.Windows.exe')}
+            for plant in ('poppy', 'firefly_bush', 'closed_eyeblossom'):
+                with self.subTest(plant=plant):
+                    self.assertIsNone(cross_assets(session, plant))
+
+    def test_registered_proxy_uses_the_selected_version_source_and_rejects_missing_record(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            session = {'game_executable': str(root/'Minecraft.Windows.exe')}
+            source = root/'static_plant_sources_nemc_next.json'
+            source.write_text(json.dumps({'plants': {}}), encoding='utf8')
+            with patch('generate_static_plant_proxies.SOURCE', source):
+                with self.assertRaisesRegex(ValueError, 'no versioned alpha source: brown_mushroom'):
+                    cross_assets(session, 'brown_mushroom')
+
     def capture(self, path, color, shifted=False):
         image = Image.new('RGB', (80, 80))
         x = 45 if shifted else 20

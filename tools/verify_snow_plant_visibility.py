@@ -275,11 +275,14 @@ def cross_assets(session, plant):
     native_name = {'short_grass': 'tallgrass', 'fern': 'fern'}.get(plant)
     native_root = Path(session['game_executable']).parent / 'data/resource_packs/vanilla'
     if native_name is None:
-        source_path = ROOT/'tools/data/static_plant_sources_nemc_3.9.0.401155.json'
-        source = json.loads(source_path.read_text(encoding='utf8')) if source_path.is_file() else {}
+        from projection.geometry_palette import PLANT_PROXIES
+        from generate_static_plant_proxies import SOURCE
+        if ('minecraft:'+plant, 0) not in PLANT_PROXIES:
+            return None
+        source = json.loads(SOURCE.read_text(encoding='utf8'))
         record = source.get('plants', {}).get(plant)
         if record is None:
-            return None
+            raise ValueError('Registered static plant has no versioned alpha source: '+plant)
         texture_path = native_root/record['texture_path']
         if hashlib.sha256(texture_path.read_bytes()).hexdigest() != source['sha256']['texture_'+plant]:
             raise ValueError('Installed static plant alpha source changed: '+plant)
