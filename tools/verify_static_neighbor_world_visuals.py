@@ -7,14 +7,8 @@ import shutil
 from projection.debug_connection_blueprints import VISUAL_CASE
 
 native = world.native
-rows = dict((row['id'], row) for row in VISUAL_CASE['cases'])
-native.FIXTURE = VISUAL_CASE['fixture']
-native.VIEWS = ('side',)
-native.VISUAL_CASES = dict((identity, (row['keep'], row['occupied'])) for identity, row in rows.items())
-world.CASES = tuple(rows)
-world.CELL_HEIGHT = VISUAL_CASE['cell_hull_height']
 native.CELL_ROIS = native.CELL_ROIS.replace('(0.,1.6)', '(0.,1.)')
-native.CROP_FIXTURE = '''from modern_projection.projection.cell import AIR
+_CROP_FIXTURE = '''from modern_projection.projection.cell import AIR
 keep=%r
 neighbor=%r
 cases=%r
@@ -37,7 +31,22 @@ s.projection_missing=True
 s.projection_outline=False
 b.project()
 _result=json.dumps({'size':doc.size,'cells':len(doc.blocks),'source':'public fixed static connection case'})
-'''.replace('cases=%r', 'cases=' + repr(VISUAL_CASE['cases']))
+'''
+
+
+def configure(metadata):
+    global rows
+    rows = dict((row['id'], row) for row in metadata['cases'])
+    assert len(rows) == len(metadata['cases']), 'Duplicate public connection cases'
+    native.FIXTURE = metadata['fixture']
+    native.VIEWS = tuple(sorted(set(row['camera']['view'] for row in rows.values())))
+    native.VISUAL_CASES = dict((identity, (row['keep'], row['occupied'])) for identity, row in rows.items())
+    world.CASES = tuple(rows)
+    world.CELL_HEIGHT = metadata['cell_hull_height']
+    native.CROP_FIXTURE = _CROP_FIXTURE.replace('cases=%r', 'cases=' + repr(metadata['cases']))
+
+
+configure(VISUAL_CASE)
 
 
 def offset(keep, occupied, view, override=None):
