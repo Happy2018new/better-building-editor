@@ -88,8 +88,18 @@ def _liquid_layers(value):
 
 def _document_requests(document):
     store = document.blocks
+    present = set()
+    for scanned, (value, count) in enumerate(store.counts.items(), 1):
+        if count > 0 and _liquid_layers(value):
+            present.add(value)
+        if scanned % 128 == 0:
+            yield None
+    if not present:
+        return
     layers = tuple(_liquid_layers(value) for value in store.palette)
-    for key in sorted(store.chunks):
+    for scanned, key in enumerate(sorted(store.chunks), 1):
+        if scanned % 128 == 0:
+            yield None
         chunk = store.chunks[key]
         if isinstance(chunk, integer_types):
             if not layers[chunk]:
@@ -98,6 +108,8 @@ def _document_requests(document):
         else:
             entries = enumerate(chunk)
         for index, identity in entries:
+            if index % 128 == 0:
+                yield None
             if not layers[identity]:
                 continue
             pos = position(key, index)
@@ -111,10 +123,14 @@ def _target_requests(document, targets):
         raise ValueError('Liquid targets must use the complete logical document volume')
     total, seen = sx * sy * sz, set()
     for layer, name in enumerate(('common', 'extra')):
-        for value, indices in targets.get(name, {}).items():
+        for scanned, (value, indices) in enumerate(targets.get(name, {}).items(), 1):
+            if scanned % 128 == 0:
+                yield None
             if value[0] not in LIQUID_NAMES:
                 continue
-            for index in sorted(indices):
+            for scanned, index in enumerate(indices, 1):
+                if scanned % 128 == 0:
+                    yield None
                 if not _integer(index) or not 0 <= index < total:
                     raise ValueError('Liquid target is outside the logical document')
                 pos = (index // sz % sx, index // (sx * sz), index % sz)
@@ -148,9 +164,11 @@ def iter_group_steps(document, shape_provider, targets=None, visible=None):
         tint, opacity = appearance[texture]
         return LiquidGroup(origin, surfaces, document.biome, tint, opacity)
 
-    for scanned, (pos, layer, value) in enumerate(requests, 1):
-        if scanned % 128 == 0:
+    for request in requests:
+        if request is None:
             yield None
+            continue
+        pos, layer, value = request
         if visible is not None and not visible(pos):
             continue
         surface = shape_provider.surface(document, pos, layer, value)

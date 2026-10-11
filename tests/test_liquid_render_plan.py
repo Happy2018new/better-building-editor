@@ -133,8 +133,33 @@ class LiquidRenderPlanTests(unittest.TestCase):
                                         for x in range(16) for z in range(16)})
         shapes = SuppliedShapeProvider(lambda doc, pos, layer, value:
                                        LiquidSurface(pos, layer, (.5,) * 4, 0, 'still_water_grey'))
-        self.assertEqual([None, None], list(iter_group_steps(document, shapes)))
+        checkpoints = list(iter_group_steps(document, shapes))
+        self.assertGreaterEqual(len(checkpoints), 2)
+        self.assertTrue(all(item is None for item in checkpoints))
         self.assertEqual([], list(iter_groups(document, shapes)))
+
+    def test_sparse_mixed_chunks_yield_before_reaching_distant_liquid(self):
+        values = {(0, 0, 0): material('stone'), (15, 15, 15): material('water')}
+        document = Document((16, 16, 16), values)
+        shapes = SuppliedShapeProvider()
+        steps = iter_group_steps(document, shapes)
+        self.assertIsNone(next(steps))
+        self.assertEqual([], shapes.requests)
+        result = list(steps)
+        self.assertGreaterEqual(sum(item is None for item in result), 30)
+        self.assertEqual([(15, 15, 15)], [shape.position for group in result if group is not None
+                                        for shape in group.surfaces])
+
+    def test_absent_liquids_skip_chunks_even_after_previous_liquid_was_removed(self):
+        document = Document((16, 16, 16), {(0, 0, 0): material('water')})
+        document.blocks[(0, 0, 0)] = material('stone')
+        class ForbiddenChunks(dict):
+            def __iter__(self):
+                raise AssertionError('No-liquid plan must not scan chunks')
+        document.blocks.chunks = ForbiddenChunks(document.blocks.chunks)
+        shapes = SuppliedShapeProvider()
+        self.assertEqual([], list(iter_group_steps(document, shapes)))
+        self.assertEqual([], shapes.requests)
 
     def test_visibility_does_not_replace_complete_neighbor_source(self):
         water = material('water')
@@ -150,9 +175,9 @@ class LiquidRenderPlanTests(unittest.TestCase):
         document = Document((4, 2, 4), {(x, 1, z): material('water')
                                        for x in range(4) for z in range(4)})
         models = {('still_water_grey', None): 'modern_projection_liquid_still_water_grey'}
-        first = list(render_steps(iter_group_steps(document, SuppliedShapeProvider()), models, .4, 4))
+        first = list(render_steps(iter_groups(document, SuppliedShapeProvider()), models, .4, 4))
         document.biome = 'swampland'
-        changed = list(render_steps(iter_group_steps(document, SuppliedShapeProvider()), models, .8, 4))
+        changed = list(render_steps(iter_groups(document, SuppliedShapeProvider()), models, .8, 4))
         self.assertEqual([group.key for group in first], [group.key for group in changed])
         self.assertEqual([0, 1, 2, 3], [group.key[2] for group in first])
         self.assertNotEqual(first[0].uniforms, changed[0].uniforms)

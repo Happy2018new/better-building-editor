@@ -33,6 +33,13 @@ class WorldProjection(object):
         self.published = 0.
         self.ready, self.error, self.model = False, None, None
         self.cleanup_errors = []
+        self.liquid = None
+        profile = getattr(s, 'liquid_profile', None)
+        if profile is not None:
+            from .liquid_projection import LiquidProjection
+            dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+            self.liquid = LiquidProjection(bridge, self.document, origin, profile, dimension,
+                                           self.hidden, self.layer)
 
     def active(self):
         return self.bridge.alive and self.bridge.projection_serial == self.serial
@@ -82,6 +89,10 @@ class WorldProjection(object):
             yield None
         self.prepared = builder.data
         self.targets = builder.positions[:1]
+        if self.liquid is not None:
+            occupied = self.occupancy.state if self.occupancy is not None else None
+            for unused in self.liquid.prepare(self.output.palette_data(), occupied):
+                yield None
 
     def publish(self, force=False):
         if not self.active():
@@ -114,6 +125,8 @@ class WorldProjection(object):
                 message += '；临时投影资源清理失败，请关闭投影后重试'
         # Keep the previous projection on failure; never retry forever.
         self.error = message
+        if self.liquid is not None:
+            b.release_projection_resources(liquids=(self.liquid,))
         self.iterator = self.output = self.prepared = None
         b.projection_requested = bool(b.session.projection_active)
         if not b.session.projection_active:
@@ -132,23 +145,28 @@ class WorldProjection(object):
                 self.occupancy.prepare_start(entity, self.model, self.anchor)
             if outline is not previous_outline:
                 outline.replace(self.origin, self.document.size)
+            if self.liquid is not None:
+                self.liquid.publish()
         except Exception:
             if outline is not previous_outline:
                 b.release_projection_resources(outlines=(outline,))
             raise
         previous_entities = tuple(b.projection_entities.values()) + (b.entity,)
+        previous_liquid = getattr(b, 'projection_liquid', None)
         # No native calls between publication of the prepared resources.
         b.entity, b.preparing_entity = entity, None
         b.projection_entities = {}
         b.projection_mesh = (entity, self.model, self.origin, self.anchor) if entity else None
         b.projection_outline = outline
         b.projection_occupancy = self.occupancy
+        b.projection_liquid = self.liquid
         b.projection_shader = self.shader if entity else None
         b.session.projection_active = True
         self.ready = True
         self.output = self.prepared = None
         self.cleanup_errors = b.release_projection_resources(
-            previous_entities, (previous_outline,) if outline is not previous_outline else ())
+            previous_entities, (previous_outline,) if outline is not previous_outline else (),
+            (previous_liquid,) if previous_liquid is not None else ())
         try:
             self.publish(True)
         except Exception:
@@ -160,6 +178,11 @@ class WorldProjection(object):
         if not self.active() or b.preparing_entity != entity:
             return
         try:
+            if self.liquid is not None and not self.liquid.advance():
+                if self.liquid.error is not None:
+                    raise self.liquid.error
+                b.next_frame(lambda: self.attach(entity))
+                return
             b.factory.CreateModel(entity).SetEntityShadowShow(False)
             self.shader.bind(entity, self.model, self.anchor)
             self.commit(entity)

@@ -126,6 +126,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         work.shader = tracker.shader
         work.hidden, work.layer = set(), None
         work.output, work.prepared = SurfacePalette(document.size), None
+        work.liquid = None
         for unused in work.prepare():
             pass
         boundary = self.capture_boundary(tracker.bridge)

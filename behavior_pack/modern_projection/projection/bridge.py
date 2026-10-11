@@ -84,6 +84,8 @@ class ClientBridge(object):
         self.projection_work = None
         self.projection_occupancy = None
         self.projection_shader = None
+        self.projection_liquid = None
+        self.projection_retired_liquids = []
         self.projection_distance = None
         self.projection_requested = False
         self.projection_palette = {}
@@ -393,6 +395,11 @@ class ClientBridge(object):
         work = getattr(self, 'projection_work', None)
         if work is not None:
             work.document.biome = value
+            if getattr(work, 'liquid', None) is not None:
+                work.liquid.set_biome(value)
+        liquid = getattr(self, 'projection_liquid', None)
+        if liquid is not None:
+            liquid.set_biome(value)
         if self.projection_occupancy is not None:
             self.projection_occupancy.document.biome = value
             if self.projection_occupancy.shader.render is not None:
@@ -729,8 +736,15 @@ class ClientBridge(object):
             work.advance(False)
         if self.projection_occupancy is not None:
             self.projection_occupancy.tick()
+        liquid = getattr(self, 'projection_liquid', None)
+        if liquid is not None:
+            liquid.advance()
+            if liquid.error is not None and not getattr(liquid, 'reported_error', False):
+                liquid.reported_error = True
+                self.session.editor.message = '水投影更新失败，请更新投影：%s' % liquid.error
+                self.session.emit()
 
-    def release_projection_resources(self, entities=(), outlines=()):
+    def release_projection_resources(self, entities=(), outlines=(), liquids=()):
         """Retain failed releases for the next commit or explicit close."""
         pending = getattr(self, 'projection_retired_entities', set())
         retired = getattr(self, 'projection_retired_outlines', [])
@@ -756,9 +770,22 @@ class ClientBridge(object):
                 errors.append(type('')(error))
             else:
                 retired.remove(outline)
+        retired_liquids = getattr(self, 'projection_retired_liquids', [])
+        self.projection_retired_liquids = retired_liquids
+        for liquid in liquids:
+            if liquid is not None and liquid not in retired_liquids:
+                retired_liquids.append(liquid)
+        for liquid in tuple(retired_liquids):
+            if liquid.close():
+                retired_liquids.remove(liquid)
+            else:
+                errors.append('Liquid model cleanup failed')
         return errors
 
     def stop_projection(self):
+        liquids = (getattr(self, 'projection_liquid', None),
+                   getattr(self.projection_work, 'liquid', None))
+        self.projection_liquid = None
         self.projection_occupancy = None
         self.projection_shader = None
         self.projection_requested = False
@@ -774,7 +801,7 @@ class ClientBridge(object):
         self._projection_follow_position = None
         self.projection_mesh = None
         self.session.projection_active = False
-        errors = self.release_projection_resources(entities, (self.projection_outline,))
+        errors = self.release_projection_resources(entities, (self.projection_outline,), liquids)
         self.session.editor.message = ('投影已关闭' if not errors else
                                        '投影已关闭，部分资源清理失败，请再次关闭重试')
 
@@ -783,6 +810,10 @@ class ClientBridge(object):
         from .world_projection import WorldProjection
         self.projection_requested = True
         self.projection_serial += 1
+        previous_work = self.projection_work
+        if previous_work is not None and not previous_work.ready:
+            pending_liquid = getattr(previous_work, 'liquid', None)
+            self.release_projection_resources(liquids=(pending_liquid,))
         if self.preparing_entity:
             self.system.DestroyClientEntity(self.preparing_entity)
             self.preparing_entity = None

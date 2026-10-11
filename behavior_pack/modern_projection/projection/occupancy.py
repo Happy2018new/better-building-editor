@@ -374,6 +374,9 @@ class ProjectionOccupancy(object):
                              self.origin, anchor) if self.entity else None
         b._projection_follow_position = None
         self.rendered = self.snapshot
+        liquid = getattr(b, 'projection_liquid', None)
+        if liquid is not None:
+            liquid.request(occupied=self.rendered)
         self.snapshot = None
         # Reads already maintain the exact delta against the in-flight snapshot.
         # Transfer it instead of rescanning a potentially large dirty set here.
