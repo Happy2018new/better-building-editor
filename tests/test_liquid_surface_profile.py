@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from verify_liquid_surface_profile import check_remote_background, compare, predicted_mask
+from verify_liquid_surface_profile import check_remote_background, check_fixed_neighbors, compare, predicted_mask
 from projection.liquid_render_plan import LiquidSurface
 
 
@@ -20,6 +20,21 @@ def water(height, faces=63):
 
 
 class LiquidProfileChecks(unittest.TestCase):
+    def test_declared_stone_neighbor_is_held_in_every_control_and_separate_from_background(self):
+        stone = [[[1, 0, 0], ['minecraft:stone', 0]]]
+        plan = {'fixed_neighbor_cells': stone, 'fixed_neighbor_contract': {
+            'unchanged_in_all_four_controls': True, 'same_cell_body': False, 'distance_to_fluid': 1},
+            'controls': dict((name, {'cells': stone + ([[[0, 0, 0], ['minecraft:water', 0]]]
+                                if name in ('liquid_only', 'supported_positive') else [])})
+                             for name in ('empty', 'liquid_only', 'supported_positive', 'supported_negative'))}
+        fixed = check_fixed_neighbors(plan)
+        self.assertEqual({}, check_remote_background(plan, fixed))
+        with self.assertRaises(ValueError):
+            check_remote_background(plan)
+        plan['controls']['empty']['cells'] = []
+        with self.assertRaisesRegex(ValueError, 'changed'):
+            check_fixed_neighbors(plan)
+
     def test_wrong_height_fails_fixed_silhouette_thresholds(self):
         actual = predicted_mask(water(.7), CAMERA)
         wrong = predicted_mask(water(.3), CAMERA)

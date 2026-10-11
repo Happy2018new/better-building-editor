@@ -14,6 +14,7 @@ from analyze_frozen_liquid_surfaces import checked_fingerprint, difference_mask,
 from capture_frozen_liquid_controls import native_gate
 from capture_pure_liquid_native_controls import CONTROLS, fixed_viewport, validate_png
 from measure_native_liquid_surface import pixel_viewport, projected_pixels
+from liquid_silhouette_raster import visible_liquid_mask
 from projection import block_registry
 from projection.block_traits import is_solid
 from projection.cell import AIR, background, decode, foreground
@@ -116,10 +117,13 @@ def source_document(plan, control):
     return document, origin
 
 
-def check_remote_background(plan):
+def check_remote_background(plan, fixed_neighbors=None):
     """A declared, identical backdrop is not a same-cell waterlogged body."""
     background_cells = plan.get('background_cells', [])
     declared = dict((tuple(pos), decode(value)) for pos, value in background_cells)
+    fixed_neighbors = fixed_neighbors or {}
+    if set(declared) & set(fixed_neighbors):
+        raise ValueError('A held neighbor is not a remote background')
     if len(declared) != len(background_cells):
         raise ValueError('Declared background repeats a cell')
     for control in CONTROLS:
@@ -134,12 +138,38 @@ def check_remote_background(plan):
                        for material in (foreground(cell), background(cell)))
         if has_fluid:
             fluid_cells.append(tuple(pos))
-        if has_body and (has_fluid or declared.get(tuple(pos)) != cell):
+        if has_body and (has_fluid or (declared.get(tuple(pos)) != cell
+                                      and fixed_neighbors.get(tuple(pos)) != cell)):
             raise ValueError('Pure silhouette checks cannot attribute an overlaid or undeclared body')
     if any(max(abs(pos[axis] - fluid[axis]) for axis in range(3)) < 2
            for pos in declared for fluid in fluid_cells):
         raise ValueError('Background cannot modify the liquid height neighborhood')
     return declared
+
+
+def check_fixed_neighbors(plan):
+    """A held stone neighbor changes source context, not the liquid-only control."""
+    rows = plan.get('fixed_neighbor_cells', [])
+    if not rows:
+        return {}
+    contract = plan.get('fixed_neighbor_contract', {})
+    if (contract.get('unchanged_in_all_four_controls') is not True
+            or contract.get('same_cell_body') is not False
+            or contract.get('distance_to_fluid') != 1):
+        raise ValueError('Held neighbors need an explicit invariant adjacent-cell contract')
+    neighbors = dict((tuple(pos), decode(value)) for pos, value in rows)
+    if len(neighbors) != len(rows) or any(value != ('minecraft:stone', 0) for value in neighbors.values()):
+        raise ValueError('Held neighbor occlusion currently accepts only distinct full stone cubes')
+    for control in CONTROLS:
+        cells = dict((tuple(pos), decode(value)) for pos, value in plan['controls'][control]['cells'])
+        if any(cells.get(pos) != value for pos, value in neighbors.items()):
+            raise ValueError('Held neighbors changed between native controls')
+    fluid = [tuple(pos) for pos, value in plan['controls']['liquid_only']['cells']
+             if any(material[0] in LIQUID_NAMES for material in (foreground(decode(value)), background(decode(value))))]
+    if not fluid or any(min(max(abs(pos[axis] - target[axis]) for axis in range(3))
+                               for target in fluid) != 1 for pos in neighbors):
+        raise ValueError('Held neighbors must be adjacent to liquid and cannot occupy the same cell')
+    return neighbors
 
 
 def analyze(report_path, profile_path, output, selected=None, tolerance=3):
@@ -200,10 +230,12 @@ def analyze(report_path, profile_path, output, selected=None, tolerance=3):
         camera = {'position': pose['stable']['position'], 'target': pose['target'],
                   'screen': pose['stable']['screen'], 'native_image_screen': size,
                   'vertical_fov': calibration['vertical_fov']}
-        check_remote_background(plan)
+        fixed_neighbors = check_fixed_neighbors(plan)
+        check_remote_background(plan, fixed_neighbors)
         document, origin = source_document(plan, 'liquid_only')
         shapes = surfaces(document, profile, origin)
-        expected = predicted_mask(shapes, camera)
+        expected = (visible_liquid_mask(polygons(shapes), fixed_neighbors, camera) if fixed_neighbors
+                    else predicted_mask(shapes, camera))
         actual = ImageChops.multiply(difference_mask(captures['liquid_only']['path'],
                                                     captures['empty']['path'], 16), fixed_region(shapes, camera))
         actual = fill_enclosed_holes(actual)
@@ -220,6 +252,7 @@ def analyze(report_path, profile_path, output, selected=None, tolerance=3):
                      'silhouette_passed': passed, 'metrics': metrics, 'pngs': files,
                      'raw_captures': captures, 'camera': camera,
                      'declared_remote_background': plan.get('background_cells', []),
+                     'declared_fixed_neighbors': plan.get('fixed_neighbor_cells', []),
                      'original_context_changed': plan.get('context_changed'),
                      'surfaces': [{'position': pos, 'heights': shape.heights, 'faces': shape.faces}
                                   for pos, shape in shapes]})
