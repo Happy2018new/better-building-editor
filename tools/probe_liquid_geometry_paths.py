@@ -42,10 +42,12 @@ _result=True
 def probe_case(check, mode, args, row):
     row['geometry_path'] = mode
     row['public_case'] = SOURCE_CASE
-    check.run(INSTALL_PATH % mode)
+    saved_crop = wet.CROP
+    wet.CROP = saved_crop.replace('b.project()', INSTALL_PATH % mode + '\nb.project()')
     try:
         return wet.wet_case(check, mode, args, row)
     finally:
+        wet.CROP = saved_crop
         row['geometry_path_restored'] = check.run(RESTORE_PATH)
 
 
