@@ -1,5 +1,9 @@
 # Mushroom Snow Visibility R5
 
+This is historical failed-batch evidence. Fresh R7 acceptance of the revised
+alpha-derived cutoff is recorded in [MUSHROOM_SNOW_VISIBILITY_R7.md](MUSHROOM_SNOW_VISIBILITY_R7.md).
+The original R5 report and failure below remain unchanged.
+
 ## Immutable Live Batch
 
 The original height-16 candidate was captured on NEMC 3.9.0.401155, runtime

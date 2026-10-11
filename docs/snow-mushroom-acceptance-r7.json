@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "accepted_scope": {
+    "plants": ["brown_mushroom", "red_mushroom"],
+    "snow_heights": [0, 1, 2, 3, 4, 5, 6, 7],
+    "world_modes": ["full", "missing"],
+    "independent_editor_controls": true,
+    "dry_native_controls": true,
+    "all_current_plants_and_heights_sampled": false,
+    "poppy_accepted": false
+  },
+  "environment": {
+    "nemc_version": "3.9.0.401155",
+    "runtime_minecraft_version": "1.21.120.0",
+    "owner": "p0-snow-r7",
+    "game_pid": 9604,
+    "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/session.json",
+    "artifact_directory": "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/artifacts",
+    "worktree": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-blueprint-qa-r3",
+    "integration_baseline": "3482dc0",
+    "captured_code_head": "d87cd4a726f2579eb0edcf1f4d6cdda7930c6391"
+  },
+  "artifacts": [
+    {
+      "role": "final_live_all_eight",
+      "file": "snow-mushrooms-all8-r7-lift16-near.json",
+      "sha256": "9dbfa77aeefb0eec30feb8085b49ecad52c9e417160b92f910a6ef663df03b91",
+      "completed": true,
+      "restored": true,
+      "passed": true,
+      "source_assets_stable": true
+    },
+    {
+      "role": "offline_png_and_mask_replay",
+      "file": "snow-mushrooms-all8-r7-lift16-near-replay.json",
+      "sha256": "92a07cac381510910e144a5d69194dfef0366dbf3fb1767a0897034babd4116e",
+      "passed": true
+    },
+    {
+      "role": "calibration_three_views",
+      "file": "snow-camera-calibration-r7-lift64-skyward.json",
+      "sha256": "e812f845206ac99857f1b439914a8aca52462880b781a48f576ba6d2f341e16b",
+      "completed": true,
+      "restored": true,
+      "passed": true
+    },
+    {
+      "role": "independent_boundary",
+      "file": "snow-mushrooms-boundary-r7-lift16-near-v2.json",
+      "sha256": "0b0e4e6ad7f2f95d85723a6362a38e94a3d6eda3e21ea672bcbb59b34d934a3c",
+      "passed": true
+    },
+    {
+      "role": "brown_positive_control",
+      "file": "snow-brown-positive-r7-lift16-near-v2.json",
+      "sha256": "3400a2873da03afee530365c720ef860a24f7e141f483b11fc0241c3fc046f65",
+      "passed": true
+    },
+    {
+      "role": "brown_inspection_only_actually_opened",
+      "file": "snow-mushrooms-all8-r7-lift16-near-brown-inspect.png",
+      "sha256": "b0b5823829250d3fb7671f5a53a05907eedd44d81df504a55f3c4444299692f7"
+    },
+    {
+      "role": "red_inspection_only_actually_opened",
+      "file": "snow-mushrooms-all8-r7-lift16-near-red-inspect.png",
+      "sha256": "0150b98a34db9d9fbc39e4f63c55f78f825c124af34162f6bac2cf3cd28ba060"
+    }
+  ],
+  "original_gates": {
+    "native_recall": 0.75,
+    "native_precision": 0.75,
+    "native_edge_tolerance_pixels": 3,
+    "calibration_boundary_rms_pixels": 2,
+    "calibration_mask_iou": 0.95,
+    "calibration_outline_recall_2px": 0.985,
+    "calibration_outline_precision_2px": 0.985,
+    "calibration_complete_eight_corner_hull": true,
+    "fully_occluded_editor_contribution_pixels": 0,
+    "independent_exposed_plant_masks": true,
+    "roi_or_threshold_changes": false
+  },
+  "matrix": {
+    "nonblank_comparison_rows": 34,
+    "independent_nonblank_capture_rows": 26,
+    "covered_editor_cases": 16,
+    "reused_identical_snow_controls": 8,
+    "full_failures": 0,
+    "missing_failures": 0,
+    "editor_failures": 0,
+    "both_plants_h3_through_h7": {
+      "native_exposed_plant_pixels": 0,
+      "projected_exposed_plant_pixels": 0,
+      "editor_plant_contribution_pixels": 0
+    }
+  },
+  "capture_and_source_audit": {
+    "unique_native_pngs": 190,
+    "capture_hash_errors": [],
+    "all_reliable_native_resolution_background_wgc": true,
+    "all_foreground_unchanged": true,
+    "all_frame_qpc_after_request_qpc": true,
+    "frozen_runtime_resource_files": 954,
+    "frozen_runtime_resource_hash_errors": [],
+    "frozen_source_snapshot": ".runtime/snow-r7-prelaunch-source-hashes.json",
+    "frozen_source_snapshot_sha256": "53a6120dcb5679ad60c429bb874c98ba8eb2ea8c1eec9770291f3f09fcf62ca9",
+    "native_source_metadata": "tools/data/static_plant_sources_nemc_3.9.0.401155.json",
+    "native_source_metadata_sha256": "d53036809f7cd62bfb770316d3a349c1c37708d24bad5ead03908cadda74323c"
+  },
+  "fixture": {
+    "fixture_lift_y": 16,
+    "calibration_fixture_lift_y": 64,
+    "calibration_tilted_offset": [0, -3, 6],
+    "vertical_fov": 66.6,
+    "public_world_camera_offset": [-2, 0.15, -2.5],
+    "native_target": [-47, 117, -70],
+    "near_player": true,
+    "flight_modified": false,
+    "player_foot_restored": [-52.5, 93, -75.5],
+    "player_flight_restored": false,
+    "native_cleanup_all_clean": true,
+    "cleanup_errors": [],
+    "desktop_input_or_window_activation_used": false
+  },
+  "binding_read_condition": {
+    "fixed_read_only_marker_failed_attempts": 1,
+    "raw_error_preserved_in_live_report": "Code execution failed: list assignment index out of range",
+    "correct_owned_token_obtained_on_authorized_reread": true,
+    "maximum_additional_marker_reads": 2,
+    "wrong_token_refused_immediately": true,
+    "business_mutation_camera_or_capture_retries": 0,
+    "regression_tests": 4
+  },
+  "offline_bundle": {
+    "file": ".runtime/version-bundle-snow-r7-final-near.json",
+    "sha256": "89d89f34171a0474cb4112abe37ce18c210a366efbd83ccf2fda4832bf9a2b44",
+    "passed": true,
+    "tests": 1167,
+    "provenance_files": 40,
+    "states": 15858,
+    "transforms_per_state": 6,
+    "all_generators_passed": true
+  },
+  "preserved_failed_artifacts": [
+    {
+      "file": "C:/Users/Happy2018new/.pyreact-debug/instances/e383e9833f774a648c94de9c620c28f6/artifacts/snow-mushrooms-all8-height16-r5.json",
+      "sha256": "95e84ff62478cfe5db11d533e04866a01c0a98804168ca7cbfc9f5686a2dacc8",
+      "passed": false,
+      "condition": "Brown h3 has 26 editor plant contribution pixels"
+    },
+    {
+      "file": "snow-brown-positive-r7-lift16.json",
+      "sha256": "e7efc50e0859f8addb46fc8723f7c0beed2c23cc941c31bbf52ee29a6aef2427",
+      "completed": true,
+      "passed": false,
+      "restored": true,
+      "condition": "Native world plant absent before the near-player fixture"
+    },
+    {
+      "file": "snow-brown-positive-r7-lift16-near.json",
+      "sha256": "e1bbe33fb2b213e377e82179b3f4193a990c189d1525a378c463f9459f0da2a4",
+      "completed": false,
+      "passed": false,
+      "restored": true,
+      "condition": "Interrupted on a missing fixed read-only session marker before limited rereads were authorized"
+    },
+    {
+      "file": "snow-mushrooms-boundary-r7-lift16-near.json",
+      "sha256": "5f4270824484800f5d1ca6cebb430cd34e8899197fee738971ed025d12653b81",
+      "completed": false,
+      "passed": false,
+      "restored": true,
+      "condition": "Interrupted on a missing fixed read-only session marker before limited rereads were authorized"
+    },
+    {
+      "file": "snow-camera-calibration-r7-lift16.json",
+      "sha256": "24b7f8a864f38ee83edad3f0a2aa0a7a834e0489e2b9b1a526843ac20aabf108",
+      "passed": false,
+      "restored": true,
+      "condition": "Downward calibration outline gates fail"
+    },
+    {
+      "file": "snow-camera-calibration-r7-lift64.json",
+      "sha256": "d8aeca2a037c63d6c71a105eb1ad3bc508acac114ae37911fa77b304809e5bb1",
+      "passed": false,
+      "restored": true,
+      "condition": "Downward tilted calibration outline gates fail"
+    },
+    {
+      "file": "snow-mushrooms-boundary-r7-lift64.json",
+      "sha256": "862e5abfc8bf98158ae6d962203a3a5af5e75a53da1622697c716e6aa6805238",
+      "completed": false,
+      "passed": false,
+      "restored": true,
+      "condition": "Native plant references absent despite palette readback"
+    }
+  ],
+  "reproduction": {
+    "native_capture_environment": {
+      "MCDEV_NATIVE_CAPTURE_HELPER": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-blueprint-qa-r3/tools/capture_native_window.py",
+      "MCDEV_NATIVE_CAPTURE_EXE": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/p0-blueprint-qa-r3/.runtime/native_wgc/build/Release/native_wgc_capture.exe"
+    },
+    "live_verifier": "tools/verify_snow_catalogue_visuals.py",
+    "live_arguments": [
+      "--camera-calibration", "snow-camera-calibration-r7-lift64-skyward.json",
+      "--plant", "brown_mushroom", "--plant", "red_mushroom",
+      "--mode", "full", "--mode", "missing",
+      "--fixture-lift-y", "16", "--near-player", "--native-resolution",
+      "--reuse-snow-controls", "--timeout", "60"
+    ],
+    "live_heights_when_no_height_argument": [0, 1, 2, 3, 4, 5, 6, 7],
+    "offline_replay_argv": [
+      "python", "-X", "utf8", "tools/verify_snow_catalogue_visuals.py",
+      "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/artifacts/snow-mushrooms-all8-r7-lift16-near-replay.json",
+      "--replay",
+      "C:/Users/Happy2018new/.pyreact-debug/instances/db8bd4ce225d4b6d8c29c25e8f9104c2/artifacts/snow-mushrooms-all8-r7-lift16-near.json"
+    ],
+    "replay_does_not_require_live_instance": true,
+    "original_reports_must_not_be_overwritten": true
+  }
+}
