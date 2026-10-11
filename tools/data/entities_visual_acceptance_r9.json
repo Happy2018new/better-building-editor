@@ -1,0 +1,2130 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-11T15:28:31.009048+00:00",
+  "pack_tool": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\pack_chest_editor_evidence_r9.py",
+    "sha256": "243ef6b2c3f99dfdf02a680f87ec334d272e1250b4147f5c9ead7af887004b6e"
+  },
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "palette_dump": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\docs\\reference\\block_palettes\\nemc_3.9.0.401155.json",
+    "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01"
+  },
+  "registry_manifest": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\block_registry_manifest.json",
+    "sha256": "c08c6bc677b0b90f68ea7d2782bd5956ed6a8fc4c0a1bad194343089ba4018fd"
+  },
+  "registry_source": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+    "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1",
+    "version": "NEMC 3.9.0.401155",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01"
+  },
+  "production_rendering_changed": false,
+  "scope": "Actual ordinary editor Scene viewport versus native world chest, three public source cases, top view only",
+  "native_background_context": "Predeclared quartz plane replaces public fixture supports; identical in native shown and empty controls",
+  "registration_contract": "Independent stone cube fixes uniform scale and centers before any chest capture; chest pixels never recalibrate",
+  "accepted_runs": [
+    "chest-editor-r9-public-v3"
+  ],
+  "original_gates": {
+    "minimum_native_pixels": 1000,
+    "shape_iou": 0.82,
+    "texture_cosine": 0.45,
+    "scale_relative_error": 0.2,
+    "center_distance_pixels": 3,
+    "boundary_rms_pixels": 4
+  },
+  "historical_evidence": {
+    "reclassified": false,
+    "prior_r8_manifest": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\entities_visual_acceptance_r8.json",
+      "sha256": "dbf34ef5671aa7c554a86fcc1e767fcf3dfe16316575f453866a67822a5d16f6"
+    },
+    "prior_r8_viewed_index": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\entities_visual_viewed_frames_r8.json",
+      "sha256": "6774d533393885d3a1696c14a6988c7a53d120e3e65f9b904d21b63693b83b5e"
+    },
+    "chest_candidate_008ca89_merged": false
+  },
+  "visual_review": {
+    "observer": "Codex agent p0-entities-r9 opened and visually inspected these full captured PNGs using view_image. Pixel-mask diagnostics are excluded. The prior 34-frame R8 index remains unchanged.",
+    "index": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\entities_visual_viewed_frames_r9.json",
+      "sha256": "83518d0105bdbea30d95815e15ab390a60aeebd3ef256f6b4b2a36dcda2c7310"
+    },
+    "frames_actually_opened": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_native_native.png",
+        "sha256": "9a8ed27fe973be24fda0894bbd2bdce3a0b759c2486882f8b32dd82fbc4de9d3"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_native.png",
+        "sha256": "0df50f89ef92d6c61dfe3689dbe3651c60079670260572646cd72fb086d2d2d9"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_editor_native.png",
+        "sha256": "0a5116d88eefcbda39b3461a47e194ed0c6d2430bf4169e6d7cb5a3dd5f1d240"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_empty_native.png",
+        "sha256": "a94e43921d108c48867d36fa11b07ad9493a70a7d7dd8a5875d7459d098d8805"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_native_native.png",
+        "sha256": "d8cf0cb04076e15c1320d0e28e784b854aef736a188117b45a93232503007acd"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_empty_native.png",
+        "sha256": "583cedbb756ba256acf9f3739006c25e162fa5638b14a04315c9d9b8886da1cc"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_native.png",
+        "sha256": "99f8e97cb5e1bf5623b24e43abf3dba484af91f643455940671dcd85d66458cf"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_empty_native.png",
+        "sha256": "08a31912bb6e62012450eba950509d187ccc7b9d76fe9986f38143a855bb8a7e"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_native_native.png",
+        "sha256": "84d713ca05c5e723d7e278032b82fd8e84214062eefa80dfd0bcceb3339938e7"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_empty_native.png",
+        "sha256": "46985074d5fdd7ac1b1673eb9f4a1ff6c92483e5884678bbe2c10bec8aa94d79"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_native.png",
+        "sha256": "6f4ab8d46681ba16ae53b8e86c34eff2418b4b1357e67b3770058a490d25d1b2"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_empty_native.png",
+        "sha256": "7e0c6155734bf4b506835e60c1f952e9a4f6974e9d236393e9fb57dff691c7ab"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_native_native.png",
+        "sha256": "346c64f189618fdcd5b2bbe01dd553a870163f364bbd7c25f2359fb4b277923d"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_empty_native.png",
+        "sha256": "2c0881a8d3c38dd97e2def829838a0adb76cdaad84b4c10f9102899b2b372389"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_native.png",
+        "sha256": "8915bacd8021700b3652d83cbeea5ff3840192501c9c1ac88210061824e50605"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_empty_native.png",
+        "sha256": "6e0c457247f01f0cde8cf84a41b69c215f4c32824d146069e00384b00b63df03"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_native_native.png",
+        "sha256": "e8b6bc8e74d5498f090c7ae3ce2bccf8838f65984e9b392de09e7406073088c4"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_empty_native.png",
+        "sha256": "25dae6cb222fca4c834570d069802c05a425825f22842ccfd9cd0fca752f6060"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_native.png",
+        "sha256": "0b9f90d7d2be7ddc228a5adb621aef08f555c9d8a5ccb2c1042663778a7941ab"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_empty_native.png",
+        "sha256": "d99cfbb463ffba4f45501cd84004d8dcbc4591b34a8a16924c7ef0b42eb06006"
+      }
+    ]
+  },
+  "runtime_cleanup": {
+    "cleanup_audit": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\entities-r9-chest-editor-v3-cleanup.json",
+      "sha256": "a08780ae5186963e3e5871b25af24482be2da2a633e3ff927c38d3e50d5f42dd"
+    },
+    "recorded_grounded_baseline": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\entities-r9-recorded-grounded-baseline.json",
+      "sha256": "a08780ae5186963e3e5871b25af24482be2da2a633e3ff927c38d3e50d5f42dd"
+    },
+    "preserved_failed_guessed_baseline": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\entities-r9-grounded-baseline.json",
+      "sha256": "0a842aa29fe5649d0979d6b2021517a811a144f72395d5933be259beb2ea805c"
+    },
+    "stopped_session": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\session.json",
+      "sha256": "5dff4ba5e6beb0cd10c0e4aeb3ce8f8130b8e294e9979ba4ba0031f66c152d89"
+    },
+    "grounded_foot": [
+      0.5,
+      74.0,
+      0.5
+    ],
+    "no_corrective_audit_teleport": true,
+    "quiet_handle_growth": {
+      "interval_seconds": 30,
+      "before": 189142,
+      "after": 192497,
+      "instance_recycled": true
+    }
+  },
+  "pending_scopes": [
+    "Real partial-double-chest occupied lifecycle",
+    "Other chest materials, directions and non-top views",
+    "Head, frame and banner visible content boundaries"
+  ],
+  "runs": [
+    {
+      "name": "chest-editor-r9-public-v1",
+      "accepted": false,
+      "completed": true,
+      "passed": false,
+      "restored": true,
+      "error": null,
+      "scope": "True native world chest versus ordinary product editor Scene viewport; independent stone cube registration",
+      "limits": {
+        "minimum_native_pixels": 1000,
+        "shape_iou": 0.82,
+        "texture_cosine": 0.45,
+        "scale_relative_error": 0.2,
+        "center_distance_pixels": 3,
+        "boundary_rms_pixels": 4
+      },
+      "frame_count": 8,
+      "all_frames_reliable_background_wgc": true,
+      "editor_document_and_camera_preserved": true,
+      "production_and_tools_unchanged": true,
+      "registration": {
+        "scale": 0.7418015444832329,
+        "axis_ratios": [
+          0.7372262773722628,
+          0.7463768115942029
+        ],
+        "native_center": [
+          997.5,
+          550.0
+        ],
+        "editor_center": [
+          1005.5,
+          599.5
+        ],
+        "native_cube": {
+          "bbox": [
+            431,
+            260,
+            568,
+            398
+          ],
+          "world_bounds": [
+            929,
+            481,
+            1066,
+            619
+          ],
+          "pixels": 18652,
+          "crop": [
+            498,
+            221,
+            1495,
+            884
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_native_signal.png"
+        },
+        "editor_cube": {
+          "bbox": [
+            485,
+            193,
+            586,
+            296
+          ],
+          "world_bounds": [
+            955,
+            548,
+            1056,
+            651
+          ],
+          "pixels": 7904,
+          "crop": [
+            470,
+            355,
+            1540,
+            846
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_editor_signal.png"
+        },
+        "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+      },
+      "native_background": null,
+      "cases": [
+        {
+          "id": "normal_single_south",
+          "name": "minecraft:chest",
+          "direction": "south",
+          "paired": false,
+          "fixture": "test.entities.classic",
+          "cells": [
+            [
+              9,
+              1,
+              3
+            ]
+          ],
+          "passed_original_gates": false,
+          "comparison": {
+            "shape_iou": 0.7020104654365189,
+            "texture_cosine": 0.02440560560748947,
+            "interior_missing_fraction": 0.025576730190571714,
+            "scale_relative_error": 0.16528037193990364,
+            "native_bbox": [
+              961.3628081032476,
+              555.7337088754892,
+              1048.895390352269,
+              643.2662911245108
+            ],
+            "proxy_bbox": [
+              487,
+              193,
+              586,
+              295
+            ],
+            "texture_samples": 2682,
+            "texture_energy": [
+              40542,
+              226169
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                961.3628081032476,
+                555.7337088754892,
+                1048.895390352269,
+                643.2662911245108
+              ],
+              "proxy_world_bounds": [
+                957,
+                548,
+                1056,
+                650
+              ],
+              "center_delta_pixels": [
+                1.3709007722417255,
+                -0.5
+              ],
+              "center_distance_pixels": 1.4592357339830186,
+              "boundary_rms_pixels": 6.608000094261856,
+              "passed": false,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.7418015444832329,
+              "axis_ratios": [
+                0.7372262773722628,
+                0.7463768115942029
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1005.5,
+                599.5
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18652,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  485,
+                  193,
+                  586,
+                  296
+                ],
+                "world_bounds": [
+                  955,
+                  548,
+                  1056,
+                  651
+                ],
+                "pixels": 7904,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": false
+          },
+          "native_pixels": 11935,
+          "public_source_unchanged": true
+        }
+      ],
+      "frozen_registry_source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+        "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+      },
+      "artifacts": [
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\0_editor_signal.png",
+          "sha256": "f53aca3a6e9008747aadd98505d17403c95c48021426c4e197db1f3a50d54840"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\0_editor_signal_mask.png",
+          "sha256": "b864a1416c9f1f1469b359ce768e3c1db1feeef7edb241b4c3b076498808d229"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\0_native_signal.png",
+          "sha256": "d95b022ccd16135ecf42905f0c79d87991a948ada63128d32a3f885f9157c647"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\0_native_signal_mask.png",
+          "sha256": "b27c37ba3caaa87711a9f1743fb6bba82a81b71afbd853be9392734b923cc773"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_editor_signal.png",
+          "sha256": "5eb2aff9630aa6118acca52cdeb6a2e972a2f96ea1e6eada448a7ee6e11a8036"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_editor_signal_mask.png",
+          "sha256": "5276cee58882429a327e1e377ee36033cc9359d11b3712f43faa801840676769"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_native_signal.png",
+          "sha256": "bf01d6f13b3886eeb935bb3abf69cfc407cdd3e9d0342a5b14eb60d9a2437fea"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\cube_native_signal_mask.png",
+          "sha256": "15369c8e2293e092ba78922556598ebd97170771436c05f84594ca87845c83fb"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\frozen_source.json",
+          "sha256": "3811967950db51e70f4277385ca4396d47a4d5bd75ae121a670458e1db6fde28"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\frozen_source_after.json",
+          "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\registration_before_chests.json",
+          "sha256": "26231d9f6053b35adb2345925640d9d1c69a0ebd841728498bde98bc5db9e93f"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report.json",
+          "sha256": "e752102a98b421a69e12b83dbfed188b1e220e1dd8a3b18df031b1937fa5bafb"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_editor_empty_native.capture.json",
+          "sha256": "ef0a570dc66d0fe98f47c9013deff8787e8a8d6b06113b24baf683f9b6aaca0a"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_editor_empty_native.png",
+          "sha256": "820515a19c028e999f464380c1e37545d941d8e92473df630748ad8bcae9a7d1"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_editor_native.capture.json",
+          "sha256": "5acd99ddc5216e48617c1fe434c1f856c2d983ffafa3a38a0fac0ce9d2a56c37"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_editor_native.png",
+          "sha256": "0a5116d88eefcbda39b3461a47e194ed0c6d2430bf4169e6d7cb5a3dd5f1d240"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_empty_native.capture.json",
+          "sha256": "f5e19469c7919ca77147a4511b4e00dfd9ff8390fdbafea5af555eb67b804e9d"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_empty_native.png",
+          "sha256": "551b86f6899a4ccbedccaaa67859695a018bf93c170de89df219693e624cc681"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_native_native.capture.json",
+          "sha256": "15a8726034cb56c69a6247aa9d75736fbcd00fc95eff9ed9aaa55a2e23677806"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_0_native_native.png",
+          "sha256": "479c71cc7bf540d0c93a97b16882b4d2db1d5aeccade3536e6e7f1595d2c02a9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_empty_native.capture.json",
+          "sha256": "c8883f67d467634c609e95aa77ae8e585df73e089ea19e55cd9705986f8c59fc"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_empty_native.png",
+          "sha256": "a94e43921d108c48867d36fa11b07ad9493a70a7d7dd8a5875d7459d098d8805"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_native.capture.json",
+          "sha256": "8493dad294e3bdeb313b91c4f5fcb6f52eedd265bd20724010fda526d85c5102"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_editor_native.png",
+          "sha256": "0df50f89ef92d6c61dfe3689dbe3651c60079670260572646cd72fb086d2d2d9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_empty_native.capture.json",
+          "sha256": "603708c0843e6bc81b02f5484ddc31dfb9cbf07113a82f2f2d2edf4015861cec"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_empty_native.png",
+          "sha256": "f08c3855a508249ebbe4df1dbaaca43c7f8dac4d85f57568f2d1b77efd783820"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_native_native.capture.json",
+          "sha256": "869420cbc766815d606fad0c1e5b549278fdc706f9513a49eca50ce466f9dd75"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v1\\report_cube_native_native.png",
+          "sha256": "9a8ed27fe973be24fda0894bbd2bdce3a0b759c2486882f8b32dd82fbc4de9d3"
+        }
+      ]
+    },
+    {
+      "name": "chest-editor-r9-public-v2",
+      "accepted": false,
+      "completed": true,
+      "passed": false,
+      "restored": true,
+      "error": null,
+      "scope": "True native world chest versus ordinary product editor Scene viewport; independent stone cube registration",
+      "limits": {
+        "minimum_native_pixels": 1000,
+        "shape_iou": 0.82,
+        "texture_cosine": 0.45,
+        "scale_relative_error": 0.2,
+        "center_distance_pixels": 3,
+        "boundary_rms_pixels": 4
+      },
+      "frame_count": 16,
+      "all_frames_reliable_background_wgc": true,
+      "editor_document_and_camera_preserved": true,
+      "production_and_tools_unchanged": true,
+      "registration": {
+        "scale": 0.6400084629218237,
+        "axis_ratios": [
+          0.6423357664233577,
+          0.6376811594202898
+        ],
+        "native_center": [
+          997.5,
+          550.0
+        ],
+        "editor_center": [
+          1006.0,
+          599.0
+        ],
+        "native_cube": {
+          "bbox": [
+            431,
+            260,
+            568,
+            398
+          ],
+          "world_bounds": [
+            929,
+            481,
+            1066,
+            619
+          ],
+          "pixels": 18652,
+          "crop": [
+            498,
+            221,
+            1495,
+            884
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal.png"
+        },
+        "editor_cube": {
+          "bbox": [
+            492,
+            200,
+            580,
+            288
+          ],
+          "world_bounds": [
+            962,
+            555,
+            1050,
+            643
+          ],
+          "pixels": 7744,
+          "crop": [
+            470,
+            355,
+            1540,
+            846
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal.png"
+        },
+        "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+      },
+      "native_background": null,
+      "cases": [
+        {
+          "id": "normal_single_south",
+          "name": "minecraft:chest",
+          "direction": "south",
+          "paired": false,
+          "fixture": "test.entities.classic",
+          "cells": [
+            [
+              9,
+              1,
+              3
+            ]
+          ],
+          "passed_original_gates": false,
+          "comparison": {
+            "shape_iou": 0.8656376518218624,
+            "texture_cosine": 0.15187107517026283,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.09903207732175567,
+            "native_bbox": [
+              967.9194964561515,
+              561.2395006876125,
+              1043.4404950809267,
+              636.7604993123875
+            ],
+            "proxy_bbox": [
+              497,
+              205,
+              575,
+              288
+            ],
+            "texture_samples": 3405,
+            "texture_energy": [
+              60822,
+              146973
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                967.9194964561515,
+                561.2395006876125,
+                1043.4404950809267,
+                636.7604993123875
+              ],
+              "proxy_world_bounds": [
+                967,
+                560,
+                1045,
+                643
+              ],
+              "center_delta_pixels": [
+                0.32000423146087087,
+                2.5
+              ],
+              "center_distance_pixels": 2.5203973314048844,
+              "boundary_rms_pixels": 3.3070099830056914,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18652,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": false
+          },
+          "native_pixels": 11935,
+          "public_source_unchanged": true
+        },
+        {
+          "id": "normal_double_north",
+          "name": "minecraft:chest",
+          "direction": "north",
+          "paired": true,
+          "fixture": "test.connections.context",
+          "cells": [
+            [
+              26,
+              1,
+              5
+            ],
+            [
+              27,
+              1,
+              5
+            ]
+          ],
+          "passed_original_gates": true,
+          "comparison": {
+            "shape_iou": 0.8905930470347648,
+            "texture_cosine": 0.9035860986527433,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.054355976617618484,
+            "native_bbox": [
+              925.6789379033112,
+              558.0394583730033,
+              1086.3210620966888,
+              636.7604993123875
+            ],
+            "proxy_bbox": [
+              453,
+              200,
+              619,
+              283
+            ],
+            "texture_samples": 4167,
+            "texture_energy": [
+              128564,
+              141254
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                925.6789379033112,
+                558.0394583730033,
+                1086.3210620966888,
+                636.7604993123875
+              ],
+              "proxy_world_bounds": [
+                923,
+                555,
+                1089,
+                638
+              ],
+              "center_delta_pixels": [
+                0.0,
+                -0.8999788426954183
+              ],
+              "center_distance_pixels": 0.8999788426954183,
+              "boundary_rms_pixels": 2.506396104739145,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18652,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": true
+          },
+          "native_pixels": 26675,
+          "public_source_unchanged": true
+        },
+        {
+          "id": "copper_double_north",
+          "name": "minecraft:copper_chest",
+          "direction": "north",
+          "paired": true,
+          "fixture": "test.connections.context",
+          "cells": [
+            [
+              26,
+              1,
+              10
+            ],
+            [
+              27,
+              1,
+              10
+            ]
+          ],
+          "passed_original_gates": true,
+          "comparison": {
+            "shape_iou": 0.9519918283963228,
+            "texture_cosine": 0.9364410607350038,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.054355976617618484,
+            "native_bbox": [
+              925.0389294403893,
+              558.0394583730033,
+              1086.9610705596108,
+              636.7604993123875
+            ],
+            "proxy_bbox": [
+              453,
+              200,
+              619,
+              283
+            ],
+            "texture_samples": 3954,
+            "texture_energy": [
+              503299,
+              588108
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                925.0389294403893,
+                558.0394583730033,
+                1086.9610705596108,
+                636.7604993123875
+              ],
+              "proxy_world_bounds": [
+                923,
+                555,
+                1089,
+                638
+              ],
+              "center_delta_pixels": [
+                -1.1368683772161603e-13,
+                -0.8999788426954183
+              ],
+              "center_distance_pixels": 0.8999788426954183,
+              "boundary_rms_pixels": 2.1845557718666635,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18652,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": true
+          },
+          "native_pixels": 28765,
+          "public_source_unchanged": true
+        }
+      ],
+      "frozen_registry_source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+        "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+      },
+      "artifacts": [
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\0_editor_signal.png",
+          "sha256": "7339d4ba9f2015f62e93a7c38683f53a7ec2bd5634fd175679f5c8fd219f5e4c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\0_editor_signal_mask.png",
+          "sha256": "3b41b844864d5304432a200ff7d02c5ed4d2ed2bb1080512ccd41eedf342ec41"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\0_native_signal.png",
+          "sha256": "d95b022ccd16135ecf42905f0c79d87991a948ada63128d32a3f885f9157c647"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\0_native_signal_mask.png",
+          "sha256": "b27c37ba3caaa87711a9f1743fb6bba82a81b71afbd853be9392734b923cc773"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\1_editor_signal.png",
+          "sha256": "79638f8803565042416fb2599937c5a242d9378f2f30edbe23781c00e5fce5ea"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\1_editor_signal_mask.png",
+          "sha256": "090ea53bbe004047b2302f1c2864ee55a9b6644169783d83a625c86c7d563fc7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\1_native_signal.png",
+          "sha256": "5bb8b309b4e4eb0ddf96cdaf16d650e52025cc88c9aae8930e1685357750e815"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\1_native_signal_mask.png",
+          "sha256": "92086a2d3565cb9656c01f9cedf977a5f92880b5a4927306cc94edf912950644"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\2_editor_signal.png",
+          "sha256": "a61d0f219644fabb7f83edc51bbaca7db3937c7e81fe0ba702b8efe21df88f83"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\2_editor_signal_mask.png",
+          "sha256": "090ea53bbe004047b2302f1c2864ee55a9b6644169783d83a625c86c7d563fc7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\2_native_signal.png",
+          "sha256": "36a676318299d8ffe56b82ac6be1c80b3ec9c16a299768388579d2c59d1f322d"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\2_native_signal_mask.png",
+          "sha256": "4a61ca0cdb4496ce8c7b989cdc8477ccccbd17369d5ccb838da77ed4e43d73b6"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal.png",
+          "sha256": "7fa52904b0a871bf8f5fb7e13011ef5feb434565ef2862fb4cfafbc2c3faa4d4"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_editor_signal_mask.png",
+          "sha256": "9b2dd9bfb37524398b525b0c1a6dbcc7040fa65495b4bfa6489da713aeca47d8"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal.png",
+          "sha256": "bf01d6f13b3886eeb935bb3abf69cfc407cdd3e9d0342a5b14eb60d9a2437fea"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\cube_native_signal_mask.png",
+          "sha256": "15369c8e2293e092ba78922556598ebd97170771436c05f84594ca87845c83fb"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\frozen_source.json",
+          "sha256": "5c3f68a571b91a4fb5bf75c6236b5da98304e3ef39113702f2be008b986b65b5"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\frozen_source_after.json",
+          "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\registration_before_chests.json",
+          "sha256": "c7ca5a931697743788739ae3e68a9ece408aa0b2d8161225e98e83c4b0714bd8"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report.json",
+          "sha256": "88f2d38c02978fab466efb3e93c8c9421f1c72a2d1d264079f1a04b22802a8ee"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_editor_empty_native.capture.json",
+          "sha256": "a18066255b7d284ad7c2271fb3a3b8fd1653ea0b28a5c784c5a48415eccbd0d9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_editor_empty_native.png",
+          "sha256": "d744f91cdf33eba3a8c2fd789b2370b998a016cd47b635fe531944be34fd5a00"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_editor_native.capture.json",
+          "sha256": "3b92c5ce226e38dbb2225383be550537240977ad63dc7f19f5a64f3cfa29f6d8"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_editor_native.png",
+          "sha256": "5710a0f43cd4fee3a54e6da885ca192711e9b09b281787c770b1ba37b2f5edbe"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_empty_native.capture.json",
+          "sha256": "b492df5ed049c53ce8e50dfcfb910a4720edf7f458b50343de495311e6565a20"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_empty_native.png",
+          "sha256": "cb986d2e5e7b2825f4896b022057dd492c5b8bffed1f925511264e6eeb657dbf"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_native_native.capture.json",
+          "sha256": "06c3ccb004839998be8b5c98aea12b40923e23bebda739dcb1208207c70e3a16"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_0_native_native.png",
+          "sha256": "c00fc7bc856b2862755d8f40b80f4d33ffaaac5fdc3ad73cbd78d67fccd77340"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_editor_empty_native.capture.json",
+          "sha256": "2d233a016792486f37b2f2ffdffcfddcd457778fae991e2aafe3dc919e132fc3"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_editor_empty_native.png",
+          "sha256": "da714293f9f13c78359d1ce87396b6a6a29154aeb6bfc8b20aea5627df267e56"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_editor_native.capture.json",
+          "sha256": "7736423e5e1a903a04d70b842495d9d2744765e1c17b043c3ed957758f495d1c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_editor_native.png",
+          "sha256": "ef566132bb056f36f5f858337eba648ac35aa53eaad321a3f2fd4d7214c207a6"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_empty_native.capture.json",
+          "sha256": "297475ed6f17ea0731ba762c495e5cae115a6fc90966fe86e28273d88f808269"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_empty_native.png",
+          "sha256": "fa893ac8ac0bcad86aafbf3f8fcba125a1776858fe1b0fbaedfb7ff619dd3f9e"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_native_native.capture.json",
+          "sha256": "bbe1bf9b46a3d7f83a10af6afbaca0e4f15c2abbac717563b9d78593c32f4f47"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_1_native_native.png",
+          "sha256": "a28fc80643809b4e7bb9f32817d5c5836379785ed47d89f5f6314358998bd5c6"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_editor_empty_native.capture.json",
+          "sha256": "da2bc72656e0f27b880d2230cb4749cae6101ccf24b2fe3b0cea911b72995bef"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_editor_empty_native.png",
+          "sha256": "69a0e8ae052b03570f9fa73946e15d4ccf6ea79e2b0efa12fde6dc815a678a62"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_editor_native.capture.json",
+          "sha256": "f218cbbe15bf2363b43699dbd3b6fc203a3c7d786bfbd8ca14295cda23339750"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_editor_native.png",
+          "sha256": "6fd95b6c6627ef74deea351074a617154ffa4b83f4c33ecb02466335aa151b38"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_empty_native.capture.json",
+          "sha256": "4afc0aeea0f19f701a4c1847e865f697c9e5aa9eda9a32720e6325e8f12cbbc5"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_empty_native.png",
+          "sha256": "ec7fdbf574c323cf6b33d8b2aa5ae2be886a9f91f3ec9770432ef374303d9f85"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_native_native.capture.json",
+          "sha256": "7403b1e71c3e73602b7267247db0b59fd522777100fd71af62c5fccc639cb4fc"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_2_native_native.png",
+          "sha256": "059fe4a489d22292620c6932edc0dcd386bb99b8e211531a58bcff6d70202cd5"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_editor_empty_native.capture.json",
+          "sha256": "75ecdea4ba1d21843935147b141d16a4261d2adc1cd43249da54c6966060e825"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_editor_empty_native.png",
+          "sha256": "63e3a682ba9feb1b1edecee307222f1b7e12c5cd4c7f32267696b697bbaae255"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_editor_native.capture.json",
+          "sha256": "bcc23515150534c8396a9c22049fa3513812369914a05f943c7c9607a6ea869c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_editor_native.png",
+          "sha256": "5f12ae54329cc41b1d79275f6bc5f5d1e3957ad436e9ff034f4cfe5f975e5aa8"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_empty_native.capture.json",
+          "sha256": "639c7a870a48083aa82254ab26977067b7c40d786f5c8664239c7012ebca03c9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_empty_native.png",
+          "sha256": "0ca803b6e4e512b6d511d9f5b9fcd1f04c1b1fdab5d112f68823a89a4379a110"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_native_native.capture.json",
+          "sha256": "437d1e9f40a2636828c0fee3c2315874d06ddcd2380bab8ebcd78297b3e730da"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v2\\report_cube_native_native.png",
+          "sha256": "5953324a15da53fe7238365ce66569f0735be9b31d257d339f43494c26a976a9"
+        }
+      ]
+    },
+    {
+      "name": "chest-editor-r9-public-v3",
+      "accepted": true,
+      "completed": true,
+      "passed": true,
+      "restored": true,
+      "error": null,
+      "scope": "True native world chest versus ordinary product editor Scene viewport; independent stone cube registration",
+      "limits": {
+        "minimum_native_pixels": 1000,
+        "shape_iou": 0.82,
+        "texture_cosine": 0.45,
+        "scale_relative_error": 0.2,
+        "center_distance_pixels": 3,
+        "boundary_rms_pixels": 4
+      },
+      "frame_count": 16,
+      "all_frames_reliable_background_wgc": true,
+      "editor_document_and_camera_preserved": true,
+      "production_and_tools_unchanged": true,
+      "registration": {
+        "scale": 0.6400084629218237,
+        "axis_ratios": [
+          0.6423357664233577,
+          0.6376811594202898
+        ],
+        "native_center": [
+          997.5,
+          550.0
+        ],
+        "editor_center": [
+          1006.0,
+          599.0
+        ],
+        "native_cube": {
+          "bbox": [
+            431,
+            260,
+            568,
+            398
+          ],
+          "world_bounds": [
+            929,
+            481,
+            1066,
+            619
+          ],
+          "pixels": 18906,
+          "crop": [
+            498,
+            221,
+            1495,
+            884
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal.png"
+        },
+        "editor_cube": {
+          "bbox": [
+            492,
+            200,
+            580,
+            288
+          ],
+          "world_bounds": [
+            962,
+            555,
+            1050,
+            643
+          ],
+          "pixels": 7744,
+          "crop": [
+            470,
+            355,
+            1540,
+            846
+          ],
+          "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal.png"
+        },
+        "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+      },
+      "native_background": {
+        "confirmed_air_before": true,
+        "cells": [
+          [
+            3,
+            131,
+            3
+          ],
+          [
+            3,
+            131,
+            4
+          ],
+          [
+            3,
+            131,
+            5
+          ],
+          [
+            3,
+            131,
+            6
+          ],
+          [
+            3,
+            131,
+            7
+          ],
+          [
+            3,
+            131,
+            8
+          ],
+          [
+            3,
+            131,
+            9
+          ],
+          [
+            4,
+            131,
+            3
+          ],
+          [
+            4,
+            131,
+            4
+          ],
+          [
+            4,
+            131,
+            5
+          ],
+          [
+            4,
+            131,
+            6
+          ],
+          [
+            4,
+            131,
+            7
+          ],
+          [
+            4,
+            131,
+            8
+          ],
+          [
+            4,
+            131,
+            9
+          ],
+          [
+            5,
+            131,
+            3
+          ],
+          [
+            5,
+            131,
+            4
+          ],
+          [
+            5,
+            131,
+            5
+          ],
+          [
+            5,
+            131,
+            6
+          ],
+          [
+            5,
+            131,
+            7
+          ],
+          [
+            5,
+            131,
+            8
+          ],
+          [
+            5,
+            131,
+            9
+          ],
+          [
+            6,
+            131,
+            3
+          ],
+          [
+            6,
+            131,
+            4
+          ],
+          [
+            6,
+            131,
+            5
+          ],
+          [
+            6,
+            131,
+            6
+          ],
+          [
+            6,
+            131,
+            7
+          ],
+          [
+            6,
+            131,
+            8
+          ],
+          [
+            6,
+            131,
+            9
+          ],
+          [
+            7,
+            131,
+            3
+          ],
+          [
+            7,
+            131,
+            4
+          ],
+          [
+            7,
+            131,
+            5
+          ],
+          [
+            7,
+            131,
+            6
+          ],
+          [
+            7,
+            131,
+            7
+          ],
+          [
+            7,
+            131,
+            8
+          ],
+          [
+            7,
+            131,
+            9
+          ],
+          [
+            8,
+            131,
+            3
+          ],
+          [
+            8,
+            131,
+            4
+          ],
+          [
+            8,
+            131,
+            5
+          ],
+          [
+            8,
+            131,
+            6
+          ],
+          [
+            8,
+            131,
+            7
+          ],
+          [
+            8,
+            131,
+            8
+          ],
+          [
+            8,
+            131,
+            9
+          ],
+          [
+            9,
+            131,
+            3
+          ],
+          [
+            9,
+            131,
+            4
+          ],
+          [
+            9,
+            131,
+            5
+          ],
+          [
+            9,
+            131,
+            6
+          ],
+          [
+            9,
+            131,
+            7
+          ],
+          [
+            9,
+            131,
+            8
+          ],
+          [
+            9,
+            131,
+            9
+          ]
+        ],
+        "material": [
+          "minecraft:quartz_block",
+          0
+        ]
+      },
+      "cases": [
+        {
+          "id": "normal_single_south",
+          "name": "minecraft:chest",
+          "direction": "south",
+          "paired": false,
+          "fixture": "test.entities.classic",
+          "cells": [
+            [
+              9,
+              1,
+              3
+            ]
+          ],
+          "passed_original_gates": true,
+          "comparison": {
+            "shape_iou": 0.9731682146542827,
+            "texture_cosine": 0.8892927052823612,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.03748628099173579,
+            "native_bbox": [
+              967.9194964561515,
+              561.2395006876125,
+              1044.0805035438484,
+              641.2405585528404
+            ],
+            "proxy_bbox": [
+              497,
+              205,
+              575,
+              288
+            ],
+            "texture_samples": 8442,
+            "texture_energy": [
+              537036,
+              622064
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                967.9194964561515,
+                561.2395006876125,
+                1044.0805035438484,
+                641.2405585528404
+              ],
+              "proxy_world_bounds": [
+                967,
+                560,
+                1045,
+                643
+              ],
+              "center_delta_pixels": [
+                0.0,
+                0.25997037977356285
+              ],
+              "center_distance_pixels": 0.25997037977356285,
+              "boundary_rms_pixels": 1.257273202840701,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18906,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": true
+          },
+          "native_pixels": 13950,
+          "public_source_unchanged": true
+        },
+        {
+          "id": "normal_double_north",
+          "name": "minecraft:chest",
+          "direction": "north",
+          "paired": true,
+          "fixture": "test.connections.context",
+          "cells": [
+            [
+              26,
+              1,
+              5
+            ],
+            [
+              27,
+              1,
+              5
+            ]
+          ],
+          "passed_original_gates": true,
+          "comparison": {
+            "shape_iou": 0.9839121552604698,
+            "texture_cosine": 0.7815271921328054,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.054355976617618484,
+            "native_bbox": [
+              925.0389294403893,
+              558.0394583730033,
+              1086.9610705596108,
+              636.7604993123875
+            ],
+            "proxy_bbox": [
+              453,
+              200,
+              619,
+              283
+            ],
+            "texture_samples": 8736,
+            "texture_energy": [
+              422402,
+              476178
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                925.0389294403893,
+                558.0394583730033,
+                1086.9610705596108,
+                636.7604993123875
+              ],
+              "proxy_world_bounds": [
+                923,
+                555,
+                1089,
+                638
+              ],
+              "center_delta_pixels": [
+                -1.1368683772161603e-13,
+                -0.8999788426954183
+              ],
+              "center_distance_pixels": 0.8999788426954183,
+              "boundary_rms_pixels": 2.1845557718666635,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18906,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": true
+          },
+          "native_pixels": 29758,
+          "public_source_unchanged": true
+        },
+        {
+          "id": "copper_double_north",
+          "name": "minecraft:copper_chest",
+          "direction": "north",
+          "paired": true,
+          "fixture": "test.connections.context",
+          "cells": [
+            [
+              26,
+              1,
+              10
+            ],
+            [
+              27,
+              1,
+              10
+            ]
+          ],
+          "passed_original_gates": true,
+          "comparison": {
+            "shape_iou": 0.9839121552604698,
+            "texture_cosine": 0.8828201304329286,
+            "interior_missing_fraction": 0.0,
+            "scale_relative_error": 0.054355976617618484,
+            "native_bbox": [
+              925.0389294403893,
+              558.0394583730033,
+              1086.9610705596108,
+              636.7604993123875
+            ],
+            "proxy_bbox": [
+              453,
+              200,
+              619,
+              283
+            ],
+            "texture_samples": 8736,
+            "texture_energy": [
+              1191150,
+              1374704
+            ],
+            "alignment": {
+              "native_world_bounds": [
+                925.0389294403893,
+                558.0394583730033,
+                1086.9610705596108,
+                636.7604993123875
+              ],
+              "proxy_world_bounds": [
+                923,
+                555,
+                1089,
+                638
+              ],
+              "center_delta_pixels": [
+                -1.1368683772161603e-13,
+                -0.8999788426954183
+              ],
+              "center_distance_pixels": 0.8999788426954183,
+              "boundary_rms_pixels": 2.1845557718666635,
+              "passed": true,
+              "limits": {
+                "center_distance_pixels": 3,
+                "boundary_rms_pixels": 4
+              }
+            },
+            "registration": {
+              "scale": 0.6400084629218237,
+              "axis_ratios": [
+                0.6423357664233577,
+                0.6376811594202898
+              ],
+              "native_center": [
+                997.5,
+                550.0
+              ],
+              "editor_center": [
+                1006.0,
+                599.0
+              ],
+              "native_cube": {
+                "bbox": [
+                  431,
+                  260,
+                  568,
+                  398
+                ],
+                "world_bounds": [
+                  929,
+                  481,
+                  1066,
+                  619
+                ],
+                "pixels": 18906,
+                "crop": [
+                  498,
+                  221,
+                  1495,
+                  884
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal.png"
+              },
+              "editor_cube": {
+                "bbox": [
+                  492,
+                  200,
+                  580,
+                  288
+                ],
+                "world_bounds": [
+                  962,
+                  555,
+                  1050,
+                  643
+                ],
+                "pixels": 7744,
+                "crop": [
+                  470,
+                  355,
+                  1540,
+                  846
+                ],
+                "signal": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal.png"
+              },
+              "contract": "Uniform scale and centers fixed only by independent stone cube before chest frames"
+            },
+            "passed": true
+          },
+          "native_pixels": 29758,
+          "public_source_unchanged": true
+        }
+      ],
+      "frozen_registry_source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+        "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+      },
+      "artifacts": [
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\0_editor_signal.png",
+          "sha256": "7339d4ba9f2015f62e93a7c38683f53a7ec2bd5634fd175679f5c8fd219f5e4c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\0_editor_signal_mask.png",
+          "sha256": "3b41b844864d5304432a200ff7d02c5ed4d2ed2bb1080512ccd41eedf342ec41"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\0_native_signal.png",
+          "sha256": "1c3def06cf343130afc5ee6d990338ea45567b8878db197cf76899d752a27ca1"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\0_native_signal_mask.png",
+          "sha256": "cd6d79b7639aacf285a07697bda44f36ffc900ae98197463796160870f9d90ad"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\1_editor_signal.png",
+          "sha256": "79638f8803565042416fb2599937c5a242d9378f2f30edbe23781c00e5fce5ea"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\1_editor_signal_mask.png",
+          "sha256": "090ea53bbe004047b2302f1c2864ee55a9b6644169783d83a625c86c7d563fc7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\1_native_signal.png",
+          "sha256": "ec4cc86612fdd4ab3705def5f95914684a15b0b5c38c4bc344204a2c9b16c589"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\1_native_signal_mask.png",
+          "sha256": "5ccfaa083a632993410a51ceb8a0ccf0b1eedb65f9e40ab38efc27ac0db85ec5"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\2_editor_signal.png",
+          "sha256": "a61d0f219644fabb7f83edc51bbaca7db3937c7e81fe0ba702b8efe21df88f83"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\2_editor_signal_mask.png",
+          "sha256": "090ea53bbe004047b2302f1c2864ee55a9b6644169783d83a625c86c7d563fc7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\2_native_signal.png",
+          "sha256": "5b509eb512cc8db8775a521d4bd48049525eebf89fc396d829b6bc35e9d065a6"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\2_native_signal_mask.png",
+          "sha256": "5ccfaa083a632993410a51ceb8a0ccf0b1eedb65f9e40ab38efc27ac0db85ec5"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal.png",
+          "sha256": "7fa52904b0a871bf8f5fb7e13011ef5feb434565ef2862fb4cfafbc2c3faa4d4"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_editor_signal_mask.png",
+          "sha256": "9b2dd9bfb37524398b525b0c1a6dbcc7040fa65495b4bfa6489da713aeca47d8"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal.png",
+          "sha256": "3777637246f07bd0b3d48128f518f9f3d1053a72e9c3bedfcbcdad08eadb3ff7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\cube_native_signal_mask.png",
+          "sha256": "3d2cf30cadd59455fec2b34b87cfc33e230f5705470dbb8ff17ada5ebe7761af"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\frozen_source.json",
+          "sha256": "fe554c34fd94164da09f6dc1264e27972bb49ca5aa59ae49fb9023a4f1240d9e"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\frozen_source_after.json",
+          "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\registration_before_chests.json",
+          "sha256": "f0e357f7af3442c2000f28c0c04f020b2fce9ef88d308d521797aae04d445379"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report.json",
+          "sha256": "e8358d15909826661f3016727f1df00d0847b40c84525307cadbacba97a762ef"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_empty_native.capture.json",
+          "sha256": "2af905ad0b4c2d4120e936991c0e0b0ee4f93637271daeb50e78366e1bfc0e51"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_empty_native.png",
+          "sha256": "7e0c6155734bf4b506835e60c1f952e9a4f6974e9d236393e9fb57dff691c7ab"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_native.capture.json",
+          "sha256": "218cd94f5e739abb38872f73ebfd9646a74c62cf21f9057e64932df29c8d4b26"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_editor_native.png",
+          "sha256": "6f4ab8d46681ba16ae53b8e86c34eff2418b4b1357e67b3770058a490d25d1b2"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_empty_native.capture.json",
+          "sha256": "e5367d93b600252bbef563e05d2ee5f2e4f4353994bbae46e22ad5bdab0fd910"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_empty_native.png",
+          "sha256": "46985074d5fdd7ac1b1673eb9f4a1ff6c92483e5884678bbe2c10bec8aa94d79"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_native_native.capture.json",
+          "sha256": "de7a85c3603a408b742276e05a79960000c3130bfb395540a0973598fdfffa14"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_0_native_native.png",
+          "sha256": "84d713ca05c5e723d7e278032b82fd8e84214062eefa80dfd0bcceb3339938e7"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_empty_native.capture.json",
+          "sha256": "c262cdae187743c27834da4d2d1a5ad6e3d81a72ab4df053a049c24f047e9926"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_empty_native.png",
+          "sha256": "6e0c457247f01f0cde8cf84a41b69c215f4c32824d146069e00384b00b63df03"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_native.capture.json",
+          "sha256": "6014c1bb7d227850238d6ec5a15145edeaa54381939723b67fbcf8842584a0fc"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_editor_native.png",
+          "sha256": "8915bacd8021700b3652d83cbeea5ff3840192501c9c1ac88210061824e50605"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_empty_native.capture.json",
+          "sha256": "28d97bf207cdfca55d70d4859af6d5e834b8330091f7607c21a8c9565afb0dc9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_empty_native.png",
+          "sha256": "2c0881a8d3c38dd97e2def829838a0adb76cdaad84b4c10f9102899b2b372389"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_native_native.capture.json",
+          "sha256": "7b9a5a833d7021016c4ddac20769420bb5376e147581db908daa41cd7109f9a9"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_1_native_native.png",
+          "sha256": "346c64f189618fdcd5b2bbe01dd553a870163f364bbd7c25f2359fb4b277923d"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_empty_native.capture.json",
+          "sha256": "e88c8a8b6fc3caf75c22745dd079d8ce023975fa02a59450ff013a177a85c8d6"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_empty_native.png",
+          "sha256": "d99cfbb463ffba4f45501cd84004d8dcbc4591b34a8a16924c7ef0b42eb06006"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_native.capture.json",
+          "sha256": "4f4db056579f08d6b5a7edcc69f2ec5fd14fd180876a8938571a8763ef48a721"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_editor_native.png",
+          "sha256": "0b9f90d7d2be7ddc228a5adb621aef08f555c9d8a5ccb2c1042663778a7941ab"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_empty_native.capture.json",
+          "sha256": "5b5824ceb2d5d94b6195ef0db5845845bf818d66cc4bb3b2aed858b38f495bfc"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_empty_native.png",
+          "sha256": "25dae6cb222fca4c834570d069802c05a425825f22842ccfd9cd0fca752f6060"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_native_native.capture.json",
+          "sha256": "4110fa4a2822fc73b96971ee20dd3bb23e480d0d1775335d622a4da420723d47"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_2_native_native.png",
+          "sha256": "e8b6bc8e74d5498f090c7ae3ce2bccf8838f65984e9b392de09e7406073088c4"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_empty_native.capture.json",
+          "sha256": "a22c10c2fbc9a04804e7533435de54a109d54904d0164c7e8659b50be7ff15b0"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_empty_native.png",
+          "sha256": "08a31912bb6e62012450eba950509d187ccc7b9d76fe9986f38143a855bb8a7e"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_native.capture.json",
+          "sha256": "9eb91104c6d04f3ceefba25b60e74757c7ecc14ee2a8762c95fc8e4a03d6debf"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_editor_native.png",
+          "sha256": "99f8e97cb5e1bf5623b24e43abf3dba484af91f643455940671dcd85d66458cf"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_empty_native.capture.json",
+          "sha256": "5b1cf543744ab84e966d5a7a1d9cc9106bf728bc4652eae238764f75bfd96304"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_empty_native.png",
+          "sha256": "583cedbb756ba256acf9f3739006c25e162fa5638b14a04315c9d9b8886da1cc"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_native_native.capture.json",
+          "sha256": "aaa455120449f2c710905176106d91f72eca6db20a66bbeecb88b380d42f35d0"
+        },
+        {
+          "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c0e9fe9f1e40453f8d8056092950877d\\artifacts\\chest-editor-r9-public-v3\\report_cube_native_native.png",
+          "sha256": "d8cf0cb04076e15c1320d0e28e784b854aef736a188117b45a93232503007acd"
+        }
+      ]
+    }
+  ]
+}
