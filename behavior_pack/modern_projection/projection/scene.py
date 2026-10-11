@@ -18,6 +18,9 @@ from .preview_depth import depth_color, tile_layer
 from .grid_preview import GridPreview, GridView
 from .outline_preview import OutlinePreview
 from .input_mode import is_touch
+from .liquid_preview import LiquidPreview
+from .liquid_viewport import LiquidControls, group_view
+from .liquid_scene import LiquidModels
 
 
 MODES = [('browse', '浏览'), ('select', '选取'), ('place', '放置'), ('paint', '换材质'),
@@ -92,6 +95,24 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     use_effect(subscribe, [session])
     use_effect(session.bridge.attach_frame_pump, [session])
     registry = use_ref({}).current
+    liquid_profile = getattr(session, 'liquid_profile', None)
+    liquid_registry = use_ref({}).current
+    liquid = use_memo(lambda: LiquidPreview(session, liquid_profile.provider_factory,
+        liquid_profile.models, liquid_profile.max_groups) if liquid_profile is not None else None,
+        [session, liquid_profile])
+    liquid_controls = use_memo(lambda: LiquidControls(liquid_registry,
+        session.bridge.factory.CreateModel(None)) if liquid is not None else None, [liquid])
+    def own_liquid():
+        if liquid is None:
+            return
+        session.liquid_preview = liquid
+        def cleanup():
+            liquid_controls.close()
+            liquid.close()
+            if getattr(session, 'liquid_preview', None) is liquid:
+                session.liquid_preview = None
+        return cleanup
+    use_effect(own_liquid, [liquid, liquid_controls])
     models_signature = use_ref(None)
     models_pending = use_ref(True)
     pointer, canvas = use_ref(None), use_ref(None)
@@ -147,6 +168,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         outline.invalidate()
         cursor_outline.invalidate()
         grid_preview.invalidate()
+        if liquid_controls is not None:
+            liquid_controls.invalidate()
         if active:
             for dolls, surfaces, preview in registry.values():
                 preview.invalidate()
@@ -380,6 +403,14 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 part['pending'] = False
         if update_models:
             models_pending.current = any(part['pending'] for part in session.tiles.parts.values())
+        if liquid is not None:
+            liquid.advance()
+            def liquid_view(origin):
+                return group_view(origin, camera, session.scene_origin, session.scene_size,
+                                  (native_width, native_height), cell_unit)
+            liquid_pose = liquid_profile.ui_pose(cell_unit, rendered_pitch, rendered_yaw)
+            liquid_controls.update(liquid.groups, liquid_view, liquid_pose,
+                tuple(-axis for axis in clip_geometry.current[:2]) if clip_geometry.current else (0., 0.), now)
         e = session.editor
         selection_key = (id(e), e.selection_revision)
         if selected_bounds.current[0] != selection_key:
@@ -596,6 +627,8 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
         # drawing while inactive; retain the controls and geometry for return.
         Panel(ref=clipping, style=S(position=Position.absolute, width='100%', height='100%', visible=active), children=[
             PreviewModels(session=session, registry=registry, width=width, height=height, keys=session.tiles.render_keys),
+            LiquidModels(session=session, registry=liquid_registry, width=width, height=height,
+                         keys=liquid.keys) if liquid is not None else None,
         ]),
         Panel(ref=edge_clipping, style=S(position=Position.absolute, width='100%', height='100%', zIndex=0, visible=active), children=[
             Image(ref=edge_tint, src='textures/modern_projection/transparent',
