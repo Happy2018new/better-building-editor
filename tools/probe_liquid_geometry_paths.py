@@ -11,8 +11,6 @@ import verify_wet_actor_visuals as wet
 MODES = ('raw', 'prepared', 'context')
 SOURCE_CASE = 'sign_adjacent_water'
 SOURCE = wet.CASES[SOURCE_CASE]
-wet.CASES = dict((mode, SOURCE) for mode in MODES)
-wet.world.CASES = MODES
 
 INSTALL_PATH = '''assert not hasattr(sys,'_liquid_path_geometry_saved')
 sys._liquid_path_geometry_saved=b.geometry
@@ -70,9 +68,13 @@ def write_report(path, report):
     wet._save(path, report)
 
 
-wet.world.world_case = probe_case
-wet.world.write_json = write_report
+def configure():
+    wet.CASES = dict((mode, SOURCE) for mode in MODES)
+    wet.world.CASES = MODES
+    wet.world.world_case = probe_case
+    wet.world.write_json = write_report
 
 
 if __name__ == '__main__':
+    configure()
     raise SystemExit(wet.world.main())
