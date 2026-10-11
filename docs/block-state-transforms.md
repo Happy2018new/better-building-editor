@@ -113,7 +113,9 @@ generator follows inheritance, so new descendants do not need a Python list.
 `--capture --game-data <installed-game>/data` records the reviewed version and
 generates explicit bindings, while `--check` rejects stale sources or bindings.
 These bindings remain a visual candidate until the independent public wet-actor
-blueprint cases pass; this tool is not yet part of the final version-bundle gate.
+blueprint cases pass. Their provenance and generated-file consistency are part
+of `check_version_bundle.py`; passing that gate does not establish visible liquid
+geometry, native surface heights, animation or production memory bounds.
 
 The registry generator preserves each block's native aux IDs and state value
 types. Existing property rules apply automatically to newly added materials
