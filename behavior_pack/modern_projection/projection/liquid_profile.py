@@ -44,7 +44,29 @@ def _models(rows):
     return models, world_models
 
 
-def _side_templates(values, models):
+def _uv_rotations(rows, models):
+    if not isinstance(rows, (tuple, list)):
+        raise ValueError('Native liquid resources need explicit model UV rotation capabilities')
+    result = {}
+    for row in rows:
+        if not isinstance(row, (tuple, list)) or len(row) != 3:
+            raise ValueError('Liquid UV capabilities need texture, template and allowed rotation codes')
+        texture, template, codes = row
+        if (not _text(texture) or template is not None and not _text(template)
+                or not isinstance(codes, (tuple, list)) or not codes
+                or any(isinstance(code, bool) or not isinstance(code, integer_types)
+                       or not 0 <= code <= 255 for code in codes)):
+            raise ValueError('Liquid UV capabilities need explicit eight-bit rotation codes')
+        key = texture, template
+        if key not in models or key in result or len(set(codes)) != len(codes):
+            raise ValueError('Liquid UV capabilities repeat or name an unregistered model template')
+        result[key] = frozenset(codes)
+    if set(result) != set(models):
+        raise ValueError('Liquid UV capabilities must cover every registered model template')
+    return result
+
+
+def _side_templates(values, models, uv_rotations):
     if not isinstance(values, dict):
         raise ValueError('Native liquid side UV templates must be explicit')
     result = {}
@@ -54,6 +76,8 @@ def _side_templates(values, models):
                 or not isinstance(uv[1], integer_types) or not 0 <= uv[1] <= 255
                 or (texture, uv[0]) not in models):
             raise ValueError('Native liquid side UVs need registered model templates and rotation codes')
+        if uv[1] not in uv_rotations[(texture, uv[0])]:
+            raise ValueError('Native liquid side UV rotation is unsupported by its model resource')
         result[texture] = tuple(uv)
     return result
 
@@ -67,7 +91,7 @@ class NativeLiquidProfile(object):
     """
     def __init__(self, resources, ui_pose, ui_offset, flow_uv=None):
         check_version()
-        if (not isinstance(resources, dict) or resources.get('schema_version') != 1
+        if (not isinstance(resources, dict) or resources.get('schema_version') != 2
                 or resources.get('payload_version') != PAYLOAD_VERSION
                 or resources.get('game_version') != block_registry.source_version()
                 or not _text(resources.get('palette_sha256'))
@@ -78,7 +102,8 @@ class NativeLiquidProfile(object):
         if not callable(ui_pose) or not callable(ui_offset) or flow_uv is not None and not callable(flow_uv):
             raise ValueError('Native liquid profile needs explicit calibrated UI transforms')
         self.models, self.world_models = _models(resources.get('models'))
-        self.side_templates = _side_templates(resources.get('side_templates'), self.models)
+        self.uv_rotations = _uv_rotations(resources.get('uv_rotations'), self.models)
+        self.side_templates = _side_templates(resources.get('side_templates'), self.models, self.uv_rotations)
         for name in liquid_shape_data.SUPPORTED_NAMES:
             top, bottom, side = liquid_face_texture_data.FACE_TEXTURES[name]
             if ((top, None) not in self.models or (bottom, None) not in self.models
@@ -93,4 +118,4 @@ class NativeLiquidProfile(object):
         self.ui_pose, self.ui_offset, self.flow_uv = ui_pose, ui_offset, flow_uv
 
     def provider_factory(self, document):
-        return LiquidFaceTextures(shape_provider(document, self.flow_uv), self.side_templates)
+        return LiquidFaceTextures(shape_provider(document, self.flow_uv), self.side_templates, self.uv_rotations)

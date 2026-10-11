@@ -10,11 +10,13 @@ class LiquidFaceTextures(object):
     Native blocks.json supplies bottom and side resource keys; it cannot establish
     the side UV mapping or the choice of flowing top faces.
     """
-    def __init__(self, provider, side_templates):
+    def __init__(self, provider, side_templates, uv_rotations=None):
         if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != block_registry.source_version()
                 or source.PALETTE_SHA256.lower() != block_registry.fingerprint().lower()):
             raise ValueError('Native liquid face textures need regeneration for this registry')
         self.provider, self.side_templates = provider, dict(side_templates)
+        self.uv_rotations = (None if uv_rotations is None else
+                             dict((key, frozenset(codes)) for key, codes in uv_rotations.items()))
 
     def surface(self, document, pos, layer, value):
         shape = self.provider.surface(document, pos, layer, value)
@@ -26,6 +28,10 @@ class LiquidFaceTextures(object):
         top, bottom, side = textures
         if shape.texture_key not in (top, side):
             raise ValueError('Liquid top resource differs from its native family')
+        if self.uv_rotations is not None:
+            template, rotation = (None, 0) if shape.flow_uv is None else shape.flow_uv
+            if rotation not in self.uv_rotations.get((shape.texture_key, template), ()):
+                raise ValueError('Liquid top UV template or rotation is unsupported by its model resource')
         materials, masks = [], {}
         for mask, texture, uv in ((1, shape.texture_key, shape.flow_uv),
                                   (32, bottom, None),
