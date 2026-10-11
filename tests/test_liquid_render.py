@@ -60,27 +60,29 @@ class SkeletonLiquidTests(unittest.TestCase):
         self.assertFalse(self.renderer.update(value, POSE, 0.))
         self.assertFalse(self.renderer.update(value, POSE, .03))
         self.assertEqual([], self.model.calls)
-        self.assertEqual({0: False, 1: False}, self.shown)
+        self.assertEqual({0: False, 1: True}, self.shown)
         self.dolls[1].model_id = 1
         self.assertFalse(self.renderer.update(value, POSE, .06))
         self.assertEqual(4, len(self.model.calls))
+        self.assertEqual((1, 4, value.uniforms[3][:3] + (0.,)), self.model.calls[0])
         self.assertTrue(self.renderer.update(value, POSE, .09))
+        self.assertEqual((1, 4, value.uniforms[3]), self.model.calls[-1])
         self.assertEqual({0: False, 1: True}, self.shown)
         self.assertTrue(self.renderer.update(value, POSE, .12))
-        self.assertEqual(4, len(self.model.calls))
+        self.assertEqual(5, len(self.model.calls))
 
     def test_replacement_retains_old_surface_and_cancels_stale_pending_payload(self):
         first, second, third = group(height=.7), group(height=.3), group(height=.5)
         self.assertTrue(self.settle(first, 0., 1))
         self.renderer.update(second, POSE, 1.)
         self.renderer.update(third, POSE, 1.01)
-        self.assertEqual({0: False, 1: True}, self.shown)
+        self.assertEqual({0: True, 1: True}, self.shown)
         self.assertEqual((third, POSE), self.renderer.pending)
         self.dolls[0].model_id = 2
         for now in (1.04, 1.07, 1.10):
             self.renderer.update(third, POSE, now)
         self.assertEqual({0: True, 1: False}, self.shown)
-        self.assertEqual(8, len(self.model.calls))
+        self.assertEqual(10, len(self.model.calls))
 
     def test_timeout_is_latched_until_explicit_retry_without_recreating_each_frame(self):
         value = group()
@@ -115,7 +117,7 @@ class SkeletonLiquidTests(unittest.TestCase):
         self.renderer.update(value, final_pose, 1.04)
         self.assertEqual((value, final_pose), self.renderer.pending)
         self.assertEqual(old_calls, len(self.dolls[1].calls))
-        self.assertEqual({0: False, 1: True}, self.shown)
+        self.assertEqual({0: True, 1: True}, self.shown)
         for now in (1.07, 1.10, 1.13):
             self.renderer.update(value, final_pose, now)
         self.assertEqual(final_pose, self.renderer.poses[self.renderer.front])
@@ -131,7 +133,26 @@ class SkeletonLiquidTests(unittest.TestCase):
         self.renderer.update(group(height=.3), POSE, 1.03)
         self.assertFalse(self.renderer.update(group(height=.3), POSE, 1.06))
         self.assertEqual({0: False, 1: True}, self.shown)
-        self.assertEqual(1, len(self.renderer.uniforms[0]))
+        self.assertEqual(2, len(self.renderer.uniforms[0]))
+
+    def test_reused_bank_is_masked_before_native_submission(self):
+        self.assertTrue(self.settle(group(height=.7), 0., 1))
+        self.assertTrue(self.settle(group(height=.3), 1., 2))
+        value = group(height=.5)
+        self.renderer.update(value, POSE, 2.)
+        self.assertEqual((1, 4, value.uniforms[3][:3] + (0.,)), self.model.calls[-1])
+        self.assertEqual({0: True, 1: True}, self.shown)
+
+    def test_mask_failure_keeps_old_front_and_latches_without_new_submission(self):
+        self.assertTrue(self.settle(group(height=.7), 0., 1))
+        self.assertTrue(self.settle(group(height=.3), 1., 2))
+        before = len(self.dolls[1].calls)
+        self.model.ok = False
+        value = group(height=.5)
+        self.assertFalse(self.renderer.update(value, POSE, 2.))
+        self.assertIn('mask preparing', self.renderer.error)
+        self.assertEqual(before, len(self.dolls[1].calls))
+        self.assertEqual({0: True, 1: False}, self.shown)
 
     def test_model_ids_must_be_independent_and_close_is_idempotent(self):
         self.assertTrue(self.settle(group(height=.7), 0., 1))

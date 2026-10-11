@@ -48,19 +48,32 @@ class SkeletonLiquidRenderer(object):
             self.visible[slot] = value
 
     def _submit(self, slot, group, pose):
+        # Hidden PaperDolls never allocate a native model ID. Mask the old
+        # payload before making the preparing control drawable instead.
+        old_id = self.dolls[slot].GetModelId()
+        if old_id != -1:
+            if old_id == self.ids[1 - slot]:
+                self.error = 'Owned liquid skeleton models do not have independent IDs'
+                return False
+            masked = group.uniforms[3][:3] + (0.,)
+            if not self.model_component.SetExtraUniformValue(old_id, 4, masked):
+                self.error = 'Could not mask preparing liquid skeleton'
+                return False
+        self._show(slot, True)
         scale, rot_x, rot_y, rot_z = pose
         returned = self.dolls[slot].RenderSkeletonModel({
             'skeleton_model_name': group.model_name, 'scale': scale, 'render_depth': -50,
             'init_rot_x': rot_x, 'init_rot_y': rot_y, 'init_rot_z': rot_z})
         if not returned:
             self.error = 'Could not submit liquid skeleton model'
+            self._show(slot, False)
             return False
         self.groups[slot], self.poses[slot] = group, pose
         self.ids[slot] = None
         self.uniforms[slot].clear()
         return True
 
-    def _payload(self, slot):
+    def _payload(self, slot, staging=False):
         model_id = self.dolls[slot].GetModelId()
         if model_id == -1:
             return False
@@ -71,7 +84,12 @@ class SkeletonLiquidRenderer(object):
         if model_id != self.ids[slot]:
             self.ids[slot] = model_id
             self.uniforms[slot].clear()
-        for index, value in enumerate(self.groups[slot].uniforms, 1):
+        payload = self.groups[slot].uniforms
+        if staging:
+            payload = payload[:3] + (payload[3][:3] + (0.,),)
+        order = (4, 1, 2, 3) if staging else (1, 2, 3, 4)
+        for index in order:
+            value = payload[index - 1]
             if self.uniforms[slot].get(index) == value:
                 continue
             if not self.model_component.SetExtraUniformValue(model_id, index, value):
@@ -89,7 +107,7 @@ class SkeletonLiquidRenderer(object):
         self.frames += 1
         if self.frames < 2 and now - self.started < self.READY_TIMEOUT:
             return False
-        if not self._payload(back):
+        if not self._payload(back, staging=True):
             if not self.error and now - self.started < self.READY_TIMEOUT:
                 return False
             self.error = self.error or 'Liquid skeleton model ID did not become ready'
@@ -98,6 +116,11 @@ class SkeletonLiquidRenderer(object):
             self.failed_request = (group, pose)
             return False
         if self.frames < 3 or now - self.started < self.SETTLE_SECONDS:
+            return False
+        if not self._payload(back):
+            self._show(back, False)
+            self.pending = None
+            self.failed_request = (group, pose)
             return False
         previous, self.front = self.front, back
         self.pending = None

@@ -271,3 +271,34 @@ Reports contain original PNG paths/hashes and per-frame metadata.
    from the supplied-height decoder; never substitute a Java liquid formula.
 5. Integrate a bounded lifecycle with independent editor/full/missing public
    controls and waterlogged foreground bodies before accepting production.
+
+## Native Water Lifecycle Correction
+
+The first still-water candidate run proves that `RenderSkeletonModel` on a
+hidden PaperDoll returns success without ever allocating a model ID. Both
+preparing banks timed out and the diagnostic page was restored. Its report
+`liquid-skeleton-water-native-r9-v1.json` has SHA-256
+`fda9806d5451d4ab362c8dbfac52e91cf134bfdc30d13d54e1530aea12ed596f`.
+
+The corrected adapter masks projection opacity in EXTRA_VECTOR4 before
+showing a reused bank. New models start with the invalid zero tag. It then
+applies the masked fourth vector before shape vectors, allows native model
+allocation, and restores projection opacity only after the settle gate.
+Failed masking preserves the current front and latches the failed request.
+The 27 transport/lifecycle tests pass; scoped SDK review parses one module
+with zero findings.
+
+The corrected run completes 16 owner-bound background WGC captures with
+independent IDs, payload/pose replacements, face masks, hiding and restoration.
+`liquid-skeleton-water-native-r9-v2.json` has SHA-256
+`691d009528f9c0a146ee9077468a218d76e495e90fc546231d44259180c528b8`.
+Visual inspection identifies missing artwork: native skeleton texture paths
+resolve beneath `textures/models`, whereas candidate v1 placed them beneath
+`models`. This run is lifecycle evidence only; artwork/animation/alpha remain
+unaccepted. The eight-file v1 candidate was restored, and owned session
+`7e69fe3853954e3e85a00b3b05449878` (game PID 51088 / MCDK PID 42252) stopped.
+
+Preparing-bank opacity is material payload state, not control `SetAlpha`:
+the latter is documented to affect only image and label controls. Continuous
+orbit, shared editor depth, world skeleton placement and production memory
+remain separate acceptance gates.
