@@ -126,8 +126,9 @@ _result=json.dumps(sys._neighbor_qa_camera)
 '''
 
 CAMERA_STATE = '''cam=b.factory.CreateCamera(b.level)
+assert hasattr(cam,'GetFov'), 'Native camera state requires Camera.GetFov'
 _result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
- 'screen':b.factory.CreateGame(b.level).GetScreenSize()})
+ 'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()})
 '''
 
 CELL_ROIS = '''cam=b.factory.CreateCamera(b.level)

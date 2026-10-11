@@ -1,5 +1,6 @@
 """Host fault evidence for sealed liquid captures; no game or pixels are accepted."""
 import copy
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -334,6 +335,55 @@ class PureLiquidNativeControlTests(unittest.TestCase):
                 changed[side][key] = value
                 with self.subTest(side=side, key=key), self.assertRaisesRegex(ValueError, 'FOV changed'):
                     controls.fixed_viewport(changed, POSE)
+
+    def test_real_v1_camera_schema_requires_actual_fov_and_never_fills_a_default(self):
+        native = {'position': [15.5, 126.5, 13.5],
+                  'rotation': [24.937969207763672, 144.46231079101562, -1.3652624147653114e-05],
+                  'screen': [499., 277.]}
+        record = {'camera_before': copy.deepcopy(native), 'camera_after': copy.deepcopy(native)}
+        pose = {'stable': copy.deepcopy(native)}
+        with self.assertRaisesRegex(ValueError, 'actual Camera.GetFov'):
+            controls.fixed_viewport(record, pose)
+        for item in (record['camera_before'], record['camera_after'], pose['stable']):
+            item['fov'] = 70.
+        self.assertTrue(controls.fixed_viewport(record, pose)['passed'])
+        for side in ('camera_before', 'camera_after'):
+            changed = copy.deepcopy(record)
+            del changed[side]['fov']
+            with self.subTest(side=side), self.assertRaisesRegex(ValueError, 'actual Camera.GetFov'):
+                controls.fixed_viewport(changed, pose)
+        for value in (float('nan'), float('inf'), None, True, 0., 180.):
+            changed = copy.deepcopy(record)
+            changed['camera_after']['fov'] = value
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'observation is invalid'):
+                controls.fixed_viewport(changed, pose)
+
+    def test_shared_native_camera_state_reports_engine_fov_and_rejects_absent_api(self):
+        path = ROOT / 'tools/verify_missing_neighbor_visuals.py'
+        module = ast.parse(path.read_text(encoding='utf8'))
+        assignment = next(node for node in module.body if isinstance(node, ast.Assign)
+                          and any(isinstance(target, ast.Name) and target.id == 'CAMERA_STATE'
+                                  for target in node.targets))
+        source = ast.literal_eval(assignment.value)
+        camera = SimpleNamespace(GetPosition=lambda: [15.5, 126.5, 13.5],
+                                 GetCameraRotation=lambda: [24.937969207763672, 144.46231079101562, 0.],
+                                 GetFov=lambda: 63.25)
+        factory = SimpleNamespace(CreateCamera=lambda level: camera,
+                                  CreateGame=lambda level: SimpleNamespace(GetScreenSize=lambda: [499., 277.]))
+        scope = {'b': SimpleNamespace(factory=factory, level='test-level'), 'json': json}
+        exec(compile(source, '<real-native-camera-state>', 'exec'), scope)
+        observed = json.loads(scope['_result'])
+        self.assertEqual(63.25, observed['fov'])
+        self.assertEqual([499., 277.], observed['screen'])
+        pose = {'stable': observed}
+        record = {'camera_before': copy.deepcopy(observed), 'camera_after': copy.deepcopy(observed)}
+        self.assertTrue(controls.fixed_viewport(record, pose)['passed'])
+        record['camera_after']['fov'] = 64.25
+        with self.assertRaisesRegex(ValueError, 'FOV changed'):
+            controls.fixed_viewport(record, pose)
+        del camera.GetFov
+        with self.assertRaisesRegex(AssertionError, 'Camera.GetFov'):
+            exec(compile(source, '<real-native-camera-state>', 'exec'), scope)
 
     def test_support_pixels_cannot_satisfy_either_independent_liquid_signal(self):
         frames = {control: Image.new('RGB', (80, 60)) for control in controls.CONTROLS}

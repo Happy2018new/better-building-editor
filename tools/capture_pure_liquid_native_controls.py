@@ -8,6 +8,7 @@ import copy
 import hashlib
 import itertools
 import json
+import math
 from pathlib import Path
 import sys
 import time
@@ -157,6 +158,13 @@ def validate_png(record, session, expected_size=None):
 def fixed_viewport(record, pose):
     stable = pose['stable']
     observations = [record[key] for key in ('camera_before', 'camera_after')]
+    for item in [stable] + observations:
+        if 'fov' not in item:
+            raise ValueError('Native camera state is missing the actual Camera.GetFov observation')
+        fov = item['fov']
+        if (not isinstance(fov, (int, float)) or isinstance(fov, bool)
+                or not math.isfinite(fov) or not 0 < fov < 180):
+            raise ValueError('Native camera FOV observation is invalid')
     if any(tuple(item['screen']) != tuple(stable['screen']) or
            abs(item['fov'] - stable['fov']) >= .01 for item in observations):
         raise ValueError('Native viewport or reported FOV changed between controls')
