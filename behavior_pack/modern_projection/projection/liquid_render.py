@@ -1,6 +1,6 @@
 """Owned liquid renderer lifetimes; no shape inference or global event listeners."""
 import math
-from .liquid_transport import validate_uniforms
+from .liquid_transport import PAYLOAD_TAG, validate_uniforms
 from .storage import integer_types
 
 
@@ -212,17 +212,29 @@ class SkeletonLiquidRenderer(object):
 
 
 class WorldLiquidRenderer(object):
-    """Independent actor uniforms, bounded to two generations of owned groups."""
-    ACTOR_DELAY = .2
-    SETTLE_SECONDS = .075
+    """Free skeleton models, bounded to two generations of owned groups.
 
-    def __init__(self, bridge, max_groups):
+    Scale and rotation are explicit version-profile inputs. PaperDoll model IDs
+    never enter this owner, and block-geometry attachment APIs are not used.
+    """
+    SETTLE_SECONDS = .075
+    CREATIONS_PER_FRAME = 8
+
+    def __init__(self, bridge, max_groups, dimension, scale, rotation):
         if isinstance(max_groups, bool) or not isinstance(max_groups, integer_types) or max_groups < 1:
             raise ValueError('Liquid renderer needs an explicit positive group budget')
+        if isinstance(dimension, bool) or not isinstance(dimension, integer_types) or dimension < 0:
+            raise ValueError('Liquid models require an explicit world dimension')
+        self.scale = _finite_tuple(scale, 3, 'world scale')
+        self.rotation = _finite_tuple(rotation, 3, 'world rotation')
+        if any(axis <= 0. for axis in self.scale):
+            raise ValueError('Liquid world scale must be positive')
         self.bridge, self.max_groups = bridge, max_groups
+        self.dimension = dimension
+        self.model = bridge.factory.CreateModel(bridge.level)
         self.active, self.staging = {}, {}
         self.retired = {}
-        self.wanted = None
+        self.wanted = self.queue = None
         self.anchor = None
         self.visible = True
         self.closed = False
@@ -230,40 +242,32 @@ class WorldLiquidRenderer(object):
         self.cleanup_errors = []
 
     @staticmethod
-    def offset(anchor, origin):
-        # Same centered native model/180-degree convention as OccupancyShader.
-        return (anchor[0] - origin[0] - .5, origin[1] - anchor[1],
-                anchor[2] - origin[2] - .5)
+    def center(anchor, origin):
+        return tuple(anchor[axis] + origin[axis] + 2. for axis in range(3))
 
     def _destroy(self, records):
-        self.retired.update((record['entity'], record) for record in records)
+        self.retired.update((record['model_id'], record) for record in records)
         for record in records:
-            entity = record['entity']
+            model_id = record['model_id']
             if not self._show(record, False):
-                self.cleanup_errors.append((entity, 'hide'))
-            if record['attached'] and not record['render'].DeleteActorBlockGeometry(record['group'].model_name):
-                self.cleanup_errors.append((entity, 'detach'))
-                self.retired[entity] = record
+                self.cleanup_errors.append((model_id, 'hide'))
+            if not self.model.RemoveFreeModel(model_id):
+                self.cleanup_errors.append((model_id, 'remove'))
                 continue
-            record['attached'] = False
-            # The documented API returns None. Treat an explicit False from an
-            # adapter as failure while preserving successful native None returns.
-            if self.bridge.system.DestroyClientEntity(entity) is False:
-                self.cleanup_errors.append((entity, 'destroy'))
-                self.retired[entity] = record
-                continue
-            self.retired.pop(entity, None)
+            self.retired.pop(model_id, None)
 
     def retry_retired(self):
         self.cleanup_errors = []
         self._destroy(tuple(self.retired.values()))
         return not self.retired
 
-    @staticmethod
-    def _show(record, visible):
+    def _show(self, record, visible):
         if record['visible'] == visible:
             return True
-        if not record['render'].SetNotRenderAtAll(not visible):
+        value = record['group'].uniforms[3]
+        if not visible:
+            value = value[:3] + (0.,)
+        if not self.model.SetExtraUniformValue(record['model_id'], 4, value):
             return False
         record['visible'] = visible
         return True
@@ -275,7 +279,7 @@ class WorldLiquidRenderer(object):
             if not self._show(record, visible):
                 for restored, was_visible in reversed(previous):
                     if not self._show(restored, was_visible):
-                        self.cleanup_errors.append((restored['entity'], 'visibility_rollback'))
+                        self.cleanup_errors.append((restored['model_id'], 'visibility_rollback'))
                 return False
             previous.append((record, old))
         return True
@@ -283,7 +287,7 @@ class WorldLiquidRenderer(object):
     def _cancel(self):
         self._destroy(tuple(self.staging.values()))
         self.staging.clear()
-        self.wanted = None
+        self.wanted = self.queue = None
 
     def _fail(self, message):
         self.error = message
@@ -299,6 +303,8 @@ class WorldLiquidRenderer(object):
         keys = set()
         for group in groups:
             validate_uniforms(group.uniforms)
+            if group.uniforms[3][0] != PAYLOAD_TAG:
+                raise ValueError('World liquid models cannot receive a UI depth packet')
             _finite_tuple(group.origin, 3, 'world group origin')
             if group.key in keys or not group.model_name:
                 raise ValueError('Invalid or duplicate liquid render group')
@@ -308,51 +314,44 @@ class WorldLiquidRenderer(object):
         self.retry_retired()
         created = sum(self.active.get(group.key, {}).get('group') != group for group in groups)
         if len(self.active) + len(self.retired) + created > self.max_groups * 2:
-            self.error = 'Retired liquid actors still consume the owned group budget'
+            self.error = 'Retired liquid models still consume the owned group budget'
             return False
         self.error = None
         if not self.follow(anchor):
             return False
         self.wanted = groups
-        for group in groups:
-            old = self.active.get(group.key)
-            if old is not None and old['group'] == group:
-                continue
-            entity = self.bridge.system.CreateClientEntityByTypeStr(
-                b'modern_projection:anchor', self.anchor, (0., 0.))
-            if not entity:
-                return self._fail('Could not create owned liquid actor')
-            self.staging[group.key] = {
-                'group': group, 'entity': entity,
-                'render': self.bridge.factory.CreateActorRender(entity),
-                'position': self.bridge.factory.CreatePos(entity),
-                'anchor': self.anchor, 'attached': False, 'visible': None,
-                'ready_at': now + self.ACTOR_DELAY, 'bound_at': None, 'frames': 0}
-        if not self.staging:
+        pending = tuple(group for group in groups if self.active.get(group.key, {}).get('group') != group)
+        self.queue = iter(pending) if pending else None
+        if self.queue is None:
             return self._promote()
         return True
 
-    def _bind(self, record, now):
-        render, group = record['render'], record['group']
+    def _create(self, group, now):
+        model_id = self.model.CreateFreeModel(group.model_name, self.dimension)
+        if not model_id:
+            return self._fail('Could not create owned liquid model')
+        if (model_id in self.retired or any(record['model_id'] == model_id for record in
+                tuple(self.active.values()) + tuple(self.staging.values()))):
+            return self._fail('Owned liquid models do not have independent IDs')
+        record = {'group': group, 'model_id': model_id, 'anchor': self.anchor,
+                  'visible': None, 'bound_at': now, 'frames': 0}
+        self.staging[group.key] = record
         if not self._show(record, False):
-            return self._fail('Could not hide preparing liquid actor')
-        if not render.AddActorBlockGeometry(group.model_name, self.offset(self.anchor, group.origin), (0., 180., 0.)):
-            return self._fail('Could not attach liquid carrier')
-        record['attached'] = True
-        if not (render.EnableActorBlockGeometryTransparent(group.model_name, True)
-                and render.SetActorBlockGeometryTransparency(group.model_name, 1.)):
-            return self._fail('Could not configure liquid carrier transparency')
-        for index, value in enumerate(group.uniforms, 1):
-            if not render.SetEntityExtraUniforms(index, value):
-                return self._fail('Could not update owned liquid actor uniforms')
-        record['bound_at'], record['frames'] = now, 0
+            return self._fail('Could not mask preparing liquid model')
+        if not (self.model.SetFreeModelScale(model_id, *self.scale) and
+                self.model.SetFreeModelRot(model_id, *self.rotation) and
+                self.model.SetFreeModelPos(model_id, *self.center(self.anchor, group.origin))):
+            return self._fail('Could not position preparing liquid model')
+        for index, value in enumerate(group.uniforms[:3], 1):
+            if not self.model.SetExtraUniformValue(model_id, index, value):
+                return self._fail('Could not update owned liquid model uniforms')
         return True
 
     def _promote(self):
         incoming = dict((group.key, self.staging.get(group.key) or self.active[group.key])
                         for group in self.wanted)
         if not self._publish_visibility(tuple(incoming.values()), self.visible):
-            return self._fail('Could not show ready liquid actor')
+            return self._fail('Could not show ready liquid model')
         retired = tuple(record for key, record in self.active.items()
                         if incoming.get(key) is not record)
         self.active, self.staging, self.wanted = incoming, {}, None
@@ -368,16 +367,15 @@ class WorldLiquidRenderer(object):
         self.retry_retired()
         if self.wanted is None:
             return self.error is None
-        ready = True
+        for unused in range(self.CREATIONS_PER_FRAME) if self.queue is not None else ():
+            group = next(self.queue, None)
+            if group is None:
+                self.queue = None
+                break
+            if not self._create(group, now):
+                return False
+        ready = self.queue is None
         for record in tuple(self.staging.values()):
-            if now < record['ready_at']:
-                ready = False
-                continue
-            if record['bound_at'] is None:
-                if not self._bind(record, now):
-                    return False
-                ready = False
-                continue
             record['frames'] += 1
             if record['frames'] < 3 or now - record['bound_at'] < self.SETTLE_SECONDS:
                 ready = False
@@ -387,17 +385,22 @@ class WorldLiquidRenderer(object):
         if self.closed:
             return False
         anchor = _finite_tuple(anchor, 3, 'world anchor')
+        moved = []
         for record in tuple(self.active.values()) + tuple(self.staging.values()):
             if record['anchor'] == anchor:
                 continue
-            if not record['position'].SetPosForClientEntity(anchor):
-                self.error = 'Could not move owned liquid actor'
-                return False
-            if record['attached'] and not record['render'].SetActorBlockGeometryOffset(
-                    record['group'].model_name, self.offset(anchor, record['group'].origin)):
-                self.error = 'Could not compensate liquid actor position'
+            old = record['anchor']
+            if not self.model.SetFreeModelPos(record['model_id'], *self.center(anchor, record['group'].origin)):
+                for restored, previous in reversed(moved):
+                    if self.model.SetFreeModelPos(restored['model_id'],
+                                                 *self.center(previous, restored['group'].origin)):
+                        restored['anchor'] = previous
+                    else:
+                        self.cleanup_errors.append((restored['model_id'], 'position_rollback'))
+                self.error = 'Could not move owned liquid model'
                 return False
             record['anchor'] = anchor
+            moved.append((record, old))
         self.anchor = anchor
         return True
 
