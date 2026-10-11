@@ -147,7 +147,7 @@ def execute_controls(harness, options, runtime_args, report):
     reservation = copy.deepcopy(plans[0])
     reservation['cavity'] = sorted(set(tuple(pos) for plan in plans for pos in plan['cavity']))
     reservation['reserved'] = sorted(set(tuple(pos) for plan in plans for pos in plan['reserved']))
-    report.update(schema=1, method='Public native liquid snapshots with SDK flow disabled; no shell',
+    report.update(schema=2, method='Public native liquid snapshots with SDK flow disabled; no shell',
                   fixture=VISUAL_CASE['fixture'], context_changed=False,
                   native_geometry_accepted=False, accuracy_accepted=False,
                   public_controls_eligible=False,

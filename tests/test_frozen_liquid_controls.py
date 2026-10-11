@@ -1,5 +1,6 @@
 """Public-source and layer-drift gates; no native pixels are accepted here."""
 import copy
+import json
 from pathlib import Path
 import sys
 import unittest
@@ -8,6 +9,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import capture_frozen_liquid_controls as frozen
+import record_contained_liquid_heights as recorder
 from projection.cell import AIR, encode
 from test_pure_liquid_native_controls import snapshot
 
@@ -107,6 +109,42 @@ class FrozenLiquidControlTests(unittest.TestCase):
         after = copy.deepcopy(observed)
         after['client']['valid'] = False
         self.assertFalse(frozen.native_gate(observed, after, plan, [])['public_snapshot_unchanged'])
+
+    def frozen_report(self, legacy=False):
+        plans = [frozen.fixture_plan(identity, (8, 110, -3), (-10, 105, -20))
+                 for identity in ('water_depth_0_background', 'water_flow_corner_foreground')]
+        cavity = sorted(set(tuple(pos) for plan in plans for pos in plan['cavity']))
+        reserved = sorted(set(tuple(pos) for plan in plans for pos in plan['reserved']))
+        for plan in plans:
+            plan['cavity'], plan['reserved'] = cavity, reserved
+            if legacy:
+                for control in plan['controls'].values():
+                    control.pop('native_cells')
+        report = {'schema': 1 if legacy else 2, 'reservation': copy.deepcopy(plans[0]),
+                  'cases': [{'case': plan['case'], 'source': plan} for plan in plans]}
+        return json.loads(json.dumps(report))
+
+    def test_observation_binder_reconstructs_frozen_neighbors_and_old_logical_sources(self):
+        for legacy in (False, True):
+            report = self.frozen_report(legacy)
+            original = copy.deepcopy(report)
+            expected = recorder.frozen_plans(report)
+            for case in report['cases']:
+                self.assertEqual(case['source'], json.loads(json.dumps(expected[case['case']])))
+            self.assertEqual(original, report)
+            report['reservation']['reserved'].pop()
+            with self.assertRaisesRegex(ValueError, 'reservation differs'):
+                recorder.frozen_plans(report)
+
+    def test_observation_binder_rejects_duplicate_cases_and_origin_changes(self):
+        report = self.frozen_report()
+        report['cases'].append(report['cases'][0])
+        with self.assertRaisesRegex(ValueError, 'unique'):
+            recorder.frozen_plans(report)
+        report = self.frozen_report()
+        report['cases'][1]['source']['cell_origin'][0] += 1
+        with self.assertRaisesRegex(ValueError, 'share'):
+            recorder.frozen_plans(report)
 
 
 if __name__ == '__main__':

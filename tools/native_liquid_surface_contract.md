@@ -124,3 +124,21 @@ the declared 3px budget, excluding camera uncertainty. All public/native
 geometry acceptance flags remain false. These observations do not establish
 an uncontained height, a depth-state formula, flowing-state geometry or other
 neighbors' weights, and must not become a production lookup table.
+
+## Frozen Public Source Observations
+
+The same recorder also accepts the completed, restored no-shell reports from
+`capture_frozen_liquid_controls.py`. Current reports use schema 2 and explicitly
+retain both logical cells and temporary native reference cells. Original schema-1
+reports remain read-only compatible. The binder reconstructs all public source
+cases and the shared air reservation, verifies flow suppression and restoration,
+and rechecks every original PNG, camera and native snapshot. Background-only
+liquid promotion is checked only in its native reference, never written into the
+logical blueprint. This supports supplied visible corners of flowing and
+neighbor cases, without assigning hidden corners or inferring a depth rule.
+
+Here `context_changed=false` means no shell or altered block neighborhood was
+introduced. Native flow simulation was still disabled; its baseline is the
+explicit fresh owned world, and no flow-state getter exists. These controls do
+not establish native flow propagation, UV direction, animation or height
+accuracy. All geometry/accuracy/public-eligibility acceptance flags stay false.
