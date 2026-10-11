@@ -1,0 +1,726 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-11T17:12:00+08:00",
+  "scope": "Round seven hanging-sign front failures, independent offline diagnostics, and unaccepted chest top candidate evidence",
+  "accepted": false,
+  "production_changes_in_this_checkpoint": false,
+  "signs": {
+    "fixture": "test.entities.signs",
+    "case": "hanging_front_back",
+    "views_tested_here": [
+      "front"
+    ],
+    "original": {
+      "response": "absolute_delta",
+      "editor_iou": 0.3498059508408797,
+      "projection_iou": 0.35311367948939104,
+      "minimum_iou": 0.45,
+      "layout_passed": false,
+      "passed": false
+    },
+    "original_offline": {
+      "original_masks_reproduced_exactly": true,
+      "native_dark_outline_pixels": 8171,
+      "native_dark_outline_rgb": [
+        0,
+        64,
+        0
+      ],
+      "native_bright_pixels": 3502,
+      "projection_bright_pixels": 3502,
+      "bright_native_projection_full_crop_equal": true,
+      "wood_composite_native_projection_full_crop_equal": true,
+      "wood_composite_editor_iou": 0.9760935910478128,
+      "wood_composite_projection_iou": 1,
+      "visual_acceptance": false,
+      "limit": "Old report did not save native per-capture settled pose and style. Diagnostic responses do not supersede original absolute_delta and layout failures."
+    },
+    "final_holdout": {
+      "frozen_production_commit": "5234fee",
+      "chest_candidate_008ca89_ancestor": false,
+      "instance": "ea8c5f446bdc4324959109fd163571b6",
+      "ready_and_wgc_preflight_before": "2026-10-11T17:00:00+08:00",
+      "started_at_approx": "2026-10-11T16:58:45+08:00",
+      "response": "Unmodified existing wood_composite",
+      "completed": true,
+      "passed": false,
+      "restored": true,
+      "all_eight_captures_reliable_wgc": true,
+      "per_frame_camera_style_source_unchanged": true,
+      "frozen_production_and_tools_unchanged": true,
+      "editor_iou": 0.16757966206311242,
+      "projection_iou": 0.16538256159890152,
+      "minimum_iou": 0.45,
+      "layout_passed": false,
+      "native_pixels": 12024,
+      "projection_pixels": 11915,
+      "native_mask_local_bbox": [
+        175,
+        209,
+        491,
+        379
+      ],
+      "projection_mask_local_bbox": [
+        175,
+        209,
+        338,
+        310
+      ]
+    },
+    "final_offline": {
+      "actual_native_board_absolute": [
+        831,
+        504,
+        1164,
+        742
+      ],
+      "actual_native_board_local": [
+        93,
+        195,
+        426,
+        433
+      ],
+      "reported_native_panel_local": [
+        93,
+        195,
+        518,
+        433
+      ],
+      "reported_projection_panel_local": [
+        93,
+        195,
+        507,
+        433
+      ],
+      "extra_native_mask_pixels": 109,
+      "extra_native_mask_local_bbox": [
+        465,
+        360,
+        491,
+        379
+      ],
+      "extra_pixels_outside_actual_board": 109,
+      "extra_pixels_inside_reported_panel": 109,
+      "extra_pixels_outside_reported_panel": 0,
+      "manual_body_native_pixels": 11915,
+      "manual_body_projection_pixels": 11915,
+      "manual_body_editor_iou": 0.9760935910478128,
+      "manual_body_projection_iou": 1,
+      "manual_body_diagnostic_accepted": false,
+      "blank_body_outside_text": {
+        "native_changed_pixels_over20": 0,
+        "editor_changed_pixels_over20": 0,
+        "projection_changed_pixels_over20": 163,
+        "projection_maximum_channel_delta": 37
+      },
+      "absolute_delta_offline_editor_iou": 0.10085124801615929,
+      "absolute_delta_offline_projection_iou": 0.09061166429587482,
+      "conclusion": "The fixed broad ROI captures changed background. The brown-row panel detector includes terrain beyond the actual right board edge, so masking only to reported panel bounds would retain all 109 contaminating pixels. Within the manually inspected actual board, glyph-plus-outline coverage matches, but that post-hoc diagnostic is not acceptance. Projection blank wood also has 163 pixels over the original delta cutoff, so baseline stability remains unresolved."
+    },
+    "failed_attempts": [
+      {
+        "id": "v1",
+        "instance": "fbbc277e6aee4d499dcbf4af04f51b7d",
+        "reason": "Wrapper raw native palette had tuple dictionary keys; JSON snapshot failed before any frame",
+        "restored": true
+      },
+      {
+        "id": "v2",
+        "instance": "fbbc277e6aee4d499dcbf4af04f51b7d",
+        "reason": "Python 2 comprehension leaked value over the cell local; snapshot foreground failed before any frame",
+        "restored": true
+      },
+      {
+        "id": "v3",
+        "instance": "fbbc277e6aee4d499dcbf4af04f51b7d",
+        "reason": "MCDEV_NATIVE_CAPTURE_EXE was supplied without MCDEV_NATIVE_CAPTURE_HELPER; frozen SignCheck selected legacy PrintWindow and rejected a white frame. This was not a WGC failure.",
+        "restored": true
+      }
+    ],
+    "next_holdout": "Freeze an independently specified panel isolation rule that cannot merge background terrain, validate positive native text and board controls, record camera and palette/style around each capture, and require shown/blank board stability. Preserve fixed color and IoU/layout gates. A new owned WGC holdout is required before accepting any oracle change; do not reinterpret this failure as a pass."
+  },
+  "chest": {
+    "candidate": "008ca89bf16aab4d12ba2b40bb167844840c18be",
+    "accepted": false,
+    "offline_gate_passed": true,
+    "live_run_completed": false,
+    "live_run_passed": false,
+    "restored": true,
+    "planned_cases": [
+      {
+        "name": "minecraft:chest",
+        "direction": "south",
+        "paired": false,
+        "fixture": "test.entities.classic",
+        "cells": [
+          [
+            9,
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "name": "minecraft:chest",
+        "direction": "north",
+        "paired": true,
+        "fixture": "test.connections.context",
+        "cells": [
+          [
+            26,
+            1,
+            5
+          ],
+          [
+            27,
+            1,
+            5
+          ]
+        ]
+      },
+      {
+        "name": "minecraft:copper_chest",
+        "direction": "north",
+        "paired": true,
+        "fixture": "test.connections.context",
+        "cells": [
+          [
+            26,
+            1,
+            10
+          ],
+          [
+            27,
+            1,
+            10
+          ]
+        ]
+      }
+    ],
+    "first_case": {
+      "native_target": [
+        6,
+        143,
+        6
+      ],
+      "camera": [
+        6.5,
+        149.5,
+        6.65
+      ],
+      "native_target_height_offset": 16,
+      "native_largest_component_pixels": 69,
+      "minimum_pixels": 1000,
+      "public_fixture_and_document_preserved": true,
+      "actual_native_frame_inspected": "No chest visible",
+      "actual_proxy_frame_inspected": "Centered chest visible",
+      "conclusion": "Invalid native positive control; cause not established."
+    },
+    "next_explicit_holdout": {
+      "target_height_offset": 8,
+      "ran": false,
+      "view_offset": [
+        0,
+        6,
+        0.15
+      ],
+      "limits": {
+        "minimum_native_pixels": 1000,
+        "shape_iou": 0.82,
+        "scale_relative_error": 0.2,
+        "texture_cosine": 0.45,
+        "center_distance_pixels": 3,
+        "boundary_rms_pixels": 4
+      }
+    },
+    "committed_harness_note": "Permanent wrapper records target height explicitly and forces capture_native_window.py; its +8 option is unrun. Original ignored harness hash is preserved."
+  },
+  "cleanup": {
+    "all_owned_sessions_stopped": true,
+    "force_kills": false,
+    "sessions": [
+      {
+        "id": "6ae7f141c16a4d6c9ba60e37e6a0c875",
+        "game_pid": 30932,
+        "mcdk_pid": 3344,
+        "state": "stopped",
+        "ready": false
+      },
+      {
+        "id": "a0263f5b818f4fa29e488caf97aa09b0",
+        "game_pid": 18220,
+        "mcdk_pid": 15244,
+        "state": "stopped",
+        "ready": false
+      },
+      {
+        "id": "fbbc277e6aee4d499dcbf4af04f51b7d",
+        "game_pid": 49784,
+        "mcdk_pid": 50472,
+        "state": "stopped",
+        "ready": false
+      },
+      {
+        "id": "ea8c5f446bdc4324959109fd163571b6",
+        "game_pid": 35824,
+        "mcdk_pid": 50524,
+        "state": "stopped",
+        "ready": false
+      }
+    ],
+    "final_audit": {
+      "completed": true,
+      "restored": true,
+      "client_flags_clear": 28,
+      "server_flags_clear": 28,
+      "player": [
+        1.5,
+        71,
+        -31.5
+      ],
+      "can_fly": true,
+      "flying": false,
+      "daylight_cycle": true,
+      "projection_active": false,
+      "workspace_open": false,
+      "work_and_jobs_active": false,
+      "native_reserved_cells_air": true,
+      "hud": 0
+    },
+    "handles": {
+      "fbbc_initial61226_at": "2026-10-11T16:41:51+08:00",
+      "fbbc_final159596_at": "2026-10-11T16:52:00+08:00",
+      "ea8c_final837_at": "2026-10-11T17:01:00+08:00",
+      "cause": "Unestablished; no causal attribution to production rendering"
+    },
+    "stop_note": "Normal stop initially exceeded its 10 second poll. Processes then exited normally; read-only state confirmed both absent before a second stop finalized stopped metadata and removed the owned junction."
+  },
+  "verification": {
+    "host_py_compile_passed": true,
+    "diff_check_passed": true,
+    "new_production_suite_required": false
+  },
+  "sources": [
+    {
+      "path": "tools/analyze_hanging_sign_failure.py",
+      "sha256": "26afb64c42053f6ae0d9ef807e951de4ce8e1930d17886c2e197dedc970863d7"
+    },
+    {
+      "path": "tools/verify_hanging_sign_front_holdout.py",
+      "sha256": "011b21d8ed1cde60a4ea9032d158edab6ca1edd949e39bbc1a48bc9021fcfa8b"
+    },
+    {
+      "path": "tools/verify_entity_visual_cleanup.py",
+      "sha256": "b03c5ce52eefb58c1728d19b25342116219e41c8de542331e70eacca2f542e41"
+    },
+    {
+      "path": "tools/verify_chest_top_public_visuals.py",
+      "sha256": "30b379c03ead99654c7cdc10c3d7cc28b89d634f7c668cab11eb979891745a24"
+    },
+    {
+      "path": ".runtime/verify_chest_top_public_r7.py",
+      "sha256": "4a92be774f169238e08b0c90e58eff8cb79c9ba806c10f028a242650bb76cbcd"
+    },
+    {
+      "path": ".runtime/entities-r7-chest-up-provenance.json",
+      "sha256": "47bab5a65002c030cc07d5d041e328b1dd6dd3e2ebac7b2824a2a912d83b5f74"
+    },
+    {
+      "path": ".runtime/entities-r7-chest-up-offline-gate.json",
+      "sha256": "cb52993bf477716814c2ca3eaf9e563285f77152871d60de4ec5ea8f1d2418a0"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/chest-top-public-r7-v1-three-cases.json",
+      "sha256": "0f78564e82af1274f8ca350d98903d08efe00bd49954413eae14826bdbae4b0b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/chest-top-r7-v1-cleanup-audit.json",
+      "sha256": "04225be86ee4119e34f1a0408e8db4327b20e4f4448fcdb7f415fbfd053ed04e"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/chest-top-public-r7-v1-three-cases_0_native_native.png",
+      "sha256": "00d0865f450ce617610425d665e521910330c559a2a149fd24c1775f82da1a83"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/chest-top-public-r7-v1-three-cases_0_proxy_native.png",
+      "sha256": "646c25976536d33a036d40e60f3eda3bc3ad13b5e4ebf4f0de9b7dbdf78f2f1f"
+    }
+  ],
+  "sign_artifacts": [
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/hanging_front_back_front_editor_text.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/hanging_front_back_front_native_text.png",
+      "sha256": "de8e546a3b41c02f71dcc0a385774d764d75a0cff5a8293ca9340c8c35865b19"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/hanging_front_back_front_projection_blank_delta.png",
+      "sha256": "cafc118f407796d036aefceb1d4bb52355a8f1c4cb4d6fc82fa639041bf5f46d"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/hanging_front_back_front_projection_shown_delta.png",
+      "sha256": "2105e56982ccaaf8784fafe4f6da8f8fc2e3be3d40c48c961a66f1459f182457"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/hanging_front_back_front_projection_text.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_editor_blank_native.capture.json",
+      "sha256": "84db0c782c8e4ec5c923d7eb700fd40486e0d1e0634d056fef6a575054f27588"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_editor_blank_native.png",
+      "sha256": "7f725d425518403843f79e141e0c3d1b042428f38f833ffdb9ad1e4c79757f9e"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_editor_shown_native.capture.json",
+      "sha256": "49c1bbce40b7cabfbe6c54f274ae4fd6f93416b667ff8427cb4c521803ac25ee"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_editor_shown_native.png",
+      "sha256": "3232faf3cb44feb4c482b924e97e69982f89bbb96bb7d11e6bcf9d240015c633"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_native_blank_native.capture.json",
+      "sha256": "554f32a413a9e91f5debb2d16503c7cd1c360b90de7cc25fbcdae68bcb753e0f"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_native_blank_native.png",
+      "sha256": "b4063379a5d430c3f6f7c5ad60cdadb9600954f24344ed29833dce1e53aca013"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_native_shown_native.capture.json",
+      "sha256": "c65cb9462e7a2de2c3a737018d711494b3f3de2f1f696cfe4e8da2b4e0906e90"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_native_shown_native.png",
+      "sha256": "c7834e5a1a88ac9232731049a24634fe90ad17e2eac0d723a0adf58584c41652"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_blank_world_hidden_native.capture.json",
+      "sha256": "9b302caa3bdad6f8712cad9f47b9fbbff83dc7f59f8eb73bfb412bfa90460d79"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_blank_world_hidden_native.png",
+      "sha256": "c0d4d559482116930114e34195970d2d2f2445e19610d2ee44f683c633fa53a3"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_blank_world_shown_native.capture.json",
+      "sha256": "32973353551b1b0a906dff51567b06e279e46b14577148f48835d1fcc9002733"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_blank_world_shown_native.png",
+      "sha256": "a3d71ddb846067d97caf0a8de22786e97c80d59fb51b213b587da094b9f9bc5c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_shown_world_hidden_native.capture.json",
+      "sha256": "1dc969e0415c3d935feea075e159568fe75d7927ff19e1bc1734dee81afb27c4"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_shown_world_hidden_native.png",
+      "sha256": "cc10865bacae39726627b97f9a650bb678c2b3f2161477c6a427290e75534700"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_shown_world_shown_native.capture.json",
+      "sha256": "d227dd13e3da1a7ee75ebe6b32a934ad2661cbe7b026204fe56c46e371e732a4"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report_hanging_front_back_front_projection_shown_world_shown_native.png",
+      "sha256": "c0355164f170c3d851df21bd99c70d6c73cf6f58dcfe2df6828aff8b5a634fa9"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-background-r7-v1-original/report.json",
+      "sha256": "df2aea960a56c5978d45e507a4726a782cbcca95473fa6bc2158f5276c01e1ad"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/analysis.json",
+      "sha256": "4c21b4ea698fb082bd0c790d14406af14554ea1ccd776d1cdfa6a67cfbc2a6a7"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/comparison.png",
+      "sha256": "f6150e9ccbd11cc747655dce0f72b1dc6b2519cfe8f66d7965c11cca48f502ec"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/editor_absolute_delta_diagnostic.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/editor_bright_glyph_diagnostic.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/editor_original_mask.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/editor_wood_composite_diagnostic.png",
+      "sha256": "0cb713ad29eaa6bad41b4ae6e23544869a897bb0b1fe0d28d1434111fa9d3be5"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/native_absolute_delta_diagnostic.png",
+      "sha256": "de8e546a3b41c02f71dcc0a385774d764d75a0cff5a8293ca9340c8c35865b19"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/native_bright_glyph_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/native_original_mask.png",
+      "sha256": "de8e546a3b41c02f71dcc0a385774d764d75a0cff5a8293ca9340c8c35865b19"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/native_wood_composite_diagnostic.png",
+      "sha256": "dd84b8c7db75cf00d4b09ad4aa1e3bac64ee81940254c647fcab17e50786118a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/projection_absolute_delta_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/projection_bright_glyph_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/projection_original_mask.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/6ae7f141c16a4d6c9ba60e37e6a0c875/artifacts/sign-hanging-r7-offline-diagnostic/projection_wood_composite_diagnostic.png",
+      "sha256": "dd84b8c7db75cf00d4b09ad4aa1e3bac64ee81940254c647fcab17e50786118a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-front-v1-restoration-audit-fixed-spawn71.json",
+      "sha256": "1e3cb927d999fcd0cca088188b187e475c0d00ffaef9ddf12d192fa6776fad94"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-front-v1-restoration-audit.json",
+      "sha256": "cdbb9de17ad8f2233e81ae7f14b007105bcd5086a77abf793dce29186f58bc21"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-front-v2-restoration-audit.json",
+      "sha256": "1e3cb927d999fcd0cca088188b187e475c0d00ffaef9ddf12d192fa6776fad94"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-front-v3-final-restoration-audit.json",
+      "sha256": "1e3cb927d999fcd0cca088188b187e475c0d00ffaef9ddf12d192fa6776fad94"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v1/frozen_source_after.json",
+      "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v1/frozen_source.json",
+      "sha256": "be22d2ca01022cdfb553d619128e58474d8522d59d4114139cddf1a18e24f070"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v1/report.json",
+      "sha256": "cb55bdbffe07bf16973fa865e0715cdff16c30c5316852ab4f5f8afa887d2e41"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v2/frozen_source_after.json",
+      "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v2/frozen_source.json",
+      "sha256": "0c4a3c8ef3522d2ebe210ca14b9aa3fcf73df45b7c7bf325bb97f473ef26977b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v2/report.json",
+      "sha256": "bf9e476ae469e79b756451623bccc4d85837672251da1a19b97c0e685cc7a20a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v3/frozen_source_after.json",
+      "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v3/frozen_source.json",
+      "sha256": "77f34bad92ac1e3c289ef2ecaf00e674b37ada90e4a57676a33d4a86808e06cd"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v3/report_hanging_front_back_front_editor_shown_native.capture_error.json",
+      "sha256": "18e461337e73fea1123bdc32b0049922dbec059f7fe33ca31463b2aade0555cc"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v3/report_hanging_front_back_front_editor_shown_native.png",
+      "sha256": "c3d69938884fc1c9d2cc47a9c7e6f58e09abd03c2915279501097fef87ac71b6"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/fbbc277e6aee4d499dcbf4af04f51b7d/artifacts/sign-hanging-front-r7-frozen-holdout-v3/report.json",
+      "sha256": "0d7850be795caad4c4df99f925cb7b518852a4ef7a0f9d1b76b9e82cf9a41934"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-final-restoration-audit.json",
+      "sha256": "885660e3553494f294e00e984d3c2225f1a3d7a38784b2248845dc5e8d49e7b0"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-wgc-preflight.capture.json",
+      "sha256": "cfbad8b50d8f04c5a060d2bf0f921af4c4fe4c16f5c08e8d6c962ee0292ba8d9"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-wgc-preflight.png",
+      "sha256": "226575e4b2dd6ecf8a8ed66caa0215512f290286ea05d733b6a6a48f4bc07f37"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/analysis.json",
+      "sha256": "88017b4e0f7dda542431f743933cc9cbdbb5e75e896515827f1f7b525cd45bbd"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/comparison.png",
+      "sha256": "6a5bfbbe16ddafa2af7b76fff58aa1b8da9ca88cc1d99e09f0567d6b448a5277"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/editor_absolute_delta_diagnostic.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/editor_bright_glyph_diagnostic.png",
+      "sha256": "ebde7fce38dc3c6a15e89b3a34be94d3508a24de2b7af552603dda75a4337d35"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/editor_original_mask.png",
+      "sha256": "0cb713ad29eaa6bad41b4ae6e23544869a897bb0b1fe0d28d1434111fa9d3be5"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/editor_wood_composite_diagnostic.png",
+      "sha256": "0cb713ad29eaa6bad41b4ae6e23544869a897bb0b1fe0d28d1434111fa9d3be5"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/native_absolute_delta_diagnostic.png",
+      "sha256": "ca775cad48a403eb3f521e249fe56854891f2ab6f0caabda4742ed384f8d4d9c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/native_bright_glyph_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/native_original_mask.png",
+      "sha256": "dd552ef9b52c41ff543a9d8308b585e421139d101948945cc97ba9cc211fb56f"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/native_wood_composite_diagnostic.png",
+      "sha256": "dd552ef9b52c41ff543a9d8308b585e421139d101948945cc97ba9cc211fb56f"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/projection_absolute_delta_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/projection_bright_glyph_diagnostic.png",
+      "sha256": "2abab3be70b8a19d43e01e1209128f88a4fc76b743d2787f535f6cda0cb8b16b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/projection_original_mask.png",
+      "sha256": "dd84b8c7db75cf00d4b09ad4aa1e3bac64ee81940254c647fcab17e50786118a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-front-v4-offline-diagnostic/projection_wood_composite_diagnostic.png",
+      "sha256": "dd84b8c7db75cf00d4b09ad4aa1e3bac64ee81940254c647fcab17e50786118a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/frozen_source_after.json",
+      "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/frozen_source.json",
+      "sha256": "76a00dcdc2ead58145ecc64b5013f095af6425c156f787d10be8e7ebc2ab1afd"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/hanging_front_back_front_editor_text.png",
+      "sha256": "0cb713ad29eaa6bad41b4ae6e23544869a897bb0b1fe0d28d1434111fa9d3be5"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/hanging_front_back_front_native_text.png",
+      "sha256": "dd552ef9b52c41ff543a9d8308b585e421139d101948945cc97ba9cc211fb56f"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/hanging_front_back_front_projection_blank_delta.png",
+      "sha256": "58580016663d4498a0174b3198e1b1ca8a4cd40b04d0e9ac68d1d688e6a4082e"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/hanging_front_back_front_projection_shown_delta.png",
+      "sha256": "c8f8e809c0e084d7c99b51e1a9be17d2529e613a25bd2a1aaa5b60e4728c52af"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/hanging_front_back_front_projection_text.png",
+      "sha256": "dd84b8c7db75cf00d4b09ad4aa1e3bac64ee81940254c647fcab17e50786118a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_editor_blank_native.capture.json",
+      "sha256": "8bf360eb3d56d6831285a2625131749db6745cf2ef2fe2b2e3c49d972e1d9072"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_editor_blank_native.png",
+      "sha256": "3a927bb5ae3bd0fcab1ee197768be5a99afc93a68e97d0d83e954f7ceb972bdd"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_editor_shown_native.capture.json",
+      "sha256": "555c896508907b49e0a74f4876b0a0badf54ba6aaa2a397a4a33b28603888abc"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_editor_shown_native.png",
+      "sha256": "2fbbd83f731ba1a23a415c5b62c6ebd3daf2c4b6ddcf37a9b407b0436d47f60c"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_native_blank_native.capture.json",
+      "sha256": "40249c7efdbd73dfe0ca2ae1dc2280a9dc104d6d3a05d4ad095023957c346ae2"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_native_blank_native.png",
+      "sha256": "af2caa26982a5475051d41262f008e11ce2fdf15f7987c10e48a3c79cf65a776"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_native_shown_native.capture.json",
+      "sha256": "4d737d4c28650bfad24641e61a5fcf771b1aa9bbc95132e5048cbba2d194e34f"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_native_shown_native.png",
+      "sha256": "3a5805f0d8006f7210044fd1b2a293f47ac0ad7212984035005c57d303a864eb"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_blank_world_hidden_native.capture.json",
+      "sha256": "3afeaea79bd8aba60a044f4eba2f6837e33602c470195eaca0890c59e0492dae"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_blank_world_hidden_native.png",
+      "sha256": "9136ede3225489c13e82d1c5f91107aebc9fe9d8a053b6f403e7766053535b61"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_blank_world_shown_native.capture.json",
+      "sha256": "85bb2d98e889aa1c3cc71254740d93d3b21080a9a7ad3d29ed608553919589bc"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_blank_world_shown_native.png",
+      "sha256": "dfd9dd9e61fd0ee9c9d1a6d84c815a3e77e9b3cf21b274a6abbaf1a4f749107b"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_shown_world_hidden_native.capture.json",
+      "sha256": "a30382fd562f009f43696dfc2c9333b893721e8795d7dd39c5aabd09bc38b96d"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_shown_world_hidden_native.png",
+      "sha256": "765c8deae2e62fcbf62c6e91f161cdb504e1f53809a714141d8fd0b4da9b80dd"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_shown_world_shown_native.capture.json",
+      "sha256": "6b3eb8597651bc8a5f5177f2ab938e885f21e74b0b59a1e6a10a3c67820796de"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report_hanging_front_back_front_projection_shown_world_shown_native.png",
+      "sha256": "69cfa1bcb76457ba96fcf4db05fa062640e3e4b4525cde65f3225066c334d00a"
+    },
+    {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/ea8c5f446bdc4324959109fd163571b6/artifacts/sign-hanging-front-r7-frozen-holdout-v4-final/report.json",
+      "sha256": "fbdd8f7c7b987bff93b1de28ae418cff5e44f6e3331a31a9acea38d49e82f2c5"
+    }
+  ],
+  "reproduction": [
+    "Bind MCDEV_SESSION_FILE, MCDEV_OWNER, MCDEV_MCP_URL to one owned live instance.",
+    "Set MCDEV_NATIVE_CAPTURE_HELPER to the reviewed tools/capture_native_window.py and MCDEV_NATIVE_CAPTURE_EXE to the verified absolute native_wgc_capture.exe.",
+    "python -X utf8 tools/verify_hanging_sign_front_holdout.py <new-output-directory>",
+    "python -X utf8 tools/analyze_hanging_sign_failure.py <preserved-report.json> <diagnostic-output-directory>",
+    "python -X utf8 tools/verify_entity_visual_cleanup.py <audit.json> <recorded-spawn-x> <recorded-spawn-y> <recorded-spawn-z>"
+  ]
+}
