@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "minecraft_version": "1.21.120.0",
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "supported_names": ["minecraft:water"],
+  "scope": "Fixed-candidate outer silhouettes for eight explicit static-water neighbor contexts in one independently stone-calibrated view. The six converted diagnostic sources and two held-stone controls have a fixed remote quartz backdrop. This does not accept the original public contexts, flowing_water aliases, UVs, tint, animation, body occlusion, hidden faces or production rendering.",
+  "outer_silhouette_accepted": true,
+  "native_geometry_accepted": false,
+  "uv_accepted": false,
+  "hidden_faces_accepted": false,
+  "accuracy_accepted": false,
+  "production_accepted": false,
+  "evidence": {
+    "session": "4eb422e134da41c8becc7b9b56533978",
+    "owner": "p0-water-neighbors-flat-r9",
+    "plan": {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/94c37af0d5ab499485d5cdd515abfe3e/artifacts/static-neighbor-backdrop-plan-r9-v1.json",
+      "sha256": "024b122251d5928719faf21dc6f5381944bf6dabb21df5f522f1c06a43014588"
+    },
+    "native_report": {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/4eb422e134da41c8becc7b9b56533978/artifacts/static-neighbor-backdrop-controls-r9-v1.json",
+      "sha256": "9562f2908ff2867871b750e2f51c376fc2aef381c87ac7b30b35104c93516669"
+    },
+    "analysis": {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/4eb422e134da41c8becc7b9b56533978/artifacts/static-neighbor-candidate-r9-v2/report.json",
+      "sha256": "8f1e1767abb9f58e70114f27350b8743ddac167df7522bd9b6693bec546554da"
+    },
+    "calibration": {
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/4eb422e134da41c8becc7b9b56533978/artifacts/static-neighbor-flat-camera-r9-v1-wgc.json",
+      "sha256": "32d1362020ebfac2c3f944c6ebc98797b4becf28961fc8826c0b49734dccea52",
+      "vertical_fov": 65.9,
+      "liquid_pixels_used_for_fit": false
+    },
+    "analyzer": {
+      "file": "tools/verify_liquid_surface_profile.py",
+      "sha256": "c418d4493520a6200ae32a214d59c69da4fd7853c67582c4c1074e736d23c3b7",
+      "source_commit": "37e7e8d"
+    },
+    "fixture_adapter": {
+      "file": "capture_neighbor_backdrop_controls_r9.py",
+      "sha256": "c276fa0c71648eddddde6f506455dd043678516efa6ce7b6b9b93141919fbc10",
+      "identity_bound_by_analyzer": true
+    },
+    "guarded_static_adapter": {
+      "file": "capture_static_water_controls_r9.py",
+      "sha256": "60a530ccf80023aa5bb6582f065a607581c2837ebe287a15463550abd858f29f"
+    },
+    "frozen_harness": {
+      "file": "tools/capture_frozen_liquid_controls.py",
+      "sha256": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04"
+    },
+    "candidate": {
+      "file": "liquid-shape-candidate-r9-v1.json",
+      "sha256": "6382af0b7014cad5fc6e8358bd04f5f6a629e20839befc738380e16e8e72deb5",
+      "refitted": false
+    },
+    "native_gates_passed": 32,
+    "native_gates_total": 32,
+    "native_report_completed": true,
+    "world_restored": true,
+    "flow_restore_native_return_verified": true,
+    "cleanup_errors": [],
+    "pixel_difference_threshold": 16,
+    "minimum_independent_liquid_pixels": 80,
+    "minimum_mask_iou": 0.95,
+    "minimum_outline_precision": 0.95,
+    "minimum_outline_recall": 0.95,
+    "outline_tolerance_pixels": 3,
+    "all_selected_silhouettes_passed": true,
+    "observed_mask_iou_minimum": 0.9695253706877281,
+    "observed_mask_iou_maximum": 0.9933495232153997
+  },
+  "cases": [
+    {
+      "case": "static_water_mixed_0_1_3_7_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9905748176726399,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 13177,
+      "supported_liquid_pixels": 13177,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_source_pair_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9883235779678823,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 38501,
+      "supported_liquid_pixels": 38501,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_liquid_above_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9933495232153997,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 73078,
+      "supported_liquid_pixels": 73078,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_solid_side_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9793955373272789,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 2323,
+      "supported_liquid_pixels": 2752,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_flow_gradient_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9860974742084667,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 26552,
+      "supported_liquid_pixels": 26552,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_flow_corner_foreground_quartz_backdrop_r9",
+      "mask_iou": 0.9918317762027491,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 32240,
+      "supported_liquid_pixels": 32240,
+      "fixed_neighbor_cells": [],
+      "passed": true
+    },
+    {
+      "case": "static_water_depth_3_held_solid_east_quartz_backdrop_r9",
+      "mask_iou": 0.9730514096185738,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 2752,
+      "supported_liquid_pixels": 2752,
+      "fixed_neighbor_cells": [[[7, -36, 6], ["minecraft:stone", 0]]],
+      "passed": true
+    },
+    {
+      "case": "static_water_depth_3_held_solid_west_quartz_backdrop_r9",
+      "mask_iou": 0.9695253706877281,
+      "outline_precision": 1.0,
+      "outline_recall": 1.0,
+      "independent_liquid_pixels": 2426,
+      "supported_liquid_pixels": 2426,
+      "fixed_neighbor_cells": [[[5, -36, 6], ["minecraft:stone", 0]]],
+      "passed": true
+    }
+  ]
+}
