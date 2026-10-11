@@ -39,7 +39,8 @@ of this additional dependency failed with `0xC0000409`.
 
 The launcher patch targets official MCDK v1.6.1,
 `cefdfb5ce220e0cc3e9df6d80b2ff87be8b98802`. Copy `inject.hpp` into its
-`tools/mcdk/include/mcdk/focus_guard.hpp`, apply `mcdk-v1.6.1.patch`, and build
+`tools/mcdk/include/mcdk/focus_guard.hpp`, apply `mcdk-v1.6.1.patch` with
+`git apply --unidiff-zero`, and build
 the isolated clone. Do not overwrite the installed official executable.
 
 ```powershell
