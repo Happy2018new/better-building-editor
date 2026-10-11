@@ -1,0 +1,1109 @@
+{
+  "schema": 1,
+  "completed": true,
+  "restored": true,
+  "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/1d5965716cc04fc8bb68d882c0b48b45/session.json",
+  "owner": "p0-context-r8",
+  "method": "Native legacy-state writes with neighbor updates; delayed readback",
+  "readback_delay": 1.2,
+  "source_sha256": "767c99738f2957878514b276d054c39920528f8501ff9dd4c4011deffe96e1d8",
+  "limits": [
+    "No pixel or geometry acceptance.",
+    "Native removed fragments are recorded; no editor gravity simulation."
+  ],
+  "start": {
+    "origin": [
+      8,
+      -48,
+      8
+    ],
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "reserved_count": 45,
+    "cases": 14,
+    "runtime": "1.21.120.0",
+    "game_version": "NEMC 3.9.0.401155"
+  },
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "native": {
+    "case": 14,
+    "cases": 14,
+    "rows": [
+      {
+        "case": 0,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {},
+          "support": [
+            "minecraft:stone",
+            0
+          ],
+          "id": "scaffold_support_0",
+          "family": "support"
+        }
+      },
+      {
+        "case": 1,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:glass"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {},
+          "support": [
+            "minecraft:glass",
+            0
+          ],
+          "id": "scaffold_support_1",
+          "family": "support"
+        }
+      },
+      {
+        "case": 2,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:tinted_glass"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {},
+          "support": [
+            "minecraft:tinted_glass",
+            0
+          ],
+          "id": "scaffold_support_2",
+          "family": "support"
+        }
+      },
+      {
+        "case": 3,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "persistent_bit": true,
+              "update_bit": false
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 2,
+              "name": "minecraft:oak_leaves"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "persistent_bit": true,
+            "update_bit": false
+          },
+          "support": [
+            "minecraft:oak_leaves",
+            2
+          ],
+          "id": "scaffold_support_3",
+          "family": "support"
+        }
+      },
+      {
+        "case": 4,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:ice"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {},
+          "support": [
+            "minecraft:ice",
+            0
+          ],
+          "id": "scaffold_support_4",
+          "family": "support"
+        }
+      },
+      {
+        "case": 5,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "minecraft:vertical_half": "bottom"
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_slab"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "minecraft:vertical_half": "bottom"
+          },
+          "support": [
+            "minecraft:oak_slab",
+            0
+          ],
+          "id": "scaffold_support_5",
+          "family": "support"
+        }
+      },
+      {
+        "case": 6,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "minecraft:vertical_half": "top"
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:oak_slab"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "minecraft:vertical_half": "top"
+          },
+          "support": [
+            "minecraft:oak_slab",
+            1
+          ],
+          "id": "scaffold_support_6",
+          "family": "support"
+        }
+      },
+      {
+        "case": 7,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "weirdo_direction": 0,
+            "upside_down_bit": false
+          },
+          "support": [
+            "minecraft:oak_stairs",
+            0
+          ],
+          "id": "scaffold_support_7",
+          "family": "support"
+        }
+      },
+      {
+        "case": 8,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "weirdo_direction": 0,
+            "upside_down_bit": true
+          },
+          "support": [
+            "minecraft:oak_stairs",
+            4
+          ],
+          "id": "scaffold_support_8",
+          "family": "support"
+        }
+      },
+      {
+        "case": 9,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "wall_post_bit": true,
+              "wall_connection_type_east": "none",
+              "wall_connection_type_north": "none",
+              "wall_connection_type_west": "none",
+              "wall_connection_type_south": "none"
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:cobblestone_wall"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "wall_post_bit": false,
+            "wall_connection_type_east": "none",
+            "wall_connection_type_north": "none",
+            "wall_connection_type_west": "none",
+            "wall_connection_type_south": "none"
+          },
+          "support": [
+            "minecraft:cobblestone_wall",
+            0
+          ],
+          "id": "scaffold_support_9",
+          "family": "support"
+        }
+      },
+      {
+        "case": 10,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_fence"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {},
+          "support": [
+            "minecraft:oak_fence",
+            0
+          ],
+          "id": "scaffold_support_10",
+          "family": "support"
+        }
+      },
+      {
+        "case": 11,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:trapdoor"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "open_bit": false,
+            "direction": 0,
+            "upside_down_bit": false
+          },
+          "support": [
+            "minecraft:trapdoor",
+            0
+          ],
+          "id": "scaffold_support_11",
+          "family": "support"
+        }
+      },
+      {
+        "case": 12,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:trapdoor"
+            }
+          },
+          {
+            "states": {
+              "stability": 0,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "open_bit": false,
+            "direction": 0,
+            "upside_down_bit": true
+          },
+          "support": [
+            "minecraft:trapdoor",
+            4
+          ],
+          "id": "scaffold_support_12",
+          "family": "support"
+        }
+      },
+      {
+        "case": 13,
+        "action": "place_scaffold",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:scaffolding",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "open_bit": true,
+              "direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 12,
+              "name": "minecraft:trapdoor"
+            }
+          },
+          {
+            "states": {
+              "stability": 7,
+              "stability_check": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 15,
+              "name": "minecraft:scaffolding"
+            }
+          }
+        ],
+        "metadata": {
+          "support_states": {
+            "open_bit": true,
+            "direction": 0,
+            "upside_down_bit": true
+          },
+          "support": [
+            "minecraft:trapdoor",
+            12
+          ],
+          "id": "scaffold_support_13",
+          "family": "support"
+        }
+      }
+    ],
+    "done": true
+  },
+  "cleanup": {
+    "reserved_air": 45,
+    "restored": true
+  }
+}

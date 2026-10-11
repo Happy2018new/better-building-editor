@@ -19,6 +19,7 @@ MODULES = (
     'native_palette_actor_data',
     'native_entity_write_data',
     'static_bed_data',
+    'scaffold_support_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -36,6 +37,8 @@ SNAPSHOTS = (
     'native_entity_writes',
     'native_dripstone_holdout',
     'native_liquid_surface_diagnostics',
+    'native_scaffold_supports',
+    'native_scaffold_topology',
 )
 
 
@@ -105,6 +108,7 @@ def commands(manifest, tests=False):
         ['tools/check_snow_blueprints.py', '--check'],
         ['tools/generate_static_plant_proxies.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
+        ['tools/generate_scaffold_support.py', '--check'],
     ]
     if tests:
         rows.append(['-m', 'unittest', 'discover', '-s', 'tests', '-q'])

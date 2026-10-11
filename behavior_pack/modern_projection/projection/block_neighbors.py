@@ -83,6 +83,8 @@ def _kind(value):
         return 'gate'
     if 'dripstone_thickness' in properties:
         return 'dripstone'
+    if 'stability' in properties and 'stability_check' in properties:
+        return 'scaffold'
     if foreground(value)[0] in HANGING_MOSS_NAMES:
         return 'hanging_moss'
     return 'chest' if properties and foreground(value)[0] in _CHESTS else None
@@ -359,6 +361,8 @@ def _context_offsets(kind):
         return tuple((0, height, 0) for height in (-2, -1, 1, 2))
     if kind == 'hanging_moss':
         return ((0, -1, 0),)
+    if kind == 'scaffold':
+        return tuple(OFFSETS.values()) + ((0, -1, 0), (0, 1, 0))
     offsets = tuple(OFFSETS.values())
     return offsets + ((0, 1, 0),) if kind == 'wall' else offsets
 
@@ -415,7 +419,9 @@ def reconcile_steps(document, after, write, locked_layers, preserve=()):
             continue
         value = get_cell(pos)
         kind = _kind(value)
-        if kind == 'chest':
+        if kind == 'scaffold':
+            continue
+        elif kind == 'chest':
             updated = _chest(value, pos, context)
         elif pos in preserve:
             continue
@@ -433,3 +439,6 @@ def reconcile_steps(document, after, write, locked_layers, preserve=()):
         if updated != value:
             write(pos, updated)
         yield None
+    from .scaffold_neighbors import reconcile_steps as scaffold_steps
+    for step in scaffold_steps(context, candidates, _properties, _with_properties):
+        yield step
