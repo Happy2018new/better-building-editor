@@ -174,6 +174,19 @@ class ScaffoldSegmentLifecycleTests(unittest.TestCase):
         self.assertEqual(writes_after_cleanup, len(self.info.writes))
         self.assertTrue(all(value['name'] == 'minecraft:air' for value in self.info.cells.values()))
 
+    def test_old_timer_cannot_advance_a_new_segment_in_the_same_execution_scope(self):
+        self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        old_callback = self.game.timers.pop(0)
+        self.run_script(RESTORE % MARKER)
+        self.run_script(START % (MARKER, 50, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        writes_before_old_timer = len(self.info.writes)
+        old_callback()
+        self.assertEqual(writes_before_old_timer, len(self.info.writes))
+        progress = self.run_script(STATUS % MARKER)
+        self.assertEqual(50, progress['index'])
+        self.assertEqual([], progress['rows'])
+        self.run_script(RESTORE % MARKER)
+
 
 if __name__ == '__main__':
     unittest.main()

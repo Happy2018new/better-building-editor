@@ -65,9 +65,10 @@ def advance():
   writes=[write(floor,('minecraft:stone',0)),write(slot,value),write(scaffold,('minecraft:scaffolding',0),True)]
   pending.append({'requested':value,'slot':slot,'writes':writes})
  s['pending']=pending
- game.AddTimer(.35,observe)
-def observe():
- if not s['active']:return
+ # Retain the owning segment even if execute_code reuses its global scope.
+ game.AddTimer(.35,lambda current=s:observe(current))
+def observe(current):
+ if current is not s or not current['active']:return
  for row in s['pending']:
   slot=row.pop('slot')
   row['support']=info.GetBlockNew(slot,dim)
