@@ -22,6 +22,7 @@ from verify_native_sign_fields import SETUP,READ,CLEANUP
 from verify_shulker_orientations import viewport_crop,wait_camera_pose,opacity_comparison
 from context_test_environment import SETUP as SETUP_DAYLIGHT,RESTORE as RESTORE_DAYLIGHT
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS,RESTORE_OPTIONS
+from sign_panel_oracle import wooden_rectangle,isolate,baseline_control,corresponding_text
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -612,6 +613,8 @@ def main():
     parser.add_argument('--response',choices=('absolute_delta','wood_composite'),default='absolute_delta',
                         help='Diagnostic mask response; original fixed cutoffs and shape threshold stay unchanged')
     parser.add_argument('--projection-mode',choices=('full','missing'),default='full')
+    parser.add_argument('--panel-isolation',choices=('row_spans','wood_rectangle'),default='row_spans')
+    parser.add_argument('--blank-stability',action='store_true')
     parser.add_argument('--alpha-regression',action='store_true',
                         help='Measure opaque, half-transparent and zero-opacity wooden panels')
     parser.add_argument('--untagged-regression',action='store_true',
@@ -624,7 +627,8 @@ def main():
             'alpha_acceptance':'Wooden panel only: contrast gain .35-.65, half blend residual <=.15; zero panel has no changed pixels >12',
             'native_material_acceptance':'Original sign material ignores geometry transparency; unmarked wood must remain unchanged'}
     report.update(projection_mode=args.projection_mode,response=args.response,
-                  native_resolution=args.native_resolution,alpha_cases=[])
+                  native_resolution=args.native_resolution,alpha_cases=[],
+                  panel_isolation=args.panel_isolation,blank_stability=args.blank_stability)
     installed=False
     visual_saved=False
     daylight_saved=False
@@ -678,14 +682,26 @@ def main():
                         shot['crop']=viewport_crop(check,shot)
                         editor[key]=shot
                         result['samples']['editor_'+key]={'screenshot':shot,'renderer':state['renderer']}
+                    if args.blank_stability:
+                        state=load(check,case['id'],True,view)
+                        editor['blank_repeat']=capture_editor(check,label+'_editor_blank_repeat',state['camera_framing'])
+                        editor['blank_repeat']['crop']=viewport_crop(check,editor['blank_repeat'])
+                        result['samples']['editor_blank_repeat']={'screenshot':editor['blank_repeat'],'renderer':state['renderer']}
                     for blank in (False,True):
                         load(check,case['id'],blank,view)
                         key='blank' if blank else 'shown'
                         world[key]=world_sample(check,label+'_projection_'+key,metadata['focus'],view['world_offset'],.85,args.height_offset,
                                                 args.projection_mode=='missing')
                         result['samples']['projection_'+key]=world[key]
+                    if args.blank_stability:
+                        load(check,case['id'],True,view)
+                        world['blank_repeat']=world_sample(check,label+'_projection_blank_repeat',metadata['focus'],
+                            view['world_offset'],.85,args.height_offset,args.projection_mode=='missing')
+                        result['samples']['projection_blank_repeat']=world['blank_repeat']
                     native={key:native_sample(check,row,view,blank,label+'_native_'+key,args.native_item)
                             for key,blank in (('shown',False),('blank',True))}
+                    if args.blank_stability:
+                        native['blank_repeat']=native_sample(check,row,view,True,label+'_native_blank_repeat',False)
                     execute(client,NATIVE_RESTORE_PLAYER)
                     result['samples'].update(('native_'+key,value) for key,value in native.items())
                     for scope,shots in (('native',native),('editor',editor),('projection',{key:value['screenshot'] for key,value in world.items()})):
@@ -695,9 +711,25 @@ def main():
                                     for axis,value in enumerate(metadata['world_text_roi'])))
                         mask,pixels=colored_text(shots['shown']['path'],shots['blank']['path'],crop,view['color'],args.output/(label+'_'+scope+'_text.png'),
                                                  args.response=='wood_composite')
+                        panel=(wooden_rectangle if args.panel_isolation=='wood_rectangle' else panel_bounds)(shots['blank']['path'],crop)
+                        if args.panel_isolation=='wood_rectangle':
+                            pixels['unisolated_pixels']=pixels['pixels']
+                            pixels['unisolated_bounds']=pixels['bounds']
+                            mask=isolate(mask,panel)
+                            mask.save(pixels['mask'])
+                            pixels.update(pixels=mask.histogram()[255],bounds=mask.getbbox())
                         masks[(label,scope)]=mask
                         result[scope]=pixels
-                        result[scope]['panel_bounds']=panel_bounds(shots['blank']['path'],crop)
+                        result[scope]['panel_bounds']=panel
+                        if args.blank_stability:
+                            result[scope]['blank_repeat_control']=baseline_control(shots['blank']['path'],
+                                shots['blank_repeat']['path'],crop,panel,args.output/(label+'_'+scope+'_blank_repeat_delta.png'))
+                    if args.blank_stability:
+                        for scope,shots in (('native',native),('editor',editor),('projection',{key:value['screenshot'] for key,value in world.items()})):
+                            pixels=result[scope]
+                            excluded=corresponding_text(result['native']['bounds'],result['native']['panel_bounds'],pixels['panel_bounds'])
+                            pixels['outside_text_control']=baseline_control(shots['shown']['path'],shots['blank']['path'],
+                                pixels['crop'],pixels['panel_bounds'],args.output/(label+'_'+scope+'_outside_text_delta.png'),excluded)
                     for scope in ('editor','projection'):
                         result[scope]['native_comparison']=shape_match(masks[(label,'native')],masks[(label,scope)])
                         result[scope]['layout_comparison']=layout_match(
@@ -705,6 +737,10 @@ def main():
                             result[scope]['bounds'],result[scope]['panel_bounds'],metadata['text_layout_tolerance'])
                     result['passed']=all(result[scope]['pixels']>=8 and result[scope]['native_comparison']['passed'] and
                                          result[scope]['layout_comparison']['passed'] for scope in ('editor','projection'))
+                    if args.blank_stability:
+                        result['passed']=result['passed'] and all(result[scope][control]['passed']
+                            for scope in ('native','editor','projection')
+                            for control in ('blank_repeat_control','outside_text_control'))
                     report['cases'].append(result)
                     write_json(args.output/'report.json',report)
                     for untagged in ([False] if args.alpha_regression else [])+([True] if args.untagged_regression else []):
