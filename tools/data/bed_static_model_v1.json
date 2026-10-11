@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "source": {
+    "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+    "geometry_path": "models/mobs.json",
+    "geometry_key": "geometry.bed",
+    "geometry_file_sha256": "f56926de442bd26a75dfc077d5322d0432a83b1a86e8c14ce687a5c9716ba12c",
+    "entity_path": "entity/bed.entity.json",
+    "entity_sha256": "acee64b863d38d63c62a79c89dd70a87abd0f59bb28e52c28b7a33e6c602f491",
+    "attribution": "Native Minecraft geometry.bed and bed artwork, Mojang AB.",
+    "conversion": "Clip native model Y at 16 without resampling UVs; rotate -90 X then direction*90 Y around each cell center.",
+    "regenerate": "python tools/generate_bed_proxies.py --native-resource-root <installed vanilla>"
+  },
+  "geometry": {
+    "visible_bounds_width": 1,
+    "visible_bounds_height": 1,
+    "visible_bounds_offset": [
+      0,
+      0.5,
+      0
+    ],
+    "bones": [
+      {
+        "pivot": [
+          0.0,
+          24.0,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size": [
+              16.0,
+              32.0,
+              6.0
+            ],
+            "uv": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "origin": [
+              3.0,
+              31.0,
+              6.0
+            ],
+            "size": [
+              10.0,
+              1.0,
+              3.0
+            ],
+            "uv": [
+              38.0,
+              2.0
+            ]
+          },
+          {
+            "origin": [
+              3.0,
+              0.0,
+              6.0
+            ],
+            "size": [
+              10.0,
+              1.0,
+              3.0
+            ],
+            "uv": [
+              38.0,
+              38.0
+            ]
+          },
+          {
+            "origin": [
+              15.0,
+              3.0,
+              6.0
+            ],
+            "size": [
+              1.0,
+              26.0,
+              3.0
+            ],
+            "uv": [
+              52.0,
+              6.0
+            ]
+          },
+          {
+            "origin": [
+              0.0,
+              3.0,
+              6.0
+            ],
+            "size": [
+              1.0,
+              26.0,
+              3.0
+            ],
+            "uv": [
+              44.0,
+              6.0
+            ]
+          }
+        ],
+        "name": "bed"
+      },
+      {
+        "pivot": [
+          5.0,
+          22.0,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              13.0,
+              29.0,
+              6.0
+            ],
+            "size": [
+              3.0,
+              3.0,
+              3.0
+            ],
+            "uv": [
+              12.0,
+              38.0
+            ]
+          }
+        ],
+        "name": "leg1"
+      },
+      {
+        "pivot": [
+          -5.0,
+          22.0,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              0.0,
+              29.0,
+              6.0
+            ],
+            "size": [
+              3.0,
+              3.0,
+              3.0
+            ],
+            "uv": [
+              0.0,
+              38.0
+            ]
+          }
+        ],
+        "name": "leg0"
+      },
+      {
+        "pivot": [
+          2.0,
+          12.0,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              13.0,
+              0.0,
+              6.0
+            ],
+            "size": [
+              3.0,
+              3.0,
+              3.0
+            ],
+            "uv": [
+              12.0,
+              44.0
+            ]
+          }
+        ],
+        "name": "leg3"
+      },
+      {
+        "pivot": [
+          -2.0,
+          12.0,
+          0.0
+        ],
+        "cubes": [
+          {
+            "origin": [
+              0.0,
+              0.0,
+              6.0
+            ],
+            "size": [
+              3.0,
+              3.0,
+              3.0
+            ],
+            "uv": [
+              0.0,
+              44.0
+            ]
+          }
+        ],
+        "name": "leg2"
+      }
+    ],
+    "texturewidth": 64,
+    "textureheight": 64
+  },
+  "texture_paths": {
+    "white": "textures/entity/bed/white",
+    "orange": "textures/entity/bed/orange",
+    "magenta": "textures/entity/bed/magenta",
+    "light_blue": "textures/entity/bed/light_blue",
+    "yellow": "textures/entity/bed/yellow",
+    "lime": "textures/entity/bed/lime",
+    "pink": "textures/entity/bed/pink",
+    "gray": "textures/entity/bed/gray",
+    "silver": "textures/entity/bed/silver",
+    "cyan": "textures/entity/bed/cyan",
+    "purple": "textures/entity/bed/purple",
+    "blue": "textures/entity/bed/blue",
+    "brown": "textures/entity/bed/brown",
+    "green": "textures/entity/bed/green",
+    "red": "textures/entity/bed/red",
+    "black": "textures/entity/bed/black"
+  },
+  "texture_sha256": {
+    "white": "1fa3a77d6288c9493e40af5990a64e388aca7af2722c40e5de743e32704c3061",
+    "orange": "96e718b2121ea726d83e05d32c6efffe12bc0a74252cacfaa9844372d4fa43a8",
+    "magenta": "422ac6a4cb6fecd4235e92685923d3af95c6e2aa34c88ebf9d93b9765f376e22",
+    "light_blue": "9e96d620a6d7283a8448acc7f15ff5719e63423439be7a9763a8c61ed74f01ed",
+    "yellow": "a1398069b56fa3a9836a3955dd4fc6a2fa4ad9945c8dac8cf1d4866b4033e71f",
+    "lime": "eb197413e7b0ac69da964619cb5f4487ef516c2542cb781490adf90f0f82fbea",
+    "pink": "607541d206317790a57fe38e0318a35e059a0866af3968c27fa2772e7b7c2409",
+    "gray": "bc26b5be879f6b10cfbf1a65de02d294c3215cd5dc518b06c17c7f36e8d5e702",
+    "silver": "79a0739069115492e5c847074e1d2a15537d06881e2717dee8f4dbd3b572d28b",
+    "cyan": "fa0279e0ebdec48d06aba00e6d141eb292aa3e8e94ce93eafa9f9e655317e670",
+    "purple": "bbae2a8f4d7656237c6c37b42280cb5f4cdd4b2868646b5a06db05428d2e4542",
+    "blue": "7a473e15d2a9eb135ee129246ac750cc00242317d5d2cc78d5762f76376fa6c1",
+    "brown": "3d7978fa546aeb35f599c95602a389b451713520981c2bd3dab9bffd7e5e9ff2",
+    "green": "edbdf70e1ace8c2e25a8b82e8e962a76072cac19eb3104a88209c38949acf8a1",
+    "red": "a35bc4fff2858c12f16974afd118cae51b22ba4601f0049603f495316f5ca040",
+    "black": "84057ebe4f90ced1def1b1662556706d66c820caa80f8bf6bb4ed2bef69f4709"
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "accepted_at": "2026-10-11T15:46:08+08:00",
+  "scope": "Cell-bounded static bed rendering and missing-cell occupancy",
+  "source": {
+    "fixture": "test.entities.appearances",
+    "case": "bed_silver",
+    "cells": [
+      [
+        9,
+        1,
+        19
+      ],
+      [
+        9,
+        1,
+        20
+      ]
+    ],
+    "native_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+    "derived_operations": [
+      "identity",
+      "rotate_y90",
+      "rotate_y180",
+      "rotate_y270"
+    ]
+  },
+  "capture": {
+    "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/session.json",
+    "owner": "p0-entities-r7",
+    "game_pid": 18220,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": [
+      1994,
+      1105
+    ],
+    "background_only": true,
+    "activation": false,
+    "resize": false,
+    "desktop_input": false,
+    "player_lift_y": 127
+  },
+  "reports": [
+    {
+      "sha256": "81c77ec8facea27510ceda82406ea605ad11e8154598175df462d4e05ba46323",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/camera-calibration-bed-static-r7-lift64.json"
+    },
+    {
+      "sha256": "6fb5d0784b37abfd9c826fbae3be7bb761d3e13a4a3646bb62e13e96717e527e",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/bed-static-r7-v3-fixed-pan.json"
+    },
+    {
+      "sha256": "068b1874b8ecd47c71aff27d14ce8678347f18cae32b489c7ba03f6e6962c317",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/bed-static-r7-v3-fixed-pan_player_lift.json"
+    },
+    {
+      "sha256": "de8667133cf24cd5b177b7c776ba6713e7b03a746719b400a71fe9398c4fb649",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/bed-static-occupancy-r7-v3-daylight-eight-cases.json"
+    },
+    {
+      "sha256": "a7d4506193df7d5840d3386256b572ee215fc3cd7fe7fa1e1eb438a7a0d484ec",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/bed-static-occupancy-r7-v3-daylight-eight-cases_environment.json"
+    },
+    {
+      "sha256": "dadf464f1afecc47fb0be0b327a18b19d0745aeeff0162552c2124bc1add8f6e",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/a0263f5b818f4fa29e488caf97aa09b0/artifacts/bed-static-r7-final-cleanup-audit.json"
+    }
+  ],
+  "harnesses": [
+    {
+      "sha256": "0bfe91bb099c813cf99f561469ba1b50e6c35dd76116d7e5858e61b2af6e4a9c",
+      "path": ".runtime/run_background_bed_lift.py"
+    },
+    {
+      "sha256": "f191603ed02c625f4450baef663f960dc6d83884d0ac54ec82c937c1e4de1dec",
+      "path": ".runtime/run_background_bed_occupancy.py"
+    },
+    {
+      "sha256": "508b0c48f3d3c1e1865a16fbd1ae0738b8902db9e7e11c60e2d2c3826d022d56",
+      "path": "tools/verify_floating_bed_visuals.py"
+    },
+    {
+      "sha256": "39d585762edae37d3ff296c9df3765bad68ac06b1f2f0130220fa9aeaae895e9",
+      "path": "tools/verify_bed_half_occupancy.py"
+    },
+    {
+      "sha256": "aea0b6a82445be255f44dc28aa7906e44f3b1e634fb002b63150bc376b552728",
+      "path": "tools/generate_bed_proxies.py"
+    },
+    {
+      "sha256": "443a1e941b11b0f4880fe8521c7eddafa83c8d10b28724a41f9955a2643af634",
+      "path": "tools/data/bed_static_model_v1.json"
+    }
+  ],
+  "full_bed": {
+    "completed": true,
+    "passed": true,
+    "restored": true,
+    "editor_changed_pixels": 0,
+    "editor_limit": 100,
+    "editor_pose": [
+      35,
+      25,
+      3
+    ],
+    "editor_pivot": [
+      3.5,
+      3.5,
+      3.5
+    ],
+    "editor_pan": [
+      0,
+      0
+    ],
+    "native_world": {
+      "recall": 0.9996756967115646,
+      "precision": 0.9923496076721883,
+      "interior_color_agreement": 0.7274939172749392,
+      "reference_source_pixels": 42706,
+      "projection_source_pixels": 42632
+    },
+    "native_control": "PlayerUseItemToPos silver bed; only owned native stone supports removed with updateNeighbors=False"
+  },
+  "occupancy": {
+    "completed": true,
+    "passed": true,
+    "restored": true,
+    "cases": 8,
+    "samples": 32,
+    "views": [
+      "top",
+      "side"
+    ],
+    "stages": [
+      "dynamic",
+      "initial"
+    ],
+    "limits": {
+      "shape_recall": 0.93,
+      "shape_precision": 0.93,
+      "edge_recall": 0.75,
+      "edge_precision": 0.75,
+      "color_channel_error": 20,
+      "hidden_residual": 0.05
+    },
+    "results": {
+      "minimum_shape_recall": 1,
+      "minimum_shape_precision": 0.9973607981976182,
+      "minimum_edge_recall": 1,
+      "minimum_edge_precision": 0.9938511326860842,
+      "maximum_color_channel_error": 0.09706983348392927,
+      "maximum_hidden_residual": 0.0027107267329288757,
+      "zero_hidden_residual_samples": 31
+    },
+    "preserved": [
+      "document",
+      "typed NBT",
+      "unknown fields",
+      "source reference",
+      "public fixture identity",
+      "undo/redo history"
+    ]
+  },
+  "cleanup": {
+    "audit_completed": true,
+    "audit_restored": true,
+    "client_flags_clear": 23,
+    "server_flags_clear": 23,
+    "workspace_open": false,
+    "projection_active": false,
+    "projection_work": false,
+    "jobs_active": false,
+    "player_foot": [
+      0.5,
+      72,
+      0.5
+    ],
+    "can_fly": true,
+    "flying": false,
+    "daylight_cycle": true,
+    "hud": 0
+  },
+  "offline": {
+    "full_suite_tests": 1164,
+    "passed": true,
+    "bed_tests": 7,
+    "generator_native_resource_hash_check": true,
+    "mirror_proof": "Editor mirror_x/mirror_z of each of four rotated complete public beds equals a cardinal source layout after translation; typed color and all non-coordinate NBT preserved by half role; coordinate tags remain typed int; head/foot roles do not swap",
+    "source_gate": "bed_proxy calls native_appearance.validate_source before returning a proxy",
+    "source_gate_added_after_live_capture": true,
+    "review": {
+      "static_bed": "1 file, 0 findings",
+      "entity_render": "1 file, 0 findings",
+      "geometry_palette": "Unchanged _append_snow_overlays signature hint",
+      "render_context": "ContextPaletteBuilder.material length advisory; existing cache/render steps extended by bed neighbor color"
+    }
+  },
+  "reproduction": {
+    "binding": "Set MCDEV_SESSION_FILE and MCDEV_OWNER for an owned live instance; MCDEV_NATIVE_CAPTURE_EXE points to the verified WGC helper. Run each command sequentially. Calibration must belong to the same instance.",
+    "commands": [
+      "python -X utf8 tools/verify_floating_bed_visuals.py <report.json> --case bed_silver --native-resolution --camera-calibration <same-instance-calibration.json>",
+      "python -X utf8 tools/verify_bed_half_occupancy.py <report.json> --view top --view side --normal-oracle --camera-calibration <same-instance-calibration.json>",
+      "python -X utf8 tools/generate_bed_proxies.py --check --native-resource-root <installed-vanilla-root>",
+      "python -X utf8 -m unittest discover -s tests"
+    ]
+  },
+  "preserved_failures": [
+    {
+      "path": "bed-static-r7-v1.json",
+      "reason": "World passed; editor changed_pixels=638 exceeded100 because host pan was not fixed."
+    },
+    {
+      "path": "bed-static-r7-v2-exact-editor.json",
+      "reason": "Aborted on exact host-pan assertion; gates unchanged."
+    },
+    {
+      "path": "bed-static-occupancy-r7-v1-direction0.json",
+      "reason": "Read-only expected-camera query IPC timeout; restored before a new operation."
+    },
+    {
+      "path": "bed-static-occupancy-r7-v2-keep-foot.json",
+      "reason": "Initial side edge precision0.726 below0.75 with changing sunlight; original failure retained."
+    }
+  ]
+}

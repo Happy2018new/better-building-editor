@@ -12,7 +12,8 @@ from projection.entity_render import CHEST_DIRECTIONS, CHEST_PROXIES
 from projection.debug_blueprints import BLUEPRINTS, build, material
 from projection.model import Document
 from projection.render_context import (MAX_CONTEXT_CHUNK_CACHE, TARGETS_PER_UNIT,
-                                       ContextPaletteBuilder, prepare_context_palette)
+                                       ContextPaletteBuilder, prepare_context_batches,
+                                       prepare_context_palette)
 from projection.render_layout import (CONTEXT_BASE, OVERLAY_BASE, context_center,
                                       context_position, logical_position,
                                       native_mesh_position)
@@ -28,6 +29,21 @@ def position(value, volume):
 
 
 class RenderContextTests(unittest.TestCase):
+    def test_public_bed_pair_uses_cell_bounded_static_meshes(self):
+        public = build('test.entities.appearances')
+        points = ((9, 1, 19), (9, 1, 20))
+        doc = Document(public.size, {pos: public.get(pos) for pos in points})
+        before = copy.deepcopy(doc.to_data())
+        result = prepare_context_batches(doc, doc.palette_data())
+        self.assertEqual(1, len(result['_context_batches']))
+        for origin, packed, palette in result['_context_batches']:
+            self.assertTrue(packed)
+            self.assertEqual((64, 64, 64), palette['volume'])
+            self.assertEqual({}, palette['actor'])
+            self.assertEqual({('modern_projection:preview_bed_silver_0_foot', 0),
+                              ('modern_projection:preview_bed_silver_0_head', 0)}, set(palette['common']))
+        self.assertEqual(before, doc.to_data())
+
     def assert_incremental_matches_reference(self, document, targets):
         expected = prepare_context_palette(document.palette_data(), targets)
         builder = ContextPaletteBuilder(document, targets)

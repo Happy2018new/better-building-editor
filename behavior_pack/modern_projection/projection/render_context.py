@@ -3,6 +3,7 @@ from collections import OrderedDict
 from .cell import AIR, actor_data, background, foreground
 from .geometry_palette import prepare_palette
 from .entity_render import CHEST_PROXIES, document_chest_part
+from .static_bed import document_bed_color
 from .large_preview import MAX_SURFACE_BLOCKS
 from .native_layers import normalize_palette_layers
 from .nbt_spatial import field_key, rebase
@@ -177,6 +178,9 @@ class ContextPaletteBuilder(object):
         self.cache, self.data = {}, None
         self.chest_identities = frozenset(identity for identity, value in enumerate(document.blocks.palette)
                                           if foreground(value)[0] in CHEST_PROXIES)
+        self.position_identities = self.chest_identities | frozenset(
+            identity for identity, value in enumerate(document.blocks.palette)
+            if foreground(value)[0] == 'minecraft:bed')
         self.states, self.extra_states = {}, {}
         self.chunk_cache = OrderedDict()
         self.positions = []
@@ -192,8 +196,8 @@ class ContextPaletteBuilder(object):
             elif not chunk:
                 rendered_cells = None
             else:
-                # Only chest pairing makes a uniform chunk position-dependent.
-                rendered_cells = [_NOT_RENDERED] * (4096 if chunk in self.chest_identities else 1)
+                # Pair pose and bed color depend on each cell's logical neighbor.
+                rendered_cells = [_NOT_RENDERED] * (4096 if chunk in self.position_identities else 1)
             # Bound expanded Python integers even for large sparse snapshots.
             if len(self.chunk_cache) == MAX_CONTEXT_CHUNK_CACHE:
                 self.chunk_cache.popitem(last=False)
@@ -211,7 +215,7 @@ class ContextPaletteBuilder(object):
         if not identity:
             rendered_cells[render_index] = None
             return None
-        if identity not in self.chest_identities:
+        if identity not in self.position_identities:
             cached = self.cache.get(identity)
             if cached is not None:
                 rendered_cells[render_index] = cached
@@ -219,7 +223,8 @@ class ContextPaletteBuilder(object):
         value = self.document.blocks.palette[identity]
         front, back, actor = foreground(value), background(value), actor_data(value)
         part = document_chest_part(self.document, (x, y, z), front)
-        cache_key = identity if part is None else (identity, part)
+        color = document_bed_color(self.document, (x, y, z), front) if front[0] == 'minecraft:bed' else None
+        cache_key = identity if part is None and color is None else (identity, part, color)
         if cache_key in self.cache:
             result = self.cache[cache_key]
             rendered_cells[render_index] = result
@@ -231,7 +236,8 @@ class ContextPaletteBuilder(object):
             source['extra'][back] = [0]
         if actor is not None:
             source['actor'][front[0]] = {0: actor}
-        rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None)
+        rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None,
+                                   inferred_bed_colors={0: color} if color is not None else None)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result

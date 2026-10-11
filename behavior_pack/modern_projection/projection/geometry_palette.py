@@ -87,7 +87,8 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
     return (volume[0], volume[1], overlay_base + volume[2])
 
 
-def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE):
+def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
+                    inferred_bed_colors=None):
     """Copy and canonicalize both native layers and actor payloads."""
     data = dict(source)
 
@@ -113,7 +114,7 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     volume = _append_snow_overlays(common, common_states, extra, extra_states,
                                   source.get('volume'), overlay_base)
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
-                                                   inferred_chest_parts)
+                                                   inferred_chest_parts, inferred_bed_colors)
     common, common_states = _proxy_foreground(common, common_states)
     for entries in (common, extra):
         for positions in entries.values():

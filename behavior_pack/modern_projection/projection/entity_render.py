@@ -5,8 +5,9 @@ from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
 from .visible_actor import render_actor, entity_nbt
 from .static_skull import SKULL_PROXIES, skull_proxy
+from .static_bed import BED_PROXIES, bed_proxy, palette_bed_colors
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 SHULKER_COLORS = ('undyed', 'white', 'orange', 'magenta', 'light_blue', 'yellow',
                   'lime', 'pink', 'gray', 'light_gray', 'cyan', 'purple', 'blue',
                   'brown', 'green', 'red', 'black')
@@ -33,7 +34,8 @@ CHEST_PROXIES.update(dict(
 INTERNAL_BLOCKS = frozenset(
     [name for names in SHULKER_PROXIES.values() for name in names] +
     [name for names in CHEST_PROXIES.values() for name in names.values()] +
-    [name for names in SKULL_PROXIES.values() for name in names.values()])
+    [name for names in SKULL_PROXIES.values() for name in names.values()] +
+    list(BED_PROXIES.values()))
 
 
 def native_actor(material, actor):
@@ -123,7 +125,10 @@ def chest_proxy(material, actor, inferred_part=None):
     return (names[(direction, part)], 0)
 
 
-def static_proxy(material, actor, inferred_part=None):
+def static_proxy(material, actor, inferred_part=None, inferred_bed_color=None):
+    bed = bed_proxy(material, actor, inferred_bed_color)
+    if bed is not None:
+        return bed
     skull = skull_proxy(material, actor)
     if skull is not None:
         return skull
@@ -201,18 +206,22 @@ def document_chest_part(document, position, material):
     return 'main' if adjacent[0][1] == 1 else 'sub'
 
 
-def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=None):
+def prepare_static_entities(entries, actors, volume=None, inferred_chest_parts=None,
+                            inferred_bed_colors=None):
     """Replace only render cells; return actor slots consumed by static meshes."""
     result, replaced = {}, set()
+    bed_colors = palette_bed_colors(entries, actors, volume)
     for value, positions in entries.items():
-        if value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES and value[0] not in SKULL_PROXIES:
+        if (value[0] not in SHULKER_PROXIES and value[0] not in CHEST_PROXIES and
+                value[0] not in SKULL_PROXIES and value[0] != 'minecraft:bed'):
             result.setdefault(value, []).extend(positions)
             continue
         payloads = actors.get(value[0], actors.get(value[0].encode('utf8'), {}))
         parts = _adjacent_chest_parts(value, positions, volume, payloads) if value[0] in CHEST_PROXIES else {}
         for index in positions:
             inferred = (inferred_chest_parts or {}).get((value[0], index), parts.get(index))
-            proxy = static_proxy(value, payloads.get(index), inferred)
+            color = (inferred_bed_colors or {}).get(index, bed_colors.get(index))
+            proxy = static_proxy(value, payloads.get(index), inferred, color)
             if proxy is None:
                 result.setdefault(value, []).append(index)
                 continue
