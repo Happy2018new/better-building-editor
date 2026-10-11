@@ -13,12 +13,14 @@ from .debug_pot_blueprints import METADATA as POT_METADATA, VISUAL_CASE as POT_V
 from .debug_dripstone_blueprints import METADATA as DRIPSTONE_METADATA, VISUAL_CASE as DRIPSTONE_VISUAL_CASE
 from .debug_snow_blueprints import METADATA as SNOW_METADATA, VISUAL_CASE as SNOW_VISUAL_CASE
 from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL_CASE as CONNECTION_VISUAL_CASE
+from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
               ('transforms', '变换'), ('entities', '方块实体'), ('registry', '方块表'))
 BLUEPRINTS = (
     ('test.layers.water', 'layers', '含水方块', (32, 8, 24), 'minecraft:oak_fence'),
+    LIQUID_METADATA,
     SNOW_METADATA,
     ('test.groups.parts', 'groups', '门、床与高植物', (32, 8, 24), 'minecraft:wooden_door'),
     ('test.connections.context', 'connections', '楼梯、铁轨、墙与双箱', (32, 12, 32), 'minecraft:rail'),
@@ -36,6 +38,7 @@ BLUEPRINTS = (
 )
 VISUAL_CASES = {
     'water_behaviors': WATER_VISUAL_CASE,
+    'pure_liquids': LIQUID_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
     'pot_artwork': POT_VISUAL_CASE,
     'dripstone_neighbors': DRIPSTONE_VISUAL_CASE,
@@ -271,6 +274,9 @@ def build(identity):
     if metadata is None:
         raise ValueError('找不到这份测试蓝图')
     fixture = Fixture(metadata)
+    if identity == LIQUID_METADATA[0]:
+        from .debug_liquid_blueprints import populate
+        return populate(fixture)
     if identity == WATER_METADATA[0]:
         from .debug_water_blueprints import populate
         return populate(fixture)
