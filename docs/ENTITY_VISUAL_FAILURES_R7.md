@@ -7,6 +7,11 @@ The original `.45` sign IoU threshold, color cutoffs and layout tolerances remai
 unchanged. The hashed manifest is
 `tools/data/entities_visual_unaccepted_evidence_r7.json`.
 
+Relative manifest paths resolve against its explicit `relative_path_base`, the
+original entity worktree. These hashes identify the original file bytes,
+including ignored runtime reports and host tools. A new Git checkout may
+convert line endings; do not replace historical hashes with checkout hashes.
+
 ## Hanging-Sign Front
 
 The original `absolute_delta` failure remains editor IoU `.349806` and projection

@@ -1,11 +1,11 @@
 {
-  "schema_version": 1,
-  "source_commit": "5234fee",
+  "schema_version": 2,
+  "source_commit": "9889c11269c307a357595e518e8b95e201d17701",
   "round": 7,
-  "recorded_at": "2026-10-11T16:08:00+08:00",
-  "command": "python -X utf8 tools/check_version_bundle.py --tests --output .runtime/version-bundle-r7-final.json",
+  "recorded_at": "2026-10-11T17:17:46+08:00",
+  "command": "python -X utf8 tools/check_version_bundle.py --tests --output .runtime/version-bundle-r7-closeout.json",
   "report": {
-    "path": ".runtime/version-bundle-r7-final.json",
+    "path": ".runtime/version-bundle-r7-closeout.json",
     "sha256": "b882b372cf28505e8cc3a7669a0fe9c61f7740d2cc0689950bc350782985a327",
     "passed": true,
     "provenance_files": 44,
@@ -13,10 +13,10 @@
     "failed_checks": 0
   },
   "tests": {
-    "count": 1189,
-    "elapsed_seconds": 85.828,
+    "count": 1203,
+    "elapsed_seconds": 86.394,
     "exit_code": 0,
-    "source": "Completed root exec session 34419 stdout; the structured bundle report records exit codes, not test counts or timing."
+    "source": "Completed root exec session 38398 stdout; the structured bundle report records exit codes, not test counts or timing."
   },
   "registry": {
     "game_version": "NEMC 3.9.0.401155",
@@ -24,6 +24,23 @@
     "names": 1340,
     "states": 15858,
     "operations_per_state": 6
+  },
+  "previous_checkpoint": {
+    "source_commit": "5234fee",
+    "recorded_at": "2026-10-11T16:08:00+08:00",
+    "report_path": ".runtime/version-bundle-r7-final.json",
+    "report_sha256": "b882b372cf28505e8cc3a7669a0fe9c61f7740d2cc0689950bc350782985a327",
+    "tests_count": 1189,
+    "tests_elapsed_seconds": 85.828,
+    "tests_exit_code": 0,
+    "source": "Completed root exec session 34419 stdout."
+  },
+  "identical_report_hash_note": "The two bundle JSON files contain the same check names and successful exit codes. Test counts, elapsed time and source commits are separately recorded here from the respective completed runs.",
+  "subsequent_tool_checkpoint": {
+    "source_commit": "33dd2a1",
+    "production_resources_tests_and_bundle_runner_unchanged": true,
+    "verification": "git diff 9889c11 HEAD -- behavior_pack resource_pack tests tools/check_version_bundle.py was empty after the tool-only cherry-pick; all four new host tools passed py_compile.",
+    "scope": "Entity holdout runner, offline diagnostic, read-only restoration audit and chest visual runner; preserved unaccepted evidence only."
   },
   "scope": "Offline consistency, generated assets and regression tests at source_commit. Native editor and world projection visual acceptance require their separate reports. Later changes require appropriate checks."
 }
