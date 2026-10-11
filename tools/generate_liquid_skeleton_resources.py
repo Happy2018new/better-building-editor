@@ -63,6 +63,7 @@ void main() {
     if (!payloadValid || floor(code/4096.0)>0.5) liquidVisible=0.0;
     vec3 localPoint=cell+point-vec3(2.0);
     vec4 entityPoint=vec4(localPoint,1.0);
+    // LIQUID_UI_COORDINATES
     // LIQUID_WORLD_BONE
     gl_Position=WORLDVIEWPROJ*entityPoint;
     liquidClip=-1.0;
@@ -75,11 +76,12 @@ precision highp float;
 #include "fragmentVersionCentroidUV.h"
 #include "uniformPerFrameConstants.h"
 #include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
 uniform sampler2D TEXTURE_0;
 varying highp vec2 liquidUv;
 varying highp float liquidVisible;
 varying highp float liquidClip;
-uniform vec4 HIDE_COLOR_FRAGMENT;
 const float FRAME_COUNT = %(frames)s;
 const float FRAME_PIXELS = %(pixels)s;
 const float TICKS_PER_FRAME = %(ticks)s;
@@ -95,7 +97,8 @@ void main() {
     float tint=EXTRA_VECTOR4.z;
     vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
     float alpha=EXTRA_VECTOR4.y<0.0 ? texel.a : EXTRA_VECTOR4.y;
-    gl_FragColor=vec4(texel.rgb*rgb,alpha*EXTRA_VECTOR4.w*HIDE_COLOR_FRAGMENT.a);
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    gl_FragColor=vec4(texel.rgb*rgb,alpha*EXTRA_VECTOR4.w);
 }
 '''
 PACKET_FRAGMENT = '''// __multiversion__
@@ -115,15 +118,18 @@ WORLD_BONE = '''#if defined(USE_SKINNING) && defined(NETEASE_SKINNING)
     entityPoint=GetInstanceWorldMatForNetease()*entityPoint;
 #endif
 #endif'''
+UI_COORDINATES = '''entityPoint=vec4(-localPoint.x,-localPoint.z+1.5,-localPoint.y,1.0);'''
 MATRIX_VERTEX = '''// __multiversion__
 precision highp float;
 #include "neteaseModelVertexUtil.h"
 #include "uniformExtraVectorConstants.h"
 varying highp vec3 matrixColor;
+varying highp float matrixIndex;
 void main() {
     float column=floor(POSITION.x/2.0);
     float row=floor(POSITION.y/2.0);
     float index=column+row*4.0;
+    matrixIndex=index;
     mat4 value=WORLDVIEWPROJ;
     float selected=EXTRA_VECTOR4.z;
     if (selected<0.5) value=WORLDVIEWPROJ;
@@ -154,6 +160,9 @@ void main() {
 #ifdef USE_INSTANCE
         number+=4.0;
 #endif
+#ifdef USE_ALPHA
+        number+=8.0;
+#endif
     }
     float code=clamp(floor(number*2048.0+8388608.0+0.5),0.0,16777215.0);
     matrixColor=vec3(floor(code/65536.0),mod(floor(code/256.0),256.0),mod(code,256.0))/255.0;
@@ -165,8 +174,23 @@ MATRIX_FRAGMENT = '''// __multiversion__
 precision highp float;
 #include "fragmentVersionCentroidUV.h"
 #include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
 varying highp vec3 matrixColor;
-void main() { gl_FragColor=vec4(matrixColor,EXTRA_VECTOR4.w); }
+varying highp float matrixIndex;
+uniform vec4 HIDE_COLOR_FRAGMENT;
+void main() {
+    vec3 color=matrixColor;
+    if(matrixIndex>16.5 && matrixIndex<21.5) {
+        float value=HIDE_COLOR_FRAGMENT.r;
+        if(matrixIndex>17.5) value=HIDE_COLOR_FRAGMENT.g;
+        if(matrixIndex>18.5) value=HIDE_COLOR_FRAGMENT.b;
+        if(matrixIndex>19.5) value=HIDE_COLOR_FRAGMENT.a;
+        if(matrixIndex>20.5) value=CURRENT_COLOR.a;
+        float code=clamp(floor(value*2048.0+8388608.0+0.5),0.0,16777215.0);
+        color=vec3(floor(code/65536.0),mod(floor(code/256.0),256.0),mod(code,256.0))/255.0;
+    }
+    gl_FragColor=vec4(color,EXTRA_VECTOR4.w);
+}
 '''
 
 
@@ -189,15 +213,17 @@ def mesh(texture):
             for u, v in ((0., 0.), (1., 0.), (1., 1.), (0., 1.)):
                 vertices.append({'pos': [slot * 2. + u, face * 2. + v, 0.],
                                  'normal': normal, 'uvcoord': [u, v], 'weight': [['root', 1.]]})
-            indices.extend([[start, start + 1, start + 2], [start, start + 2, start + 3]])
+            indices.extend([[start, start + 2, start + 1], [start, start + 3, start + 2]])
     return {'mesh': [{'material': texture, 'vertices': vertices, 'indices': indices}]}
 
 
-def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False):
+def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False, diagnostic_flow=False):
     if output.exists():
         raise ValueError('Choose a fresh resource candidate directory')
     snapshot = source_snapshot(native)
     animations = dict((row['atlas_tile'], row) for row in snapshot['native_flipbook_entries'])
+    if diagnostic_flow:
+        keys=tuple(keys)+('flowing_water_grey',)
     example = native / 'resource_packs/vanilla_netease/models/for_developer'
     references = [example / 'mesh/ceshi_rightlegdown_mesh.json',
                   example / 'skeleton/ceshi_rightlegdown_skeleton.json',
@@ -215,24 +241,25 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
     write_json(output / ('resource_pack/models/' + ASSET_PATH + '/skeleton.json'), skeleton)
     shader_dir = output / 'resource_pack/shaders/glsl'
     shader_dir.mkdir(parents=True)
-    vertex = VERTEX.replace('// LIQUID_WORLD_BONE', '')
+    vertex = VERTEX.replace('// LIQUID_WORLD_BONE', '').replace('// LIQUID_UI_COORDINATES', UI_COORDINATES)
     if preview_depth:
         header = Path(__file__).resolve().parents[1] / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
         references.append(header)
         vertex = vertex.replace('// LIQUID_PREVIEW_HEADER', header.read_text(encoding='ascii'))
         vertex = vertex.replace('// LIQUID_PREVIEW_DEPTH',
-            'liquidUniformPreviewDepth(localPoint,EXTRA_VECTOR4.x,gl_Position,liquidClip);')
+            'liquidUniformPreviewDepth(vec3(-localPoint.x,-localPoint.z,-localPoint.y),EXTRA_VECTOR4.x,gl_Position,liquidClip);')
     (shader_dir / VERTEX_NAME).write_text(vertex, encoding='ascii')
     targets = (('', VERTEX_NAME),)
     if world_bone:
-        world_vertex = VERTEX.replace('// LIQUID_WORLD_BONE', WORLD_BONE)
+        world_vertex = VERTEX.replace('// LIQUID_WORLD_BONE', WORLD_BONE).replace('// LIQUID_UI_COORDINATES', '')
         (shader_dir / WORLD_VERTEX_NAME).write_text(world_vertex, encoding='ascii')
         targets += (('_world', WORLD_VERTEX_NAME),)
     for key in keys:
         entry = animations.get(key)
-        if entry is None or not isinstance(entry.get('ticks_per_frame'), int) or entry['ticks_per_frame'] < 1:
+        frozen_only=diagnostic_flow and key=='flowing_water_grey'
+        if entry is None or (not frozen_only and (not isinstance(entry.get('ticks_per_frame'), int) or entry['ticks_per_frame'] < 1)):
             raise ValueError('Candidate requires an explicit native ticks_per_frame: ' + key)
-        if entry.get('frames') is not None or entry.get('replicate', 1) != 1:
+        if entry.get('frames') is not None or (not frozen_only and entry.get('replicate', 1) != 1):
             raise ValueError('Candidate needs a verified native frame/replicate implementation: ' + key)
         source = native / 'resource_packs/vanilla' / (entry['flipbook_texture'] + '.png')
         with Image.open(source) as image:
@@ -247,13 +274,15 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         write_json(output / ('resource_pack/models/' + ASSET_PATH + '/' + key + '_mesh.json'), mesh(texture))
         textures[key] = {'source': str(source.resolve()), 'sha256': digest(source),
                          'size': [width, height], 'frames': frames, 'alpha_range': alpha,
-                         'flipbook': entry}
-        for variant in ('animated', 'frozen', 'packet') if packet_control else ('animated', 'frozen'):
+                         'flipbook': entry, 'frozen_diagnostic_only':frozen_only,
+                         'native_sampling_accepted':False}
+        variants=('frozen','packet') if frozen_only and packet_control else ('frozen',) if frozen_only else ('animated','frozen','packet') if packet_control else ('animated','frozen')
+        for variant in variants:
             frozen = variant == 'frozen'
             stem = PREFIX + key + ('_' + variant if variant != 'animated' else '')
             fragment_name = stem + '.fragment'
             fragment = FRAGMENT % {'frames': str(float(frames)), 'pixels': str(float(width)),
-                                   'ticks': str(float(entry['ticks_per_frame'])),
+                                   'ticks': '1.0' if frozen_only else str(float(entry['ticks_per_frame'])),
                                    'clock': '0.0' if frozen else 'TIME*20.0/TICKS_PER_FRAME',
                                    'blend': '0.0' if frozen or not entry.get('blend_frames', True) else 'fract(clock)'}
             (shader_dir / fragment_name).write_text(PACKET_FRAGMENT if variant == 'packet' else fragment, encoding='ascii')
@@ -267,7 +296,8 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                     'fragmentShader': 'shaders/glsl/' + fragment_name, '+states': ['DisableCulling']}
                 model_options[name] = {'texture': key, 'variant': variant, 'vertex_shader': vertex_name,
                                        'fragment_shader': fragment_name,
-                                       'transform': 'native_bone_after_reverse_z' if suffix else 'decoded_block_space',
+                                       'uv_rotations':[0],
+                                       'transform': 'native_bone_after_reverse_z' if suffix else 'native_ui_neg_x_neg_z_neg_y_center1_5',
                                        'preview_depth': bool(preview_depth and not suffix)}
     if packet_control:
         name = PREFIX + 'matrix'
@@ -294,7 +324,12 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                              'decoded_vertex_z_reversed': True,
                                              'native_placement_accepted': False} if world_bone else None,
                   world_bone_matrix=world_bone, preview_depth=preview_depth, packet_control=packet_control,
+                  ui_coordinate_contract={'native_model_axes': ['-x', '-z+1.5', '-y'],
+                                          'scale': 'logical_cell_unit/min(actual_paper_doll_size)',
+                                          'control_top_offset': 'min(actual_paper_doll_size)/4',
+                                          'native_alignment_accepted': False},
                   opacity_contract='None sentinel samples original native image alpha; explicit opacity replaces it',
+                  ui_fade_contract='Orthographic native CURRENT_COLOR.a, matching existing block preview shader; native acceptance pending',
                   animation_contract='Original native square strip + parsed cadence/blend; engine TIME loops at 210 seconds',
                   scope='Supplied-shape skeleton artwork/animation candidate only',
                   native_shape_accepted=False, native_uv_accepted=False,
@@ -314,11 +349,12 @@ def main():
     parser.add_argument('--world-bone', action='store_true')
     parser.add_argument('--preview-depth', action='store_true')
     parser.add_argument('--packet-control', action='store_true')
+    parser.add_argument('--diagnostic-flow', action='store_true', help='Unaccepted frozen frame zero only, no guessed flow cadence')
     args = parser.parse_args()
     if bool(args.install_project) != bool(args.backup):
         parser.error('--install-project and --backup must be supplied together')
     report = generate(args.output.resolve(), args.native_data.resolve(), tuple(args.texture or ('still_water_grey',)),
-                      args.world_bone, args.preview_depth, args.packet_control)
+                      args.world_bone, args.preview_depth, args.packet_control,args.diagnostic_flow)
     if args.install_project:
         install_overlay(args.output.resolve(), args.install_project.resolve(), args.backup.resolve())
     print(json.dumps({'models': list(report['models']), 'native_shape_accepted': False}))

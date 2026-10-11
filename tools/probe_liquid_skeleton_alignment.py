@@ -44,13 +44,15 @@ def LiquidAlignmentUI():
   saved['frames']+=1
  use_animation_frame(tick)
  width,height=factory.CreateGame(level).GetScreenSize()
+ viewport_width=width
+ skeleton_top=height*.08
  viewport=S(position=Position.absolute,left=0,top=height*.08,width=width,height=height*.84)
  children=[Image(color=Color(0xF0F0F0FF),style=S(position=Position.absolute,left=0,top=0,width=width,height=height,zIndex=0)),
   Image(ref=seed,src='textures/modern_projection/transparent',style=S(position=Position.absolute,width=1,height=1,zIndex=49)),
-  Doll(ref=stone,managed=True,renderType=PaperDollRenderType.block_geometry,style=S(position=Position.absolute,left=0,top=height*.08,width=width,height=height*.84,zIndex=50))]
+  Doll(ref=stone,managed=True,renderType=PaperDollRenderType.block_geometry,style=S(position=Position.absolute,left=0,top=height*.08,width=viewport_width,height=height*.84,zIndex=50))]
  for index,ref in enumerate(refs):
   children.append(Doll(key=str(index),ref=ref,managed=True,renderType=PaperDollRenderType.skeleton,
-   style=S(position=Position.absolute,left=0,top=height*.08,width=width,height=height*.84,zIndex=306)))
+   style=S(position=Position.absolute,left=0,top=skeleton_top,width=viewport_width,height=height*.84,zIndex=306)))
  return Panel(style=S(width=width,height=height),children=children)
 assert navigator.push(LiquidAlignmentUI(),key='liquid_water_ui_probe')
 _result=json.dumps({'opened':True,'screen':factory.CreateGame(level).GetScreenSize(),'layers':(50,306)})
@@ -88,6 +90,9 @@ def main():
     parser.add_argument('--liquid-scale', type=float, default=1.)
     parser.add_argument('--liquid-rotation', type=float, nargs=3)
     parser.add_argument('--base-scale', type=float, default=2.)
+    parser.add_argument('--liquid-top-offset', type=float, default=0., help='Fraction of actual viewport short side')
+    parser.add_argument('--viewport-width', type=float, default=1., help='Fraction of logical screen width')
+    parser.add_argument('--calibrated-scale', action='store_true')
     parser.add_argument('--model-name', default='modern_projection_liquid_still_water_grey_frozen')
     parser.add_argument('--quick', action='store_true')
     args = parser.parse_args()
@@ -116,7 +121,16 @@ def main():
 
     with base.Client(timeout=45) as client:
         try:
-            report['ui_setup'] = base.run(client, OPEN)
+            code = OPEN.replace('viewport_width=width','viewport_width=width*%r' % args.viewport_width)
+            code = code.replace('skeleton_top=height*.08',
+                'skeleton_top=height*.08+min(viewport_width,height*.84)*%r' % args.liquid_top_offset)
+            report['ui_setup'] = base.run(client, code)
+            report['liquid_top_offset'] = args.liquid_top_offset
+            report['viewport_width'] = args.viewport_width
+            if args.calibrated_scale:
+                width,height = report['ui_setup']['screen']
+                args.liquid_scale = 10./min(width*args.viewport_width,height*.84)
+            report['liquid_scale_multiplier'] = args.liquid_scale
             ready()
             poses = ((args.base_scale, -65., 0., 35.), (args.base_scale, -90., 0., 0.),
                      (args.base_scale, 0., 0., 0.))

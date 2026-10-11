@@ -357,3 +357,72 @@ restored. No world or public editor acceptance is claimed.
 | `liquid-skeleton-water-native-r9-v5.json` | `12fd49660c4a03e2aa090c59c67c1a187785e5a4b8e4741f6fe17a604c5eb64e` |
 | `liquid-skeleton-water-pixels-r9-v5.json` | `379d98ee11a074ffd013157327365602a539b83b6ff7e852ab87565254ff2627` |
 | `liquid-skeleton-world-native-r9-v1.json` | `0799a982ea1bb3019d617d3ec3af26c412d4fa57cfe3ef373bdbefd76df85e47` |
+
+## UI And World Coordinate Calibration
+
+World v11 independently compares four supplied full-height silhouettes with
+native stone reference cells, including local Y=1 and Y=2. Native root bone
+coordinates reflect Z, rather than applying a 180-degree Y rotation. The
+matrix diagnostic confirms `diag(1/16,1/16,-1/16,1)`. The corrected world
+candidate reflects each decoded vertex Z before that bone, uses native free
+model scale 16 and rotation zero, and places the batch at origin+(2,2,2).
+V6-v10 failed candidates remain retained; successful native API calls are not
+placement acceptance.
+
+Matrix v1's full-frame diagnostic was initially decoded as two UI viewports;
+those duplicated samples are invalid and retained. V2 corrects decoding to
+the actual full-frame 4x6 diagnostic atlas, with first-row samples below the
+engine debug overlay. Neutral-pose and two-scale measurements establish the
+UI mapping `(-x,-z+1.5,-y)`, scale `cell_unit/min(actual_paper_doll_size)`,
+and control-top offset `min(actual_paper_doll_size)/4`. The fixed screen offset
+is independent of requested model scale. Preview depth uses the transformed
+vector without the native center offset. Actual Scene depth remains a
+separate gate.
+
+V6 bitmap resources introduce an unverified HIDE_COLOR_FRAGMENT alpha factor
+and produce completely blank UI/world water. The same packet material,
+without that factor, produces the correct supplied silhouette. Matrix v5/v6
+then directly read HIDE_COLOR_FRAGMENT=(0,0,0,0) despite USE_ALPHA being
+defined, while CURRENT_COLOR.a changes exactly from 1 to .5 with inherited
+parent Style opacity. V7/v8 candidates therefore follow the existing block
+preview's orthographic CURRENT_COLOR.a path and bypass it in the world.
+Failed blank v5 alignment and v14 world reports are preserved.
+
+V8 copies the original flowing-water PNG only as an explicitly unaccepted
+frozen frame-zero diagnostic. It does not guess the missing native cadence,
+does not register animated flowing-water resources, and does not accept
+replicate=2 sampling or side UVs. Native still alpha is 240/255 and flow alpha
+is 255/255; substituting one for all faces is not native appearance evidence.
+Host GLES 2/3 pass 1,344 native-bitmap/frame/tint/opacity and UI-fade controls.
+Logical mesh triangle winding is outward; DisableCulling remains enabled,
+so native backface and layered-alpha acceptance is still open. All current
+resource shaders explicitly accept UV rotation zero only.
+
+UI alignment v7 and v8 each pass six fixed full-height comparisons: three
+poses and X/Y/Z translations, in wide and narrow (.44 screen-width)
+viewports. Fixed thresholds are IoU>=.97, maximum bounding-edge error<=2
+pixels, and maximum centroid error<=1.5 pixels. Observed IoU is .975-.97973,
+with the liquid consistently one native pixel below stone at GUI scale 4.
+The alignment fixture intentionally packs RGB tint zero and alpha one.
+These are supplied-geometry results, not artwork, native liquid height,
+native UV, alpha or public editor acceptance.
+
+World v15 uses the actual WorldLiquidRenderer, its logical +/-2 culling box,
+normal input cells, and corrected per-vertex shader coordinates. All calls,
+height edits, opacity hiding, set_visible, follow/restore and close succeed
+with no retired IDs. Four opaque silhouettes match native stone with
+IoU=.9888947, identical bounding edges, and centroid error=.404 pixels.
+The fixed central ROI excludes unrelated changing world content. Native
+liquid alpha, UV, WorldProjection integration and memory remain separate.
+
+| Raw File | SHA-256 |
+| --- | --- |
+| `liquid-skeleton-matrix-native-r9-v2.json` | `3d1110b45252e3c96eb8e9d23f426ff8453b774c75cbb3cd64aae2751e2ba2b7` |
+| `liquid-skeleton-matrix-native-r9-v3.json` | `91bea48f35f09dc73fe8a6b12aba9cc8006317589346569b1ea6808c5f8854f9` |
+| `liquid-skeleton-matrix-native-r9-v4.json` | `ab04ae808f52f0f38a15fdc47f3ed4a297e87dafefb0820e989d33949d2698d7` |
+| `liquid-skeleton-matrix-native-r9-v5.json` | `00f4e6f5a98f7495dd2afe864d77ea6e967a6f28c0561ecad7bd81b5fc32a86b` |
+| `liquid-skeleton-matrix-native-r9-v6.json` | `50dcb182c5f4bf0cb2662d650020e4d0609403734facf54ce5f19ffb57df7a58` |
+| `liquid-skeleton-alignment-pixels-r9-v7.json` | `1567bd7dfec024c906a3f413c25bf661bdf1b5cfc8da440c31fb5d45d8c835c9` |
+| `liquid-skeleton-alignment-pixels-r9-v8.json` | `bb30aeb889b05ee3a781f93ec45d69af38c0e08430bb6c1faff7bb5d05a908a4` |
+| `liquid-skeleton-world-native-r9-v15.json` | `20ec274d818e166cd6c05d25263669500017b4dfdf30f7457cdce4a1c49caaca` |
+| `liquid-skeleton-world-pixels-r9-v15.json` | `709589ae9b48f19b02ec472039b36d74fdba90aabb807919452aca015d2becc8` |

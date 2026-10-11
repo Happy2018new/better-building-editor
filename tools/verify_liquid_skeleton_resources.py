@@ -36,6 +36,9 @@ RENDER = '''async cases => {
    const position=gl.getAttribLocation(p,'POSITION');gl.disableVertexAttribArray(position);
    const failures=[];
    for(const fixture of item.fixtures){
+    const projection=new Float32Array(16);projection[15]=fixture.ui?1:0;
+    gl.uniformMatrix4fv(gl.getUniformLocation(p,'PROJ'),false,projection);
+    gl.uniform4fv(gl.getUniformLocation(p,'CURRENT_COLOR'),[1,1,1,fixture.control_alpha??1]);
     for(let i=1;i<=4;i++)gl.uniform4fv(gl.getUniformLocation(p,'EXTRA_VECTOR'+i),fixture.uniforms[i-1]);
     gl.uniform1f(gl.getUniformLocation(p,'TIME'),fixture.time);
     gl.vertexAttrib4fv(position,fixture.position);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
@@ -69,6 +72,12 @@ def fixtures(image, ticks, frozen):
                 rows.append({'name': '%s/%s/%s/%s' % (u, v, clock, opacity),
                              'time': clock * ticks / 20., 'position': [u, v, 0., 1.],
                              'uniforms': uniforms, 'expected': expected})
+    first=rows[0]
+    for ui,alpha in ((True,0.),(True,.5),(True,1.),(False,0.),(False,.5)):
+        expected=first['expected'][:]
+        expected[3]=round(expected[3]*(alpha if ui else 1.))
+        rows.append(dict(first,name='control_alpha/%s/%s' % (ui,alpha),
+                         ui=ui,control_alpha=alpha,expected=expected))
     for bad in ('faces_zero', 'invalid_tag', 'unknown_rotation'):
         uniforms = [(4032., 0., 0., 0.), (45746., 45746., 0., 0.), (0.,) * 4,
                     (39686., -1., float(0xFFFFFF), 1.)]
@@ -112,7 +121,7 @@ def main():
         path = args.overlay / ('resource_pack/textures/models/' + contract.get('asset_path', 'liquid_candidate') + '/' + key + '.png')
         with Image.open(path).convert('RGBA') as image:
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
-            inputs = fixtures(image, texture['flipbook']['ticks_per_frame'],
+            inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else texture['flipbook']['ticks_per_frame'],
                               options.get('variant') == 'frozen' or name.endswith('_frozen'))
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):

@@ -22,18 +22,19 @@ _result=json.dumps({'selected':selected})
 def decode(path):
     with Image.open(path) as image:
         width, height = image.size
-        rows = []
-        for left in (.03, .53):
-            values = []
-            for index in range(16):
-                column, row = index % 4, index // 4
-                point = (round(width * (left + .44 * (column + .5) / 4.)),
-                         round(height * (.08 + .84 * (row + .5) / 6.)))
-                color = image.getpixel(point)[:3]
-                code = (color[0] << 16) | (color[1] << 8) | color[2]
-                values.append((code - 8388608) / 2048.)
-            rows.append(values)
-        return rows
+        values = []
+        for index in range(24):
+            column, row = index % 4, index // 4
+            # Clip-space diagnostic tiles cover the full native framebuffer.
+            # Read below the engine's first-row debug text overlay.
+            point = (round(width * (column + .5) / 4.),
+                     round(height * (row + (.8 if row == 0 else .5)) / 6.))
+            color = image.getpixel(point)[:3]
+            code = (color[0] << 16) | (color[1] << 8) | color[2]
+            values.append((code - 8388608) / 2048.)
+        return {'elements': values[:16], 'shader_flags': values[16],
+                'native_hide_color':values[17:21], 'native_current_alpha':values[21],
+                'control_tiles': values[22:]}
 
 
 def main():
@@ -42,6 +43,8 @@ def main():
     parser.add_argument('--owner', required=True)
     parser.add_argument('--capture-exe', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--pose', type=float, nargs=4, default=(.18, -65., 0., 35.))
+    parser.add_argument('--parent-opacity', type=float, default=1.)
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh report')
@@ -68,7 +71,12 @@ def main():
 
     with base.Client(timeout=45) as client:
         try:
-            report['ui_setup'] = base.run(client, packet.OPEN % 'modern_projection_liquid_matrix')
+            code = (packet.OPEN % 'modern_projection_liquid_matrix').replace('(.18,-55.,35.,0.)', repr(tuple(args.pose)))
+            code = code.replace('style=S(width=width,height=height),children=children',
+                'style=S(width=width,height=height,opacity=%r),children=children' % args.parent_opacity)
+            report['pose'] = args.pose
+            report['parent_opacity'] = args.parent_opacity
+            report['ui_setup'] = base.run(client, code)
             report['ready'] = ready()
             for selected, label in enumerate(('WORLDVIEWPROJ', 'WORLDVIEW', 'PROJ', 'WORLD', 'BONE')):
                 base.run(client, SET_MATRIX % float(selected))

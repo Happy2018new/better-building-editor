@@ -45,6 +45,16 @@ cam.DepartCamera();cam.LockModCameraPitch(True);cam.LockModCameraYaw(True)
 assert cam.SetCameraPos(position) and cam.SetCameraRotation(rotation)
 _result=json.dumps({'position':position,'rotation':rotation,'target':target,'offset':(6.,5.,8.)})
 '''
+EDGE_CAMERA = '''saved=sys._liquid_pose_client
+cam=factory.CreateCamera(level)
+move=%r
+if move:
+ saved['edge_camera_base']=cam.GetPosition()
+ position=tuple(saved['edge_camera_base'][i]+(6.,0.,-4.)[i] for i in range(3))
+else:position=saved.pop('edge_camera_base')
+assert cam.SetCameraPos(position)
+_result=json.dumps({'position':position,'rotation':cam.GetCameraRotation(),'moved':move})
+'''
 CREATE = '''saved=sys._liquid_pose_client
 assert not saved.get('free_ids')
 saved['free_ids']=[]
@@ -102,6 +112,61 @@ if saved is not None:
   rows.append({'model_id':model_id,'removed':returned})
 _result=json.dumps({'removed':rows,'remaining':saved.get('free_ids',[]) if saved is not None else []})
 '''
+CREATE_ADAPTER = '''from modern_projection.projection.liquid_render import WorldLiquidRenderer
+saved=sys._liquid_pose_client
+assert not saved.get('free_ids') and not saved.get('liquid_renderer')
+saved['free_ids']=[]
+names,scale,rotation=%r
+bridge=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge
+saved['liquid_renderer']=WorldLiquidRenderer(bridge,2,saved['dimension'],(scale,)*3,rotation)
+saved['liquid_models']=names
+_result=json.dumps({'adapter':'WorldLiquidRenderer','names':names,'scale':scale,'rotation':rotation})
+'''
+PAYLOAD_ADAPTER = '''import time
+from collections import namedtuple
+from modern_projection.projection import biomes
+from modern_projection.projection.liquid_transport import RenderGroup,pack_group
+Surface=namedtuple('WorldWaterSurface','position layer heights faces texture_key flow_uv')
+height,opacity,faces,positions,black=%r
+saved=sys._liquid_pose_client
+color,native_opacity=biomes.water_appearance('plains')
+if black:color,native_opacity=(0,0,0),1.
+groups=[]
+for index,(name,cells) in enumerate(zip(saved['liquid_models'],positions)):
+ surfaces=tuple(Surface(position,0,(height,)*4,faces,'still_water_grey',None) for position in cells)
+ payload=pack_group((0,0,0),surfaces,color,native_opacity,opacity)
+ groups.append(RenderGroup(index,name,(0,0,0),payload))
+renderer=saved['liquid_renderer']
+assert renderer.begin(groups,saved['origin'],time.clock()),renderer.error
+_result=json.dumps({'groups':groups,'error':renderer.error})
+'''
+ADAPTER_STATUS = '''import time
+saved=sys._liquid_pose_client
+renderer=saved['liquid_renderer']
+ready=renderer.advance(time.clock())
+saved['free_ids']=[record['model_id'] for record in renderer.active.values()]
+_result=json.dumps({'ready':ready,'active':len(renderer.active),'staging':len(renderer.staging),
+ 'retired':len(renderer.retired),'model_ids':saved['free_ids'],'error':renderer.error,
+ 'cleanup_errors':renderer.cleanup_errors})
+'''
+ADAPTER_ACTION = '''saved=sys._liquid_pose_client
+renderer=saved['liquid_renderer']
+action=%r
+if action=='hide':returned=renderer.set_visible(False)
+elif action=='show':returned=renderer.set_visible(True)
+elif action=='follow':returned=renderer.follow(tuple(saved['origin'][i]+(0.,1.,1.)[i] for i in range(3)))
+elif action=='restore':returned=renderer.follow(saved['origin'])
+assert returned,renderer.error
+_result=json.dumps({'action':action,'returned':returned,'anchor':renderer.anchor,'visible':renderer.visible})
+'''
+CLEAN_ADAPTER = '''saved=getattr(sys,'_liquid_pose_client',None)
+if saved is not None and saved.get('liquid_renderer'):
+ renderer=saved.pop('liquid_renderer')
+ assert renderer.close(),(renderer.retired,renderer.cleanup_errors)
+ saved['free_ids']=[]
+ _result=json.dumps({'remaining':[],'retired':len(renderer.retired),'cleanup_errors':renderer.cleanup_errors})
+else:_result=json.dumps({'remaining':[]})
+'''
 
 
 def main():
@@ -117,6 +182,8 @@ def main():
     parser.add_argument('--raised-cells', action='store_true')
     parser.add_argument('--black', action='store_true')
     parser.add_argument('--reverse-z', action='store_true')
+    parser.add_argument('--adapter', action='store_true', help='Use production WorldLiquidRenderer ownership')
+    parser.add_argument('--edge-camera', action='store_true')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh report')
@@ -134,6 +201,7 @@ def main():
     report = {'schema': 1, 'completed': False, 'restored': False, 'captures': {}, 'observations': {},
               'metrics': [], 'cleanup_errors': [], 'probe_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'scope': 'Native CreateFreeModel skeleton API and supplied-size placement candidate',
+              'production_adapter': args.adapter,
               'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
               'world_skeleton_placement_accepted': False, 'production_world_accepted': False,
               'production_memory_accepted': False}
@@ -155,7 +223,9 @@ def main():
             report['stones'] = base.run(client, STONES, True)
             report['near_player'] = base.run(client, base.NEAR_PLAYER, True)
             time.sleep(2.)
-            report['saved'] = base.run(client, base.SAVE % (origin,))
+            save_code = (base.SAVE % (origin,)).replace('_result=True',
+                "sys._liquid_pose_client['dimension']=%r\n_result=True" % report['world_setup']['dimension'])
+            report['saved'] = base.run(client, save_code)
             report['camera'] = base.run(client, CAMERA)
             time.sleep(.5)
             frame('stones')
@@ -168,21 +238,60 @@ def main():
                 report['reference_cells'] = base.run(client, REFERENCE % ((positions, True),), True)
                 time.sleep(.3)
                 frame('reference_cells')
+                if args.edge_camera:
+                    report['reference_edge_camera']=base.run(client,EDGE_CAMERA % True)
+                    time.sleep(.3)
+                    frame('reference_edge')
+                    base.run(client,EDGE_CAMERA % False)
                 report['reference_cleanup'] = base.run(client, REFERENCE % ((positions, False),), True)
                 time.sleep(.3)
                 frame('reference_restored')
-            report['free_models'] = base.run(client, CREATE % ((names, args.scale, tuple(args.rotation)),))
+            creation = CREATE_ADAPTER if args.adapter else CREATE
+            report['free_models'] = base.run(client, creation % ((names, args.scale, tuple(args.rotation)),))
             report['coordinates'] = base.run(client, CHECK)
             time.sleep(.2)
             frame('default_zero')
             for label, values in (('full_height', (1., 1., 63)), ('height70', (.7, 1., 63)),
                                   ('half', (.7, .5, 63)), ('top', (.7, 1., 1)), ('hidden', (.7, 0., 63))):
-                report['observations'][label] = base.run(client, PAYLOAD % (values + (encoded_cells, args.black),))
+                payload = PAYLOAD_ADAPTER if args.adapter else PAYLOAD
+                report['observations'][label] = base.run(client, payload % (values + (encoded_cells, args.black),))
+                if args.adapter:
+                    deadline = time.monotonic()+10.
+                    while True:
+                        state = base.run(client, ADAPTER_STATUS)
+                        if state['ready']:
+                            break
+                        if state['error'] or time.monotonic()>deadline:
+                            raise RuntimeError('Production liquid adapter not ready: '+repr(state))
+                        time.sleep(.1)
+                    report['observations'][label]['adapter_state'] = state
                 time.sleep(.3)
                 frame(label)
                 if label in ('full_height', 'height70'):
                     time.sleep(.7)
                     frame(label + '_later')
+            if args.adapter:
+                report['observations']['visible_payload'] = base.run(client,
+                    PAYLOAD_ADAPTER % ((.7,1.,63,encoded_cells,args.black),))
+                deadline = time.monotonic()+10.
+                while not base.run(client, ADAPTER_STATUS)['ready']:
+                    if time.monotonic()>deadline:
+                        raise RuntimeError('Production adapter visibility payload timed out')
+                    time.sleep(.1)
+                for action in ('hide','show','follow','restore'):
+                    report['observations']['adapter_'+action] = base.run(client, ADAPTER_ACTION % action)
+                    time.sleep(.3)
+                    frame('adapter_'+action)
+                if args.edge_camera:
+                    base.run(client,PAYLOAD_ADAPTER % ((1.,1.,63,encoded_cells,args.black),))
+                    deadline=time.monotonic()+10.
+                    while not base.run(client,ADAPTER_STATUS)['ready']:
+                        if time.monotonic()>deadline:raise RuntimeError('Production edge payload timed out')
+                        time.sleep(.1)
+                    report['adapter_edge_camera']=base.run(client,EDGE_CAMERA % True)
+                    time.sleep(.3)
+                    frame('adapter_edge')
+                    base.run(client,EDGE_CAMERA % False)
             report['metrics'].append(dict(transport.metrics(args.session, args.owner), label='after_frames'))
             report['completed'] = True
         except Exception as error:
@@ -191,7 +300,8 @@ def main():
         finally:
             restore_environment = ('import sys\nif hasattr(sys,"_context_environment_saved"):\n' +
                 '\n'.join(' ' + line for line in base.RESTORE_ENVIRONMENT.splitlines()) + '\nelse:_result=True')
-            for label, code, server in (('free_cleanup', CLEAN_FREE, False), ('client_cleanup', base.CLEAN_CLIENT, False),
+            cleanup = CLEAN_ADAPTER if args.adapter else CLEAN_FREE
+            for label, code, server in (('free_cleanup', cleanup, False), ('client_cleanup', base.CLEAN_CLIENT, False),
                                         ('world_cleanup', base.CLEAN_WORLD, True), ('environment_cleanup', restore_environment, True)):
                 try:
                     report[label] = base.run(client, code, server)
