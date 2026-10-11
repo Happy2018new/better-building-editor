@@ -161,6 +161,35 @@ class LiquidRenderPlanTests(unittest.TestCase):
         self.assertEqual([], list(iter_group_steps(document, shapes)))
         self.assertEqual([], shapes.requests)
 
+    def test_water_top_and_sides_can_use_separate_explicit_materials(self):
+        document = Document((4, 2, 4), {(1, 1, 1): material('water')})
+        provider = SuppliedShapeProvider(lambda doc, pos, layer, value: (
+            LiquidSurface(pos, layer, (.5,) * 4, 33, 'still_water_grey'),
+            LiquidSurface(pos, layer, (.5,) * 4, 30, 'flowing_water_grey', ('native_side', 0))))
+        groups = list(iter_groups(document, provider))
+        self.assertEqual({'still_water_grey', 'flowing_water_grey'}, {group.texture_key for group in groups})
+        self.assertEqual({33, 30}, {surface.faces for group in groups for surface in group.surfaces})
+        self.assertEqual(1, len(provider.requests))
+
+    def test_surface_parts_cannot_overlap_change_corners_or_repeat_unbounded_parts(self):
+        document = Document((4, 2, 4), {(1, 1, 1): material('water')})
+        first = LiquidSurface((1, 1, 1), 0, (.5,) * 4, 1, 'still_water_grey')
+        changed = LiquidSurface((1, 1, 1), 0, (.7,) * 4, 2, 'still_water_grey')
+        for parts in ((), (first, first), (first, changed), (first,) * 7, (first, None)):
+            provider = SuppliedShapeProvider(lambda doc, pos, layer, value: parts)
+            with self.subTest(parts=parts), self.assertRaises(ValueError):
+                list(iter_groups(document, provider))
+
+    def test_same_material_disjoint_parts_receive_separate_transport_slots(self):
+        document = Document((4, 2, 4), {(1, 1, 1): material('water')})
+        provider = SuppliedShapeProvider(lambda doc, pos, layer, value: (
+            LiquidSurface(pos, layer, (.5,) * 4, 1, 'flowing_water_grey', ('native_flow', 32)),
+            LiquidSurface(pos, layer, (.5,) * 4, 2, 'flowing_water_grey', ('native_flow', 0))))
+        models = {('flowing_water_grey', 'native_flow'): 'registered_flow'}
+        draws = list(render_steps(iter_groups(document, provider), models, .5, 2))
+        self.assertEqual([0, 1], [draw.key[2] for draw in draws])
+        self.assertNotEqual(draws[0].uniforms[0], draws[1].uniforms[0])
+
     def test_visibility_does_not_replace_complete_neighbor_source(self):
         water = material('water')
         document = Document((4, 3, 4), {(1, 1, 1): water, (1, 2, 1): water})

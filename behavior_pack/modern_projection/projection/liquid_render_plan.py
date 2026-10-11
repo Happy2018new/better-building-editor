@@ -88,21 +88,21 @@ def _liquid_layers(value):
 
 def _document_requests(document):
     store = document.blocks
-    present = set()
+    layers = {}
     for scanned, (value, count) in enumerate(store.counts.items(), 1):
-        if count > 0 and _liquid_layers(value):
-            present.add(value)
+        selected = _liquid_layers(value) if count > 0 else ()
+        if selected:
+            layers[store.palette_ids[value]] = selected
         if scanned % 128 == 0:
             yield None
-    if not present:
+    if not layers:
         return
-    layers = tuple(_liquid_layers(value) for value in store.palette)
     for scanned, key in enumerate(sorted(store.chunks), 1):
         if scanned % 128 == 0:
             yield None
         chunk = store.chunks[key]
         if isinstance(chunk, integer_types):
-            if not layers[chunk]:
+            if chunk not in layers:
                 continue
             entries = ((index, chunk) for index in range(4096))
         else:
@@ -110,10 +110,11 @@ def _document_requests(document):
         for index, identity in entries:
             if index % 128 == 0:
                 yield None
-            if not layers[identity]:
+            selected = layers.get(identity)
+            if not selected:
                 continue
             pos = position(key, index)
-            for layer, value in layers[identity]:
+            for layer, value in selected:
                 yield pos, layer, value
 
 
@@ -143,6 +144,26 @@ def _target_requests(document, targets):
                 yield pos, layer, value
 
 
+def _surface_parts(result, pos, layer, value):
+    parts = (result,) if isinstance(result, LiquidSurface) else result
+    if not isinstance(parts, (tuple, list)) or not 1 <= len(parts) <= len(FACE_NAMES):
+        raise ValueError('Liquid provider must return one to six explicit surface parts')
+    textures = WATER_TEXTURES if value[0] in WATER_NAMES else LAVA_TEXTURES
+    covered, heights = 0, None
+    for surface in parts:
+        if not isinstance(surface, LiquidSurface):
+            raise ValueError('Liquid shape provider did not return an explicit surface')
+        if surface.position != pos or surface.layer != layer:
+            raise ValueError('Liquid shape provider changed the requested position or logical layer')
+        if surface.texture_key not in textures:
+            raise ValueError('Liquid shape texture does not match its logical liquid family')
+        if surface.faces & covered or heights is not None and surface.heights != heights:
+            raise ValueError('Liquid surface parts must share corners and use disjoint faces')
+        covered |= surface.faces
+        heights = surface.heights
+    return parts
+
+
 def iter_group_steps(document, shape_provider, targets=None, visible=None):
     """Resolve shapes against the full document, including occupied neighbors.
 
@@ -152,6 +173,7 @@ def iter_group_steps(document, shape_provider, targets=None, visible=None):
     A missing shape raises instead of introducing an unverified height fallback.
     None checkpoints bound scans even when every liquid face is concealed.
     Visibility filters draws only; the provider still reads the complete source.
+    A provider may split one cell into disjoint parts for native face textures.
     """
     requests = _document_requests(document) if targets is None else _target_requests(document, targets)
     pending, appearance = {}, {}
@@ -171,24 +193,21 @@ def iter_group_steps(document, shape_provider, targets=None, visible=None):
         pos, layer, value = request
         if visible is not None and not visible(pos):
             continue
-        surface = shape_provider.surface(document, pos, layer, value)
-        if not isinstance(surface, LiquidSurface):
-            raise ValueError('Liquid shape provider did not return an explicit surface')
-        if surface.position != pos or surface.layer != layer:
-            raise ValueError('Liquid shape provider changed the requested position or logical layer')
-        textures = WATER_TEXTURES if value[0] in WATER_NAMES else LAVA_TEXTURES
-        if surface.texture_key not in textures:
-            raise ValueError('Liquid shape texture does not match its logical liquid family')
-        if not surface.faces:
-            continue
-        origin = tuple(axis // CHUNK_SIDE * CHUNK_SIDE for axis in pos)
-        template = None if surface.flow_uv is None else surface.flow_uv[0]
-        key = origin, surface.texture_key, template
-        surfaces = pending.setdefault(key, [])
-        surfaces.append(surface)
-        if len(surfaces) == CELLS_PER_GROUP:
-            del pending[key]
-            yield group(key, surfaces)
+        parts = _surface_parts(shape_provider.surface(document, pos, layer, value), pos, layer, value)
+        for surface in parts:
+            if not surface.faces:
+                continue
+            origin = tuple(axis // CHUNK_SIDE * CHUNK_SIDE for axis in pos)
+            template = None if surface.flow_uv is None else surface.flow_uv[0]
+            key = origin, surface.texture_key, template
+            surfaces = pending.setdefault(key, [])
+            if any(other.position == pos and other.layer == layer for other in surfaces):
+                yield group(key, surfaces)
+                surfaces = pending[key] = []
+            surfaces.append(surface)
+            if len(surfaces) == CELLS_PER_GROUP:
+                del pending[key]
+                yield group(key, surfaces)
     for key in sorted(pending, key=lambda item: (item[0], item[1], repr(item[2]))):
         yield group(key, pending[key])
 
