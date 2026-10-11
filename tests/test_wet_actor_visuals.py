@@ -5,12 +5,13 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from verify_wet_actor_visuals import CASES, component_checks, reserve_code, replication_code, replication, PALETTE_PROBE, wire_json, camera_side_platform, player_camera_side, NEAR_PLAYER
+from verify_wet_actor_visuals import CASES, component_checks, reserve_code, replication_code, replication, PALETTE_PROBE, wire_json, camera_side_platform, player_camera_side, NEAR_PLAYER, WetActorCheck, SignCheck
 from projection.cell import AIR, actor_data, background, foreground, encode, decode
 from projection.debug_blueprints import build, material
 from projection.nbt_spatial import root_payload, scalar
@@ -18,6 +19,20 @@ from projection.visible_actor import entity_nbt, render_actor
 
 
 class WetActorFixtureTests(unittest.TestCase):
+    def test_repeated_public_fixture_captures_keep_distinct_case_names(self):
+        check=object.__new__(WetActorCheck)
+        with patch.object(SignCheck,'capture',return_value={'path':'frame.png'}) as capture:
+            for label in ('pot_isolated','pot_adjacent_water','pot_fence_context'):
+                check.capture_case=label
+                check.capture('test_entities_pottery',{'tree':'fixture'})
+            check.capture('pot_fence_context_side_world')
+        labels=[call.args[1] for call in capture.call_args_list]
+        self.assertEqual(['pot_isolated_test_entities_pottery',
+                          'pot_adjacent_water_test_entities_pottery',
+                          'pot_fence_context_test_entities_pottery',
+                          'pot_fence_context_side_world'],labels)
+        self.assertEqual({'tree':'fixture'},capture.call_args_list[0].args[2])
+
     def test_native_player_reference_rejects_the_opposite_camera_side(self):
         cells=[((4,136,6),None),((6,136,6),None)]
         camera={'position':(5.5,136.9,10.5),'target':(5.5,136.5,6.5)}

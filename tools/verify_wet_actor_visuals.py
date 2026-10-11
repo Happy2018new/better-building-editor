@@ -26,6 +26,13 @@ native.VISUAL_CASES = dict((label, (row['keep'], row['actor']))
 class WetActorCheck(SignCheck):
     def __init__(self, client, output, timeout):
         SignCheck.__init__(self, client, output, timeout, native_resolution=True)
+        self.capture_case = None
+
+    def capture(self, label, tree=None):
+        if self.capture_case and label in tuple(metadata['fixture'].replace('.', '_')
+                                               for metadata in METADATA.values()):
+            label = self.capture_case+'_'+label
+        return SignCheck.capture(self, label, tree)
 
 
 world.BlueprintCheck = WetActorCheck
@@ -258,6 +265,7 @@ def component_checks(baseline, actual, masks, native_path, threshold, min_pixels
 
 def wet_case(check, label, args, row):
     metadata, scene = CASES[label]
+    check.capture_case = label
     if not hasattr(check, '_wet_actor_refreshed'):
         refresh_capture(check)
         check._wet_actor_refreshed = True
