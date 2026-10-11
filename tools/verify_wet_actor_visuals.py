@@ -178,6 +178,49 @@ def replication_code(cells, empty=False):
     return REPLICATION % (wire_json(cells), empty)
 
 
+NEAR_PLAYER = '''import sys,json
+import mod.server.extraServerApi as api
+from modern_projection.server_system import WorldAdapter
+from modern_projection.projection.cell import AIR
+saved=sys._neighbor_world_saved
+adapter=WorldAdapter(saved['player'])
+position=api.GetEngineCompFactory().CreatePos(saved['player'])
+assert 'player_foot' not in saved
+saved['player_foot']=position.GetFootPos()
+platform=%r
+assert adapter.read(platform)==AIR,(platform,adapter.read(platform))
+saved['reserved'].add(platform)
+assert adapter.write(platform,('minecraft:stone',0))
+point=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+assert position.SetFootPos(point)
+_result=json.dumps({'before':saved['player_foot'],'after':point,'platform':platform})
+'''
+
+
+def camera_side_platform(cells, offset):
+    positions = [pos for pos, value in cells]
+    lo = tuple(min(pos[axis] for pos in positions) for axis in range(3))
+    hi = tuple(max(pos[axis] for pos in positions) for axis in range(3))
+    point = [(lo[axis]+hi[axis])//2 for axis in range(3)]
+    point[1] = lo[1]-1
+    for axis in (0, 2):
+        if offset[axis] > 0:
+            point[axis] = hi[axis]+4
+        elif offset[axis] < 0:
+            point[axis] = lo[axis]-4
+    return tuple(point)
+
+
+def player_camera_side(player, camera):
+    target = camera['target']
+    camera_position = camera.get('stable',camera)['position']
+    products = [(player[axis]-target[axis])*(camera_position[axis]-target[axis])
+                for axis in (0, 2) if abs(camera_position[axis]-target[axis]) > .001]
+    return {'passed':bool(products) and all(product > 0 for product in products),
+            'player_foot':player,'camera_position':camera_position,'target':target,
+            'axis_products':products,'actual_native_camera':bool(camera.get('stable'))}
+
+
 def replication(check, cells, empty=False, diagnostics=None):
     def read():
         probe = check.run(PALETTE_PROBE % (wire_json(cells), empty))
@@ -236,7 +279,8 @@ def wet_case(check, label, args, row):
                native_supports=supports, views={})
     check.run('b.stop_projection()\n_result=True')
     row['world_setup'] = world.run(check.client, reserve_code(cells, supports, tuple(source['origin'])))
-    row['near_player'] = world.run(check.client, world.NEAR_PLAYER % (cells,))
+    platform = camera_side_platform(cells, metadata['camera_offset'])
+    row['near_player'] = world.run(check.client, NEAR_PLAYER % (platform,))
     row['near_player']['client'] = world.player_ready(check, row['near_player']['after'])
     row['world_replication_diagnostics'] = {}
     row['world_replication'] = replication(check, cells, diagnostics=row['world_replication_diagnostics'])
@@ -245,7 +289,10 @@ def wet_case(check, label, args, row):
     baselines, masks = {}, {}
     for view in args.view:
         pose, shown = world.camera_capture(check, label + '_' + view + '_world', keep, occupied, view)
-        row['views'][view] = {'camera': pose, 'world': shown}
+        actual_player = check.run('_result=json.dumps(b.player_position.GetFootPos())')
+        side = player_camera_side(actual_player, pose)
+        row['views'][view] = {'camera': pose, 'world': shown, 'player_camera_side':side}
+        assert side['passed'],side
     world.run(check.client, world.CLEAR_SOURCE % (cells,))
     row['world_cleared_diagnostics'] = {}
     row['world_cleared'] = replication(check, cells, True, row['world_cleared_diagnostics'])

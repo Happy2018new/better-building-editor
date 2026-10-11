@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from verify_wet_actor_visuals import CASES, component_checks, reserve_code, replication_code, replication, PALETTE_PROBE, wire_json
+from verify_wet_actor_visuals import CASES, component_checks, reserve_code, replication_code, replication, PALETTE_PROBE, wire_json, camera_side_platform, player_camera_side, NEAR_PLAYER
 from projection.cell import AIR, actor_data, background, foreground, encode, decode
 from projection.debug_blueprints import build, material
 from projection.nbt_spatial import root_payload, scalar
@@ -18,6 +18,25 @@ from projection.visible_actor import entity_nbt, render_actor
 
 
 class WetActorFixtureTests(unittest.TestCase):
+    def test_native_player_reference_rejects_the_opposite_camera_side(self):
+        cells=[((4,136,6),None),((6,136,6),None)]
+        camera={'position':(5.5,136.9,10.5),'target':(5.5,136.5,6.5)}
+        self.assertFalse(player_camera_side((.5,136.,2.5),camera)['passed'])
+        platform=camera_side_platform(cells,(0.,.4,4.))
+        self.assertEqual((5,135,10),platform)
+        player=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+        self.assertTrue(player_camera_side(player,camera)['passed'])
+        compile(NEAR_PLAYER % (platform,),'<same-camera-side-player>','exec')
+        camera['position']=(1.5,136.9,2.5)
+        platform=camera_side_platform(cells,(-4.,.4,-4.))
+        self.assertEqual((0,135,2),platform)
+        self.assertTrue(player_camera_side((.5,136.,2.5),camera)['passed'])
+        self.assertFalse(player_camera_side((.5,136.,2.5),
+                                           {'position':(5.5,140.,6.5),'target':camera['target']})['passed'])
+        planned={'position':(5.5,136.9,10.5),'target':(5.5,136.5,6.5),
+                 'stable':{'position':(5.5,136.9,2.5)}}
+        self.assertFalse(player_camera_side((5.5,136.,10.5),planned)['passed'])
+
     def test_native_code_decodes_complete_cells_from_json(self):
         metadata, scene = CASES['sign_isolated']
         doc = build(metadata['fixture'])
