@@ -25,6 +25,61 @@ from verify_neighbor_world_visuals import CAPTURE_OPTIONS,RESTORE_OPTIONS
 
 ROOT=Path(__file__).resolve().parents[1]
 
+SAVE_HUD = '''view=b.factory.CreatePlayerView(b.level)
+option=api.GetMinecraftEnum().OptionId.HIDE_HUD
+assert not hasattr(sys,'_sign_visual_hud_saved')
+saved=view.GetToggleOption(option)
+assert saved in (0,1),saved
+sys._sign_visual_hud_saved=saved
+try:
+ assert view.SetToggleOption(option,True)
+ assert view.GetToggleOption(option)==1
+except Exception:
+ view.SetToggleOption(option,bool(saved))
+ assert view.GetToggleOption(option)==saved
+ del sys._sign_visual_hud_saved
+ raise
+_result=json.dumps({'option':'HIDE_HUD','before':saved,'during':view.GetToggleOption(option)})
+'''
+
+RESTORE_HUD = '''view=b.factory.CreatePlayerView(b.level)
+option=api.GetMinecraftEnum().OptionId.HIDE_HUD
+saved=sys._sign_visual_hud_saved
+assert view.SetToggleOption(option,bool(saved))
+assert view.GetToggleOption(option)==saved
+del sys._sign_visual_hud_saved
+_result=json.dumps({'option':'HIDE_HUD','expected':saved,'restored':view.GetToggleOption(option)})
+'''
+
+HIDE_EDITOR_OVERLAYS = '''host=navigator.top._host
+def sign_diag_walk(fiber):
+ yield fiber
+ for child in fiber.child_fibers:
+  for descendant in sign_diag_walk(child):yield descendant
+overlays=[]
+for fiber in sign_diag_walk(host._root_fiber):
+ if fiber.key in ('edge','cursor'):
+  mapped=next((child for child in sign_diag_walk(fiber) if child.native_path),None)
+  assert mapped is not None,fiber.key
+  control=host.GetBaseUIControl(mapped.native_path)
+  before=control.GetVisible()
+  overlays.append({'key':fiber.key,'path':mapped.native_path,'before':before})
+assert set(row['key'] for row in overlays)==set(('edge','cursor')),overlays
+try:
+ for row in overlays:
+  control=host.GetBaseUIControl(row['path'])
+  control.SetVisible(False)
+  after=control.GetVisible()
+  assert not after,(row,after)
+  row['after']=after
+except Exception:
+ for row in overlays:host.GetBaseUIControl(row['path']).SetVisible(row['before'])
+ raise
+_result=json.dumps({'overlays':overlays,'camera_pose':s.camera_pose,
+ 'camera_pivot':s.camera_pivot,'camera_pan':s.camera_pan,
+ 'camera_focus_request':s.camera_focus_request})
+'''
+
 
 class SignCheck(BlueprintCheck):
     def __init__(self,client,output,timeout,native_resolution=False,background_only=True,native_capture_helper=None):
@@ -132,7 +187,6 @@ sys._blueprint_qa_nonce+=1
 s._loaded(doc)
 sys._blueprint_qa_expected={'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
  'editor_id':id(s.editor),'document_id':id(doc),'previous_document_id':None}
-s.camera_pivot=tuple(v+.5 for v in focus)
 s.camera_view(*view['editor'])
 s.grid=False
 s.emit()
@@ -324,11 +378,64 @@ def refresh(check):
                   (name,encoded,str(path)))
 
 
+def editor_pose_matches(actual,expected):
+    yaw=(actual[0]-expected[0]+180.)%360.-180.
+    return abs(yaw)<.001 and all(abs(actual[i]-expected[i])<.001 for i in (1,2))
+
+
+def center_editor(check,focus,view):
+    check.run('''s.editor._restore_selection(s.editor._selection_state(()))
+s.box_anchor=None
+s.focused=%r
+s.locate_selected()
+_result=True
+''' % (tuple(focus),))
+    consumed=check.wait('sign editor focus request consumed',
+        lambda state:state['request'] is None and state['pivot']==state['expected'],
+        lambda:check.run('''focus=%r
+_result=json.dumps({'request':s.camera_focus_request,'pivot':s.camera_pivot,
+ 'expected':tuple(focus[i]+.5-s.scene_origin[i] for i in range(3))})
+''' % (tuple(focus),)))
+    # locate_selected sets its own zoom; restore the declared view afterward.
+    check.run('s.camera_view(*%r)\ns.focused=s.box_anchor=None\ns.emit()\n_result=True' % (tuple(view['editor']),))
+    settled=check.wait('declared sign editor camera settles',
+        lambda pose:editor_pose_matches(pose,view['editor']),
+        lambda:check.run('_result=json.dumps(s.camera_pose)'))
+    time.sleep(.4)
+    return {'focus':tuple(focus),'declared_view':view,'consumed':consumed,'settled_pose':settled}
+
+
+def restore_editor_overlays(check,controls):
+    return check.run('''host=navigator.top._host
+restored=[]
+for row in %r:
+ control=host.GetBaseUIControl(row['path'])
+ control.SetVisible(row['before'])
+ after=control.GetVisible()
+ assert after==row['before'],(row,after)
+ restored.append({'key':row['key'],'path':row['path'],'expected':row['before'],'restored':after})
+_result=json.dumps(restored)
+''' % (controls['overlays'],))
+
+
+def capture_editor(check,label,camera):
+    controls=check.run(HIDE_EDITOR_OVERLAYS)
+    try:
+        shot=check.capture(label)
+    finally:
+        restored=restore_editor_overlays(check,controls)
+    shot['camera_framing']=camera
+    shot['actual_hidden_controls']=controls
+    shot['restored_controls']=restored
+    return shot
+
+
 def load(check,identity,blank,view):
     result=check.run(LOAD % (identity,blank,view))
     check.editor_preview(identity,result['metadata'],result['editor_id'],result['document_id'])
     check.wait('workspace opens',lambda row:row['open'] and not row['transition'],check.navigation)
-    time.sleep(.2)
+    focus=check.run('from modern_projection.projection.debug_sign_blueprints import VISUAL_CASE\n_result=json.dumps(VISUAL_CASE["focus"])')
+    result['camera_framing']=center_editor(check,focus,view)
     return result
 
 
@@ -515,6 +622,7 @@ def main():
     visual_saved=False
     daylight_saved=False
     options_saved=False
+    hud_saved=False
     masks={}
     with Client(timeout=30) as client:
         check=SignCheck(client,args.output/'report.json',args.timeout,args.native_resolution)
@@ -539,6 +647,8 @@ def main():
             daylight_saved=True
             report['capture_options']=check.run(CAPTURE_OPTIONS)
             options_saved=True
+            report['native_hud']=check.run(SAVE_HUD)
+            hud_saved=True
             report['height_offset']=args.height_offset
             report['native']=execute(client,'_native_sign_height_offset=%r\n' % args.height_offset+SETUP)
             execute(client,'import sys\nsys._native_sign_probe_rows=%r\n_result=True' % report['native']['rows'],True)
@@ -557,7 +667,7 @@ def main():
                     for blank in (False,True):
                         state=load(check,case['id'],blank,view)
                         key='blank' if blank else 'shown'
-                        shot=check.capture(label+'_editor_'+key)
+                        shot=capture_editor(check,label+'_editor_'+key,state['camera_framing'])
                         shot['crop']=viewport_crop(check,shot)
                         editor[key]=shot
                         result['samples']['editor_'+key]={'screenshot':shot,'renderer':state['renderer']}
@@ -600,6 +710,9 @@ def main():
                         write_json(args.output/'report.json',report)
             report['completed']=True
             report['passed']=all(row['passed'] for row in report['cases']+report['alpha_cases'])
+        except Exception as error:
+            report['error']=type(error).__name__+': '+str(error)
+            raise
         finally:
             cleanup_errors=[]
             for label,action in (
@@ -608,6 +721,7 @@ def main():
                     ('native_client',lambda:execute(client,'import sys\nif hasattr(sys,"_native_sign_probe_rows"):del sys._native_sign_probe_rows\n_result=True',True)),
                     ('daylight',lambda:execute(client,RESTORE_DAYLIGHT) if daylight_saved else True),
                     ('capture_options',lambda:check.run(RESTORE_OPTIONS) if options_saved else True),
+                    ('native_hud',lambda:check.run(RESTORE_HUD) if hud_saved else True),
                     ('projection',lambda:check.run('b.stop_projection()\n_result=True')),
                     ('camera',lambda:check.run(camera_restore_code(False)) if visual_saved else True),
                     ('visual_fields',lambda:check.run('saved=sys._blueprint_visual_saved\ns.grid=saved["grid"]\n'
@@ -620,6 +734,7 @@ def main():
                 try:
                     result=action()
                     if label=='native':report['native_cleanup']=result
+                    if label=='native_hud':report['native_hud_restored']=result
                 except Exception as error:
                     cleanup_errors.append(label+': '+str(error))
             report['cleanup_errors']=cleanup_errors
