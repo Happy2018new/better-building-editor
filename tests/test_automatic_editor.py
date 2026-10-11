@@ -10,6 +10,7 @@ from projection.block_groups import group_partner
 from projection.block_traits_data import SNOW_COVERABLE_BLOCKS
 from projection.cell import actor_data, background, foreground, make_cell
 from projection.model import AIR, Document, Editor, close_group_selection
+from projection.native_layers import native_cell
 from projection.session import Session
 
 FENCE = ('minecraft:oak_fence', 0)
@@ -75,7 +76,9 @@ class AutomaticEditorTests(unittest.TestCase):
             self.assertEqual(2, registry.states(foreground(cell))['height'])
             editor.edit_layer = 1
             editor.paint_at(pos, erase=True, respect_selection=False)
-            self.assertEqual(SNOW, editor.document.get(pos))
+            self.assertEqual(foreground(cell), editor.document.get(pos))
+            self.assertEqual(SNOW, native_cell(editor.document.get(pos)))
+            self.assertEqual(foreground(cell), editor.document.get(pos))
             editor.undo()
             editor.edit_layer = 0
             editor.paint_at(pos, erase=True, respect_selection=False)
