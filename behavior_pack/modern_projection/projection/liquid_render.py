@@ -353,6 +353,10 @@ class WorldLiquidRenderer(object):
         self.staging[group.key] = record
         if not self._show(record, False):
             return self._fail('Could not mask preparing liquid model')
+        # Native free models otherwise use a one-block culling box, although
+        # decoded vertices can fill this complete four-block logical batch.
+        if not self.model.SetFreeModelBoundingBox(model_id, (-2.,) * 3, (2.,) * 3):
+            return self._fail('Could not bound preparing liquid model')
         if not (self.model.SetFreeModelScale(model_id, *self.scale) and
                 self.model.SetFreeModelRot(model_id, *self.rotation) and
                 self.model.SetFreeModelPos(model_id, *self.center(self.anchor, group.origin))):

@@ -290,6 +290,7 @@ class Runtime:
         self.models, self.positions = {}, {}
         self.removed, self.uniform_calls = [], []
         self.position_ok = self.uniforms_ok = self.remove_ok = True
+        self.bounds_ok = True
         self.fail_show_model = self.fail_uniform_index = self.fail_move_model = None
         self.serial = self.peak_live = 0
 
@@ -316,6 +317,10 @@ class Runtime:
     def SetFreeModelRot(self, model, x, y, z):
         self.models[model]['rotation'] = x, y, z
         return True
+
+    def SetFreeModelBoundingBox(self, model, minimum, maximum):
+        self.models[model]['bounds'] = minimum, maximum
+        return self.bounds_ok
 
     def SetExtraUniformValue(self, model, index, value):
         if (not self.uniforms_ok or index == self.fail_uniform_index or
@@ -361,6 +366,7 @@ class WorldLiquidTests(unittest.TestCase):
         self.assertEqual((1.,) * 3, self.runtime.models[staged]['scale'])
         self.assertEqual((0., 180., 0.), self.runtime.models[staged]['rotation'])
         self.assertEqual(0, self.runtime.models[staged]['dimension'])
+        self.assertEqual(((-2.,) * 3, (2.,) * 3), self.runtime.models[staged]['bounds'])
         self.assertEqual((16., 66., 30.), self.runtime.positions[staged])
         for now in (1.24, 1.27, 1.31):
             self.renderer.advance(now)
@@ -397,6 +403,16 @@ class WorldLiquidTests(unittest.TestCase):
         self.assertEqual({}, self.renderer.staging)
         self.assertIn('position', self.renderer.error)
         self.assertFalse(self.runtime.hidden(old))
+
+    def test_failed_bounds_preserve_active_and_remove_new_hidden_model(self):
+        self.settle((group(height=.7),), 0.)
+        old = self.renderer.active[0]['model_id']
+        self.runtime.bounds_ok = False
+        self.renderer.begin((group(height=.3),), ANCHOR, 1.)
+        self.assertFalse(self.renderer.advance(1.21))
+        self.assertEqual([old], list(self.runtime.models))
+        self.assertFalse(self.runtime.hidden(old))
+        self.assertIn('bound', self.renderer.error)
 
     def test_failed_mask_removes_created_model_and_preserves_active(self):
         self.settle((group(height=.7),), 0.)
