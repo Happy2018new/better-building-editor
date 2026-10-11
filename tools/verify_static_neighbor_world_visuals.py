@@ -64,8 +64,29 @@ world.native_supports = supports
 _world_case = world.world_case
 
 
+def native_state_comparison(source, replication):
+    origin = source['origin']
+    requested = [(tuple(origin[i] + pos[i] for i in range(3)), tuple(value))
+                 for pos, value in source['cells']]
+    observed = [(tuple(pos), tuple(value)) for pos, value in replication['cells']]
+    expected, actual = dict(requested), dict(observed)
+    missing = sorted(set(expected) - set(actual))
+    unexpected = sorted(set(actual) - set(expected))
+    changes = [dict(position=pos, requested=expected[pos], actual=actual[pos])
+               for pos in sorted(set(expected) & set(actual)) if expected[pos] != actual[pos]]
+    unique = len(expected) == len(requested) and len(actual) == len(observed)
+    return {'passed': bool(expected) and unique and not missing and not unexpected and not changes,
+            'requested_cells': len(requested), 'observed_cells': len(observed),
+            'unique_positions': unique, 'missing': missing, 'unexpected': unexpected,
+            'changes': changes,
+            'scope': 'Original public blueprint name/aux must match native readback before state replacement.'}
+
+
 def static_world_case(check, label, args, record):
     result = _world_case(check, label, args, record)
+    result['blueprint_states_match_native'] = native_state_comparison(
+        result['source'], result['world_replication'])
+    result['passed'] = result['passed'] and result['blueprint_states_match_native']['passed']
     preview = result['fixture']['fixture']
     source = preview['screenshot']
     path = args.output.with_name(args.output.stem + '_' + label + '_editor' + Path(source['path']).suffix)
@@ -115,6 +136,7 @@ def static_replay(args):
     _replay(args)
     report = json.loads(args.output.read_text(encoding='utf8'))
     for row in report['cases']:
+        row['blueprint_states_match_native'] = native_state_comparison(row['source'], row['world_replication'])
         assert row['editor']['native_submission_verified'], row
         capture = row['editor']['capture']
         assert hashlib.sha256(Path(capture['path']).read_bytes()).hexdigest() == capture['sha256'], capture
@@ -136,7 +158,8 @@ def static_replay(args):
                                                   tuple(row['occupied']), args.calibration)
             frames.update(roi=roi, matches_world=native.compare_complete(
                 baseline, actual, (first, second), args.threshold, args.min_pixels))
-        row['passed'] = row['passed'] and all(frame['matches_world']['passed'] for frame in row['full']['views'].values())
+        row['passed'] = (row['passed'] and row['blueprint_states_match_native']['passed'] and
+                         all(frame['matches_world']['passed'] for frame in row['full']['views'].values()))
     report['passed'] = all(row['passed'] for row in report['cases'])
     world.write_json(args.output, report)
     return 0 if report['passed'] else 1
