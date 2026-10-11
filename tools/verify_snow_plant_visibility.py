@@ -518,17 +518,65 @@ _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in d
             'hidden_screenshot': hidden}
 
 
-def projection_capture(check, label, focus, offset, missing=False):
+def projection_camera_pose(check, label, focus, offset):
+    result = check.run('''import traceback
+focus=%r
+offset=%r
+diagnostic={'stage':'inputs','origin':s.origin,'focus':focus,'offset':offset}
+try:
+ diagnostic['stage']='target'
+ target=tuple(s.origin[i]+focus[i]+.5 for i in range(3))
+ diagnostic['target']=target
+ diagnostic['stage']='position'
+ position=tuple(target[i]+offset[i] for i in range(3))
+ diagnostic['position']=position
+ diagnostic['stage']='GetRotFromDir'
+ direction=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
+ diagnostic['direction']=direction
+ diagnostic['stage']='rotation'
+ rotation=(direction[0],direction[1]+180.,0.)
+ diagnostic['rotation']=rotation
+ diagnostic['stage']='CreateCamera'
+ cam=b.factory.CreateCamera(b.level)
+ diagnostic['stage']='DepartCamera'
+ cam.DepartCamera()
+ diagnostic['stage']='LockModCameraPitch'
+ diagnostic['pitch_lock_result']=cam.LockModCameraPitch(True)
+ diagnostic['stage']='LockModCameraYaw'
+ diagnostic['yaw_lock_result']=cam.LockModCameraYaw(True)
+ diagnostic['stage']='SetCameraPos'
+ diagnostic['position_result']=cam.SetCameraPos(position)
+ assert diagnostic['position_result']
+ diagnostic['stage']='SetCameraRotation'
+ diagnostic['rotation_result']=cam.SetCameraRotation(rotation)
+ assert diagnostic['rotation_result']
+ diagnostic['stage']='complete'
+ diagnostic['pose']={'target':target,'position':position,'rotation':rotation}
+except Exception as error:
+ diagnostic['error_type']=type(error).__name__
+ diagnostic['error']=str(error)
+ diagnostic['traceback']=traceback.format_exc()
+_result=json.dumps(diagnostic)
+''' % (focus, offset))
+    if result.get('error'):
+        path = check.output.with_name(check.output.stem+'_'+label+'_camera_error.json')
+        write_json(path, result)
+        raise RuntimeError('Snow projection camera failed at %s; evidence %s: %s\n%s' %
+                           (result['stage'], path, result['error'], result['traceback']))
+    return result['pose']
+
+
+def projection_capture(check, label, focus, offset, missing=False, fixture_lift_y=0):
     native_before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
-s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1],foot[2]+6-focus[2])
+s.origin=(foot[0]+6-focus[0],foot[1]+8-focus[1]+%r,foot[2]+6-focus[2])
 s.opacity=1.
 s.projection_missing=%r
 s.projection_outline=False
 b.project()
 _result=True
-''' % (focus, missing))
+''' % (focus, fixture_lift_y, missing))
 
     def ready(state):
         if state['error']:
@@ -543,20 +591,7 @@ _result=True
         check.run('navigator.pop()\n_result=True')
         check.wait('close workspace for snow projection',
                    lambda nav: not nav['open'] and not nav['transition'], check.navigation)
-    pose = check.run('''focus=%r
-offset=%r
-target=tuple(s.origin[i]+focus[i]+.5 for i in range(3))
-position=tuple(target[i]+offset[i] for i in range(3))
-direction=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
-rotation=(direction[0],direction[1]+180.,0.)
-cam=b.factory.CreateCamera(b.level)
-cam.DepartCamera()
-cam.LockModCameraPitch(True)
-cam.LockModCameraYaw(True)
-assert cam.SetCameraPos(position)
-assert cam.SetCameraRotation(rotation)
-_result=json.dumps({'target':target,'position':position,'rotation':rotation})
-''' % (focus, offset))
+    pose = projection_camera_pose(check, label, focus, offset)
     camera_code = ('cam=b.factory.CreateCamera(b.level)\n_result=json.dumps({'
                    '"position":cam.GetPosition(),"rotation":cam.GetCameraRotation()})')
     check.wait('snow world camera', lambda value: camera_matches(value, pose), lambda: check.run(camera_code))

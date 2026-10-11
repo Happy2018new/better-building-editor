@@ -210,7 +210,7 @@ def run(args):
     modes = tuple(dict.fromkeys(args.mode or ('full', 'missing')))
     report = {'schema': 1, 'completed': False, 'restored': False, 'passed': False, 'rows': [],
               'plants': plants, 'heights': heights, 'modes': modes, 'session_file': session['session_file'],
-              'native_resolution': args.native_resolution,
+              'native_resolution': args.native_resolution, 'fixture_lift_y': args.fixture_lift_y,
               'reuse_snow_controls': args.reuse_snow_controls,
               'calibration': calibration, 'blueprint_case': VISUAL_CASE, 'native_assets': {},
               'limits': {'native_recall': .75, 'native_precision': .75, 'native_edge_tolerance_pixels': 3},
@@ -229,7 +229,8 @@ def run(args):
             report['original_visual'] = check.run('_result=json.dumps(sys._blueprint_visual_saved)')
             check.refresh()
             focus = tuple(VISUAL_CASE['focus'])
-            native_target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,8,6)[i] for i in range(3)))'))
+            native_target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,8+%r,6)[i] for i in range(3)))' % args.fixture_lift_y))
+            report['native_target'] = native_target
             native_created = True
             report['native_fixture'] = server_run(client, NATIVE_SETUP % (native_target,))
             for plant in plants:
@@ -293,7 +294,7 @@ def run(args):
                     row['masks'] = {'editor': save_mask(editor_frame, args.output, label+'_editor')}
                     world = {}
                     for mode in modes:
-                        world[mode] = projection_capture(check, label+'_'+mode, focus, tuple(VISUAL_CASE['camera']['world_offset']), missing=mode == 'missing')
+                        world[mode] = projection_capture(check, label+'_'+mode, focus, tuple(VISUAL_CASE['camera']['world_offset']), missing=mode == 'missing', fixture_lift_y=args.fixture_lift_y)
                         check.run('b.stop_projection()\n_result=True')
                     capture = world[modes[0]]
                     width, pixels_high = capture['screenshot']['size']
@@ -399,6 +400,8 @@ def main():
     parser.add_argument('--mode', action='append', choices=('full', 'missing'))
     parser.add_argument('--timeout', type=float, default=60.)
     parser.add_argument('--native-resolution', action='store_true')
+    parser.add_argument('--fixture-lift-y', type=int, default=0,
+                        help='Fixed world-space lift of the complete plant, reference and camera fixture, chosen before capture')
     parser.add_argument('--reuse-snow-controls', action='store_true',
                         help='Reuse independently captured identical snow-only controls within the batch; every covered plant is freshly captured')
     parser.add_argument('--replay', type=Path)
