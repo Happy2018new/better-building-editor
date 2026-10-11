@@ -439,7 +439,7 @@ def load(check,identity,blank,view):
     return result
 
 
-def world_sample(check,label,focus,offset,opacity=1.,height_offset=32,missing=False,untagged=False):
+def world_sample(check,label,focus,offset,opacity=1.,height_offset=32,missing=False,untagged=False,mesh_origin=False):
     """Collect a blank mesh as evidence so later control samples still run."""
     before=check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
@@ -472,7 +472,8 @@ _result=json.dumps({'tagged':False,'active_bank':shader.bank,'parts':changes})
         check.wait('workspace closes',lambda row:not row['open'] and not row['transition'],check.navigation)
     pose=check.run('''focus=%r
 offset=%r
-target=tuple(s.origin[axis]+focus[axis]+.5 for axis in range(3))
+source_origin=tuple(b.projection_mesh[2]) if %r else tuple(s.origin)
+target=tuple(source_origin[axis]+focus[axis]+.5 for axis in range(3))
 position=tuple(target[axis]+offset[axis] for axis in range(3))
 rotation=api.GetRotFromDir(tuple(target[axis]-position[axis] for axis in range(3)))
 cam=b.factory.CreateCamera(b.level)
@@ -481,8 +482,8 @@ cam.LockModCameraPitch(True)
 cam.LockModCameraYaw(True)
 assert cam.SetCameraPos(position)
 assert cam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))
-_result=json.dumps({'position':position,'rotation':rotation,'target':target})
-''' % (tuple(focus),tuple(offset)))
+_result=json.dumps({'position':position,'rotation':rotation,'target':target,'source_origin':source_origin})
+''' % (tuple(focus),tuple(offset),mesh_origin))
     pose['settled']=wait_camera_pose(check,pose)
     time.sleep(.25)
     shown=check.capture(label+'_world_shown')

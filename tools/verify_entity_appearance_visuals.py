@@ -3,16 +3,19 @@ import argparse
 import base64
 import json
 import math
+import os
 from pathlib import Path
 import sys
 import time
 
 from PIL import Image, ImageChops, ImageFilter
-from verify_debug_blueprints import BlueprintCheck, Client, INSTALL_PROBE, RESTORE, write_json
-from verify_debug_visuals import SAVE_VISUAL, camera_restore_code, world_closeup
+from verify_debug_blueprints import Client, INSTALL_PROBE, RESTORE, write_json
+from verify_debug_visuals import (SAVE_VISUAL, PROJECTION_SOURCE, PROJECTION_STATUS,
+                                 camera_restore_code, projection_source_matches, world_closeup)
 from verify_native_entity_appearances import execute, replicated_palettes
-from verify_shulker_orientations import opacity_comparison, viewport_crop, wait_camera_pose
-from verify_snow_plant_visibility import changed, count
+from verify_shulker_orientations import matching_camera, opacity_comparison, viewport_crop, wait_camera_pose
+from verify_sign_visuals import SignCheck, SAVE_HUD, RESTORE_HUD, center_editor, capture_editor, world_sample
+from verify_snow_plant_visibility import changed, count, world_cell_roi
 from visual_environment import SETUP_DAYLIGHT, RESTORE_DAYLIGHT
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,12 +27,24 @@ from modern_projection.projection.visible_actor import compose_actor,render_acto
 from modern_projection.projection.nbt_spatial import rebase as rebase_nbt
 from modern_projection.projection.debug_blueprints import build,VISUAL_CASES
 from modern_projection.projection.debug_appearance_blueprints import CASE_POSITIONS
+from modern_projection.projection.block_groups import group_partner
 case=VISUAL_CASES['entity_appearances']
 identity,source=%r,%r
 focus=case['focus']
 doc=Document(case['isolated_size'],name='Entity appearance '+identity)
 index=next(i for i,row in enumerate(sys._p0_entity_appearance_entities) if row['case']==identity)
 row=sys._p0_entity_appearance_entities[index]
+public_source=None
+if identity.startswith('bed_'):
+ blueprint=build(case['fixture'])
+ target=CASE_POSITIONS[identity]
+ first=foreground(blueprint.get(target))
+ relationship=group_partner(first)
+ assert relationship is not None,('Public bed has no partner',identity,first)
+ partner=tuple(target[axis]+relationship[0][axis] for axis in range(3))
+ assert foreground(blueprint.get(partner))==relationship[1],('Public bed partner changed',identity)
+ public_source={'target':target,'cells':[
+  {'pos':point,'foreground':foreground(blueprint.get(point))} for point in (target,partner)]}
 if source=='native':
  origin=tuple(row['pos'][axis]-focus[axis] for axis in range(3))
  lo=tuple(row['palette_origin'])
@@ -48,8 +63,9 @@ else:
  target=CASE_POSITIONS[identity]
  delta=tuple(focus[axis]-target[axis] for axis in range(3))
  origin=tuple(row['pos'][axis]-target[axis] for axis in range(3))
- for cell in row['cells']:
-  point=tuple(cell[axis]-origin[axis] for axis in range(3))
+ points=([cell['pos'] for cell in public_source['cells']] if public_source is not None else
+         [tuple(cell[axis]-origin[axis] for axis in range(3)) for cell in row['cells']])
+ for point in points:
   pos=tuple(point[axis]+delta[axis] for axis in range(3))
   doc.blocks[pos]=rebase(blueprint.get(point),delta)
 sys._blueprint_qa_identity='entity.'+source+'.'+identity
@@ -57,18 +73,150 @@ sys._blueprint_qa_nonce+=1
 sys._blueprint_qa_expected={'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
  'previous_document_id':id(s.editor.document),'editor_id':None}
 s._loaded(doc)
-s.camera_pivot=tuple(v+.5 for v in focus)
+if public_source is None:s.camera_pivot=tuple(v+.5 for v in focus)
 s.camera_view(*case['isolated_camera']['editor'])
 s.emit()
 _result=json.dumps({'identity':sys._blueprint_qa_identity,'editor_id':id(s.editor),
- 'document_id':id(doc),'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)}})
+ 'document_id':id(doc),'metadata':{'name':doc.name,'size':doc.size,'blocks':len(doc.blocks)},
+ 'public_source':public_source})
 '''
 
 
+def require_bed_calibration(calibration, runtime=None):
+    assert calibration is not None and calibration.get('completed') and calibration.get('passed'), \
+        'Bed comparison requires a completed, passed native cube camera calibration'
+    session = os.environ.get('MCDEV_SESSION_FILE')
+    assert session and calibration.get('session_file') == session, 'Calibration belongs to another instance'
+    if runtime is not None:
+        assert calibration['runtime_minecraft_version'] == runtime['version'], 'Calibration game version changed'
+        assert abs(calibration['reported_fov'] - runtime['fov']) < .01, 'Camera FOV changed since calibration'
+        assert abs(calibration['screen_aspect'] - runtime['screen'][0] / runtime['screen'][1]) < .01, \
+            'Viewport aspect changed since calibration'
+
+
+def source_cells_at(public_source, anchor):
+    target = public_source['target']
+    assert len(public_source['cells']) == 2, 'Public bed must contain both source cells'
+    return [tuple(anchor[axis] + cell['pos'][axis] - target[axis] for axis in range(3))
+            for cell in public_source['cells']]
+
+
+def camera_read(check):
+    return check.run('cam=b.factory.CreateCamera(b.level)\n'
+                     '_result=json.dumps({"position":cam.GetPosition(),"rotation":cam.GetCameraRotation(),'
+                     '"source_origin":b.projection_mesh[2] if b.projection_mesh else None})')
+
+
+def require_camera(actual, expected):
+    assert len(actual['position']) == len(actual['rotation']) == 3 and matching_camera(actual, expected), \
+        ('Bed capture camera does not match the declared pose', expected, actual)
+
+
+def require_source_registration(actual, binding, contract):
+    if binding['projection']:
+        assert actual['source_origin'] is not None and tuple(actual['source_origin']) == tuple(contract['origin']), \
+            ('Bed projection source origin changed during capture', contract['origin'], actual['source_origin'])
+
+
+def bed_world_roi(check, size, cells, pose, calibration):
+    runtime = check.run('cam=b.factory.CreateCamera(b.level)\n'
+                        '_result=json.dumps({"fov":cam.GetFov(),'
+                        '"screen":b.factory.CreateGame(b.level).GetScreenSize(),'
+                        '"version":api.GetMinecraftVersion()})')
+    require_bed_calibration(calibration, runtime)
+    crop = (0, 0, size[0], size[1])
+    mask = Image.new('L', size)
+    projected = []
+    for cell in cells:
+        part, evidence = world_cell_roi(check, crop, size, cell, pose, calibration)
+        mask = ImageChops.lighter(mask, part)
+        projected.append(evidence)
+    assert mask.getbbox() is not None, 'Public bed source cells have no screen region'
+    return mask, {'cells': cells, 'cell_projection': projected, 'bounds': mask.getbbox(),
+                  'scope': 'Full envelopes of both public blueprint source cells at the actual camera'}
+
+
+def capture_bound_world(check, label, binding, capture):
+    require_bed_calibration(binding['calibration'])
+    contract = check.run('''anchor,offset,projection,cells=%r,%r,%r,%r
+origin=tuple(b.projection_mesh[2]) if projection else (0,0,0)
+requested_origin=tuple(s.origin) if projection else (0,0,0)
+target=tuple(origin[i]+anchor[i]+.5 for i in range(3))
+position=tuple(target[i]+offset[i] for i in range(3))
+rotation=api.GetRotFromDir(tuple(target[i]-position[i] for i in range(3)))
+_result=json.dumps({'expected':{'target':target,'position':position,
+ 'rotation':(rotation[0],rotation[1],0.)},'origin':origin,'requested_origin':requested_origin,
+ 'source_cells':[tuple(origin[i]+point[i] for i in range(3)) for point in cells]})
+''' % (tuple(binding['anchor']), tuple(binding['offset']), binding['projection'], binding['cells']))
+    expected = contract['expected']
+    contract['settled'] = wait_camera_pose(check, expected)
+    contract['before'] = camera_read(check)
+    require_camera(contract['before'], expected)
+    require_source_registration(contract['before'], binding, contract)
+    shot = capture()
+    contract['after'] = camera_read(check)
+    require_camera(contract['after'], expected)
+    require_source_registration(contract['after'], binding, contract)
+    roi, source = bed_world_roi(check, shot['size'], contract['source_cells'], expected, binding['calibration'])
+    contract['after_roi'] = camera_read(check)
+    require_camera(contract['after_roi'], expected)
+    require_source_registration(contract['after_roi'], binding, contract)
+    path = Path(shot['path']).with_name(Path(shot['path']).stem + '_source_roi.png')
+    roi.save(path)
+    shot['source_roi'] = dict(source, path=str(path.resolve()))
+    shot['camera_binding'] = contract
+    return shot
+
+
+class AppearanceCheck(SignCheck):
+    world_binding = None
+
+    def capture(self, label, tree=None):
+        capture = lambda: SignCheck.capture(self, label, tree)
+        if self.world_binding is None:
+            return capture()
+        return capture_bound_world(self, label, self.world_binding, capture)
+
+
+def capture_bed_editor(check, label, camera):
+    grid = check.run('_result=s.grid')
+    try:
+        check.run('s.grid=False\ns.emit()\n_result=True')
+        return capture_editor(check, label, camera)
+    finally:
+        check.run('s.grid=%r\ns.emit()\n_result=True' % grid)
+
+
+def bed_comparison(reference, reference_mask, actual, actual_mask, reference_roi, actual_roi):
+    result = comparison(reference, reference_mask, actual, actual_mask)
+    presence = {'reference_pixels': count(ImageChops.multiply(reference_mask, reference_roi)),
+                'actual_pixels': count(ImageChops.multiply(actual_mask, actual_roi)), 'minimum_pixels': 100}
+    presence['passed'] = presence['reference_pixels'] >= 100 and presence['actual_pixels'] >= 100
+    result.update(source_presence=presence, comparison_scope='Full client frame; no observed geometry crop')
+    result['passed'] = result['passed'] and presence['passed']
+    return result
+
+
+def bed_world_capture(check, label, case, offset):
+    result = world_sample(check, label, case['focus'], offset, 1., case['projection_height'], mesh_origin=True)
+    final = check.run(PROJECTION_STATUS)
+    source = check.run(PROJECTION_SOURCE)
+    assert not source['missing'] and projection_source_matches(source, source), source
+    assert all(row.get('result') and not row.get('error') and
+               row.get('editor_id') == source['editor_id'] and
+               row.get('document_id') == source['document_id'] for row in result['native_calls']), result['native_calls']
+    saved_player = check.run('_result=json.dumps(sys._blueprint_visual_saved["player"])')
+    assert final['player'] == saved_player, (saved_player, final['player'])
+    result.update(final=final, source=source,
+                  native_evidence='current_source_submission' if result['native_calls'] else 'current_source_cached_geometry')
+    return result
+
+
 def pixels(shown, hidden, crop):
-    first = Image.open(shown).convert('RGB').crop(crop)
-    second = Image.open(hidden).convert('RGB').crop(crop)
-    return first, changed(first, second, 25)
+    first = Image.open(shown).convert('RGB')
+    second = Image.open(hidden).convert('RGB')
+    assert first.size == second.size, 'Appearance visibility capture dimensions changed'
+    return first.crop(crop), changed(first.crop(crop), second.crop(crop), 25)
 
 
 def comparison(reference, reference_mask, actual, actual_mask):
@@ -126,7 +274,7 @@ def appearance_offset(row, configured, wall_camera):
             4: (z, y, -x), 5: (-z, y, x)}[row['face']]
 
 
-def native_capture(check, row, offset, support_block='minecraft:stone'):
+def native_capture(check, row, offset, support_block='minecraft:stone', source_cells=None):
     check.run('b.stop_projection()\n_result=True')
     # Native block actors can be culled when the detached camera leaves the
     # player's chunks. Keep the player on an owned platform near the target.
@@ -143,13 +291,16 @@ platform=%r
 info=factory.CreateBlockInfo(saved['player'])
 support=%r
 assert info.GetBlockNew(support,saved['dimension'])['name']=='minecraft:stone'
-assert info.SetBlockNew(support,{'name':%r,'aux':0},0,saved['dimension'],True,False)
+support_write=info.SetBlockNew(support,{'name':%r,'aux':0},0,saved['dimension'],True,False)
+support_readback=info.GetBlockNew(support,saved['dimension'])
+assert support_readback['name']==%r and support_readback['aux']==0,support_readback
 assert info.GetBlockNew(platform,saved['dimension'])['name']=='minecraft:air'
 saved['reserved'].append(platform)
 assert info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
 assert position.SetFootPos((platform[0]+.5,platform[1]+1.,platform[2]+.5))
-_result=json.dumps({'before':saved['qa_player_foot'],'after':position.GetFootPos(),'platform':platform,'support':support,'support_block':%r})
-''' % (platform, tuple(row['support']), support_block, support_block))
+_result=json.dumps({'before':saved['qa_player_foot'],'after':position.GetFootPos(),'platform':platform,'support':support,'support_block':%r,
+ 'support_write':support_write,'support_readback':support_readback})
+''' % (platform, tuple(row['support']), support_block, support_block, support_block))
     pose = check.run('''target=%r
 offset=%r
 center=tuple(v+.5 for v in target)
@@ -176,7 +327,7 @@ dimension=factory.CreateDimension(player).GetEntityDimensionId()
 cells=%r
 for pos in cells:info.SetBlockNew(tuple(pos),{'name':'minecraft:air','aux':0},0,dimension,True,False)
 _result=json.dumps([info.GetBlockNew(tuple(pos),dimension) for pos in cells])
-''' % (row['cells'],))
+''' % (source_cells if source_cells is not None else row['cells'],))
     check.wait('native fixture cells cleared',
                lambda values: all(name == 'minecraft:air' for name in values),
                lambda: check.run('''cells=%r
@@ -186,7 +337,7 @@ for pos in cells:
  data=block.GetBlockPaletteBetweenPos(tuple(pos),tuple(pos),False).SerializeBlockPalette()
  names.extend(value[0] for value in data.get('common',{}))
 _result=json.dumps(names)
-''' % (row['cells'],)))
+''' % (source_cells if source_cells is not None else row['cells'],)))
     time.sleep(.25)
     pose['hidden_screenshot'] = check.capture(row['case'] + '_real_native_hidden')
     restore_native_player(check.client)
@@ -207,15 +358,23 @@ def main():
     parser.add_argument('--texture-probe', action='store_true')
     parser.add_argument('--opacity-probe', action='store_true')
     parser.add_argument('--wall-camera', action='store_true', help='Rotate both cameras to the exposed wall face')
+    parser.add_argument('--native-resolution', action='store_true', help='Use owned background client captures')
+    parser.add_argument('--camera-calibration', type=Path,
+                        help='Completed native cube camera calibration from this exact instance; required for beds')
     parser.add_argument('--support-block', choices=('minecraft:stone', 'minecraft:magenta_concrete'),
                         default='minecraft:stone', help='Native reference support; contrast prevents a grey-on-grey mask')
     args = parser.parse_args()
+    calibration = (json.loads(args.camera_calibration.read_text(encoding='utf8'))
+                   if args.camera_calibration is not None else None)
     evidence = {'schema': 1, 'completed': False, 'passed': False, 'rows': [],
-                'scope': 'Native actual block comparison is independent of native and built-in editor inputs.'}
-    installed = saved_visual = native_created = daylight_saved = False
+                'scope': 'Native actual block comparison is independent of native and built-in editor inputs.',
+                'bed_diagnostic': 'Full client difference masks with fixed public source-cell ROI and bound actual camera',
+                'camera_calibration': str(args.camera_calibration) if args.camera_calibration else None}
+    installed = saved_visual = native_created = daylight_saved = hud_saved = False
     try:
         with Client(timeout=30) as client:
-            check = BlueprintCheck(client, args.output, 60)
+            check = AppearanceCheck(client, args.output, 60, native_resolution=args.native_resolution,
+                                    background_only=True)
             try:
                 check.run(INSTALL_PROBE)
                 installed = True
@@ -231,6 +390,10 @@ def main():
                 evidence['blueprint_case'] = case
                 selected = args.case or case['acceptance_cases']
                 assert all(name in case['acceptance_cases'] for name in selected), selected
+                if any(identity.startswith('bed_') for identity in selected):
+                    require_bed_calibration(calibration)
+                    evidence['native_hud'] = check.run(SAVE_HUD)
+                    hud_saved = True
                 setup_code = (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8')
                 native_created = True
                 setup = execute(client, 'import sys\nsys._p0_entity_appearance_selected=%r\n' % (tuple(selected),) + setup_code)
@@ -238,7 +401,11 @@ def main():
                 inputs = replicated_palettes(client, (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8'))
                 evidence['native_inputs'] = inputs
                 for identity in selected:
+                    is_bed = identity.startswith('bed_')
                     row = next(row for row in inputs['rows'] if row['case'] == identity)
+                    native_anchor = next(row for row in setup['rows'] if row['case'] == identity)['pos']
+                    if is_bed:
+                        assert tuple(row['pos']) == tuple(native_anchor), 'Native bed source anchor changed since fixed setup'
                     offset = appearance_offset(row, case['isolated_camera']['world_offset'], args.wall_camera)
                     result = {'case': identity, 'scopes': {}, 'world_offset': offset}
                     evidence['rows'].append(result)
@@ -251,18 +418,34 @@ def main():
                         state = check.editor_preview('entity appearance current', loaded['metadata'], loaded['editor_id'], loaded['document_id'])
                         assert not state['preview_error'], state
                         time.sleep(.3)
-                        shot = check.capture(identity + '_' + source + '_editor')
+                        if is_bed:
+                            framing = center_editor(check, case['focus'], case['isolated_camera'])
+                            shot = capture_bed_editor(check, identity + '_' + source + '_editor', framing)
+                            result['public_source'] = loaded['public_source']
+                        else:
+                            shot = check.capture(identity + '_' + source + '_editor')
                         crop = viewport_crop(check, shot)
                         editor_frames[source] = Image.open(shot['path']).convert('RGB').crop(crop)
                         result['scopes'][source + '_editor'] = {'screenshot': shot, 'crop': crop, 'identity': loaded}
                         if source == 'native':
-                            projected = world_closeup(check, identity, case['focus'], offset, 1., case['projection_height'])
+                            if is_bed:
+                                check.world_binding = {'anchor': case['focus'], 'offset': offset, 'projection': True,
+                                    'cells': source_cells_at(loaded['public_source'], case['focus']), 'calibration': calibration}
+                            try:
+                                projected = (bed_world_capture(check, identity, case, offset) if is_bed else
+                                             world_closeup(check, identity, case['focus'], offset, 1., case['projection_height']))
+                            finally:
+                                check.world_binding = None
                             result['projection'] = projected
                             if args.opacity_probe:
                                 width, height = projected['screenshot']['size']
-                                probe_crop = (width // 3, height // 3, width * 2 // 3, height * 2 // 3)
+                                probe_crop = ((0, 0, width, height) if is_bed else
+                                              (width // 3, height // 3, width * 2 // 3, height * 2 // 3))
                                 check.run('assert b.factory.CreateActorRender(b.entity).SetActorBlockGeometryTransparency(b.projection_mesh[1],.5)\n_result=True')
                                 try:
+                                    if is_bed:
+                                        check.world_binding = {'anchor': case['focus'], 'offset': offset, 'projection': True,
+                                            'cells': source_cells_at(loaded['public_source'], case['focus']), 'calibration': calibration}
                                     time.sleep(.3)
                                     faded = check.capture(identity + '_opacity_half')
                                     unused_frame, opacity_mask = pixels(projected['screenshot']['path'],
@@ -271,6 +454,7 @@ def main():
                                                                projected['hidden_screenshot']['path'], probe_crop, opacity_mask)
                                     result['opacity_probe'] = dict(probe, screenshot=faded)
                                 finally:
+                                    check.world_binding = None
                                     check.run('assert b.factory.CreateActorRender(b.entity).SetActorBlockGeometryTransparency(b.projection_mesh[1],1.)\n_result=True')
                     first, second = editor_frames['native'], editor_frames['synthetic']
                     result['editor_input_agreement'] = {'passed': count(changed(first, second, 35)) <= 100,
@@ -278,18 +462,39 @@ def main():
                                                         'scope': 'Built-in fixture versus freshly captured native input at identical editor camera.'}
                     check.run('navigator.pop()\n_result=True')
                     check.wait('workspace closed', lambda state: not state['open'] and not state['transition'], check.navigation)
-                    real = native_capture(check, row, offset, args.support_block)
+                    native_source_cells = source_cells_at(result['public_source'], native_anchor) if is_bed else None
+                    if is_bed:
+                        check.world_binding = {'anchor': native_anchor, 'offset': offset, 'projection': False,
+                                               'cells': native_source_cells, 'calibration': calibration}
+                    try:
+                        real = native_capture(check, row, offset, args.support_block, native_source_cells)
+                    finally:
+                        check.world_binding = None
                     result['real_native'] = real
                     width, height = projected['screenshot']['size']
-                    crop = (width // 3, height // 3, width * 2 // 3, height * 2 // 3)
+                    crop = ((0, 0, width, height) if is_bed else
+                            (width // 3, height // 3, width * 2 // 3, height * 2 // 3))
                     shown, mask = pixels(projected['screenshot']['path'], projected['hidden_screenshot']['path'], crop)
                     native, native_mask = pixels(real['screenshot']['path'], real['hidden_screenshot']['path'], crop)
-                    result['native_projection_agreement'] = comparison(native, native_mask, shown, mask)
+                    if is_bed:
+                        native_roi = Image.open(real['screenshot']['source_roi']['path']).convert('L')
+                        projection_roi = Image.open(projected['screenshot']['source_roi']['path']).convert('L')
+                        result['native_projection_agreement'] = bed_comparison(
+                            native, native_mask, shown, mask, native_roi, projection_roi)
+                        # Preserve the existing >150 visibility gate on the full client frame.
+                        visibility_pixels = count(changed(shown,
+                            Image.open(projected['hidden_screenshot']['path']).convert('RGB'), 12))
+                        result['projection_visibility'] = {'passed': visibility_pixels > 150,
+                            'changed_pixels': visibility_pixels, 'threshold': 12, 'minimum_exclusive': 150, 'crop': crop}
+                    else:
+                        result['native_projection_agreement'] = comparison(native, native_mask, shown, mask)
+                    result['native_projection_agreement']['crop'] = crop
                     if args.texture_probe:
                         result['native_projection_texture'] = texture_comparison(native, native_mask, shown, mask)
                     result['passed'] = (result['editor_input_agreement']['passed'] and
                                         result['native_projection_agreement']['passed'] and
                                         result.get('native_projection_texture', {'passed': True})['passed'] and
+                                        result.get('projection_visibility', {'passed': True})['passed'] and
                                         result.get('opacity_probe', {'passed': True})['passed'])
                     write_json(args.output, evidence)
                     print(json.dumps({'case': identity, 'passed': result['passed']}), flush=True)
@@ -311,6 +516,8 @@ def main():
                     actions.append(('native', lambda: cleanup_native_fixture(client)))
                 if daylight_saved:
                     actions.append(('daylight', lambda: execute(client, RESTORE_DAYLIGHT)))
+                if hud_saved:
+                    actions.append(('native_hud', lambda: check.run(RESTORE_HUD)))
                 if installed:
                     def restore_workspace():
                         was_open=check.run('_result=sys._blueprint_qa_saved["workspace"]')
