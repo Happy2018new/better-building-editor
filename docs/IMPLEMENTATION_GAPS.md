@@ -2,15 +2,25 @@
 
 本文件是项目待办事项的唯一维护入口，集中记录功能缺口、验收工作、范围待定扩展，以及开发记录复核和历史关闭依据。后续状态更新统一在此维护，其他文档保留使用说明或历史报告。
 
-审计及开发记录复核日期：2026-10-10；最新整理日期：2026-10-11。主线源码基线：`7bd54956d35cc72487220225d8aa17d3e22a56bb`；首轮审计提交：`5827d86`。本清单覆盖建筑编辑、世界测绘、建筑库、分享、三维预览、投影、进度检查及世界写入链路。最新实现已同步至原仓库的 `main`，后续从原仓库继续开发；下方当前状态优先于末尾保留的历史开发记录。2026-10-10 已实际运行 NEMC 3.9 专用测试世界，证据和未验证边界分别记录。
+审计及开发记录复核日期：2026-10-10；最新整理日期：2026-10-11。主线源码基线：`7bd54956d35cc72487220225d8aa17d3e22a56bb`；首轮审计提交：`5827d86`。本清单覆盖建筑编辑、世界测绘、建筑库、分享、三维预览、投影、进度检查及世界写入链路。最新 P0 实现位于原仓库的 `dev`，后续从此分支继续开发，全部完成后再合入 `main`；`main` 已恢复至远端基线。下方当前状态优先于末尾保留的历史开发记录。2026-10-10 已实际运行 NEMC 3.9 专用测试世界，证据和未验证边界分别记录。
 
-F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成，仍需和特殊外观一起集中验收。F05–F10、F12–F15 保留各自范围；F11 按产品约束关闭。V01–V09 是验收工作，X01–X07 是尚未明确纳入的扩展能力。F14 是 `dev` 分支目标，不表示主线已承诺 RenderDragon 支持。历史失败不自动代表当前仍然失败。
+F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成，仍需和特殊外观一起集中验收。F05–F10、F12–F15 保留各自范围；F11 按产品约束关闭。V01–V09 是验收工作，X01–X07 是尚未明确纳入的扩展能力。F14 是 `render-dragon` 分支目标，不表示主线已承诺 RenderDragon 支持。历史失败不自动代表当前仍然失败。
 
 第二轮复核新增 F13–F15、V09，纠正 V01 的安卓真机证据，补充 F02、F08、F11、F12、V06、V07。逐文档覆盖范围、修复去向和分支来源见 [本文件的开发记录复核](#development-records-review)。
 
 优先级：P0 为数据完整性或错误写入／变换问题；P1 为现有建筑工作流的兼容性缺口；P2 为操作体验或显示完善。编号用于后续追踪，不代表每项必须单独提交。
 
 ## 2026-10-10 P0 实施状态
+
+### 开发分支调整（2026-10-11，当前入口）
+
+用户已删除远端旧 `dev`，并明确要求将其本地副本改名为 `render-dragon`，新建 `dev` 承接尚未推送的 P0 开发，全部完成后再合并进 `main`。原 `dev` 的 HEAD `0b20a29c42cbd2f0b0ba2a47e4a4369f017d0fa1` 原样保留在 `render-dragon`；清理已删除的 `origin/dev` 跟踪引用并解除旧上游绑定，没有重命名、创建或推送远端分支。
+
+已将历史修正后的全部 **330 个本地提交**（迁移时 HEAD `d26d8b0b4b88cbd02690161d5a1431451d884409`）保留在新 `dev`，并把本地 `main` 恢复至 `origin/main` 的 `160e551667f45af3d540d185f8e1e5efda07c14b`。原仓库当前检出 `dev`，五个未跟踪 `tools/p0_palette_*_probe.py` 文件原样保留在该开发工作区；它们尚未进入 Git，也不会随普通分支切换自动隔离。之后的开发与本节记录提交到 `dev`，`main` 保留为完成后接收合并的基线。
+
+调整前另存 `.runtime/history-repair-20261011/after-repair-before-branch-move.bundle`，通过完整性验证，SHA-256 为 `02744ca8a982a85db917d9d3a419049db39dbde346c2d9fd8e21c25136af3d8a`；该 bundle 包含修正后的 `main`、原 `dev`、其他引用和 stash。历史修正前的 bundle、工作树归档和原始证据继续保留。当前只有原仓库一个 Git 工作树，没有新增闲置工作树或临时恢复分支。
+
+本节替代下文关于“在 main 上继续开发”及“dev 为 RenderDragon 实验”的当前入口描述。提交历史修正的验证仍然有效：新 `dev` 从远端 `main` 线性延续，BP／RP UUID 与远端 `main` 相同，去重和标题修正均完整保留；`render-dragon` 只保存原渲染后端实验，不参与本次 P0 集成。本次调整未改变生产源码、测试或资源，也没有启动 MC。
 
 ### 第七轮后提交历史修正（2026-10-11）
 
@@ -24,7 +34,7 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 旧提交哈希仍用于原始证据与历史开发记录，不批量改写它们的哈希、来源指纹、画面阈值或接受结果。[提交映射](COMMIT_HISTORY_REPAIR_20261011.json) 保存 329 个旧／新提交映射及 18 个去重历史对应关系，可定位同一改动的新主线位置。原对象需要从上述完整 bundle 或此前第七轮归档恢复；恢复分支可用 `git fetch .runtime/history-repair-20261011/before-repair.bundle refs/heads/main:refs/heads/codex/recovered-main-before-repair`。当前 `main` 是远端 `main` 的线性延续，后续推送无需强制；本次没有推送。
 
-`dev` 保留 RenderDragon 实验，核心提交为 `bc376f1`：13 个着色器的离线 HLSL／DXIL 转换与 552 组编译已完成，普通附加包加载／绑定、运行时参数对接及游戏内视觉一致性未完成，仍归 F14。它不是当前 P0 开发入口，也不应作为已交付渲染后端整体合入 `main`。
+历史 `dev` 保留 RenderDragon 实验，后续已按上节改名为 `render-dragon`。核心提交为 `bc376f1`：13 个着色器的离线 HLSL／DXIL 转换与 552 组编译已完成，普通附加包加载／绑定、运行时参数对接及游戏内视觉一致性未完成，仍归 F14。该实验分支不是当前 P0 开发入口，也不应作为已交付渲染后端整体合入 `main`。
 
 ### 第七轮后主线同步与闲置分支清理（2026-10-11，历史操作）
 
@@ -409,7 +419,7 @@ V06 新增实机资源排查：两个长时测试实例的句柄分别约从 614
 | F11 | 已关闭 | MC 世界写入失败策略 | 按当前明确约束，实际 MC 写入不逐格检查、不回滚；起始权限检查一次，单格失败继续。编辑器内部操作已由事务／撤销路径处理，故此编号不计入 P0。 |
 | F12 | P2 | 透明面重叠与排序兼容 | 没有通用透明面排序；历史上明确接受性能取舍，需保留兼容边界，不预设必须采用昂贵排序。 |
 | F13 | P1 | 透明建筑投影与后期星点正确合成 | 主线透明投影深度仍挡住后方星点；`uncomplete` 的候选方案未通过实机验收。 |
-| F14 | P1 | RenderDragon 普通附加包接入 | 仅 `dev` 实验完成离线转换；可分发附加包的运行时绑定与视觉一致性未完成，尚未合入主线。 |
+| F14 | P1 | RenderDragon 普通附加包接入 | 仅 `render-dragon`（原 `dev`）实验完成离线转换；可分发附加包的运行时绑定与视觉一致性未完成，尚未合入主线。 |
 | F15 | P2 | 失败／取消存档后的未引用分页清理 | 已写页没有随失败事务回收；同一编号后续保存较小内容仍可能留下尾页。 |
 
 ### F01：前景层／背景层
@@ -664,7 +674,7 @@ Wiki 同时提供了初始布尔表没有表达的行为：水源与流动水不
 
 ### F14：RenderDragon 接入（未合并开发分支）
 
-**依据：** `dev` 的 [迁移记录 `bc376f1`](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/docs/RENDERDRAGON_MIGRATION.md)、[试点记录](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/docs/RENDERDRAGON_PILOT.md) 与 [工具说明](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/tools/renderdragon/README.md)。13 个 shader 源文件的离线转换已覆盖 35 个继承材质、175 个变体、552 对顶点／片元组合，但记录仍标注 `runtime_verified=false`、`visual_parity_verified=false`。这些文件及接入实验不在主线。
+**依据：** `render-dragon`（原 `dev`）的 [迁移记录 `bc376f1`](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/docs/RENDERDRAGON_MIGRATION.md)、[试点记录](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/docs/RENDERDRAGON_PILOT.md) 与 [工具说明](https://github.com/Happy2018new/better-building-editor/blob/bc376f15c2b8b52a0191b3efb9900e6055d073e6/tools/renderdragon/README.md)。13 个 shader 源文件的离线转换已覆盖 35 个继承材质、175 个变体、552 对顶点／片元组合，但记录仍标注 `runtime_verified=false`、`visual_parity_verified=false`。这些文件及接入实验不在主线。
 
 原生安装资源替换曾在 RenderDragon D3D12 环境显示测试颜色／星空，然而同一份字节码放入普通附加包 `renderer/materials` 未被加载，尚未确认可分发附加包的注册／绑定入口。离线编译成功不等于普通玩家安装模组即可使用。
 
