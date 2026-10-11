@@ -146,7 +146,7 @@ CLIENT_STATE = '''_result=json.dumps({'runtime':api.GetMinecraftVersion(),
 def audit(client, check, flags):
     code = 'import json,sys\n_result=json.dumps(dict((key,hasattr(sys,key)) for key in %r))' % (flags,)
     result = {'server_flags': run(client, code), 'client_flags': check.run(code),
-              'server_runtime': run(client, 'import mod.server.extraServerApi as api\n_result=api.GetMinecraftVersion()'),
+              'server_runtime': run(client, 'import json\nimport mod.server.extraServerApi as api\n_result=json.dumps(api.GetMinecraftVersion())'),
               'client_state': check.run(CLIENT_STATE)}
     state = result['client_state']
     result['clean'] = (not any(result['server_flags'].values()) and
