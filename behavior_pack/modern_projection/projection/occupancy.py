@@ -347,6 +347,9 @@ class ProjectionOccupancy(object):
             if not entity:
                 raise ValueError('Could not create projection actor')
             self.entity = self.bridge.entity = entity
+            own = getattr(self.bridge, 'own_projection_entity', None)
+            if own is not None:
+                own(entity, self.shader)
             self.bridge.factory.CreateModel(entity).SetEntityShadowShow(False)
             self.attaching = True
             def attach():

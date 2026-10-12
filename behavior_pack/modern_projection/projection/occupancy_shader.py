@@ -11,7 +11,10 @@ class OccupancyShader(object):
         old = getattr(tracker.bridge, 'projection_shader', None)
         if old is None and tracker.bridge.projection_occupancy is not None:
             old = tracker.bridge.projection_occupancy.shader
-        self.pool = 1-old.pool if old is not None else 0
+        select_pool = getattr(tracker.bridge, 'available_projection_pool', None)
+        self.pool = select_pool() if select_pool is not None else (1-old.pool if old is not None else 0)
+        if self.pool is None:
+            raise ValueError('Projection geometry pools are still owned by previous actors')
         self.names = tuple('modern_projection_buffer_%d_%d' % (self.pool, bank)
                            for bank in range(2))
         self.render = None
@@ -23,6 +26,9 @@ class OccupancyShader(object):
         self.active_parts = [set(), set()]
         self.overlay_visibility = {}
         self.overlay_restore = False
+        self.owned_parts = set()
+        self.retirement_parts = None
+        self.retirement_uniform_hidden = False
         self.local = False
         self.anchor = None
         self.offset_restore = []
@@ -60,6 +66,8 @@ class OccupancyShader(object):
                 self.show_overlay(name, False)
         self.active_parts[bank] = active
         for name, origin, context in incoming:
+            # A failed native attachment may already have changed the renderer.
+            self.owned_parts.add(name)
             if name not in self.parts[bank] and not self.render.AddActorBlockGeometry(
                     name, self.offset(anchor, origin), (0., 180., 0.)):
                 raise ValueError('Could not attach projection context chunk')
@@ -80,6 +88,9 @@ class OccupancyShader(object):
 
     def bind(self, entity, model, anchor, attached=False):
         tracker, b = self.tracker, self.tracker.bridge
+        own = getattr(b, 'own_projection_entity', None)
+        if own is not None:
+            own(entity, self)
         self.render = b.factory.CreateActorRender(entity)
         self.bank = self.names.index(model)
         self.local = model in getattr(b, 'context_models', {})
@@ -98,6 +109,40 @@ class OccupancyShader(object):
             self.parts[self.bank][model] = ((0, 0, 0), True)
         for bank in range(2):
             self.configure(bank, anchor)
+
+    def retire(self):
+        """Hide every attempted attachment; retain failed writes for destruction retries."""
+        if self.render is None:
+            return []
+        self.overlay_restore = False
+        if self.retirement_parts is None:
+            self.retirement_parts = self.owned_parts.union(self.overlay_visibility)
+            for parts in self.parts:
+                self.retirement_parts.update(parts)
+        errors = []
+        if not self.retirement_uniform_hidden:
+            hidden = actor_uniform(self.tracker.document.biome)[:2]+(-1., 0.)
+            try:
+                if not self.render.SetEntityExtraUniforms(4, hidden):
+                    raise ValueError('Could not hide retired projection shader')
+            except Exception as error:
+                traceback.print_exc()
+                errors.append(type('')(error))
+            else:
+                self.uniforms[4] = hidden
+                self.updates += 1
+                self.retirement_uniform_hidden = True
+        for name in tuple(self.retirement_parts):
+            try:
+                if not self.render.SetActorBlockGeometryVisible(name, False):
+                    raise ValueError('Could not hide retired projection geometry')
+            except Exception as error:
+                traceback.print_exc()
+                errors.append(type('')(error))
+            else:
+                self.overlay_visibility[name] = False
+                self.retirement_parts.remove(name)
+        return errors
 
     def offset(self, anchor, chunk=(0, 0, 0)):
         origin = self.tracker.origin

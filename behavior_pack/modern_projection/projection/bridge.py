@@ -80,6 +80,7 @@ class ClientBridge(object):
         self.projection_serial = 0
         self.projection_entities = {}
         self.projection_retired_entities = set()
+        self.projection_entity_shaders = {}
         self.projection_retired_outlines = []
         self.projection_work = None
         self.projection_occupancy = None
@@ -835,6 +836,23 @@ class ClientBridge(object):
                 self.session.editor.message = '水投影更新失败，请更新投影：%s' % liquid.error
                 self.session.emit()
 
+    def own_projection_entity(self, entity, shader):
+        if entity is not None and shader is not None:
+            self.projection_entity_shaders[entity] = shader
+
+    def available_projection_pool(self):
+        old = self.projection_shader
+        if old is None and self.projection_occupancy is not None:
+            old = self.projection_occupancy.shader
+        occupied = set(shader.pool for shader in self.projection_entity_shaders.values())
+        if old is not None:
+            occupied.add(old.pool)
+        preferred = 1-old.pool if old is not None else 0
+        for pool in (preferred, 1-preferred):
+            if pool not in occupied:
+                return pool
+        return None
+
     def release_projection_resources(self, entities=(), outlines=(), liquids=()):
         """Retain failed releases for the next commit or explicit close."""
         pending = getattr(self, 'projection_retired_entities', set())
@@ -846,6 +864,9 @@ class ClientBridge(object):
                 retired.append(outline)
         errors = []
         for entity in tuple(pending):
+            shader = self.projection_entity_shaders.get(entity)
+            if shader is not None:
+                errors.extend(shader.retire())
             try:
                 self.system.DestroyClientEntity(entity)
             except Exception as error:
@@ -853,6 +874,7 @@ class ClientBridge(object):
                 errors.append(type('')(error))
             else:
                 pending.remove(entity)
+                self.projection_entity_shaders.pop(entity, None)
         for outline in tuple(retired):
             try:
                 outline.clear()
@@ -874,6 +896,9 @@ class ClientBridge(object):
         return errors
 
     def stop_projection(self):
+        self.own_projection_entity(self.entity, self.projection_shader)
+        self.own_projection_entity(self.preparing_entity,
+                                   getattr(self.projection_work, 'shader', None))
         liquids = (getattr(self, 'projection_liquid', None),
                    getattr(self.projection_work, 'liquid', None))
         self.projection_liquid = None
@@ -904,13 +929,21 @@ class ClientBridge(object):
         self.projection_requested = True
         self.projection_serial += 1
         previous_work = self.projection_work
+        pending_liquid = None
         if previous_work is not None and not previous_work.ready:
             pending_liquid = getattr(previous_work, 'liquid', None)
-            self.release_projection_resources(liquids=(pending_liquid,))
-        if self.preparing_entity:
-            pending = self.preparing_entity
-            self.preparing_entity = None
-            self.release_projection_resources((pending,))
+        pending = self.preparing_entity
+        self.own_projection_entity(pending, getattr(previous_work, 'shader', None))
+        self.preparing_entity = None
+        self.release_projection_resources((pending,), liquids=(pending_liquid,))
+        if self.available_projection_pool() is None:
+            self.projection_work = None
+            self.projection_requested = bool(self.session.projection_active)
+            if not self.session.projection_active:
+                self.restore_projection_distance()
+            self.session.editor.message = '旧投影实体尚未销毁，请关闭投影或更新投影重试'
+            self.session.emit()
+            return
         had_projection = bool(self.entity or self.projection_entities)
         self.projection_work = WorldProjection(self, origin)
         self.ensure_projection_distance(self.projection_work.document.size)

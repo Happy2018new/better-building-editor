@@ -148,6 +148,9 @@ class Runtime:
     def SetActorBlockGeometryTransparency(self, name, opacity):
         return True
 
+    def SetActorBlockGeometryVisible(self, name, visible):
+        return True
+
 
 class ProjectionLifecycleTests(unittest.TestCase):
     def test_render_callback_advances_pending_model_without_changing_previous_actor(self):

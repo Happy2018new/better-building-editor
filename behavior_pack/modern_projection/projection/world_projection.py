@@ -152,6 +152,7 @@ class WorldProjection(object):
                 b.release_projection_resources(outlines=(outline,))
             raise
         previous_entities = tuple(b.projection_entities.values()) + (b.entity,)
+        b.own_projection_entity(b.entity, b.projection_shader)
         previous_liquid = getattr(b, 'projection_liquid', None)
         # No native calls between publication of the prepared resources.
         b.entity, b.preparing_entity = entity, None
@@ -201,6 +202,7 @@ class WorldProjection(object):
         if not entity:
             raise ValueError('无法创建投影，请靠近目标区域后重试')
         b.preparing_entity = entity
+        b.own_projection_entity(entity, self.shader)
         b.later(.2, lambda: self.attach(entity))
 
     def advance(self, schedule=True):
