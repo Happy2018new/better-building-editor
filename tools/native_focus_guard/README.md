@@ -73,6 +73,17 @@ guard failure terminates only the new child before its primary thread resumes.
 Both normal stdout and Safaia logging startup paths resume that thread once.
 The existing managed session owner/process identity checks remain in force.
 
+Module snapshot collection retries only `ERROR_BAD_LENGTH`, at most 50 attempts
+with 20 ms between attempts. Other errors fail immediately. Exhausted or
+non-retryable failures retain the Windows error code in the diagnostic; the
+caller still terminates the suspended owned child. This addresses transient
+module-list changes without treating an unverified guard as a successful launch.
+`snapshot_test.cpp` exercises immediate success, transient recovery, the retry
+limit and non-retryable errors without launching Minecraft or changing focus.
+The host build script runs this regression automatically; the CMake build
+registers it as `native_focus_snapshot_retry` for `ctest`. Its checks also remain
+enabled in Release builds.
+
 ## Round Seven Evidence
 
 The isolated two-thread probe passed on 2026-10-11. Three owner-bound NEMC 3.9

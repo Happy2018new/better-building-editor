@@ -23,4 +23,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Focus guard compilation failed' }
     & cl /nologo /O2 /MD /EHsc /std:c++20 "$PSScriptRoot/probe.cpp" user32.lib /link /OUT:native_focus_probe.exe
     if ($LASTEXITCODE -ne 0) { throw 'Focus probe compilation failed' }
+    & cl /nologo /O2 /MD /EHsc /std:c++20 "$PSScriptRoot/snapshot_test.cpp" /link /OUT:native_focus_snapshot_test.exe
+    if ($LASTEXITCODE -ne 0) { throw 'Module snapshot test compilation failed' }
+    & ./native_focus_snapshot_test.exe
+    if ($LASTEXITCODE -ne 0) { throw 'Module snapshot retry regression failed' }
 } finally { Pop-Location }

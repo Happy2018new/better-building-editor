@@ -7,6 +7,19 @@
 #include <string>
 
 namespace focus_guard {
+inline HANDLE snapshotModules(DWORD pid) {
+    DWORD error = ERROR_SUCCESS;
+    for (unsigned attempt = 0; attempt < 50; ++attempt) {
+        HANDLE modules = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
+        if (modules != INVALID_HANDLE_VALUE) return modules;
+        error = GetLastError();
+        if (error != ERROR_BAD_LENGTH || attempt == 49) break;
+        // The module list can change immediately after remote LoadLibrary.
+        Sleep(20);
+    }
+    throw std::runtime_error("Focus guard module snapshot failed (Windows error " +
+                             std::to_string(error) + ")");
+}
 inline DWORD runRemote(HANDLE process, LPTHREAD_START_ROUTINE function, LPVOID argument) {
     HANDLE thread = CreateRemoteThread(process, nullptr, 0, function, argument, 0, nullptr);
     if (!thread) throw std::runtime_error("Focus guard remote thread creation failed");
@@ -34,8 +47,7 @@ inline void install(HANDLE process, DWORD pid, DWORD, const std::filesystem::pat
     DWORD loaded = runRemote(process, loader, remote);
     VirtualFreeEx(process, remote, 0, MEM_RELEASE);
     if (!loaded) throw std::runtime_error("Remote focus guard DLL load failed");
-    HANDLE modules = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-    if (modules == INVALID_HANDLE_VALUE) throw std::runtime_error("Focus guard module snapshot failed");
+    HANDLE modules = snapshotModules(pid);
     MODULEENTRY32W entry = {sizeof(entry)};
     uintptr_t base = 0;
     if (Module32FirstW(modules, &entry)) {
