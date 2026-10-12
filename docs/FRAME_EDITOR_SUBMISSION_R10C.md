@@ -30,6 +30,19 @@ exact hashed source bytes were frozen before subsequent diagnostic edits.
 The evidence index `tools/data/flat_frame_editor_submission_r10c.json` contains
 report, receipt, PNG and frozen-source paths, hashes and archive locations.
 Large PNGs are kept in the local archive, outside Git.
+The root integration also copied and hash-checked the complete archive to
+`.runtime/frame-editor-r10c/artifacts` in the main checkout. The evidence index
+now points to that copy, so removing the agent worktree will not remove it.
+The original session reports, captures and frozen source bytes remain unchanged.
+Commit `2720217` adds archive replay when original session paths no longer exist:
+the scorer uses the PNG beside the archived report and still requires its exact
+SHA-256. Two regressions cover removed session paths and altered archive bytes.
+
+Replay from the main checkout, with a fresh output path:
+
+```powershell
+python -X utf8 tools/trace_flat_frame_editor.py .runtime/frame-editor-replay.json --score-report .runtime/frame-editor-r10c/artifacts/frame-editor-submission-v3.json
+```
 
 An independent restoration audit found the original document, closed workspace,
 original factory class, zero diagnostic markers and zero accepted profiles.
@@ -39,3 +52,7 @@ recorded processes, and their identities were independently confirmed absent.
 Validation: five focused diagnostic regressions and 17 blueprint tests passed;
 Python compilation and `git diff --check` passed. Production shader candidates,
 skinning/glint compatibility and additional facing/rotation cases remain open.
+The root archive replay adds two diagnostic regressions, for seven total. Final
+integration check at `2720217` passed all 1,655 offline tests, 63 version sources,
+generated assets and 15,858 block states across six transforms. These checks
+do not change the failed native rendering acceptance.
