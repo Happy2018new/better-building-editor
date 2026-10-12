@@ -8,8 +8,8 @@ import numpy as np
 from PIL import Image
 
 from diagnose_liquid_coordinate_sampling import nearest_templates
-from liquid_coordinate_markers import (LIMITS,check_frozen_sources,fingerprint,hypotheses,
-                                       measure,passed,score,write)
+from liquid_coordinate_markers import (LIMITS,check_frozen_sources,checked_capture_image,
+                                       fingerprint,hypotheses,passed,score,validate_sequences,write)
 from measure_native_liquid_side_uv import bilinear,spatial_templates
 from analyze_liquid_workspace import capture_failures
 
@@ -26,8 +26,7 @@ def subtract_background(observed,background,transmission):
 
 
 def diagnose(frame,sequences):
-    if {row['role'] for row in sequences}!={'training','holdout'}:
-        raise ValueError('Original training and geometry holdouts are required')
+    sequences=validate_sequences(sequences)
     candidates=[]
     for sampler in ('bilinear','nearest'):
         for hypothesis in hypotheses():
@@ -60,6 +59,7 @@ def diagnose(frame,sequences):
 
 def prepare(input_path,contrast_path,plan_path):
     baseline=json.loads(input_path.read_bytes());contrast=json.loads(contrast_path.read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     region=contrast['contrast_controls']['native']['regions']['behind_block']
     if contrast['capture_failures'] or region['status']!='OBSERVED':
         raise ValueError('Independent contrast evidence did not pass')
@@ -84,11 +84,12 @@ def analyze(plan_path,output):
         if fingerprint(reference['path'])!=reference:
             raise ValueError('Frozen diagnostic evidence or source changed')
     baseline=json.loads(Path(plan['input']['path']).read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     if baseline['capture_failures']:raise ValueError('Native capture provenance failed')
     original=json.loads(Path(plan['original_plan']['path']).read_bytes());check_frozen_sources(original)
     raw_path=Path(baseline['source']['path'])
     if fingerprint(raw_path)!=baseline['source']:raise ValueError('Frozen native report changed')
-    raw=json.loads(raw_path.read_bytes());controls={row['case']:row for row in raw['cases']}
+    raw=json.loads(raw_path.read_bytes())
     receipts={row['case']:row['controls'][plan['background_control']]['capture']['capture'] for row in raw['cases']}
     failures=capture_failures(receipts,raw['session_binding'])
     if failures:raise ValueError('Native background PNG provenance failed: '+str(failures))
@@ -98,7 +99,7 @@ def analyze(plan_path,output):
         row=next(row for row in raw['cases'] if '_depth_'+depth+'_' in row['case'])
         capture=row['controls'][plan['background_control']]['capture']
         points=np.asarray(sequence['native_sample_points'],float)
-        with Image.open(capture['path']) as image:rgb=np.asarray(image.convert('RGB'),float)
+        with checked_capture_image(capture) as image:rgb=np.asarray(image,float)
         background=bilinear(rgb,points[:,0],points[:,1])
         residual=subtract_background(sequence['observed'],background,plan['transmission'])
         sequences.append(dict(sequence,observed=residual.tolist(),background_samples=background.tolist()))

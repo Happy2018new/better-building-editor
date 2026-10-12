@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image,ImageDraw,ImageFont
 
 from diagnose_liquid_coordinate_sampling import nearest_templates
-from liquid_coordinate_markers import check_frozen_sources,fingerprint,ranks,write
+from liquid_coordinate_markers import check_frozen_sources,fingerprint,ranks,validate_sequences,write
 from measure_native_liquid_side_uv import Hypothesis,oriented_uv,spatial_templates
 
 BORDER_BINS=(0.,.1,.2,.3,.4,.5)
@@ -27,6 +27,7 @@ def border_distance(grid,hypothesis,width):
 def render(input_path,output_dir):
     if output_dir.exists():raise ValueError('Use a fresh diagnostic image directory')
     baseline=json.loads(input_path.read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     plan=json.loads(Path(baseline['plan']['path']).read_bytes())
     if fingerprint(baseline['plan']['path'])!=baseline['plan']:raise ValueError('Frozen plan changed')
     check_frozen_sources(plan)

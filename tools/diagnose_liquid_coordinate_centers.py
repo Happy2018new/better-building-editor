@@ -9,7 +9,8 @@ from PIL import Image
 
 from camera_projection import project_points
 from diagnose_liquid_coordinate_background import diagnose
-from liquid_coordinate_markers import LIMITS,check_frozen_sources,fingerprint,write
+from liquid_coordinate_markers import (LIMITS,check_frozen_sources,checked_capture_image,
+                                       fingerprint,validate_sequences,write)
 from measure_native_liquid_side_uv import FACE_CORNERS,bilinear
 
 
@@ -36,6 +37,7 @@ def center_grid(surface):
 
 def prepare(input_path,plan_path):
     baseline=json.loads(input_path.read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     original=json.loads(Path(baseline['plan']['path']).read_bytes())
     if fingerprint(baseline['plan']['path'])!=baseline['plan']:raise ValueError('Original plan changed')
     check_frozen_sources(original);sequences=[]
@@ -50,6 +52,7 @@ def prepare(input_path,plan_path):
                 surfaces.append({'geometry':surface,'start':start,'count':len(fixed['u'])})
             sequences.append({'id':depth+'/'+side,'case':row['case'],'role':original['geometry_roles'][depth],
                               'grid':grid,'surfaces':surfaces})
+    validate_sequences(sequences)
     sources={name:fingerprint(Path(__file__).with_name(name)) for name in (
         'diagnose_liquid_coordinate_centers.py','diagnose_liquid_coordinate_background.py',
         'diagnose_liquid_coordinate_sampling.py')}
@@ -71,9 +74,11 @@ def prepare(input_path,plan_path):
 
 def analyze(plan_path,output):
     plan=json.loads(plan_path.read_bytes())
+    validate_sequences(plan['sequences'])
     for reference in [plan['input'],plan['original_plan']]+list(plan['sources'].values()):
         if fingerprint(reference['path'])!=reference:raise ValueError('Frozen center diagnostic source changed')
     baseline=json.loads(Path(plan['input']['path']).read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     if baseline['capture_failures']:raise ValueError('Native capture provenance failed')
     if fingerprint(baseline['source']['path'])!=baseline['source']:raise ValueError('Frozen native report changed')
     raw=json.loads(Path(baseline['source']['path']).read_bytes())
@@ -92,7 +97,7 @@ def analyze(plan_path,output):
         if not all(row['isInScreen'] and row['depth']>.05 for row in projected):
             raise ValueError('Declared texel center is outside the native camera')
         points=np.asarray([[row['screenX']*native[0]/engine[0],row['screenY']*native[1]/engine[1]] for row in projected])
-        with Image.open(capture['path']) as image:rgb=np.asarray(image.convert('RGB'),float)
+        with checked_capture_image(capture) as image:rgb=np.asarray(image,float)
         observed=bilinear(rgb,points[:,0],points[:,1])
         sequences.append(dict(sequence,observed=observed.tolist(),native_sample_points=points.tolist()))
     asset=next(row for row in original['assets'] if Path(row['generated']['path']).name=='water_flow_grey.png')

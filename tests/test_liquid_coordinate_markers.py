@@ -2,12 +2,14 @@
 import sys
 import unittest
 import json
+import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
-from liquid_coordinate_markers import marker_frame,measure,ranks,score
+from liquid_coordinate_markers import check_frozen_sources,fingerprint,marker_frame,measure,ranks,score,validate_sequences
 
 
 def independent_samples(frame,u,height):
@@ -76,6 +78,45 @@ class CoordinateMarkerTests(unittest.TestCase):
         np.testing.assert_array_equal(ranks(values)[:,0],[.25,.25,1.])
         self.assertEqual(0.,score(values,values*3+20)['rank_rmse'])
         self.assertGreater(score(values,values[::-1])['rank_rmse'],.2)
+
+    def test_colliding_holdout_id_rejects_wrong_training_before_every_scorer(self):
+        import diagnose_liquid_coordinate_background as background
+        import diagnose_liquid_coordinate_centers as centers
+        import diagnose_liquid_coordinate_sampling as sampling
+        frame=marker_frame(32,271);rows=self.sequences(frame)
+        rows[0]['observed']=np.flip(rows[0]['observed'],axis=0)
+        rows[1]['id']=rows[0]['id']
+        for scorer,module in ((measure,'liquid_coordinate_markers'),
+                              (sampling.diagnose,'diagnose_liquid_coordinate_sampling'),
+                              (background.diagnose,'diagnose_liquid_coordinate_background'),
+                              (centers.diagnose,'diagnose_liquid_coordinate_background')):
+            with self.subTest(scorer=scorer.__module__),patch(module+'.score',side_effect=AssertionError('Scored invalid sequences')):
+                with self.assertRaisesRegex(ValueError,'unique nonempty string'):scorer(frame,rows)
+
+    def test_sequence_ids_and_roles_are_exhaustive(self):
+        valid=[{'id':'train','role':'training'},{'id':'test','role':'holdout'}]
+        self.assertEqual(valid,validate_sequences(iter(valid)))
+        for identifier in (None,0,'','  '):
+            with self.subTest(identifier=identifier),self.assertRaises(ValueError):
+                validate_sequences([dict(valid[0],id=identifier),valid[1]])
+        for role in (None,'validation','TRAINING'):
+            with self.subTest(role=role),self.assertRaises(ValueError):
+                validate_sequences(valid+[{'id':'unexpected','role':role}])
+        with self.assertRaises(ValueError):validate_sequences(valid[1:])
+
+    def test_frozen_archive_fallback_is_explicit_and_strict(self):
+        with tempfile.TemporaryDirectory() as directory:
+            live=Path(directory)/'live.py';archive=Path(directory)/'archive.py'
+            live.write_bytes(b'original\n');archive.write_bytes(live.read_bytes())
+            plan={'frozen_sources':{'fixture':{'live':fingerprint(live),'archive':fingerprint(archive)}}}
+            self.assertEqual([],check_frozen_sources(plan)['archive_fallbacks'])
+            live.write_bytes(b'updated\n')
+            with self.assertRaisesRegex(ValueError,'fixture/live'):check_frozen_sources(plan)
+            result=check_frozen_sources(plan,allow_archive=True)
+            self.assertEqual(fingerprint(live),result['archive_fallbacks'][0]['current_live'])
+            self.assertEqual(plan['frozen_sources']['fixture']['archive'],result['archive_fallbacks'][0]['verified_archive'])
+            archive.write_bytes(b'changed archive\n')
+            with self.assertRaisesRegex(ValueError,'fixture/archive'):check_frozen_sources(plan,allow_archive=True)
 
 
 if __name__=='__main__':unittest.main()

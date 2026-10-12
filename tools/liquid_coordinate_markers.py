@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import itertools
 import json
+from io import BytesIO
 from pathlib import Path
 
 import numpy as np
@@ -28,11 +29,54 @@ def manifest(project):
             for path in sorted((project/'resource_pack').rglob('*')) if path.is_file()}
 
 
-def check_frozen_sources(plan):
+def check_frozen_sources(plan,allow_archive=False):
+    fallbacks=[]
     for name, row in plan['frozen_sources'].items():
-        for key in ('live', 'archive'):
-            if fingerprint(row[key]['path']) != row[key]:
-                raise ValueError('Frozen experiment source changed: '+name+'/'+key)
+        if fingerprint(row['archive']['path']) != row['archive'] or row['archive']['sha256'] != row['live']['sha256']:
+            raise ValueError('Frozen experiment source changed: '+name+'/archive')
+        live=Path(row['live']['path'])
+        current=fingerprint(live) if live.is_file() else None
+        if current != row['live']:
+            if not allow_archive:
+                raise ValueError('Frozen experiment source changed: '+name+'/live')
+            fallbacks.append({'source':name,'recorded_live':row['live'],'current_live':current,
+                              'verified_archive':row['archive']})
+    return {'archive_fallback_enabled':allow_archive,'archive_fallbacks':fallbacks}
+
+
+def validate_sequences(sequences):
+    rows=list(sequences);identifiers=set();roles=set()
+    for row in rows:
+        if not isinstance(row,dict):
+            raise ValueError('Every sequence must be a declared object')
+        identifier=row.get('id')
+        if not isinstance(identifier,str) or not identifier.strip() or identifier in identifiers:
+            raise ValueError('Every sequence ID must be a unique nonempty string')
+        role=row.get('role')
+        if role not in ('training','holdout'):
+            raise ValueError('Every sequence role must be training or holdout')
+        identifiers.add(identifier);roles.add(role)
+    if roles != {'training','holdout'}:
+        raise ValueError('Independent declared training and geometry holdout sequences are required')
+    return rows
+
+
+def checked_capture_image(record):
+    receipt=record['capture']
+    path=Path(record['path']).resolve()
+    if path != Path(receipt['path']).resolve():
+        raise ValueError('Capture wrapper path differs from native receipt')
+    payload=path.read_bytes();digest=hashlib.sha256(payload).hexdigest()
+    if any(row.get('sha256') != digest or row.get('bytes') != len(payload) for row in (record,receipt)):
+        raise ValueError('Opened PNG bytes differ from capture wrapper or native receipt')
+    dimensions=[receipt.get('width'),receipt.get('height')];frame=receipt.get('frame',{})
+    if record.get('mime') != 'image/png' or record.get('size') != dimensions or dimensions != [frame.get('width'),frame.get('height')]:
+        raise ValueError('Capture wrapper or native frame dimensions differ')
+    # Decode the verified bytes, so later path changes cannot replace the sampled image.
+    with Image.open(BytesIO(payload)) as image:
+        if image.format != 'PNG' or list(image.size) != dimensions:
+            raise ValueError('Opened native capture has incorrect encoding or dimensions')
+        return image.convert('RGB')
 
 
 def freeze_sources(project, base):
@@ -111,8 +155,7 @@ def passed(row):
 
 def measure(frame,sequences):
     """No gain, bias, opacity, shift, camera, or geometry is fitted per hypothesis."""
-    if not any(row['role']=='training' for row in sequences) or not any(row['role']=='holdout' for row in sequences):
-        raise ValueError('Independent declared training and geometry holdout sequences are required')
+    sequences=validate_sequences(sequences)
     sequences = [dict(row,grid={key:np.asarray(row['grid'][key],float)
                                for key in ('u','height','top')}) for row in sequences]
     candidates = []

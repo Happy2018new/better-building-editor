@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 from liquid_coordinate_markers import (LIMITS,check_frozen_sources,fingerprint,hypotheses,
-                                       passed,score,write)
+                                       passed,score,validate_sequences,write)
 from measure_native_liquid_side_uv import oriented_uv
 
 
@@ -33,8 +33,7 @@ def nearest_templates(frame,grid,hypothesis):
 
 
 def diagnose(frame,sequences):
-    if {row['role'] for row in sequences}!={'training','holdout'}:
-        raise ValueError('Original training and geometry holdout roles are required')
+    sequences=validate_sequences(sequences)
     candidates=[]
     for hypothesis in hypotheses():
         rows={row['id']:score(nearest_templates(frame,row['grid'],hypothesis),
@@ -60,6 +59,7 @@ def diagnose(frame,sequences):
 
 def prepare(input_path,plan_path):
     baseline=json.loads(input_path.read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     plan={'schema':1,'created_at':datetime.now(timezone.utc).isoformat(),
           'diagnostic_only':True,'post_observation_sampler_family':True,
           'input':fingerprint(input_path),'original_plan':baseline['plan'],
@@ -83,6 +83,7 @@ def analyze(plan_path,output):
     if fingerprint(plan['input']['path'])!=plan['input']:
         raise ValueError('Frozen native sample analysis changed')
     baseline=json.loads(Path(plan['input']['path']).read_bytes())
+    validate_sequences(baseline['sampled_sequences'])
     if baseline['capture_failures']:
         raise ValueError('Native captures failed provenance gates')
     original=json.loads(Path(plan['original_plan']['path']).read_bytes())
