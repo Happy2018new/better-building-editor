@@ -16,7 +16,7 @@ MODULES = (
     'item_contents_data',
     'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
     'water_interaction_data', 'plant_proxy_data',
-    'static_neighbor_data',
+    'static_neighbor_data', 'rail_neighbor_data',
     'native_palette_actor_data',
     'native_entity_write_data',
     'static_bed_data',
@@ -63,7 +63,8 @@ def provenance_matches(label, version, fingerprint, manifest):
 
 
 def module_constants(path):
-    selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256', 'SCHEMA_VERSION', 'FRAME_ITEMS'}
+    selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256', 'SCHEMA_VERSION',
+                'FRAME_ITEMS', 'EVIDENCE', 'RUNTIME'}
     result = {}
     for node in ast.parse(path.read_text(encoding='utf8'), filename=str(path)).body:
         if isinstance(node, ast.Assign):
@@ -71,6 +72,58 @@ def module_constants(path):
                 if isinstance(target, ast.Name) and target.id in selected:
                     result[target.id] = ast.literal_eval(node.value)
     return result
+
+
+def check_rail_provenance(manifest, root=ROOT):
+    path = root / 'behavior_pack/modern_projection/projection/rail_neighbor_data.py'
+    values = module_constants(path)
+    if type(values.get('SCHEMA_VERSION')) is not int or values['SCHEMA_VERSION'] != 1:
+        raise ValueError('Native rail source table has an unknown schema')
+    provenance_matches('rail_neighbor_data', values.get('SOURCE_VERSION'),
+                       values.get('PALETTE_SHA256'), manifest)
+    version = manifest['game_version'].removeprefix('NEMC ')
+    filenames = tuple(name + '_nemc_' + version + '.json' for name in
+                      ('native_neighbor_actions_r11', 'native_neighbor_actions_r11_axes'))
+    evidence = values.get('EVIDENCE')
+    if (not isinstance(evidence, (tuple, list)) or len(evidence) != len(filenames) or
+            any(not isinstance(row, (tuple, list)) or len(row) != 2 for row in evidence) or
+            tuple(row[0] for row in evidence) != filenames or
+            not isinstance(values.get('RUNTIME'), str) or not values['RUNTIME']):
+        raise ValueError('Native rail source table differs from its declared frozen evidence')
+    checked = []
+    for filename, fingerprint in evidence:
+        path = root / 'tools/data' / filename
+        payload = path.read_bytes()
+        if (not isinstance(fingerprint, str) or len(fingerprint) != 64 or
+                hashlib.sha256(payload).hexdigest() != fingerprint.lower()):
+            raise ValueError('Native rail original evidence bytes changed: ' + filename)
+        data = json.loads(payload)
+        if not isinstance(data, dict) or type(data.get('schema')) is not int or data['schema'] != 1:
+            raise ValueError('Native rail evidence has an unknown schema: ' + filename)
+        provenance_matches(filename, data.get('game_version'), data.get('palette_sha256'), manifest)
+        start, native, cleanup = (data.get(key, {}) for key in ('start', 'native', 'cleanup'))
+        if not all(isinstance(value, dict) for value in (start, native, cleanup)):
+            raise ValueError('Native rail evidence has malformed capture metadata: ' + filename)
+        provenance_matches(filename + ' start', start.get('game_version'), start.get('palette_sha256'), manifest)
+        plans, rows = data.get('plans'), native.get('rows')
+        if (data.get('completed') is not True or data.get('restored') is not True or
+                data.get('error') or data.get('cleanup_error') or cleanup.get('restored') is not True or
+                native.get('done') is not True or native.get('error') or
+                start.get('runtime') != values['RUNTIME'] or
+                not isinstance(plans, list) or not plans or not isinstance(rows, list) or
+                start.get('cases') != len(plans) or native.get('case') != len(plans)):
+            raise ValueError('Native rail evidence is incomplete, unrestored or has a mismatching runtime: ' + filename)
+        if (any(not isinstance(plan, dict) or not isinstance(plan.get('id'), str) or
+                not isinstance(plan.get('actions'), list) or not plan['actions'] or
+                any(not isinstance(action, (tuple, list)) or len(action) != 2 or
+                    not isinstance(action[0], str) for action in plan['actions']) for plan in plans) or
+                any(not isinstance(row, dict) for row in rows)):
+            raise ValueError('Native rail evidence has malformed action coverage: ' + filename)
+        expected = [(plan['id'], action[0]) for plan in plans for action in plan['actions']]
+        if [(row.get('case'), row.get('action')) for row in rows] != expected:
+            raise ValueError('Native rail evidence did not complete its declared action coverage: ' + filename)
+        checked.append(str(path.relative_to(root)))
+    return checked
 
 
 def check_provenance(root=ROOT):
@@ -94,6 +147,7 @@ def check_provenance(root=ROOT):
         data = json.loads(path.read_text(encoding='utf8'))
         provenance_matches(name, data.get('game_version'), data.get('palette_sha256'), manifest)
         checked.append(str(path.relative_to(root)))
+    checked.extend(check_rail_provenance(manifest, root=root))
     path = root / 'tools/data/bed_static_model_v1.json'
     data = json.loads(path.read_text(encoding='utf8'))
     provenance_matches('bed_static_model', data.get('game_version'), data.get('palette_sha256'), manifest)

@@ -1,5 +1,6 @@
 """Reject version mixtures before any game or resource tests are started."""
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -14,6 +15,20 @@ spec.loader.exec_module(bundle)
 
 
 class VersionBundleTests(unittest.TestCase):
+    def rail_fixture(self, root):
+        manifest = json.loads((ROOT / 'tools/data/block_registry_manifest.json').read_bytes())
+        module = Path('behavior_pack/modern_projection/projection/rail_neighbor_data.py')
+        values = bundle.module_constants(ROOT / module)
+        for name in (module,) + tuple(Path('tools/data') / row[0] for row in values['EVIDENCE']):
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, path)
+        return manifest, values
+
+    def write_rail_table(self, root, values):
+        path = root / 'behavior_pack/modern_projection/projection/rail_neighbor_data.py'
+        path.write_text(''.join('%s = %r\n' % item for item in values.items()), encoding='ascii')
+
     def actor_snapshot(self):
         manifest=json.loads((ROOT/'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
         version=manifest['game_version'].removeprefix('NEMC ')
@@ -70,9 +85,107 @@ class VersionBundleTests(unittest.TestCase):
             bundle.check_actor_materials(data, manifest)
 
     def test_current_sources_and_runtime_observations_match(self):
-        manifest, files = bundle.check_provenance()
+        with patch.object(bundle, 'check_rail_provenance', wraps=bundle.check_rail_provenance) as rails:
+            manifest, files = bundle.check_provenance()
+        rails.assert_called_once()
+        self.assertIn('rail_neighbor_data', bundle.MODULES)
+        self.assertIn(str(Path('behavior_pack/modern_projection/projection/rail_neighbor_data.py')), files)
+        table = bundle.module_constants(ROOT / 'behavior_pack/modern_projection/projection/rail_neighbor_data.py')
+        for filename, unused in table['EVIDENCE']:
+            self.assertIn(str(Path('tools/data') / filename), files)
         self.assertGreater(len(files), 15)
         self.assertGreater(manifest['record_count'], 0)
+
+    def test_rail_provenance_reads_ast_and_preserves_original_differences(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, values = self.rail_fixture(root)
+            module = root / 'behavior_pack/modern_projection/projection/rail_neighbor_data.py'
+            with module.open('a', encoding='ascii') as output:
+                output.write("\nraise RuntimeError('must not initialize game modules')\n")
+            before = {filename: (root / 'tools/data' / filename).read_bytes()
+                      for filename, unused in values['EVIDENCE']}
+            self.assertEqual(2, len(bundle.check_rail_provenance(manifest, root=root)))
+            for filename, payload in before.items():
+                self.assertFalse(json.loads(payload)['comparison']['all_matched'])
+                self.assertEqual(payload, (root / 'tools/data' / filename).read_bytes())
+
+    def test_rail_provenance_rejects_changed_original_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, values = self.rail_fixture(root)
+            for filename, unused in values['EVIDENCE']:
+                with self.subTest(filename=filename):
+                    path = root / 'tools/data' / filename
+                    original = path.read_bytes()
+                    path.write_bytes(original + b'\n')
+                    with self.assertRaisesRegex(ValueError, 'original evidence bytes changed'):
+                        bundle.check_rail_provenance(manifest, root=root)
+                    path.write_bytes(original)
+
+    def test_rail_provenance_rejects_stale_or_unbound_source_table(self):
+        for change in ('schema', 'version', 'palette', 'hash', 'missing', 'foreign', 'duplicate'):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                manifest, values = self.rail_fixture(root)
+                if change == 'schema':
+                    values['SCHEMA_VERSION'] = 2
+                elif change == 'version':
+                    values['SOURCE_VERSION'] = 'NEMC old'
+                elif change == 'palette':
+                    values['PALETTE_SHA256'] = '0' * 64
+                elif change == 'hash':
+                    values['EVIDENCE'] = ((values['EVIDENCE'][0][0], '0' * 64), values['EVIDENCE'][1])
+                elif change == 'missing':
+                    values['EVIDENCE'] = values['EVIDENCE'][:1]
+                elif change == 'foreign':
+                    values['EVIDENCE'] = (('../foreign.json', values['EVIDENCE'][0][1]), values['EVIDENCE'][1])
+                else:
+                    values['EVIDENCE'] = (values['EVIDENCE'][0], values['EVIDENCE'][0])
+                self.write_rail_table(root, values)
+                with self.assertRaises(ValueError):
+                    bundle.check_rail_provenance(manifest, root=root)
+
+    def test_rail_provenance_checks_report_contract_even_if_table_hash_is_regenerated(self):
+        for change in ('schema', 'version', 'palette', 'start_palette', 'runtime', 'completed',
+                       'restored', 'cleanup', 'native_error', 'native_done', 'coverage',
+                       'capture_metadata', 'action_metadata'):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                manifest, values = self.rail_fixture(root)
+                filename = values['EVIDENCE'][0][0]
+                path = root / 'tools/data' / filename
+                data = json.loads(path.read_bytes())
+                if change == 'schema':
+                    data['schema'] = 2
+                elif change == 'version':
+                    data['game_version'] = 'NEMC old'
+                elif change == 'palette':
+                    data['palette_sha256'] = '0' * 64
+                elif change == 'start_palette':
+                    data['start']['palette_sha256'] = '0' * 64
+                elif change == 'runtime':
+                    data['start']['runtime'] = 'unobserved'
+                elif change in ('completed', 'restored'):
+                    data[change] = False
+                elif change == 'cleanup':
+                    data['cleanup']['restored'] = False
+                elif change == 'native_error':
+                    data['native']['error'] = 'native callback failed'
+                elif change == 'native_done':
+                    data['native']['done'] = False
+                elif change == 'capture_metadata':
+                    data['native'] = None
+                elif change == 'action_metadata':
+                    data['plans'][0]['actions'] = []
+                else:
+                    data['native']['rows'].pop()
+                payload = json.dumps(data, ensure_ascii=True).encode('ascii')
+                path.write_bytes(payload)
+                values['EVIDENCE'] = ((filename, hashlib.sha256(payload).hexdigest()), values['EVIDENCE'][1])
+                self.write_rail_table(root, values)
+                with self.assertRaises(ValueError):
+                    bundle.check_rail_provenance(manifest, root=root)
 
     def test_provenance_only_replays_native_item_source_instead_of_registry_labels(self):
         source_path = 'tools/data/native_item_contents_nemc_3.9.0.401155.json'
