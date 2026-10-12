@@ -87,7 +87,8 @@ class OccupancyShader(object):
         seed = SurfacePalette(tracker.size)
         pos = next(iter(tracker.targets))
         seed.add(pos, tracker.document.blocks[pos])
-        if not b.geometry(seed, name=self.names[spare], context_document=tracker.document):
+        if not b.geometry(seed, name=self.names[spare], context_document=tracker.document,
+                          render_origin=tracker.origin):
             raise ValueError('Could not prepare projection shader buffer')
         if attached and not self.local:
             self.parts[self.bank][model] = ((0, 0, 0), True)

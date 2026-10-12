@@ -10,6 +10,7 @@ from .nbt_spatial import field_key, rebase
 from .render_layout import (CONTEXT_BASE, CONTEXT_CENTER, CONTEXT_STRIDE,
                             MAX_LOGICAL_HEIGHT, OVERLAY_BASE, context_position)
 from .storage import integer_types
+from .plant_position import position_sensitive, render_origin as validate_render_origin
 
 NEIGHBORS = tuple((x, y, z) for y in (-1, 0, 1)
                   for x in (-1, 0, 1) for z in (-1, 0, 1))
@@ -118,7 +119,7 @@ class _ContextWriter(object):
             bucket[index] = rebase(payload, delta)
 
 
-def prepare_context_palette(source, targets):
+def prepare_context_palette(source, targets, render_origin=(0, 0, 0)):
     """Return a final native render palette; do not prepare it a second time.
 
     ``source`` contains the whole logical document. ``targets`` contains only
@@ -133,7 +134,7 @@ def prepare_context_palette(source, targets):
         data.update(common={}, extra={}, actor={}, states={}, extraStates={})
         return data
     logical_volume = source['volume']
-    prepared = prepare_palette(source)
+    prepared = prepare_palette(source, render_origin=render_origin)
     cells, overlays = _cells(prepared, logical_volume)
     volume = (CONTEXT_STRIDE * (max(pos[2] for pos in positions) + 1),
               CONTEXT_STRIDE * (max(pos[0] for pos in positions) + 1),
@@ -168,8 +169,9 @@ def prepare_context_palette(source, targets):
 
 class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
-    def __init__(self, document, targets):
+    def __init__(self, document, targets, render_origin=(0, 0, 0)):
         self.document, self.targets = document, targets
+        self.render_origin = validate_render_origin(render_origin)
         sx, sy, sz = document.size
         self.logical_volume = (sz, sx, sy)
         if (tuple(targets.get('volume', ())) != self.logical_volume or
@@ -180,13 +182,13 @@ class ContextPaletteBuilder(object):
                                           if foreground(value)[0] in CHEST_PROXIES)
         self.position_identities = self.chest_identities | frozenset(
             identity for identity, value in enumerate(document.blocks.palette)
-            if foreground(value)[0] == 'minecraft:bed')
+            if foreground(value)[0] == 'minecraft:bed' or
+            position_sensitive(foreground(value), background(value)))
         self.states, self.extra_states = {}, {}
         self.chunk_cache = OrderedDict()
         self.positions = []
 
-    def material(self, x, y, z):
-        key = (x >> 4, y >> 4, z >> 4)
+    def _chunk(self, key):
         entry = self.chunk_cache.get(key)
         if entry is None:
             chunk = self.document.blocks.chunks.get(key, 0)
@@ -203,7 +205,10 @@ class ContextPaletteBuilder(object):
                 self.chunk_cache.popitem(last=False)
             entry = (chunk, rendered_cells)
             self.chunk_cache[key] = entry
-        chunk, rendered_cells = entry
+        return entry
+
+    def material(self, x, y, z):
+        chunk, rendered_cells = self._chunk((x >> 4, y >> 4, z >> 4))
         if rendered_cells is None:
             return None
         index = ((y & 15) << 8) | ((z & 15) << 4) | (x & 15)
@@ -224,7 +229,9 @@ class ContextPaletteBuilder(object):
         front, back, actor = foreground(value), background(value), actor_data(value)
         part = document_chest_part(self.document, (x, y, z), front)
         color = document_bed_color(self.document, (x, y, z), front) if front[0] == 'minecraft:bed' else None
-        cache_key = identity if part is None and color is None else (identity, part, color)
+        plant_position = ((x, y, z) if position_sensitive(front, back) else None)
+        cache_key = (identity if part is None and color is None and plant_position is None else
+                     (identity, part, color, plant_position))
         if cache_key in self.cache:
             result = self.cache[cache_key]
             rendered_cells[render_index] = result
@@ -237,7 +244,8 @@ class ContextPaletteBuilder(object):
         if actor is not None:
             source['actor'][front[0]] = {0: actor}
         rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None,
-                                   inferred_bed_colors={0: color} if color is not None else None)
+                                   inferred_bed_colors={0: color} if color is not None else None,
+                                   render_origin=tuple(self.render_origin[i] + (x, y, z)[i] for i in range(3)))
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
@@ -323,9 +331,9 @@ class ContextPaletteBuilder(object):
                                   if value in self.data[layer])
 
 
-def prepare_document_context(document, targets):
+def prepare_document_context(document, targets, render_origin=(0, 0, 0)):
     """Synchronously adapt a small palette without serializing the whole source."""
-    builder = ContextPaletteBuilder(document, targets)
+    builder = ContextPaletteBuilder(document, targets, render_origin=render_origin)
     for unused in builder.prepare():
         pass
     return builder.data
@@ -404,8 +412,8 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                      'volume': self.logical_volume}
 
 
-def prepare_context_batches(document, targets):
-    builder = ContextBatchBuilder(document, targets)
+def prepare_context_batches(document, targets, render_origin=(0, 0, 0)):
+    builder = ContextBatchBuilder(document, targets, render_origin=render_origin)
     for unused in builder.prepare():
         pass
     return builder.data

@@ -305,7 +305,7 @@ class TiledPreview(object):
             self.seconds += time.time()-started
 
     def submit(self, key, palette, origin):
-        data = (palette.common, palette.extra, palette.actor, palette.size)
+        data = (palette.common, palette.extra, palette.actor, palette.size, tuple(origin))
         part = self.parts.get(key)
         if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()
@@ -327,7 +327,8 @@ class TiledPreview(object):
         else:
             name = None
             if palette.common or palette.extra:
-                name = self.session.bridge.geometry(palette, name='modern_projection_chunk_%d_%d_%d_%d_%d' % ((self.generation,)+key+(bank,)))
+                name = self.session.bridge.geometry(palette, name='modern_projection_chunk_%d_%d_%d_%d_%d' % ((self.generation,)+key+(bank,)),
+                                                    render_origin=origin)
                 self.builds += 1
         cache[bank] = (data, name, (self.source,), palette.count)
         self.parts[key] = {'data': data, 'count': palette.count, 'origin': origin,

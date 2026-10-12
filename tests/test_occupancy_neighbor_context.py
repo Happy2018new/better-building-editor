@@ -15,6 +15,7 @@ from modern_projection.projection.world_projection import WorldProjection
 from modern_projection.projection.visible_actor import compose_actor
 from modern_projection.projection.bridge import ClientBridge
 from modern_projection.projection.render_context import ContextPaletteBuilder
+from modern_projection.projection.plant_position import POSITION_PLANT_PROXIES
 from modern_projection.projection.render_layout import (context_center, context_position,
                                                         logical_position, native_mesh_position)
 from modern_projection.projection.render_layout import (local_context_center, local_context_position,
@@ -22,6 +23,43 @@ from modern_projection.projection.render_layout import (local_context_center, lo
 
 
 class MissingOnlyNeighborContextTests(unittest.TestCase):
+    def test_world_and_dynamic_preparation_resolve_destination_plant_cells(self):
+        document, tracker, base, corner, unused, unused2 = self.fixture()
+        legacy = ('minecraft:red_flower', 0)
+        snow = registry.from_states('minecraft:snow_layer', {'height': 0, 'covered_bit': True})
+        document.blocks[base] = legacy
+        document.blocks[corner] = make_cell(snow, legacy)
+        tracker.bridge.system.world.clear()
+        tracker = ProjectionOccupancy(tracker.bridge, tracker.origin)
+        for pos in document.blocks:
+            tracker.initial_visible(pos)
+        observed = []
+        def profile(position):
+            observed.append(position)
+            return ('modern_projection:r11_entry_%d_%d_%d' % position, .6875)
+        expected = {tuple(tracker.origin[i] + pos[i] for i in range(3)) for pos in (base, corner)}
+        with patch.dict(POSITION_PLANT_PROXIES, {('minecraft:poppy', 0): profile}, clear=True):
+            tracker.snapshot = tracker.state[:]
+            tracker.output = SurfacePalette(document.size)
+            for unused in tracker.prepare():
+                pass
+            self.assertEqual(expected, set(observed))
+            observed[:] = []
+            tracker.bulk = SimpleNamespace(initial=None)
+            def begin(key):
+                size = tuple(min(16, document.size[i] - key[i] * 16) for i in range(3))
+                tracker.bulk.initial = (key, (bytearray([1]) * (size[0] * size[1] * size[2]), size))
+            tracker.bulk.begin = begin
+            work = WorldProjection.__new__(WorldProjection)
+            work.origin, work.document = tracker.origin, document
+            work.keys = tuple(sorted(document.blocks.chunks))
+            work.occupancy, work.completed, work.shader = tracker, set(), tracker.shader
+            work.hidden, work.layer, work.liquid = set(), None, None
+            work.output, work.prepared = SurfacePalette(document.size), None
+            for unused in work.prepare():
+                pass
+            self.assertEqual(expected, set(observed))
+
     def fixture(self):
         base, corner, chest_pos = (15, 1, 8), (16, 1, 8), (14, 1, 8)
         stair = lambda direction: registry.from_states('minecraft:oak_stairs', {
@@ -121,6 +159,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
             tracker.bulk.initial = (key, (values, size))
         tracker.bulk.begin = begin
         work = WorldProjection.__new__(WorldProjection)
+        work.origin = tracker.origin
         work.document, work.keys = tracker.document, tuple(sorted(document.blocks.chunks))
         work.occupancy, work.completed = tracker, set()
         work.shader = tracker.shader

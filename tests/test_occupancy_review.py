@@ -20,6 +20,7 @@ class Runtime:
         self.created, self.attached, self.removed, self.timers, self.sent = [], [], [], [], []
         self.camera = (300., 64., 300.)
         self.offsets, self.geometry_calls, self.uniforms = {}, [], {}
+        self.geometry_origins = []
 
     def CreateBlock(self, level):
         return self
@@ -80,12 +81,18 @@ class Runtime:
         self.removed.append((self.rendering, model))
         return True
 
-    def geometry(self, output, name=None, context_document=None, prepared=None):
+    def geometry(self, output, name=None, context_document=None, prepared=None,
+                 render_origin=(0, 0, 0)):
         self.geometry_calls.append((name, {key: tuple(values) for key, values in output.common.items()}))
+        self.geometry_origins.append(render_origin)
         return name
 
 
 class OccupancyReviewTests(unittest.TestCase):
+    def test_initial_spare_geometry_uses_destination_origin(self):
+        occupancy, unused, runtime = self.tracker()
+        self.assertEqual([occupancy.origin], runtime.geometry_origins)
+
     def tracker(self, document=None, occupied=(), hidden=(), layer=None):
         runtime = Runtime()
         document = document or Document((2, 1, 1), {(0, 0, 0): STONE, (1, 0, 0): STONE})

@@ -337,17 +337,20 @@ class ClientBridge(object):
         self.session.editor.message = '已将投影原点设为玩家脚下'
         self.session.emit()
 
-    def geometry(self, document, visible=None, name=None, context_document=None, prepared=None):
+    def geometry(self, document, visible=None, name=None, context_document=None, prepared=None,
+                 render_origin=(0, 0, 0)):
         if prepared is not None:
             data = prepared
         elif context_document is not None:
             from .render_context import prepare_context_batches
-            data = prepare_context_batches(context_document, document.palette_data(visible))
+            data = prepare_context_batches(context_document, document.palette_data(visible),
+                                           render_origin=render_origin)
         else:
             from .geometry_palette import prepare_palette
             # One empty Y cell separates source top vertices from overlay
             # bottom vertices so the shader never classifies both alike.
-            data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1)
+            data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1,
+                                   render_origin=render_origin)
         if '_context_batches' in data:
             if not hasattr(self, 'context_models'):
                 self.context_models = {}

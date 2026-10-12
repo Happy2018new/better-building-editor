@@ -38,11 +38,13 @@ def scene_cells(session):
 class Bridge:
     def __init__(self):
         self.queue, self.builds, self.inputs = [], [], []
+        self.origins = []
     def later(self, delay, callback):
         self.queue.append(callback)
-    def geometry(self, palette, name=None):
+    def geometry(self, palette, name=None, render_origin=(0, 0, 0)):
         self.builds.append((name, cells(palette)))
         self.inputs.append((dict(palette.common), dict(palette.extra), dict(palette.actor)))
+        self.origins.append(render_origin)
         return name if palette.common or palette.extra else None
     def settle(self, session):
         for _ in range(10000):
@@ -55,6 +57,23 @@ class Bridge:
 
 
 class TileTests(unittest.TestCase):
+    def test_geometry_cache_distinguishes_logical_tile_origin(self):
+        bridge = Bridge()
+        session = Session(bridge)
+        session._loaded(Document((32, 1, 1), {(16, 0, 0): ('minecraft:stone', 0)}))
+        bridge.settle(session)
+        self.assertIn((16, 0, 0), bridge.origins)
+        part = session.tiles.parts[(1, 0, 0)]
+        palette = tiles.SurfacePalette(part['size'])
+        palette.add((0, 0, 0), ('minecraft:stone', 0))
+        session.tiles.source = ('origin contract',)
+        before = len(bridge.builds)
+        for origin in ((16, 0, 0), (32, 0, 0), (16, 0, 0)):
+            session.tiles.submit((1, 0, 0), palette, origin)
+        self.assertEqual(before + 1, len(bridge.builds))
+        self.assertEqual((32, 0, 0), bridge.origins[-1])
+        self.assertEqual((16, 0, 0), session.tiles.parts[(1, 0, 0)]['origin'])
+
     def test_preview_cache_tracks_background_and_actor_and_renders_background_only_cells(self):
         water = ('minecraft:water', 0)
         stone = ('minecraft:stone', 0)

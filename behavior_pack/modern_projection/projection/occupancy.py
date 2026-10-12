@@ -270,7 +270,7 @@ class ProjectionOccupancy(object):
                     self.output.add_indices(value, indices)
             yield True
         from .render_context import ContextBatchBuilder
-        builder = ContextBatchBuilder(self.document, self.output.palette_data())
+        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin)
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data

@@ -84,7 +84,7 @@ class WorldProjection(object):
                 yield None
             self.completed.add(key)
         from .render_context import ContextBatchBuilder
-        builder = ContextBatchBuilder(self.document, self.output.palette_data())
+        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin)
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data

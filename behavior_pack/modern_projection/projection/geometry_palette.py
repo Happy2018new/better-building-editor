@@ -11,6 +11,8 @@ from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
 from .plant_proxy_data import STATIC_PLANT_PROXIES, STATIC_PLANT_MAX_Y
 from .static_frame_item import INTERNAL_FRAME_ITEMS, frame_item_proxy
 from .native_appearance import FRAME_NAMES
+from .plant_position import (plant_render, position_sensitive,
+                             render_origin as validate_render_origin)
 
 
 def validate_plant_source():
@@ -51,9 +53,31 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
-def _proxy_foreground(entries, records):
+def _plant_position(index, volume, origin, overlay_base):
+    plane = volume[0] * volume[1]
+    if index >= plane * volume[2]:
+        index -= overlay_base * plane
+    return (origin[0] + index // volume[0] % volume[1],
+            origin[1] + index // plane, origin[2] + index % volume[0])
+
+
+def _proxy_foreground(entries, records, volume, render_origin, overlay_base):
     result, state_records = {}, {}
     for value, positions in entries.items():
+        selected = {}
+        if position_sensitive(value, None):
+            for index in positions:
+                candidate = plant_render(value, _plant_position(index, volume, render_origin, overlay_base))
+                proxy = candidate[0] if candidate is not None else None
+                selected.setdefault(proxy, []).append(index)
+        if any(proxy is not None for proxy in selected):
+            for proxy, indices in selected.items():
+                rendered = (proxy, 0) if proxy is not None else value
+                result.setdefault(rendered, []).extend(indices)
+                record = states(rendered) if proxy is not None else records.get(value)
+                if record is not None and (proxy is None or record):
+                    state_records[rendered] = record
+            continue
         proxy = LEAF_PROXIES.get(value[0]) or PLANT_PROXIES.get(value)
         rendered = (proxy, 0) if proxy is not None else value
         result.setdefault(rendered, []).extend(positions)
@@ -63,7 +87,8 @@ def _proxy_foreground(entries, records):
     return result, state_records
 
 
-def _append_snow_overlays(common, common_states, extra, extra_states, volume, overlay_base):
+def _append_snow_overlays(common, common_states, extra, extra_states, volume, overlay_base,
+                          render_origin):
     """Give native-ignored plants independent geometry in the same mesh."""
     snow_surfaces = {}
     for value, positions in common.items():
@@ -81,8 +106,15 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
             continue
         max_y = STATIC_PLANT_MAX_Y.get(value)
         # Native alpha bounds define complete burial, including exact surface equality.
-        selected = [index for index in positions if index in snow_surfaces and
-                    (max_y is None or snow_surfaces[index] < max_y)]
+        selected = []
+        for index in positions:
+            if index not in snow_surfaces:
+                continue
+            candidate = (plant_render(value, _plant_position(index, volume, render_origin, overlay_base))
+                         if position_sensitive(value, None) else None)
+            top = candidate[1] if candidate is not None else max_y
+            if top is None or snow_surfaces[index] < top:
+                selected.append(index)
         if selected:
             overlays[value] = selected
     if not overlays:
@@ -127,9 +159,10 @@ def _append_frame_items(common, actors, logical, overlay_base):
 
 
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
-                    inferred_bed_colors=None):
+                    inferred_bed_colors=None, render_origin=(0, 0, 0)):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
+    render_origin = validate_render_origin(render_origin)
     data = dict(source)
 
     def prepare_layer(key):
@@ -152,13 +185,14 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     extra, extra_states = prepare_layer('extra')
     normalize_palette_layers(common, common_states, extra, extra_states)
     volume = _append_snow_overlays(common, common_states, extra, extra_states,
-                                  source.get('volume'), overlay_base)
+                                  source.get('volume'), overlay_base, render_origin)
     item_volume = _append_frame_items(common, source.get('actor', {}), source.get('volume'), overlay_base)
     if item_volume is not None:
         volume = item_volume
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
                                                    inferred_chest_parts, inferred_bed_colors)
-    common, common_states = _proxy_foreground(common, common_states)
+    common, common_states = _proxy_foreground(common, common_states, source.get('volume'),
+                                             render_origin, overlay_base)
     for entries in (common, extra):
         for positions in entries.values():
             positions.sort()
