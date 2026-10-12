@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "scope": "Offline score from exact reviewed probe; no SDK calls",
+  "runtime_sha256": "1b6efa6530820adf25be723b35dff10e9fd2f0826de334de88f84e8499465b6f",
+  "scores": {
+    "production_rendering_accepted": false,
+    "editor_frame_content_accepted": false,
+    "enchantment_glint_accepted": false,
+    "native_bound_item_ui_inclusion_proven": false,
+    "interpretation": "Stable attachment-correlated pixels warrant visual review for native item inclusion",
+    "channel_threshold": 25,
+    "minimum_stable_item_pixels": 80,
+    "controls": {
+      "plain": {
+        "stable_pixels_outside_baseline_motion": 110072,
+        "bbox_in_paper_doll_crop": [
+          377,
+          61,
+          961,
+          622
+        ],
+        "within_state_temporal_pixels": 14113
+      },
+      "flag_enchanted": {
+        "stable_pixels_outside_baseline_motion": 115470,
+        "bbox_in_paper_doll_crop": [
+          377,
+          61,
+          961,
+          622
+        ],
+        "within_state_temporal_pixels": 124791,
+        "temporal_pixels_in_shared_item_interior_excluding_plain_motion": 98093
+      },
+      "actual_enchanted": {
+        "stable_pixels_outside_baseline_motion": 116115,
+        "bbox_in_paper_doll_crop": [
+          377,
+          61,
+          961,
+          622
+        ],
+        "within_state_temporal_pixels": 116870,
+        "temporal_pixels_in_shared_item_interior_excluding_plain_motion": 93424
+      }
+    },
+    "crop": [
+      517,
+      71,
+      1478,
+      1032
+    ],
+    "baseline_temporal_pixels": 16388,
+    "shared_stable_item_interior_pixels": 105336,
+    "stable_plain_difference_candidate": true,
+    "limitations": [
+      "Player animation or attachment-driven body changes can still create stable differences; inspect the native frames",
+      "Temporal changes do not establish GLINT defines, material identity, texture inputs or shader time",
+      "This probe provides no block-geometry depth, clipping or composite-alpha evidence"
+    ]
+  }
+}

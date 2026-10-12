@@ -1,0 +1,206 @@
+{
+  "schema": 4,
+  "scope": "Native attached item inclusion in entity-ID UI rendering, independently of frame geometry",
+  "supersedes_plan_sha256": "306a98496ccd50213bcf918704c1e4c024b876010688b6af04132186dd8d2e94",
+  "nonce": "7ee4f8762d504c39a330693190cb19e9",
+  "states": [
+    "empty",
+    "plain",
+    "flag_enchanted",
+    "actual_enchanted",
+    "empty_restored"
+  ],
+  "frames_per_state": 3,
+  "frame_interval_seconds": 0.4,
+  "native_budget_seconds": 150,
+  "cleanup_reserve_seconds": 30,
+  "rpc_timeout_seconds": 10,
+  "native_retries": 0,
+  "new_game_starts": 0,
+  "world_or_inventory_mutation": false,
+  "shader_or_material_mutation": false,
+  "target": {
+    "kind": "local native player",
+    "bone": "head",
+    "is_client_entity": false,
+    "offset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation_zyx_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": 1.0
+  },
+  "ui": {
+    "render_type": "entity",
+    "entity_id": "resolved exact local player",
+    "size_rule": "min(240, observed_GetScreenSize_width - 32, observed_GetScreenSize_height - 32)",
+    "maximum_square_side": 240,
+    "viewport_margin_total": 32,
+    "size_frozen_at": "INSTALL",
+    "GetScreenSize_documented_units": "pixels",
+    "GetScreenSize_observed_units": "record without assuming physical pixels",
+    "scale": 1.0,
+    "render_depth": -50,
+    "init_rot_x": 0.0,
+    "init_rot_y": 60.0,
+    "init_rot_z": 0.0,
+    "background_rgba": "F7F9FCFF"
+  },
+  "marker_calibration": {
+    "markers": [
+      [
+        "native_item_marker_tl",
+        [
+          0,
+          255,
+          255
+        ]
+      ],
+      [
+        "native_item_marker_tr",
+        [
+          255,
+          0,
+          255
+        ]
+      ],
+      [
+        "native_item_marker_bl",
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      [
+        "native_item_marker_br",
+        [
+          0,
+          255,
+          0
+        ]
+      ]
+    ],
+    "logical_size": 6,
+    "logical_edge_inset": 8,
+    "training_keys": [
+      "native_item_marker_tl",
+      "native_item_marker_br"
+    ],
+    "holdout_keys": [
+      "native_item_marker_tr",
+      "native_item_marker_bl"
+    ],
+    "rgb_channel_error": 16,
+    "minimum_component_pixels": 4,
+    "minimum_rectangle_fill": 0.95,
+    "maximum_edge_or_center_error_physical_pixels": 1.0,
+    "fit": "one positive scalar and x/y translation",
+    "frozen_at": "first empty frame; same parameters for all subsequent frames",
+    "legacy_api_uniform_mapping_gate": "preserved separately; never loosened or overwritten"
+  },
+  "runtime_executor_sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662",
+  "limitations": [
+    "RenderEntity entity-ID selection is documented; inclusion of bound items is the hypothesis",
+    "This isolated surface does not establish block-geometry shared depth, clipping or alpha",
+    "Model ID must be read after UI readiness; -1 is preserved and is not an item-bind target",
+    "Native control rectangles and game pixel resolution must corroborate snapshots and uniform capture mapping",
+    "A timed-out bind can leave an unresolved pending ID; retain state and never blanket-clear native attachments"
+  ],
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "sdk_dispatch_authorized": false,
+  "files": [
+    {
+      "path": "native-original.json",
+      "bytes": 55516,
+      "sha256": "a853a88604aa5dc05a4cf60d0f18a43db66eda8c7cb012e28db0322548bc86fc"
+    },
+    {
+      "path": "source.py",
+      "bytes": 46149,
+      "sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a"
+    },
+    {
+      "path": "tests.py",
+      "bytes": 43334,
+      "sha256": "2ad2023e9f0e2bb08f9e0ea8f592ba81f0932dbb8696e80a4e8848902f0aae42"
+    },
+    {
+      "path": "diagnostic.md",
+      "bytes": 7412,
+      "sha256": "a1eb8cb230f4c1b845738eb45173dfd49fe186a8bb3c0c6f1fd62aab3708581f"
+    },
+    {
+      "path": "items.json",
+      "bytes": 483,
+      "sha256": "d2bb6dd0c09e02299e5db250be93e376e9fabc63cd61d6648cbae902a70b0de8"
+    },
+    {
+      "path": "actor.json",
+      "bytes": 1049,
+      "sha256": "58a041b260eb620c7c77ae954f61407360c0cf80da5db23472393148f930f346"
+    },
+    {
+      "path": "install_client.py",
+      "bytes": 3913,
+      "sha256": "aedb418141da77ec633386de0c3feb56b2d63fe2c2a5273a07a02b6353c1d5b9"
+    },
+    {
+      "path": "status_client.py",
+      "bytes": 1794,
+      "sha256": "70c12ead4024af070aea72488ce962e832d765acada9beca7842afb340df65db"
+    },
+    {
+      "path": "remove_client.py",
+      "bytes": 749,
+      "sha256": "be40e8acbfd3e5f0b842fb37e4043da512fc1b5c2df02a13f27b51ea2e6bab7b"
+    },
+    {
+      "path": "cleanup_navigation_client.py",
+      "bytes": 330,
+      "sha256": "73ccd9a697dff5c3ea412b29feb398aa45de86c0f1d83c039feebc171fb843e5"
+    },
+    {
+      "path": "pop_client.py",
+      "bytes": 334,
+      "sha256": "6f109cea26ff71c643abf97e605b02a45595ff5f66e961b4673f7903118ed4e3"
+    },
+    {
+      "path": "verify_restore_client.py",
+      "bytes": 1030,
+      "sha256": "5f5764f01b83f26a3e2a8ff469f196a96093c828e2d0c5d1249d16ce5a07beaa"
+    },
+    {
+      "path": "empty_client.py",
+      "bytes": 1650,
+      "sha256": "7183a216850c91fa67b6119a4c491a9ea98254195310bece5c7ead8bf03394e4"
+    },
+    {
+      "path": "plain_client.py",
+      "bytes": 1650,
+      "sha256": "26be437045ed34981b9eefc12ddf392eb14691c2fe379c191bcef08506a2157b"
+    },
+    {
+      "path": "flag_enchanted_client.py",
+      "bytes": 1659,
+      "sha256": "c0017d2a12a059eb788cb4d27792e181f49066504357db84252e10a19f63c980"
+    },
+    {
+      "path": "actual_enchanted_client.py",
+      "bytes": 1661,
+      "sha256": "b5ae2e0807d6cbba0a61b49df90aa1a3d166eab6703dc10d32d31172886d6d8f"
+    },
+    {
+      "path": "empty_restored_client.py",
+      "bytes": 1659,
+      "sha256": "33ce765032b3534b7edc2b555c5c5025994a9feb9114e41d4bfdd813b1972b59"
+    }
+  ]
+}

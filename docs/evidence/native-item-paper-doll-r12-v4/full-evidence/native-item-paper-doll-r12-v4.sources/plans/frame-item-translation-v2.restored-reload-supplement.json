@@ -1,0 +1,520 @@
+{
+  "schema": 1,
+  "scope": "Cleanup-only original shader reload; no diagnostic replay",
+  "started_at": "2026-10-12T16:57:35.658201+00:00",
+  "requests": [
+    {
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "pyreact-debugging",
+          "version": "1"
+        }
+      },
+      "started_at": "2026-10-12T16:57:38.264857+00:00",
+      "response": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_at": "2026-10-12T16:57:38.288839+00:00"
+    },
+    {
+      "method": "notifications/initialized",
+      "params": null,
+      "started_at": "2026-10-12T16:57:38.291033+00:00",
+      "response": null,
+      "finished_at": "2026-10-12T16:57:38.294901+00:00"
+    },
+    {
+      "method": "tools/list",
+      "params": null,
+      "started_at": "2026-10-12T16:57:38.297049+00:00",
+      "response": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T16:57:38.322779+00:00"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "execute_code",
+        "arguments": {
+          "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+          "is_client": true,
+          "direct_return": true
+        }
+      },
+      "started_at": "2026-10-12T16:57:38.330008+00:00",
+      "background_before": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T16:57:38.494202+00:00"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "execute_code",
+        "arguments": {
+          "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+          "is_client": true,
+          "direct_return": true
+        }
+      },
+      "started_at": "2026-10-12T16:57:38.501768+00:00",
+      "background_before": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T16:57:38.679945+00:00"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "execute_code",
+        "arguments": {
+          "code": "_result = api.ReloadOneShader('modern_projection_biome_blocks.vertex')\n",
+          "is_client": true,
+          "direct_return": true
+        }
+      },
+      "started_at": "2026-10-12T16:57:38.683061+00:00",
+      "background_before": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: bool\nReturn repr: True\nReturn value JSON: true",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T16:57:39.299242+00:00"
+    }
+  ],
+  "filesystem_restored_verified": true,
+  "reload_verified": true,
+  "shader_sha256": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809",
+  "source_sha256": "86e0c7f3a724a0f94b21f23dafe689fea8883b1333d0d701f69bb7d5041be070",
+  "restored_identities": [
+    {
+      "entry": {
+        "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a\\resource_packs\\mcdk_7c6a9da7a34340868c15a60ade3d3367",
+        "volume": 2721374072,
+        "file_id": 562949955734073,
+        "bytes": 0
+      },
+      "shader": {
+        "final_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.vertex",
+        "volume": 2721374072,
+        "file_id": 1125899909091311,
+        "bytes": 12899
+      }
+    },
+    {
+      "entry": {
+        "final_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\appdata\\MinecraftPE_Netease\\games\\com.netease\\resource_packs\\7c6a9da7a34340868c15a60ade3d3367",
+        "volume": 3394437802,
+        "file_id": 17169973580792260,
+        "bytes": 0
+      },
+      "shader": {
+        "final_path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.vertex",
+        "volume": 2721374072,
+        "file_id": 1125899909091311,
+        "bytes": 12899
+      }
+    }
+  ],
+  "binding_verified": true,
+  "reload_result": true,
+  "finished_at": "2026-10-12T16:57:39.304209+00:00"
+}

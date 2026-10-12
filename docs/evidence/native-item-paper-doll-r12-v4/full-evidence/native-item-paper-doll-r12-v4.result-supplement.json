@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-12T17:57:34.030748+00:00",
+  "completed": true,
+  "restored": true,
+  "native_frames_captured": 15,
+  "raw_rpc_entries": 88,
+  "raw_rpc_isError_entries": 0,
+  "native_elapsed_seconds": 38.309747499995865,
+  "maximum_marker_edge_or_center_error_physical_pixels": 0.18848827908690424,
+  "frozen_marker_calibration": {
+    "scale": 3.9974978978239917,
+    "translation": [
+      0.12427449291408266,
+      -2.1534588486227904
+    ],
+    "training_keys": [
+      "native_item_marker_tl",
+      "native_item_marker_br"
+    ],
+    "holdout_keys": [
+      "native_item_marker_tr",
+      "native_item_marker_bl"
+    ],
+    "maximum_error_pixels": 1.0,
+    "physical_size": [
+      1994,
+      1105
+    ]
+  },
+  "legacy_api_uniform_mapping_passed": false,
+  "owned_attachment_rows": [
+    {
+      "control": "plain",
+      "remove_result": true,
+      "item_nonmutation": true,
+      "item": {
+        "newAuxValue": 0,
+        "newItemName": "minecraft:diamond_sword",
+        "isEnchanted": false,
+        "userData": {}
+      },
+      "state": "removed",
+      "remove_attempted": true,
+      "id": 0,
+      "canonical": "((u'isEnchanted', False), (u'newAuxValue', 0), (u'newItemName', u'minecraft:diamond_sword'), (u'userData', ()))"
+    },
+    {
+      "control": "flag_enchanted",
+      "remove_result": true,
+      "item_nonmutation": true,
+      "item": {
+        "newAuxValue": 0,
+        "newItemName": "minecraft:diamond_sword",
+        "isEnchanted": true,
+        "userData": {}
+      },
+      "state": "removed",
+      "remove_attempted": true,
+      "id": 0,
+      "canonical": "((u'isEnchanted', True), (u'newAuxValue', 0), (u'newItemName', u'minecraft:diamond_sword'), (u'userData', ()))"
+    },
+    {
+      "control": "actual_enchanted",
+      "remove_result": true,
+      "item_nonmutation": true,
+      "item": {
+        "newAuxValue": 0,
+        "newItemName": "minecraft:diamond_sword",
+        "isEnchanted": true,
+        "userData": {
+          "ench": [
+            {
+              "lvl": {
+                "__type__": 2,
+                "__value__": 3
+              },
+              "id": {
+                "__type__": 2,
+                "__value__": 9
+              },
+              "modEnchant": {
+                "__type__": 8,
+                "__value__": ""
+              }
+            }
+          ]
+        }
+      },
+      "state": "removed",
+      "remove_attempted": true,
+      "id": 0,
+      "canonical": "((u'isEnchanted', True), (u'newAuxValue', 0), (u'newItemName', u'minecraft:diamond_sword'), (u'userData', ((u'ench', (((u'id', ((u'__type__', 2), (u'__value__', 9))), (u'lvl', ((u'__type__', 2), (u'__value__', 3))), (u'modEnchant', ((u'__type__', 8), (u'__value__', u'')))),)),)))"
+    }
+  ],
+  "original_artifact_sha256": {
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\native-item-paper-doll-r12-v4.orchestration.json": "b5ec504bf02c88e497bb865c7b4463165a37359ac1d2df167e3fe25a04304ae1",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\native-item-paper-doll-r12-v4.runtime.json": "1b6efa6530820adf25be723b35dff10e9fd2f0826de334de88f84e8499465b6f",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\native-item-paper-doll-r12-v4.post-restoration-health.json": "d0aaac90cb112da043deab08982d188b17491490ed89e80bf058809c5ce9a7fc",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\native-item-paper-doll-r12-v4.sources.index.json": "90cf427b83a2130e14146b5c3a8c70bde3270956f19bfc2b739830fb62bfbb94"
+  },
+  "post_restoration_health_passed": true,
+  "post_restoration_client_clocks": [
+    1791827658.712,
+    1791827660.462
+  ],
+  "post_restoration_server_timer_callbacks": [
+    1791827659.377,
+    1791827659.607
+  ],
+  "native_bound_item_ui_inclusion_proven": true,
+  "enchantment_correlated_temporal_appearance_observed": true,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false
+}
