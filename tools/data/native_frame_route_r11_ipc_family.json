@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "scope": "Failed finite opaque-family material probe before fixture mutation",
+  "production_rendering_accepted": false,
+  "session_id": "4ddf0c3d571d4eb5af8ce126effc1918",
+  "owner": "frame-r11-background",
+  "game": {
+    "pid": 28912,
+    "identity": "134362886915447443",
+    "independently_absent_after_stop": true
+  },
+  "mcdk": {
+    "pid": 49956,
+    "identity": "134362886910923540",
+    "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "independently_absent_after_stop": true
+  },
+  "ipc_source_sha256": "aa37dc422b869936d34380c23f81a8fb1b0ca3b8cd12aed781efa929c9c91e8c",
+  "original_report_sha256": "12b694ab2b8a5553291baba682ae48b458f4913c845bc17e3571c36eb6545ca0",
+  "startup": {
+    "client_identity_verified": true,
+    "client_token_verified": true,
+    "server_token_verified": true,
+    "background_safe": true,
+    "foreground_unchanged": true
+  },
+  "probe": {
+    "binding_verified": false,
+    "mutation_attempted": false,
+    "restore_attempted": false,
+    "restoration_applicable": false,
+    "world_clean_verified": false,
+    "error": "MCDKError: execute_code returned no value; require direct_return=true and assign _result",
+    "request_sequence": [
+      "initialize",
+      "notifications/initialized",
+      "tools/list",
+      "tools/call execute_code"
+    ],
+    "failed_request": {
+      "name": "execute_code",
+      "arguments": {
+        "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+        "is_client": true,
+        "direct_return": true
+      }
+    },
+    "server_request_attempted": false,
+    "response_elapsed_seconds_approx": 10
+  },
+  "config": {
+    "auto_hot_reload_mods": true,
+    "auto_hot_reload_ui": true,
+    "auto_hot_reload_shaders": true,
+    "auto_hot_reload_materials": true,
+    "include_debug_mod": true,
+    "auto_join_game": true,
+    "source_edited_between_start_and_failure": false
+  },
+  "capture": {
+    "receipt_background_safe": true,
+    "compositor_fresh": true,
+    "local_captured_at": "2026-10-12 22:28:33",
+    "visible_local_game_time": "2026-10-12 22:26:17",
+    "engine_progress_verified": false,
+    "material_route_inferred": false
+  },
+  "stop": {
+    "graceful_timed_out": true,
+    "creation_bound_force_completed": true
+  },
+  "source_restoration": {
+    "temporary_material_overrides_restored": true,
+    "temporary_marker_files_removed": true
+  },
+  "artifacts": [
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\appdata\\MinecraftPE_Netease\\games\\com.netease\\behavior_packs\\c329b06f749244579af3b19ff29999f9\\DEBUG_ENV_SCRIPT\\IPCSystem.py",
+      "bytes": 17075,
+      "sha256": "aa37dc422b869936d34380c23f81a8fb1b0ca3b8cd12aed781efa929c9c91e8c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\.mcdev.json",
+      "bytes": 1032,
+      "sha256": "3da24d1fdc1393875bc0ee7f1ee1e42a337c9db9c60f1cefdd4501686a3b6892"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.json",
+      "bytes": 16331,
+      "sha256": "12b694ab2b8a5553291baba682ae48b458f4913c845bc17e3571c36eb6545ca0"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\bridge.py",
+      "bytes": 41991,
+      "sha256": "68c68a5c376cabf47bc0d5951f7fff8435aa4c83e54eefbed08b1b615d2a6202"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\geometry_palette.py",
+      "bytes": 9688,
+      "sha256": "072f48725cabf8478b87891e7caa324c4f018eea341e390ec89ac9350decca2d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\occupancy_shader.py",
+      "bytes": 6686,
+      "sha256": "98b240f9b58e9359319d9e05f52300ce28c7f08b73be733c309dbe47fb454370"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\static_frame_item_data.py",
+      "bytes": 3960,
+      "sha256": "a35b17a9aa12225807c51c8e48a2eea8a5b51a839e6375aedf4e4503f931506e"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\static_frame_item.py",
+      "bytes": 1857,
+      "sha256": "6bf60edfab644affb98d4c9beac5a00d126a07d6627df7be34aef10e9f8b6631"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\behavior_pack\\modern_projection\\projection\\tiles.py",
+      "bytes": 16154,
+      "sha256": "0e4ad6e1bff00620dd8159d9238c238171faa637e4afa639adf4fdbab59e628d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\materials\\common.json",
+      "bytes": 44,
+      "sha256": "ff14838c8e472360b7888208353415771cce64ca12cfc50466d449f4a3ea0f0c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\materials\\entity.material",
+      "bytes": 3817,
+      "sha256": "7e6325485e6c3c2a09472953c4e36efd7b8f7357588086be744f3abc27297a57"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\materials\\particles.material",
+      "bytes": 2039,
+      "sha256": "b5374b5fe5926d0ab24df6e2b2fb12200c7e6ce3d929b9c54c401eef59e7ecd2"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\materials\\terrain.material",
+      "bytes": 3719,
+      "sha256": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\materials\\ui3D.material",
+      "bytes": 416,
+      "sha256": "b7ff548d5e4ca3c5c559a1aeb74004c110317f127f677224335ccc8dce4b46bb"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\models\\netease_block\\preview_item_minecraft_diamond_sword_0_f2_r0.json",
+      "bytes": 31348,
+      "sha256": "4c9b316fa782a8196c84f04f3612c5e7f1bbbb5116a1ba05ef52abbdabe9d2d3"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_aura.fragment",
+      "bytes": 6952,
+      "sha256": "8792f19cb84375a273c210d2ec35bf1ce173fcfd40b489e566998e81ad72ec56"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_aura.vertex",
+      "bytes": 11001,
+      "sha256": "417de12f0606ba6c04665248a2a0b7bf0cd4a9bcdd361c49de2a3bd140d25e46"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.fragment",
+      "bytes": 9153,
+      "sha256": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_biome_blocks.vertex",
+      "bytes": 12899,
+      "sha256": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_frame_color_route.fragment",
+      "bytes": 190,
+      "sha256": "a2b0ffb846169f12974101b1e5746556d21cb1d29e848831bfa3089ea2221ede"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_frame_color_uv2_route.fragment",
+      "bytes": 194,
+      "sha256": "ab4048a9206da79e57aa1d89bc5c7b16752756de1530bb5619cf67ff6ddd927b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_frame_opaque_route.fragment",
+      "bytes": 184,
+      "sha256": "3ace23692db503136c002c50a26d920b6555d562da6621f42145c31f223a53fa"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_frame_route.fragment",
+      "bytes": 188,
+      "sha256": "5262b90aba6a6ec54d3930ec51e0aef9b6883626cefd39aacdb07d52f5dd30ce"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_liquid_preview_depth.h",
+      "bytes": 1613,
+      "sha256": "d3b57f1a2ef1d55e3f527e5ef8d06a5de4b39640719c0fc2965ce1ed0a683e24"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_luminous_outline.fragment",
+      "bytes": 2269,
+      "sha256": "0a513e0ad5b7d9acd3f40f0d50c6ce4dcda8ffc13fddda2852989754670e3bdc"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_native_actor.fragment",
+      "bytes": 2725,
+      "sha256": "b3540bb2fb3dbc3556a1f39edd24ee56fe9905eb01dfe974dadc95811c45007d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_outline.fragment",
+      "bytes": 609,
+      "sha256": "96f5b259b049f494ca6396cf4b3b4421ee59cacdddb020d5f7e177d65f24c744"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_outline.vertex",
+      "bytes": 2621,
+      "sha256": "247bab7b26d67dba5b7521cd3c9478c43f611b3feec707e51e4899e2a4c53c1e"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_particle_vertex.h",
+      "bytes": 3454,
+      "sha256": "3ea17a9b69aaf660742c0de2e75e2661f4968da594a206f6ff1dd26144108eb1"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_sign_body.fragment",
+      "bytes": 2405,
+      "sha256": "16e11342963978a6ec3f8365651c2c164b97180434ec6baaccae6863225dadbf"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_sign_body.vertex",
+      "bytes": 1039,
+      "sha256": "c67bb94dbb857597390ebad3b9e5c0718534131edd390c845ac4a61fbd750057"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_sign_text.fragment",
+      "bytes": 2663,
+      "sha256": "87d1a26e3b6e10646501e9a805d1fe648a93e60d80c516d4955d0293d9cffc57"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_sign_text.vertex",
+      "bytes": 1423,
+      "sha256": "d23ed59bb676b3ad854ff8e585c386744c1baa36020ec11ea36834e56bbe3d46"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_staff.fragment",
+      "bytes": 3956,
+      "sha256": "a6a00945d5aa6f9d6e52bf17b1bebcd2ffa223e9a4f8247eaad7c5d7cfcae753"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_staff.vertex",
+      "bytes": 1107,
+      "sha256": "1a32ab12058f4e16e2bcceb34791e9d40b1301115d85e5d88ddb98c81b2fb164"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_survey_stars.fragment",
+      "bytes": 5506,
+      "sha256": "fe5048f2f2c344720c6d752173d6b18562713d2416c66fa3f5e9441c324ef312"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\resource_pack\\shaders\\glsl\\modern_projection_survey_stars.vertex",
+      "bytes": 21438,
+      "sha256": "57418fcc752b5def3bfbf1d4d66a4ab022af2f41b3df762c04e48d21632a3a71"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\tools\\flat_frame_item_visual_checks.py",
+      "bytes": 12134,
+      "sha256": "4c479f79ce14d6bd98b899b60d2ebe00351d4ef1d4d64d81c59db9c1c52b0315"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\tools\\probe_native_frame_route.py",
+      "bytes": 14006,
+      "sha256": "68ad3daf735e90adbbe57b7ad2973a74d9860bdf75f823e97a3ef99ab722d53d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\tools\\trace_flat_frame_editor.py",
+      "bytes": 17047,
+      "sha256": "8c97f61223e6df46d57dc9c9cb07115a01ab26d521c9891150f6b2e3bbd11eb7"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-opaque-family-cold-v1.sources\\tools\\verify_sign_visuals.py",
+      "bytes": 45220,
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-route-prebinding-stall-v1.capture.json",
+      "bytes": 2534,
+      "sha256": "f8d00d4ddb0fa6fa4414038e02dedd46feb96de2a61c700800c5d8d8098fb0e1"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\artifacts\\frame-route-prebinding-stall-v1.png",
+      "bytes": 405097,
+      "sha256": "bcaf509eda1370f8bb9fdc3aec74b59691c741f88c0f1f29b6f102d61876fdad"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\mcdk.log",
+      "bytes": 29357,
+      "sha256": "2f2383ff9cdd70701bd6d3c37dba51784401ee844b53581df79abb32d4de4082"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\prepare.log",
+      "bytes": 1589,
+      "sha256": "bf548f2749bfd27548a1d82e0772539bf79599b689ac1e404d0a290cf3d0380d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\4ddf0c3d571d4eb5af8ce126effc1918\\session.json",
+      "bytes": 3341,
+      "sha256": "7e4fe4a6e70601752360a8d27b18d189a9ea6c0eaf06b8520e0a60adf11ddbe5"
+    }
+  ]
+}

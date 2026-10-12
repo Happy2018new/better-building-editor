@@ -45,6 +45,25 @@ class NativeFrameRouteIndex(unittest.TestCase):
         self.assertEqual(0, markers['sign_control']['green']['pixels'])
         self.assertFalse(markers['sign_control']['green']['positive'])
 
+    def test_failed_ipc_family_attempt_retains_sources_without_route_inference(self):
+        report = json.loads((ROOT / 'tools/data/native_frame_route_r11_ipc_family.json').read_bytes())
+        self.assertFalse(report['production_rendering_accepted'])
+        for key in ('binding_verified', 'mutation_attempted', 'restore_attempted',
+                    'restoration_applicable', 'world_clean_verified'):
+            self.assertFalse(report['probe'][key], key)
+        self.assertFalse(report['capture']['engine_progress_verified'])
+        self.assertFalse(report['capture']['material_route_inferred'])
+        self.assertTrue(report['stop']['creation_bound_force_completed'])
+        for key in ('game', 'mcdk'):
+            self.assertTrue(report[key]['independently_absent_after_stop'])
+        self.assertEqual(46, len(report['artifacts']))
+        for row in report['artifacts']:
+            path = Path(row['path'])
+            if path.is_file():
+                payload = path.read_bytes()
+                self.assertEqual(row['bytes'], len(payload), str(path))
+                self.assertEqual(row['sha256'], hashlib.sha256(payload).hexdigest(), str(path))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -68,6 +68,30 @@ socket cause.
 
 ## Next Native Gate
 
+### Finite Opaque Family Attempt With Fixed IPC
+
+The 22:25 cold session `4ddf0c3d571d4eb5af8ce126effc1918` used MCDK SHA256
+`b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9` and the
+generated IPC source matched upstream SHA256
+`aa37dc422b869936d34380c23f81a8fb1b0ca3b8cd12aed781efa929c9c91e8c`.
+It prepared inherited cyan `opaque_block`, yellow `opaque_block_color`, red
+`opaque_block_color_uv2` and magenta transparency markers, retaining the normal
+sign override. Startup verified both session tokens. The route tool's subsequent
+client token read returned no value before entering the fixture body. No fixture
+mutation or SDK restore was attempted; world cleanup was not independently
+verified. The original report and exact candidate sources are unchanged.
+
+A WGC receipt at 22:28:33 was fresh and background-safe, but its opened PNG
+showed the in-game timestamp stuck at 22:26:17. This attempt is therefore neither
+a family-material falsifier nor evidence that the IPC fix caused the stall.
+All four generated hot-reload settings were true, and no source edits occurred
+between startup and failure. The graceful stop timed out; creation-bound forced
+stop completed and both game `28912` and MCDK `49956` were independently absent.
+Temporary marker files were restored after the stop. The supplemental index
+`tools/data/native_frame_route_r11_ipc_family.json` records this separate failure.
+
+### Required Route And Native Checks
+
 Prove a scoped frame material marker before using a matrix marker. Preserve
 native skinning, glint, animation, lighting and texture processing when adapting
 depth. Native actor coordinates may include bone placement and 1/16 scaling;

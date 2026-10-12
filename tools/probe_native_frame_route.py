@@ -143,6 +143,8 @@ def main():
         parser.error('Owner-bound background WGC helper is required')
     evidence = {'schema': 1, 'completed': False, 'passed': False,
                 'production_rendering_accepted': False, 'restored': False,
+                'binding_verified': False, 'mutation_attempted': False,
+                'restore_attempted': False, 'restoration_applicable': False,
                 'scope': 'Constant-color material-route diagnostic; no world block writes',
                 'session_file': os.environ.get('MCDEV_SESSION_FILE'),
                 'sources': freeze_sources(args.output), 'world': {},
@@ -151,8 +153,10 @@ def main():
     installed = profiles_saved = visual_saved = daylight_saved = False
     try:
         with Client(timeout=25) as client:
+            evidence['binding_verified'] = True
             check = SignCheck(client, args.output, 60, native_resolution=True, background_only=True)
             try:
+                evidence['mutation_attempted'] = True
                 check.run(INSTALL_PROBE)
                 installed = True
                 check.run(SAVE)
@@ -228,7 +232,9 @@ def main():
                             check.wait('workspace closed', lambda nav: not nav['open'] and not nav['transition'], check.navigation)
                     actions.append(('workspace', restore_workspace))
                 errors = []
+                evidence['restoration_applicable'] = bool(actions)
                 for label, action in actions:
+                    evidence['restore_attempted'] = True
                     try:
                         action()
                     except Exception as error:

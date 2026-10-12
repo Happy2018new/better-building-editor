@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from PIL import Image, ImageDraw
 
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from probe_native_frame_matrix import BIAS, CONTROLS, SCALE, decode
 from probe_native_frame_route import marker_pixels
+import probe_native_frame_route as route
 
 
 def capture_record(path, image):
@@ -25,6 +27,26 @@ def capture_record(path, image):
 
 
 class NativeFrameMarkers(unittest.TestCase):
+    def test_binding_failure_does_not_claim_fixture_mutation_or_restoration(self):
+        with TemporaryDirectory() as directory:
+            output = Path(directory) / 'failed.json'
+            saved = {}
+            with patch.object(sys, 'argv', ['probe_native_frame_route.py', str(output)]), \
+                    patch.dict(route.os.environ, {'MCDEV_NATIVE_CAPTURE_HELPER': str(ROOT / 'tools/capture_native_window.py')}), \
+                    patch.object(route, 'freeze_sources', return_value=[]), \
+                    patch.object(route, 'write_json', side_effect=lambda path, report: saved.update(report)), \
+                    patch.object(route, 'Client') as client, \
+                    patch.object(route, 'SignCheck') as check:
+                client.return_value.__enter__.side_effect = RuntimeError('binding returned no value')
+                self.assertEqual(1, route.main())
+            check.assert_not_called()
+            self.assertFalse(saved['binding_verified'])
+            self.assertFalse(saved['mutation_attempted'])
+            self.assertFalse(saved['restore_attempted'])
+            self.assertFalse(saved['restoration_applicable'])
+            self.assertFalse(saved['restored'])
+            self.assertFalse(saved['production_rendering_accepted'])
+
     def test_inverse_crosshair_does_not_become_a_green_material_control(self):
         with TemporaryDirectory() as directory:
             image = Image.new('RGB', (300, 300), (255, 0, 255))
