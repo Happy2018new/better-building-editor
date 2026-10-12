@@ -76,8 +76,8 @@ For example, the existing public recent-entity fixture has an oak shelf at
 native data diagnostics and have not yet been run on either shelf family:
 
 ```powershell
-python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> probe_public_entity_contents.py <fresh-shelf-report.json> --fixture test.entities.recent --material minecraft:oak_shelf --item minecraft:diamond_sword --interaction-face 3
-python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> probe_public_entity_contents.py <fresh-bookshelf-report.json> --fixture test.entities.recent --material minecraft:chiseled_bookshelf --item minecraft:book --interaction-face 3
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> --sdk-background probe_public_entity_contents.py <fresh-shelf-report.json> --fixture test.entities.recent --material minecraft:oak_shelf --item minecraft:diamond_sword --interaction-face 3
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> --sdk-background probe_public_entity_contents.py <fresh-bookshelf-report.json> --fixture test.entities.recent --material minecraft:chiseled_bookshelf --item minecraft:book --interaction-face 3
 ```
 
 The native placement state and requested face are recorded independently of
@@ -87,6 +87,9 @@ entered a particular slot, that all slots were sampled, or that saved contents
 rendered. `native_content_schema_verified`, `production_rendering_accepted`
 and `enchantment_glint_accepted` remain false. Neither probe implements the
 authorized production server-capture workflow.
+The SDK-only background entry has no desktop input, activation, resize or camera
+operations. Every run independently compares the entire inventory, selected
+slot and player rotation after cleanup; a mismatch prevents restore acceptance.
 
 ## Coordinates For Acceptance
 

@@ -154,6 +154,29 @@ class NativePublicContentTests(unittest.TestCase):
 
 
 class PublicContentCleanupTests(unittest.TestCase):
+    def test_complete_inventory_selected_slot_and_rotation_are_independent_restore_gates(self):
+        before = {'inventory': [None] * 36, 'selected_slot': 0, 'rotation': [0., 0.]}
+        after = deepcopy(before)
+        self.assertEqual([], probe.player_restore_errors(before, after))
+        for field in ('inventory', 'selected_slot', 'rotation'):
+            after = deepcopy(before)
+            if field == 'inventory':
+                after[field][13] = {'itemName': 'minecraft:book', 'count': 1, 'userData': {'unknown': 7}}
+            elif field == 'selected_slot':
+                after[field] = 8
+            else:
+                after[field] = [0., 45.]
+            with self.subTest(field=field):
+                self.assertEqual(1, len(probe.player_restore_errors(before, after)))
+
+    def test_player_readback_failure_prevents_restore_acceptance_after_other_cleanup(self):
+        report = {'request': request(), 'player_before': {'inventory': [None] * 36}}
+        with patch.object(probe, 'execute', side_effect=[None, True, True, True,
+                                                        RuntimeError('Player snapshot unavailable')]):
+            probe.clean(object(), report)
+        self.assertFalse(report['restored'])
+        self.assertIn('Player snapshot unavailable', report['cleanup_errors'][0])
+
     def execute_locally(self, unused_client, code, unused_client_side=False):
         environment = {}
         exec(compile(code, '<public-content-cleanup>', 'exec'), environment)

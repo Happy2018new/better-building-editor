@@ -19,7 +19,8 @@ SDK_BACKGROUND_SCRIPTS = frozenset(('verify_dripstone_native_boxes.py',
                                   'verify_fungus_remaining_matrix.py',
                                   'verify_native_plant_boxes.py',
                                   'capture_pure_liquid_native_controls.py',
-                                  'capture_frozen_liquid_controls.py'))
+                                  'capture_frozen_liquid_controls.py',
+                                  'probe_public_entity_contents.py'))
 
 
 def main():

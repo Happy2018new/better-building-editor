@@ -45,6 +45,7 @@ sys._p0_entity_appearance_public_plans=[{
 '''
 INTERACT = '''import json,sys
 import mod.server.extraServerApi as api
+from modern_projection.projection import block_registry
 request=%r
 saved=sys._p0_entity_appearances
 assert saved['rows'][0].get('probe_nonce')==request['nonce'], 'Native fixture ownership changed'
@@ -82,6 +83,9 @@ result={'native_spawn_return':spawn,'inventory_before':inventory_before,
  'inventory_item_confirmed':item_confirmed,'inventory_enchantment_confirmed':enchantment_confirmed,
  'native_interaction_return':used,'interaction_face':request['interaction_face'],
  'before_block':before_block,'before_nbt':before,'after_block':after_block,'after_nbt':after,
+ 'before_states':block_registry.states((before_block['name'],before_block['aux'])),
+ 'after_states':block_registry.states((after_block['name'],after_block['aux'])),
+ 'state_source':'Registry state lookup of native GetBlockNew readback',
  'nbt_changed':before!=after,'block_changed':before_block!=after_block,
  'native_interaction_passed':bool(spawn and item_confirmed and enchantment_confirmed and used)}
 row['block']=after_block
@@ -104,6 +108,31 @@ if getattr(sys,'_p0_entity_content_probe_nonce',None)==%r:
   if hasattr(sys,name):delattr(sys,name)
 _result=True
 '''
+PLAYER_STATE = '''import json
+import mod.server.extraServerApi as api
+factory=api.GetEngineCompFactory()
+player=api.GetPlayerList()[0]
+items=factory.CreateItem(player)
+item_type=api.GetMinecraftEnum().ItemPosType.INVENTORY
+selected=items.GetSelectSlotId()
+assert 0<=selected<9, 'Selected inventory slot readback failed'
+_result=json.dumps({'inventory':[items.GetPlayerItem(item_type,index,True) for index in range(36)],
+ 'selected_slot':selected,'rotation':factory.CreateRot(player).GetRot(),
+ 'foot':factory.CreatePos(player).GetFootPos()})
+'''
+
+
+def player_restore_errors(before, after):
+    errors = []
+    normalize = lambda rows: [row if row and row.get('count') else None for row in rows]
+    if normalize(before['inventory']) != normalize(after['inventory']):
+        errors.append('Player inventory differs from the complete preflight snapshot')
+    if before['selected_slot'] != after['selected_slot']:
+        errors.append('Selected inventory slot differs from preflight')
+    if (len(before['rotation']) != 2 or len(after['rotation']) != 2 or
+            any(abs(old - new) > .00001 for old, new in zip(before['rotation'], after['rotation']))):
+        errors.append('Player rotation differs from preflight')
+    return errors
 
 
 def clean(client, report):
@@ -129,6 +158,12 @@ def clean(client, report):
             report[name] = execute(client, code, client_side)
         except Exception as error:
             errors.append('%s: %s' % (name, error))
+    if report.get('player_before') is not None:
+        try:
+            report['player_after_cleanup'] = execute(client, PLAYER_STATE)
+            errors.extend(player_restore_errors(report['player_before'], report['player_after_cleanup']))
+        except Exception as error:
+            errors.append('player_restore_readback: ' + str(error))
     report['cleanup_errors'] = errors
     report['restored'] = not errors
 
@@ -137,6 +172,7 @@ def collect(client, request, report):
     try:
         report['native_runtime_evidence'] = native_runtime_evidence(client)
         report['native_runtime_versions'] = report['native_runtime_evidence']['native_runtime_versions']
+        report['player_before'] = execute(client, PLAYER_STATE)
         setup = (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8')
         report['setup'] = execute(client, PUBLIC_PLAN % request + setup)
         read = (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8')
@@ -191,6 +227,7 @@ def main():
               'production_rendering_accepted': False, 'enchantment_glint_accepted': False,
               'scope': 'One native item interaction; complete data observation without slot inference',
               'cleanup_scope': 'Only native and client state with this request nonce',
+              'inventory_restore_scope': 'Temporary originally empty slot; complete inventory and selected-slot readback guard',
               'session_file': os.environ.get('MCDEV_SESSION_FILE'), 'owner': os.environ.get('MCDEV_OWNER'),
               'request': request, 'source_sha256': {str(path.relative_to(ROOT)):
                   hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}}

@@ -49,6 +49,17 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
         lock.assert_not_called()
         child.assert_not_called()
 
+    def test_public_native_contents_keep_owner_and_source_without_desktop_lock(self):
+        arguments = ['--sdk-background', 'probe_public_entity_contents.py', 'shelf.json',
+                     '--fixture', 'test.entities.recent', '--material', 'minecraft:oak_shelf',
+                     '--source-cell', '27', '1', '15', '--item', 'minecraft:diamond_sword']
+        load, lock, child = self.run_case(arguments)
+        self.assertEqual(7, runner.main())
+        load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
+        lock.assert_not_called()
+        self.assertEqual(arguments[2:], child.call_args.args[0][4:])
+        self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
+
     def test_scaffold_segment_retains_range_and_owner_without_desktop_input(self):
         load, lock, child = self.run_case(['--sdk-background',
             'verify_scaffold_support_catalogue.py', 'segment.json', '--start-index', '256', '--count', '256'])

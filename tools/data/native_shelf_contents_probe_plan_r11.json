@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "round": "R11",
+  "plan_kind": "predeclared_sdk_only_native_data_observation",
+  "public_fixture": "test.entities.recent",
+  "owner": "entities-r11-shelf-slot5",
+  "slot": 5,
+  "maximum_active_owned_games": 1,
+  "maximum_total_active_games": 5,
+  "startup_gate": "Wait for root confirmation that the revised IPC MCDK build and slot are ready",
+  "native_input": "Guarded background SDK calls only; no activation, desktop input or window resize",
+  "native_runtime_identity": "Read independent owned manifest and both GetMinecraftVersion sides before fixture writes",
+  "cases": [
+    {
+      "id": "oak_shelf_plain_sword",
+      "public_source": [27, 1, 15],
+      "material": "minecraft:oak_shelf",
+      "item": "minecraft:diamond_sword",
+      "placement_face": 1,
+      "interaction_face": 3,
+      "yaw": 0.0,
+      "enchantment": null
+    },
+    {
+      "id": "chiseled_bookshelf_plain_book",
+      "public_source": [9, 1, 9],
+      "material": "minecraft:chiseled_bookshelf",
+      "item": "minecraft:book",
+      "placement_face": 1,
+      "interaction_face": 3,
+      "yaw": 0.0,
+      "enchantment": null
+    }
+  ],
+  "optional_followup_gate": "All follow-ups require complete restoration; opposite-face diagnostics require unchanged face-3 NBT, and the enchanted shelf follow-up additionally requires a positive plain shelf native-data change",
+  "optional_followups": [
+    {
+      "id": "oak_shelf_opposite_face_control",
+      "public_source": [27, 1, 15],
+      "material": "minecraft:oak_shelf",
+      "item": "minecraft:diamond_sword",
+      "interaction_face": 2,
+      "scope": "A fresh restored native fixture if face 3 did not change NBT; does not imply a slot mapping"
+    },
+    {
+      "id": "chiseled_bookshelf_opposite_face_control",
+      "public_source": [9, 1, 9],
+      "material": "minecraft:chiseled_bookshelf",
+      "item": "minecraft:book",
+      "interaction_face": 2,
+      "scope": "A fresh restored native fixture if face 3 did not change NBT; does not imply a slot mapping"
+    },
+    {
+      "id": "oak_shelf_native_enchanted_sword",
+      "public_source": [27, 1, 15],
+      "material": "minecraft:oak_shelf",
+      "item": "minecraft:diamond_sword",
+      "enchantment": [9, 3],
+      "scope": "Only after the plain shelf interaction changes native data and complete restoration passes"
+    }
+  ],
+  "atomic_restore": {
+    "world": "One target plus six face neighbors, all verified air before any world writes; two clear passes and independent reads",
+    "inventory": "Only one originally empty temporary slot is written; all 36 slots are snapshotted and compared after cleanup",
+    "selected_slot": "Read-only snapshot and equality check; never set",
+    "rotation": "Native placement yaw restored and independently compared to preflight",
+    "client_state": "Only probe flags carrying this request nonce are removed",
+    "camera_foot_ui_projection": "No intentional mutations"
+  },
+  "abort_gates": [
+    "Owned session or background guard is invalid",
+    "A required preflight cell is not empty",
+    "Client palette is not replicated before block interaction",
+    "A cleanup or independent player-state readback fails",
+    "Handle count grows rapidly or IPC stops progressing"
+  ],
+  "completion": "Stop the identity-bound owned game after short sampling, and restore every experiment before 2026-10-13 06:30 Asia/Shanghai",
+  "scope": "Preserve complete before/after native NBT, material states, inventory and client palette without guessed slot fields or numbering",
+  "all_native_slots_accepted": false,
+  "public_snapshot_rewritten_to_match": false,
+  "editor_content_accepted": false,
+  "full_projection_content_accepted": false,
+  "missing_projection_content_accepted": false,
+  "enchantment_glint_accepted": false
+}
