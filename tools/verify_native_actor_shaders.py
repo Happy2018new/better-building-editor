@@ -28,6 +28,10 @@ SIGN_VARIANTS = (
     ('msdf', ('ALPHA_TEST', 'USE_LIGHTING', 'MSDF')),
     ('msdf_glow', ('ALPHA_TEST', 'USE_EMISSIVE', 'MSDF')),
 )
+TERRAIN_VARIANTS = (
+    ('blend', ('BLEND',)),
+    ('blend_alphatest', ('BLEND', 'ALPHA_TEST')),
+)
 
 
 def smoothstep(low, high, value):
@@ -226,6 +230,31 @@ def sign_body_fixtures(flags, baseline=False):
     return fixtures
 
 
+def terrain_fixtures():
+    fixtures = []
+
+    def add(name, tagged, bank, common, opacity, local=False):
+        discard = tagged and bank != 0. and opacity <= 0.
+        alpha = opacity if tagged and bank != 0. else common
+        rgb = [180., 120., 60.] if tagged else [45., 60., 45.]
+        fixtures.append({'name': name, 'packet': [19487. if tagged else 0., 0., bank, opacity],
+                         'local': [0., 0., 0., 19490. if local else 0.], 'common': common,
+                         'vertex_color': [1.]*4, 'shadow_color': [0.]*4,
+                         'pixel': [180, 120, 60, 255],
+                         'expected': [0.]*4 if discard else rgb+[alpha*255.],
+                         'blank': discard, 'tolerance': 2})
+
+    for common in (0., .5, 1.):
+        add('body_untagged_native_opacity_%s' % common, False, 2., common, .33)
+    add('terrain_tagged_unbanked', True, 0., .7, 0.)
+    for local in (False, True):
+        for bank, common in ((1., .125), (2., .625)):
+            for opacity in (0., .5, 1.):
+                add('terrain_%s_bank%d_opacity_%s' % ('local' if local else 'world', bank, opacity),
+                    True, bank, common, opacity, local)
+    return fixtures
+
+
 RENDER = r'''cases => {
   const results = [];
   const identity = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
@@ -256,6 +285,10 @@ RENDER = r'''cases => {
       const uniform = name => gl.getUniformLocation(program,name);
       for (const name of ['WORLD','WORLDVIEW','WORLDVIEWPROJ','PROJ','BONE'])
         gl.uniformMatrix4fv(uniform(name),false,identity);
+      if(c.kind==='terrain') {
+        const projection=identity.slice(); projection[15]=0;
+        gl.uniformMatrix4fv(uniform('PROJ'),false,projection);
+      }
       gl.uniform4f(uniform('TILE_LIGHT_COLOR'),.25,.5,.75,1);
       gl.uniform4f(uniform('OVERLAY_COLOR'),0,0,0,0);
       gl.uniform4f(uniform('FOG_COLOR'),0,0,0,0);
@@ -274,6 +307,7 @@ RENDER = r'''cases => {
       gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position,4,gl.FLOAT,false,0,0);
       const color=gl.getAttribLocation(program,'COLOR'); if(color>=0) gl.vertexAttrib4f(color,.8,.6,.4,.75);
       const uv=gl.getAttribLocation(program,'TEXCOORD_0'); if(uv>=0) gl.vertexAttrib2f(uv,.5,.5);
+      const uv1=gl.getAttribLocation(program,'TEXCOORD_1'); if(uv1>=0) gl.vertexAttrib2f(uv1,.5,.5);
       const normal=gl.getAttribLocation(program,'NORMAL'); if(normal>=0) gl.vertexAttrib4f(normal,0,1,0,0);
       for(let unit=0;unit<3;++unit) {
         gl.activeTexture(gl.TEXTURE0+unit); gl.bindTexture(gl.TEXTURE_2D,gl.createTexture());
@@ -311,7 +345,8 @@ RENDER = r'''cases => {
       const depthCases = c.fixtures.filter(f =>
         (f.packet[0]===19487. && Math.abs(f.packet[2])>.5 &&
          (/opacity_(0\.0|0\.5|1\.0)$/.test(f.name) || f.name.endsWith('zero_opacity'))) ||
-        (c.flags.includes('ENABLE_SET_TRANSPARENCY') && f.name==='body_untagged_native_opacity_0.0'));
+        ((c.kind==='terrain' || c.flags.includes('ENABLE_SET_TRANSPARENCY')) &&
+         f.name==='body_untagged_native_opacity_0.0'));
       result.depth_checks = [];
       if(depthCases.length) {
         const background = gl.createProgram();
@@ -404,9 +439,17 @@ def build_cases(project, headers, variants=None):
              'native_sign_body_fragment': headers/'entity.fragment',
              'sign_vertex': project/'resource_pack/shaders/glsl/modern_projection_sign_text.vertex',
              'sign_fragment': project/'resource_pack/shaders/glsl/modern_projection_sign_text.fragment',
+             'terrain_vertex': project/'resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex',
+             'terrain_fragment': project/'resource_pack/shaders/glsl/modern_projection_biome_blocks.fragment',
              'native_fragment': native_fragment}
     cases = []
     for version in (100, 300):
+        for name, flags in TERRAIN_VARIANTS:
+            cases.append({'name': 'terrain/%d/%s' % (version, name), 'kind': 'terrain',
+                          'version': version, 'flags': flags,
+                          'v': shader_source(paths['terrain_vertex'], headers, version, flags),
+                          'f': shader_source(paths['terrain_fragment'], headers, version, flags),
+                          'fixtures': terrain_fixtures()})
         for name, flags in (('normal', ()), ('local_light', ('RNGL_LOCAL_LIGHT',))):
             for kind, source, baseline in (
                     ('sign_body', paths['sign_body_fragment'], False),
@@ -459,7 +502,7 @@ def main():
     parser.add_argument('--browser', required=True)
     parser.add_argument('--report', type=Path, required=True)
     parser.add_argument('--variant', action='append', choices=sorted(set(
-        name for name, _ in ENTITY_VARIANTS+SIGN_VARIANTS)),
+        name for name, _ in ENTITY_VARIANTS+SIGN_VARIANTS+TERRAIN_VARIANTS)),
         help='Limit compile/pixel/depth verification to explicit variants; repeat for multiple names')
     args = parser.parse_args()
     cases, identities = build_cases(args.project.resolve(), args.headers.resolve(), args.variant)
@@ -484,7 +527,8 @@ def main():
         report['sources_unchanged_after_render'] = all(
             digest(Path(identities[key]['path']))['sha256'] == identities[key]['sha256']
             for key in ('native_vertex', 'native_fragment', 'entity_fragment', 'sign_body_vertex', 'sign_body_fragment',
-                        'native_sign_body_fragment', 'sign_vertex', 'sign_fragment', 'native_material'))
+                        'native_sign_body_fragment', 'sign_vertex', 'sign_fragment', 'terrain_vertex',
+                        'terrain_fragment', 'native_material'))
         report['headers_unchanged_after_render'] = all(
             digest(Path(row['path']))['sha256'] == row['sha256']
             for row in identities['expanded_headers'].values())
@@ -495,7 +539,8 @@ def main():
         report['programs'] = len(report['results'])
         report['linked_programs'] = sum(result['linked'] for result in report['results'])
         report['pixel_checks'] = sum(len(result['pixel_checks']) for result in report['results'])
-        report['pixel_failures'] = sum(len(result['failures']) for result in report['results'])
+        report['pixel_failures'] = sum(not check['passed'] for result in report['results']
+                                      for check in result['pixel_checks'])
         report['depth_checks'] = sum(len(result.get('depth_checks', [])) for result in report['results'])
         report['depth_failures'] = sum(not check['passed'] for result in report['results']
                                       for check in result.get('depth_checks', []))
