@@ -290,7 +290,16 @@ class ModernProjectionServerSystem(ServerSystem):
 
     def selection_locked(self, player):
         entry = self.jobs.get(player)
-        return bool(entry and entry[1] == 'capture')
+        upload = self.uploads.get(player)
+        return bool((entry and entry[1] == 'capture') or
+                    (upload and upload[1].get('action') == 'capture'))
+
+    def validate_capture(self, adapter, args):
+        region = self.world_regions.get(adapter.player)
+        if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
+            raise ValueError('世界选区已改变，请重新选择两个角点')
+        if args.get('clientCapture') is not True:
+            raise ValueError('世界选区必须通过客户端 palette 读取')
 
     def tool_block_use(self, args):
         event = dict(args, entityId=args.get('playerId'))
@@ -410,8 +419,17 @@ class ModernProjectionServerSystem(ServerSystem):
             elif upload:
                 self.reply(player, upload[0], done=True, error='建筑传输已取消')
             return
+        active = self.jobs.get(player)
+        if active and active[0] == request:
+            return
         if args.get('action') == 'upload' or args.get('stream') is not None:
             try:
+                entry = self.uploads.get(player)
+                packet = args.get('stream')
+                if (entry and entry[0] == request and isinstance(packet, dict) and
+                        type(packet.get('seq')) is int and 0 <= packet['seq'] < entry[2].sequence):
+                    self.reply(player, request, done=False, uploadAck=packet['seq'])
+                    return
                 if args.get('action') != 'upload':
                     if player in self.jobs or player in self.uploads or args.get('action') not in ('apply', 'check', 'capture'):
                         raise ValueError('已有世界操作正在进行')
@@ -424,7 +442,12 @@ class ModernProjectionServerSystem(ServerSystem):
                     header = args.get('stream')
                     if not isinstance(header, dict) or header.get('kind') != 'begin':
                         raise ValueError('缺少建筑传输头')
-                    self.validate_target(adapter, origin, Document(header.get('size', ())))
+                    document = Document(header.get('size', ()))
+                    if args['action'] == 'capture':
+                        self.validate_capture(adapter, args)
+                        if tuple(args.get('size', ())) != document.size:
+                            raise ValueError('客户端世界读取尺寸不匹配')
+                    self.validate_target(adapter, origin, document)
                     self.uploads[player] = (request, dict(args), Receiver(), time.time(), adapter)
                 entry = self.uploads.get(player)
                 if entry is None or entry[0] != request:
@@ -440,7 +463,7 @@ class ModernProjectionServerSystem(ServerSystem):
                     self.uploads.pop(player, None)
                     initial.pop('stream', None)
                     self.request(initial, result, adapter)
-            except (ValueError, TypeError, KeyError) as error:
+            except (ValueError, TypeError, KeyError, RuntimeError) as error:
                 entry = self.uploads.get(player)
                 if entry and entry[0] == request:
                     self.uploads.pop(player, None)
@@ -454,12 +477,8 @@ class ModernProjectionServerSystem(ServerSystem):
             if action not in ('capture', 'check', 'apply', 'resolve'):
                 raise ValueError('未知的世界操作')
             adapter = upload_adapter or WorldAdapter(player)
-            if action == 'capture':
-                region = self.world_regions.get(player)
-                if region != (adapter.dimension, tuple(args.get('origin', ())), tuple(args.get('size', ()))):
-                    raise ValueError('世界选区已改变，请重新选择两个角点')
-            if action == 'capture' and args.get('clientCapture') is not True:
-                raise ValueError('世界选区必须通过客户端 palette 读取')
+            if action == 'capture' and upload_adapter is None:
+                self.validate_capture(adapter, args)
             if action == 'apply' and upload_adapter is None and not adapter.allowed():
                 raise ValueError('世界写入需要创造模式、操作员和建造权限')
             if action == 'resolve':
@@ -478,7 +497,8 @@ class ModernProjectionServerSystem(ServerSystem):
                     doc = Document(declared_size)
                 else:
                     doc = Document(tuple(args.get('size', ()))) if action == 'capture' else transferred
-                self.validate_target(adapter, origin, doc)
+                if action != 'capture' or upload_adapter is None:
+                    self.validate_target(adapter, origin, doc)
                 if action == 'capture' and args.get('clientCapture') is True:
                     job = self.capture_entities(player, request, adapter, doc, origin)
                 elif action == 'apply':

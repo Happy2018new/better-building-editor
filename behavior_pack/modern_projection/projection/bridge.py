@@ -141,16 +141,17 @@ class ClientBridge(object):
             return
         mesh_position = (foot[0], foot[1]+1., foot[2])
         signature = (position, mesh_position, self.entity, self.projection_outline.entity)
-        if signature == self._projection_follow_position:
+        shader = self.projection_shader
+        repairing_overlays = shader is not None and shader.overlay_restore
+        if signature == self._projection_follow_position and not repairing_overlays:
             self.projection_outline.follow(position, tuple(centre))
             return
         if self.projection_mesh:
             entity, model, origin, previous = self.projection_mesh
-            if entity == self.entity and mesh_position != previous:
+            if entity == self.entity and (mesh_position != previous or repairing_overlays):
                 if mesh_position != previous and not self.factory.CreatePos(entity).SetPosForClientEntity(mesh_position):
                     return
                 offset = (mesh_position[0]-origin[0]-.5, origin[1]-mesh_position[1], mesh_position[2]-origin[2]-.5)
-                shader = self.projection_shader
                 moved = (shader.follow(mesh_position, centre) if shader is not None else
                          self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset))
                 if not moved:
@@ -451,11 +452,22 @@ class ClientBridge(object):
             raise ValueError('请等待编辑任务完成')
         if self.pending is not None:
             raise ValueError('请等待当前世界操作完成')
+        outgoing = dict(data)
+        upload = None
+        document = outgoing.pop('document', None)
+        if isinstance(document, Document):
+            snapshot = Document(document.size, name=document.name, biome=document.biome)
+            snapshot.blocks = document.blocks.copy()
+            upload = packets(snapshot)
+            outgoing['stream'] = next(upload)
         self.request_id += 1
         self.pending = self.request_id
-        self.pending_data = (action, data)
+        self.pending_data = (action, dict(data))
         self.pending_state = (id(self.session.editor), self.session.editor.revision, tuple(self.session.origin))
-        data = dict(data, action=action, request=self.request_id)
+        outgoing.update(action=action, request=self.request_id)
+        self.upload = upload
+        if upload is not None:
+            self.upload_sequence = outgoing['stream']['seq']
         self.session.busy = True
         self.download = Receiver() if action == 'capture' else None
         if action == 'capture':
@@ -475,17 +487,8 @@ class ClientBridge(object):
                 else:
                     self.later(5., watchdog)
             self.later(5., watchdog)
-        document = data.get('document')
-        if isinstance(document, Document):
-            data.pop('document')
-            snapshot = Document(document.size, name=document.name, biome=document.biome)
-            snapshot.blocks = document.blocks.copy()
-            self.upload = packets(snapshot)
-            packet = next(self.upload)
-            self.upload_sequence = packet['seq']
-            data['stream'] = packet
-        data.pop('captureDocument', None)
-        self.system.NotifyToServer('ProjectionRequest', data)
+        outgoing.pop('captureDocument', None)
+        self.system.NotifyToServer('ProjectionRequest', outgoing)
         self.session.emit()
 
     def capture(self):
@@ -590,20 +593,23 @@ class ClientBridge(object):
             self.system.NotifyToServer('ProjectionRequest', {'request': self.pending, 'action': 'cancel'})
 
     def receive(self, args):
-        if args.get('request') != self.pending:
+        if (self.pending is None or not isinstance(args, dict) or
+                type(args.get('request')) is not int or args['request'] != self.pending):
             return
         self.capture_activity = time.time()
         s = self.session
         if not args.get('done'):
             if 'uploadAck' in args:
-                if self.upload is not None and args['uploadAck'] == self.upload_sequence:
+                if (self.upload is not None and type(args['uploadAck']) is int and
+                        args['uploadAck'] == self.upload_sequence):
                     request = self.pending
+                    sequence = self.upload_sequence
                     def send_next():
-                        if self.pending != request or self.upload is None:
+                        if (self.pending != request or self.upload is None or
+                                self.upload_sequence != sequence):
                             return
-                        try:
-                            packet = next(self.upload)
-                        except StopIteration:
+                        packet = next(self.upload, None)
+                        if packet is None:
                             self.upload = None
                             return
                         self.upload_sequence = packet['seq']
@@ -611,12 +617,17 @@ class ClientBridge(object):
                     self.later(0., send_next)
                 return
             if 'documentPacket' in args:
+                if self.download is None:
+                    return
                 try:
-                    self.download.feed(args['documentPacket'])
+                    packet = args['documentPacket']
+                    if not (isinstance(packet, dict) and type(packet.get('seq')) is int and
+                            0 <= packet['seq'] < self.download.sequence):
+                        self.download.feed(packet)
                     self.system.NotifyToServer('ProjectionRequest', {
                         'request': self.pending, 'action': 'captureAck',
-                        'sequence': args['documentPacket']['seq']})
-                except (ValueError, TypeError, KeyError) as error:
+                        'sequence': packet['seq']})
+                except (ValueError, TypeError, KeyError, RuntimeError) as error:
                     self.cancel_world()
                     s.editor.message = str(error)
                     self.pending = self.pending_data = self.pending_state = None
@@ -633,6 +644,7 @@ class ClientBridge(object):
         state = self.pending_state
         self.pending = self.pending_data = self.pending_state = None
         self.upload = None
+        download, self.download = self.download, None
         s.busy = False
         if args.get('error'):
             self.download = None
@@ -655,14 +667,14 @@ class ClientBridge(object):
                     s.editor.message = type('')(error)
         elif action == 'capture':
             document = (sent.get('captureDocument') if sent.get('clientCapture') else
-                        self.download.result if args.get('streamed') and self.download else
+                        download.result if args.get('streamed') and download else
                         Document.from_data(args['document']))
             if sent.get('clientCapture'):
                 try:
                     from .world_capture import merge_entity_document
-                    if self.download is None or self.download.result is None:
+                    if download is None or download.result is None:
                         raise ValueError('方块实体传输不完整，请重新读取')
-                    merge_entity_document(document, self.download.result)
+                    merge_entity_document(document, download.result)
                 except (ValueError, TypeError, KeyError) as error:
                     self.download = None
                     s.editor.message = str(error)
@@ -803,7 +815,7 @@ class ClientBridge(object):
             self.cancel_world()
         self.projection_serial += 1
         self.projection_work = None
-        self.restore_projection_distance()
+        distance_restored = self.restore_projection_distance()
         entities = tuple(self.projection_entities.values()) + (self.preparing_entity, self.entity)
         self.projection_entities = {}
         self.preparing_entity = None
@@ -812,6 +824,8 @@ class ClientBridge(object):
         self.projection_mesh = None
         self.session.projection_active = False
         errors = self.release_projection_resources(entities, (self.projection_outline,), liquids)
+        if distance_restored is False:
+            errors.append('Projection render distance cleanup failed')
         self.session.editor.message = ('投影已关闭' if not errors else
                                        '投影已关闭，部分资源清理失败，请再次关闭重试')
 
@@ -825,8 +839,9 @@ class ClientBridge(object):
             pending_liquid = getattr(previous_work, 'liquid', None)
             self.release_projection_resources(liquids=(pending_liquid,))
         if self.preparing_entity:
-            self.system.DestroyClientEntity(self.preparing_entity)
+            pending = self.preparing_entity
             self.preparing_entity = None
+            self.release_projection_resources((pending,))
         had_projection = bool(self.entity or self.projection_entities)
         self.projection_work = WorldProjection(self, origin)
         self.ensure_projection_distance(self.projection_work.document.size)
@@ -850,11 +865,14 @@ class ClientBridge(object):
                 self.projection_distance = (current, required)
 
     def restore_projection_distance(self):
-        lease, self.projection_distance = self.projection_distance, None
-        if lease is not None:
-            render = self.factory.CreateActorRender(self.player)
-            if render.GetEntityRenderDistance() == lease[1]:
-                render.SetEntityRenderDistance(lease[0])
+        lease = self.projection_distance
+        if lease is None:
+            return True
+        render = self.factory.CreateActorRender(self.player)
+        if render.GetEntityRenderDistance() == lease[1] and not render.SetEntityRenderDistance(lease[0]):
+            return False
+        self.projection_distance = None
+        return True
 
     def dimension_changed(self, unused):
         loaded = getattr(self.system, 'projection_loaded_chunks', None)

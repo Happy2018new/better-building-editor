@@ -315,10 +315,11 @@ class ServerStreamTests(unittest.TestCase):
                 'source':'world_item', 'clientCapture':True,
                 'origin':(0,64,0), 'size':(1,1,1), 'stream':packet,
             })
-        self.assertIn('重新选择', self.replies[-1][2]['error'])
+        self.assertIn('重新选择', self.replies[0][2]['error'])
         self.assertFalse(self.host.uploads)
 
         self.host.world_regions.pop('player')
+        first_reply = len(self.replies)
         for packet in packets(doc):
             self.host.request({
                 '__id__':'player', 'request':33,
@@ -326,7 +327,7 @@ class ServerStreamTests(unittest.TestCase):
                 'clientCapture':True, 'origin':(0,64,0),
                 'size':(2,1,1), 'stream':packet,
             })
-        self.assertIn('重新选择', self.replies[-1][2]['error'])
+        self.assertIn('重新选择', self.replies[first_reply][2]['error'])
         self.assertFalse(self.host.uploads)
 
     def test_survey_wand_marks_two_authorized_corners_without_world_writes(self):
