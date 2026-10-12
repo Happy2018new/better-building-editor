@@ -1,0 +1,1347 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-12T03:06:02.060567+00:00",
+  "accepted": true,
+  "pack_tool": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\pack_chest_occupied_evidence_r10.py",
+    "sha256": "b4b77b81809e02cdfb15cbd010bc15320f17e4843bfe18bb7171bb4ae5f11f4c"
+  },
+  "production_rendering_changed": false,
+  "scope": "Real stone sub-half occupancy in missing projection; preserve logical main/sub double context; dynamic, initial and recovery",
+  "render_path": "missing_projection",
+  "top_view_only": true,
+  "occupancy_source": "Real native-world stone; no observer override",
+  "occupied_logical_half": "sub/right",
+  "oracle": "Native full double restricted to remaining target bounds from independent stone cube before chest frames; real single/composite diagnostics separately",
+  "original_gates": {
+    "minimum_native_pixels": 1000,
+    "shape_iou": 0.82,
+    "texture_cosine": 0.45,
+    "scale_relative_error": 0.2,
+    "center_distance_pixels": 3,
+    "boundary_rms_pixels": 4
+  },
+  "png_replay_matches_original_report": true,
+  "game_version": "NEMC 3.9.0.401155",
+  "state_count": 15858,
+  "palette_dump": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\docs\\reference\\block_palettes\\nemc_3.9.0.401155.json",
+    "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01"
+  },
+  "registry_manifest": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\block_registry_manifest.json",
+    "sha256": "c08c6bc677b0b90f68ea7d2782bd5956ed6a8fc4c0a1bad194343089ba4018fd"
+  },
+  "frozen_registry_source": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+    "sha256": "ab745981bdc739d2d59b06b95e2590e140c19e831198cdb6b0f450b2a5efcdd1"
+  },
+  "offline_oracle_sources": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\verify_chest_occupied_frozen_holdout.py",
+      "sha256": "16ba8de2c2b14fb106a4a071e117e0386d4e22c58037c11b5dd1cbf9f8b7d72f"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\verify_chest_editor_frozen_holdout.py",
+      "sha256": "cde66481e749f62f73c3368324406f3a9f33074306f50ff4d404293e0afaeb4f"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\verify_copper_chest_render.py",
+      "sha256": "45013d86afe5064823d5e416cccd6d284c5ce19137dfe0b5d02a14000dad86a6"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\shulker_pixels.py",
+      "sha256": "a134286c29b26a433448e78f9e825e88faeead4718be5af6ac0fe8fa71f64ca5"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\verify_camera_projection.py",
+      "sha256": "dbbc3d26c16a76e7a13dd7dd8813bbd7991fd91383ab3ed04f65ab52b65f9e87"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\verify_missing_neighbor_visuals.py",
+      "sha256": "edca326910919c1a8a0e50fbd0318f68252a8377116152584aafd950413c949a"
+    }
+  ],
+  "all_30_frames_fresh_reliable_background_wgc": true,
+  "document_history_camera_and_public_source_preserved": true,
+  "visual_review": {
+    "observer": "Codex agent entities-r10-background opened and visually inspected all listed full native PNGs with view_image. Signal/mask images are excluded. Historical R7/R8/R9 review records remain unchanged.",
+    "index": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-entities\\tools\\data\\entities_visual_viewed_frames_r10.json",
+      "sha256": "be57046a3cdc6df5c139d2df97719b3dbdbc84cf3961ad8d3fdade13c28837c4"
+    },
+    "frames_actually_opened": [
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_remaining_target_native.png",
+        "sha256": "cbc7f82034b61180eb482865df7c874c818b79657db6789ebb8c70fc9045932b"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_empty_native.png",
+        "sha256": "a73dca362f5649643ba2e668c49ba46b0fcef4951cbb792fda4673dff2868859"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_double_native.png",
+        "sha256": "c76ab8313f00e37141e9d0624380e756b4b8581f1e52be2b0938f17282b4c442"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_empty_native.png",
+        "sha256": "e0abe557e2720d6135ff413bd1f17ce4d298764c8c7d7002878828f455202ef5"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_shown_native.png",
+        "sha256": "a2fb089de24ed80e22c944a9cec99655b59c734b5b0bc61544ce33fc0131a9dd"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_hidden_native.png",
+        "sha256": "601fa51752be374004815c47d29beba3d7813a00d21738e40a8f48fdd4fa0f4f"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_shown_native.png",
+        "sha256": "59f5e574245d3ac8e15a599dc18ad14efca6f993b9f97e9743dda4fb560deaba"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_hidden_native.png",
+        "sha256": "ffd367783007aa66156e0dde4e2bae40aaf6928214e42a5fcdc69139c8f4fed7"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_shown_native.png",
+        "sha256": "4f1345fd189a7ad6999efceb96fab9a74c1f81f49eda8fed02c7fe67f31f1c08"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_hidden_native.png",
+        "sha256": "cf1c6d09f15985f945975e63661259dc298165e00c3a3d682027940fa0a5d841"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_shown_native.png",
+        "sha256": "4ca35a93558e3be844d117e0140e1062c4b38db41c2b3cdba763adc87d0deb49"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_hidden_native.png",
+        "sha256": "c65edad2dcde897ebbb13d4d959874a071b072f37d3400addba0520644101bbd"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_native.png",
+        "sha256": "7a533897db4c474f51f20849369e9f08c865f842adde2f1f3e597fd8f239c975"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_empty_native.png",
+        "sha256": "8850b230332478da79d83d6a045bbcd0eb50b5c7152af8ddd86d347fecb26d7d"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_shown_native.png",
+        "sha256": "ca6927bde608a8de8439679ec442dab32146070c799b64a90eeb5456855d6ae3"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_hidden_native.png",
+        "sha256": "6bc49f54e4a845bdd52f60e3388a09426f08915d48b86de91566d7295c90d85c"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_double_native.png",
+        "sha256": "e8c357cba2af6216a44173da61ca4d6123b0944223f35b1d369a898603df5d4b"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_empty_native.png",
+        "sha256": "f8927eb379a305ea0f34165a63e02a033e1de8be31abed1d24013f62684545d3"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_shown_native.png",
+        "sha256": "3137012f0cc9cc8c5c50b559599a9cd135d91272cf72c1bf2eb6ae78dd77ca43"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_hidden_native.png",
+        "sha256": "63eb45789f982652ad2610e66437a50c4d519a1525a62b302f57c71a6fc3d7fc"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_shown_native.png",
+        "sha256": "5ca58c3f0830d9788e4463b018d39ad9ee966a9e57f6de10cd9b817a4f76e407"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_hidden_native.png",
+        "sha256": "d2c904fa0139157d37089db130bf1a3bb034d00535324f85e33d2901f6fe6329"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_shown_native.png",
+        "sha256": "c9b0a1154d6cada838bf63ceda6c07ed91b8a766b792ea9d2d4ac1343112a056"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_hidden_native.png",
+        "sha256": "c0610a1d881e485992b778ab655f6ab8e3d4710246934d6d913c7426be3d6cc1"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_shown_native.png",
+        "sha256": "43191a061314f245a1d245169a5ce12f5b8bead115ee49f2155973eb75f72b01"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_hidden_native.png",
+        "sha256": "864f7ed366d3d58e519cf00c67f22e6c5094666e50d9945d178d4131b6391cc0"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_native.png",
+        "sha256": "54cf54d5216f5c3039b2baea42f0a7423f3a162bfd0b94e2e3b4de7c56e0999d"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_empty_native.png",
+        "sha256": "489220fc06a0e0f9f32aa04f41f9217ee05dcfefc4a864179dfad63d3e315b03"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_shown_native.png",
+        "sha256": "1d47f622d483861fc2cdfe92793b722a650e7e24c124e3e2aeb728cd6470b60b"
+      },
+      {
+        "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_hidden_native.png",
+        "sha256": "e9203846b31e1f0538e0c1165f1dadc4fbf3a0b1d8ec305b3b2da12fc56f3792"
+      }
+    ],
+    "preflight_actually_opened": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\entities-r10-preflight.png",
+      "sha256": "9dd7d4b9ffaa65210494b43c5e190a4508011414f4fd6e3bd108e8e99f7fd94a"
+    }
+  },
+  "runtime_cleanup": {
+    "audit": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\entities-r10-final-cleanup-audit.json",
+      "sha256": "20d44b51de633f3382c6e7f4e79c8abc3dc7a449d57e0496fad29e02f696eca8"
+    },
+    "restoration": {
+      "baseline": {
+        "foot": [
+          0.5,
+          73.0,
+          0.5
+        ],
+        "flying": false,
+        "rotation": [
+          0.0,
+          -3.0517578125e-05
+        ],
+        "can_fly": true,
+        "read_only": true
+      },
+      "observed": {
+        "foot": [
+          0.5,
+          73.0,
+          0.5
+        ],
+        "flying": false,
+        "rotation": [
+          0.0,
+          -0.0054931640625
+        ],
+        "can_fly": true,
+        "read_only": true
+      },
+      "passed": true,
+      "read_only": true,
+      "position_tolerance": 0.02
+    },
+    "stopped_session": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\session.json",
+      "sha256": "d76ef51ae456a4cd8ae7de86c870029776ab0c0f51686b74eabff72bfc8514c9"
+    },
+    "no_corrective_audit_teleport": true,
+    "startup_guard": {
+      "schema": 1,
+      "requested": true,
+      "dll": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+        "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+      },
+      "mcdk": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\mcdk-noactivate\\build-ninja-331\\tools\\mcdk\\mcdk.exe",
+        "sha256": "648e5d56b58cb4722235c17212411c633b7b48b6b8e93443a161d9aa87692c35"
+      },
+      "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+      "foreground": {
+        "hwnd": 12390418,
+        "pid": 26876,
+        "process": "msedge.exe",
+        "identity": "134361217284566139",
+        "title": "CSCU9X5_UserRequirements_WK5 \u548c\u53e6\u5916 5 \u4e2a\u9875\u9762 - \u4e2a\u4eba - Microsoft\u200b Edge",
+        "visible": true,
+        "minimized": false
+      },
+      "windows": [
+        {
+          "hwnd": 27460676,
+          "pid": 52044,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 189,
+          "y": 176,
+          "width": 1329,
+          "height": 736,
+          "minimized": false,
+          "noactivate": true
+        }
+      ],
+      "background_safe": true,
+      "window_noactivate": true
+    },
+    "handle_observation": {
+      "audit_before": {
+        "pid": 52044,
+        "handles": 286345,
+        "recorded_at": 1791768028.7926443
+      },
+      "audit_after": {
+        "pid": 52044,
+        "handles": 286345,
+        "recorded_at": 1791768029.8084874
+      },
+      "instance_stopped_after_quiet_growth": true,
+      "cause_attributed": false
+    }
+  },
+  "historical_evidence_reclassified": false,
+  "chest_candidate_008ca89_merged": false,
+  "diagnostic_boundary": "Native singles differ from logical double halves; real single plus ghost has a visible central gap and copper texture mismatch despite aggregate shape gates.",
+  "pending_scopes": [
+    "Main-half stone occupancy lifecycle",
+    "Arbitrary real chest completion",
+    "Other chest materials, directions and non-top views",
+    "Head/frame/banner visible item content"
+  ],
+  "cases": [
+    {
+      "id": "normal_double_north",
+      "name": "minecraft:chest",
+      "direction": "north",
+      "paired": true,
+      "fixture": "test.connections.context",
+      "cells": [
+        [
+          26,
+          1,
+          5
+        ],
+        [
+          27,
+          1,
+          5
+        ]
+      ],
+      "passed_original_lifecycle_gates": true,
+      "native_double_pixels": 29758,
+      "native_logical_half_pixels": 14948,
+      "comparisons_recomputed_from_pngs": {
+        "positive_comparison": {
+          "shape_iou": 0.9989777664196269,
+          "texture_cosine": 0.9866779139733342,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 8904,
+          "texture_energy": [
+            445386,
+            498125
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "dynamic_logical_half_comparison": {
+          "shape_iou": 0.9950967741935484,
+          "texture_cosine": 0.9765617020718054,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8745,
+          "texture_energy": [
+            397533,
+            467513
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "initial_logical_half_comparison": {
+          "shape_iou": 0.9950967741935484,
+          "texture_cosine": 0.9765617020718054,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8745,
+          "texture_energy": [
+            397533,
+            467513
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "recovery_comparison": {
+          "shape_iou": 0.9989777664196269,
+          "texture_cosine": 0.9866779139733342,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 8904,
+          "texture_energy": [
+            445386,
+            498125
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "single_versus_logical_half_diagnostic": {
+          "shape_iou": 0.9853808668889459,
+          "texture_cosine": 0.6705543952865752,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.05833333333333335,
+          "native_bbox": [
+            11,
+            5,
+            131,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8718,
+          "texture_energy": [
+            540297,
+            394868
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              991,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              3.5,
+              0.0
+            ],
+            "center_distance_pixels": 3.5,
+            "boundary_rms_pixels": 3.5,
+            "passed": false,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": false
+        },
+        "composite_versus_native_double_diagnostic": {
+          "shape_iou": 0.9640581187866428,
+          "texture_cosine": 0.933766856735114,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 7314,
+          "texture_energy": [
+            368360,
+            416536
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        }
+      },
+      "diagnostic_assembly_accepted": false
+    },
+    {
+      "id": "copper_double_north",
+      "name": "minecraft:copper_chest",
+      "direction": "north",
+      "paired": true,
+      "fixture": "test.connections.context",
+      "cells": [
+        [
+          26,
+          1,
+          10
+        ],
+        [
+          27,
+          1,
+          10
+        ]
+      ],
+      "passed_original_lifecycle_gates": true,
+      "native_double_pixels": 29758,
+      "native_logical_half_pixels": 14948,
+      "comparisons_recomputed_from_pngs": {
+        "positive_comparison": {
+          "shape_iou": 0.9989777664196269,
+          "texture_cosine": 0.9753548644650372,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 8904,
+          "texture_energy": [
+            1194718,
+            1359689
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "dynamic_logical_half_comparison": {
+          "shape_iou": 0.9950967741935484,
+          "texture_cosine": 0.9547626341519538,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8745,
+          "texture_energy": [
+            909235,
+            1023594
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "initial_logical_half_comparison": {
+          "shape_iou": 0.9950967741935484,
+          "texture_cosine": 0.9547626341519538,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8745,
+          "texture_energy": [
+            909235,
+            1023594
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "recovery_comparison": {
+          "shape_iou": 0.9989777664196269,
+          "texture_cosine": 0.9753548644650372,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 8904,
+          "texture_energy": [
+            1194718,
+            1359689
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        },
+        "single_versus_logical_half_diagnostic": {
+          "shape_iou": 0.9853808668889459,
+          "texture_cosine": 0.1515343227863348,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.05833333333333335,
+          "native_bbox": [
+            11,
+            5,
+            131,
+            128
+          ],
+          "proxy_bbox": [
+            11,
+            5,
+            138,
+            128
+          ],
+          "texture_samples": 8718,
+          "texture_energy": [
+            753381,
+            908945
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              991,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              998,
+              609
+            ],
+            "center_delta_pixels": [
+              3.5,
+              0.0
+            ],
+            "center_distance_pixels": 3.5,
+            "boundary_rms_pixels": 3.5,
+            "passed": false,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": false
+        },
+        "composite_versus_native_double_diagnostic": {
+          "shape_iou": 0.9640581187866428,
+          "texture_cosine": 0.5210852610978007,
+          "interior_missing_fraction": 0.0,
+          "scale_relative_error": 0.0,
+          "native_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "proxy_bbox": [
+            114,
+            67,
+            367,
+            190
+          ],
+          "texture_samples": 7314,
+          "texture_energy": [
+            978392,
+            1065932
+          ],
+          "alignment": {
+            "native_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "proxy_world_bounds": [
+              871,
+              486,
+              1124,
+              609
+            ],
+            "center_delta_pixels": [
+              0.0,
+              0.0
+            ],
+            "center_distance_pixels": 0.0,
+            "boundary_rms_pixels": 0.0,
+            "passed": true,
+            "limits": {
+              "center_distance_pixels": 3,
+              "boundary_rms_pixels": 4
+            }
+          },
+          "passed": true
+        }
+      },
+      "diagnostic_assembly_accepted": false
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_composite_signal.png",
+      "sha256": "62139ef408a01c45431b6d3dc79433728d991befc06a5a9343ea1fe5470fd966"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_composite_signal_mask.png",
+      "sha256": "73ed52e8c4d0f0acb4f89745744588fa42b205760bfd2c9cfffb94ad319671d6"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_dynamic_half_signal.png",
+      "sha256": "c6a1ad8320564b4251ea4c7ff4f125943c0edcedb98ae0d866cf69aebc28e742"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_dynamic_half_signal_mask.png",
+      "sha256": "24a73fc9eeaa946cce243ae3bc089d5de6e6e4c6365ee7aabd138c21447f2add"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_initial_half_signal.png",
+      "sha256": "c6a1ad8320564b4251ea4c7ff4f125943c0edcedb98ae0d866cf69aebc28e742"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_initial_half_signal_mask.png",
+      "sha256": "24a73fc9eeaa946cce243ae3bc089d5de6e6e4c6365ee7aabd138c21447f2add"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_double_signal.png",
+      "sha256": "5faf86ccaf8d4982bab4514e756fd73047c6a71889886a69be4596c6128cc635"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_double_signal_mask.png",
+      "sha256": "c667a61d15b3dbe2ed47329e7b8dfe411a894fc282e4742dff995bfc4fcce87c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_logical_half_signal.png",
+      "sha256": "3b2077c39509a1b933458417aa27548deb7e554f9cc4bd8f16f5be83ae1a751e"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_logical_half_signal_mask.png",
+      "sha256": "3f9470e34ca305d526921c4d17f1439bb4eaab4b97bccd9dfaf9c0d09cbea4b5"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_single_signal.png",
+      "sha256": "42f93abf1038a049a6e959374e2070926e4e9e96726cb49d9af24930b3baa933"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_native_single_signal_mask.png",
+      "sha256": "925c59b719abbcd4e17701c9bc4c5b6ed168608584250172e927eaeb23c2134d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_projection_double_signal.png",
+      "sha256": "74d43fffa0abe8e6adb84632961c40113e5a1d3c696bc9b4e146f2d01d9becf8"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_projection_double_signal_mask.png",
+      "sha256": "31fa2567f5e2a7680dc9681558ad3d6f902d912d6ff2ecb5e563b16431b0377f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_recovered_signal.png",
+      "sha256": "74d43fffa0abe8e6adb84632961c40113e5a1d3c696bc9b4e146f2d01d9becf8"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\copper_double_north_recovered_signal_mask.png",
+      "sha256": "31fa2567f5e2a7680dc9681558ad3d6f902d912d6ff2ecb5e563b16431b0377f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\frozen_source.json",
+      "sha256": "ea474477197605eda1c73d1c6af3c11a84ee1d93f920d9b46f2e8435a4d84221"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\frozen_source_after.json",
+      "sha256": "cecaac6397b2f801ebc3032d9e4cb03aac96627f273067882b1be931d9738c5c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\grounded_baseline_before_mutation.json",
+      "sha256": "da7a51e1d06a22e4c3e3a12dc1a74c34ee028ad85ec38b40f996ec1d71c494e4"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_composite_signal.png",
+      "sha256": "6bc5cdba46b882986e8209808e62bfe5c47295311d39c91e140350cf481b7c67"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_composite_signal_mask.png",
+      "sha256": "73ed52e8c4d0f0acb4f89745744588fa42b205760bfd2c9cfffb94ad319671d6"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_dynamic_half_signal.png",
+      "sha256": "3720675f7a9dddbdb517a32c4bc7c610f926716b090a20065c7b88aa29d76da4"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_dynamic_half_signal_mask.png",
+      "sha256": "24a73fc9eeaa946cce243ae3bc089d5de6e6e4c6365ee7aabd138c21447f2add"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_initial_half_signal.png",
+      "sha256": "3720675f7a9dddbdb517a32c4bc7c610f926716b090a20065c7b88aa29d76da4"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_initial_half_signal_mask.png",
+      "sha256": "24a73fc9eeaa946cce243ae3bc089d5de6e6e4c6365ee7aabd138c21447f2add"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_double_signal.png",
+      "sha256": "dd3fafb1404250b3e179af2822c4fc45d4486f775cc76aa12c0612d1247944ce"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_double_signal_mask.png",
+      "sha256": "c667a61d15b3dbe2ed47329e7b8dfe411a894fc282e4742dff995bfc4fcce87c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_logical_half_signal.png",
+      "sha256": "5654f0e4f9c9e5e6bd2e9789b7567d91571aa0e6f2f8575ebd2cbeb1570ff711"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_logical_half_signal_mask.png",
+      "sha256": "3f9470e34ca305d526921c4d17f1439bb4eaab4b97bccd9dfaf9c0d09cbea4b5"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_single_signal.png",
+      "sha256": "bd71028941849bcbb0c9a19dd7665f857cfae7dd120e701ac0a4ce2de58b2988"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_native_single_signal_mask.png",
+      "sha256": "925c59b719abbcd4e17701c9bc4c5b6ed168608584250172e927eaeb23c2134d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_projection_double_signal.png",
+      "sha256": "1ce2001d6f3a32d6e2151c2ca972a4eac39d9da68cf757f496e47b57f2b22ff6"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_projection_double_signal_mask.png",
+      "sha256": "31fa2567f5e2a7680dc9681558ad3d6f902d912d6ff2ecb5e563b16431b0377f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_recovered_signal.png",
+      "sha256": "1ce2001d6f3a32d6e2151c2ca972a4eac39d9da68cf757f496e47b57f2b22ff6"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\normal_double_north_recovered_signal_mask.png",
+      "sha256": "31fa2567f5e2a7680dc9681558ad3d6f902d912d6ff2ecb5e563b16431b0377f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\remaining_target_bounds_before_chests.json",
+      "sha256": "3ff3c9c3d0a2c0b30a5a22809675dc5b4917cd0df3649a5ab4dfe080bbd93c29"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\remaining_target_cube_signal.png",
+      "sha256": "0358e440659bde61d140c1c64af1882e5cd52ea5b254e107361ace338eab72fb"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\remaining_target_cube_signal_mask.png",
+      "sha256": "307fb23240c308cfbb83a39a7f1471f298de62eb5724092dafe2aa234c6ef18a"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report.json",
+      "sha256": "add36a3762216f79548e43d6300b22759705e4eae32151aee3604e0e50c1389e"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_hidden_native.capture.json",
+      "sha256": "c25886c65c8735c08e8605983f281dfdb2e79ec602470f35e102ebc7774315aa"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_hidden_native.png",
+      "sha256": "d2c904fa0139157d37089db130bf1a3bb034d00535324f85e33d2901f6fe6329"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_shown_native.capture.json",
+      "sha256": "c7f033499277e4aa8f144f9e63ee5140d9636102a6d7c221e1ba78d0a720189f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_dynamic_shown_native.png",
+      "sha256": "5ca58c3f0830d9788e4463b018d39ad9ee966a9e57f6de10cd9b817a4f76e407"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_hidden_native.capture.json",
+      "sha256": "7fecfe60fbb60298d92be25d7decb7235a1806152d7a7c296027f1eab29be3fa"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_hidden_native.png",
+      "sha256": "c0610a1d881e485992b778ab655f6ab8e3d4710246934d6d913c7426be3d6cc1"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_shown_native.capture.json",
+      "sha256": "1aa8a78356c00e26ba07a05ca552a27238ac5e0c020e9c316b387b8ce6ef806a"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_initial_shown_native.png",
+      "sha256": "c9b0a1154d6cada838bf63ceda6c07ed91b8a766b792ea9d2d4ac1343112a056"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_double_native.capture.json",
+      "sha256": "8d8793b2dd8433fccae112e9f8b44ee0d21b16b64288ba7f66ac691c0836c476"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_double_native.png",
+      "sha256": "e8c357cba2af6216a44173da61ca4d6123b0944223f35b1d369a898603df5d4b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_empty_native.capture.json",
+      "sha256": "303f6f12f687ff08b687bb525dab7da1c4c7e5445c9feeee96bb210c5ff69ed4"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_empty_native.png",
+      "sha256": "f8927eb379a305ea0f34165a63e02a033e1de8be31abed1d24013f62684545d3"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_empty_native.capture.json",
+      "sha256": "7678572f76fcf02d201a0a5242c124d9edd43f91cee78c2f1ae8078faeff6f3b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_empty_native.png",
+      "sha256": "489220fc06a0e0f9f32aa04f41f9217ee05dcfefc4a864179dfad63d3e315b03"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_native.capture.json",
+      "sha256": "a403aea3b4afd0d8844dbaa1e4f3abfbf318573fd9fd1e31970a757386096b3c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_native_single_native.png",
+      "sha256": "54cf54d5216f5c3039b2baea42f0a7423f3a162bfd0b94e2e3b4de7c56e0999d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_hidden_native.capture.json",
+      "sha256": "fb311af54c22ffcbb168da6ae221f8c0b84df0acfffacf9d6f89d2c127fc01ce"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_hidden_native.png",
+      "sha256": "e9203846b31e1f0538e0c1165f1dadc4fbf3a0b1d8ec305b3b2da12fc56f3792"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_shown_native.capture.json",
+      "sha256": "3f35fb5cbe435c2b553e46273983300cc5ab5cc33c004abee648abc8d361197d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_real_single_plus_ghost_shown_native.png",
+      "sha256": "1d47f622d483861fc2cdfe92793b722a650e7e24c124e3e2aeb728cd6470b60b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_hidden_native.capture.json",
+      "sha256": "0d888bea967573b65cb64081a761c8a6d6ff904379ef1ad715df7a92cfc81701"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_hidden_native.png",
+      "sha256": "864f7ed366d3d58e519cf00c67f22e6c5094666e50d9945d178d4131b6391cc0"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_shown_native.capture.json",
+      "sha256": "d65104e4ba17e2fa7cfc9650fb6315c92c2b98385989fe64cf850d733831fdad"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_recovered_shown_native.png",
+      "sha256": "43191a061314f245a1d245169a5ce12f5b8bead115ee49f2155973eb75f72b01"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_hidden_native.capture.json",
+      "sha256": "aa276cabce729bdc6bd7a3a9ee93c82cba36dd364502e79c554a218234c5a7e4"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_hidden_native.png",
+      "sha256": "63eb45789f982652ad2610e66437a50c4d519a1525a62b302f57c71a6fc3d7fc"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_shown_native.capture.json",
+      "sha256": "4a314657b450dc784772b676acd858df4f6f5286a44e107df6fe2b8aa78c9612"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_copper_double_north_unoccupied_shown_native.png",
+      "sha256": "3137012f0cc9cc8c5c50b559599a9cd135d91272cf72c1bf2eb6ae78dd77ca43"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_empty_native.capture.json",
+      "sha256": "b8afe0b7851b4420847dabe984caeb42fb893bb58b96f6d88029b91694a0f7ec"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_empty_native.png",
+      "sha256": "a73dca362f5649643ba2e668c49ba46b0fcef4951cbb792fda4673dff2868859"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_remaining_target_native.capture.json",
+      "sha256": "8bd5f10ec4587007a7d012438b72628429c7e45320fcf59c3d4e71a40b357f44"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_cube_remaining_target_native.png",
+      "sha256": "cbc7f82034b61180eb482865df7c874c818b79657db6789ebb8c70fc9045932b"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_hidden_native.capture.json",
+      "sha256": "33d9f142b2b0fe40ec9b8fbce6f25557caccbd6826949804689e4c1461ce83df"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_hidden_native.png",
+      "sha256": "ffd367783007aa66156e0dde4e2bae40aaf6928214e42a5fcdc69139c8f4fed7"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_shown_native.capture.json",
+      "sha256": "472f944a416dfdcfc89e2cb4257f1a9c71a296cef792e9424efcf4f977d77459"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_dynamic_shown_native.png",
+      "sha256": "59f5e574245d3ac8e15a599dc18ad14efca6f993b9f97e9743dda4fb560deaba"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_hidden_native.capture.json",
+      "sha256": "51b30447a626d34fc8055ffae56ae70d51563db6bbe833231bae74983cbf4dd2"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_hidden_native.png",
+      "sha256": "cf1c6d09f15985f945975e63661259dc298165e00c3a3d682027940fa0a5d841"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_shown_native.capture.json",
+      "sha256": "59be3724d5133018de432407c8560a02003f6f2efd25a15cc9ff4258f8f9bc1f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_initial_shown_native.png",
+      "sha256": "4f1345fd189a7ad6999efceb96fab9a74c1f81f49eda8fed02c7fe67f31f1c08"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_double_native.capture.json",
+      "sha256": "b601b715a83a502a04a4eb07dc64ee57e1502338483917ac4c3f701c722a79cb"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_double_native.png",
+      "sha256": "c76ab8313f00e37141e9d0624380e756b4b8581f1e52be2b0938f17282b4c442"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_empty_native.capture.json",
+      "sha256": "a1b083eca683064c8eb4c543dde7e675f8c89e3032f50e341776500662d7b5e9"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_empty_native.png",
+      "sha256": "e0abe557e2720d6135ff413bd1f17ce4d298764c8c7d7002878828f455202ef5"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_empty_native.capture.json",
+      "sha256": "34b97636f020af18dc386bbe476773f491d1944c35071ed863a8cde8ac5778b2"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_empty_native.png",
+      "sha256": "8850b230332478da79d83d6a045bbcd0eb50b5c7152af8ddd86d347fecb26d7d"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_native.capture.json",
+      "sha256": "86cee0c505a3a8f0947d6209fff923bd0e66a84da059bffbc3ebb417bd9febc2"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_native_single_native.png",
+      "sha256": "7a533897db4c474f51f20849369e9f08c865f842adde2f1f3e597fd8f239c975"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_hidden_native.capture.json",
+      "sha256": "6819a9e3809df01d994447b7a22d822202b8d8900ddf02c3d0236257c7f48f0c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_hidden_native.png",
+      "sha256": "6bc49f54e4a845bdd52f60e3388a09426f08915d48b86de91566d7295c90d85c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_shown_native.capture.json",
+      "sha256": "477ef927e2e0c08aac856409ce7775369887697a0b2394dc4786df7ba244d0de"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_real_single_plus_ghost_shown_native.png",
+      "sha256": "ca6927bde608a8de8439679ec442dab32146070c799b64a90eeb5456855d6ae3"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_hidden_native.capture.json",
+      "sha256": "3817324b62efeaf17eb752d0d0917b1fd82738d5beca7f38cc1a3b8fac1820ce"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_hidden_native.png",
+      "sha256": "c65edad2dcde897ebbb13d4d959874a071b072f37d3400addba0520644101bbd"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_shown_native.capture.json",
+      "sha256": "0acedf4bd54e8364f44375b1e5c3e949ffa00fe996386e7b6b00fe225e7947b2"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_recovered_shown_native.png",
+      "sha256": "4ca35a93558e3be844d117e0140e1062c4b38db41c2b3cdba763adc87d0deb49"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_hidden_native.capture.json",
+      "sha256": "d6171b92b777094c9025732d264f049e188a46d53af91b7aaaec6a7c6255706a"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_hidden_native.png",
+      "sha256": "601fa51752be374004815c47d29beba3d7813a00d21738e40a8f48fdd4fa0f4f"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_shown_native.capture.json",
+      "sha256": "f26b08318acd020b3aeeddb9908babb975c2bd553924e7ea883922fdb8e9e54c"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\report_normal_double_north_unoccupied_shown_native.png",
+      "sha256": "a2fb089de24ed80e22c944a9cec99655b59c734b5b0bc61544ce33fc0131a9dd"
+    },
+    {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\e42a61e7599446599e32d1cd0ab2503e\\artifacts\\chest-occupied-r10-public-v1\\restoration_audit.json",
+      "sha256": "0223ccb4f1ba2c280dde55e13208d352a0fe4fb1495e07509ef8675cd63288e0"
+    }
+  ]
+}
