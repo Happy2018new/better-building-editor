@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "runtime_minecraft_version": "1.21.120.0",
+  "production_rendering_accepted": false,
+  "session_id": "e1a87bc282b14b74bb7921d2eb69d1d0",
+  "owner": "entities-r10b-background",
+  "artifact_directory": "C:/Users/Happy2018new/.pyreact-debug/instances/e1a87bc282b14b74bb7921d2eb69d1d0/artifacts",
+  "source_commits": {
+    "depth15_resources": "a5e3db849592afbb6b7be837629092b3c3f47883",
+    "native_fragment_root": "5b9db21",
+    "native_fragment_owned": "01b0b3140e445d02c2a8e23918362bc9eb313c1c",
+    "terrain_fragment_root": "bdc357b",
+    "terrain_fragment_owned": "c8e022c34c525e9892f98a08845428074df925e6",
+    "public_enchanted_fixture_root": "334f20a",
+    "public_enchanted_fixture_owned": "f19c2710f55d349c9fdfebd8d02a090318159d74"
+  },
+  "reports": {
+    "camera_failed_baseline": {
+      "file": "frame-cold-camera-v1.json",
+      "sha256": "8e5c03711acc66bc955a35b19bdaa91ee6e542e52f78f774a18cf578025bef3d",
+      "completed": true, "passed": false, "restored": true,
+      "reason": "Default three-view common-FOV outline recall failed; original report retained"
+    },
+    "camera_passed": {
+      "file": "frame-cold-camera-v2.json",
+      "sha256": "6adabfd3dc36754c686f835078dd7899d506e290250eb5a9df3b1c5d4745cf3d",
+      "completed": true, "passed": true, "restored": true,
+      "skyward_tilted": true, "fixture_lift_y": 10,
+      "vertical_fov": 66.6, "reported_fov": 60, "native_size": [1994, 1105]
+    },
+    "cold_native_alpha": {
+      "file": "frame-cold-alpha-v1.json",
+      "sha256": "38e53d8e714ee66a0585e3c3eda3288dbeeb03e83b1dc9c1a50a118f42ef218a",
+      "completed": true, "passed": false, "restored": true,
+      "candidate_depth_delta_blocks": null,
+      "source_snapshot": "frame-cold-alpha-v1.sources",
+      "source_snapshot_files": 79,
+      "recorded_candidate_source_hashes_verified": 8
+    },
+    "independent_layer_analysis": {
+      "file": "frame-cold-compositor-v1.json",
+      "sha256": "ccb2cdcc046510ca101d208aeec48aa89557562b1c6657200700ed4548a223c2",
+      "completed": true, "original_report_passed": false,
+      "relative_composition_residual": 0.02907290298041123,
+      "samples": 9759,
+      "formula": "item_faded + (1-opacity) * (body_faded - blank)",
+      "conclusion": "Layer overlap explains positive composite contrast only; no zero-opacity or depth acceptance"
+    },
+    "terrain_shader_reload": {
+      "file": "frame-terrain-reload-alpha-v1.json",
+      "sha256": "a721b4e759c09144ac0e923f212ccf3a205608de710eb5a5b2d9076ffc5b0cf8",
+      "completed": false, "passed": false, "original_restored": false,
+      "declared_shader": "modern_projection_biome_blocks.fragment",
+      "single_reload_attempt": true,
+      "error": "ReloadOneShader client IPC JSON request timed out",
+      "ownership_captures_collected": 0,
+      "replayed": false,
+      "source_snapshot": "frame-terrain-reload-alpha-v1.sources",
+      "source_snapshot_files": 81,
+      "recorded_source_hashes_verified": 5
+    },
+    "independent_reload_cleanup": {
+      "file": "frame-terrain-reload-cleanup-v1.json",
+      "sha256": "bd6ac5e10816966049ab07cad74cde599239c6307c405c367d378433b882b0f3",
+      "original_timeout_report_changed": false,
+      "independent_readback_count": 2,
+      "current_workspace_restored": true,
+      "actors": 0, "preparing": false, "shader": false, "occupancy": false,
+      "workspace": false, "transition": false,
+      "candidate_profiles_accepted": false, "diagnostic_saved": [],
+      "opacity": 0.45, "origin": [-40, 67, -7],
+      "readback_script": "frame-terrain-reload-state.py",
+      "readback_script_sha256": "ee68ca6a5428c5c9ceb79db48dc568f84bff9ac5d89894b5ea1d184e7e89397e"
+    },
+    "public_enchanted_nbt": {
+      "file": "frame-public-enchanted-nbt-v1.json",
+      "sha256": "867625ab639203f3dec0c875933fd10aaef8b2fce0901d34c6d9bf642573bb23",
+      "completed": true, "passed": false, "restored": true,
+      "fixture": "test.entities.item_contents",
+      "native_write_return_both_frames": false,
+      "native_actual_item_both_frames": null,
+      "native_actual_ench_both_frames": null,
+      "client_versioned_palette_readback_completed": true,
+      "client_palette_independently_contains_item_nbt": false,
+      "source_snapshot": "frame-public-enchanted-nbt-v1.sources",
+      "source_snapshot_files": 13,
+      "recorded_source_hashes_verified": 6,
+      "conclusion": "Native writer stage failed, so enchantment tag preservation and glint remain unaccepted; no claim of isolated tag loss"
+    }
+  },
+  "cold_native_results": {
+    "facing": 2, "rotation_degrees": 0,
+    "committed_front_depth_pixels": 15, "committed_size_pixels": 8,
+    "original_gates_changed": false,
+    "editor_item_presence": {"passed": false, "item_pixels": 0},
+    "full_and_missing_native_item_agreement": {
+      "passed": true, "reference_pixels": 3712, "actual_pixels": 3739,
+      "recall": 1, "precision": 0.9997325488098422,
+      "interior_color_agreement": 0.7522236340533672,
+      "edge_tolerance_pixels": 2, "color_threshold": 55
+    },
+    "full_and_missing_composite_alpha02": {
+      "passed": false, "measured_contrast_gain": 0.3210892371977606,
+      "relative_blend_residual": 0.16662575441031277
+    },
+    "full_and_missing_composite_alpha0": {
+      "passed": false, "item_region_residual_pixels_gt_12": 2501
+    },
+    "blank_residual_pixels_gt_12": 0,
+    "native_body": {
+      "opaque_pixels": 22566,
+      "alpha02_passed": true,
+      "alpha02_contrast_gain": 0.17894430139749837,
+      "alpha02_relative_blend_residual": 0.0793425787677917,
+      "alpha0_total_residual_pixels_gt_12": 13373,
+      "alpha0_visually_inspected": true,
+      "uniform1": [0, 0, 0, 19490],
+      "uniform4": [19487, 1, 1, 0]
+    },
+    "custom_item": {
+      "opaque_pixels": 3765,
+      "alpha02_passed": true,
+      "alpha02_contrast_gain": 0.22414761715366768,
+      "alpha02_relative_blend_residual": 0.059934606436231136,
+      "alpha0_total_residual_pixels_gt_12": 0,
+      "alpha0_visually_inspected": true
+    },
+    "document_nonmutation": true,
+    "projection_stop_owners_passed": true,
+    "conclusion": "Native-actor fragment cold fix did not remove world frame-body zero-opacity residual. Terrain fix has offline tests but no completed native pixel result."
+  },
+  "source_and_capture_audit": {
+    "unique_native_wgc_captures_verified": 37,
+    "hash_identity_freshness_background_safe_verified": true,
+    "foreground_unchanged_all_captures": false,
+    "external_foreground_change_capture": "frame-cold-alpha-v1_frame_filled_candidate_missing_alpha0_native.png",
+    "external_foreground_before_pid": 26876,
+    "external_foreground_after_pid": 42120,
+    "foreground_was_not_owned_game": true,
+    "core_ownership_controls_foreground_unchanged": true,
+    "owned_resource_pack_junction_verified": true,
+    "shader_declarations_are_source_only": true,
+    "runtime_gpu_material_introspection_performed": false,
+    "cold_biome_fragment_raw_sha256": "b373682a16ce74ad54d1ebbab299c6ea71aac596b9bd6cfb5f7b6b5edb79c60a",
+    "reloaded_biome_fragment_raw_sha256": "8c1c7a5f6bc17c9826085da7a0816aa64b910cb9068bdc0b34853f801c4f9077"
+  },
+  "archives": {
+    "cold_sources": {"file": "frame-cold-alpha-v1-sources.zip", "sha256": "6d86e00bc920e1b711f893dee0e80dc40cb939cc998205d83bcd454dd170e1d3"},
+    "reload_sources": {"file": "frame-terrain-reload-alpha-v1-sources.zip", "sha256": "e05a4b33f9cc0f7fba1cf96af0b578eeb39603e40a3a3c7f3024a0728dbe1f2d"},
+    "enchanted_sources": {"file": "frame-public-enchanted-nbt-v1-sources.zip", "sha256": "c6ee679474d829313aa53b203ecc14b48b755220dd2b53c599770ebae4ae3ae6"},
+    "all_reports_pixels_receipts_sources": {
+      "file": "r10b-cold-native-evidence-v1.zip",
+      "sha256": "a4f9b1975fd7c4bdf3bde79db8c736d623224af745bbf02e38fe7d8959cd2d3f",
+      "bytes": 30639807
+    }
+  },
+  "restoration": {
+    "session_state": "stopped",
+    "game_pid": 24636, "game_identity": "134362636278169502",
+    "mcdk_pid": 29912, "mcdk_identity": "134362636276136724",
+    "processes_observed_absent_after_identity_bound_stop": true,
+    "observed_absent_at_utc": "2026-10-12 08:03:36 UTC"
+  },
+  "validation": {
+    "static_frame_tests": 11, "pixel_and_compositor_tests": 3,
+    "enchanted_blueprint_tests": 5, "entity_appearance_tests": 24,
+    "tests_passed": true, "diagnostic_tools_py_compile_passed": true,
+    "full_version_bundle_passed": true
+  },
+  "unaccepted_boundaries": [
+    "Native body zero-opacity still fails; no completed terrain-fragment native result",
+    "Editor candidate item presence fails with depth15 resources",
+    "Original composite alpha0 and alpha02 gates remain failed",
+    "All frame production pose and item flags remain false",
+    "Six facings/eight rotations, occupied-stone recovery and native lifecycle acceptance remain incomplete",
+    "Synthetic enchanted native write failed; enchantment tag preservation and moving glint remain unaccepted",
+    "Shelves, enchanted items, block items, dynamic/special items and banners remain unaccepted",
+    "Original Item/NBT remains preserved; no flattening or discarded content"
+  ]
+}
