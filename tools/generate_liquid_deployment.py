@@ -1,7 +1,7 @@
 """Generate the closed, disabled liquid deployment from a concrete resource bundle."""
 import argparse
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import pprint
 import sys
 
@@ -12,6 +12,32 @@ from generate_liquid_payload_poc import source_snapshot
 from generate_liquid_skeleton_resources import digest
 
 TEMPLATE = 'native_water_side_nw_bottom_edges_v1'
+
+
+def native_fingerprints(values):
+    normalized = {}
+    for reference, fingerprint in values.items():
+        path = PureWindowsPath(reference)
+        if path.root or path.drive or '..' in path.parts:
+            raise ValueError('Native texture source fingerprints must use relative paths')
+        name = path.as_posix()
+        if name in normalized:
+            raise ValueError('Native texture source fingerprints repeat a path')
+        normalized[name] = fingerprint
+    return normalized
+
+
+def native_source_root(contract):
+    artwork = contract['textures']['still_water_grey']
+    texture = PureWindowsPath(artwork['flipbook']['flipbook_texture'] + '.png')
+    if texture.root or texture.drive or '..' in texture.parts:
+        raise ValueError('Native liquid artwork must use a relative resource path')
+    relative = PureWindowsPath('resource_packs/vanilla') / texture
+    archived = PureWindowsPath(artwork['source'])
+    if (not archived.root or '..' in archived.parts or len(archived.parts) <= len(relative.parts)
+            or archived.parts[-len(relative.parts):] != relative.parts):
+        raise ValueError('Native liquid artwork source differs from its metadata path')
+    return archived.parents[len(relative.parts) - 1]
 
 
 def resource_profile(contract, frozen=False):
@@ -62,18 +88,23 @@ def verify_installed_resources(path, project):
 def runtime_source(path, native, project=ROOT):
     contract = json.loads(path.read_bytes())
     snapshot = source_snapshot(native)
-    if any(contract.get(key) != snapshot[key] for key in
-           ('native_source_sha256', 'native_atlas_entries', 'native_flipbook_entries')):
+    if (native_fingerprints(contract['native_source_sha256']) !=
+            native_fingerprints(snapshot['native_source_sha256']) or
+            any(contract.get(key) != snapshot[key] for key in
+                ('native_atlas_entries', 'native_flipbook_entries'))):
         raise ValueError('Deployment native texture metadata differs from installed bytes')
     if contract['generator_sha256'] != digest(ROOT / 'tools/generate_liquid_skeleton_resources.py'):
         raise ValueError('Deployment resource generator differs from the concrete bundle')
-    original_native = Path(contract['textures']['still_water_grey']['source']).parents[4]
+    original_native = native_source_root(contract)
     for reference, expected in contract['source_sha256'].items():
-        archived = Path(reference)
+        archived = PureWindowsPath(reference)
         if archived.name == 'modern_projection_liquid_preview_depth.h':
             current = project / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
         else:
-            current = native / archived.relative_to(original_native)
+            relative = archived.relative_to(original_native)
+            if relative.root or relative.drive or '..' in relative.parts:
+                raise ValueError('Native liquid resource source escapes the selected installation')
+            current = native.joinpath(*relative.parts)
         if digest(current) != expected:
             raise ValueError('Deployment resource source differs from the concrete bundle: ' + reference)
     for relative, expected in contract['output_sha256'].items():
@@ -81,7 +112,14 @@ def runtime_source(path, native, project=ROOT):
             raise ValueError('Deployment resource bytes differ from the bundle: ' + relative)
     for key in ('still_water_grey', 'flowing_water_grey'):
         texture = contract['textures'][key]
-        source = native / 'resource_packs/vanilla' / (texture['flipbook']['flipbook_texture'] + '.png')
+        relative = PureWindowsPath(texture['flipbook']['flipbook_texture'] + '.png')
+        if relative.root or relative.drive or '..' in relative.parts:
+            raise ValueError('Native liquid artwork must use a relative resource path')
+        archived = PureWindowsPath(texture['source'])
+        if ('..' in archived.parts or archived.relative_to(original_native) !=
+                PureWindowsPath('resource_packs/vanilla') / relative):
+            raise ValueError('Native liquid artwork source differs from its metadata path')
+        source = native.joinpath('resource_packs', 'vanilla', *relative.parts)
         if digest(source) != texture['sha256']:
             raise ValueError('Deployment liquid artwork differs from installed bytes: ' + key)
     verify_installed_resources(path, project)

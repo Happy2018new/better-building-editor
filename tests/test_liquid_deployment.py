@@ -156,6 +156,101 @@ class LiquidDeploymentTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'resource source'):
                 runtime_source(path, current_native, project)
 
+    def test_historical_windows_sources_work_with_posix_native_metadata(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path, native, project, unused_reference = self.bundle(Path(temporary))
+            contract = json.loads(path.read_bytes())
+            original = str(native)
+            archived_root = 'Z:/old-client/version/data'
+            contract['source_sha256'] = {name.replace(original, archived_root).replace('/', '\\'): fingerprint
+                                         for name, fingerprint in contract['source_sha256'].items()}
+            contract['native_source_sha256'] = {name.replace('\\', '/'): fingerprint
+                                                for name, fingerprint in contract['native_source_sha256'].items()}
+            for artwork in contract['textures'].values():
+                artwork['source'] = artwork['source'].replace(original, archived_root).replace('/', '\\')
+            path.write_text(json.dumps(contract), encoding='ascii')
+            self.assertIn('PRODUCTION_QUALIFIED = False', runtime_source(path, native, project))
+            (native / 'reference.h').write_bytes(b'changed selected native source')
+            with self.assertRaisesRegex(ValueError, 'resource source'):
+                runtime_source(path, native, project)
+
+    def test_artwork_root_is_derived_from_metadata_not_fixed_directory_depth(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path, native, project, unused_reference = self.bundle(Path(temporary))
+            contract = json.loads(path.read_bytes())
+            key = 'still_water_grey'
+            original = native / 'resource_packs/vanilla/textures/blocks' / (key + '.png')
+            nested = native / 'resource_packs/vanilla/textures/blocks/new-layout/liquids' / (key + '.png')
+            nested.parent.mkdir(parents=True)
+            shutil.copyfile(original, nested)
+            artwork = contract['textures'][key]
+            artwork['source'] = str(nested)
+            artwork['flipbook']['flipbook_texture'] = 'textures/blocks/new-layout/liquids/' + key
+            path.write_text(json.dumps(contract), encoding='ascii')
+            self.assertIn('PRODUCTION_QUALIFIED = False', runtime_source(path, native, project))
+            artwork['source'] = str(original)
+            path.write_text(json.dumps(contract), encoding='ascii')
+            with self.assertRaisesRegex(ValueError, 'metadata path'):
+                runtime_source(path, native, project)
+
+    def test_source_outside_archived_native_root_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path, native, project, unused_reference = self.bundle(Path(temporary))
+            contract = json.loads(path.read_bytes())
+            contract['source_sha256'] = {'Z:/unrelated/reference.h': '0' * 64}
+            path.write_text(json.dumps(contract), encoding='ascii')
+            with self.assertRaises(ValueError):
+                runtime_source(path, native, project)
+
+    def test_traversal_and_rooted_resource_metadata_cannot_select_other_sources(self):
+        for changed in ('reference', 'artwork', 'fingerprint'):
+            with self.subTest(changed=changed), tempfile.TemporaryDirectory() as temporary:
+                path, native, project, unused_reference = self.bundle(Path(temporary))
+                contract = json.loads(path.read_bytes())
+                if changed == 'reference':
+                    outside = native.parent / 'outside.h'
+                    outside.write_bytes(b'outside selected installation')
+                    contract['source_sha256'] = {str(native / '..' / 'outside.h'): digest(outside)}
+                elif changed == 'artwork':
+                    contract['textures']['still_water_grey']['flipbook']['flipbook_texture'] = '/rooted/texture'
+                else:
+                    contract['native_source_sha256'] = {'/rooted/header': '0' * 64}
+                path.write_text(json.dumps(contract), encoding='ascii')
+                with self.assertRaises(ValueError):
+                    runtime_source(path, native, project)
+
+    def test_historical_posix_source_labels_rebind_to_selected_windows_installation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path, native, project, unused_reference = self.bundle(Path(temporary))
+            contract = json.loads(path.read_bytes())
+            original = str(native)
+            archived_root = '/archive/linux-native'
+            contract['source_sha256'] = {name.replace(original, archived_root).replace('\\', '/'): fingerprint
+                                         for name, fingerprint in contract['source_sha256'].items()}
+            for artwork in contract['textures'].values():
+                artwork['source'] = artwork['source'].replace(original, archived_root).replace('\\', '/')
+            path.write_text(json.dumps(contract), encoding='ascii')
+            self.assertIn('PRODUCTION_QUALIFIED = False', runtime_source(path, native, project))
+
+    def test_backslash_flipbook_names_rebind_to_selected_native_artwork(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path, native, project, unused_reference = self.bundle(Path(temporary))
+            contract = json.loads(path.read_bytes())
+            for artwork in contract['textures'].values():
+                artwork['flipbook']['flipbook_texture'] = artwork['flipbook']['flipbook_texture'].replace('/', '\\')
+            path.write_text(json.dumps(contract), encoding='ascii')
+            self.assertIn('PRODUCTION_QUALIFIED = False', runtime_source(path, native, project))
+
+    def test_flowing_artwork_cannot_escape_or_mislabel_its_native_source(self):
+        for metadata in ('/rooted/texture', '../outside', 'Z:/foreign/texture', 'wrong/source'):
+            with self.subTest(metadata=metadata), tempfile.TemporaryDirectory() as temporary:
+                path, native, project, unused_reference = self.bundle(Path(temporary))
+                contract = json.loads(path.read_bytes())
+                contract['textures']['flowing_water_grey']['flipbook']['flipbook_texture'] = metadata
+                path.write_text(json.dumps(contract), encoding='ascii')
+                with self.assertRaises(ValueError):
+                    runtime_source(path, native, project)
+
     def test_installed_material_merges_preserve_existing_entries_and_reject_candidate_drift(self):
         with tempfile.TemporaryDirectory() as temporary:
             path, unused_native, project, unused_reference = self.bundle(Path(temporary))
