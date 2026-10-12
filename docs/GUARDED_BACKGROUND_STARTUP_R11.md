@@ -25,7 +25,7 @@ completed, including the snapshot retry regression executable.
 | Rebuilt MCDK | `68cbff0f7a2454e37c823fab51a8bd3f4631f3e7c7c8e221b1b124add76d297f` |
 | Existing focus guard DLL | `c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178` |
 | Snapshot retry test | `4c5718260684e899002b5db606445a2cf46d296504f4b3cb45a1754bb1c9f8ae` |
-| Existing WGC helper | `cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bbfb5a8` |
+| Existing WGC helper | `cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8` |
 
 The installed official executable, R10 executable, DLL and active agents'
 loaded binaries were not overwritten. The retry still applies only to

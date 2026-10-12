@@ -35,3 +35,29 @@ Set `MCDEV_NATIVE_CAPTURE_HELPER` to the absolute path of
 `tools/capture_native_window.py` for `SignCheck` native captures. Optionally set
 `MCDEV_NATIVE_CAPTURE_EXE` to an existing compiled binary. Without the explicit
 helper setting, `SignCheck` retains its background PrintWindow path.
+
+## Background Burst Capture
+
+`burst_main.cpp` and `burst_window_capture.*` provide a separate persistent WGC
+session for a bounded interval. The existing single-frame target and sources
+remain unchanged. Both targets build with the CMake commands above.
+
+Use the owner-bound wrapper with an explicit helper fingerprint:
+
+```powershell
+python -X utf8 tools/capture_native_burst.py --session <session.json> --owner <owner> --output <fresh-directory> --executable <native_wgc_burst_capture.exe> --expected-sha256 <sha256> --duration-ms 1000 --max-frames 180 --max-gap-ms 150
+```
+
+The output directory contains individual PNGs, frame receipts and a native
+manifest. The wrapper writes `<fresh-directory>.capture.json` alongside it.
+It checks the session's project and protected-launch binaries, independent
+physical window geometry, every receipt and PNG hash, and the start, interior
+and tail gaps. A changed owner, minimized window, lost noactivation protection,
+partial capture, frame cap or helper timeout keeps the result failed. Failures
+retain available artifacts, and timeout termination targets only the wrapper's
+own helper process. No restoration, activation, resize or input fallback exists.
+
+The timestamps describe delivered compositor frames. They do not prove game
+rendering, timer progress, a texture animation phase or lossless source frames.
+Acceptance tests must establish those independently; `animation_acceptance`
+and `source_frame_loss_known` remain false in the wrapper report.
