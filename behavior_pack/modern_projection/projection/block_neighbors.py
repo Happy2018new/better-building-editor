@@ -98,6 +98,9 @@ def _kind(value):
     if foreground(value)[0] in HANGING_MOSS_NAMES:
         _validate_static_source()
         return 'hanging_moss'
+    if foreground(value)[0] == static_source.CARPET_NAME and 'upper_block_bit' in properties:
+        _validate_static_source()
+        return 'moss_carpet'
     return 'chest' if properties and foreground(value)[0] in _CHESTS else None
 
 
@@ -225,6 +228,36 @@ def _gate(value, pos, get_cell):
     faces = ('east', 'west') if direction in ('north', 'south') else ('north', 'south')
     in_wall = any(_kind(get_cell(_add(pos, OFFSETS[face]))) == 'wall' for face in faces)
     return _with_properties(value, {'in_wall_bit': in_wall})
+
+
+def _moss_carpet(value, pos, context):
+    properties = _properties(value)
+    if properties['upper_block_bit']:
+        return value
+    above_pos = _add(pos, (0, 1, 0))
+    above = context.get_cell(above_pos)
+    above_states = _properties(above)
+    placed, updates = pos in context.placed, {}
+    for face in FACES:
+        side = _add(pos, OFFSETS[face])
+        side_above = _add(side, (0, 1, 0))
+        if not (placed or any(context.changed(target) for target in (side, above_pos, side_above))):
+            continue
+        support = foreground(context.get_cell(side))
+        upper_support = foreground(context.get_cell(side_above))
+        if support not in static_source.CARPET_SUPPORT_VALUES:
+            continue
+        key = 'pale_moss_carpet_side_' + face
+        if support == AIR:
+            updates[key] = 'none'
+        elif foreground(above) == AIR:
+            updates[key] = 'short'
+        elif (foreground(above)[0] == static_source.CARPET_NAME and
+              above_states.get('upper_block_bit') is True and
+              above_states.get(key) == 'short' and
+              upper_support in static_source.CARPET_SUPPORT_VALUES):
+            updates[key] = 'tall' if upper_support != AIR else 'short'
+    return _with_properties(value, updates) if updates else value
 
 
 def _rail_at(get_cell, pos, face):
@@ -381,6 +414,9 @@ def _context_offsets(kind):
         return tuple((0, height, 0) for height in (-2, -1, 1, 2))
     if kind == 'hanging_moss':
         return ((0, -1, 0),)
+    if kind == 'moss_carpet':
+        return tuple(OFFSETS.values()) + ((0, 1, 0),) + tuple(
+            (offset[0], 1, offset[2]) for offset in OFFSETS.values())
     if kind == 'scaffold':
         return tuple(OFFSETS.values()) + ((0, -1, 0), (0, 1, 0))
     offsets = tuple(OFFSETS.values())
@@ -454,6 +490,8 @@ def reconcile_steps(document, after, write, locked_layers, preserve=()):
         elif kind == 'hanging_moss':
             below = foreground(get_cell(_add(pos, (0, -1, 0))))[0]
             updated = _with_properties(value, {'tip': below != foreground(value)[0]})
+        elif kind == 'moss_carpet':
+            updated = _moss_carpet(value, pos, context)
         else:
             updated = _rail(value, pos, context)
         if updated != value:

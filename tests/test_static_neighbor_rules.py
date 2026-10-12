@@ -51,12 +51,67 @@ class StaticNeighborRuleTests(unittest.TestCase):
         for mutate in (lambda data: data.update(restored=False),
                        lambda data: data.update(palette_sha256='0' * 64),
                        lambda data: data['native']['rows'].pop(),
-                       lambda data: data['native']['rows'][1]['cells'][1]['states'].update(in_wall_bit=False)):
+                       lambda data: data['native']['rows'][1]['cells'][1]['states'].update(in_wall_bit=False),
+                       lambda data: next(row for row in data['native']['rows']
+                                         if row['metadata']['family'] == 'moss_carpet').update(action='other')):
             with self.subTest(mutate=mutate):
                 data = copy.deepcopy(self.report)
                 mutate(data)
                 with self.assertRaises(ValueError):
                     capabilities(data, self.palette, self.manifest)
+
+    def test_lower_carpet_side_transitions_replay_all_observed_native_faces(self):
+        name, lower_pos = 'minecraft:pale_moss_carpet', translated((0, 2, 0))
+        replayed = 0
+        for row in self.report['native']['rows']:
+            if row['metadata']['family'] != 'moss_carpet':
+                continue
+            if row['action'] == 'initial':
+                source = {translated(cell['pos']): (cell['value']['name'], cell['value']['aux'])
+                          for cell in row['cells']}
+                editor = Editor(Document((32, 32, 32), source))
+            before = editor.document.blocks.copy()
+            for write in row['writes']:
+                paint(editor, translated(write['pos']), tuple(write['value']))
+            expected = next(cell['states'] for cell in row['cells']
+                            if tuple(cell['pos']) == (0, 2, 0))
+            self.assertEqual(expected, states(editor, lower_pos), (row['metadata'], row['action']))
+            if row['action'] == 'erase_upper_support':
+                # Native survival removes the upper carpet; a saved snapshot
+                # edit keeps that unpaired cell and only reconnects the lower.
+                self.assertEqual(name, foreground(editor.document.get(translated((0, 3, 0))))[0])
+            after = editor.document.blocks.copy()
+            if before != after:
+                editor.undo()
+                self.assertEqual(before, editor.document.blocks)
+                editor.redo()
+                self.assertEqual(after, editor.document.blocks)
+            replayed += 1
+        self.assertEqual(28, replayed)
+
+    def test_carpet_unknown_supports_and_whole_snapshots_keep_supplied_sides(self):
+        pos, side = (15, 15, 15), (16, 15, 15)
+        properties = {'pale_moss_carpet_side_east': 'tall'}
+        from projection.debug_blueprints import material
+        carpet = material('pale_moss_carpet', properties)
+        editor = Editor(Document((32, 32, 32), {pos: make_cell(carpet, WATER)}))
+        paint(editor, side, ('minecraft:oak_stairs', 0))
+        self.assertEqual(carpet, foreground(editor.document.get(pos)))
+        self.assertEqual(WATER, background(editor.document.get(pos)))
+        editor._commit('snapshot', {pos: carpet, side: STONE}, False, whole=True)
+        self.assertEqual(carpet, editor.document.get(pos))
+
+    def test_carpet_lower_and_upper_stale_source_reject_without_transaction_publication(self):
+        from projection.debug_blueprints import material
+        for upper in (False, True):
+            value = material('pale_moss_carpet', {'upper_block_bit': upper})
+            editor = Editor(Document((32, 32, 32), {(15, 15, 15): value}))
+            before = editor.document.blocks.copy()
+            with patch.object(static_source, 'SCHEMA_VERSION', 2):
+                with self.assertRaisesRegex(ValueError, 'static neighbor'):
+                    paint(editor, (16, 15, 15), STONE)
+            self.assertEqual(before, editor.document.blocks)
+            self.assertFalse(editor.undo_stack)
 
     def test_stale_rules_reject_whole_transaction_before_edit_or_history_publication(self):
         gate = registry.canonical(('minecraft:fence_gate', 0))

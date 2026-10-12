@@ -10,6 +10,10 @@ METHOD = 'Explicit legacy-state placement, updateNeighbors=True, native .12s tim
 GATE_ACTIONS = ('initial', 'one_wall', 'both_walls', 'erase_first', 'erase_both', 'wrong_axis')
 MOSS_ACTIONS = tuple('extend_' + str(i) for i in range(1, 6)) + (
     'erase_tip', 'erase_middle', 'rejoin_middle')
+CARPET_ACTIONS = ('initial', 'side_support', 'upper_support', 'upper_snapshot',
+                  'erase_upper_support', 'erase_upper', 'erase_side')
+CARPET_NAME = 'minecraft:pale_moss_carpet'
+CARPET_SUPPORT_VALUES = (('minecraft:air', 0), ('minecraft:stone', 0))
 
 
 def native_states(record):
@@ -60,6 +64,28 @@ def capabilities(data, palette, manifest):
                 if cell['states']['tip'] != expected:
                     raise ValueError('Hanging moss observations contradict the below-neighbor rule')
                 moss_names.add(name)
+        elif metadata['family'] == 'moss_carpet':
+            center = cells.get((0, 2, 0))
+            if center is None or center['value']['name'] != CARPET_NAME:
+                raise ValueError('Native moss carpet lower snapshot is absent')
+            connection = ('tall' if row['action'] == 'upper_snapshot' else
+                          'none' if row['action'] in ('initial', 'erase_side') else 'short')
+            expected = dict(('pale_moss_carpet_side_' + face,
+                             connection if face == metadata['face'] else 'none')
+                            for face in ('north', 'east', 'south', 'west'))
+            expected['upper_block_bit'] = False
+            if center['states'] != expected:
+                raise ValueError('Native moss carpet observations contradict the observed side transitions')
+            if row['action'] == 'upper_snapshot':
+                upper = cells.get((0, 3, 0))
+                expected = dict(expected, upper_block_bit=True)
+                expected['pale_moss_carpet_side_' + metadata['face']] = 'short'
+                if upper is None or upper['value']['name'] != CARPET_NAME or upper['states'] != expected:
+                    raise ValueError('Native carpet upper snapshot differs from the observed short side')
+            for write in row['writes']:
+                value = tuple(write['value'])
+                if value[0] != CARPET_NAME and value not in CARPET_SUPPORT_VALUES:
+                    raise ValueError('Native carpet support differs from the declared observed states')
     gate_cases, moss_cases, carpet_faces = set(), set(), set()
     for group in groups.values():
         metadata = group[0]['metadata']
@@ -76,7 +102,7 @@ def capabilities(data, palette, manifest):
                 raise ValueError('Duplicate or incomplete hanging moss action coverage')
             moss_cases.add(metadata['supplied_tip'])
         elif metadata['family'] == 'moss_carpet':
-            if len(group) != 7 or metadata['face'] in carpet_faces:
+            if actions != CARPET_ACTIONS or metadata['face'] in carpet_faces:
                 raise ValueError('Duplicate or incomplete moss carpet diagnostic coverage')
             carpet_faces.add(metadata['face'])
         else:
@@ -100,9 +126,11 @@ def generate(check=False, root=ROOT):
                '"""Generated static capabilities; support deletion and growth are out of scope."""\n'
                'from __future__ import unicode_literals\n\n'
                'SCHEMA_VERSION = 1\nSOURCE_VERSION = %r\nPALETTE_SHA256 = %r\nEVIDENCE_SHA256 = %r\n'
-               'SOURCE_METHOD = %r\nGATE_NAMES = %r\nHANGING_MOSS_NAMES = %r\n') % (
+               'SOURCE_METHOD = %r\nGATE_NAMES = %r\nHANGING_MOSS_NAMES = %r\n'
+               'CARPET_NAME = %r\nCARPET_SUPPORT_VALUES = %r\n') % (
                    manifest['game_version'], manifest['source_sha256'].lower(),
-                   hashlib.sha256(source.read_bytes()).hexdigest(), METHOD, tuple(gates), tuple(moss))
+                   hashlib.sha256(source.read_bytes()).hexdigest(), METHOD, tuple(gates), tuple(moss),
+                   CARPET_NAME, CARPET_SUPPORT_VALUES)
     target = root / 'behavior_pack/modern_projection/projection/static_neighbor_data.py'
     if check:
         if not target.is_file() or target.read_text(encoding='utf8') != content:
@@ -110,7 +138,7 @@ def generate(check=False, root=ROOT):
     else:
         target.write_text(content, encoding='utf8', newline='\n')
     return {'gates': len(gates), 'hanging_moss': len(moss), 'native_rows': len(data['native']['rows']),
-            'scope': 'Static gate wall states and hanging moss tips; carpet diagnostic only.'}
+            'scope': 'Static gate wall states, hanging moss tips, and observed stone/air lower carpet sides.'}
 
 
 def main():
