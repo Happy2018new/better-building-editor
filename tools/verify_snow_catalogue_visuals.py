@@ -469,7 +469,7 @@ def main():
     profiles.add_argument('--fungus-remaining', action='store_true',
                         help='Use exactly the six fungus heights absent from the R7 boundary matrix')
     profiles.add_argument('--profile', choices=('fungus_boundary', 'fungus_remaining',
-                         'static_root_screen', 'static_root_remaining'),
+                         'static_root_screen', 'static_root_remaining', 'cross_candidate_screen'),
                          help='Use an exact versioned static-plant matrix with its fixed target and views')
     parser.add_argument('--timeout', type=float, default=60.)
     parser.add_argument('--native-resolution', action='store_true')

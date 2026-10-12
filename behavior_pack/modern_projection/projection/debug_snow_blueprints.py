@@ -70,6 +70,17 @@ VISUAL_CASE = {
         'scope': 'Seven heights absent from the screening profile, both modes and fixed views',
         'all_eight_snow_heights_accepted': False,
     },
+    'cross_candidate_screen': {
+        'schema': 1,
+        'geometry_status': 'Experimental unit-height/clip-translation cross; native mesh and offset authority unverified',
+        'native_target': (-47, 117, -70),
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': dict((name, (0,)) for name in
+                        ('poppy', 'short_grass', 'fern', 'crimson_roots',
+                         'warped_roots', 'nether_sprouts')),
+        'scope': 'Dry and h0 candidate screen at one declared cell/two views; no new production acceptance',
+        'all_eight_snow_heights_accepted': False,
+    },
 }
 
 

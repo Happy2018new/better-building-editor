@@ -28,7 +28,8 @@ def freeze(output):
     paths.extend(ROOT/'tools'/name for name in
                  ('verify_snow_catalogue_visuals.py', 'verify_fungus_remaining_matrix.py',
                   'verify_snow_plant_visibility.py', 'capture_native_window.py',
-                  'audit_static_plant_matrix.py', 'generate_static_plant_proxies.py'))
+                  'audit_static_plant_matrix.py', 'generate_static_plant_proxies.py',
+                  'prepare_plant_cross_candidates.py', 'run_live_check.py'))
     value = {'schema': 1, 'project': str(ROOT),
              'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
              'hashes_sha256': {path.relative_to(ROOT).as_posix(): digest(path) for path in paths}}
@@ -133,7 +134,7 @@ def main():
     parser.add_argument('--camera-calibration', type=Path)
     parser.add_argument('--audit', type=Path)
     parser.add_argument('--profile', choices=('fungus_remaining', 'static_root_screen',
-                         'static_root_remaining'), default='fungus_remaining')
+                         'static_root_remaining', 'cross_candidate_screen'), default='fungus_remaining')
     parser.add_argument('--plant', action='append')
     parser.add_argument('--view', choices=('public', 'right'), action='append')
     args = parser.parse_args()
