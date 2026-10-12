@@ -281,7 +281,11 @@ def main():
     parser.add_argument('--scene-controls', action='store_true', help='Top-view depth and viewport-edge positive/negative controls')
     parser.add_argument('--opacity-commit', help='Exact reviewed bridge/session method commit for this diagnostic session')
     parser.add_argument('--max-handles', type=int, default=280000, help='Abort and restore before the native session handle cutoff')
+    parser.add_argument('--deployment-profile', action='store_true', help='Use the generated disabled deployment candidate explicitly')
+    parser.add_argument('--qualification-minimal', action='store_true', help='Twelve fixed-topology alpha PNGs across Scene/full/missing')
     args = parser.parse_args()
+    if args.qualification_minimal and (not args.transparency_controls or not args.deployment_profile or args.scene_only):
+        parser.error('Minimal qualification requires generated deployment plus three-route transparency controls')
     if args.transparency_controls and (args.case not in (None,['fence_rear']) or args.scene_controls):
         parser.error('Transparency controls require the declared fence_rear fixture and fixed camera')
     if args.transparency_controls and not args.scene_only and not args.camera_calibration:
@@ -326,6 +330,7 @@ def main():
     report['launch_noactivation'] = session['noactivation']
     report['budget'] = {'max_handles':args.max_handles, 'observed_max_handles':0}
     cases = ('fence_rear',) if args.transparency_controls else tuple(args.case or ('source', 'pool', 'fence', 'slab'))
+    alpha_phases = ((0., '0'), (.45, '0_45'), (1., '1'), (-1., 'default')) if args.qualification_minimal else ALPHA_PHASES
     if args.transparency_controls:
         report['transparency_plan'] = {
             'source':'public test.layers.water fence (3,1,6), translated to (3,3,3)',
@@ -338,13 +343,15 @@ def main():
                                  'dark':['minecraft:dark_oak_fence','minecraft:black_concrete'],
                                  'requires_same_water_geometry':True},
             'scene_capture_settle_seconds':2.,
-            'water_alpha_holdout':{'values':[row[0] for row in ALPHA_PHASES],
+            'water_alpha_holdout':{'values':[row[0] for row in alpha_phases],
                 'changes':'Fourth liquid uniform y only; source, body geometry, tint, camera and model IDs must remain fixed',
                 'native_alpha_accepted':False},
             'scope':'Contribution controls only; native reference, tint/texture, opacity and ordering still require independent assessment'}
     controls = ('supported_positive', 'supported_negative', 'liquid_only', 'empty')
     if args.transparency_controls:
         controls += ('supported_positive_dark','supported_negative_dark')
+    if args.qualification_minimal:
+        controls = ('supported_positive',)
     record = lambda: base.write(args.output, report)
 
     def frame(label):
@@ -374,6 +381,13 @@ def main():
                 check.wait('close old workspace', lambda row:not row['open'] and not row['transition'], check.navigation)
             profile = scene.PROFILE.replace("'modern_projection_liquid_still_water_grey'", "'modern_projection_liquid_still_water_grey_frozen'")
             profile = profile.replace("'modern_projection_liquid_still_water_grey_world'", "'modern_projection_liquid_still_water_grey_frozen_world'")
+            if args.deployment_profile:
+                profile = '''from modern_projection.projection.liquid_deployment import candidate_profile
+assert not hasattr(sys,'_liquid_scene_saved_profile')
+sys._liquid_scene_saved_profile=(hasattr(s,'liquid_profile'),getattr(s,'liquid_profile',None))
+s.liquid_profile=candidate_profile(frozen=True)
+_result=json.dumps({'production_qualified':False,'deployment_candidate':True,'frozen':True})
+'''
             report['profile'] = check.run(profile)
             check.run(SOURCE+'\n_result=True')
             check.run('owner.open_workspace()\n_result=True')
@@ -393,13 +407,14 @@ def main():
                     time.sleep(2. if args.transparency_controls else .25)
                     row['capture_state'] = check.wait('Scene settled '+identity+'/'+control,
                         scene_ready, lambda:check.run(STATE))
-                    frame('scene_'+identity+'_'+control)
+                    if not args.qualification_minimal:
+                        frame('scene_'+identity+'_'+control)
                 check.run(LOAD % ((identity, 'supported_positive'),))
                 check.wait('Scene restore '+identity, scene_ready, lambda:check.run(STATE))
                 if args.transparency_controls:
                     time.sleep(2.)
                     rows['water_alpha'] = {'baseline':check.run(STATE)}
-                    for alpha,label in ALPHA_PHASES:
+                    for alpha,label in alpha_phases:
                         check.run(SCENE_ALPHA % alpha)
                         row = rows['water_alpha'][label] = {'requested':alpha}
                         row['ready'] = check.wait('Scene water alpha '+label,
@@ -461,7 +476,7 @@ def main():
                 positions = report['reservation']['region']
                 for identity in cases:
                     references = report['native'][identity] = {}
-                    for control in controls:
+                    for control in (() if args.qualification_minimal else controls):
                         source = report['scene'][identity][control]['source']
                         cells = [(tuple(document_origin[i]+pos[i] for i in range(3)), value) for pos,value in source['cells']]
                         row = references[control] = {'requested':cells,'write':base.run(client, WRITE % native.wire(cells), True)}
@@ -488,10 +503,11 @@ def main():
                         check.run('s.projection_missing=False\nb.project()\n_result=True')
                         row['ready'] = check.wait('full projection '+identity+'/'+control, world_ready, lambda:check.run(WORLD_STATE))
                         time.sleep(.3)
-                        frame('world_'+identity+'_full_'+control)
+                        if not args.qualification_minimal:
+                            frame('world_'+identity+'_full_'+control)
                         if args.transparency_controls and control=='supported_positive':
                             holdout = rows['full_water_alpha'] = {'baseline':row['ready']}
-                            for alpha,label in ALPHA_PHASES:
+                            for alpha,label in alpha_phases:
                                 check.run(WORLD_ALPHA % alpha)
                                 holdout[label] = check.wait('Full water alpha '+label,
                                     lambda state:alpha_ready(state,alpha,True),lambda:check.run(WORLD_STATE))
@@ -505,10 +521,11 @@ def main():
                             check.run('s.projection_missing=True\nb.project()\n_result=True')
                             row['ready'] = check.wait('missing transparency '+control,world_ready,lambda:check.run(WORLD_STATE))
                             time.sleep(.3)
-                            frame('world_'+identity+'_missing_'+control)
+                            if not args.qualification_minimal:
+                                frame('world_'+identity+'_missing_'+control)
                             if control=='supported_positive':
                                 holdout = rows['missing_water_alpha'] = {'baseline':row['ready']}
-                                for alpha,label in ALPHA_PHASES:
+                                for alpha,label in alpha_phases:
                                     check.run(WORLD_ALPHA % alpha)
                                     holdout[label] = check.wait('Missing water alpha '+label,
                                         lambda state:alpha_ready(state,alpha,True),lambda:check.run(WORLD_STATE))
@@ -516,6 +533,10 @@ def main():
                                     frame('world_'+identity+'_missing_water_alpha_'+label)
                             check.run('b.stop_projection()\n_result=True')
                         check.run(LOAD % ((identity,'supported_positive'),))
+                    if args.qualification_minimal:
+                        check.run('b.stop_projection()\n_result=True')
+                        record()
+                        continue
                     check.run('s.projection_missing=True\nb.project()\n_result=True')
                     row['ready'] = check.wait('missing empty world '+identity, world_ready, lambda:check.run(WORLD_STATE))
                     time.sleep(.3)

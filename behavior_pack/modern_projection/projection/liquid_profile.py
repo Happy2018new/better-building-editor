@@ -5,7 +5,7 @@ from . import block_registry, liquid_face_texture_data, liquid_shape_data
 from .cell import text_type
 from .liquid_face_textures import LiquidFaceTextures
 from .liquid_native_shapes import check_version, shape_provider
-from .liquid_render_plan import TEXTURES
+from .liquid_render_plan import TEXTURES, WATER_NAMES, LAVA_NAMES
 from .liquid_transport import PAYLOAD_VERSION
 from .storage import integer_types
 
@@ -104,7 +104,16 @@ class NativeLiquidProfile(object):
         self.models, self.world_models = _models(resources.get('models'))
         self.uv_rotations = _uv_rotations(resources.get('uv_rotations'), self.models)
         self.side_templates = _side_templates(resources.get('side_templates'), self.models, self.uv_rotations)
-        for name in liquid_shape_data.SUPPORTED_NAMES:
+        names = resources.get('supported_names', liquid_shape_data.SUPPORTED_NAMES)
+        if (not isinstance(names, (tuple, list, set, frozenset)) or not names
+                or any(not _text(name) for name in names)
+                or len(set(names)) != len(names)
+                or not set(names).issubset(WATER_NAMES | LAVA_NAMES)
+                or any(('water' if name in WATER_NAMES else 'lava') not in liquid_shape_data.HEIGHT_RULES
+                       for name in names)):
+            raise ValueError('Native liquid profile needs explicit names covered by its shape rules')
+        self.supported_names = frozenset(names)
+        for name in self.supported_names:
             top, bottom, side = liquid_face_texture_data.FACE_TEXTURES[name]
             if ((top, None) not in self.models or (bottom, None) not in self.models
                     or side not in self.side_templates):
@@ -118,4 +127,5 @@ class NativeLiquidProfile(object):
         self.ui_pose, self.ui_offset, self.flow_uv = ui_pose, ui_offset, flow_uv
 
     def provider_factory(self, document):
-        return LiquidFaceTextures(shape_provider(document, self.flow_uv), self.side_templates, self.uv_rotations)
+        return LiquidFaceTextures(shape_provider(document, self.flow_uv, self.supported_names),
+                                  self.side_templates, self.uv_rotations)

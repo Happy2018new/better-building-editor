@@ -1,0 +1,396 @@
+{
+  "native_atlas_entries": {
+    "still_water_grey": {
+      "textures": "textures/blocks/water_still_grey"
+    },
+    "flowing_water_grey": {
+      "quad": 1,
+      "textures": "textures/blocks/water_flow_grey"
+    },
+    "still_lava": {
+      "textures": "textures/blocks/lava_still"
+    },
+    "flowing_lava": {
+      "quad": 1,
+      "textures": "textures/blocks/lava_flow"
+    }
+  },
+  "native_flipbook_entries": [
+    {
+      "flipbook_texture": "textures/blocks/water_still_grey",
+      "atlas_tile": "still_water_grey",
+      "ticks_per_frame": 2
+    },
+    {
+      "flipbook_texture": "textures/blocks/water_flow_grey",
+      "atlas_tile": "flowing_water_grey",
+      "replicate": 2
+    },
+    {
+      "flipbook_texture": "textures/blocks/lava_still",
+      "atlas_tile": "still_lava",
+      "ticks_per_frame": 16
+    },
+    {
+      "flipbook_texture": "textures/blocks/lava_flow",
+      "atlas_tile": "flowing_lava",
+      "ticks_per_frame": 10,
+      "replicate": 2
+    }
+  ],
+  "native_source_sha256": {
+    "resource_packs\\vanilla\\textures\\terrain_texture.json": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c",
+    "resource_packs\\vanilla\\textures\\flipbook_textures.json": "54fef45e43eabb065a703f829d70320430c746744289775e57af582cb240fd7a"
+  },
+  "atlas_references_verified": true,
+  "animated_sampling_accepted": false,
+  "schema": 1,
+  "payload_version": 2,
+  "textures": {
+    "still_water_grey": {
+      "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\water_still_grey.png",
+      "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+      "size": [
+        16,
+        512
+      ],
+      "frames": 32,
+      "alpha_range": [
+        240,
+        240
+      ],
+      "flipbook": {
+        "flipbook_texture": "textures/blocks/water_still_grey",
+        "atlas_tile": "still_water_grey",
+        "ticks_per_frame": 2
+      },
+      "frozen_diagnostic_only": false,
+      "animation_parameters": {
+        "flipbook_texture": "textures/blocks/water_still_grey",
+        "atlas_tile": "still_water_grey",
+        "ticks_per_frame": 2
+      },
+      "animation_parameters_native_verified": true,
+      "native_sampling_accepted": false,
+      "sampling": {
+        "region": "full",
+        "source_frame_extent": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        "pixel_mapping": "centers",
+        "native_sampling_accepted": false,
+        "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
+        "scope": "Existing unaccepted full-frame sampling candidate"
+      }
+    },
+    "flowing_water_grey": {
+      "source": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\water_flow_grey.png",
+      "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+      "size": [
+        32,
+        1024
+      ],
+      "frames": 32,
+      "alpha_range": [
+        255,
+        255
+      ],
+      "flipbook": {
+        "flipbook_texture": "textures/blocks/water_flow_grey",
+        "atlas_tile": "flowing_water_grey",
+        "replicate": 2
+      },
+      "frozen_diagnostic_only": false,
+      "animation_parameters": {
+        "flipbook_texture": "textures/blocks/water_flow_grey",
+        "atlas_tile": "flowing_water_grey",
+        "replicate": 2,
+        "ticks_per_frame": 1,
+        "blend_frames": true
+      },
+      "animation_parameters_native_verified": false,
+      "native_sampling_accepted": false,
+      "sampling": {
+        "region": "nw",
+        "source_frame_extent": [
+          0.0,
+          0.0,
+          0.5,
+          0.5
+        ],
+        "pixel_mapping": "edges",
+        "native_sampling_accepted": false,
+        "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5)",
+        "scope": "Installed quad:1 source restriction; edge/filter accuracy remains a candidate"
+      }
+    }
+  },
+  "models": {
+    "modern_projection_liquid_still_water_grey": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_still_water_grey",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_still_water_grey_world": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_still_water_grey_world",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_still_water_grey_frozen": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_still_water_grey_frozen",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_still_water_grey_frozen_world": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_still_water_grey_frozen_world",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_flowing_water_grey": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_flowing_water_grey",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_flowing_water_grey_world": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_flowing_water_grey_world",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_flowing_water_grey_frozen",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen_world": {
+      "dy_load": true,
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "animation": {},
+      "material": "modern_projection_liquid_flowing_water_grey_frozen_world",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    }
+  },
+  "model_options": {
+    "modern_projection_liquid_still_water_grey": {
+      "texture": "still_water_grey",
+      "variant": "animated",
+      "vertex_shader": "modern_projection_liquid.vertex",
+      "fragment_shader": "modern_projection_liquid_still_water_grey.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_ui_neg_x_neg_z_neg_y_center1_5",
+      "preview_depth": true
+    },
+    "modern_projection_liquid_still_water_grey_world": {
+      "texture": "still_water_grey",
+      "variant": "animated",
+      "vertex_shader": "modern_projection_liquid_world.vertex",
+      "fragment_shader": "modern_projection_liquid_still_water_grey.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_bone_after_reverse_z",
+      "preview_depth": false
+    },
+    "modern_projection_liquid_still_water_grey_frozen": {
+      "texture": "still_water_grey",
+      "variant": "frozen",
+      "vertex_shader": "modern_projection_liquid.vertex",
+      "fragment_shader": "modern_projection_liquid_still_water_grey_frozen.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_ui_neg_x_neg_z_neg_y_center1_5",
+      "preview_depth": true
+    },
+    "modern_projection_liquid_still_water_grey_frozen_world": {
+      "texture": "still_water_grey",
+      "variant": "frozen",
+      "vertex_shader": "modern_projection_liquid_world.vertex",
+      "fragment_shader": "modern_projection_liquid_still_water_grey_frozen.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_bone_after_reverse_z",
+      "preview_depth": false
+    },
+    "modern_projection_liquid_flowing_water_grey": {
+      "texture": "flowing_water_grey",
+      "variant": "animated",
+      "vertex_shader": "modern_projection_liquid.vertex",
+      "fragment_shader": "modern_projection_liquid_flowing_water_grey.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_ui_neg_x_neg_z_neg_y_center1_5",
+      "preview_depth": true
+    },
+    "modern_projection_liquid_flowing_water_grey_world": {
+      "texture": "flowing_water_grey",
+      "variant": "animated",
+      "vertex_shader": "modern_projection_liquid_world.vertex",
+      "fragment_shader": "modern_projection_liquid_flowing_water_grey.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_bone_after_reverse_z",
+      "preview_depth": false
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen": {
+      "texture": "flowing_water_grey",
+      "variant": "frozen",
+      "vertex_shader": "modern_projection_liquid.vertex",
+      "fragment_shader": "modern_projection_liquid_flowing_water_grey_frozen.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_ui_neg_x_neg_z_neg_y_center1_5",
+      "preview_depth": true
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen_world": {
+      "texture": "flowing_water_grey",
+      "variant": "frozen",
+      "vertex_shader": "modern_projection_liquid_world.vertex",
+      "fragment_shader": "modern_projection_liquid_flowing_water_grey_frozen.fragment",
+      "uv_rotations": [
+        0
+      ],
+      "transform": "native_bone_after_reverse_z",
+      "preview_depth": false
+    }
+  },
+  "generator_sha256": "4715a7726d40c3a9942528fb4d8ede470d7b8c78e0033a3b9d8f993b11b4a95e",
+  "source_sha256": {
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla_netease\\models\\for_developer\\mesh\\ceshi_rightlegdown_mesh.json": "dfb498beeb2fb9cf3495c9caf5dcf6794fe01dc2fdce27e43c28d5ecdb837975",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla_netease\\models\\for_developer\\skeleton\\ceshi_rightlegdown_skeleton.json": "efec2f22bcc6a50ba851d2e43b9dfbd0943334f65e715705985357d6d1217bae",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla_netease\\materials\\entity.material": "b6079bb007bff8a307c65001bf1f3b3021b6d0492a90bb541db1bbf714e9716f",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\shaders\\glsl\\neteaseModelVertexUtil.h": "4cadadd5e90cfae641348a20b0f83e9c8370cfabb18760703ebdf3e698aaf66e",
+    "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\shaders\\glsl\\uniformPerFrameConstants.h": "5a34477b34c0743fe066235e54129f4b0205d897bdb702cfbfdb49918bf1e196",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\resource_pack\\shaders\\glsl\\modern_projection_liquid_preview_depth.h": "d3b57f1a2ef1d55e3f527e5ef8d06a5de4b39640719c0fc2965ce1ed0a683e24"
+  },
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "3f7375611465fe9adb05edb25ab74447058d9361c87bf2e8c390d667731d0d11",
+    "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json": "31dd928fd955da704cf9880b6aedcfee760bcc4173edd505f5a4697fcb797210",
+    "resource_pack/models/modern_projection/liquid/skeleton.json": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db",
+    "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json": "fc1d11b68d0a5068970442fae3888db4240a0e8c66023cd15071dd897e5ad15e",
+    "resource_pack/models/netease_models.json": "e148cb741efef64620183534df5fd19cb1278c71f24b4d84e5279c8c16a12986",
+    "resource_pack/shaders/glsl/modern_projection_liquid.vertex": "14a26d0dd2746ebdc386f91ce5e613d9cdbc4a62aec3fcb9493410c0343e78b4",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey.fragment": "377b7b9d0723b48be71922ba9a3dab303fa663f2e81f8bfd8958972f31a3f213",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_frozen.fragment": "659c18129c03ad745442c50e139fa33140cd84a0c678e429950bddae0b57153d",
+    "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey.fragment": "ab8d08183f5978024e7c61ec12676433af8262c8c43e42f80d5a23edc09e1bc8",
+    "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey_frozen.fragment": "32f664032164cf15d07767c24c7fdab63c6aae9839448a1b44d6ab99baa927de",
+    "resource_pack/shaders/glsl/modern_projection_liquid_world.vertex": "8a04e40c91070dcf599fa43bafc72e1047516ec1a1ab826856b0ea139fdc7f2b",
+    "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+    "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3"
+  },
+  "vertex_count": 96,
+  "triangle_count": 48,
+  "cells_per_model": 4,
+  "face_order": [
+    "top",
+    "north",
+    "south",
+    "west",
+    "east",
+    "bottom"
+  ],
+  "asset_path": "modern_projection/liquid",
+  "vertex_shader": "modern_projection_liquid.vertex",
+  "world_vertex_shader": "modern_projection_liquid_world.vertex",
+  "world_coordinate_contract": {
+    "native_units_per_block": 16,
+    "model_scale": 16.0,
+    "center_offset": [
+      2.0,
+      2.0,
+      2.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "decoded_vertex_z_reversed": true,
+    "native_placement_accepted": false
+  },
+  "world_bone_matrix": true,
+  "preview_depth": true,
+  "packet_control": false,
+  "ui_coordinate_contract": {
+    "native_model_axes": [
+      "-x",
+      "-z+1.5",
+      "-y"
+    ],
+    "scale": "logical_cell_unit/min(actual_paper_doll_size)",
+    "control_top_offset": "min(actual_paper_doll_size)/4",
+    "native_alignment_accepted": false
+  },
+  "diagnostic_water_opacity": 0.45,
+  "explicit_flow_animation_candidate": {
+    "ticks_per_frame": 1,
+    "blend_frames": true,
+    "replicate": 2
+  },
+  "blend_state_contract": {
+    "states": [
+      "Blending",
+      "DisableDepthWrite",
+      "DisableCulling"
+    ],
+    "source": "SourceAlpha",
+    "destination": "OneMinusSrcAlpha",
+    "active_native_blending_accepted": false
+  },
+  "opacity_contract": "None sentinel samples original native image alpha unless an explicit diagnostic water default is requested; biome opacity replaces it",
+  "ui_fade_contract": "Orthographic native CURRENT_COLOR.a, matching existing block preview shader; native acceptance pending",
+  "animation_contract": "Original native square strip + parsed cadence/blend; engine TIME loops at 210 seconds",
+  "scope": "Supplied-shape skeleton artwork/animation candidate only",
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "native_alpha_accepted": false,
+  "animation_accepted": false,
+  "production_editor_accepted": false,
+  "production_memory_accepted": false
+}

@@ -22,9 +22,9 @@ def occludes_liquid(cell, unused_face):
     return blocks_liquid(cell)
 
 
-def shape_provider(document, flow_uv=None):
+def shape_provider(document, flow_uv=None, supported_names=None):
     """Build a source-owned provider; callers own resource and acceptance policy."""
     check_version()
     rules = dict((family, LiquidHeightRule(*row)) for family, row in source.HEIGHT_RULES.items())
     return DocumentLiquidShapes(document, rules, blocks_liquid, occludes_liquid,
-                                source.SUPPORTED_NAMES, flow_uv)
+                                source.SUPPORTED_NAMES if supported_names is None else supported_names, flow_uv)

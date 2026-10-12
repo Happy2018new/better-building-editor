@@ -71,6 +71,94 @@
       "vertexShader": "shaders/glsl/modern_projection_outline.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_outline.fragment",
       "+states": ["DisableCulling"]
+    },
+    "modern_projection_liquid_still_water_grey:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_still_water_grey.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_still_water_grey_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_still_water_grey.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_still_water_grey_frozen:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_still_water_grey_frozen.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_still_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_still_water_grey_frozen.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_flowing_water_grey:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_flowing_water_grey.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_flowing_water_grey_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_flowing_water_grey.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_flowing_water_grey_frozen.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_liquid_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_flowing_water_grey_frozen.fragment",
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
     }
   }
 }

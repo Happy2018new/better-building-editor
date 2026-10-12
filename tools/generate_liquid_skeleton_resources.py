@@ -236,7 +236,7 @@ def mesh(texture):
 
 
 def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False,
-             diagnostic_flow=False, diagnostic_water_opacity=None):
+             diagnostic_flow=False, diagnostic_water_opacity=None, flow_animation=None):
     if output.exists():
         raise ValueError('Choose a fresh resource candidate directory')
     if diagnostic_water_opacity is not None and (isinstance(diagnostic_water_opacity, bool)
@@ -245,7 +245,15 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         raise ValueError('Diagnostic water opacity must be an explicit finite value between zero and one')
     snapshot = source_snapshot(native)
     animations = dict((row['atlas_tile'], row) for row in snapshot['native_flipbook_entries'])
-    if diagnostic_flow:
+    if flow_animation is not None:
+        if (diagnostic_flow or not isinstance(flow_animation, dict)
+                or set(flow_animation) != {'ticks_per_frame', 'blend_frames', 'replicate'}
+                or type(flow_animation['ticks_per_frame']) is not int
+                or flow_animation['ticks_per_frame'] < 1
+                or type(flow_animation['blend_frames']) is not bool
+                or flow_animation['replicate'] != 2):
+            raise ValueError('Flow animation needs an explicit separate cadence/blend/replicate candidate')
+    if diagnostic_flow or flow_animation is not None:
         keys=tuple(keys)+('flowing_water_grey',)
     example = native / 'resource_packs/vanilla_netease/models/for_developer'
     references = [example / 'mesh/ceshi_rightlegdown_mesh.json',
@@ -264,7 +272,7 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
     write_json(output / ('resource_pack/models/' + ASSET_PATH + '/skeleton.json'), skeleton)
     shader_dir = output / 'resource_pack/shaders/glsl'
     shader_dir.mkdir(parents=True)
-    vertex = VERTEX.replace('// LIQUID_WORLD_BONE', '').replace('// LIQUID_UI_COORDINATES', UI_COORDINATES)
+    vertex = VERTEX.replace('    // LIQUID_WORLD_BONE\n', '').replace('// LIQUID_UI_COORDINATES', UI_COORDINATES)
     if preview_depth:
         header = Path(__file__).resolve().parents[1] / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
         references.append(header)
@@ -274,16 +282,22 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
     (shader_dir / VERTEX_NAME).write_text(vertex, encoding='ascii')
     targets = (('', VERTEX_NAME),)
     if world_bone:
-        world_vertex = VERTEX.replace('// LIQUID_WORLD_BONE', WORLD_BONE).replace('// LIQUID_UI_COORDINATES', '')
+        world_vertex = VERTEX.replace('// LIQUID_WORLD_BONE', WORLD_BONE).replace('    // LIQUID_UI_COORDINATES\n', '')
         (shader_dir / WORLD_VERTEX_NAME).write_text(world_vertex, encoding='ascii')
         targets += (('_world', WORLD_VERTEX_NAME),)
     for key in keys:
         entry = animations.get(key)
         sampling = sampling_region(snapshot['native_atlas_entries'][key])
         frozen_only=diagnostic_flow and key=='flowing_water_grey'
-        if entry is None or (not frozen_only and (not isinstance(entry.get('ticks_per_frame'), int) or entry['ticks_per_frame'] < 1)):
+        explicit_flow = flow_animation is not None and key == 'flowing_water_grey'
+        animation = dict(entry or {})
+        if explicit_flow:
+            if entry is None or entry.get('replicate') != flow_animation['replicate']:
+                raise ValueError('Flow animation replicate candidate differs from installed metadata')
+            animation.update(flow_animation)
+        if entry is None or (not frozen_only and (type(animation.get('ticks_per_frame')) is not int or animation['ticks_per_frame'] < 1)):
             raise ValueError('Candidate requires an explicit native ticks_per_frame: ' + key)
-        if entry.get('frames') is not None or (not frozen_only and entry.get('replicate', 1) != 1):
+        if entry.get('frames') is not None or (not frozen_only and not explicit_flow and entry.get('replicate', 1) != 1):
             raise ValueError('Candidate needs a verified native frame/replicate implementation: ' + key)
         source = native / 'resource_packs/vanilla' / (entry['flipbook_texture'] + '.png')
         with Image.open(source) as image:
@@ -299,6 +313,8 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         textures[key] = {'source': str(source.resolve()), 'sha256': digest(source),
                          'size': [width, height], 'frames': frames, 'alpha_range': alpha,
                          'flipbook': entry, 'frozen_diagnostic_only':frozen_only,
+                         'animation_parameters': animation,
+                         'animation_parameters_native_verified': not explicit_flow and not frozen_only,
                          'native_sampling_accepted':False, 'sampling': sampling}
         variants=('frozen','packet') if frozen_only and packet_control else ('frozen',) if frozen_only else ('animated','frozen','packet') if packet_control else ('animated','frozen')
         for variant in variants:
@@ -307,11 +323,11 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
             fragment_name = stem + '.fragment'
             fragment = FRAGMENT % {'frames': str(float(frames)), 'pixels': str(float(width)),
                                    'pixel_coordinates': sampling['pixel_coordinates'],
-                                   'ticks': '1.0' if frozen_only else str(float(entry['ticks_per_frame'])),
+                                   'ticks': '1.0' if frozen_only else str(float(animation['ticks_per_frame'])),
                                    'diagnostic_opacity': str(float(diagnostic_water_opacity))
                                        if diagnostic_water_opacity is not None and 'water' in key else '-1.0',
                                    'clock': '0.0' if frozen else 'TIME*20.0/TICKS_PER_FRAME',
-                                   'blend': '0.0' if frozen or not entry.get('blend_frames', True) else 'fract(clock)'}
+                                   'blend': '0.0' if frozen or not animation.get('blend_frames', True) else 'fract(clock)'}
             (shader_dir / fragment_name).write_text(PACKET_FRAGMENT if variant == 'packet' else fragment, encoding='ascii')
             for suffix, vertex_name in targets:
                 name = stem + suffix
@@ -358,6 +374,7 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                           'control_top_offset': 'min(actual_paper_doll_size)/4',
                                           'native_alignment_accepted': False},
                   diagnostic_water_opacity=diagnostic_water_opacity,
+                  explicit_flow_animation_candidate=flow_animation,
                   blend_state_contract={'states':['Blending', 'DisableDepthWrite', 'DisableCulling'],
                                         'source':'SourceAlpha', 'destination':'OneMinusSrcAlpha',
                                         'active_native_blending_accepted':False},
@@ -385,12 +402,20 @@ def main():
     parser.add_argument('--diagnostic-flow', action='store_true', help='Unaccepted frozen frame zero only, no guessed flow cadence')
     parser.add_argument('--diagnostic-water-opacity', type=float,
                         help='Unaccepted water-only fallback when the biome supplies no opacity')
+    parser.add_argument('--flow-ticks-per-frame', type=int,
+                        help='Explicit unaccepted flowing-water cadence; omitted native metadata stays intact')
+    parser.add_argument('--flow-no-blend', action='store_true')
     args = parser.parse_args()
     if bool(args.install_project) != bool(args.backup):
         parser.error('--install-project and --backup must be supplied together')
+    if args.flow_no_blend and args.flow_ticks_per_frame is None:
+        parser.error('--flow-no-blend requires --flow-ticks-per-frame')
+    flow_animation = (None if args.flow_ticks_per_frame is None else
+                      {'ticks_per_frame': args.flow_ticks_per_frame,
+                       'blend_frames': not args.flow_no_blend, 'replicate': 2})
     report = generate(args.output.resolve(), args.native_data.resolve(), tuple(args.texture or ('still_water_grey',)),
                       args.world_bone, args.preview_depth, args.packet_control,args.diagnostic_flow,
-                      args.diagnostic_water_opacity)
+                      args.diagnostic_water_opacity, flow_animation)
     if args.install_project:
         install_overlay(args.output.resolve(), args.install_project.resolve(), args.backup.resolve())
     print(json.dumps({'models': list(report['models']), 'native_shape_accepted': False}))

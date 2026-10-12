@@ -53,7 +53,7 @@ RENDER = '''async cases => {
 }'''
 
 
-def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None):
+def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None, blend=True):
     rows = []
     width, height = image.size
     frames = height // width
@@ -66,7 +66,8 @@ def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None):
         for clock in (0., .5, 1., 7.5, frames - .5, frames + .5):
             for opacity in (-1., .65):
                 actual_clock = 0. if frozen else clock
-                current, fraction = int(actual_clock) % frames, actual_clock % 1.
+                current = int(actual_clock) % frames
+                fraction = actual_clock % 1. if blend else 0.
                 x = min(width - 1, int(u * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else u * span))
                 y = min(width - 1, int(v * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else v * span))
                 first = image.getpixel((x, current * width + y))
@@ -80,6 +81,23 @@ def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None):
                 rows.append({'name': '%s/%s/%s/%s' % (u, v, clock, opacity),
                              'time': clock * ticks / 20., 'position': [u, v, 0., 1.],
                              'uniforms': uniforms, 'expected': expected})
+    corners = (64., 128., 192., 224.)
+    for face, (left, right) in enumerate(((0, 1), (2, 3), (3, 0), (1, 2)), 1):
+        for u, vertical in ((.125, 0.), (.375, .5), (.625, 1.), (.875, 1.)):
+            source_v = 1. - vertical * (corners[left] * (1. - u) + corners[right] * u) / 255.
+            x = min(width - 1, int(u * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else u * span))
+            y = min(width - 1, int(source_v * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else source_v * span))
+            clock = .5
+            fraction = .5 if blend and not frozen else 0.
+            texel = tuple(image.getpixel((x, y))[i] * (1. - fraction)
+                          + image.getpixel((x, width + y))[i] * fraction for i in range(4))
+            expected = [round(texel[i] * tint / 255.) for i, tint in enumerate((18, 52, 86))]
+            expected.append(round((texel[3] if diagnostic_opacity is None else diagnostic_opacity * 255.) * .5))
+            rows.append({'name': 'lower_crop/%d/%s/%s' % (face, u, vertical),
+                         'time': clock * ticks / 20., 'position': [u, face * 2. + vertical, 0., 1.],
+                         'uniforms': [(4032., 0., 0., 0.), (64. + 128. * 256., 192. + 224. * 256., 0., 0.),
+                                      (0.,) * 4, (39686., -1., float(0x123456), .5)],
+                         'expected': expected})
     first=rows[0]
     for ui,alpha in ((True,0.),(True,.5),(True,1.),(False,0.),(False,.5)):
         expected=first['expected'][:]
@@ -129,10 +147,12 @@ def main():
         path = args.overlay / ('resource_pack/textures/models/' + contract.get('asset_path', 'liquid_candidate') + '/' + key + '.png')
         with Image.open(path).convert('RGBA') as image:
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
-            inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else texture['flipbook']['ticks_per_frame'],
+            animation = texture.get('animation_parameters', texture['flipbook'])
+            inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else
+                              animation['ticks_per_frame'],
                               options.get('variant') == 'frozen' or name.endswith('_frozen'),
                               contract.get('diagnostic_water_opacity') if 'water' in key else None,
-                              texture.get('sampling'))
+                              texture.get('sampling'), animation.get('blend_frames', True))
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):
                 cases.append({'name': '%s/%s/%s' % (name, version, flags), 'version': version,
