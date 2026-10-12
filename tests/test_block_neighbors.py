@@ -32,6 +32,46 @@ def place(editor, pos, value):
 
 
 class BlockNeighborTests(unittest.TestCase):
+    def test_explicit_single_chests_are_not_grouped_by_selection_copy_or_erase(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        nbt = {'Items': [{'Slot': 0, 'Count': 5}], 'CustomName': 'kept'}
+        explicit_single = make_cell(CHEST, WATER, compose_actor({'chestIsLargeChest': False}, nbt))
+        for size in ((32, 4, 32), SIZES[1]):
+            for other in (CHEST, explicit_single):
+                with self.subTest(size=size, other=other):
+                    original = {left: explicit_single, right: other}
+                    editor = Editor(Document(size, original))
+                    self.assertEqual({left}, set(close_group_selection(editor.document, [left])))
+                    self.assertEqual({right}, set(close_group_selection(editor.document, [right])))
+                    editor.select_box(left, left)
+                    editor.run('copy')
+                    self.assertEqual(1, len(editor.clipboard.get('selection', editor.clipboard['blocks'])))
+                    editor.paint_at(left, erase=True, respect_selection=False)
+                    self.assertEqual(CHEST, foreground(editor.document.get(right)))
+                    if other == explicit_single:
+                        self.assertEqual(nbt, entity_nbt(actor_data(editor.document.get(right))))
+                    editor.undo()
+                    self.assertEqual(original, dict(editor.document.blocks.items()))
+
+    def test_actor_only_chest_change_reconciles_partner_in_the_same_history_entry(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        nbt = {'Items': [{'Slot': 0, 'Count': 5}], 'CustomName': 'kept'}
+        original = {left: CHEST, right: CHEST}
+        for size in ((32, 4, 32), SIZES[1]):
+            with self.subTest(size=size):
+                editor = Editor(Document(size, original))
+                paired = chest_pair_actor(make_cell(CHEST, WATER, compose_actor({}, nbt)), left, right)
+                self.assertEqual(2, editor._commit('actor', {left: paired}, False, whole=True))
+                self.assertEqual(left, chest_render_pair_position(editor.document.get(right), right))
+                self.assertEqual(nbt, entity_nbt(actor_data(editor.document.get(left))))
+                self.assertEqual(WATER, background(editor.document.get(left)))
+                self.assertEqual({(0, 0, 0), (1, 0, 0)}, editor.last_changed_chunks)
+                after = dict(editor.document.blocks.items())
+                self.assertTrue(editor.undo())
+                self.assertEqual(original, dict(editor.document.blocks.items()))
+                self.assertTrue(editor.redo())
+                self.assertEqual(after, dict(editor.document.blocks.items()))
+
     def test_wall_placement_and_break_update_neighbors_in_one_history_entry(self):
         for size in SIZES:
             with self.subTest(size=size):

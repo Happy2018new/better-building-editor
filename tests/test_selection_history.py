@@ -5,6 +5,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.jobs import EditJob
+from projection.block_groups import group_partner
+from projection.cell import make_cell
 from projection.model import Document, Editor
 from projection.storage import Selection
 
@@ -17,6 +19,57 @@ def snapshot(editor):
 
 
 class SelectionHistoryTests(unittest.TestCase):
+    def test_empty_transform_selection_retains_user_error_and_creates_no_history(self):
+        for size in SIZES:
+            for tool in ('move_xp', 'rotate_y90', 'mirror_x', 'stack_z'):
+                with self.subTest(size=size, tool=tool):
+                    editor = Editor(Document(size))
+                    editor.selection = Selection()
+                    before = snapshot(editor)
+                    with self.assertRaisesRegex(ValueError, '\u9009\u533a\u4e3a\u7a7a\uff0c\u8bf7\u5148\u6846\u9009\u6216\u5168\u9009'):
+                        editor.run(tool)
+                    self.assertEqual(before, snapshot(editor))
+                    self.assertFalse(editor.undo_stack)
+
+    def test_grouped_move_undo_restores_selection_before_partner_completion(self):
+        door = ('minecraft:wooden_door', 0)
+        bed = ('minecraft:bed', 0)
+        bottom, top, back, back_top = (2, 1, 2), (2, 2, 2), (2, 1, 3), (2, 2, 3)
+        cells = {bottom: make_cell(door, bed),
+                 top: make_cell(group_partner(door)[1], bed),
+                 back: make_cell(door, group_partner(bed)[1]),
+                 back_top: make_cell(group_partner(door)[1], group_partner(bed)[1])}
+        for size in SIZES:
+            with self.subTest(size=size):
+                editor = Editor(Document(size, cells))
+                editor.selection = Selection((bottom,))
+                editor.sync_selection_bounds()
+                editor.step = 1
+                before = snapshot(editor)
+                self.assertEqual(8, editor.run('move_xp'))
+                after = snapshot(editor)
+                self.assertEqual({(3, 1, 2), (3, 2, 2), (3, 1, 3), (3, 2, 3)},
+                                 set(editor.selection))
+                self.assertTrue(editor.undo())
+                self.assertEqual(before, snapshot(editor))
+                self.assertTrue(editor.redo())
+                self.assertEqual(after, snapshot(editor))
+
+    def test_rejected_grouped_move_keeps_original_selection_and_bounds(self):
+        door = ('minecraft:wooden_door', 0)
+        for size in SIZES:
+            with self.subTest(size=size):
+                bottom, top = (size[0] - 1, 1, 2), (size[0] - 1, 2, 2)
+                editor = Editor(Document(size, {bottom: door, top: group_partner(door)[1]}))
+                editor.selection = Selection((bottom,))
+                editor.sync_selection_bounds()
+                editor.step = 1
+                before = snapshot(editor)
+                with self.assertRaises(ValueError):
+                    editor.run('move_xp')
+                self.assertEqual(before, snapshot(editor))
+                self.assertFalse(editor.undo_stack)
+
     def test_consecutive_moves_restore_each_block_and_selection_snapshot(self):
         for size in SIZES:
             with self.subTest(size=size):

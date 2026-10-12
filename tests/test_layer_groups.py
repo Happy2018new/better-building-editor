@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection.block_groups import group_partner
 from projection.block_registry import from_states
-from projection.cell import background, foreground, make_cell
+from projection.cell import actor_data, background, foreground, make_cell
 from projection.model import AIR, Document, Editor, close_group_selection
 
 STONE = ('minecraft:stone', 0)
@@ -16,6 +16,69 @@ SIZES = ((8, 5, 8), (64, 128, 64))
 
 
 class LayerGroupTests(unittest.TestCase):
+    def test_move_over_group_half_removes_old_partner_and_preserves_other_layer_and_actor(self):
+        door = ('minecraft:wooden_door', 0)
+        water = ('minecraft:water', 0)
+        source, destination, partner = (14, 15, 15), (15, 15, 15), (15, 16, 15)
+        for size in ((20, 18, 20), SIZES[1]):
+            for index in (0, 1):
+                with self.subTest(size=size, index=index):
+                    actor = {'keep': {'values': [1, 2, 3]}}
+                    destination_cell = make_cell(door, water) if index == 0 else make_cell(STONE, door)
+                    partner_cell = (make_cell(group_partner(door)[1], water) if index == 0 else
+                                    make_cell(STONE, group_partner(door)[1], actor))
+                    original = {source: STONE, destination: destination_cell, partner: partner_cell}
+                    editor = Editor(Document(size, original))
+                    editor.select_box(source, source)
+                    editor.step = 1
+                    self.assertEqual(3, editor.run('move_xp'))
+                    self.assertEqual(STONE, editor.document.get(destination))
+                    self.assertEqual(make_cell(AIR, water) if index == 0 else make_cell(STONE, AIR, actor),
+                                     editor.document.get(partner))
+                    self.assertEqual(None if index == 0 else actor, actor_data(editor.document.get(partner)))
+                    self.assertEqual({(0, 0, 0), (0, 1, 0)}, editor.last_changed_chunks)
+                    after = dict(editor.document.blocks.items())
+                    self.assertTrue(editor.undo())
+                    self.assertEqual(original, dict(editor.document.blocks.items()))
+                    self.assertTrue(editor.redo())
+                    self.assertEqual(after, dict(editor.document.blocks.items()))
+
+    def test_paste_over_group_half_removes_partner_in_its_actual_layer(self):
+        door = ('minecraft:wooden_door', 0)
+        source, bottom, top = (1, 1, 1), (2, 1, 2), (2, 2, 2)
+        for size in SIZES:
+            with self.subTest(size=size):
+                original = {source: STONE, bottom: make_cell(STONE, door), top: group_partner(door)[1]}
+                editor = Editor(Document(size, original))
+                editor.select_box(source, source)
+                editor.run('copy')
+                editor.start = bottom
+                self.assertEqual(2, editor.run('paste'))
+                self.assertEqual(STONE, editor.document.get(bottom))
+                self.assertEqual(AIR, editor.document.get(top))
+                self.assertTrue(editor.undo())
+                self.assertEqual(original, dict(editor.document.blocks.items()))
+
+    def test_whole_overwrite_with_locked_old_partner_rejects_entire_operation(self):
+        door = ('minecraft:wooden_door', 0)
+        source, bottom, top = (1, 1, 2), (2, 1, 2), (2, 2, 2)
+        for size in SIZES:
+            for tool in ('move_xp', 'paste'):
+                with self.subTest(size=size, tool=tool):
+                    editor = Editor(Document(size, {source: STONE, bottom: door, top: group_partner(door)[1]}))
+                    editor.select_box(source, source)
+                    if tool == 'paste':
+                        editor.run('copy')
+                        editor.start = bottom
+                    editor.step = 1
+                    editor.locked_layers.add(top[1])
+                    before = dict(editor.document.blocks.items()), set(editor.selection), editor.start, editor.end
+                    with self.assertRaises(ValueError):
+                        editor.run(tool)
+                    self.assertEqual(before, (dict(editor.document.blocks.items()), set(editor.selection),
+                                              editor.start, editor.end))
+                    self.assertFalse(editor.undo_stack)
+
     def test_background_group_placement_erase_and_history_preserve_foreground(self):
         for size in SIZES:
             with self.subTest(size=size):

@@ -72,6 +72,12 @@ class EditJob(object):
             self.changed += int(value != original) - int(previous != original)
             self.staged[pos] = value
 
+        if self.preserve_connections:
+            from .block_edits import reconcile_whole_group_steps
+            for step in reconcile_whole_group_steps(self.source, self.staged,
+                                                   self.preserve_connections, write_neighbor,
+                                                   self.work.locked_layers):
+                yield step
         for step in reconcile_steps(self.source, self.staged, write_neighbor, self.work.locked_layers,
                                     self.preserve_connections):
             yield step

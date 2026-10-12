@@ -207,9 +207,14 @@ def chest_render_pair_position(value, pos):
     return tuple(pos[i] + sign * offset[i] for i in range(3))
 
 
-def _chest_candidates(get_cell, value, pos):
+def _single_chest(value):
+    root = root_payload(render_actor(actor_data(value)))
+    return root is not None and scalar(root, 'chestIsLargeChest') is False
+
+
+def _chest_candidates(get_cell, value, pos, respect_single=False):
     name = foreground(value)[0]
-    if name not in _CHESTS:
+    if name not in _CHESTS or (respect_single and _single_chest(value)):
         return []
     direction = _chest_direction(value)
     if direction not in ('north', 'south', 'east', 'west'):
@@ -221,21 +226,22 @@ def _chest_candidates(get_cell, value, pos):
         target = tuple(pos[i] + offset[i] for i in range(3))
         other = get_cell(target)
         if (other is not None and foreground(other)[0] == name and
-                _chest_direction(other) == direction):
+                _chest_direction(other) == direction and
+                (not respect_single or not _single_chest(other))):
             linked = actor_pair_position(other, target) or chest_render_pair_position(other, target)
             if linked is None or linked == pos:
                 candidates.append(target)
     return candidates
 
 
-def _adjacent_chest_position(get_cell, value, pos):
-    candidates = _chest_candidates(get_cell, value, pos)
+def _adjacent_chest_position(get_cell, value, pos, respect_single=False):
+    candidates = _chest_candidates(get_cell, value, pos, respect_single)
     if len(candidates) != 1:
         return None
     partner = candidates[0]
     other = get_cell(partner)
     linked = actor_pair_position(other, partner) or chest_render_pair_position(other, partner)
-    if linked == pos or _chest_candidates(get_cell, other, partner) == [pos]:
+    if linked == pos or _chest_candidates(get_cell, other, partner, respect_single) == [pos]:
         return partner
     return None
 
@@ -306,7 +312,7 @@ def paired_cell_position(get_cell, pos, index=None):
         return None
     partner_pos = actor_pair_position(value, pos) or chest_render_pair_position(value, pos)
     if partner_pos is None:
-        return _adjacent_chest_position(get_cell, value, pos)
+        return _adjacent_chest_position(get_cell, value, pos, respect_single=True)
     partner = get_cell(partner_pos)
     if (partner is None or foreground(partner)[0] != front[0] or
             _chest_direction(partner) != _chest_direction(value)):
@@ -362,4 +368,4 @@ def has_group_link(value, pos, get_cell=None, index=None):
     return (
             actor_pair_position(value, pos) is not None or
             chest_render_pair_position(value, pos) is not None or
-            (get_cell is not None and _adjacent_chest_position(get_cell, value, pos) is not None))
+            (get_cell is not None and _adjacent_chest_position(get_cell, value, pos, respect_single=True) is not None))

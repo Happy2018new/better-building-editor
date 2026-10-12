@@ -369,7 +369,7 @@ class Editor(object):
         return len(delta)
 
     def _reconcile_delta(self, delta, preserve):
-        if not any(foreground(old) != foreground(new) for old, new in delta.values()):
+        if not delta:
             return
         from .block_neighbors import reconcile_steps
         staged = self.document.blocks.copy()
@@ -384,6 +384,14 @@ class Editor(object):
             else:
                 delta[pos] = old, value
 
+        if preserve:
+            from .block_edits import reconcile_whole_group_steps
+            for unused in reconcile_whole_group_steps(self.document, staged, preserve,
+                                                     write_neighbor, self.locked_layers):
+                pass
+        if not any(foreground(old) != foreground(new) or actor_data(old) != actor_data(new)
+                   for old, new in delta.values()):
+            return
         for unused in reconcile_steps(self.document, staged, write_neighbor, self.locked_layers, preserve):
             pass
 
@@ -560,9 +568,12 @@ class Editor(object):
         }
 
     def _transform(self, tool):
-        lo, hi = bounds(self.selection)
+        if not self.selection:
+            raise ValueError("选区为空，请先框选或全选")
+        selection = close_group_selection(self.document, self.selection)
+        lo, hi = bounds(selection)
         ext = tuple(hi[i] - lo[i] + 1 for i in range(3))
-        source = dict((p, self.document.get(p)) for p in self.selection)
+        source = dict((p, self.document.get(p)) for p in selection)
         if self.mask != "all" or any(p[1] in self.locked_layers for p in source):
             raise ValueError("整体变换前请关闭蒙版并解锁选区内图层")
         mapping = {}
@@ -761,14 +772,14 @@ class Editor(object):
         group = BY_ID[tool][1]
         if group == "select":
             return self._select(tool)
+        if group == "transform":
+            return self._transform(tool)
         selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") or (self.edit_layer == 2 and tool != 'erase') else self.edit_layer
         self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
         self.sync_selection_bounds()
         if not self.selection:
             raise ValueError("选区为空，请先框选或全选")
         lo, hi = bounds(self.selection)
-        if group == "transform":
-            return self._transform(tool)
         if group == "shape":
             changes = self._shape(tool, lo, hi)
         elif group == "pattern":

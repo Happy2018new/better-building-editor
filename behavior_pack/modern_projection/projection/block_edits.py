@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """Prepare layer-aware material edits and complete native grouped parts."""
 from __future__ import unicode_literals
 from .block_groups import group_partner, paired_cell_part, preserve_group_part
-from .cell import AIR, background, edit_cell, foreground, layer
+from .cell import AIR, background, edit_cell, foreground, layer, replace_layer
 
 
 class CellChanges(dict):
@@ -67,3 +68,25 @@ def material_changes(get_cell, pos, material, mode):
         _remove_replaced_parts(get_cell, result, partner, partner_mode)
         break
     return result
+
+
+def reconcile_whole_group_steps(document, after, placements, write, locked_layers):
+    """Remove old fixed partners left behind by a complete-cell overwrite."""
+    def get_before(pos):
+        return document.get(pos) if document.contains(pos) else None
+
+    for pos in placements:
+        previous, updated = document.get(pos), after.get(pos, AIR)
+        remaining = foreground(updated), background(updated)
+        for index in (0, 1):
+            original = layer(previous, index)
+            if original in remaining or group_partner(original) is None:
+                continue
+            partner, partner_index = paired_cell_part(get_before, pos, index)
+            other = after.get(partner, AIR)
+            if layer(other, partner_index) != layer(document.get(partner), partner_index):
+                continue
+            if partner[1] in locked_layers:
+                raise ValueError('多格方块对应部件图层已锁定，操作已取消')
+            write(partner, replace_layer(other, AIR, partner_index))
+        yield None
