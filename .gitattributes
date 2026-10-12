@@ -27,3 +27,5 @@ behavior_pack/modern_projection/projection/debug_botanical_blueprints.py text eo
 tools/data/plant-position-native-evidence-r11-*.json -text
 tools/data/native_frame_route_r11.json -text
 tools/data/native_liquid_static_coordinate_evidence_r11.json -text
+# Alpha-marker startup evidence retains the original byte fingerprints.
+tools/data/plant-alpha-single-startup-r11-v3/** -text -diff

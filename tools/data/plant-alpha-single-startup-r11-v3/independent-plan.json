@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "record_kind": "read_only_source_review_and_proposed_native_observation",
+  "recorded_at": "2026-10-12T20:54:00+08:00",
+  "runtime_scope": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+  "production_acceptance": false,
+  "native_session_started_by_this_review": false,
+  "native_mesh_authority_recovered": false,
+  "native_offset_formula_recovered": false,
+  "native_block": ["minecraft:poppy", 0],
+  "texture_source": {
+    "installed_path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/resource_packs/vanilla/textures/blocks/flower_rose.png",
+    "sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+    "block_mapping": {"textures": "poppy", "sound": "grass"},
+    "atlas_key": "poppy",
+    "atlas_path": "textures/blocks/flower_rose",
+    "installed_blocks_sha256": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "installed_atlas_sha256": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c"
+  },
+  "marker_descriptor": {
+    "format": "16x16 RGBA PNG, every texel alpha=255",
+    "alpha_preserving_control": "First install the same RGB marker while preserving every original native alpha byte. Record whether original foliage geometry and contour stay unchanged before the full-opaque envelope marker.",
+    "orientation": "u grows right; v grows down; pixel bounds are inclusive",
+    "base_rgb": [128, 128, 128],
+    "regions_in_order": [
+      {"bounds": [0, 0, 15, 0], "rgb": [255, 255, 255]},
+      {"bounds": [0, 15, 15, 15], "rgb": [0, 0, 0]},
+      {"bounds": [0, 1, 0, 14], "rgb": [48, 48, 48]},
+      {"bounds": [15, 1, 15, 14], "rgb": [208, 208, 208]},
+      {"bounds": [1, 1, 4, 4], "rgb": [32, 32, 32]},
+      {"bounds": [11, 1, 14, 4], "rgb": [96, 96, 96]},
+      {"bounds": [1, 11, 4, 14], "rgb": [160, 160, 160]},
+      {"bounds": [11, 11, 14, 14], "rgb": [224, 224, 224]}
+    ],
+    "purpose": "Opaque plane outline and asymmetric static UV markers diagnose the native geometry envelope, plane width/height and translation; grayscale reduces channel/tint assumptions. Historical native CROSS_TEXTURE_POLY uses texture alpha for geometry, so the full-opaque envelope does not by itself establish original-foliage topology.",
+    "installation": "Only isolated resource-pack bitmap override at the existing atlas path; preserve native block name, aux, mapping, material and geometry. Cold-load or demonstrate resource reload with explicit marker-positive pixel control; successful file write alone is insufficient.",
+    "restore": "Restore original bitmap bytes and all diagnostic sources. Rebuild or cold-load the original texture and positively confirm original plant pixels before acceptance observations."
+  },
+  "calibration_coordinates": [
+    [-47, 117, -70],
+    [6, 117, 6],
+    [7, 117, 6],
+    [6, 117, 7]
+  ],
+  "holdout_coordinates": [
+    [-46, 117, -70],
+    [-47, 117, -69],
+    [15, 117, 16],
+    [16, 117, 15],
+    [-17, 117, 16],
+    [17, 117, -16],
+    [257, 117, -513],
+    [65537, 117, -65539]
+  ],
+  "height_repeat": [6, 149, 6],
+  "coordinate_roles": {
+    "calibration": "Only these four may estimate marked native plane geometry, global atlas orientation and the relation between native clip differences and visual translation. Per-cell placement is a diagnostic observation, not a universal formula.",
+    "holdout": "No geometry, offset coefficients, UV mapping, camera fit or thresholds may be changed from these images. If an independently sourced hash survives calibration, publish all holdout predictions before inspecting holdout pixels. A clip lookup used at the holdout is a proposed position-query model, not a hash-prediction test.",
+    "height_repeat": "Same X/Z as calibration at another Y tests the current-runtime Y-independence clue and high target Y handling."
+  },
+  "geometry_hypotheses": [
+    "Current native planes have constant shape/UV and per-cell translation; marker observations can reject this without using foliage texture centroids.",
+    "Differences of native clips between two cells equal differences of native visual translation for poppy, after one constant default-shape bias. Absolute bbox centroid=.5 remains unproven.",
+    "Native mesh at destination is determined by destination logical world X/Z and possibly Y, not capture origin or context/overlay encoded coordinates."
+  ],
+  "observation_order": [
+    "Independent same-session stone camera calibration and native original-texture poppy baseline.",
+    "Install isolated marker; freeze marker source and verify visible marker positive control.",
+    "Capture alpha-preserving marker positive control, freeze actual graphics mode, then capture full-opaque envelope marker at four calibration cells in two independently calibrated views; save native clip and actual states as ancillary observations. Reject the fixed-plane assumption if texture alpha changes route/topology in an unexplained way.",
+    "Publish fixed geometry hypothesis and any hash predictions, then capture marker holdouts plus Yrepeat.",
+    "Restore original bitmap and positively establish original-texture rendering.",
+    "Use untouched original textures and independent native references for dry+h0 at holdout coordinates; editor/full/missing verdicts remain separate.",
+    "Extend remaining snow heights only after dry+h0 pass; preserve failures and restoration receipts."
+  ],
+  "efficient_relocation_controls": [
+    "Keep the same frozen document while changing render origin A to B to A; expected placement is a function of destination, with no stale geometry/cache reuse.",
+    "Capture identical block/state documents at distinct source origins, render both at B, and require the same destination placement.",
+    "One document with identical poppies at several logical cells, including a 16-cell chunk boundary and snow background layers, catches identity-only cache errors.",
+    "Use logical target cell before overlay/context packing, then independently check packed and unpacked paths at the same world cell."
+  ],
+  "acceptance_boundary": {
+    "unchanged_original_foliage_roi_and_gates": true,
+    "recall": 0.75,
+    "precision": 0.75,
+    "edge_tolerance_pixels": 3,
+    "marker_full_frame_geometry_diagnostic_is_not_original_foliage_acceptance": true,
+    "high_coordinate_readback_or_capture_failure_is_retained_not_replaced": true,
+    "accepted_biome_approximation_unchanged": true
+  }
+}

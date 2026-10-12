@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "owner": "snow-r11-position",
+  "name": "snow-alpha-single-slot3-r11-v3",
+  "started_at": "2026-10-12T15:15:40.125863+00:00",
+  "production_acceptance": false,
+  "marker_pixels_verified": false,
+  "phases": [
+    {
+      "label": "launch",
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+        "start",
+        "--project",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+        "--owner",
+        "snow-r11-position",
+        "--name",
+        "snow-alpha-single-slot3-r11-v3",
+        "--mcdk",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "--noactivate-dll",
+        "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+        "--noactivate-sha256",
+        "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+        "--noactivate-mcdk-sha256",
+        "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+        "--wait",
+        "60"
+      ],
+      "started_at": "2026-10-12T15:15:41.303113+00:00",
+      "timeout_seconds": 149.99997030000668,
+      "returncode": 1,
+      "stdout": "{\n  \"schema\": 1,\n  \"id\": \"f67b34e0b2c442a594780b64d8b7b32d\",\n  \"name\": \"snow-alpha-single-slot3-r11-v3\",\n  \"owner\": \"snow-r11-position\",\n  \"project\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\",\n  \"session_file\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\session.json\",\n  \"artifacts\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\artifacts\",\n  \"appdata\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\appdata\",\n  \"log\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\mcdk.log\",\n  \"state\": \"failed\",\n  \"created_at\": 1791818141.575168,\n  \"ready\": false,\n  \"noactivation\": {\n    \"schema\": 1,\n    \"requested\": true,\n    \"dll\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-integration\\\\files\\\\.runtime\\\\native_focus_guard-final-r7\\\\native_focus_guard.dll\",\n      \"sha256\": \"c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178\"\n    },\n    \"mcdk\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\",\n      \"sha256\": \"b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9\"\n    },\n    \"patch\": \"native_focus_guard/mcdk-v1.6.1.patch\",\n    \"foreground\": {\n      \"hwnd\": 36701588,\n      \"pid\": 56284,\n      \"process\": \"ChatGPT.exe\",\n      \"identity\": \"134362669641089455\",\n      \"title\": \"ChatGPT\",\n      \"visible\": true,\n      \"minimized\": false\n    },\n    \"windows\": [\n      {\n        \"hwnd\": 51186150,\n        \"pid\": 11260,\n        \"process\": \"Minecraft.Windows.exe\",\n        \"title\": \"(1994, 1105) Minecraft\",\n        \"x\": 189,\n        \"y\": 176,\n        \"width\": 1329,\n        \"height\": 736,\n        \"minimized\": false,\n        \"noactivate\": true\n      }\n    ],\n    \"background_safe\": true,\n    \"window_noactivate\": true\n  },\n  \"mcp_url\": \"http://127.0.0.1:52112/mcp\",\n  \"port\": 52112,\n  \"world\": \"PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"game_executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\",\n  \"world_path\": \"C:\\\\Users\\\\Happy2018new\\\\AppData\\\\Roaming\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"world_link\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\appdata\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"foreground_before\": {\n    \"hwnd\": 44565462,\n    \"pid\": 23844,\n    \"process\": \"WINWORD.EXE\",\n    \"identity\": \"134362641214297353\",\n    \"title\": \"report.docx - Word\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"mcdk_pid\": 26396,\n  \"mcdk_identity\": \"134362917457212643\",\n  \"game_pid\": 11260,\n  \"game_identity\": \"134362917459245243\",\n  \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\",\n  \"foreground_after\": {\n    \"hwnd\": 36701588,\n    \"pid\": 56284,\n    \"process\": \"ChatGPT.exe\",\n    \"identity\": \"134362669641089455\",\n    \"title\": \"ChatGPT\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"foreground_before_still_valid\": true,\n  \"foreground_unchanged\": false\n}\n",
+      "stderr": "",
+      "timeout": false,
+      "finished_at": "2026-10-12T15:16:45.816752+00:00"
+    }
+  ],
+  "total_run_timeout_seconds": 150,
+  "launches": 1,
+  "backup": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\instances.py",
+      "sha256": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\.mcdev.json",
+      "sha256": "d7c27652dc9e172a87207cf1df61960914a55e3263451b5e896c246bc924d16e",
+      "restored": true
+    }
+  ],
+  "cleanup_errors": [],
+  "frozen_sources": {
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\plant-contract-r11\\marked-poppy-plan-v1.json": "cc3852cb22b99d676521e2d91bbf50d814e1464b736ff7ea7e6a11093aa67641",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py": "284bd59957c6cb26f69faf6d87272cedf00d0d442bb75bbcefb1c4a7957e8096",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\run_alpha_single_r11.py": "fdac22bb55a355929aace4701f6da04e654aeb36f67da07765a98f8b8d3b6452",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_marked_native_plant.py": "8a3f6ecb70db7a439583e140a83ab53cea7ca78542b62b17e55a2128998322b5",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_camera_projection.py": "c0e5f37586a28fb1c7b5fabe89a836149b7c1e1d090d579254c05834b4f1960e",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\capture_native_window.py": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754"
+  },
+  "live_before": [
+    {
+      "id": "773c643b5cf344918e04d8b4eef2657a",
+      "owner": "frame-r11-background",
+      "pid": 44536
+    }
+  ],
+  "marker": {
+    "schema": 1,
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+    "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\resource_pack\\textures\\blocks\\flower_rose.png",
+    "plan": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\plant-contract-r11\\marked-poppy-plan-v1.json",
+      "sha256": "cc3852cb22b99d676521e2d91bbf50d814e1464b736ff7ea7e6a11093aa67641"
+    },
+    "native_source": {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_rose.png",
+      "sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b"
+    },
+    "mode": "native_alpha_preserved",
+    "native_alpha_sha256": "7060164de76ea6e3de651a42f4a6dfbdae27dc4d86daccbd5f7b1807fce1008c",
+    "candidate_alpha_sha256": "7060164de76ea6e3de651a42f4a6dfbdae27dc4d86daccbd5f7b1807fce1008c",
+    "before_hex": null,
+    "candidate": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\poppy-alpha-marker-r11-v3_candidate.png",
+      "sha256": "46fc92e57b7a81922dd18c60a2b429be87050ce8b623fc9bfac6f9b8122de1f2"
+    },
+    "production_acceptance": false
+  },
+  "error": "RuntimeError: Bounded phase failed: launch",
+  "observation_completed": false,
+  "session": {
+    "id": "f67b34e0b2c442a594780b64d8b7b32d",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\f67b34e0b2c442a594780b64d8b7b32d\\session.json",
+    "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\f67b34e0b2c442a594780b64d8b7b32d\\artifacts",
+    "game_pid": 11260,
+    "game_identity": "134362917459245243",
+    "mcdk_pid": 26396,
+    "mcdk_identity": "134362917457212643",
+    "owner": "snow-r11-position",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow"
+  },
+  "normal_stop": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "timeout": false
+  },
+  "force_stop_after_inspection": {
+    "live_owned_kinds": [
+      "game",
+      "mcdk"
+    ],
+    "result": {
+      "returncode": 0,
+      "stdout": "{\n  \"schema\": 1,\n  \"id\": \"f67b34e0b2c442a594780b64d8b7b32d\",\n  \"name\": \"snow-alpha-single-slot3-r11-v3\",\n  \"owner\": \"snow-r11-position\",\n  \"project\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\",\n  \"session_file\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\session.json\",\n  \"artifacts\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\artifacts\",\n  \"appdata\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\appdata\",\n  \"log\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\mcdk.log\",\n  \"state\": \"stopped\",\n  \"created_at\": 1791818141.575168,\n  \"ready\": false,\n  \"noactivation\": {\n    \"schema\": 1,\n    \"requested\": true,\n    \"dll\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-integration\\\\files\\\\.runtime\\\\native_focus_guard-final-r7\\\\native_focus_guard.dll\",\n      \"sha256\": \"c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178\"\n    },\n    \"mcdk\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\",\n      \"sha256\": \"b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9\"\n    },\n    \"patch\": \"native_focus_guard/mcdk-v1.6.1.patch\",\n    \"foreground\": {\n      \"hwnd\": 36701588,\n      \"pid\": 56284,\n      \"process\": \"ChatGPT.exe\",\n      \"identity\": \"134362669641089455\",\n      \"title\": \"ChatGPT\",\n      \"visible\": true,\n      \"minimized\": false\n    },\n    \"windows\": [\n      {\n        \"hwnd\": 51186150,\n        \"pid\": 11260,\n        \"process\": \"Minecraft.Windows.exe\",\n        \"title\": \"(1994, 1105) Minecraft\",\n        \"x\": 189,\n        \"y\": 176,\n        \"width\": 1329,\n        \"height\": 736,\n        \"minimized\": false,\n        \"noactivate\": true\n      }\n    ],\n    \"background_safe\": true,\n    \"window_noactivate\": true\n  },\n  \"mcp_url\": \"http://127.0.0.1:52112/mcp\",\n  \"port\": 52112,\n  \"world\": \"PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"game_executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\",\n  \"world_path\": \"C:\\\\Users\\\\Happy2018new\\\\AppData\\\\Roaming\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"world_link\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\f67b34e0b2c442a594780b64d8b7b32d\\\\appdata\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_f67b34e0b2c442a594780b64d8b7b32d\",\n  \"foreground_before\": {\n    \"hwnd\": 44565462,\n    \"pid\": 23844,\n    \"process\": \"WINWORD.EXE\",\n    \"identity\": \"134362641214297353\",\n    \"title\": \"report.docx - Word\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"mcdk_pid\": 26396,\n  \"mcdk_identity\": \"134362917457212643\",\n  \"game_pid\": 11260,\n  \"game_identity\": \"134362917459245243\",\n  \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\",\n  \"foreground_after\": {\n    \"hwnd\": 36701588,\n    \"pid\": 56284,\n    \"process\": \"ChatGPT.exe\",\n    \"identity\": \"134362669641089455\",\n    \"title\": \"ChatGPT\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"foreground_before_still_valid\": true,\n  \"foreground_unchanged\": false\n}\n",
+      "stderr": "",
+      "timeout": false
+    }
+  },
+  "owned_processes_dead": true,
+  "marker_restore": {
+    "restored": true,
+    "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\resource_pack\\textures\\blocks\\flower_rose.png",
+    "snapshot": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\poppy-alpha-marker-r11-v3.json"
+  },
+  "marker_override_absent": true,
+  "native_texture_unchanged": true,
+  "finished_at": "2026-10-12T15:16:57.808133+00:00",
+  "run_elapsed_seconds": 76.50509970000712
+}

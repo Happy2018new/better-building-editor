@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "scope": "One bounded alpha-only startup failure, no native plant observation",
+  "production_acceptance": false,
+  "native_mesh_authority_recovered": false,
+  "native_offset_formula_recovered": false,
+  "marker_pixels_verified": false,
+  "launches": 1,
+  "fixture_mutation_started": false,
+  "timer_mutation_started": false,
+  "camera_mutation_started": false,
+  "native_capture_started": false,
+  "holdout_pixels_acquired": false,
+  "opaque_marker_installed": false,
+  "supervisor": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-supervisor-r11-v3.json",
+    "sha256": "813724a349c47e803015dabc2d8fa94a0f36f989f6d8b00e1b32c5d7df297433"
+  },
+  "supervisor_source": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\run_alpha_single_r11.py",
+    "sha256": "fdac22bb55a355929aace4701f6da04e654aeb36f67da07765a98f8b8d3b6452"
+  },
+  "original_failed_launch": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\launch-failed-original.json",
+    "sha256": "250051ac4a62344701cfa1910a6f15891ae2b80cddbcca09a08725590d56081e"
+  },
+  "stopped_session": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\f67b34e0b2c442a594780b64d8b7b32d\\session.json",
+    "sha256": "720aeb6ca76314ed0056f9263ca50ae40f2717221b8a4e1fce226845180dc3d8"
+  },
+  "owner": "snow-r11-position",
+  "session_id": "f67b34e0b2c442a594780b64d8b7b32d",
+  "processes_dead": {
+    "game": true,
+    "mcdk": true
+  },
+  "override_restored_absent": true,
+  "original_config_and_scripts_restored": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\instances.py",
+      "sha256": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-original-bytes-r11-v3\\.mcdev.json",
+      "sha256": "d7c27652dc9e172a87207cf1df61960914a55e3263451b5e896c246bc924d16e",
+      "restored": true
+    }
+  ],
+  "native_texture_unchanged": true,
+  "sources": [
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+        "sha256": "284bd59957c6cb26f69faf6d87272cedf00d0d442bb75bbcefb1c4a7957e8096"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\instances.py",
+        "sha256": "284bd59957c6cb26f69faf6d87272cedf00d0d442bb75bbcefb1c4a7957e8096"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+        "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\mcdk.py",
+        "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-native\\.mcdev.json",
+        "sha256": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\private-flat-creative.mcdev.json",
+        "sha256": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_marked_native_plant.py",
+        "sha256": "8a3f6ecb70db7a439583e140a83ab53cea7ca78542b62b17e55a2128998322b5"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\verify_marked_native_plant.py",
+        "sha256": "8a3f6ecb70db7a439583e140a83ab53cea7ca78542b62b17e55a2128998322b5"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_camera_projection.py",
+        "sha256": "c0e5f37586a28fb1c7b5fabe89a836149b7c1e1d090d579254c05834b4f1960e"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\verify_camera_projection.py",
+        "sha256": "c0e5f37586a28fb1c7b5fabe89a836149b7c1e1d090d579254c05834b4f1960e"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\capture_native_window.py",
+        "sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\capture_native_window.py",
+        "sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754"
+      }
+    },
+    {
+      "source": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\run_alpha_single_r11.py",
+        "sha256": "fdac22bb55a355929aace4701f6da04e654aeb36f67da07765a98f8b8d3b6452"
+      },
+      "archive": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\alpha-single-failure-sources-r11-v3b\\run_alpha_single_r11.py",
+        "sha256": "fdac22bb55a355929aace4701f6da04e654aeb36f67da07765a98f8b8d3b6452"
+      }
+    }
+  ],
+  "alpha_snapshot": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\poppy-alpha-marker-r11-v3.json",
+    "sha256": "135b7eba6474f3ce5e271eede9be9a8ceadfbba1f95a118061c49ce98b826fa6"
+  },
+  "candidate": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\poppy-alpha-marker-r11-v3_candidate.png",
+    "sha256": "46fc92e57b7a81922dd18c60a2b429be87050ce8b623fc9bfac6f9b8122de1f2"
+  },
+  "runtime_error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}",
+  "normal_stop": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "timeout": false
+  },
+  "identity_bound_force_stop_required": true,
+  "total_elapsed_seconds": 76.50509970000712,
+  "accepted_scope_unchanged": {
+    "positive_states": 29,
+    "height_observations": 232,
+    "negative_lower_half_states": 8,
+    "seed_name_false_rows_are_observed_negatives": false
+  }
+}
