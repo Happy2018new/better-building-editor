@@ -390,6 +390,16 @@ class ClientBridge(object):
                 self.model_layouts[alternate] = layout
         return result
 
+    def update_projection_opacity(self):
+        shader = self.projection_shader
+        if shader is None or shader.render is None:
+            return
+        try:
+            shader.control()
+        except ValueError as error:
+            traceback.print_exc()
+            self.session.editor.message = '投影透明度更新失败，请调整透明度或更新投影重试：%s' % error
+
     def update_biome_tint(self, value):
         from .biomes import actor_uniform
         work = getattr(self, 'projection_work', None)

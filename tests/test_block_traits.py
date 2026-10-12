@@ -89,3 +89,16 @@ class NativeTraitTests(unittest.TestCase):
             self.assertEqual('complete', block_traits.water_capabilities_status())
             self.assertFalse(block_traits.is_waterloggable(('minecraft:glass', 0)))
             self.assertFalse(block_traits.is_waterloggable(('minecraft:oak_stairs', 2)))
+
+    def test_stale_trait_schema_version_or_dump_never_applies_old_capabilities(self):
+        for field, value in (('SCHEMA_VERSION', 99), ('SOURCE_VERSION', 'NEMC future'),
+                             ('SOURCE_SHA256', '0' * 64)):
+            with self.subTest(field=field), patch.object(block_traits_data, field, value):
+                for query, material in ((block_traits.is_solid, ('minecraft:stone', 0)),
+                                         (block_traits.is_waterloggable, ('minecraft:oak_fence', 0)),
+                                         (block_traits.is_snow_coverable, ('minecraft:poppy', 0))):
+                    with self.assertRaisesRegex(ValueError, 'regeneration'):
+                        query(material)
+                with self.assertRaisesRegex(ValueError, 'regeneration'):
+                    block_traits.water_capabilities_status()
+                self.assertFalse(block_traits.is_waterloggable(('custom:unknown', 0)))

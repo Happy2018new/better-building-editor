@@ -489,6 +489,63 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual('jungle', b.projection_work.document.biome)
         self.assertEqual(actor_uniform('jungle')[:2] + (1., b.session.opacity), r.uniform_slots[b.entity, 4])
 
+    def test_opacity_slider_updates_full_and_missing_ghost_without_geometry_rebuild(self):
+        b, r = self.bridge, self.runtime
+        geometry = b.geometry
+        for missing in (False, True):
+            b.session.projection_missing = missing
+            b.geometry = geometry
+            b.project()
+            self.drain_projection()
+            entity, shader = b.entity, b.projection_shader
+            before = shader.uniforms[4]
+            b.geometry = lambda *args, **kwargs: self.fail('opacity must not rebuild geometry')
+            opacity = .3 if missing else .7
+            with patch.object(r, 'SetEntityExtraUniforms', wraps=r.SetEntityExtraUniforms) as write:
+                b.session.range_value('opacity', opacity, editor=False)
+                self.assertEqual(before[:3] + (opacity,), r.uniform_slots[entity, 4])
+                self.assertEqual(1, write.call_count)
+                for unused in range(5):
+                    b.update_projection_occupancy()
+                    b.session.range_value('opacity', opacity, editor=False)
+                self.assertEqual(1, write.call_count)
+            self.assertEqual(entity, b.entity)
+            self.assertIs(shader, b.projection_shader)
+            b.stop_projection()
+            self.drain_projection()
+
+    def test_opacity_write_failure_keeps_previous_payload_and_reports_retryable_error(self):
+        b, r = self.bridge, self.runtime
+        b.project()
+        self.drain_projection()
+        entity, shader = b.entity, b.projection_shader
+        previous = shader.uniforms[4]
+        with patch.object(r, 'SetEntityExtraUniforms', return_value=False) as write:
+            b.session.range_value('opacity', .7, editor=False)
+            self.assertEqual(previous, shader.uniforms[4])
+            self.assertEqual(previous, r.uniform_slots[entity, 4])
+            self.assertIn('Could not update projection shader', b.session.editor.message)
+            for unused in range(5):
+                b.update_projection_occupancy()
+            self.assertEqual(1, write.call_count)
+        b.session.range_value('opacity', .6, editor=False)
+        self.assertEqual(.6, r.uniform_slots[entity, 4][3])
+        self.assertEqual(entity, b.entity)
+
+    def test_opacity_during_initial_or_replacement_preparation_reaches_new_actor(self):
+        b, r = self.bridge, self.runtime
+        b.entity = None
+        for opacity in (.7, .3):
+            previous = b.entity
+            b.project()
+            b.session.range_value('opacity', opacity, editor=False)
+            if previous is not None:
+                self.assertEqual(opacity, r.uniform_slots[previous, 4][3])
+            self.drain_projection()
+            self.assertNotEqual(previous, b.entity)
+            self.assertEqual(opacity, r.uniform_slots[b.entity, 4][3])
+            self.assertTrue(b.projection_work.ready)
+
     def test_camera_anchor_retries_transient_native_failure_without_camera_motion(self):
         b, r = self.bridge, self.runtime
         b.session.origin = (0,64,0)

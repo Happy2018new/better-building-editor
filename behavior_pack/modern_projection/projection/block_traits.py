@@ -7,18 +7,24 @@ from .block_registry import canonical
 
 
 def is_solid(value):
+    _validate_source('block')
     return value[0] in SOLID_BLOCKS
 
 
-def is_snow_coverable(value):
+def _validate_source(capability):
     if (getattr(_data, 'SCHEMA_VERSION', None) != 1 or
             getattr(_data, 'SOURCE_VERSION', None) != registry.source_version() or
             getattr(_data, 'SOURCE_SHA256', None) != registry.fingerprint()):
-        raise ValueError('Native snow capabilities need regeneration for this block registry')
+        raise ValueError('Native ' + capability + ' capabilities need regeneration for this block registry')
+
+
+def is_snow_coverable(value):
+    _validate_source('snow')
     return value[0] in SNOW_COVERABLE_BLOCKS
 
 
 def water_capabilities_status():
+    _validate_source('water')
     if (getattr(_data, 'WATERLOGGABLE_BLOCKS', None) is None or
             getattr(_data, 'WATERLOGGABLE_AUX', None) is None):
         return 'unavailable'

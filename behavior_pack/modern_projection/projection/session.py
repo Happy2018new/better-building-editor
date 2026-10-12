@@ -258,6 +258,8 @@ class Session(object):
         serial = self.parameter_serial
         if field == 'layer':
             self.refresh_preview()
+        elif field == 'opacity' and not editor and hasattr(self.bridge, 'update_projection_opacity'):
+            self.bridge.update_projection_opacity()
 
         def settled():
             if serial == self.parameter_serial:

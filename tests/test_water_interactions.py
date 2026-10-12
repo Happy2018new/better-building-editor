@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -14,6 +15,7 @@ from projection.model import Document, Editor
 from projection.sharing_codec import decode_steps, encode_steps
 from projection.water_interactions import accepts_source, is_source, source_state
 from projection.water_interaction_data import SOURCE_STATE_CHANGES, WATER_SENSITIVE_BLOCKS
+from projection import water_interaction_data
 
 spec = importlib.util.spec_from_file_location('water_generator', ROOT / 'tools/generate_water_interactions.py')
 generator = importlib.util.module_from_spec(spec)
@@ -32,6 +34,20 @@ def material(name, **properties):
 
 
 class WaterInteractionTests(unittest.TestCase):
+    def test_stale_interaction_tables_refuse_auto_edit_and_preserve_strict_snapshots(self):
+        lit = material('campfire', extinguished=False)
+        water = material('water')
+        for field, value in (('SCHEMA_VERSION', 99), ('SOURCE_VERSION', 'NEMC future'),
+                             ('PALETTE_SHA256', '0' * 64)):
+            with self.subTest(field=field), patch.object(water_interaction_data, field, value):
+                with self.assertRaisesRegex(ValueError, 'regeneration'):
+                    accepts_source(lit)
+                with self.assertRaisesRegex(ValueError, 'regeneration'):
+                    source_state(lit)
+                with self.assertRaisesRegex(ValueError, 'regeneration'):
+                    edit_cell(lit, water, 2)
+                self.assertEqual(make_cell(lit, water), edit_cell(lit, water, 1))
+
     def test_depth_identifies_source_for_both_native_water_names(self):
         fence = material('oak_fence')
         for name in ('water', 'flowing_water'):
