@@ -12,7 +12,8 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
 from generate_static_plant_proxies import (SOURCE, validate, outputs, SPECIAL, CANDIDATES,
-                                          source_path, digest)
+                                          source_path, digest, acceptance_metadata,
+                                          ACCEPTANCE_MANIFESTS)
 
 
 class StaticPlantProxyTests(unittest.TestCase):
@@ -91,6 +92,35 @@ class StaticPlantProxyTests(unittest.TestCase):
         for version in ('NEMC ', 'Other 4.0.0.123'):
             with self.subTest(version=version), self.assertRaises(ValueError):
                 source_path({'game_version': version})
+
+    def test_generated_acceptance_retains_only_original_cells_and_measured_views(self):
+        data = {}
+        files = outputs(self.source)
+        exec(files[ROOT/'behavior_pack/modern_projection/projection/plant_proxy_data.py'], data)
+        self.assertEqual(digest(SOURCE), data['SOURCE_MANIFEST_SHA256'])
+        self.assertEqual(1, data['ACCEPTANCE_SCHEMA_VERSION'])
+        scopes = data['STATIC_PLANT_ACCEPTANCE']
+        self.assertEqual(set(data['STATIC_PLANT_PROXIES']), set(scopes))
+        for material, scope in scopes.items():
+            self.assertEqual((-47, 117, -70), scope['native_target'])
+            expected_views = ('public',) if 'mushroom' in material[0] else ('public', 'right')
+            self.assertEqual(set(expected_views), set(scope['views']))
+            self.assertEqual(tuple(range(8)), scope['snow_heights'])
+            self.assertEqual(('full', 'missing'), scope['world_modes'])
+            self.assertEqual('1.21.120.0', scope['runtime_minecraft_version'])
+            self.assertTrue(scope['dry_native_controls'])
+            self.assertTrue(scope['independent_editor_controls'])
+            self.assertFalse(scope['other_positions_or_runtime_versions_accepted'])
+            self.assertFalse(scope['native_mesh_authority'])
+            self.assertFalse(scope['random_offset_contract_recovered'])
+            self.assertEqual(digest(ROOT/scope['acceptance_manifest']),
+                             scope['acceptance_manifest_sha256'])
+
+    def test_changed_acceptance_manifest_is_rejected_before_generation(self):
+        changed = tuple((relative, '0'*64) for relative, expected in ACCEPTANCE_MANIFESTS)
+        with patch('generate_static_plant_proxies.ACCEPTANCE_MANIFESTS', changed):
+            with self.assertRaisesRegex(ValueError, 'acceptance evidence changed'):
+                acceptance_metadata(self.source)
 
     def test_fungus_all_height_acceptance_preserves_disjoint_original_evidence(self):
         evidence = self.source['geometry_evidence']['fungus_all_heights_r8']

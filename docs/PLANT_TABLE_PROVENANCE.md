@@ -22,6 +22,18 @@ are hand-authored approximations, not dump-generated plant mesh tables. They
 do not acquire native mesh or random-offset authority from the generated
 table's provenance metadata.
 
+The generated table also retains the native source manifest hash and
+`STATIC_PLANT_ACCEPTANCE`, with a separate acceptance schema. Each material
+records the hashed original acceptance manifest, runtime version, fixed
+native target, measured views, snow heights and independent controls.
+Brown/red mushrooms retain only the public shape-comparison view; the R7
+right/tilted camera calibration does not accept mushroom shapes at those
+views. Crimson/warped fungus retain public/right. The generator rejects a
+changed acceptance manifest before emitting these records. All four records
+explicitly deny acceptance at other positions or versions and deny native
+mesh or random-offset authority. These records describe evidence limits;
+they do not disable the existing approximate rendering outside those limits.
+
 Runtime metadata matching is a deployment compatibility check, not a new
 native pixel acceptance. It neither verifies installed resource bytes nor
 proves engine behavior for another game version, cell or view. Version

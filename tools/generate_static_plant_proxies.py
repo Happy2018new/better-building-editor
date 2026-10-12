@@ -4,6 +4,7 @@ from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
+from pprint import pformat
 import sys
 
 from PIL import Image
@@ -27,6 +28,12 @@ SOURCE = source_path(json.loads(MANIFEST.read_text(encoding='utf8')))
 TEMPLATE = ROOT/'resource_pack/models/netease_block/preview_fern.json'
 EXISTING = frozenset(('short_grass', 'fern'))
 CANDIDATES = frozenset(('brown_mushroom', 'red_mushroom', 'crimson_fungus', 'warped_fungus'))
+ACCEPTANCE_MANIFESTS = (
+    ('docs/snow-mushroom-acceptance-r7.json',
+     '7a77045721bf0a9795dbd67070b1f30bc1a05f50ed5f16a490f6c881e3531f81'),
+    ('tools/data/snow-fungus-all-height-acceptance-r8.json',
+     '0dbedac4a965a621c22a6a029cfa1632f6ea83d39175fb714de1d13b7c609542'),
+)
 SPECIAL = {
     'firefly_bush': 'Emissive animated texture requires a separate material and phase contract',
     'open_eyeblossom': 'Emissive texture and day/night lifecycle require separate evidence',
@@ -83,6 +90,46 @@ GEOMETRY_EVIDENCE = {
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def acceptance_metadata(spec):
+    """Retain measured scope without granting the mesh broader authority."""
+    scopes = {}
+    for relative, expected in ACCEPTANCE_MANIFESTS:
+        path = ROOT/relative
+        if digest(path) != expected:
+            raise ValueError('Static plant acceptance evidence changed: '+relative)
+        acceptance = json.loads(path.read_bytes())
+        scope, environment = acceptance['accepted_scope'], acceptance['environment']
+        if ('NEMC '+environment['nemc_version']) != spec['game_version']:
+            raise ValueError('Static plant acceptance version differs: '+relative)
+        if 'views' in scope:
+            target, views = scope['native_target'], scope['views']
+        else:
+            fixture = acceptance['fixture']
+            target = fixture['native_target']
+            views = {'public': fixture['public_world_camera_offset']}
+        for name in scope['plants']:
+            if name not in CANDIDATES or ('minecraft:'+name, 0) in scopes:
+                raise ValueError('Static plant acceptance coverage differs: '+name)
+            heights = scope['snow_heights']
+            scopes[('minecraft:'+name, 0)] = {
+                'acceptance_manifest': relative,
+                'acceptance_manifest_sha256': expected,
+                'runtime_minecraft_version': environment['runtime_minecraft_version'],
+                'native_target': tuple(target),
+                'views': {view: tuple(offset) for view, offset in views.items()},
+                'snow_heights': tuple(heights[name] if isinstance(heights, dict) else heights),
+                'world_modes': tuple(scope['world_modes']),
+                'dry_native_controls': scope['dry_native_controls'],
+                'independent_editor_controls': scope['independent_editor_controls'],
+                'other_positions_or_runtime_versions_accepted': False,
+                'native_mesh_authority': False,
+                'random_offset_contract_recovered': False,
+            }
+    if set(scopes) != {('minecraft:'+name, 0) for name in CANDIDATES}:
+        raise ValueError('Static plant acceptance evidence is incomplete')
+    return scopes
 
 
 def named_texture(definition, terrain):
@@ -192,6 +239,9 @@ def outputs(spec):
              'SCHEMA_VERSION = 1',
              'SOURCE_VERSION = '+repr(spec['game_version']),
              'PALETTE_SHA256 = '+repr(spec['palette_sha256'].lower()),
+             'SOURCE_MANIFEST_SHA256 = '+repr(digest(SOURCE)),
+             'ACCEPTANCE_SCHEMA_VERSION = 1',
+             'STATIC_PLANT_ACCEPTANCE = '+pformat(acceptance_metadata(spec), width=100),
              'STATIC_PLANT_PROXIES = {']
     for name in sorted(CANDIDATES):
         source = spec['plants'][name]
