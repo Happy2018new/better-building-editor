@@ -33,6 +33,23 @@ frozen-content capture remain available and hash-bound in
 `tools/data/plant-position-native-evidence-r11-v2.json`. No opaque marker was
 installed and no holdout images were acquired.
 
+The immutable evidence pack SHA-256 values bind the original bytes:
+
+| Evidence Pack | SHA-256 |
+| --- | --- |
+| `plant-position-native-evidence-r11-v1.json` | `2ecc660c60dba961a637b9fd10e2a00c591a4a7a9f4fcc4bf6bdf4142bc76e5b` |
+| `plant-position-native-evidence-r11-v2.json` | `8a8fcc2782cc9413bf90c997917833f9712bcbc5a7355bceeb248d1feec1c9dc` |
+
+These reports retain their original CRLF bytes. The `.gitattributes` rule
+`tools/data/plant-position-native-evidence-r11-v*.json -text` is required to
+prevent Git line-ending normalization from changing those byte hashes. Adding
+`-text` cannot recover original bytes from a previously normalized commit; use
+the retained original file, without reserializing it or changing the expected
+hash. `tests/test_plant_position_evidence_r11.py` verifies both raw hashes and
+the parsed baseline, failures, restoration and acceptance boundaries using only
+repository files. It does not require the external host artifact paths recorded
+inside the packs, and it does not recertify the current state of those paths.
+
 `GetToggleOption(OptionId.GRAPHICS)` returned `-1`, which the documented API means
 is unsupported. The baseline therefore does not establish the exact graphics
 mode. Native clip boxes and foliage images do not establish mesh pivots or a
