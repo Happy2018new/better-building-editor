@@ -23,6 +23,20 @@ def is_snow_coverable(value):
     return value[0] in SNOW_COVERABLE_BLOCKS
 
 
+def snow_capability(value):
+    """Return exact-state evidence within its recorded native probe fixture."""
+    _validate_source('snow')
+    material = registry.try_canonical(value)
+    if material is None:
+        return 'unknown'
+    name, aux = material
+    if aux in getattr(_data, 'SNOW_SUPPORTED_AUX', {}).get(name, ()):
+        return 'supported'
+    if aux in getattr(_data, 'SNOW_UNSUPPORTED_AUX', {}).get(name, ()):
+        return 'unsupported'
+    return 'unknown'
+
+
 def water_capabilities_status():
     _validate_source('water')
     if (getattr(_data, 'WATERLOGGABLE_BLOCKS', None) is None or

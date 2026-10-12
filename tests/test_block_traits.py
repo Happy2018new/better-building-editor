@@ -26,6 +26,31 @@ class NativeTraitTests(unittest.TestCase):
             self.assertFalse(block_traits.is_solid(('minecraft:' + name, 0)), name)
         self.assertFalse(block_traits.is_solid(('custom:unknown', 0)))
 
+    def test_snow_evidence_distinguishes_recorded_states_from_unknown_names_and_aux(self):
+        self.assertEqual('supported', block_traits.snow_capability(('minecraft:poppy', 0)))
+        self.assertEqual('unsupported', block_traits.snow_capability(('minecraft:tall_grass', 0)))
+        for material in (('minecraft:stone', 0), ('minecraft:acacia_door', 0),
+                         ('minecraft:unseen_snow_plant', 0), ('custom:unknown', 0),
+                         ('minecraft:poppy', 999)):
+            with self.subTest(material=material):
+                self.assertEqual('unknown', block_traits.snow_capability(material))
+        self.assertTrue(block_traits.is_snow_coverable(('minecraft:poppy', 999)))
+        self.assertFalse(block_traits.is_snow_coverable(('minecraft:acacia_door', 0)))
+
+    def test_paired_snow_evidence_does_not_expand_to_upper_halves_or_other_growth(self):
+        self.assertEqual('unsupported', block_traits.snow_capability(('minecraft:pitcher_crop', 14)))
+        for material in (('minecraft:tall_grass', 1), ('minecraft:large_fern', 1),
+                         ('minecraft:pitcher_crop', 0), ('minecraft:pitcher_crop', 15)):
+            with self.subTest(material=material):
+                self.assertEqual('unknown', block_traits.snow_capability(material))
+
+    def test_missing_snow_observation_tables_are_unknown(self):
+        with patch.object(block_traits_data, 'SNOW_SUPPORTED_AUX', {}), \
+                patch.object(block_traits_data, 'SNOW_UNSUPPORTED_AUX', {}):
+            self.assertEqual('unknown', block_traits.snow_capability(('minecraft:poppy', 0)))
+            self.assertEqual('unknown', block_traits.snow_capability(('minecraft:tall_grass', 0)))
+            self.assertTrue(block_traits.is_snow_coverable(('minecraft:poppy', 0)))
+
     def test_checked_in_native_water_evidence_drives_both_orders_and_layer_erasure(self):
         from projection.cell import AIR, background, edit_cell, foreground, make_cell
         self.assertEqual('complete', block_traits.water_capabilities_status())
@@ -96,7 +121,9 @@ class NativeTraitTests(unittest.TestCase):
             with self.subTest(field=field), patch.object(block_traits_data, field, value):
                 for query, material in ((block_traits.is_solid, ('minecraft:stone', 0)),
                                          (block_traits.is_waterloggable, ('minecraft:oak_fence', 0)),
-                                         (block_traits.is_snow_coverable, ('minecraft:poppy', 0))):
+                                         (block_traits.is_snow_coverable, ('minecraft:poppy', 0)),
+                                         (block_traits.snow_capability, ('minecraft:poppy', 0)),
+                                         (block_traits.snow_capability, ('minecraft:unseen_snow_plant', 0))):
                     with self.assertRaisesRegex(ValueError, 'regeneration'):
                         query(material)
                 with self.assertRaisesRegex(ValueError, 'regeneration'):

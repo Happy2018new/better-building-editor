@@ -4,6 +4,8 @@ SCHEMA_VERSION = 1
 SOURCE_VERSION = 'NEMC 3.9.0.401155'
 SOURCE_SHA256 = '6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01'
 SNOW_SOURCE_SHA256 = 'a6e303b4d1264d112a3bc568cc16f39c2fd7f503ce4d8444215a6dcdace263f7'
+SNOW_STATE_SOURCE_SHA256 = 'e5bb21687e3a8692654b11411b8f0a7d1e8840c660b66f1a1def90906bd55fd0'
+PAIRED_SNOW_SOURCE_SHA256 = '2aa5337a376bc0d07e94997db5a761b8dec70a76e73076aac0cddd9834fa5223'
 WATER_SOURCE_SHA256 = 'aa83618f4332d24eb358bab587630bbd893a67b30f55249e0a8c3383112b319d'
 SOLID_BLOCKS = frozenset((
     'minecraft:acacia_double_slab',
@@ -637,6 +639,47 @@ SNOW_COVERABLE_BLOCKS = frozenset((
     'minecraft:white_tulip',
     'minecraft:wither_rose',
 ))
+SNOW_SUPPORTED_AUX = {
+    'minecraft:allium': frozenset((0,)),
+    'minecraft:azure_bluet': frozenset((0,)),
+    'minecraft:blue_orchid': frozenset((0,)),
+    'minecraft:brown_mushroom': frozenset((0,)),
+    'minecraft:bush': frozenset((0,)),
+    'minecraft:closed_eyeblossom': frozenset((0,)),
+    'minecraft:cornflower': frozenset((0,)),
+    'minecraft:crimson_fungus': frozenset((0,)),
+    'minecraft:crimson_roots': frozenset((0,)),
+    'minecraft:dandelion': frozenset((0,)),
+    'minecraft:fern': frozenset((0,)),
+    'minecraft:firefly_bush': frozenset((0,)),
+    'minecraft:lily_of_the_valley': frozenset((0,)),
+    'minecraft:nether_sprouts': frozenset((0,)),
+    'minecraft:open_eyeblossom': frozenset((0,)),
+    'minecraft:orange_tulip': frozenset((0,)),
+    'minecraft:oxeye_daisy': frozenset((0,)),
+    'minecraft:pink_tulip': frozenset((0,)),
+    'minecraft:poppy': frozenset((0,)),
+    'minecraft:red_mushroom': frozenset((0,)),
+    'minecraft:red_tulip': frozenset((0,)),
+    'minecraft:short_dry_grass': frozenset((0,)),
+    'minecraft:short_grass': frozenset((0,)),
+    'minecraft:tall_dry_grass': frozenset((0,)),
+    'minecraft:torchflower': frozenset((0,)),
+    'minecraft:warped_fungus': frozenset((0,)),
+    'minecraft:warped_roots': frozenset((0,)),
+    'minecraft:white_tulip': frozenset((0,)),
+    'minecraft:wither_rose': frozenset((0,)),
+}
+SNOW_UNSUPPORTED_AUX = {
+    'minecraft:large_fern': frozenset((0,)),
+    'minecraft:lilac': frozenset((0,)),
+    'minecraft:peony': frozenset((0,)),
+    'minecraft:pitcher_crop': frozenset((14,)),
+    'minecraft:pitcher_plant': frozenset((0,)),
+    'minecraft:rose_bush': frozenset((0,)),
+    'minecraft:sunflower': frozenset((0,)),
+    'minecraft:tall_grass': frozenset((0,)),
+}
 WATERLOGGABLE_COMPLETE = True
 WATERLOGGABLE_BLOCKS = frozenset((
     'minecraft:acacia_button',

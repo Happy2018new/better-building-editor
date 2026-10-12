@@ -10,8 +10,26 @@ bridge's geometry cache and both missing-context preparation routes.
 `block_traits.is_snow_coverable` applies the same schema/version/dump guard
 before consulting generated snow eligibility. `generate_block_traits.py`
 validates native metadata, snow and water source exports against one registry;
-the generated file retains their source fingerprints. This runtime snow guard
-does not add a provisional snow capability model or change the accepted set.
+the generated file retains their source fingerprints. The boolean editing
+allowlist remains the same 29 names and still queries by name.
+
+`block_traits.snow_capability((name, aux))` separately reports `supported`,
+`unsupported` or `unknown` for the exact canonical state under the same guard.
+The generated `SNOW_SUPPORTED_AUX` table comes from the 232 immediate/delayed
+layered readbacks in `native_snow_states_nemc_3.9.0.401155.json`: 29 states at
+eight snow heights. `SNOW_UNSUPPORTED_AUX` comes from the eight verified lower
+states in `native_paired_snow_nemc_3.9.0.401155.json`, where `SetSnowBlock`
+returned false and the complete supported lower/upper fixture stayed unchanged.
+Both observation sources retain generated SHA-256 fingerprints. These statuses
+describe eligibility within those recorded fixtures, not visual acceptance or
+behavior in every context.
+
+The original 148-name seed export contains API-return booleans without state
+readbacks; its 119 negative names do not become observed negative states.
+An unmeasured name, invalid or unmeasured aux, paired upper half, and unmeasured
+crop growth state report `unknown`. In particular, the paired pitcher-crop
+negative applies only to measured lower aux 14, not its default aux or upper
+half. The query does not change editing, rendering or production plant defaults.
 
 The four static plant proxies come from the versioned
 `tools/data/static_plant_sources_nemc_3.9.0.401155.json` snapshot and
