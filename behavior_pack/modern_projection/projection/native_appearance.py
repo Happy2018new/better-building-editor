@@ -15,7 +15,7 @@ FRAME_NAMES = frozenset(('minecraft:frame', 'minecraft:glow_frame'))
 
 
 def validate_source():
-    if (SOURCE_VERSION != registry.source_version() or
+    if (SCHEMA_VERSION != 2 or SOURCE_VERSION != registry.source_version() or
             PALETTE_SHA256 != registry.fingerprint()):
         raise ValueError('Native appearance rules need observations for this block registry')
 
@@ -46,8 +46,9 @@ def transform_frame_rotation(value, facing, operation):
     Angles turn clockwise when looking at the displayed surface. Reflections
     preserve the representable item direction, not reflected item artwork.
     """
-    from .frame_rotation_data import SOURCE_VERSION as frame_version, PALETTE_SHA256 as frame_palette
-    if frame_version != registry.source_version() or frame_palette != registry.fingerprint():
+    from . import frame_rotation_data as source
+    if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != registry.source_version() or
+            source.PALETTE_SHA256 != registry.fingerprint()):
         raise ValueError('Native frame rotation rules need observations for this block registry')
     if operation.startswith('rotate_y'):
         if facing > 1:

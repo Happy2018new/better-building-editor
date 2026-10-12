@@ -118,9 +118,14 @@ class FrameOrientationTests(unittest.TestCase):
         changed = transform(make_cell(material, nbt=payload), 'mirror_y')
         self.assertEqual(135., scalar(root_payload(actor_data(changed)), 'ItemRotation'))
         self.assertEqual(set(payload), set(actor_data(changed)))
-        with patch.object(frame_rotation_data, 'PALETTE_SHA256', 'future'):
-            with self.assertRaises(ValueError):
-                transform(make_cell(material, nbt=payload), 'mirror_x')
+        original = make_cell(material, nbt=payload)
+        before = actor_data(original)
+        for field, invalid in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'future'),
+                               ('PALETTE_SHA256', 'future')):
+            with self.subTest(field=field), patch.object(frame_rotation_data, field, invalid):
+                with self.assertRaises(ValueError):
+                    transform(original, 'mirror_x')
+            self.assertEqual(before, actor_data(original))
 
 
 if __name__ == '__main__':

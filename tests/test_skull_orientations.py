@@ -103,9 +103,13 @@ class SkullOrientationTests(unittest.TestCase):
 
     def test_stale_observations_and_non_native_tag_types_are_not_silently_applied(self):
         original = self.source('minecraft:skeleton_skull', 45.)
-        with patch.object(native_appearance, 'SOURCE_VERSION', 'future'):
-            with self.assertRaises(ValueError):
-                transform(original, 'rotate_y90')
+        before = actor_data(original)
+        for field, invalid in (('SCHEMA_VERSION', 3), ('SOURCE_VERSION', 'future'),
+                               ('PALETTE_SHA256', 'future')):
+            with self.subTest(field=field), patch.object(native_appearance, field, invalid):
+                with self.assertRaises(ValueError):
+                    transform(original, 'rotate_y90')
+            self.assertEqual(before, actor_data(original))
         material = tuple(original)
         payload = entity_nbt(actor_data(original))
         payload['Rotation']['__type__'] = 1

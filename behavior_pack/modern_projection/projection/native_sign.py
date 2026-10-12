@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from .cell import freeze, thaw, integer_types, text_type
 from .nbt_spatial import field_key, root_payload, scalar, set_scalar
 from .native_sign_data import SOURCE_VERSION, PALETTE_SHA256, TEMPLATES, STYLE_FIELDS
+from . import native_sign_data as _data
 from .visible_actor import entity_nbt
 
 SCHEMA_VERSION = 1
@@ -28,7 +29,8 @@ def native_sign_actor(material, actor, renderer):
     if template is None:
         return None
     from . import block_registry as registry
-    if SOURCE_VERSION != registry.source_version() or PALETTE_SHA256 != registry.fingerprint():
+    if (_data.SCHEMA_VERSION != 1 or SOURCE_VERSION != registry.source_version() or
+            PALETTE_SHA256 != registry.fingerprint()):
         raise ValueError('Native sign rendering needs observations for this block registry')
     state = registry.states(material)
     if state is None:

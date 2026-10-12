@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
-from projection import block_registry as registry
+from projection import block_registry as registry, native_sign_data
 from projection.native_sign import native_sign_actor
 from projection.native_sign_data import TEMPLATES
 from projection.visible_actor import compose_actor
@@ -90,6 +90,27 @@ class NativeSignTests(unittest.TestCase):
         with patch.object(registry,'fingerprint',return_value='future'):
             with self.assertRaisesRegex(ValueError,'observations'):
                 native_sign_actor(('minecraft:standing_sign',0),None,None)
+
+    def test_unknown_sign_schema_rejects_rendering_without_mutating_input(self):
+        for row in self.evidence['styles']:
+            material = tuple(row['material'])
+            source = {'volume': (1, 1, 1), 'common': {material: [0]},
+                      'actor': {material[0]: {0: compose_actor({}, row['nbt'])}}}
+            before = copy.deepcopy(source)
+            with self.subTest(material=material), patch.object(native_sign_data, 'SCHEMA_VERSION', 2):
+                with self.assertRaisesRegex(ValueError, 'observations'):
+                    prepare_palette(source)
+            self.assertEqual(before, source)
+
+    def test_unknown_sign_schema_rejects_blueprint_before_population(self):
+        from projection.debug_sign_blueprints import populate
+        from unittest.mock import Mock
+        fixture = Mock()
+        with patch.object(native_sign_data, 'SCHEMA_VERSION', 2):
+            with self.assertRaisesRegex(ValueError, 'observations'):
+                populate(fixture)
+        fixture.floor.assert_not_called()
+        fixture.put.assert_not_called()
 
 
 if __name__=='__main__':

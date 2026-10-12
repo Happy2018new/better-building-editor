@@ -4,6 +4,7 @@ from .cell import AIR, actor_data, foreground, make_cell
 from .nbt_spatial import root_payload, scalar, rebase
 from .visible_actor import compose_actor
 from .native_sign_data import SOURCE_VERSION, PALETTE_SHA256, OBSERVED_STYLES
+from . import native_sign_data as source
 
 SCHEMA_VERSION = 1
 IDENTITY = 'test.entities.signs'
@@ -34,7 +35,8 @@ VISUAL_CASE = {'schema':3,'fixture':IDENTITY,'cases':CASES,'isolated_size':(3,3,
 def populate(fixture):
     from . import block_registry as registry
     from .debug_blueprints import material
-    if SOURCE_VERSION != registry.source_version() or PALETTE_SHA256 != registry.fingerprint():
+    if (source.SCHEMA_VERSION != 1 or SOURCE_VERSION != registry.source_version() or
+            PALETTE_SHA256 != registry.fingerprint()):
         raise ValueError('Native sign blueprints need observations for this block registry')
     fixture.floor()
     for case in CASES:
