@@ -4,13 +4,16 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from capture_native_state_transform_shapes import (DEFAULT_NAMES, WRITE_CELLS, door_pair_palettes,
                                                    matrix, rays, reserve_positions, states_exact)
 import analyze_native_state_transform_shapes as analyzer
+import capture_native_state_transform_shapes as capture_tool
 
 
 def cube_hit(pos, ray):
@@ -86,7 +89,96 @@ def synthetic_stair_capture():
     return raw
 
 
+def protected_binding():
+    source = capture_tool.source_record(capture_tool.__file__)
+    return {'project': str(ROOT), 'id': 'test-instance', 'owner': 'test-owner',
+            'game_pid': 123, 'game_identity': '456', 'mcdk_pid': 124, 'mcdk_identity': '457',
+            'mcp_url': 'http://127.0.0.1:1/mcp', 'game_executable': 'test-game',
+            'noactivation': {'requested': True, 'background_safe': True,
+                             'window_noactivate': True, 'mcdk': source, 'dll': source}}
+
+
 class NativeStateTransformShapeTests(unittest.TestCase):
+    def test_schema_two_binds_protected_launch_and_sources_without_changing_schema_one(self):
+        raw = synthetic_stair_capture()
+        original = analyzer.analyze(raw)
+        binding = protected_binding()
+        raw.update(schema=2, instance={key: value for key, value in binding.items()
+                                     if key != 'noactivation'},
+                   noactivation=binding['noactivation'], session_file='test-session.json',
+                   mutation_attempted=True,
+                   host_sources={key: capture_tool.source_record(capture_tool.__file__)
+                                 for key in ('probe', 'mcp_wrapper', 'session_loader')})
+        raw['probe_source_sha256'] = raw['host_sources']['probe']['sha256']
+        self.assertEqual(original['checks'], analyzer.analyze(raw)['checks'])
+        self.assertTrue(analyzer.analyze(raw)['physical_orientation_accepted'])
+        for kind in ('unprotected', 'missing_wrapper', 'wrong_probe', 'missing_mcdk_identity',
+                     'malformed_instance', 'malformed_sources'):
+            failed = copy.deepcopy(raw)
+            if kind == 'unprotected':
+                failed['noactivation']['window_noactivate'] = False
+            elif kind == 'missing_wrapper':
+                del failed['host_sources']['mcp_wrapper']
+            elif kind == 'wrong_probe':
+                failed['probe_source_sha256'] = '0' * 64
+            elif kind == 'missing_mcdk_identity':
+                del failed['instance']['mcdk_identity']
+            elif kind == 'malformed_instance':
+                failed['instance'] = []
+            else:
+                failed['host_sources'] = None
+            with self.assertRaisesRegex(ValueError, 'schema 2'):
+                analyzer.analyze(failed)
+
+    def test_connection_failure_records_no_world_mutation_and_preserves_error(self):
+        binding = protected_binding()
+        for failure in ('construct', 'enter'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / 'failure.json'
+                with mock.patch.dict(capture_tool.os.environ), \
+                        mock.patch.object(capture_tool, 'load_session', return_value=binding), \
+                        mock.patch.object(capture_tool, 'Client') as client, \
+                        mock.patch.object(capture_tool, 'execute') as execute:
+                    if failure == 'construct':
+                        client.side_effect = RuntimeError('connection failed')
+                    else:
+                        client.return_value.__enter__.side_effect = RuntimeError('binding failed')
+                    report = capture_tool.capture(output, Path(directory) / 'session.json',
+                                                  'test-owner', ('minecraft:wooden_door',))
+                self.assertFalse(report['completed'])
+                self.assertTrue(report['restored'])
+                self.assertFalse(report['mutation_attempted'])
+                self.assertIn('RuntimeError:', report['error'])
+                self.assertEqual({'restored': True, 'marker_present': False,
+                                  'mutation_attempted': False}, report['cleanup'])
+                execute.assert_not_called()
+                self.assertEqual(json.loads(json.dumps(report)), json.loads(output.read_bytes()))
+                with self.assertRaisesRegex(ValueError, 'complete and restored'):
+                    analyzer.analyze(report)
+
+    def test_schema_two_refuses_missing_protection_or_changed_binary_before_connecting(self):
+        for kind in ('missing_protection', 'changed_binary'):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as directory:
+                binding = protected_binding()
+                if kind == 'missing_protection':
+                    del binding['noactivation']
+                else:
+                    binding['noactivation']['mcdk'] = dict(binding['noactivation']['mcdk'],
+                                                         sha256='0' * 64)
+                output = Path(directory) / 'refused.json'
+                with mock.patch.dict(capture_tool.os.environ), \
+                        mock.patch.object(capture_tool, 'load_session', return_value=binding), \
+                        mock.patch.object(capture_tool, 'Client') as client, \
+                        mock.patch.object(capture_tool, 'execute') as execute:
+                    report = capture_tool.capture(output, Path(directory) / 'session.json',
+                                                  'test-owner', ('minecraft:wooden_door',))
+                self.assertFalse(report['completed'])
+                self.assertFalse(report['mutation_attempted'])
+                self.assertTrue(report['restored'])
+                self.assertIn('ValueError:', report['error'])
+                client.assert_not_called()
+                execute.assert_not_called()
+
     def test_atomic_door_palette_preserves_both_native_half_records(self):
         rows, unused = matrix(('minecraft:wooden_door',), (4, 100, 4))
         paired = door_pair_palettes(rows)

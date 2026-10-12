@@ -4,6 +4,7 @@ Requires an explicitly assigned, owner-bound MCDK session. No desktop input,
 camera, player, settings, resources, drafts or building-library changes occur.
 """
 import argparse
+from contextlib import ExitStack
 import hashlib
 import json
 import math
@@ -16,6 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
 from projection import block_registry as registry
+import mcdk as mcdk_wrapper
+import _session as session_wrapper
 from mcdk import Client, return_value
 from _session import load_session
 
@@ -264,6 +267,11 @@ def states_exact(first, second):
             sorted((key, type(value).__name__, value) for key, value in second.items()))
 
 
+def source_record(path):
+    source = Path(path).resolve()
+    return {'path': str(source), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+
+
 def replicated(snapshot, requested):
     observed = {tuple(row['pos']): row for row in snapshot['rows']}
     return (len(observed) == len(snapshot['rows']) == len(requested) and
@@ -280,28 +288,43 @@ def capture(output, session, owner, names):
     binding = load_session(live=True)
     if Path(binding['project']).resolve() != ROOT:
         raise ValueError('Session belongs to a different project')
-    report = {'schema': 1, 'completed': False, 'restored': False,
+    probe = source_record(__file__)
+    report = {'schema': 2, 'completed': False, 'restored': False, 'mutation_attempted': False,
               'background_only': True, 'desktop_input': False,
               'player_camera_environment_changes': False,
               'game_version': registry.source_version(), 'palette_sha256': registry.fingerprint(),
-              'probe_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'probe_source_sha256': probe['sha256'],
+              'host_sources': {'probe': probe, 'mcp_wrapper': source_record(mcdk_wrapper.__file__),
+                               'session_loader': source_record(session_wrapper.__file__)},
+              'session_file': str(session.resolve()),
               'instance': {key: binding[key] for key in ('id', 'owner', 'project', 'game_pid',
-                          'game_identity', 'mcp_url', 'game_executable')},
+                          'game_identity', 'mcdk_pid', 'mcdk_identity', 'mcp_url', 'game_executable')},
+              'noactivation': binding.get('noactivation', {}),
               'names': names, 'rays': rays(),
               'limits': 'Raw native clip/collision/rays only; degenerate bounds are not occupancy proof.'}
     write(output, report)
     pending = False
-    with Client(timeout=30) as client:
+    with ExitStack() as stack:
         try:
+            protection = report['noactivation']
+            if not all(protection.get(key) is True for key in
+                       ('requested', 'background_safe', 'window_noactivate')):
+                raise ValueError('Capture requires a verified protected background session')
+            for key in ('mcdk', 'dll'):
+                expected = protection[key]
+                if source_record(expected['path'])['sha256'] != expected['sha256']:
+                    raise ValueError('Protected %s binary differs from the verified launch' % key)
+            client = stack.enter_context(Client(timeout=30))
             report['preflight'] = execute(client, PREFLIGHT % MARKER, True)
             requested, supports = matrix(names, tuple(report['preflight']['origin']))
             if len(requested) > 130:
                 raise ValueError('Capture is limited to 128 native records plus two controls')
             report.update(requested=requested, supports=supports,
                           reserved=reserve_positions(requested, supports))
-            write(output, report)
-            pending = True
             paired_palettes = door_pair_palettes(requested)
+            pending = True
+            report['mutation_attempted'] = True
+            write(output, report)
             report['setup'] = execute(client, RESERVE % (MARKER, requested, supports, paired_palettes), True)
             write(output, report)
             server_code = SERVER_OBSERVE % (requested, report['rays'])

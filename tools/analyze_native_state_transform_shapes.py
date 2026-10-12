@@ -139,9 +139,42 @@ def discrimination(rows, shapes):
     return result
 
 
+def verify_provenance(raw):
+    instance = raw.get('instance', {})
+    if (not isinstance(instance, dict) or
+            any(type(instance.get(key)) is not int or instance[key] <= 0
+            for key in ('game_pid', 'mcdk_pid')) or
+            any(not isinstance(instance.get(key), str) or not instance[key].isdigit() or
+                int(instance[key]) <= 0 for key in ('game_identity', 'mcdk_identity')) or
+            any(not isinstance(instance.get(key), str) or not instance[key]
+                for key in ('id', 'owner', 'project', 'mcp_url', 'game_executable')) or
+            not isinstance(raw.get('session_file'), str) or not raw['session_file']):
+        raise ValueError('Native schema 2 requires explicit owned process and session provenance')
+    protection = raw.get('noactivation', {})
+    if not isinstance(protection, dict) or not all(protection.get(key) is True for key in
+                                                ('requested', 'background_safe', 'window_noactivate')):
+        raise ValueError('Native schema 2 requires verified launch protection provenance')
+    sources = raw.get('host_sources', {})
+    if not isinstance(sources, dict):
+        raise ValueError('Native schema 2 requires explicit source paths and SHA256 records')
+    for record in [sources.get(key, {}) for key in ('probe', 'mcp_wrapper', 'session_loader')] + \
+            [protection.get(key, {}) for key in ('mcdk', 'dll')]:
+        digest = record.get('sha256') if isinstance(record, dict) else None
+        if (not isinstance(record, dict) or not isinstance(record.get('path'), str) or not record['path'] or
+                not isinstance(digest, str) or len(digest) != 64 or
+                any(character not in '0123456789abcdef' for character in digest)):
+            raise ValueError('Native schema 2 requires explicit source paths and SHA256 records')
+    if (sources['probe']['sha256'] != raw.get('probe_source_sha256') or
+            raw.get('mutation_attempted') is not True):
+        raise ValueError('Native schema 2 probe or mutation provenance is inconsistent')
+
+
 def verify_capture(raw):
-    if raw.get('schema') != 1 or not raw.get('completed') or not raw.get('restored') or raw.get('error'):
+    if type(raw.get('schema')) is not int or raw['schema'] not in (1, 2) or \
+            not raw.get('completed') or not raw.get('restored') or raw.get('error'):
         raise ValueError('Native capture must be complete and restored without capture errors')
+    if raw['schema'] == 2:
+        verify_provenance(raw)
     if not raw.get('cleanup', {}).get('restored') or raw.get('cleanup_error'):
         raise ValueError('Native capture cleanup was not verified')
     reserved = {tuple(pos) for pos in raw['setup']['reserved']}
@@ -215,7 +248,7 @@ def analyze(raw, target_selector=state_transform.transform):
                                    'different': different, 'expected': expected, 'actual': actual})
             checks += 1
     coverage = discrimination(raw['requested'], shapes)
-    return {'schema': 1, 'completed': True, 'restored': True, 'checks': checks,
+    return {'schema': 1, 'capture_schema': raw['schema'], 'completed': True, 'restored': True, 'checks': checks,
             'coordinate_tolerance': COORDINATE_TOLERANCE,
             'mismatches': mismatches, 'discrimination': coverage,
             'native_shape_consistency': not mismatches,

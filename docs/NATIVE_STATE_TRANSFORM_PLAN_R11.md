@@ -51,6 +51,20 @@ reserved fixture, checks native residue and verifies the player's position is
 unchanged. A prior live marker is refused; failed observations remain in the raw
 report. Run only after the root agent assigns a game slot.
 
+Client construction and session-binding failures also persist their error and
+explicit `mutation_attempted=false` cleanup status. Before the first native
+fixture write, the report persists `mutation_attempted=true`; an uncertain write
+still enters cleanup. A no-mutation connection failure is never physical evidence,
+even when its cleanup status is restored.
+
+New captures use schema 2. They retain the owned game and MCDK PIDs and creation
+identities, session path, launch noactivation metadata, and explicit paths/SHA256
+records for the probe, MCP wrapper and session loader. Before connecting, the
+probe requires the verified background/noactivation launch flags and rehashes the
+MCDK executable and guard DLL against that launch's recorded hashes. The replay
+accepts unchanged schema 1 captures and requires complete provenance for schema 2.
+Frozen schema 1 bytes and their hashes remain unchanged.
+
 ```powershell
 python -X utf8 tools/capture_native_state_transform_shapes.py .runtime/state-shapes-fresh.json --session <owned-session.json> --owner <owner> --name minecraft:oak_stairs --name minecraft:trapdoor
 python -X utf8 tools/analyze_native_state_transform_shapes.py .runtime/state-shapes-fresh.json .runtime/state-shapes-replay-fresh.json
@@ -145,7 +159,7 @@ and covered offline, but has not yet passed a fresh native door capture.
 
 ## Offline Verification
 
-Seventeen targeted tests verify complete fixture coverage, symmetric ray-plan closure,
+Twenty targeted tests verify complete fixture coverage, symmetric ray-plan closure,
 slab reflection, malformed/stale/native-time evidence rejection, and a synthetic
 stair-box counterexample. The synthetic case verifies that wrong X and Y targets
 are caught by distinguishing ray hits even when all enclosing AABBs are cubes.
@@ -153,4 +167,9 @@ It is a parser test, not native evidence. Separate frozen-native tests verify
 the original raw/probe byte hashes, replay all 144 current target comparisons,
 and reject deliberately wrong stair X/Y mirror targets against actual game
 observations. Noise tests ensure numerical tolerance cannot turn enclosing cubes
-into discriminating shapes. No production mapping has changed.
+into discriminating shapes. The connection-failure test exercises both client
+construction and context entry failures, verifies no native execution is attempted,
+and checks that the failed report persists and remains excluded from acceptance.
+Schema 2 tests reject missing or inconsistent process/source provenance, unprotected
+launches and changed binary hashes before any connection or native execution.
+No production mapping has changed.
