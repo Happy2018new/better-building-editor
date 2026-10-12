@@ -6,7 +6,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageOps, ImageStat
 
-from verify_fungus_remaining_matrix import captures, digest, record, source_errors
+from verify_fungus_remaining_matrix import ROOT, captures, digest, record, source_errors
 from verify_debug_blueprints import write_json
 
 
@@ -41,7 +41,7 @@ def capture_status(capture, matrix):
     return errors, switch
 
 
-def audit(matrix_path, output):
+def audit(matrix_path, output, inspection_dir=None, source_root=ROOT, source_archive=None):
     if output.exists():
         raise ValueError('Audit output must be fresh')
     matrix = json.loads(matrix_path.read_bytes())
@@ -91,22 +91,27 @@ def audit(matrix_path, output):
                 draw.text((x+8, y+8), '%s %s %s h%d %s' %
                           (row['plant'], value['view'], row['kind'], row['height'], label), fill='black')
                 sheet.paste(preview, (x+(width-preview.width)//2, y+28))
-        sheet_path = path.with_name(path.stem+'_inspect.png')
+        sheet_path = (inspection_dir/path.name if inspection_dir is not None else path).with_name(
+            path.stem+'_inspect.png')
         if sheet_path.exists():
             raise ValueError('Inspection PNG must be fresh')
+        sheet_path.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(sheet_path)
         sheets.append(dict(record(sheet_path), inspection_only=True, rows=len(inspect)))
     frozen_path = Path(matrix['frozen_source']['path'])
     if digest(frozen_path) != matrix['frozen_source']['sha256']:
         errors.append('Frozen source manifest changed')
     frozen = json.loads(frozen_path.read_bytes())
-    errors.extend('Frozen source changed: '+name for name in source_errors(frozen))
+    errors.extend('Frozen source changed: '+name for name in
+                  source_errors(frozen, root=source_root, archive=source_archive))
     result = {'schema': 1, 'matrix': record(matrix_path), 'integrity_passed': not errors,
               'errors': errors, 'matrix_completed': matrix['completed'],
               'matrix_restored': matrix['restored'], 'matrix_passed': matrix['passed'],
               'capture_contract_source': record(Path(__file__).resolve().parents[1]/'tools/capture_native_window.py'),
               'capture_contract': 'Reliable nonblank owner-bound fresh frame; owned game is background before and after; ordinary switching between other applications is allowed',
               'foreground_changes_are_diagnostics': True, 'foreground_change_observations': switches,
+              'frozen_source_root': str(source_root.resolve()),
+              'source_archive': str(source_archive.resolve()) if source_archive is not None else None,
               'frozen_source_files_audited': len(frozen['hashes_sha256']),
               'unique_native_pngs_audited': len(images), 'reports': reports, 'inspection_sheets': sheets}
     write_json(output, result)
@@ -117,8 +122,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('matrix', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--inspection-dir', type=Path,
+                        help='Write fresh contact sheets outside the original artifact directory')
+    parser.add_argument('--frozen-source-root', type=Path, default=ROOT,
+                        help='Original project root used for exact frozen-source checks')
+    parser.add_argument('--source-archive', type=Path,
+                        help='Exact original files preserved before restoring candidate resources')
     args = parser.parse_args()
-    value = audit(args.matrix, args.output)
+    value = audit(args.matrix, args.output, args.inspection_dir,
+                  args.frozen_source_root, args.source_archive)
     print(json.dumps({key: value[key] for key in
                       ('integrity_passed', 'errors', 'matrix_completed', 'matrix_restored',
                        'matrix_passed', 'unique_native_pngs_audited', 'foreground_change_observations',

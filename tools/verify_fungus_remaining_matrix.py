@@ -37,9 +37,16 @@ def freeze(output):
     return record(output)
 
 
-def source_errors(frozen):
-    return [name for name, expected in frozen['hashes_sha256'].items()
-            if not (ROOT/name).is_file() or digest(ROOT/name) != expected]
+def source_errors(frozen, root=ROOT, archive=None):
+    errors = []
+    for name, expected in frozen['hashes_sha256'].items():
+        path = root/name
+        archived = archive/name if archive is not None else None
+        if archived is not None and archived.exists():
+            path = archived
+        if not path.is_file() or digest(path) != expected:
+            errors.append(name)
+    return errors
 
 
 def run(output, frozen_path, calibration_path, profile='fungus_remaining', plants=None, views=None):
