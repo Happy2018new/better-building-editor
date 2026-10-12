@@ -6,6 +6,12 @@ from . import block_registry as registry
 from .block_registry import canonical
 
 
+try:
+    _integer_types = (int, long)
+except NameError:
+    _integer_types = (int,)
+
+
 def is_solid(value):
     _validate_source('block')
     return value[0] in SOLID_BLOCKS
@@ -26,6 +32,8 @@ def is_snow_coverable(value):
 def snow_capability(value):
     """Return exact-state evidence within its recorded native probe fixture."""
     _validate_source('snow')
+    if not isinstance(value[1], _integer_types) or type(value[1]) is bool:
+        return 'unknown'
     material = registry.try_canonical(value)
     if material is None:
         return 'unknown'

@@ -95,6 +95,15 @@ class SnowEvidenceGeneratorTests(unittest.TestCase):
             with self.subTest(failure=failure), self.assertRaises(ValueError):
                 generator._snow_evidence_rows(source, self.paired, self.data, self.palette)
 
+    def test_claimed_method_cannot_override_contradictory_probe_context(self):
+        for field, value in (('running', True), ('active', {'name': 'minecraft:poppy', 'aux': 0}),
+                             ('biome_fixture', 'minecraft:desert'), ('biome_measured', 'desert'),
+                             ('biome_after', 'desert'), ('delayed_seconds', 0),
+                             ('supports', {'default': 'minecraft:sand'})):
+            source = dict(self.observations, **{field: value})
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                generator._snow_evidence_rows(source, self.paired, self.data, self.palette)
+
     def test_negative_requires_a_verified_complete_pair_and_unchanged_readback(self):
         for failure in ('unverified', 'wrong_aux', 'missing_pair', 'upper_state', 'upper_position', 'changed', 'duplicate'):
             source = copy.deepcopy(self.paired)

@@ -20,9 +20,17 @@ def _snow_evidence_rows(observations, paired, data, palette):
                 source.get('method') != method or not isinstance(source.get('rows'), list)):
             raise ValueError('Snow evidence is not a matching native probe export')
     if (observations.get('done') is not True or observations.get('restored') is not True or
+            observations.get('running') is not False or observations.get('active') is not None or
             observations.get('failure') or observations.get('cleanup_failure') or
-            observations.get('cleanup_residue')):
+            observations.get('cleanup_residue') or not observations.get('biome_before') or
+            observations.get('biome_after') != observations.get('biome_before')):
         raise ValueError('Native snow state observations are incomplete or unrestored')
+    if (observations.get('biome_fixture') != 'minecraft:ice_plains' or
+            observations.get('biome_measured') != 'ice_plains' or
+            observations.get('delayed_seconds') != .25 or observations.get('supports') != {
+                'default': 'minecraft:dirt', 'minecraft:brown_mushroom': 'minecraft:podzol',
+                'minecraft:red_mushroom': 'minecraft:podzol'}):
+        raise ValueError('Native snow state observations differ from the recorded probe context')
     states = dict(((row['name'], row['data']),
                    dict((state['name'], bool(state['value']) if state['type'] == 'byte' else state['value'])
                         for state in row['states'])) for row in palette['blocks'])

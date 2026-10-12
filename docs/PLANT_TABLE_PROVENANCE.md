@@ -23,6 +23,8 @@ returned false and the complete supported lower/upper fixture stayed unchanged.
 Both observation sources retain generated SHA-256 fingerprints. These statuses
 describe eligibility within those recorded fixtures, not visual acceptance or
 behavior in every context.
+The positive-source validator also checks the completed/restored probe state,
+recorded cold biome, support materials and delayed-readback interval.
 
 The original 148-name seed export contains API-return booleans without state
 readbacks; its 119 negative names do not become observed negative states.
@@ -30,6 +32,7 @@ An unmeasured name, invalid or unmeasured aux, paired upper half, and unmeasured
 crop growth state report `unknown`. In particular, the paired pitcher-crop
 negative applies only to measured lower aux 14, not its default aux or upper
 half. The query does not change editing, rendering or production plant defaults.
+Aux values must be integers; booleans and floats cannot alias measured states.
 
 The four static plant proxies come from the versioned
 `tools/data/static_plant_sources_nemc_3.9.0.401155.json` snapshot and

@@ -44,6 +44,12 @@ class NativeTraitTests(unittest.TestCase):
             with self.subTest(material=material):
                 self.assertEqual('unknown', block_traits.snow_capability(material))
 
+    def test_invalid_aux_cannot_alias_an_observed_integer_state(self):
+        for aux in (False, True, 0.0, 14.0, '0', None, [], {}):
+            for name in ('minecraft:poppy', 'minecraft:tall_grass', 'minecraft:pitcher_crop'):
+                with self.subTest(name=name, aux=aux):
+                    self.assertEqual('unknown', block_traits.snow_capability((name, aux)))
+
     def test_missing_snow_observation_tables_are_unknown(self):
         with patch.object(block_traits_data, 'SNOW_SUPPORTED_AUX', {}), \
                 patch.object(block_traits_data, 'SNOW_UNSUPPORTED_AUX', {}):
