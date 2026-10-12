@@ -1,5 +1,6 @@
 """Owned liquid renderer lifetimes; no shape inference or global event listeners."""
 import math
+import traceback
 from .liquid_transport import PAYLOAD_TAG, validate_uniforms
 from .storage import integer_types
 
@@ -260,6 +261,10 @@ class WorldLiquidRenderer(object):
         self.closed = False
         self.error = None
         self.cleanup_errors = []
+        self.deferred = False
+        self.ready = False
+        self.publication_restore = []
+        self.publication = None
 
     @staticmethod
     def center(anchor, origin):
@@ -269,9 +274,19 @@ class WorldLiquidRenderer(object):
         self.retired.update((record['model_id'], record) for record in records)
         for record in records:
             model_id = record['model_id']
-            if not self._show(record, False):
+            try:
+                hidden = self._show(record, False, force=True)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                hidden = False
+            try:
+                removed = self.model.RemoveFreeModel(model_id)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                removed = False
+            if not hidden:
                 self.cleanup_errors.append((model_id, 'hide'))
-            if not self.model.RemoveFreeModel(model_id):
+            if not removed:
                 self.cleanup_errors.append((model_id, 'remove'))
                 continue
             self.retired.pop(model_id, None)
@@ -281,8 +296,8 @@ class WorldLiquidRenderer(object):
         self._destroy(tuple(self.retired.values()))
         return not self.retired
 
-    def _show(self, record, visible):
-        if record['visible'] == visible:
+    def _show(self, record, visible, force=False):
+        if not force and record['visible'] == visible:
             return True
         value = record['group'].uniforms[3]
         if not visible:
@@ -293,28 +308,43 @@ class WorldLiquidRenderer(object):
         return True
 
     def _publish_visibility(self, records, visible):
-        previous = []
+        try:
+            for record in records:
+                if record['visible'] == visible:
+                    continue
+                value = record['group'].uniforms[3]
+                previous = value if record['visible'] else value[:3]+(0.,)
+                incoming = value if visible else value[:3]+(0.,)
+                self.publication_restore.append((record, previous))
+                if not self.model.SetExtraUniformValue(record['model_id'], 4, incoming):
+                    raise ValueError('Could not update owned liquid visibility')
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            self.restore_publication()
+            return False
         for record in records:
-            old = record['visible']
-            if not self._show(record, visible):
-                for restored, was_visible in reversed(previous):
-                    if not self._show(restored, was_visible):
-                        self.cleanup_errors.append((restored['model_id'], 'visibility_rollback'))
-                return False
-            previous.append((record, old))
+            record['visible'] = visible
+        self.publication_restore = []
         return True
 
     def _cancel(self):
         self._destroy(tuple(self.staging.values()))
         self.staging.clear()
         self.wanted = self.queue = None
+        self.ready = False
+
+    def cancel_preparation(self):
+        if not self.restore_publication():
+            return False
+        self._cancel()
+        return True
 
     def _fail(self, message):
         self.error = message
-        self._cancel()
+        self.cancel_preparation()
         return False
 
-    def begin(self, groups, anchor, now):
+    def begin(self, groups, anchor, now, deferred=False):
         if self.closed or not self.bridge.alive:
             return False
         groups = tuple(groups)
@@ -330,7 +360,8 @@ class WorldLiquidRenderer(object):
                 raise ValueError('Invalid or duplicate liquid render group')
             keys.add(group.key)
         anchor = _finite_tuple(anchor, 3, 'world anchor')
-        self._cancel()
+        if not self.cancel_preparation():
+            return False
         self.retry_retired()
         created = sum(self.active.get(group.key, {}).get('group') != group for group in groups)
         if len(self.active) + len(self.retired) + created > self.max_groups * 2:
@@ -340,10 +371,12 @@ class WorldLiquidRenderer(object):
         if not self.follow(anchor):
             return False
         self.wanted = groups
+        self.deferred = bool(deferred)
         pending = tuple(group for group in groups if self.active.get(group.key, {}).get('group') != group)
         self.queue = iter(pending) if pending else None
         if self.queue is None:
-            return self._promote()
+            self.ready = True
+            return True if self.deferred else self._promote()
         return True
 
     def _create(self, group, now):
@@ -371,15 +404,66 @@ class WorldLiquidRenderer(object):
                 return self._fail('Could not update owned liquid model uniforms')
         return True
 
-    def _promote(self):
+    def prepare_publication(self, visible=None):
+        if not self.ready or self.wanted is None or self.publication is not None:
+            return False
+        if not self.restore_publication():
+            return False
+        visible = self.visible if visible is None else bool(visible)
         incoming = dict((group.key, self.staging.get(group.key) or self.active[group.key])
                         for group in self.wanted)
-        if not self._publish_visibility(tuple(incoming.values()), self.visible):
-            return self._fail('Could not show ready liquid model')
         retired = tuple(record for key, record in self.active.items()
                         if incoming.get(key) is not record)
+        self.publication = (incoming, retired, visible)
+        try:
+            for record, shown in (tuple((record, visible) for record in incoming.values()) +
+                                  tuple((record, False) for record in retired)):
+                if record['visible'] == shown:
+                    continue
+                group = record['group']
+                previous = group.uniforms[3] if record['visible'] else group.uniforms[3][:3]+(0.,)
+                value = group.uniforms[3] if shown else group.uniforms[3][:3]+(0.,)
+                self.publication_restore.append((record, previous))
+                if not self.model.SetExtraUniformValue(record['model_id'], 4, value):
+                    raise ValueError('Could not switch ready liquid visibility')
+        except (ValueError, TypeError, RuntimeError) as error:
+            traceback.print_exc()
+            self.error = str(error)
+            return False
+        return True
+
+    def restore_publication(self):
+        remaining = []
+        for record, previous in reversed(self.publication_restore):
+            try:
+                restored = self.model.SetExtraUniformValue(record['model_id'], 4, previous)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                restored = False
+            if not restored:
+                remaining.append((record, previous))
+        self.publication_restore = list(reversed(remaining))
+        self.publication = None
+        return not self.publication_restore
+
+    def finalize_publication(self):
+        incoming, retired, visible = self.publication
+        for record in incoming.values():
+            record['visible'] = visible
+        for record in retired:
+            record['visible'] = False
         self.active, self.staging, self.wanted = incoming, {}, None
-        self._destroy(retired)
+        self.visible = visible
+        self.publication_restore, self.publication = [], None
+        self.ready = False
+        self.retired.update((record['model_id'], record) for record in retired)
+        return True
+
+    def _promote(self):
+        if not self.prepare_publication():
+            return self._fail(self.error or 'Could not show ready liquid model')
+        self.finalize_publication()
+        self.retry_retired()
         return True
 
     def advance(self, now):
@@ -389,6 +473,8 @@ class WorldLiquidRenderer(object):
             self.close()
             return False
         self.retry_retired()
+        if self.publication_restore or self.publication is not None:
+            return False
         if self.wanted is None:
             return self.error is None
         for unused in range(self.CREATIONS_PER_FRAME) if self.queue is not None else ():
@@ -396,14 +482,19 @@ class WorldLiquidRenderer(object):
             if group is None:
                 self.queue = None
                 break
-            if not self._create(group, now):
-                return False
+            try:
+                if not self._create(group, now):
+                    return False
+            except (ValueError, TypeError, RuntimeError) as error:
+                traceback.print_exc()
+                return self._fail(str(error))
         ready = self.queue is None
         for record in tuple(self.staging.values()):
             record['frames'] += 1
             if record['frames'] < 3 or now - record['bound_at'] < self.SETTLE_SECONDS:
                 ready = False
-        return self._promote() if ready else False
+        self.ready = ready
+        return (True if self.deferred else self._promote()) if ready else False
 
     def follow(self, anchor):
         if self.closed:
@@ -429,6 +520,8 @@ class WorldLiquidRenderer(object):
         return True
 
     def set_visible(self, visible):
+        if self.publication_restore or self.publication is not None:
+            return False
         if self.closed or bool(visible) == self.visible:
             return not self.closed
         if not self._publish_visibility(tuple(self.active.values()), bool(visible)):
@@ -438,13 +531,15 @@ class WorldLiquidRenderer(object):
         return True
 
     def set_opacity(self, opacity):
+        if self.publication_restore or self.publication is not None:
+            return False
         if self.closed:
             return False
         opacity = _finite_tuple((opacity,), 1, 'projection opacity')[0]
         if not 0. <= opacity <= 1.:
             raise ValueError('Liquid projection opacity must be a finite unit value')
         records = tuple(self.active.values()) + tuple(self.staging.values())
-        updates, written = [], []
+        updates = []
         for record in records:
             group = record['group']
             appearance = group.uniforms[3][:3] + (opacity,)
@@ -452,14 +547,17 @@ class WorldLiquidRenderer(object):
             previous = group.uniforms[3] if record['visible'] else group.uniforms[3][:3] + (0.,)
             value = appearance if record['visible'] else appearance[:3] + (0.,)
             if value != previous:
-                if not self.model.SetExtraUniformValue(record['model_id'], 4, value):
-                    for restored, old in reversed(written):
-                        if not self.model.SetExtraUniformValue(restored['model_id'], 4, old):
-                            self.cleanup_errors.append((restored['model_id'], 'opacity_rollback'))
+                self.publication_restore.append((record, previous))
+                try:
+                    if not self.model.SetExtraUniformValue(record['model_id'], 4, value):
+                        raise ValueError('Could not update owned liquid opacity')
+                except (ValueError, TypeError, RuntimeError):
+                    traceback.print_exc()
+                    self.restore_publication()
                     self.error = 'Could not update owned liquid opacity'
                     return False
-                written.append((record, previous))
             updates.append((record, replacement))
+        self.publication_restore = []
         for record, group in updates:
             record['group'] = group
         if self.wanted is not None:
@@ -473,6 +571,7 @@ class WorldLiquidRenderer(object):
     def close(self):
         if not self.closed:
             self.closed = True
+            self.publication_restore, self.publication = [], None
             self._cancel()
             self._destroy(tuple(self.active.values()))
             self.active.clear()

@@ -145,14 +145,26 @@ class WorldProjection(object):
                 self.occupancy.prepare_start(entity, self.model, self.anchor)
             if outline is not previous_outline:
                 outline.replace(self.origin, self.document.size)
+            if entity is not None:
+                self.shader.prepare_commit(self.model)
             if self.liquid is not None:
-                self.liquid.publish()
+                if not self.liquid.prepare_publication(self.liquid.revision):
+                    raise ValueError(self.liquid.renderer.error or 'Could not publish liquid projection')
         except Exception:
+            self.shader.restore_commit()
+            if self.liquid is not None:
+                self.liquid.restore_publication()
             if outline is not previous_outline:
                 b.release_projection_resources(outlines=(outline,))
             raise
+        if entity is not None:
+            self.shader.finalize_commit()
+        if self.liquid is not None:
+            self.liquid.finalize_publication(self.liquid.revision)
         previous_entities = tuple(b.projection_entities.values()) + (b.entity,)
-        b.own_projection_entity(b.entity, b.projection_shader)
+        own = getattr(b, 'own_projection_entity', None)
+        if own is not None:
+            own(b.entity, b.projection_shader)
         previous_liquid = getattr(b, 'projection_liquid', None)
         # No native calls between publication of the prepared resources.
         b.entity, b.preparing_entity = entity, None
@@ -168,6 +180,8 @@ class WorldProjection(object):
         self.cleanup_errors = b.release_projection_resources(
             previous_entities, (previous_outline,) if outline is not previous_outline else (),
             (previous_liquid,) if previous_liquid is not None else ())
+        if self.liquid is not None:
+            self.liquid.renderer.retry_retired()
         try:
             self.publish(True)
         except Exception:
@@ -185,7 +199,7 @@ class WorldProjection(object):
                 b.next_frame(lambda: self.attach(entity))
                 return
             b.factory.CreateModel(entity).SetEntityShadowShow(False)
-            self.shader.bind(entity, self.model, self.anchor)
+            self.shader.bind(entity, self.model, self.anchor, hidden=True)
             self.commit(entity)
         except Exception as exc:
             self.fail(type('')(exc))
@@ -202,7 +216,9 @@ class WorldProjection(object):
         if not entity:
             raise ValueError('无法创建投影，请靠近目标区域后重试')
         b.preparing_entity = entity
-        b.own_projection_entity(entity, self.shader)
+        own = getattr(b, 'own_projection_entity', None)
+        if own is not None:
+            own(entity, self.shader)
         b.later(.2, lambda: self.attach(entity))
 
     def advance(self, schedule=True):

@@ -57,6 +57,8 @@ class ProjectionOccupancy(object):
         self.bank = 0
         self.attaching = self.failed = False
         self.pending_model = None
+        self.pending_pair = None
+        self.publication_serial = 0
         self.reads = self.builds = self.commits = 0
         self.last_poll_ms = self.max_poll_ms = self.last_build_ms = 0.
         self.last_prepare_ms = 0.
@@ -276,7 +278,11 @@ class ProjectionOccupancy(object):
         self.prepared = builder.data
 
     def tick(self):
-        if not self.active() or self.failed or not self.targets or self.bridge.preparing_entity:
+        if not self.active():
+            return
+        if not self.recover_pair():
+            return
+        if self.failed or not self.targets or self.bridge.preparing_entity:
             return
         pending = self.bridge.projection_work
         if pending is not None and not pending.ready and not pending.error:
@@ -293,7 +299,6 @@ class ProjectionOccupancy(object):
                 model, anchor, ready = self.pending_model
                 if now < ready:
                     return
-                self.pending_model = None
                 self.replace(model, anchor)
                 return
             if self.build is None:
@@ -315,7 +320,12 @@ class ProjectionOccupancy(object):
         except (ValueError, TypeError, KeyError, RuntimeError) as error:
             traceback.print_exc()
             self.failed = True
-            self.build = self.output = self.snapshot = self.prepared = None
+            if self.pending_pair is not None:
+                self.pending_pair['failed'] = True
+                self.recover_pair()
+            self.build = self.output = self.prepared = None
+            if self.pending_pair is None:
+                self.snapshot = None
             self.bridge.session.editor.message = u'投影自动更新失败，请点击更新投影：%s' % error
             self.bridge.session.emit()
 
@@ -352,8 +362,9 @@ class ProjectionOccupancy(object):
                 own(entity, self.shader)
             self.bridge.factory.CreateModel(entity).SetEntityShadowShow(False)
             self.attaching = True
+            serial = self.publication_serial
             def attach():
-                if self.active():
+                if self.active() and serial == self.publication_serial:
                     self.attaching = False
                     # The render tick serializes this with manual regeneration.
                     self.pending_model = (model, anchor, 0.)
@@ -366,24 +377,90 @@ class ProjectionOccupancy(object):
         self.pending_model = (model, anchor, time.time()+self.resource_wait)
 
     def replace(self, model, anchor):
+        if not self.active():
+            return False
         b = self.bridge
+        liquid = getattr(b, 'projection_liquid', None)
+        if liquid is not None and self.pending_pair is None:
+            revision = liquid.request(occupied=self.snapshot, deferred=True)
+            self.pending_pair = {'liquid': liquid, 'revision': revision, 'model': model,
+                                 'snapshot': self.snapshot[:], 'failed': False}
+        pair = self.pending_pair
+        if pair is not None:
+            if (pair['failed'] or liquid is not pair['liquid'] or
+                    pair['revision'] != liquid.revision or model != pair['model']):
+                raise ValueError('Paired projection candidate was superseded')
+            self.pending_model = (model, anchor, 0.)
+            if not liquid.advance():
+                if liquid.error is not None:
+                    raise liquid.error
+                return False
+        follow_restore = getattr(b, 'restore_projection_follow', None)
+        if follow_restore is not None and not follow_restore():
+            return False
+        mesh = b.projection_mesh
+        if mesh is not None and mesh[0] == self.entity:
+            anchor = mesh[3]
         if self.shader.render is None and model is not None:
-            self.shader.bind(self.entity, model, anchor)
-        self.shader.commit(model)
+            self.shader.bind(self.entity, model, anchor, hidden=True)
+        if pair is None:
+            self.shader.commit(model)
+        else:
+            try:
+                self.shader.prepare_commit(model)
+                if not liquid.prepare_publication(pair['revision']):
+                    raise ValueError(liquid.renderer.error or 'Could not publish paired liquid projection')
+            except (ValueError, TypeError, RuntimeError):
+                pair['failed'] = True
+                self.recover_pair()
+                raise
+            self.shader.finalize_commit()
+            liquid.finalize_publication(pair['revision'])
         self.model = model
         self.anchor = anchor
         # Keep the transform alive even when every cell is hidden by the shader.
         b.projection_mesh = (self.entity, model or self.shader.names[self.shader.bank],
                              self.origin, anchor) if self.entity else None
         b._projection_follow_position = None
-        self.rendered = self.snapshot
-        liquid = getattr(b, 'projection_liquid', None)
-        if liquid is not None:
-            liquid.request(occupied=self.rendered)
+        self.rendered = pair['snapshot'] if pair is not None else self.snapshot
         self.snapshot = None
+        self.pending_model = self.pending_pair = None
+        b.projection_shader = self.shader if self.entity is not None else None
         # Reads already maintain the exact delta against the in-flight snapshot.
         # Transfer it instead of rescanning a potentially large dirty set here.
         self.changed, self.after_build = self.after_build, set()
         self.commits += 1
         # Native Combine is synchronous: keep its duty cycle bounded as size grows.
         self.next_build = time.time() + max(MIN_REFRESH, self.last_build_ms*.008)
+        if pair is not None:
+            liquid.renderer.retry_retired()
+        return True
+
+    def recover_pair(self):
+        pair = self.pending_pair
+        if pair is None:
+            body = self.shader.restore_commit()
+            liquid = getattr(self.bridge, 'projection_liquid', None)
+            water = liquid is None or liquid.restore_publication()
+            return body and water
+        if not pair['failed']:
+            return True
+        body = self.shader.restore_commit()
+        water = pair['liquid'].restore_publication()
+        if not body or not water:
+            return False
+        if not pair['liquid'].cancel_candidate(pair['revision']):
+            return False
+        self.pending_pair = self.pending_model = None
+        self.snapshot = None
+        return True
+
+    def cancel_pending(self):
+        if self.pending_pair is not None:
+            self.pending_pair['failed'] = True
+        if not self.recover_pair():
+            return False
+        self.publication_serial += 1
+        self.attaching = False
+        self.pending_model = self.build = self.output = self.prepared = self.snapshot = None
+        return True

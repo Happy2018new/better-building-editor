@@ -1,5 +1,6 @@
 """Frame-budgeted world liquid plans over an immutable logical document."""
 import time
+import traceback
 
 from .liquid_render import WorldLiquidRenderer
 from .liquid_render_plan import iter_group_steps, render_steps
@@ -38,11 +39,14 @@ class LiquidProjection(object):
         self.ready = self.closed = self.committed = False
         self.error = None
         self.reported_error = False
+        self.deferred = False
+        self.revision = 0
+        self.candidate = None
 
-    def request(self, targets=None, occupied=None):
-        self._request(targets, occupied, self.document.biome)
+    def request(self, targets=None, occupied=None, deferred=False):
+        return self._request(targets, occupied, self.document.biome, deferred)
 
-    def _request(self, targets, occupied, biome):
+    def _request(self, targets, occupied, biome, deferred=False):
         if self.closed:
             return
         occupied = bytearray(occupied) if occupied is not None else None
@@ -62,12 +66,19 @@ class LiquidProjection(object):
         iterator = render_steps(groups, self.profile.world_models,
                                 self.renderer.bridge.session.opacity, self.profile.max_groups)
         # A rejected provider must leave the previous request and biome retryable.
-        self.targets, self.occupied = targets, occupied
-        self.document.biome = biome
+        if not self.renderer.cancel_preparation():
+            raise ValueError('Liquid publication restoration is still pending')
+        self.revision += 1
+        self.deferred = bool(deferred)
+        self.candidate = (targets, occupied, biome)
+        if not self.deferred:
+            self.targets, self.occupied = targets, occupied
+            self.document.biome = biome
         self.iterator = iterator
         self.preparing = []
         self.ready, self.error = False, None
         self.reported_error = False
+        return self.revision
 
     def advance(self):
         if self.closed or self.error is not None:
@@ -85,7 +96,7 @@ class LiquidProjection(object):
                     self.iterator = None
                     groups = tuple(group._replace(uniforms=group.uniforms[:3] +
                         (group.uniforms[3][:3] + (opacity,),)) for group in self.preparing)
-                    if not self.renderer.begin(groups, self.origin, time.time()):
+                    if not self.renderer.begin(groups, self.origin, time.time(), self.deferred):
                         raise ValueError(self.renderer.error or 'Could not prepare liquid projection')
                     self.preparing = []
                     break
@@ -99,13 +110,15 @@ class LiquidProjection(object):
             if self.renderer.error:
                 raise ValueError(self.renderer.error)
             return self.ready
-        except ValueError as error:
+        except (ValueError, TypeError, KeyError, RuntimeError) as error:
+            traceback.print_exc()
             self.error = error
             self.iterator, self.preparing = None, []
+            self.renderer.cancel_preparation()
             return False
 
     def prepare(self, targets, occupied=None):
-        self.request(targets, occupied)
+        self.request(targets, occupied, deferred=True)
         while not self.advance():
             if self.error is not None:
                 raise self.error
@@ -114,18 +127,56 @@ class LiquidProjection(object):
     def publish(self):
         if not self.ready or self.error is not None:
             raise ValueError('Liquid projection is not ready for publication')
-        if not self.renderer.set_visible(True):
+        if self.deferred:
+            if not self.prepare_publication(self.revision):
+                self.restore_publication()
+                raise ValueError(self.renderer.error or 'Could not publish liquid projection')
+            self.finalize_publication(self.revision)
+            self.renderer.retry_retired()
+        elif not self.renderer.set_visible(True):
             raise ValueError(self.renderer.error or 'Could not publish liquid projection')
         self.committed = True
+
+    def prepare_publication(self, revision):
+        return (not self.closed and self.ready and self.error is None and
+                revision == self.revision and self.deferred and
+                self.renderer.prepare_publication(True))
+
+    def restore_publication(self):
+        return self.renderer.restore_publication()
+
+    def finalize_publication(self, revision):
+        if revision != self.revision or self.renderer.publication is None:
+            raise ValueError('Liquid publication candidate was superseded')
+        self.targets, self.occupied, self.document.biome = self.candidate
+        self.candidate = None
+        self.renderer.finalize_publication()
+        self.deferred = False
+        self.committed = True
+
+    def cancel_candidate(self, revision):
+        if revision != self.revision:
+            return True
+        if not self.renderer.cancel_preparation():
+            return False
+        self.iterator, self.preparing, self.candidate = None, [], None
+        self.deferred = False
+        self.ready = False
+        return True
 
     def set_biome(self, biome):
         if biome == self.document.biome or self.closed:
             return
-        self._request(self.targets, self.occupied, biome)
+        targets, occupied = self.targets, self.occupied
+        if self.candidate is not None:
+            targets, occupied, unused = self.candidate
+        self._request(targets, occupied, biome, self.deferred)
 
     def close(self):
         if self.closed:
             return self.renderer.retry_retired()
         self.closed = True
+        self.revision += 1
+        self.candidate = None
         self.iterator, self.preparing = None, []
         return self.renderer.close()

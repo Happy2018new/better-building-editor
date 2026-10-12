@@ -58,3 +58,7 @@ do not establish native visibility, native destruction timing, or resource
 thread behavior. Native validation must separately confirm that retired
 terrain and vanilla-material overlays become invisible and stay hidden while
 destruction fails, then that a freed pool renders correctly after recovery.
+
+The subsequent paired terrain/liquid occupancy transaction and its host
+validation are recorded in `PROJECTION_PAIR_R12.md`. It preserves this
+retirement ownership and pool reservation contract.

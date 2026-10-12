@@ -146,6 +146,8 @@ class ClientBridge(object):
         mesh_position = (foot[0], foot[1]+1., foot[2])
         signature = (position, mesh_position, self.entity, self.projection_outline.entity)
         shader = self.projection_shader
+        if not self.restore_projection_publication():
+            return
         if shader is not None and not shader.restore_offsets():
             return
         repairing_overlays = shader is not None and shader.overlay_restore
@@ -462,6 +464,9 @@ class ClientBridge(object):
         return result
 
     def update_projection_opacity(self):
+        if not self.restore_projection_publication():
+            self.session.editor.message = '投影状态恢复尚未完成，请调整透明度或更新投影重试'
+            return
         shader = self.projection_shader
         if shader is None or shader.render is None:
             return
@@ -472,6 +477,8 @@ class ClientBridge(object):
             self.session.editor.message = '投影透明度更新失败，请调整透明度或更新投影重试：%s' % error
 
     def update_biome_tint(self, value):
+        if not self.restore_projection_publication():
+            raise ValueError('Could not restore projection publication before updating biome tint')
         from .biomes import actor_uniform
         work = getattr(self, 'projection_work', None)
         if work is not None:
@@ -830,7 +837,10 @@ class ClientBridge(object):
             self.projection_occupancy.tick()
         liquid = getattr(self, 'projection_liquid', None)
         if liquid is not None:
-            liquid.advance()
+            occupancy = self.projection_occupancy
+            if ((occupancy is None or occupancy.pending_pair is None) and
+                    self.restore_projection_publication()):
+                liquid.advance()
             if liquid.error is not None and not getattr(liquid, 'reported_error', False):
                 liquid.reported_error = True
                 self.session.editor.message = '水投影更新失败，请更新投影：%s' % liquid.error
@@ -839,6 +849,16 @@ class ClientBridge(object):
     def own_projection_entity(self, entity, shader):
         if entity is not None and shader is not None:
             self.projection_entity_shaders[entity] = shader
+
+    def restore_projection_publication(self):
+        occupancy = getattr(self, 'projection_occupancy', None)
+        if occupancy is not None:
+            return occupancy.recover_pair()
+        shader = self.projection_shader
+        body = shader is None or shader.restore_commit()
+        liquid = getattr(self, 'projection_liquid', None)
+        water = liquid is None or liquid.restore_publication()
+        return body and water
 
     def available_projection_pool(self):
         old = self.projection_shader
@@ -926,6 +946,12 @@ class ClientBridge(object):
     def project_large(self, origin):
         """Prepare one exact full model while retaining the previous projection."""
         from .world_projection import WorldProjection
+        occupancy = self.projection_occupancy
+        restored = occupancy.cancel_pending() if occupancy is not None else self.restore_projection_publication()
+        if not restored:
+            self.session.editor.message = '投影状态恢复尚未完成，请更新投影重试'
+            self.session.emit()
+            return
         self.projection_requested = True
         self.projection_serial += 1
         previous_work = self.projection_work

@@ -33,8 +33,21 @@ class OccupancyShader(object):
         self.anchor = None
         self.offset_restore = []
         self._follow_anchor = None
+        self.commit_restore = []
+        self._commit_candidate = None
+        self._commit_visibility = {}
+        self._commit_uniform = None
 
     def write(self, slot, value):
+        if slot == 4 and self._commit_candidate is not None:
+            previous = self.uniforms.get(slot)
+            if previous == value:
+                return
+            self.commit_restore.append(('uniform', slot, previous))
+            if not self.render.SetEntityExtraUniforms(slot, value):
+                raise ValueError('Could not update projection shader')
+            self._commit_uniform = value
+            return
         if self.uniforms.get(slot) == value:
             return
         if not self.render.SetEntityExtraUniforms(slot, value):
@@ -43,6 +56,8 @@ class OccupancyShader(object):
         self.updates += 1
 
     def control(self):
+        if not self.restore_commit():
+            raise ValueError('Could not restore projection publication')
         if not self.restore_offsets():
             raise ValueError('Could not restore projection geometry offsets')
         self.restore_overlays()
@@ -68,6 +83,8 @@ class OccupancyShader(object):
         for name, origin, context in incoming:
             # A failed native attachment may already have changed the renderer.
             self.owned_parts.add(name)
+            if self._commit_candidate is not None and not context and name not in self.parts[bank]:
+                self.commit_restore.append(('overlay', name, False))
             if name not in self.parts[bank] and not self.render.AddActorBlockGeometry(
                     name, self.offset(anchor, origin), (0., 180., 0.)):
                 raise ValueError('Could not attach projection context chunk')
@@ -80,13 +97,23 @@ class OccupancyShader(object):
                 self.show_overlay(name, bank == self.bank and not self.empty)
 
     def show_overlay(self, name, visible):
+        if self._commit_candidate is not None:
+            previous = self.overlay_visibility.get(name, False)
+            known = name in self._commit_visibility or name in self.overlay_visibility
+            if known and self._commit_visibility.get(name, previous) == visible:
+                return
+            self.commit_restore.append(('overlay', name, previous))
+            if not self.render.SetActorBlockGeometryVisible(name, visible):
+                raise ValueError('Could not update projection overlay visibility')
+            self._commit_visibility[name] = visible
+            return
         if self.overlay_visibility.get(name) == visible:
             return
         if not self.render.SetActorBlockGeometryVisible(name, visible):
             raise ValueError('Could not update projection overlay visibility')
         self.overlay_visibility[name] = visible
 
-    def bind(self, entity, model, anchor, attached=False):
+    def bind(self, entity, model, anchor, attached=False, hidden=False):
         tracker, b = self.tracker, self.tracker.bridge
         own = getattr(b, 'own_projection_entity', None)
         if own is not None:
@@ -95,6 +122,7 @@ class OccupancyShader(object):
         self.bank = self.names.index(model)
         self.local = model in getattr(b, 'context_models', {})
         self.anchor = anchor
+        self.empty = bool(hidden)
         self.control()
         # Both names remain attached for the lifetime of this actor. Replacing
         # the inactive native resource must not invalidate the actor renderer.
@@ -115,6 +143,8 @@ class OccupancyShader(object):
         if self.render is None:
             return []
         self.overlay_restore = False
+        self.commit_restore = []
+        self._commit_candidate = None
         if self.retirement_parts is None:
             self.retirement_parts = self.owned_parts.union(self.overlay_visibility)
             for parts in self.parts:
@@ -197,12 +227,27 @@ class OccupancyShader(object):
         return not self.offset_restore
 
     def commit(self, model):
+        try:
+            self.prepare_commit(model)
+        except (ValueError, TypeError, RuntimeError):
+            self.restore_commit()
+            raise
+        self.finalize_commit()
+
+    def prepare_commit(self, model):
+        if not self.restore_commit():
+            raise ValueError('Could not restore projection publication')
         if not self.restore_offsets():
             raise ValueError('Could not restore projection geometry offsets')
         self.restore_overlays()
         empty = model is None
         bank = self.names.index(model) if model is not None else self.bank
         tint = actor_uniform(self.tracker.document.biome)
+        self._commit_candidate = (empty, bank)
+        self._commit_visibility = {}
+        self._commit_uniform = None
+        if self.render is None and empty:
+            return
         try:
             if model is not None:
                 self.configure(bank, self.anchor)
@@ -212,14 +257,42 @@ class OccupancyShader(object):
                                    self.tracker.bridge.session.opacity))
         except (ValueError, TypeError, RuntimeError):
             self.overlay_restore = True
+            raise
+
+    def finalize_commit(self):
+        self.empty, self.bank = self._commit_candidate
+        self.overlay_visibility.update(self._commit_visibility)
+        if self._commit_uniform is not None:
+            self.uniforms[4] = self._commit_uniform
+            self.updates += 1
+        self.commit_restore, self._commit_candidate = [], None
+        self._commit_visibility, self._commit_uniform = {}, None
+        self.overlay_restore = False
+
+    def restore_commit(self):
+        if not self.commit_restore and self._commit_candidate is None:
+            return True
+        remaining = []
+        for kind, key, previous in reversed(self.commit_restore):
             try:
-                self.restore_overlays()
+                if kind == 'overlay':
+                    restored = self.render.SetActorBlockGeometryVisible(key, previous)
+                else:
+                    restored = self.render.SetEntityExtraUniforms(key, previous)
             except (ValueError, TypeError, RuntimeError):
                 traceback.print_exc()
-            raise
-        self.empty, self.bank = empty, bank
+                restored = False
+            if not restored:
+                remaining.append((kind, key, previous))
+        self.commit_restore = list(reversed(remaining))
+        self._commit_candidate = None
+        self._commit_visibility, self._commit_uniform = {}, None
+        self.overlay_restore = bool(self.commit_restore)
+        return not self.commit_restore
 
     def restore_overlays(self):
+        if self.commit_restore and not self.restore_commit():
+            raise ValueError('Could not restore projection publication')
         if self.overlay_restore:
             self.update_overlays(self.bank, self.empty)
             self.overlay_restore = False
