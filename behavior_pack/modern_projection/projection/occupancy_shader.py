@@ -279,6 +279,10 @@ class OccupancyShader(object):
                     restored = self.render.SetActorBlockGeometryVisible(key, previous)
                 else:
                     restored = self.render.SetEntityExtraUniforms(key, previous)
+                if not restored:
+                    target = 'overlay visibility' if kind == 'overlay' else 'shader uniform'
+                    error = ValueError('Could not restore projection %s: %r' % (target, key))
+                    traceback.print_exception(ValueError, error, None)
             except (ValueError, TypeError, RuntimeError):
                 traceback.print_exc()
                 restored = False
