@@ -521,6 +521,48 @@ class WorldLiquidTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 WorldLiquidRenderer(self.runtime, 4, dimension, scale, rotation)
 
+    def test_live_opacity_preserves_active_ids_and_masks_staged_and_queued_groups(self):
+        self.settle((group(0), group(1)), 0.)
+        active = tuple(record['model_id'] for record in self.renderer.active.values())
+        self.renderer.CREATIONS_PER_FRAME = 1
+        self.renderer.begin((group(0, .3), group(1, .3), group(2, .3)), ANCHOR, 1.)
+        self.renderer.advance(1.01)
+        staged = self.renderer.staging[0]['model_id']
+        calls = len(self.runtime.uniform_calls)
+        self.assertTrue(self.renderer.set_opacity(.25))
+        changed = self.runtime.uniform_calls[calls:]
+        self.assertEqual(set(active), {model for model, index, value in changed})
+        self.assertTrue(all(index == 4 and value[3] == .25 for model, index, value in changed))
+        self.assertTrue(self.runtime.hidden(staged))
+        for now in (1.2, 1.4, 1.6, 1.8, 2.):
+            ready = self.renderer.advance(now)
+        self.assertTrue(ready)
+        self.assertEqual(3, len(self.runtime.models))
+        self.assertTrue(all(data['uniforms'][4][3] == .25 for data in self.runtime.models.values()))
+        self.assertEqual(staged, self.renderer.active[0]['model_id'])
+
+    def test_opacity_failure_rolls_back_published_appearance(self):
+        self.settle((group(0), group(1)), 0.)
+        records = tuple(self.renderer.active.values())
+        before = dict((record['model_id'], self.runtime.models[record['model_id']]['uniforms'][4])
+                      for record in records)
+        self.runtime.fail_show_model = records[1]['model_id']
+        self.assertFalse(self.renderer.set_opacity(.25))
+        self.assertEqual(before, dict((model, data['uniforms'][4])
+                                     for model, data in self.runtime.models.items()))
+        self.assertTrue(all(record['group'].uniforms[3][3] == before[record['model_id']][3]
+                            for record in records))
+        self.assertIn('opacity', self.renderer.error)
+        self.assertEqual([], self.renderer.cleanup_errors)
+
+    def test_opacity_validation_keeps_existing_records_and_uniforms(self):
+        self.settle((group(),), 0.)
+        calls = len(self.runtime.uniform_calls)
+        for opacity in (True, -.1, 1.1, float('nan')):
+            with self.assertRaises(ValueError):
+                self.renderer.set_opacity(opacity)
+        self.assertEqual(calls, len(self.runtime.uniform_calls))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -97,6 +97,54 @@ class LiquidProjectionTests(unittest.TestCase):
         self.assertNotEqual(old_payload, [record['uniforms'][4] for record in self.runtime.models.values()])
         self.assertEqual('swampland', self.sources[-1][0].biome)
 
+    def test_target_selection_is_detached_and_survives_biome_changes(self):
+        targets = self.source.palette_data(lambda pos: pos == (2, 1, 1))
+        self.controller.request(targets)
+        targets['volume'] = (1, 1, 1)
+        for layer in ('common', 'extra'):
+            for indices in targets[layer].values():
+                indices[:] = []
+            targets[layer].clear()
+        self.finish()
+        self.controller.publish()
+        self.assertEqual([((2, 1, 1), 1)], [(pos, layer) for doc, pos, layer in self.sources])
+        self.sources.clear()
+        self.controller.set_biome('swampland')
+        self.finish()
+        self.assertEqual([((2, 1, 1), 1)], [(pos, layer) for doc, pos, layer in self.sources])
+        self.assertEqual(material('water'), self.sources[0][0].get((1, 1, 1)))
+
+    def test_live_opacity_changes_reuse_models_and_do_not_repeat_shape_preparation(self):
+        self.controller.request()
+        self.finish()
+        self.controller.publish()
+        models = set(self.runtime.models)
+        requests = len(self.sources)
+        calls = len(self.runtime.uniform_calls)
+        self.runtime.session.opacity = .7
+        self.assertTrue(self.controller.advance())
+        self.assertEqual(models, set(self.runtime.models))
+        self.assertEqual(requests, len(self.sources))
+        changed = self.runtime.uniform_calls[calls:]
+        self.assertEqual(len(models), len(changed))
+        self.assertTrue(all(index == 4 and value[3] == .7 for model, index, value in changed))
+        calls = len(self.runtime.uniform_calls)
+        for unused in range(10):
+            self.assertTrue(self.controller.advance())
+        self.assertEqual(calls, len(self.runtime.uniform_calls))
+
+    def test_opacity_changes_during_shape_plan_use_latest_appearance(self):
+        self.controller.request()
+        iterator = self.controller.iterator
+        self.runtime.session.opacity = .8
+        self.finish()
+        self.assertIsNone(self.controller.iterator)
+        self.assertIsNotNone(iterator)
+        self.assertEqual(.8, self.controller.opacity)
+        self.assertTrue(all(record['group'].uniforms[3][3] == .8
+                            for record in self.controller.renderer.active.values()))
+        self.assertTrue(all(self.runtime.hidden(model) for model in self.runtime.models))
+
     def test_plan_failure_latches_and_preserves_previously_published_water(self):
         self.controller.request()
         self.finish()
@@ -132,6 +180,23 @@ class LiquidProjectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.controller.request(occupied=invalid)
             self.assertIs(iterator, self.controller.iterator)
+
+    def test_invalid_target_mapping_cannot_replace_an_inflight_request(self):
+        self.controller.request()
+        iterator = self.controller.iterator
+        for invalid in ([], {'common': []}, {'extra': []}):
+            with self.assertRaises(ValueError):
+                self.controller.request(invalid)
+            self.assertIs(iterator, self.controller.iterator)
+
+    def test_occupancy_refresh_reselects_complete_source_after_initial_occupied_omission(self):
+        self.controller.request(self.source.palette_data(lambda pos: pos == (2, 1, 1)))
+        self.finish()
+        self.sources.clear()
+        self.controller.request(occupied=bytearray(self.source.volume))
+        self.finish()
+        self.assertEqual({((1, 1, 1), 0), ((2, 1, 1), 1), ((5, 2, 5), 0)},
+                         {(pos, layer) for doc, pos, layer in self.sources})
 
 
 class ProjectionRuntime(bridge_tests.Runtime):

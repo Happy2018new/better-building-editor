@@ -437,6 +437,39 @@ class WorldLiquidRenderer(object):
         self.visible = bool(visible)
         return True
 
+    def set_opacity(self, opacity):
+        if self.closed:
+            return False
+        opacity = _finite_tuple((opacity,), 1, 'projection opacity')[0]
+        if not 0. <= opacity <= 1.:
+            raise ValueError('Liquid projection opacity must be a finite unit value')
+        records = tuple(self.active.values()) + tuple(self.staging.values())
+        updates, written = [], []
+        for record in records:
+            group = record['group']
+            appearance = group.uniforms[3][:3] + (opacity,)
+            replacement = group._replace(uniforms=group.uniforms[:3] + (appearance,))
+            previous = group.uniforms[3] if record['visible'] else group.uniforms[3][:3] + (0.,)
+            value = appearance if record['visible'] else appearance[:3] + (0.,)
+            if value != previous:
+                if not self.model.SetExtraUniformValue(record['model_id'], 4, value):
+                    for restored, old in reversed(written):
+                        if not self.model.SetExtraUniformValue(restored['model_id'], 4, old):
+                            self.cleanup_errors.append((restored['model_id'], 'opacity_rollback'))
+                    self.error = 'Could not update owned liquid opacity'
+                    return False
+                written.append((record, previous))
+            updates.append((record, replacement))
+        for record, group in updates:
+            record['group'] = group
+        if self.wanted is not None:
+            self.wanted = tuple(group._replace(uniforms=group.uniforms[:3] +
+                (group.uniforms[3][:3] + (opacity,),)) for group in self.wanted)
+            pending = tuple(group for group in self.wanted if group.key not in self.staging
+                and self.active.get(group.key, {}).get('group') != group)
+            self.queue = iter(pending) if pending else None
+        return True
+
     def close(self):
         if not self.closed:
             self.closed = True

@@ -8,6 +8,18 @@ from .model import Document
 _COMPLETE = object()
 
 
+def _copy_targets(targets):
+    if not isinstance(targets, dict):
+        raise ValueError('Liquid targets need a native palette mapping')
+    result = {'volume': tuple(targets.get('volume', ())), 'common': {}, 'extra': {}}
+    for name in ('common', 'extra'):
+        values = targets.get(name, {})
+        if not isinstance(values, dict):
+            raise ValueError('Liquid targets need complete common and extra mappings')
+        result[name] = dict((value, tuple(indices)) for value, indices in values.items())
+    return result
+
+
 class LiquidProjection(object):
     BUILD_SECONDS = .0015
 
@@ -21,7 +33,8 @@ class LiquidProjection(object):
         self.renderer.set_visible(False)
         self.iterator = None
         self.preparing = []
-        self.occupied = None
+        self.targets = self.occupied = None
+        self.opacity = None
         self.ready = self.closed = self.committed = False
         self.error = None
         self.reported_error = False
@@ -33,7 +46,8 @@ class LiquidProjection(object):
         if occupied is not None and (len(occupied) != self.document.volume or
                                      any(state > 2 for state in occupied)):
             raise ValueError('Liquid occupancy must match the complete logical volume')
-        self.occupied = occupied
+        targets = _copy_targets(targets) if targets is not None else None
+        self.targets, self.occupied = targets, occupied
         snapshot = Document(self.document.size, biome=self.document.biome)
         snapshot.blocks = self.document.blocks.copy()
         occupied, hidden, layer = self.occupied, self.hidden, self.layer
@@ -53,12 +67,19 @@ class LiquidProjection(object):
         if self.closed or self.error is not None:
             return False
         try:
+            opacity = self.renderer.bridge.session.opacity
+            if opacity != self.opacity:
+                if not self.renderer.set_opacity(opacity):
+                    raise ValueError(self.renderer.error or 'Could not update liquid projection opacity')
+                self.opacity = opacity
             deadline = time.time() + self.BUILD_SECONDS
             for unused in range(64) if self.iterator is not None else ():
                 group = next(self.iterator, _COMPLETE)
                 if group is _COMPLETE:
                     self.iterator = None
-                    if not self.renderer.begin(self.preparing, self.origin, time.time()):
+                    groups = tuple(group._replace(uniforms=group.uniforms[:3] +
+                        (group.uniforms[3][:3] + (opacity,),)) for group in self.preparing)
+                    if not self.renderer.begin(groups, self.origin, time.time()):
                         raise ValueError(self.renderer.error or 'Could not prepare liquid projection')
                     self.preparing = []
                     break
@@ -95,7 +116,7 @@ class LiquidProjection(object):
         if biome == self.document.biome or self.closed:
             return
         self.document.biome = biome
-        self.request(occupied=self.occupied)
+        self.request(self.targets, self.occupied)
 
     def close(self):
         if self.closed:
