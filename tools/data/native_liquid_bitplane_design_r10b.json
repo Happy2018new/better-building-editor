@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "scope": "Frozen offline complement Gray-code marker/analysis design; no native launch or bitmap installation",
+  "worktree": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r10b-liquid",
+  "evidence_root": ".runtime/coordinate-bitplanes-r10b-v2",
+  "files": {
+    "plan": {
+      "path": ".runtime/coordinate-bitplanes-r10b-v2/plan.json",
+      "sha256": "acdd6f4482efa728de1d03dec922392146e8065a174cd4d4f925d2a40aaec043"
+    },
+    "marker": {
+      "path": ".runtime/coordinate-bitplanes-r10b-v2/assets/water_flow_grey.png",
+      "sha256": "0f75784a869959c2f075cd48b9dcf49d2f48c28ef59d2e2636600f34612c33cf"
+    },
+    "synthetic_input": {
+      "path": ".runtime/coordinate-bitplanes-r10b-v2/synthetic-input-v1.json",
+      "sha256": "5ffdfabbecb2a536e236a6c88627106c90c70c74771b2f8121154ba5b224fb46"
+    },
+    "synthetic_analysis": {
+      "path": ".runtime/coordinate-bitplanes-r10b-v2/synthetic-analysis-v1.json",
+      "sha256": "3a930dc92d7c6dfd4e6c459b286d22f81a8085a0de4d9504f689c2c598de147e"
+    },
+    "strict_cli_replay": {
+      "path": ".runtime/coordinate-bitplanes-r10b-v2/synthetic-cli-replay-v1.json",
+      "sha256": "625c0825752f31b84666230598f232181ada2f423f7613b94aae665f9d7fd1c3"
+    },
+    "generator_analyzer": {
+      "path": "tools/liquid_coordinate_bitplanes.py",
+      "sha256": "cc05e8ed6a10b08960fedb448100c6bc90a838832708bf4ff603d5287c38e1bf"
+    },
+    "synthetic_generator": {
+      "path": ".runtime/run_bitplane_design_r10b.py",
+      "sha256": "0e33c2dd41416f7a9996a6c7b47a1e9b0dd33838796806c9df7350d03be3a59d"
+    }
+  },
+  "marker_design": {
+    "dimensions": [32, 1024],
+    "coordinate_frames": 20,
+    "uniform_reference_frames": 12,
+    "coordinate_bits": 10,
+    "unique_full_frame_texel_addresses": 1024,
+    "rgb_grayscale_levels": [16, 240],
+    "alpha": 255,
+    "uniform_references_prove_phase": false
+  },
+  "synthetic_verification": {
+    "sequences": 6,
+    "native_geometry_source_preserved": true,
+    "selected": "nw/bottom/identity/edges",
+    "sampler": "nearest",
+    "hypotheses_tested": 480,
+    "synthetic_contract_passed": true,
+    "all_sequence_contradictions": 0,
+    "all_sequence_ambiguous_bits": 0,
+    "wrong_property_minimum_training_holdout_contradictions": {
+      "region": [1024, 2048],
+      "v_basis": [1460, 4208],
+      "pixel_mapping": [176, 740]
+    },
+    "new_tests": 9,
+    "all_coordinate_tests": 29,
+    "tests_passed": true,
+    "compile_passed": true,
+    "resource_manifest_equals_baseline": true,
+    "original_coordinate_evidence_files_byte_unchanged": true
+  },
+  "phase_counterexamples": [
+    "X/Y bit-plane phase permutation can produce perfect transposed-UV synthetic agreement",
+    "Fifty-percent interpolation of a bit and its complement removes coordinate signal",
+    "Center-only nearest samples alias pixel-center and pixel-edge hypotheses"
+  ],
+  "remaining_native_prerequisite": "One audited independent texture-frame identity/mixture provider tied to exact PNG and marker identities; timing and UV-candidate fit are forbidden phase proofs",
+  "native_phase_provider_available": false,
+  "native_ready": false,
+  "native_executed": false,
+  "marker_installed": false,
+  "native_uv_accepted": false,
+  "production_accepted": false,
+  "production_profile_enabled": false
+}
