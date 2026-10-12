@@ -18,7 +18,9 @@ from verify_scaffolding_native import registry
 class _BlockInfo:
     def __init__(self):
         self.cells = {}
+        self.liquids = {}
         self.writes = []
+        self.fail_palette = False
 
     def GetBlockNew(self, pos, dimension):
         return dict(self.cells.get(pos, {'name': 'minecraft:air', 'aux': 0}))
@@ -28,10 +30,30 @@ class _BlockInfo:
         self.cells[pos] = dict(value)
         return True
 
+    def GetLiquidBlock(self, pos, dimension):
+        return dict(self.liquids.get(pos, {'name': 'minecraft:air', 'aux': 0}))
+
+    def GetBlankBlockPalette(self):
+        return types.SimpleNamespace(DeserializeBlockPalette=self.deserialize)
+
+    def deserialize(self, data):
+        if data['common'] != {('minecraft:air', 0): [0]} or data['extra'] != {('minecraft:air', 0): [0]}:
+            raise AssertionError('Reset must explicitly clear both layers')
+        return True
+
+    def SetBlockByBlockPalette(self, palette, dimension, pos, *args):
+        if self.fail_palette:
+            raise RuntimeError('Injected palette reset failure')
+        self.cells[pos] = {'name': 'minecraft:air', 'aux': 0}
+        self.liquids.pop(pos, None)
+        self.writes.append((pos, dict(self.cells[pos])))
+        return True
+
 
 class _Game:
     def __init__(self):
         self.tile_drops = True
+        self.flow_forbidden = False
         self.timers = []
 
     def GetGameRulesInfoServer(self):
@@ -43,6 +65,10 @@ class _Game:
 
     def AddTimer(self, delay, callback):
         self.timers.append(callback)
+
+    def ForbidLiquidFlow(self, forbidden):
+        self.flow_forbidden = forbidden
+        return True
 
 
 class ScaffoldCatalogueSegmentsTests(unittest.TestCase):
@@ -97,6 +123,13 @@ class ScaffoldCatalogueSegmentsTests(unittest.TestCase):
             with self.subTest(kind=kind), self.assertRaises(ValueError):
                 validate_segment(report, self.manifest, self.expected)
 
+    def test_legacy_single_layer_resets_cannot_enter_dual_layer_catalogue(self):
+        report = self.segment(0)
+        report['method'] = ('8 isolated native legacy-state support/scaffold cells; '
+                            'tile drops disabled; .35s delayed readback; bounded-range-v1')
+        with self.assertRaisesRegex(ValueError, 'mismatching'):
+            validate_segment(report, self.manifest, self.expected)
+
     def test_overlapping_or_mixed_source_segments_are_rejected(self):
         first, second = self.segment(0), self.segment(4)
         with self.assertRaisesRegex(ValueError, 'Overlapping'):
@@ -131,7 +164,8 @@ class ScaffoldSegmentLifecycleTests(unittest.TestCase):
     def setUp(self):
         self.info, self.game, self.scope = _BlockInfo(), _Game(), {}
         factory = types.SimpleNamespace(
-            CreateBlockInfo=lambda level: self.info, CreateGame=lambda level: self.game,
+            CreateBlockInfo=lambda level: self.info, CreateBlock=lambda level: self.info,
+            CreateGame=lambda level: self.game,
             CreateDimension=lambda player: types.SimpleNamespace(GetEntityDimensionId=lambda: 0),
             CreatePos=lambda player: types.SimpleNamespace(GetFootPos=lambda: (0, 64, 0)))
         api = types.ModuleType('mod.server.extraServerApi')
@@ -164,6 +198,7 @@ class ScaffoldSegmentLifecycleTests(unittest.TestCase):
         cleanup = self.run_script(RESTORE % MARKER)
         self.assertTrue(cleanup['restored'])
         self.assertTrue(self.game.tile_drops)
+        self.assertFalse(self.game.flow_forbidden)
         self.assertFalse(hasattr(sys, MARKER))
 
     def test_cancelled_pending_readback_cannot_place_another_batch(self):
@@ -173,6 +208,29 @@ class ScaffoldSegmentLifecycleTests(unittest.TestCase):
         self.game.timers.pop(0)()
         self.assertEqual(writes_after_cleanup, len(self.info.writes))
         self.assertTrue(all(value['name'] == 'minecraft:air' for value in self.info.cells.values()))
+
+    def test_reset_clears_retained_background_water_before_next_batch_and_cleanup(self):
+        start = self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        pos = tuple(start['origin'])
+        self.info.liquids[pos] = {'name': 'minecraft:water', 'aux': 0}
+        self.game.timers.pop(0)()
+        self.assertFalse(self.info.liquids)
+        self.info.liquids[pos] = {'name': 'minecraft:water', 'aux': 0}
+        cleanup = self.run_script(RESTORE % MARKER)
+        self.assertTrue(cleanup['restored'])
+        self.assertEqual([], cleanup['remaining'])
+        self.assertFalse(self.info.liquids)
+
+    def test_cleanup_reset_exception_still_restores_rules_and_retains_recovery_state(self):
+        self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        self.info.fail_palette = True
+        with self.assertRaisesRegex(RuntimeError, 'reset failure'):
+            self.run_script(RESTORE % MARKER)
+        self.assertTrue(self.game.tile_drops)
+        self.assertFalse(self.game.flow_forbidden)
+        self.assertTrue(hasattr(sys, MARKER))
+        self.info.fail_palette = False
+        self.assertTrue(self.run_script(RESTORE % MARKER)['restored'])
 
     def test_old_timer_cannot_advance_a_new_segment_in_the_same_execution_scope(self):
         self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))

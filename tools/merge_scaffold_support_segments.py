@@ -79,7 +79,7 @@ def merge_segments(reports, manifest, expected):
     return {'schema': 1, 'method': METHOD, 'completed': True, 'restored': True,
             'game_version': manifest['game_version'], 'palette_sha256': manifest['source_sha256'].lower(),
             'source_sha256': reports[0]['source_sha256'],
-            'collection': 'Complete union of independently restored bounded-range-v1 observations',
+            'collection': 'Complete union of independently restored bounded-range-v2 observations',
             'limits': ['SDK placement, not item use.', 'No pixel or editor falling acceptance.',
                        'Changed support states remain unknown.'],
             'native': {'done': True, 'states': len(expected), 'index': len(expected), 'rows': rows}}
