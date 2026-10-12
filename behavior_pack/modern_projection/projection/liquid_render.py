@@ -40,6 +40,7 @@ class SkeletonLiquidRenderer(object):
         self.closed = False
         self.error = None
         self.failed_request = None
+        self.publication_restore = []
         self._show(0, False)
         self._show(1, False)
 
@@ -144,16 +145,57 @@ class SkeletonLiquidRenderer(object):
             self.pending = None
             self.failed_request = (group, None)
             return False
-        if not self._payload(back):
-            self._show(back, False)
+        if not self._publish(back):
             self.pending = None
             self.failed_request = (group, None)
             return False
-        previous, self.front = self.front, back
+        self.front = back
         self.pending = None
-        self._show(self.front, True)
-        self._show(previous, False)
         return True
+
+    def _publish(self, back):
+        previous = self.front
+        value = self.groups[back].uniforms[3]
+        try:
+            if self.uniforms[back].get(4) != value:
+                self.publication_restore.append(('uniform', (back, self.ids[back]),
+                                                 self.uniforms[back][4]))
+                if not self.model_component.SetExtraUniformValue(self.ids[back], 4, value):
+                    raise ValueError('Could not publish liquid skeleton payload')
+            if self.visible[previous]:
+                self.publication_restore.append(('visible', previous, self.visible[previous]))
+                if self.show(previous, False) is False:
+                    raise ValueError('Could not hide previous liquid skeleton surface')
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            self.error = 'Could not complete owned liquid skeleton publication'
+            self.restore_publication()
+            return False
+        self.uniforms[back][4] = value
+        self.visible[previous] = False
+        self.publication_restore = []
+        return True
+
+    def restore_publication(self):
+        remaining = []
+        for kind, key, value in reversed(self.publication_restore):
+            try:
+                if kind == 'uniform':
+                    restored = self.model_component.SetExtraUniformValue(key[1], 4, value)
+                else:
+                    restored = self.show(key, value) is not False
+                if not restored:
+                    error = ValueError('Could not restore owned liquid skeleton %s: %r' % (kind, key))
+                    traceback.print_exception(ValueError, error, None)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                restored = False
+            if not restored:
+                remaining.append((kind, key, value))
+        self.publication_restore = list(reversed(remaining))
+        if self.publication_restore:
+            self.error = 'Could not restore owned liquid skeleton publication'
+        return not self.publication_restore
 
     def _update_pose(self, slot, pose, staging=False):
         if self.poses[slot] != pose:
@@ -167,6 +209,8 @@ class SkeletonLiquidRenderer(object):
 
     def update(self, group, pose, now):
         if self.closed:
+            return False
+        if not self.restore_publication():
             return False
         if group is None:
             self.pending = None
@@ -225,6 +269,7 @@ class SkeletonLiquidRenderer(object):
             return
         self.closed = True
         self.pending = None
+        self.restore_publication()
         self._show(0, False)
         self._show(1, False)
         self.groups, self.ids = [None, None], [None, None]

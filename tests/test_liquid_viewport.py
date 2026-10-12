@@ -331,3 +331,224 @@ class LiquidControlsTests(unittest.TestCase):
         self.controls.close()
         self.assertFalse(any(control.visible for control in self.surfaces))
         self.assertFalse(self.update(.5))
+
+    def test_old_bank_hide_failure_restores_native_pair_before_publishing_front(self):
+        for failure in ('false', 'exception'):
+            with self.subTest(failure=failure):
+                self.setUp()
+                self.settle()
+                renderer = self.entry['renderer']
+                previous, incoming = renderer.front, 1 - renderer.front
+                old_request = self.entry['ready_request']
+                self.groups[0] = group(height=.3)
+                control = self.surfaces[previous]
+                show = control.SetVisible
+                attempted = []
+                def fail_hide(visible, unused):
+                    show(visible, unused)
+                    attempted.append(visible)
+                    if not visible and len(attempted) == 1:
+                        if failure == 'exception':
+                            raise RuntimeError('Old native liquid surface hide failed')
+                        return False
+                control.SetVisible = fail_hide
+                for now in (.3, .33, .36):
+                    self.assertFalse(self.update(now))
+                self.assertFalse(self.update(.39))
+                self.assertEqual(previous, renderer.front)
+                self.assertEqual(old_request, (renderer.groups[previous], renderer.poses[previous]))
+                self.assertTrue(self.surfaces[previous].visible)
+                self.assertEqual(0., self.model.values[self.dolls[incoming].doll.model_id, 4][3])
+                self.assertTrue(renderer.visible[previous])
+                self.assertEqual(0., renderer.uniforms[incoming][4][3])
+                self.assertNotIn('ready_request', self.entry)
+                self.assertIn('publication', self.controls.error)
+                calls = len(self.model.calls)
+                self.assertFalse(self.update(.5))
+                self.assertEqual(calls, len(self.model.calls))
+                self.controls.retry()
+                for now in (.6, .63, .66, .69, .72):
+                    ready = self.update(now)
+                self.assertTrue(ready)
+                self.assertEqual(incoming, renderer.front)
+                self.assertFalse(self.surfaces[previous].visible)
+                self.assertTrue(self.surfaces[incoming].visible)
+
+    def test_failed_promotion_restore_blocks_retry_until_stationary_recovery(self):
+        self.settle()
+        renderer = self.entry['renderer']
+        previous, incoming = renderer.front, 1 - renderer.front
+        self.groups[0] = group(height=.3)
+        control = self.surfaces[previous]
+        show = control.SetVisible
+        repairing = [False]
+        def fail_hide_and_restore(visible, unused):
+            show(visible, unused)
+            if not visible:
+                repairing[0] = True
+                return False
+            if repairing[0]:
+                return False
+        control.SetVisible = fail_hide_and_restore
+        for now in (.3, .33, .36, .39):
+            self.assertFalse(self.update(now))
+        self.assertEqual(previous, renderer.front)
+        self.assertTrue(renderer.publication_restore)
+        old_calls = len(self.model.calls)
+        old_submissions = sum(len(control.doll.calls) for control in self.dolls)
+        old_layout = [(control.position, control.size) for control in self.dolls + self.surfaces]
+        self.controls.retry()
+        self.view = self.view._replace(position=(-200., -100.), size=(1400., 1000.))
+        self.assertFalse(self.controls.update(self.groups, lambda origin: self.view,
+                                             lambda view: POSE, (10., 20.), .5))
+        self.assertEqual(previous, renderer.front)
+        self.assertEqual(old_calls, len(self.model.calls))
+        self.assertEqual(old_submissions, sum(len(control.doll.calls) for control in self.dolls))
+        self.assertEqual(old_layout, [(control.position, control.size)
+                                     for control in self.dolls + self.surfaces])
+        self.assertNotIn('ready_request', self.entry)
+        control.SetVisible = show
+        for now in (.6, .63, .66, .69, .72):
+            ready = self.update(now)
+        self.assertTrue(ready)
+        self.assertFalse(renderer.publication_restore)
+        self.assertEqual(incoming, renderer.front)
+        self.assertFalse(self.surfaces[previous].visible)
+        self.assertTrue(self.surfaces[incoming].visible)
+
+    def test_incoming_unmask_mutation_failure_restores_mask_and_retains_old_front(self):
+        for failure in ('false', 'exception'):
+            with self.subTest(failure=failure):
+                self.setUp()
+                self.settle()
+                renderer = self.entry['renderer']
+                previous, incoming = renderer.front, 1 - renderer.front
+                self.groups[0] = group(height=.3)
+                model_id = self.dolls[incoming].doll.model_id
+                setter = self.model.SetExtraUniformValue
+                attempted = []
+                def fail_unmask(identity, slot, value):
+                    result = setter(identity, slot, value)
+                    if identity == model_id and slot == 4 and value[3] > 0.:
+                        attempted.append(value)
+                        self.assertEqual(previous, renderer.front)
+                        self.assertEqual(0., renderer.uniforms[incoming][4][3])
+                        self.assertTrue(renderer.visible[previous])
+                        if failure == 'exception':
+                            raise RuntimeError('Incoming native liquid unmask failed')
+                        return False
+                    return result
+                self.model.SetExtraUniformValue = fail_unmask
+                for now in (.3, .33, .36, .39):
+                    self.assertFalse(self.update(now))
+                self.assertEqual(1, len(attempted))
+                self.assertEqual(previous, renderer.front)
+                self.assertTrue(self.surfaces[previous].visible)
+                self.assertEqual(0., self.model.values[model_id, 4][3])
+                self.assertEqual(0., renderer.uniforms[incoming][4][3])
+                self.assertFalse(renderer.publication_restore)
+                self.assertFalse(self.update(.5))
+                self.assertEqual(1, len(attempted))
+                self.model.SetExtraUniformValue = setter
+                self.controls.retry()
+                for now in (.6, .63, .66, .69, .72):
+                    ready = self.update(now)
+                self.assertTrue(ready)
+
+    def test_failed_unmask_restore_retains_attempt_and_blocks_new_native_work(self):
+        self.settle()
+        renderer = self.entry['renderer']
+        previous, incoming = renderer.front, 1 - renderer.front
+        self.groups[0] = group(height=.3)
+        model_id = self.dolls[incoming].doll.model_id
+        setter = self.model.SetExtraUniformValue
+        repairing = [False]
+        def fail_unmask_and_restore(identity, slot, value):
+            result = setter(identity, slot, value)
+            if identity == model_id and slot == 4:
+                if value[3] > 0.:
+                    repairing[0] = True
+                    return False
+                if repairing[0]:
+                    return False
+            return result
+        self.model.SetExtraUniformValue = fail_unmask_and_restore
+        for now in (.3, .33, .36, .39):
+            self.assertFalse(self.update(now))
+        self.assertEqual(previous, renderer.front)
+        self.assertTrue(renderer.publication_restore)
+        old_submissions = sum(len(control.doll.calls) for control in self.dolls)
+        self.controls.retry()
+        self.assertFalse(self.update(.5))
+        self.assertEqual(old_submissions, sum(len(control.doll.calls) for control in self.dolls))
+        self.assertNotIn('ready_request', self.entry)
+        self.model.SetExtraUniformValue = setter
+        for now in (.6, .63, .66, .69, .72):
+            ready = self.update(now)
+        self.assertTrue(ready)
+        self.assertFalse(renderer.publication_restore)
+        self.assertEqual(incoming, renderer.front)
+
+    def test_failed_native_promotion_does_not_stop_healthy_owned_group(self):
+        self.settle()
+        previous = self.entry['renderer'].front
+        control = self.surfaces[previous]
+        show = control.SetVisible
+        def fail_hide(visible, unused):
+            show(visible, unused)
+            if not visible:
+                raise RuntimeError('First liquid bank hide failed')
+        control.SetVisible = fail_hide
+        self.groups[0] = group(height=.3)
+        dolls, surfaces = [Control(110), Control(111)], [Control(210), Control(211)]
+        healthy = {'dolls': [SimpleNamespace(current=control) for control in dolls],
+                   'surfaces': [SimpleNamespace(current=control) for control in surfaces]}
+        self.registry[1] = healthy
+        self.groups[1] = group(1)._replace(origin=(8, 0, 8))
+        for now in (.3, .33, .36, .39, .42):
+            self.assertFalse(self.update(now))
+        self.assertEqual(previous, self.entry['renderer'].front)
+        self.assertTrue(self.surfaces[previous].visible)
+        self.assertIn('ready_request', healthy)
+        self.assertTrue(surfaces[healthy['renderer'].front].visible)
+        self.assertIn('publication', self.controls.error)
+
+    def test_failed_publication_restore_blocks_removed_and_offscreen_readiness(self):
+        for lifecycle in ('removed', 'offscreen'):
+            for failure in ('false', 'exception'):
+                with self.subTest(lifecycle=lifecycle, failure=failure):
+                    self.setUp()
+                    self.settle()
+                    renderer = self.entry['renderer']
+                    previous = renderer.front
+                    control = self.surfaces[previous]
+                    show = control.SetVisible
+                    repairing = [False]
+                    def fail_hide_and_restore(visible, unused):
+                        show(visible, unused)
+                        if not visible:
+                            repairing[0] = True
+                            return False
+                        if repairing[0]:
+                            if failure == 'exception':
+                                raise RuntimeError('Old liquid surface restore failed')
+                            return False
+                    control.SetVisible = fail_hide_and_restore
+                    self.groups[0] = group(height=.3)
+                    for now in (.3, .33, .36, .39):
+                        self.assertFalse(self.update(now))
+                    self.assertTrue(renderer.publication_restore)
+                    if lifecycle == 'removed':
+                        self.groups.pop(0)
+                    else:
+                        self.view = self.view._replace(clipped=True)
+                    self.assertFalse(self.update(.5))
+                    self.assertTrue(self.controls.pending)
+                    self.assertIn('restore', self.controls.error)
+                    self.assertTrue(renderer.publication_restore)
+                    self.assertEqual(previous, renderer.front)
+                    control.SetVisible = show
+                    self.assertTrue(self.update(.6))
+                    self.assertFalse(renderer.publication_restore)
+                    self.assertFalse(any(surface.visible for surface in self.surfaces))
+                    self.assertIsNone(self.controls.error)

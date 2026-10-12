@@ -41,7 +41,7 @@ class LiquidControls(object):
         def show(slot, visible):
             control = surfaces[slot].current
             if control is not None:
-                control.SetVisible(visible, False)
+                return control.SetVisible(visible, False)
         renderer = SkeletonLiquidRenderer(
             tuple(ref.current.asNeteasePaperDoll() for ref in entry['dolls']),
             self.model_component, show)
@@ -58,6 +58,11 @@ class LiquidControls(object):
                 self.pending = True
                 continue
             renderer = self._renderer(entry)
+            if not renderer.restore_publication():
+                self.pending = True
+                self.error = self.error or renderer.error
+                entry.pop('ready_request', None)
+                continue
             group = groups.get(key)
             if group is None:
                 renderer.update(None, None, now)
