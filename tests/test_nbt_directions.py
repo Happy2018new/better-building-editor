@@ -1,5 +1,6 @@
 """NBT adapters follow coordinate geometry and leave unrelated payloads intact."""
 import copy
+import math
 import sys
 import unittest
 from pathlib import Path
@@ -33,6 +34,98 @@ def tagged(value, kind):
 
 
 class NbtDirectionTests(unittest.TestCase):
+    def test_client_fields_are_opaque_in_tagged_native_nbt(self):
+        payload = {'id': tagged('FutureEntity', 8),
+                   'facingDirection': tagged(2, 3),
+                   'signStandingRotation': tagged(1, 3),
+                   'chestIsLargeChest': True, 'chestMainSubChest': True,
+                   'chestModelOffset': 0.0}
+        byte_payload = {key.encode('ascii'): value for key, value in payload.items()}
+        for source in (payload, byte_payload, tagged(payload, 10)):
+            before = copy.deepcopy(source)
+            for operation in OPERATIONS:
+                self.assertEqual(before, transform_pair(source, (3, 2, 8), operation))
+            self.assertEqual(before, source)
+
+    def test_envelope_limits_client_rules_to_render_data_even_for_tagged_fields(self):
+        render = {'facingDirection': tagged(2, 3), 'signStandingRotation': tagged(1, 3),
+                  'chestIsLargeChest': tagged(True, 1),
+                  'chestMainSubChest': tagged(True, 1), 'chestModelOffset': tagged(0.0, 5)}
+        nbt = {'id': 'FutureEntity', 'facingDirection': 2, 'signStandingRotation': 1,
+               'chestIsLargeChest': True, 'chestMainSubChest': True, 'chestModelOffset': 0.0}
+        actor = compose_actor(render, nbt)
+        before = copy.deepcopy(actor)
+        normal = FACES[2]
+        sign_normal = (-math.sin(math.pi / 8), 0, math.cos(math.pi / 8))
+        for operation in OPERATIONS:
+            changed = transform_pair(actor, (0, 0, 0), operation)
+            client = render_actor(changed)
+            self.assertEqual(FACES.index(vector(normal, operation)), scalar(client, 'facingDirection'))
+            x, unused, z = vector(sign_normal, operation)
+            expected_sign = int(round(math.atan2(-x, z) * 8 / math.pi)) % 16
+            self.assertEqual(expected_sign, scalar(client, 'signStandingRotation'))
+            mirrored = operation in ('mirror_x', 'mirror_z')
+            self.assertEqual(not mirrored, scalar(client, 'chestMainSubChest'))
+            self.assertEqual(-0.5 if mirrored else 0.0, scalar(client, 'chestModelOffset'))
+            self.assertEqual(nbt, entity_nbt(changed))
+        self.assertEqual(before, actor)
+
+    def test_native_direction_adapter_preserves_similarly_named_client_fields(self):
+        payload = {'id': tagged('ShulkerBox', 8), 'facing': tagged(2, 1),
+                   'facingDirection': tagged(2, 3), 'signStandingRotation': tagged(1, 3)}
+        for operation in OPERATIONS:
+            changed = transform_pair(payload, (0, 0, 0), operation)
+            self.assertEqual(FACES.index(vector(FACES[2], operation)), scalar(changed, 'facing'))
+            self.assertEqual(payload['facingDirection'], changed['facingDirection'])
+            self.assertEqual(payload['signStandingRotation'], changed['signStandingRotation'])
+
+    def test_material_specific_client_fields_are_opaque_in_native_payloads_without_id(self):
+        fixtures = (
+            (('minecraft:skeleton_skull', 1),
+             {'skullType': tagged(255, 3), 'rotation': tagged(22.5, 5)}),
+            (('minecraft:bed', 0), {'direction': tagged(0, 3)}),
+            (('minecraft:decorated_pot', 0),
+             dict({'decoratedPotShredNamesSize': tagged(4, 3)},
+                  **{'decoratedPotShredNames' + str(index): tagged('side' + str(index), 8)
+                     for index in range(4)})),
+        )
+        for material, payload in fixtures:
+            for source in (tagged(payload, 10), compose_actor(None, payload)):
+                before = copy.deepcopy(source)
+                for operation in OPERATIONS:
+                    self.assertEqual(before, transform_pair(source, (0, 0, 0), operation, material))
+                self.assertEqual(before, source)
+
+    def test_editor_transforms_rebase_sign_root_coordinates_without_rewriting_nbt_client_names(self):
+        from projection.model import Document, Editor
+        from projection.sharing_codec import encode_steps, decode_steps
+        source, center = (1, 0, 1), (2, 1, 2)
+        nbt = {'id': tagged('Sign', 8), 'facingDirection': tagged(2, 3),
+               'signStandingRotation': tagged(9, 3),
+               'FrontText': {'Text': tagged('Front', 8)},
+               'BackText': {'Text': tagged('Back', 8)},
+               'Items': [{'tag': {'x': 80, 'facingDirection': 2}}]}
+        nbt.update({axis: tagged(source[index], 3) for index, axis in enumerate(('x', 'y', 'z'))})
+        original = make_cell(('minecraft:standing_sign', 1),
+                             nbt=compose_actor({'signStandingRotation': 1}, nbt))
+        offset = tuple(source[index] - center[index] for index in range(3))
+        for operation in OPERATIONS:
+            editor = Editor(Document((5, 3, 5), {source: original}))
+            editor.select_box((1, 0, 1), (3, 2, 3))
+            editor.run(operation)
+            moved = vector(offset, operation)
+            target = tuple(center[index] + moved[index] for index in range(3))
+            payload = actor_data(editor.document.get(target))
+            changed_nbt = entity_nbt(payload)
+            self.assertEqual(target, tuple(scalar(changed_nbt, axis) for axis in ('x', 'y', 'z')))
+            for field in ('facingDirection', 'signStandingRotation', 'FrontText', 'BackText', 'Items'):
+                self.assertEqual(nbt[field], changed_nbt[field])
+            shared = list(encode_steps(editor.document))[-1]['text']
+            restored = list(decode_steps(shared))[-1]['document']
+            self.assertEqual(payload, actor_data(restored.get(target)))
+            editor.undo()
+            self.assertEqual(original, editor.document.get(source))
+
     def test_all_six_shulker_faces_follow_coordinate_geometry_and_keep_byte_tags(self):
         for face, normal in enumerate(FACES):
             original = tagged({'id': tagged('ShulkerBox', 8), 'facing': tagged(face, 1)}, 10)
