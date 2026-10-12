@@ -1,0 +1,8 @@
+# Frozen chest evidence verifies the exact bytes of these independent oracles.
+tools/verify_chest_occupied_frozen_holdout.py text eol=lf
+tools/verify_chest_editor_frozen_holdout.py text eol=lf
+tools/verify_copper_chest_render.py text eol=lf
+tools/shulker_pixels.py text eol=lf
+tools/verify_camera_projection.py text eol=lf
+tools/verify_missing_neighbor_visuals.py text eol=lf
+behavior_pack/modern_projection/projection/block_registry_data.py text eol=lf
