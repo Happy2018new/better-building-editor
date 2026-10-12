@@ -24,6 +24,11 @@ def root_payload(data):
     from .visible_actor import is_envelope
     if is_envelope(data):
         return root_payload(data['nbt'] if data['nbt'] is not None else data['render'])
+    kind = data.get('__type__', data.get(b'__type__'))
+    compound = ((isinstance(kind, integer_types) and kind == 10) or
+                kind in ('TAG_Compound', b'TAG_Compound'))
+    if not compound:
+        return data
     tagged = data.get('__value__', data.get(b'__value__'))
     return tagged if isinstance(tagged, dict) else data
 
