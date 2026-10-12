@@ -1,0 +1,3027 @@
+{
+  "schema": 1,
+  "method": "Public action matrix, legacy native writes, updateNeighbors=True, .12s timer readback",
+  "completed": true,
+  "restored": true,
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\dfda1cc5eba5440694a979903b827d5d\\session.json",
+  "owner": "ownr11-neighbor",
+  "source": "test.connections.actions",
+  "plans": [
+    {
+      "id": "stair_outer_standing",
+      "family": "stairs",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:oak_stairs",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "form_corner",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:birch_stairs",
+                3
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_corner",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "stair_inner_standing",
+      "family": "stairs",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:oak_stairs",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "form_corner",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:birch_stairs",
+                3
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_corner",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "stair_outer_inverted",
+      "family": "stairs",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:oak_stairs",
+            4
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "form_corner",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:birch_stairs",
+                7
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_corner",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "stair_inner_inverted",
+      "family": "stairs",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:oak_stairs",
+            4
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "form_corner",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:birch_stairs",
+                7
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_corner",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "cobblestone_wall_mixed",
+      "family": "connections",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:cobblestone_wall",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "connect",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:glass_pane",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "oak_fence_mixed",
+      "family": "connections",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:oak_fence",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "connect",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:birch_fence",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "glass_pane_mixed",
+      "family": "connections",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:glass_pane",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "connect",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:red_stained_glass_pane",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "iron_bars_mixed",
+      "family": "connections",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:iron_bars",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "connect",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:copper_bars",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "session_id": "dfda1cc5eba5440694a979903b827d5d",
+    "game_pid": 61624,
+    "game_identity": "134362846971729514",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+    "game_executable_sha256": "67880328996b2895fa7e80712de3dc90d5b6ced26ac10ce67fb49d2e1a51f31f",
+    "public_source_sha256": "9b964ad00372a7594b18cef1ed78f1436c0c481d986f49275e2cda6546d49666",
+    "start_payload_sha256": "ad5e52e981e4df21d40b635e37fa315e5803320b7611b34ff11d91c9ff8e686e",
+    "status_payload_sha256": "bdb1bfe2419984df7e83172ecba7c73e10ef20604003c9b4f5c23477cf6ef3f8",
+    "restore_payload_sha256": "1c60db5e32d837b69163d695d74208ce1ae3184a033eee061626426a70f7caff"
+  },
+  "start": {
+    "origin": [
+      8,
+      -48,
+      8
+    ],
+    "cases": 8,
+    "runtime": "1.21.120.0",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "game_version": "NEMC 3.9.0.401155"
+  },
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "native": {
+    "case": 8,
+    "action": 0,
+    "rows": [
+      {
+        "case": "stair_outer_standing",
+        "family": "stairs",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:oak_stairs",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "stair_outer_standing",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:birch_stairs",
+              3
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "form_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 3,
+              "upside_down_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_outer_standing",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 3,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "action": "erase_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_inner_standing",
+        "family": "stairs",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:oak_stairs",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "stair_inner_standing",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:birch_stairs",
+              3
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "form_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 3,
+              "upside_down_bit": false
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:birch_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_inner_standing",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 3,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "action": "erase_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_outer_inverted",
+        "family": "stairs",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:oak_stairs",
+              4
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "stair_outer_inverted",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:birch_stairs",
+              7
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "form_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 3,
+              "upside_down_bit": true
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 7,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_outer_inverted",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 7,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "action": "erase_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_inner_inverted",
+        "family": "stairs",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:oak_stairs",
+              4
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "stair_inner_inverted",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:birch_stairs",
+              7
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "form_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 3,
+              "upside_down_bit": true
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 7,
+              "name": "minecraft:birch_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "stair_inner_inverted",
+        "family": "stairs",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 7,
+              "name": "minecraft:birch_stairs"
+            }
+          }
+        ],
+        "action": "erase_corner",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "weirdo_direction": 0,
+              "upside_down_bit": true
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 4,
+              "name": "minecraft:oak_stairs"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "family": "connections",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "wall_post_bit": true,
+              "wall_connection_type_east": "none",
+              "wall_connection_type_north": "none",
+              "wall_connection_type_west": "none",
+              "wall_connection_type_south": "none"
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:cobblestone_wall"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:cobblestone_wall",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:glass_pane",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "connect",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "wall_post_bit": true,
+              "wall_connection_type_east": "short",
+              "wall_connection_type_north": "none",
+              "wall_connection_type_west": "none",
+              "wall_connection_type_south": "none"
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 9,
+              "name": "minecraft:cobblestone_wall"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:glass_pane"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:glass_pane"
+            }
+          }
+        ],
+        "action": "erase",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "wall_post_bit": true,
+              "wall_connection_type_east": "none",
+              "wall_connection_type_north": "none",
+              "wall_connection_type_west": "none",
+              "wall_connection_type_south": "none"
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:cobblestone_wall"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "oak_fence_mixed",
+        "family": "connections",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_fence"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:oak_fence",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "oak_fence_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:birch_fence",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "connect",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_fence"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:birch_fence"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "oak_fence_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:birch_fence"
+            }
+          }
+        ],
+        "action": "erase",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:oak_fence"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "glass_pane_mixed",
+        "family": "connections",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:glass_pane"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:glass_pane",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "glass_pane_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:red_stained_glass_pane",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "connect",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:glass_pane"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:red_stained_glass_pane"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "glass_pane_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:red_stained_glass_pane"
+            }
+          }
+        ],
+        "action": "erase",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:glass_pane"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "iron_bars_mixed",
+        "family": "connections",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:iron_bars"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:iron_bars",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "iron_bars_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:copper_bars",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "connect",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:iron_bars"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:copper_bars"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "iron_bars_mixed",
+        "family": "connections",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:copper_bars"
+            }
+          }
+        ],
+        "action": "erase",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:iron_bars"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      }
+    ],
+    "done": true,
+    "error": null
+  },
+  "cleanup": {
+    "reserved_air": 294,
+    "restored": true
+  },
+  "comparison": {
+    "rows": [
+      {
+        "case": "stair_outer_standing",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_outer_standing",
+        "action": "form_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_outer_standing",
+        "action": "erase_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_standing",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_standing",
+        "action": "form_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_standing",
+        "action": "erase_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_outer_inverted",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_outer_inverted",
+        "action": "form_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_outer_inverted",
+        "action": "erase_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_inverted",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_inverted",
+        "action": "form_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "stair_inner_inverted",
+        "action": "erase_corner",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "action": "initial",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:cobblestone_wall",
+              1
+            ],
+            "local": [
+              "minecraft:cobblestone_wall",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "action": "connect",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "cobblestone_wall_mixed",
+        "action": "erase",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "oak_fence_mixed",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "oak_fence_mixed",
+        "action": "connect",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "oak_fence_mixed",
+        "action": "erase",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "glass_pane_mixed",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "glass_pane_mixed",
+        "action": "connect",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "glass_pane_mixed",
+        "action": "erase",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "iron_bars_mixed",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "iron_bars_mixed",
+        "action": "connect",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "iron_bars_mixed",
+        "action": "erase",
+        "matched": true,
+        "differences": []
+      }
+    ],
+    "all_matched": false,
+    "scope": "Actual native writes versus local static edits; no visual acceptance or survival deletion contract."
+  }
+}

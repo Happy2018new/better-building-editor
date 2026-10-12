@@ -22,7 +22,7 @@ def restore_owned_window(session, background_only=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', choices=('dripstone', 'static', 'extended'), required=True)
+    parser.add_argument('--suite', choices=('dripstone', 'static', 'extended', 'botanical'), required=True)
     parser.add_argument('--capture-helper', type=Path, required=True,
                         help='Checkpointed verify_sign_visuals.py exporting SignCheck')
     parser.add_argument('--background-only', action='store_true', default=True,
@@ -39,6 +39,8 @@ def main():
         import verify_dripstone_world_visuals as suite
     elif options.suite == 'extended':
         import verify_extended_neighbor_world_visuals as suite
+    elif options.suite == 'botanical':
+        import verify_botanical_neighbor_world_visuals as suite
     else:
         import verify_static_neighbor_world_visuals as suite
     from verify_debug_blueprints import INSTALL_PROBE, write_json

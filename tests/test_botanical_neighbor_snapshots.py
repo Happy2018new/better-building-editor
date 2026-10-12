@@ -1,5 +1,7 @@
 """Saved chain snapshots remain local edits and keep occupancy-hidden neighbors."""
 import copy
+import json
+import subprocess
 from pathlib import Path
 import sys
 import unittest
@@ -75,6 +77,69 @@ class BotanicalNeighborSnapshotTests(unittest.TestCase):
                 if background(original) != AIR:
                     self.assertIn(index, result['extra'][background(original)])
                 self.assertEqual(saved, source.to_data())
+
+    def test_dry_native_wrapper_rejects_wet_cases_and_changed_public_source(self):
+        script = '''import sys
+sys.path.insert(0,'tools')
+import verify_botanical_neighbor_world_visuals as botanical
+from projection.debug_blueprints import material
+from projection.debug_botanical_blueprints import VISUAL_CASE
+assert botanical.world.world_case is botanical.source_suite.suite.static_world_case
+assert len(botanical.DRY_CASES)==11
+assert not {'kelp_wet_chain','reeds_water_support'}.intersection(botanical.world.CASES)
+for row in VISUAL_CASE['cases']:
+ delta=(7,85,-27)
+ translate=lambda pos:tuple(pos[i]+delta[i] for i in range(3))
+ cells=[(translate(pos),material(name,properties)) for pos,name,properties in row['blocks']]
+ if row not in botanical.DRY_CASES:
+  try:botanical.supports(cells)
+  except ValueError:pass
+  else:raise AssertionError('Wet source accepted as dry')
+  continue
+ expected=[(translate(pos),material(name,properties)) for pos,name,properties in row['supports']]
+ assert botanical.supports(cells)==expected,row
+ changed=list(cells)
+ changed[0]=(changed[0][0],('minecraft:air',0))
+ try:botanical.supports(changed)
+ except ValueError:pass
+ else:raise AssertionError('Changed public source accepted')
+'''
+        result = subprocess.run([sys.executable, '-X', 'utf8', '-c', script], cwd=ROOT,
+                                capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+
+    def test_public_botanical_blueprint_compiles_under_game_python2(self):
+        pypy = Path('C:/Users/Happy2018new/Desktop/PyPy/pypy2.exe')
+        if not pypy.is_file():
+            self.skipTest('Local game-compatible Python 2 interpreter is unavailable')
+        source = (ROOT / 'behavior_pack/modern_projection/projection/debug_botanical_blueprints.py').read_bytes()
+        result = subprocess.run([str(pypy), '-c', 'compile(%r,"blueprint","exec")' % source],
+                                capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+
+    def test_frozen_native_dry_report_keeps_failures_and_original_source(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        from verify_botanical_snapshots_native import compare, plans
+        report = json.loads((ROOT / 'tools/data/native_botanical_snapshots_r11_nemc_3.9.0.401155.json').read_bytes())
+        before = copy.deepcopy(report)
+        replay = compare(report, plans())
+        self.assertEqual(report['comparison'], json.loads(json.dumps(replay)))
+        self.assertEqual(before, report)
+        self.assertFalse(replay['all_matched'])
+        self.assertEqual({'vine_sides', 'chorus_branch', 'tripwire_short', 'tripwire_cross_chunk_long'},
+                         {row['case'] for row in replay['cases'] if row['source_matches_native'] and row['stable']})
+        self.assertEqual({'pending'}, set(report['acceptance'].values()))
+        self.assertEqual(266, report['cleanup']['reserved_air'])
+        for changed in ('restore', 'runtime', 'write'):
+            value = copy.deepcopy(report)
+            if changed == 'restore':
+                value['restored'] = False
+            elif changed == 'runtime':
+                value['start']['runtime'] = 'other'
+            else:
+                value['native']['rows'][0]['writes'][0]['value'] = ['minecraft:stone', 0]
+            with self.subTest(change=changed), self.assertRaises(ValueError):
+                compare(value, plans())
 
 
 if __name__ == '__main__':
