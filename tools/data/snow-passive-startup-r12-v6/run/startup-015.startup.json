@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": false,
+  "reliable": false,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-12T18:32:31.997789+00:00",
+  "timeout_seconds": 14.987758100032806,
+  "output": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-passive-startup-attempt-r12-v6\\startup-015.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\session.json",
+    "sha256": "7a3061fbceada78f9f6d723ebfa50b4cfd67480eba162979534c920bc7b11c06",
+    "bytes": 5410
+  },
+  "session_id": "038844c8f42a436aa1474086ce66f8bb",
+  "owner": "snow-r12-passive",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+  "state_before": "starting",
+  "helper": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "processes_before": {
+    "mcdk": {
+      "pid": 44228,
+      "identity": "134363035326797077",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 62696,
+      "identity": "134363035328996422",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "ipc_port": {
+    "port": 51978,
+    "log_sha256": "6dab03dd959efa8e48df35eee85d055ed5a1a4ed6a7decede1d7d26bb7564653",
+    "log_bytes": 11353,
+    "actual_child_environment_recorded": false,
+    "source": "MCDK listener log; not a game getenv observation"
+  },
+  "tcp": {
+    "ipv4_rows": [
+      {
+        "state": 2,
+        "pid": 44228,
+        "local_address": "127.0.0.1",
+        "local_port": 51978,
+        "remote_address": "0.0.0.0",
+        "remote_port": 0
+      }
+    ],
+    "owned_listener_observed": true,
+    "owned_established_pair_observed": false,
+    "passive_table_only": true,
+    "private_ipc_connection_attempted": false,
+    "limits": "An OS established pair is not an SDK-ready result; polling can miss transient connections."
+  },
+  "guard_before": {
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 11079848,
+        "pid": 62696,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "window": {
+    "hwnd": 11079848,
+    "pid": 62696,
+    "process": "Minecraft.Windows.exe",
+    "title": "(1994, 1105) Minecraft",
+    "x": 283,
+    "y": 264,
+    "width": 1994,
+    "height": 1105,
+    "minimized": false,
+    "noactivate": true
+  },
+  "helper_returncode": 0,
+  "helper_stdout": "{\"ok\":true,\"backend\":\"Windows.Graphics.Capture\",\"native_resolution\":true,\"request_qpc_100ns\":3047351996217,\"frame_qpc_100ns\":3047352097706,\"width\":1994,\"height\":1105}\n",
+  "helper_stderr": "",
+  "manifest_after": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\session.json",
+    "sha256": "644eea0deb17e6a30aef7a67e4a0e8dee34a89b2050c1588da93dd95c54573a2",
+    "bytes": 6016
+  },
+  "processes_after": {
+    "mcdk": {
+      "pid": 44228,
+      "identity": "134363035326797077",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 62696,
+      "identity": "134363035328996422",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "state_after": "starting",
+  "guard_after": {
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 11079848,
+        "pid": 62696,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "frame": {
+    "ok": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "request_qpc_100ns": 3047351996217,
+    "frame_qpc_100ns": 3047352097706,
+    "width": 1994,
+    "height": 1105
+  },
+  "pixels": {
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      0.03022171688965777,
+      0.03022171688965777,
+      0.03022171688965777
+    ],
+    "sha256": "2813e22852cc4cf13c233d49b92af9b7034f931c02824211f5e84690af65d18d",
+    "bytes": 6718
+  },
+  "error": "RuntimeError: Startup image is blank; no activation fallback",
+  "finished_at": "2026-10-12T18:32:33.342925+00:00",
+  "elapsed_seconds": 1.3451536999782547
+}

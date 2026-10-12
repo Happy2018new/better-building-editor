@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "inner_v6_plan": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-passive-startup-r12-v6\\plan.json",
+    "sha256": "0c1fde7a4d32b0b090736fbd98f7a9131b5e267c04692bd4da21c30ef52bc19b",
+    "bytes": 25220
+  },
+  "files": {
+    "reader": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-startup-handle-health-r12-v1\\read_owned_startup_handles.py",
+      "sha256": "05b0a230669bb0086c3b712f46eb32b66c5cfede269d128be53c4562b7705534",
+      "bytes": 4836
+    },
+    "tests": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-startup-handle-health-r12-v1\\test_owned_startup_handle_snapshot.py",
+      "sha256": "ac4b00f17639151d511e5ac72e57bfb1a09afff376465de67262d576d9ce8498",
+      "bytes": 2677
+    }
+  },
+  "scope": "separate host-only passive handle observations; exact V6 launcher/supervisor/capture unchanged",
+  "samples": "first available published owned binding then 15/30/45 seconds after initial snapshot when before parent T0+105; one near end and one after cleanup; max6",
+  "single_reader_timeout_seconds": 5,
+  "routing": "exact frozen session helper; same opened process handle creation and executable checked before count, identity rechecked after",
+  "rapid_growth": {
+    "consecutive_intervals": 2,
+    "minimum_delta_each": 5000,
+    "minimum_handles_per_second_each": 200
+  },
+  "stop_action": "only exact own game/MCDK identities via V6 bounded same-handle helper; supervisor remains to restore originals; record diagnostic failure",
+  "cause_attribution": false,
+  "new_native_launches": 0,
+  "new_sdk_requests": 0,
+  "no_player_foot_or_height_gate": true,
+  "offline_tests_passed": 4
+}

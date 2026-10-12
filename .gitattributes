@@ -39,3 +39,6 @@ resource_pack/shaders/glsl/modern_projection_liquid.vertex -text whitespace=cr-a
 resource_pack/shaders/glsl/modern_projection_liquid_world.vertex -text whitespace=cr-at-eol
 resource_pack/shaders/glsl/modern_projection_liquid_*water_grey*.fragment -text whitespace=cr-at-eol
 resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h -text whitespace=cr-at-eol
+# Snow startup evidence retains the exact original capture and source bytes.
+tools/data/snow-passive-startup-r12-v6/** -text -diff
+tools/data/snow-h0-four-state-plan-r12-v1/** -text -diff

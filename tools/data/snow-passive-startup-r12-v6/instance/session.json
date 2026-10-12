@@ -1,0 +1,680 @@
+{
+  "schema": 1,
+  "id": "038844c8f42a436aa1474086ce66f8bb",
+  "name": "snow-passive-alpha-slot-r12-v1",
+  "owner": "snow-r12-passive",
+  "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\session.json",
+  "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\artifacts",
+  "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\appdata",
+  "log": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\mcdk.log",
+  "token": "d7ba4d635bbc4f5a807bc2fee187ebc3",
+  "state": "ready",
+  "created_at": 1791829928.5756955,
+  "ready": true,
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 11079848,
+        "pid": 62696,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "mcp_url": "http://127.0.0.1:51975/mcp",
+  "port": 51975,
+  "world": "PYR_038844c8f42a436aa1474086ce66f8bb",
+  "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+  "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_038844c8f42a436aa1474086ce66f8bb",
+  "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\038844c8f42a436aa1474086ce66f8bb\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_038844c8f42a436aa1474086ce66f8bb",
+  "foreground_before": {
+    "hwnd": 36701588,
+    "pid": 56284,
+    "process": "ChatGPT.exe",
+    "identity": "134362669641089455",
+    "title": "ChatGPT",
+    "visible": true,
+    "minimized": false
+  },
+  "mcdk_pid": 44228,
+  "mcdk_identity": "134363035326797077",
+  "discovery_observations": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 8.215,
+      "children": [
+        62696
+      ],
+      "listeners": [
+        44228
+      ]
+    }
+  ],
+  "game_pid": 62696,
+  "game_identity": "134363035328996422",
+  "startup_endpoint_discovered": true,
+  "last_sdk_error": {
+    "phase": "client_process_environment",
+    "method": "tools/call",
+    "error_type": "MCDKError",
+    "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+  },
+  "sdk_errors": [
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    },
+    {
+      "phase": "client_process_environment",
+      "method": "tools/call",
+      "error_type": "MCDKError",
+      "error": "{\"isError\": true, \"content\": [{\"text\": \"Code execution failed. The player may not be in the game or the target is unavailable.\", \"type\": \"text\"}]}"
+    }
+  ],
+  "foreground_after": {
+    "hwnd": 36701588,
+    "pid": 56284,
+    "process": "ChatGPT.exe",
+    "identity": "134362669641089455",
+    "title": "ChatGPT",
+    "visible": true,
+    "minimized": false
+  },
+  "foreground_before_still_valid": true,
+  "foreground_unchanged": true
+}

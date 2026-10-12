@@ -1,0 +1,1888 @@
+
+  ███╗   ███╗ ██████╗ ██████╗ ██╗  ██╗
+  ████╗ ████║██╔════╝ ██╔══██╗██║ ██╔╝
+  ██╔████╔██║██║      ██║  ██║█████╔╝
+  ██║╚██╔╝██║██║      ██║  ██║██╔═██╗
+  ██║ ╚═╝ ██║╚██████╗ ██████╔╝██║  ██╗
+  ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝
+  Minecraft Creator Development Kit
+  Kid Studio Core Tool
+
+[MCDK] Addons
+  Debug    UUID=c329b06f-7492-4457-9af3-b19ff29999f9
+  Behavior "现代化投影"  UUID=8250153b-3c53-4bd2-a156-666b4aebf3f9  Watch=Py
+  Resource "现代化投影"  UUID=7c6a9da7-a343-4086-8c15-a60ade3d3367
+  Behavior "PyreactSession_038844c8f42a436aa1474086ce66f8bb"  UUID=f4fd01a7-3a04-4c35-b7da-23b34d643f7d  Watch=Py
+[MCDK] MCP Server 127.0.0.1:51975
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:12 Starting MCP server on 127.0.0.1:51975[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:12 Starting server in separate thread[0m
+[MCDK] IPC Bridge listening on port 51978
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Streamable HTTP: created session 6add0b46-f692-3571-cb63-f3d09ff64f63[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52003 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52005 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52006 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52007 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Streamable HTTP: session terminated by client: 6add0b46-f692-3571-cb63-f3d09ff64f63[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52008 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Streamable HTTP: created session d1dd2de8-f8c5-813e-f8b9-fb40c1701b95[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52009 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:28 127.0.0.1:52010 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52011 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52012 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Streamable HTTP: session terminated by client: d1dd2de8-f8c5-813e-f8b9-fb40c1701b95[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52013 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Streamable HTTP: created session e97f4a07-c809-5bef-e99a-2fb4a24bebeb[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52015 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52017 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52018 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52019 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 Streamable HTTP: session terminated by client: e97f4a07-c809-5bef-e99a-2fb4a24bebeb[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:29 127.0.0.1:52020 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Streamable HTTP: created session 454a5872-3e2c-c9c5-b0ab-aabfda02b107[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 127.0.0.1:52023 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 127.0.0.1:52024 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 127.0.0.1:52025 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 127.0.0.1:52028 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 Streamable HTTP: session terminated by client: 454a5872-3e2c-c9c5-b0ab-aabfda02b107[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:30 127.0.0.1:52029 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Streamable HTTP: created session 08d9b0a3-89ab-69da-5035-0d675dc0ddbf[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52030 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52031 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52032 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52033 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Streamable HTTP: session terminated by client: 08d9b0a3-89ab-69da-5035-0d675dc0ddbf[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52034 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Streamable HTTP: created session fd21924d-ea91-8115-c251-0076c09ca76d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52035 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52037 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52040 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52041 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 Streamable HTTP: session terminated by client: fd21924d-ea91-8115-c251-0076c09ca76d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:31 127.0.0.1:52042 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Streamable HTTP: created session d7a98688-46f5-cba3-1f51-57e7fdb975c5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 127.0.0.1:52045 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 127.0.0.1:52046 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 127.0.0.1:52047 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 127.0.0.1:52048 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 Streamable HTTP: session terminated by client: d7a98688-46f5-cba3-1f51-57e7fdb975c5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:32 127.0.0.1:52049 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Streamable HTTP: created session 045f1632-a8f0-f02b-7820-f08409aa31ad[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52053 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52054 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52055 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52056 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Streamable HTTP: session terminated by client: 045f1632-a8f0-f02b-7820-f08409aa31ad[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52057 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Streamable HTTP: created session 61659010-c797-27bc-85ae-60c2ca68243b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52062 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52063 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52064 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52065 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 Streamable HTTP: session terminated by client: 61659010-c797-27bc-85ae-60c2ca68243b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:33 127.0.0.1:52067 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Streamable HTTP: created session 7a1c0df8-efd2-b31d-33a6-17bb364c461f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 127.0.0.1:52070 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 127.0.0.1:52071 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 127.0.0.1:52073 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 127.0.0.1:52076 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 Streamable HTTP: session terminated by client: 7a1c0df8-efd2-b31d-33a6-17bb364c461f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:34 127.0.0.1:52077 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Streamable HTTP: created session 9bba2aeb-40b4-492c-5a8a-79de2e82e187[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52078 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52079 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52080 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52081 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Streamable HTTP: session terminated by client: 9bba2aeb-40b4-492c-5a8a-79de2e82e187[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52082 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Streamable HTTP: created session 5aa21ef6-4acd-4d64-9ed2-3e86ebba0af4[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52083 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52084 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52085 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52086 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 Streamable HTTP: session terminated by client: 5aa21ef6-4acd-4d64-9ed2-3e86ebba0af4[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:35 127.0.0.1:52089 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Streamable HTTP: created session 6876e7c2-af9d-8247-e424-bf744bae49ca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 127.0.0.1:52094 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 127.0.0.1:52095 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 127.0.0.1:52096 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 127.0.0.1:52097 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 Streamable HTTP: session terminated by client: 6876e7c2-af9d-8247-e424-bf744bae49ca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:36 127.0.0.1:52098 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Streamable HTTP: created session 0e978b4e-b360-7d98-c431-40ad60179020[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52100 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52101 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52102 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52103 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Streamable HTTP: session terminated by client: 0e978b4e-b360-7d98-c431-40ad60179020[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52104 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Streamable HTTP: created session 3fc81017-1541-f101-ad2d-fdba71c1242c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52106 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52107 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52108 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52109 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 Streamable HTTP: session terminated by client: 3fc81017-1541-f101-ad2d-fdba71c1242c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:37 127.0.0.1:52110 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Streamable HTTP: created session f9748fcd-e8c4-863f-4304-7d3e8eb56145[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 127.0.0.1:52111 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 127.0.0.1:52112 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 127.0.0.1:52113 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 127.0.0.1:52114 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 Streamable HTTP: session terminated by client: f9748fcd-e8c4-863f-4304-7d3e8eb56145[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:38 127.0.0.1:52115 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Streamable HTTP: created session c8b22e5f-c2dd-7f51-354f-3d9b376722f9[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52118 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52119 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52120 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52121 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Streamable HTTP: session terminated by client: c8b22e5f-c2dd-7f51-354f-3d9b376722f9[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52122 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Streamable HTTP: created session db6b8bfd-5c17-19fa-37a0-7854752a63f1[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52123 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52124 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52125 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52126 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 Streamable HTTP: session terminated by client: db6b8bfd-5c17-19fa-37a0-7854752a63f1[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:39 127.0.0.1:52127 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Streamable HTTP: created session cf225081-8325-d30b-e321-5ca84fdad94c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 127.0.0.1:52128 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 127.0.0.1:52129 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 127.0.0.1:52130 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 127.0.0.1:52131 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 Streamable HTTP: session terminated by client: cf225081-8325-d30b-e321-5ca84fdad94c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:40 127.0.0.1:52132 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Streamable HTTP: created session 51efe703-a953-e660-9cba-637d031f6126[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52133 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52134 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52135 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52136 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Streamable HTTP: session terminated by client: 51efe703-a953-e660-9cba-637d031f6126[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52137 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Streamable HTTP: created session 40542149-485e-5ec5-5ae2-24b38db52b8f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52138 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52139 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52140 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52141 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 Streamable HTTP: session terminated by client: 40542149-485e-5ec5-5ae2-24b38db52b8f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:41 127.0.0.1:52142 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Streamable HTTP: created session 1df75750-b089-bc67-acd2-0504adf27817[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 127.0.0.1:52143 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 127.0.0.1:52144 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 127.0.0.1:52145 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 127.0.0.1:52146 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 Streamable HTTP: session terminated by client: 1df75750-b089-bc67-acd2-0504adf27817[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:42 127.0.0.1:52147 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Streamable HTTP: created session 2fdeb102-0f4e-e97e-33e7-253ce18800ed[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 127.0.0.1:52150 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 127.0.0.1:52151 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 127.0.0.1:52152 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 127.0.0.1:52153 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 Streamable HTTP: session terminated by client: 2fdeb102-0f4e-e97e-33e7-253ce18800ed[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:43 127.0.0.1:52154 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Streamable HTTP: created session 4f398fb5-2fb2-5bc2-f84a-dada9c05794b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52155 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52156 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52157 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52158 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Streamable HTTP: session terminated by client: 4f398fb5-2fb2-5bc2-f84a-dada9c05794b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52159 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Streamable HTTP: created session 8870df88-92e7-ef8e-ef8f-7d07dbb11b0b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52160 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52161 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52162 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52163 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 Streamable HTTP: session terminated by client: 8870df88-92e7-ef8e-ef8f-7d07dbb11b0b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:44 127.0.0.1:52164 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Streamable HTTP: created session ffa325e3-585d-1372-0f2f-378269d16413[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 127.0.0.1:52165 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 127.0.0.1:52166 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 127.0.0.1:52167 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 127.0.0.1:52168 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 Streamable HTTP: session terminated by client: ffa325e3-585d-1372-0f2f-378269d16413[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:45 127.0.0.1:52169 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Streamable HTTP: created session 110b480b-32aa-14f1-f8a2-d566b0cde5e6[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52170 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52172 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52173 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52178 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Streamable HTTP: session terminated by client: 110b480b-32aa-14f1-f8a2-d566b0cde5e6[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52179 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Streamable HTTP: created session c88c029f-61c2-35e8-6b3c-3dcc277f37b4[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52185 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52186 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52187 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52188 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 Streamable HTTP: session terminated by client: c88c029f-61c2-35e8-6b3c-3dcc277f37b4[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:46 127.0.0.1:52189 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Streamable HTTP: created session 19ad9129-d4ec-b547-8b41-0704f93fa697[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 127.0.0.1:52192 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 127.0.0.1:52193 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 127.0.0.1:52194 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 127.0.0.1:52195 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 Streamable HTTP: session terminated by client: 19ad9129-d4ec-b547-8b41-0704f93fa697[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:47 127.0.0.1:52196 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Streamable HTTP: created session 35842914-ac45-eba0-c72f-77ea5fda0f2d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52197 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52198 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52199 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52200 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Streamable HTTP: session terminated by client: 35842914-ac45-eba0-c72f-77ea5fda0f2d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52201 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Streamable HTTP: created session 100fc2ae-6808-3da9-90a6-68e7a6899c89[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52202 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52203 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52204 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52205 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 Streamable HTTP: session terminated by client: 100fc2ae-6808-3da9-90a6-68e7a6899c89[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:48 127.0.0.1:52206 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Streamable HTTP: created session 53f8487f-7942-e584-16e7-2283be4cc356[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 127.0.0.1:52207 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 127.0.0.1:52208 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 127.0.0.1:52209 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 127.0.0.1:52210 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 Streamable HTTP: session terminated by client: 53f8487f-7942-e584-16e7-2283be4cc356[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:49 127.0.0.1:52211 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Streamable HTTP: created session a88ef01a-522a-3a82-7075-cee1c3e9a74f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52216 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52217 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52218 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52219 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Streamable HTTP: session terminated by client: a88ef01a-522a-3a82-7075-cee1c3e9a74f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52220 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Streamable HTTP: created session 0fcfe4a9-ab62-870e-77ab-5746cfd70424[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52221 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52222 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52223 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:50 127.0.0.1:52224 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Streamable HTTP: session terminated by client: 0fcfe4a9-ab62-870e-77ab-5746cfd70424[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:52225 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Streamable HTTP: created session 7365415f-b201-0ed9-21ca-831db5af494a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:52226 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:56629 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:56630 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:56631 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 Streamable HTTP: session terminated by client: 7365415f-b201-0ed9-21ca-831db5af494a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:51 127.0.0.1:56632 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Streamable HTTP: created session bd07fc42-a6c7-236d-e09d-99c7a22635b5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 127.0.0.1:56635 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 127.0.0.1:56636 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 127.0.0.1:56637 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 127.0.0.1:56638 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Streamable HTTP: session terminated by client: bd07fc42-a6c7-236d-e09d-99c7a22635b5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 127.0.0.1:56639 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Streamable HTTP: created session c0b59ff6-3567-fc11-b2e3-98f8510b17cd[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:52 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:51583 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:51586 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:51587 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:51588 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Streamable HTTP: session terminated by client: c0b59ff6-3567-fc11-b2e3-98f8510b17cd[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:51589 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Streamable HTTP: created session 978a0a96-7851-012b-381d-2c6c43fe74aa[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:55517 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:55518 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:55519 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:55520 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 Streamable HTTP: session terminated by client: 978a0a96-7851-012b-381d-2c6c43fe74aa[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:53 127.0.0.1:55521 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Streamable HTTP: created session ae9f619e-54b3-243f-53ad-e6eba6943a8d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 127.0.0.1:55522 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 127.0.0.1:55523 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 127.0.0.1:55525 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 127.0.0.1:55527 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 Streamable HTTP: session terminated by client: ae9f619e-54b3-243f-53ad-e6eba6943a8d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:54 127.0.0.1:55528 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Streamable HTTP: created session 22bc0b6a-1c18-f933-e206-f7db80f3caee[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55531 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55532 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55533 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55534 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Streamable HTTP: session terminated by client: 22bc0b6a-1c18-f933-e206-f7db80f3caee[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55535 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Streamable HTTP: created session 35a746bc-0910-e0ff-c6ef-b0eef764b8aa[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55268 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55269 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55270 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55271 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 Streamable HTTP: session terminated by client: 35a746bc-0910-e0ff-c6ef-b0eef764b8aa[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:55 127.0.0.1:55272 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Streamable HTTP: created session c792fc6c-014e-1eb2-ca6d-b75b0fa84b35[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55273 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55274 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55275 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55276 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Streamable HTTP: session terminated by client: c792fc6c-014e-1eb2-ca6d-b75b0fa84b35[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55277 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Streamable HTTP: created session 35b1feae-76cc-0c70-7d02-9f33e7eedb64[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55280 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:56 127.0.0.1:55281 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55282 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55283 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Streamable HTTP: session terminated by client: 35b1feae-76cc-0c70-7d02-9f33e7eedb64[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55284 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Streamable HTTP: created session caf7a007-d6cc-f91d-c370-fd74d874a46f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55285 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55286 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55287 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55288 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 Streamable HTTP: session terminated by client: caf7a007-d6cc-f91d-c370-fd74d874a46f[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:57 127.0.0.1:55289 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Streamable HTTP: created session b16998c6-3ac7-116d-c0ef-dc231c04def8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 127.0.0.1:55290 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 127.0.0.1:55291 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 127.0.0.1:55292 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 127.0.0.1:55293 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 Streamable HTTP: session terminated by client: b16998c6-3ac7-116d-c0ef-dc231c04def8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:58 127.0.0.1:55294 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Streamable HTTP: created session b646ae7b-c09a-2080-3b3d-f4f8c02fbcb0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55297 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55298 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55299 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55300 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Streamable HTTP: session terminated by client: b646ae7b-c09a-2080-3b3d-f4f8c02fbcb0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55301 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Streamable HTTP: created session 24ff0828-8a21-4a89-994f-9335e9bfa050[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55303 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55304 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55305 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55306 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 Streamable HTTP: session terminated by client: 24ff0828-8a21-4a89-994f-9335e9bfa050[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:32:59 127.0.0.1:55307 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Streamable HTTP: created session 372f0942-37d1-70ed-25b6-272a9f1970f1[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 127.0.0.1:55308 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 127.0.0.1:55309 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 127.0.0.1:55310 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 127.0.0.1:55311 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 Streamable HTTP: session terminated by client: 372f0942-37d1-70ed-25b6-272a9f1970f1[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:00 127.0.0.1:55312 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Streamable HTTP: created session f90ef0f2-3a5f-a87a-5ee3-2b7f7b227d68[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55313 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55314 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55315 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55316 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Streamable HTTP: session terminated by client: f90ef0f2-3a5f-a87a-5ee3-2b7f7b227d68[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55317 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Streamable HTTP: created session d1e96b7a-28be-1e39-51c5-dd4836e25dad[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55318 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55319 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55320 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55321 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 Streamable HTTP: session terminated by client: d1e96b7a-28be-1e39-51c5-dd4836e25dad[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:01 127.0.0.1:55322 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Streamable HTTP: created session d72404b4-0b07-1391-59f5-d73a53f554f0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 127.0.0.1:55328 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 127.0.0.1:55329 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 127.0.0.1:55330 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 127.0.0.1:55331 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 Streamable HTTP: session terminated by client: d72404b4-0b07-1391-59f5-d73a53f554f0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:02 127.0.0.1:55332 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Streamable HTTP: created session e4db6ae0-f170-b771-7442-215c68078865[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55333 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55334 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55335 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55336 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Streamable HTTP: session terminated by client: e4db6ae0-f170-b771-7442-215c68078865[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55337 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Streamable HTTP: created session 39f91269-90a3-e38e-5050-7f5d311a8a9e[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55341 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55344 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55345 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:03 127.0.0.1:55346 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Streamable HTTP: session terminated by client: 39f91269-90a3-e38e-5050-7f5d311a8a9e[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55347 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Streamable HTTP: created session be9acc67-deb7-5a1a-54ae-16f8cb9234f5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55348 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55349 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55350 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55351 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 Streamable HTTP: session terminated by client: be9acc67-deb7-5a1a-54ae-16f8cb9234f5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:04 127.0.0.1:55352 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Streamable HTTP: created session 2e7809ac-446c-1aae-284c-8e47a949b097[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 127.0.0.1:55356 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 127.0.0.1:55357 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 127.0.0.1:55358 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 127.0.0.1:55359 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 Streamable HTTP: session terminated by client: 2e7809ac-446c-1aae-284c-8e47a949b097[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:05 127.0.0.1:55360 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Streamable HTTP: created session 694ddb78-badd-70d8-4e58-15a09e75f614[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55361 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55362 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55363 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55364 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Streamable HTTP: session terminated by client: 694ddb78-badd-70d8-4e58-15a09e75f614[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55365 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Streamable HTTP: created session db20c05b-ce56-bf9d-61bd-98ace6b8cffd[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55366 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55367 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55368 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55369 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 Streamable HTTP: session terminated by client: db20c05b-ce56-bf9d-61bd-98ace6b8cffd[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:06 127.0.0.1:55370 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Streamable HTTP: created session b5f694d0-b8fd-52f7-be58-3233a423590d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 127.0.0.1:55373 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 127.0.0.1:55374 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 127.0.0.1:55375 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 127.0.0.1:55376 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 Streamable HTTP: session terminated by client: b5f694d0-b8fd-52f7-be58-3233a423590d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:07 127.0.0.1:55377 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Streamable HTTP: created session d2e7789c-5641-c27a-babb-7d105082ec8b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55379 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55380 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55381 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55382 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Streamable HTTP: session terminated by client: d2e7789c-5641-c27a-babb-7d105082ec8b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55383 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Streamable HTTP: created session fdb3242b-0182-7a0d-3ba0-1fe27b7813cf[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55384 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55385 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55386 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55387 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 Streamable HTTP: session terminated by client: fdb3242b-0182-7a0d-3ba0-1fe27b7813cf[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:08 127.0.0.1:55388 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Streamable HTTP: created session 606d8047-4137-82d1-0cf9-96445b402769[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 127.0.0.1:55393 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 127.0.0.1:55394 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 127.0.0.1:55395 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 127.0.0.1:55396 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 Streamable HTTP: session terminated by client: 606d8047-4137-82d1-0cf9-96445b402769[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:09 127.0.0.1:55397 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Streamable HTTP: created session 7e2eee0f-94e7-718e-94ea-f56f591ba556[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55398 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55399 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55400 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55401 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Streamable HTTP: session terminated by client: 7e2eee0f-94e7-718e-94ea-f56f591ba556[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55402 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Streamable HTTP: created session f05236d8-0c6b-8d43-77a5-1e1fe444a7db[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55403 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55404 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55405 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55406 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 Streamable HTTP: session terminated by client: f05236d8-0c6b-8d43-77a5-1e1fe444a7db[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:10 127.0.0.1:55407 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Streamable HTTP: created session a4e9f195-b10b-7ee5-a1c3-345c905f3c80[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 127.0.0.1:55408 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 127.0.0.1:55409 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 127.0.0.1:55410 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 127.0.0.1:55411 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 Streamable HTTP: session terminated by client: a4e9f195-b10b-7ee5-a1c3-345c905f3c80[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:11 127.0.0.1:55412 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Streamable HTTP: created session 98e2dcd0-312d-0c49-4a69-a79f145b075c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55415 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55416 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55417 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55418 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Streamable HTTP: session terminated by client: 98e2dcd0-312d-0c49-4a69-a79f145b075c[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55419 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Streamable HTTP: created session 29f322a4-a8f2-2353-0e73-cd4e5b27a7d5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55422 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55423 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55424 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55425 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 Streamable HTTP: session terminated by client: 29f322a4-a8f2-2353-0e73-cd4e5b27a7d5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:12 127.0.0.1:55426 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Streamable HTTP: created session 985c2d16-d6da-1886-c0c1-d74bb899183d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 127.0.0.1:55427 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 127.0.0.1:55428 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 127.0.0.1:55429 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 127.0.0.1:55430 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 Streamable HTTP: session terminated by client: 985c2d16-d6da-1886-c0c1-d74bb899183d[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:13 127.0.0.1:55431 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Streamable HTTP: created session 3316a57f-623e-1c98-6870-ce106c57b59b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55436 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55437 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55438 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55439 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Streamable HTTP: session terminated by client: 3316a57f-623e-1c98-6870-ce106c57b59b[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55440 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Streamable HTTP: created session 7279944b-a1cd-fc8d-62d3-222329663838[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55441 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55442 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55443 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55445 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 Streamable HTTP: session terminated by client: 7279944b-a1cd-fc8d-62d3-222329663838[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:14 127.0.0.1:55446 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Streamable HTTP: created session 8fc31944-8510-9cc6-5f1f-3b96db1026c0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 127.0.0.1:55447 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 127.0.0.1:55448 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 127.0.0.1:55449 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 127.0.0.1:55450 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 Streamable HTTP: session terminated by client: 8fc31944-8510-9cc6-5f1f-3b96db1026c0[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:15 127.0.0.1:55451 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Streamable HTTP: created session 99aa0be4-c8f3-9007-2f48-b73adff5de94[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55452 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55453 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55454 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55455 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Streamable HTTP: session terminated by client: 99aa0be4-c8f3-9007-2f48-b73adff5de94[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55456 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Streamable HTTP: created session e366f773-9f27-8b31-12aa-4ac9f6b3a4b5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55457 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55458 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55459 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55460 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 Streamable HTTP: session terminated by client: e366f773-9f27-8b31-12aa-4ac9f6b3a4b5[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:16 127.0.0.1:55461 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Streamable HTTP: created session 7d0d22db-e13f-2e6e-cbff-8f9f27af808a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 127.0.0.1:55464 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 127.0.0.1:55465 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 127.0.0.1:55466 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 127.0.0.1:55467 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 Streamable HTTP: session terminated by client: 7d0d22db-e13f-2e6e-cbff-8f9f27af808a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:17 127.0.0.1:55468 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Streamable HTTP: created session 4d1d0e73-bdcc-fc69-9c66-e614bfc3ed29[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55469 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55470 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55473 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55475 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Streamable HTTP: session terminated by client: 4d1d0e73-bdcc-fc69-9c66-e614bfc3ed29[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55476 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Streamable HTTP: created session d01dcc68-e9b8-ee19-bfbc-c5c07bc49943[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55481 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55482 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55483 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55484 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 Streamable HTTP: session terminated by client: d01dcc68-e9b8-ee19-bfbc-c5c07bc49943[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:18 127.0.0.1:55485 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Streamable HTTP: created session 5696a8e8-182e-f3d0-c4a9-6d499e21997a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 127.0.0.1:55486 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 127.0.0.1:55487 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 127.0.0.1:55488 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 127.0.0.1:55489 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 Streamable HTTP: session terminated by client: 5696a8e8-182e-f3d0-c4a9-6d499e21997a[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:19 127.0.0.1:55490 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Streamable HTTP: created session 379fcf20-f610-c9d4-b453-ecbb2ffcb0b8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55492 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55493 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55494 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55495 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Streamable HTTP: session terminated by client: 379fcf20-f610-c9d4-b453-ecbb2ffcb0b8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55496 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Streamable HTTP: created session 49f32bd8-06d8-e9b8-2ed0-743a51bd1200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55500 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55501 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55502 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55503 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 Streamable HTTP: session terminated by client: 49f32bd8-06d8-e9b8-2ed0-743a51bd1200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:20 127.0.0.1:55504 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Streamable HTTP: created session b0466441-b566-18b3-209d-e1f6731a8e57[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 127.0.0.1:55505 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 127.0.0.1:55506 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 127.0.0.1:55507 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 127.0.0.1:55508 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 Streamable HTTP: session terminated by client: b0466441-b566-18b3-209d-e1f6731a8e57[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:21 127.0.0.1:55509 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Streamable HTTP: created session acff8c46-d3da-bc0d-d8f1-ad1d2d4e75fb[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55510 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55511 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55517 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55518 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Streamable HTTP: session terminated by client: acff8c46-d3da-bc0d-d8f1-ad1d2d4e75fb[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55519 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Streamable HTTP: created session d6cc99c8-731f-288e-ddab-4bc85047e4c8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55520 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55521 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55522 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55523 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 Streamable HTTP: session terminated by client: d6cc99c8-731f-288e-ddab-4bc85047e4c8[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:22 127.0.0.1:55528 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Streamable HTTP: created session 045dc9f1-15c8-cec4-b932-22bb4a0c8502[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 127.0.0.1:55530 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 127.0.0.1:55531 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 127.0.0.1:55532 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 127.0.0.1:55533 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 Streamable HTTP: session terminated by client: 045dc9f1-15c8-cec4-b932-22bb4a0c8502[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:23 127.0.0.1:55534 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Streamable HTTP: created session 80147428-723c-a7e7-cb54-8c8f81c9f216[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 127.0.0.1:55535 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 127.0.0.1:55536 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 127.0.0.1:55537 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 127.0.0.1:55539 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 Streamable HTTP: session terminated by client: 80147428-723c-a7e7-cb54-8c8f81c9f216[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:24 127.0.0.1:55540 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Streamable HTTP: created session d67534cd-1e83-61cf-5ed8-9e877216f742[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55543 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55544 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55545 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55546 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Streamable HTTP: session terminated by client: d67534cd-1e83-61cf-5ed8-9e877216f742[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55547 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Streamable HTTP: created session 7beab570-0928-44b2-4626-e0ab71cc90ca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55548 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55549 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55550 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55551 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 Streamable HTTP: session terminated by client: 7beab570-0928-44b2-4626-e0ab71cc90ca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:25 127.0.0.1:55552 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Streamable HTTP: created session 443f3db3-64e9-e634-0a22-46126a806844[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 127.0.0.1:55555 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 127.0.0.1:55556 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 127.0.0.1:55557 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 127.0.0.1:55558 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 Streamable HTTP: session terminated by client: 443f3db3-64e9-e634-0a22-46126a806844[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:26 127.0.0.1:55559 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Streamable HTTP: created session a0e5ee93-9da4-a075-21fa-7e8ee5ba1683[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55569 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55570 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55571 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55572 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Streamable HTTP: session terminated by client: a0e5ee93-9da4-a075-21fa-7e8ee5ba1683[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55573 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Streamable HTTP: created session e9f93b27-1ef9-fd44-857d-23d03f68b599[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55574 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55575 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55576 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55577 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 Streamable HTTP: session terminated by client: e9f93b27-1ef9-fd44-857d-23d03f68b599[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:27 127.0.0.1:55578 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] LoadWindowsAddonPy: modern_projection.modMain
+[Python] =====> ModernProjection Server Init <=====
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Streamable HTTP: created session 69f6472e-2d5f-5c09-c628-30b7c0fa9419[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55581 - "POST /mcp HTTP/1.1" 200[0m
+[Python] LoadWindowsAddonPy: PyreactSession_038844c8f42a436aa1474086ce66f8bb.modMain
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55582 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55583 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55584 - "POST /mcp HTTP/1.1" 200[0m
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:28,398] [INFO] sendWinPlayWorldDCLog: engine_launch resource_pack 0 done
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Streamable HTTP: session terminated by client: 69f6472e-2d5f-5c09-c628-30b7c0fa9419[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55585 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Streamable HTTP: created session 02de208f-d25f-c8db-84ad-2851ccde4d60[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:28 127.0.0.1:55586 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55588 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55590 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55591 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Streamable HTTP: session terminated by client: 02de208f-d25f-c8db-84ad-2851ccde4d60[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55592 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Streamable HTTP: created session d3f8df6d-4df9-2799-c2b5-8a4ba00dd69e[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55595 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55596 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55597 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55598 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 Streamable HTTP: session terminated by client: d3f8df6d-4df9-2799-c2b5-8a4ba00dd69e[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:29 127.0.0.1:55599 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Streamable HTTP: created session 6bbd215a-0b29-8502-89c6-34b0a88b6d08[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 127.0.0.1:55600 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 127.0.0.1:55601 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 127.0.0.1:55602 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 127.0.0.1:55603 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 Streamable HTTP: session terminated by client: 6bbd215a-0b29-8502-89c6-34b0a88b6d08[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:30 127.0.0.1:55604 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:30,517] [INFO] sendWinPlayWorldDCLog: engine_launch world_generation 0 start
+[Python] [2026-10-13 02:33:30,743] [INFO][Developer] Starting mobile logger
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Streamable HTTP: created session f7dec519-a4c1-4877-f62a-e81675ebc306[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55605 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55606 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55607 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55608 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Streamable HTTP: session terminated by client: f7dec519-a4c1-4877-f62a-e81675ebc306[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55609 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:31,151] [INFO] CLIENT addon list: [{"path":"C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_c329b06f749244579af3b19ff29999f9","uuid":"c329b06f-7492-4457-9af3-b19ff29999f9","version":"1.0.0"},{"path":"C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_8250153b3c534bd2a156666b4aebf3f9","uuid":"8250153b-3c53-4bd2-a156-666b4aebf3f9","version":"0.0.1"},{"path":"C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_f4fd01a73a044c35b7da23b34d643f7d","uuid":"f4fd01a7-3a04-4c35-b7da-23b34d643f7d","version":"1.0.0"},{"path":"C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/resource_packs/mcdk_7c6a9da7a34340868c15a60ade3d3367","uuid":"7c6a9da7-a343-4086-8c15-a60ade3d3367","version":"0.0.1"}]
+[Python] 
+[Python] ('=======InitState equipped ', '-8589934591', False)
+[Python] ('=======InitState gliding ', '-8589934591', None)
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Streamable HTTP: created session eda56dbb-f723-a99b-1de6-2ee15c646651[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55610 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55611 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55612 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55613 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 Streamable HTTP: session terminated by client: eda56dbb-f723-a99b-1de6-2ee15c646651[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:31 127.0.0.1:55614 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] [2026-10-13 02:33:31,779] [INFO][Developer] get_cls_by_clsstr client.ui.settingsScreenProxy SettingsScreenProxy
+[Python] [2026-10-13 02:33:31,783] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:31,785] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:31,872] [INFO][Developer] get_cls_by_clsstr client.neteaseChatNew.ui.neteaseChatProxy NeteaseChatOldProxy
+[Python] [2026-10-13 02:33:31,881] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:31,882] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:31,882] [INFO][Developer] get_cls_by_clsstr client.neteaseChatNew.ui.neteaseCmdBlockProxy NeteaseCmdBlockOldProxy
+[Python] [2026-10-13 02:33:31,884] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:31,884] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:31,884] [INFO][Developer] get_cls_by_clsstr client.ui.reportScreenProxy ReportScreenOldProxy
+[Python] [2026-10-13 02:33:31,887] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:31,887] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:31,894] [INFO][Developer] [GeneralSetting] _hasCocos=False
+[Python] [2026-10-13 02:33:31,894] [INFO][Developer] get_cls_by_clsstr mod.client.plugin.generalSetting.ui.PauseScreenProxy PauseScreenProxy
+[Python] [2026-10-13 02:33:31,897] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:31,897] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:31,897] [INFO][Developer] [GeneralSetting] _RegisterProxy finished
+[Python] [2026-10-13 02:33:32,035] [ERROR][Engine] get_world_record: None
+[Python] [2026-10-13 02:33:32,035] [ERROR][Engine] set custom switch error 'NoneType' object has no attribute 'global_chat_mgr'
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Streamable HTTP: created session 68c84719-6d6e-3a7b-61a3-88fd260facca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 127.0.0.1:55615 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 127.0.0.1:55616 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 127.0.0.1:55617 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 127.0.0.1:55618 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 Streamable HTTP: session terminated by client: 68c84719-6d6e-3a7b-61a3-88fd260facca[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:32 127.0.0.1:55619 - "DELETE /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Streamable HTTP: created session 3c4fc241-87b0-f669-db45-91da6db28fa6[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55620 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55621 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55622 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55623 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Streamable HTTP: session terminated by client: 3c4fc241-87b0-f669-db45-91da6db28fa6[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55624 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] =====> ModernProjection Client Init <=====
+[Python] [2026-10-13 02:33:33,473] [ERROR][Engine] get_world_record: None
+[Python] ecs_framework create entity  VipLogicServerEntity -8589934591
+[Python] ecs_framework entity dict  {'-8589934591': <server.appmgr.vipLogic.e_entity.VipLogicServerEntity.VipLogicServerEntity object at 0x000002A0724D59B0>}
+[Python] [IPCSystem] 已连接到调试服务器，端口：51978
+[Python] [skin_perf] requesting abtest key=map_upload via ui_request
+[Python] [2026-10-13 02:33:33,549] [INFO][Developer] mod behavior paths =  ['C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_c329b06f749244579af3b19ff29999f9', 'C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_8250153b3c534bd2a156666b4aebf3f9', 'C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_f4fd01a73a044c35b7da23b34d643f7d']
+[Python] [2026-10-13 02:33:33,552] [INFO][Developer] in CreateBooks: behavior 'C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_c329b06f749244579af3b19ff29999f9' has no foldName 'customBooks' or path not valid, go on next behavior
+[Python] [2026-10-13 02:33:33,555] [INFO][Developer] in CreateBooks: behavior 'C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_8250153b3c534bd2a156666b4aebf3f9' has no foldName 'customBooks' or path not valid, go on next behavior
+[Python] [2026-10-13 02:33:33,556] [INFO][Developer] in CreateBooks: behavior 'C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_038844c8f42a436aa1474086ce66f8bb/behavior_packs/mcdk_f4fd01a73a044c35b7da23b34d643f7d' has no foldName 'customBooks' or path not valid, go on next behavior
+[Python] [pyreact.navigator] top='-1' entry=None screen=None
+[Python] [2026-10-13 02:33:33,562] [ERROR][Engine] get_world_record: None
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Streamable HTTP: created session 81afec51-4623-856c-af29-1a573c66d587[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: initialize[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Client requested protocol version: 2025-03-26[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Client connected: pyreact-debugging 1 (protocol: 2025-03-26)[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Initialization successful, waiting for notifications/initialized notification[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55628 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55629 - "POST /mcp HTTP/1.1" 202[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Calling method handler: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Method call successful: tools/list[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 127.0.0.1:55631 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:33 Calling method handler: tools/call[0m
+[Python] [2026-10-13 02:33:33,973] [ERROR][Engine] post_error_dump: Starting error dump
+[Python] [2026-10-13 02:33:33,973] [ERROR][Engine] Error dump: None
+[Python]  Traceback (most recent call last):
+[Python]   File "minecraft/neteaseHttp.py", line 174, in tickUpdate
+[Python]   File "minecraft/neteaseHttp.py", line 300, in tick_update
+[Python]   File "gui_2d/ui_service/ui_request.py", line 270, in request_callback
+[Python] AttributeError: 'NoneType' object has no attribute 'user_mgr'
+[Python] 
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 127.0.0.1:55632 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Calling method handler: tools/call[0m
+[Python] ecs_framework create entity  VipLogicClientEntity -8589934591
+[Python] ecs_framework entity dict  {'-8589934591': <client.appmgr.vipLogic.e_entity.VipLogicClientEntity.VipLogicClientEntity object at 0x000002A0724F06A0>}
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 127.0.0.1:55633 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Processing method call: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Calling method handler: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Method call successful: tools/call[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 127.0.0.1:55634 - "POST /mcp HTTP/1.1" 200[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 Streamable HTTP: session terminated by client: 81afec51-4623-856c-af29-1a573c66d587[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:33:34 127.0.0.1:55637 - "DELETE /mcp HTTP/1.1" 200[0m
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:39,704] [INFO] sendWinPlayWorldDCLog: engine_launch world_generation 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:39,736] [INFO] sendWinPlayWorldDCLog: engine_launch split_screen 0 start
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:39,750] [INFO] sendWinPlayWorldDCLog: engine_launch split_screen 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:39,767] [INFO] sendWinPlayWorldDCLog: engine_launch resource_load 0 start
+[Python] ecs_framework AddComponent -8589934591 EVipSkinPartsUncoveredSteve
+[Python] ecs_framework sys onAddComp EHorseAnimSystem
+[Python] ecs_framework sys onAddComp ERideAnimSystem
+[Python] ecs_framework sys onAddComp EVipSkinPartsSystem
+[Python] ecs_framework sys onAddComp EHorseAnimPerspSystem
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,479] [INFO] sendWinPlayWorldDCLog: engine_launch resource_load 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,490] [INFO] sendWinPlayWorldDCLog: engine_launch user_appearance 0 start
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,500] [INFO] sendWinPlayWorldDCLog: engine_launch user_appearance 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,513] [INFO] sendWinPlayWorldDCLog: engine_launch cache_screen 0 start
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,526] [INFO] sendWinPlayWorldDCLog: engine_launch cache_screen 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,569] [INFO] sendWinPlayWorldDCLog: engine_launch simple_call 0 start
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,578] [INFO] sendWinPlayWorldDCLog: engine_launch simple_call 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,594] [INFO] sendWinPlayWorldDCLog: engine_launch game_screen 0 start
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,604] [INFO] sendWinPlayWorldDCLog: engine_launch game_screen 0 done
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,618] [INFO] sendWinPlayWorldDCLog: engine_launch game_screen 0 done
+[Python] [pyreact.navigator] pop_after=1 top='toast_screen'
+[Python] [pyreact.navigator] top='in_game_play_screen' entry=None screen=None
+[Python] [2026-10-13 02:33:42,760] [INFO][Developer] uimanager init
+[Python] [2026-10-13 02:33:42,773] [INFO][Developer] get_cls_by_clsstr client.ui.for_button_cancel PlayGame
+[Python] [2026-10-13 02:33:42,773] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,775] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,782] [INFO][Developer] get_cls_by_clsstr client.ui.vip_enter_screen VipEnterScreen
+[Python] [2026-10-13 02:33:42,786] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,786] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,789] [INFO][Developer] get_cls_by_clsstr client.ui.skinTransformButton SkinTransformButton
+[Python] [2026-10-13 02:33:42,793] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,793] [INFO][Developer] get_cls success!!!
+[Python] Traceback (most recent call last):
+[Python]   File "lib/logging/handlers.py", line 77, in emit
+[Python]   File "lib/logging/handlers.py", line 350, in doRollover
+[Python] WindowsError: [Error 32] 
+[Python] Logged from file mcp_log.py, line 8
+[Python] [2026-10-13 02:33:42,812] [INFO] [mcs_log] [MCSSafaia][on_get_nick_name] u_id: -1909981344512952994
+[Python] [2026-10-13 02:33:42,812] [INFO][Developer] get_cls_by_clsstr modern_projection.pyreact.host SafeAreaProbeScreen
+[Python] [2026-10-13 02:33:42,812] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,812] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,825] [INFO][Developer] get_cls_by_clsstr mod.client.ui.pet.miniMapUIControl ParternerMiniMapScreen
+[Python] [2026-10-13 02:33:42,829] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,829] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,832] [INFO][Developer] start to do a gray request in parterner
+[Python] [2026-10-13 02:33:42,832] [INFO][Developer] get_cls_by_clsstr mod.client.ui.petHudUI PetHudUI
+[Python] [2026-10-13 02:33:42,835] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,835] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,846] [INFO][Developer] get_cls_by_clsstr mod.client.ui.petMainUI PetMainUI
+[Python] [2026-10-13 02:33:42,848] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,849] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,858] [INFO][Developer] get_cls_by_clsstr mod.client.ui.petEatUI PetEatUI
+[Python] [2026-10-13 02:33:42,859] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,861] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,867] [INFO][Developer] get_cls_by_clsstr mod.client.ui.petChatHudScreen PetChatHudScreen
+[Python] [2026-10-13 02:33:42,869] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,869] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,924] [INFO][Developer] get_cls_by_clsstr mod.client.ui.multiHorseUI MultiHorseUI
+[Python] [2026-10-13 02:33:42,924] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,924] [INFO][Developer] get_cls success!!!
+[Python] [multiHorseUi]  [Create]  self.mContainerPos:  None
+[Python] [2026-10-13 02:33:42,931] [INFO][Developer] get_cls_by_clsstr client.ui.PopWindow PopWindow
+[Python] [2026-10-13 02:33:42,933] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:42,933] [INFO][Developer] get_cls success!!!
+[Python] [2026-10-13 02:33:42,936] [INFO][Developer] [GeneralSetting] _RegisterUI finished
+[Python] [2026-10-13 02:33:43,079] [INFO][Developer] get_cls_by_clsstr modern_projection.projection.tool_hud TerminalHudScreen
+[Python] [2026-10-13 02:33:43,081] [INFO][Developer] get_cls
+[Python] [2026-10-13 02:33:43,081] [INFO][Developer] get_cls success!!!
+[Python] launch game time:24763.1ms json speed time:38.952ms
+[Python] [pyreact.navigator] top='hud_screen' entry=None screen=None
+[Python] =====> ModernProjection Client Destroy <=====
+[Python] [IPCSystem] 连接已关闭
+[Python] ecs_framework clear all
+[Python] OperationHistoryFactory Reset
+[Python] =====> ModernProjection Server Destroy <=====
+[32m[MCP] [INFO][0m [90m2026-10-13 02:34:05 Stopping MCP server on 127.0.0.1:51975[0m
+[32m[MCP] [INFO][0m [90m2026-10-13 02:34:05 Maintenance thread exiting[0m
