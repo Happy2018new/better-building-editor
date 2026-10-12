@@ -21,6 +21,7 @@ else:
 
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 SW_RESTORE = 9
+WS_EX_NOACTIVATE = 0x08000000
 
 
 class RECT(ctypes.Structure):
@@ -43,6 +44,8 @@ if IS_WINDOWS:
     user32.EnumWindows.restype = wintypes.BOOL
     user32.IsWindowVisible.argtypes = [wintypes.HWND]
     user32.IsWindowVisible.restype = wintypes.BOOL
+    user32.IsWindow.argtypes = [wintypes.HWND]
+    user32.IsWindow.restype = wintypes.BOOL
     user32.IsIconic.argtypes = [wintypes.HWND]
     user32.IsIconic.restype = wintypes.BOOL
     user32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
@@ -68,6 +71,9 @@ if IS_WINDOWS:
         wintypes.HANDLE, wintypes.DWORD, wintypes.LPWSTR, ctypes.POINTER(wintypes.DWORD),
     ]
     kernel32.QueryFullProcessImageNameW.restype = wintypes.BOOL
+    get_window_long = getattr(user32, 'GetWindowLongPtrW', user32.GetWindowLongW)
+    get_window_long.argtypes = [wintypes.HWND, ctypes.c_int]
+    get_window_long.restype = ctypes.c_ssize_t
 
 
 def _emit(payload):
@@ -173,6 +179,44 @@ def _find_game_window(windows, pid=None, title=None, process_name=None):
     if len({item["pid"] for item in candidates}) > 1:
         raise RuntimeError("Multiple game processes match; bind a session or pass an explicit --pid")
     return max(candidates, key=lambda item: item["width"] * item["height"])
+
+
+def foreground_snapshot():
+    from _session import process_identity
+    hwnd = user32.GetForegroundWindow()
+    pid = wintypes.DWORD()
+    if hwnd:
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+    return {'hwnd': int(hwnd or 0), 'pid': int(pid.value),
+            'process': _process_name_windows(pid.value) if pid.value else '',
+            'identity': process_identity(pid.value) if pid.value else None,
+            'title': _window_text_windows(hwnd) if hwnd else '',
+            'visible': bool(hwnd and user32.IsWindowVisible(hwnd)),
+            'minimized': bool(hwnd and user32.IsIconic(hwnd))}
+
+
+def validate_foreground_snapshot(snapshot):
+    from _session import process_identity
+    hwnd, pid = snapshot.get('hwnd'), snapshot.get('pid')
+    if not hwnd or not pid or not snapshot.get('identity') or not user32.IsWindow(hwnd):
+        return False
+    current_pid = wintypes.DWORD()
+    user32.GetWindowThreadProcessId(hwnd, ctypes.byref(current_pid))
+    return (current_pid.value == pid and process_identity(pid) == snapshot['identity']
+            and _process_name_windows(pid) == snapshot.get('process')
+            and bool(user32.IsWindowVisible(hwnd)) and not user32.IsIconic(hwnd))
+
+
+def background_guard_state(pid, process_name):
+    """Inspect the owned windows without showing, resizing or activating them."""
+    windows = [window for window in _list_windows_windows()
+               if window['pid'] == pid and window['process'].lower() == process_name.lower()]
+    foreground = foreground_snapshot()
+    for window in windows:
+        window['noactivate'] = bool(get_window_long(window['hwnd'], -20) & WS_EX_NOACTIVATE)
+    return {'foreground': foreground, 'windows': windows,
+            'background_safe': foreground['pid'] != pid,
+            'window_noactivate': bool(windows) and all(window['noactivate'] for window in windows)}
 
 
 def _activate_window(hwnd):

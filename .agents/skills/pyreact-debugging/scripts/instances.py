@@ -3,6 +3,7 @@
 import argparse
 import copy
 import ctypes
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,6 +18,7 @@ from _session import (file_lock, load_session, process_identity, registry_dir,
                       terminate_owned, write_json)
 from mcdk import Client, return_value
 from setup_mcdk import resolve_game, resolve_mcdk
+from _window import background_guard_state, foreground_snapshot, validate_foreground_snapshot
 
 SCRIPTS = Path(__file__).resolve().parent
 RUNNABLE = {"mcdk.py", "get_ui_tree.py", "query_tree.py", "print_ui_tree.py",
@@ -66,12 +68,63 @@ def prepare_config(project, config, game_exe, port, instance_id, preset=None):
     return result
 
 
-def clean_environment(appdata):
+def clean_environment(appdata, noactivate=None):
     env = {k: v for k, v in os.environ.items()
-           if not k.upper().startswith("MCDEV_") and k.upper() != "PYREACT_MODULE"}
+           if not k.upper().startswith("MCDEV_")
+           and k.upper() not in ("PYREACT_MODULE", "MCDK_NOACTIVATE_DLL")}
     # Scope the data root only to this child and its game; never change user env.
     env["APPDATA"] = str(appdata)
+    if noactivate:
+        env['MCDK_NOACTIVATE_DLL'] = noactivate['dll']['path']
     return env
+
+
+def _verified_binary(path, expected, label):
+    if not isinstance(expected, str) or len(expected) != 64 or any(
+            char not in '0123456789abcdefABCDEF' for char in expected):
+        raise ValueError(label + ' needs an explicit SHA256')
+    path = Path(path).resolve(strict=True)
+    if not path.is_file():
+        raise ValueError(label + ' is not a regular file')
+    source = path.read_bytes()
+    actual = hashlib.sha256(source).hexdigest()
+    if actual != expected.lower():
+        raise ValueError(label + ' SHA256 mismatch')
+    if len(source) < 64 or source[:2] != b'MZ':
+        raise ValueError(label + ' must be a Windows x64 PE binary')
+    offset = int.from_bytes(source[60:64], 'little')
+    if source[offset:offset + 6] != b'PE\0\0\x64\x86':
+        raise ValueError(label + ' must be a Windows x64 PE binary')
+    return {'path': str(path), 'sha256': actual}, source
+
+
+def noactivate_contract(args, executable):
+    dll = getattr(args, 'noactivate_dll', None)
+    dll_hash = getattr(args, 'noactivate_sha256', None)
+    mcdk_hash = getattr(args, 'noactivate_mcdk_sha256', None)
+    if not any((dll, dll_hash, mcdk_hash)):
+        return None
+    if not all((dll, dll_hash, mcdk_hash)) or not args.mcdk:
+        raise ValueError('Noactivation requires --noactivate-dll, both SHA256 options and explicit --mcdk')
+    guard, source = _verified_binary(dll, dll_hash, 'Noactivation DLL')
+    if b'FocusGuardInitialize\0' not in source:
+        raise ValueError('Noactivation DLL lacks the guard initialization export')
+    mcdk, source = _verified_binary(executable, mcdk_hash, 'Patched MCDK')
+    if ('MCDK_NOACTIVATE_DLL'.encode('utf-16le') not in source
+            or b'Focus guard DLL identity not found in owned process' not in source):
+        raise ValueError('Patched MCDK lacks the suspended-child focus guard contract')
+    return {'schema': 1, 'requested': True, 'dll': guard, 'mcdk': mcdk,
+            'patch': 'native_focus_guard/mcdk-v1.6.1.patch'}
+
+
+def finish_start(data):
+    data['foreground_after'] = foreground_snapshot()
+    before = data.get('foreground_before', {})
+    data['foreground_before_still_valid'] = validate_foreground_snapshot(before)
+    data['foreground_unchanged'] = all(data['foreground_after'].get(key) == before.get(key)
+                                       for key in ('hwnd', 'pid', 'identity'))
+    write_json(data['session_file'], data)
+    return data
 
 
 def discover(mcdk_pid, port):
@@ -183,6 +236,7 @@ def start(args):
     executable = resolve_mcdk(args.mcdk)
     if not executable:
         raise FileNotFoundError("Run setup_mcdk.py --install, or pass --mcdk / MCDK_EXE")
+    noactivate = noactivate_contract(args, executable)
     game_exe = resolve_game(project, config, args.game_exe)
     instance_id = uuid.uuid4().hex
     root = registry_dir() / instance_id
@@ -194,6 +248,8 @@ def start(args):
             "artifacts": str(root / "artifacts"), "appdata": str(appdata),
             "log": str(root / "mcdk.log"), "token": uuid.uuid4().hex,
             "state": "starting", "created_at": time.time(), "ready": False}
+    if noactivate:
+        data['noactivation'] = noactivate
     with file_lock(registry_dir() / "launch.lock"):
         with socket.socket() as reservation:
             reservation.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
@@ -211,11 +267,22 @@ def start(args):
             except Exception as exc:
                 data.update(state="failed", error=str(exc))
                 write_json(session_file, data)
-                return data
-        with Path(data["log"]).open("wb") as log:
-            process = subprocess.Popen([executable], cwd=str(root), env=clean_environment(appdata),
-                                       stdin=subprocess.DEVNULL, stdout=log, stderr=log,
-                                       creationflags=subprocess.CREATE_NO_WINDOW)
+                return finish_start(data)
+        data['foreground_before'] = foreground_snapshot()
+        if noactivate and data['foreground_before']['process'].lower().startswith('minecraft'):
+            data.update(state='failed', error='Noactivation startup requires a non-Minecraft foreground')
+            return finish_start(data)
+        try:
+            # Check approved binary bytes again after world preparation, before spawn.
+            if noactivate:
+                noactivate = noactivate_contract(args, executable)
+            with Path(data["log"]).open("wb") as log:
+                process = subprocess.Popen([executable], cwd=str(root), env=clean_environment(appdata, noactivate),
+                                           stdin=subprocess.DEVNULL, stdout=log, stderr=log,
+                                           creationflags=subprocess.CREATE_NO_WINDOW)
+        except (OSError, ValueError) as exc:
+            data.update(state='failed', error=str(exc))
+            return finish_start(data)
         data.update(mcdk_pid=process.pid, mcdk_identity=process_identity(process.pid))
         write_json(session_file, data)
     deadline = time.monotonic() + args.wait
@@ -235,6 +302,17 @@ def start(args):
             if not identity:
                 continue
             data.update(game_pid=game_pid, game_identity=identity)
+            if noactivate:
+                guard = background_guard_state(game_pid, Path(data['game_executable']).name)
+                data['noactivation'].update(guard)
+                if not guard['background_safe'] or guard['windows'] and not guard['window_noactivate']:
+                    data.update(state='failed', error='Owned game violated the noactivation window contract')
+                    terminate_owned(game_pid, identity)
+                    terminate_owned(data['mcdk_pid'], data['mcdk_identity'])
+                    return finish_start(data)
+                if not guard['windows']:
+                    time.sleep(.5)
+                    continue
             write_json(session_file, data)
             with Client(data["mcp_url"], timeout=3, bind_session=False) as client:
                 info = return_value(client.call("execute_code", {
@@ -248,8 +326,17 @@ def start(args):
                                                                   "direct_return": True})) != data["token"]:
                         raise RuntimeError("Could not bind game runtime")
             data.update(state="ready", ready=True)
+            if noactivate:
+                guard = background_guard_state(game_pid, Path(data['game_executable']).name)
+                data['noactivation'].update(guard)
+                if not guard['background_safe'] or not guard['window_noactivate']:
+                    data.update(state='failed', ready=False,
+                                error='Owned game violated the noactivation contract before readiness')
+                    terminate_owned(game_pid, identity)
+                    terminate_owned(data['mcdk_pid'], data['mcdk_identity'])
+                    return finish_start(data)
             write_json(session_file, data)
-            return data
+            return finish_start(data)
         except Exception as exc:
             last_error = str(exc)
             if process.poll() is not None or "refusing to bind" in last_error:
@@ -258,7 +345,7 @@ def start(args):
     data.update(state="failed", error=last_error)
     write_json(session_file, data)
     # Keep identities/evidence so a failed launch remains inspectable and stoppable.
-    return data
+    return finish_start(data)
 
 
 def stop(data, force=False):
@@ -307,6 +394,9 @@ def main():
     launch.add_argument("--owner", required=True, help="agent/task identifier; carried by every command")
     launch.add_argument("--name")
     launch.add_argument("--mcdk", help="existing MCDK; defaults to MCDK_EXE, managed installation, then PATH")
+    launch.add_argument('--noactivate-dll', help='Approved native focus guard DLL for patched MCDK')
+    launch.add_argument('--noactivate-sha256', help='Expected SHA256 of the noactivation DLL')
+    launch.add_argument('--noactivate-mcdk-sha256', help='Expected SHA256 of the explicitly supplied patched MCDK')
     launch.add_argument("--game-exe")
     launch.add_argument("--port", type=int)
     launch.add_argument("--wait", type=float, default=60)

@@ -44,11 +44,31 @@ The launcher patch targets official MCDK v1.6.1,
 the isolated clone. Do not overwrite the installed official executable.
 
 ```powershell
-$env:MCDK_NOACTIVATE_DLL = '<absolute build path>/native_focus_guard.dll'
-python -X utf8 .agents/skills/pyreact-debugging/scripts/instances.py start --project '<worktree>' --owner '<owner>' --mcdk '<isolated mcdk.exe>' --game-exe 'D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/Minecraft.Windows.exe'
+python -X utf8 .agents/skills/pyreact-debugging/scripts/instances.py start `
+  --project '<worktree>' --owner '<owner>' --mcdk '<isolated mcdk.exe>' `
+  --noactivate-dll '<absolute build path>/native_focus_guard.dll' `
+  --noactivate-sha256 '<approved guard SHA256>' `
+  --noactivate-mcdk-sha256 '<approved patched MCDK SHA256>' `
+  --game-exe 'D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/Minecraft.Windows.exe'
 ```
 
-No guard environment variable means ordinary upstream startup. When supplied,
+The managed launcher requires all three guard options and explicit `--mcdk`.
+It checks both x64 PE binaries, approved hashes, the guard initialization export
+and the patched MCDK markers before preparation, then rechecks the hashes before
+spawn. It removes inherited `MCDK_NOACTIVATE_DLL`; only the explicit validated
+contract supplies that variable to the real MCDK child. The prepare-only
+bootstrap never inherits it.
+
+The session records the original foreground HWND/PID/process creation identity,
+the approved binary paths/hashes and the observed owned-window noactivation
+styles. Readiness requires visible `WS_EX_NOACTIVATE` windows and the owned game
+remaining in the background, checked before and after runtime binding. An
+observed contract violation closes only the new owned processes. The launcher
+does not activate any window or restore focus; a valid background launch permits
+ordinary switches between other applications. Missing foreground identity or a
+later closed/reused prior HWND is recorded, not used as an activation target.
+
+No explicit guard options means ordinary upstream startup. When supplied,
 guard failure terminates only the new child before its primary thread resumes.
 Both normal stdout and Safaia logging startup paths resume that thread once.
 The existing managed session owner/process identity checks remain in force.
