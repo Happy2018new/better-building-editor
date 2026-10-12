@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import struct
 import subprocess
 import sys
 import time
@@ -143,6 +144,99 @@ def discover(mcdk_pid, port, timeout=20):
     if result.returncode:
         raise RuntimeError(result.stderr.decode("utf-8", "replace"))
     return json.loads(result.stdout.decode("utf-8-sig"))
+
+
+def tcp_listener_owners(raw, port):
+    if len(raw) < 4:
+        raise ValueError('Truncated IPv4 TCP table')
+    count = struct.unpack_from('<I', raw)[0]
+    if count > (len(raw) - 4) // 24:
+        raise ValueError('Truncated IPv4 TCP rows')
+    owners = set()
+    for index in range(count):
+        state, address, local_port, _, _, pid = struct.unpack_from('<6I', raw, 4 + index * 24)
+        # The MCP URL is explicitly IPv4 loopback; only loopback or wildcard listeners serve it.
+        if (state == 2 and address in (0, 0x0100007f) and
+                socket.ntohs(local_port & 0xffff) == port):
+            owners.add(pid)
+    return sorted(owners)
+
+
+def listener_owners(port):
+    from ctypes import wintypes
+    library = ctypes.WinDLL('iphlpapi', use_last_error=True)
+    query = library.GetExtendedTcpTable
+    query.argtypes = [ctypes.c_void_p, ctypes.POINTER(wintypes.DWORD), wintypes.BOOL,
+                      wintypes.ULONG, ctypes.c_int, wintypes.ULONG]
+    query.restype = wintypes.DWORD
+    size = wintypes.DWORD()
+    result = query(None, ctypes.byref(size), True, socket.AF_INET, 3, 0)
+    if result not in (0, 122):
+        raise OSError(result, 'GetExtendedTcpTable size query failed')
+    for _ in range(3):
+        buffer = ctypes.create_string_buffer(size.value)
+        result = query(buffer, ctypes.byref(size), True, socket.AF_INET, 3, 0)
+        if result == 0:
+            return tcp_listener_owners(buffer.raw[:size.value], port)
+        if result != 122:
+            raise OSError(result, 'GetExtendedTcpTable listener query failed')
+    raise RuntimeError('IPv4 listener table changed during all bounded reads')
+
+
+class ReadinessOwnershipError(RuntimeError):
+    pass
+
+
+def verify_startup_endpoint(data):
+    for kind in ('mcdk', 'game'):
+        if process_identity(data[kind + '_pid']) != data[kind + '_identity']:
+            raise ReadinessOwnershipError('Owned %s creation identity changed; refusing to bind' % kind)
+    owners = listener_owners(data['port'])
+    for kind in ('mcdk', 'game'):
+        if process_identity(data[kind + '_pid']) != data[kind + '_identity']:
+            raise ReadinessOwnershipError('Owned %s changed during listener check; refusing to bind' % kind)
+    if owners and owners != [data['mcdk_pid']]:
+        raise ReadinessOwnershipError('MCP loopback port belongs to another process; refusing to bind')
+    if not owners:
+        raise RuntimeError('Owned MCP loopback listener is not available')
+
+
+class ReadinessClient(Client):
+    def __init__(self, data, deadline):
+        self.readiness_data = data
+        self.readiness_deadline = deadline
+        self.readiness_method = None
+        super().__init__(data['mcp_url'], timeout=3, bind_session=False)
+
+    def _post(self, method, params=None, notification=False):
+        self.readiness_method = method
+        verify_startup_endpoint(self.readiness_data)
+        remaining = self.readiness_deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError('Readiness deadline reached before ' + method)
+        self.timeout = min(3, remaining)
+        result = super()._post(method, params, notification)
+        verify_startup_endpoint(self.readiness_data)
+        if time.monotonic() >= self.readiness_deadline:
+            raise TimeoutError('Readiness response arrived after deadline: ' + method)
+        return result
+
+    def close(self):
+        remaining = self.readiness_deadline - time.monotonic()
+        if remaining <= 0:
+            self.session = None
+            return
+        try:
+            verify_startup_endpoint(self.readiness_data)
+        except Exception:
+            self.session = None
+            return
+        remaining = self.readiness_deadline - time.monotonic()
+        if remaining <= 0:
+            self.session = None
+            return
+        self.timeout = min(3, remaining)
+        super().close()
 
 
 def native_worlds_dir():
@@ -288,41 +382,55 @@ def start(args):
     deadline = time.monotonic() + args.wait
     last_error = "World IPC not ready"
     discovery_attempt = 0
+    fatal_error = False
     while time.monotonic() < deadline:
         try:
             if process.poll() is not None:
                 raise RuntimeError("MCDK exited with code %s; read %s" % (process.returncode, data["log"]))
-            remaining = deadline - time.monotonic()
-            if remaining <= 0:
-                break
-            discovery_timeout = min(20, remaining)
-            discovery_started = time.monotonic()
-            discovery_attempt += 1
-            try:
-                observed = discover(process.pid, port, timeout=discovery_timeout)
-            except subprocess.TimeoutExpired as exc:
-                # Preserve failed discovery reads even if a later attempt succeeds.
-                data.setdefault('discovery_timeouts', []).append({
-                    'attempt': discovery_attempt, 'command': exc.cmd,
-                    'timeout_seconds': exc.timeout,
+            if process_identity(process.pid) != data['mcdk_identity']:
+                raise ReadinessOwnershipError('Owned MCDK creation identity changed; refusing to bind')
+            if not data.get('game_pid'):
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    break
+                discovery_timeout = min(20, remaining)
+                discovery_started = time.monotonic()
+                discovery_attempt += 1
+                try:
+                    observed = discover(process.pid, port, timeout=discovery_timeout)
+                except Exception as exc:
+                    data['last_discovery_error'] = {'attempt': discovery_attempt,
+                        'error_type': type(exc).__name__, 'error': str(exc)}
+                    if isinstance(exc, subprocess.TimeoutExpired):
+                        data.setdefault('discovery_timeouts', []).append({
+                            'attempt': discovery_attempt, 'command': exc.cmd,
+                            'timeout_seconds': exc.timeout,
+                            'elapsed_seconds': round(time.monotonic() - discovery_started, 3),
+                            'error': str(exc),
+                            'stdout': exc.output.decode('utf-8', 'replace') if isinstance(exc.output, bytes) else exc.output,
+                            'stderr': exc.stderr.decode('utf-8', 'replace') if isinstance(exc.stderr, bytes) else exc.stderr})
+                    write_json(session_file, data)
+                    raise
+                data.setdefault('discovery_observations', []).append({'attempt': discovery_attempt,
                     'elapsed_seconds': round(time.monotonic() - discovery_started, 3),
-                    'error': str(exc),
-                    'stdout': exc.output.decode('utf-8', 'replace') if isinstance(exc.output, bytes) else exc.output,
-                    'stderr': exc.stderr.decode('utf-8', 'replace') if isinstance(exc.stderr, bytes) else exc.stderr})
-                write_json(session_file, data)
-                raise
-            if time.monotonic() >= deadline:
-                break
-            if observed["listeners"] and observed["listeners"] != [process.pid]:
-                raise RuntimeError("MCP port belongs to another process; refusing to bind")
-            if len(observed["children"]) != 1 or observed["listeners"] != [process.pid]:
-                time.sleep(min(.5, max(0, deadline - time.monotonic())))
-                continue
-            game_pid = observed["children"][0]
-            identity = process_identity(game_pid)
-            if not identity:
-                continue
-            data.update(game_pid=game_pid, game_identity=identity)
+                    'children': observed['children'], 'listeners': observed['listeners']})
+                if process_identity(process.pid) != data['mcdk_identity']:
+                    raise ReadinessOwnershipError('Owned MCDK changed during discovery; refusing to bind')
+                if time.monotonic() >= deadline:
+                    break
+                if observed["listeners"] and observed["listeners"] != [process.pid]:
+                    raise ReadinessOwnershipError("MCP port belongs to another process; refusing to bind")
+                if len(observed["children"]) != 1 or observed["listeners"] != [process.pid]:
+                    time.sleep(min(.5, max(0, deadline - time.monotonic())))
+                    continue
+                game_pid = observed["children"][0]
+                identity = process_identity(game_pid)
+                if not identity:
+                    continue
+                data.update(game_pid=game_pid, game_identity=identity)
+                data['startup_endpoint_discovered'] = True
+            game_pid, identity = data['game_pid'], data['game_identity']
+            verify_startup_endpoint(data)
             if noactivate:
                 guard = background_guard_state(game_pid, Path(data['game_executable']).name)
                 data['noactivation'].update(guard)
@@ -335,18 +443,32 @@ def start(args):
                     time.sleep(min(.5, max(0, deadline - time.monotonic())))
                     continue
             write_json(session_file, data)
-            with Client(data["mcp_url"], timeout=3, bind_session=False) as client:
-                info = return_value(client.call("execute_code", {
-                    "code": "import os\n_result = {'pid':os.getpid(), 'appdata':os.environ.get('APPDATA')}",
-                    "is_client": True, "direct_return": True}))
-                if info != {"pid": game_pid, "appdata": str(appdata)}:
-                    raise RuntimeError("Game identity/data environment mismatch: " + repr(info))
-                code = "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)"
-                for side in (True, False):
-                    if return_value(client.call("execute_code", {"code": code, "is_client": side,
-                                                                  "direct_return": True})) != data["token"]:
-                        raise RuntimeError("Could not bind game runtime")
-            data.update(state="ready", ready=True)
+            sdk_phase, client = 'client_initialize', None
+            try:
+                client = ReadinessClient(data, deadline)
+                with client:
+                    sdk_phase = 'client_process_environment'
+                    info = return_value(client.call("execute_code", {
+                        "code": "import os\n_result = {'pid':os.getpid(), 'appdata':os.environ.get('APPDATA')}",
+                        "is_client": True, "direct_return": True}))
+                    if info != {"pid": game_pid, "appdata": str(appdata)}:
+                        raise RuntimeError("Game identity/data environment mismatch: " + repr(info))
+                    code = "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)"
+                    for side in (True, False):
+                        sdk_phase = 'client_session_marker' if side else 'server_session_marker'
+                        if return_value(client.call("execute_code", {"code": code, "is_client": side,
+                                                                      "direct_return": True})) != data["token"]:
+                            raise RuntimeError("Could not bind game runtime")
+            except Exception as exc:
+                error = {'phase': sdk_phase, 'method': getattr(client, 'readiness_method', None),
+                         'error_type': type(exc).__name__, 'error': str(exc)}
+                if isinstance(getattr(exc, 'error', None), dict):
+                    error['raw_error'] = exc.error
+                data['last_sdk_error'] = error
+                data.setdefault('sdk_errors', []).append(error)
+                write_json(session_file, data)
+                raise
+            verify_startup_endpoint(data)
             if noactivate:
                 guard = background_guard_state(game_pid, Path(data['game_executable']).name)
                 data['noactivation'].update(guard)
@@ -356,13 +478,20 @@ def start(args):
                     terminate_owned(game_pid, identity)
                     terminate_owned(data['mcdk_pid'], data['mcdk_identity'])
                     return finish_start(data)
+            if time.monotonic() >= deadline:
+                raise TimeoutError('Readiness deadline reached before acceptance')
+            data.update(state="ready", ready=True)
             write_json(session_file, data)
             return finish_start(data)
         except Exception as exc:
             last_error = str(exc)
-            if process.poll() is not None or "refusing to bind" in last_error:
+            if isinstance(exc, ReadinessOwnershipError) or process.poll() is not None or "refusing to bind" in last_error:
+                fatal_error = True
                 break
             time.sleep(min(.5, max(0, deadline - time.monotonic())))
+    if not fatal_error and data.get('last_sdk_error'):
+        last_error = data['last_sdk_error']['error']
+    data['readiness_deadline_reached'] = time.monotonic() >= deadline
     data.update(state="failed", error=last_error)
     write_json(session_file, data)
     # Keep identities/evidence so a failed launch remains inspectable and stoppable.

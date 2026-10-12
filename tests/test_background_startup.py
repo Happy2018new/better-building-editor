@@ -86,6 +86,7 @@ class BackgroundStartupBudgetTests(unittest.TestCase):
         replace(instances, 'foreground_snapshot', return_value=self.snapshot)
         replace(instances, 'validate_foreground_snapshot', return_value=True)
         replace(instances, 'process_identity', side_effect=lambda pid: 'created-' + str(pid))
+        replace(instances, 'listener_owners', return_value=[17])
         replace(instances.time, 'monotonic', side_effect=self.clock.monotonic)
         replace(instances.time, 'sleep', side_effect=self.clock.sleep)
         self.spawn = replace(instances.subprocess, 'Popen', return_value=self.process)
@@ -101,8 +102,9 @@ class BackgroundStartupBudgetTests(unittest.TestCase):
 
         replace(instances, 'write_json', side_effect=write)
         replace(instances, 'return_value', side_effect=lambda value: value)
-        self.client = replace(instances, 'Client')
-        self.client.return_value.__enter__.return_value.call.side_effect = self.runtime_reply
+        self.client = replace(instances, 'ReadinessClient')
+        self.client.return_value.readiness_method = 'tools/call'
+        self.client.return_value.call.side_effect = self.runtime_reply
 
     def runtime_reply(self, tool, arguments):
         self.assertEqual('execute_code', tool)
