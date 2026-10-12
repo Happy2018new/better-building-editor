@@ -6,13 +6,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
 from projection.block_groups import (chest_pair_actor, paired_cell_position,
-                                     chest_render_pair_position, hydrate_chest_actor)
+                                     chest_render_pair_position, hydrate_chest_actor,
+                                     actor_pair_position)
 from projection.block_neighbors import _solid_face, _stair_mask
+from projection.entity_render import _chest_part
 from projection.cell import actor_data, background, foreground, make_cell
 from projection.jobs import EditJob
 from projection.model import AIR, Document, Editor, close_group_selection
 from projection.nbt_spatial import root_payload, scalar
-from projection.visible_actor import compose_actor, entity_nbt, render_actor
+from projection.visible_actor import chest_is_single, compose_actor, entity_nbt, render_actor
 
 SIZES = ((8, 5, 8), (64, 128, 64))
 STONE = ('minecraft:stone', 0)
@@ -32,6 +34,81 @@ def place(editor, pos, value):
 
 
 class BlockNeighborTests(unittest.TestCase):
+    def test_single_chest_recognition_rejects_unknown_and_partial_actor_records(self):
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'Items': {'__type__': 9, '__value__': []}}
+        self.assertTrue(chest_is_single(nbt))
+        for actor in (None, {}, {'id': 'Chest'},
+                      {'Items': {'__type__': 9, '__value__': []}},
+                      dict(nbt, pairx={'__type__': 3, '__value__': 3}),
+                      dict(nbt, pairz={'__type__': 3, '__value__': 2}),
+                      compose_actor({'chestIsLargeChest': True}, nbt),
+                      compose_actor({'chestIsLargeChest': 0}, nbt),
+                      {'__modern_projection_actor__': 2, 'render': None, 'nbt': nbt}):
+            with self.subTest(actor=actor):
+                self.assertFalse(chest_is_single(actor))
+        self.assertIsNone(_chest_part(compose_actor({'chestIsLargeChest': 0}, nbt)))
+        self.assertIsNone(_chest_part({'chestIsLargeChest': True, 'chestMainSubChest': 1}))
+
+    def test_explicit_single_renderer_overrides_stale_pair_nbt_without_rewriting_it(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'pairx': {'__type__': 3, '__value__': right[0]},
+               'pairz': {'__type__': 3, '__value__': right[2]}}
+        single = make_cell(CHEST, WATER, compose_actor({'chestIsLargeChest': False}, nbt))
+        editor = Editor(Document((32, 4, 32), {left: single, right: CHEST}))
+        self.assertIsNone(actor_pair_position(single, left))
+        self.assertEqual({left}, set(close_group_selection(editor.document, [left])))
+        editor.material = STONE
+        editor.paint_at((15, 1, 14), respect_selection=False)
+        self.assertEqual(single, editor.document.get(left))
+        self.assertEqual(nbt, entity_nbt(actor_data(editor.document.get(left))))
+
+    def test_passive_neighbor_edits_keep_explicit_single_chests_and_their_nbt(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        nbt = {'Items': [{'Slot': 0, 'Count': 5}], 'CustomName': 'kept'}
+        single = make_cell(CHEST, WATER, compose_actor({'chestIsLargeChest': False}, nbt))
+        for operation in ('paint', 'erase', 'job'):
+            with self.subTest(operation=operation):
+                edit_pos = (15, 1, 14)
+                original = {left: single, right: single}
+                if operation == 'erase':
+                    original[edit_pos] = STONE
+                editor = Editor(Document((32, 4, 32), original))
+                if operation == 'job':
+                    editor.select_box(edit_pos, edit_pos)
+                    editor.material = STONE
+                    job = EditJob(editor, 'fill')
+                    while not job.done:
+                        job.step(budget=65536, seconds=1)
+                    self.assertFalse(job.error)
+                else:
+                    editor.material = STONE
+                    editor.paint_at(edit_pos, erase=operation == 'erase', respect_selection=False)
+                for pos in (left, right):
+                    self.assertEqual(single, editor.document.get(pos))
+                    self.assertEqual({pos}, set(close_group_selection(editor.document, [pos])))
+                self.assertEqual(1, len(editor.undo_stack))
+                after = dict(editor.document.blocks.items())
+                self.assertTrue(editor.undo())
+                self.assertEqual(original, dict(editor.document.blocks.items()))
+                self.assertTrue(editor.redo())
+                self.assertEqual(after, dict(editor.document.blocks.items()))
+
+    def test_whole_cell_paste_keeps_supplied_single_chests_beside_each_other(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        single = make_cell(CHEST, WATER, compose_actor({'chestIsLargeChest': False},
+                                                       {'Items': [{'Slot': 0, 'Count': 5}]}))
+        editor = Editor(Document((32, 4, 32)))
+        editor.clipboard = {'size': (2, 1, 1), 'origin': (0, 0, 0),
+                            'blocks': {(0, 0, 0): single, (1, 0, 0): single}}
+        editor.start = left
+        editor.run('paste')
+        self.assertEqual({left: single, right: single}, dict(editor.document.blocks.items()))
+        self.assertEqual({left}, set(close_group_selection(editor.document, [left])))
+        editor.undo()
+        self.assertFalse(editor.document.blocks)
+
     def test_explicit_single_chests_are_not_grouped_by_selection_copy_or_erase(self):
         left, right = (15, 1, 15), (16, 1, 15)
         nbt = {'Items': [{'Slot': 0, 'Count': 5}], 'CustomName': 'kept'}

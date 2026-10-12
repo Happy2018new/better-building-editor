@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from . import block_registry as registry
 from .cell import actor_data, background, foreground, integer_types, layer, make_cell
 from .nbt_spatial import field_key, root_payload, scalar, set_scalar
-from .visible_actor import compose_actor, entity_nbt, render_actor
+from .visible_actor import chest_is_single, compose_actor, entity_nbt, render_actor
 
 _BED_DIRECTIONS = ((0, 0, 1), (-1, 0, 0), (0, 0, -1), (1, 0, 0))
 _NON_PAIRED_UPPER_BLOCKS = frozenset(('minecraft:pale_moss_carpet',))
@@ -171,7 +171,7 @@ def paired_position(get_block, pos):
 
 def actor_pair_position(value, pos):
     """Return a chest actor's linked half using its local pair coordinates."""
-    if foreground(value)[0] not in _CHESTS:
+    if foreground(value)[0] not in _CHESTS or _single_chest(value):
         return None
     data = actor_data(value)
     actor = root_payload(entity_nbt(data) or data)
@@ -208,8 +208,7 @@ def chest_render_pair_position(value, pos):
 
 
 def _single_chest(value):
-    root = root_payload(render_actor(actor_data(value)))
-    return root is not None and scalar(root, 'chestIsLargeChest') is False
+    return chest_is_single(actor_data(value))
 
 
 def _chest_candidates(get_cell, value, pos, respect_single=False):

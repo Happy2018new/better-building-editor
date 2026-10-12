@@ -4,7 +4,7 @@ from . import block_registry, static_chest_data, static_shulker_data
 from .cell import actor_data, foreground, integer_types, freeze, thaw
 from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
-from .visible_actor import render_actor, entity_nbt
+from .visible_actor import chest_is_single, render_actor, entity_nbt
 from .static_skull import SKULL_PROXIES, skull_proxy
 from .static_bed import BED_PROXIES, bed_proxy, palette_bed_colors
 
@@ -103,14 +103,16 @@ def _bed_actor(material, actor, renderer):
 
 
 def _chest_part(actor):
+    if chest_is_single(actor):
+        return 'single'
     renderer = root_payload(render_actor(actor))
     paired = scalar(renderer, 'chestIsLargeChest') if renderer is not None else None
-    if paired is None:
+    if type(paired) is not bool:
         return None
     if not paired:
         return 'single'
     main = scalar(renderer, 'chestMainSubChest')
-    return None if main is None else ('main' if main else 'sub')
+    return None if type(main) is not bool else ('main' if main else 'sub')
 
 
 def chest_proxy(material, actor, inferred_part=None):

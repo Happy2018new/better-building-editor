@@ -212,6 +212,23 @@ class RenderContextTests(unittest.TestCase):
         proxy = (CHEST_PROXIES[chest[0]][('north', 'single')], 0)
         self.assertEqual({proxy}, set(builder.data['common']))
 
+    def test_nbt_only_single_chests_keep_single_proxies_when_one_neighbor_is_occupied(self):
+        chest = material('copper_chest', {'minecraft:cardinal_direction': 'north'})
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'Items': {'__type__': 9, '__value__': [{'Slot': 0, 'Count': 5}]}}
+        first, second = (15, 1, 15), (16, 1, 15)
+        value = make_cell(chest, nbt=compose_actor(None, nbt))
+        doc = Document((32, 4, 32), {first: value, second: value})
+        saved = copy.deepcopy(doc.to_data())
+        proxy = (CHEST_PROXIES[chest[0]][('north', 'single')], 0)
+        for visible in (first, second):
+            with self.subTest(visible=visible):
+                builder = self.assert_incremental_matches_reference(
+                    doc, doc.palette_data(lambda pos: pos == visible))
+                self.assertEqual({proxy}, set(builder.data['common']))
+                self.assertEqual(2, len(builder.data['common'][proxy]))
+        self.assertEqual(saved, doc.to_data())
+
     def test_no_visible_targets_and_boundary_cells_do_not_manufacture_neighbors(self):
         doc = Document((1, 1, 1), {(0, 0, 0): material('stone')})
         blank = prepare_context_palette(doc.palette_data(), doc.palette_data(lambda pos: False))

@@ -15,7 +15,7 @@ from .block_traits import is_solid
 from .cell import actor_data, foreground, replace_layer
 from .block_groups import (actor_pair_position, chest_pair_actor,
                            chest_render_pair_position, _adjacent_chest_position,
-                           _chest_candidates, _CHESTS)
+                           _chest_candidates, _single_chest, _CHESTS)
 from .storage import Selection, integer_types, position
 
 AIR = ('minecraft:air', 0)
@@ -318,6 +318,14 @@ def _rail(value, pos, context):
 
 def _chest(value, pos, context):
     get_cell, write, can_change = context.get_cell, context.write, context.can_change
+    # Ordinary material placements can join an existing single; passive edits
+    # and complete-cell snapshots retain their explicit single-chest pose.
+    joining = (pos not in context.preserve and
+               any(target in context.placed and target not in context.preserve and
+                   foreground(get_cell(target))[0] == foreground(value)[0]
+                   for target in (pos,) + tuple(_add(pos, offset) for offset in OFFSETS.values())))
+    if _single_chest(value) and not joining:
+        return value
     partner = actor_pair_position(value, pos) or chest_render_pair_position(value, pos)
     if partner is not None:
         other = get_cell(partner)
@@ -329,11 +337,12 @@ def _chest(value, pos, context):
                 _properties(other).get('minecraft:cardinal_direction') != direction):
             partner = None
     if partner is None:
-        value = chest_pair_actor(value, pos)
-        partner = _adjacent_chest_position(get_cell, value, pos)
+        partner = _adjacent_chest_position(get_cell, value, pos, respect_single=not joining)
         if partner is None and pos in context.placed:
-            candidates = _chest_candidates(get_cell, value, pos)
+            candidates = _chest_candidates(get_cell, value, pos, respect_single=not joining)
             partner = next((target for target in candidates if can_change(target)), None)
+    if partner in context.preserve and _single_chest(get_cell(partner)):
+        partner = None
     if partner is None or not can_change(partner):
         return chest_pair_actor(value, pos)
     write(partner, chest_pair_actor(get_cell(partner), partner, pos))

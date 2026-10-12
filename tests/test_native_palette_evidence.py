@@ -11,8 +11,9 @@ sys.path.insert(0, str(ROOT / 'tools'))
 from generate_native_palette_adapter import SIDES, inspect, palette, snapshot_fingerprint
 from native_bed_evidence import inspect as inspect_beds
 from projection import native_palette_actor_data as source
-from projection.cell import actor_data, freeze
-from projection.model import Document
+from projection.cell import actor_data, freeze, make_cell, thaw
+from projection.model import Document, Editor, close_group_selection
+from projection.visible_actor import chest_is_single, compose_actor
 from projection.native_palette_actor import resolve_name
 from projection.world_capture import merge_palette, native_actor_cells
 
@@ -37,6 +38,25 @@ class NativePaletteEvidenceTests(unittest.TestCase):
         self.assertNotIn('minecraft:bed', names)
         self.assertNotIn('minecraft:moving_block', names)
         self.assertIn('minecraft:bed', source.WET_ACTOR_NAMES)
+
+    def test_native_server_only_single_chests_keep_contents_and_selection_after_passive_edit(self):
+        identities = {'minecraft:chest_dry', 'minecraft:copper_chest_dry',
+                      'minecraft:trapped_chest_dry'}
+        rows = [row for row in self.report['rows'] if row['id'] in identities]
+        self.assertEqual(identities, {row['id'] for row in rows})
+        for row in rows:
+            captured = row['server_immediate']['actors'][0]
+            original = thaw(captured['nbt'])
+            self.assertTrue(chest_is_single(original), row['id'])
+            value = make_cell(tuple(captured['front']), nbt=compose_actor(None, original))
+            first, second = (15, 1, 15), (16, 1, 15)
+            editor = Editor(Document((32, 4, 32), {first: value, second: value}))
+            before = freeze(actor_data(value))
+            self.assertEqual({first}, set(close_group_selection(editor.document, [first])))
+            editor.material = ('minecraft:stone', 0)
+            editor.paint_at((15, 1, 14), respect_selection=False)
+            self.assertEqual(before, freeze(actor_data(editor.document.get(first))))
+            self.assertEqual(before, freeze(actor_data(editor.document.get(second))))
 
     def test_paired_bed_evidence_rejects_coverage_identity_and_cleanup_changes(self):
         for key, value in (('completed', False), ('restored', False),

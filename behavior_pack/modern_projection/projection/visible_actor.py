@@ -33,6 +33,16 @@ def entity_nbt(data):
     return data if is_tagged_nbt(data) else None
 
 
+def chest_is_single(data):
+    """Respect explicit client pose or a captured unpaired Chest NBT record."""
+    renderer = root_payload(render_actor(data))
+    if renderer is not None and field_key(renderer, 'chestIsLargeChest') is not None:
+        return scalar(renderer, 'chestIsLargeChest') is False
+    actor = root_payload(entity_nbt(data))
+    return (actor is not None and scalar(actor, 'id') in ('Chest', b'Chest') and
+            field_key(actor, 'pairx') is None and field_key(actor, 'pairz') is None)
+
+
 def is_tagged_nbt(data):
     if not isinstance(data, dict) or not data:
         return False
