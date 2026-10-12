@@ -88,7 +88,7 @@ const float FRAME_PIXELS = %(pixels)s;
 const float TICKS_PER_FRAME = %(ticks)s;
 const float DIAGNOSTIC_DEFAULT_OPACITY = %(diagnostic_opacity)s;
 vec4 sampleFrame(float frame) {
-    vec2 pixel=clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5;
+    vec2 pixel=%(pixel_coordinates)s;
     return texture2D(TEXTURE_0,vec2(pixel.x/FRAME_PIXELS,(pixel.y/FRAME_PIXELS+frame)/FRAME_COUNT));
 }
 void main() {
@@ -206,6 +206,21 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + '\n', encoding='ascii')
 
 
+def sampling_region(atlas_entry):
+    quad = atlas_entry.get('quad', 0)
+    if type(quad) is not int or quad not in (0, 1):
+        raise ValueError('Candidate needs a verified native atlas quadrant contract')
+    if quad:
+        return {'region': 'nw', 'source_frame_extent': [0., 0., .5, .5],
+                'pixel_mapping': 'edges', 'native_sampling_accepted': False,
+                'pixel_coordinates': 'clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5)',
+                'scope': 'Installed quad:1 source restriction; edge/filter accuracy remains a candidate'}
+    return {'region': 'full', 'source_frame_extent': [0., 0., 1., 1.],
+            'pixel_mapping': 'centers', 'native_sampling_accepted': False,
+            'pixel_coordinates': 'clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5',
+            'scope': 'Existing unaccepted full-frame sampling candidate'}
+
+
 def mesh(texture):
     vertices, indices = [], []
     normals = ((0., 1., 0.), (0., 0., -1.), (0., 0., 1.),
@@ -264,6 +279,7 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         targets += (('_world', WORLD_VERTEX_NAME),)
     for key in keys:
         entry = animations.get(key)
+        sampling = sampling_region(snapshot['native_atlas_entries'][key])
         frozen_only=diagnostic_flow and key=='flowing_water_grey'
         if entry is None or (not frozen_only and (not isinstance(entry.get('ticks_per_frame'), int) or entry['ticks_per_frame'] < 1)):
             raise ValueError('Candidate requires an explicit native ticks_per_frame: ' + key)
@@ -283,13 +299,14 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         textures[key] = {'source': str(source.resolve()), 'sha256': digest(source),
                          'size': [width, height], 'frames': frames, 'alpha_range': alpha,
                          'flipbook': entry, 'frozen_diagnostic_only':frozen_only,
-                         'native_sampling_accepted':False}
+                         'native_sampling_accepted':False, 'sampling': sampling}
         variants=('frozen','packet') if frozen_only and packet_control else ('frozen',) if frozen_only else ('animated','frozen','packet') if packet_control else ('animated','frozen')
         for variant in variants:
             frozen = variant == 'frozen'
             stem = PREFIX + key + ('_' + variant if variant != 'animated' else '')
             fragment_name = stem + '.fragment'
             fragment = FRAGMENT % {'frames': str(float(frames)), 'pixels': str(float(width)),
+                                   'pixel_coordinates': sampling['pixel_coordinates'],
                                    'ticks': '1.0' if frozen_only else str(float(entry['ticks_per_frame'])),
                                    'diagnostic_opacity': str(float(diagnostic_water_opacity))
                                        if diagnostic_water_opacity is not None and 'water' in key else '-1.0',

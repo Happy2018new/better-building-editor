@@ -53,17 +53,24 @@ RENDER = '''async cases => {
 }'''
 
 
-def fixtures(image, ticks, frozen, diagnostic_opacity=None):
+def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None):
     rows = []
     width, height = image.size
     frames = height // width
-    for u, v in ((0, 0), (1, 0), (1, 1), (0, 1)):
+    sampling = sampling or {'region': 'full', 'pixel_mapping': 'centers'}
+    if sampling['region'] not in ('full', 'nw') or sampling['pixel_mapping'] not in ('centers', 'edges'):
+        raise ValueError('Host controls need an explicit supported source-region candidate')
+    span = width / 2 if sampling['region'] == 'nw' else width
+    for u, v in ((0, 0), (1, 0), (1, 1), (0, 1), (.125, .125), (.875, .125),
+                 (.875, .875), (.125, .875)):
         for clock in (0., .5, 1., 7.5, frames - .5, frames + .5):
             for opacity in (-1., .65):
                 actual_clock = 0. if frozen else clock
                 current, fraction = int(actual_clock) % frames, actual_clock % 1.
-                first = image.getpixel((u * (width - 1), current * width + v * (width - 1)))
-                second = image.getpixel((u * (width - 1), ((current + 1) % frames) * width + v * (width - 1)))
+                x = min(width - 1, int(u * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else u * span))
+                y = min(width - 1, int(v * (span - 1) + .5 if sampling['pixel_mapping'] == 'centers' else v * span))
+                first = image.getpixel((x, current * width + y))
+                second = image.getpixel((x, ((current + 1) % frames) * width + y))
                 texel = tuple(first[i] * (1. - fraction) + second[i] * fraction for i in range(4))
                 expected = [round(texel[i] * tint / 255.) for i, tint in enumerate((18, 52, 86))]
                 fallback = texel[3] if diagnostic_opacity is None else diagnostic_opacity * 255.
@@ -124,7 +131,8 @@ def main():
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
             inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else texture['flipbook']['ticks_per_frame'],
                               options.get('variant') == 'frozen' or name.endswith('_frozen'),
-                              contract.get('diagnostic_water_opacity') if 'water' in key else None)
+                              contract.get('diagnostic_water_opacity') if 'water' in key else None,
+                              texture.get('sampling'))
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):
                 cases.append({'name': '%s/%s/%s' % (name, version, flags), 'version': version,
