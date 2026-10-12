@@ -15,6 +15,7 @@ from .debug_snow_blueprints import METADATA as SNOW_METADATA, VISUAL_CASE as SNO
 from .debug_neighborhood_blueprints import METADATA as NEIGHBOR_METADATA, VISUAL_CASE as NEIGHBOR_VISUAL_CASE
 from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL_CASE as CONNECTION_VISUAL_CASE
 from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
+from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -30,6 +31,7 @@ BLUEPRINTS = (
     ('test.entities.mechanisms', 'entities', '方块实体 · 机关', (32, 10, 28), 'minecraft:structure_block'),
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 44), 'minecraft:skeleton_skull'),
+    ITEM_METADATA,
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
     WATER_METADATA,
@@ -39,6 +41,7 @@ BLUEPRINTS = (
     NEIGHBOR_METADATA,
 )
 VISUAL_CASES = {
+    'item_contents': ITEM_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
@@ -317,6 +320,9 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == ITEM_METADATA[0]:
+            from .debug_item_blueprints import populate
+            return populate(fixture)
         if identity == POT_METADATA[0]:
             from .debug_pot_blueprints import populate
             return populate(fixture)

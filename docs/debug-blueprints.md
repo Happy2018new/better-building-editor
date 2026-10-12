@@ -17,6 +17,7 @@ targets. Categories are separate pages within the test tab.
 | `test.layers.snow` | `layers` | 32 × 8 × 24 | Six measured coverable plants, two snow depths and snow above leaves |
 | `test.groups.parts` | `groups` | 32 × 8 × 24 | Wood/iron doors, beds in four directions and tall plants |
 | `test.entities.appearances` | `entities` | 40 × 12 × 36 | 19 actual native nondefault Skull/Bed/Frame/Banner observations |
+| `test.entities.item_contents` | `entities` | 24 × 8 × 18 | Plain, synthetically enchanted and empty ordinary/glow frame controls; native glint is not accepted |
 | `test.entities.signs` | `entities` | 16 × 8 × 10 | Observed two-sided standing and hanging sign text, colour and glow |
 | `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
 | `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
@@ -28,6 +29,15 @@ targets. Categories are separate pages within the test tab.
 The grey/white floor has grid lines every four cells. Cyan and magenta plinths
 provide a visible placement reference. The fixtures are regular editor documents
 and can be copied, transformed, exported, shared and projected.
+
+The item-content fixture pairs ordinary and glow frames at Z 3 and 10, with
+plain, enchanted and empty controls at X 3, 10 and 17, Y 2. It clones the
+versioned native filled-frame observations and adds a synthetic typed
+`Item.tag.ench` list with Short sharpness ID 9 and level 3. That synthetic data
+must be verified against independent native placement before visual acceptance.
+The public metadata keeps content and glint acceptance false, requires three
+fresh temporal frames per editor/full/missing mode, and separately lists shelf
+slots as unverified. Successful data round trips do not establish glint pixels.
 
 ## Coordinates For Acceptance
 
