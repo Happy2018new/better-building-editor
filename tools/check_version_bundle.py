@@ -19,6 +19,8 @@ MODULES = (
     'native_palette_actor_data',
     'native_entity_write_data',
     'static_bed_data',
+    'static_chest_data',
+    'static_shulker_data',
     'scaffold_support_data',
     'biome_water_data',
     'liquid_face_texture_data',
@@ -91,6 +93,11 @@ def check_provenance(root=ROOT):
     data = json.loads(path.read_text(encoding='utf8'))
     provenance_matches('bed_static_model', data.get('game_version'), data.get('palette_sha256'), manifest)
     checked.append(str(path.relative_to(root)))
+    for name in ('copper_chest_static_model_v1', 'shulker_static_model_v1'):
+        path = root / 'tools/data' / (name + '.json')
+        data = json.loads(path.read_text(encoding='utf8'))
+        provenance_matches(name, data.get('game_version'), data.get('palette_sha256'), manifest)
+        checked.append(str(path.relative_to(root)))
     path = root / 'tools/data' / ('native_actor_materials_nemc_' + version + '.json')
     check_actor_materials(json.loads(path.read_text(encoding='utf8')), manifest, root=root)
     checked.append(str(path.relative_to(root)))

@@ -1,5 +1,6 @@
 """Versioned static render adapters for verified native palette pose failures."""
 from __future__ import unicode_literals
+from . import block_registry, static_chest_data, static_shulker_data
 from .cell import actor_data, foreground, integer_types, freeze, thaw
 from .block_registry import states
 from .nbt_spatial import field_key, root_payload, scalar
@@ -115,6 +116,7 @@ def chest_proxy(material, actor, inferred_part=None):
     names = CHEST_PROXIES.get(material[0])
     if names is None:
         return None
+    _validate_container_source(static_chest_data)
     properties = states(material)
     direction = properties.get('minecraft:cardinal_direction') if properties else None
     if direction not in CHEST_DIRECTIONS:
@@ -138,6 +140,7 @@ def static_proxy(material, actor, inferred_part=None, inferred_bed_color=None):
     names = SHULKER_PROXIES.get(material[0])
     if names is None:
         return None
+    _validate_container_source(static_shulker_data)
     root = root_payload(entity_nbt(actor))
     facing = scalar(root, 'facing') if root is not None and scalar(root, 'id') in ('ShulkerBox', b'ShulkerBox') else None
     if not isinstance(facing, integer_types) or type(facing) is bool or not 0 <= facing <= 5:
@@ -146,6 +149,12 @@ def static_proxy(material, actor, inferred_part=None, inferred_bed_color=None):
     if not isinstance(facing, integer_types) or type(facing) is bool or not 0 <= facing <= 5:
         facing = 1
     return (names[facing], 0)
+
+
+def _validate_container_source(source):
+    if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != block_registry.source_version()
+            or source.PALETTE_SHA256.lower() != block_registry.fingerprint().lower()):
+        raise ValueError('Static container models need regeneration for this block registry')
 
 
 def _adjacent_chest_parts(value, positions, volume, payloads):
