@@ -25,6 +25,8 @@ class OccupancyShader(object):
         self.overlay_restore = False
         self.local = False
         self.anchor = None
+        self.offset_restore = []
+        self._follow_anchor = None
 
     def write(self, slot, value):
         if self.uniforms.get(slot) == value:
@@ -35,6 +37,8 @@ class OccupancyShader(object):
         self.updates += 1
 
     def control(self):
+        if not self.restore_offsets():
+            raise ValueError('Could not restore projection geometry offsets')
         self.restore_overlays()
         tracker = self.tracker
         tint = actor_uniform(tracker.document.biome)
@@ -101,16 +105,55 @@ class OccupancyShader(object):
                 anchor[2]-origin[2]-.5-chunk[2])
 
     def follow(self, anchor, camera):
+        if not self.restore_offsets():
+            return False
+        if not self.prepare_follow(anchor, camera):
+            self.restore_offsets()
+            return False
+        self.commit_follow()
+        return True
+
+    def prepare_follow(self, anchor, camera):
+        if not self.restore_offsets():
+            return False
         try:
             self.restore_overlays()
+            for parts in self.parts:
+                for name, value in parts.items():
+                    # A native refusal may still change the offset. Journal
+                    # the attempted write before crossing the SDK boundary.
+                    self.offset_restore.append((name, self.offset(self.anchor, value[0])))
+                    if not self.render.SetActorBlockGeometryOffset(name, self.offset(anchor, value[0])):
+                        return False
         except (ValueError, TypeError, RuntimeError):
             traceback.print_exc()
             return False
-        self.anchor = anchor
-        return all(self.render.SetActorBlockGeometryOffset(name, self.offset(anchor, value[0]))
-                   for parts in self.parts for name, value in parts.items())
+        self._follow_anchor = anchor
+        return True
+
+    def commit_follow(self):
+        if self._follow_anchor is not None:
+            self.anchor = self._follow_anchor
+        self._follow_anchor = None
+        self.offset_restore = []
+
+    def restore_offsets(self):
+        remaining = []
+        for name, offset in reversed(self.offset_restore):
+            try:
+                restored = self.render.SetActorBlockGeometryOffset(name, offset)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                restored = False
+            if not restored:
+                remaining.append((name, offset))
+        self.offset_restore = list(reversed(remaining))
+        self._follow_anchor = None
+        return not self.offset_restore
 
     def commit(self, model):
+        if not self.restore_offsets():
+            raise ValueError('Could not restore projection geometry offsets')
         self.restore_overlays()
         empty = model is None
         bank = self.names.index(model) if model is not None else self.bank

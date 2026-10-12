@@ -95,6 +95,7 @@ class ClientBridge(object):
         self.frame_work = []
         self.frame_watchdog = False
         self._projection_follow_position = None
+        self._projection_follow_restore = None
 
     def later(self, delay, callback):
         def invoke():
@@ -121,6 +122,8 @@ class ClientBridge(object):
         """
         if not self.alive or not self.session:
             return
+        if not self.restore_projection_follow():
+            return
         if not self.session.projection_active and not self.survey_effects.active():
             self._projection_follow_position = None
             return
@@ -142,23 +145,86 @@ class ClientBridge(object):
         mesh_position = (foot[0], foot[1]+1., foot[2])
         signature = (position, mesh_position, self.entity, self.projection_outline.entity)
         shader = self.projection_shader
+        if shader is not None and not shader.restore_offsets():
+            return
         repairing_overlays = shader is not None and shader.overlay_restore
         if signature == self._projection_follow_position and not repairing_overlays:
             self.projection_outline.follow(position, tuple(centre))
             return
-        if self.projection_mesh:
-            entity, model, origin, previous = self.projection_mesh
-            if entity == self.entity and (mesh_position != previous or repairing_overlays):
-                if mesh_position != previous and not self.factory.CreatePos(entity).SetPosForClientEntity(mesh_position):
-                    return
-                offset = (mesh_position[0]-origin[0]-.5, origin[1]-mesh_position[1], mesh_position[2]-origin[2]-.5)
-                moved = (shader.follow(mesh_position, centre) if shader is not None else
-                         self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset))
-                if not moved:
-                    return
-                self.projection_mesh = (entity, model, origin, mesh_position)
-        if self.projection_outline.follow(position, tuple(centre)):
-            self._projection_follow_position = signature
+        if not self.prepare_projection_follow(mesh_position, centre, repairing_overlays):
+            self.restore_projection_follow()
+            return
+        try:
+            followed = self.projection_outline.follow(position, tuple(centre))
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            followed = False
+        if not followed:
+            self.restore_projection_follow()
+            return
+        pending = self._projection_follow_restore
+        if pending is not None:
+            entity, model, origin, previous = pending['mesh']
+            if shader is not None:
+                shader.commit_follow()
+            self.projection_mesh = (entity, model, origin, mesh_position)
+            self._projection_follow_restore = None
+        self._projection_follow_position = signature
+
+    def prepare_projection_follow(self, position, camera, repairing_overlays):
+        mesh = self.projection_mesh
+        if not mesh or mesh[0] != self.entity or (mesh[3] == position and not repairing_overlays):
+            return True
+        entity, model, origin, previous = mesh
+        shader = self.projection_shader
+        pending = {'mesh': mesh, 'shader': shader, 'position': previous if position != previous else None,
+                   'offset': None}
+        self._projection_follow_restore = pending
+        try:
+            if pending['position'] is not None and not self.factory.CreatePos(entity).SetPosForClientEntity(position):
+                return False
+            if shader is not None:
+                return shader.prepare_follow(position, camera)
+            pending['offset'] = (previous[0]-origin[0]-.5, origin[1]-previous[1], previous[2]-origin[2]-.5)
+            offset = (position[0]-origin[0]-.5, origin[1]-position[1], position[2]-origin[2]-.5)
+            return self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, offset)
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            return False
+
+    def restore_projection_follow(self):
+        pending = self._projection_follow_restore
+        if pending is None:
+            return True
+        mesh, shader = pending['mesh'], pending['shader']
+        entity, model, origin, previous = mesh
+        if (not self.projection_mesh or self.projection_mesh[0] != entity or
+                entity != self.entity or shader is not self.projection_shader):
+            # Replacement/stop transfers old actors to the retirement owner.
+            self._projection_follow_restore = None
+            return True
+        restored = shader.restore_offsets() if shader is not None else True
+        if pending['offset'] is not None:
+            try:
+                moved = self.factory.CreateActorRender(entity).SetActorBlockGeometryOffset(model, pending['offset'])
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                moved = False
+            if moved:
+                pending['offset'] = None
+            restored = moved and restored
+        if pending['position'] is not None:
+            try:
+                moved = self.factory.CreatePos(entity).SetPosForClientEntity(pending['position'])
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                moved = False
+            if moved:
+                pending['position'] = None
+            restored = moved and restored
+        if restored:
+            self._projection_follow_restore = None
+        return restored
 
     def check_frame_work(self):
         self.frame_watchdog = False
