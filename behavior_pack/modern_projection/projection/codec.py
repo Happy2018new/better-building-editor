@@ -6,11 +6,31 @@ import zlib
 from .packed import IntegerBuffer
 from collections import Counter
 from .storage import CELLS, integer_types, position
-from .cell import encode as encode_cell, decode as decode_cell, has_complete_cells
+from .cell import Cell, encode as encode_cell, decode as decode_cell, has_complete_cells
 from . import compact_chunk, semantic_wire
 
 
-def encode_chunk(key, chunk, encoding=0):
+def legacy_palette(store):
+    """Drop obsolete rich rows that the foreground-only v2 reader cannot decode."""
+    if has_complete_cells(store):
+        raise ValueError('旧格式无法保存背景层或方块实体')
+    palette = [value for value in store.palette if not isinstance(value, Cell)]
+    if len(palette) == len(store.palette):
+        return store.palette, None
+    identities = dict((value, index) for index, value in enumerate(palette))
+    return palette, [identities.get(value) for value in store.palette]
+
+
+def encode_chunk(key, chunk, encoding=0, mapping=None):
+    if mapping is not None:
+        if isinstance(chunk, integer_types):
+            chunk = mapping[chunk]
+            if chunk is None:
+                raise ValueError('旧格式无法保存背景层或方块实体')
+        else:
+            chunk = tuple(mapping[value] for value in chunk)
+            if None in chunk:
+                raise ValueError('旧格式无法保存背景层或方块实体')
     if isinstance(chunk, integer_types):
         payload = int(chunk)
     elif encoding == compact_chunk.VERSION:
@@ -88,11 +108,10 @@ def to_data(document, version=6):
     if type(version) is not int:
         raise ValueError('不支持的分块配置版本')
     if version in (2, 4):
-        if version == 2 and has_complete_cells(store):
-            raise ValueError('旧格式无法保存背景层或方块实体')
+        palette, mapping = legacy_palette(store) if version == 2 else (store.palette, None)
         return {'version': version, 'name': document.name, 'size': list(document.size), 'biome': document.biome,
-            'blockCount': len(store), 'palette': [encode_cell(v) for v in store.palette],
-            'chunks': [encode_chunk(k, store.chunks[k]) for k in sorted(store.chunks)]}
+            'blockCount': len(store), 'palette': [encode_cell(v) for v in palette],
+            'chunks': [encode_chunk(k, store.chunks[k], mapping=mapping) for k in sorted(store.chunks)]}
     if version != 6:
         raise ValueError('不支持的分块配置版本')
     encoder = semantic_wire.Encoder()

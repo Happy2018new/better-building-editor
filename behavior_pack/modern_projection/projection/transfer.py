@@ -2,7 +2,7 @@
 """Ordered, bounded building packets. Receiver publishes only a complete document."""
 from __future__ import unicode_literals
 from .model import AIR, Document, block
-from .codec import encode_chunk, decode_chunk
+from .codec import encode_chunk, decode_chunk, legacy_palette
 from .cell import encode as encode_cell, decode as decode_cell, has_complete_cells
 from . import compact_chunk, semantic_wire
 import json
@@ -27,9 +27,10 @@ def packets(document, version=4):
     if type(version) is not int or version not in (2, 3, 4) or (version == 2 and has_complete_cells(store)):
         raise ValueError('不支持或无法保留完整方块的传输版本')
     encoder = semantic_wire.Encoder() if version == 4 else None
-    palette = [encoder.cell(value) if encoder else encode_cell(value) for value in store.palette]
+    values, mapping = legacy_palette(store) if version == 2 else (store.palette, None)
+    palette = [encoder.cell(value) if encoder else encode_cell(value) for value in values]
     begin = {'seq': 0, 'kind': 'begin', 'name': document.name, 'size': list(document.size), 'biome': document.biome,
-             'version': version, 'paletteCount': len(store.palette), 'chunkCount': len(store.chunks), 'blockCount': len(store)}
+             'version': version, 'paletteCount': len(palette), 'chunkCount': len(store.chunks), 'blockCount': len(store)}
     if encoder:
         begin.update({'cellVersion': semantic_wire.CELL_VERSION, 'chunkEncoding': compact_chunk.VERSION,
                       'registry': semantic_wire.provenance(), 'materialCount': len(encoder.materials)})
@@ -44,7 +45,7 @@ def packets(document, version=4):
         seq += 1
         record['seq'] = seq
         yield record
-    for record in _chunk_records(store, compact_chunk.VERSION if version == 4 else 0):
+    for record in _chunk_records(store, compact_chunk.VERSION if version == 4 else 0, mapping):
         seq += 1
         record['seq'] = seq
         yield record
@@ -84,10 +85,10 @@ def _palette_records(palette):
         yield {'kind': 'palette', 'rows': rows}
 
 
-def _chunk_records(store, encoding):
+def _chunk_records(store, encoding, mapping=None):
     rows, cost, mixed = [], 0, 0
     for key in sorted(store.chunks):
-        row = encode_chunk(key, store.chunks[key], encoding)
+        row = encode_chunk(key, store.chunks[key], encoding, mapping)
         size = 40 + (len(row[3]) if not isinstance(row[3], int) else 8)
         is_mixed = not isinstance(row[3], int)
         if rows and (len(rows) >= 64 or cost + size > 16000 or (is_mixed and mixed >= 4)):
@@ -134,6 +135,9 @@ class Receiver(object):
             rows = packet.get('rows')
             if not isinstance(rows, list) or not 1 <= len(rows) <= 64 or self.seen:
                 raise ValueError('材质分包无效')
+            if sum(len(json.dumps(row, ensure_ascii=True, separators=(',', ':')))
+                   for row in rows) > PALETTE_PACKET_SIZE:
+                raise ValueError('材质分包过大，请使用方块实体分包')
             for row in rows:
                 self._append_palette(row)
         elif kind == 'chunks':
@@ -187,6 +191,9 @@ class Receiver(object):
                 not isinstance(rows, list) or not 1 <= len(rows) <= 64 or
                 len(self.materials) + len(rows) > self.material_count):
             raise ValueError('语义材质分包无效')
+        if sum(len(json.dumps(row, ensure_ascii=True, separators=(',', ':')))
+               for row in rows) > PALETTE_PACKET_SIZE:
+            raise ValueError('语义材质分包过大')
         for row in rows:
             self.materials.append(semantic_wire.decode_material(row, self.source))
 
