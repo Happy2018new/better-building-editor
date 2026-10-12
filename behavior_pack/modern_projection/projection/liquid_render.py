@@ -310,6 +310,7 @@ class WorldLiquidRenderer(object):
         self.ready = False
         self.publication_restore = []
         self.publication = None
+        self.position_restore = []
 
     @staticmethod
     def center(anchor, origin):
@@ -335,6 +336,8 @@ class WorldLiquidRenderer(object):
                 self.cleanup_errors.append((model_id, 'remove'))
                 continue
             self.retired.pop(model_id, None)
+            self.position_restore = [(record, anchor) for record, anchor in self.position_restore
+                                     if record['model_id'] != model_id]
 
     def retry_retired(self):
         self.cleanup_errors = []
@@ -489,7 +492,8 @@ class WorldLiquidRenderer(object):
                 remaining.append((record, previous))
         self.publication_restore = list(reversed(remaining))
         self.publication = None
-        return not self.publication_restore
+        positions = self.restore_positions()
+        return not self.publication_restore and positions
 
     def finalize_publication(self):
         incoming, retired, visible = self.publication
@@ -518,6 +522,8 @@ class WorldLiquidRenderer(object):
             self.close()
             return False
         self.retry_retired()
+        if not self.restore_positions():
+            return False
         if self.publication_restore or self.publication is not None:
             return False
         if self.wanted is None:
@@ -545,26 +551,58 @@ class WorldLiquidRenderer(object):
         if self.closed:
             return False
         anchor = _finite_tuple(anchor, 3, 'world anchor')
-        moved = []
+        if not self.restore_positions():
+            return False
+        if self.publication_restore or self.publication is not None:
+            return False
         for record in tuple(self.active.values()) + tuple(self.staging.values()):
             if record['anchor'] == anchor:
                 continue
-            old = record['anchor']
-            if not self.model.SetFreeModelPos(record['model_id'], *self.center(anchor, record['group'].origin)):
-                for restored, previous in reversed(moved):
-                    if self.model.SetFreeModelPos(restored['model_id'],
-                                                 *self.center(previous, restored['group'].origin)):
-                        restored['anchor'] = previous
-                    else:
-                        self.cleanup_errors.append((restored['model_id'], 'position_rollback'))
+            self.position_restore.append((record, record['anchor']))
+            try:
+                if not self.model.SetFreeModelPos(record['model_id'],
+                                                 *self.center(anchor, record['group'].origin)):
+                    raise ValueError('Could not move owned liquid model position: %r' % record['model_id'])
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
                 self.error = 'Could not move owned liquid model'
+                if self.restore_positions():
+                    self.error = 'Could not move owned liquid model'
                 return False
+        for record, previous in self.position_restore:
             record['anchor'] = anchor
-            moved.append((record, old))
+        self.position_restore = []
         self.anchor = anchor
         return True
 
+    def restore_positions(self):
+        if self.closed:
+            return not self.position_restore
+        remaining = []
+        for record, anchor in reversed(self.position_restore):
+            try:
+                restored = self.model.SetFreeModelPos(record['model_id'],
+                                                      *self.center(anchor, record['group'].origin))
+                if not restored:
+                    error = ValueError('Could not restore owned liquid model position: %r' % record['model_id'])
+                    traceback.print_exception(ValueError, error, None)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                restored = False
+            if not restored:
+                remaining.append((record, anchor))
+                self.cleanup_errors.append((record['model_id'], 'position_rollback'))
+        self.position_restore = list(reversed(remaining))
+        if self.position_restore:
+            self.error = 'Could not restore owned liquid model position'
+        elif self.error in ('Could not move owned liquid model',
+                             'Could not restore owned liquid model position'):
+            self.error = None
+        return not self.position_restore
+
     def set_visible(self, visible):
+        if not self.restore_positions():
+            return False
         if self.publication_restore or self.publication is not None:
             return False
         if self.closed or bool(visible) == self.visible:
@@ -576,6 +614,8 @@ class WorldLiquidRenderer(object):
         return True
 
     def set_opacity(self, opacity):
+        if not self.restore_positions():
+            return False
         if self.publication_restore or self.publication is not None:
             return False
         if self.closed:
@@ -620,4 +660,5 @@ class WorldLiquidRenderer(object):
             self._cancel()
             self._destroy(tuple(self.active.values()))
             self.active.clear()
-        return not self.retired
+            return not self.retired
+        return self.retry_retired()
