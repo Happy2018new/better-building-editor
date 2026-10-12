@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "item_texture_sha256": "b295a74a376d69ed2746a3b8e9305057cb12b6d2137c5f29647c7b69ee49d17c",
+  "observation": {
+    "session_id": "6f804b427db841ce81340886565ce361",
+    "game_executable_version": "3.9.0.401155",
+    "runtime_minecraft_version": "1.21.120.0",
+    "method": "ItemCompClient.GetItemTexture(identifier + ':0')",
+    "definition_source": "Installed vanilla has no minecraft:item file for this built-in item; exact engine texture path is matched structurally to item_texture.json"
+  },
+  "frame_pose": {
+    "accepted": false,
+    "size_pixels": 8.0,
+    "thickness_pixels": 0.5,
+    "front_z_pixels": 1.0,
+    "status": "candidate; independent native-world calibration required"
+  },
+  "items": [
+    {
+      "identifier": "minecraft:diamond_sword",
+      "aux": 0,
+      "accepted": false,
+      "acceptance_evidence": null,
+      "texture_path": "textures/items/diamond_sword",
+      "texture_sha256": "cf75a6e96b2d3e06bf078dbc28367febf01f03dcec177ceb64ca80608aa2ad94",
+      "texture_size": [16, 16],
+      "generated_texture": "resource_pack/textures/items/preview_flat_minecraft_diamond_sword_0.png",
+      "resolved": {
+        "texture_key": "sword",
+        "texture_index": 4,
+        "texture_path": "textures/items/diamond_sword"
+      }
+    }
+  ]
+}

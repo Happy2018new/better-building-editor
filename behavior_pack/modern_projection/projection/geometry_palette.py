@@ -9,6 +9,8 @@ from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entitie
 from .block_traits import is_snow_coverable
 from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
 from .plant_proxy_data import STATIC_PLANT_PROXIES, STATIC_PLANT_MAX_Y
+from .static_frame_item import INTERNAL_FRAME_ITEMS, frame_item_proxy
+from .native_appearance import FRAME_NAMES
 
 
 def validate_plant_source():
@@ -45,6 +47,7 @@ PLANT_PROXIES.update(STATIC_PLANT_PROXIES)
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
 INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()) +
                                  list(INTERNAL_BLOCKS) +
+                                 list(INTERNAL_FRAME_ITEMS) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
@@ -97,6 +100,32 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
     return (volume[0], volume[1], overlay_base + volume[2])
 
 
+def _append_frame_items(common, actors, logical, overlay_base):
+    materials = dict((index, value) for value, positions in common.items()
+                     if value[0] in FRAME_NAMES for index in positions)
+    if not materials:
+        return None
+    overlays = {}
+    for entries in actors.values():
+        for index, payload in entries.items():
+            material = materials.get(index)
+            proxy = frame_item_proxy(material, payload) if material is not None else None
+            if proxy is not None:
+                overlays.setdefault(proxy, []).append(index)
+    if not overlays:
+        return None
+    if (logical is None or len(logical) != 3 or min(logical) <= 0 or
+            logical[2] > MAX_LOGICAL_HEIGHT or overlay_base <= logical[2]):
+        raise ValueError('Frame item overlays require a supported palette volume and empty overlay band')
+    total = logical[0] * logical[1] * logical[2]
+    for proxy, indices in overlays.items():
+        if any(index < 0 or index >= total for index in indices):
+            raise ValueError('Frame item actor is outside its logical source volume')
+        common.setdefault(proxy, []).extend(index + overlay_base * logical[0] * logical[1]
+                                            for index in indices)
+    return (logical[0], logical[1], overlay_base + logical[2])
+
+
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
                     inferred_bed_colors=None):
     """Copy and canonicalize both native layers and actor payloads."""
@@ -124,6 +153,9 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     normalize_palette_layers(common, common_states, extra, extra_states)
     volume = _append_snow_overlays(common, common_states, extra, extra_states,
                                   source.get('volume'), overlay_base)
+    item_volume = _append_frame_items(common, source.get('actor', {}), source.get('volume'), overlay_base)
+    if item_volume is not None:
+        volume = item_volume
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
                                                    inferred_chest_parts, inferred_bed_colors)
     common, common_states = _proxy_foreground(common, common_states)

@@ -50,7 +50,8 @@ for row in observations():
  fixtures.append({'case':row['case'],'material':material,'item':item})
 _result=json.dumps({'saved':True,'position':saved['position'],'entities':saved['entities'],
  'fixtures':fixtures,'game_version':block_registry.source_version(),
- 'palette_sha256':block_registry.fingerprint()})
+ 'palette_sha256':block_registry.fingerprint(),
+ 'camera':dict((key,saved[key]) for key in ('camera_pos','camera_rot','pitch_lock','yaw_lock'))})
 '''
 
 OPEN_UI = '''from modern_projection.pyreact import Component,Panel,Image,Color,Position,use_ref,navigator
@@ -154,8 +155,13 @@ if saved is not None:
  cam.SetCameraRotation(tuple(saved['camera_rot']))
  cam.LockModCameraPitch(1 if saved['pitch_lock'] else 0)
  cam.LockModCameraYaw(1 if saved['yaw_lock'] else 0)
+ baseline=dict((key,saved[key]) for key in ('camera_pos','camera_rot','pitch_lock','yaw_lock'))
+ restored={'camera_pos':cam.GetPosition(),'camera_rot':cam.GetCameraRotation(),
+  'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw()}
  del sys._entity_attachment_capabilities
-_result=True
+ _result=json.dumps({'cleanup_completed':True,'baseline':baseline,'restored':restored})
+else:
+ _result=json.dumps({'cleanup_completed':False})
 '''
 
 
@@ -167,6 +173,16 @@ def pixel_delta(first, second, threshold=12):
         delta = ImageChops.difference(a.convert('RGB').crop(box), b.convert('RGB').crop(box))
         maximum = ImageChops.lighter(ImageChops.lighter(*delta.split()[:2]), delta.split()[2])
         return sum(maximum.histogram()[threshold + 1:])
+
+
+def camera_restored(result):
+    if not result.get('cleanup_completed'):
+        return False
+    before, after = result['baseline'], result['restored']
+    return (all(abs(a - b) <= .01 for a, b in zip(before['camera_pos'], after['camera_pos'])) and
+            all(abs((a - b + 180.) % 360. - 180.) <= .01
+                for a, b in zip(before['camera_rot'], after['camera_rot'])) and
+            all(before[key] == after[key] for key in ('pitch_lock', 'yaw_lock')))
 
 
 def main():
@@ -253,7 +269,8 @@ _result=json.dumps({'model':saved['skeleton_model'],'model_id':saved['skeleton_i
             report['error'] = '%s: %s' % (type(error).__name__, error)
             raise
         finally:
-            report['restored'] = bool(base.run(client, RESTORE))
+            report['restoration'] = base.run(client, RESTORE)
+            report['restored'] = camera_restored(report['restoration'])
             record()
     print(json.dumps(report, ensure_ascii=True))
 

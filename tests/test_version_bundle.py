@@ -91,6 +91,7 @@ class VersionBundleTests(unittest.TestCase):
         self.assertIn('tools/data/native_block_metadata_nemc_next.json', commands[1])
         self.assertIn(['tools/generate_liquid_materials.py', '--check'], [row[3:] for row in commands])
         self.assertIn(['tools/generate_bed_proxies.py', '--check'], [row[3:] for row in commands])
+        self.assertIn(['tools/generate_flat_item_proxies.py', '--check'], [row[3:] for row in commands])
         self.assertEqual(commands[-1][3:], ['-m', 'unittest', 'discover', '-s', 'tests', '-q'])
 
 

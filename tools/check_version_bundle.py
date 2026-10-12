@@ -26,6 +26,7 @@ MODULES = (
     'biome_water_data',
     'liquid_face_texture_data',
     'liquid_shape_data',
+    'static_frame_item_data',
 )
 SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
@@ -49,6 +50,7 @@ SNAPSHOTS = (
     'native_liquid_face_textures',
     'native_scaffold_supports',
     'native_scaffold_topology',
+    'flat_item_sources',
 )
 
 
@@ -59,7 +61,7 @@ def provenance_matches(label, version, fingerprint, manifest):
 
 
 def module_constants(path):
-    selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256'}
+    selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256', 'SCHEMA_VERSION', 'FRAME_ITEMS'}
     result = {}
     for node in ast.parse(path.read_text(encoding='utf8'), filename=str(path)).body:
         if isinstance(node, ast.Assign):
@@ -106,6 +108,15 @@ def check_provenance(root=ROOT):
     path = root / 'tools/data' / ('biome_water_appearance_nemc_' + version + '.json')
     validate_water_appearance(json.loads(path.read_text(encoding='utf8')), manifest)
     checked.append(str(path.relative_to(root)))
+    from generate_flat_item_proxies import source_path as flat_source_path, validate_source as validate_flat_items, profile_table
+    path = flat_source_path(root)
+    data = json.loads(path.read_text(encoding='utf8'))
+    validate_flat_items(data, manifest)
+    generated = module_constants(root / 'behavior_pack/modern_projection/projection/static_frame_item_data.py')
+    expected_hash = hashlib.sha256(json.dumps(data, sort_keys=True).encode('utf8')).hexdigest()
+    if (generated.get('SCHEMA_VERSION') != 1 or generated.get('SOURCE_SHA256') != expected_hash or
+            generated.get('FRAME_ITEMS') != profile_table(data)):
+        raise ValueError('Generated flat frame item profiles do not match the current versioned resources')
     return manifest, checked
 
 
@@ -126,6 +137,7 @@ def commands(manifest, tests=False):
         ['tools/generate_liquid_shapes.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
+        ['tools/generate_flat_item_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],
         ['tools/generate_static_plant_proxies.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
