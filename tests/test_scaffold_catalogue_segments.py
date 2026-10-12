@@ -245,6 +245,33 @@ class ScaffoldSegmentLifecycleTests(unittest.TestCase):
         self.assertEqual([], progress['rows'])
         self.run_script(RESTORE % MARKER)
 
+    def test_unrelated_client_snippet_cannot_replace_timer_components_or_functions(self):
+        self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        self.scope.update(info=object(), block=object(), game=object(), s={},
+                          registry=None, advance=None, observe=None, write=None,
+                          reserved=set(), slots=[], range_stop=0, json=None, traceback=None)
+        self.game.timers.pop(0)()
+        self.game.timers.pop(0)()
+        progress = self.run_script(STATUS % MARKER)
+        self.assertTrue(progress['done'])
+        self.assertIsNone(progress['error'])
+        self.assertEqual(16, len(progress['rows']))
+        self.assertTrue(self.run_script(RESTORE % MARKER)['restored'])
+
+    def test_callback_failure_is_reported_and_stops_further_writes_until_cleanup(self):
+        self.run_script(START % (MARKER, 0, 16, registry.SOURCE_VERSION, registry.SOURCE_SHA256))
+        self.info.fail_palette = True
+        with self.assertRaisesRegex(RuntimeError, 'reset failure'):
+            self.game.timers.pop(0)()
+        progress = self.run_script(STATUS % MARKER)
+        self.assertFalse(progress['done'])
+        self.assertIn('reset failure', progress['error']['message'])
+        self.assertIn('Traceback', progress['error']['traceback'])
+        self.assertFalse(getattr(sys, MARKER)['active'])
+        self.assertEqual([], self.game.timers)
+        self.info.fail_palette = False
+        self.assertTrue(self.run_script(RESTORE % MARKER)['restored'])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from textwrap import indent
 
 from context_test_environment import run
 from verify_debug_blueprints import BlueprintCheck, Client, write_json
@@ -20,7 +21,7 @@ METHOD = ('8 isolated native legacy-state support/scaffold cells; tile drops dis
 SEGMENT_METHOD = METHOD + '; bounded-range-v2'
 MAX_SEGMENT_STATES = 256
 
-START = '''import json,sys,math
+_START_BODY = '''import json,sys,math,traceback
 import mod.server.extraServerApi as api
 from modern_projection.projection import block_registry as registry
 marker=%r
@@ -55,7 +56,7 @@ assert 0<=range_start<len(source) and 0<range_count<=256, 'Invalid bounded range
 range_stop=min(range_start+range_count,len(source))
 s={'reserved':reserved,'slots':slots,'source':source,'index':range_start,'rows':[],
  'range':[range_start,range_stop],'active':True,
- 'done':False,'info':info,'block':block,'air_palette':air_palette,'dimension':dim,'game':game,
+ 'done':False,'error':None,'info':info,'block':block,'air_palette':air_palette,'dimension':dim,'game':game,
  'tile_drops':game.GetGameRulesInfoServer()['option_info']['tile_drops']}
 setattr(sys,marker,s)
 assert game.SetGameRulesInfoServer({'option_info':{'tile_drops':False}})
@@ -85,6 +86,13 @@ def advance():
  game.AddTimer(.35,lambda current=s:observe(current))
 def observe(current):
  if current is not s or not current['active']:return
+ try:
+  observe_batch()
+ except Exception as error:
+  s['active']=False
+  s['error']={'message':repr(error),'traceback':traceback.format_exc()}
+  raise
+def observe_batch():
  for row in s['pending']:
   slot=row.pop('slot')
   row['support']=info.GetBlockNew(slot,dim)
@@ -96,22 +104,28 @@ def observe(current):
  s['index']+=len(s['pending'])
  advance()
 advance()
-_result=json.dumps({'origin':origin,'slots':len(slots),'reserved':len(reserved),
+return json.dumps({'origin':origin,'slots':len(slots),'reserved':len(reserved),
  'states':len(source),'runtime':api.GetMinecraftVersion(),
  'range':s['range'],
  'tile_drops':False,'original_tile_drops':s['tile_drops'],'flow_forbidden':True,
  'game_version':registry.SOURCE_VERSION,'palette_sha256':registry.SOURCE_SHA256})
 '''
 
+# MCDK snippets can reuse one execution namespace across client/server calls.
+# Timer callbacks must retain local components, functions and segment state.
+START = ('def _start_scaffold_catalogue():\n' + indent(_START_BODY, ' ') +
+         '\n_result=_start_scaffold_catalogue()\ndel _start_scaffold_catalogue\n')
+
 STATUS = '''import json,sys
 s=getattr(sys,%r)
 _result=json.dumps({'done':s['done'],'index':s['index'],'states':len(s['source']),
  'range':s['range'],'rows':s['rows'],
+ 'error':s['error'],
  'next_state':s['source'][s['index']] if s['index']<len(s['source']) else None})
 '''
 RESULT = '''import json,sys
 s=getattr(sys,%r)
-assert s['done']
+assert s['done'] and s['error'] is None
 _result=json.dumps({'done':True,'index':s['index'],'states':len(s['source']),
  'range':s['range'],'rows':s['rows']})
 '''
@@ -169,6 +183,8 @@ def main():
                 report['native'] = value
                 report['progress'] = {key: value[key] for key in ('done', 'index', 'states', 'range', 'next_state')}
                 write_json(args.output, report)
+                if value.get('error'):
+                    raise RuntimeError('Native scaffold callback failed: %s' % value['error'])
                 return value
             try:
                 report['start'] = run(client, START % (
