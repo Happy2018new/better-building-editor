@@ -22,7 +22,8 @@ void main() {
         bool local = abs(EXTRA_ACTOR_UNIFORM1.w-19490.0) < 0.25;
         float bank = local ? floor(COMMON_BLOCK_GEO_FLOAT1_1*2.0)+1.0 :
                             (COMMON_BLOCK_GEO_FLOAT1_1 < 0.5 ? 1.0 : 2.0);
-        if (abs(bank-EXTRA_ACTOR_UNIFORM4.z) > 0.25) discard;
+        if (abs(bank-EXTRA_ACTOR_UNIFORM4.z) > 0.25 ||
+            EXTRA_ACTOR_UNIFORM4.w <= 0.0) discard;
     }
     vec4 diffuse = texture2D(TEXTURE_0, uv);
     #ifdef SMOOTH

@@ -71,9 +71,9 @@ def sign_fixtures(flags):
                          'local': [0., 0., 0., 19490. if local else 0.], 'common': common,
                          'vertex_color': [.8, .6, .4, .75*common if tagged and bank else .75],
                          'shadow_color': shadow_color,
-                         'pixel': pixel, 'expected': [0.]*4 if blank else sign_expected(
+                         'pixel': pixel, 'expected': [0.]*4 if blank or tagged and bank and opacity <= 0. else sign_expected(
                              flags, tagged, opacity if bank else 1., pixel, shadow_color=shadow_color),
-                         'blank': blank, 'tolerance': 2})
+                         'blank': blank or tagged and bank != 0. and opacity <= 0., 'tolerance': 2})
 
     add('untagged_material_lighting')
     add('tagged_ignores_lighting', True)
@@ -138,6 +138,8 @@ def actor_expected(flags, tagged, common, opacity, pixels, bank=0.):
         # Body geometry uses an absolute alpha override. Texture alpha still
         # decides cutout before shared opacity; it is not glyph coverage.
         alpha = opacity if tagged and bank else common
+        if tagged and bank and opacity <= 0.:
+            return [0.]*4
     return [value*255. for value in rgb]+[alpha*255.]
 
 
@@ -304,8 +306,65 @@ RENDER = r'''cases => {
         checked.inputs.texture_pixels=textures;
         result.pixel_checks.push(checked); if(!passed) result.failures.push(checked);
       }
+      // An alpha-zero fragment can blend invisibly yet still occlude a later
+      // background draw. Exercise actual depth writes as well as color pixels.
+      const depthCases = c.fixtures.filter(f =>
+        (f.packet[0]===19487. && Math.abs(f.packet[2])>.5 &&
+         (/opacity_(0\.0|0\.5|1\.0)$/.test(f.name) || f.name.endsWith('zero_opacity'))) ||
+        (c.flags.includes('ENABLE_SET_TRANSPARENCY') && f.name==='body_untagged_native_opacity_0.0'));
+      result.depth_checks = [];
+      if(depthCases.length) {
+        const background = gl.createProgram();
+        const backgroundSources = c.version===300 ? [
+          '#version 300 es\nin vec4 POSITION; void main(){gl_Position=vec4(POSITION.xy,.5,1.);}',
+          '#version 300 es\nprecision highp float; out vec4 fragColor; void main(){fragColor=vec4(9./255.,37./255.,211./255.,1.);}'] : [
+          'attribute vec4 POSITION; void main(){gl_Position=vec4(POSITION.xy,.5,1.);}',
+          'precision highp float; void main(){gl_FragColor=vec4(9./255.,37./255.,211./255.,1.);}'];
+        for(let stage=0;stage<2;++stage) {
+          const shader=gl.createShader(stage===0?gl.VERTEX_SHADER:gl.FRAGMENT_SHADER);
+          gl.shaderSource(shader,backgroundSources[stage]); gl.compileShader(shader);
+          if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))
+            result.compile_errors.push({stage:'depth_background',log:gl.getShaderInfoLog(shader)});
+          gl.attachShader(background,shader);
+        }
+        gl.linkProgram(background);
+        if(!gl.getProgramParameter(background,gl.LINK_STATUS))
+          result.compile_errors.push({stage:'depth_background_link',log:gl.getProgramInfoLog(background)});
+        const bgPosition=gl.getAttribLocation(background,'POSITION');
+        gl.enableVertexAttribArray(bgPosition); gl.vertexAttribPointer(bgPosition,4,gl.FLOAT,false,0,0);
+        gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LESS); gl.depthMask(true);
+        gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+        for(const fixture of depthCases) {
+          gl.useProgram(program);
+          if(color>=0) gl.vertexAttrib4fv(color,fixture.vertex_color);
+          gl.uniform4fv(uniform('SHADOW_COLOR'),fixture.shadow_color);
+          gl.uniform4fv(uniform('EXTRA_ACTOR_UNIFORM4'),fixture.packet);
+          gl.uniform4fv(uniform('EXTRA_ACTOR_UNIFORM1'),fixture.local);
+          gl.uniform1f(uniform('COMMON_BLOCK_GEO_FLOAT1_1'),fixture.common);
+          const textures=fixture.texture_pixels || [fixture.pixel,[0,0,0,0],[0,0,0,0]];
+          for(let unit=0;unit<3;++unit) {
+            gl.activeTexture(gl.TEXTURE0+unit);
+            gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(textures[unit]));
+          }
+          gl.clearColor(0,0,0,0); gl.clearDepth(1);
+          gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+          gl.drawArrays(gl.TRIANGLES,0,3);
+          gl.useProgram(background); gl.drawArrays(gl.TRIANGLES,0,3);
+          const pixels=new Uint8Array(4*4*4); gl.readPixels(0,0,4,4,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
+          const actual=Array.from(pixels.slice(20,24)), glError=gl.getError();
+          const tagged=fixture.packet[0]===19487. && Math.abs(fixture.packet[2])>.5;
+          const alpha=fixture.expected[3]/255.;
+          const expected=tagged && fixture.packet[3]===0 ? [9,37,211,255] :
+            fixture.expected.map(v=>v*alpha);
+          const checked={name:fixture.name+'_depth_background',actual,expected,gl_error:glError,
+            depth_test:true,depth_write:true,near_then_far:true,
+            passed:!glError && expected.every((v,i)=>Math.abs(actual[i]-v)<=2)};
+          result.depth_checks.push(checked); if(!checked.passed) result.failures.push(checked);
+        }
+        gl.disable(gl.DEPTH_TEST); gl.disable(gl.BLEND);
+      }
     }
-    result.passed=result.linked && result.failures.length===0;
+    result.passed=result.linked && result.compile_errors.length===0 && result.failures.length===0;
     results.push(result); const lose=gl.getExtension('WEBGL_lose_context'); if(lose) lose.loseContext();
   }
   return results;
@@ -331,7 +390,7 @@ def included_headers(paths, headers):
     return found
 
 
-def build_cases(project, headers):
+def build_cases(project, headers, variants=None):
     material_path = headers.parents[1]/'resource_packs/vanilla_netease/materials/entity.material'
     materials = json.loads(material_path.read_text(encoding='utf8'))['materials']
     native_material = materials['netease_block_as_entity_transparency:entity_alphatest_netease']
@@ -379,6 +438,8 @@ def build_cases(project, headers):
                           'flags': flags, 'v': shader_source(paths['sign_vertex'], headers, version, flags),
                           'f': shader_source(paths['sign_fragment'], headers, version, flags),
                           'fixtures': sign_fixtures(flags)})
+    if variants:
+        cases = [case for case in cases if case['name'].rsplit('/', 1)[1] in variants]
     identities = {key: digest(path) for key, path in paths.items()}
     identities['native_material'] = digest(material_path)
     identities['native_material_key'] = 'netease_block_as_entity_transparency:entity_alphatest_netease'
@@ -397,15 +458,19 @@ def main():
     parser.add_argument('--headers', type=Path, required=True)
     parser.add_argument('--browser', required=True)
     parser.add_argument('--report', type=Path, required=True)
+    parser.add_argument('--variant', action='append', choices=sorted(set(
+        name for name, _ in ENTITY_VARIANTS+SIGN_VARIANTS)),
+        help='Limit compile/pixel/depth verification to explicit variants; repeat for multiple names')
     args = parser.parse_args()
-    cases, identities = build_cases(args.project.resolve(), args.headers.resolve())
+    cases, identities = build_cases(args.project.resolve(), args.headers.resolve(), args.variant)
     report = {'schema': 1, 'completed': False, 'project': str(args.project.resolve()),
               'headers': str(args.headers.resolve()), 'browser': args.browser, 'sources': identities,
+              'selected_variants': args.variant,
               'scope': 'Actual game GLSL include expansion, WebGL1/2 compile/link and synthetic actor/sign pixels; no native appearance claim',
               'baseline_fragment_prelude': 'Explicit highp float/int defaults for WebGL; native source has no precision declaration',
               'sign_vertex_alpha_contract': 'Tagged banked geometry receives COLOR.a multiplied by encoded COMMON_BLOCK_GEO_FLOAT1_1; native runtime proof is separate',
               'msdf_shadow_contract': 'Restore glyph alpha before combining independent shadow alpha; multiply combined alpha by shared opacity afterward',
-              'body_alpha_contract': 'Texture alpha decides native cutout; geometry transparency overrides surviving body alpha, unlike sign glyph coverage',
+              'body_alpha_contract': 'Texture alpha decides native cutout; geometry transparency overrides surviving body alpha, unlike sign glyph coverage. Tagged banked alpha zero discards before depth writes; untagged native alpha remains unchanged.',
               'pixel_tolerance': 2, 'required_blank': 'Every RGBA channel of every framebuffer pixel must be zero'}
     args.report.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -431,6 +496,9 @@ def main():
         report['linked_programs'] = sum(result['linked'] for result in report['results'])
         report['pixel_checks'] = sum(len(result['pixel_checks']) for result in report['results'])
         report['pixel_failures'] = sum(len(result['failures']) for result in report['results'])
+        report['depth_checks'] = sum(len(result.get('depth_checks', [])) for result in report['results'])
+        report['depth_failures'] = sum(not check['passed'] for result in report['results']
+                                      for check in result.get('depth_checks', []))
         shadow_checks = [check for result in report['results'] for check in result['pixel_checks']
                          if check['name'].startswith('msdf_shadow')]
         report['msdf_shadow_checks'] = len(shadow_checks)
@@ -453,7 +521,7 @@ def main():
                 result['inherited_compile_failure'] = not result['linked'] and not result['native_baseline_linked']
         print(json.dumps({key: report[key] for key in ('completed', 'programs', 'linked_programs', 'pixel_checks',
                                                      'pixel_failures', 'body_pixel_checks', 'body_pixel_failures',
-                                                     'msdf_shadow_checks', 'msdf_shadow_failures', 'passed')}))
+                                                     'msdf_shadow_checks', 'msdf_shadow_failures', 'depth_checks', 'depth_failures', 'passed')}))
         for result in report['results']:
             if not result['passed']:
                 print(json.dumps({'name': result['name'], 'compile_errors': result['compile_errors'], 'failures': result['failures']}))
