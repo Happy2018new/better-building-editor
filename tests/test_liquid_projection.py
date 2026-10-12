@@ -189,6 +189,43 @@ class LiquidProjectionTests(unittest.TestCase):
                 self.controller.request(invalid)
             self.assertIs(iterator, self.controller.iterator)
 
+    def test_rejected_provider_cannot_replace_selection_used_by_later_biome_refresh(self):
+        selected = self.source.palette_data(lambda pos: pos == (2, 1, 1))
+        self.controller.request(selected)
+        iterator = self.controller.iterator
+        occupied = bytearray(self.source.volume)
+        occupied[(1 * 8 + 2) * 8 + 1] = 2
+        with patch.object(self.controller.profile, 'provider_factory',
+                          side_effect=ValueError('Shape source needs regeneration')):
+            with self.assertRaisesRegex(ValueError, 'needs regeneration'):
+                self.controller.request(occupied=occupied)
+        self.assertIs(iterator, self.controller.iterator)
+        self.finish()
+        self.controller.publish()
+        self.sources.clear()
+        self.controller.set_biome('swampland')
+        self.finish()
+        self.assertEqual([((2, 1, 1), 1)], [(pos, layer) for doc, pos, layer in self.sources])
+
+    def test_rejected_biome_provider_retains_old_biome_and_allows_same_value_retry(self):
+        self.controller.request()
+        self.finish()
+        self.controller.publish()
+        old_models = dict(self.runtime.models)
+        self.sources.clear()
+        with patch.object(self.controller.profile, 'provider_factory',
+                          side_effect=ValueError('Shape source needs regeneration')):
+            with self.assertRaisesRegex(ValueError, 'needs regeneration'):
+                self.controller.set_biome('swampland')
+        self.assertEqual('plains', self.controller.document.biome)
+        self.assertEqual(old_models, self.runtime.models)
+        self.assertTrue(self.controller.ready)
+        self.controller.set_biome('swampland')
+        self.finish()
+        self.assertTrue(self.sources)
+        self.assertTrue(all(doc.biome == 'swampland' for doc, pos, layer in self.sources))
+        self.assertNotEqual(old_models, self.runtime.models)
+
     def test_occupancy_refresh_reselects_complete_source_after_initial_occupied_omission(self):
         self.controller.request(self.source.palette_data(lambda pos: pos == (2, 1, 1)))
         self.finish()

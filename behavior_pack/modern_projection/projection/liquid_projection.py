@@ -40,6 +40,9 @@ class LiquidProjection(object):
         self.reported_error = False
 
     def request(self, targets=None, occupied=None):
+        self._request(targets, occupied, self.document.biome)
+
+    def _request(self, targets, occupied, biome):
         if self.closed:
             return
         occupied = bytearray(occupied) if occupied is not None else None
@@ -47,18 +50,21 @@ class LiquidProjection(object):
                                      any(state > 2 for state in occupied)):
             raise ValueError('Liquid occupancy must match the complete logical volume')
         targets = _copy_targets(targets) if targets is not None else None
-        self.targets, self.occupied = targets, occupied
-        snapshot = Document(self.document.size, biome=self.document.biome)
+        snapshot = Document(self.document.size, biome=biome)
         snapshot.blocks = self.document.blocks.copy()
-        occupied, hidden, layer = self.occupied, self.hidden, self.layer
+        hidden, layer = self.hidden, self.layer
         sx, unused_sy, sz = snapshot.size
         def visible(pos):
             return (pos[1] not in hidden and (layer is None or pos[1] == layer)
                     and (occupied is None or occupied[(pos[1] * sx + pos[0]) * sz + pos[2]] != 2))
         provider = self.profile.provider_factory(snapshot)
         groups = iter_group_steps(snapshot, provider, targets=targets, visible=visible)
-        self.iterator = render_steps(groups, self.profile.world_models,
-                                     self.renderer.bridge.session.opacity, self.profile.max_groups)
+        iterator = render_steps(groups, self.profile.world_models,
+                                self.renderer.bridge.session.opacity, self.profile.max_groups)
+        # A rejected provider must leave the previous request and biome retryable.
+        self.targets, self.occupied = targets, occupied
+        self.document.biome = biome
+        self.iterator = iterator
         self.preparing = []
         self.ready, self.error = False, None
         self.reported_error = False
@@ -115,8 +121,7 @@ class LiquidProjection(object):
     def set_biome(self, biome):
         if biome == self.document.biome or self.closed:
             return
-        self.document.biome = biome
-        self.request(self.targets, self.occupied)
+        self._request(self.targets, self.occupied, biome)
 
     def close(self):
         if self.closed:
