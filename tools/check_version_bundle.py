@@ -3,7 +3,7 @@ import argparse
 import ast
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import subprocess
 import sys
 
@@ -64,7 +64,9 @@ def provenance_matches(label, version, fingerprint, manifest):
 
 def module_constants(path):
     selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256', 'SCHEMA_VERSION',
-                'FRAME_ITEMS', 'EVIDENCE', 'RUNTIME'}
+                'FRAME_ITEMS', 'EVIDENCE', 'RUNTIME', 'RESOURCES', 'FROZEN_MODELS',
+                'RESOURCE_CONTRACT_SHA256', 'PRODUCTION_QUALIFIED', 'QUALIFICATION_SHA256',
+                'QUALIFICATION_RESOURCE_CONTRACT_SHA256'}
     result = {}
     for node in ast.parse(path.read_text(encoding='utf8'), filename=str(path)).body:
         if isinstance(node, ast.Assign):
@@ -126,6 +128,71 @@ def check_rail_provenance(manifest, root=ROOT):
     return checked
 
 
+def check_liquid_deployment(manifest, root=ROOT):
+    """Validate checked-in resources without the original installation or runtime bundle."""
+    path = root / 'tools/data/liquid_deployment_r12_contract.json'
+    payload = path.read_bytes()
+    contract = json.loads(payload)
+    if type(contract.get('schema')) is not int or contract['schema'] != 1:
+        raise ValueError('Liquid deployment resource contract has an unknown schema')
+    generated_path = root / 'behavior_pack/modern_projection/projection/liquid_resource_data.py'
+    generated = module_constants(generated_path)
+    if generated.get('RESOURCE_CONTRACT_SHA256') != hashlib.sha256(payload).hexdigest():
+        raise ValueError('Generated liquid deployment differs from its resource contract')
+    resources = generated.get('RESOURCES')
+    if not isinstance(resources, dict) or resources.get('schema_version') != 2:
+        raise ValueError('Generated liquid deployment has an unknown resource schema')
+    provenance_matches('liquid_resource_data', resources.get('game_version'),
+                       resources.get('palette_sha256'), manifest)
+    from generate_liquid_deployment import resource_profile
+    if (resources != resource_profile(contract) or
+            generated.get('FROZEN_MODELS') != resource_profile(contract, frozen=True)['models']):
+        raise ValueError('Generated liquid deployment differs from the current shape and texture sources')
+    generator = root / 'tools/generate_liquid_skeleton_resources.py'
+    if hashlib.sha256(generator.read_bytes()).hexdigest() != contract.get('generator_sha256'):
+        raise ValueError('Liquid deployment resource generator changed; regenerate the bundle')
+    header = root / 'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'
+    headers = [fingerprint for reference, fingerprint in contract.get('source_sha256', {}).items()
+               if PureWindowsPath(reference).name == header.name]
+    if headers != [hashlib.sha256(header.read_bytes()).hexdigest()]:
+        raise ValueError('Liquid deployment preview-depth source differs from its resource bundle')
+    models = contract.get('models')
+    if not isinstance(models, dict) or not models:
+        raise ValueError('Liquid deployment resource bindings are missing')
+    installed_models = json.loads((root / 'resource_pack/models/netease_models.json').read_bytes())
+    installed_materials = json.loads((root / 'resource_pack/materials/entity.material').read_bytes())['materials']
+    for name, expected in models.items():
+        if installed_models.get(name) != expected:
+            raise ValueError('Installed liquid model binding differs: ' + name)
+        option = contract['model_options'][name]
+        material = installed_materials.get(expected['material'] + ':entity_for_skeleton_alpha')
+        expected_material = {'vertexShader': 'shaders/glsl/' + option['vertex_shader'],
+                             'fragmentShader': 'shaders/glsl/' + option['fragment_shader'],
+                             '+states': contract['blend_state_contract']['states'],
+                             'blendSrc': contract['blend_state_contract']['source'],
+                             'blendDst': contract['blend_state_contract']['destination']}
+        if material != expected_material:
+            raise ValueError('Installed liquid material binding differs: ' + name)
+    # Shared registries may contain other modules' entries; independent assets retain exact hashes.
+    shared = {'resource_pack/materials/entity.material', 'resource_pack/models/netease_models.json'}
+    for relative, fingerprint in contract['output_sha256'].items():
+        if relative not in shared and hashlib.sha256((root / relative).read_bytes()).hexdigest() != fingerprint:
+            raise ValueError('Installed liquid resource bytes differ: ' + relative)
+    if type(generated.get('PRODUCTION_QUALIFIED')) is not bool:
+        raise ValueError('Liquid production qualification flag must be explicit')
+    if generated['PRODUCTION_QUALIFIED']:
+        evidence = generated.get('QUALIFICATION_SHA256')
+        if (not isinstance(evidence, str) or len(evidence) != 64 or
+                any(value not in '0123456789abcdef' for value in evidence) or
+                generated.get('QUALIFICATION_RESOURCE_CONTRACT_SHA256') != generated['RESOURCE_CONTRACT_SHA256']):
+            raise ValueError('Liquid production qualification belongs to missing or different resources')
+    elif (generated.get('QUALIFICATION_SHA256') is not None or
+          generated.get('QUALIFICATION_RESOURCE_CONTRACT_SHA256') is not None):
+        raise ValueError('Disabled liquid deployment must retain empty qualification fingerprints')
+    return [str(path.relative_to(root)), str(generated_path.relative_to(root)),
+            str(generator.relative_to(root)), str(header.relative_to(root))] + list(contract['output_sha256'])
+
+
 def check_provenance(root=ROOT):
     manifest = json.loads((root / 'tools/data/block_registry_manifest.json').read_text(encoding='utf8'))
     source = root / manifest['source_file']
@@ -148,6 +215,7 @@ def check_provenance(root=ROOT):
         provenance_matches(name, data.get('game_version'), data.get('palette_sha256'), manifest)
         checked.append(str(path.relative_to(root)))
     checked.extend(check_rail_provenance(manifest, root=root))
+    checked.extend(check_liquid_deployment(manifest, root=root))
     path = root / 'tools/data/bed_static_model_v1.json'
     data = json.loads(path.read_text(encoding='utf8'))
     provenance_matches('bed_static_model', data.get('game_version'), data.get('palette_sha256'), manifest)

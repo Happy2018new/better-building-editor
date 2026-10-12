@@ -199,6 +199,11 @@ class VersionBundleTests(unittest.TestCase):
                             root / 'behavior_pack/modern_projection/projection')
             shutil.copytree(ROOT / 'resource_pack/shaders', root / 'resource_pack/shaders')
             shutil.copytree(ROOT / 'resource_pack/materials', root / 'resource_pack/materials')
+            shutil.copytree(ROOT / 'resource_pack/models', root / 'resource_pack/models')
+            shutil.copytree(ROOT / 'resource_pack/textures/models/modern_projection/liquid',
+                            root / 'resource_pack/textures/models/modern_projection/liquid')
+            shutil.copyfile(ROOT / 'tools/generate_liquid_skeleton_resources.py',
+                            root / 'tools/generate_liquid_skeleton_resources.py')
             with patch.object(items, 'validate', wraps=items.validate) as validate:
                 bundle.check_provenance(root=root)
             self.assertTrue(validate.called)
