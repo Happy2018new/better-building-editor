@@ -1,0 +1,753 @@
+{
+  "schema": 2,
+  "scope": "One supported native door pair; setter diagnosis only",
+  "completed": false,
+  "restored": true,
+  "mutation_attempted": true,
+  "background_only": true,
+  "desktop_input": false,
+  "physical_orientation_accepted": false,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "experiment_limit_seconds": 150,
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9aa3ecdf43bf4801957fc8314255ec0f\\session.json",
+  "instance": {
+    "id": "9aa3ecdf43bf4801957fc8314255ec0f",
+    "owner": "transforms-r11-door-v10",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms",
+    "game_pid": 53132,
+    "game_identity": "134362910271095253",
+    "mcdk_pid": 42928,
+    "mcdk_identity": "134362910269034694",
+    "mcp_url": "http://127.0.0.1:57056/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+  },
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 44565462,
+      "pid": 23844,
+      "process": "WINWORD.EXE",
+      "identity": "134362641214297353",
+      "title": "report.docx - Word",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 24974898,
+        "pid": 53132,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "host_sources": {
+    "probe": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\probe_native_single_door.py",
+      "sha256": "6887bd5bf129483fe8406d289102b581fd4fa1486ddd9f51e512b99ed82f9764"
+    },
+    "shape_helpers": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\capture_native_state_transform_shapes.py",
+      "sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b"
+    },
+    "mcp_wrapper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3"
+    },
+    "session_loader": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3"
+    }
+  },
+  "preflight": {
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "origin": [
+      4,
+      -48,
+      4
+    ],
+    "runtime": "1.21.120.0",
+    "dimension": 0
+  },
+  "requested": [
+    {
+      "pos": [
+        4,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        0
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        8
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    }
+  ],
+  "support": [
+    4,
+    -49,
+    4
+  ],
+  "reserved": [
+    [
+      3,
+      -49,
+      4
+    ],
+    [
+      3,
+      -48,
+      4
+    ],
+    [
+      3,
+      -47,
+      4
+    ],
+    [
+      4,
+      -50,
+      4
+    ],
+    [
+      4,
+      -49,
+      3
+    ],
+    [
+      4,
+      -49,
+      4
+    ],
+    [
+      4,
+      -49,
+      5
+    ],
+    [
+      4,
+      -48,
+      3
+    ],
+    [
+      4,
+      -48,
+      4
+    ],
+    [
+      4,
+      -48,
+      5
+    ],
+    [
+      4,
+      -47,
+      3
+    ],
+    [
+      4,
+      -47,
+      4
+    ],
+    [
+      4,
+      -47,
+      5
+    ],
+    [
+      4,
+      -46,
+      4
+    ],
+    [
+      5,
+      -49,
+      4
+    ],
+    [
+      5,
+      -48,
+      4
+    ],
+    [
+      5,
+      -47,
+      4
+    ]
+  ],
+  "setup": {
+    "support_write": {
+      "states": {},
+      "returned": true,
+      "value": {
+        "aux": 0,
+        "name": "minecraft:stone"
+      },
+      "pos": [
+        4,
+        -49,
+        4
+      ]
+    },
+    "after": {
+      "rows": [
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:wooden_door"
+          }
+        },
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": {
+            "aux": 8,
+            "name": "minecraft:wooden_door"
+          }
+        }
+      ],
+      "runtime": "1.21.120.0"
+    },
+    "steps": [
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "returned": true,
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "legacy_aux": 0,
+        "method": "SetBlockNew"
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "returned": false,
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "legacy_aux": 8,
+        "method": "SetBlockNew"
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "method": "SetBlockStates",
+        "returned": true,
+        "pos": [
+          4,
+          -48,
+          4
+        ]
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "method": "SetBlockStates",
+        "returned": true,
+        "pos": [
+          4,
+          -47,
+          4
+        ]
+      }
+    ],
+    "error": null
+  },
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: ('native client palette unavailable', (4, -47, 4))\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 11, in <module>\\nAssertionError: ('native client palette unavailable', (4, -47, 4))\\n\", \"type\": \"text\"}]}",
+  "cleanup": {
+    "player_unchanged": true,
+    "errors": [],
+    "marker_present": true,
+    "restored": true
+  },
+  "client_after_cleanup": {
+    "rows": [
+      {
+        "states": {},
+        "pos": [
+          3,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -50,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -46,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      }
+    ],
+    "runtime": "1.21.120.0"
+  },
+  "elapsed_seconds": 1.9800782999955118
+}

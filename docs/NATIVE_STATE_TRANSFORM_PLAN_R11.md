@@ -192,12 +192,44 @@ It clears the entire reserve through the same documented update-disabled native
 setter and verifies server dry air, client air and unchanged player position.
 The result is a placement diagnosis and never claims transform acceptance.
 
-The single-pair probe has only offline verification so far. Its first protected
-cold launch failed in the launcher's combined CIM/listener discovery query at
+Its first protected cold launch failed in the launcher's combined CIM/listener
+discovery query at
 the ten-second query limit, before readiness or any probe/native fixture writes.
 The session and failure reason were retained, its owned PIDs were independently
 confirmed absent after identity-bound shutdown, and the slot was released.
 This startup failure is separate from the actual atomic-door fixture failure.
+
+A subsequent protected single-pair retry connected using the same approved
+IPC-framing binary and runtime `1.21.120.0`. The original report is frozen as
+`tools/data/native_state_transform_shapes_r11.door-single-diagnostic.json`
+(SHA256 `a2e48d95e2a064b01bc8d2725c8e6889757b7f27bf5308fe4e462a3fb95bede9`), with
+the exact executed probe in the matching `.probe.py` (SHA256
+`6887bd5bf129483fe8406d289102b581fd4fa1486ddd9f51e512b99ed82f9764`). The explicit
+support at `(4,-49,4)` was stone. Writing the lower half at `(4,-48,4)` with
+legacy aux 0 returned true and automatically created the requested upper aux 8
+at `(4,-47,4)`. The following unchanged upper write returned false, while both
+halves already matched exactly. Both `SetBlockStates` calls returned true, and
+all four immediate setter snapshots plus setup readback retained exact new aux
+and typed states: south, closed, hinge false, with opposite upper-block bits.
+
+The delayed client read failed because `GetBlockPaletteBetweenPos` returned
+`None` for the upper cell. The report has `completed=false`, `restored=true`
+and no delayed stage or `exact_native_pair` result. Although the host executed
+the delayed server call first, its original combined dictionary assignment was
+discarded on the client exception, so no delayed server observation is available
+in the frozen report. These bytes have not been retroactively amended. They
+establish immediate native setter behavior for one pair only, with no delayed
+stability, physical shape or transform acceptance. The current recorder saves
+each side independently and retains explicit stage/side errors; any missing
+observation keeps completion and exact-pair flags false.
+
+Cleanup verified all 17 reserve cells as dry air on the server and air on the
+client, with unchanged feet `(0.5,-60,0.5)`. The owned game PID 53132 (creation
+identity `134362910271095253`) and MCDK PID 42928
+(`134362910269034694`) were independently confirmed absent after normal shutdown.
+The private flat creative config, exact launch wrappers and original probe/report
+remain archived under the worktree's `.runtime/single-door-v10-sources/`; the
+temporary wrappers were restored and the newly created worktree config removed.
 
 ## Offline Verification
 
@@ -217,6 +249,10 @@ launches and changed binary hashes before any connection or native execution.
 Two single-door tests execute the actual generated setup/cleanup against a native
 API test double: an auto-created upper half's unchanged `SetBlockNew` false return
 must remain a recorded observation, and a setter exception must preserve both
-actual half states and still clear all 17 reserved cells. They are host tests,
-not evidence that the single-pair method works in the native game.
+actual half states and still clear all 17 reserved cells. Two host failure tests
+verify independent persistence of delayed server/client observations when the
+opposite side fails, continued diagnosis and complete cleanup. A frozen-native
+test verifies the raw/probe hashes, exact immediate snapshots, unchanged false
+upper setter return and the absence of delayed stability/acceptance evidence.
+The host tests do not add native observations.
 No production mapping has changed.

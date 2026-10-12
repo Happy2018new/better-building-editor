@@ -120,6 +120,7 @@ def probe(output, session, owner):
         raise ValueError('Session belongs to another project')
     report = {'schema': 2, 'scope': 'One supported native door pair; setter diagnosis only',
               'completed': False, 'restored': False, 'mutation_attempted': False,
+              'exact_native_pair': False, 'observation_errors': [],
               'background_only': True, 'desktop_input': False, 'physical_orientation_accepted': False,
               'game_version': shapes.registry.source_version(),
               'palette_sha256': shapes.registry.fingerprint(), 'experiment_limit_seconds': 150,
@@ -159,9 +160,17 @@ def probe(output, session, owner):
                 if time.monotonic() - started > 90:
                     raise RuntimeError('Single-door observation budget exhausted; enter cleanup')
                 time.sleep(.2)
-                report[stage] = {'server': shapes.execute(client, server_code, True),
-                                 'client': shapes.execute(client, client_code, False)}
-                shapes.write(output, report)
+                report[stage] = {}
+                for side, code in (('server', server_code), ('client', client_code)):
+                    try:
+                        report[stage][side] = shapes.execute(client, code, side == 'server')
+                    except Exception as error:
+                        report['observation_errors'].append({'stage': stage, 'side': side,
+                            'type': type(error).__name__, 'message': str(error)})
+                    finally:
+                        shapes.write(output, report)
+            if report['observation_errors']:
+                raise RuntimeError('Native delayed observations incomplete; see observation_errors')
             snapshots = [report['setup']['after']] + [report[stage][side] for stage in
                          ('after_200ms', 'later') for side in ('server', 'client')]
             report['exact_native_pair'] = all(shapes.replicated(snapshot, rows) for snapshot in snapshots)
