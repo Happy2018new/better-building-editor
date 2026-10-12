@@ -17,7 +17,7 @@ targets. Categories are separate pages within the test tab.
 | `test.layers.snow` | `layers` | 32 × 8 × 24 | Six measured coverable plants, two snow depths and snow above leaves |
 | `test.groups.parts` | `groups` | 32 × 8 × 24 | Wood/iron doors, beds in four directions and tall plants |
 | `test.entities.appearances` | `entities` | 40 × 12 × 36 | 19 actual native nondefault Skull/Bed/Frame/Banner observations |
-| `test.entities.item_contents` | `entities` | 24 × 8 × 18 | Plain, synthetically enchanted and empty ordinary/glow frame controls; native glint is not accepted |
+| `test.entities.item_contents` | `entities` | 24 × 8 × 18 | Plain, native-enchanted and empty ordinary/glow frame controls; native glint is not accepted |
 | `test.entities.signs` | `entities` | 16 × 8 × 10 | Observed two-sided standing and hanging sign text, colour and glow |
 | `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
 | `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
@@ -32,12 +32,61 @@ and can be copied, transformed, exported, shared and projected.
 
 The item-content fixture pairs ordinary and glow frames at Z 3 and 10, with
 plain, enchanted and empty controls at X 3, 10 and 17, Y 2. It clones the
-versioned native filled-frame observations and adds a synthetic typed
-`Item.tag.ench` list with Short sharpness ID 9 and level 3. That synthetic data
-must be verified against independent native placement before visual acceptance.
+versioned native filled-frame observations. Enchanted controls use independently
+observed native inventory enchantment and block interaction, retaining the actual
+`Item.tag.ench` list with Short sharpness ID 9 and level 3, native `modEnchant`,
+and all complete actor/item fields. Both ordinary and glow frame readbacks passed
+in the owned R11 instance; the client palettes independently contain no item NBT.
 The public metadata keeps content and glint acceptance false, requires three
 fresh temporal frames per editor/full/missing mode, and separately lists shelf
 slots as unverified. Successful data round trips do not establish glint pixels.
+
+The versioned source is `tools/data/native_item_contents_nemc_3.9.0.401155.json`.
+Its original physical report fingerprint is retained separately from its canonical
+snapshot fingerprint. `generate_native_item_contents.py --check` validates the
+source version, palette, independent inventory enchantment, successful block
+interaction and complete tagged readback before checking runtime templates.
+It also verifies the checked-in original physical report bytes and independent
+frozen launch identity, then reconstructs the full snapshot from that evidence.
+The original report remains unchanged: its native `GetMinecraftVersion` value
+was not recorded, and the runtime metadata explicitly keeps that value unknown.
+The independent launch manifest identifies NEMC build directory `3.9.0.401155`;
+a later executable-file audit is recorded separately from an in-run API result.
+`check_version_bundle.py --provenance-only` applies the same raw-source gate.
+The missing native API runtime-version readback remains a separate open gate.
+`verify_enchanted_frame_nbt.py <fresh-report.json> --physical` repeats native
+placement, waits for client frame replication, enchants a temporary sword and
+uses it on each frame. The default mode separately exercises `WorldAdapter`
+writing; neither mode accepts editor/projection content or moving glint.
+Future physical reports record native client/server `GetMinecraftVersion`
+readbacks and the owned session identity before any fixture mutation.
+
+`tools/probe_public_entity_contents.py` selects a single entity cell from an
+actual public blueprint, places its native block using a temporary inventory
+item, waits for the client's native palette, then uses the requested content
+item once. It keeps complete before/after server NBT, inventory readbacks,
+independent client palettes and every reserved neighbor's post-interaction
+block/NBT. A unique request nonce restricts cleanup to this probe's own state.
+An ambiguous material requires `--source-cell X Y Z`; multiblock placements are
+outside this single-cell probe. Optional `--enchantment ID LEVEL` independently
+confirms the inventory enchantment before item use.
+
+For example, the existing public recent-entity fixture has an oak shelf at
+`(27, 1, 15)` and a chiseled bookshelf at `(9, 1, 9)`. These commands are prepared
+native data diagnostics and have not yet been run on either shelf family:
+
+```powershell
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> probe_public_entity_contents.py <fresh-shelf-report.json> --fixture test.entities.recent --material minecraft:oak_shelf --item minecraft:diamond_sword --interaction-face 3
+python -X utf8 tools/run_live_check.py --session <session.json> --owner <owner> probe_public_entity_contents.py <fresh-bookshelf-report.json> --fixture test.entities.recent --material minecraft:chiseled_bookshelf --item minecraft:book --interaction-face 3
+```
+
+The native placement state and requested face are recorded independently of
+the public fixture's original state. `native_interaction_passed` only confirms
+the native operation and inventory checks. It does not establish that an item
+entered a particular slot, that all slots were sampled, or that saved contents
+rendered. `native_content_schema_verified`, `production_rendering_accepted`
+and `enchantment_glint_accepted` remain false. Neither probe implements the
+authorized production server-capture workflow.
 
 ## Coordinates For Acceptance
 

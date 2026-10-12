@@ -9,6 +9,7 @@ from tempfile import TemporaryDirectory
 from contextlib import contextmanager
 from copy import deepcopy
 from pathlib import Path
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -303,6 +304,42 @@ class NativeAppearanceProbeTests(unittest.TestCase):
 
 
 class NativeAppearanceHostCleanupTests(unittest.TestCase):
+    def test_runtime_identity_is_read_from_both_native_sides_and_owned_manifest(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import verify_native_entity_appearances as host
+        session = {'id': 'owned', 'owner': 'owner', 'session_file': 'session.json',
+                   'game_executable': 'game/Minecraft.Windows.exe', 'game_pid': 1,
+                   'game_identity': '2', 'mcdk_pid': 3, 'mcdk_identity': '4'}
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / 'session.json'
+            path.write_text(json.dumps(session), encoding='ascii')
+            with patch.dict(os.environ, MCDEV_SESSION_FILE=str(path), MCDEV_OWNER='owner'), \
+                    patch.object(host, 'execute', return_value='1.21.120.0') as execute:
+                result = host.native_runtime_evidence(object())
+        self.assertEqual(session, result['session'])
+        self.assertEqual({'server': '1.21.120.0', 'client': '1.21.120.0'}, result['native_runtime_versions'])
+        self.assertEqual([False, True], [call.args[2] for call in execute.call_args_list])
+        self.assertTrue(all('GetMinecraftVersion' in call.args[1] for call in execute.call_args_list))
+
+    def test_unowned_manifest_and_mismatching_native_versions_are_rejected(self):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import verify_native_entity_appearances as host
+        session = {'id': 'owned', 'owner': 'owner', 'session_file': 'session.json',
+                   'game_executable': 'game/Minecraft.Windows.exe', 'game_pid': 1,
+                   'game_identity': '2', 'mcdk_pid': 3, 'mcdk_identity': '4'}
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / 'session.json'
+            path.write_text(json.dumps(session), encoding='ascii')
+            with patch.dict(os.environ, MCDEV_SESSION_FILE=str(path), MCDEV_OWNER='foreign'), \
+                    patch.object(host, 'execute') as execute:
+                with self.assertRaisesRegex(ValueError, 'owned session'):
+                    host.native_runtime_evidence(object())
+                execute.assert_not_called()
+            with patch.dict(os.environ, MCDEV_SESSION_FILE=str(path), MCDEV_OWNER='owner'), \
+                    patch.object(host, 'execute', side_effect=['1.21.120.0', '999.0.0']):
+                with self.assertRaisesRegex(ValueError, 'runtime versions differ'):
+                    host.native_runtime_evidence(object())
+
     def test_replication_waits_for_actual_palette_instead_of_one_fixed_sleep(self):
         sys.path.insert(0, str(ROOT / 'tools'))
         import verify_native_entity_appearances as host

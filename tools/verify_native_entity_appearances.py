@@ -1,6 +1,8 @@
 """One owned native batch captures nondefault entity data; it does not certify rendering."""
 import argparse
 import json
+import hashlib
+import os
 import sys
 import time
 from pathlib import Path
@@ -27,6 +29,28 @@ def replicated_palettes(client, code, timeout=12):
         if time.monotonic() >= deadline:
             raise RuntimeError('Native appearance client replication timed out: %r' % result.get('pending'))
         time.sleep(.15)
+
+
+def native_runtime_evidence(client):
+    """Record owned launch identity separately from client/server registry labels."""
+    path = Path(os.environ['MCDEV_SESSION_FILE'])
+    raw = path.read_bytes()
+    session = json.loads(raw)
+    if session['owner'] != os.environ['MCDEV_OWNER']:
+        raise ValueError('Native runtime evidence requires the owned session')
+    selected = {key: session[key] for key in
+                ('id', 'owner', 'session_file', 'game_executable', 'game_pid',
+                 'game_identity', 'mcdk_pid', 'mcdk_identity')}
+    versions = {}
+    for side, client_side in (('server', False), ('client', True)):
+        versions[side] = execute(client, 'import json\n'
+            'import mod.%s.extra%sApi as api\n_result=json.dumps(api.GetMinecraftVersion())' %
+            (side, side.title()), client_side)
+    if (not isinstance(versions['server'], str) or not versions['server'] or
+            versions['server'] != versions['client']):
+        raise ValueError('Native client/server runtime versions differ or are unavailable')
+    return {'session': selected, 'manifest_sha256': hashlib.sha256(raw).hexdigest(),
+            'manifest_hash_format': 'raw_file_bytes', 'native_runtime_versions': versions}
 
 
 def main():

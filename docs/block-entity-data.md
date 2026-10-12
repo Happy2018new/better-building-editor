@@ -102,6 +102,41 @@ stale templates fail the editor operation before any document change.
 
 ## Fields Awaiting Native Evidence
 
+R11 obtained two native enchanted-frame payloads through documented inventory
+enchantment followed by `PlayerUseItemToPos`, after empty-frame client replication.
+Both ordinary and glow frames retain a native list under `Item.tag.ench`, with
+Short `id=9` / `lvl=3` and native `modEnchant`. This differs from the former
+synthetic wrapped List control. The public item blueprint uses the complete
+observed payload, guarded by versioned source and deterministic generation.
+Source schema 2 freezes the original physical report bytes and a separately
+hashed selected-field owned launch manifest/startup log. Ordinary generation
+checks replay these sources instead of trusting their registry-derived labels.
+The independent launch path establishes the NEMC build directory, while native
+runtime API version and executable bytes at capture remain explicitly unknown
+for the original R11 report. Post-stop executable metadata is not an in-run API
+readback. Future probes record both native sides' runtime API versions first.
+The original native runtime-version gate remains incomplete until a fresh owned
+run records that missing readback; source binding does not close visual gates.
+Client frame palette actor data remains empty, so complete server NBT is still
+required. These successful readbacks do not accept the separate native writer,
+editor item pixels, projection item pixels or temporal enchantment glint.
+
+The original R11 report and supporting fresh WGC, progress and cleanup artifacts
+are indexed by filename and SHA256 in
+`tools/data/native_item_contents_r11_evidence.json`. Fresh WGC established a
+nonblank background-owned game and advancing frames; the later read-only audit
+found no fixture flags, projection entities or temporary inventory content.
+Those observations are instance health/restoration evidence. They do not show
+the native frame contents or accept any item, sign, pot, banner or glint pixels.
+The game was stopped after observed rapid handle growth; its cause remains
+unattributed, and no additional entity game was launched.
+
+The reusable public-blueprint content probe documented in
+[Built-In Test Blueprints](debug-blueprints.md) preserves unknown native shelf
+fields without assuming `Items`, `Slot`, or a slot numbering convention. Shelf
+and chiseled-bookshelf commands are prepared but not yet run. One center-face
+interaction cannot establish coverage of every native slot.
+
 The adjacent `bedrock-world-operator` checkout stores and encodes arbitrary
 block entity NBT but contains no entity-specific direction schemas. It is a
 reference for lossless tagged data and disk encoding, not evidence for direction

@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "round": "R11",
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "scope": "Native inventory-enchanted frame data and instance health; no entity pixel acceptance",
+  "public_fixture": "test.entities.item_contents",
+  "native_enchanted_frame_data_verified": true,
+  "native_content_schema_verified_families": ["ordinary_frame", "glow_frame"],
+  "editor_content_accepted": false,
+  "full_projection_content_accepted": false,
+  "missing_projection_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "shelf_native_slots_verified": false,
+  "session": {
+    "id": "8a235173e37646729768cfc9191e5183",
+    "owner": "entities-r11-background",
+    "state": "stopped",
+    "manifest_sha256": "6955f08f87da5a4c716fb48c163acf3a0800e5c6d9ad4a4169070fc536446f68",
+    "game_pid": 65108,
+    "game_identity": "134362826092695327",
+    "mcdk_pid": 45660,
+    "mcdk_identity": "134362826090042811",
+    "normal_stop_failed": true,
+    "identity_bound_force_stop_completed": true,
+    "both_owned_processes_independently_observed_absent": true,
+    "handle_count_observations": [165196, 177328],
+    "handle_growth_cause": "unattributed",
+    "native_restart_after_stop": false
+  },
+  "artifact_directory": "C:/Users/Happy2018new/.pyreact-debug/instances/8a235173e37646729768cfc9191e5183/artifacts",
+  "artifacts": [
+    {
+      "file": "enchant-physical-r11-v1.json",
+      "sha256": "a853a88604aa5dc05a4cf60d0f18a43db66eda8c7cb012e28db0322548bc86fc",
+      "kind": "physical_native_inventory_enchantment_and_frame_interaction",
+      "completed": true,
+      "passed": true,
+      "restored": true,
+      "native_cases": ["frame_filled", "glow_frame_filled"],
+      "client_palette_item_nbt_present": false
+    },
+    {
+      "file": "entities-r11-preflight.capture.json",
+      "sha256": "5d418afa66d1be9ec3380ca3c897b597f31273acecf9e1bf1cc645e98e3c2edd",
+      "kind": "fresh_background_wgc_metadata",
+      "reliable": true,
+      "background_safe": true,
+      "foreground_unchanged": true
+    },
+    {
+      "file": "entities-r11-preflight.png",
+      "sha256": "c27b729d1a7af4535235d19c74739c5d99e6b7a39c9c3bba5e2e243bc2aea6f8",
+      "kind": "fresh_instance_health_pixels",
+      "width": 1994,
+      "height": 1105,
+      "opened_and_visually_inspected": true,
+      "native_entity_content_acceptance": false
+    },
+    {
+      "file": "entities-r11-progress.capture.json",
+      "sha256": "c55cc97bbe18fc49b808b7355a8b0dfb873231de78980c281f57ccac23bb3853",
+      "kind": "fresh_background_wgc_metadata",
+      "reliable": true,
+      "background_safe": true,
+      "foreground_unchanged": true
+    },
+    {
+      "file": "entities-r11-progress.png",
+      "sha256": "f0d2bc52d57bc9fbfceaf673d246bf6cd24a52b16f991e0b11a23e03c3e5c34e",
+      "kind": "fresh_instance_health_pixels",
+      "width": 1994,
+      "height": 1105,
+      "opened_and_visually_inspected": true,
+      "native_entity_content_acceptance": false
+    },
+    {
+      "file": "entity-readonly-progress-r11-v1.json",
+      "sha256": "63409f1aa32b0da8089cea807c11024efd7e6116852255614c0c60a9653fbd1c",
+      "kind": "failed_readonly_audit",
+      "completed": false,
+      "failure": "The audit guessed nonexistent owner.screen; original failed artifact retained",
+      "error_text_recorded_in_original_report": false
+    },
+    {
+      "file": "entity-readonly-progress-r11-v2.json",
+      "sha256": "3e22c9f8eba1d47c09bd9d64b7467fdea36821f2ef1c4a6691b00a2f52494ebb",
+      "kind": "readonly_restoration_and_progress_audit",
+      "completed": true,
+      "samples": 2,
+      "fixture_flags_empty": true,
+      "workspace_closed": true,
+      "projection_entities_empty": true,
+      "projection_serial": 0,
+      "temporary_inventory_slot": 0,
+      "temporary_inventory_slot_empty": true,
+      "scope": "IPC progress and cleanup state, not complete renderer acceptance"
+    },
+    {
+      "file": "inspect_entity_instance_r11_source.py",
+      "sha256": "050011b2c4d2f94286034d98a2fb112bc8213ef36dde487bedd39a84a3454a24",
+      "kind": "corrected_readonly_audit_source"
+    },
+    {
+      "file": "item-provenance-r11-v1.json",
+      "sha256": "0aad196b221dee9a15607047e03f60880592984aef2838469283543b7f731123",
+      "kind": "version_bundle_provenance",
+      "sources": 65,
+      "passed": true,
+      "full_suite_run": false
+    }
+  ],
+  "failed_guarded_startup": {
+    "instance_id": "835730c1650f4606b6c673fa58119aeb",
+    "directory": "C:/Users/Happy2018new/.pyreact-debug/instances/835730c1650f4606b6c673fa58119aeb",
+    "failure": "Focus guard module snapshot failed",
+    "native_game_started": false,
+    "files": {
+      "session.json": "68cdead25b18aecb2b06bf7566a3600a7535b1778e4e842854b8be62746dc62e",
+      "mcdk.log": "ac19a2b3634610d2145924c899db9a5520fde0e662da561eebe8a1c38280607e",
+      "prepare.log": "6cd745c1b40f9589e448bd09d4612f13a5336ca5165b086cde4e256d32972265"
+    }
+  },
+  "remaining_native_data_gates": [
+    "Shelf slot fields and numbering require actual native observation",
+    "One center-face interaction does not establish every slot",
+    "No observed nondefault banner Patterns payload in this round"
+  ],
+  "remaining_visual_gates": [
+    "Item contents require separate editor, full and missing pixel evidence",
+    "Enchantment glint requires native positive controls and fresh temporal captures",
+    "Signs and wet pots require their independent body, glyph, water and occupancy gates"
+  ]
+}

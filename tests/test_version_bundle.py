@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import shutil
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('version_bundle_check', ROOT / 'tools/check_version_bundle.py')
@@ -71,6 +73,26 @@ class VersionBundleTests(unittest.TestCase):
         manifest, files = bundle.check_provenance()
         self.assertGreater(len(files), 15)
         self.assertGreater(manifest['record_count'], 0)
+
+    def test_provenance_only_replays_native_item_source_instead_of_registry_labels(self):
+        source_path = 'tools/data/native_item_contents_nemc_3.9.0.401155.json'
+        source = json.loads((ROOT / source_path).read_bytes())
+        import generate_native_item_contents as items
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            shutil.copytree(ROOT / 'tools/data', root / 'tools/data')
+            shutil.copytree(ROOT / 'docs/reference/block_palettes', root / 'docs/reference/block_palettes')
+            shutil.copytree(ROOT / 'behavior_pack/modern_projection/projection',
+                            root / 'behavior_pack/modern_projection/projection')
+            shutil.copytree(ROOT / 'resource_pack/shaders', root / 'resource_pack/shaders')
+            shutil.copytree(ROOT / 'resource_pack/materials', root / 'resource_pack/materials')
+            with patch.object(items, 'validate', wraps=items.validate) as validate:
+                bundle.check_provenance(root=root)
+            self.assertTrue(validate.called)
+            path = root / source['source_report_file']
+            path.write_bytes(path.read_bytes() + b'\n')
+            with self.assertRaisesRegex(ValueError, 'original report bytes changed'):
+                bundle.check_provenance(root=root)
 
     def test_rejects_new_palette_with_old_observations(self):
         manifest = {'game_version': 'NEMC next', 'source_sha256': 'a' * 64}

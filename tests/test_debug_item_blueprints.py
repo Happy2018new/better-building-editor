@@ -35,9 +35,10 @@ class ItemBlueprintTests(unittest.TestCase):
             self.assertEqual(plain['newItemName'], enchanted['newItemName'])
             self.assertEqual(plain['newAuxValue'], enchanted['newAuxValue'])
             ench = enchanted['userData']['ench']
-            self.assertEqual(9, ench['__type__'])
-            self.assertEqual(9, scalar(ench['__value__'][0], 'id'))
-            self.assertEqual(3, scalar(ench['__value__'][0], 'lvl'))
+            self.assertIsInstance(ench, list)
+            self.assertEqual(9, scalar(ench[0], 'id'))
+            self.assertEqual(3, scalar(ench[0], 'lvl'))
+            self.assertEqual('', scalar(ench[0], 'modEnchant'))
             self.assertIsNone(self.item(document, pair['empty']))
         self.assertEqual(before, observations())
         self.assertEqual(document.blocks, build(IDENTITY).blocks)
@@ -85,8 +86,8 @@ class ItemBlueprintTests(unittest.TestCase):
     def test_fixture_data_does_not_claim_native_glint_or_shelf_slot_acceptance(self):
         self.assertEqual(('editor', 'full', 'missing'), VISUAL_CASE['modes'])
         self.assertGreaterEqual(VISUAL_CASE['minimum_temporal_frames'], 3)
-        for field in ('native_enchanted_payload_verified', 'item_content_accepted',
-                      'enchantment_glint_accepted'):
+        self.assertTrue(VISUAL_CASE['native_enchanted_payload_verified'])
+        for field in ('item_content_accepted', 'enchantment_glint_accepted'):
             self.assertFalse(VISUAL_CASE[field])
         self.assertIn('shelf_item_slots', VISUAL_CASE['unverified_families'])
 

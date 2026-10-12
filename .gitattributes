@@ -10,3 +10,7 @@ behavior_pack/modern_projection/projection/block_registry_data.py text eol=lf
 tools/data/snow-poppy-candidate-all-height-evidence-r10b.json text eol=lf
 tools/data/plant_cross_candidate_r10b/*.json text eol=lf
 tools/data/plant-native-source-investigation-r10b.json text eol=lf
+# Native item source checks replay the original report and startup log bytes.
+tools/data/native_item_contents_r11_raw.json -text -diff
+tools/data/native_item_contents_r11_prepare.log -text -diff
+tools/data/native_item_contents_r11_session.json text eol=lf

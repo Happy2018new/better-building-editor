@@ -44,6 +44,11 @@ plans.extend((
 for name in ('wither_skeleton_skull', 'zombie_head', 'creeper_head'):
     plans.extend(({'case': name + '_floor_yaw45', 'name': 'minecraft:' + name, 'yaw': 45., 'face': 1},
                   {'case': name + '_wall_face2', 'name': 'minecraft:' + name, 'yaw': 0., 'face': 2}))
+public_plans = getattr(sys, '_p0_entity_appearance_public_plans', None)
+if public_plans is not None:
+    del sys._p0_entity_appearance_public_plans
+    assert len(public_plans) == 1 and public_plans[0].get('public_fixture'), public_plans
+    plans = public_plans
 selected = getattr(sys, '_p0_entity_appearance_selected', None)
 if selected is not None:
     del sys._p0_entity_appearance_selected
@@ -55,6 +60,9 @@ for index, plan in enumerate(plans):
     target = (origin[0] + index % 5 * 7, origin[1], origin[2] + index // 5 * 7)
     support = tuple(target[axis] - normals[plan['face']][axis] for axis in range(3))
     needed = {target, support}
+    if plan.get('content_probe'):
+        needed.update(tuple(target[axis] + normal[axis] for axis in range(3))
+                      for normal in normals)
     if plan['name'] == 'minecraft:bed':
         needed.update((target[0] + dx, target[1], target[2] + dz)
                       for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)))
@@ -78,7 +86,7 @@ sys._p0_entity_appearances = {'schema': 1, 'player': player, 'dimension': dimens
 def spawn(row):
     items.SetInvItemNum(slot, 0)
     row['spawn_return'] = items.SpawnItemToPlayerInv(
-        {'itemName': row['name'], 'auxValue': row.get('aux', 0), 'count': 1,
+        {'itemName': row.get('placement_item', row['name']), 'auxValue': row.get('aux', 0), 'count': 1,
          'userData': row.get('userData', {})}, player, slot)
     row['temporary_item'] = items.GetPlayerItem(item_type, slot, True)
     assert row['temporary_item'] and row['temporary_item'].get('count', 0) >= 1, row
@@ -98,7 +106,8 @@ try:
         spawn(row)
         row['placed'] = info.PlayerUseItemToPos(tuple(row['support']), item_type, slot, row['face'])
         row['block'] = info.GetBlockNew(tuple(row['pos']), dimension)
-        expected = 'minecraft:standing_banner' if row['name'] == 'minecraft:banner' else row['name']
+        expected = row.get('expected_block',
+                           'minecraft:standing_banner' if row['name'] == 'minecraft:banner' else row['name'])
         assert row['placed'] and row['block']['name'] == expected, row
         row['cells'] = [row['pos']]
         if row['name'] == 'minecraft:bed':

@@ -13,6 +13,7 @@ from check_native_actor_materials import check as check_actor_materials
 MODULES = (
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
+    'item_contents_data',
     'native_sign_data', 'native_pot_data', 'native_pot_sherd_data',
     'water_interaction_data', 'plant_proxy_data',
     'static_neighbor_data',
@@ -32,6 +33,7 @@ SNAPSHOTS = (
     'native_block_metadata', 'native_water_overlays', 'native_snow_overlays',
     'native_paired_snow', 'native_block_entity_defaults',
     'native_entity_appearances', 'native_entity_renderers',
+    'native_item_contents',
     'native_frame_rotations', 'native_signs', 'native_pot_poses', 'native_pot_sherds', 'native_pot_faces',
     'native_water_item_use', 'native_water_extinguish', 'native_water_source_stability',
     'native_water_flow_spread',
@@ -117,6 +119,15 @@ def check_provenance(root=ROOT):
     if (generated.get('SCHEMA_VERSION') != 1 or generated.get('SOURCE_SHA256') != expected_hash or
             generated.get('FRAME_ITEMS') != profile_table(data)):
         raise ValueError('Generated flat frame item profiles do not match the current versioned resources')
+    from generate_native_item_contents import validate as validate_items, runtime as item_runtime
+    path = root / 'tools/data' / ('native_item_contents_nemc_' + version + '.json')
+    data = validate_items(json.loads(path.read_bytes()), root=root)
+    path = root / 'behavior_pack/modern_projection/projection/item_contents_data.py'
+    if path.read_text(encoding='ascii') != item_runtime(data, root=root):
+        raise ValueError('Generated native item controls differ from independent raw source evidence')
+    checked.extend((data['source_report_file'], data['source_session_manifest_file']))
+    session = json.loads((root / data['source_session_manifest_file']).read_bytes())
+    checked.append(session['startup_log']['file'])
     return manifest, checked
 
 
@@ -132,6 +143,7 @@ def commands(manifest, tests=False):
         ['tools/generate_static_neighbor_rules.py', '--check'],
         ['tools/generate_native_palette_adapter.py', '--check'],
         ['tools/generate_native_entity_writes.py', '--check'],
+        ['tools/generate_native_item_contents.py', '--check'],
         ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_liquid_face_textures.py', '--check'],
         ['tools/generate_liquid_shapes.py', '--check'],

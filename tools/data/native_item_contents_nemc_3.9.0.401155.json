@@ -1,0 +1,288 @@
+{
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "rows": [
+    {
+      "block": {
+        "aux": 2,
+        "name": "minecraft:frame"
+      },
+      "case": "frame_filled",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "Item": {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "tag": {
+                "ench": [
+                  {
+                    "id": {
+                      "__type__": 2,
+                      "__value__": 9
+                    },
+                    "lvl": {
+                      "__type__": 2,
+                      "__value__": 3
+                    },
+                    "modEnchant": {
+                      "__type__": 8,
+                      "__value__": ""
+                    }
+                  }
+                ]
+              }
+            },
+            "ItemDropChance": {
+              "__type__": 5,
+              "__value__": 1.0
+            },
+            "ItemRotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "ItemFrame"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 20
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": -20
+            }
+          },
+          "pos": [
+            20,
+            -44,
+            -20
+          ]
+        }
+      ],
+      "face": 2,
+      "inventory_enchantments": [
+        [
+          9,
+          3
+        ]
+      ],
+      "native_add_enchant_return": true,
+      "native_interaction_return": true,
+      "native_spawn_return": true,
+      "palette": {
+        "actor": {
+          "minecraft:frame": {
+            "0": {}
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:frame",
+              2
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:frame",
+              2
+            ],
+            "value": {
+              "facing_direction": 2,
+              "item_frame_map_bit": false,
+              "item_frame_photo_bit": false
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "block": {
+        "aux": 2,
+        "name": "minecraft:glow_frame"
+      },
+      "case": "glow_frame_filled",
+      "cell_nbt": [
+        {
+          "nbt": {
+            "Item": {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "tag": {
+                "ench": [
+                  {
+                    "id": {
+                      "__type__": 2,
+                      "__value__": 9
+                    },
+                    "lvl": {
+                      "__type__": 2,
+                      "__value__": 3
+                    },
+                    "modEnchant": {
+                      "__type__": 8,
+                      "__value__": ""
+                    }
+                  }
+                ]
+              }
+            },
+            "ItemDropChance": {
+              "__type__": 5,
+              "__value__": 1.0
+            },
+            "ItemRotation": {
+              "__type__": 5,
+              "__value__": 0.0
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "GlowItemFrame"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 27
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -44
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": -20
+            }
+          },
+          "pos": [
+            27,
+            -44,
+            -20
+          ]
+        }
+      ],
+      "face": 2,
+      "inventory_enchantments": [
+        [
+          9,
+          3
+        ]
+      ],
+      "native_add_enchant_return": true,
+      "native_interaction_return": true,
+      "native_spawn_return": true,
+      "palette": {
+        "actor": {
+          "minecraft:glow_frame": {
+            "0": {}
+          }
+        },
+        "common": [
+          {
+            "material": [
+              "minecraft:glow_frame",
+              2
+            ],
+            "value": [
+              0
+            ]
+          }
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates": [],
+        "states": [
+          {
+            "material": [
+              "minecraft:glow_frame",
+              2
+            ],
+            "value": {
+              "facing_direction": 2,
+              "item_frame_map_bit": false,
+              "item_frame_photo_bit": false
+            }
+          }
+        ],
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "runtime_identity": {
+    "build_directory_source": "independent_owned_launch_manifest",
+    "build_directory_version": "3.9.0.401155",
+    "executable_at_capture_verified": false,
+    "native_runtime_verified": false,
+    "native_runtime_version": null
+  },
+  "schema": 2,
+  "scope": "Native enchanted item data; pixels, glint and world writer remain separate",
+  "source_hash_format": "raw_file_bytes",
+  "source_kind": "native_inventory_enchantment_and_block_interaction",
+  "source_original_session_manifest_sha256": "6955f08f87da5a4c716fb48c163acf3a0800e5c6d9ad4a4169070fc536446f68",
+  "source_owner": "entities-r11-background",
+  "source_report_file": "tools/data/native_item_contents_r11_raw.json",
+  "source_session": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8a235173e37646729768cfc9191e5183\\session.json",
+  "source_session_manifest_file": "tools/data/native_item_contents_r11_session.json",
+  "source_session_manifest_sha256": "e0bf70d55a0a137da27847700100670a2e799a614e3af49d63a239b2c34068fb",
+  "source_sha256": "a853a88604aa5dc05a4cf60d0f18a43db66eda8c7cb012e28db0322548bc86fc"
+}

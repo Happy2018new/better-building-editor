@@ -14,7 +14,8 @@ for original in sys._p0_entity_appearance_rows:
         pending.append((original['case'], 'palette unavailable'))
         continue
     data = palette.SerializeBlockPalette()
-    expected = 'minecraft:standing_banner' if original['name'] == 'minecraft:banner' else original['name']
+    expected = original.get('expected_block',
+                            'minecraft:standing_banner' if original['name'] == 'minecraft:banner' else original['name'])
     if not any(value[0] == expected for value in data.get('common', {})):
         pending.append((original['case'], 'block not replicated'))
         continue
