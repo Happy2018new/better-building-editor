@@ -1,0 +1,64 @@
+"""Keep inverse-color crosshairs and corrupt marker cells out of route evidence."""
+import hashlib
+import math
+from pathlib import Path
+import sys
+from tempfile import TemporaryDirectory
+import unittest
+
+from PIL import Image, ImageDraw
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
+from probe_native_frame_matrix import BIAS, CONTROLS, SCALE, decode
+from probe_native_frame_route import marker_pixels
+
+
+def capture_record(path, image):
+    image.save(path)
+    payload = path.read_bytes()
+    row = {'path': str(path), 'sha256': hashlib.sha256(payload).hexdigest(),
+           'bytes': len(payload), 'size': image.size, 'mime': 'image/png'}
+    row['capture'] = dict(row, width=image.width, height=image.height,
+                          frame={'width': image.width, 'height': image.height})
+    return row
+
+
+class NativeFrameMarkers(unittest.TestCase):
+    def test_inverse_crosshair_does_not_become_a_green_material_control(self):
+        with TemporaryDirectory() as directory:
+            image = Image.new('RGB', (300, 300), (255, 0, 255))
+            draw = ImageDraw.Draw(image)
+            draw.rectangle((148, 136, 152, 164), fill=(0, 255, 0))
+            draw.rectangle((136, 148, 164, 152), fill=(0, 255, 0))
+            row = capture_record(Path(directory) / 'marker.png', image)
+            self.assertTrue(marker_pixels(row)['positive'])
+            self.assertEqual(0, marker_pixels(row, 'green')['pixels'])
+
+    def test_real_green_surface_outside_the_crosshair_is_a_positive_control(self):
+        with TemporaryDirectory() as directory:
+            image = Image.new('RGB', (300, 300), (100, 150, 220))
+            ImageDraw.Draw(image).rectangle((102, 104, 116, 116), fill=(0, 255, 0))
+            row = capture_record(Path(directory) / 'marker.png', image)
+            self.assertTrue(marker_pixels(row, 'green')['positive'])
+            self.assertEqual(0, marker_pixels(row)['pixels'])
+
+    def test_signed24_marker_needs_both_controls_and_uniform_sample_pixels(self):
+        rectangle = (0, 0, 16, 24)
+        values = [float(index) - 8 for index in range(16)] + [16., .5, 1., 19487. / 8., 1., 1.] + list(CONTROLS)
+        image = Image.new('RGB', (16, 24))
+        draw = ImageDraw.Draw(image)
+        for index, value in enumerate(values):
+            code = int(math.floor(value * SCALE + .5)) + BIAS
+            color = (code >> 16, code >> 8 & 255, code & 255)
+            x, y = index % 4 * 4, index // 4 * 4
+            draw.rectangle((x, y, x + 3, y + 3), fill=color)
+        self.assertTrue(decode(image, rectangle, 'WORLDVIEW')['passed'])
+        corrupted = image.copy()
+        corrupted.putpixel((1, 2), (0, 0, 0))
+        self.assertFalse(decode(corrupted, rectangle, 'WORLDVIEW')['passed'])
+        self.assertFalse(decode(Image.new('RGB', (16, 24)), rectangle, 'WORLDVIEW')['passed'])
+
+
+if __name__ == '__main__':
+    unittest.main()
