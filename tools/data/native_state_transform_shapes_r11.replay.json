@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "completed": true,
+  "restored": true,
+  "checks": 144,
+  "coordinate_tolerance": 1e-05,
+  "mismatches": [],
+  "discrimination": [
+    {
+      "name": "minecraft:oak_stairs",
+      "records": 8,
+      "distinct_native_shapes": 8,
+      "minimum_discriminating_shapes": 8,
+      "discriminating": true,
+      "limits": "Symmetric native states can share shapes; textures and neighbor corners are not checked."
+    },
+    {
+      "name": "minecraft:trapdoor",
+      "records": 16,
+      "distinct_native_shapes": 6,
+      "minimum_discriminating_shapes": 6,
+      "discriminating": true,
+      "limits": "Symmetric native states can share shapes; textures and neighbor corners are not checked."
+    }
+  ],
+  "native_shape_consistency": true,
+  "physical_orientation_accepted": true,
+  "limits": "Native clip/collision and fixed rays only; no texture, renderer or neighbor-corner acceptance.",
+  "source": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\data\\native_state_transform_shapes_r11.raw.json",
+    "sha256": "1625d5598300f74c9f83530628a9cecf69b663da6edbbe563946f33220e8e970"
+  },
+  "analyzer_sha256": "121ba69615f3a350df651b72539449b6c1ad7a2391a0bead7dd229c81f23d9d4",
+  "candidate_transform_sha256": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2"
+}

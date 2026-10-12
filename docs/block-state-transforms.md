@@ -165,6 +165,16 @@ Every record also passes these group-law checks:
 These offline checks establish legal and coherent state transforms. They do
 not replace the integrated game check of neighbor-derived stair corners,
 rail/wall connections, paired actors, editor preview, or projection preview.
+The bounded current-engine capture/replay workflow in
+[Native State Transform Cross-Check](NATIVE_STATE_TRANSFORM_PLAN_R11.md)
+records native clip/collision and ray observations separately from the candidate
+transform. Identical enclosing bounds remain unresolved physical evidence even
+when the coordinate comparisons and transform laws pass.
+The frozen NEMC 3.9.0.401155 observations now pass 144 physical coordinate
+comparisons for all eight oak stair and sixteen wooden trapdoor states, using
+discriminating native rays, four stable side/time snapshots, and verified cleanup.
+This acceptance is limited to those materials; doors and rails remain unresolved
+by that capture, as do textures, stair corner topology, and preview pixels.
 
 Several state names need context rather than a generic numeric remap. For
 example, `direction` is interpreted with the other states to distinguish beds,
