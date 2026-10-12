@@ -59,6 +59,26 @@ class NativeFrameMarkers(unittest.TestCase):
         self.assertFalse(decode(corrupted, rectangle, 'WORLDVIEW')['passed'])
         self.assertFalse(decode(Image.new('RGB', (16, 24)), rectangle, 'WORLDVIEW')['passed'])
 
+    def test_scattered_marker_pixels_do_not_pass_connected_area_gate(self):
+        with TemporaryDirectory() as directory:
+            image = Image.new('RGB', (300, 300), (100, 150, 220))
+            for x in range(100, 124, 2):
+                for y in range(100, 124, 2):
+                    image.putpixel((x, y), (0, 255, 255))
+            row = capture_record(Path(directory) / 'noise.png', image)
+            scored = marker_pixels(row, 'cyan')
+            self.assertGreaterEqual(scored['pixels'], 80)
+            self.assertEqual(1, scored['largest_connected_pixels'])
+            self.assertFalse(scored['positive'])
+
+    def test_unchanged_background_color_cannot_count_as_actor_marker(self):
+        with TemporaryDirectory() as directory:
+            directory = Path(directory)
+            image = Image.new('RGB', (300, 300), (0, 255, 255))
+            shown = capture_record(directory / 'shown.png', image)
+            hidden = capture_record(directory / 'hidden.png', image)
+            self.assertFalse(marker_pixels(shown, 'cyan', hidden)['positive'])
+
 
 if __name__ == '__main__':
     unittest.main()

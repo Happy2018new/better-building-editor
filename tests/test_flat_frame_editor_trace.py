@@ -107,6 +107,42 @@ class FrameEditorTraceTests(unittest.TestCase):
             self.assertEqual(0, roi['pixels'])
             self.assertIsNone(roi['bbox'])
 
+    def test_same_volume_body_keeps_native_frame_and_actor_at_original_index(self):
+        data = {'volume': (8, 8, 17), 'common': {('minecraft:frame', 2): [219],
+            ('modern_projection:preview_item_minecraft_diamond_sword_0_f2_r0', 0): [795]},
+            'states': {('minecraft:frame', 2): {'facing_direction': 2}},
+            'actor': {'minecraft:frame': {219: {'Item': 'retained document actor'}}}}
+        original = copy.deepcopy(data)
+        native_calls = []
+
+        class Palette:
+            def SerializeBlockPalette(self):
+                return self.data
+
+            def DeserializeBlockPalette(self, value):
+                self.data = value
+                return True
+
+        palette = Palette()
+        palette.data = data
+        native = SimpleNamespace(CombineBlockPaletteToGeometry=lambda palette, name, mode:
+                                 native_calls.append(copy.deepcopy(palette.data)) or name)
+        factory = SimpleNamespace(CreateBlockGeometry=lambda level: native,
+                                  CreateBlock=lambda level: SimpleNamespace(GetBlankBlockPalette=Palette))
+        probe_sys = SimpleNamespace(_blueprint_qa_nonce=1)
+        namespace = {'b': SimpleNamespace(factory=factory), 'sys': probe_sys}
+        exec(compile(trace.INSTALL_CONTROLS, '<frame same-volume control>', 'exec'), namespace)
+        probe_sys._frame_editor_control = 'same_volume_body'
+        namespace['b'].factory.CreateBlockGeometry('level').CombineBlockPaletteToGeometry(palette, 'model')
+        submitted = native_calls[0]
+        self.assertEqual(original, data)
+        self.assertEqual(original['volume'], submitted['volume'])
+        self.assertEqual([219], submitted['common'][('minecraft:frame', 2)])
+        self.assertEqual([795], submitted['common'][('minecraft:air', 0)])
+        self.assertEqual(original['actor'], submitted['actor'])
+        self.assertEqual(original['states'], submitted['states'])
+        self.assertEqual([], probe_sys._frame_editor_transforms[0]['removed_frame_indices'])
+
     def test_native_probe_records_serialized_items_without_mutating_palette(self):
         data = {'volume': (8, 8, 17), 'common': {
             ('minecraft:frame', 2): [219],

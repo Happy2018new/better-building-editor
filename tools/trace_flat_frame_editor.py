@@ -57,29 +57,30 @@ class FrameEditorNativeControl(object):
  def __getattr__(self,name):return getattr(self.target,name)
  def CombineBlockPaletteToGeometry(self,palette,name,mode=0):
   control=sys._frame_editor_control
-  if control in ('item_only','blank','positive'):
+  if control in ('item_only','blank','positive','same_volume_body'):
    original=palette.SerializeBlockPalette()
    data=deepcopy(original)
    frames=('minecraft:frame','minecraft:glow_frame')
-   for layer in ('common','states'):
-    data[layer]=dict((key,value) for key,value in data.get(layer,{}).items() if key[0] not in frames)
-   data['actor']=dict((key,value) for key,value in data.get('actor',{}).items() if key not in frames)
+   if control!='same_volume_body':
+    for layer in ('common','states'):
+     data[layer]=dict((key,value) for key,value in data.get(layer,{}).items() if key[0] not in frames)
+    data['actor']=dict((key,value) for key,value in data.get('actor',{}).items() if key not in frames)
    items=[(key,list(indices)) for key,indices in data['common'].items()
           if key[0].startswith('modern_projection:preview_item_')]
    assert len(items)==1 and len(items[0][1])==1,items
-   if control in ('blank','positive'):
+   if control in ('blank','positive','same_volume_body'):
     for key,indices in items:
      del data['common'][key]
      data['states'].pop(key,None)
-     replacement=('minecraft:air' if control=='blank' else 'modern_projection:preview_shulker_blue_0',0)
+     replacement=('modern_projection:preview_shulker_blue_0' if control=='positive' else 'minecraft:air',0)
      data['common'][replacement]=indices
    assert data['volume']==original['volume']
    palette=b.factory.CreateBlock(self.level).GetBlankBlockPalette()
    assert palette is not None and palette.DeserializeBlockPalette(data)
    sys._frame_editor_transforms.append({'nonce':sys._blueprint_qa_nonce,'control':control,
     'volume':data['volume'],'original_items':[{'material':key,'indices':indices} for key,indices in items],
-    'removed_frame_indices':[index for key,indices in original.get('common',{}).items()
-                             if key[0] in frames for index in indices],
+    'removed_frame_indices':[] if control=='same_volume_body' else
+      [index for key,indices in original.get('common',{}).items() if key[0] in frames for index in indices],
     'submitted':[{'material':key,'indices':list(indices)} for key,indices in data['common'].items()],
     'remaining_actor_names':sorted(data.get('actor',{}))})
   return self.target.CombineBlockPaletteToGeometry(palette,name,mode)
@@ -145,6 +146,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--score-report', type=Path, help='Score an existing report offline without game access')
+    parser.add_argument('--same-volume-body', action='store_true',
+                        help='Add an item-as-air body control retaining the combined native volume')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh report')
@@ -190,8 +193,11 @@ def main():
                 check.run('owner.open_workspace()\n_result=True')
                 check.wait('editor opened', lambda nav: nav['open'] and not nav['transition'], check.navigation)
                 document = None
-                for label, enabled in (('combined', True), ('body', False), ('combined_repeat', True),
-                                       ('item_only', True), ('blank', True), ('positive', True)):
+                controls = [('combined', True), ('body', False), ('combined_repeat', True),
+                            ('item_only', True), ('blank', True), ('positive', True)]
+                if args.same_volume_body:
+                    controls.append(('same_volume_body', True))
+                for label, enabled in controls:
                     check.run("sys._frame_editor_control=%r\n_result=True" % label)
                     check.run(SWITCH % enabled)
                     loaded = check.run(LOAD)
@@ -218,6 +224,17 @@ def main():
                     unused, mask = content_mask(evidence['controls'][key]['capture']['path'],
                                                evidence['controls']['blank']['capture']['path'], crop)
                     evidence['controls'][key]['geometry_pixels'] = count(mask)
+                if args.same_volume_body:
+                    fixed = evidence['controls']['same_volume_body']
+                    assert fixed['submission']['item_cells'] == 0
+                    assert {tuple(row['volume']) for row in fixed['ready']['native_calls']} == \
+                        {tuple(row['volume']) for row in repeat['ready']['native_calls']}, 'Native volume changed'
+                    evidence['same_volume_body_diagnostic'] = {
+                        'scope': 'Item-as-air substitution only, frame body and native volume retained',
+                        'body_vs_same_volume_body': pixel_trace(body['capture']['path'], fixed['capture']['path'], crop),
+                        'combined_vs_same_volume_body': {
+                            key: pixel_trace(evidence['controls'][key]['capture']['path'], fixed['capture']['path'], crop)
+                            for key in ('combined', 'combined_repeat')}}
                 evidence['positive_control_visible'] = evidence['controls']['positive']['geometry_pixels'] >= 80
                 evidence['item_only_visible'] = evidence['controls']['item_only']['geometry_pixels'] >= 80
                 evidence['document_nonmutation'] = check.run('_result=json.dumps(s.editor.document.to_data())') == document
