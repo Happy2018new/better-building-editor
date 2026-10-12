@@ -174,6 +174,8 @@ enforce that position scope. Native mesh/pivot and position-dependent random
 offset contracts remain unrecovered, so `production_default_enabled=false`
 and no poppy registration is retained in the production packs.
 
-The M08 inventory separately contains 148 native names with `renderLayer13`
-seed definitions. This is a seed-name inventory, not full state or layer
-coverage, and does not establish geometry or offset authority for those names.
+The M08 inventory separately contains 148 seed-name eligibility entries
+selected by the `renderLayer13` predicate: 29 true and 119 false. This is not
+full state or layer coverage, and does not establish geometry or offset
+authority for those names. The independent source investigation is recorded
+in `docs/NATIVE_PLANT_MESH_OFFSET_SOURCES_R10B.md`.

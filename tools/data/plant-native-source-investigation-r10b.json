@@ -1,0 +1,527 @@
+{
+  "schema": 1,
+  "record_kind": "native_plant_source_investigation_not_acceptance",
+  "recorded_at": "2026-10-12T15:06:02+08:00",
+  "game_version": "NEMC 3.9.0.401155",
+  "runtime_minecraft_version": "1.21.120.0",
+  "plants": [
+    "poppy",
+    "crimson_roots",
+    "warped_roots",
+    "nether_sprouts",
+    "short_grass",
+    "fern"
+  ],
+  "outcome": {
+    "native_mesh_contract_recovered": false,
+    "native_mesh_pivot_contract_recovered": false,
+    "native_position_random_offset_contract_recovered": false,
+    "new_production_acceptance": false,
+    "new_production_registration": false,
+    "new_native_session_started": false,
+    "independent_box_centroid_is_mesh_pivot": false
+  },
+  "review_boundary": {
+    "mcp_catalog": "mcdk-assistant v0.2.7; mc-search records ModSDK 3.10 Beta knowledge",
+    "installed_runtime": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+    "later_catalog_is_not_installed_api_availability": true,
+    "negative_search_is_not_engine_impossibility": true,
+    "mcp_hash_method": "SHA256 of exact returned document text encoded as UTF-8, without newline normalization",
+    "inspected_sources_only": true
+  },
+  "documented_queries": {
+    "current_aabb": [
+      "GetBlockClip",
+      "GetBlockCollision"
+    ],
+    "aabb_may_depend_on_neighbors": true,
+    "aabb_does_not_document_render_mesh_pivot": true,
+    "palette_contents": "Block identities and relative positions; no documented native mesh vertex or random-offset getter",
+    "combine_routes": [
+      "CombineBlockBetweenPosToGeometry",
+      "CombineBlockFromPosListToGeometry",
+      "CombineBlockPaletteToGeometry"
+    ],
+    "unsupported_modes": {
+      "0": "skip unsupported blocks",
+      "1": "stop generation"
+    },
+    "returned_geometry_name_does_not_certify_visible_plant": true,
+    "client_palette_recommendation": "Custom block-entity appearance needs client runtime data; existing R9 paths already use client sources",
+    "netease_random_offset": "Custom-block X/Z scopes contain two floats in [0,1]; equal endpoints fix a point; no vanilla hash or offset readback is documented"
+  },
+  "mcp_documents": [
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u4e16\u754c/\u65b9\u5757\u7ba1\u7406.md",
+      "byte_length": 16751,
+      "sha256": "35a38262d5b5e5421153983500fd9ceb512471b0ec701da8a77eca19b1d6d3c3",
+      "command": "read ModAPI/\u63a5\u53e3/\u4e16\u754c/\u65b9\u5757\u7ba1\u7406.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u4e16\u754c/\u65b9\u5757\u7ec4\u5408.md",
+      "byte_length": 13837,
+      "sha256": "7b7e922468002c71458c57370db84c59a03e39ac5e54ac80073832d2f196bed8",
+      "command": "read ModAPI/\u63a5\u53e3/\u4e16\u754c/\u65b9\u5757\u7ec4\u5408.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u65b9\u5757/\u65b9\u5757\u51e0\u4f55\u4f53\u6a21\u578b.md",
+      "byte_length": 14168,
+      "sha256": "b8d1f4191ff4c6fa6e264d36c90f14f710e6bbd46cf8792615a3fddccba8f27e",
+      "command": "read ModAPI/\u63a5\u53e3/\u65b9\u5757/\u65b9\u5757\u51e0\u4f55\u4f53\u6a21\u578b.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u65b9\u5757/\u65b9\u5757\u8c03\u8272\u677f.md",
+      "byte_length": 10402,
+      "sha256": "f4f4543ac5a1c955e9f5cf4413e614a3f4a6bba936ca5894146dd310c254a1b9",
+      "command": "read ModAPI/\u63a5\u53e3/\u65b9\u5757/\u65b9\u5757\u8c03\u8272\u677f.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u65b9\u5757/\u6e32\u67d3.md",
+      "byte_length": 21929,
+      "sha256": "9a265b456fac1f3e551ff079fa6376fe06321996641d13b1a4433f88479d7503",
+      "command": "read ModAPI/\u63a5\u53e3/\u65b9\u5757/\u6e32\u67d3.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u65b9\u5757/\u5c5e\u6027.md",
+      "byte_length": 3952,
+      "sha256": "103a42f26f0dc36842123587e5ec65a44bd3d9fd347855123b4c2ba9ce025723",
+      "command": "read ModAPI/\u63a5\u53e3/\u65b9\u5757/\u5c5e\u6027.md"
+    },
+    {
+      "path": "ModAPI/\u63a5\u53e3/\u865a\u62df\u4e16\u754c/\u6a21\u578b.md",
+      "byte_length": 25227,
+      "sha256": "05b7b2cb518362a361b8667bb7b13795808749f108c2e5bf1f9a720f7d62a3ad",
+      "command": "read ModAPI/\u63a5\u53e3/\u865a\u62df\u4e16\u754c/\u6a21\u578b.md"
+    },
+    {
+      "path": "NeteaseGuide/mcguide/20-\u73a9\u6cd5\u5f00\u53d1/15-\u81ea\u5b9a\u4e49\u6e38\u620f\u5185\u5bb9/2-\u81ea\u5b9a\u4e49\u65b9\u5757/1-JSON\u7ec4\u4ef6.md",
+      "byte_length": 36194,
+      "sha256": "97272a07bba746b38b1b6ca5f3491302dc225231526a530f3da62aadc67f036f",
+      "command": "read NeteaseGuide/mcguide/20-\u73a9\u6cd5\u5f00\u53d1/15-\u81ea\u5b9a\u4e49\u6e38\u620f\u5185\u5bb9/2-\u81ea\u5b9a\u4e49\u65b9\u5757/1-JSON\u7ec4\u4ef6.md"
+    },
+    {
+      "path": "NeteaseGuide/mcguide/20-\u73a9\u6cd5\u5f00\u53d1/15-\u81ea\u5b9a\u4e49\u6e38\u620f\u5185\u5bb9/2-\u81ea\u5b9a\u4e49\u65b9\u5757/5-\u81ea\u5b9a\u4e49\u65b9\u5757\u6a21\u578b.md",
+      "byte_length": 15505,
+      "sha256": "cd103a89a7588e31e764d00935e4dff63b49e28d5b983c0d6156435f662aad7f",
+      "command": "read NeteaseGuide/mcguide/20-\u73a9\u6cd5\u5f00\u53d1/15-\u81ea\u5b9a\u4e49\u6e38\u620f\u5185\u5bb9/2-\u81ea\u5b9a\u4e49\u65b9\u5757/5-\u81ea\u5b9a\u4e49\u65b9\u5757\u6a21\u578b.md"
+    }
+  ],
+  "no_result_api_searches": [
+    {
+      "command": "api GetBlockMesh",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetBlockGeometry",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetVertices",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetBlockRandom",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetBlockOffset",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetBlockModel",
+      "content_count": 0,
+      "is_error": false
+    },
+    {
+      "command": "api GetMesh",
+      "content_count": 0,
+      "is_error": false
+    }
+  ],
+  "basic_info_dictionary": {
+    "command": "all \u65b9\u5757\u57fa\u672c\u4fe1\u606f\u5b57\u5178 --top 8",
+    "exact_section_heading": "\u65b9\u5757\u57fa\u672c\u4fe1\u606f\u5b57\u5178",
+    "byte_length": 2637,
+    "sha256": "02194bbbf8e0d685da5a9aa1fce1c41c9e3f19c1e96c381996f7a363be61ef23",
+    "fields": [
+      "blockLightAbsorption",
+      "blockLightEmission",
+      "breathability",
+      "explosionResistance",
+      "loot",
+      "mapColor",
+      "unwalkable",
+      "tier",
+      "renderLayer",
+      "solid",
+      "pathable",
+      "fireResistant",
+      "creativeCategory",
+      "destroyTime"
+    ],
+    "position_argument": false,
+    "mesh_vertex_pivot_random_offset_field_documented": false
+  },
+  "file_sources": [
+    {
+      "kind": "installed_native_block_mapping",
+      "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/resource_packs/vanilla/blocks.json",
+      "sha256": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa"
+    },
+    {
+      "kind": "installed_native_texture_atlas",
+      "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/resource_packs/vanilla/textures/terrain_texture.json",
+      "sha256": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c"
+    },
+    {
+      "kind": "seed_name_snow_eligibility",
+      "path": "tools/data/native_snow_overlays_nemc_3.9.0.401155.json",
+      "sha256": "a6e303b4d1264d112a3bc568cc16f39c2fd7f503ce4d8444215a6dcdace263f7"
+    },
+    {
+      "kind": "native_block_metadata",
+      "path": "tools/data/native_block_metadata_nemc_3.9.0.401155.json",
+      "sha256": "1f7f6f2286dc7bd8dee748899ba8f12a973532d151c2047ec400c9ee8342d460"
+    },
+    {
+      "kind": "seed_name_probe_source",
+      "path": "tools/dump_snowloggable_blocks.py",
+      "sha256": "2b2c554bdd6d51cb13a18a0d781bd8aec1cbe9b2b1f751679bffe3e27c644c8e"
+    },
+    {
+      "kind": "historical_native_boxes",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/dc4e2d971694496a98eed39eb01ccdca/artifacts/native-plant-boxes-r9-v2-checked.json",
+      "sha256": "8ac66f6f562c90bfaaf16bb4517ec81e8327be98e0727f447e991a4545515a89"
+    },
+    {
+      "kind": "historical_four_mesh_paths",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/dc4e2d971694496a98eed39eb01ccdca/artifacts/native-plant-four-mesh-paths-r9-v1.json",
+      "sha256": "040cdfd4f55fe8e03dab60d6f75205e7fada755ad0b91297e44c2ded9a3229e4"
+    },
+    {
+      "kind": "historical_builtin_geometry_capability",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/544f997f43a64d29925c9002a3821fc5/artifacts/builtin-plant-capability-r9-v3.json",
+      "sha256": "2d197b9388ee4dbef3478da1f7d1cd43cdccbc3006012c6bdfd709ecd7fc036d"
+    },
+    {
+      "kind": "historical_netease_offset_capability",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/28978d1a387543aa8bc37951fd2ece18/artifacts/netease-offset-capability-r9-v3.json",
+      "sha256": "35ff1a991bad3efa60ec53a96c3a29005990bf377f57f667921c6f8600018df5"
+    }
+  ],
+  "native_mapping_readback": {
+    "poppy": {
+      "textures": "poppy",
+      "sound": "grass"
+    },
+    "crimson_roots": {
+      "textures": {
+        "up": "crimson_roots",
+        "down": "crimson_roots",
+        "north": "crimson_roots",
+        "south": "crimson_roots_pot",
+        "west": "crimson_roots",
+        "east": "crimson_roots"
+      },
+      "sound": "roots"
+    },
+    "warped_roots": {
+      "textures": {
+        "up": "warped_roots",
+        "down": "warped_roots",
+        "north": "warped_roots",
+        "south": "warped_roots_pot",
+        "west": "warped_roots",
+        "east": "warped_roots"
+      },
+      "sound": "roots"
+    },
+    "nether_sprouts": {
+      "textures": "nether_sprouts",
+      "sound": "nether_sprouts"
+    },
+    "short_grass": {
+      "textures": "short_grass",
+      "carried_textures": "short_grass_carried",
+      "sound": "grass"
+    },
+    "fern": {
+      "textures": "fern",
+      "carried_textures": "fern_carried",
+      "sound": "grass"
+    }
+  },
+  "installed_directory_observations": {
+    "vanilla_bp_blocks_directory_present": false,
+    "vanilla_rp_models_subdirectories": [
+      "entity"
+    ],
+    "complete_engine_geometry_source": false,
+    "root_face_texture_mapping_does_not_establish_cross_plane_assignment": true
+  },
+  "additional_installed_source_search": {
+    "roots": [
+      "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions",
+      "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/renderer"
+    ],
+    "included_file_globs": [
+      "*.json",
+      "*.material",
+      "*.hlsl",
+      "*.glsl"
+    ],
+    "regex": "block_random_offset|minecraft:random_offset|geometry\\.cross\"|crimson_roots|warped_roots|nether_sprouts|short_grass|\"poppy\"|\"fern\"",
+    "ignore_case": true,
+    "matched_definition_files": 11,
+    "matched_renderer_files": 0,
+    "classification": "World-generation single-block/scatter/feature rules; no per-cell rendered mesh or pivot/offset formula recovered",
+    "matches": [
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/crimson_roots_feature.json",
+        "sha256": "b207ae22a84d283bf2849279bf285a251a18ba0e243b2f7b8e2d29e281c3802f",
+        "top_keys": [
+          "format_version",
+          "minecraft:single_block_feature"
+        ],
+        "single_block": {
+          "name": "minecraft:crimson_roots"
+        }
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/crimson_roots_scatter_feature.json",
+        "sha256": "045cdf5cb8d926fe73b297041732b60ac5b006bd9284432c0690e8fc00cb1e48",
+        "top_keys": [
+          "format_version",
+          "minecraft:scatter_feature"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/feature_rules/crimson_roots_soul_sand_valley_feature.json",
+        "sha256": "887133b94c95378190df7f558637cd141c97c9634a1a97d256e698635b0575b9",
+        "top_keys": [
+          "format_version",
+          "minecraft:feature_rules"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/feature_rules/crimson_roots_feature.json",
+        "sha256": "677b88bab450f71c3991fd2936de6780cd827f47ef9a0e4f447a1c6beb559082",
+        "top_keys": [
+          "format_version",
+          "minecraft:feature_rules"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/fern_feature.json",
+        "sha256": "9c3e0536f10ee678d0bf8dcb0d12d334b4864e7e57031a505a1ef98ad6a6b598",
+        "top_keys": [
+          "format_version",
+          "minecraft:single_block_feature"
+        ],
+        "single_block": {
+          "name": "minecraft:tallgrass",
+          "states": {
+            "tall_grass_type": "fern"
+          }
+        }
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/feature_rules/nether_sprouts_feature_rules.json",
+        "sha256": "5950b3abcd5846320158443d436a3f3409b0a69e4361ba5bb25c574c18f38f86",
+        "top_keys": [
+          "format_version",
+          "minecraft:feature_rules"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/nether_sprouts_feature.json",
+        "sha256": "a839f553ae76b438b782cfee1f12106afbda5ab5dd9b9e9c8bf85a903049f351",
+        "top_keys": [
+          "format_version",
+          "minecraft:single_block_feature"
+        ],
+        "single_block": {
+          "name": "minecraft:nether_sprouts"
+        }
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/nether_sprouts_scatter_feature.json",
+        "sha256": "cf535b79871cba980bf11f38964aa6bc5592fc85d3d05d5d4e32fd21b29f989c",
+        "top_keys": [
+          "format_version",
+          "minecraft:scatter_feature"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/feature_rules/warped_roots_feature.json",
+        "sha256": "1e152476b1aeecaeef15c741f64732aa80edffc9bf364f6631002ce892cd0ed2",
+        "top_keys": [
+          "format_version",
+          "minecraft:feature_rules"
+        ],
+        "single_block": null
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/warped_roots_feature.json",
+        "sha256": "2f98dbda2252be3020bd7d7644073a060d614a36afb7c47b95a8310869a43391",
+        "top_keys": [
+          "format_version",
+          "minecraft:single_block_feature"
+        ],
+        "single_block": {
+          "name": "minecraft:warped_roots"
+        }
+      },
+      {
+        "path": "D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/definitions/features/warped_roots_scatter_feature.json",
+        "sha256": "28934f5a5982516180987b57e1f275a811d2a6f465582ad32b1bc0c8bbfc2a82",
+        "top_keys": [
+          "format_version",
+          "minecraft:scatter_feature"
+        ],
+        "single_block": null
+      }
+    ]
+  },
+  "historical_native_boxes": {
+    "rows": 72,
+    "targets": [
+      [
+        6,
+        88,
+        6
+      ],
+      [
+        7,
+        88,
+        6
+      ],
+      [
+        6,
+        88,
+        7
+      ],
+      [
+        7,
+        88,
+        7
+      ],
+      [
+        8,
+        88,
+        6
+      ],
+      [
+        6,
+        89,
+        6
+      ],
+      [
+        6,
+        104,
+        6
+      ],
+      [
+        -6,
+        88,
+        -6
+      ]
+    ],
+    "completed": true,
+    "restored": true,
+    "source_assets_stable": true,
+    "cleanup_errors": [],
+    "observed_axes": {
+      "short_grass": [
+        "x",
+        "y",
+        "z"
+      ],
+      "fern": [
+        "x",
+        "y",
+        "z"
+      ],
+      "poppy": [
+        "x",
+        "z"
+      ],
+      "torchflower": [
+        "x",
+        "z"
+      ],
+      "crimson_roots": [
+        "x",
+        "z"
+      ],
+      "warped_roots": [
+        "x",
+        "z"
+      ],
+      "nether_sprouts": [
+        "x",
+        "z"
+      ],
+      "crimson_fungus": [],
+      "warped_fungus": []
+    },
+    "same_xz_different_y_matches_only_in_sample": true,
+    "box_centroid_used_as_mesh_pivot": false,
+    "no_new_boxes_or_four_path_probe": true
+  },
+  "seed_name_inventory": {
+    "source_predicate": "GetBlockBasicInfo(name).renderLayer == 13",
+    "placed_state": "block_registry.DEFAULT_AUX[name]",
+    "entries": 148,
+    "true_count": 29,
+    "false_count": 119,
+    "full_state_coverage": false,
+    "full_layer_coverage": false,
+    "render_geometry_authority": false
+  },
+  "acceptance_boundary": {
+    "production_static_proxy_names": [
+      "brown_mushroom",
+      "red_mushroom",
+      "crimson_fungus",
+      "warped_fungus"
+    ],
+    "mushroom_views": [
+      "public"
+    ],
+    "fungus_views": [
+      "public",
+      "right"
+    ],
+    "existing_native_target": [
+      -47,
+      117,
+      -70
+    ],
+    "poppy_finite_evidence_only": true,
+    "runtime_registration_key": [
+      "name",
+      "aux"
+    ],
+    "runtime_registration_enforces_position_scope": false,
+    "limits": {
+      "native_recall": 0.75,
+      "native_precision": 0.75,
+      "native_edge_tolerance_pixels": 3
+    },
+    "fixed_calibrated_unit_cell_roi": true,
+    "independent_exposed_plant_masks": true,
+    "independent_editor_full_missing_controls": true
+  },
+  "next_native_probe_precondition": "An independently declared new source/API hypothesis, finite coordinate/source plan and unchanged acceptance gates; existing boxes or four paths alone do not justify a repeat"
+}
