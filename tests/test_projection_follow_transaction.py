@@ -22,9 +22,11 @@ class NativeTransforms:
     def __init__(self):
         self.positions = {'mesh': OLD}
         self.offsets = {}
+        self.uniforms = {}
         self.calls = []
         self.outcomes = {}
         self.foot = (OLD[0], OLD[1]-1., OLD[2])
+        self.camera_position = (1., 66., 2.)
         self.observer = lambda: None
 
     def write(self, kind, entity, name, value):
@@ -35,6 +37,8 @@ class NativeTransforms:
         self.calls.append((kind, entity, name, value, self.observer()))
         if kind == 'position':
             self.positions[entity] = actual
+        elif kind == 'uniform':
+            self.uniforms[entity, name] = actual
         else:
             self.offsets[entity, name] = actual
         if isinstance(result, Exception):
@@ -43,14 +47,16 @@ class NativeTransforms:
 
     def CreateActorRender(self, entity):
         return types.SimpleNamespace(SetActorBlockGeometryOffset=lambda name, value:
-                                     self.write('offset', entity, name, value))
+                                     self.write('offset', entity, name, value),
+                                     SetEntityExtraUniforms=lambda slot, value:
+                                     self.write('uniform', entity, slot, value))
 
     def CreatePos(self, entity):
         return types.SimpleNamespace(SetPosForClientEntity=lambda value:
                                      self.write('position', entity, None, value))
 
     def CreateCamera(self, level):
-        return types.SimpleNamespace(GetPosition=lambda: (1., 66., 2.),
+        return types.SimpleNamespace(GetPosition=lambda: self.camera_position,
                                      GetForward=lambda: (0., 0., 1.))
 
     def GetFootPos(self):

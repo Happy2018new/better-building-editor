@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """One client-only, GPU-animated wire box for the committed world projection."""
 from __future__ import unicode_literals
+import traceback
 
 
 class ProjectionOutline(object):
@@ -9,6 +10,8 @@ class ProjectionOutline(object):
         self.entity = None
         self.bounds = None
         self.render_position = None
+        self._follow_uniform = (1., 1., 1., 1.)
+        self._follow_restore = None
         self.style = None
         from .survey_effects import WireEffects
         self.effects = WireEffects(bridge)
@@ -18,7 +21,6 @@ class ProjectionOutline(object):
         self.hide()
 
     def hide(self):
-        self.render_position = None
         # Hot-reload can call destruction on an instance created by the
         # previous module generation. Treat missing fields as an already
         # empty outline so closing the UI never leaks or raises.
@@ -29,6 +31,9 @@ class ProjectionOutline(object):
         effects = getattr(self, 'effects', None)
         if effects is not None:
             effects.clear()
+        self.render_position = None
+        self._follow_uniform = (1., 1., 1., 1.)
+        self._follow_restore = None
         self.entity = None
         self.style = None
 
@@ -74,6 +79,8 @@ class ProjectionOutline(object):
         b.later(.2, ready)
 
     def configure(self, entity):
+        if not self.restore_follow():
+            return False
         s = self.bridge.session
         self.bridge.factory.CreateModel(entity).SetEntityShadowShow(False)
         origin, size = self.bounds
@@ -89,14 +96,30 @@ class ProjectionOutline(object):
         # camera-relative.  Keeping the correction in world units avoids any
         # camera-dependent scale or line-width changes.
         current = self.render_position
+        correction = (0., 0., 0., 0.)
         if current is not None:
             centre = tuple(float(origin[i]) + size[i] * .5 for i in range(3))
             correction = tuple(centre[i] - current[i] for i in range(3)) + (1.,)
-            render.SetEntityExtraUniforms(2, correction)
+        previous_uniform = (tuple(centre[i]-current[i] for i in range(3)) + (1.,)
+                            if current is not None else (1., 1., 1., 1.))
+        self._follow_restore = {'entity': entity, 'position': None,
+                                'uniform': getattr(self, '_follow_uniform', previous_uniform)}
+        try:
+            corrected = render.SetEntityExtraUniforms(2, correction)
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            corrected = False
+        if not corrected:
+            self.restore_follow()
+            return False
+        self._follow_uniform = correction
+        self._follow_restore = None
         return result
 
     def follow(self, position, camera=None):
         """Move only the native culling anchor; preserve the world-space box."""
+        if not self.restore_follow():
+            return False
         if self.style in ('golden', 'starry'):
             return self.effects.follow(position, camera)
         if self.entity is None or self.bounds is None:
@@ -106,11 +129,56 @@ class ProjectionOutline(object):
         current = self.render_position
         if target == current:
             return True
-        if not self.bridge.factory.CreatePos(self.entity).SetPosForClientEntity(target):
-            return False
         centre = tuple(float(origin[i]) + size[i] * .5 for i in range(3))
         correction = tuple(centre[i] - target[i] for i in range(3)) + (1.,)
-        if not self.bridge.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(2, correction):
+        # Refused writes may still mutate native state, including the first
+        # move away from the actor's creation position at the box centre.
+        pending = {'entity': self.entity, 'position': current if current is not None else centre,
+                   'uniform': None}
+        self._follow_restore = pending
+        try:
+            if not self.bridge.factory.CreatePos(self.entity).SetPosForClientEntity(target):
+                self.restore_follow()
+                return False
+            previous_uniform = (tuple(centre[i]-current[i] for i in range(3)) + (1.,)
+                                if current is not None else (1., 1., 1., 1.))
+            pending['uniform'] = getattr(self, '_follow_uniform', previous_uniform)
+            if not self.bridge.factory.CreateActorRender(self.entity).SetEntityExtraUniforms(2, correction):
+                self.restore_follow()
+                return False
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            self.restore_follow()
             return False
         self.render_position = target
+        self._follow_uniform = correction
+        self._follow_restore = None
         return True
+
+    def restore_follow(self):
+        pending = getattr(self, '_follow_restore', None)
+        if pending is None:
+            return True
+        entity = pending['entity']
+        if entity != self.entity or self.style not in (None, 'rainbow'):
+            self._follow_restore = None
+            return True
+        restored = True
+        for kind in ('uniform', 'position'):
+            value = pending[kind]
+            if value is None:
+                continue
+            try:
+                if kind == 'uniform':
+                    moved = self.bridge.factory.CreateActorRender(entity).SetEntityExtraUniforms(2, value)
+                else:
+                    moved = self.bridge.factory.CreatePos(entity).SetPosForClientEntity(value)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                moved = False
+            if moved:
+                pending[kind] = None
+            restored = moved and restored
+        if restored:
+            self._follow_restore = None
+        return restored
