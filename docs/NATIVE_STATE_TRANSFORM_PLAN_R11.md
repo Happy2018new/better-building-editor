@@ -155,11 +155,53 @@ and typed states; the lower and upper indices are 0 and 1. This follows the
 repository's existing supported tall-plant/bed probes and the documented
 `SetBlockByBlockPalette` operation. Both cells must then pass exact native
 readback and side/time replication. This replacement fixture path is prepared
-and covered offline, but has not yet passed a fresh native door capture.
+and covered offline. A subsequent fresh schema 2 capture using the protected
+IPC-framing MCDK binary (SHA256
+`b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9`)
+connected and executed successfully, but the atomic fixture also failed at its
+first upper wooden door half, aux 8 at `(4,-47,4)`. All sixteen complete pair
+palette calls and stone supports returned success before the exact-cell guard
+ran; the first lower half matched. The first upper half did not match exactly,
+and its following single-cell `WorldAdapter.write` returned false. This report
+does not contain the upper half's actual native states, so it cannot distinguish
+native normalization from removal and does not establish a mapping error.
+
+That failed capture is frozen as
+`tools/data/native_state_transform_shapes_r11.door-atomic-failed.json` (SHA256
+`c4a5ec8d05bba9bde13a5f87710a269c4cbf37a76525e63001898e1e278df813`), with its
+exact source in `native_state_transform_shapes_r11.door-atomic-failed.probe.py`
+(SHA256 `2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b`).
+The runtime was `1.21.120.0`, with player feet at `(0.5,-60,0.5)`, fixture lower
+Y `-48` and an explicitly written stone support at Y `-49`. The reserve was
+empty/dry before setup. Cleanup verified all 286 reserved cells as dry air on
+the server and air on the client, with unchanged player position. The owned
+game PID 65180 (creation identity `134362885819781255`) and MCDK PID 55068
+(`134362885816427693`) were independently absent after shutdown. This result
+remains excluded from physical acceptance.
+
+## Single-Pair Diagnosis
+
+`tools/probe_native_single_door.py` prepares only one supported lower/upper door
+pair and 17 empty/dry reserve cells. It obtains traditional aux values through
+the documented `GetBlockAuxValueFromStates`, uses `SetBlockNew` with
+`isLegacy=True` and `updateNeighbors=False`, then applies `SetBlockStates`.
+Every setter's return and both halves' actual new aux and typed states are
+recorded immediately, with server/client readbacks after 0.2 seconds and later.
+No palette writes or inventory/rotation/player/camera/settings changes occur.
+It clears the entire reserve through the same documented update-disabled native
+setter and verifies server dry air, client air and unchanged player position.
+The result is a placement diagnosis and never claims transform acceptance.
+
+The single-pair probe has only offline verification so far. Its first protected
+cold launch failed in the launcher's combined CIM/listener discovery query at
+the ten-second query limit, before readiness or any probe/native fixture writes.
+The session and failure reason were retained, its owned PIDs were independently
+confirmed absent after identity-bound shutdown, and the slot was released.
+This startup failure is separate from the actual atomic-door fixture failure.
 
 ## Offline Verification
 
-Twenty targeted tests verify complete fixture coverage, symmetric ray-plan closure,
+Twenty-one shape tests verify complete fixture coverage, symmetric ray-plan closure,
 slab reflection, malformed/stale/native-time evidence rejection, and a synthetic
 stair-box counterexample. The synthetic case verifies that wrong X and Y targets
 are caught by distinguishing ray hits even when all enclosing AABBs are cubes.
@@ -172,4 +214,9 @@ construction and context entry failures, verifies no native execution is attempt
 and checks that the failed report persists and remains excluded from acceptance.
 Schema 2 tests reject missing or inconsistent process/source provenance, unprotected
 launches and changed binary hashes before any connection or native execution.
+Two single-door tests execute the actual generated setup/cleanup against a native
+API test double: an auto-created upper half's unchanged `SetBlockNew` false return
+must remain a recorded observation, and a setter exception must preserve both
+actual half states and still clear all 17 reserved cells. They are host tests,
+not evidence that the single-pair method works in the native game.
 No production mapping has changed.

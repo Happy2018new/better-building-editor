@@ -1,0 +1,5673 @@
+{
+  "schema": 2,
+  "completed": false,
+  "restored": true,
+  "mutation_attempted": true,
+  "background_only": true,
+  "desktop_input": false,
+  "player_camera_environment_changes": false,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "probe_source_sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b",
+  "host_sources": {
+    "probe": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\capture_native_state_transform_shapes.py",
+      "sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b"
+    },
+    "mcp_wrapper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea"
+    },
+    "session_loader": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3"
+    }
+  },
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\6a63c6f939c248549c5241ca6cbb912d\\session.json",
+  "instance": {
+    "id": "6a63c6f939c248549c5241ca6cbb912d",
+    "owner": "transforms-r11-door-v8",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms",
+    "game_pid": 65180,
+    "game_identity": "134362885819781255",
+    "mcdk_pid": 55068,
+    "mcdk_identity": "134362885816427693",
+    "mcp_url": "http://127.0.0.1:62218/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+  },
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 44565462,
+      "pid": 23844,
+      "process": "WINWORD.EXE",
+      "identity": "134362641214297353",
+      "title": "report.docx - Word",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 112003220,
+        "pid": 65180,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "names": [
+    "minecraft:wooden_door"
+  ],
+  "rays": [
+    {
+      "start": [
+        1.25,
+        0.25,
+        0.25
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        -0.25,
+        0.25,
+        0.25
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        1.25,
+        0.25,
+        0.75
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        -0.25,
+        0.25,
+        0.75
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        1.25,
+        0.75,
+        0.25
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        -0.25,
+        0.75,
+        0.25
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        1.25,
+        0.75,
+        0.75
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        -0.25,
+        0.75,
+        0.75
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.25,
+        0.25,
+        1.25
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.25,
+        0.25,
+        -0.25
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.75,
+        0.25,
+        1.25
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.75,
+        0.25,
+        -0.25
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.25,
+        0.75,
+        1.25
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.25,
+        0.75,
+        -0.25
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.75,
+        0.75,
+        1.25
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2
+    },
+    {
+      "start": [
+        0.75,
+        0.75,
+        -0.25
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "distance": 2
+    }
+  ],
+  "limits": "Raw native clip/collision/rays only; degenerate bounds are not occupancy proof.",
+  "preflight": {
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "origin": [
+      4,
+      -48,
+      4
+    ],
+    "runtime": "1.21.120.0",
+    "dimension": 0
+  },
+  "requested": [
+    {
+      "pos": [
+        4,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        0
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        8
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        1
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        9
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        2
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        10
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        3
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        11
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        4
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        12
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        5
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        13
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        6
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        14
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        7
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        15
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        16
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        24
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        17
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        25
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        18
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        26
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        19
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        27
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        20
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        28
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        21
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        29
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "west",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        22
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        30
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "north",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        23
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": true,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        31
+      ],
+      "states": {
+        "door_hinge_bit": true,
+        "minecraft:cardinal_direction": "east",
+        "open_bit": true,
+        "upper_block_bit": true
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:stone",
+        0
+      ],
+      "states": {},
+      "control": true
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ],
+      "states": {},
+      "control": true
+    }
+  ],
+  "supports": [
+    [
+      [
+        4,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        4,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        8,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        8,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        12,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        12,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        16,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        16,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        20,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        20,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        24,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        24,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        28,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        28,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        32,
+        -49,
+        4
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ],
+    [
+      [
+        32,
+        -49,
+        8
+      ],
+      [
+        "minecraft:stone",
+        0
+      ]
+    ]
+  ],
+  "reserved": [
+    [
+      3,
+      -49,
+      4
+    ],
+    [
+      3,
+      -49,
+      8
+    ],
+    [
+      3,
+      -48,
+      4
+    ],
+    [
+      3,
+      -48,
+      8
+    ],
+    [
+      3,
+      -48,
+      12
+    ],
+    [
+      3,
+      -47,
+      4
+    ],
+    [
+      3,
+      -47,
+      8
+    ],
+    [
+      4,
+      -50,
+      4
+    ],
+    [
+      4,
+      -50,
+      8
+    ],
+    [
+      4,
+      -49,
+      3
+    ],
+    [
+      4,
+      -49,
+      4
+    ],
+    [
+      4,
+      -49,
+      5
+    ],
+    [
+      4,
+      -49,
+      7
+    ],
+    [
+      4,
+      -49,
+      8
+    ],
+    [
+      4,
+      -49,
+      9
+    ],
+    [
+      4,
+      -49,
+      12
+    ],
+    [
+      4,
+      -48,
+      3
+    ],
+    [
+      4,
+      -48,
+      4
+    ],
+    [
+      4,
+      -48,
+      5
+    ],
+    [
+      4,
+      -48,
+      7
+    ],
+    [
+      4,
+      -48,
+      8
+    ],
+    [
+      4,
+      -48,
+      9
+    ],
+    [
+      4,
+      -48,
+      11
+    ],
+    [
+      4,
+      -48,
+      12
+    ],
+    [
+      4,
+      -48,
+      13
+    ],
+    [
+      4,
+      -47,
+      3
+    ],
+    [
+      4,
+      -47,
+      4
+    ],
+    [
+      4,
+      -47,
+      5
+    ],
+    [
+      4,
+      -47,
+      7
+    ],
+    [
+      4,
+      -47,
+      8
+    ],
+    [
+      4,
+      -47,
+      9
+    ],
+    [
+      4,
+      -47,
+      12
+    ],
+    [
+      4,
+      -46,
+      4
+    ],
+    [
+      4,
+      -46,
+      8
+    ],
+    [
+      5,
+      -49,
+      4
+    ],
+    [
+      5,
+      -49,
+      8
+    ],
+    [
+      5,
+      -48,
+      4
+    ],
+    [
+      5,
+      -48,
+      8
+    ],
+    [
+      5,
+      -48,
+      12
+    ],
+    [
+      5,
+      -47,
+      4
+    ],
+    [
+      5,
+      -47,
+      8
+    ],
+    [
+      7,
+      -49,
+      4
+    ],
+    [
+      7,
+      -49,
+      8
+    ],
+    [
+      7,
+      -48,
+      4
+    ],
+    [
+      7,
+      -48,
+      8
+    ],
+    [
+      7,
+      -48,
+      12
+    ],
+    [
+      7,
+      -47,
+      4
+    ],
+    [
+      7,
+      -47,
+      8
+    ],
+    [
+      8,
+      -50,
+      4
+    ],
+    [
+      8,
+      -50,
+      8
+    ],
+    [
+      8,
+      -49,
+      3
+    ],
+    [
+      8,
+      -49,
+      4
+    ],
+    [
+      8,
+      -49,
+      5
+    ],
+    [
+      8,
+      -49,
+      7
+    ],
+    [
+      8,
+      -49,
+      8
+    ],
+    [
+      8,
+      -49,
+      9
+    ],
+    [
+      8,
+      -49,
+      12
+    ],
+    [
+      8,
+      -48,
+      3
+    ],
+    [
+      8,
+      -48,
+      4
+    ],
+    [
+      8,
+      -48,
+      5
+    ],
+    [
+      8,
+      -48,
+      7
+    ],
+    [
+      8,
+      -48,
+      8
+    ],
+    [
+      8,
+      -48,
+      9
+    ],
+    [
+      8,
+      -48,
+      11
+    ],
+    [
+      8,
+      -48,
+      12
+    ],
+    [
+      8,
+      -48,
+      13
+    ],
+    [
+      8,
+      -47,
+      3
+    ],
+    [
+      8,
+      -47,
+      4
+    ],
+    [
+      8,
+      -47,
+      5
+    ],
+    [
+      8,
+      -47,
+      7
+    ],
+    [
+      8,
+      -47,
+      8
+    ],
+    [
+      8,
+      -47,
+      9
+    ],
+    [
+      8,
+      -47,
+      12
+    ],
+    [
+      8,
+      -46,
+      4
+    ],
+    [
+      8,
+      -46,
+      8
+    ],
+    [
+      9,
+      -49,
+      4
+    ],
+    [
+      9,
+      -49,
+      8
+    ],
+    [
+      9,
+      -48,
+      4
+    ],
+    [
+      9,
+      -48,
+      8
+    ],
+    [
+      9,
+      -48,
+      12
+    ],
+    [
+      9,
+      -47,
+      4
+    ],
+    [
+      9,
+      -47,
+      8
+    ],
+    [
+      11,
+      -49,
+      4
+    ],
+    [
+      11,
+      -49,
+      8
+    ],
+    [
+      11,
+      -48,
+      4
+    ],
+    [
+      11,
+      -48,
+      8
+    ],
+    [
+      11,
+      -47,
+      4
+    ],
+    [
+      11,
+      -47,
+      8
+    ],
+    [
+      12,
+      -50,
+      4
+    ],
+    [
+      12,
+      -50,
+      8
+    ],
+    [
+      12,
+      -49,
+      3
+    ],
+    [
+      12,
+      -49,
+      4
+    ],
+    [
+      12,
+      -49,
+      5
+    ],
+    [
+      12,
+      -49,
+      7
+    ],
+    [
+      12,
+      -49,
+      8
+    ],
+    [
+      12,
+      -49,
+      9
+    ],
+    [
+      12,
+      -48,
+      3
+    ],
+    [
+      12,
+      -48,
+      4
+    ],
+    [
+      12,
+      -48,
+      5
+    ],
+    [
+      12,
+      -48,
+      7
+    ],
+    [
+      12,
+      -48,
+      8
+    ],
+    [
+      12,
+      -48,
+      9
+    ],
+    [
+      12,
+      -47,
+      3
+    ],
+    [
+      12,
+      -47,
+      4
+    ],
+    [
+      12,
+      -47,
+      5
+    ],
+    [
+      12,
+      -47,
+      7
+    ],
+    [
+      12,
+      -47,
+      8
+    ],
+    [
+      12,
+      -47,
+      9
+    ],
+    [
+      12,
+      -46,
+      4
+    ],
+    [
+      12,
+      -46,
+      8
+    ],
+    [
+      13,
+      -49,
+      4
+    ],
+    [
+      13,
+      -49,
+      8
+    ],
+    [
+      13,
+      -48,
+      4
+    ],
+    [
+      13,
+      -48,
+      8
+    ],
+    [
+      13,
+      -47,
+      4
+    ],
+    [
+      13,
+      -47,
+      8
+    ],
+    [
+      15,
+      -49,
+      4
+    ],
+    [
+      15,
+      -49,
+      8
+    ],
+    [
+      15,
+      -48,
+      4
+    ],
+    [
+      15,
+      -48,
+      8
+    ],
+    [
+      15,
+      -47,
+      4
+    ],
+    [
+      15,
+      -47,
+      8
+    ],
+    [
+      16,
+      -50,
+      4
+    ],
+    [
+      16,
+      -50,
+      8
+    ],
+    [
+      16,
+      -49,
+      3
+    ],
+    [
+      16,
+      -49,
+      4
+    ],
+    [
+      16,
+      -49,
+      5
+    ],
+    [
+      16,
+      -49,
+      7
+    ],
+    [
+      16,
+      -49,
+      8
+    ],
+    [
+      16,
+      -49,
+      9
+    ],
+    [
+      16,
+      -48,
+      3
+    ],
+    [
+      16,
+      -48,
+      4
+    ],
+    [
+      16,
+      -48,
+      5
+    ],
+    [
+      16,
+      -48,
+      7
+    ],
+    [
+      16,
+      -48,
+      8
+    ],
+    [
+      16,
+      -48,
+      9
+    ],
+    [
+      16,
+      -47,
+      3
+    ],
+    [
+      16,
+      -47,
+      4
+    ],
+    [
+      16,
+      -47,
+      5
+    ],
+    [
+      16,
+      -47,
+      7
+    ],
+    [
+      16,
+      -47,
+      8
+    ],
+    [
+      16,
+      -47,
+      9
+    ],
+    [
+      16,
+      -46,
+      4
+    ],
+    [
+      16,
+      -46,
+      8
+    ],
+    [
+      17,
+      -49,
+      4
+    ],
+    [
+      17,
+      -49,
+      8
+    ],
+    [
+      17,
+      -48,
+      4
+    ],
+    [
+      17,
+      -48,
+      8
+    ],
+    [
+      17,
+      -47,
+      4
+    ],
+    [
+      17,
+      -47,
+      8
+    ],
+    [
+      19,
+      -49,
+      4
+    ],
+    [
+      19,
+      -49,
+      8
+    ],
+    [
+      19,
+      -48,
+      4
+    ],
+    [
+      19,
+      -48,
+      8
+    ],
+    [
+      19,
+      -47,
+      4
+    ],
+    [
+      19,
+      -47,
+      8
+    ],
+    [
+      20,
+      -50,
+      4
+    ],
+    [
+      20,
+      -50,
+      8
+    ],
+    [
+      20,
+      -49,
+      3
+    ],
+    [
+      20,
+      -49,
+      4
+    ],
+    [
+      20,
+      -49,
+      5
+    ],
+    [
+      20,
+      -49,
+      7
+    ],
+    [
+      20,
+      -49,
+      8
+    ],
+    [
+      20,
+      -49,
+      9
+    ],
+    [
+      20,
+      -48,
+      3
+    ],
+    [
+      20,
+      -48,
+      4
+    ],
+    [
+      20,
+      -48,
+      5
+    ],
+    [
+      20,
+      -48,
+      7
+    ],
+    [
+      20,
+      -48,
+      8
+    ],
+    [
+      20,
+      -48,
+      9
+    ],
+    [
+      20,
+      -47,
+      3
+    ],
+    [
+      20,
+      -47,
+      4
+    ],
+    [
+      20,
+      -47,
+      5
+    ],
+    [
+      20,
+      -47,
+      7
+    ],
+    [
+      20,
+      -47,
+      8
+    ],
+    [
+      20,
+      -47,
+      9
+    ],
+    [
+      20,
+      -46,
+      4
+    ],
+    [
+      20,
+      -46,
+      8
+    ],
+    [
+      21,
+      -49,
+      4
+    ],
+    [
+      21,
+      -49,
+      8
+    ],
+    [
+      21,
+      -48,
+      4
+    ],
+    [
+      21,
+      -48,
+      8
+    ],
+    [
+      21,
+      -47,
+      4
+    ],
+    [
+      21,
+      -47,
+      8
+    ],
+    [
+      23,
+      -49,
+      4
+    ],
+    [
+      23,
+      -49,
+      8
+    ],
+    [
+      23,
+      -48,
+      4
+    ],
+    [
+      23,
+      -48,
+      8
+    ],
+    [
+      23,
+      -47,
+      4
+    ],
+    [
+      23,
+      -47,
+      8
+    ],
+    [
+      24,
+      -50,
+      4
+    ],
+    [
+      24,
+      -50,
+      8
+    ],
+    [
+      24,
+      -49,
+      3
+    ],
+    [
+      24,
+      -49,
+      4
+    ],
+    [
+      24,
+      -49,
+      5
+    ],
+    [
+      24,
+      -49,
+      7
+    ],
+    [
+      24,
+      -49,
+      8
+    ],
+    [
+      24,
+      -49,
+      9
+    ],
+    [
+      24,
+      -48,
+      3
+    ],
+    [
+      24,
+      -48,
+      4
+    ],
+    [
+      24,
+      -48,
+      5
+    ],
+    [
+      24,
+      -48,
+      7
+    ],
+    [
+      24,
+      -48,
+      8
+    ],
+    [
+      24,
+      -48,
+      9
+    ],
+    [
+      24,
+      -47,
+      3
+    ],
+    [
+      24,
+      -47,
+      4
+    ],
+    [
+      24,
+      -47,
+      5
+    ],
+    [
+      24,
+      -47,
+      7
+    ],
+    [
+      24,
+      -47,
+      8
+    ],
+    [
+      24,
+      -47,
+      9
+    ],
+    [
+      24,
+      -46,
+      4
+    ],
+    [
+      24,
+      -46,
+      8
+    ],
+    [
+      25,
+      -49,
+      4
+    ],
+    [
+      25,
+      -49,
+      8
+    ],
+    [
+      25,
+      -48,
+      4
+    ],
+    [
+      25,
+      -48,
+      8
+    ],
+    [
+      25,
+      -47,
+      4
+    ],
+    [
+      25,
+      -47,
+      8
+    ],
+    [
+      27,
+      -49,
+      4
+    ],
+    [
+      27,
+      -49,
+      8
+    ],
+    [
+      27,
+      -48,
+      4
+    ],
+    [
+      27,
+      -48,
+      8
+    ],
+    [
+      27,
+      -47,
+      4
+    ],
+    [
+      27,
+      -47,
+      8
+    ],
+    [
+      28,
+      -50,
+      4
+    ],
+    [
+      28,
+      -50,
+      8
+    ],
+    [
+      28,
+      -49,
+      3
+    ],
+    [
+      28,
+      -49,
+      4
+    ],
+    [
+      28,
+      -49,
+      5
+    ],
+    [
+      28,
+      -49,
+      7
+    ],
+    [
+      28,
+      -49,
+      8
+    ],
+    [
+      28,
+      -49,
+      9
+    ],
+    [
+      28,
+      -48,
+      3
+    ],
+    [
+      28,
+      -48,
+      4
+    ],
+    [
+      28,
+      -48,
+      5
+    ],
+    [
+      28,
+      -48,
+      7
+    ],
+    [
+      28,
+      -48,
+      8
+    ],
+    [
+      28,
+      -48,
+      9
+    ],
+    [
+      28,
+      -47,
+      3
+    ],
+    [
+      28,
+      -47,
+      4
+    ],
+    [
+      28,
+      -47,
+      5
+    ],
+    [
+      28,
+      -47,
+      7
+    ],
+    [
+      28,
+      -47,
+      8
+    ],
+    [
+      28,
+      -47,
+      9
+    ],
+    [
+      28,
+      -46,
+      4
+    ],
+    [
+      28,
+      -46,
+      8
+    ],
+    [
+      29,
+      -49,
+      4
+    ],
+    [
+      29,
+      -49,
+      8
+    ],
+    [
+      29,
+      -48,
+      4
+    ],
+    [
+      29,
+      -48,
+      8
+    ],
+    [
+      29,
+      -47,
+      4
+    ],
+    [
+      29,
+      -47,
+      8
+    ],
+    [
+      31,
+      -49,
+      4
+    ],
+    [
+      31,
+      -49,
+      8
+    ],
+    [
+      31,
+      -48,
+      4
+    ],
+    [
+      31,
+      -48,
+      8
+    ],
+    [
+      31,
+      -47,
+      4
+    ],
+    [
+      31,
+      -47,
+      8
+    ],
+    [
+      32,
+      -50,
+      4
+    ],
+    [
+      32,
+      -50,
+      8
+    ],
+    [
+      32,
+      -49,
+      3
+    ],
+    [
+      32,
+      -49,
+      4
+    ],
+    [
+      32,
+      -49,
+      5
+    ],
+    [
+      32,
+      -49,
+      7
+    ],
+    [
+      32,
+      -49,
+      8
+    ],
+    [
+      32,
+      -49,
+      9
+    ],
+    [
+      32,
+      -48,
+      3
+    ],
+    [
+      32,
+      -48,
+      4
+    ],
+    [
+      32,
+      -48,
+      5
+    ],
+    [
+      32,
+      -48,
+      7
+    ],
+    [
+      32,
+      -48,
+      8
+    ],
+    [
+      32,
+      -48,
+      9
+    ],
+    [
+      32,
+      -47,
+      3
+    ],
+    [
+      32,
+      -47,
+      4
+    ],
+    [
+      32,
+      -47,
+      5
+    ],
+    [
+      32,
+      -47,
+      7
+    ],
+    [
+      32,
+      -47,
+      8
+    ],
+    [
+      32,
+      -47,
+      9
+    ],
+    [
+      32,
+      -46,
+      4
+    ],
+    [
+      32,
+      -46,
+      8
+    ],
+    [
+      33,
+      -49,
+      4
+    ],
+    [
+      33,
+      -49,
+      8
+    ],
+    [
+      33,
+      -48,
+      4
+    ],
+    [
+      33,
+      -48,
+      8
+    ],
+    [
+      33,
+      -47,
+      4
+    ],
+    [
+      33,
+      -47,
+      8
+    ]
+  ],
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: ('write failed', (4, -47, 4), ('minecraft:wooden_door', 8))\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 443, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 472, in _RUN_SERVER_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 45, in <module>\\nAssertionError: ('write failed', (4, -47, 4), ('minecraft:wooden_door', 8))\\n\", \"type\": \"text\"}]}",
+  "cleanup": {
+    "player_unchanged": true,
+    "errors": [],
+    "marker_present": true,
+    "restored": true
+  },
+  "client_air_after_cleanup": [
+    {
+      "pos": [
+        3,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        3,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -49,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        11
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -48,
+        13
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        4,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        5,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        7,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -49,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        11
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -48,
+        13
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -47,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        8,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -48,
+        12
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        9,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        11,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        12,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        13,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        15,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        16,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        17,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        19,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        20,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        21,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        23,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        24,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        25,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        27,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        28,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        29,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        31,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -50,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -50,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -49,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -48,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        3
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        5
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        7
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -47,
+        9
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -46,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        32,
+        -46,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -49,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -49,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -48,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    },
+    {
+      "pos": [
+        33,
+        -47,
+        8
+      ],
+      "value": [
+        "minecraft:air",
+        0
+      ]
+    }
+  ]
+}

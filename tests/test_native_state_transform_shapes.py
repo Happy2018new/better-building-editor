@@ -99,6 +99,23 @@ def protected_binding():
 
 
 class NativeStateTransformShapeTests(unittest.TestCase):
+    def test_frozen_atomic_door_failure_retains_verified_cleanup_and_exact_probe(self):
+        source = ROOT / 'tools/data/native_state_transform_shapes_r11.door-atomic-failed.json'
+        raw_bytes = source.read_bytes()
+        self.assertEqual('c4a5ec8d05bba9bde13a5f87710a269c4cbf37a76525e63001898e1e278df813',
+                         hashlib.sha256(raw_bytes).hexdigest())
+        raw = json.loads(raw_bytes)
+        probe = ROOT / 'tools/data/native_state_transform_shapes_r11.door-atomic-failed.probe.py'
+        self.assertEqual(raw['probe_source_sha256'], hashlib.sha256(probe.read_bytes()).hexdigest())
+        self.assertEqual(2, raw['schema'])
+        self.assertFalse(raw['completed'])
+        self.assertTrue(raw['restored'])
+        self.assertTrue(raw['cleanup']['player_unchanged'])
+        self.assertEqual(286, len(raw['client_air_after_cleanup']))
+        self.assertIn("('minecraft:wooden_door', 8)", raw['error'])
+        with self.assertRaisesRegex(ValueError, 'complete and restored'):
+            analyzer.analyze(raw)
+
     def test_schema_two_binds_protected_launch_and_sources_without_changing_schema_one(self):
         raw = synthetic_stair_capture()
         original = analyzer.analyze(raw)
