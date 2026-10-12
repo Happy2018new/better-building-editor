@@ -11,6 +11,7 @@ from _session import desktop_lock, load_session, process_identity
 
 # These suites were checked to use SDK calls only, including their cleanup.
 SDK_BACKGROUND_SCRIPTS = frozenset(('verify_dripstone_native_boxes.py',
+                                  'verify_neighbor_actions_native.py',
                                   'verify_scaffold_support_catalogue.py',
                                   'verify_camera_projection.py',
                                   'verify_snow_catalogue_visuals.py',
