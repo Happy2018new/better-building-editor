@@ -399,7 +399,13 @@ def main():
                 native_created = True
                 setup = execute(client, 'import sys\nsys._p0_entity_appearance_selected=%r\n' % (tuple(selected),) + setup_code)
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % setup['rows'], True)
-                inputs = replicated_palettes(client, (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8'))
+                read_code = (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8')
+                evidence['before_fill'] = replicated_palettes(client, read_code)
+                filled = execute(client, (ROOT / 'tools/p0_entity_appearance_fill.py').read_text(encoding='utf8'))
+                assert all(row['fill_observed'] for row in filled['rows'] if row.get('fill_item')), filled
+                evidence['filled'] = filled
+                execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % filled['rows'], True)
+                inputs = replicated_palettes(client, read_code)
                 evidence['native_inputs'] = inputs
                 for identity in selected:
                     is_bed = identity.startswith('bed_')
