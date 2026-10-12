@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import shutil
 
@@ -85,6 +86,7 @@ varying highp float liquidClip;
 const float FRAME_COUNT = %(frames)s;
 const float FRAME_PIXELS = %(pixels)s;
 const float TICKS_PER_FRAME = %(ticks)s;
+const float DIAGNOSTIC_DEFAULT_OPACITY = %(diagnostic_opacity)s;
 vec4 sampleFrame(float frame) {
     vec2 pixel=clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5;
     return texture2D(TEXTURE_0,vec2(pixel.x/FRAME_PIXELS,(pixel.y/FRAME_PIXELS+frame)/FRAME_COUNT));
@@ -96,7 +98,8 @@ void main() {
     vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),%(blend)s);
     float tint=EXTRA_VECTOR4.z;
     vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
-    float alpha=EXTRA_VECTOR4.y<0.0 ? texel.a : EXTRA_VECTOR4.y;
+    float defaultAlpha=DIAGNOSTIC_DEFAULT_OPACITY<0.0 ? texel.a : DIAGNOSTIC_DEFAULT_OPACITY;
+    float alpha=EXTRA_VECTOR4.y<0.0 ? defaultAlpha : EXTRA_VECTOR4.y;
     if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
     gl_FragColor=vec4(texel.rgb*rgb,alpha*EXTRA_VECTOR4.w);
 }
@@ -217,9 +220,14 @@ def mesh(texture):
     return {'mesh': [{'material': texture, 'vertices': vertices, 'indices': indices}]}
 
 
-def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False, diagnostic_flow=False):
+def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False,
+             diagnostic_flow=False, diagnostic_water_opacity=None):
     if output.exists():
         raise ValueError('Choose a fresh resource candidate directory')
+    if diagnostic_water_opacity is not None and (isinstance(diagnostic_water_opacity, bool)
+            or not isinstance(diagnostic_water_opacity, (int, float))
+            or not math.isfinite(diagnostic_water_opacity) or not 0. < diagnostic_water_opacity < 1.):
+        raise ValueError('Diagnostic water opacity must be an explicit finite value between zero and one')
     snapshot = source_snapshot(native)
     animations = dict((row['atlas_tile'], row) for row in snapshot['native_flipbook_entries'])
     if diagnostic_flow:
@@ -283,6 +291,8 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
             fragment_name = stem + '.fragment'
             fragment = FRAGMENT % {'frames': str(float(frames)), 'pixels': str(float(width)),
                                    'ticks': '1.0' if frozen_only else str(float(entry['ticks_per_frame'])),
+                                   'diagnostic_opacity': str(float(diagnostic_water_opacity))
+                                       if diagnostic_water_opacity is not None and 'water' in key else '-1.0',
                                    'clock': '0.0' if frozen else 'TIME*20.0/TICKS_PER_FRAME',
                                    'blend': '0.0' if frozen or not entry.get('blend_frames', True) else 'fract(clock)'}
             (shader_dir / fragment_name).write_text(PACKET_FRAGMENT if variant == 'packet' else fragment, encoding='ascii')
@@ -293,7 +303,9 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                   'material': name, 'texture': {'tex0': texture}}
                 materials[name + ':entity_for_skeleton_alpha'] = {
                     'vertexShader': 'shaders/glsl/' + vertex_name,
-                    'fragmentShader': 'shaders/glsl/' + fragment_name, '+states': ['DisableCulling']}
+                    'fragmentShader': 'shaders/glsl/' + fragment_name,
+                    '+states': ['Blending', 'DisableDepthWrite', 'DisableCulling'],
+                    'blendSrc': 'SourceAlpha', 'blendDst': 'OneMinusSrcAlpha'}
                 model_options[name] = {'texture': key, 'variant': variant, 'vertex_shader': vertex_name,
                                        'fragment_shader': fragment_name,
                                        'uv_rotations':[0],
@@ -328,7 +340,11 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                           'scale': 'logical_cell_unit/min(actual_paper_doll_size)',
                                           'control_top_offset': 'min(actual_paper_doll_size)/4',
                                           'native_alignment_accepted': False},
-                  opacity_contract='None sentinel samples original native image alpha; explicit opacity replaces it',
+                  diagnostic_water_opacity=diagnostic_water_opacity,
+                  blend_state_contract={'states':['Blending', 'DisableDepthWrite', 'DisableCulling'],
+                                        'source':'SourceAlpha', 'destination':'OneMinusSrcAlpha',
+                                        'active_native_blending_accepted':False},
+                  opacity_contract='None sentinel samples original native image alpha unless an explicit diagnostic water default is requested; biome opacity replaces it',
                   ui_fade_contract='Orthographic native CURRENT_COLOR.a, matching existing block preview shader; native acceptance pending',
                   animation_contract='Original native square strip + parsed cadence/blend; engine TIME loops at 210 seconds',
                   scope='Supplied-shape skeleton artwork/animation candidate only',
@@ -350,11 +366,14 @@ def main():
     parser.add_argument('--preview-depth', action='store_true')
     parser.add_argument('--packet-control', action='store_true')
     parser.add_argument('--diagnostic-flow', action='store_true', help='Unaccepted frozen frame zero only, no guessed flow cadence')
+    parser.add_argument('--diagnostic-water-opacity', type=float,
+                        help='Unaccepted water-only fallback when the biome supplies no opacity')
     args = parser.parse_args()
     if bool(args.install_project) != bool(args.backup):
         parser.error('--install-project and --backup must be supplied together')
     report = generate(args.output.resolve(), args.native_data.resolve(), tuple(args.texture or ('still_water_grey',)),
-                      args.world_bone, args.preview_depth, args.packet_control,args.diagnostic_flow)
+                      args.world_bone, args.preview_depth, args.packet_control,args.diagnostic_flow,
+                      args.diagnostic_water_opacity)
     if args.install_project:
         install_overlay(args.output.resolve(), args.install_project.resolve(), args.backup.resolve())
     print(json.dumps({'models': list(report['models']), 'native_shape_accepted': False}))

@@ -17,6 +17,7 @@ import probe_liquid_scene as scene
 import probe_liquid_uniform_transport as transport
 import verify_debug_blueprints as blueprints
 import verify_debug_visuals as visuals
+from camera_projection import project_points
 from _session import load_session
 
 SOURCE = '''from modern_projection.projection.cell import AIR,background,foreground,make_cell,encode
@@ -28,20 +29,28 @@ def workspace_liquid_source(identity,control):
  if identity in ('source','pool'):
   key='water_depth_0_foreground' if identity=='source' else 'water_source_pool_foreground'
   return source_document(key,isolated=True,control=control)
- positions={'fence':(3,1,6),'pane':(13,1,6),'slab':(23,1,6)}
+ positions={'fence':(3,1,6),'fence_rear':(3,1,6),'pane':(13,1,6),'slab':(23,1,6)}
  keep=positions[identity]
  source=build('test.layers.water')
  original=source.get(keep)
+ if control.endswith('_dark'):
+  from modern_projection.projection import block_registry
+  original=make_cell(('minecraft:dark_oak_fence',block_registry.DEFAULT_AUX['minecraft:dark_oak_fence']),background(original))
  assert background(original)[0]=='minecraft:water'
  document=Document((10,8,10),name=source.name,biome=source.biome)
  delta=tuple((3,3,3)[i]-keep[i] for i in range(3))
  support=tuple((keep[0]+x,keep[1]-1,keep[2]+z) for x in (-1,0,1) for z in (-1,0,1))
- if control in ('supported_positive','supported_negative'):
+ if identity=='fence_rear':support=((keep[0],keep[1]-1,keep[2]),)
+ if control in ('supported_positive','supported_negative','supported_positive_dark','supported_negative_dark'):
   for pos in support:document.set_cell(tuple(pos[i]+delta[i] for i in range(3)),source.get(pos))
  if control!='empty':
-  value=(original if control=='supported_positive' else
-   make_cell(foreground(original),AIR) if control=='supported_negative' else make_cell(AIR,background(original)))
+  value=(original if control in ('supported_positive','supported_positive_dark') else
+   make_cell(foreground(original),AIR) if control in ('supported_negative','supported_negative_dark') else make_cell(AIR,background(original)))
   document.set_cell((3,3,3),value)
+ if identity=='fence_rear' and control in ('supported_positive','supported_negative','supported_positive_dark','supported_negative_dark'):
+  from modern_projection.projection import block_registry
+  rear='minecraft:black_concrete' if control.endswith('_dark') else 'minecraft:gold_block'
+  document.set_cell((3,3,2),(rear,block_registry.DEFAULT_AUX[rear]))
  return document
 sys._liquid_workspace_source=workspace_liquid_source
 '''
@@ -57,6 +66,9 @@ s.progress=None
 s.view='3d'
 s.page='workspace'
 s.camera_view(35.,25.,4.6)
+if identity=='fence_rear':
+ s.camera_view(0.,0.,3.)
+ s.camera_pan=(.15,-.08)
 s.emit()
 _result=json.dumps({'identity':identity,'control':control,'blocks':len(document.blocks),
  'biome':document.biome,'cells':[(pos,encode(value)) for pos,value in sorted(document.blocks.items())]})
@@ -67,6 +79,7 @@ row['biome']=s.editor.document.biome
 row['camera_depth']=s.camera_depth_pose
 row['depth_plane']=s.depth_plane()
 row['camera_pan']=s.camera_pan
+row['camera_pose']=s.camera_pose
 row['groups_revision']=s.liquid_preview.revision if s.liquid_preview is not None else None
 row['source_cells']=[(pos,encode(value)) for pos,value in sorted(s.editor.document.blocks.items())]
 row['liquid_control_requests']=[]
@@ -78,7 +91,10 @@ if controls is not None:
    'visible':renderer.visible if renderer is not None else None,
    'poses':renderer.poses if renderer is not None else None,
    'uniforms':renderer.uniforms if renderer is not None else None,
-   'ready_request':entry.get('ready_request')})
+   'ready_request':entry.get('ready_request'),
+   'doll_positions':[ref.current.GetGlobalPosition() if ref.current else None for ref in entry['dolls']],
+   'doll_sizes':[ref.current.GetSize() if ref.current else None for ref in entry['dolls']]})
+row['screen_size']=b.factory.CreateGame(b.level).GetScreenSize()
 _result=json.dumps(row)
 '''
 WORLD_STATE = '''from modern_projection.projection.cell import encode
@@ -146,6 +162,60 @@ _result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotatio
  'target':target,'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()})
 '''
 
+SCENE_ALPHA = '''alpha=%r
+preview=s.liquid_preview
+assert preview.iterator is None and preview.published==preview.signature()
+for key,group in list(preview.groups.items()):
+ value=group.uniforms[3]
+ preview.groups[key]=group._replace(uniforms=group.uniforms[:3]+((value[0],alpha,value[2],value[3]),))
+_result=True
+'''
+WORLD_ALPHA = '''alpha=%r
+renderer=b.projection_liquid.renderer
+assert not renderer.staging and renderer.wanted is None
+for record in renderer.active.values():
+ group=record['group'];value=group.uniforms[3]
+ value=(value[0],alpha,value[2],value[3])
+ assert renderer.model.SetExtraUniformValue(record['model_id'],4,value)
+ record['group']=group._replace(uniforms=group.uniforms[:3]+(value,))
+_result=True
+'''
+ALPHA_PHASES = ((0.,'0'),(.25,'0_25'),(.45,'0_45'),(.75,'0_75'),(1.,'1'),(-1.,'default'))
+
+TRANSPARENCY_REGIONS = {'submerged_body':((3.43,3.2,3.5),(3.57,3.5,3.5)),
+                        'behind_block':((3.10,3.2,3.5),(3.25,3.5,3.5))}
+
+
+def scene_transparency_regions(state):
+    """Map declared logical interiors through native control layout, without pixels."""
+    entries=[row for row in state['liquid_control_requests'] if row['poses'] and any(row['visible'])]
+    if not entries or any(abs(value)>1e-4 for value in state['camera_pose'][:2]):
+        raise ValueError('Transparency regions require ready native controls at the declared front view')
+    row=entries[0]
+    slot=row['visible'].index(True)
+    position,size,pose=row['doll_positions'][slot],row['doll_sizes'][slot],row['poses'][slot]
+    unit=pose[0]*min(size)
+    center=(position[0]+size[0]/2.,position[1]+size[1]/2.-min(size)/4.)
+    return {name:[[center[0]+(point[0]-2.)*unit,center[1]-(point[1]-2.)*unit]
+                  for point in points] for name,points in TRANSPARENCY_REGIONS.items()}
+
+
+def native_transparency_regions(camera, origin, vertical_fov):
+    points={name:[tuple(origin[i]+point[i]-3. for i in range(3)) for point in region]
+            for name,region in TRANSPARENCY_REGIONS.items()}
+    return {name:project_points(region,camera['position'],camera['target'],camera['screen'],vertical_fov)
+            for name,region in points.items()}
+
+
+def alpha_ready(state, alpha, world=False):
+    if world:
+        return world_ready(state) and bool(state['liquid_groups']) and all(
+            row['group'][3][3][1] == alpha for row in state['liquid_groups'])
+    controls = state['liquid_control_requests']
+    return scene_ready(state) and bool(controls) and all(row['visible'] and any(row['visible'])
+        and row['uniforms'][row['visible'].index(True)].get('4', [None, None])[1] == alpha
+        for row in controls)
+
 
 def scene_ready(state):
     liquid = state['diagnostics']['liquid']
@@ -154,6 +224,7 @@ def scene_ready(state):
     return (state['current_source'] and state['all_parts_current'] and state['model_revision_current']
             and not state['preview_pending'] and not state['running'] and not state['dirty']
             and not state['mounting'] and not state['edit_active'] and not state['io_active']
+            and all(not part['pending'] for part in state['parts'])
             and liquid['enabled'] and liquid['planReady'] and not liquid['controlsPending'])
 
 
@@ -201,12 +272,20 @@ def main():
     parser.add_argument('--capture-exe', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--contract', type=Path, required=True)
-    parser.add_argument('--case', choices=('source', 'pool', 'fence', 'pane', 'slab'), action='append')
+    parser.add_argument('--case', choices=('source', 'pool', 'fence', 'fence_rear', 'pane', 'slab'), action='append')
+    parser.add_argument('--transparency-controls', action='store_true',
+                        help='Fixed front view of public water-layer fence with independent rear gold block')
+    parser.add_argument('--camera-calibration',type=Path,
+                        help='Passed independent stone calibration from this owned native session')
     parser.add_argument('--scene-only', action='store_true')
     parser.add_argument('--scene-controls', action='store_true', help='Top-view depth and viewport-edge positive/negative controls')
     parser.add_argument('--opacity-commit', help='Exact reviewed bridge/session method commit for this diagnostic session')
     parser.add_argument('--max-handles', type=int, default=280000, help='Abort and restore before the native session handle cutoff')
     args = parser.parse_args()
+    if args.transparency_controls and (args.case not in (None,['fence_rear']) or args.scene_controls):
+        parser.error('Transparency controls require the declared fence_rear fixture and fixed camera')
+    if args.transparency_controls and not args.scene_only and not args.camera_calibration:
+        parser.error('World transparency controls require independent same-session camera calibration')
     if args.output.exists():
         parser.error('Choose a fresh evidence report')
     archive = args.output.with_suffix('.probe.py')
@@ -219,6 +298,13 @@ def main():
     if not session.get('noactivation', {}).get('window_noactivate'):
         parser.error('A guarded NOACTIVATE session is required')
     contract = json.loads(args.contract.read_bytes())
+    calibration=None
+    if args.camera_calibration:
+        calibration=json.loads(args.camera_calibration.read_bytes())
+        if (not all(calibration.get(field) is True for field in ('passed','completed','restored'))
+                or calibration.get('cleanup_errors')
+                or Path(calibration.get('session_file','')).resolve() != Path(session['session_file']).resolve()):
+            parser.error('Camera calibration must be passed, restored and bound to this exact owned session')
     report = dict(schema=1, completed=False, restored=False, cleanup_errors=[], captures={},
                   scene={}, world={}, native={}, measurements=[],
                   probe_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -239,8 +325,26 @@ def main():
     report['probe_source'] = {'path':str(archive.resolve()),'sha256':report['probe_sha256']}
     report['launch_noactivation'] = session['noactivation']
     report['budget'] = {'max_handles':args.max_handles, 'observed_max_handles':0}
-    cases = tuple(args.case or ('source', 'pool', 'fence', 'slab'))
+    cases = ('fence_rear',) if args.transparency_controls else tuple(args.case or ('source', 'pool', 'fence', 'slab'))
+    if args.transparency_controls:
+        report['transparency_plan'] = {
+            'source':'public test.layers.water fence (3,1,6), translated to (3,3,3)',
+            'rear_block':[3,3,2,'minecraft:gold_block'],
+            'minimum_water_height':178/255., 'scene_camera':[0.,0.,3.,.15,-.08],
+            'regions':TRANSPARENCY_REGIONS,
+            'excluded':'waterline, above-water cap, support, crosshair',
+            'native_alpha_accepted':False,
+            'contrast_controls':{'bright':['minecraft:oak_fence','minecraft:gold_block'],
+                                 'dark':['minecraft:dark_oak_fence','minecraft:black_concrete'],
+                                 'requires_same_water_geometry':True},
+            'scene_capture_settle_seconds':2.,
+            'water_alpha_holdout':{'values':[row[0] for row in ALPHA_PHASES],
+                'changes':'Fourth liquid uniform y only; source, body geometry, tint, camera and model IDs must remain fixed',
+                'native_alpha_accepted':False},
+            'scope':'Contribution controls only; native reference, tint/texture, opacity and ordering still require independent assessment'}
     controls = ('supported_positive', 'supported_negative', 'liquid_only', 'empty')
+    if args.transparency_controls:
+        controls += ('supported_positive_dark','supported_negative_dark')
     record = lambda: base.write(args.output, report)
 
     def frame(label):
@@ -278,13 +382,33 @@ def main():
                 rows = report['scene'][identity] = {}
                 for control in controls:
                     row = rows[control] = {'source':check.run(LOAD % ((identity, control),))}
-                    row['ready'] = check.wait('Scene '+identity+'/'+control, scene_ready, lambda:check.run(STATE))
-                    time.sleep(.25)
+                    row['ready'] = check.wait('Scene '+identity+'/'+control,
+                        lambda state:scene_ready(state) and (not args.transparency_controls or
+                            max(abs(a-b) for a,b in zip(state['camera_pose'],(0.,0.,3.)))<1e-4),
+                        lambda:check.run(STATE))
+                    if args.transparency_controls and control=='supported_positive':
+                        report['transparency_plan']['scene_engine_regions']=scene_transparency_regions(row['ready'])
+                        report['transparency_plan']['scene_engine_screen']=row['ready']['screen_size']
+                        record()
+                    time.sleep(2. if args.transparency_controls else .25)
+                    row['capture_state'] = check.wait('Scene settled '+identity+'/'+control,
+                        scene_ready, lambda:check.run(STATE))
                     frame('scene_'+identity+'_'+control)
                 check.run(LOAD % ((identity, 'supported_positive'),))
                 check.wait('Scene restore '+identity, scene_ready, lambda:check.run(STATE))
+                if args.transparency_controls:
+                    time.sleep(2.)
+                    rows['water_alpha'] = {'baseline':check.run(STATE)}
+                    for alpha,label in ALPHA_PHASES:
+                        check.run(SCENE_ALPHA % alpha)
+                        row = rows['water_alpha'][label] = {'requested':alpha}
+                        row['ready'] = check.wait('Scene water alpha '+label,
+                            lambda state:alpha_ready(state,alpha),lambda:check.run(STATE))
+                        time.sleep(2.)
+                        row['capture_state'] = check.run(STATE)
+                        frame('scene_'+identity+'_water_alpha_'+label)
                 rows['biomes'] = {}
-                for biome in ('swampland', 'mangrove_swamp', 'plains'):
+                for biome in (() if args.transparency_controls else ('swampland', 'mangrove_swamp', 'plains')):
                     row = rows['biomes'][biome] = {'changed':check.run('s.set_biome(%r)\n_result=True' % biome)}
                     row['ready'] = check.wait('Scene biome '+biome, lambda state:scene_ready(state) and state['biome']==biome,
                                               lambda:check.run(STATE))
@@ -320,8 +444,20 @@ def main():
                 time.sleep(1.)
                 origin = tuple(report['reservation']['origin'])
                 document_origin = tuple(axis-3 for axis in origin)
-                report['camera'] = check.run(CAMERA % ((tuple(axis+.5 for axis in origin), (6.,5.,8.)),))
-                check.run('s.origin=%r\ns.opacity=.8\ns.projection_outline=False\n_result=True' % (document_origin,))
+                target=tuple(origin[i]+(1.35 if i==1 and args.transparency_controls else .5)
+                             for i in range(3))
+                offset=(0.,0.,7.) if args.transparency_controls else (6.,5.,8.)
+                report['camera'] = check.run(CAMERA % ((target, offset),))
+                if args.transparency_controls:
+                    report['transparency_plan']['camera_calibration']={'path':str(args.camera_calibration.resolve()),
+                        'sha256':hashlib.sha256(args.camera_calibration.read_bytes()).hexdigest(),
+                        'vertical_fov':calibration['vertical_fov']}
+                    report['transparency_plan']['world_engine_regions']=native_transparency_regions(
+                        report['camera'],origin,calibration['vertical_fov'])
+                    report['transparency_plan']['world_engine_screen']=report['camera']['screen']
+                    record()
+                check.run('s.origin=%r\ns.opacity=%r\ns.projection_outline=False\n_result=True' %
+                          (document_origin,1. if args.transparency_controls else .8))
                 positions = report['reservation']['region']
                 for identity in cases:
                     references = report['native'][identity] = {}
@@ -353,8 +489,33 @@ def main():
                         row['ready'] = check.wait('full projection '+identity+'/'+control, world_ready, lambda:check.run(WORLD_STATE))
                         time.sleep(.3)
                         frame('world_'+identity+'_full_'+control)
+                        if args.transparency_controls and control=='supported_positive':
+                            holdout = rows['full_water_alpha'] = {'baseline':row['ready']}
+                            for alpha,label in ALPHA_PHASES:
+                                check.run(WORLD_ALPHA % alpha)
+                                holdout[label] = check.wait('Full water alpha '+label,
+                                    lambda state:alpha_ready(state,alpha,True),lambda:check.run(WORLD_STATE))
+                                time.sleep(.3)
+                                frame('world_'+identity+'_full_water_alpha_'+label)
                         check.run('b.stop_projection()\n_result=True')
                     row = rows['missing_empty_world'] = {'source':check.run(LOAD % ((identity, 'supported_positive'),))}
+                    if args.transparency_controls:
+                        for control in controls:
+                            row = rows['missing_'+control] = {'source':check.run(LOAD % ((identity,control),))}
+                            check.run('s.projection_missing=True\nb.project()\n_result=True')
+                            row['ready'] = check.wait('missing transparency '+control,world_ready,lambda:check.run(WORLD_STATE))
+                            time.sleep(.3)
+                            frame('world_'+identity+'_missing_'+control)
+                            if control=='supported_positive':
+                                holdout = rows['missing_water_alpha'] = {'baseline':row['ready']}
+                                for alpha,label in ALPHA_PHASES:
+                                    check.run(WORLD_ALPHA % alpha)
+                                    holdout[label] = check.wait('Missing water alpha '+label,
+                                        lambda state:alpha_ready(state,alpha,True),lambda:check.run(WORLD_STATE))
+                                    time.sleep(.3)
+                                    frame('world_'+identity+'_missing_water_alpha_'+label)
+                            check.run('b.stop_projection()\n_result=True')
+                        check.run(LOAD % ((identity,'supported_positive'),))
                     check.run('s.projection_missing=True\nb.project()\n_result=True')
                     row['ready'] = check.wait('missing empty world '+identity, world_ready, lambda:check.run(WORLD_STATE))
                     time.sleep(.3)
@@ -385,7 +546,7 @@ def main():
                         time.sleep(.25)
                         frame('world_'+identity+'_opacity_'+str(opacity).replace('.', '_'))
                     rows['biomes'] = {}
-                    for biome in ('swampland', 'mangrove_swamp', 'plains'):
+                    for biome in (() if args.transparency_controls else ('swampland', 'mangrove_swamp', 'plains')):
                         check.run('s.set_biome(%r)\n_result=True' % biome)
                         row = rows['biomes'][biome] = check.wait('world biome '+biome,
                             lambda state:world_ready(state) and state['biome']==biome, lambda:check.run(WORLD_STATE))

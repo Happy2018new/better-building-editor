@@ -53,7 +53,7 @@ RENDER = '''async cases => {
 }'''
 
 
-def fixtures(image, ticks, frozen):
+def fixtures(image, ticks, frozen, diagnostic_opacity=None):
     rows = []
     width, height = image.size
     frames = height // width
@@ -66,7 +66,8 @@ def fixtures(image, ticks, frozen):
                 second = image.getpixel((u * (width - 1), ((current + 1) % frames) * width + v * (width - 1)))
                 texel = tuple(first[i] * (1. - fraction) + second[i] * fraction for i in range(4))
                 expected = [round(texel[i] * tint / 255.) for i, tint in enumerate((18, 52, 86))]
-                expected.append(round((texel[3] if opacity < 0 else opacity * 255.) * .5))
+                fallback = texel[3] if diagnostic_opacity is None else diagnostic_opacity * 255.
+                expected.append(round((fallback if opacity < 0 else opacity * 255.) * .5))
                 uniforms = [(4032., 0., 0., 0.), (45746., 45746., 0., 0.), (0.,) * 4,
                             (39686., opacity, float(0x123456), .5)]
                 rows.append({'name': '%s/%s/%s/%s' % (u, v, clock, opacity),
@@ -122,7 +123,8 @@ def main():
         with Image.open(path).convert('RGBA') as image:
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
             inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else texture['flipbook']['ticks_per_frame'],
-                              options.get('variant') == 'frozen' or name.endswith('_frozen'))
+                              options.get('variant') == 'frozen' or name.endswith('_frozen'),
+                              contract.get('diagnostic_water_opacity') if 'water' in key else None)
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):
                 cases.append({'name': '%s/%s/%s' % (name, version, flags), 'version': version,
