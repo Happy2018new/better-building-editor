@@ -1,4 +1,7 @@
 """Content-only controls for the provisional flat frame item channel."""
+import hashlib
+from io import BytesIO
+from pathlib import Path
 import time
 
 from PIL import Image, ImageChops, ImageFilter
@@ -19,17 +22,56 @@ _result=True
 '''
 
 
+def capture_payload(record):
+    """Read once and bind decoded pixels to their immutable capture receipt."""
+    receipt = record['capture']
+    path = Path(record['path']).resolve()
+    if path != Path(receipt['path']).resolve():
+        raise ValueError('Frame capture wrapper differs from native receipt path')
+    payload = path.read_bytes()
+    digest = hashlib.sha256(payload).hexdigest()
+    if any(row.get('sha256') != digest or row.get('bytes') != len(payload)
+           for row in (record, receipt)):
+        raise ValueError('Frame capture bytes differ from recorded evidence')
+    frame = receipt['frame']
+    dimensions = [receipt['width'], receipt['height']]
+    if (record.get('mime') != 'image/png' or list(record['size']) != dimensions or
+            dimensions != [frame['width'], frame['height']]):
+        raise ValueError('Frame capture dimensions differ from native receipt')
+    with Image.open(BytesIO(payload)) as image:
+        if image.format != 'PNG' or list(image.size) != dimensions:
+            raise ValueError('Frame capture encoding or dimensions changed')
+    return BytesIO(payload)
+
+
+def checked_crops(sources, crop, mask=None):
+    if (not isinstance(crop, (list, tuple)) or len(crop) != 4 or
+            any(type(value) is not int for value in crop)):
+        raise ValueError('Frame comparison crop must contain four integer coordinates')
+    frames, dimensions = [], None
+    for source in sources:
+        with Image.open(source) as image:
+            if dimensions is None:
+                dimensions = image.size
+                if not (0 <= crop[0] < crop[2] <= dimensions[0] and
+                        0 <= crop[1] < crop[3] <= dimensions[1]):
+                    raise ValueError('Frame comparison crop is outside the native image')
+            elif image.size != dimensions:
+                raise ValueError('Frame comparison dimensions changed')
+            frames.append(image.convert('RGB').crop(crop))
+    expected = (crop[2] - crop[0], crop[3] - crop[1])
+    if mask is not None and (mask.mode != 'L' or mask.size != expected):
+        raise ValueError('Frame comparison mask must match the exact crop')
+    return frames
+
+
 def content_mask(shown, body, crop, threshold=25):
-    with Image.open(shown) as first, Image.open(body) as second:
-        if first.size != second.size:
-            raise AssertionError('Frame item control dimensions changed')
-        frame = first.convert('RGB').crop(crop)
-        mask = changed(frame, second.convert('RGB').crop(crop), threshold)
-    return frame, mask
+    first, second = checked_crops((shown, body), crop)
+    return first, changed(first, second, threshold)
 
 
 def alpha_measure(full, faded, hidden, crop, mask, opacity=.2):
-    frames = [Image.open(path).convert('RGB').crop(crop) for path in (full, faded, hidden)]
+    frames = checked_crops((full, faded, hidden), crop, mask)
     eligible = mask.filter(ImageFilter.MinFilter(3)).tobytes()
     signals = [[], []]
     for channel in range(3):

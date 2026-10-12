@@ -4,17 +4,14 @@ import hashlib
 import json
 from pathlib import Path
 
-from PIL import Image, ImageFilter
+from PIL import ImageFilter
 
-from flat_frame_item_visual_checks import content_mask
+from flat_frame_item_visual_checks import capture_payload, checked_crops, content_mask
 from verify_debug_blueprints import write_json
 
 
 def layer_measure(composite, item, body, background, crop, mask, opacity=.2):
-    frames = []
-    for path in (composite, item, body, background):
-        with Image.open(path) as image:
-            frames.append(image.convert('RGB').crop(crop))
+    frames = checked_crops((composite, item, body, background), crop, mask)
     eligible = mask.filter(ImageFilter.MinFilter(3)).tobytes()
     energy = error = 0.
     samples = 0
@@ -48,16 +45,21 @@ def main():
     assert report['completed'] and report['restored'] and report['candidate_alpha_ownership']
     full = report['rows'][0]['item_scopes']['full']
     captures = full['alpha_ownership']['captures']
-    blank = captures['blank']['0.0']['capture']['path']
-    unused, mask = content_mask(captures['item']['1.0']['capture']['path'], blank, full['crop'])
-    measurement = layer_measure(full['alpha02']['capture']['path'],
-                                captures['item']['0.2']['capture']['path'],
-                                captures['body']['0.2']['capture']['path'], blank, full['crop'], mask)
+    records = {'blank': captures['blank']['0.0']['capture'],
+               'item_opaque': captures['item']['1.0']['capture'],
+               'composite_faded': full['alpha02']['capture'],
+               'item_faded': captures['item']['0.2']['capture'],
+               'body_faded': captures['body']['0.2']['capture']}
+    images = {name: capture_payload(record) for name, record in records.items()}
+    unused, mask = content_mask(images['item_opaque'], images['blank'], full['crop'])
+    measurement = layer_measure(images['composite_faded'], images['item_faded'],
+                                images['body_faded'], images['blank'], full['crop'], mask)
     result = {'schema': 1, 'completed': True, 'production_rendering_accepted': False,
               'original_report_passed': report['passed'],
               'input': str(args.input.resolve()),
               'input_sha256': hashlib.sha256(args.input.read_bytes()).hexdigest(),
-              'measurement': measurement}
+              'measurement': measurement,
+              'verified_capture_sha256': {name: record['sha256'] for name, record in records.items()}}
     write_json(args.output, result)
     print(json.dumps(result))
     return 0

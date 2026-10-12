@@ -1,4 +1,6 @@
 """Reject blank items and an opaque/half-alpha result masquerading as 0.2."""
+from copy import deepcopy
+import hashlib
 import sys
 import unittest
 from pathlib import Path
@@ -8,7 +10,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-from flat_frame_item_visual_checks import alpha_measure, content_mask
+from flat_frame_item_visual_checks import alpha_measure, capture_payload, content_mask
 from analyze_flat_frame_compositor import layer_measure
 
 
@@ -54,6 +56,60 @@ class FlatItemPixelChecks(unittest.TestCase):
             Image.new('RGB', (20, 20), (120, 70, 20)).save(path)
             unused, mask = content_mask(path, path, (0, 0, 20, 20))
             self.assertIsNone(mask.getbbox())
+
+    def test_mismatched_native_dimensions_are_rejected_before_scoring(self):
+        with TemporaryDirectory() as directory:
+            first, second = [Path(directory) / (name + '.png') for name in ('full', 'resized')]
+            Image.new('RGB', (20, 20), (100, 100, 100)).save(first)
+            Image.new('RGB', (21, 20), (220, 220, 220)).save(second)
+            crop, mask = (0, 0, 20, 20), Image.new('L', (20, 20), 255)
+            for call in (lambda: content_mask(first, second, crop),
+                         lambda: alpha_measure(first, second, first, crop, mask),
+                         lambda: layer_measure(first, second, first, first, crop, mask)):
+                with self.subTest(call=call), self.assertRaises(ValueError):
+                    call()
+
+    def test_invalid_crop_and_misaligned_mask_cannot_score_padded_pixels(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            Image.new('RGB', (20, 20), (100, 100, 100)).save(path)
+            for crop in ((-1, 0, 19, 20), (0, 0, 21, 20), (0, 0, 0, 20),
+                         (0., 0, 20, 20), (False, 0, 20, 20)):
+                with self.subTest(crop=crop), self.assertRaises(ValueError):
+                    content_mask(path, path, crop)
+            for mask in (Image.new('L', (19, 20), 255), Image.new('RGB', (20, 20), 'white')):
+                with self.subTest(mask=mask.size), self.assertRaises(ValueError):
+                    alpha_measure(path, path, path, (0, 0, 20, 20), mask)
+                with self.subTest(compositor=mask.size), self.assertRaises(ValueError):
+                    layer_measure(path, path, path, path, (0, 0, 20, 20), mask)
+
+    def test_capture_wrapper_and_receipt_bind_exact_decoded_bytes(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / 'frame.png'
+            other = Path(directory) / 'other.png'
+            Image.new('RGB', (20, 20), (100, 100, 100)).save(path)
+            Image.new('RGB', (20, 20), (200, 200, 200)).save(other)
+            payload = path.read_bytes()
+            record = {'path': str(path), 'bytes': len(payload), 'size': [20, 20],
+                      'sha256': hashlib.sha256(payload).hexdigest(), 'mime': 'image/png'}
+            record['capture'] = dict(record, width=20, height=20, frame={'width': 20, 'height': 20})
+            frozen = capture_payload(record)
+            variants = []
+            for mutate in (lambda row: row.update(path=str(other)),
+                           lambda row: row.update(sha256='0' * 64),
+                           lambda row: row['capture'].update(bytes=0),
+                           lambda row: row['capture']['frame'].update(width=21)):
+                variant = deepcopy(record)
+                mutate(variant)
+                variants.append(variant)
+            for variant in variants:
+                with self.subTest(variant=variant), self.assertRaises(ValueError):
+                    capture_payload(variant)
+            Image.new('RGB', (20, 20), (200, 200, 200)).save(path)
+            with Image.open(frozen) as image:
+                self.assertEqual((100, 100, 100), image.getpixel((0, 0)))
+            with self.assertRaises(ValueError):
+                capture_payload(record)
 
 
 if __name__ == '__main__':
