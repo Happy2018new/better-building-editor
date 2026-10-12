@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-12T13:50:00+08:00",
+  "scope": "Cold bitmap source-channel diagnosis and separately bounded partial scaffold observations; no production acceptance",
+  "archive": {
+    "path": "tools/data/native_water_source_markers_r10.zip",
+    "bytes": 7430572,
+    "sha256": "b000050acc17a32ee0bdbb8cd26fcc322738a129326132cba9f3640846240d60",
+    "files": 112,
+    "manifest": "archive_manifest.json",
+    "private_session_routing_token_included": false
+  },
+  "session": {
+    "id": "22e150f60c9c4e59951630d8b2f00e76",
+    "owner": "water-r10b-cold-rgb-v3",
+    "game_pid": 35996,
+    "mcdk_pid": 23944,
+    "state": "stopped",
+    "independently_confirmed_processes_absent": true
+  },
+  "water_source_diagnostic": {
+    "asset_plan": "diagnostic/asset-plan.json",
+    "camera_calibration": "artifacts/camera-water-cold-r10b-v1.json",
+    "native_report": "artifacts/native-water-cold-r10b-v1.json",
+    "asset_restoration": "diagnostic/restored.json",
+    "markers": {
+      "still": {"bitmap": "water_still_grey.png", "size": [16, 512], "rgba": [255, 0, 0, 255]},
+      "flow": {"bitmap": "water_flow_grey.png", "size": [32, 1024], "rgba": [0, 255, 0, 255]},
+      "netease": {"bitmap": "netease_water_texture.png", "size": [32, 32], "rgba": [0, 0, 255, 255]}
+    },
+    "qualitative_observation": "Root viewed red-tinted native top and green-tinted native sides in positive and liquid-only controls",
+    "numerical_source_channel_gate_passed": false,
+    "native_completed": true,
+    "native_restored": true,
+    "cleanup_errors": [],
+    "background_wgc": true,
+    "full_resource_config_manifest_restored": true,
+    "uv_accepted": false,
+    "cadence_accepted": false,
+    "production_accepted": false,
+    "limitations": [
+      "Only the declared source pool, camera, background, version and diagnostic overrides were observed",
+      "Color markers do not identify general UV, cadence, material backend or every native path",
+      "No claim that the Netease bitmap is never sampled",
+      "A subsequent coordinate-marker experiment requires a new frozen plan and reports"
+    ]
+  },
+  "scaffold_partial_collection": {
+    "probe_source_sha256": "887c902933aaabfb8cedb8e6abea60de8f2f442383ce50fb479ca25437a6c87e",
+    "completed_and_restored_segments": 16,
+    "completed_range": [0, 4096],
+    "failed_segment": "scaffold/segment-04096-v3.json",
+    "failed_range": [4096, 4352],
+    "last_progress_index": 4224,
+    "next_requested_state": ["minecraft:crafter", 11],
+    "status_and_cleanup_returned": false,
+    "render_clock_stalled": true,
+    "definitive_cause_identified": false,
+    "normal_stop_succeeded": false,
+    "identity_bound_force_stop_used": true,
+    "dedicated_world_restoration_confirmed": false,
+    "production_catalogue_updated": false,
+    "production_catalogue_retains_14_state_sample": true,
+    "old_source_segments_combined": false
+  }
+}
