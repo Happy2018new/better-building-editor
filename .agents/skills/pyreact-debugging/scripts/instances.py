@@ -127,7 +127,7 @@ def finish_start(data):
     return data
 
 
-def discover(mcdk_pid, port):
+def discover(mcdk_pid, port, timeout=20):
     command = (
         "$ErrorActionPreference='Stop'; "
         "$children=@(Get-CimInstance Win32_Process -Filter "
@@ -138,7 +138,7 @@ def discover(mcdk_pid, port):
         "@{children=$children;listeners=$listeners}|ConvertTo-Json -Compress"
     ) % (mcdk_pid, port)
     result = subprocess.run(["powershell.exe", "-NoProfile", "-Command", command],
-                            capture_output=True, timeout=10,
+                            capture_output=True, timeout=timeout,
                             creationflags=subprocess.CREATE_NO_WINDOW)
     if result.returncode:
         raise RuntimeError(result.stderr.decode("utf-8", "replace"))
@@ -287,15 +287,36 @@ def start(args):
         write_json(session_file, data)
     deadline = time.monotonic() + args.wait
     last_error = "World IPC not ready"
+    discovery_attempt = 0
     while time.monotonic() < deadline:
         try:
             if process.poll() is not None:
                 raise RuntimeError("MCDK exited with code %s; read %s" % (process.returncode, data["log"]))
-            observed = discover(process.pid, port)
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            discovery_timeout = min(20, remaining)
+            discovery_started = time.monotonic()
+            discovery_attempt += 1
+            try:
+                observed = discover(process.pid, port, timeout=discovery_timeout)
+            except subprocess.TimeoutExpired as exc:
+                # Preserve failed discovery reads even if a later attempt succeeds.
+                data.setdefault('discovery_timeouts', []).append({
+                    'attempt': discovery_attempt, 'command': exc.cmd,
+                    'timeout_seconds': exc.timeout,
+                    'elapsed_seconds': round(time.monotonic() - discovery_started, 3),
+                    'error': str(exc),
+                    'stdout': exc.output.decode('utf-8', 'replace') if isinstance(exc.output, bytes) else exc.output,
+                    'stderr': exc.stderr.decode('utf-8', 'replace') if isinstance(exc.stderr, bytes) else exc.stderr})
+                write_json(session_file, data)
+                raise
+            if time.monotonic() >= deadline:
+                break
             if observed["listeners"] and observed["listeners"] != [process.pid]:
                 raise RuntimeError("MCP port belongs to another process; refusing to bind")
             if len(observed["children"]) != 1 or observed["listeners"] != [process.pid]:
-                time.sleep(.5)
+                time.sleep(min(.5, max(0, deadline - time.monotonic())))
                 continue
             game_pid = observed["children"][0]
             identity = process_identity(game_pid)
@@ -311,7 +332,7 @@ def start(args):
                     terminate_owned(data['mcdk_pid'], data['mcdk_identity'])
                     return finish_start(data)
                 if not guard['windows']:
-                    time.sleep(.5)
+                    time.sleep(min(.5, max(0, deadline - time.monotonic())))
                     continue
             write_json(session_file, data)
             with Client(data["mcp_url"], timeout=3, bind_session=False) as client:
@@ -341,7 +362,7 @@ def start(args):
             last_error = str(exc)
             if process.poll() is not None or "refusing to bind" in last_error:
                 break
-            time.sleep(.5)
+            time.sleep(min(.5, max(0, deadline - time.monotonic())))
     data.update(state="failed", error=last_error)
     write_json(session_file, data)
     # Keep identities/evidence so a failed launch remains inspectable and stoppable.
