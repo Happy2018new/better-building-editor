@@ -16,6 +16,7 @@ from .debug_neighborhood_blueprints import METADATA as NEIGHBOR_METADATA, VISUAL
 from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL_CASE as CONNECTION_VISUAL_CASE
 from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
 from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
+from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -39,8 +40,10 @@ BLUEPRINTS = (
     DRIPSTONE_METADATA,
     CONNECTION_METADATA,
     NEIGHBOR_METADATA,
+    ACTION_METADATA,
 )
 VISUAL_CASES = {
+    'neighbor_actions': ACTION_MATRIX,
     'item_contents': ITEM_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
@@ -315,6 +318,9 @@ def build(identity):
         return populate(fixture)
     if identity == NEIGHBOR_METADATA[0]:
         from .debug_neighborhood_blueprints import populate
+        return populate(fixture)
+    if identity == ACTION_METADATA[0]:
+        from .debug_action_blueprints import populate
         return populate(fixture)
     builders = {'test.layers.water': _water,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
