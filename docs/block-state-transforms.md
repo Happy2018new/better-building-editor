@@ -58,6 +58,21 @@ python tools/diff_block_palettes.py docs/reference/block_palettes/nemc_3.9.0.401
 python -X utf8 tools/check_version_bundle.py --tests
 ```
 
+The palette diff emits schema 2 while retaining the original record-level
+counts and `added`, `removed`, and `changed` fields. It also lists added/removed
+block names and typed semantic states independently of native aux numbers.
+`remapped_semantic_states` records old/new aux lists for unchanged typed states,
+including aliases with more than one aux. Thus a native aux swap is reported as
+an ID remapping rather than a semantic addition/deletion; a byte-to-int change
+remains a semantic change even when its numeric value is unchanged. Source
+hashes remain byte-exact, while record/property ordering does not affect the
+semantic comparison. Invalid or duplicate records are rejected.
+
+Use `--output <report.json>` to preserve the complete report and print only
+the record-count summary. The output path must differ from both source dumps.
+Keep this report alongside the reviewed upgrade evidence; it does not authorize
+unknown direction semantics or replace native appearance acceptance.
+
 Before the final command, capture and regenerate the matching water/snow
 capabilities, entity defaults and native renderer observations using the workflows
 in [Built-In Test Blueprints](debug-blueprints.md) and
