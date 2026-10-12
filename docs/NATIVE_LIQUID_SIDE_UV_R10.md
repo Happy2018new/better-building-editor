@@ -162,6 +162,138 @@ with training RMSE 1.57e-14 and holdout 1.44e-14. These synthetic checks reuse
 template helpers and verify arithmetic and split isolation only; they are
 not independent native evidence. All native acceptance flags remain false.
 
+## Installed Source Audit
+
+Read-only installed NEMC `3.9.0.401155` resources map both `water` and
+`flowing_water` north/south/east/west faces to `flowing_water_grey`, resolved
+through `terrain_texture.json` to `textures/blocks/water_flow_grey.png` with
+`quad: 1`. Up/down map to `still_water_grey` and
+`textures/blocks/water_still_grey.png`. The still strip explicitly declares
+two ticks per frame; the flow strip declares `replicate: 2` and omits cadence.
+The snow project has no override for either native water alias, bitmap, or
+flipbook. Its retained original world pack list contains the project resource
+UUID only and points by junction to the frozen snow resource pack.
+
+Root separately queried loaded initial textures in a later owned session:
+`GetBlockTextures` exists and returns those same nominal names/paths for water
+and flowing water, runtime `1.21.120.0`. `GetTextureAtlasUV` is unavailable.
+This receipt is at
+`D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/scaffold-r10/loaded-water-textures-r10.json`,
+SHA256 `4f120e26752b8f5263a03860be990cf23f8c53ffa5fe9cb3c9c40f2308db0034`.
+It establishes initial lookup, not the original capture's active material or
+the bitmap actually sampled by a specialized water renderer.
+
+The installed `vanilla_netease` pack also defines `netease_water_texture` in
+its terrain atlas, targeting an opaque 32x32 static PNG. Its
+`materials/terrain.material` declares `netease_water_near` and
+`netease_water_far`, both inheriting `terrain_blend`. The inherited material
+enables BLEND/Blending and underwater/fog variants; precompile configuration
+lists base, fading, fog, fog.underwater, and lit variants for both. Source
+comments require `MATERIAL_ENABLE` to use/override these water materials,
+with the local define commented out. File presence and precompile entries
+therefore do not establish the active material or backend.
+
+Both installed GLSL fragment shaders first sample `uv0`, then overwrite RGB
+from `TEXTURE_0` using:
+
+```text
+u = range.x + (range.y - range.x) * mod(VertexWorldPos.x, 6) / 6
+v = range.z + (range.w - range.z) * mod(VertexWorldPos.z, 6) / 6
+diffuse.rgb = texture2D(TEXTURE_0, (u, v)).rgb
+```
+
+`WATER_TEXTURE_UV_RANGE` has Float4 declarations in `uniforms.json`,
+`netease_editor_uniforms.json`, and the GLSL uniform header. No default value,
+atlas-key assignment, or setter was found in installed text sources. The
+matching vertex shaders assign `VertexWorldPos` from chunk-modulo position
+plus two TIME-dependent wave displacements. Neither native TIME, the actual
+uniform range, nor the active material was captured. Raw world X/Z modulo six
+is consequently an incomplete conditional model of these shader sources.
+
+One bounded offline report tests that exact raw-grid X/Z mapping against the
+installed Netease bitmap, using normalized texture-edge coordinates and
+bilinear edge-clamped sampling. It fits only the original shared photometric
+coefficients on calibration frames; there is one mapping and no source,
+rotation, phase, offset, or UV selection. This candidate also fails:
+
+| Depth | Calibration RMSE | Holdout RMSE | Holdout Explained Variance |
+| --- | ---: | ---: | ---: |
+| 0 | 19.3583 | 19.1741 | 0.0061 |
+| 1 | 11.5538 | 11.5675 | 0.0147 |
+| 3 | 8.1484 | 8.1369 | 0.0066 |
+
+Synthetic shared-model prediction and raw-grid six-block periodicity checks
+pass. Raw template shifts by one X/Z block differ by RMS 18.8395/20.7617;
+six-block shifts agree to numerical precision. These are conditional template
+properties only. Native wave displacement itself need not repeat at six
+blocks, so a future translation experiment must account for the actual
+vertex inputs before interpreting this periodicity as a native prediction.
+
+All installed source paths and SHA256 values are preserved in that report's
+`source_files`. Principal hashes, under
+`D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/data/resource_packs/vanilla_netease/`,
+are:
+
+| Installed Source | SHA256 |
+| --- | --- |
+| `textures/terrain_texture.json` | `2a49e7d28d5df7e460cb129d050a2adc60e29c92615c19a14893ab95a6722ae0` |
+| `textures/blocks/netease_water_texture.png` | `3dda145367c3aa66631875553caf7d65edbd7d4bbdcd1809cac3f0dc3695d975` |
+| `materials/terrain.material` | `9c481e542404f4a1fecbc5ddec3e7073e5e36a3e9edfd149180ecc9eb2bafb66` |
+| `shaders/glsl/renderchunk_water_near.fragment` and `far.fragment` | `584da4f8176795d1be37cf0e053a5f9a76069e523055121ed0ea409ab4f2026e` |
+| `shaders/glsl/renderchunk_water_near.vertex` and `far.vertex` | `e6c494cf485f4fd3221d482d2d0cbdd07c8027c764de8b3bac73e8f7c5154a0a` |
+
+## Cold Source Marker Checkpoint
+
+Root authorized one cold bitmap-source diagnostic after releasing the shared
+snow project. Private assets preserve native image dimensions and opaque
+alpha: still-water 16x512 pure red, flow-water 32x1024 pure green, and Netease
+water 32x32 pure blue. Only these three project PNG paths were temporarily
+installed; no shader, atlas, flipbook, resource-pack manifest, or `.mcdev.json`
+was edited. Original project absence and the full resource manifest were
+recorded before installation. Generated assets and the exact plan remain in
+`D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/r9-snow/.runtime/water-cold-r10/`.
+
+The frozen plan requires same-session independent stone calibration and one
+depth-zero four-control capture at `(6,96,6)`, camera offset `(-2.5,2,-3.5)`,
+exact source/neighborhood gates, and background-only WGC. Its declared liquid
+ROI excludes dilated support hulls; fixed inset side samples are also scored.
+Source-channel attribution requires agreeing background-subtracted control
+contributions, dominant-channel fraction >= 0.75, channel margin >= 20 RGB,
+and at least 80 identifiable pixels. Ambiguous channels or unverified cold
+loading reject the diagnostic. Native calls/capture end by 11:10 and
+restoration/stop by 11:20 Asia/Shanghai.
+
+The single guarded cold startup **failed before readiness**, reporting
+`Focus guard module snapshot failed`. Session
+`416c9f540db9431fadf9307fbfa42a78`, owner `water-r10-cold-rgb`, never established
+a game PID binding. There were zero calibration calls, native fixture calls,
+or source-channel captures and no retry. This is a startup blocker; it provides
+no sampled-bitmap evidence.
+
+All three marker files were removed back to their original absence. The full
+resource manifest, pack manifest, and `.mcdev.json` match the recorded
+baseline. Normal managed stop succeeded; the manifest is stopped/not ready,
+owned MCDK PID 29520 is absent, and no Minecraft child of that owned MCDK is
+observable. A local wrapper raised KeyError while formatting the post-stop
+summary for missing `game_pid`; its original stderr is preserved and the
+summary getter was corrected. No unrelated processes were stopped. Raw
+historical Minecraft PID entries are not treated as a live-instance count.
+
+| Cold Evidence | SHA256 |
+| --- | --- |
+| `asset-plan.json` | `121f8fea489aaae05ab21c97d6b3f77d11432733bcfae918c00e41999e15dda6` |
+| `installed.json` | `aa9002e3be3e883ea71c89f7a3a3fce1ade48377d002c7e5007136449b10fa2b` |
+| `restored.json` | `6b2189d090a699104c62e05e83686f6f561c75d3c58dbf68183fc34e6bdbf608` |
+| `final-audit.json` | `c527548fbf64cda58fe514204e8f042773812a341d22ae0a02cff753b6d1bceb` |
+
+The checkpoint manifest `tools/data/native_water_source_r10_checkpoint.json`
+links the frozen rejection, all bounded reports, loaded nominal lookup, and
+cold cleanup audit. The earliest prerequisite is reliable guarded cold startup
+and demonstrably loaded marker bitmaps. Active water material/backend, actual
+uniform target, and native wave inputs remain unresolved. No expanded UV
+search, native translation test, or production correction follows from the
+failed source candidate or failed startup.
+
 ## Evidence
 
 All artifact paths below share this absolute directory:
@@ -179,6 +311,7 @@ All artifact paths below share this absolute directory:
 | `native-water-side-grids-r10-v3/report.json` | `7cc11a127d83936d64a984405410dfc9c2930eab861983aff3401382a68d8b1d` |
 | `native-water-side-diagnostic-r10-v3.json` | `0a2578b128eea84d9329dae51abee7b8e01b52c812f2ff68981a095d8a31a52b` |
 | `native-water-temporal-baseline-diagnostic-r10-v3.json` | `619efe801ae160d94b81763340672ffeaec090a63c579024c4c4ab9de45e96d1` |
+| `native-water-netease-xz-source-diagnostic-r10-v3.json` | `d6ac1ef93f5d0faa9ec1c18247f853d9131b81d1cb41b51f6f159ac69d40a94e` |
 | `snow-r10-restored.png` | `87a182cfb1fe1b93ee51b10763b6081f1edc76ea3e06803207fbc999bd5cf5db` |
 
 Frozen V3 plan:
@@ -194,6 +327,7 @@ Preserved host-only diagnostic sources are in
 | --- | --- |
 | `diagnose_water_side_r10.py` | `c57ad5a5748e18aaae99f4af7e51ba9ed45155d8296bde4ced26c159ffc516d5` |
 | `diagnose_water_temporal_baseline_r10.py` | `d1fd59b94d7b81d6701b8b202acd1e185db995cd97084d383e2ff63e73d7a53f` |
+| `diagnose_netease_water_source_r10.py` | `d834c884baf5397495c93082cfab3981dce4231e4c977418d34acfd6f09d7ac2` |
 
 The failed photometric/clock assumptions require further diagnosis. No
 production correction is justified by the rejected best fit.

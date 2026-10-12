@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "R10 source-assumption diagnosis checkpoint; all native source/UV/cadence/production acceptance false",
+  "cold_final_audit": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-snow\\.runtime\\water-cold-r10\\final-audit.json",
+    "sha256": "c527548fbf64cda58fe514204e8f042773812a341d22ae0a02cff753b6d1bceb"
+  },
+  "bounded_reports": {
+    "native-water-side-uv-r10-v3.json": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\78a2769a6c8946989c1e42bdac3e66a8\\artifacts\\native-water-side-uv-r10-v3.json",
+      "sha256": "6bfb288b20d60dc330c3e179d917bde9b6e6c5578a3813932b25429831ec3deb"
+    },
+    "native-water-side-diagnostic-r10-v3.json": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\78a2769a6c8946989c1e42bdac3e66a8\\artifacts\\native-water-side-diagnostic-r10-v3.json",
+      "sha256": "0a2578b128eea84d9329dae51abee7b8e01b52c812f2ff68981a095d8a31a52b"
+    },
+    "native-water-temporal-baseline-diagnostic-r10-v3.json": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\78a2769a6c8946989c1e42bdac3e66a8\\artifacts\\native-water-temporal-baseline-diagnostic-r10-v3.json",
+      "sha256": "619efe801ae160d94b81763340672ffeaec090a63c579024c4c4ab9de45e96d1"
+    },
+    "native-water-netease-xz-source-diagnostic-r10-v3.json": {
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\78a2769a6c8946989c1e42bdac3e66a8\\artifacts\\native-water-netease-xz-source-diagnostic-r10-v3.json",
+      "sha256": "d6ac1ef93f5d0faa9ec1c18247f853d9131b81d1cb41b51f6f159ac69d40a94e"
+    }
+  },
+  "loaded_nominal_texture_receipt": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\scaffold-r10\\loaded-water-textures-r10.json",
+    "sha256": "4f120e26752b8f5263a03860be990cf23f8c53ffa5fe9cb3c9c40f2308db0034"
+  },
+  "loaded_nominal_texture_scope": "Separate root session; confirms loaded initial lookup only, not active material/bitmap",
+  "cold_failure": "Focus guard module snapshot failed",
+  "cold_native_captures": 0,
+  "restored": true,
+  "owned_failed_mcdk_absent": true,
+  "observable_owned_minecraft_children": [],
+  "unresolved_prerequisites": [
+    "Active water material/backend",
+    "WATER_TEXTURE_UV_RANGE actual value and atlas target",
+    "Native TIME and wave-displaced VertexWorldPos",
+    "Reliable guarded cold startup and marker loading"
+  ],
+  "native_source_identified": false,
+  "native_uv_accepted": false,
+  "native_cadence_accepted": false,
+  "production_accepted": false
+}
