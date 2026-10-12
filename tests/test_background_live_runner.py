@@ -81,7 +81,9 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
     def test_native_camera_calibration_skips_lock_but_retains_session(self):
         load, lock, child = self.run_case(['--sdk-background',
             'verify_camera_projection.py', 'evidence.json', '--native-resolution'])
-        self.assertEqual(7, runner.main())
+        with patch.dict(os.environ, {'MCDEV_NATIVE_CAPTURE_HELPER':
+                        str(runner.ROOT / 'tools/capture_native_window.py')}):
+            self.assertEqual(7, runner.main())
         load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
         lock.assert_not_called()
         self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
@@ -93,6 +95,45 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
             runner.main()
         lock.assert_not_called()
         child.assert_not_called()
+
+    def test_snow_pixel_capture_requires_native_resolution_and_preserves_owner(self):
+        load, lock, child = self.run_case(['--sdk-background',
+            'verify_snow_catalogue_visuals.py', 'evidence.json', '--native-resolution'])
+        with patch.dict(os.environ, {'MCDEV_NATIVE_CAPTURE_HELPER':
+                        str(runner.ROOT / 'tools/capture_native_window.py')}):
+            self.assertEqual(7, runner.main())
+        load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
+        lock.assert_not_called()
+        self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
+
+    def test_snow_without_native_background_capture_is_rejected(self):
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'verify_snow_catalogue_visuals.py', 'evidence.json'])
+        with self.assertRaises(SystemExit):
+            runner.main()
+        lock.assert_not_called()
+        child.assert_not_called()
+
+    def test_unreviewed_anchor_capture_cannot_skip_the_desktop_lock(self):
+        unused_load, lock, child = self.run_case(['--sdk-background',
+            'verify_native_plant_anchors.py', 'evidence.json'])
+        with self.assertRaises(SystemExit):
+            runner.main()
+        lock.assert_not_called()
+        child.assert_not_called()
+
+    def test_background_snow_rejects_missing_or_legacy_helper(self):
+        for helper in (None, str(runner.ROOT / 'tools/pyreact_legacy/capture_screen.py')):
+            with self.subTest(helper=helper):
+                unused_load, lock, child = self.run_case(['--sdk-background',
+                    'verify_snow_catalogue_visuals.py', 'evidence.json', '--native-resolution'])
+                with patch.dict(os.environ, {}, clear=True):
+                    if helper is not None:
+                        os.environ['MCDEV_NATIVE_CAPTURE_HELPER'] = helper
+                    with self.assertRaises(SystemExit):
+                        runner.main()
+                lock.assert_not_called()
+                child.assert_not_called()
 
     def test_background_liquid_capture_requires_reviewed_helper(self):
         helper = str(runner.ROOT / 'tools/verify_sign_visuals.py')

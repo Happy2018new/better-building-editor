@@ -13,6 +13,9 @@ from _session import desktop_lock, load_session, process_identity
 SDK_BACKGROUND_SCRIPTS = frozenset(('verify_dripstone_native_boxes.py',
                                   'verify_scaffold_support_catalogue.py',
                                   'verify_camera_projection.py',
+                                  'verify_snow_catalogue_visuals.py',
+                                  'verify_fungus_remaining_matrix.py',
+                                  'verify_native_plant_boxes.py',
                                   'capture_pure_liquid_native_controls.py',
                                   'capture_frozen_liquid_controls.py'))
 
@@ -39,8 +42,14 @@ def main():
         capture_parser.add_argument('--native-resolution', action='store_true')
         capture_parser.add_argument('--capture-helper', type=Path)
         capture_args, unused = capture_parser.parse_known_args(args.args)
-        if path.name == 'verify_camera_projection.py' and not capture_args.native_resolution:
-            parser.error('Background camera calibration requires --native-resolution')
+        if path.name in ('verify_camera_projection.py', 'verify_snow_catalogue_visuals.py') and not capture_args.native_resolution:
+            parser.error('Background camera and snow capture require --native-resolution')
+        if path.name in ('verify_camera_projection.py', 'verify_snow_catalogue_visuals.py',
+                         'verify_fungus_remaining_matrix.py'):
+            helper = os.environ.get('MCDEV_NATIVE_CAPTURE_HELPER')
+            expected = ROOT / 'tools/capture_native_window.py'
+            if helper is None or Path(helper).resolve() != expected:
+                parser.error('Background camera and snow capture require the owned WGC helper')
         if path.name in ('capture_pure_liquid_native_controls.py',
                          'capture_frozen_liquid_controls.py'):
             expected = ROOT / 'tools/verify_sign_visuals.py'
