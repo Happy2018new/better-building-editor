@@ -134,7 +134,8 @@ def main():
     parser.add_argument('--camera-calibration', type=Path)
     parser.add_argument('--audit', type=Path)
     parser.add_argument('--profile', choices=('fungus_remaining', 'static_root_screen',
-                         'static_root_remaining', 'cross_candidate_screen'), default='fungus_remaining')
+                         'static_root_remaining', 'cross_candidate_screen',
+                         'poppy_candidate_remaining'), default='fungus_remaining')
     parser.add_argument('--plant', action='append')
     parser.add_argument('--view', choices=('public', 'right'), action='append')
     args = parser.parse_args()

@@ -118,6 +118,20 @@ class SnowCatalogueVisualTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'no versioned alpha source: brown_mushroom'):
                     cross_assets(session, 'brown_mushroom')
 
+    def test_poppy_remaining_profile_preserves_the_original_h0_partition(self):
+        screen = VISUAL_CASE['cross_candidate_screen']
+        remaining = VISUAL_CASE['poppy_candidate_remaining']
+        self.assertEqual(screen['native_target'], remaining['native_target'])
+        self.assertEqual(screen['views'], remaining['views'])
+        self.assertFalse(set(screen['heights']['poppy']) & set(remaining['heights']['poppy']))
+        self.assertEqual(set(range(8)), set(screen['heights']['poppy']) |
+                         set(remaining['heights']['poppy']))
+        self.assertEqual(('poppy',), tuple(remaining['heights']))
+        self.assertFalse(remaining['all_eight_snow_heights_accepted'])
+        for view, offset in remaining['views'].items():
+            self.assertEqual(offset, profile_offset(('poppy',), list(range(1, 8)),
+                             ('full', 'missing'), view, 'poppy_candidate_remaining'))
+
     def capture(self, path, color, shifted=False):
         image = Image.new('RGB', (80, 80))
         x = 45 if shifted else 20

@@ -81,6 +81,15 @@ VISUAL_CASE = {
         'scope': 'Dry and h0 candidate screen at one declared cell/two views; no new production acceptance',
         'all_eight_snow_heights_accepted': False,
     },
+    'poppy_candidate_remaining': {
+        'schema': 1,
+        'geometry_status': 'Unchanged R10B unit-height/clip-translation candidate; native mesh and offset authority unverified',
+        'native_target': (-47, 117, -70),
+        'views': {'public': (-2., .15, -2.5), 'right': (2., .15, -2.5)},
+        'heights': {'poppy': tuple(range(1, 8))},
+        'scope': 'Dry control and seven heights absent from the h0 candidate screen, at the same fixed cell/two views; no production acceptance',
+        'all_eight_snow_heights_accepted': False,
+    },
 }
 
 

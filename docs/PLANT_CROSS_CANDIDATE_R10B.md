@@ -67,3 +67,48 @@ These observations justify further bounded experiments. They do not accept
 remaining snow heights, another cell, a native geometry/offset contract or
 production registration. The original failures and PrintWindow calibration
 remain preserved.
+
+## Second WGC Matrix
+
+Session `9512c9895d48444580e48589f0f21812`, owner `snow-r10c-cross`, game PID
+34536 / creation identity `134362554076102257`, completed a new same-session
+WGC calibration before the other four plants. Calibration
+`snow-camera-r10c-v1-wgc.json` completed, passed and restored; its tilted PNG
+was opened. SHA256:
+`86ab2d4a6151588bf3b04d8accc08708dc3d6fa426c9f7797f3721a54a8df1e5`.
+
+`snow-cross-other-four-screen-v2.json`, SHA256
+`0d27322d965a632e7ca2de1607fb1132140909dd9a0c7d7880be72552d50222b`,
+completed all eight plant/view reports and restored every fixture. Source
+hashes remained stable. All covered editor controls passed, but the matrix
+remains failed with unchanged pixel and ROI gates.
+
+| Plant | View | Independent h0 Exposed Recall | Precision | Result |
+| --- | --- | ---: | ---: | --- |
+| warped_roots | public | .840663 | .911314 | Dry and h0 pass |
+| warped_roots | right | .840907 | .909874 | Failed dry ROI boundary: 34 pixels |
+| nether_sprouts | public | .700718 | .790486 | Exposed-plant recall fails |
+| nether_sprouts | right | .733369 | .838922 | Exposed recall fails; dry boundary 6 pixels |
+| short_grass | public | .766827 | .501336 | Exposed precision fails; dry/green masks fail |
+| fern | public | .779809 | .503301 | Exposed precision fails; dry/green masks fail |
+
+Short grass and fern also fail the right view. The independently isolated
+plant checks reject cases whose combined snow silhouette passes. No fitting
+or source change is applied based on these failures.
+
+Audit `snow-cross-other-four-screen-v2-audit.json`, SHA256
+`8cfda86d5cdbe49fe75176b07f3675b62a61fecdf42da469404b13d3426c85b9`,
+passed integrity for 182 original native PNGs with no errors or foreground
+switches. All eight contact sheets were actually opened. Frozen source
+`snow-cross-candidate-v2-source-wgc.json` has SHA256
+`d689891e7ae785f777ac6a8b90417e5f267905095ba3476d09798f1b36c7b59a`;
+the exact candidate sources are archived at `.runtime/cross-candidate-v2-source`.
+
+Handle count reached 286,790 and private memory 2.837 GB at final audit.
+Normal owned stop closed game PID 34536 and MCDK PID 47904 without force.
+Candidate resource bytes were restored through the v2 snapshot. The cause
+of handle growth remains unknown.
+
+The separately declared `poppy_candidate_remaining` profile retains the same
+cell, views and candidate geometry and tests exactly h1..h7. It is disjoint
+from the original h0 screen and grants no production acceptance by itself.
