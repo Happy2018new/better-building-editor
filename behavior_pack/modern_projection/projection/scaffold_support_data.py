@@ -1,4 +1,5 @@
 """Generated native scaffold supports; unobserved states retain their distance."""
+SCHEMA_VERSION = 1
 SOURCE_VERSION = 'NEMC 3.9.0.401155'
 PALETTE_SHA256 = '6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01'
 EVIDENCE_SHA256 = 'db5c77a962826e0c1103ef5ef2a7d2c3d62472ac77ab078ca3121930aea4b05e'

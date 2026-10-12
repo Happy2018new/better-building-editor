@@ -49,6 +49,16 @@ class BackgroundLiveRunnerTests(unittest.TestCase):
         lock.assert_not_called()
         child.assert_not_called()
 
+    def test_scaffold_segment_retains_range_and_owner_without_desktop_input(self):
+        load, lock, child = self.run_case(['--sdk-background',
+            'verify_scaffold_support_catalogue.py', 'segment.json', '--start-index', '256', '--count', '256'])
+        self.assertEqual(7, runner.main())
+        load.assert_called_once_with('owned-session.json', 'fixture-owner', live=True)
+        lock.assert_not_called()
+        self.assertEqual('fixture-owner', child.call_args.kwargs['env']['MCDEV_OWNER'])
+        self.assertEqual(['segment.json', '--start-index', '256', '--count', '256'],
+                         child.call_args.args[0][-5:])
+
     def test_other_project_is_rejected_before_child_launch(self):
         unused_load, lock, child = self.run_case(['--sdk-background',
             'verify_dripstone_native_boxes.py'], project=str(runner.ROOT.parent))

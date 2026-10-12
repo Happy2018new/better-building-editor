@@ -4,6 +4,7 @@ from collections import deque
 from .cell import foreground
 from .storage import Selection, address, CELLS
 from . import block_registry as registry
+from . import scaffold_support_data as source
 from .scaffold_support_data import SUPPORTING_BLOCKS, SUPPORTING_AUX, NONSUPPORTING_AUX
 
 HORIZONTAL = ((1, 0, 0), (-1, 0, 0), (0, 0, 1), (0, 0, -1))
@@ -21,6 +22,10 @@ def support(value):
     name, aux = native
     if name == 'minecraft:air':
         return False
+    if (getattr(source, 'SCHEMA_VERSION', None) != 1 or
+            source.SOURCE_VERSION != registry.source_version() or
+            source.PALETTE_SHA256.lower() != registry.fingerprint().lower()):
+        raise ValueError('Native scaffold supports need regeneration for this block registry')
     if name in SUPPORTING_BLOCKS or aux in SUPPORTING_AUX.get(name, ()):
         return True
     if aux in NONSUPPORTING_AUX.get(name, ()):

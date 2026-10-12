@@ -77,6 +77,7 @@ def generate(check=False, root=ROOT):
     report = json.loads(source.read_text(encoding='utf8'))
     result = capabilities(report, manifest)
     content = ('"""Generated native scaffold supports; unobserved states retain their distance."""\n'
+               'SCHEMA_VERSION = 1\n'
                'SOURCE_VERSION = %r\nPALETTE_SHA256 = %r\nEVIDENCE_SHA256 = %r\n'
                "EVIDENCE_HASH_FORMAT = 'canonical-json-v1'\n"
                'SOURCE_METHOD = %r\nOBSERVATION_SCOPE = %r\nOBSERVED_STATES = %r\n'
