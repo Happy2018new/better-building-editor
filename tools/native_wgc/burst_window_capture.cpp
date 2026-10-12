@@ -248,6 +248,9 @@ namespace NativeWgcBurst {
                     << ",\"owned_creation_time\":" << jsonString(std::to_string(binding.creationTime))
                     << ",\"planned_duration_ms\":" << options.durationMs << ",\"max_frames\":" << options.maxFrames
                     << ",\"max_gap_ms\":" << options.maxGapMs << ",\"max_frame_age_ms\":" << options.maxFrameAgeMs
+                    << ",\"timestamp_policy\":\"strict_after_bounded_qpc_wait\""
+                    << ",\"future_timestamp_wait_limit_ms\":" << FutureTimestampWaitLimit100ns / 10000
+                    << ",\"future_timestamp_wait_guard_limit\":" << FutureTimestampWaitGuardLimit
                     << ",\"request_qpc_100ns\":" << request << ",\"planned_end_qpc_100ns\":" << deadline
                     << ",\"finished_qpc_100ns\":" << ended << ",\"attempted_frames\":" << attempts
                     << ",\"valid_frames\":" << (timeline ? timeline->count() : 0)
@@ -375,9 +378,11 @@ namespace NativeWgcBurst {
                 }
                 if (durationElapsed) ++drainAttempts;
                 ++run.attempts;
-                int64_t frameTime = 0, observed = 0;
+                int64_t frameTime = 0, observed = 0, initialObserved = 0, waitDeadline = 0;
                 bool timestampAvailable = false;
-                FrameAssessment assessment;
+                FrameAssessment assessment, initialAssessment;
+                std::vector<WindowState> waitGuards;
+                std::string waitOutcome = "not_requested";
                 std::string error;
                 std::string pngName;
                 WindowState afterRead{}, beforeWrite{}, afterWrite{};
@@ -385,8 +390,56 @@ namespace NativeWgcBurst {
                     frameTime = frame.value.SystemRelativeTime().count();
                     timestampAvailable = true;
                     observed = qpcNow(run.frequency);
-                    assessment = run.timeline->assess(frameTime, observed);
+                    initialObserved = observed;
+                    initialAssessment = run.timeline->assess(frameTime, observed);
+                    assessment = initialAssessment;
                     error = assessment.error;
+                    const FutureTimestampWait wait(frameTime, observed, run.deadline, initialAssessment);
+                    if (wait.requested()) {
+                        waitDeadline = wait.deadline();
+                        waitOutcome = "waiting";
+                        error.clear();
+                        while (wait.shouldWait(observed)) {
+                            if (waitGuards.size() >= FutureTimestampWaitGuardLimit) {
+                                error = "future_timestamp_wait_guard_limit";
+                                waitOutcome = "guard_limit";
+                                break;
+                            }
+                            if (waitDeadline - observed >= 10000) Sleep(1);
+                            else SwitchToThread();
+                            const auto waiting = observe(run.binding, process.value, run.frequency);
+                            waitGuards.push_back(waiting);
+                            run.finalState = waiting;
+                            observed = waiting.observedQpc100ns;
+                            assessment = run.timeline->assess(frameTime, observed);
+                            if (observed < initialObserved || waitGuards.size() > 1 &&
+                                observed < waitGuards[waitGuards.size() - 2].observedQpc100ns) {
+                                error = "future_timestamp_wait_clock_regressed";
+                                waitOutcome = "clock_regressed";
+                                break;
+                            }
+                            error = windowFailure(run.binding, waiting, &run.baseline);
+                            if (!error.empty()) {
+                                waitOutcome = "window_guard_failure";
+                                break;
+                            }
+                            if (signal->closed) {
+                                error = "capture_item_closed";
+                                waitOutcome = "capture_item_closed";
+                                break;
+                            }
+                        }
+                        assessment = run.timeline->assess(frameTime, observed);
+                        if (error.empty()) {
+                            if (!wait.eligible(observed)) {
+                                error = "future_timestamp_wait_budget_exceeded";
+                                waitOutcome = "budget_exceeded";
+                            } else {
+                                error = assessment.error;
+                                waitOutcome = error.empty() ? "eligible" : "timestamp_rejected";
+                            }
+                        }
+                    }
                     if (error.empty()) {
                         const auto content = frame.value.ContentSize();
                         if (content.Width != size.Width || content.Height != size.Height)
@@ -437,6 +490,18 @@ namespace NativeWgcBurst {
                     << ",\"timestamp_available\":" << timestampAvailable
                     << ",\"request_qpc_100ns\":" << run.request << ",\"frame_qpc_100ns\":" << frameTime
                     << ",\"observed_qpc_100ns\":" << observed << ",\"frame_age_100ns\":" << assessment.age100ns
+                    << ",\"initial_timestamp_assessment\":{\"observed_qpc_100ns\":" << initialObserved
+                    << ",\"frame_age_100ns\":" << initialAssessment.age100ns
+                    << ",\"delta_from_previous_or_request_100ns\":" << initialAssessment.delta100ns
+                    << ",\"gap_exceeded\":" << initialAssessment.gapExceeded
+                    << ",\"error\":" << jsonString(initialAssessment.error) << '}'
+                    << ",\"future_timestamp_wait\":{\"requested\":" << (waitDeadline != 0)
+                    << ",\"deadline_qpc_100ns\":" << waitDeadline
+                    << ",\"elapsed_100ns\":" << (waitDeadline ? observed - initialObserved : 0)
+                    << ",\"outcome\":" << jsonString(waitOutcome) << ",\"guards\":[";
+                for (size_t index = 0; index < waitGuards.size(); ++index)
+                    record << (index ? "," : "") << stateJson(waitGuards[index]);
+                record << "]}"
                     << ",\"delta_from_previous_or_request_100ns\":" << assessment.delta100ns
                     << ",\"gap_exceeded\":" << (error.empty() && assessment.gapExceeded)
                     << ",\"png\":" << (pngName.empty() ? "null" : jsonString(pngName))

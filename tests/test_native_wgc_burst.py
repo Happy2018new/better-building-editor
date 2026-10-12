@@ -10,9 +10,11 @@ SOURCE = ROOT / 'tools/native_wgc'
 
 HARNESS = r'''
 #include "burst_window_capture.h"
+#include <chrono>
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <thread>
 using namespace NativeWgcBurst;
 void require(bool condition, const char* message) {
     if (!condition) throw std::runtime_error(message);
@@ -25,6 +27,10 @@ WindowState baseline() {
     s.client = {10,20,74,68}; s.frame = {2,2,82,76};
     s.extendedStyle = 0x08000000U;
     return s;
+}
+int64_t realClock100ns() {
+    return std::chrono::duration_cast<std::chrono::duration<int64_t,std::ratio<1,10000000>>>(
+        std::chrono::steady_clock::now().time_since_epoch()).count();
 }
 int main(int argc, char** argv) {
     try {
@@ -44,6 +50,37 @@ int main(int argc, char** argv) {
             require(!t.assess(request+10,request+11).valid(), "duplicate accepted");
             require(!t.assess(request+9,request+11).valid(), "nonmonotonic accepted");
             require(t.assess(request+11,request+12).valid(), "next fresh frame rejected");
+        } else if (scenario == "future_wait_real_clock") {
+            const auto now = realClock100ns(), frame = now + 20000, deadline = now + 1000000;
+            FrameTimeline timeline(now,deadline,options);
+            const auto initial = timeline.assess(frame,now);
+            require(initial.error == "frame_timestamp_in_future", "future frame accepted without waiting");
+            FutureTimestampWait wait(frame,now,deadline,initial);
+            require(wait.requested() && !wait.eligible(now), "future wait did not retain strict eligibility");
+            auto observed = realClock100ns();
+            while (wait.shouldWait(observed)) {
+                std::this_thread::sleep_for(std::chrono::microseconds(100));
+                observed = realClock100ns();
+            }
+            require(wait.eligible(observed) && timeline.assess(frame,observed).valid(),
+                    "real clock never made the frame eligible inside the wait budget");
+        } else if (scenario == "future_wait_bounds") {
+            FrameTimeline timeline(request,end,options);
+            const auto large = request + FutureTimestampWaitLimit100ns + 1;
+            require(!FutureTimestampWait(large,request,end,timeline.assess(large,request)).requested(),
+                    "large future offset received a wait allowance");
+            require(!FutureTimestampWait(end+1,end,end,timeline.assess(end+1,end)).requested(),
+                    "future wait extended the capture interval");
+            FutureTimestampWait tail(end,end-10,end,timeline.assess(end,end-10));
+            require(tail.deadline() == end && tail.eligible(end) && !tail.eligible(end+1),
+                    "wait accepted an observation after the planned deadline");
+            const auto frame = request + 1000001;
+            FutureTimestampWait head(frame,frame-1,end,timeline.assess(frame,frame-1));
+            require(head.eligible(frame), "small offset incorrectly blocked");
+            require(timeline.assess(frame,frame).gapExceeded, "waiting concealed the startup gap");
+            timeline.accept(frame);
+            for (int64_t time = frame + 500000; time < end; time += 500000) timeline.accept(time);
+            require(!timeline.complete(true,false), "waited frame made an uncovered interval complete");
         } else if (scenario == "background") {
             const WindowBinding binding{789,123,456};
             const auto first = baseline();
@@ -170,6 +207,12 @@ class NativeBurstContractTests(unittest.TestCase):
 
     def test_equal_duplicate_old_future_and_nonmonotonic_frames_are_rejected(self):
         self.scenario('freshness')
+
+    def test_future_frame_requires_actual_clock_progress_before_eligibility(self):
+        self.scenario('future_wait_real_clock')
+
+    def test_future_wait_rejects_large_offsets_deadline_overrun_and_uncovered_gaps(self):
+        self.scenario('future_wait_bounds')
 
     def test_owned_foreground_minimize_cloak_and_noactivate_change_fail(self):
         self.scenario('background')

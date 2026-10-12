@@ -72,6 +72,29 @@ namespace NativeWgcBurst {
         bool valid() const { return error.empty(); }
     };
 
+    constexpr int64_t FutureTimestampWaitLimit100ns = 50 * 10000;
+    constexpr uint32_t FutureTimestampWaitGuardLimit = 128;
+
+    class FutureTimestampWait {
+    public:
+        FutureTimestampWait(int64_t frame, int64_t observed, int64_t deadline,
+                            const FrameAssessment& initial) : frame_(frame) {
+            if (initial.error == "frame_timestamp_in_future" && frame > observed &&
+                frame <= deadline && frame - observed <= FutureTimestampWaitLimit100ns)
+                deadline_ = observed + std::min(FutureTimestampWaitLimit100ns, deadline - observed);
+        }
+        bool requested() const { return deadline_ != 0; }
+        int64_t deadline() const { return deadline_; }
+        bool shouldWait(int64_t observed) const {
+            return requested() && observed < frame_ && observed < deadline_;
+        }
+        bool eligible(int64_t observed) const {
+            return requested() && observed >= frame_ && observed <= deadline_;
+        }
+    private:
+        int64_t frame_, deadline_ = 0;
+    };
+
     // This policy is shared with the host-only tests; it never reads a game clock.
     class FrameTimeline {
     public:

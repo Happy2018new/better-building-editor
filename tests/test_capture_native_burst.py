@@ -109,10 +109,17 @@ class NativeBurstWrapperTests(unittest.TestCase):
 
     def frame(self, sequence, timestamp, observed, delta):
         after = self.state(observed + 3)
+        initial_error = ('frame_not_after_request' if timestamp <= 1000000 else
+                         'frame_after_planned_interval' if timestamp > 2000000 else '')
         return {'schema': 1, 'sequence': sequence, 'receipt': 'frame_%06d.capture.json' % sequence,
                 'capture_valid': True, 'timestamp_available': True, 'request_qpc_100ns': 1000000,
                 'frame_qpc_100ns': timestamp, 'observed_qpc_100ns': observed,
                 'frame_age_100ns': observed - timestamp, 'delta_from_previous_or_request_100ns': delta,
+                'initial_timestamp_assessment': {'observed_qpc_100ns': observed,
+                    'frame_age_100ns': observed - timestamp, 'delta_from_previous_or_request_100ns': delta,
+                    'gap_exceeded': False, 'error': initial_error},
+                'future_timestamp_wait': {'requested': False, 'deadline_qpc_100ns': 0,
+                    'elapsed_100ns': 0, 'outcome': 'not_requested', 'guards': []},
                 'gap_exceeded': False, 'png': 'frame_%06d.png' % sequence, 'width': 4, 'height': 3,
                 'error': '', 'before': self.state(observed - 1), 'after_readback': self.state(observed + 1),
                 'before_png_write': self.state(observed + 2), 'after_png_write': after,
@@ -125,6 +132,8 @@ class NativeBurstWrapperTests(unittest.TestCase):
                 'ok': True, 'capture_valid': True, 'temporal_complete': True, 'owned_hwnd': 42,
                 'owned_pid': 123, 'owned_creation_time': '456', 'planned_duration_ms': 100,
                 'max_frames': 10, 'max_gap_ms': 40, 'max_frame_age_ms': 1000,
+                'timestamp_policy': 'strict_after_bounded_qpc_wait',
+                'future_timestamp_wait_limit_ms': 50, 'future_timestamp_wait_guard_limit': 128,
                 'request_qpc_100ns': 1000000, 'planned_end_qpc_100ns': 2000000,
                 'finished_qpc_100ns': 2000200, 'attempted_frames': 3, 'valid_frames': 3,
                 'rejected_frames': 0, 'frame_arrival_events': 3, 'source_frame_loss_known': False,
@@ -179,6 +188,54 @@ class NativeBurstWrapperTests(unittest.TestCase):
         self.assertNotIn('frames', compact)
         self.assertNotIn('native_manifest', compact)
         self.assertEqual(3, compact['valid_frames'])
+
+    def waited_frame(self, index=0):
+        record = self.manifest['frames'][index]
+        initial = record['frame_qpc_100ns'] - 10000
+        record['before'] = self.state(initial - 1)
+        record['initial_timestamp_assessment'].update(observed_qpc_100ns=initial,
+            frame_age_100ns=-10000, error='frame_timestamp_in_future')
+        record['future_timestamp_wait'].update(requested=True, deadline_qpc_100ns=min(initial + 500000, 2000000),
+            elapsed_100ns=record['observed_qpc_100ns'] - initial, outcome='eligible',
+            guards=[self.state(initial + 1000), self.state(record['observed_qpc_100ns'])])
+        return record
+
+    def test_small_future_offsets_wait_for_real_observation_without_changing_frame_times(self):
+        for index in range(3):
+            self.waited_frame(index)
+        report = self.capture()
+        self.assertTrue(report['ok'])
+        self.assertEqual(3, report['validated_timeline']['future_timestamp_waited_frames'])
+        self.assertEqual(10000, report['validated_timeline']['maximum_initial_future_offset_100ns'])
+        self.assertEqual([1250000, 1500000, 1750000],
+                         [frame['frame_qpc_100ns'] for frame in report['native_manifest']['frames']])
+        self.assertFalse(report['animation_acceptance'])
+
+    def test_future_wait_cannot_extend_interval_or_mask_a_wait_guard_failure(self):
+        record = self.waited_frame(2)
+        record['observed_qpc_100ns'] = 2000001
+        record['frame_age_100ns'] = 250001
+        record['future_timestamp_wait']['elapsed_100ns'] = 260001
+        record['future_timestamp_wait']['guards'][-1] = self.state(2000001)
+        record.update(after_readback=self.state(2000002), before_png_write=self.state(2000003),
+                      after_png_write=self.state(2000004), last_window_state=self.state(2000004))
+        self.failure('waited past its budget')
+        self.output = self.root / 'wait-guard-failure'
+        self.manifest = self.make_manifest()
+        record = self.waited_frame()
+        record['future_timestamp_wait']['guards'][0]['window_noactivate_style'] = False
+        with self.assertRaisesRegex(burst.CaptureError, 'Native window window_noactivate_style mismatch'):
+            self.capture()
+
+    def test_future_wait_metadata_cannot_invent_elapsed_time_or_a_larger_limit(self):
+        record = self.waited_frame()
+        record['future_timestamp_wait']['elapsed_100ns'] += 1
+        self.failure('Actual future wait mismatch')
+        self.output = self.root / 'larger-wait-limit'
+        self.manifest = self.make_manifest()
+        self.manifest['future_timestamp_wait_limit_ms'] = 51
+        with self.assertRaisesRegex(burst.CaptureError, 'future_timestamp_wait_limit_ms mismatch'):
+            self.capture()
 
     def test_timeout_kills_only_owned_helper_and_preserves_partial_output(self):
         def partial(output):

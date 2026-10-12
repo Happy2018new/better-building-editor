@@ -255,6 +255,53 @@ def _png_evidence(raw, evidence, width, height):
     _require(max(variance) > 1., 'Native PNG is blank; activation fallback is disabled')
 
 
+def _timestamp_error(frame, observed, request, previous, deadline):
+    return ('frame_not_after_request' if frame <= request else
+            'frame_not_strictly_monotonic' if frame <= previous else
+            'frame_timestamp_in_future' if frame > observed else
+            'frame_delivery_too_old' if observed - frame > 10000000 else
+            'frame_after_planned_interval' if frame > deadline else '')
+
+
+def _validate_timestamp_wait(record, binding, window, baseline, request, previous, deadline, max_gap):
+    initial = record.get('initial_timestamp_assessment')
+    wait = record.get('future_timestamp_wait')
+    _require(isinstance(initial, dict) and isinstance(wait, dict), 'Frame initial/wait assessment is missing')
+    frame, observed = record['frame_qpc_100ns'], record['observed_qpc_100ns']
+    initial_observed = _integer(initial.get('observed_qpc_100ns'), 'Initial frame observation', request)
+    initial_error = _timestamp_error(frame, initial_observed, request, previous, deadline)
+    _equal(initial.get('error'), initial_error, 'Initial timestamp policy')
+    _equal(initial.get('frame_age_100ns'), initial_observed - frame, 'Initial frame age')
+    _equal(initial.get('delta_from_previous_or_request_100ns'), frame - previous, 'Initial frame interval')
+    _equal(initial.get('gap_exceeded'), not initial_error and frame - previous > max_gap, 'Initial frame gap')
+    requested = (initial_error == 'frame_timestamp_in_future' and frame <= deadline and
+                 frame - initial_observed <= 500000)
+    wait_deadline = min(initial_observed + 500000, deadline) if requested else 0
+    _equal(wait.get('requested'), requested, 'Future timestamp wait eligibility')
+    _equal(wait.get('deadline_qpc_100ns'), wait_deadline, 'Future timestamp wait deadline')
+    _equal(wait.get('elapsed_100ns'), observed - initial_observed if requested else 0, 'Actual future wait')
+    guards = wait.get('guards')
+    _require(isinstance(guards, list) and len(guards) <= 128, 'Future wait guards are unbounded or missing')
+    _require(record['before']['observed_qpc_100ns'] <= initial_observed <= observed,
+             'Initial/final frame observations moved backwards')
+    if requested:
+        _equal(wait.get('outcome'), 'eligible', 'Future timestamp wait outcome')
+        _require(bool(guards) and frame <= observed <= wait_deadline,
+                 'Future timestamp waited past its budget or never became eligible')
+        previous_guard = initial_observed
+        for state in guards:
+            guarded = _window_state(state, binding, window, baseline)
+            _require(previous_guard <= guarded <= observed, 'Future wait guard timestamps moved backwards')
+            previous_guard = guarded
+        _equal(previous_guard, observed, 'Final future wait QPC observation')
+    else:
+        _equal(wait.get('outcome'), 'not_requested', 'Unrequested future wait outcome')
+        _equal(guards, [], 'Unrequested future wait guards')
+        _equal(observed, initial_observed, 'Unrequested wait changed frame observation')
+    return {'waited': requested, 'initial_future_offset_100ns': max(0, frame - initial_observed),
+            'elapsed_100ns': wait['elapsed_100ns'], 'guard_observations': len(guards)}
+
+
 def _validate_native(report, binding, window, stdout):
     directory = Path(report['output_directory'])
     _require(not _linked(directory) and directory.is_dir() and directory.resolve() == directory,
@@ -271,7 +318,8 @@ def _validate_native(report, binding, window, stdout):
                        ('native_resolution', True), ('pixel_acceptance', False),
                        ('source_frame_loss_known', False), ('owned_hwnd', window['hwnd']),
                        ('owned_pid', binding['game_pid']), ('owned_creation_time', binding['game_identity']),
-                       ('max_frame_age_ms', 1000)):
+                       ('max_frame_age_ms', 1000), ('timestamp_policy', 'strict_after_bounded_qpc_wait'),
+                       ('future_timestamp_wait_limit_ms', 50), ('future_timestamp_wait_guard_limit', 128)):
         _equal(native.get(key), value, 'Native manifest ' + key)
     for key in ('planned_duration_ms', 'max_frames', 'max_gap_ms'):
         _equal(native.get(key), report['request'][key], 'Native requested ' + key)
@@ -288,6 +336,7 @@ def _validate_native(report, binding, window, stdout):
     expected_files = {'manifest.json'}
     accepted = []
     gaps = []
+    waits = []
     report['frames'] = []
     last_guard = request
     for sequence, record in enumerate(records, 1):
@@ -310,11 +359,7 @@ def _validate_native(report, binding, window, stdout):
         age, delta = observed - frame, frame - previous
         _equal(record.get('frame_age_100ns'), age, 'Frame age')
         _equal(record.get('delta_from_previous_or_request_100ns'), delta, 'Frame interval')
-        policy_error = ('frame_not_after_request' if frame <= request else
-                        'frame_not_strictly_monotonic' if frame <= previous else
-                        'frame_timestamp_in_future' if frame > observed else
-                        'frame_delivery_too_old' if age > 10000000 else
-                        'frame_after_planned_interval' if frame > deadline else '')
+        policy_error = _timestamp_error(frame, observed, request, previous, deadline)
         _require(type(record.get('capture_valid')) is bool and isinstance(record.get('error'), str),
                  'Frame validity/error is malformed')
         valid = record['capture_valid']
@@ -328,6 +373,9 @@ def _validate_native(report, binding, window, stdout):
         last_time = _window_state(record.get('last_window_state'), binding, window, baseline)
         _require(last_guard <= before_time <= observed <= last_time,
                  'Native receipt guard timestamps moved backwards')
+        evidence['timestamp_wait'] = _validate_timestamp_wait(
+            record, binding, window, baseline, request, previous, deadline, max_gap)
+        waits.append(evidence['timestamp_wait'])
         if valid:
             png_name = 'frame_%06d.png' % sequence
             _equal(record.get('png'), png_name, 'Frame PNG name')
@@ -365,6 +413,10 @@ def _validate_native(report, binding, window, stdout):
     report['validated_timeline'] = {'valid_frames': valid_count, 'attempted_frames': len(records),
                                     'rejected_frames': len(records) - valid_count,
                                     'maximum_gap_100ns': max(gaps + [deadline - accepted[-1]]),
+                                    'future_timestamp_waited_frames': sum(wait['waited'] for wait in waits),
+                                    'maximum_initial_future_offset_100ns': max(
+                                        wait['initial_future_offset_100ns'] for wait in waits),
+                                    'maximum_future_wait_elapsed_100ns': max(wait['elapsed_100ns'] for wait in waits),
                                     'temporal_complete': complete}
     _require(complete, 'Native burst has an uncovered start, interior or tail gap')
     for key, value in (('ok', True), ('capture_valid', True), ('temporal_complete', True),
