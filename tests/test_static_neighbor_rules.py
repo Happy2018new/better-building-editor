@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -14,6 +15,7 @@ from projection.cell import actor_data, background, foreground, make_cell
 from projection.jobs import EditJob
 from projection.model import AIR, Document, Editor
 from projection.static_neighbor_data import GATE_NAMES, HANGING_MOSS_NAMES
+from projection import static_neighbor_data as static_source
 
 NAME = 'minecraft:pale_hanging_moss'
 STONE, WATER = ('minecraft:stone', 0), ('minecraft:water', 0)
@@ -55,6 +57,21 @@ class StaticNeighborRuleTests(unittest.TestCase):
                 mutate(data)
                 with self.assertRaises(ValueError):
                     capabilities(data, self.palette, self.manifest)
+
+    def test_stale_rules_reject_whole_transaction_before_edit_or_history_publication(self):
+        gate = registry.canonical(('minecraft:fence_gate', 0))
+        for material in (gate, moss()):
+            for field, changed in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'NEMC next'),
+                                   ('PALETTE_SHA256', '0' * 64)):
+                with self.subTest(material=material, field=field):
+                    editor = Editor(Document((32, 32, 32), {(15, 16, 15): material}))
+                    before = editor.document.blocks.copy()
+                    with patch.object(static_source, field, changed):
+                        with self.assertRaisesRegex(ValueError, 'static neighbor'):
+                            paint(editor, (15, 15, 15), STONE)
+                    self.assertEqual(before, editor.document.blocks)
+                    self.assertFalse(editor.undo_stack)
+                    self.assertFalse(editor.redo_stack)
 
     def test_all_native_gate_rows_match_local_edits_across_chunk_boundary(self):
         count, names = 0, set()

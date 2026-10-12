@@ -16,6 +16,7 @@ from projection.visible_actor import compose_actor
 from projection.cell import actor_data, foreground
 from projection.debug_blueprints import build, VISUAL_CASES
 from projection.entity_render import native_actor
+from projection import native_pot_data, native_pot_sherd_data
 
 
 class NativePotTests(unittest.TestCase):
@@ -62,6 +63,18 @@ class NativePotTests(unittest.TestCase):
         with patch.object(registry,'fingerprint',return_value='future'):
             with self.assertRaisesRegex(ValueError,'observations'):
                 native_pot_actor(('minecraft:decorated_pot',0),None)
+
+    def test_pose_and_sherd_sources_are_independently_version_guarded(self):
+        actor = compose_actor({'direction': 0, 'foreign': {'value': 7}}, None)
+        before = copy.deepcopy(actor)
+        for source in (native_pot_data, native_pot_sherd_data):
+            for field, changed in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'NEMC next'),
+                                   ('PALETTE_SHA256', '0' * 64)):
+                with self.subTest(source=source.__name__, field=field):
+                    with patch.object(source, field, changed):
+                        with self.assertRaisesRegex(ValueError, 'observations'):
+                            native_pot_actor(('minecraft:decorated_pot', 0), None, actor)
+                    self.assertEqual(before, actor)
 
     def test_full_nbt_alone_rebuilds_each_observed_nondefault_renderer(self):
         data = json.loads((ROOT / 'tools/data/native_pot_sherds_nemc_3.9.0.401155.json').read_text())

@@ -9,6 +9,7 @@ fence arms and pane arms which have no states.
 """
 from __future__ import unicode_literals
 from . import block_registry as registry
+from . import static_neighbor_data as static_source
 from .static_neighbor_data import HANGING_MOSS_NAMES
 from .block_traits import is_solid
 from .cell import actor_data, foreground, replace_layer
@@ -74,6 +75,13 @@ def _properties(value):
     return _record(value)[1]
 
 
+def _validate_static_source():
+    if (getattr(static_source, 'SCHEMA_VERSION', None) != 1 or
+            static_source.SOURCE_VERSION != registry.source_version() or
+            static_source.PALETTE_SHA256 != registry.fingerprint()):
+        raise ValueError('Native static neighbor rules need observations for this block registry')
+
+
 def _kind(value):
     properties = _properties(value)
     if 'rail_direction' in properties:
@@ -81,12 +89,14 @@ def _kind(value):
     if 'wall_post_bit' in properties:
         return 'wall'
     if 'in_wall_bit' in properties:
+        _validate_static_source()
         return 'gate'
     if 'dripstone_thickness' in properties:
         return 'dripstone'
     if 'stability' in properties and 'stability_check' in properties:
         return 'scaffold'
     if foreground(value)[0] in HANGING_MOSS_NAMES:
+        _validate_static_source()
         return 'hanging_moss'
     return 'chest' if properties and foreground(value)[0] in _CHESTS else None
 

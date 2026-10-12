@@ -1,6 +1,8 @@
 """Refresh native pot directions and rebuild observed sherds from typed NBT."""
 from __future__ import unicode_literals
 from .cell import freeze, thaw, text_type
+from . import native_pot_data as pose_source
+from . import native_pot_sherd_data as sherd_source
 from .nbt_spatial import field_key, root_payload, scalar, set_scalar
 from .native_pot_data import SOURCE_VERSION, PALETTE_SHA256, TEMPLATE
 from .native_pot_sherd_data import SHERD_FIELDS
@@ -15,6 +17,10 @@ def native_pot_actor(material, renderer, actor=None):
     from . import block_registry as registry
     if SOURCE_VERSION != registry.source_version() or PALETTE_SHA256 != registry.fingerprint():
         raise ValueError('Native pot rendering needs observations for this block registry')
+    for source in (pose_source, sherd_source):
+        if (source.SCHEMA_VERSION != 1 or source.SOURCE_VERSION != registry.source_version() or
+                source.PALETTE_SHA256 != registry.fingerprint()):
+            raise ValueError('Native pot rendering needs observations for this block registry')
     state = registry.states(material)
     if state is None:
         return renderer

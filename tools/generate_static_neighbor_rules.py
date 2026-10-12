@@ -99,7 +99,7 @@ def generate(check=False, root=ROOT):
     content = ('# -*- coding: utf-8 -*-\n'
                '"""Generated static capabilities; support deletion and growth are out of scope."""\n'
                'from __future__ import unicode_literals\n\n'
-               'SOURCE_VERSION = %r\nPALETTE_SHA256 = %r\nEVIDENCE_SHA256 = %r\n'
+               'SCHEMA_VERSION = 1\nSOURCE_VERSION = %r\nPALETTE_SHA256 = %r\nEVIDENCE_SHA256 = %r\n'
                'SOURCE_METHOD = %r\nGATE_NAMES = %r\nHANGING_MOSS_NAMES = %r\n') % (
                    manifest['game_version'], manifest['source_sha256'].lower(),
                    hashlib.sha256(source.read_bytes()).hexdigest(), METHOD, tuple(gates), tuple(moss))
