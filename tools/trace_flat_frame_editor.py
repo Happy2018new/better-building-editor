@@ -115,12 +115,17 @@ def pixel_trace(shown, baseline, crop):
 def score_existing(path):
     evidence = json.loads(path.read_text(encoding='utf8'))
     controls = evidence['controls']
-    for control in controls.values():
+    captures = {}
+    for name, control in controls.items():
         shot = control['capture']
-        assert hashlib.sha256(Path(shot['path']).read_bytes()).hexdigest() == shot['sha256']
+        original = Path(shot['path'])
+        capture = original if original.is_file() else path.parent / original.name
+        if hashlib.sha256(capture.read_bytes()).hexdigest() != shot['sha256']:
+            raise ValueError('Capture SHA-256 mismatch: %s' % capture)
+        captures[name] = capture
     crop = evidence['crop']
-    blank = controls['blank']['capture']['path']
-    body = controls['body']['capture']['path']
+    blank = captures['blank']
+    body = captures['body']
     body_signal = pixel_trace(body, blank, crop)
     roi = body_signal['bbox']
     assert roi is not None, 'Body ROI is unavailable'
@@ -128,11 +133,11 @@ def score_existing(path):
             'source_report_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
             'scorer_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             'production_rendering_accepted': False, 'body_roi_from_body_vs_blank': body_signal,
-            'controls': {key: {'whole_viewport': pixel_trace(controls[key]['capture']['path'], blank, crop),
-                               'body_roi': pixel_trace(controls[key]['capture']['path'], blank, roi),
+            'controls': {key: {'whole_viewport': pixel_trace(captures[key], blank, crop),
+                               'body_roi': pixel_trace(captures[key], blank, roi),
                                'capture_sha256': controls[key]['capture']['sha256']}
                          for key in ('combined', 'item_only', 'positive')},
-            'combined_vs_body': {key: pixel_trace(controls[key]['capture']['path'], body, crop)
+            'combined_vs_body': {key: pixel_trace(captures[key], body, crop)
                                  for key in ('combined', 'combined_repeat')}}
 
 

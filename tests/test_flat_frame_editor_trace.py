@@ -1,5 +1,6 @@
 """Keep submitted item coordinates when a ready editor still renders no item."""
 import copy
+import hashlib
 import json
 import os
 import sys
@@ -17,6 +18,40 @@ import trace_flat_frame_editor as trace
 
 
 class FrameEditorTraceTests(unittest.TestCase):
+    def archived_report(self, directory):
+        from PIL import Image
+        directory = Path(directory)
+        controls = {}
+        for name in ('combined', 'combined_repeat', 'body', 'blank', 'item_only', 'positive'):
+            image = Image.new('RGB', (20, 20), 'white')
+            if name != 'blank':
+                image.paste('black', (4, 4, 16, 16))
+            capture = directory / (name + '.png')
+            image.save(capture)
+            controls[name] = {'capture': {
+                'path': str(directory / 'removed-session' / capture.name),
+                'sha256': hashlib.sha256(capture.read_bytes()).hexdigest()}}
+        report = directory / 'report.json'
+        report.write_text(json.dumps({'controls': controls, 'crop': [0, 0, 20, 20]}), encoding='utf8')
+        return report
+
+    def test_archived_report_replays_after_original_session_is_removed(self):
+        with TemporaryDirectory() as directory:
+            report = self.archived_report(directory)
+            original = report.read_bytes()
+            result = trace.score_existing(report)
+            self.assertEqual(144, result['body_roi_from_body_vs_blank']['pixels'])
+            self.assertEqual(0, result['combined_vs_body']['combined']['pixels'])
+            self.assertFalse(result['production_rendering_accepted'])
+            self.assertEqual(original, report.read_bytes())
+
+    def test_archived_capture_with_wrong_hash_is_rejected(self):
+        with TemporaryDirectory() as directory:
+            report = self.archived_report(directory)
+            (Path(directory) / 'combined.png').write_bytes(b'altered archive bytes')
+            with self.assertRaisesRegex(ValueError, 'Capture SHA-256 mismatch'):
+                trace.score_existing(report)
+
     def test_item_only_control_preserves_volume_and_item_index_without_source_mutation(self):
         data = {'volume': (8, 8, 17), 'common': {('minecraft:frame', 2): [219],
             ('modern_projection:preview_item_minecraft_diamond_sword_0_f2_r0', 0): [795]},
