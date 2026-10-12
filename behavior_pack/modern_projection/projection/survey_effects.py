@@ -2,6 +2,7 @@
 """Private GPU wire effects and exactly two persistent survey point markers."""
 from __future__ import unicode_literals
 import time
+import traceback
 from .outline_settings import defaults, normalize
 from .native_glow import NativeGlow, survey_packet
 
@@ -64,17 +65,20 @@ class WireEffects(object):
     def _uniform(self, record, slot, value):
         if record['uniforms'].get(slot) == value:
             return True
+        record['uniforms'].pop(slot, None)
         ok = self.bridge.factory.CreateActorRender(record['id']).SetEntityExtraUniforms(slot, value)
         if ok:
             record['uniforms'][slot] = value
         return ok
 
     def _configure(self, record):
+        if not self._restore_move(record):
+            return
         self.bridge.factory.CreateModel(record['id']).SetEntityShadowShow(False)
         self._update(record, time.time())
         self._move(record, self.anchor or record['centre'])
 
-    def _update(self, record, now):
+    def _update(self, record, now, camera=None):
         point = record['kind'] == 'strike'
         options = GOLD_PRESET if point else self.options
         style = 0. if point or self.style == 'golden' else 1.
@@ -93,7 +97,7 @@ class WireEffects(object):
                 record['size'], record['face'] if point else None, appearance, density)
             glow.update(record['centre'], variables)
         self._uniform(record, 3, appearance)
-        camera = self.camera or self.anchor or record['centre']
+        camera = camera or self.camera or self.anchor or record['centre']
         view = tuple(float(camera[i])-record['centre'][i] for i in range(3))
         self._uniform(record, 4, view + (float(record['face']) if point else density,))
 
@@ -101,20 +105,72 @@ class WireEffects(object):
         if record['glow'] is not None:
             record['glow'].clear()
         self.bridge.system.DestroyClientEntity(record['id'])
+        record.pop('move_restore', None)
 
-    def _move(self, record, anchor):
+    def _move(self, record, anchor, commit=True):
+        if not self._restore_move(record):
+            return False
         if anchor is None:
             anchor = record['centre']
         anchor = tuple(anchor)
         if record['anchor'] == anchor:
             return True
-        if not self.bridge.factory.CreatePos(record['id']).SetPosForClientEntity(anchor):
-            return False
         offset = tuple(record['centre'][i]-anchor[i] for i in range(3)) + (1.,)
-        if not self._uniform(record, 2, offset):
+        previous = record['anchor']
+        old_offset = (tuple(record['centre'][i]-previous[i] for i in range(3)) + (1.,)
+                      if previous is not None else (1., 1., 1., 1.))
+        pending = {'entity': record['id'], 'position': previous if previous is not None else record['centre'],
+                   'uniform': None, 'target': anchor, 'offset': offset}
+        record['move_restore'] = pending
+        try:
+            moved = self.bridge.factory.CreatePos(record['id']).SetPosForClientEntity(anchor)
+            if moved:
+                pending['uniform'] = record['uniforms'].get(2, old_offset)
+                moved = self.bridge.factory.CreateActorRender(record['id']).SetEntityExtraUniforms(2, offset)
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            moved = False
+        if not moved:
+            if commit:
+                self._restore_move(record)
             return False
-        record['anchor'] = anchor
+        if commit:
+            self._commit_move(record)
         return True
+
+    def _commit_move(self, record):
+        pending = record.pop('move_restore', None)
+        if pending is not None:
+            record['anchor'] = pending['target']
+            record['uniforms'][2] = pending['offset']
+
+    def _restore_move(self, record):
+        pending = record.get('move_restore')
+        if pending is None:
+            return True
+        entity = pending['entity']
+        if entity != record['id']:
+            record.pop('move_restore', None)
+            return True
+        restored = True
+        for kind in ('uniform', 'position'):
+            value = pending[kind]
+            if value is None:
+                continue
+            try:
+                if kind == 'uniform':
+                    moved = self.bridge.factory.CreateActorRender(entity).SetEntityExtraUniforms(2, value)
+                else:
+                    moved = self.bridge.factory.CreatePos(entity).SetPosForClientEntity(value)
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+                moved = False
+            if moved:
+                pending[kind] = None
+            restored = moved and restored
+        if restored:
+            record.pop('move_restore', None)
+        return restored
 
     def replace(self, origin, size):
         bounds = (tuple(origin), tuple(size))
@@ -175,16 +231,34 @@ class WireEffects(object):
         return bool(self.layers or any(self.points))
 
     def follow(self, anchor, camera=None):
-        if anchor is not None:
-            self.anchor = tuple(anchor)
-        if camera is not None:
-            self.camera = tuple(camera)
+        anchor = tuple(anchor) if anchor is not None else self.anchor
+        camera = tuple(camera) if camera is not None else self.camera
+        records = self._records()
+        restored = True
+        for record in records:
+            restored = self._restore_move(record) and restored
+        if not restored:
+            return False
+        touched = []
+        for record in records:
+            touched.append(record)
+            if not self._move(record, anchor, commit=False):
+                for previous in reversed(touched):
+                    self._restore_move(previous)
+                return False
         now = time.time()
-        ok = True
-        for record in self._records():
-            ok = self._move(record, self.anchor) and ok
-            self._update(record, now)
-        return ok
+        try:
+            for record in records:
+                self._update(record, now, camera or anchor)
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            for previous in reversed(touched):
+                self._restore_move(previous)
+            return False
+        for record in touched:
+            self._commit_move(record)
+        self.anchor, self.camera = anchor, camera
+        return True
 
     def clear_box(self):
         for record in self.layers:
