@@ -69,6 +69,16 @@ row['depth_plane']=s.depth_plane()
 row['camera_pan']=s.camera_pan
 row['groups_revision']=s.liquid_preview.revision if s.liquid_preview is not None else None
 row['source_cells']=[(pos,encode(value)) for pos,value in sorted(s.editor.document.blocks.items())]
+row['liquid_control_requests']=[]
+controls=s.liquid_controls
+if controls is not None:
+ for key,entry in sorted(controls.registry.items(),key=lambda item:repr(item[0])):
+  renderer=entry.get('renderer')
+  row['liquid_control_requests'].append({'key':repr(key),'geometry':entry.get('geometry'),
+   'visible':renderer.visible if renderer is not None else None,
+   'poses':renderer.poses if renderer is not None else None,
+   'uniforms':renderer.uniforms if renderer is not None else None,
+   'ready_request':entry.get('ready_request')})
 _result=json.dumps(row)
 '''
 WORLD_STATE = '''from modern_projection.projection.cell import encode

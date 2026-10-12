@@ -11,7 +11,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from analyze_liquid_workspace import capture_failures, compare_masks, difference_mask, opacity_row, select_roi
+from analyze_liquid_workspace import capture_failures, compare_masks, difference_mask, opacity_row, select_roi, transparency_control
 
 
 class LiquidWorkspaceAnalysisTests(unittest.TestCase):
@@ -85,6 +85,42 @@ class LiquidWorkspaceAnalysisTests(unittest.TestCase):
         row = opacity_row(low,high)
         self.assertTrue(row['body_updated'])
         self.assertFalse(row['ids_retained'])
+
+    def transparency_frames(self):
+        empty = np.zeros((20,20,3),dtype=np.int16)
+        no_water,liquid_only = empty.copy(),empty.copy()
+        rois = {'submerged_body':(2,5,6,10), 'behind_block':(12,5,16,10)}
+        for roi in rois.values():
+            selected = select_roi(empty.shape,roi)
+            no_water[selected] = (150,100,50)
+            liquid_only[selected] = (20,40,70)
+        return empty,no_water,liquid_only,rois
+
+    def test_opaque_water_fails_even_when_above_water_cap_is_visible(self):
+        empty,no_water,liquid_only,rois = self.transparency_frames()
+        positive = liquid_only.copy()
+        positive[0:2,2:6] = (150,100,50)
+        row = transparency_control(positive,no_water,liquid_only,empty,rois)
+        self.assertEqual('FAIL',row['status'])
+        self.assertTrue(all(value['body_contribution_pixels']==0 for value in row['controls'].values()))
+        self.assertFalse(row['native_alpha_accepted'])
+
+    def test_both_independent_regions_need_transmitted_body_contributions(self):
+        empty,no_water,liquid_only,rois = self.transparency_frames()
+        positive = liquid_only.copy()
+        positive[select_roi(empty.shape,rois['submerged_body'])] = (80,60,60)
+        self.assertEqual('FAIL',transparency_control(positive,no_water,liquid_only,empty,rois)['status'])
+        positive[select_roi(empty.shape,rois['behind_block'])] = (80,60,60)
+        row = transparency_control(positive,no_water,liquid_only,empty,rois)
+        self.assertEqual('OBSERVED',row['status'])
+        self.assertFalse(row['native_alpha_accepted'])
+
+    def test_missing_underlying_or_water_control_is_not_tested(self):
+        empty,no_water,liquid_only,rois = self.transparency_frames()
+        row = transparency_control(liquid_only,empty,liquid_only,empty,rois)
+        self.assertEqual('NOT_TESTED',row['status'])
+        row = transparency_control(no_water,no_water,empty,empty,rois)
+        self.assertEqual('NOT_TESTED',row['status'])
 
 
 if __name__ == '__main__':

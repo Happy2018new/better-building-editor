@@ -3,6 +3,8 @@
 2026-10-12, Shanghai. Worktree `.runtime/r9-liquid`, branch
 `codex/r9-liquid-integrated`. Native session `f0daab3c7e20422896deba7349b39f2b`,
 owner `liquid-r10-background`, NEMC `3.9.0.401155`, runtime `1.21.120.0`.
+Second and final cold session: `fa2629fec9914ee6a300093c44668bc8`, owner
+`liquid-r10-depth-background`. Both sessions are stopped and restored.
 
 ## Behavioral Change
 
@@ -55,6 +57,21 @@ fence and 183/184 for source. Reviewed pixels show the body support plinth
 fading together with water, and all 5,537 independent water-mask interior
 pixels change above two RGB levels in each case.
 
+V3 completed/restored 82 captures in the second cold session with default
+world configuration. Actual Scene control uniforms, visible slots, poses and
+ready requests are recorded. Water tops are fully framed at depth 0. Actual
+depth 4.999797/4.999729 gives planes Y=3.500203/Y=3.500271, below the water
+top. Source/fence water differential pixels change 26,082/24,644 -> 0;
+below-plane supports remain visible. The fence top is visible above water
+and clips with water. This does not prove submerged-body transparency.
+
+Left/right source water bounds are [472,507,576,679] and
+[1430,507,1540,679]; fence bottom edge is Y=678. Pan (2,0) hides water and
+both liquid native slots; pan (0,0) restores 27,864/25,982 water pixels.
+All eight native references remain stable and match exact requested snapshots.
+Occupancy again changes liquid groups 2 -> 0 -> 2. Parent `4ffc2d1` opacity
+methods update body/liquid .4/.8 and retain source IDs 39/40, fence IDs 53/54.
+
 ## Evidence Limits And Preserved Failures
 
 V1 flow restoration used a stale client `api` alias in the persistent debug
@@ -79,25 +96,69 @@ is expected. The model is also partly outside the top viewport. No depth
 defect or acceptance is inferred. Future probe code uses depth 5.0, plane
 Y=3.5, and a centered top-view pan. Actual near-edge pans are adjusted to
 -.25/.7; offscreen/restore observations remain separate from partial-edge
-acceptance. No further native startup is authorized while parent investigates
-its frozen scaffold startup failures.
+acceptance. V3 corrects these supplied controls as described above. No further
+native startup is authorized this round.
+
+V3 replay V5 counts 4,022 empty-document icon/caption pixels as offscreen
+body samples. V5 is preserved. V6 uses inspected Scene ROI [471,354,1541,846]
+and body-only exclusion [850,540,1163,655], recording raw/excluded counts.
+Coincident model samples are outside this body measurement. Water RGB threshold
+12 is unchanged. Below-plane body samples remain 16,848/159,693; offscreen
+measured body samples are zero. No native alpha or submerged sorting is inferred.
+
+V3 native liquid-only silhouette IoU is .9341523 source/.9402129 fence,
+max edge error 1. This weaker cold repeat is preserved. Native shape acceptance
+remains false; native biome/animation and frozen candidate differ.
+
+The user requires semitransparent water with both submerged contained body and
+an independent block behind water visible. These native gates are NOT TESTED:
+the current fixture has no declared independent regions and all four aligned
+positive/no-water/liquid-only/empty controls. Above-water cap visibility cannot
+pass either gate. The offline analyzer rejects opaque-water positives even
+with a visible cap, and requires contributions in both declared regions.
+All alpha/production flags remain false. Future fixture: isolated fence in
+water on a minimal support, separate high-contrast block directly behind the
+water side, fixed camera/biome/frozen reference frame, independently declared
+submerged-post and rear-block ROIs excluding support, cap and crosshair.
+
+The frozen overlay still-water PNG alpha is uniformly 240/255; flow-side
+PNG alpha is uniformly 255/255. Shader alpha uses uniform4.y when >=0,
+otherwise texture alpha, multiplied by uniform4.w and UI CURRENT_COLOR.a.
+Plains Scene y=-1/w=1 therefore requests an opaque side and nearly opaque
+top; swampland y=.65 overrides both. This explains the chosen fixture's
+appearance and does not establish a shader transport defect. Materials inherit
+entity_for_skeleton_alpha plus DisableCulling; inheritance of blending remains
+unverified. Production profile is disabled and overlay is restored.
+Still PNG: 16x512, SHA256
+`db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3`.
+Flow PNG: 32x1024, SHA256
+`f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246`.
+Both source hidden-view active slots cache uniform4
+[8364166,-1,4501493,1]. These describe requested shader alpha, not active
+blend verification. Future default water alpha requires native validation
+when the client biome opacity field is absent; .65 is the specific swampland
+override and must not become a general default.
 
 ## Background And Resource Recovery
 
 The patched MCDK and final native guard enforce NOACTIVATE. Exact Edge
 foreground HWND 12390418/PID 26876 remained unchanged at startup and through
-all 174 WGC captures. Replays independently verify owner, game PID/creation
+all 256 WGC captures across three runs and two sessions. Replays verify owner, game PID/creation
 identity, fresh compositor frame timestamps, nonblank native PNGs and hashes.
 The guard/MCDK hashes and all PNG/capture-report fingerprints are recorded
 in `liquid_workspace_evidence_r10.json`.
 
-Only one cold liquid session was used. V1 handles grew 67,949 -> 106,048;
+Two cold liquid sessions were used. V1 handles grew 67,949 -> 106,048;
 V2 grew 188,653 -> 217,560 over 204.18 seconds. V2 private commit grew
 2,986,844,160 -> 3,038,547,968 bytes. The final observed handle count was
 221,461 before stopping, below the 300,000 session cutoff. There is no
 isolated idle baseline, so production memory acceptance remains false.
 Future probes check a 280,000 handle guard before each capture and restore
 their state if that budget is reached.
+
+V3 handles grow 93,841 -> 119,786 in 201.40 seconds, max before capture
+119,493, below 280,000. Private commit grows 2,671,169,536 -> 3,168,579,584
+bytes. No isolated idle baseline exists; production memory remains unaccepted.
 
 Normal WM_CLOSE exceeded its ten-second wait. At the next independent check,
 game PID 38364 and MCDK PID 13688 were absent. Force-finalize updated the
@@ -122,5 +183,11 @@ they do not replace native shape, UV, alpha, depth or memory verification.
 
 Native shape/UV/alpha, production editor/world and production memory acceptance
 all remain false. The raw failure reports, successful rerun, recovery receipt,
-stop/resource receipt and reviewed frame fingerprints are preserved under the
+stop/resource receipts and all 29 reviewed frame fingerprints are preserved under the
 worktree `.runtime` directory and indexed in the committed evidence manifest.
+
+Second-session normal WM_CLOSE succeeds at 10:00 Shanghai. Game PID 20664
+and MCDK PID 35308 are independently absent immediately afterward. PID 35308
+later belongs to WeChatAppEx with a different identity; it is never terminated.
+Both owned identities are absent; stopped/ready=false and all 16 overlay paths
+match original hashes or absence.
