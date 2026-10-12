@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-12T18:57:48.253516+00:00",
+  "completed": false,
+  "restored": true,
+  "native_frames_captured": 4,
+  "native_elapsed_seconds": 17.825965799973346,
+  "raw_rpc_entries": 46,
+  "raw_rpc_isError_entries": 0,
+  "http_entries_including_delete": 47,
+  "ordinary_gate": {
+    "stable_plain_pixels": 0,
+    "minimum_pixels": 80,
+    "ordinary_visible_candidate": false,
+    "marker_gate_passed": true,
+    "body_dispatch_allowed": false
+  },
+  "body_dispatch_attempted": false,
+  "maximum_marker_edge_or_center_error_physical_pixels": 0.18848827908690424,
+  "legacy_api_uniform_mapping_passed": false,
+  "frozen_marker_calibration": {
+    "scale": 3.9974978978239917,
+    "translation": [
+      0.12427449291408266,
+      -2.1534588486227904
+    ],
+    "training_keys": [
+      "native_item_marker_tl",
+      "native_item_marker_br"
+    ],
+    "holdout_keys": [
+      "native_item_marker_tr",
+      "native_item_marker_bl"
+    ],
+    "maximum_error_pixels": 1.0,
+    "physical_size": [
+      1994,
+      1105
+    ]
+  },
+  "owned_actor": "-9223372036854775807",
+  "root_bone_readback": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      24.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "attachment": {
+    "control": "plain",
+    "attempted": true,
+    "remove_result": true,
+    "remove_attempted": true,
+    "offset": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "id": 0,
+    "canonical": "((u'isEnchanted', False), (u'newAuxValue', 0), (u'newItemName', u'minecraft:diamond_sword'), (u'userData', ()))",
+    "scale": 1.0,
+    "item_nonmutation": true,
+    "item": {
+      "newAuxValue": 0,
+      "newItemName": "minecraft:diamond_sword",
+      "isEnchanted": false,
+      "userData": {}
+    },
+    "state": "removed"
+  },
+  "actor_absence": {
+    "absent": true,
+    "kind": null,
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-9223372036854775807"
+    },
+    "actor": "-9223372036854775807",
+    "observed_actor_kind": "modern_projection:anchor",
+    "owned": true
+  },
+  "post_restoration_health_passed": true,
+  "client_clocks": [
+    1791831437.877,
+    1791831439.927
+  ],
+  "server_clocks": [
+    1791831438.272,
+    1791831440.31
+  ],
+  "server_callbacks": [
+    1791831438.901,
+    1791831439.104
+  ],
+  "original_artifact_sha256": {
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.supervision.json": "057391874d0aa57417a832074ac2566be4e1e6510134cafb30332dafbaf5a35e",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.orchestration.json": "d7d2fb1e19c992b1618dad1efcd0468fa6aadc6b405a96dbcd0a54123f97eee1",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.runtime.json": "c9de5a9125096b1c00c6e0013d30fd1f8da39edc86cb20eeec9ce7c026e6af9f",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.health-supervision.json": "daea165d0fcdf39800d613d6ba8b9d4f320724ec6c0f5f704db82ee61ed10279",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.post-restoration-health.json": "27fc2f7b8b0f89b9004c2d237970bd1fa8800246101fa39e8da0bcfcfba458ff",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.sources.index.json": "173cd8f53df0c8397da3d7167bed66499d00427569d4f6e7b124e4afcffff968"
+  },
+  "ordinary_item_on_client_actor_proven": false,
+  "shared_body_depth_proven": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false
+}

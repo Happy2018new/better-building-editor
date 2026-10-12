@@ -1,0 +1,238 @@
+{
+  "schema": 1,
+  "states": [
+    "empty",
+    "plain",
+    "body_only_minus",
+    "combined_minus",
+    "body_only_plus",
+    "combined_plus",
+    "plain_restored",
+    "empty_restored"
+  ],
+  "frames_per_state": 2,
+  "frame_interval_seconds": 0.4,
+  "normal_budget_seconds": 90,
+  "cleanup_reserve_seconds": 30,
+  "outer_budget_seconds": 150,
+  "rpc_timeout_seconds": 10,
+  "native_retries": 0,
+  "new_game_starts": 0,
+  "actor_identifier": "modern_projection:anchor",
+  "bone": "root",
+  "is_client_entity": true,
+  "item_offset": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_rotation_zyx": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_scale": 1.0,
+  "ui": {
+    "scale": 0.35,
+    "render_depth": -50,
+    "init_rot_x": 0.0,
+    "init_rot_y": 0.0,
+    "init_rot_z": 0.0
+  },
+  "body": {
+    "material": "minecraft:stone",
+    "size_xyz": [
+      3,
+      3,
+      1
+    ],
+    "minus_offset": [
+      0.0,
+      0.0,
+      -2.0
+    ],
+    "plus_offset": [
+      0.0,
+      0.0,
+      2.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "ordinary_minimum_stable_pixels": 80,
+  "difference_channel_threshold": 25,
+  "score_roi": "full physical width and lower 90 percent, fixed before capture; never calibration",
+  "marker_contract": "unchanged v4 four markers, TL/BR training, TR/BL holdouts, one-pixel gate",
+  "body_dispatch_requires": "ordinary visible candidate AND every prior marker gate passed",
+  "geometry_resource_lifetime": "inert nonce-owned resource until session exit; no documented delete API",
+  "actor_absence_requires": "recorded positive type getter before exact-owned destroy, then observed None",
+  "runtime_executor_sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662",
+  "world_or_inventory_mutation": false,
+  "shader_or_material_mutation": false,
+  "sdk_dispatch_authorized": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "nonce": "91e00c4b19ed4ef68850a59a69f64f3d",
+  "base_source_sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a",
+  "files": [
+    {
+      "path": "source.py",
+      "bytes": 36038,
+      "sha256": "2d93d4314e49dadc4bbe6e93b40c9b6c1e7e0ec5ab7b0c3304072f6ba8366a85"
+    },
+    {
+      "path": "tests.py",
+      "bytes": 27191,
+      "sha256": "14fdf5ca044adbe65493af204b0835885aa062c1e6b179a7a56307fdc4929b95"
+    },
+    {
+      "path": "diagnostic.md",
+      "bytes": 5127,
+      "sha256": "186e9fd7431355e7bf05e3bc207eb38b361a679403ae13c80e3171589c545324"
+    },
+    {
+      "path": "native-original.json",
+      "bytes": 55516,
+      "sha256": "a853a88604aa5dc05a4cf60d0f18a43db66eda8c7cb012e28db0322548bc86fc"
+    },
+    {
+      "path": "plain.json",
+      "bytes": 99,
+      "sha256": "886e960aead7e4e75e7c9aaef56d87ca68de796cc9701c5d341bd30cf5b500e4"
+    },
+    {
+      "path": "v4-source.py",
+      "bytes": 46149,
+      "sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a"
+    },
+    {
+      "path": "v4-tests.py",
+      "bytes": 43334,
+      "sha256": "2ad2023e9f0e2bb08f9e0ea8f592ba81f0932dbb8696e80a4e8848902f0aae42"
+    },
+    {
+      "path": "runtime-executor.py",
+      "bytes": 26089,
+      "sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662"
+    },
+    {
+      "path": "anchor.entity.json",
+      "bytes": 494,
+      "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+    },
+    {
+      "path": "anchor.geo.json",
+      "bytes": 655,
+      "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+    },
+    {
+      "path": "anchor.behavior.json",
+      "bytes": 571,
+      "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+    },
+    {
+      "path": "anchor.controller.json",
+      "bytes": 612,
+      "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+    },
+    {
+      "path": "transparent.png",
+      "bytes": 68,
+      "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+    },
+    {
+      "path": "install_client.py",
+      "bytes": 2753,
+      "sha256": "d1886df790b15ec55d1470831147b76da2d9f90e20a6e3b51503b2ab498681c5"
+    },
+    {
+      "path": "actor_ready_client.py",
+      "bytes": 449,
+      "sha256": "deeb8b8b4f88b5ce7de92b7f9a5ddf09d26cdfc51f4d41b4f8a226af4709aa51"
+    },
+    {
+      "path": "open_ui_client.py",
+      "bytes": 1582,
+      "sha256": "05cba430f247bcbbb12e346f51a6fe013c86692e40495a4e461e04c79dd54695"
+    },
+    {
+      "path": "status_client.py",
+      "bytes": 1869,
+      "sha256": "d0b872eec2ca892db67803f823e35bae04183fb8502af80ca8bec917e0ee09dc"
+    },
+    {
+      "path": "remove_client.py",
+      "bytes": 800,
+      "sha256": "17343ffbb5daad9d65ff4be4d6c89dfd175abe257a70af3b9110f8d157533a84"
+    },
+    {
+      "path": "navigation_client.py",
+      "bytes": 332,
+      "sha256": "8c9793b018b1885db06bb74274ca2391522647078cd3308237c066329102d47f"
+    },
+    {
+      "path": "pop_client.py",
+      "bytes": 336,
+      "sha256": "ef3ff5a8ce901f456ecd4e3c0350ab64e5854908f8bde8cb956fc504be6a432c"
+    },
+    {
+      "path": "destroy_client.py",
+      "bytes": 1072,
+      "sha256": "9e99e75111dd9d95ea8b8ae5c36347fd93c2b232e372735dd5627d176bf1f3bb"
+    },
+    {
+      "path": "absent_client.py",
+      "bytes": 642,
+      "sha256": "2d461c5a07c86f0a24d342dd7a3df36b6427ac142390db3ea9ca0f5b45f77095"
+    },
+    {
+      "path": "verify_client.py",
+      "bytes": 1392,
+      "sha256": "f87a8fc2d43a5fbd12b94125e46dafa8f74853ef2787feb0b9ae4b7fd3c4c271"
+    },
+    {
+      "path": "empty_client.py",
+      "bytes": 4401,
+      "sha256": "3e9de3a95dc7e4581f7407c8f4e26ebabbaf95f8797438232cf079fd71eccda2"
+    },
+    {
+      "path": "plain_client.py",
+      "bytes": 4401,
+      "sha256": "6446aa85965c0eec2576b865a9c46ca590991964a8e5449706c38dccd88a7500"
+    },
+    {
+      "path": "body_only_minus_client.py",
+      "bytes": 4411,
+      "sha256": "402e64147d68d4334c0f7747104197c4dc02f96cd73cb54a7bbb3fb68abddea1"
+    },
+    {
+      "path": "combined_minus_client.py",
+      "bytes": 4410,
+      "sha256": "fc4df8dc9b68ba7a12d2e691f5c062cf58ad405eb1b6b70116e914b8e83ed7ec"
+    },
+    {
+      "path": "body_only_plus_client.py",
+      "bytes": 4410,
+      "sha256": "42815e50e5339a75416bd947cb7cf6410df035a5c27ee6a8d8e7ea8260f75e30"
+    },
+    {
+      "path": "combined_plus_client.py",
+      "bytes": 4409,
+      "sha256": "4bfbb5c99132638ce84d32aa04232a1333bccbf6312e2c764378ff87789dea47"
+    },
+    {
+      "path": "plain_restored_client.py",
+      "bytes": 4410,
+      "sha256": "e85005691a6f62122cd8e32be9dacfef832e27ec8997da40b6a0f73cd173e7eb"
+    },
+    {
+      "path": "empty_restored_client.py",
+      "bytes": 4410,
+      "sha256": "bd027c8c045009f62363d4d2d8274c8cefd4575b388e71539067620ea6bd9fdd"
+    }
+  ]
+}

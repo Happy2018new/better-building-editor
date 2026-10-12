@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-12T18:57:48.251578+00:00",
+  "reviewer": "frame-r11-background",
+  "scope": "Owner opened all four original PNGs after restoration and fresh health",
+  "original_native_pngs_inspected": [
+    {
+      "control": "empty",
+      "frame": 0,
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.runtime_empty_0_native.png",
+      "sha256": "d95e04d9a2828263d47b69fa7e7b7a0fe8f24f95260d79a98db1a703a473474b",
+      "bytes": 17046
+    },
+    {
+      "control": "empty",
+      "frame": 1,
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.runtime_empty_1_native.png",
+      "sha256": "1e1cfc30397cf73b615504478ec31ad07507867a8c7470576e75d1c11ad0ed7f",
+      "bytes": 17000
+    },
+    {
+      "control": "plain",
+      "frame": 0,
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.runtime_plain_0_native.png",
+      "sha256": "3f10de4be8120845c2c27a1cc08233534de873566a06dbe471e1367ec0218284",
+      "bytes": 17106
+    },
+    {
+      "control": "plain",
+      "frame": 1,
+      "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\client-anchor-paper-doll-r13-v2.runtime_plain_1_native.png",
+      "sha256": "b6ec5b51dfa9ef636876726ccef2dff9556dc1c09c7cfa4b682f212b38d98e1e",
+      "bytes": 17043
+    }
+  ],
+  "observations": [
+    "All four captures show the same light opaque UI background and four colored corner markers.",
+    "Neither empty nor plain captures show a visible anchor or diamond sword.",
+    "Small transient diagnostic text at the top is outside the frozen lower-90-percent score region."
+  ],
+  "ordinary_item_on_client_actor_proven": false,
+  "shared_body_depth_proven": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "limitations": [
+    "This single transparent anchor, root bind, unit item scale and .35 UI scale was not visibly included.",
+    "No world-rendered attachment comparison was captured.",
+    "Stone-body geometry, shared depth, occlusion, clipping and glint were never dispatched or proven."
+  ]
+}

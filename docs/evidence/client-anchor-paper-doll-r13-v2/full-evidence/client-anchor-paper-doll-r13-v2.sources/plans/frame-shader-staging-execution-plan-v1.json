@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "scope": "Concrete session-private staging plan for one frame item translation discriminator",
+  "status": "prepared for root and QA review; no staging, shader writes, reloads or fixture calls executed",
+  "session_file": "C:/Users/Happy2018new/.pyreact-debug/instances/773c643b5cf344918e04d8b4eef2657a/session.json",
+  "session_id": "773c643b5cf344918e04d8b4eef2657a",
+  "owner": "frame-r11-background",
+  "game": {"pid": 44536, "identity": "134362903316974407"},
+  "mcdk": {"pid": 42372, "identity": "134362903315012341"},
+  "physical_window": {"hwnd": 29102794, "x": 283, "y": 264, "width": 1994, "height": 1105},
+  "read_only_runtime_health": {
+    "relative_report": "frame-staging-readonly-health-v1.json",
+    "report_sha256": "f21bf151818ae104cb13e2bf1522c6e9503120b29180a1e50869a20740af8ea0",
+    "frozen_source": "frame-staging-readonly-health-v1.source.py",
+    "source_sha256": "3348d86df17c7674fb33628bcd90307db4033d4c65a56e52ee0d5c0b3c121b98",
+    "client_runtime": "1.21.120.0",
+    "server_runtime": "1.21.120.0",
+    "pid_and_token_verified": true,
+    "client_clocks": [1791819891.442, 1791819892.239],
+    "server_clocks": [1791819891.699, 1791819892.525],
+    "background_and_physical_window_guards_passed": true,
+    "fixture_mutation_attempted": false,
+    "timer_mutation_attempted": false,
+    "shader_reload_attempted": false
+  },
+  "loaded_pack_provenance": {
+    "startup_addon_list": "mcdk.log:128",
+    "world_pack_manifest": "C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_773c643b5cf344918e04d8b4eef2657a/world_resource_packs.json",
+    "world_pack_manifest_sha256": "da7640ddd87e37e0e983be8871e9193d6a0c4963f7855fb072eb4b3de60184fd",
+    "resource_pack_manifest_sha256": "5b804992b80df034d4d3d9f0dcba8399796bc5d87c9693d527040b1c994eaf91",
+    "pack_uuid": "7c6a9da7-a343-4086-8c15-a60ade3d3367",
+    "pack_version": [0, 0, 1],
+    "source_pack": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r11-frame/resource_pack",
+    "shader_relative_path": "shaders/glsl/modern_projection_biome_blocks.vertex",
+    "shader_bytes": 12899,
+    "shader_sha256": "0eae45cf748d5b70a18d4040a463a8b8e3746b1748ee6464ac4c54dcd65f8809",
+    "get_final_path_name_by_handle_equal_for_repository_world_and_appdata": true,
+    "final_shader_path": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r11-frame/resource_pack/shaders/glsl/modern_projection_biome_blocks.vertex",
+    "repository_and_world_shader_file_id": "0x00000000000000000004000000224fef",
+    "loaded_shader_is_repository_alias": true,
+    "original_pack_index": "frame-shader-staging-original-pack-v1.index.json",
+    "original_pack_index_sha256": "7ff2808448e111d531bc58666890b4dba8ca1a8c463e1765dcc0c1e7e8807e4d",
+    "original_pack_files": 709,
+    "original_pack_bytes": 45627969,
+    "original_pack_reparse_descendants": 0
+  },
+  "staging": {
+    "pack": "C:/Users/Happy2018new/.pyreact-debug/instances/773c643b5cf344918e04d8b4eef2657a/frame_shader_stage_v1/resource_pack",
+    "require_fresh_nonlinked_stage": true,
+    "copy_full_pack_as_ordinary_files": true,
+    "verify_all_709_paths_sizes_and_hashes_before_swap": true,
+    "verify_original_pack_still_matches_index_before_and_after_copy": true,
+    "preserve_pack_uuid_version_and_material_registration": true,
+    "loaded_lookup_paths": [
+      {
+        "path": "C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_773c643b5cf344918e04d8b4eef2657a/resource_packs/mcdk_7c6a9da7a34340868c15a60ade3d3367",
+        "kind": "world",
+        "original_target": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r11-frame/resource_pack",
+        "backup_name": "mcdk_7c6a9da7a34340868c15a60ade3d3367.frame-original-v1",
+        "retired_stage_name": "mcdk_7c6a9da7a34340868c15a60ade3d3367.frame-stage-retired-v1"
+      },
+      {
+        "path": "C:/Users/Happy2018new/.pyreact-debug/instances/773c643b5cf344918e04d8b4eef2657a/appdata/MinecraftPE_Netease/games/com.netease/resource_packs/7c6a9da7a34340868c15a60ade3d3367",
+        "kind": "appdata",
+        "original_target": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r11-frame/resource_pack",
+        "backup_name": "7c6a9da7a34340868c15a60ade3d3367.frame-original-v1",
+        "retired_stage_name": "7c6a9da7a34340868c15a60ade3d3367.frame-stage-retired-v1"
+      }
+    ],
+    "swap": "Verify exact owner, identities, guards and original junction targets; rename each original junction to its fresh backup name; create a junction at the identical original lookup path pointing to the verified session stage. Rename only junction entries, never repository directories.",
+    "post_swap_physical_gate": "All loaded shader lookup handle-finalpaths must resolve inside the ordinary session stage; file IDs must differ from the original repository file and match the stage file. Reject any repository alias before every shader write.",
+    "repository_source_or_shader_writes_permitted": false,
+    "recursive_delete_permitted": false
+  },
+  "diagnostic_bundle": {
+    "path": "D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor/.runtime/r11-entities/.runtime/frame-item-translation-r11-final-v1",
+    "plan_sha256": "eb874b326b4def3dc39639f138cbb52281f9d99c3aeb884c15f6969e64ad4673",
+    "nooffset_shader_sha256": "ef3f59d3a4decb2d5503380b377d4c338659075a3d671b741ebd9b8c49b2af9c",
+    "translated_shader_sha256": "3f6d2e67606e3878e3600a2e3722b49b7b9c78cf38583c6efa2abbbb86d94cac",
+    "source_and_generated_hash_checks_required_before_dispatch": true
+  },
+  "finite_execution": {
+    "native_budget_seconds": 150,
+    "normal_work_must_leave_cleanup_budget_seconds": 30,
+    "sdk_timeout_seconds": 10,
+    "native_retries": 0,
+    "new_game_starts": 0,
+    "automatic_reload_flags": false,
+    "explicit_reload_shader_name": "modern_projection_biome_blocks.vertex",
+    "control_phases": [
+      {"phase": "native_baseline", "shader": "original.vertex", "controls": ["combined", "same_volume_body", "item_only", "blank"]},
+      {"phase": "instrumented_nooffset", "shader": "nooffset.vertex", "controls": ["combined", "item_only"]},
+      {"phase": "translated", "shader": "translated.vertex", "controls": ["combined", "same_volume_body", "item_only", "blank"]},
+      {"phase": "restored", "shader": "original.vertex", "controls": ["combined", "item_only"]}
+    ],
+    "per_control_required_evidence": ["exact final serialized Combine palette before and after native call", "canonical full palette bytes and SHA", "exact document/profile/camera/render packet/scale/UI bounds", "fresh owner-bound native PNG and receipt"],
+    "capture_backend": "Proven single-frame WGC; no foreground or resizing fallback",
+    "capture_helper_sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+    "reload_true_is_visual_proof": false,
+    "required_visual_discriminator": "Translated item-only moves in expected direction by at least 80 pixels and outside original native body ROI; otherwise the staged reload path is unproven and the combined result remains inconclusive.",
+    "failure_policy": "Stop normal controls at first binding/reload/palette/capture/guard/budget failure; retain exact evidence, run bounded cleanup only, and do not retry or upgrade acceptance."
+  },
+  "restoration": {
+    "stage_shader": "Restore exact original 12899-byte shader in the session stage and explicitly reload while the stage remains the active lookup target; capture the restored combined and item-only controls only if healthy and within budget.",
+    "runtime_state": "Restore blueprint workspace, document, camera, in-memory frame profiles, factory wrappers and capture wrapper in reviewed reverse order. Production profiles must all be false and original saved document/profile bytes must match.",
+    "links": "Rename each staged lookup junction to its fresh retired-stage name, then rename the preserved original junction back to its original name. Verify both targets and all three handle-finalpaths return to the original repository source.",
+    "post_link_reload": "When healthy, explicitly reload the original shader through the restored lookup path; record the exact return and bounded cleanup errors. A failed reload prevents runtime-restored claims.",
+    "filesystem": "Verify original pack 709-file path/size/SHA index unchanged, protected root resources unchanged, source/private/generated configs unchanged, and no material/model/texture/native-actor shader edits. Retain ordinary stage and retired junction entries as diagnostic evidence; perform no recursive deletion.",
+    "unhealthy_cleanup": "Restore filesystem bytes and original junctions independently of SDK availability; retain explicit unresolved runtime restoration errors and stop only the owner/creation-bound session if root directs.",
+    "restored_requires_all_explicit_checks": true
+  },
+  "production_rendering_accepted": false,
+  "animation_acceptance": false,
+  "original_six_production_gates_unchanged": true,
+  "native_body_remains_required_for_production_acceptance": true,
+  "translation_is_diagnostic_only_and_must_be_restored": true
+}

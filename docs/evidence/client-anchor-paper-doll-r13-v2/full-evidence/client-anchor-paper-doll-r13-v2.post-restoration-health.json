@@ -1,0 +1,1425 @@
+{
+  "schema": 1,
+  "owner": "frame-r11-background",
+  "session_id": "773c643b5cf344918e04d8b4eef2657a",
+  "scope": "Fresh owner client/server clocks and two owned server timer callbacks",
+  "started_at": "2026-10-12T18:57:16.240115+00:00",
+  "source_sha256": "f07aa74756167559663fa2e3b0894e456b7272b1a22b9471779bff71b63f32e8",
+  "normal_deadline_monotonic": 306237.9582426,
+  "cleanup_deadline_monotonic": 306247.9582426,
+  "outer_deadline_monotonic": 306257.9582426,
+  "requests": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "pyreact-debugging",
+            "version": "1"
+          }
+        },
+        "id": 1
+      },
+      "started_at": "2026-10-12T18:57:17.101020+00:00",
+      "response": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_at": "2026-10-12T18:57:17.165024+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      },
+      "started_at": "2026-10-12T18:57:17.173038+00:00",
+      "response": null,
+      "finished_at": "2026-10-12T18:57:17.222198+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "params": {},
+        "id": 3
+      },
+      "started_at": "2026-10-12T18:57:17.227746+00:00",
+      "response": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:17.302248+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 4
+      },
+      "started_at": "2026-10-12T18:57:17.314632+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:17.504370+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 5
+      },
+      "started_at": "2026-10-12T18:57:17.513738+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:17.705289+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.client.extraClientApi as api\n_result=json.dumps({'runtime':api.GetMinecraftVersion(),'pid':os.getpid(),\n 'token':getattr(sys,'_pyreact_mcdk_session',None),'now':time.time()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 6
+      },
+      "started_at": "2026-10-12T18:57:17.710166+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"token\": \"882c4c1ed6e0410c9b19fbb71b72f7cc\", \"runtime\": \"1.21.120.0\", \"pid\": 44536, \"now\": 1791831437.877}'\nReturn value JSON: \"{\\\"token\\\": \\\"882c4c1ed6e0410c9b19fbb71b72f7cc\\\", \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 44536, \\\"now\\\": 1791831437.877}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:17.889111+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 7
+      },
+      "started_at": "2026-10-12T18:57:17.903176+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:18.121027+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.server.extraServerApi as api\n_result=json.dumps({'runtime':api.GetMinecraftVersion(),'pid':os.getpid(),\n 'token':getattr(sys,'_pyreact_mcdk_session',None),'now':time.time()})\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 8
+      },
+      "started_at": "2026-10-12T18:57:18.130462+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"token\": \"882c4c1ed6e0410c9b19fbb71b72f7cc\", \"runtime\": \"1.21.120.0\", \"pid\": 44536, \"now\": 1791831438.272}'\nReturn value JSON: \"{\\\"token\\\": \\\"882c4c1ed6e0410c9b19fbb71b72f7cc\\\", \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 44536, \\\"now\\\": 1791831438.272}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:18.322023+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 9
+      },
+      "started_at": "2026-10-12T18:57:18.340107+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:18.554112+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.server.extraServerApi as api\nmarker='_client_anchor_health_91e00c4b19ed4ef68850a59a69f64f3d'\nassert not hasattr(sys,marker)\nstate={'nonce':'91e00c4b19ed4ef68850a59a69f64f3d','started':time.time(),'callbacks':[],'attempted':[]}\nsetattr(sys,marker,state)\ngame=api.GetEngineCompFactory().CreateGame(api.GetLevelId())\nfor delay in (.2,.4):\n state['attempted'].append(delay)\n game.AddTimer(delay,lambda current=state:current['callbacks'].append(time.time()))\n_result=json.dumps(state)\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 10
+      },
+      "started_at": "2026-10-12T18:57:18.559640+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"nonce\": \"91e00c4b19ed4ef68850a59a69f64f3d\", \"started\": 1791831438.7, \"attempted\": [0.2, 0.4], \"callbacks\": []}'\nReturn value JSON: \"{\\\"nonce\\\": \\\"91e00c4b19ed4ef68850a59a69f64f3d\\\", \\\"started\\\": 1791831438.7, \\\"attempted\\\": [0.2, 0.4], \\\"callbacks\\\": []}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:18.739206+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 11
+      },
+      "started_at": "2026-10-12T18:57:19.550518+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:19.762917+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.client.extraClientApi as api\n_result=json.dumps({'runtime':api.GetMinecraftVersion(),'pid':os.getpid(),\n 'token':getattr(sys,'_pyreact_mcdk_session',None),'now':time.time()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 12
+      },
+      "started_at": "2026-10-12T18:57:19.767985+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"token\": \"882c4c1ed6e0410c9b19fbb71b72f7cc\", \"runtime\": \"1.21.120.0\", \"pid\": 44536, \"now\": 1791831439.927}'\nReturn value JSON: \"{\\\"token\\\": \\\"882c4c1ed6e0410c9b19fbb71b72f7cc\\\", \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 44536, \\\"now\\\": 1791831439.927}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:19.963107+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 13
+      },
+      "started_at": "2026-10-12T18:57:19.975812+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:20.164062+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.server.extraServerApi as api\n_result=json.dumps({'runtime':api.GetMinecraftVersion(),'pid':os.getpid(),\n 'token':getattr(sys,'_pyreact_mcdk_session',None),'now':time.time()})\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 14
+      },
+      "started_at": "2026-10-12T18:57:20.168979+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"token\": \"882c4c1ed6e0410c9b19fbb71b72f7cc\", \"runtime\": \"1.21.120.0\", \"pid\": 44536, \"now\": 1791831440.31}'\nReturn value JSON: \"{\\\"token\\\": \\\"882c4c1ed6e0410c9b19fbb71b72f7cc\\\", \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 44536, \\\"now\\\": 1791831440.31}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:20.349230+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 15
+      },
+      "started_at": "2026-10-12T18:57:20.369422+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '882c4c1ed6e0410c9b19fbb71b72f7cc'\nReturn value JSON: \"882c4c1ed6e0410c9b19fbb71b72f7cc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:20.551994+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nmarker='_client_anchor_health_91e00c4b19ed4ef68850a59a69f64f3d'\nstate=getattr(sys,marker,None)\n_result=json.dumps({'owned':False,'restored':True})\nif state is not None:\n assert state['nonce']=='91e00c4b19ed4ef68850a59a69f64f3d'\n observed=dict(state)\n observed.update(owned=True,now=time.time())\n delattr(sys,marker)\n observed['restored']=not hasattr(sys,marker)\n _result=json.dumps(observed)\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 16
+      },
+      "started_at": "2026-10-12T18:57:20.557026+00:00",
+      "background_before_request": {
+        "foreground": {
+          "hwnd": 36701588,
+          "pid": 56284,
+          "process": "ChatGPT.exe",
+          "identity": "134362669641089455",
+          "title": "ChatGPT",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 29102794,
+            "pid": 44536,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "physical_window": {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"nonce\": \"91e00c4b19ed4ef68850a59a69f64f3d\", \"callbacks\": [1791831438.901, 1791831439.104], \"restored\": true, \"started\": 1791831438.7, \"attempted\": [0.2, 0.4], \"now\": 1791831440.7, \"owned\": true}'\nReturn value JSON: \"{\\\"nonce\\\": \\\"91e00c4b19ed4ef68850a59a69f64f3d\\\", \\\"callbacks\\\": [1791831438.901, 1791831439.104], \\\"restored\\\": true, \\\"started\\\": 1791831438.7, \\\"attempted\\\": [0.2, 0.4], \\\"now\\\": 1791831440.7, \\\"owned\\\": true}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-12T18:57:20.772281+00:00"
+    }
+  ],
+  "network_requests": [
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.105358+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.1953192,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:17.161221+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.178078+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.2682207,
+      "status": 202,
+      "finished_at": "2026-10-12T18:57:17.218478+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.232137+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.3232056,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:17.296781+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.352974+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.444295,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:17.497231+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.552485+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.6453037,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:17.698775+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.744074+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306224.8363327,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:17.883902+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:17.937727+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306225.029237,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:18.114985+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:18.167067+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306225.2583422,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:18.315661+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:18.374438+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306225.4673418,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:18.547356+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:18.591875+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306225.6843468,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:18.731744+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:19.593877+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306226.6851961,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:19.756210+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:19.806872+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306226.8991768,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:19.956442+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:20.008998+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306227.1022373,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:20.157124+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:20.201070+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306227.2944813,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:20.341760+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:20.406404+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306227.4981818,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:20.545451+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-12T18:57:20.589060+00:00",
+      "timeout_seconds": 5.0,
+      "deadline_monotonic": 306227.681178,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:20.764031+00:00"
+    },
+    {
+      "http_method": "DELETE",
+      "started_at": "2026-10-12T18:57:20.778289+00:00",
+      "timeout_seconds": 2,
+      "deadline_monotonic": 306224.8702254,
+      "status": 200,
+      "finished_at": "2026-10-12T18:57:20.826424+00:00"
+    }
+  ],
+  "errors": [],
+  "cleanup_errors": [],
+  "timer_start_attempted": true,
+  "timer_cleanup_verified": true,
+  "completed": true,
+  "passed": true,
+  "fixture_mutation_attempted": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "background_before": {
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 29102794,
+        "pid": 44536,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "binding_verified": true,
+  "client_before": {
+    "token": "882c4c1ed6e0410c9b19fbb71b72f7cc",
+    "runtime": "1.21.120.0",
+    "pid": 44536,
+    "now": 1791831437.877
+  },
+  "server_before": {
+    "token": "882c4c1ed6e0410c9b19fbb71b72f7cc",
+    "runtime": "1.21.120.0",
+    "pid": 44536,
+    "now": 1791831438.272
+  },
+  "timer_start": {
+    "nonce": "91e00c4b19ed4ef68850a59a69f64f3d",
+    "started": 1791831438.7,
+    "attempted": [
+      0.2,
+      0.4
+    ],
+    "callbacks": []
+  },
+  "client_after": {
+    "token": "882c4c1ed6e0410c9b19fbb71b72f7cc",
+    "runtime": "1.21.120.0",
+    "pid": 44536,
+    "now": 1791831439.927
+  },
+  "server_after": {
+    "token": "882c4c1ed6e0410c9b19fbb71b72f7cc",
+    "runtime": "1.21.120.0",
+    "pid": 44536,
+    "now": 1791831440.31
+  },
+  "timer_stop_attempted": true,
+  "timer_stop": {
+    "nonce": "91e00c4b19ed4ef68850a59a69f64f3d",
+    "callbacks": [
+      1791831438.901,
+      1791831439.104
+    ],
+    "restored": true,
+    "started": 1791831438.7,
+    "attempted": [
+      0.2,
+      0.4
+    ],
+    "now": 1791831440.7,
+    "owned": true
+  },
+  "elapsed_seconds": 4.960054199967999,
+  "finished_at": "2026-10-12T18:57:20.832116+00:00"
+}

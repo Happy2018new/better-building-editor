@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.modern_projection.anchor",
+        "texture_width": 2,
+        "texture_height": 2,
+        "visible_bounds_width": 192,
+        "visible_bounds_height": 192,
+        "visible_bounds_offset": [
+          0,
+          32,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "root",
+          "pivot": [
+            0,
+            0,
+            0
+          ],
+          "cubes": [{"origin": [-0.01, 0, -0.01], "size": [0.02, 0.02, 0.02], "uv": [0, 0]}]
+        }
+      ]
+    }
+  ]
+}
