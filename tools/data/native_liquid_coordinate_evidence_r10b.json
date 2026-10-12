@@ -32,6 +32,8 @@
     "nearest-diagnostic-v1.json": "ae0e1e252e965415fb344a06f9ec6f67217c388cf09258a8e2838cb891a2902f",
     "background-diagnostic-v1-plan.json": "9c028c14818da054600781299750d4df8b90ff80c40de94c59eb1966c9e19078",
     "background-diagnostic-v1.json": "0f3bc9f981545c42659cbbb487b186007a21cabb9b0555c8d6a8589052801573",
+    "centers-diagnostic-v1-plan.json": "dbd377af0a2501478b978629bc11fa007d2bf73f0d059d874552e9fc8d2b7ab2",
+    "centers-diagnostic-v1.json": "3eb3aa5890ce507f2d412bf2a5d55246631d7a6d3ab65863b46ad85d7c19e6b6",
     "grid-diagnostic-v1/report.json": "f26276c051db802516ea3af474d8d321f5c049b65cc763c38d6b51c86bac699c",
     "offline-receipt.json": "b78c103730f2c47b9580002d4d4a3779ffea626afe4ea5c7237425a8b5636f7b",
     "install-receipt.json": "487298c9168002e08672cdcd69967012e623e00a9a750bd46820c66a50ae1953",
@@ -122,7 +124,20 @@
       "border_distance_association": {"depth3_north_nearest_border_rmse": 0.2086297104159491, "depth3_north_farthest_border_rmse": 0.09569938743718512},
       "limit": "Post-observation border subsets are descriptive only and do not replace the complete-grid gates"
     },
-    "credible_next_diagnostic": "Freeze absolute texel-center U and block-height samples before extraction, deriving valid inset rows solely from independent geometry. Retain depth0 training and1/3 holdouts. Center-only nearest sampling aliases pixel-center/edge mappings, so it cannot alone establish pixel_mapping.",
+    "centers_v1": {
+      "passed": false,
+      "training_rank_rmse": 0.14127917615864583,
+      "all_sequence_gates_passed": false,
+      "selected_compound_candidate_unchanged": true,
+      "samples_per_north_or_west_sequence": {"depth0_training": 224, "depth1_holdout": 82, "depth3_holdout": 70},
+      "sample_definition": "U=(j+.5)/16; height=1-(k+.5)/16; retain only .12<=U<=.88 and .12<=height/independent_top(U)<=.88, chosen from geometry before new pixel extraction",
+      "green_blue_correlation_range": [0.9547179162279255, 0.9827820409107705],
+      "red_correlation_range": [0.6467809869336514, 0.9092635875792444],
+      "pixel_mapping_identified": false,
+      "pixel_mapping_training_margin": 0.0,
+      "conclusion": "Avoiding texel borders explains substantial error and preserves the broad spatial code. Red photometry still fails the original correlation limit, and nearest center/edge coordinates alias. No native UV acceptance."
+    },
+    "credible_next_diagnostic": "Use a separately predeclared smooth coordinate field with independently controlled native photometry or an independently implemented native TexelAA model, plus geometry/camera uncertainty bounds and discriminating pixel-mapping controls. No further native launch was performed.",
     "native_uv_accepted": false
   },
   "resource_recovery": {
@@ -133,9 +148,9 @@
     "generated_assets_and_source_archives_retained": true
   },
   "verification": {
-    "focused_unittests": 10,
+    "focused_unittests": 13,
     "focused_unittests_passed": true,
-    "command": "PYTHONPATH=tests python -X utf8 -m unittest test_liquid_coordinate_markers test_liquid_coordinate_sampling_diagnostic test_liquid_coordinate_background_diagnostic",
+    "command": "PYTHONPATH=tests python -X utf8 -m unittest test_liquid_coordinate_markers test_liquid_coordinate_sampling_diagnostic test_liquid_coordinate_background_diagnostic test_liquid_coordinate_centers",
     "tools_compile_passed": true,
     "offline_source_control_equality_passed": true,
     "frozen_runtime_source_count": 16,
