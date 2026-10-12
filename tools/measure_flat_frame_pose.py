@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw
@@ -38,6 +39,22 @@ def values(center, radius, step):
     return [center + index * step for index in range(-int(round(radius / step)), int(round(radius / step)) + 1)]
 
 
+def output_paths(output, views):
+    output = output.resolve()
+    comparisons = []
+    for view in views:
+        if not isinstance(view, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', view):
+            raise ValueError('A view must be a nonempty filename label')
+        comparisons.append(output.with_name(output.stem + '_' + view + '_comparison.png'))
+    paths = [output]+comparisons
+    if len(set(paths)) != len(paths):
+        raise ValueError('Diagnostic outputs must be distinct')
+    for path in paths:
+        if path.exists():
+            raise ValueError('Preserve existing evidence: '+str(path))
+    return comparisons
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input', type=Path)
@@ -47,6 +64,7 @@ def main():
     if not 0 < args.size_pixels <= 16:
         parser.error('Size must be in (0,16]')
     probe = json.loads(args.input.read_text(encoding='utf8'))
+    comparisons = output_paths(args.output, [row['view'] for row in probe['rows']])
     calibration_path = Path(probe['camera_calibration'])
     calibration = json.loads(calibration_path.read_text(encoding='utf8'))
     assert probe['completed'] and probe['restored'] and len(probe['rows']) >= 2
@@ -92,10 +110,10 @@ def main():
               'texture_sha256': hashlib.sha256(texture_path.read_bytes()).hexdigest(),
               'best': best, 'stages': stages}
     result['predictions'] = []
-    for row, mask, screen, crop in rows:
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    for (row, mask, screen, crop), path in zip(rows, comparisons):
         predicted = predict(texture, best['size_pixels'], best['depth_pixels'], probe['fixture']['base'],
                             row, screen, calibration['vertical_fov'], crop)
-        path = args.output.with_name(args.output.stem + '_' + row['view'] + '_comparison.png')
         Image.merge('RGB', (mask, predicted, Image.new('L', mask.size))).save(path)
         result['predictions'].append(str(path))
     write_json(args.output, result)
