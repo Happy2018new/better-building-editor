@@ -97,6 +97,45 @@ class PublicContentSelectionTests(unittest.TestCase):
 
 
 class NativePublicContentTests(unittest.TestCase):
+    def rejected_setup(self, fixture, message):
+        original_inventory = deepcopy(fixture.inventory)
+        original_rotation = deepcopy(fixture.rotation)
+        exec(compile(probe.PUBLIC_PLAN % request(), '<public-content-selection>', 'exec'), {})
+        try:
+            with fake_api(fixture), \
+                    patch.object(fixture, 'SetBlockNew', wraps=fixture.SetBlockNew) as world_write, \
+                    patch.object(fixture, 'SetInvItemNum', wraps=fixture.SetInvItemNum) as inventory_write, \
+                    patch.object(fixture, 'SetRot', wraps=fixture.SetRot) as rotation_write:
+                with self.assertRaisesRegex(AssertionError, message):
+                    runpy.run_path(str(ROOT / 'tools/p0_entity_appearance_setup.py'))
+                world_write.assert_not_called()
+                inventory_write.assert_not_called()
+                rotation_write.assert_not_called()
+        finally:
+            if hasattr(sys, '_p0_entity_appearance_public_plans'):
+                del sys._p0_entity_appearance_public_plans
+        self.assertEqual({}, fixture.world)
+        self.assertEqual(0, fixture.placements)
+        self.assertEqual(original_inventory, fixture.inventory)
+        self.assertEqual(original_rotation, fixture.rotation)
+
+    def test_invalid_rotation_baseline_rejects_before_any_mutation(self):
+        for rotation in (None, (), (0.,), ('0', 0.), (False, 0.),
+                         (float('nan'), 0.), (0., float('inf'))):
+            fixture = ContentFixture()
+            with self.subTest(rotation=rotation), patch.object(fixture, 'GetRot', return_value=rotation):
+                self.rejected_setup(fixture, 'Player rotation readback failed')
+
+    def test_malformed_nonempty_inventory_is_not_selected_or_cleared(self):
+        for count in (None, -1, False, '0'):
+            fixture = ContentFixture()
+            fixture.inventory = {'itemName': 'minecraft:diamond_sword',
+                                 'userData': {'FutureNativeField': {'nested': [42]}}}
+            if count is not None:
+                fixture.inventory['count'] = count
+            with self.subTest(count=count):
+                self.rejected_setup(fixture, 'Malformed inventory count')
+
     def sample(self, used=True):
         fixture = ContentFixture(used=used)
         values = request()
@@ -154,6 +193,57 @@ class NativePublicContentTests(unittest.TestCase):
 
 
 class PublicContentCleanupTests(unittest.TestCase):
+    def test_inventory_validation_preserves_raw_fields_and_valid_empty_forms(self):
+        item = {'itemName': 'minecraft:book', 'count': 1,
+                'userData': {'FutureNativeField': {'nested': [42]}}}
+        empty = {'itemName': 'minecraft:air', 'count': 0, 'FutureNativeField': 7}
+        before = {'inventory': [item, empty, {}] + [None] * 33,
+                  'selected_slot': 0, 'rotation': [5., 12.]}
+        original = deepcopy(before)
+        after = deepcopy(before)
+        after['inventory'][1:3] = [None, None]
+        self.assertEqual([], probe.player_restore_errors(before, after))
+        self.assertEqual(original, before)
+        after['inventory'][0]['userData']['FutureNativeField']['nested'] = [43]
+        self.assertEqual(1, len(probe.player_restore_errors(before, after)))
+
+    def test_malformed_inventory_readback_cannot_pass_as_empty(self):
+        before = {'inventory': [None] * 36, 'selected_slot': 0, 'rotation': [5., 12.]}
+        after = deepcopy(before)
+        after['inventory'][13] = {'itemName': 'minecraft:book', 'userData': {'unknown': 42}}
+        with self.assertRaisesRegex(ValueError, 'Malformed inventory readback at slot 13'):
+            probe.player_restore_errors(before, after)
+        report = {'request': request(), 'player_before': before}
+        with patch.object(probe, 'execute', side_effect=[None, True, True, True, after]):
+            probe.clean(object(), report)
+        self.assertFalse(report['restored'])
+        self.assertEqual(after, report['player_after_cleanup'])
+        self.assertIn('slot 13', report['cleanup_errors'][0])
+
+    def test_invalid_preflight_stays_raw_and_never_enters_setup(self):
+        malformed = {'itemName': 'minecraft:book', 'userData': {'unknown': [42]}}
+        for inventory, rotation, error in (([None] * 36, None, 'rotation'),
+                                           ([malformed] + [None] * 35, [5., 12.], 'inventory')):
+            state = {'inventory': inventory, 'selected_slot': 0, 'rotation': rotation,
+                     'foot': [0., 64., 0.]}
+            report = {'request': request(), 'completed': False}
+            with self.subTest(error=error), \
+                    patch.object(probe, 'native_runtime_evidence', return_value={'native_runtime_versions': {}}), \
+                    patch.object(probe, 'execute', return_value=state) as execute, \
+                    patch.object(probe, 'clean') as clean:
+                with self.assertRaisesRegex(ValueError, error):
+                    probe.collect(object(), report['request'], report)
+                execute.assert_called_once()
+                self.assertEqual(probe.PLAYER_STATE, execute.call_args[0][1])
+                clean.assert_called_once()
+                self.assertEqual(state, report['player_before'])
+                self.assertFalse(report['completed'])
+
+    def test_nonfinite_rotation_readback_cannot_pass_restore_comparison(self):
+        state = {'inventory': [None] * 36, 'selected_slot': 0, 'rotation': [float('nan'), 0.]}
+        self.assertEqual(['Player rotation differs from preflight'],
+                         probe.player_restore_errors(state, deepcopy(state)))
+
     def test_complete_inventory_selected_slot_and_rotation_are_independent_restore_gates(self):
         before = {'inventory': [None] * 36, 'selected_slot': 0, 'rotation': [0., 0.]}
         after = deepcopy(before)

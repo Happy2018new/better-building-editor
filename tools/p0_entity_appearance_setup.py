@@ -12,10 +12,21 @@ player = api.GetPlayerList()[0]
 dimension = factory.CreateDimension(player).GetEntityDimensionId()
 info, items, rotation = factory.CreateBlockInfo(player), factory.CreateItem(player), factory.CreateRot(player)
 item_type = api.GetMinecraftEnum().ItemPosType.INVENTORY
+integer_types = (int, long) if sys.version_info[0] == 2 else (int,)
+saved_rotation = rotation.GetRot()
+assert (isinstance(saved_rotation, (tuple, list)) and len(saved_rotation) == 2 and
+        all(isinstance(value, integer_types + (float,)) and type(value) is not bool and
+            not math.isnan(value) and not math.isinf(value) for value in saved_rotation)), (
+    'Player rotation readback failed', saved_rotation)
 slot = None
 for candidate in range(36):
     existing = items.GetPlayerItem(item_type, candidate, True)
-    if not existing or not existing.get('count'):
+    assert existing is None or isinstance(existing, dict), ('Malformed inventory readback', candidate, existing)
+    if existing:
+        count = existing.get('count')
+        assert (isinstance(count, integer_types) and type(count) is not bool and count >= 0), (
+            'Malformed inventory count', candidate, existing)
+    if not existing or existing['count'] == 0:
         slot = candidate
         break
 assert slot is not None, 'Entity appearance fixtures need one empty inventory slot'
@@ -74,7 +85,6 @@ for index, plan in enumerate(plans):
     reserved.update(needed)
     row = dict(plan, pos=target, support=support)
     rows.append(row)
-saved_rotation = rotation.GetRot()
 sys._p0_entity_appearances = {'schema': 1, 'player': player, 'dimension': dimension,
                              'slot': slot, 'rotation': saved_rotation,
                              'reserved': sorted(reserved), 'rows': rows,

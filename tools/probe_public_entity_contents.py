@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import uuid
@@ -122,14 +123,40 @@ _result=json.dumps({'inventory':[items.GetPlayerItem(item_type,index,True) for i
 '''
 
 
+def normalized_inventory(rows):
+    if not isinstance(rows, list) or len(rows) != 36:
+        raise ValueError('Complete inventory readback must contain 36 slots')
+    result = []
+    for index, item in enumerate(rows):
+        if item is None or item == {}:
+            result.append(None)
+            continue
+        if (not isinstance(item, dict) or type(item.get('count')) is not int or
+                item['count'] < 0):
+            raise ValueError('Malformed inventory readback at slot %d: %r' % (index, item))
+        result.append(item if item['count'] else None)
+    return result
+
+
+def valid_rotation(value):
+    return (isinstance(value, (list, tuple)) and len(value) == 2 and
+            all(isinstance(number, (int, float)) and type(number) is not bool and
+                math.isfinite(number) for number in value))
+
+
+def validate_player_state(state):
+    normalized_inventory(state['inventory'])
+    if not valid_rotation(state['rotation']):
+        raise ValueError('Player rotation readback failed: %r' % (state['rotation'],))
+
+
 def player_restore_errors(before, after):
     errors = []
-    normalize = lambda rows: [row if row and row.get('count') else None for row in rows]
-    if normalize(before['inventory']) != normalize(after['inventory']):
+    if normalized_inventory(before['inventory']) != normalized_inventory(after['inventory']):
         errors.append('Player inventory differs from the complete preflight snapshot')
     if before['selected_slot'] != after['selected_slot']:
         errors.append('Selected inventory slot differs from preflight')
-    if (len(before['rotation']) != 2 or len(after['rotation']) != 2 or
+    if (not valid_rotation(before['rotation']) or not valid_rotation(after['rotation']) or
             any(abs(old - new) > .00001 for old, new in zip(before['rotation'], after['rotation']))):
         errors.append('Player rotation differs from preflight')
     return errors
@@ -173,6 +200,7 @@ def collect(client, request, report):
         report['native_runtime_evidence'] = native_runtime_evidence(client)
         report['native_runtime_versions'] = report['native_runtime_evidence']['native_runtime_versions']
         report['player_before'] = execute(client, PLAYER_STATE)
+        validate_player_state(report['player_before'])
         setup = (ROOT / 'tools/p0_entity_appearance_setup.py').read_text(encoding='utf8')
         report['setup'] = execute(client, PUBLIC_PLAN % request + setup)
         read = (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8')
