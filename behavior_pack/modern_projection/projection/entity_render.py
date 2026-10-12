@@ -94,6 +94,7 @@ def _bed_actor(material, actor, renderer):
         result.update(color=color, direction=record['direction'])
         return result
     if renderer is not None and field_key(renderer, 'direction') is not None:
+        validate_source()
         result = thaw(freeze(renderer))
         from .nbt_spatial import set_scalar
         set_scalar(result, 'direction', record['direction'])

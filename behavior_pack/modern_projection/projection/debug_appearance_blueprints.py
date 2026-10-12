@@ -40,9 +40,10 @@ def observations():
 def populate(fixture):
     from .block_groups import group_partner
     from .debug_blueprints import material
+    rows = observations()
     fixture.floor()
     normals = ((0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1), (-1, 0, 0), (1, 0, 0))
-    for row in observations():
+    for row in rows:
         target = CASE_POSITIONS[row['case']]
         fixture.plinth(target)
         source_pos = row['cell_nbt'][0]['pos']
