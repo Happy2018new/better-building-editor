@@ -2,6 +2,7 @@
 import argparse
 import base64
 import json
+import hashlib
 import math
 import os
 from pathlib import Path
@@ -275,7 +276,7 @@ def appearance_offset(row, configured, wall_camera):
             4: (z, y, -x), 5: (-z, y, x)}[row['face']]
 
 
-def native_capture(check, row, offset, support_block='minecraft:stone', source_cells=None):
+def native_capture(check, row, offset, support_block='minecraft:stone', source_cells=None, clear=True):
     check.run('b.stop_projection()\n_result=True')
     # Native block actors can be culled when the detached camera leaves the
     # player's chunks. Keep the player on an owned platform near the target.
@@ -295,12 +296,14 @@ assert info.GetBlockNew(support,saved['dimension'])['name']=='minecraft:stone'
 support_write=info.SetBlockNew(support,{'name':%r,'aux':0},0,saved['dimension'],True,False)
 support_readback=info.GetBlockNew(support,saved['dimension'])
 assert support_readback['name']==%r and support_readback['aux']==0,support_readback
-assert info.GetBlockNew(platform,saved['dimension'])['name']=='minecraft:air'
-saved['reserved'].append(platform)
-assert info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
+before_platform=info.GetBlockNew(platform,saved['dimension'])
+assert before_platform['name']=='minecraft:air' or (platform in [tuple(p) for p in saved['reserved']] and before_platform['name']=='minecraft:stone')
+if platform not in [tuple(p) for p in saved['reserved']]:saved['reserved'].append(platform)
+platform_write=info.SetBlockNew(platform,{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
+assert info.GetBlockNew(platform,saved['dimension'])=={'name':'minecraft:stone','aux':0}
 assert position.SetFootPos((platform[0]+.5,platform[1]+1.,platform[2]+.5))
 _result=json.dumps({'before':saved['qa_player_foot'],'after':position.GetFootPos(),'platform':platform,'support':support,'support_block':%r,
- 'support_write':support_write,'support_readback':support_readback})
+ 'support_write':support_write,'support_readback':support_readback,'platform_write':platform_write})
 ''' % (platform, tuple(row['support']), support_block, support_block, support_block))
     pose = check.run('''target=%r
 offset=%r
@@ -318,7 +321,11 @@ _result=json.dumps({'position':position,'rotation':rotation,'target':center})
     pose['settled'] = wait_camera_pose(check, pose)
     pose['nearby_player'] = nearby
     time.sleep(.35)
-    pose['screenshot'] = check.capture(row['case'] + '_real_native')
+    pose['scope'] = 'Independently placed vanilla world block; no projection actor or palette rendering'
+    pose['screenshot'] = check.capture(row['case'] + ('_real_native' if clear else '_vanilla_empty'))
+    if not clear:
+        restore_native_player(check.client)
+        return pose
     execute(check.client, '''import json
 import mod.server.extraServerApi as api
 factory=api.GetEngineCompFactory()
@@ -360,18 +367,53 @@ def main():
     parser.add_argument('--opacity-probe', action='store_true')
     parser.add_argument('--wall-camera', action='store_true', help='Rotate both cameras to the exposed wall face')
     parser.add_argument('--native-resolution', action='store_true', help='Use owned background client captures')
+    parser.add_argument('--candidate-flat-items', action='store_true',
+                        help='Temporarily enable provisional flat item profiles; production acceptance stays false')
+    parser.add_argument('--candidate-depth-delta', type=float,
+                        help='Diagnostic logical Z translation in blocks; face2 only, never production acceptance')
+    parser.add_argument('--candidate-alpha-ownership', action='store_true',
+                        help='Diagnostic body/item geometry visibility controls; existing opacity gates stay unchanged')
     parser.add_argument('--camera-calibration', type=Path,
                         help='Completed native cube camera calibration from this exact instance; required for beds')
     parser.add_argument('--support-block', choices=('minecraft:stone', 'minecraft:magenta_concrete'),
                         default='minecraft:stone', help='Native reference support; contrast prevents a grey-on-grey mask')
     args = parser.parse_args()
+    if args.candidate_flat_items and (not args.native_resolution or args.camera_calibration is None):
+        parser.error('Candidate item checks require native captures and this instance camera calibration')
+    if args.candidate_alpha_ownership and not args.candidate_flat_items:
+        parser.error('Alpha ownership controls require candidate item checks')
+    if args.candidate_flat_items and (not args.case or
+            any(case not in ('frame_filled', 'glow_frame_filled') for case in args.case)):
+        parser.error('Candidate item checks require explicit filled frame cases')
+    if args.candidate_depth_delta is not None and (not args.candidate_flat_items or
+            args.case != ['frame_filled'] or not 0 <= args.candidate_depth_delta <= 1.):
+        parser.error('Semantic depth diagnostic requires only candidate frame_filled and a delta in [0,1]')
+    if args.candidate_flat_items and args.output.exists():
+        parser.error('Choose a fresh item candidate report')
+    if args.candidate_flat_items:
+        helper = os.environ.get('MCDEV_NATIVE_CAPTURE_HELPER')
+        if not helper or Path(helper).resolve() != ROOT / 'tools/capture_native_window.py':
+            parser.error('Candidate item checks require the reviewed owner-bound WGC capture helper')
     calibration = (json.loads(args.camera_calibration.read_text(encoding='utf8'))
                    if args.camera_calibration is not None else None)
     evidence = {'schema': 1, 'completed': False, 'passed': False, 'rows': [],
                 'scope': 'Native actual block comparison is independent of native and built-in editor inputs.',
                 'bed_diagnostic': 'Full client difference masks with fixed public source-cell ROI and bound actual camera',
                 'camera_calibration': str(args.camera_calibration) if args.camera_calibration else None}
-    installed = saved_visual = native_created = daylight_saved = hud_saved = False
+    evidence['candidate_flat_items'] = args.candidate_flat_items
+    evidence['candidate_depth_delta_blocks'] = args.candidate_depth_delta
+    evidence['candidate_alpha_ownership'] = args.candidate_alpha_ownership
+    evidence['production_rendering_accepted'] = False
+    if args.candidate_flat_items:
+        from generate_flat_item_proxies import source_path
+        evidence['candidate_source_sha256'] = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in (Path(__file__), ROOT / 'tools/flat_frame_item_visual_checks.py',
+                         ROOT / 'tools/flat_frame_item_visual_contract.md',
+                         ROOT / 'tools/generate_flat_item_proxies.py',
+                         ROOT / 'behavior_pack/modern_projection/projection/static_frame_item.py',
+                         ROOT / 'behavior_pack/modern_projection/projection/static_frame_item_data.py',
+                         ROOT / 'behavior_pack/modern_projection/projection/debug_appearance_blueprints.py', source_path())}
+    installed = saved_visual = native_created = daylight_saved = hud_saved = candidate_enabled = False
     try:
         with Client(timeout=30) as client:
             check = AppearanceCheck(client, args.output, 60, native_resolution=args.native_resolution,
@@ -381,6 +423,23 @@ def main():
                 installed = True
                 check.run(SAVE_VISUAL)
                 saved_visual = True
+                if args.candidate_flat_items:
+                    runtime = check.run('cam=b.factory.CreateCamera(b.level)\n'
+                        '_result=json.dumps({"fov":cam.GetFov(),"screen":b.factory.CreateGame(b.level).GetScreenSize(),'
+                        '"version":api.GetMinecraftVersion()})')
+                    require_bed_calibration(calibration, runtime)
+                    evidence['candidate_runtime'] = runtime
+                    evidence['candidate_profiles'] = check.run('''from copy import deepcopy
+from modern_projection.projection import static_frame_item_data
+assert not hasattr(sys,'_flat_frame_item_profiles_saved')
+sys._flat_frame_item_profiles_saved=deepcopy(static_frame_item_data.FRAME_ITEMS)
+profiles=[]
+for key,profile in static_frame_item_data.FRAME_ITEMS.items():
+ profiles.append({'identifier':key[0],'aux':key[1],'production_accepted':profile['accepted']})
+ profile['accepted']=True
+_result=json.dumps(profiles)
+''')
+                    candidate_enabled = True
                 daylight_saved = True
                 evidence['daylight'] = execute(client, SETUP_DAYLIGHT)
                 path = ROOT / 'behavior_pack/modern_projection/projection/debug_blueprints.py'
@@ -390,7 +449,9 @@ def main():
                                  (base64.b64encode(path.read_bytes()).decode('ascii'), str(path)))
                 evidence['blueprint_case'] = case
                 selected = args.case or case['acceptance_cases']
-                assert all(name in case['acceptance_cases'] for name in selected), selected
+                allowed = tuple(case['acceptance_cases']) + (('frame_filled', 'glow_frame_filled')
+                                                      if args.candidate_flat_items else ())
+                assert all(name in allowed for name in selected), selected
                 if any(identity.startswith('bed_') for identity in selected):
                     require_bed_calibration(calibration)
                     evidence['native_hud'] = check.run(SAVE_HUD)
@@ -401,6 +462,17 @@ def main():
                 execute(client, 'import sys\nsys._p0_entity_appearance_rows=%r\n_result=True' % setup['rows'], True)
                 read_code = (ROOT / 'tools/p0_entity_appearance_read.py').read_text(encoding='utf8')
                 evidence['before_fill'] = replicated_palettes(client, read_code)
+                if args.candidate_flat_items:
+                    if check.navigation()['open']:
+                        check.run('navigator.pop()\n_result=True')
+                        check.wait('close workspace for empty reference', lambda nav: not nav['open'] and not nav['transition'], check.navigation)
+                    evidence['native_empty_frames'] = {}
+                    for row in evidence['before_fill']['rows']:
+                        if not row.get('fill_item'):
+                            continue
+                        offset = appearance_offset(row, case['isolated_camera']['world_offset'], args.wall_camera)
+                        evidence['native_empty_frames'][row['case']] = native_capture(check, row, offset, args.support_block, clear=False)
+                    check.run(camera_restore_code(False))
                 filled = execute(client, (ROOT / 'tools/p0_entity_appearance_fill.py').read_text(encoding='utf8'))
                 assert all(row['fill_observed'] for row in filled['rows'] if row.get('fill_item')), filled
                 evidence['filled'] = filled
@@ -433,7 +505,17 @@ def main():
                             shot = check.capture(identity + '_' + source + '_editor')
                         crop = viewport_crop(check, shot)
                         editor_frames[source] = Image.open(shot['path']).convert('RGB').crop(crop)
-                        result['scopes'][source + '_editor'] = {'screenshot': shot, 'crop': crop, 'identity': loaded}
+                        result['scopes'][source + '_editor'] = {'screenshot': shot, 'crop': crop, 'identity': loaded,
+                            'scope': ('Fresh vanilla NBT loaded into candidate palette editor; not a vanilla world reference'
+                                      if source == 'native' and args.candidate_flat_items else
+                                      'Built-in blueprint loaded into palette editor' if source == 'synthetic' else
+                                      'Fresh vanilla NBT loaded into palette editor')}
+                        if source == 'synthetic' and args.candidate_flat_items:
+                            from flat_frame_item_visual_checks import candidate_scopes
+                            result['item_scopes'] = {}
+                            candidate_scopes(check, identity, case, offset, LOAD % (identity, source), shot,
+                                             result['item_scopes'], lambda: write_json(args.output, evidence),
+                                             args.candidate_depth_delta, args.candidate_alpha_ownership)
                         if source == 'native':
                             if is_bed:
                                 check.world_binding = {'anchor': case['focus'], 'offset': offset, 'projection': True,
@@ -496,13 +578,31 @@ def main():
                     else:
                         result['native_projection_agreement'] = comparison(native, native_mask, shown, mask)
                     result['native_projection_agreement']['crop'] = crop
+                    if args.candidate_flat_items:
+                        from flat_frame_item_visual_checks import content_mask
+                        empty = evidence['native_empty_frames'][identity]
+                        native_item, native_item_mask = content_mask(real['screenshot']['path'], empty['screenshot']['path'], crop)
+                        result['item_scopes']['native_reference'] = {'empty': empty, 'filled': real,
+                            'item_pixels': count(native_item_mask), 'passed': count(native_item_mask) >= 80}
+                        for mode in ('full', 'missing'):
+                            scoped = result['item_scopes'][mode]
+                            body = result['item_scopes']['world_body']['screenshot']['path']
+                            actual_item, actual_item_mask = content_mask(scoped['shown']['screenshot']['path'], body, crop)
+                            scoped['native_item_agreement'] = comparison(native_item, native_item_mask, actual_item, actual_item_mask)
+                        result['item_scopes']['passed'] = (result['item_scopes']['editor']['passed'] and
+                            result['item_scopes']['document_nonmutation'] and
+                            result['item_scopes']['native_reference']['passed'] and result['item_scopes']['stop_owners']['passed'] and
+                            all(result['item_scopes'][mode]['presence_passed'] for mode in ('full', 'missing')) and
+                            all(result['item_scopes'][mode][key]['passed'] for mode in ('full', 'missing')
+                                for key in ('alpha02', 'alpha0', 'native_item_agreement')))
                     if args.texture_probe:
                         result['native_projection_texture'] = texture_comparison(native, native_mask, shown, mask)
                     result['passed'] = (result['editor_input_agreement']['passed'] and
                                         result['native_projection_agreement']['passed'] and
                                         result.get('native_projection_texture', {'passed': True})['passed'] and
                                         result.get('projection_visibility', {'passed': True})['passed'] and
-                                        result.get('opacity_probe', {'passed': True})['passed'])
+                                        result.get('opacity_probe', {'passed': True})['passed'] and
+                                        result.get('item_scopes', {'passed': True})['passed'])
                     write_json(args.output, evidence)
                     print(json.dumps({'case': identity, 'passed': result['passed']}), flush=True)
                     check.run(camera_restore_code(False))
@@ -525,6 +625,12 @@ def main():
                     actions.append(('daylight', lambda: execute(client, RESTORE_DAYLIGHT)))
                 if hud_saved:
                     actions.append(('native_hud', lambda: check.run(RESTORE_HUD)))
+                if candidate_enabled:
+                    actions.append(('candidate_profiles', lambda: check.run('''from modern_projection.projection import static_frame_item_data
+static_frame_item_data.FRAME_ITEMS=sys._flat_frame_item_profiles_saved
+del sys._flat_frame_item_profiles_saved
+_result=True
+''')))
                 if installed:
                     def restore_workspace():
                         was_open=check.run('_result=sys._blueprint_qa_saved["workspace"]')

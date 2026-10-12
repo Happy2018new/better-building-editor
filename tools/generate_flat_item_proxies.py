@@ -120,17 +120,17 @@ def identifier(item, facing, rotation):
 
 def model(item, image, pose, facing, rotation):
     # The native palette importer mirrors X. Local clockwise rotation therefore
-    # uses positive Z before the facing parent transforms the whole face plane.
-    orientation = {0: [90, 0, 0], 1: [-90, 0, 0], 2: [0, 0, 0],
-                   3: [0, 180, 0], 4: [0, 90, 0], 5: [0, -90, 0]}[facing]
+    # uses positive Z. The positive-depth plane rotates toward the support face.
+    orientation = {0: [-90, 0, 0], 1: [90, 0, 0], 2: [0, 0, 0],
+                   3: [0, 180, 0], 4: [0, -90, 0], 5: [0, 90, 0]}[facing]
     texture = 'modern_projection_flat_' + item['identifier'].replace(':', '_') + '_' + str(item['aux'])
     return {'format_version': '1.13.0', 'netease:block_geometry': {
         'description': {'identifier': identifier(item, facing, rotation), 'textures': [texture],
                         'textures_descriptions': [{'width': image.width, 'length': image.height}],
                         'item_texture': item['resolved']['texture_key'], 'use_ao': False},
-        'bones': [{'name': 'facing', 'pivot': [-8, 8, 8], 'rotation': orientation},
-                  {'name': 'item', 'parent': 'facing', 'pivot': [-8, 8, pose['front_z_pixels']],
-                   'rotation': [0, 0, rotation * 45], 'cubes': silhouette_cubes(image, pose)}]}}
+        'bones': [{'name': 'item', 'pivot': [-8, 8, 8],
+                   'rotation': [orientation[0], orientation[1], rotation * 45],
+                   'cubes': silhouette_cubes(image, pose)}]}}
 
 
 def behavior(name):

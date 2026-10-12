@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "production_rendering_accepted": false,
+  "session_id": "582a103cedfc4219a81c2bb456c7fbce",
+  "owner": "entities-r10b-background",
+  "artifact_directory": "C:/Users/Happy2018new/.pyreact-debug/instances/582a103cedfc4219a81c2bb456c7fbce/artifacts",
+  "reports": {
+    "semantic_depth": {
+      "file": "frame-semantic-depth-v1.json",
+      "sha256": "231b36e5210dca0e951ea73afd5f65e38059c05ae6357ccb1f02209c969e4322",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "alpha_ownership": {
+      "file": "frame-alpha-ownership-v1.json",
+      "sha256": "3a99105cea764b600d606510282bd644f773731d4b4b2592f677bae01e0f24b2",
+      "completed": true,
+      "passed": false,
+      "restored": true,
+      "source_snapshot_directory": "frame-alpha-ownership-v1.sources",
+      "source_snapshot_files": 66,
+      "recorded_candidate_source_hashes_verified": 8
+    },
+    "layer_compositor": {
+      "file": "frame-alpha-compositor-v1.json",
+      "sha256": "f15c58d1a2fe980cf56ddd4ed545ed4e936043e2684dfba9868026ce7323a604",
+      "completed": true,
+      "original_report_passed": false,
+      "production_rendering_accepted": false
+    },
+    "fixed_size_depth_measurement": {
+      "file": "frame-native-plane-v1.fixed-size8-depth.json",
+      "completed": true,
+      "production_rendering_accepted": false,
+      "size_pixels": 8,
+      "depth_pixels": 15.0625,
+      "view_iou": [0.8994047619047619, 0.8285163776493256],
+      "scope": "Approximate analytical depth measurement with size fixed at 8; native acceptance is separate"
+    }
+  },
+  "depth_diagnosis": {
+    "facing": 2,
+    "rotation_degrees": 0,
+    "size_pixels": 8,
+    "resource_front_z_pixels": 1,
+    "logical_world_translation_blocks": 0.875,
+    "corrected_disabled_resource_front_z_pixels": 15,
+    "scope": "Translate only the item overlay geometry in world coordinates; no screen offsets or image resizing",
+    "native_reference": "Independent native PlayerUseItemToPos frame, captured empty then filled; original typed Item NBT and rotation recorded",
+    "item_comparison_both_full_and_missing": {
+      "passed": true,
+      "reference_pixels": 3712,
+      "actual_pixels": 3739,
+      "recall": 1,
+      "precision": 0.9997325488098422,
+      "interior_color_agreement": 0.7522236340533672,
+      "edge_tolerance_pixels": 2,
+      "color_threshold": 55
+    }
+  },
+  "original_composite_opacity_gates": {
+    "changed": false,
+    "alpha02_passed": false,
+    "alpha02_contrast_gain": 0.32069397885827683,
+    "alpha02_relative_blend_residual": 0.1690578272546484,
+    "alpha0_passed": false,
+    "alpha0_item_region_residual_pixels_gt_12": 2553
+  },
+  "independent_geometry_ownership_controls": {
+    "blank_residual_pixels_gt_12": 0,
+    "native_body": {
+      "opaque_pixels": 22567,
+      "alpha02_passed": true,
+      "alpha02_contrast_gain": 0.18098487074333874,
+      "alpha02_relative_blend_residual": 0.08012412941130466,
+      "alpha0_residual_pixels_gt_12": 13615
+    },
+    "custom_item": {
+      "opaque_pixels": 3765,
+      "alpha02_passed": true,
+      "alpha02_contrast_gain": 0.22414114822505407,
+      "alpha02_relative_blend_residual": 0.05990565198662915,
+      "alpha0_residual_pixels_gt_12": 0
+    },
+    "conclusion": "Zero-opacity rectangle belongs to native body/context geometry; custom item opacity controls pass in this bounded facing/rotation diagnostic"
+  },
+  "independent_layer_compositor": {
+    "formula": "item_faded + (1-opacity) * (body_faded - blank)",
+    "opacity_per_layer": 0.2,
+    "equal_color_two_layer_coverage": 0.36,
+    "relative_composition_residual": 0.029436951487135397,
+    "samples": 9759,
+    "conclusion": "Overlapping translucent layers explain composite contrast above 0.2; original single-layer composite gate remains failed"
+  },
+  "production_shader_declarations": {
+    "scope": "Source declarations only; no claim to runtime GPU material introspection",
+    "native_body_material": "netease_block_as_entity_transparency:entity_alphatest_netease",
+    "native_body_vertex": "shaders/entity.vertex",
+    "native_body_fragment_override": "shaders/glsl/modern_projection_native_actor.fragment",
+    "custom_item_material": "netease_block_as_entity_mesh",
+    "custom_item_vertex": "shaders/glsl/modern_projection_biome_blocks.vertex",
+    "custom_item_fragment": "shaders/glsl/modern_projection_biome_blocks.fragment",
+    "custom_item_render_layer": "alpha"
+  },
+  "restoration": {
+    "document_nonmutation": true,
+    "projection_stop_owners_passed": true,
+    "game_pid": 38628,
+    "mcdk_pid": 30808,
+    "session_state": "stopped",
+    "processes_observed_absent_after_identity_bound_stop": true
+  },
+  "unaccepted_boundaries": [
+    "Regenerated depth15 resources have not been loaded and visually verified in a fresh game",
+    "Six facings and eight rotations have only an offline support-plane invariant, not native pixel acceptance",
+    "Occupied-stone suppression/recovery has offline coverage only",
+    "Native bank replacement and page-close item ownership remain incomplete",
+    "Native frame body zero-alpha depth-write hypothesis remains unverified",
+    "Enchanted items, shelves, glint, block items, dynamic/special items and banners remain unaccepted",
+    "Unknown and enchanted Item/NBT must stay preserved; no flattening or discarded content"
+  ]
+}

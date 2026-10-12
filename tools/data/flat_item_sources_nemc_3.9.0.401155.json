@@ -14,8 +14,19 @@
     "accepted": false,
     "size_pixels": 8.0,
     "thickness_pixels": 0.5,
-    "front_z_pixels": 1.0,
-    "status": "candidate; independent native-world calibration required"
+    "front_z_pixels": 15.0,
+    "status": "disabled candidate; semantic support-side depth diagnosed for facing 2 rotation 0 only",
+    "depth_diagnostic": {
+      "session_id": "582a103cedfc4219a81c2bb456c7fbce",
+      "report_file": "frame-alpha-ownership-v1.json",
+      "report_sha256": "3a99105cea764b600d606510282bd644f773731d4b4b2592f677bae01e0f24b2",
+      "resource_front_z_pixels": 1.0,
+      "logical_world_translation_blocks": 0.875,
+      "size_pixels": 8.0,
+      "facing": 2,
+      "rotation_degrees": 0.0,
+      "scope": "World-space depth diagnostic only; regenerated resources and complete facing/rotation matrix remain unaccepted"
+    }
   },
   "items": [
     {

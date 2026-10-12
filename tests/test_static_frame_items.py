@@ -2,11 +2,13 @@
 import copy
 import importlib.util
 import json
+import math
 import sys
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 
 from PIL import Image
 
@@ -19,6 +21,9 @@ from projection.model import Document
 from projection.render_context import prepare_context_palette, prepare_document_context, ContextBatchBuilder
 from projection.render_layout import OVERLAY_BASE
 from projection.static_frame_item import frame_item_proxy
+from projection.large_preview import SurfacePalette
+from projection.occupancy import ProjectionOccupancy
+from test_occupancy_review import Runtime, STONE
 
 spec = importlib.util.spec_from_file_location('flat_item_generator', ROOT / 'tools/generate_flat_item_proxies.py')
 generator = importlib.util.module_from_spec(spec)
@@ -118,8 +123,64 @@ class StaticFrameItems(unittest.TestCase):
                 self.assertEqual(2, len(data['common'][frame()]))
             self.assertEqual(saved, doc.to_data())
 
+    def test_initial_stone_and_dynamic_recovery_rebuild_only_target_item_overlays(self):
+        doc = Document((2, 1, 1), {(0, 0, 0): make_cell(frame(), nbt=actor()),
+                                  (1, 0, 0): make_cell(frame(), nbt=actor(45.))})
+        saved = copy.deepcopy(doc.to_data())
+        runtime, origin = Runtime(), (100, 64, 100)
+        runtime.world[origin] = STONE
+        session = SimpleNamespace(editor=SimpleNamespace(document=doc, layer=None),
+                                  preview_hidden=lambda: (), solo_layer=False)
+        bridge = SimpleNamespace(session=session, factory=runtime, system=runtime,
+                                 level='level', projection_serial=1, projection_occupancy=None)
+        tracker = ProjectionOccupancy(bridge, origin)
+
+        def prepared_items():
+            tracker.snapshot = tracker.state[:]
+            tracker.output = SurfacePalette(tracker.size)
+            for unused in tracker.prepare():
+                pass
+            return {value[0]: tuple(indices) for unused, context, palette in tracker.prepared['_context_batches']
+                    if not context for value, indices in palette['common'].items()}
+
+        with patch.object(static_frame_item_data, 'FRAME_ITEMS', self.profiles):
+            self.assertFalse(tracker.initial_visible((0, 0, 0)))
+            self.assertTrue(tracker.initial_visible((1, 0, 0)))
+            self.assertEqual({self.profile['proxies'][(2, 1)]: (16,)}, prepared_items())
+            runtime.world[origin] = ('minecraft:air', 0)
+            tracker.read((0, 0, 0))
+            self.assertEqual({self.profile['proxies'][(2, 0)]: (0,),
+                              self.profile['proxies'][(2, 1)]: (16,)}, prepared_items())
+            runtime.world[(101, 64, 100)] = STONE
+            tracker.read((1, 0, 0))
+            self.assertEqual({self.profile['proxies'][(2, 0)]: (0,)}, prepared_items())
+            self.assertEqual(saved, doc.to_data())
+
 
 class BitmapResourceTests(unittest.TestCase):
+    def test_disabled_model_planes_rotate_toward_each_support_face(self):
+        source = json.loads(generator.source_path().read_text(encoding='utf8'))
+        pose = source['frame_pose']
+        self.assertFalse(pose['accepted'])
+        self.assertEqual(8., pose['size_pixels'])
+        image = Image.open(ROOT / source['items'][0]['generated_texture'])
+        near = (pose['front_z_pixels'] + pose['thickness_pixels'] / 2.) / 16.
+        centers = ((.5, near, .5), (.5, 1. - near, .5), (.5, .5, near),
+                   (.5, .5, 1. - near), (near, .5, .5), (1. - near, .5, .5))
+        for facing in range(6):
+            for rotation in range(8):
+                bone = generator.model(source['items'][0], image, pose, facing, rotation)[
+                    'netease:block_geometry']['bones'][0]
+                cube = bone['cubes'][0]
+                x, y, z = [cube['origin'][axis] + cube['size'][axis] / 2. - bone['pivot'][axis]
+                           for axis in range(3)]
+                rx, ry, rz = [math.radians(value) for value in bone['rotation']]
+                x, y = x * math.cos(rz) - y * math.sin(rz), x * math.sin(rz) + y * math.cos(rz)
+                y, z = y * math.cos(rx) - z * math.sin(rx), y * math.sin(rx) + z * math.cos(rx)
+                x, z = x * math.cos(ry) + z * math.sin(ry), -x * math.sin(ry) + z * math.cos(ry)
+                for actual, expected in zip((.5 - x / 16., .5 + y / 16., .5 + z / 16.), centers[facing]):
+                    self.assertAlmostEqual(expected, actual)
+
     def test_new_registry_requires_new_versioned_item_and_pose_sources(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
