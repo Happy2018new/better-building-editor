@@ -8,6 +8,7 @@ import sys
 import time
 import urllib.request
 from _session import load_session, desktop_lock, registry_dir, write_json
+from _window import _find_game_window, background_guard_state
 
 
 class MCDKError(RuntimeError):
@@ -18,6 +19,13 @@ class RPCError(MCDKError):
     def __init__(self, error):
         self.error = error
         super().__init__(json.dumps(error, ensure_ascii=False))
+
+
+class ProtectedWindowError(MCDKError):
+    def __init__(self, error):
+        self.error = error
+        super().__init__('Protected execute_code preflight failed: ' +
+                         json.dumps(error, ensure_ascii=False))
 
 
 class Client:
@@ -34,9 +42,72 @@ class Client:
         self.timeout = timeout
         self.session = None
         self.counter = 0
+        self.last_execute_code_preflight = None
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
+    def _check_protected_execute_window(self):
+        protection = self.binding.get('noactivation') if self.binding else None
+        if not isinstance(protection, dict) or protection.get('requested') is not True:
+            return
+        current = load_session(self.binding['session_file'], self.binding['owner'], live=True)
+        for key in ('id', 'owner', 'session_file', 'game_pid', 'game_identity', 'mcdk_pid',
+                    'mcdk_identity', 'mcp_url', 'token', 'game_executable'):
+            if current.get(key) != self.binding.get(key):
+                raise MCDKError('Assigned instance identity changed before execute_code: ' + key)
+        report = {'ok': False, 'category': 'protected_execute_code_preflight',
+                  'execute_code_blocked': True, 'execute_code_dispatched': False,
+                  'python_return_checked': False, 'window_unavailable': False,
+                  'guard_invalid': False, 'owned_process_foreground': False,
+                  'background_only': True, 'activation_fallback': False,
+                  'owner': current['owner'], 'session_file': current['session_file'],
+                  'game_pid': current['game_pid'], 'game_identity': current['game_identity']}
+        self.last_execute_code_preflight = report
+
+        def refuse(reason, flag):
+            report.update(reason=reason)
+            report[flag] = True
+            raise ProtectedWindowError(report)
+
+        protection = current.get('noactivation')
+        if not isinstance(protection, dict) or not all(protection.get(key) is True for key in
+                ('requested', 'background_safe', 'window_noactivate')):
+            refuse('protected_session_contract_invalid', 'guard_invalid')
+        try:
+            guard = background_guard_state(current['game_pid'], Path(current['game_executable']).name)
+            report['window_guard'] = guard
+            foreground = guard['foreground']
+            windows = guard['windows']
+            if (not isinstance(foreground, dict) or not isinstance(windows, list) or
+                    not all(isinstance(window, dict) for window in windows)):
+                raise ValueError('Window guard observation is malformed')
+            window = _find_game_window(windows, pid=current['game_pid'],
+                                       process_name=Path(current['game_executable']).name)
+        except Exception as exc:
+            report['observation_error'] = '%s: %s' % (type(exc).__name__, exc)
+            refuse('owned_window_observation_unavailable', 'window_unavailable')
+        if foreground.get('pid') == current['game_pid']:
+            refuse('owned_game_is_foreground', 'owned_process_foreground')
+        if window is None:
+            refuse('owned_game_has_no_usable_visible_window', 'window_unavailable')
+        report['window'] = window
+        if window.get('minimized') is True:
+            refuse('owned_game_window_is_minimized', 'window_unavailable')
+        if (window.get('minimized') is not False or type(window.get('hwnd')) is not int or
+                window['hwnd'] <= 0 or type(window.get('width')) is not int or
+                type(window.get('height')) is not int or window['width'] <= 1 or window['height'] <= 1):
+            refuse('owned_game_has_no_usable_visible_window', 'window_unavailable')
+        if (guard.get('background_safe') is not True or guard.get('window_noactivate') is not True or
+                type(foreground.get('pid')) is not int or not all(
+                    window.get('pid') == current['game_pid'] and window.get('noactivate') is True
+                    for window in windows)):
+            refuse('owned_game_background_guard_invalid', 'guard_invalid')
+        report.update(ok=True, execute_code_blocked=False)
+        return report
+
     def _post(self, method, params=None, notification=False):
+        preflight = None
+        if method == 'tools/call' and (params or {}).get('name') == 'execute_code':
+            preflight = self._check_protected_execute_window()
         self.counter += 1
         payload = {"jsonrpc": "2.0", "method": method, "params": params or {}}
         if not notification:
@@ -46,6 +117,8 @@ class Client:
             headers["Mcp-Session-Id"] = self.session
         request = urllib.request.Request(self.url, json.dumps(payload).encode("utf-8"), headers)
         # A timeout can follow a successful mutation. Never replay tool calls.
+        if preflight is not None:
+            preflight['execute_code_dispatched'] = True
         with self.opener.open(request, timeout=self.timeout) as response:
             if method == "initialize":
                 self.session = response.headers.get("Mcp-Session-Id")
@@ -105,6 +178,8 @@ class Client:
         result = self._post("tools/call", {"name": "execute_code", "arguments": {
             "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
             "is_client": True, "direct_return": True}})
+        if self.last_execute_code_preflight is not None:
+            self.last_execute_code_preflight['python_return_checked'] = True
         if return_value(result) != self.binding["token"]:
             raise MCDKError("Game session marker changed; refuse stale or misrouted command")
 
