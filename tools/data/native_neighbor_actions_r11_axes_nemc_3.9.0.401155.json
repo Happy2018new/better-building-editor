@@ -1,0 +1,6883 @@
+{
+  "schema": 1,
+  "method": "Public action matrix, legacy native writes, updateNeighbors=True, .12s timer readback",
+  "completed": true,
+  "restored": true,
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\dfda1cc5eba5440694a979903b827d5d\\session.json",
+  "owner": "ownr11-neighbor",
+  "source": "test.connections.actions",
+  "plans": [
+    {
+      "id": "rail_corner_rotate_y90",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:rail",
+            1
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_4",
+          [
+            [
+              [
+                0,
+                2,
+                -1
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "rail_corner_mirror_x",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:rail",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                0,
+                2,
+                -1
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_4",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "rail_slope_rotate_y90",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            2
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:rail",
+            1
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                0,
+                3,
+                1
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                0,
+                3,
+                2
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                0,
+                3,
+                2
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                0,
+                3,
+                1
+              ],
+              [
+                "minecraft:rail",
+                1
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "rail_slope_mirror_x",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            2,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:rail",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                -1,
+                3,
+                0
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                -2,
+                3,
+                0
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                -2,
+                3,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                -1,
+                3,
+                0
+              ],
+              [
+                "minecraft:rail",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "golden_rail_corner_rotate_y90",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:golden_rail",
+            1
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_4",
+          [
+            [
+              [
+                0,
+                2,
+                -1
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "golden_rail_corner_mirror_x",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:golden_rail",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                0,
+                2,
+                -1
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                -1,
+                2,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                0,
+                2,
+                1
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_4",
+          [
+            [
+              [
+                1,
+                2,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "golden_rail_slope_rotate_y90",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            2
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:golden_rail",
+            1
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                0,
+                3,
+                1
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                0,
+                3,
+                2
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                0,
+                3,
+                2
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                0,
+                3,
+                1
+              ],
+              [
+                "minecraft:golden_rail",
+                1
+              ]
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "golden_rail_slope_mirror_x",
+      "family": "rail",
+      "focus": [
+        0,
+        2,
+        0
+      ],
+      "setup": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -1,
+            2,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2,
+            0
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            0
+          ],
+          [
+            "minecraft:golden_rail",
+            0
+          ]
+        ]
+      ],
+      "actions": [
+        [
+          "initial",
+          []
+        ],
+        [
+          "place_0",
+          [
+            [
+              [
+                -1,
+                3,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_1",
+          [
+            [
+              [
+                -2,
+                3,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "erase_2",
+          [
+            [
+              [
+                -2,
+                3,
+                0
+              ],
+              [
+                "minecraft:air",
+                0
+              ]
+            ]
+          ]
+        ],
+        [
+          "place_3",
+          [
+            [
+              [
+                -1,
+                3,
+                0
+              ],
+              [
+                "minecraft:golden_rail",
+                0
+              ]
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "start": {
+    "origin": [
+      8,
+      -48,
+      8
+    ],
+    "cases": 8,
+    "runtime": "1.21.120.0",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "game_version": "NEMC 3.9.0.401155"
+  },
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "native": {
+    "case": 8,
+    "action": 0,
+    "rows": [
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 6
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 6,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 6
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 6,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_4",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 8
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 8
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_4",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": [
+              "minecraft:rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:rail",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_4",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_4",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              -1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              1,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              2
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 5,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 5,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              1
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              2,
+              2
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              3,
+              1
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [],
+        "action": "initial",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": [
+          {
+            "returned": true,
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:stone",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          },
+          {
+            "returned": true,
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_0",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 0,
+              "name": "minecraft:air"
+            }
+          }
+        ],
+        "action": "place_1",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -2,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:air",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "erase_2",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 1,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "family": "rail",
+        "writes": [
+          {
+            "returned": true,
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "before": {
+              "aux": 1,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "action": "place_3",
+        "cells": [
+          {
+            "states": {},
+            "pos": [
+              -2,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              -1,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 0,
+              "rail_data_bit": false
+            },
+            "pos": [
+              -1,
+              3,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:golden_rail"
+            }
+          },
+          {
+            "states": {},
+            "pos": [
+              0,
+              1,
+              0
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:stone"
+            }
+          },
+          {
+            "states": {
+              "rail_direction": 3,
+              "rail_data_bit": false
+            },
+            "pos": [
+              0,
+              2,
+              0
+            ],
+            "value": {
+              "aux": 3,
+              "name": "minecraft:golden_rail"
+            }
+          }
+        ],
+        "setup_writes": []
+      }
+    ],
+    "done": true,
+    "error": null
+  },
+  "cleanup": {
+    "reserved_air": 294,
+    "restored": true
+  },
+  "comparison": {
+    "rows": [
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "erase_2",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:rail",
+              6
+            ],
+            "local": [
+              "minecraft:rail",
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "place_3",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_rotate_y90",
+        "action": "place_4",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "erase_2",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:rail",
+              8
+            ],
+            "local": [
+              "minecraft:rail",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "place_3",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_corner_mirror_x",
+        "action": "place_4",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "action": "erase_2",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_rotate_y90",
+        "action": "place_3",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              7,
+              16
+            ],
+            "native": [
+              "minecraft:rail",
+              1
+            ],
+            "local": [
+              "minecraft:rail",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "action": "erase_2",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "rail_slope_mirror_x",
+        "action": "place_3",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              14,
+              7,
+              15
+            ],
+            "native": [
+              "minecraft:rail",
+              0
+            ],
+            "local": [
+              "minecraft:rail",
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "place_1",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              6,
+              16
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              1
+            ]
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "erase_2",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "place_3",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_rotate_y90",
+        "action": "place_4",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "place_1",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              14,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              0
+            ]
+          },
+          {
+            "pos": [
+              15,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "erase_2",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              6,
+              15
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "place_3",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_corner_mirror_x",
+        "action": "place_4",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "action": "erase_2",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_rotate_y90",
+        "action": "place_3",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              15,
+              7,
+              16
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              1
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "action": "initial",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "action": "place_0",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "action": "place_1",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "action": "erase_2",
+        "matched": true,
+        "differences": []
+      },
+      {
+        "case": "golden_rail_slope_mirror_x",
+        "action": "place_3",
+        "matched": false,
+        "differences": [
+          {
+            "pos": [
+              14,
+              7,
+              15
+            ],
+            "native": [
+              "minecraft:golden_rail",
+              0
+            ],
+            "local": [
+              "minecraft:golden_rail",
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "all_matched": false,
+    "scope": "Actual native writes versus local static edits; no visual acceptance or survival deletion contract."
+  }
+}

@@ -14,3 +14,10 @@ tools/data/plant-native-source-investigation-r10b.json text eol=lf
 tools/data/native_item_contents_r11_raw.json -text -diff
 tools/data/native_item_contents_r11_prepare.log -text -diff
 tools/data/native_item_contents_r11_session.json text eol=lf
+# Public rail inputs and native reports retain their evidence fingerprints.
+behavior_pack/modern_projection/projection/debug_action_blueprints.py text eol=lf
+tools/data/native_neighbor_actions_r11_nemc_3.9.0.401155.json -text -diff
+tools/data/native_neighbor_actions_r11_axes_nemc_3.9.0.401155.json -text -diff
+tools/data/native_neighbor_actions_r11_replay_manifest.json -text -diff
+# Native transform captures and their frozen probe retain original bytes.
+tools/data/native_state_transform_shapes_r11.* -text

@@ -10,6 +10,7 @@ fence arms and pane arms which have no states.
 from __future__ import unicode_literals
 from . import block_registry as registry
 from . import static_neighbor_data as static_source
+from . import rail_neighbor_data as rail_source
 from .static_neighbor_data import HANGING_MOSS_NAMES
 from .block_traits import is_solid
 from .cell import actor_data, foreground, replace_layer
@@ -85,6 +86,9 @@ def _validate_static_source():
 def _kind(value):
     properties = _properties(value)
     if 'rail_direction' in properties:
+        if (rail_source.SCHEMA_VERSION != 1 or rail_source.SOURCE_VERSION != registry.source_version() or
+                rail_source.PALETTE_SHA256 != registry.fingerprint() or foreground(value)[0] not in rail_source.NAMES):
+            raise ValueError('Native rail rules need observations for this block registry')
         return 'rail'
     if 'wall_post_bit' in properties:
         return 'wall'
@@ -314,11 +318,25 @@ def _rail_shape(value, pos, connections):
         return None
     new = dict(properties, rail_direction=desired)
     front = registry.canonical(foreground(value))
+    if not high and desired >= 6 and registry.from_states(front[0], new) is None:
+        desired = 1 if faces.intersection(('east', 'west')) else 0
+        new['rail_direction'] = desired
     return desired if registry.from_states(front[0], new) is not None else None
 
 
 def _rail(value, pos, context):
     get_cell, write = context.get_cell, context.write
+    previous = foreground(context.before.get(pos, AIR))
+    if context.changed(pos) and previous[0] == foreground(value)[0]:
+        return value
+    # Native removals and same-name state writes leave existing rail states.
+    # New rail names can reconnect nearby cells; complete snapshots stay supplied.
+    nearby = (pos,) + tuple(_add(pos, offset) for offset in _context_offsets('rail'))
+    if not any(target in context.placed and
+               _kind(get_cell(target)) == 'rail' and
+               foreground(context.before.get(target, AIR))[0] != foreground(get_cell(target))[0]
+               for target in nearby):
+        return value
     connections = _rail_connections(get_cell, pos, value)
     if len(connections) == 2:
         return value

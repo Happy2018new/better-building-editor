@@ -374,7 +374,7 @@ class BlockNeighborTests(unittest.TestCase):
         editor.paint_at((2, 1, 2), erase=True, respect_selection=False)
         self.assertFalse(states(editor, (3, 1, 2))['in_wall_bit'])
 
-    def test_rails_form_and_remove_curves_with_passive_neighbor_history(self):
+    def test_rails_form_curves_and_native_erase_keeps_passive_state_with_history(self):
         for size in SIZES:
             with self.subTest(size=size):
                 editor = Editor(Document(size))
@@ -390,7 +390,7 @@ class BlockNeighborTests(unittest.TestCase):
                 editor.redo()
                 self.assertEqual(curve, editor.document.blocks)
                 editor.paint_at((3, 1, 2), erase=True, respect_selection=False)
-                self.assertEqual(0, states(editor, (2, 1, 2))['rail_direction'])
+                self.assertEqual(9, states(editor, (2, 1, 2))['rail_direction'])
 
     def test_every_rail_family_connects_slopes_and_preserves_power_states(self):
         families = []
@@ -412,6 +412,64 @@ class BlockNeighborTests(unittest.TestCase):
                 self.assertEqual(1, states(editor, (3, 2, 2))['rail_direction'])
                 if 'rail_data_bit' in properties:
                     self.assertTrue(states(editor, (2, 1, 2))['rail_data_bit'])
+
+    def test_native_rail_erase_and_state_repaint_keep_saved_layers_and_passive_snapshot(self):
+        north, center, east = (15, 2, 14), (15, 2, 15), (16, 2, 15)
+        curve = registry.from_states(RAIL[0], {'rail_direction': 9})
+        data = {'custom': {'keep': ['saved', 7]}}
+        source = {north: RAIL, center: make_cell(curve, WATER, data),
+                  east: registry.from_states(RAIL[0], {'rail_direction': 1})}
+        for operation in ('erase', 'replace', 'state_repaint'):
+            with self.subTest(operation=operation):
+                editor = Editor(Document((32, 8, 32), source))
+                editor.edit_layer = 0
+                if operation == 'erase':
+                    editor.paint_at(east, erase=True, respect_selection=False)
+                else:
+                    place(editor, east, STONE if operation == 'replace' else RAIL)
+                self.assertEqual(source[center], editor.document.get(center))
+                self.assertEqual(source[north], editor.document.get(north))
+                self.assertEqual(1, len(editor.undo_stack))
+                editor.undo()
+                self.assertEqual(source, editor.document.blocks)
+
+    def test_new_rail_connection_keeps_water_and_actor_on_a_passive_cell(self):
+        north, center, east = (15, 2, 14), (15, 2, 15), (16, 2, 15)
+        data = {'custom': {'keep': ['saved', 7]}}
+        source = {north: RAIL, center: make_cell(RAIL, WATER, data)}
+        editor = Editor(Document((32, 8, 32), source))
+        place(editor, east, RAIL)
+        self.assertEqual(9, states(editor, center)['rail_direction'])
+        self.assertEqual(WATER, background(editor.document.get(center)))
+        self.assertEqual(data, actor_data(editor.document.get(center)))
+        editor.undo()
+        self.assertEqual(source, editor.document.blocks)
+
+    def test_whole_rail_paste_preserves_supplied_state_and_reconnects_passive_neighbor(self):
+        old = registry.from_states(RAIL[0], {'rail_direction': 0})
+        supplied = registry.from_states(RAIL[0], {'rail_direction': 1})
+        data = {'custom': {'source': 'passive'}}
+        donor = make_cell(supplied, WATER, {'custom': {'source': 'pasted'}})
+        source = {(15, 2, 15): make_cell(old, WATER, data)}
+        for asynchronous in (False, True):
+            with self.subTest(asynchronous=asynchronous):
+                editor = Editor(Document((32, 8, 32), source))
+                editor.clipboard = {'size': (1, 1, 1), 'origin': (0, 0, 0),
+                                    'blocks': {(0, 0, 0): donor}}
+                editor.start = (16, 2, 15)
+                if asynchronous:
+                    job = EditJob(editor, 'paste')
+                    while not job.done:
+                        job.step(budget=5, seconds=1)
+                    self.assertFalse(job.error)
+                else:
+                    editor.run('paste')
+                self.assertEqual(donor, editor.document.get((16, 2, 15)))
+                self.assertEqual(1, states(editor, (15, 2, 15))['rail_direction'])
+                self.assertEqual(WATER, background(editor.document.get((15, 2, 15))))
+                self.assertEqual(data, actor_data(editor.document.get((15, 2, 15))))
+                editor.undo()
+                self.assertEqual(source, editor.document.blocks)
 
     def test_whole_cell_paste_keeps_supplied_wall_and_rail_states(self):
         properties = registry.states(WALL)

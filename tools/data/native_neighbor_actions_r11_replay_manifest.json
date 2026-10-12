@@ -1,0 +1,891 @@
+{
+  "schema": 1,
+  "scope": "Diagnostic native state replay; no image or survival acceptance.",
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  },
+  "provenance_scope": "Retrospective owned launch/build and reproducible payload binding; original reports unchanged.",
+  "session": {
+    "id": "dfda1cc5eba5440694a979903b827d5d",
+    "owner": "ownr11-neighbor",
+    "game_pid": 61624,
+    "game_identity": "134362846971729514",
+    "game_executable": {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "bytes": 120539664,
+      "sha256": "67880328996b2895fa7e80712de3dc90d5b6ced26ac10ce67fb49d2e1a51f31f"
+    },
+    "noactivation": {
+      "dll": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+        "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+      },
+      "mcdk": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\mcdk-noactivate\\build-ninja-331\\tools\\mcdk\\mcdk.exe",
+        "sha256": "648e5d56b58cb4722235c17212411c633b7b48b6b8e93443a161d9aa87692c35"
+      },
+      "background_safe": true,
+      "window_noactivate": true
+    }
+  },
+  "source": {
+    "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-neighbor\\behavior_pack\\modern_projection\\projection\\debug_action_blueprints.py",
+    "bytes": 4893,
+    "sha256": "9b964ad00372a7594b18cef1ed78f1436c0c481d986f49275e2cda6546d49666"
+  },
+  "status_payload_sha256": "bdb1bfe2419984df7e83172ecba7c73e10ef20604003c9b4f5c23477cf6ef3f8",
+  "restore_payload_sha256": "1c60db5e32d837b69163d695d74208ce1ae3184a033eee061626426a70f7caff",
+  "reports": [
+    {
+      "evidence": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-neighbor\\tools\\data\\native_neighbor_actions_r11_nemc_3.9.0.401155.json",
+        "bytes": 325924,
+        "sha256": "ce07be75e1a1cc5e5cb95c1ed90c5f43034acd9bbe361cd09e9b272fdf718897"
+      },
+      "rows": 92,
+      "original_differing_rows": 11,
+      "current_replay": {
+        "rows": [
+          {
+            "case": "rail_corner",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ns_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_junction_ew_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ns_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_junction_ew_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_corner",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_slope",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_slope",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_slope",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_slope",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_slope",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ns_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "detector_rail_junction_ew_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_corner",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_slope",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_slope",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_slope",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_slope",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_slope",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ns_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "place_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "activator_rail_junction_ew_first",
+            "action": "erase_4",
+            "matched": true,
+            "differences": []
+          }
+        ],
+        "all_matched": true,
+        "scope": "Actual native writes versus local static edits; no visual acceptance or survival deletion contract."
+      },
+      "public_native_payload_sha256": "cd73af0868957af2b8d1143d817009f4c5ea52d90f781ea21aba1df21616377f"
+    },
+    {
+      "evidence": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-neighbor\\tools\\data\\native_neighbor_actions_r11_axes_nemc_3.9.0.401155.json",
+        "bytes": 142801,
+        "sha256": "ea19c1de60fc17b67d3843241310bb66293450d6bfeee3f23730d26356001742"
+      },
+      "rows": 44,
+      "original_differing_rows": 9,
+      "current_replay": {
+        "rows": [
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_rotate_y90",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_corner_mirror_x",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_rotate_y90",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_rotate_y90",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_rotate_y90",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_rotate_y90",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_rotate_y90",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_mirror_x",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_mirror_x",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_mirror_x",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_mirror_x",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "rail_slope_mirror_x",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_rotate_y90",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_corner_mirror_x",
+            "action": "place_4",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_rotate_y90",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_rotate_y90",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_rotate_y90",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_rotate_y90",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_rotate_y90",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_mirror_x",
+            "action": "initial",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_mirror_x",
+            "action": "place_0",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_mirror_x",
+            "action": "place_1",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_mirror_x",
+            "action": "erase_2",
+            "matched": true,
+            "differences": []
+          },
+          {
+            "case": "golden_rail_slope_mirror_x",
+            "action": "place_3",
+            "matched": true,
+            "differences": []
+          }
+        ],
+        "all_matched": true,
+        "scope": "Actual native writes versus local static edits; no visual acceptance or survival deletion contract."
+      },
+      "public_native_payload_sha256": "d2f9cf8a22c28333cb085877bc6dbcaaa23a18176e033d5830594f9b119728f5"
+    }
+  ],
+  "native_rows": 136
+}

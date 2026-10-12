@@ -5,6 +5,7 @@ a game. Results preserve the requested writes and actual native readback; local
 differences stay diagnostic until reviewed with the declared snapshot scope.
 """
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -16,17 +17,22 @@ from verify_debug_blueprints import BlueprintCheck, Client, write_json
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection import block_registry as registry
+from projection.rail_neighbor_data import RUNTIME
 from projection.debug_action_blueprints import ACTION_MATRIX
 from projection.debug_blueprints import material
 from projection.model import Document, Editor
+from projection.state_transform import transform
 
 METHOD = 'Public action matrix, legacy native writes, updateNeighbors=True, .12s timer readback'
 
 
-def plans(families=('rail',)):
+OPERATIONS = ('identity', 'rotate_y90', 'rotate_y180', 'rotate_y270', 'mirror_x', 'mirror_z')
+
+
+def plans(families=('rail',), operations=('identity',), case_ids=()):
     result = []
     for row in ACTION_MATRIX['cases']:
-        if row['family'] not in families:
+        if row['family'] not in families or case_ids and row['id'] not in case_ids:
             continue
         focus = row['focus']
         origin = (focus[0], 0, focus[2])
@@ -35,10 +41,31 @@ def plans(families=('rail',)):
             return [(tuple(pos[i] - origin[i] for i in range(3)), material(name, states))
                     for pos, name, states in records]
 
-        result.append({'id': row['id'], 'family': row['family'], 'focus': (0, focus[1], 0),
-                       'setup': resolve(row['supports'] + row['blocks']),
-                       'actions': [('initial', [])] + [(identity, resolve(writes))
-                                                     for identity, writes in row['actions']]})
+        source = {'id': row['id'], 'family': row['family'], 'focus': (0, focus[1], 0),
+                  'setup': resolve(row['supports'] + row['blocks']),
+                  'actions': [('initial', [])] + [(identity, resolve(writes))
+                                                for identity, writes in row['actions']]}
+        for operation in operations:
+            if operation not in OPERATIONS:
+                raise ValueError('Unsupported horizontal source transform')
+
+            def transformed(records):
+                values = []
+                for pos, value in records:
+                    x, y, z = pos
+                    if operation.startswith('rotate_y'):
+                        for unused in range(int(operation[8:]) // 90):
+                            x, z = -z, x
+                    elif operation == 'mirror_x':
+                        x = -x
+                    elif operation == 'mirror_z':
+                        z = -z
+                    values.append(((x, y, z), value if operation == 'identity' else transform(value, operation)))
+                return values
+
+            result.append(dict(source, id=row['id'] if operation == 'identity' else row['id'] + '_' + operation,
+                               setup=transformed(source['setup']),
+                               actions=[(identity, transformed(writes)) for identity, writes in source['actions']]))
     if not result:
         raise ValueError('No declared public action cases selected')
     return result
@@ -138,7 +165,8 @@ _result=json.dumps(restore())
 def compare_local(report, selected):
     if (report.get('method') != METHOD or not report.get('completed') or not report.get('restored')
             or report.get('game_version') != registry.source_version()
-            or report.get('palette_sha256') != registry.fingerprint()):
+            or report.get('palette_sha256') != registry.fingerprint()
+            or report.get('start', {}).get('runtime') != RUNTIME):
         raise ValueError('Unrestored, incomplete or mismatching neighbor action evidence')
     rows = report['native']['rows']
     expected = [(plan['id'], action) for plan in selected for action, writes in plan['actions']]
@@ -185,13 +213,28 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--family', action='append', choices=('rail', 'stairs', 'connections'))
+    parser.add_argument('--operation', action='append', choices=OPERATIONS)
+    parser.add_argument('--case', action='append', dest='case_ids',
+                        choices=tuple(row['id'] for row in ACTION_MATRIX['cases']))
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Existing native evidence must not be overwritten')
-    selected = plans(tuple(args.family or ('rail',)))
+    selected = plans(tuple(args.family or ('rail',)), tuple(args.operation or ('identity',)),
+                     tuple(args.case_ids or ()))
     report = {'schema': 1, 'method': METHOD, 'completed': False, 'restored': False,
               'session_file': os.environ.get('MCDEV_SESSION_FILE'), 'owner': os.environ.get('MCDEV_OWNER'),
               'source': ACTION_MATRIX['fixture'], 'plans': selected}
+    session = json.loads(Path(report['session_file']).read_bytes())
+    if session['owner'] != report['owner'] or Path(session['project']).resolve() != ROOT:
+        raise ValueError('Native action provenance belongs to a different owner or project')
+    report['provenance'] = {
+        'session_id': session['id'], 'game_pid': session['game_pid'], 'game_identity': session['game_identity'],
+        'game_executable': session['game_executable'],
+        'game_executable_sha256': hashlib.sha256(Path(session['game_executable']).read_bytes()).hexdigest(),
+        'public_source_sha256': hashlib.sha256((ROOT / 'behavior_pack/modern_projection/projection/debug_action_blueprints.py').read_bytes()).hexdigest(),
+        'start_payload_sha256': hashlib.sha256((START % selected).encode('utf8')).hexdigest(),
+        'status_payload_sha256': hashlib.sha256(STATUS.encode('utf8')).hexdigest(),
+        'restore_payload_sha256': hashlib.sha256(RESTORE.encode('utf8')).hexdigest()}
     try:
         with Client(timeout=30) as client:
             check = BlueprintCheck(client, args.output, 180)
