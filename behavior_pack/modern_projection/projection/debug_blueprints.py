@@ -17,6 +17,7 @@ from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL
 from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
 from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
 from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
+from .debug_botanical_blueprints import METADATA as BOTANICAL_METADATA, VISUAL_CASE as BOTANICAL_VISUAL_CASE
 
 SCHEMA_VERSION = 1
 CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连接'),
@@ -41,9 +42,11 @@ BLUEPRINTS = (
     CONNECTION_METADATA,
     NEIGHBOR_METADATA,
     ACTION_METADATA,
+    BOTANICAL_METADATA,
 )
 VISUAL_CASES = {
     'neighbor_actions': ACTION_MATRIX,
+    'botanical_neighbors': BOTANICAL_VISUAL_CASE,
     'item_contents': ITEM_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
@@ -321,6 +324,9 @@ def build(identity):
         return populate(fixture)
     if identity == ACTION_METADATA[0]:
         from .debug_action_blueprints import populate
+        return populate(fixture)
+    if identity == BOTANICAL_METADATA[0]:
+        from .debug_botanical_blueprints import populate
         return populate(fixture)
     builders = {'test.layers.water': _water,
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
