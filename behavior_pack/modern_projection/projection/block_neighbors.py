@@ -341,7 +341,7 @@ def _chest(value, pos, context):
         if partner is None and pos in context.placed:
             candidates = _chest_candidates(get_cell, value, pos, respect_single=not joining)
             partner = next((target for target in candidates if can_change(target)), None)
-    if partner in context.preserve and _single_chest(get_cell(partner)):
+    if partner is not None and partner in context.preserve and _single_chest(get_cell(partner)):
         partner = None
     if partner is None or not can_change(partner):
         return chest_pair_actor(value, pos)

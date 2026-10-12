@@ -109,6 +109,36 @@ class BlockNeighborTests(unittest.TestCase):
         editor.undo()
         self.assertFalse(editor.document.blocks)
 
+    def test_whole_cell_overwrite_detaches_chest_without_a_candidate_partner(self):
+        left, right = (15, 1, 15), (16, 1, 15)
+        nbt = {'id': {'__type__': 8, '__value__': 'Chest'},
+               'Items': {'__type__': 9, '__value__': []}}
+        first = chest_pair_actor(make_cell(CHEST, WATER, compose_actor(None, nbt)), left, right)
+        second = chest_pair_actor(make_cell(CHEST, WATER, compose_actor(None, nbt)), right, left)
+        original = {left: first, right: second}
+        for operation in ('commit', 'job'):
+            with self.subTest(operation=operation):
+                editor = Editor(Document((32, 4, 32), original))
+                if operation == 'commit':
+                    editor._commit('replace', {left: STONE}, False, whole=True)
+                else:
+                    editor.clipboard = {'size': (1, 1, 1), 'origin': (0, 0, 0),
+                                        'blocks': {(0, 0, 0): STONE}}
+                    editor.start = left
+                    job = EditJob(editor, 'paste')
+                    while not job.done:
+                        job.step(budget=65536, seconds=1)
+                    self.assertFalse(job.error)
+                self.assertEqual(STONE, editor.document.get(left))
+                remaining = editor.document.get(right)
+                self.assertEqual(CHEST, foreground(remaining))
+                self.assertEqual(WATER, background(remaining))
+                self.assertTrue(chest_is_single(actor_data(remaining)))
+                self.assertEqual(nbt, entity_nbt(actor_data(remaining)))
+                self.assertEqual(1, len(editor.undo_stack))
+                editor.undo()
+                self.assertEqual(original, dict(editor.document.blocks.items()))
+
     def test_explicit_single_chests_are_not_grouped_by_selection_copy_or_erase(self):
         left, right = (15, 1, 15), (16, 1, 15)
         nbt = {'Items': [{'Slot': 0, 'Count': 5}], 'CustomName': 'kept'}
