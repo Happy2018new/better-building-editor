@@ -1,0 +1,4017 @@
+{
+  "schema": 1,
+  "round": 10,
+  "date": "2026-10-12",
+  "game_version": "3.9.0.401155",
+  "runtime_version": "1.21.120.0",
+  "owner": "liquid-r10-background",
+  "session_binding": {
+    "id": "f0daab3c7e20422896deba7349b39f2b",
+    "owner": "liquid-r10-background",
+    "game_pid": 38364,
+    "game_identity": "134362401887188982",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\f0daab3c7e20422896deba7349b39f2b\\session.json"
+  },
+  "artifacts": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1.json",
+      "sha256": "3fb1bc1b38715f9c68c6c4dd2be1fc5a1f44e302cb1bf9acd8bb3534733886f2",
+      "bytes": 12353721
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2.json",
+      "sha256": "5414eb6d0738809cee75ecda95767586fa5c1eed9e4f35d7f0067842eb6d6afe",
+      "bytes": 6597228
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-pixels-r10-v1.json",
+      "sha256": "aec8eb7033b6ae01e5185cd5467cabc5da0a2039c4c3332257168accaa933d73",
+      "bytes": 23066
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-pixels-r10-v2.json",
+      "sha256": "5ed65195f03915b4d695d30316d496b0147dcfc7904f51d97115bd01519ec947",
+      "bytes": 16203
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-pixels-r10-v3.json",
+      "sha256": "e21367143cce6d02256d576c5db984a14aa0269143154c784da913c1810577f6",
+      "bytes": 23351
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-pixels-r10-v4.json",
+      "sha256": "db00dfddd955d7ffa5a9f779ddc10134e1c5773fe4d90baf7dbb6300e1fca52d",
+      "bytes": 16314
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-recovery-r10-v1.json",
+      "sha256": "e81102f56ff447d06228568f6f4ab0c4cbaebc5102d7dbed3312558dd6bcdabd",
+      "bytes": 701
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-session-stop-r10-v1.json",
+      "sha256": "2cd3cfc72bb37b5d3117e8c5a24ad8850983888b491bdb03219b35a5ad39cfc8",
+      "bytes": 3621
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-startup-r10-v1.capture.json",
+      "sha256": "e7f2f091a17adad42d87f913079c2fce8ee1e290b51222265c9751c19306b96b",
+      "bytes": 2539
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-skeleton-water-gles-r10-v1.json",
+      "sha256": "0cc47b7da8db6ae0a683a020a2bbbbf834270d3a299d56bd45cef6309cbfd25e",
+      "bytes": 4563
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-skeleton-water-candidate-r10-v1\\contract.json",
+      "sha256": "805ec4c8ff04fbd710b794769f4e708c5279fcfccc3f8ecc7a30441e0e6e82fe",
+      "bytes": 17047
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-skeleton-water-install-r10-v1\\installation.json",
+      "sha256": "7df0bb5cf30ed4487c2af0acabfd1c2a4025f0f6b29e79355fcddd31578a05f0",
+      "bytes": 2953
+    }
+  ],
+  "runs": [
+    {
+      "version": 1,
+      "completed": true,
+      "restored": false,
+      "cleanup_errors": [
+        "flow_restore: MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: 'GameComponentClient' object has no attribute 'ForbidLiquidFlow'\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 431, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 460, in _RUN_SERVER_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 348, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 333, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 313, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 4, in <module>\\nAttributeError: 'GameComponentClient' object has no attribute 'ForbidLiquidFlow'\\n\", \"type\": \"text\"}]}"
+      ],
+      "captures": 92,
+      "foreground_unchanged": 92,
+      "probe_sha256": "bdc7272d866aa3f36b17b355de9b94dd5c47ee2c813d4533c3e8664a61363ad6",
+      "contract_sha256": "805ec4c8ff04fbd710b794769f4e708c5279fcfccc3f8ecc7a30441e0e6e82fe",
+      "cases": {
+        "source": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 6097,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "second": {
+              "pixels": 6105,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "iou": 0.9986895986895987,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {},
+          "world_roi": [
+            935,
+            511,
+            1057,
+            617
+          ],
+          "opacity": {
+            "body_low": 0.8,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              45,
+              46
+            ],
+            "ids_high": [
+              45,
+              46
+            ],
+            "body_updated": false,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 79
+            }
+          },
+          "missing": {
+            "empty_groups": 2,
+            "occupied_groups": 0,
+            "restored_groups": 2,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 156
+            }
+          }
+        },
+        "fence": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 6097,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "second": {
+              "pixels": 6105,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "iou": 0.9986895986895987,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {},
+          "world_roi": [
+            935,
+            511,
+            1057,
+            617
+          ],
+          "opacity": {
+            "body_low": 0.8,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              59,
+              60
+            ],
+            "ids_high": [
+              59,
+              60
+            ],
+            "body_updated": false,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5237,
+              "maximum_delta": 78
+            }
+          },
+          "missing": {
+            "empty_groups": 2,
+            "occupied_groups": 0,
+            "restored_groups": 2,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 196
+            }
+          }
+        },
+        "slab": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 6097,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "second": {
+              "pixels": 6105,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "iou": 0.9986895986895987,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {},
+          "world_roi": [
+            935,
+            511,
+            1057,
+            617
+          ],
+          "opacity": {
+            "body_low": 0.8,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              73,
+              74
+            ],
+            "ids_high": [
+              73,
+              74
+            ],
+            "body_updated": false,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 2266,
+              "maximum_delta": 78
+            }
+          },
+          "missing": {
+            "empty_groups": 2,
+            "occupied_groups": 0,
+            "restored_groups": 2,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 196
+            }
+          }
+        },
+        "pool": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 23117,
+              "bounds": [
+                890,
+                516,
+                1118,
+                676
+              ]
+            },
+            "second": {
+              "pixels": 23139,
+              "bounds": [
+                890,
+                516,
+                1118,
+                676
+              ]
+            },
+            "iou": 0.9990492242534249,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {},
+          "world_roi": [
+            882,
+            510,
+            1126,
+            684
+          ],
+          "opacity": {
+            "body_low": 0.8,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4,
+              0.4,
+              0.4,
+              0.4,
+              0.4,
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              105,
+              106,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104
+            ],
+            "ids_high": [
+              105,
+              106,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104
+            ],
+            "body_updated": false,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 22204,
+              "pixels_gt2": 22204,
+              "maximum_delta": 79
+            }
+          },
+          "missing": {
+            "empty_groups": 8,
+            "occupied_groups": 6,
+            "restored_groups": 8,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 22204,
+              "pixels_gt2": 6209,
+              "maximum_delta": 118
+            }
+          }
+        }
+      },
+      "measurements": [
+        {
+          "time": 1791766762.7022517,
+          "game_pid": 38364,
+          "game_identity": "134362401887188982",
+          "working_set_bytes": 837890048,
+          "peak_working_set_bytes": 1858424832,
+          "private_commit_bytes": 2570960896,
+          "handles": 67949,
+          "label": "before"
+        },
+        {
+          "time": 1791767019.6425111,
+          "game_pid": 38364,
+          "game_identity": "134362401887188982",
+          "working_set_bytes": 429838336,
+          "peak_working_set_bytes": 1858424832,
+          "private_commit_bytes": 2934210560,
+          "handles": 106048,
+          "label": "after"
+        }
+      ],
+      "opacity_patch_commit": null
+    },
+    {
+      "version": 2,
+      "completed": true,
+      "restored": true,
+      "cleanup_errors": [],
+      "captures": 82,
+      "foreground_unchanged": 82,
+      "probe_sha256": "2bb620a49ee0e0544928f794d6e8431fda206a70ba1a073a449b2b79854fb724",
+      "contract_sha256": "805ec4c8ff04fbd710b794769f4e708c5279fcfccc3f8ecc7a30441e0e6e82fe",
+      "cases": {
+        "fence": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 6097,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "second": {
+              "pixels": 6105,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "iou": 0.9986895986895987,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {
+            "depth_full": {
+              "water": {
+                "pixels": 11874,
+                "bounds": [
+                  681,
+                  360,
+                  843,
+                  437
+                ]
+              },
+              "body": {
+                "pixels": 119868,
+                "bounds": [
+                  518,
+                  360,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "depth_hidden": {
+              "water": {
+                "pixels": 12402,
+                "bounds": [
+                  681,
+                  360,
+                  843,
+                  437
+                ]
+              },
+              "body": {
+                "pixels": 112983,
+                "bounds": [
+                  518,
+                  360,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 4.749916097604164,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": [
+                [
+                  0.0,
+                  1.0,
+                  6.123233995736766e-17
+                ],
+                3.7500839023958363
+              ]
+            },
+            "edge_left": {
+              "water": {
+                "pixels": 0,
+                "bounds": null
+              },
+              "body": {
+                "pixels": 17872,
+                "bounds": [
+                  473,
+                  540,
+                  1161,
+                  841
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                -0.45,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "edge_right": {
+              "water": {
+                "pixels": 25982,
+                "bounds": [
+                  1163,
+                  507,
+                  1325,
+                  678
+                ]
+              },
+              "body": {
+                "pixels": 146643,
+                "bounds": [
+                  852,
+                  487,
+                  1488,
+                  841
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.45,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "edge_offscreen": {
+              "water": {
+                "pixels": 0,
+                "bounds": null
+              },
+              "body": {
+                "pixels": 4022,
+                "bounds": [
+                  852,
+                  548,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                2.0,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "view_restored": {
+              "water": {
+                "pixels": 25982,
+                "bounds": [
+                  681,
+                  507,
+                  843,
+                  678
+                ]
+              },
+              "body": {
+                "pixels": 129545,
+                "bounds": [
+                  518,
+                  487,
+                  1161,
+                  841
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": null
+            }
+          },
+          "world_roi": [
+            935,
+            511,
+            1057,
+            617
+          ],
+          "opacity": {
+            "body_low": 0.4,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              169,
+              170
+            ],
+            "ids_high": [
+              169,
+              170
+            ],
+            "body_updated": true,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 78
+            }
+          },
+          "missing": {
+            "empty_groups": 2,
+            "occupied_groups": 0,
+            "restored_groups": 2,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 196
+            }
+          }
+        },
+        "source": {
+          "scene_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  1.0
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  1.0
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  1.0
+                ]
+              ]
+            }
+          },
+          "world_biomes": {
+            "swampland": {
+              "document_biome": "swampland",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  0.65,
+                  6388580.0,
+                  0.8
+                ]
+              ]
+            },
+            "mangrove_swamp": {
+              "document_biome": "mangrove_swamp",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  3832426.0,
+                  0.8
+                ]
+              ]
+            },
+            "plains": {
+              "document_biome": "plains",
+              "liquid_uniform4": [
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ],
+                [
+                  39686.0,
+                  -1.0,
+                  4501493.0,
+                  0.8
+                ]
+              ]
+            }
+          },
+          "native_reference_gates": {
+            "supported_positive": true,
+            "supported_negative": true,
+            "liquid_only": true,
+            "empty": true
+          },
+          "native_silhouette": {
+            "first": {
+              "pixels": 6098,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "second": {
+              "pixels": 6105,
+              "bounds": [
+                943,
+                516,
+                1051,
+                612
+              ]
+            },
+            "iou": 0.9988533988533989,
+            "max_edge_error": 0,
+            "scope": "Independent liquid-only masks exclude support and the player platform; differential alpha may affect threshold edges"
+          },
+          "scene_view_controls": {
+            "depth_full": {
+              "water": {
+                "pixels": 12312,
+                "bounds": [
+                  681,
+                  360,
+                  843,
+                  436
+                ]
+              },
+              "body": {
+                "pixels": 16178,
+                "bounds": [
+                  681,
+                  360,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "depth_hidden": {
+              "water": {
+                "pixels": 12239,
+                "bounds": [
+                  681,
+                  360,
+                  843,
+                  436
+                ]
+              },
+              "body": {
+                "pixels": 16106,
+                "bounds": [
+                  681,
+                  360,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 4.75,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": [
+                [
+                  0.0,
+                  1.0,
+                  6.123233995736766e-17
+                ],
+                3.75
+              ]
+            },
+            "edge_left": {
+              "water": {
+                "pixels": 0,
+                "bounds": null
+              },
+              "body": {
+                "pixels": 4022,
+                "bounds": [
+                  852,
+                  548,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                -0.45,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "edge_right": {
+              "water": {
+                "pixels": 27864,
+                "bounds": [
+                  1163,
+                  507,
+                  1325,
+                  679
+                ]
+              },
+              "body": {
+                "pixels": 39014,
+                "bounds": [
+                  852,
+                  548,
+                  1325,
+                  825
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.45,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "edge_offscreen": {
+              "water": {
+                "pixels": 0,
+                "bounds": null
+              },
+              "body": {
+                "pixels": 4022,
+                "bounds": [
+                  852,
+                  548,
+                  1161,
+                  651
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                2.0,
+                0.0
+              ],
+              "depth_plane": null
+            },
+            "view_restored": {
+              "water": {
+                "pixels": 27864,
+                "bounds": [
+                  681,
+                  507,
+                  843,
+                  679
+                ]
+              },
+              "body": {
+                "pixels": 31976,
+                "bounds": [
+                  681,
+                  548,
+                  1161,
+                  825
+                ]
+              },
+              "camera_depth": 0.0,
+              "camera_pan": [
+                0.0,
+                0.0
+              ],
+              "depth_plane": null
+            }
+          },
+          "world_roi": [
+            935,
+            511,
+            1057,
+            617
+          ],
+          "opacity": {
+            "body_low": 0.4,
+            "body_high": 0.8,
+            "liquid_low": [
+              0.4,
+              0.4
+            ],
+            "liquid_high": [
+              0.8,
+              0.8
+            ],
+            "ids_low": [
+              183,
+              184
+            ],
+            "ids_high": [
+              183,
+              184
+            ],
+            "body_updated": true,
+            "liquid_updated": true,
+            "ids_retained": true,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 79
+            }
+          },
+          "missing": {
+            "empty_groups": 2,
+            "occupied_groups": 0,
+            "restored_groups": 2,
+            "occupied_keep": 2,
+            "restored_keep": 1,
+            "pixels": {
+              "pixels": 5537,
+              "pixels_gt2": 5537,
+              "maximum_delta": 156
+            }
+          }
+        }
+      },
+      "measurements": [
+        {
+          "time": 1791767473.9435127,
+          "game_pid": 38364,
+          "game_identity": "134362401887188982",
+          "working_set_bytes": 235159552,
+          "peak_working_set_bytes": 1858424832,
+          "private_commit_bytes": 2986844160,
+          "handles": 188653,
+          "label": "before"
+        },
+        {
+          "time": 1791767678.1239278,
+          "game_pid": 38364,
+          "game_identity": "134362401887188982",
+          "working_set_bytes": 508948480,
+          "peak_working_set_bytes": 1858424832,
+          "private_commit_bytes": 3038547968,
+          "handles": 217560,
+          "label": "after"
+        }
+      ],
+      "opacity_patch_commit": "4ffc2d1"
+    }
+  ],
+  "captures": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_supported_positive.png",
+      "sha256": "fe32f099e276acfed343071fb7a98f54963f6ed318b5bd5471044e5829c28deb",
+      "bytes": 253701,
+      "run": 1,
+      "label": "scene_source_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_supported_positive.capture.json",
+        "sha256": "fa2844135ad6e7c1a5918df4a0fdc5e2e8b7d96a1007278b7fb3cde300f9c5c9",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_supported_negative.png",
+      "sha256": "b1b47b8f14cffc47a4ac64c0142165b244da7cfb5df115a54dc96bb944cdfabd",
+      "bytes": 237303,
+      "run": 1,
+      "label": "scene_source_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_supported_negative.capture.json",
+        "sha256": "b8c2d280475f4a49da9a866b5b269b7a083f11d9f30043d26c004455dcfe92cf",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_liquid_only.png",
+      "sha256": "942ca7a63c8e9b3f76e2446bdedc720ee641c361909a38c6d40531e8df63bcc8",
+      "bytes": 250324,
+      "run": 1,
+      "label": "scene_source_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_liquid_only.capture.json",
+        "sha256": "36fc9bcf1399b51933bfd68a309b97aed8116915d48fd2fe3d07ca644cd2f35c",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_empty.png",
+      "sha256": "691f197fda03eaacd44549eee5dca43e273c1bc122b87f86e2879041cba2b21b",
+      "bytes": 237168,
+      "run": 1,
+      "label": "scene_source_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_empty.capture.json",
+        "sha256": "96ffcd79225ad483573c80ae0338ec43ef8b3d9969479c9b3d72983a5ade5257",
+        "bytes": 2565
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_swampland.png",
+      "sha256": "683aff4d8c3789f68f1fa2525964ff3e7e76c5a29cf09c4c7a314236e144b614",
+      "bytes": 261695,
+      "run": 1,
+      "label": "scene_source_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_swampland.capture.json",
+        "sha256": "8cc595c25991dbe1bcb872b206eb6b85d6fb058aca50c333ff0dfd2078a04337",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_mangrove_swamp.png",
+      "sha256": "1f78067240d0e52817f35d8af751824d949cde751b92fd56385f730229e35c72",
+      "bytes": 254230,
+      "run": 1,
+      "label": "scene_source_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_mangrove_swamp.capture.json",
+        "sha256": "2e3a827d621c369e2936737c624b1681137c5c166aae636a46d97ae24e0f9665",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_plains.png",
+      "sha256": "a00341dd54a09e777e340d1ff662847f6146eab22eecf2b5d220550296f0cb86",
+      "bytes": 254492,
+      "run": 1,
+      "label": "scene_source_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_plains.capture.json",
+        "sha256": "2b5b31e61e4e262ffd4105d3adab7ccb2d8419d9801aa03be9da060c3de1ca91",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_supported_positive.png",
+      "sha256": "f024303f0ae2aa7fa961ba4cff1092de09b942397b580f9b62991963f9817074",
+      "bytes": 283573,
+      "run": 1,
+      "label": "scene_fence_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_supported_positive.capture.json",
+        "sha256": "ca4c33cb8a6a4badcb43749db4d6c9a84623703f4d4cc51d7de3170185f8c3cd",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_supported_negative.png",
+      "sha256": "cb86cb1de508c23ac9204dfa85615358a8ea60e3ac6d543258a256cd707b6f33",
+      "bytes": 274998,
+      "run": 1,
+      "label": "scene_fence_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_supported_negative.capture.json",
+        "sha256": "d29b717eface8106e6ffc257e7dceb3385f36b817a467f9d8c9d562d6a87572f",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_liquid_only.png",
+      "sha256": "aa47f8ffa8084ad72f9686dd949b2fb3e9bb7b9c4d0450e0f11913e564a69f8c",
+      "bytes": 249568,
+      "run": 1,
+      "label": "scene_fence_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_liquid_only.capture.json",
+        "sha256": "9ae4d426aacdda798e7b9e7a548b2ac71dff16b17d085d818a6e3655da465060",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_empty.png",
+      "sha256": "9e6bfe9b955feeaf934960a459a237577a347544f5f4ac5e6c369f513885a1da",
+      "bytes": 236331,
+      "run": 1,
+      "label": "scene_fence_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_empty.capture.json",
+        "sha256": "457bbaf5f2da77e7f5757b48a39087f0818424673a62c70c7005e5977781fce9",
+        "bytes": 2564
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_swampland.png",
+      "sha256": "6d015a37a45ca9afd6c2ed26a9b5e20d69e7ecf19d33a34653034c8aa8642693",
+      "bytes": 292455,
+      "run": 1,
+      "label": "scene_fence_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_swampland.capture.json",
+        "sha256": "0228e2b75c19c4f543599ee846b71e573769aba9a4676e0057264ef7a5b33369",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_mangrove_swamp.png",
+      "sha256": "921a18a3802fce280d42b3909e55ac11969be9ec9abf3c89f2123701a312d396",
+      "bytes": 284304,
+      "run": 1,
+      "label": "scene_fence_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_mangrove_swamp.capture.json",
+        "sha256": "43b2db76e3b15803534fe7ecb2cced9807691fbc42922172e0d2b87591a19eb0",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_plains.png",
+      "sha256": "1c15f9c40f5a52eed2121cc0b3cb5b87838a1beef70a48d03264277f8f95066b",
+      "bytes": 284341,
+      "run": 1,
+      "label": "scene_fence_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_biome_plains.capture.json",
+        "sha256": "95b2fc5e5f58fa19489ce4e1e0c5e4416eca789a4a81819723940480f3845e55",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_supported_positive.png",
+      "sha256": "84068afe626856b806abf7d00f0866b63ea4036edf404d77c982041a6f81f382",
+      "bytes": 283591,
+      "run": 1,
+      "label": "scene_slab_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_supported_positive.capture.json",
+        "sha256": "2669b3015c47adc5af976ab83ed2ebbcb6cb313d266c81e9ed22b36c0b8ea59f",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_supported_negative.png",
+      "sha256": "4eae62a13159189a7c8cbdb237556b661e4b14356298a9c5797f31d670fa2607",
+      "bytes": 276738,
+      "run": 1,
+      "label": "scene_slab_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_supported_negative.capture.json",
+        "sha256": "470130e3bdf3a70cc3a876057e55570f75c9bc372a1e774ee71ac10c8fbc1af7",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_liquid_only.png",
+      "sha256": "ccd3b4ea1113c69cd6488fe8cde8618880e67805d59fd44ff857f3d2f808c260",
+      "bytes": 249536,
+      "run": 1,
+      "label": "scene_slab_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_liquid_only.capture.json",
+        "sha256": "10044d39c81ba2e35cc5b52798a355ae67d2e58b90e1391e0c639cd94a3c5c1e",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_empty.png",
+      "sha256": "d1fea36fa9534e42ff44560bb328b6a264d5197b15b7e02cd28bef3c49955a56",
+      "bytes": 236375,
+      "run": 1,
+      "label": "scene_slab_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_empty.capture.json",
+        "sha256": "ef6f3719ee529e27e9da12dbb02093c462ae7e8cdf167cbd7108af42a2e0907f",
+        "bytes": 2564
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_swampland.png",
+      "sha256": "8076ed6f5d226ed8bcbdc24ad2f234a4bd0b7bddd0d584287ed2f4c8c7d4fdb7",
+      "bytes": 288100,
+      "run": 1,
+      "label": "scene_slab_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_swampland.capture.json",
+        "sha256": "99b60e87c49e2248296de1e6529fdd5e1a298d8ad61985015b14295a9238387d",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_mangrove_swamp.png",
+      "sha256": "4b9502924a7f5a3594cd58de5b5d7311a3dc694d7b6810ee150e578e963e6bcb",
+      "bytes": 284365,
+      "run": 1,
+      "label": "scene_slab_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_mangrove_swamp.capture.json",
+        "sha256": "81998fdb44ead8bd195392ec8524678f055fd240a3bb78c0909917ed9a0b6938",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_plains.png",
+      "sha256": "9b1263d857947d7d78a351e12c23226aa1f2fe5c1ac7c2be5bf2fcac281fbb72",
+      "bytes": 284439,
+      "run": 1,
+      "label": "scene_slab_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_biome_plains.capture.json",
+        "sha256": "974cce6e05a4a44a5f660a75563b3d897d04ffd4da5f86d4297fd6c0d399c09f",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_supported_positive.png",
+      "sha256": "26bf89e08e476b12d822355b1332d0707643c716e25f90e567f304f68bee1f9e",
+      "bytes": 290995,
+      "run": 1,
+      "label": "scene_pool_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_supported_positive.capture.json",
+        "sha256": "f5a54957ce7676f88d0d35cdc6ea14b4437713d69207b45f0eaace5a4f4b3fed",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_supported_negative.png",
+      "sha256": "45b7dd9c443d3ac1adb8b1fb44e82473278f96839e64a0f0924e4f78e982a4c4",
+      "bytes": 250693,
+      "run": 1,
+      "label": "scene_pool_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_supported_negative.capture.json",
+        "sha256": "bb1e7cd9d790a5a6db7d564590add18b2c590c447f9f41be03df6e115273737a",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_liquid_only.png",
+      "sha256": "a38a70e7bd7d71b2fee546c4def74674702d2f9fba5a22168c30d2b43a3e1004",
+      "bytes": 286025,
+      "run": 1,
+      "label": "scene_pool_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_liquid_only.capture.json",
+        "sha256": "733a08bfbc3fd10b1230674afb90b09c513311051448cf5d6ab5b70d13ac5923",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_empty.png",
+      "sha256": "e281c744efd7f02c7fcf06154fd8d8fa618dfb4aab0aab2a048a77139d47d70a",
+      "bytes": 237181,
+      "run": 1,
+      "label": "scene_pool_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_empty.capture.json",
+        "sha256": "55d1cd8ff084be37dce8ff144b3ea7a837aafefd3220f6901b1d161bc0333506",
+        "bytes": 2562
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_swampland.png",
+      "sha256": "dca281656e747bbd22002ed9cc39256f77c800f925c0922723302928f7afcba1",
+      "bytes": 306257,
+      "run": 1,
+      "label": "scene_pool_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_swampland.capture.json",
+        "sha256": "2d452d1c6f5c2a6b4d53a5850a139e11f8875d02d76c3f619ceab9500928f171",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_mangrove_swamp.png",
+      "sha256": "3f584a06e0d232fa351670d1911eb99fe001bf03c718ceaa607c5a63ffb34839",
+      "bytes": 287666,
+      "run": 1,
+      "label": "scene_pool_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_mangrove_swamp.capture.json",
+        "sha256": "8950fd3b8e5196f240f5682b96e32f10fe24b82e2170076ecd03f9156aa68ef4",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_plains.png",
+      "sha256": "25457d695bda5c49a77aa0facb11d0ef0ca8101fdb41995097c8134ef20a66b8",
+      "bytes": 291618,
+      "run": 1,
+      "label": "scene_pool_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_pool_biome_plains.capture.json",
+        "sha256": "641a660ccd018e981082ddf1f1b2517e736f0a00f05b05b25f44917c25bea1a7",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_supported_positive.png",
+      "sha256": "f1fe01393e94af7d9897c02b93ee2c3d53d7c7beaa1d15f04bfbb8b9403fcfd3",
+      "bytes": 1763006,
+      "run": 1,
+      "label": "native_source_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_supported_positive.capture.json",
+        "sha256": "cb37f1d58aeaff007d4748138e148fd425c17d82cd13a259aca9ad2342ea5b92",
+        "bytes": 2582
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_supported_negative.png",
+      "sha256": "ef7f16a3103975c871ebd4150d537180cdc0587cc88ef7e2a4375fb1536b7e60",
+      "bytes": 1812067,
+      "run": 1,
+      "label": "native_source_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_supported_negative.capture.json",
+        "sha256": "ea6a39d1cce109cf90d03b7adfa8d5dde3a2d8b107bb4386fd5b80c56c726c2a",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_liquid_only.png",
+      "sha256": "90207683c62feeecd84ad8dd54aa035b7b3ea45d5aba401927d14d214b43ee92",
+      "bytes": 1817293,
+      "run": 1,
+      "label": "native_source_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_liquid_only.capture.json",
+        "sha256": "a0a8faf8177e8bbe5c9999a1ccf0d23696cf899947840a7562a3fac2e019d04d",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_empty.png",
+      "sha256": "c6a34dd8e161a49c5f7250546b7b5accbc8adba69819640b13871d44b3abd450",
+      "bytes": 1818323,
+      "run": 1,
+      "label": "native_source_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_source_empty.capture.json",
+        "sha256": "ad7208b31729591f803228362b5b1846f28a9a8c7b3616987024193ad859d454",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_supported_positive.png",
+      "sha256": "a14285aef2e0248262ec4b64c5855e3e1a477e3c7dd73efda126ecc940318839",
+      "bytes": 1820904,
+      "run": 1,
+      "label": "world_source_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_supported_positive.capture.json",
+        "sha256": "74aad5453307b65fae656ad5744f446c8af5e34425078d4359750391c9d80712",
+        "bytes": 2585
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_supported_negative.png",
+      "sha256": "e80da8052abd3a57d7ea0822210bc23aa4f64dce59faeddf7e9b427c68f03dfb",
+      "bytes": 1817658,
+      "run": 1,
+      "label": "world_source_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_supported_negative.capture.json",
+        "sha256": "14281cda43ec50c2865233cb60c77030ba32116a5cb4f38148a1dc3fe19372ea",
+        "bytes": 2585
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_liquid_only.png",
+      "sha256": "c35cfb667bedc843c9d1492aac3f7750b5d60b03472d80235a9b4702e972bfef",
+      "bytes": 1822543,
+      "run": 1,
+      "label": "world_source_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_liquid_only.capture.json",
+        "sha256": "0af460c232d8c1e87e872731d28a75420d5d789875e26231ea38b235795d326a",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_empty.png",
+      "sha256": "5becbfd8df9c621a251a00fccab32fbd10efd1a26ebed933ad3a3b66a0493101",
+      "bytes": 1821880,
+      "run": 1,
+      "label": "world_source_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_full_empty.capture.json",
+        "sha256": "92374d9952e1fd50876532427c5b01d936b1765997175c47f43533167626237a",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_empty_world.png",
+      "sha256": "52a439826096bb7e1ccdc249ad8f654ecb576dfa77988049a4f5d1429b172bf4",
+      "bytes": 1825652,
+      "run": 1,
+      "label": "world_source_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_empty_world.capture.json",
+        "sha256": "56e9471ab829d3747d80e6ede53f5d51d71ad52c14f66e1ba67168332ec183fd",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_occupied.png",
+      "sha256": "72e76b51c81399ed39c52a765f4fd53e32d2f90b55ec8fb0308b0d2ffa0a8f5e",
+      "bytes": 1815892,
+      "run": 1,
+      "label": "world_source_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_occupied.capture.json",
+        "sha256": "380e334d4a54af4992072c3c00005cc954932ef41e9a3c633eaa6893636af2f2",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_restored.png",
+      "sha256": "e0627ccbe86285c9cb71328b8be01ec14bb183b103a6e54655eabb3635683c66",
+      "bytes": 1822536,
+      "run": 1,
+      "label": "world_source_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_missing_restored.capture.json",
+        "sha256": "7c404b09c48ffc23df8d9da07c66ffe929da2aa2670184bd6bc7934b7fd62589",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_opacity_0_4.png",
+      "sha256": "600ea04c5f5793fd8d2a90a0ce8ab2f9950bc007cda0482f016d17dec13ecd27",
+      "bytes": 1823713,
+      "run": 1,
+      "label": "world_source_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_opacity_0_4.capture.json",
+        "sha256": "fdad0923ea26c070386e2ddb2f91d2c7ba9aaf1c38188bf9a2445b67bfd8e885",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_opacity_0_8.png",
+      "sha256": "d0fa5f3abc3158c60696933142ab7a9372893a6413e8c5128bc8db0d8a6bd7c5",
+      "bytes": 1823324,
+      "run": 1,
+      "label": "world_source_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_opacity_0_8.capture.json",
+        "sha256": "7a00c140c811edea4c63d9a2f36ef8d80364aa7e63558179406865e42dfd200a",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_swampland.png",
+      "sha256": "d456a8010344e240dd39c6d3099fc3a8a41ce1141721ad7d7722bb2df65928a7",
+      "bytes": 1821017,
+      "run": 1,
+      "label": "world_source_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_swampland.capture.json",
+        "sha256": "2ed150696b49293bee5e47614577bb4a83e69d56c4e3af67bcc7716507a4eaf1",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_mangrove_swamp.png",
+      "sha256": "56a749a03c2cbb9c53d9c8b0f9e8716c15b316a70dcf2e3e27e86f58e21a73f8",
+      "bytes": 1819045,
+      "run": 1,
+      "label": "world_source_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_mangrove_swamp.capture.json",
+        "sha256": "6ee11ca794b12c80bf75227c8ca2538684ede8b017eec41b65cbeaaa7aff33da",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_plains.png",
+      "sha256": "3132dd89aa8f7d7f86cc2825c48f9b70f0dd507748334a1d87705507e8a08222",
+      "bytes": 1823773,
+      "run": 1,
+      "label": "world_source_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_source_biome_plains.capture.json",
+        "sha256": "c55dae3ac056b7a188c44229e4c08ceb0a1057bd77099fda132a730a0f025d05",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_supported_positive.png",
+      "sha256": "3d7b1a84995e0b554a1a51300a1a3bb2b4f6f80ac9510854684a5e920bece796",
+      "bytes": 1784941,
+      "run": 1,
+      "label": "native_fence_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_supported_positive.capture.json",
+        "sha256": "3cfd12141189c5f8d0bbfcc3be9ec6cbccb635ab80a96c8712926ca9ff67b4d9",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_supported_negative.png",
+      "sha256": "f3102828f9c8152ccfddda3493b18f31e8ee28fcc359c78abbeb0b4c618ca004",
+      "bytes": 1782648,
+      "run": 1,
+      "label": "native_fence_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_supported_negative.capture.json",
+        "sha256": "5c459619cefa35989a0befd39365fcae12347b0df6186aa19d15694c148d60b3",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_liquid_only.png",
+      "sha256": "636c8549ab3e945225b3784cc4ac5df9d4cbea82e53bf16a147a44a84af3bf63",
+      "bytes": 1819008,
+      "run": 1,
+      "label": "native_fence_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_liquid_only.capture.json",
+        "sha256": "debea0c6dc91747faa3b769295c086636c74e27fd6e0bc55f465b98e604bdf06",
+        "bytes": 2574
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_empty.png",
+      "sha256": "58fcdfba673484b65839fa1b18b971c74d07682b8145797a251850db1173941c",
+      "bytes": 1818611,
+      "run": 1,
+      "label": "native_fence_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_empty.capture.json",
+        "sha256": "893934a1f35c7d038b7d2870c36fa9ae9b72ace5c3d40bee399934cf538fd6ef",
+        "bytes": 2565
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_supported_positive.png",
+      "sha256": "d8030e91de4ea075a4dc32a62af0e4e095331bd617d768cf985068dc2c2fd419",
+      "bytes": 1805685,
+      "run": 1,
+      "label": "world_fence_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_supported_positive.capture.json",
+        "sha256": "2c09141b3f12f8022fbedafbceae4c2639427f8f81e2bee338118533606f1e53",
+        "bytes": 2583
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_supported_negative.png",
+      "sha256": "398f9cb34901b1b4b6f5d364ac0ac93b3d0f07a73db655a2106a1e2a2e2da9e7",
+      "bytes": 1799876,
+      "run": 1,
+      "label": "world_fence_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_supported_negative.capture.json",
+        "sha256": "2f04342d54383d3ea4620054e0d61c55b35b03366f3a3e6e4e9c36951017e3c1",
+        "bytes": 2583
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_liquid_only.png",
+      "sha256": "5579e841875f9834046b35cc600145e02f8f125213caa5c6f19645ab13d2bf6b",
+      "bytes": 1823390,
+      "run": 1,
+      "label": "world_fence_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_liquid_only.capture.json",
+        "sha256": "b72bf194f51d2853424711d432c04d52d7ba7ab7e15e109ec13f41955983c97c",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_empty.png",
+      "sha256": "ad6401300c03adbcdf99e6b4bcd4bfa03f6d7c1a003a4daff49dc32356c3067d",
+      "bytes": 1819880,
+      "run": 1,
+      "label": "world_fence_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_empty.capture.json",
+        "sha256": "5ada32610615246a7d8fb9b16c217992a5c0eb28daa22cf0fddd9624e5b1c168",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_empty_world.png",
+      "sha256": "3ecc927f4ecab4f4e21829f60b1717eabdccd7331696bbd63065ceedf278af68",
+      "bytes": 1807780,
+      "run": 1,
+      "label": "world_fence_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_empty_world.capture.json",
+        "sha256": "c0c2633c0c4b61bb93f71d982bea5aafe94bb76743646a8d3ee455ac6122df6f",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_occupied.png",
+      "sha256": "185df0085da6755438337d8b1482d67737528a4cdef1569c76eb7d11392dbedc",
+      "bytes": 1801423,
+      "run": 1,
+      "label": "world_fence_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_occupied.capture.json",
+        "sha256": "3fe6af9e825b79d5897f4da1dbc57af92022bb1f1c3cec67745d26601ecdce07",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_restored.png",
+      "sha256": "e5700a0d2264aff27aafc27c59bdc2fdc7a1f2dc11a6b1d7dc40b45dc9d003d1",
+      "bytes": 1807644,
+      "run": 1,
+      "label": "world_fence_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_missing_restored.capture.json",
+        "sha256": "1c38c2a96c3b8778433b578037e2343dcf193abc7525b996dd943727aa5659bb",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_opacity_0_4.png",
+      "sha256": "34af854f7f9b0a1f838fe2c1268dfc0657c90590903b4f4c1aecd6ff13b256f6",
+      "bytes": 1806537,
+      "run": 1,
+      "label": "world_fence_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_opacity_0_4.capture.json",
+        "sha256": "7f19420ae74d4c10d04bdff3f02467b996e5782ee93e5dd539aeaccbdcd486c0",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_opacity_0_8.png",
+      "sha256": "b3bff2f636357fa1e1e3e47526ef1cc82d8d4fbb33567b66521d55f1e473eee1",
+      "bytes": 1809261,
+      "run": 1,
+      "label": "world_fence_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_opacity_0_8.capture.json",
+        "sha256": "04855d95218bc2a69a16db1a43cfae612a2e63dc24181842cb98b3e36a1ec5e3",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_swampland.png",
+      "sha256": "4e16a0fe3e90da4a336be6795b188b3ba6ce58f49c553f664cfb2d33423e20cc",
+      "bytes": 1805599,
+      "run": 1,
+      "label": "world_fence_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_swampland.capture.json",
+        "sha256": "61f6eb19d98f6e7fc21901c1adfa80205d58cb85ccfb03cd210df0acf33f7b9d",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_mangrove_swamp.png",
+      "sha256": "7e5ae0cb01b4da48c18d2ed028f2f11af3e96457ec5f93740ad9f3af2520d89e",
+      "bytes": 1805654,
+      "run": 1,
+      "label": "world_fence_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_mangrove_swamp.capture.json",
+        "sha256": "69febe47303c0d57440cc4c054341b84dbfd13c5a54e9d59a60288453145dc11",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_plains.png",
+      "sha256": "cd8383d19ed297e23421463dbd0896046e69b01e3768918f05464cad7d569d81",
+      "bytes": 1807045,
+      "run": 1,
+      "label": "world_fence_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_biome_plains.capture.json",
+        "sha256": "eca0a1b94a7102d9517056de9dfcba16bd18015c1f130a75596fb084cea1f310",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_supported_positive.png",
+      "sha256": "d32dee8caf77fbd7f199a0935fc212008d07d2ea89c03f38157578b86c39d46b",
+      "bytes": 1785883,
+      "run": 1,
+      "label": "native_slab_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_supported_positive.capture.json",
+        "sha256": "f7df91e90757b18a2f6aff38c701d86dac76cc4a1c3c009eb77495296d0309df",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_supported_negative.png",
+      "sha256": "6d91def4925ce805399dd7ffcbbb9e22d666c0f495ab2d40e672ea9259d04e3c",
+      "bytes": 1781989,
+      "run": 1,
+      "label": "native_slab_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_supported_negative.capture.json",
+        "sha256": "819cf59a4dbbc4a43a844e645ac85df6e4024674949618065747880b1e1a89ba",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_liquid_only.png",
+      "sha256": "5ee32c0b9a118aaed1a175928b0daee785e737b73a03d17768e8b0576d176df0",
+      "bytes": 1818171,
+      "run": 1,
+      "label": "native_slab_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_liquid_only.capture.json",
+        "sha256": "e6804c7ab0fe3d8cf894e2b95f85d4caad1dbce22e5022cdaa1689f086f863d4",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_empty.png",
+      "sha256": "cd0b9d9a494fefef7a508328df322e2f7030c371db6398491ec6aff3812bb6dc",
+      "bytes": 1818830,
+      "run": 1,
+      "label": "native_slab_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_empty.capture.json",
+        "sha256": "3ba7eb84d6c9b9bc59e82bf2f19cb6a8de721e89cdf7f3651a23e72cd1939e2b",
+        "bytes": 2567
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_supported_positive.png",
+      "sha256": "16f90306d448807f025056544b3a01801ed768e4a79001ceb913eca1fe79292d",
+      "bytes": 1804304,
+      "run": 1,
+      "label": "world_slab_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_supported_positive.capture.json",
+        "sha256": "f40420999c83f666841e2edf87fd9fdd90c6ea2fc0c1e616ef77028cc27872fc",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_supported_negative.png",
+      "sha256": "b9f871906d81a0ec34d27380e14bf56841ed055b43b42c060279ca495f0ab8c8",
+      "bytes": 1801940,
+      "run": 1,
+      "label": "world_slab_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_supported_negative.capture.json",
+        "sha256": "c56c40767dc51b1a1dfad6fcf564bafc4227077e202e0d978465fa7febdbf0b6",
+        "bytes": 2582
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_liquid_only.png",
+      "sha256": "d9117d23b0da0656276bd509f8b0f05a2250160b18b469457ae01fdf09ea5332",
+      "bytes": 1819686,
+      "run": 1,
+      "label": "world_slab_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_liquid_only.capture.json",
+        "sha256": "a75568cf25a08d608437fb157a7a19ae0ccbeb7406a1d34da251184ec00cf4de",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_empty.png",
+      "sha256": "cf58258c2c4087d1fffe4f045dfafb6b2317d83d238d8ded18e86e5a283cb8b5",
+      "bytes": 1818607,
+      "run": 1,
+      "label": "world_slab_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_empty.capture.json",
+        "sha256": "72e4099eaf0c8318fe442a9602e6a6c1eae718a4dac8332a992decadcedbcc7e",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_empty_world.png",
+      "sha256": "5dfc71479d2655a50b06ada520bf5e3a5a4fa9e02723dd009097d2aa58012c67",
+      "bytes": 1803016,
+      "run": 1,
+      "label": "world_slab_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_empty_world.capture.json",
+        "sha256": "9da73ccafd0809227929eeed1a39794e7e48b1c15bc46896ac56fe788045b8bf",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_occupied.png",
+      "sha256": "bea85b32cf85c09e1a574fe25f957c2ffdf20799efc28a960954d4f308f24801",
+      "bytes": 1798399,
+      "run": 1,
+      "label": "world_slab_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_occupied.capture.json",
+        "sha256": "b6df17d08e85e7e2fede1f69c727f6e2a774fdb050a11f00e7ba3b169073309b",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_restored.png",
+      "sha256": "e3d3f07544fad19cf2cf7c7b59ade25ef51d3b4a4937c4c2be0309656255f9f2",
+      "bytes": 1804172,
+      "run": 1,
+      "label": "world_slab_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_restored.capture.json",
+        "sha256": "5d20452965b03be631fc04fd3a6caec155477d3f9ca989e28c76e614e670e51f",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_opacity_0_4.png",
+      "sha256": "a74928d40ecd125c560223b11b322909a20a85ec78e9ca7427946cc94b532b6c",
+      "bytes": 1803196,
+      "run": 1,
+      "label": "world_slab_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_opacity_0_4.capture.json",
+        "sha256": "141e119d9aa9a4dbb27be46fedd2904723a47f7e7d00ea312ab337a1b4756554",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_opacity_0_8.png",
+      "sha256": "b1d231be09bb63ad0f4cde132eb80e9520752e538e4c21b0704d90687d801118",
+      "bytes": 1803203,
+      "run": 1,
+      "label": "world_slab_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_opacity_0_8.capture.json",
+        "sha256": "c1da2a92b8c7609da23b6662ae73f7b73782016ed102435fd03125ff0d7d86d3",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_swampland.png",
+      "sha256": "c60042984f5108abc62c3653d407728552667cfcb93319305817c75ad03da1ac",
+      "bytes": 1801358,
+      "run": 1,
+      "label": "world_slab_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_swampland.capture.json",
+        "sha256": "e9eac705af879d4df297729e63902b33c509bcecb99789d110760ff0e9e88b17",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_mangrove_swamp.png",
+      "sha256": "cb32bafdbcc56682c9026745cc99e661cdf33e1a38ac9af5f22e585c1fd928c5",
+      "bytes": 1803493,
+      "run": 1,
+      "label": "world_slab_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_mangrove_swamp.capture.json",
+        "sha256": "25a1b788ea3526835bc1669bb67567f1c85124f062bdb50d2e94891653594903",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_plains.png",
+      "sha256": "1695d63e399976aee80dae4a8728278fbaded5ab6b59239fc146b2e16141992d",
+      "bytes": 1803403,
+      "run": 1,
+      "label": "world_slab_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_biome_plains.capture.json",
+        "sha256": "36a9f5e492e8ad922bade761ca7a7a1183cf067204b41409532addf58425c08e",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_supported_positive.png",
+      "sha256": "f826f83cd40eff38ead43fe236d979325c4191c9d94f8a6085aaf7855c584f92",
+      "bytes": 1801882,
+      "run": 1,
+      "label": "native_pool_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_supported_positive.capture.json",
+        "sha256": "1dc5104476d88dd0813ef1a4c45608655d726a43c48d22e3eccdfb994f901af1",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_supported_negative.png",
+      "sha256": "63cde5cf8f606d93f093bbe8a0ee7011d282f5c254656cc27011a9d9154284d1",
+      "bytes": 1790721,
+      "run": 1,
+      "label": "native_pool_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_supported_negative.capture.json",
+        "sha256": "2fee76263bf9dc651e4b2d7f9c9712cd6bc386c3179d84185660d2ae1d68424e",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_liquid_only.png",
+      "sha256": "1f964109fcdad493180b52c8664885b4947f74ec179a49e5c2b1918284316e2c",
+      "bytes": 1813811,
+      "run": 1,
+      "label": "native_pool_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_liquid_only.capture.json",
+        "sha256": "8ff748a3aa41ac1a51522d8cae0181440b273c48a637404c3d664e09631a423a",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_empty.png",
+      "sha256": "9ecd28eea8fd4fa716ee00497d11cb0d5a84985ddafc10843db001b2f5dbec89",
+      "bytes": 1817703,
+      "run": 1,
+      "label": "native_pool_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_pool_empty.capture.json",
+        "sha256": "6ea98ba932a2861386f673c8f91ce01760dd83060bcd7a7a896cb0329fc96d49",
+        "bytes": 2565
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_supported_positive.png",
+      "sha256": "dda28b074b1ddd0d0ed2ba3434758d5a8960e5bb54c7078dc75db3a03f5e996d",
+      "bytes": 1825414,
+      "run": 1,
+      "label": "world_pool_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_supported_positive.capture.json",
+        "sha256": "0f0837be6b3da090a93cbb25e298342444e93e262ed0291b2dd623eb05cfb4a6",
+        "bytes": 2583
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_supported_negative.png",
+      "sha256": "1efa1853e620824f9a21dab52aa305fc60c273dc58593c0fee191a8972dec7cc",
+      "bytes": 1810436,
+      "run": 1,
+      "label": "world_pool_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_supported_negative.capture.json",
+        "sha256": "8995058619339deac63753e77d77591c82900b9e29292919cbb503e2973a1bc4",
+        "bytes": 2583
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_liquid_only.png",
+      "sha256": "90102b6bf5a43d2e5f839d9edebbefe3ef5122b6a3f99e768a4bf1e4d08e1a43",
+      "bytes": 1819377,
+      "run": 1,
+      "label": "world_pool_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_liquid_only.capture.json",
+        "sha256": "2fa0bd6a10e1c1204bfd91aeae1c6fcb6df80008096ed7e04a579cd933b4c7ee",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_empty.png",
+      "sha256": "f7935c2972b6e5488428004d755ab7a44dff6e441938a617c0d5a17d424f196e",
+      "bytes": 1817744,
+      "run": 1,
+      "label": "world_pool_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_full_empty.capture.json",
+        "sha256": "d28256e97ed9c47d547240d9a69680223f220a7f64f2808f240abfd69e7e0ef9",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_empty_world.png",
+      "sha256": "b6fc89bcee5e16f21db8bfbbbd9fac2bf09b462e7a0930ef1f013fbe97720c14",
+      "bytes": 1825426,
+      "run": 1,
+      "label": "world_pool_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_empty_world.capture.json",
+        "sha256": "4fcd019e29e931397c6cc0b878576d2b580aaa530c8e6119e15b8d6610d62c30",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_occupied.png",
+      "sha256": "5ab2470df0d64c289e7d7b8bc76ab81a70224b40ff817cd31610977f6d00a7c8",
+      "bytes": 1819589,
+      "run": 1,
+      "label": "world_pool_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_occupied.capture.json",
+        "sha256": "eae2346c29878f2c20ffcd41fe758352c531df38a9cbb2580c8cf1ec971e2229",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_restored.png",
+      "sha256": "4a388a9715b5e23ccbe8d0d4277ee046ec099901e4ed700929902f7cf84a7133",
+      "bytes": 1825451,
+      "run": 1,
+      "label": "world_pool_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_missing_restored.capture.json",
+        "sha256": "d1d78f657c42b9724dcdf7756c649cab6fbf4922711c44d54b41dfb34a35e8a7",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_opacity_0_4.png",
+      "sha256": "b8d5fb25b57aaea3c0c35a565875784d9fb43ad8ce7c11d3dbc326a9aa1f22ac",
+      "bytes": 1822850,
+      "run": 1,
+      "label": "world_pool_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_opacity_0_4.capture.json",
+        "sha256": "472f4eff9cc4c35f618b6d662753620907d3d0919b64357128305a84fe228936",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_opacity_0_8.png",
+      "sha256": "d8a4dfe831a6c641e566a3dc1a4a50987b4ce2c34df6d845d25661214c773d1d",
+      "bytes": 1825749,
+      "run": 1,
+      "label": "world_pool_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_opacity_0_8.capture.json",
+        "sha256": "9e98e53390ee14ab348c171dedfeb4448b4b9a0cdee20dc2d40ee83c8fb88533",
+        "bytes": 2570
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_swampland.png",
+      "sha256": "ac489689c421a245e1f73827a4f7a7398bf95ebaf5763d01003a197aec0a4dfe",
+      "bytes": 1819754,
+      "run": 1,
+      "label": "world_pool_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_swampland.capture.json",
+        "sha256": "ef84ebe4eb311bfdad8128d226112b8fc2bc2020c15d6cf71817c2010d5042b9",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_mangrove_swamp.png",
+      "sha256": "00135e718e523c185a83e654c234b311a816e4c8113b33f4faa9bd01d593827c",
+      "bytes": 1818824,
+      "run": 1,
+      "label": "world_pool_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_mangrove_swamp.capture.json",
+        "sha256": "d67cca3be913bce708a0c74e3d9e29e42742152423b14536517e8fc75dc11e79",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_plains.png",
+      "sha256": "46e79ec3f9e8b81315db3928c035d3f03f788bdacd81f2af525602a3c9c62c9c",
+      "bytes": 1825449,
+      "run": 1,
+      "label": "world_pool_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_pool_biome_plains.capture.json",
+        "sha256": "2bb1462a21bff0427b32e4c34e99827ad20c2d2aa28c1853859b84de7bfb98d1",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_supported_positive.png",
+      "sha256": "e742d1e3ee6147b73245804439a7b8f59cecb6bb191f7b07767ec38e8ece46f3",
+      "bytes": 283443,
+      "run": 2,
+      "label": "scene_fence_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_supported_positive.capture.json",
+        "sha256": "95c3aa50f610ec254a6a35d2b52d1344fdcde8b12b0f0e6cf239e52be46d1d7a",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_supported_negative.png",
+      "sha256": "f5851e869477924957e018acc8754f7a1d3c61af52c81b482e22b93759c422d8",
+      "bytes": 274879,
+      "run": 2,
+      "label": "scene_fence_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_supported_negative.capture.json",
+        "sha256": "09a650534c08d6ddcf2107ebc115a65efbc94dcaaf35e606782f75364efa2fe2",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_liquid_only.png",
+      "sha256": "396919b9542c732c4167e3b0aa1505d513d72d76536766c87f7d8613f8f4b90e",
+      "bytes": 249468,
+      "run": 2,
+      "label": "scene_fence_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_liquid_only.capture.json",
+        "sha256": "4faf8bc994fcce1dd51d19ec91fe2d63bc0c0ce67580d6a38219b25575a103c3",
+        "bytes": 2569
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_empty.png",
+      "sha256": "0640ad2ae5aa651a8eac70f4a20d93f276f6ed8846bc1dab01d4753253c06242",
+      "bytes": 236264,
+      "run": 2,
+      "label": "scene_fence_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_empty.capture.json",
+        "sha256": "44c4a236ad4cc9252c2846c720e701ebef83838604670bbd90cb4b42dcb95aee",
+        "bytes": 2565
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_swampland.png",
+      "sha256": "01f436349c01538074530bd40598292cb8a68b2cfb57f77eaba3aa4864f39f7d",
+      "bytes": 292391,
+      "run": 2,
+      "label": "scene_fence_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_swampland.capture.json",
+        "sha256": "ecdce94948be514f541a1909bf45f17b4f487c1ce41cfc9974205f99a2a6be18",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_mangrove_swamp.png",
+      "sha256": "e0e0ba7e4bab661cb6743e2045640710df1927eeeca985a73f56bdcf519d9d3f",
+      "bytes": 284169,
+      "run": 2,
+      "label": "scene_fence_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_mangrove_swamp.capture.json",
+        "sha256": "798aa5c2259ba2c8472c06aa5380a2abd3f42b32215ab0f063a6f2487cd7950b",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_plains.png",
+      "sha256": "c9c411a4fa29476bd3f4351a58fa001f192d271853e566dde666fa33d159a328",
+      "bytes": 284334,
+      "run": 2,
+      "label": "scene_fence_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_biome_plains.capture.json",
+        "sha256": "d018a1a7452fcb315b53f69e080b70503d1fb36f4196958964f4f5908cc83977",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_supported_positive.png",
+      "sha256": "cbbd483d4acbe7f37258266ad05fe2007248490c004e4df32d09418950c521d8",
+      "bytes": 230306,
+      "run": 2,
+      "label": "scene_fence_depth_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_supported_positive.capture.json",
+        "sha256": "02cb5a76040d6346161d8b677004c3f8e48e7c5c0e204af4fac80e038c823e4c",
+        "bytes": 2589
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_supported_negative.png",
+      "sha256": "16f4831d2c08a0eddb1539f8170c3869ecb34d70da03a5874d478bf6dc8b0ddb",
+      "bytes": 229895,
+      "run": 2,
+      "label": "scene_fence_depth_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_supported_negative.capture.json",
+        "sha256": "81cb833dd03b62561ff87e16f26fa15a2eafeba9989edb78dd52e95bb990f836",
+        "bytes": 2587
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_empty.png",
+      "sha256": "9cc8de6c91174aee734cbca042e662652b3fd78c78cc201dffd1b649625b41b6",
+      "bytes": 234170,
+      "run": 2,
+      "label": "scene_fence_depth_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_full_empty.capture.json",
+        "sha256": "72f7729d6817ac26c94b30c1ca4477d931711ba3fb16dc57ede665002ab9b1c9",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_supported_positive.png",
+      "sha256": "ca31c27f693fa2ffa162057aeeb10aec1d4ee9b0253540f8728371087c63f346",
+      "bytes": 233857,
+      "run": 2,
+      "label": "scene_fence_depth_hidden_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_supported_positive.capture.json",
+        "sha256": "8d5fde21fcac6983d1439e3e78e25bd58a0d2e5c2dbd5f1d44b5a377ffe9d58f",
+        "bytes": 2591
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_supported_negative.png",
+      "sha256": "389784bea05a9713cb58c14c65236ea38e5e08578fcd4c84d6c060693f1a3726",
+      "bytes": 233547,
+      "run": 2,
+      "label": "scene_fence_depth_hidden_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_supported_negative.capture.json",
+        "sha256": "7a9e08c4356843c713214a9947f8653cfd1430bf521fc12f3344aa83f8e3bd19",
+        "bytes": 2591
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_empty.png",
+      "sha256": "f42340c7ce6dd64818205df2e6e4d2b42fabddc4bca9edca6498a41bb9dfdd75",
+      "bytes": 238430,
+      "run": 2,
+      "label": "scene_fence_depth_hidden_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_depth_hidden_empty.capture.json",
+        "sha256": "e85e197f3184bb94dffa969b4b951bc3d87be924d52cd130a6044fc2e3889a5f",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_supported_positive.png",
+      "sha256": "5bf77d09fb2bd505096f8c7ebf4e431f2009c4fce564e85d74630939f6858972",
+      "bytes": 223984,
+      "run": 2,
+      "label": "scene_fence_edge_left_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_supported_positive.capture.json",
+        "sha256": "8b70369bd9ebc5d609d566f9f9ab468cd548ca9a14a512780b71ed134f8a8b78",
+        "bytes": 2587
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_supported_negative.png",
+      "sha256": "29ce99245c7ca8b297cde2b49900c0b8033ce242d32be1f8bfc38a4c273bd6e0",
+      "bytes": 224110,
+      "run": 2,
+      "label": "scene_fence_edge_left_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_supported_negative.capture.json",
+        "sha256": "d7f564818152dbf2597c0f06cda9ef41c4644e59e7078d4cbceb71948fb4be66",
+        "bytes": 2587
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_empty.png",
+      "sha256": "59a6914074f0ec96ee09d8e533982065518b82d6ad51f8894611c28900e8d55c",
+      "bytes": 232691,
+      "run": 2,
+      "label": "scene_fence_edge_left_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_left_empty.capture.json",
+        "sha256": "381983bb08530b213cbd97e99f0430dd8990f9598134b1bc89624b41f9aeb655",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_supported_positive.png",
+      "sha256": "6abc64bbfc1a5a680866d2f222586aec0c5274064cbf4e3ac6f44411da4e5a4e",
+      "bytes": 237542,
+      "run": 2,
+      "label": "scene_fence_edge_right_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_supported_positive.capture.json",
+        "sha256": "9bcbcd3343243f69253dd6287eeb3c31f11453011a7fd7eeb628593ad7dc042d",
+        "bytes": 2588
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_supported_negative.png",
+      "sha256": "3ff1beaf1b595a553bfe96158ed9793606c0760b9dc8609fec16d5ae328f5094",
+      "bytes": 235327,
+      "run": 2,
+      "label": "scene_fence_edge_right_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_supported_negative.capture.json",
+        "sha256": "4d53906488bf17830d978a155fd04a7aab9ad84c0c51eca0408a4ef324e59a65",
+        "bytes": 2589
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_empty.png",
+      "sha256": "e4fe92feffa805fd798579d6759acd9ef2f056cb951aac8d3000d8b92813b079",
+      "bytes": 232678,
+      "run": 2,
+      "label": "scene_fence_edge_right_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_right_empty.capture.json",
+        "sha256": "98afa1da231bcd626a76a9d10aa4c718b0407cc7cbfc626b1672d46f6d3dafbb",
+        "bytes": 2574
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_supported_positive.png",
+      "sha256": "7128d8c863adb640be34b179bca05eaa593e56c6ed42436d3005850627efdfb7",
+      "bytes": 221545,
+      "run": 2,
+      "label": "scene_fence_edge_offscreen_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_supported_positive.capture.json",
+        "sha256": "ff1cb5445ff783c8d27f0b4a7cb53eab26ec211b92db563e347bd47c2b1dfeb6",
+        "bytes": 2593
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_supported_negative.png",
+      "sha256": "05aa8999eceed0ffa6a54aa741d42fe1db153a4b368f9940bf3805a203fcd22d",
+      "bytes": 221672,
+      "run": 2,
+      "label": "scene_fence_edge_offscreen_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_supported_negative.capture.json",
+        "sha256": "3ed3b177cf2916927af54cfa3401896006461a45272a6fc02d8f24b4e94ee6b1",
+        "bytes": 2592
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_empty.png",
+      "sha256": "d365c0864f24738b2aa013c64bd6e986e9517383c3d2e69f63b216c1384cb80e",
+      "bytes": 232626,
+      "run": 2,
+      "label": "scene_fence_edge_offscreen_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_edge_offscreen_empty.capture.json",
+        "sha256": "06ec4480d9c5b77dd412c5bf9ebabba7a64fdc0923b5abbe39e314dfe08988eb",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_supported_positive.png",
+      "sha256": "92c669cd5ca310b177048adec21ec9ccb22f2b6bf628792939c7aa801d383cb1",
+      "bytes": 238178,
+      "run": 2,
+      "label": "scene_fence_view_restored_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_supported_positive.capture.json",
+        "sha256": "dabdcf40a61918948634272051a9e70b3c03e458be2d3c454168eca935be75fa",
+        "bytes": 2592
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_supported_negative.png",
+      "sha256": "8ee0082e439bbf17e5cdb3b267d810fe0f9d2dd7d94e9a81ec6beb5a184da091",
+      "bytes": 235909,
+      "run": 2,
+      "label": "scene_fence_view_restored_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_supported_negative.capture.json",
+        "sha256": "098307b6bef7dc4fcbfd89c453ab603c2a299327d1f634157c26e230fd330609",
+        "bytes": 2592
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_empty.png",
+      "sha256": "ac66ed21d0e9d78ad2bbe82b842de0fd23bd81599502251a946e61830687636e",
+      "bytes": 232680,
+      "run": 2,
+      "label": "scene_fence_view_restored_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_fence_view_restored_empty.capture.json",
+        "sha256": "c55281ad30f63c94a95f6e032398eef4c4c1ac8cff6b81e8497c0ed738e7f67f",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_supported_positive.png",
+      "sha256": "3a131bd5a3990e7b925f3eac4eb3b03532a36a593ffcf077436da31bab5d3101",
+      "bytes": 253618,
+      "run": 2,
+      "label": "scene_source_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_supported_positive.capture.json",
+        "sha256": "de5e08e782f9d989281281aea5ed23b9352772d4840971ba18f4f5a0060cda6f",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_supported_negative.png",
+      "sha256": "272a56d2979325ed39f32b13ffe5359a9348dc0e2c4652d7a0b19bfb202b1782",
+      "bytes": 237219,
+      "run": 2,
+      "label": "scene_source_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_supported_negative.capture.json",
+        "sha256": "834701c37a9f56fd8f90cd3fee9db690c2a797d936d8c4f1f3045e96a856b9ee",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_liquid_only.png",
+      "sha256": "98c2ec4648aff975e53b0aaa322da15f8e17dc54d4bf48b608968aae97cdd7ed",
+      "bytes": 250302,
+      "run": 2,
+      "label": "scene_source_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_liquid_only.capture.json",
+        "sha256": "8a65949581e4d4d0d4322f12d9048836e573022ef5193dfc58b36f18ab9283c5",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_empty.png",
+      "sha256": "ea0e56effa9b3c447e0298da7564931572695d69cd8408849a3e0a84c8fd3cf0",
+      "bytes": 237122,
+      "run": 2,
+      "label": "scene_source_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_empty.capture.json",
+        "sha256": "0e621ecaeed3a95e17eb192efb2a8246a9796aef8a77abae5614ff056127eb2b",
+        "bytes": 2566
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_swampland.png",
+      "sha256": "de7eb842efa92c1ddc56487617ebe19abbcc6999d77c7346ed88056710dcb0a2",
+      "bytes": 261612,
+      "run": 2,
+      "label": "scene_source_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_swampland.capture.json",
+        "sha256": "e33d8db14881c0df7a12cf14014fed3e3879410945e0a0abf0f61b3a0288372f",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_mangrove_swamp.png",
+      "sha256": "896fb8a1862692d1286957096de82d537608fcb840ae2809966327db5a039aa1",
+      "bytes": 254185,
+      "run": 2,
+      "label": "scene_source_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_mangrove_swamp.capture.json",
+        "sha256": "bf810dc3fb163b6ba741fbda08fd807c912f4a6723e0947d292d1d15bc0e1d11",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_plains.png",
+      "sha256": "fb269aa06ea2a626de5804ece8bdd008a5077c20320d75e5d45e54cc42b73687",
+      "bytes": 254458,
+      "run": 2,
+      "label": "scene_source_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_biome_plains.capture.json",
+        "sha256": "be409d3e72ccb721a2b9888c7d298dba23781aa695afc4a1dcc0391e994cd15c",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_supported_positive.png",
+      "sha256": "aaa08b060dab3ba6a0b261979a3ec578494981c9f879ab92fe47593de77848b8",
+      "bytes": 225880,
+      "run": 2,
+      "label": "scene_source_depth_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_supported_positive.capture.json",
+        "sha256": "50813ee9ad27b73a3c1adcba9d6ec61352627b08d0cb43943cbeace11c0963ba",
+        "bytes": 2589
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_supported_negative.png",
+      "sha256": "25639611cf3982dc816904e68ced77ef911844fd5964d2368734d473eb064e29",
+      "bytes": 225192,
+      "run": 2,
+      "label": "scene_source_depth_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_supported_negative.capture.json",
+        "sha256": "4d17f419b42ad1f19993e7c5f095b2419a241ef966ee1d4c57e7536661ec2a37",
+        "bytes": 2588
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_empty.png",
+      "sha256": "10999d386213409b88f2aabe6b82f7cb3e7a1ae4ce6cf873ecf3d24cfb3255ed",
+      "bytes": 235043,
+      "run": 2,
+      "label": "scene_source_depth_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_empty.capture.json",
+        "sha256": "fae29a1223729ce6628dd67a2ccf03d9db5b0c6030437ea2a92c3bca012291dc",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_supported_positive.png",
+      "sha256": "740b75b338fcde55652dea63a8ba809ada663c31823c87c61e48055b035bb479",
+      "bytes": 230051,
+      "run": 2,
+      "label": "scene_source_depth_hidden_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_supported_positive.capture.json",
+        "sha256": "3661cc0d7bd9f2e46438ad5b416d823a6c8c213bf2fc1ff4b5b9cf8e58e7843e",
+        "bytes": 2588
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_supported_negative.png",
+      "sha256": "af3cf84ebc464ece4d28d69fc2f450a0fd3f11f7f9428aaced8c1c963958cf90",
+      "bytes": 229317,
+      "run": 2,
+      "label": "scene_source_depth_hidden_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_supported_negative.capture.json",
+        "sha256": "4ec54b85d943fe962da25faa0e79e96229960692db5ac42cffa0764b03a46fe0",
+        "bytes": 2590
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_empty.png",
+      "sha256": "f3f3d879378bdd718e9803c274343f5fe32794c1bf38fcc4d96645a644b79c06",
+      "bytes": 239351,
+      "run": 2,
+      "label": "scene_source_depth_hidden_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_empty.capture.json",
+        "sha256": "a8aad2f8fa9fe6c749b9a1fc4ca37b0f692b838da9c43d72db9660fe7404b026",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_supported_positive.png",
+      "sha256": "1941c945c543ab3fe6377c69c75c590b5e460b50dde2c0be02a02c0e7af911ab",
+      "bytes": 222638,
+      "run": 2,
+      "label": "scene_source_edge_left_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_supported_positive.capture.json",
+        "sha256": "7ccf0f24a31125baa7222df5ae36fd6aed44e720dbe8e47c0b832fd4c949011f",
+        "bytes": 2587
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_supported_negative.png",
+      "sha256": "0c8bfa46e9702f8e30b233399fe007d0f6076c886c8516faa1597192841eaafd",
+      "bytes": 222628,
+      "run": 2,
+      "label": "scene_source_edge_left_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_supported_negative.capture.json",
+        "sha256": "d3d8955baa769d1969cec7b77ed856749c9f3534fd4e814aaf6fe5d8f92693a9",
+        "bytes": 2588
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_empty.png",
+      "sha256": "3a12e90767f249f4530a57cdfa3382f618e4e62c1ec3a3d96c2b77d96e2226c0",
+      "bytes": 233610,
+      "run": 2,
+      "label": "scene_source_edge_left_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_left_empty.capture.json",
+        "sha256": "3d6bf60754c9e4293ef77ff30bae28c1f0b90db70129c3351f1d891bb60b4449",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_supported_positive.png",
+      "sha256": "502c4b245b02246192bd3eb798664b5dc6fe5836e628a77dece5880fcf7fb510",
+      "bytes": 228398,
+      "run": 2,
+      "label": "scene_source_edge_right_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_supported_positive.capture.json",
+        "sha256": "277b9cbccdee52be4a02558fdc1c4c1cecd65f637244116afae5e620d50f5948",
+        "bytes": 2590
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_supported_negative.png",
+      "sha256": "197f8ad71c0205bff3d119eb2b1eda7bcf7bd4ccb0e48bf00dac2b196e81a115",
+      "bytes": 224720,
+      "run": 2,
+      "label": "scene_source_edge_right_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_supported_negative.capture.json",
+        "sha256": "dc1d3c41b4a6eb52e022ba63e7ce5cb28926a6e09ef7790eca85911af0e462eb",
+        "bytes": 2589
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_empty.png",
+      "sha256": "048ee0e1cb088b8f65ae68ea9b766b3bee0ee48523b6216b1e6922f0512f726d",
+      "bytes": 233513,
+      "run": 2,
+      "label": "scene_source_edge_right_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_right_empty.capture.json",
+        "sha256": "3baeea061cde4e4be77bd8cc06df3b97f75cd9f42c91e32475ce2ca4dc58b634",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_supported_positive.png",
+      "sha256": "ad1e06cbf62a86deefa2426de3fa9d58993122f41d62fcf0b41125d1b7fa42a7",
+      "bytes": 222323,
+      "run": 2,
+      "label": "scene_source_edge_offscreen_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_supported_positive.capture.json",
+        "sha256": "f6757a1f3d6265b40b3ddde57e3407542f0a2feca907cebeebb71fb6f45b59ab",
+        "bytes": 2593
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_supported_negative.png",
+      "sha256": "dec3a739e36b710b59cd1ac52b8b46422c19cc117d329dedb8ca72f16f10e40a",
+      "bytes": 222269,
+      "run": 2,
+      "label": "scene_source_edge_offscreen_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_supported_negative.capture.json",
+        "sha256": "feddf1a65d352bcd0d04725dfc09e3c278a68623a0873f4b7ff001108a765245",
+        "bytes": 2591
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_empty.png",
+      "sha256": "4244e768da0a4883c0cd929a211a7ff97ff4cd324064ff57bfcb96d5e3d6203a",
+      "bytes": 233498,
+      "run": 2,
+      "label": "scene_source_edge_offscreen_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_edge_offscreen_empty.capture.json",
+        "sha256": "b006e455b8f79341e6991db8fd4844aa1b2a12301922e71852366ccc69b157a2",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_supported_positive.png",
+      "sha256": "a05c7e5310c09cc3de8ad4dd082c484eb07932664ecc594360eb14acb2154b52",
+      "bytes": 228449,
+      "run": 2,
+      "label": "scene_source_view_restored_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_supported_positive.capture.json",
+        "sha256": "105ee2abea48a0dcc3450c98a2193e826e568df5635e5373fc8a067f8e2b7029",
+        "bytes": 2592
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_supported_negative.png",
+      "sha256": "ee553e44ce00c3130829400e2c585a4fba5a3651d80df2aa4b4237b9fbf40282",
+      "bytes": 224952,
+      "run": 2,
+      "label": "scene_source_view_restored_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_supported_negative.capture.json",
+        "sha256": "054f1b1107d5209f9152e28bc70d31c746665045b973adf2aa9bbb6bd38543a2",
+        "bytes": 2592
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_empty.png",
+      "sha256": "01c9fb068b987fbbb0f9795d02e54decb10f5f33aef88236a084f023bade06a6",
+      "bytes": 233487,
+      "run": 2,
+      "label": "scene_source_view_restored_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_view_restored_empty.capture.json",
+        "sha256": "570c3f050585c5030eff9cf076d1ddcacc1756adad2cfb0943282941048d5d6e",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_supported_positive.png",
+      "sha256": "7d8e30c106724c6aa1a8f8dffb87539d49eec431ac7c45430c0b9b9a5681a5cf",
+      "bytes": 1787196,
+      "run": 2,
+      "label": "native_fence_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_supported_positive.capture.json",
+        "sha256": "c4f85f49ebce9e94b8cd37fce81954e4ddf591f06cdab1a053a6ca0998959406",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_supported_negative.png",
+      "sha256": "f0977142a8c2f743a9852f0da0737995d0ad85ba1f9ca743ceae3f0302c4c4f7",
+      "bytes": 1783673,
+      "run": 2,
+      "label": "native_fence_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_supported_negative.capture.json",
+        "sha256": "9e2fc3f9e970e96d37aee1329e546ab931a788aca5d942f36f7af9c660853b7b",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_liquid_only.png",
+      "sha256": "0b3008a7bda318786835d1535b7cac7655a3426e0cc22e57db31654cd9498bd1",
+      "bytes": 1819937,
+      "run": 2,
+      "label": "native_fence_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_liquid_only.capture.json",
+        "sha256": "9ca946cb4cfe55f0b5b27aa0a6c12d9178d9dc5aa3816416216a1bec95a8569d",
+        "bytes": 2574
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_empty.png",
+      "sha256": "4523b75b38bf15a48916cf22228681a3c8e0796b6f22b537f34ef1b5fd72551e",
+      "bytes": 1819255,
+      "run": 2,
+      "label": "native_fence_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_fence_empty.capture.json",
+        "sha256": "1847f5cf94338a0e1ebeab014cc8995d224373155effd51292f333f6f875d571",
+        "bytes": 2568
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_supported_positive.png",
+      "sha256": "3da3f3ada3a5f70802bfd1bc05b76110f2dfcadbbe73addda486da919a9a7487",
+      "bytes": 1807011,
+      "run": 2,
+      "label": "world_fence_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_supported_positive.capture.json",
+        "sha256": "c92db6e69059d1a4147a43ab8a0e8f9ffb58506edf4074a4a61b2b733ef92dc8",
+        "bytes": 2583
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_supported_negative.png",
+      "sha256": "0e6c2c00ee347f327ea74735c869ea7bb016e3d2711d9a7758526eecad746ee1",
+      "bytes": 1801465,
+      "run": 2,
+      "label": "world_fence_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_supported_negative.capture.json",
+        "sha256": "f744198663bbb6ea01af02f79295c54e67bf306df336cace8b9d7404c32d0bdb",
+        "bytes": 2585
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_liquid_only.png",
+      "sha256": "c2b38ac272df5b16c1b5506dc27dc10d8508ac79793c0f24db17a5140a7312b4",
+      "bytes": 1819503,
+      "run": 2,
+      "label": "world_fence_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_liquid_only.capture.json",
+        "sha256": "13c96e80c43666fa6045e10ac41ef4d2de711e7fe41c20978fc515b7da20fe46",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_empty.png",
+      "sha256": "c1957373ff1a30f5f68228fda26cf8639948c20b1cc7ed6ae2c7a24d030edb24",
+      "bytes": 1819583,
+      "run": 2,
+      "label": "world_fence_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_full_empty.capture.json",
+        "sha256": "f4f7398382f533e431aa002f274a33db7b744d5ed831cc2ea7c51a19ceb38866",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_empty_world.png",
+      "sha256": "e2da0d5f78819cc44bd1a9795d996bfd4736ddf9929876dcb8dc52e4d0b347ea",
+      "bytes": 1807276,
+      "run": 2,
+      "label": "world_fence_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_empty_world.capture.json",
+        "sha256": "7c51ed1b2a676832e19dbc1fb1786999e50f3095b46596ce4d436aeb1ae39ca8",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_occupied.png",
+      "sha256": "be58eef9d4f017e12cef0680407629a98341a14453e5439b987163ebf9ff048b",
+      "bytes": 1799712,
+      "run": 2,
+      "label": "world_fence_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_occupied.capture.json",
+        "sha256": "763d1c2b10870e05372c7c3a8e81ef3b952f97f7381ab16377c28aba786d1a60",
+        "bytes": 2576
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_restored.png",
+      "sha256": "ac8a18ffd93668715cefbfb5878043bc25177146d4909026f4cafad67fe890b0",
+      "bytes": 1805897,
+      "run": 2,
+      "label": "world_fence_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_missing_restored.capture.json",
+        "sha256": "1ced71dac92993c4b6df2de67fcc47a3ad294f6022ee5e677f24bb319a2e2f54",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_4.png",
+      "sha256": "43e34508cf1fe9f5dbd691e747a811fcc6251c153398b63cb5fa83958a802303",
+      "bytes": 1813511,
+      "run": 2,
+      "label": "world_fence_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_4.capture.json",
+        "sha256": "a4566ee5d9350d1424e51eff0f04b0667022a0abf913cd7b660b1ad04fd75ffb",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_8.png",
+      "sha256": "7a9529d5ca8375708d60b08792b6a13bf9204407912a34cfeead51e5da625ace",
+      "bytes": 1806217,
+      "run": 2,
+      "label": "world_fence_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_8.capture.json",
+        "sha256": "4bd4e1e37d1a2402be632cccb84dae798f02b1e7e7e828849f45489eeac9543d",
+        "bytes": 2571
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_swampland.png",
+      "sha256": "e05a842f8b45a9321d58014dd67a29c0c96f4f5088eb7f76620dd77081764dd4",
+      "bytes": 1804658,
+      "run": 2,
+      "label": "world_fence_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_swampland.capture.json",
+        "sha256": "14e78f0772a9ac8aac07e6b91dcc690874cf4b5893fc901e3482725b8661c600",
+        "bytes": 2575
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_mangrove_swamp.png",
+      "sha256": "a93838a3682ee41bdc0506a205999809828b49d919411f1aadc69402a818256e",
+      "bytes": 1804591,
+      "run": 2,
+      "label": "world_fence_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_mangrove_swamp.capture.json",
+        "sha256": "c7dd9d30f53f8296ffa63709431927dc1e99d895444b36cc621af19a9af7395f",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_plains.png",
+      "sha256": "78c22837ec8c79ae82a4dc3e0ecb45cd0ce03e515188d10a083eb9cc0c28355e",
+      "bytes": 1805173,
+      "run": 2,
+      "label": "world_fence_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_biome_plains.capture.json",
+        "sha256": "6893a5e9eb1c6f7ff0ef6a568e2ec97b2724c038ee377204d60db8938e5abf1a",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_supported_positive.png",
+      "sha256": "8e0784a78a6e3aa1f48aea308d4f185a35b7e90afac449549bd58226d58070a0",
+      "bytes": 1814124,
+      "run": 2,
+      "label": "native_source_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_supported_positive.capture.json",
+        "sha256": "56b9d6408763c27163d32aa81d681e6ea398da31e179500cc0b1136b8872589e",
+        "bytes": 2580
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_supported_negative.png",
+      "sha256": "2c46790a4ec5722bf08cfcd29550fdfab80beb55537ddd750f514ce8351b2969",
+      "bytes": 1812379,
+      "run": 2,
+      "label": "native_source_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_supported_negative.capture.json",
+        "sha256": "627343b9d94ded8dfee4cf6e772a2605c25afcf9ea29ba54789cc9ef0922be4f",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_liquid_only.png",
+      "sha256": "46271a219f843719087f0c53ba85bf27c124694cc651a271aa4da94ed1d19dea",
+      "bytes": 1816966,
+      "run": 2,
+      "label": "native_source_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_liquid_only.capture.json",
+        "sha256": "458434cafe801fa76cca30c38e3a1f7f9b514f13b477d970a90f57bf3f043344",
+        "bytes": 2574
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_empty.png",
+      "sha256": "7412a6f2d02e62db7c091c96ed6aec5e70015a7181cede29f1602838934e204c",
+      "bytes": 1818272,
+      "run": 2,
+      "label": "native_source_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_native_source_empty.capture.json",
+        "sha256": "807b46a78038a9afeb045d770b4fd773cd2b15ac36c2b67bba680c020fff2462",
+        "bytes": 2568
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_supported_positive.png",
+      "sha256": "55fec6ac44a6c4c9fc9285fe6f5577ec94ca0f5d17ce08033a4bd0eccb3476ff",
+      "bytes": 1820462,
+      "run": 2,
+      "label": "world_source_full_supported_positive",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_supported_positive.capture.json",
+        "sha256": "31014b814c10c8b8b85e935ecaa904c40935e66c38dbf0f42c960a54c15f98ef",
+        "bytes": 2586
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_supported_negative.png",
+      "sha256": "a0ca7914b17c206eb90cf0e2653bb89871a13e495b7088d8840dfb8c2970fad9",
+      "bytes": 1817329,
+      "run": 2,
+      "label": "world_source_full_supported_negative",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_supported_negative.capture.json",
+        "sha256": "35475679a6d4a7cd26800976bf4109e62b45d259ab5bcf323033c2ea851aee9e",
+        "bytes": 2585
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_liquid_only.png",
+      "sha256": "81c1193401c0804f6397cac528782b46148a08e2b6f4eec152b546db7fee44bf",
+      "bytes": 1818913,
+      "run": 2,
+      "label": "world_source_full_liquid_only",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_liquid_only.capture.json",
+        "sha256": "dfec2cdfc3bdbf1c9931608c39e494503dbe13d45c55f4e9e7b6037c60a98dda",
+        "bytes": 2578
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_empty.png",
+      "sha256": "23f245abb43eccb35c635167b9784b220d8ec00625de50f5d6bdd38f117155f6",
+      "bytes": 1818015,
+      "run": 2,
+      "label": "world_source_full_empty",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_full_empty.capture.json",
+        "sha256": "22fb870ed92ca62efe6cd54f2ca182a05b4c450fa395fc82a3f1bdb1905043a3",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_empty_world.png",
+      "sha256": "3e7d6513573db626510732ae87d432285353c4987d3b707c1a204b2318d66273",
+      "bytes": 1820504,
+      "run": 2,
+      "label": "world_source_missing_empty_world",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_empty_world.capture.json",
+        "sha256": "e8800fc4095384c695b73c063efa07af6f140e216cf32e7eca5780a7bb50f3f9",
+        "bytes": 2581
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_occupied.png",
+      "sha256": "702bf076a95ca331283d6e329ddf08689cb0998a56d5e0aa0474e7a4879b3ef2",
+      "bytes": 1810989,
+      "run": 2,
+      "label": "world_source_missing_occupied",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_occupied.capture.json",
+        "sha256": "dadf48a374c5442b4d1c3eda77ecf8af8385dce4b92f5a52d331510673d25604",
+        "bytes": 2579
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_restored.png",
+      "sha256": "1aeb2287c3e31302f41b7f6c09860c9ef290a0ac7a607a9131c0df8dec8e7cdb",
+      "bytes": 1820500,
+      "run": 2,
+      "label": "world_source_missing_restored",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_missing_restored.capture.json",
+        "sha256": "379484fb8f0727025f3cbe16d1f16aed93421a4153c1f2e9d18e8f1c78a0e449",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_opacity_0_4.png",
+      "sha256": "dd1dcbcea299ee6ff8baaa6d111c5e93d56880b1c7de0aae11fd0fd50166a739",
+      "bytes": 1820534,
+      "run": 2,
+      "label": "world_source_opacity_0_4",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_opacity_0_4.capture.json",
+        "sha256": "73eb70ab62a07baa9242a50a058f8d51b0e237eeef87f95793d9613d14f2e201",
+        "bytes": 2573
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_opacity_0_8.png",
+      "sha256": "c1d540dbea09f9c1cd5b53010f1de46af539f929870a0aff3aab122b0c970bca",
+      "bytes": 1820485,
+      "run": 2,
+      "label": "world_source_opacity_0_8",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_opacity_0_8.capture.json",
+        "sha256": "cfe32cd15cf86159af8f5501b1e0f3a900132f11c687056dd5692f70c0546ed0",
+        "bytes": 2572
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_swampland.png",
+      "sha256": "02a501554455c284e0217fbd15fea01320ba03ac6d8e5f57f7660f670c7a58fb",
+      "bytes": 1818446,
+      "run": 2,
+      "label": "world_source_biome_swampland",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_swampland.capture.json",
+        "sha256": "af8c3795c2f247540e68b0c2f28119c22cd117831c317f490ee60e20b035d79e",
+        "bytes": 2577
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_mangrove_swamp.png",
+      "sha256": "4401cf96decc8e87095194abb711e0d979f5770104298b2a3cbd4cecb93dc4a4",
+      "bytes": 1818160,
+      "run": 2,
+      "label": "world_source_biome_mangrove_swamp",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_mangrove_swamp.capture.json",
+        "sha256": "cd33792808a5943d30f401b671f32c8ff113e7496fd4018c41a3e0588539ff2c",
+        "bytes": 2582
+      }
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_plains.png",
+      "sha256": "85a088fba2224fe62a3efef4e7d9e1fe5f043b60369bc1cd8fc022f91a005cf4",
+      "bytes": 1820510,
+      "run": 2,
+      "label": "world_source_biome_plains",
+      "capture_report": {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_source_biome_plains.capture.json",
+        "sha256": "eaa66aff42bc18bcdbd886fa9db0ecd00b008929a40112450145c7023c9a4fab",
+        "bytes": 2573
+      }
+    }
+  ],
+  "viewed_frames": [
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_fence_supported_positive.png",
+      "sha256": "f024303f0ae2aa7fa961ba4cff1092de09b942397b580f9b62991963f9817074",
+      "bytes": 283573,
+      "run": 1,
+      "label": "scene_fence_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_slab_supported_positive.png",
+      "sha256": "84068afe626856b806abf7d00f0866b63ea4036edf404d77c982041a6f81f382",
+      "bytes": 283591,
+      "run": 1,
+      "label": "scene_slab_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_fence_full_supported_positive.png",
+      "sha256": "d8030e91de4ea075a4dc32a62af0e4e095331bd617d768cf985068dc2c2fd419",
+      "bytes": 1805685,
+      "run": 1,
+      "label": "world_fence_full_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_fence_supported_positive.png",
+      "sha256": "3d7b1a84995e0b554a1a51300a1a3bb2b4f6f80ac9510854684a5e920bece796",
+      "bytes": 1784941,
+      "run": 1,
+      "label": "native_fence_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_full_supported_positive.png",
+      "sha256": "16f90306d448807f025056544b3a01801ed768e4a79001ceb913eca1fe79292d",
+      "bytes": 1804304,
+      "run": 1,
+      "label": "world_slab_full_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_occupied.png",
+      "sha256": "bea85b32cf85c09e1a574fe25f957c2ffdf20799efc28a960954d4f308f24801",
+      "bytes": 1798399,
+      "run": 1,
+      "label": "world_slab_missing_occupied"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_world_slab_missing_restored.png",
+      "sha256": "e3d3f07544fad19cf2cf7c7b59ade25ef51d3b4a4937c4c2be0309656255f9f2",
+      "bytes": 1804172,
+      "run": 1,
+      "label": "world_slab_missing_restored"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_scene_source_biome_swampland.png",
+      "sha256": "683aff4d8c3789f68f1fa2525964ff3e7e76c5a29cf09c4c7a314236e144b614",
+      "bytes": 261695,
+      "run": 1,
+      "label": "scene_source_biome_swampland"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_supported_positive.png",
+      "sha256": "d32dee8caf77fbd7f199a0935fc212008d07d2ea89c03f38157578b86c39d46b",
+      "bytes": 1785883,
+      "run": 1,
+      "label": "native_slab_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v1_native_slab_liquid_only.png",
+      "sha256": "5ee32c0b9a118aaed1a175928b0daee785e737b73a03d17768e8b0576d176df0",
+      "bytes": 1818171,
+      "run": 1,
+      "label": "native_slab_liquid_only"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_full_supported_positive.png",
+      "sha256": "aaa08b060dab3ba6a0b261979a3ec578494981c9f879ab92fe47593de77848b8",
+      "bytes": 225880,
+      "run": 2,
+      "label": "scene_source_depth_full_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_scene_source_depth_hidden_supported_positive.png",
+      "sha256": "740b75b338fcde55652dea63a8ba809ada663c31823c87c61e48055b035bb479",
+      "bytes": 230051,
+      "run": 2,
+      "label": "scene_source_depth_hidden_supported_positive"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_4.png",
+      "sha256": "43e34508cf1fe9f5dbd691e747a811fcc6251c153398b63cb5fa83958a802303",
+      "bytes": 1813511,
+      "run": 2,
+      "label": "world_fence_opacity_0_4"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r9-liquid\\.runtime\\liquid-workspace-native-r10-v2_world_fence_opacity_0_8.png",
+      "sha256": "7a9529d5ca8375708d60b08792b6a13bf9204407912a34cfeead51e5da625ace",
+      "bytes": 1806217,
+      "run": 2,
+      "label": "world_fence_opacity_0_8"
+    }
+  ],
+  "scope": "Ordinary Workspace Scene and public full/missing WorldProjection with supplied snapshot geometry and frozen candidate artwork",
+  "production_enabled": false,
+  "native_shape_accepted": false,
+  "native_uv_accepted": false,
+  "native_alpha_accepted": false,
+  "production_editor_accepted": false,
+  "production_world_accepted": false,
+  "production_memory_accepted": false,
+  "preserved_failures": [
+    "v1 completed92captures but flow_restore used a stale client api alias. Original restored=false retained; separate recovery receipt explicitly restores server flow.",
+    "Broad first replay ROI included moving creatures outside fixture. Both initial analyses retained; refined fixed camera envelopes exclude surrounding content.",
+    "v2 depth_hidden usedY3.75, above supplied topY3+178/255 (~3.698), so visibility was expected. This phase is inconclusive; future probe usesY3.5 and centers the top view.",
+    "Normal WM_CLOSE exceeded10secondwait; game/MCDK had exited by next identity check. Force-finalize only updated sessionrecord."
+  ],
+  "required_future_acceptance": [
+    "Actual Scene depth plane below supplied water top, shared body/liquid depth ordering and viewport-edge clipping with fully framed controls.",
+    "Contained fence/slab/pane native cavity masks excluding support; foreground body remains visible above/below water, no full-cell replacement.",
+    "Independent native top/side UV orientation, clipped side UVs, all needed rotation capabilities and frozen-flow sampling rule.",
+    "Native alpha and layered transparent sorting under the same biome and controlled reference texture frame; candidate alpha alone is insufficient.",
+    "Cold/warm repeated edits and1/8/64cell allocations compared with isolated idle baseline; no sustained handle/private-commit retention.",
+    "Complete still/flow/lava animated resources and parser-derived cadence before animated production registration."
+  ],
+  "session_stopped": true,
+  "resource_overlay_restored": true
+}
