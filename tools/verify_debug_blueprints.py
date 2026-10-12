@@ -56,6 +56,12 @@ class BlueprintNativeGeometryProbe(object):
    'extra_cells':sum(len(v) for v in data.get('extra',{}).values()),
    'actor_cells':sum(len(v) for v in data.get('actor',{}).values()),
    'common_materials':len(data.get('common',{})),'extra_materials':len(data.get('extra',{})),
+   'submitted_materials':[{'material':value,'indices':list(indices)}
+    for value,indices in data.get('common',{}).items()],
+   'frame_materials':[{'material':value,'indices':list(indices)}
+    for value,indices in data.get('common',{}).items()
+    if value[0] in ('minecraft:frame','minecraft:glow_frame') or
+       value[0].startswith('modern_projection:preview_item_')],
    'actor_names':sorted(data.get('actor',{})),
    'states':len(data.get('states',{})),'extra_states':len(data.get('extraStates',{}))}
   started=time.time()
@@ -84,6 +90,7 @@ doc=s.editor.document
 t=s.tiles
 rows=[{'key':key,'name':part.get('name'),'count':part.get('count'),
  'pending':part.get('pending'),'size':part.get('size'),
+ 'render_layout':b.model_layouts.get(part.get('name')),
  'signature':part.get('signature'),'current_signature':part.get('signature')==s.preview_signature(),
  'cache_current':part.get('bank') in part.get('cache',{}) and
   part['cache'][part['bank']][0]==part['data'] and
