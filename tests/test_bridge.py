@@ -325,6 +325,38 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertFalse(b.projection_retired_entities)
         self.assertFalse(b.projection_retired_outlines)
 
+    def test_replacing_staged_actor_retains_failed_release_for_close_retry(self):
+        import contextlib
+        import io
+        b, r = self.bridge, self.runtime
+        b.project()
+        for unused in range(200):
+            if b.preparing_entity:
+                break
+            r.timers.pop(0)()
+        pending, committed = b.preparing_entity, b.entity
+        destroy = r.DestroyClientEntity
+        def broken(entity):
+            if entity == pending:
+                raise RuntimeError('injected staged actor retirement failure')
+            destroy(entity)
+        r.DestroyClientEntity = broken
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            b.project()
+            self.assertEqual(committed, b.entity)
+            self.assertIn(pending, b.projection_retired_entities)
+            self.drain_projection()
+        self.assertIn('injected staged actor retirement failure', log.getvalue())
+        self.assertTrue(b.projection_work.ready)
+        self.assertNotEqual(pending, b.entity)
+        self.assertIn(pending, b.projection_retired_entities)
+        current = b.entity
+        r.DestroyClientEntity = destroy
+        b.stop_projection()
+        self.assertIn(pending, r.destroyed)
+        self.assertIn(current, r.destroyed)
+        self.assertFalse(b.projection_retired_entities)
+
     def test_failed_luminous_outline_setup_releases_its_partially_created_actor(self):
         from projection.survey_effects import WireEffects
         for style in ('golden', 'starry'):
@@ -614,6 +646,53 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual(256.,self.runtime.render_distance)
         self.bridge.restore_projection_distance()
         self.assertEqual(-1.,self.runtime.render_distance)
+
+    def test_failed_render_distance_restore_retains_lease_for_close_retry(self):
+        b, r = self.bridge, self.runtime
+        r.render_distance = -1.
+        b.ensure_projection_distance((64, 128, 64))
+        lease = b.projection_distance
+        restore = r.SetEntityRenderDistance
+        r.SetEntityRenderDistance = lambda distance: False
+        b.stop_projection()
+        self.assertEqual(lease, b.projection_distance)
+        self.assertEqual(256., r.render_distance)
+        self.assertIn('清理失败', b.session.editor.message)
+        r.SetEntityRenderDistance = restore
+        b.stop_projection()
+        self.assertIsNone(b.projection_distance)
+        self.assertEqual(-1., r.render_distance)
+
+    def test_failed_render_distance_restore_preserves_later_external_change(self):
+        b, r = self.bridge, self.runtime
+        b.ensure_projection_distance((64, 128, 64))
+        restore = r.SetEntityRenderDistance
+        r.SetEntityRenderDistance = lambda distance: False
+        b.stop_projection()
+        self.assertIsNotNone(b.projection_distance)
+        r.render_distance = 320.
+        r.SetEntityRenderDistance = restore
+        b.stop_projection()
+        self.assertIsNone(b.projection_distance)
+        self.assertEqual(320., r.render_distance)
+
+    def test_stationary_follow_retries_failed_overlay_restore(self):
+        b, r = self.bridge, self.runtime
+        b.project()
+        self.drain_projection()
+        b.follow_projection()
+        shader, anchor = b.projection_shader, b.projection_mesh[3]
+        shader.parts = [{'old_actor': ((0, 0, 0), False)},
+                        {'new_actor': ((0, 0, 0), False)}]
+        shader.active_parts = [set(['old_actor']), set(['new_actor'])]
+        shader.overlay_visibility = {'old_actor': True, 'new_actor': True}
+        shader.overlay_restore = True
+        visible = dict(shader.overlay_visibility)
+        r.SetActorBlockGeometryVisible = lambda name, value: visible.update({name: value}) or True
+        b.follow_projection()
+        self.assertFalse(shader.overlay_restore)
+        self.assertEqual({'old_actor': True, 'new_actor': False}, visible)
+        self.assertEqual(anchor, b.projection_mesh[3])
 
     def setUp(self):
         self.runtime = Runtime()

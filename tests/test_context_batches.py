@@ -12,6 +12,100 @@ from modern_projection.projection.occupancy_shader import OccupancyShader
 
 
 class ContextBatchTests(unittest.TestCase):
+    def overlay_shader(self):
+        runtime = Runtime()
+        visible = {}
+        def show(name, enabled):
+            visible[name] = enabled
+            return True
+        runtime.SetActorBlockGeometryVisible = show
+        original_attach = runtime.AddActorBlockGeometry
+        def attach(name, offset, rotation):
+            result = original_attach(name, offset, rotation)
+            if result:
+                visible[name] = True
+            return result
+        runtime.AddActorBlockGeometry = attach
+        document = Document((32, 4, 4), {(1, 1, 1): material('stone')})
+        bridge = SimpleNamespace(projection_occupancy=None, factory=runtime, level='level',
+                                 session=SimpleNamespace(opacity=.6), context_models={})
+        tracker = SimpleNamespace(bridge=bridge, document=document, size=document.size,
+                                  targets={(1, 1, 1)}, origin=(100, 64, 200))
+        shader = OccupancyShader(tracker)
+        first, second = shader.names
+        bridge.context_models[first] = (('first_context', (0, 0, 0), True),
+                                        ('first_actor', (0, 0, 0), False))
+        def seed(unused, name=None, **kwargs):
+            bridge.context_models[name] = (('seed_actor', (0, 0, 0), False),)
+            return name
+        bridge.geometry = seed
+        entity = runtime.CreateClientEntityByTypeStr('anchor', (116, 66, 202), (0, 0))
+        shader.bind(entity, first, (116, 66, 202))
+        bridge.context_models[second] = (('second_actor', (16, 0, 0), False),)
+        return shader, runtime, visible
+
+    def test_failed_bank_publication_restores_old_overlay_and_selector(self):
+        for failure in ('incoming', 'outgoing', 'selector', 'empty', 'enable', 'transparency'):
+            with self.subTest(failure=failure):
+                shader, runtime, visible = self.overlay_shader()
+                original_show = runtime.SetActorBlockGeometryVisible
+                original_write = runtime.SetEntityExtraUniforms
+                before = runtime.uniforms[4]
+                runtime.EnableActorBlockGeometryTransparent = lambda name, enabled: not (
+                    failure == 'enable' and name == 'second_actor')
+                runtime.SetActorBlockGeometryTransparency = lambda name, opacity: not (
+                    failure == 'transparency' and name == 'second_actor')
+                def show(name, enabled):
+                    if (failure == 'incoming' and name == 'second_actor' and enabled or
+                            failure in ('outgoing', 'empty') and name == 'first_actor' and not enabled):
+                        return False
+                    return original_show(name, enabled)
+                def write(slot, values):
+                    if failure == 'selector' and slot == 4 and values[2] == 2.:
+                        return False
+                    return original_write(slot, values)
+                runtime.SetActorBlockGeometryVisible = show
+                runtime.SetEntityExtraUniforms = write
+                with self.assertRaisesRegex(ValueError, 'projection'):
+                    shader.commit(None if failure == 'empty' else shader.names[1])
+                self.assertEqual(before, runtime.uniforms[4])
+                self.assertEqual(0, shader.bank)
+                self.assertFalse(shader.empty)
+                self.assertTrue(visible['first_actor'])
+                self.assertFalse(visible.get('second_actor', False))
+                self.assertFalse(visible['seed_actor'])
+                self.assertFalse(runtime.removed)
+
+    def test_failed_overlay_restore_remains_pending_and_follow_retries(self):
+        import contextlib
+        import io
+        shader, runtime, visible = self.overlay_shader()
+        shader.configure(1, shader.anchor)
+        original = runtime.SetActorBlockGeometryVisible
+        failed = []
+        def show(name, enabled):
+            if name == 'first_actor' and not enabled:
+                return False
+            if name == 'second_actor' and not enabled and visible.get(name) and not failed:
+                failed.append(name)
+                return False
+            return original(name, enabled)
+        runtime.SetActorBlockGeometryVisible = show
+        with contextlib.redirect_stderr(io.StringIO()) as log:
+            with self.assertRaisesRegex(ValueError, 'overlay visibility'):
+                shader.commit(shader.names[1])
+        self.assertIn('overlay visibility', log.getvalue())
+        self.assertTrue(shader.overlay_restore)
+        self.assertEqual(1., runtime.uniforms[4][2])
+        self.assertTrue(visible['first_actor'])
+        self.assertTrue(visible['second_actor'])
+        runtime.SetActorBlockGeometryVisible = original
+        self.assertTrue(shader.follow((120, 70, 220), None))
+        self.assertFalse(shader.overlay_restore)
+        self.assertFalse(visible['second_actor'])
+        self.assertTrue(visible['first_actor'])
+        self.assertEqual(0, shader.bank)
+
     def test_actor_overlays_hide_without_relying_on_material_bank_uniforms(self):
         runtime = Runtime()
         visible, calls = {}, []

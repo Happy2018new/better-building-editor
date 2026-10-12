@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Two persistent geometry buffers on ONE actor; no per-cell shader masks."""
+import traceback
 from .biomes import actor_uniform
 from .large_preview import SurfacePalette
 
@@ -21,6 +22,7 @@ class OccupancyShader(object):
         self.parts = [{}, {}]
         self.active_parts = [set(), set()]
         self.overlay_visibility = {}
+        self.overlay_restore = False
         self.local = False
         self.anchor = None
 
@@ -33,6 +35,7 @@ class OccupancyShader(object):
         self.updates += 1
 
     def control(self):
+        self.restore_overlays()
         tracker = self.tracker
         tint = actor_uniform(tracker.document.biome)
         self.write(4, tint[:2]+(-1. if self.empty else float(self.bank+1),
@@ -97,18 +100,42 @@ class OccupancyShader(object):
                 anchor[2]-origin[2]-.5-chunk[2])
 
     def follow(self, anchor, camera):
+        try:
+            self.restore_overlays()
+        except (ValueError, TypeError, RuntimeError):
+            traceback.print_exc()
+            return False
         self.anchor = anchor
         return all(self.render.SetActorBlockGeometryOffset(name, self.offset(anchor, value[0]))
                    for parts in self.parts for name, value in parts.items())
 
     def commit(self, model):
+        self.restore_overlays()
         empty = model is None
         bank = self.names.index(model) if model is not None else self.bank
-        if model is not None:
-            self.configure(bank, self.anchor)
         tint = actor_uniform(self.tracker.document.biome)
-        self.write(4, tint[:2]+(-1. if empty else float(bank+1),
-                               self.tracker.bridge.session.opacity))
+        try:
+            if model is not None:
+                self.configure(bank, self.anchor)
+            self.update_overlays(bank, empty)
+            # Publish the bank only after native overlays have accepted the switch.
+            self.write(4, tint[:2]+(-1. if empty else float(bank+1),
+                                   self.tracker.bridge.session.opacity))
+        except (ValueError, TypeError, RuntimeError):
+            self.overlay_restore = True
+            try:
+                self.restore_overlays()
+            except (ValueError, TypeError, RuntimeError):
+                traceback.print_exc()
+            raise
+        self.empty, self.bank = empty, bank
+
+    def restore_overlays(self):
+        if self.overlay_restore:
+            self.update_overlays(self.bank, self.empty)
+            self.overlay_restore = False
+
+    def update_overlays(self, bank, empty):
         # Native actor materials need not inherit our bank shader. Keep their
         # attached resources, but hide every inactive or retired overlay.
         for selected in (bank, 1-bank):
@@ -116,4 +143,3 @@ class OccupancyShader(object):
                 if not value[1]:
                     self.show_overlay(name, not empty and selected == bank and
                                       name in self.active_parts[selected])
-        self.empty, self.bank = empty, bank
