@@ -37,10 +37,16 @@ entity or that every enum exists in the current game version.
 
 ## Spatial Field Adapters
 
-The adapter schema in `projection/nbt_spatial.py` is version 2. Its field rules
+The adapter schema in `projection/nbt_spatial.py` is version 3. Its field rules
 are independent of the numeric reference. A field is rewritten only when its
 type and range are valid; missing fields are not added and invalid fields are
 preserved.
+
+Client field rules apply only to the renderer branch of the actor envelope or
+an identified standalone renderer payload. The NBT branch uses known native
+entity adapters; matching client field names in unknown native NBT remain
+opaque. Typed standalone NBT follows the same boundary. Root coordinates still
+rebase independently of renderer direction rules.
 
 | Payload Scope | Fields | Behavior | Evidence And Limits |
 | --- | --- | --- | --- |
