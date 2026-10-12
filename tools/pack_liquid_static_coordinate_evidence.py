@@ -19,6 +19,8 @@ def checked_ref(ref):
 
 
 def package(plan_path, nominal_path, audit_path, grid_path, ramp_path, candidate, output):
+    if output.exists():
+        raise ValueError('Choose a fresh evidence package output')
     plan, nominal, audit, grid = map(read, (plan_path, nominal_path, audit_path, grid_path))
     check(plan)
     if (not audit['prerequisites']['passed'] or audit['prerequisites']['failures']
