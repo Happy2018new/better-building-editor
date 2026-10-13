@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
 import analyze_item_sprite_product as analyzer
 from analyze_item_sprite_product import (analyze, body_measurement, expected_mask, item_polygons,
-                                         temporal_measurement)
+                                         temporal_measurement, point_sampled_mask)
 from item_sprite_capture_contract import (camera_matches, paired_layout_matches,
                                           scene_layout, snapshot_digest)
 from projection.camera import OrbitCamera
@@ -68,6 +68,16 @@ class ItemPixelTests(unittest.TestCase):
                 self.assertTrue(all(np.isfinite(point).all() for point in polygons[0]))
                 self.assertTrue(all(0 <= point[axis]-(3, 2, 1)[axis] <= 1
                                     for point in polygons[0] for axis in range(3)))
+
+    def test_pixel_centers_sample_checker_texels_without_inclusive_edge_growth(self):
+        texture = Image.new('RGBA', (2, 2))
+        texture.putpixel((0, 0), (255, 255, 255, 255))
+        texture.putpixel((1, 1), (255, 255, 255, 255))
+        mask = point_sampled_mask(texture, ((10, 10), (14, 10), (14, 14), (10, 14)), (24, 24))
+        expected = np.zeros((24, 24), dtype=bool)
+        expected[10:12, 10:12] = True
+        expected[12:14, 12:14] = True
+        np.testing.assert_array_equal(expected, mask)
 
     def test_failed_startup_or_no_capture_never_qualifies_any_visual_gate(self):
         with TemporaryDirectory() as directory:

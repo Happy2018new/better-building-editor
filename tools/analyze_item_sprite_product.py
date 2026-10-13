@@ -87,19 +87,45 @@ def project_editor(points, position, state, size):
 
 
 def expected_mask(position, row, texture, pose, size, calibration=None, facing=2, rotation=0.):
-    mask = Image.new('L', size)
-    draw = ImageDraw.Draw(mask)
-    for polygon in item_polygons(position, texture, pose, rotation, facing):
-        if row['label'].startswith('editor_'):
-            points = project_editor(polygon, position, row['state'], size)
-        else:
-            camera = row['camera_expected']
-            polygon = [tuple(point[i]+row['state']['origin'][i] for i in range(3)) for point in polygon]
-            points = project_points(polygon, camera['position'], camera['target'], size,
-                                    calibration['vertical_fov'])
-            points = [(point['screenX'], point['screenY']) for point in points]
-        draw.polygon(points, fill=255)
-    return np.asarray(mask) > 0
+    with Image.new('RGBA', (1, 1), (255, 255, 255, 255)) as plane:
+        polygon = next(item_polygons(position, plane, pose, rotation, facing))
+    if row['label'].startswith('editor_'):
+        points = project_editor(polygon, position, row['state'], size)
+    else:
+        camera = row['camera_expected']
+        polygon = [tuple(point[i]+row['state']['origin'][i] for i in range(3)) for point in polygon]
+        points = project_points(polygon, camera['position'], camera['target'], size,
+                                calibration['vertical_fov'])
+        points = [(point['screenX'], point['screenY']) for point in points]
+    return point_sampled_mask(texture, points, size)
+
+
+def point_sampled_mask(texture, corners, size):
+    """Nearest texel alpha at screen pixel centers, including perspective."""
+    width, height = texture.size
+    source = ((0., 0.), (width, 0.), (width, height), (0., height))
+    equations, values = [], []
+    for (u, v), (x, y) in zip(source, corners):
+        equations.extend(((u, v, 1., 0., 0., 0., -x*u, -x*v),
+                          (0., 0., 0., u, v, 1., -y*u, -y*v)))
+        values.extend((x, y))
+    transform = np.append(np.linalg.solve(equations, values), 1.).reshape(3, 3)
+    inverse = np.linalg.inv(transform)
+    xs, ys = zip(*corners)
+    left, top = max(0, math.floor(min(xs))), max(0, math.floor(min(ys)))
+    right, bottom = min(size[0], math.ceil(max(xs))), min(size[1], math.ceil(max(ys)))
+    result = np.zeros((size[1], size[0]), dtype=bool)
+    if left >= right or top >= bottom:
+        return result
+    yy, xx = np.indices((bottom-top, right-left))
+    coordinates = inverse @ np.stack((xx+left+.5, yy+top+.5, np.ones_like(xx))).reshape(3, -1)
+    uv = coordinates[:2]/coordinates[2]
+    eligible = (uv[0] >= 0) & (uv[0] < width) & (uv[1] >= 0) & (uv[1] < height)
+    alpha = np.asarray(texture.convert('RGBA'))[:, :, 3]
+    sampled = np.zeros(eligible.shape, dtype=bool)
+    sampled[eligible] = alpha[np.floor(uv[1, eligible]).astype(int), np.floor(uv[0, eligible]).astype(int)] >= 128
+    result[top:bottom, left:right] = sampled.reshape(xx.shape)
+    return result
 
 
 def expanded(mask, pixels=9):
@@ -213,7 +239,11 @@ def analyze(path):
               'scope': 'Declared diamond-sword silhouette and moving analytic highlight; not vanilla glint parity'}
     if not result['evidence_valid']:
         return result
-    if snapshot_sources(ROOT) != inputs:
+    current_inputs = snapshot_sources(ROOT)
+    analysis_path = Path(__file__).relative_to(ROOT).as_posix()
+    result['capture_analyzer_sha256'] = inputs.get(analysis_path)
+    if {key: value for key, value in current_inputs.items() if key != analysis_path} != {
+            key: value for key, value in inputs.items() if key != analysis_path}:
         failures.append('Replay source/resource files differ from the frozen capture inputs')
         result['evidence_valid'] = result['captures_verified'] = False
         return result

@@ -112,6 +112,25 @@ The generator now includes the installed `uniformWorldConstants.h`, which
 declares `PROJ`, and owned-run reports explicitly collect this native compiler
 failure family. No item plane, source bitmap or pixel threshold changed.
 
+Fresh `item-product-r14-v4` completed and restored without native item shader
+errors. The swords were visibly present. Editor and world moving-highlight
+gates passed for both ordinary frame families: 37--110 moving enchanted pixels,
+zero ordinary-item motion and stable empty controls. Body silhouette gates
+remained failed. Original inclusive-polygon replay and a corrected independent
+pixel-center/nearest-texel replay are both retained; no threshold was lowered.
+The replay reports separate launch-analyzer and current-analyzer hashes, while
+all runtime/resource inputs must still equal the frozen launch snapshot.
+
+The user-requested closeup run derives ordinary, enchanted and empty frame cells
+plus their supports from the public blueprint, using `cell.rebase` for the
+temporary document. It does not edit public source resources or payloads.
+Each route obtains twenty fresh native frames separated by at least 0.4s,
+plus an item-only hidden control, editor cutaway/restore and genuine world
+occupancy/restore. The prospective editor pose and independent world near
+camera are declared before capture; actual poses, QPC and host times remain
+in each row. Minimum intended body extent is 48 physical pixels. Near-scene
+animation qualification remains separate from failed remote body geometry.
+
 User-authorized foreground observation is recorded explicitly; the runner does
 not activate or resize a game. Shared capture schema 3 must retain owner identity,
 guarded noactivation and fresh native frame checks even when the user switches

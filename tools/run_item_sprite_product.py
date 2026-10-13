@@ -18,6 +18,7 @@ from capture_native_window import capture
 from verify_debug_blueprints import BlueprintCheck, INSTALL_PROBE, RESTORE
 from item_sprite_capture_contract import snapshot_sources, snapshot_digest
 from item_sprite_calibration import calibrate
+from item_sprite_closeup import run as run_closeup
 from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
 
 OWNER = 'item-product-r14-v1'
@@ -172,7 +173,7 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
         save('report.json',report)
 
 
-def main(with_world=False, camera_calibration=None):
+def main(with_world=False, camera_calibration=None, with_closeup=False):
     os.environ['MCDEV_ALLOW_USER_FOREGROUND']='1'
     OUTPUT.mkdir(parents=True, exist_ok=False)
     for path, expected in PINS.items():
@@ -316,6 +317,8 @@ def main(with_world=False, camera_calibration=None):
             native_capture('editor_cutaway_restored')
             if with_world:
                 world_matrix(check,client,session,report)
+            if with_closeup:
+                run_closeup(check,client,session,report,STATE,CAMERA,OUTPUT,WGC,save)
             report['logs']=client.call('get_latest_error_logs',{'max_count':40})
             report['completed']=True
             if not with_world:
@@ -380,9 +383,12 @@ if __name__=='__main__':
     parser.add_argument('--world',action='store_true',help='Also test full/missing projection and one restored occupied cell')
     parser.add_argument('--camera-calibration',type=Path,
                         help='Independent world camera calibration required by pixel scoring')
+    parser.add_argument('--closeup',action='store_true',help='Also record enlarged ordinary/enchanted/empty controls for at least seven seconds per route')
     args=parser.parse_args()
     if not args.run_id or any(char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for char in args.run_id):
         parser.error('run-id must contain only ASCII letters, numbers, hyphens or underscores')
     OWNER='item-product-r14-'+args.run_id
     OUTPUT=ROOT/'.runtime'/OWNER
-    sys.exit(main(args.world,args.camera_calibration))
+    if args.closeup and not args.world:
+        parser.error('--closeup requires --world for independent calibration')
+    sys.exit(main(args.world,args.camera_calibration,args.closeup))
