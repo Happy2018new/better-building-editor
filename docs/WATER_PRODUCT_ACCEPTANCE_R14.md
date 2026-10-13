@@ -7,7 +7,7 @@
 - `liquid_shape.py` 的产品规则读取完整建筑快照，计算四角高度、可见面与水平／下邻格流向；不模拟世界流体传播。
 - `liquid_product_profile.py` 组合规则、贴图和经过校准的 UI／world 变换。相同水同时存在于前景／背景时仅绘制一次，原始双层与 actor 数据不变。
 - `liquid_product_resource_data.py` 对应独立模型／材质命名空间，使用原版水贴图、单面向外三角形、alpha `.45` 和不写入液体深度的混合方式。4 个 vertex 和 6 个 fragment 的浮点、关键 varying 及 payload 保持 `highp`；实际宿主 GLES 精度为 23 位，不能据此声称安卓实机通过。
-- 既有 `LiquidPreview`／`LiquidProjection` 继续拥有计划、模型和生命周期。产品 owner 指纹绑定 25 个运行时源码；资源、规则、风格和 owner 任一变化都需要重新生成并重新验收。
+- 既有 `LiquidPreview`／`LiquidProjection` 继续拥有计划、模型和生命周期。产品 owner 指纹绑定生成器列出的运行时源码（当前 root 集成版本为 26 个，包含 `projection_companions.py`）；资源、规则、风格和 owner 任一变化都需要重新生成并重新验收。不得用旧工作树的 25-source 指纹验收新集成版本。
 - `liquid_product_deployment.py` 要求八个独立 gate：编辑器、完整投影、缺失投影、透明度、几何、动画、生物群系和生命周期。宿主测试不会启用这些资格。
 
 ## 公开蓝图及对照
@@ -18,7 +18,7 @@
 
 ## 实机执行条件与命令
 
-目前启动诊断由主代理协调。水代理只使用一个受管实例，团队总数最多五个。禁止前台切换、窗口缩放、桌面输入和前台截图回退。WGC、无激活 DLL、MCDK 均使用已批准的固定 SHA；会话必须同时匹配 owner、项目、PID 和进程创建身份。
+目前启动诊断由主代理协调。水代理只使用一个受管实例，团队总数最多五个。测试程序禁止主动切换前台、窗口缩放、桌面输入和前台截图回退。用户可以随时手动将游戏切到前台；这不会暂停测试，也不会成为关闭游戏的理由。通过显式 `MCDEV_ALLOW_USER_FOREGROUND=1` 允许这一行为，默认测试仍要求后台。允许前台的帧必须如实记录前台策略和窗口状态，不得标成后台帧。WGC、无激活 DLL、MCDK 均使用已批准的固定 SHA；会话必须同时匹配 owner、项目、PID 和进程创建身份。最小化、进程身份变化、失去无激活窗口样式或无法取得可信 WGC 帧仍是失败。
 
 游戏启动前，监督器调用 `probe_product_water.snapshot_sources(project_root)` 保存 `launch-inputs.json`。快照覆盖完整 BP／RP、顶层宿主工具及调试 skill 脚本，排除 Python 缓存。不得在游戏启动后修改这些输入，再把新代码归入旧进程的验收。探针开始／恢复后都检查这份快照。
 
@@ -39,11 +39,13 @@ python -X utf8 tools/analyze_product_water.py <water-frozen.json> <water-frozen-
 
 探针通过普通 Scene 和投影 owner 运行编辑器／完整／缺失三条路径。world fixture 位于玩家脚部上方两格，预留 216 个已验证为空的格子，不改玩家位置；仅缺失投影占据测试写入真实方块。finally 恢复工作区、profile、网格、投影、世界、流动开关、天气、时间、相机、HUD 和云设置，并保留恢复错误。
 
-每帧检查位置／角度／FOV／引擎尺寸稳定，绑定同一会话标定的原始 FOV 和截图分辨率。编辑器检查相机、切面、平移、scene 尺寸及实际原生娃娃控件布局。全部六种同一场景的对照必须共享相机。WGC 帧检查后台状态、绑定、时间戳、PNG 尺寸和 SHA；任何缺失、漂移或恢复失败都禁止产生通过的产品 gate。
+每帧检查位置／角度／FOV／引擎尺寸稳定，绑定同一会话标定的原始 FOV 和截图分辨率。编辑器检查相机、切面、平移、scene 尺寸及实际原生娃娃控件布局。全部六种同一场景的对照必须共享相机。WGC 帧检查明确的前台策略、窗口状态、绑定、时间戳、PNG 尺寸和 SHA；任何缺失、漂移或恢复失败都禁止产生通过的产品 gate。旧格式的后台帧不因新策略而获得豁免。
 
 ## 当前证据与剩余工作
 
 19:10 的 `water-product-r14-v1` 在 ready 前退出。监督器在 37.19 秒内得到 `Owned game creation identity changed; refusing to bind`，后续共同诊断确认游戏访问冲突 `c0000005`。本次没有执行水探针、没有截图尝试，也没有 shader 或 Python traceback。前台保持原应用；受管 game／MCDK 的原进程创建身份已回收，配置已删除，批准二进制 SHA 未改变，清理错误为空。原始记录保存在本工作树 `.runtime/water-product-r14-v1/`；共同诊断见 `BACKGROUND_STARTUP_DIAGNOSIS_R14.md`。禁止把这种退出写成“不可靠截图”或进行相同条件盲目重启。
+
+20:05 的 root 项目 `water-product-r14-v2-root` 已进入实际世界和工作区，并取得六张有效 WGC 石块标定截图（front／right／tilted 的 shown＋hidden）。用户手动将游戏切到前台后，旧监督器在 104.95 秒时把前台状态错误地当作护栏失败，即使无激活样式仍有效。它随后发起 WM_CLOSE，再在正常关闭超时后回收精确匹配身份的自有进程；115.86 秒结束，清理错误为空、原配置按字节恢复、game／MCDK 身份均已消失、二进制 pins 不变。20:05:46 的 `ucrtbase.dll c0000409` 出现在监督器发起关闭之后，不能作为未解释的水资源启动崩溃。该次相机报告仅登记了 front／right，`passed`、`completed`、`restored` 均未通过，水探针尚未执行。原件保留在 root `.runtime/water-product-r14-v2-root/`，不会与之后的重试混用。
 
 离线规则、相邻水连续性、实际三角形／UV／alpha 的宿主验证和 owner 测试已经完成；这些不替代游戏观察。捕获工具的 40 项相关回归通过，独立 QA 还构造了编辑器／world 各五种「各自稳定但相机不同」的对照，十种都被完整 analyzer 拒绝。
 
