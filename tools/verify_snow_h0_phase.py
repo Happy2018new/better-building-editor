@@ -117,6 +117,38 @@ def changed(first, second, threshold=20):
     return maximum.point(lambda value: 255 if value > threshold else 0)
 
 
+def capture_schedule(plan):
+    if plan.get('plant_candidate') is None:
+        return [(mode, kind) for mode in ('native', 'projection') for kind in KINDS]
+    if plan.get('capture_schedule') != 'candidate_positive_first':
+        raise ValueError('Centered candidate requires plant positive controls first')
+    return [('native', 'plant'), ('native', 'blank'), ('projection', 'plant'), ('projection', 'blank'),
+            ('native', 'snow'), ('native', 'covered'), ('projection', 'snow'), ('projection', 'covered')]
+
+
+def plant_positive_controls(paths, roi, output):
+    results = {}
+    for mode in ('native', 'projection'):
+        with Image.open(paths[mode]['plant']) as plant, Image.open(paths[mode]['blank']) as blank:
+            mask = ImageChops.multiply(changed(plant.convert('RGB').crop(CROP), blank.convert('RGB').crop(CROP)), roi)
+        path = output / (mode + '_early_plant_mask.png')
+        mask.save(path)
+        count = mask.histogram()[255]
+        results[mode] = {'plant_pixels': count, 'minimum_pixels': 80, 'passed': count >= 80,
+                         'mask': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+    return {'modes': results, 'passed': all(row['passed'] for row in results.values()),
+            'geometry_fidelity_accepted': False, 'production_acceptance': False}
+
+
+def clear_native_for_projection(run, wait, reference, palette_code):
+    mutation = run(reference['NATIVE_MUTATE'] % ('poppy', 'blank', 0), True)
+    palette = wait('native target blank before projection capture',
+                   lambda value: palette_matches(value, 'blank'), lambda: run(palette_code))
+    if mutation['front']['name'] != 'minecraft:air':
+        raise AssertionError(('Native target was not cleared before projection capture', mutation))
+    return {'mutation': mutation, 'palette_before': palette, 'support_preserved_by_target_only_mutation': True}
+
+
 def analyze_controls(paths, roi, output):
     results, frames = {}, {}
     for mode in ('native', 'projection'):
@@ -518,8 +550,9 @@ _result=True
         result['qualification'] = qualification
         result['fixed_camera_readback'] = run(CAMERA_READ)
         paths = {'native': {}, 'projection': {}}
-        for kind in KINDS:
+        def capture_native(kind):
             stage(6)
+            run('b.stop_projection()\n_result=True')
             native = run(reference['NATIVE_MUTATE'] % ('poppy', kind, 0), True)
             if kind == 'covered':
                 native = run(reference['NATIVE_SNOW'] % 1, True)
@@ -540,12 +573,14 @@ _result=True
             result['rows'][-1].update(kind=kind, mode='native', readback=native,
                                       client_palette=replicated, client_palette_after=palette_after)
             save(receipt, result)
-        for kind in KINDS:
+        def capture_projection(kind):
             stage(8)
             journal = {'kind': kind, 'projection_request_attempted': False}
             result.setdefault('projection_state_journals', []).append(journal)
             save(receipt, result)
             run('b.stop_projection()\n_result=True')
+            journal['native_target_cleared'] = clear_native_for_projection(run, wait, reference, palette_code)
+            save(receipt, result)
             source = run(reference['LOAD'] % ('poppy', 0, kind))
             journal['source'] = source
             save(receipt, result)
@@ -591,6 +626,11 @@ _result=True
             run(camera_code)
             host.sleep(min(.25, max(0, stage_deadline - host.now())))
             path = capture('projection_' + kind + '_h0')
+            native_after = run(palette_code)
+            journal['native_target_cleared']['palette_after'] = native_after
+            save(receipt, result)
+            if not palette_matches(native_after, 'blank'):
+                raise AssertionError(('Native target became occupied during projection capture', kind, native_after))
             final_status = run(visual['PROJECTION_STATUS'])
             final_source = run(visual['PROJECTION_SOURCE']) if kind != 'blank' else None
             journal.update(status_after_capture=final_status, source_after_capture=final_source)
@@ -614,6 +654,16 @@ _result=True
             result['rows'][-1].update(kind=kind, mode='projection', source=source, status=status,
                                       submitted=submitted, final_status=final_status, final_source=final_source)
             save(receipt, result)
+        schedule = capture_schedule(plan)
+        result['capture_schedule'] = [list(row) for row in schedule]
+        save(receipt, result)
+        for index, (mode, kind) in enumerate(schedule):
+            (capture_native if mode == 'native' else capture_projection)(kind)
+            if plan.get('plant_candidate') is not None and index == 3:
+                result['early_plant_positive_controls'] = plant_positive_controls(paths, roi, output)
+                save(receipt, result)
+                if not result['early_plant_positive_controls']['passed']:
+                    raise AssertionError('Centered candidate plant positive control failed; snow matrix not started')
         result['pixels'] = analyze_controls(paths, roi, output)
         if host.now() > work_deadline:
             raise TimeoutError('H0 measured work deadline exceeded')

@@ -11,6 +11,7 @@ import sys
 from types import ModuleType
 
 import supervise_owned_startup as startup
+import isolated_centered_plant
 from verify_snow_h0_phase import run_phase
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,7 +33,7 @@ def validate_plan(path, expected_sha):
     plan = json.loads(Path(path).read_bytes())
     if (plan.get('schema') != 1 or plan.get('status') != 'reviewed_finite_h0_control'
             or Path(plan.get('project', '')).resolve() != ROOT
-            or plan.get('owner') not in ('snow-r12-h0-native', 'snow-r12-h0-alpha')
+            or plan.get('owner') not in ('snow-r12-h0-native', 'snow-r12-h0-alpha', 'snow-r13-centered-native')
             or plan.get('texture_condition') not in ('native_original', 'native_alpha_preserved')
             or plan.get('budgets') != {'total': TOTAL, 'work': WORK, 'cleanup_reserved': 50, 'launcher_wait': 90}
             or plan.get('post_ready_reservation_seconds') != RESERVATION
@@ -69,6 +70,12 @@ def validate_plan(path, expected_sha):
               for name in ('behavior_pack', 'resource_pack') for path in (ROOT / name).rglob('*') if path.is_file()}
     if actual != expected:
         raise ValueError('H0 behavior/resource inventory changed')
+    if plan.get('plant_candidate') is not None:
+        from verify_snow_h0_phase import candidate_profile_install_code
+        candidate_profile_install_code(plan['plant_candidate'])
+        isolated_centered_plant.resource_changes(ROOT, plan['plant_candidate_directory'])
+        if plan.get('capture_schedule') != 'candidate_positive_first':
+            raise ValueError('Centered candidate requires plant positive controls first')
     if (plan['files']['adapter']['path'] != str(Path(__file__).resolve()) or
             Path(plan['files']['phase']['path']).resolve() != ROOT / 'tools/verify_snow_h0_phase.py'):
         raise ValueError('H0 plan belongs to another adapter')
@@ -173,9 +180,25 @@ _result=json.dumps({'owner_present':owner is not None,'session_present':session 
             report['backup'][-1]['installed_sha256'] = startup.sha(target)
         report.update(marker_installation_attempted=False, marker_original_absence=True,
                       native_texture_sha256=startup.sha(plan['files']['native_texture']['path']))
+        if plan.get('plant_candidate') is not None:
+            report['centered_plant_resources'] = isolated_centered_plant.install(
+                ROOT, plan['plant_candidate_directory'], output)
+            actual = {path.relative_to(ROOT).as_posix(): startup.sha(path)
+                      for name in ('behavior_pack', 'resource_pack') for path in (ROOT / name).rglob('*') if path.is_file()}
+            expected = json.loads(Path(plan['files']['installed_project_source']['path']).read_bytes())['files']
+            report['centered_plant_installed_inventory_matches'] = actual == expected
+            if actual != expected:
+                raise ValueError('Installed centered plant behavior/resource inventory changed')
 
     def restore(self, plan, output, report):
-        super().restore(plan, output, report)
+        try:
+            super().restore(plan, output, report)
+        finally:
+            if plan.get('plant_candidate') is not None:
+                restored = isolated_centered_plant.restore(ROOT, output)
+                report['centered_plant_resources_restored'] = restored
+                if not restored['restored']:
+                    raise ValueError('Centered plant resource restoration failed: ' + str(restored['errors']))
         if plan['texture_condition'] == 'native_original':
             report['marker_restored'] = not (ROOT / 'resource_pack/textures/blocks/flower_rose.png').exists()
             if not report['marker_restored']:
