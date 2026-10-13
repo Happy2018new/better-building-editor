@@ -5,7 +5,9 @@ from pathlib import Path
 import sys
 import time
 
-import item_skeleton_owner_r13 as route
+from isolated_diagnostic_module import load
+
+route=load('item_skeleton_owner_r13')
 
 shared=route.shared
 PREFIX='item-model-resolution-r13-v1'

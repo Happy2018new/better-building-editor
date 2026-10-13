@@ -2,9 +2,11 @@
 from pathlib import Path
 import sys
 
-import item_skeleton_owner_r13 as route
+from isolated_diagnostic_module import load
 import execute_item_server_skeleton_r13 as runtime
 import prepare_item_server_skeleton_r13 as candidate
+
+route=load('item_skeleton_owner_r13')
 
 shared=route.shared
 shared.runtime=runtime

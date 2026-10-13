@@ -7,8 +7,10 @@ from pathlib import Path
 import sys
 import time
 
-import item_skeleton_owner_r13 as route
+from isolated_diagnostic_module import load
 import execute_item_world_glint_r13 as runtime
+
+route=load('item_skeleton_owner_r13')
 
 shared=route.shared
 shared.runtime=runtime

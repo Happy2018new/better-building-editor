@@ -4,9 +4,11 @@ import os
 from pathlib import Path
 import sys
 
-import client_anchor_depth_owner_r15 as shared
+from isolated_diagnostic_module import load
 import execute_item_skeleton_candidate_r13 as runtime
 import prepare_item_skeleton_candidate_r13 as candidate
+
+shared=load('client_anchor_depth_owner_r15')
 
 shared.runtime=runtime
 shared.OWNER='item-skeleton-r13-v1'

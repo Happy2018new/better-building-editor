@@ -1,9 +1,11 @@
 """Supervise one world capability test; no production projection is invoked."""
 from pathlib import Path
 
-import item_server_skeleton_owner_r13 as previous
+from isolated_diagnostic_module import load
 import execute_item_world_glint_r13 as runtime
 import prepare_item_world_glint_r13 as candidate
+
+previous=load('item_server_skeleton_owner_r13')
 
 shared=previous.shared
 shared.runtime=runtime
