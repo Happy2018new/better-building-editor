@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "owner": "scaffold-r13-lifecycle-v2",
+  "launches_permitted": 1,
+  "outer_seconds": 330,
+  "wait_seconds": 120,
+  "pins": {
+    "D:\\bbe-r13-background\\.runtime\\native_focus_guard-r13-v1\\native_focus_guard.dll": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+    "D:\\bbe-r13-scaffold\\.mcdev.json": "c4bc2da4aa276a38596f868e9188f9e11e497d52796a285daedb849c6d48a1e2",
+    "D:\\bbe-r13-scaffold\\.runtime\\scaffold-lifecycle-r13-v2.py": "70212ccecec34ce7ae71c4e9827c18720323ba07e9204bdcd03228b3d64250e0",
+    "D:\\bbe-r13-scaffold\\tools\\probe_scaffold_state_lifecycle.py": "e2f1e5614f7d8c07703823c7ccbc18ed74443b2f9f4c76e48d86d9664c3f5633",
+    "D:\\bbe-r13-scaffold\\tools\\context_test_environment.py": "147e9a6b7bdeccc787195fe02e93c17e9ed8decf50b3b9eecdc6f3cf8c5373d4",
+    "D:\\bbe-r13-scaffold\\tools\\verify_debug_blueprints.py": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+    "D:\\bbe-r13-scaffold\\tools\\capture_native_window.py": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754",
+    "D:\\bbe-r13-scaffold\\tools\\analyze_scaffold_state_lifecycle.py": "4bc1ac7989fff6b1e3acf6e852e23d41943717003711ca5463dfd3b8035e22c8"
+  },
+  "foreground": {
+    "hwnd": 34802164,
+    "pid": 46908,
+    "process": "ShellHost.exe",
+    "identity": "134363419314736789",
+    "title": "\u5feb\u901f\u8bbe\u7f6e",
+    "visible": true,
+    "minimized": false
+  },
+  "background_only": true,
+  "real_input": false,
+  "resize": false,
+  "created_at": "2026-10-13T06:19:29.804319+00:00",
+  "native_method": "17 sequential lifecycle controls; real GetBlockStates; direct versus semantic; support/scaffold/delayed035; v1",
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  },
+  "pack_inventory": {
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\manifest.json": "bcef2b1dba31534ac50bc249def3e5f99fab22cf065a53767f203c30f4746ddb",
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\modern_projection\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\modern_projection\\modMain.py": "2790ef13512271f266e85c0ecdd0382a8d2e8453d13bb8d97d2d4885d70aeb23",
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\modern_projection\\projection\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\modern_projection\\projection\\block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    ".runtime\\scaffold-lifecycle-r13-v2-pack\\behavior_pack\\modern_projection\\projection\\block_registry_data.py": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786"
+  },
+  "changed_from_v1": "Isolated minimal registry library diagnostic BP instead of full product BP/RP; independent native state only, no editor visual acceptance",
+  "registry_source_pins": {
+    "behavior_pack\\modern_projection\\projection\\block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "behavior_pack\\modern_projection\\projection\\block_registry_data.py": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786"
+  }
+}

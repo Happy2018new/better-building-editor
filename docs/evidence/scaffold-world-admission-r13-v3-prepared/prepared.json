@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "status": "prepared_not_executed",
+  "purpose": "World-admission recovery after V2 loading sentinel; no native result or rendering acceptance",
+  "host_sha256": "22178717963b518d019a37ef50c349814cb9262bb533fa3b5a4d3e208cb3aeca",
+  "expected_probe_sha256": "e2f1e5614f7d8c07703823c7ccbc18ed74443b2f9f4c76e48d86d9664c3f5633",
+  "world_gate": [
+    "real UiInitFinished event",
+    "at least2GameRenderTick events",
+    "same player/client server runtime",
+    "bounded and synchronized3stable feet samples",
+    "loaded nonair ground true states",
+    "17loaded dry cells both layers"
+  ],
+  "outer_seconds": 330,
+  "cleanup_reserve_seconds": 70,
+  "native_cases_observed": 0,
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  }
+}
