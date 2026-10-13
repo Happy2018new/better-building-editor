@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import types
 import unittest
 from unittest.mock import patch
 
@@ -72,6 +73,58 @@ class DrawResponseTests(unittest.TestCase):
     def test_sdk_snippets_compile(self):
         for source in (INSTALL, REMOVE, SETUP % ((0, 20, 0),), RESTORE):
             compile(source, '<snow-native-response>', 'exec')
+
+    def test_backdrop_preflight_uses_exact_native_zxy_volume_before_writes(self):
+        for width, height in ((25, 25), (7, 13), (31, 2)):
+            for order in ('zxy', 'xyz'):
+                with self.subTest(width=width, height=height, order=order):
+                    writes = []
+                    class Palette:
+                        def SerializeBlockPalette(self):
+                            return {'volume': (1, width, height) if order=='zxy' else (width, height, 1),
+                                    'common': {('minecraft:air', 0): list(range(width*height))},
+                                    'extra': {}, 'actor': {}}
+                    class PaletteBlock:
+                        def GetBlockPaletteBetweenPos(self, *unused): return Palette()
+                    class Adapter:
+                        dimension = 0
+                        palette_block = PaletteBlock()
+                        def __init__(self, unused): pass
+                        def write(self, pos, value):
+                            writes.append((pos, value))
+                            return True
+                    api = types.ModuleType('mod.server.extraServerApi')
+                    api.GetPlayerList = lambda: ['owned_player']
+                    server = types.ModuleType('mod.server')
+                    server.extraServerApi = api
+                    mod = types.ModuleType('mod')
+                    mod.server = server
+                    module = types.ModuleType('modern_projection.server_system')
+                    module.WorldAdapter = Adapter
+                    source = (SETUP % ((0, 20, 0),)).replace(
+                        'hi=(target[0]+22,target[1]+8,target[2]+12)',
+                        'hi=(target[0]-2+%d,target[1]-16+%d,target[2]+12)' % (width-1,height-1))
+                    imports = {'mod': mod, 'mod.server': server, 'mod.server.extraServerApi': api,
+                               'modern_projection': types.ModuleType('modern_projection'),
+                               'modern_projection.server_system': module}
+                    with patch.dict(sys.modules, imports):
+                        try:
+                            if order=='xyz':
+                                with self.assertRaises(AssertionError): exec(source, {})
+                                self.assertEqual([], writes)
+                                self.assertFalse(hasattr(sys, '_snow_contrast_backdrop'))
+                            else:
+                                result = {}
+                                exec(source, result)
+                                self.assertEqual(width*height, len(writes))
+                                self.assertEqual(width*height, json.loads(result['_result'])['cells'])
+                                restored = {}
+                                exec(RESTORE, restored)
+                                self.assertTrue(json.loads(restored['_result'])['restored'])
+                                self.assertEqual(width*height*2, len(writes))
+                        finally:
+                            if hasattr(sys, '_snow_contrast_backdrop'):
+                                del sys._snow_contrast_backdrop
 
 
 if __name__ == '__main__':
