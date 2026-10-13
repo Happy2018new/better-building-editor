@@ -259,7 +259,8 @@ class CleanupAndOwner(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             session = Path(directory) / 'session.json'
             (session.parent / 'artifacts').mkdir()
-            session.write_text('{}')
+            session.write_text(json.dumps({'owner': owner.OWNER, 'project': str(owner.ROOT), 'session_file': str(session),
+                                           'artifacts': str(session.parent/'artifacts')}))
             error = subprocess.TimeoutExpired(['owner'], 150)
             with patch.object(owner, 'verify', return_value={}), patch.object(owner, 'save'), \
                     patch.object(owner.time, 'monotonic', return_value=100.):
@@ -268,6 +269,24 @@ class CleanupAndOwner(unittest.TestCase):
             self.assertTrue(result['no_retry'])
             self.assertFalse(result['cleanup_verified'])
             self.assertEqual(result['attempts'], 1)
+
+    def test_real_cold_owned_artifact_directory_can_persist_first_journal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            session_file = Path(directory)/'session.json'
+            artifacts = Path(directory)/'artifacts'
+            session_file.write_text(json.dumps({'owner': owner.OWNER, 'project': str(owner.ROOT),
+                                                'session_file': str(session_file), 'artifacts': str(artifacts)}))
+            self.assertFalse(artifacts.exists())
+            actual = owner.artifact_directory(session_file)
+            owner.save(actual/'cold-supervision.json', {'schema': 1, 'sdk_dispatch_attempted': False})
+            self.assertEqual(json.loads((artifacts/'cold-supervision.json').read_bytes()),
+                             {'schema': 1, 'sdk_dispatch_attempted': False})
+            self.assertFalse((artifacts/'cold-supervision.json.tmp').exists())
+            session = json.loads(session_file.read_bytes())
+            session['owner'] = 'foreign-owner'
+            session_file.write_text(json.dumps(session))
+            with self.assertRaisesRegex(ValueError, 'exact owned'):
+                owner.artifact_directory(session_file)
 
     def test_session_ready_false_is_not_a_real_workspace(self):
         api = ModuleType('mod.client.extraClientApi')

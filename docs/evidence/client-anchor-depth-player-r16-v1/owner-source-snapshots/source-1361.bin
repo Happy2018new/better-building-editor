@@ -1,0 +1,39 @@
+"""One existing-player-positive R16 diagnostic using the reviewed finite owner."""
+import sys
+from pathlib import Path
+
+import client_anchor_depth_owner_r15 as shared
+import prepare_client_anchor_depth_player_candidate_r16 as candidate
+
+
+shared.OWNER = 'frame-r16-background'
+shared.PREFIX = 'client-anchor-depth-player-r16-v1'
+shared.CANDIDATE = shared.ROOT / '.runtime' / shared.PREFIX
+shared.PLAN_HASH = shared.digest(shared.CANDIDATE / 'plan.json')
+shared.ENTRYPOINT = Path(__file__).resolve()
+candidate.EXACT_PLAN_SHA256 = shared.PLAN_HASH
+shared.runtime.candidate = candidate
+previous_contract = shared.owner_contract
+
+
+def owner_contract():
+    result = previous_contract()
+    result.pop('cow_gate_before_binding')
+    result.pop('cow_roi')
+    result.update(existing_player_gate_before_binding=True,
+                  positive_roi='PaperDoll native ROI intersect fixed_ui_roi',
+                  positive_target='existing_local_player', positive_scale=1.,
+                  positive_render_depth=-50, positive_rotation=[0., 60., 0.],
+                  positive_entity_creation=False, inventory_or_player_writes=False)
+    return result
+
+
+shared.owner_contract = owner_contract
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == 'score':
+        del sys.argv[1]
+        shared.runtime.main()
+    else:
+        raise SystemExit(shared.main())

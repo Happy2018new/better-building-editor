@@ -1,34 +1,64 @@
 """Bounded R15 runtime and offline scorer; only a bound owner may execute."""
 from copy import deepcopy
 import argparse
-import importlib
+import builtins
 import json
 from pathlib import Path
 import sys
 import time
+from types import ModuleType
 
 import prepare_client_anchor_depth_candidate_r15 as candidate
 
 
 ROOT = candidate.ROOT
-ENTITIES = ROOT.parent / 'r11-entities'
-sys.path.append(str(ENTITIES / 'tools'))
+HELPERS = candidate.ORIGINAL / (candidate.PREFIX + '.sources/entities/tools')
 PINS = {'probe_client_anchor_paper_doll': '2d93d4314e49dadc4bbe6e93b40c9b6c1e7e0ec5ab7b0c3304072f6ba8366a85',
         'probe_native_item_paper_doll': '7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a',
         'execute_frame_item_translation': '7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662',
         'flat_frame_item_visual_checks': '4c479f79ce14d6bd98b899b60d2ebe00351d4ef1d4d64d81c59db9c1c52b0315',
         'verify_snow_plant_visibility': '89840f5f94959b10c608fe3a5a4a8fcecf254a155625a26775f88320191710d4'}
+HELPER_PINS = dict(PINS,
+    prepare_frame_item_translation='f920fdf004ab1bff3d2483b620bd65d2149efbe7854c9d359bdefd2c4253c365',
+    verify_frame_item_translation='0028919b2fe241bfa06fbe6e7c8d14580c1ed7b8227adfb227548266c430b753')
+_helpers = {}
+
+
+def load_helper(name):
+    """Load exact committed R14 bytes without replacing current tool modules."""
+    path = HELPERS / (name + '.py')
+    raw = path.read_bytes()
+    if candidate.digest(raw) != HELPER_PINS[name]:
+        raise ValueError('Pinned archived runtime helper changed: ' + name)
+    if name in _helpers:
+        return _helpers[name]
+    module = ModuleType('_anchor_depth_r14_' + name)
+    module.__file__ = str(path)
+
+    def archived_import(target, globals=None, locals=None, fromlist=(), level=0):
+        if level == 0 and target in HELPER_PINS:
+            return load_helper(target)
+        return builtins.__import__(target, globals, locals, fromlist, level)
+
+    module.__dict__['__builtins__'] = dict(vars(builtins), __import__=archived_import)
+    previous_path = sys.path[:]
+    sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
+    try:
+        exec(compile(raw, str(path), 'exec'), module.__dict__)
+        if hasattr(module, 'ROOT'):
+            module.ROOT = ROOT
+        _helpers[name] = module
+    finally:
+        sys.path[:] = previous_path
+    return module
 
 
 def dependencies():
     modules = {}
-    for name, expected in PINS.items():
-        choices = [base / 'tools' / (name + '.py') for base in (ROOT, ENTITIES)]
-        module = importlib.import_module(name)
-        path = Path(module.__file__).resolve()
-        if path not in [value.resolve() for value in choices] or candidate.digest(path.read_bytes()) != expected:
-            raise ValueError('Pinned actual runtime helper changed: ' + name)
-        modules[name] = module
+    for name in HELPER_PINS:
+        module = load_helper(name)
+        if name in PINS:
+            modules[name] = module
     return modules
 
 
@@ -52,8 +82,9 @@ def layout_readback(anchor, tree, status, initial):
 
 def cow_pixels(frame):
     from PIL import Image, ImageChops
-    from flat_frame_item_visual_checks import capture_payload
-    from verify_snow_plant_visibility import count
+    helpers = dependencies()
+    capture_payload = helpers['flat_frame_item_visual_checks'].capture_payload
+    count = helpers['verify_snow_plant_visibility'].count
     with Image.open(capture_payload(frame['capture'])) as source:
         image = source.convert('RGB').crop(tuple(positive_roi(frame)))
     background = Image.new('RGB', image.size, (247, 249, 252))
@@ -76,9 +107,13 @@ def positive_roi(frame):
 def validate_state(label, status, initial, native, binding_id):
     expected = dict(initial['ui_params'])
     expected['render_depth'] = -50 if label == 'ui_plain_depth50' else -15
-    if label.startswith('ui_cow_'):
-        del expected['entity_id']
-        expected.update(entity_identifier='minecraft:cow', init_rot_y=60.)
+    positive_labels = getattr(candidate, 'POSITIVE_STATES', ('ui_cow_positive', 'ui_cow_positive_restored'))
+    if label in positive_labels:
+        if getattr(candidate, 'POSITIVE_TARGET', None) == 'existing_local_player':
+            expected.update(entity_id=initial['player'], scale=1., render_depth=-50, init_rot_y=60.)
+        else:
+            del expected['entity_id']
+            expected.update(entity_identifier='minecraft:cow', init_rot_y=60.)
     if (status['control'] != label or status['last_submission'] != expected or
             status['ui_params'] != initial['ui_params'] or
             status['attachments'] != native['attachments'] or
@@ -89,7 +124,7 @@ def validate_state(label, status, initial, native, binding_id):
     if len(renders) != 1 or renders[0].get('state') != 'returned' or renders[0].get('value') is not True:
         raise ValueError('Candidate native RenderEntity result changed')
     attachments = status['attachments']
-    if label in ('ui_cow_positive', 'ui_empty'):
+    if label in (positive_labels[0], 'ui_empty'):
         if attachments or native['native_item'] is not None:
             raise ValueError('Unexpected item before the positive gate')
         return binding_id
@@ -130,13 +165,17 @@ def preflight(bundle, output):
 
 def score_probe(report, allow_partial=False):
     from PIL import Image
-    from flat_frame_item_visual_checks import capture_payload
-    from verify_snow_plant_visibility import count
-    anchor = dependencies()['probe_client_anchor_paper_doll']
-    if report.get('plan_sha256') != '533521976e014d1c7606010060c2ad111e40aac8b3f1dcea64cd8f58a720e55a':
+    helpers = dependencies()
+    capture_payload = helpers['flat_frame_item_visual_checks'].capture_payload
+    count = helpers['verify_snow_plant_visibility'].count
+    anchor = helpers['probe_client_anchor_paper_doll']
+    if report.get('plan_sha256') != getattr(candidate, 'EXACT_PLAN_SHA256',
+                                            '533521976e014d1c7606010060c2ad111e40aac8b3f1dcea64cd8f58a720e55a'):
         raise ValueError('Exact prospective candidate report plan changed')
     if not allow_partial and (not report.get('completed') or not report.get('restored') or report.get('cleanup_errors')):
         raise ValueError('Complete restored depth report required')
+    positive_labels = getattr(candidate, 'POSITIVE_STATES', ('ui_cow_positive', 'ui_cow_positive_restored'))
+    positive_name = getattr(candidate, 'POSITIVE_NAME', 'cow')
     images, doll_images, marker_passed, cow, binding_id = {}, {}, True, {}, None
     if list(report['states']) != list(candidate.STATES)[:len(report['states'])]:
         raise ValueError('Candidate prospective state ordering changed')
@@ -172,11 +211,11 @@ def score_probe(report, allow_partial=False):
                     raise ValueError('Native capture dimensions changed')
                 images[label].append(source.convert('RGB').crop(tuple(frame['fixed_roi'])))
                 doll_images[label].append(source.convert('RGB').crop(tuple(positive_roi(frame))))
-        if label.startswith('ui_cow_'):
+        if label in positive_labels:
             cow[label] = [cow_pixels(frame) for frame in row['frames']]
     positive = marker_passed and cow and all(value >= 80 for values in cow.values() for value in values)
-    score = {'schema': 1, 'ui_marker_gate_passed': marker_passed, 'cow_positive_pixels': cow,
-             'positive_cow_gate_passed': bool(positive), 'classification': 'partial_controls',
+    score = {'schema': 1, 'ui_marker_gate_passed': marker_passed, positive_name + '_positive_pixels': cow,
+             'positive_' + positive_name + '_gate_passed': bool(positive), 'classification': 'partial_controls',
              'production_rendering_accepted': False, 'editor_frame_content_accepted': False,
              'shared_depth_accepted': False, 'enchantment_glint_accepted': False}
     if not all(label in images for label in candidate.STATES):
@@ -186,18 +225,18 @@ def score_probe(report, allow_partial=False):
               ('ui_plain_depth15', 'ui_plain_depth50', 'ui_plain_depth15_repeat')}
     restored = count(anchor.stable_difference(images['ui_empty_restored'], images['ui_empty']))
     doll_empty = doll_images['ui_empty'] + doll_images['ui_empty_restored']
-    cow_stable = {label: count(anchor.stable_difference(doll_images[label], doll_empty))
-                  for label in ('ui_cow_positive', 'ui_cow_positive_restored')}
+    cow_stable = {label: count(anchor.stable_difference(doll_images[label], doll_empty)) for label in positive_labels}
     controls_valid = positive and restored < 80 and all(value >= 80 for value in cow_stable.values())
     if not controls_valid:
         classification = 'invalid_controls'
     elif values['ui_plain_depth15'] >= 80 and values['ui_plain_depth15_repeat'] >= 80 and values['ui_plain_depth50'] < 80:
         classification = 'depth15_positive_depth50_zero_repeat_positive_requires_visual_review'
     elif all(value < 80 for value in values.values()):
-        classification = 'custom_anchor_ui_zero_with_ordinary_renderer_positive'
+        classification = getattr(candidate, 'ZERO_CLASSIFICATION', 'custom_anchor_ui_zero_with_ordinary_renderer_positive')
     else:
         classification = 'paired_depth_observation_requires_visual_review'
-    score.update(stable_plain_pixels=values, restored_difference_pixels=restored, stable_cow_pixels=cow_stable,
+    score.update(stable_plain_pixels=values, restored_difference_pixels=restored,
+                 **{'stable_' + positive_name + '_pixels': cow_stable},
                  classification=classification, visual_review_required=True)
     return score
 
@@ -272,10 +311,11 @@ def execute_probe(bundle, output, check, guard, deadline):
                 if index == 0:
                     time.sleep(min(.4, runtime.remaining()))
             row['state'] = 'captured'
-            if label == 'ui_cow_positive':
+            if label == getattr(candidate, 'POSITIVE_STATES', ('ui_cow_positive', 'ui_cow_positive_restored'))[0]:
                 report['positive_gate'] = score_probe(report, allow_partial=True)
-                if not report['positive_gate']['positive_cow_gate_passed']:
-                    raise ValueError('Ordinary cow positive control failed before sword binding')
+                if not report['positive_gate']['positive_' + getattr(candidate, 'POSITIVE_NAME', 'cow') + '_gate_passed']:
+                    raise ValueError(('Existing player' if getattr(candidate, 'POSITIVE_TARGET', None) else 'Ordinary cow') +
+                                     ' positive control failed before sword binding')
             preserve()
         report['completed'] = True
     except Exception as error:

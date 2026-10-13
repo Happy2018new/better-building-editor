@@ -1,0 +1,1680 @@
+{
+  "schema": 1,
+  "session_id": "d9ea32ce15e04c549c285cc3dbb0c788",
+  "owner": "frame-r16-background",
+  "candidate_plan_sha256": "0f3fd0d340f1086dcfa7c639cd6a937a4e60b4a081414e7492b09cc97fb379e1",
+  "owner_plan_sha256": "344fbbde3bfca6be35b6d253a580d712171461a0cb9aac91b315ca69618e5d47",
+  "runtime_report_sha256": "7f429310db0134b2193fd2309984e891c85192a6463b016234450aa550872a43",
+  "classification": "custom_anchor_ui_zero_with_existing_player_renderer_positive",
+  "capture_count": 14,
+  "binding_count": 1,
+  "ui_marker_gate_passed": true,
+  "positive_player_gate_passed": true,
+  "stable_plain_pixels": {
+    "ui_plain_depth15": 0,
+    "ui_plain_depth50": 0,
+    "ui_plain_depth15_repeat": 0
+  },
+  "restored_difference_pixels": 0,
+  "stable_player_pixels": {
+    "ui_player_positive": 547335,
+    "ui_player_positive_restored": 546155
+  },
+  "original_png_visual_review": "All 14 originals inspected at full resolution; player visible and all sword frames blank",
+  "full_source_snapshots_retained_at": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1",
+  "full_source_pin_count": 1381,
+  "full_source_snapshot_bytes": 49279785,
+  "committed_snapshot_coverage": "All frozen Python sources and config; byte-identical R15 originals reused by hash to avoid duplication; full resource bytes remain in the original local bundle",
+  "source_snapshot_coverage": [
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-entities\\tools\\execute_frame_item_translation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-000.bin",
+      "sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-entities\\tools\\prepare_frame_item_translation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-001.bin",
+      "sha256": "f920fdf004ab1bff3d2483b620bd65d2149efbe7854c9d359bdefd2c4253c365",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-entities\\tools\\probe_client_anchor_paper_doll.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-002.bin",
+      "sha256": "2d93d4314e49dadc4bbe6e93b40c9b6c1e7e0ec5ab7b0c3304072f6ba8366a85",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-entities\\tools\\probe_native_item_paper_doll.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-003.bin",
+      "sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-entities\\tools\\verify_frame_item_translation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-004.bin",
+      "sha256": "0028919b2fe241bfa06fbe6e7c8d14580c1ed7b8227adfb227548266c430b753",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.agents\\skills\\pyreact-debugging\\scripts\\_game_bridge.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-005.bin",
+      "sha256": "22f3217a58a782492e50cddbe35ba9a6b044bc55044af38415d92bad6e58c6e2",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-006.bin",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-007.bin",
+      "sha256": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-008.bin",
+      "sha256": "284bd59957c6cb26f69faf6d87272cedf00d0d442bb75bbcefb1c4a7957e8096",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-009.bin",
+      "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.mcdev.json",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-010.bin",
+      "sha256": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\frame-baseline-plan-r11\\run_client_anchor_world_ui.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-011.bin",
+      "sha256": "430bba6bf5a0883a862242a99d3c6056c693950c82ecc046d0bf4a9a06fb3613",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\frame-baseline-plan-r11\\session_pack_stage.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-012.bin",
+      "sha256": "8142194003d96260d7c8fffaa203de66fbb19d272340ae304a2bc3e4a308aadf",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\__init__.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-021.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\client_system.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-022.bin",
+      "sha256": "e1554001b78826b09151bd7b4e9168734c249dcefc62e65fdba72c975c629667",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\modMain.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-023.bin",
+      "sha256": "be1715db527486174cafefa2f97ecb62d65e5375eeb5d40ec886eec09d2997e5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\__init__.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-024.bin",
+      "sha256": "3b28f9eef3553006a6a6883ae7f30a0f49f41d189f18263202b80057125d4adc",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\appearance_defaults_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-025.bin",
+      "sha256": "bc7add55545a4d53fe7b663d6a29155342f1fd5f7dfb0d8d6bf20a2c338893a4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\archive.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-026.bin",
+      "sha256": "42133ce562c683cce763bcf4d40fdd268b1a7f7d13f66f03bb73d09f7cd8ec82",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\biome_water_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-027.bin",
+      "sha256": "9ab33c1491c4317105a08289be57820be5174174ee748d96693cd243892fc652",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\biomes.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-028.bin",
+      "sha256": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_edits.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-029.bin",
+      "sha256": "e87670ff0f6fab78e347be045fffafd5d4b28f069882a14d7f160e32b81b97ff",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_groups.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-030.bin",
+      "sha256": "33975a21bd98ea4940367bd9f6402af2bb8b9a2bfba55a1790fc69fca68cb3bd",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_neighbors.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-031.bin",
+      "sha256": "64b222c5eefab8147d9266bac51211d207bb0f566ff4ad1acadfaca110ebe205",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-032.bin",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-033.bin",
+      "sha256": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_traits.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-034.bin",
+      "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\block_traits_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-035.bin",
+      "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\bridge.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-036.bin",
+      "sha256": "68c68a5c376cabf47bc0d5951f7fff8435aa4c83e54eefbed08b1b615d2a6202",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\camera.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-037.bin",
+      "sha256": "cd1cc134fde79be36a489cbad5b864b41fa2bc9d1a640da5090b00c0c9e3f1fc",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\catalog.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-038.bin",
+      "sha256": "08f691e66461a01ade082179bf01b578ca5fa226a5809bb6bfa652cbf65d24d0",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-039.bin",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\chunks.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-040.bin",
+      "sha256": "59e7e2e7aa0228c4b6c03acedbb68ec03ddc9ccd09865bfd87f423a95ae3eae1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\codec.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-041.bin",
+      "sha256": "ce0ce93d7d847dada99c80d802250a8cfa2adc77e97f8bbb5ebe7d1abbeb4050",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\compact_chunk.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-042.bin",
+      "sha256": "ef5b8f2d676ae28227404fe6c419af5df5127a7ce767e53614ef2296e0e281f4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\coordinates.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-043.bin",
+      "sha256": "ce2b385c60bc8cfb3a8b67c17d0e25bfdea312832968bac31345b490a03de464",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_appearance_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-044.bin",
+      "sha256": "78464934d7d85276f106cdaeb10ff224eaa201458555c6306e255ba50fafaf24",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_blueprint_ui.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-045.bin",
+      "sha256": "89374d517a67bc565de82238278325cb625a1f1ee42a2d92d0fa3a4d8eeacf29",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-046.bin",
+      "sha256": "8ca7193204df61b7b4bf341f9ce1bd3c696060174f4db293c9149fc4b8d1cadc",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_connection_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-047.bin",
+      "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_dripstone_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-048.bin",
+      "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_entity_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-049.bin",
+      "sha256": "52ab228c5f7fabf63cc899cfecaa0f9dfd42882b7b91495f40f7ad42dfb0c45a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_entity_defaults.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-050.bin",
+      "sha256": "2d0474548dd1cfccbed134aeaee7b80b9fa132a7e4306016a1167d15723ce1fb",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_item_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-051.bin",
+      "sha256": "b57cef6f246d3b5959c7ea76c8f0fd9e29bf6cdc8565b1ecfc46f7bbc8812146",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_liquid_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-052.bin",
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_neighborhood_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-053.bin",
+      "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_pot_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-054.bin",
+      "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_sign_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-055.bin",
+      "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-056.bin",
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\debug_water_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-057.bin",
+      "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\diagnostics.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-058.bin",
+      "sha256": "80b732bc93105853310ffffebd7faa6ea71d75c864f1fd6b1fe99fdf0e11251a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\effects.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-059.bin",
+      "sha256": "b03362a21f6e76887d5877591f1a9b535973e4967c6f30dce26bc7675406bbf7",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\entity_defaults.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-060.bin",
+      "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\entity_defaults_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-061.bin",
+      "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\entity_overlays.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-062.bin",
+      "sha256": "c94e51d016375e387663f4c03504570b923423b82763006e657fd4925c5a7324",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\entity_render.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-063.bin",
+      "sha256": "1360b2e66a3671b233badf5f3c139778df86b1a5dc6c4ca17b0998ea49f132a3",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\font_atlas.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-064.bin",
+      "sha256": "c09ca81217cd482071ab0d2fc79876fbf1c24a5414b73be43805292af118f83c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\frame_rotation_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-065.bin",
+      "sha256": "9e4fe7d6d3c0431bdb5c326679017d7c173271c144efe7f3c04d9dd1fa5e9406",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\geometry_palette.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-066.bin",
+      "sha256": "072f48725cabf8478b87891e7caa324c4f018eea341e390ec89ac9350decca2d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\gizmo.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-067.bin",
+      "sha256": "bf12eba45367bb7d87c1419a408dfd33aa46abc74cfdd53e89973921b5e9e85a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\grid_preview.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-068.bin",
+      "sha256": "ab6f9c7b423ef8b759b3629a172ae0cd4713178c4ca75aed0ed888c690033efd",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\input_mode.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-069.bin",
+      "sha256": "740873b00819c0e56c0a7b1767cebe28e9f8ed4cd4f099a04ee0928e31b8eef1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\jobs.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-070.bin",
+      "sha256": "572e12dea221867ec7ca1d534486e55895b0124c8234ed67bac478ed223837c5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\journal.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-071.bin",
+      "sha256": "5ee228834db33485d615893012d646560280c53e8076c0ad75a83b721b126c31",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\large_preview.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-072.bin",
+      "sha256": "c6cd1b9c675c0caeaf82cacbb720bb47db384731d2f96b5026c6537e60551f61",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_face_texture_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-073.bin",
+      "sha256": "ebe99975fc03959336537a99a7149ece54c625fad867e1e9ec228f2682fd4f73",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_face_textures.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-074.bin",
+      "sha256": "c50bb798bfffdae3fa91c0355d237a689346ff6f7a5b662f8636d9eb3243eab9",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_native_shapes.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-075.bin",
+      "sha256": "fa67acb6ba892669be57fdf214277d344c7c8e18cbe29639d77e12207a957271",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_preview.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-076.bin",
+      "sha256": "79541060709849c0e2da0af59e3823562b8775acff037d6b5afe0a4e9e6ddfb4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_profile.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-077.bin",
+      "sha256": "f2684dff772a16e38df32e5b59d87f90eaaf16fb542b24b1f73d5f841af33365",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_projection.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-078.bin",
+      "sha256": "e7f9a693e4d479ff508b3d462d59d07f0c17b5bf142a74814ee424d59620df45",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_render.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-079.bin",
+      "sha256": "d0682eb251ac7152975d3263a89643c506ce3e3f985574f2fbdfb0adb240004d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_render_plan.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-080.bin",
+      "sha256": "ba9543510b45b7a04c8a5d2d9481cfcc2ce0ce185372a4b87edde6b7b5a4ccb8",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_scene.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-081.bin",
+      "sha256": "e00d2992d7ae0bddac879e0122b198bd208dcf0f68d6b1bb6c2884a7b469ffe5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_shape.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-082.bin",
+      "sha256": "758853ec2d064b4dc86695f35f6a02f16b3adce7ef3859447e98d32e7f41ef2b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_shape_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-083.bin",
+      "sha256": "3bd1e54a97cf941938a5bc980c6a3f6bd7ff28a63cb070b4cf1391ae83e253e5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_transport.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-084.bin",
+      "sha256": "b259a3f097015a8b841ee0e483c260262277d4866dbaf0cf6c22e84ccd14b65b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\liquid_viewport.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-085.bin",
+      "sha256": "83f24c5aa6201a577342b48901b490128b73e6b6275e187d70c4046e7c502a25",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\material_browser.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-086.bin",
+      "sha256": "3d2adc8798998a4fa66ec169989c05e9910d56cfdae96b8eac75f55ca20cdeb0",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\materials.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-087.bin",
+      "sha256": "5c8dca4ff43ae9dcc6d724cb8c9ec5fd137e5132f7cccf810f9ff6aceccc0c64",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\model.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-088.bin",
+      "sha256": "1dc76b8cfac13ee2bddefd69f4e5fef8d45ae0531d59739ac57a6b2d341fbeda",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\motion.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-089.bin",
+      "sha256": "76b52639344d5b790bc0ece9b777920d9f6f91afbf3136ff5593bd941adb1a03",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_appearance.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-090.bin",
+      "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_entity_write.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-091.bin",
+      "sha256": "9b22af9d15b705e5344765eec151e9e78ed68c3ca7b8859a3fd50d3b09583a4a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_entity_write_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-092.bin",
+      "sha256": "0216e61ba454d92179fe1fc2c2749259adb4811870a14fb17a98d49fa7255447",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_glow.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-093.bin",
+      "sha256": "03b5bdb256b642116c01922c2b841d9861b99d7c0e00860bfea8d9e4a25c3a87",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_layers.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-094.bin",
+      "sha256": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_palette_actor.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-095.bin",
+      "sha256": "1c4c94d85ddb3d71134e9698329a65e1ca36279f629b5e9def73958bbba93c59",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_palette_actor_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-096.bin",
+      "sha256": "8af571114b7108b52c3fd68f98c96b164f988fd5e31e97175774f7f314da3d6f",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_pot.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-097.bin",
+      "sha256": "ada5f4cc428562373b370917f69d7332768872dae9a719e06f213e28952737e1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_pot_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-098.bin",
+      "sha256": "1da26e77409c707eaef1f985200ba43cf356e149c4764eb2a24459f5c024ca58",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_pot_sherd_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-099.bin",
+      "sha256": "e679d8dc3ccca1ad0635896b5904515afd87b2903688dab8b6632774f2602aba",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_sign.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-100.bin",
+      "sha256": "34eaa77e5e5183e4db3bab31002572f848ddfcb640c530b25dc49ea9840b8a6a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\native_sign_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-101.bin",
+      "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\nbt_spatial.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-102.bin",
+      "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\occupancy.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-103.bin",
+      "sha256": "c1f8cd9948b0538d965aa88946fa80a691dd4e0f1b1f3174bfd959042b84c6d9",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\occupancy_initial.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-104.bin",
+      "sha256": "643c8b91d52bfd9085a59d66b38738846c22fa8c1fad3a96841d47a98f07c54d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\occupancy_scan.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-105.bin",
+      "sha256": "d3aaac2be2e511d6583b505bb05559f8b5115fc495eafe97bc1e7e020b103dae",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\occupancy_shader.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-106.bin",
+      "sha256": "98b240f9b58e9359319d9e05f52300ce28c7f08b73be733c309dbe47fb454370",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\outline_preview.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-107.bin",
+      "sha256": "c256e3b7e43134373b164ae0b40bb672d9c3a8b177a46674ebbe35561885378d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\outline_settings.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-108.bin",
+      "sha256": "977aef988e7ecff9345758bedf8860140684e0e673e6079915eaf989907eac51",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\packed.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-109.bin",
+      "sha256": "7a02559573ff9dfc99d176c879062b5357c7dd9d91dc05b97bd7eec1f7adee81",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\panels.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-110.bin",
+      "sha256": "0c873a197b63e2d69f16d0fa1247baeb0c46639df15ad19e35d2c738c7053472",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\pasting.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-111.bin",
+      "sha256": "f639ece231575c1febf175cac558eca1b2b2aa68df3c28481b830eb88acff14a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\plant_proxy_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-112.bin",
+      "sha256": "4ee7f456988b01b733285a3da13a746d60507af28f2c8c21de757f7e2ab4ef28",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\pointer.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-113.bin",
+      "sha256": "041f9ea3d6e4b8f25c12153202f28cd50b1913fcd10531dcb74cc35fbfb51f97",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\preparation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-114.bin",
+      "sha256": "7fcb4d881089c03932d2b6cfcc33510b8564cf4175c2d3fea395133f9959a7ce",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\preview.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-115.bin",
+      "sha256": "d16c38541b542031e239b5bf9a30453f2ef6398de66e6dc16c3fc80191ea0461",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\preview_depth.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-116.bin",
+      "sha256": "3a84638f639b44f0e5d323e131cb5fd046e70e3b96672f5cb6a640ec519cf42e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\preview_regions.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-117.bin",
+      "sha256": "498b9305052d973ec251f6fb72467b7cec0c7a4d9f2107558835fed378f2fcfc",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\projection_outline.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-118.bin",
+      "sha256": "92e300d3d91f6b9f24c81197771f18ca5ceffb16efd88d7212737b76c3a21718",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\render_context.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-119.bin",
+      "sha256": "bdd4045d0e48752aaf804e43486344d69ae4474fcb406e7cd1b53e0b27ade78c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\render_layout.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-120.bin",
+      "sha256": "f4d3cacf41b5d80498f85ec59cfd46a9bb2fbe5d82865aadba315574cf2f6997",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\scaffold_neighbors.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-121.bin",
+      "sha256": "151b1e40f5569101a9f6beb42f1ed4f6144c1d80060989207b36e12e547f0652",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\scaffold_support_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-122.bin",
+      "sha256": "c648881d653bc0136419dc14295ab991edaf98314b53c521bf6f0883ae58546f",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\scene.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-123.bin",
+      "sha256": "6bc43ba26e49c06c398471243b970f145486d0bb0aed2143af6fbea690259bb7",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\scene_lines.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-124.bin",
+      "sha256": "7297be97278e4a0d5b264f857bedb6d12a6883e2f8ac949572f6f31b8c9d58e6",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\semantic_wire.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-125.bin",
+      "sha256": "6d769f4e740c1e8dfb6ea2cab33693cff2132777ac11139e4427e61867e57b4e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\session.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-126.bin",
+      "sha256": "e9186209688807f1a09edaf4d3dd880a2ba3a0b991d2775cfa187bca40974fb4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\sharing.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-127.bin",
+      "sha256": "72f4328a32cc3553ae8a013c63538f057e302e77fa34739825f88323385d9028",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\sharing_codec.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-128.bin",
+      "sha256": "daba60f3f886207ac22f94618be50d997c6afca7a54f3aaa7b2df6ab98a814e5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\sharing_ui.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-129.bin",
+      "sha256": "279aa8c808f74680d7cae0927739ddde41c5fb07ab9a77a698948d1bf9bfec52",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\staff_aura.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-130.bin",
+      "sha256": "943ba3346b547a0f1d9793441e60c99e0ffb7fba6a9684863da5ffed13829ed1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\state_transform.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-131.bin",
+      "sha256": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_bed.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-132.bin",
+      "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_bed_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-133.bin",
+      "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_chest_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-134.bin",
+      "sha256": "789a8c12a2225deb0380c9446e1fba739e3e1d515589c1b6ae265a93e8f5bfaa",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_frame_item.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-135.bin",
+      "sha256": "6bf60edfab644affb98d4c9beac5a00d126a07d6627df7be34aef10e9f8b6631",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_frame_item_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-136.bin",
+      "sha256": "a35b17a9aa12225807c51c8e48a2eea8a5b51a839e6375aedf4e4503f931506e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_neighbor_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-137.bin",
+      "sha256": "9b44c273d3895822df2000cb6756e041210c642b4b173b36cdd42ae8788310b5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_shulker_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-138.bin",
+      "sha256": "3a9f4758f37da3dd91ed4a9de194920d29f6e17ae49fbf20d20777a7351e29b0",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_skull.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-139.bin",
+      "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\static_skull_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-140.bin",
+      "sha256": "9316172af9248e549e054408a8f8984c9526b2b4a13f3e207eae9e7879e6701f",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\storage.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-141.bin",
+      "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\survey_effects.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-142.bin",
+      "sha256": "e872f328b6e8ff8a1a01b427172af6629da2caaf11785a65541d3f90817c8d89",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\text_preparation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-143.bin",
+      "sha256": "f6d4c947cafd1825531b51c1f6258da47802d7736498c6ba88911a7aa52a1e7f",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\tiles.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-144.bin",
+      "sha256": "0e4ad6e1bff00620dd8159d9238c238171faa637e4afa639adf4fdbab59e628d",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\tool_hud.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-145.bin",
+      "sha256": "ffecb890fbf3ecbad99bbe4fedd30380d408ca7284738edad2985a26ed9ba3ed",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\tool_items.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-146.bin",
+      "sha256": "611ec2b1c9e7a81ec03ccaf2a11c1f8c279de6f0a90fb5c741ac700ff3c2d643",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\transfer.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-147.bin",
+      "sha256": "3311a07e89943bd21e0fa42a29e1140486d3e7e1ec423202a0de678de07d11da",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\type_assets.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-148.bin",
+      "sha256": "eb9092e67c78d0021eed37b64410c35d3253fb9cbdd5a3323720c1fdb5d25a25",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\typography.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-149.bin",
+      "sha256": "c6eeec44f04aa94e959d0d535ff2d4048a95ac7ce70cecca3f3c10417883b5e4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\ui.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-150.bin",
+      "sha256": "4090fce8e6c457c3b41b21fe32c8f611c7013de0c92218b05f65d5545aa58968",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\ui_layers.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-151.bin",
+      "sha256": "034c28496e52f75221b1d97a0f924ba3f3ca149ddfaf00098bc1787b571f0776",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\visible_actor.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-152.bin",
+      "sha256": "b4e2f41c58ecd116de8c94e62d42cab4d30df7ac35dc45c81672937e8a5af4ac",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\water_interaction_data.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-153.bin",
+      "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\water_interactions.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-154.bin",
+      "sha256": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\widgets.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-155.bin",
+      "sha256": "23b5e306840b660ad89af45268cbfbf322a465f42d1b5d06fb6152b0b6520dbe",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\world.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-156.bin",
+      "sha256": "133b423966cb8f77e14f05426b3001f8a1e2b3d510fb303223c6f971d7111f08",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\world_capture.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-157.bin",
+      "sha256": "118fffc0daaa36f0db39a46ea1ee5128f5096e816fd4c72de633d15efcda3f1a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\projection\\world_projection.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-158.bin",
+      "sha256": "53c97ecd681dfde6771780f76440cd1950708d8e8d29baa1d12c2bc570735a99",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\__init__.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-159.bin",
+      "sha256": "a690a2112dc17e8d738da5d33a8e23181424c6ee18755f630140a4cb59ff7f92",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\animation.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-160.bin",
+      "sha256": "10d6ea6c24c5b2c57b711264e26099de0d0593c8d31acef0211624415af8af6a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\component.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-161.bin",
+      "sha256": "9f0ea88ab036d2c6c318fae641db13f1edd593b37c2fde3b12f8806bd54ed417",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\__init__.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-162.bin",
+      "sha256": "dbfeb51399538ab8d361870649f9c1927b40bcc088587faa8b50e0491c333b08",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\animated.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-163.bin",
+      "sha256": "8c58553308d88a37272f722837646f913ad4b6553252d824714de85f6812b723",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\dropdown.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-164.bin",
+      "sha256": "fd140d0e0914afdc496b3bbf1eba8d037d5f8735494c641d9ffc985b58aeb324",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\filled_button.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-165.bin",
+      "sha256": "fbe30aaec3b9ce1f00f842b88e64078b16fff83d734b4a644e741b2e74f9f87f",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\list_view.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-166.bin",
+      "sha256": "2b4b39a225124eb837bdf98a22b82665623944d374f27ddf6793896b2c803e01",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\modal.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-167.bin",
+      "sha256": "f5bac5c6ab8478fbf99ad13acad0255999c5b8fc548d141fe0ae95cc2236ac59",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\safe_area.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-168.bin",
+      "sha256": "38ebabc1580d9ce51e8c4fb2021b8e9e730211fc6b75bb6ce28c1f982115fb5b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\composites\\toggle.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-169.bin",
+      "sha256": "f062dfc0d8967513a8347d8578367853ae5e0aa9e455a4dd236c85be03df0257",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\constants.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-170.bin",
+      "sha256": "c226a60a06c119dfa9d991160d1a01cbc51cbded4d64cbf60c5b036e062e2a60",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\debug.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-171.bin",
+      "sha256": "42a80b73cf1d8fc2b5343fd231639da25064d1d13642a377a0f1ad04979619d5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\element.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-172.bin",
+      "sha256": "4072f7d5e682012091f6a50affe7f1797c7173a09e43db263fe17d4f65d69d38",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\hooks.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-173.bin",
+      "sha256": "18688a4c34162ba1c86d34de43cdeba2fc4a29c8c79f8c10652a684d4094b70b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\host.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-174.bin",
+      "sha256": "1810710556733641eaad71ee2b414c5e44180db88bea88d51d03fcdc77feafe4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\layout.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-175.bin",
+      "sha256": "5bae3ad6869ad7448b038f19de6d2c5628213571a55640d32336e1d0fee91d13",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\native.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-177.bin",
+      "sha256": "3770a3a503a8f033913cbd0376d6045d4e121bbe1a9ecf4c765ee9a2a91696b0",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\navigator.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-178.bin",
+      "sha256": "3eac4b47cb9c448d5001bb5bb524f64987f79795c30461b57d3f88abd1f2af72",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\primitives.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-180.bin",
+      "sha256": "1e194e77234336c69c0d082fee529cf35fdd7b226e8359275c90bfcda892b52e",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\reconciler.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-181.bin",
+      "sha256": "8091f7ada32a57797f273159c6890764c3af92870516e624e2deb5fa259f82d4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\renderer.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-182.bin",
+      "sha256": "c99b330a7d601111f6c9a7cb4c6285035f494622bb19f2b10ea51199348323a8",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\pyreact\\style.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-183.bin",
+      "sha256": "f542f63e3b60a5122e5da21d2c5b513df5d1ccac1014cd18aa52932dfd077eec",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\server_system.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-185.bin",
+      "sha256": "9e4e55b71b4b8edad68140ab2659488c81a991e820d8a153a15f80d17b7e8a9a",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\behavior_pack\\modern_projection\\ui.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-186.bin",
+      "sha256": "621495c62daa4a18e206a8e91400ca0b92ec6bcdea2d1e7e807ce3767c819d5b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\camera_projection.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1357.bin",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\capture_native_burst.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1358.bin",
+      "sha256": "7dd1a6001740a89fec22c7cbb47b2dbfc17819bd4964f84a2a8169f3cbfb3964",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\capture_native_window.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1359.bin",
+      "sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\client_anchor_depth_owner_r15.py",
+      "archive": "docs/evidence/client-anchor-depth-player-r16-v1/owner-source-snapshots/source-1360.bin",
+      "sha256": "ae150cc2829fd9e41f1cda7229d33655598ee3e25ef15d550a0a4ab2b1bc9c94",
+      "reused_from_r15": false
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\client_anchor_depth_owner_r16.py",
+      "archive": "docs/evidence/client-anchor-depth-player-r16-v1/owner-source-snapshots/source-1361.bin",
+      "sha256": "75f43a73a9079952b12160173e78688a2d4c6616e495d7ecd00ae24db0edc7eb",
+      "reused_from_r15": false
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\context_test_environment.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1361.bin",
+      "sha256": "147e9a6b7bdeccc787195fe02e93c17e9ed8decf50b3b9eecdc6f3cf8c5373d4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\execute_client_anchor_depth_candidate_r15.py",
+      "archive": "docs/evidence/client-anchor-depth-player-r16-v1/owner-source-snapshots/source-1363.bin",
+      "sha256": "8f851a96ee6c331552bb53baaa952ff5efa257e43c6003a109ea9946adbf7854",
+      "reused_from_r15": false
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\flat_frame_item_visual_checks.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1363.bin",
+      "sha256": "4c479f79ce14d6bd98b899b60d2ebe00351d4ef1d4d64d81c59db9c1c52b0315",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\prepare_client_anchor_depth_candidate_r15.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1364.bin",
+      "sha256": "ee00b1b4cbd3f34387005f5e424fabae8ebadef68b3e456fcce78178e3f60668",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\prepare_client_anchor_depth_player_candidate_r16.py",
+      "archive": "docs/evidence/client-anchor-depth-player-r16-v1/owner-source-snapshots/source-1366.bin",
+      "sha256": "9b570754e36e8e0dfc711c8118a46fe65db8b0292e12eeca0164048bc91562b5",
+      "reused_from_r15": false
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\shulker_pixels.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1365.bin",
+      "sha256": "2a111c4886366c955bff6abc7496a4eb402ad4643be65d140109f4d727dba68b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\sign_panel_oracle.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1366.bin",
+      "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_biome_shader.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1367.bin",
+      "sha256": "a79aa84109b7bc755df7aa37375502d0d9b14b19ad97191b4b2a440f21732445",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_context_batch_visuals.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1368.bin",
+      "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_debug_blueprints.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1369.bin",
+      "sha256": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_debug_visuals.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1370.bin",
+      "sha256": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_missing_neighbor_visuals.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1371.bin",
+      "sha256": "045ebd940dc4ba8b00ec7b085566edf8aee59e6f6347307761911f16cb036f67",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_native_entity_appearances.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1372.bin",
+      "sha256": "da0f602018b99f7f63fa16cdf569049e3c5ab6a8193f9c3173e0aba3006ee75b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_native_sign_fields.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1373.bin",
+      "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_neighbor_world_visuals.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1374.bin",
+      "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_shulker_orientations.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1375.bin",
+      "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_sign_visuals.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1376.bin",
+      "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\verify_snow_plant_visibility.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1377.bin",
+      "sha256": "89840f5f94959b10c608fe3a5a4a8fcecf254a155625a26775f88320191710d4",
+      "reused_from_r15": true
+    },
+    {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\tools\\visual_environment.py",
+      "archive": "docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-1378.bin",
+      "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519",
+      "reused_from_r15": true
+    }
+  ],
+  "files": [
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.health-supervision.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.health-supervision.json",
+      "bytes": 456,
+      "sha256": "9e8192a7e383c9b04d661b22cd619a68291667faf41b062cbc754dd45fb50c79"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.health.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.health.json",
+      "bytes": 55736,
+      "sha256": "e6eb7b8437139df673365b27dae94edca798392565a12328e8a95373d861c623"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.owner.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.owner.json",
+      "bytes": 677525,
+      "sha256": "2c6a607ad60459fd187518504bc2c9b75a1f00036d9186eec1c591da85882a5f"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.post-stop-live-readback.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.post-stop-live-readback.json",
+      "bytes": 409,
+      "sha256": "ca0aefa1c296d274a5ba0e17a4a5b422d2c8bdd8718834863eef567944b60a37"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.post-stop.mcdk.log",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.post-stop.mcdk.log",
+      "bytes": 72743,
+      "sha256": "c569e0128c57e351e1758090543576f889a8f5dab4e5f2c3b1d4909250cfaabd"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.post-stop.session.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.post-stop.session.json",
+      "bytes": 3540,
+      "sha256": "ca11b3e35e90cc6e731519b9e240eef868449f7fc3fddde944bf24301e6275b9"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.pre-stop.mcdev.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.pre-stop.mcdev.json",
+      "bytes": 975,
+      "sha256": "672e049fc661123d0f48da2c87ed38c74c9c44ddacefecb2cda6158d03104144"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.pre-stop.mcdk.log",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.pre-stop.mcdk.log",
+      "bytes": 72743,
+      "sha256": "c569e0128c57e351e1758090543576f889a8f5dab4e5f2c3b1d4909250cfaabd"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.pre-stop.prepare.log",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.pre-stop.prepare.log",
+      "bytes": 987,
+      "sha256": "b521f1924d63e06a89459aa27e6a8ecc3ee324d307c2c8f6eed2e4997c7a9740"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.pre-stop.session.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.pre-stop.session.json",
+      "bytes": 3540,
+      "sha256": "ca11b3e35e90cc6e731519b9e240eef868449f7fc3fddde944bf24301e6275b9"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime.json",
+      "bytes": 422171,
+      "sha256": "7f429310db0134b2193fd2309984e891c85192a6463b016234450aa550872a43"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_0_native.capture.json",
+      "bytes": 2856,
+      "sha256": "828459168520ad53c01c0d3294d43f1224fca6ebfd2cea44b007238ca2e1d31e"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_0_native.png",
+      "bytes": 17058,
+      "sha256": "603b2203ec36475120c7fe4154a778bc7e0a3365dd7e7386f359ab16633efecc"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_1_native.capture.json",
+      "bytes": 2856,
+      "sha256": "9afa1ec651f87ef23408a21102b306e58d6f34b2ea2c03bd3519d809b72d16e5"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_1_native.png",
+      "bytes": 17068,
+      "sha256": "6f0d814ba85eef17a2f60acdb893db56c8afb4affc14e14d8b64bf3d3d4c910f"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_0_native.capture.json",
+      "bytes": 2864,
+      "sha256": "6c3c3252b4788c6a937fe3e14b93094bbca7cddb1933eaa9feefc221e04cc437"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_0_native.png",
+      "bytes": 17007,
+      "sha256": "3594539b2405b7929f0459a52ba3571e3bb19564cf283b683fe278ed722ecd3b"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_1_native.capture.json",
+      "bytes": 2865,
+      "sha256": "443cbc57ac37e01c82bdeb5a71d07e0b5a0d75d99c297a958997fb3d42c17201"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_empty_restored_1_native.png",
+      "bytes": 17056,
+      "sha256": "1f77664c52821f6aa31059593c3d25a6f2a0d90857c37e853bff7f0e05688b00"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_0_native.capture.json",
+      "bytes": 2864,
+      "sha256": "8d9d0af0b1307109393ee1340bbbdcb29f0aa4aaffdcacfeada7f7495a4047b1"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_0_native.png",
+      "bytes": 17015,
+      "sha256": "15a9ff724cf690fd17256551130d69c2aa43a86b20b087482c11df885c060dfc"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_1_native.capture.json",
+      "bytes": 2864,
+      "sha256": "2f972a54eeaca58fd79434dea3bd243dc61b4f18f8c5267e4c2a60ebb2cd761b"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_1_native.png",
+      "bytes": 17035,
+      "sha256": "c084dd3d65d3ba4344b5ab9da4c12106d6ed2e33d5c9b2fa374edc628f49af79"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_0_native.capture.json",
+      "bytes": 2870,
+      "sha256": "69263ddf4b7064c640698409c72986f0e8ca1d6d2f8e9315fda08555bbf37202"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_0_native.png",
+      "bytes": 17009,
+      "sha256": "8e4b9218e9669c91eb0a0beb5176d20f7462e26b390bfecf0c6cd690a300240e"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_1_native.capture.json",
+      "bytes": 2868,
+      "sha256": "74acdec4f046cf011bf5ad21f45e9876ec9b7d4658370e056d032335c042f36d"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth15_repeat_1_native.png",
+      "bytes": 16939,
+      "sha256": "72ae62ba722b125c4b6ab630d21baa5540cfbc1750b61a63d0174ae93eb1bd37"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_0_native.capture.json",
+      "bytes": 2864,
+      "sha256": "e7adc1fd79fb17dcb79dd1caf8443b498bbc0c2e386ea8b991a4e6b5aa85d2d3"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_0_native.png",
+      "bytes": 17020,
+      "sha256": "25dbee1d312bd48dbbff1d6eacb36a9019b07249cebe6e8eea56cdf6af86ede3"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_1_native.capture.json",
+      "bytes": 2864,
+      "sha256": "2f73e22f55a3816874706831d6d85e8b6587d076f1be08e401c374ed33f1b295"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_plain_depth50_1_native.png",
+      "bytes": 16961,
+      "sha256": "21ef9eeff9633bbdf0e1ea83baaa52b87acd0d65fbbb40c309c769f1368f8a5c"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_0_native.capture.json",
+      "bytes": 2863,
+      "sha256": "73074000e54bd44526d8400e1af4b4c49de851e00c4307da7f3023440e2734d6"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_0_native.png",
+      "bytes": 22501,
+      "sha256": "c16f0f554f9f869f5538322392c21ededbb336d7ea76240d25618851c3ef9c14"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_1_native.capture.json",
+      "bytes": 2863,
+      "sha256": "6db763226ace3afa1dfed1fc9802a33cec9c991913d72bb886560ff0520d3a52"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_1_native.png",
+      "bytes": 21525,
+      "sha256": "c49b67275957b0b469f79f54bd4572623113db86fac7b703a787962d2f4c2300"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_0_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_0_native.capture.json",
+      "bytes": 2869,
+      "sha256": "91a6499ff86f4a98a7dc417d2293515f0d43cf5a9c93cbad258213dd54e442c9"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_0_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_0_native.png",
+      "bytes": 20050,
+      "sha256": "f08a546bea16dcd936f9aa669ace032acedeee9a9057c42312d626da960693f0"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_1_native.capture.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_1_native.capture.json",
+      "bytes": 2870,
+      "sha256": "00fc22d0ae7ad14114c9010fb4f273f6086cd8831fe4c800fe8e8aca9246c269"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_1_native.png",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.runtime_ui_player_positive_restored_1_native.png",
+      "bytes": 20058,
+      "sha256": "46eecb2651bd24a44faebe38e89c70c6a1ea78bdb4d60a38aa5af815dcf4e8ad"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.score.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.score.json",
+      "bytes": 1185,
+      "sha256": "d9faa331aff857aa2eee3d2fb095dbcd47bef2aaa92e7051555d25ac28a39520"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.stop.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.stop.json",
+      "bytes": 1130,
+      "sha256": "51cb8de482740458e89cf44dfd40768dac47d39513463f731bdec35532a2ae59"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.stop.stderr",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.stop.stderr",
+      "bytes": 76,
+      "sha256": "a75e689587bd3ab16d7d615b471656d708898e13e812dca60b6dbb7486e56479"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.stop.stdout",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.stop.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "original-artifacts/client-anchor-depth-player-r16-v1.supervision.json",
+      "source": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\d9ea32ce15e04c549c285cc3dbb0c788\\artifacts\\client-anchor-depth-player-r16-v1.supervision.json",
+      "bytes": 455,
+      "sha256": "500ac47ac1a115ca0aaa7f9cf3536e83107f8c64ee6c66cb8f8ca5d5ec2c3f73"
+    },
+    {
+      "path": "original-artifacts/stop-owned-source.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\stop_r16_owned.py",
+      "bytes": 2492,
+      "sha256": "32aaec5b6a13382d0649d4cef28d55a87ac4d57ccb6106f2ed0cab1a1ca0f7f6"
+    },
+    {
+      "path": "candidate-bundle/absent_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\absent_client.py",
+      "bytes": 645,
+      "sha256": "38431337b32d16bf0a7f98efffa15040c0a70d4ab308c625311eb63f1b87db41"
+    },
+    {
+      "path": "candidate-bundle/actor_ready_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\actor_ready_client.py",
+      "bytes": 452,
+      "sha256": "d919ac837db83d3adc94218bda528dd144b754ad650d37b671ea2e46fd4e80fa"
+    },
+    {
+      "path": "candidate-bundle/destroy_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\destroy_client.py",
+      "bytes": 1075,
+      "sha256": "a10177b44f1cd794fc79082b6a2a7f96db5e3c66d2311b3268a50b342c3f1a1b"
+    },
+    {
+      "path": "candidate-bundle/install_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\install_client.py",
+      "bytes": 5025,
+      "sha256": "631dfd533de19f187fc77b7ffba3b62aca9493b79870ca644377697b2723ddda"
+    },
+    {
+      "path": "candidate-bundle/navigation_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\navigation_client.py",
+      "bytes": 335,
+      "sha256": "ad9b533004b18a913e86e824eae0e8ac6185d5ddc8e4cf88cf3238d36f938777"
+    },
+    {
+      "path": "candidate-bundle/open_ui_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\open_ui_client.py",
+      "bytes": 1613,
+      "sha256": "081fd4bd3c981d306881f4b49efbed10f910d0eca78cc92593bd484de4d305d6"
+    },
+    {
+      "path": "candidate-bundle/original-r14-plan.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\original-r14-plan.json",
+      "bytes": 7022,
+      "sha256": "3b9c2a9ea2a11c3d7c136b6c5f7c3b08ab599e93c2ffc5257781965a5fb258df"
+    },
+    {
+      "path": "candidate-bundle/original-r15-plan.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\original-r15-plan.json",
+      "bytes": 5019,
+      "sha256": "533521976e014d1c7606010060c2ad111e40aac8b3f1dcea64cd8f58a720e55a"
+    },
+    {
+      "path": "candidate-bundle/plain.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\plain.json",
+      "bytes": 99,
+      "sha256": "886e960aead7e4e75e7c9aaef56d87ca68de796cc9701c5d341bd30cf5b500e4"
+    },
+    {
+      "path": "candidate-bundle/plan.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\plan.json",
+      "bytes": 5657,
+      "sha256": "0f3fd0d340f1086dcfa7c639cd6a937a4e60b4a081414e7492b09cc97fb379e1"
+    },
+    {
+      "path": "candidate-bundle/pop_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\pop_client.py",
+      "bytes": 339,
+      "sha256": "34bc8f9503f8c42eb707eff4830708d49ff516e9df309750c53f01b48f843198"
+    },
+    {
+      "path": "candidate-bundle/r15-source.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\r15-source.py",
+      "bytes": 8735,
+      "sha256": "ee00b1b4cbd3f34387005f5e424fabae8ebadef68b3e456fcce78178e3f60668"
+    },
+    {
+      "path": "candidate-bundle/remove_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\remove_client.py",
+      "bytes": 803,
+      "sha256": "ddb284428bcd16507d51b6cba5a34d2891f611f19ecec2f77e8b545ba9eaddb7"
+    },
+    {
+      "path": "candidate-bundle/source.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\source.py",
+      "bytes": 5636,
+      "sha256": "9b570754e36e8e0dfc711c8118a46fe65db8b0292e12eeca0164048bc91562b5"
+    },
+    {
+      "path": "candidate-bundle/status_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\status_client.py",
+      "bytes": 3563,
+      "sha256": "ec7b2907f02cf0587ef10a63463126602d770fa35f3518e519d82c2a297d8a1d"
+    },
+    {
+      "path": "candidate-bundle/ui_empty_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_empty_client.py",
+      "bytes": 3452,
+      "sha256": "eda7d1c84d002a0a35b1d9f844975a0a651cbab28fb2ec7ca9a5a6e0b9f2dfe2"
+    },
+    {
+      "path": "candidate-bundle/ui_empty_restored_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_empty_restored_client.py",
+      "bytes": 3461,
+      "sha256": "83cea839dc3aa3cf1b58f82eb5f4da0ac8ec846c887f5a2012e6e3c9390d58d7"
+    },
+    {
+      "path": "candidate-bundle/ui_plain_depth15_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_plain_depth15_client.py",
+      "bytes": 3460,
+      "sha256": "8e57fa67c96b50c05c5ac7fae14c3520bb1daf56b2b584d3252578fdb917c917"
+    },
+    {
+      "path": "candidate-bundle/ui_plain_depth15_repeat_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_plain_depth15_repeat_client.py",
+      "bytes": 3467,
+      "sha256": "66658849c0d3470e557084184c47c789ec70be5344e3ab80a341a51a1fef0599"
+    },
+    {
+      "path": "candidate-bundle/ui_plain_depth50_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_plain_depth50_client.py",
+      "bytes": 3460,
+      "sha256": "16d566e67984b0fc59cebf5add646418e5a158a69b4cc0fbf39086d58be0e454"
+    },
+    {
+      "path": "candidate-bundle/ui_player_positive_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_player_positive_client.py",
+      "bytes": 3462,
+      "sha256": "aafad791164c3e658e793d35603e53d4e164810a58fc5b97ee2ea1681b632001"
+    },
+    {
+      "path": "candidate-bundle/ui_player_positive_restored_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\ui_player_positive_restored_client.py",
+      "bytes": 3471,
+      "sha256": "eb365ab7aa7a20cbacbda799977fc099cc83752a1cce3747746d31e8ffb9f280"
+    },
+    {
+      "path": "candidate-bundle/verify_client.py",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-r16-v1\\verify_client.py",
+      "bytes": 2425,
+      "sha256": "896a482f953d3e75b653ac3454f623d84f8cc9dd71ba1f3a06ea34b22d14ca68"
+    },
+    {
+      "path": "owner-bundle/plan.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\plan.json",
+      "bytes": 338970,
+      "sha256": "344fbbde3bfca6be35b6d253a580d712171461a0cb9aac91b315ca69618e5d47"
+    },
+    {
+      "path": "owner-bundle/startup.json",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\startup.json",
+      "bytes": 4398,
+      "sha256": "b79654a141fe9b5af743f02ab36bf1255235fc51e9cc3d288765a3d566d10735"
+    },
+    {
+      "path": "owner-source-snapshots/source-1360.bin",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\source-1360.bin",
+      "bytes": 28737,
+      "sha256": "ae150cc2829fd9e41f1cda7229d33655598ee3e25ef15d550a0a4ab2b1bc9c94"
+    },
+    {
+      "path": "owner-source-snapshots/source-1361.bin",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\source-1361.bin",
+      "bytes": 1372,
+      "sha256": "75f43a73a9079952b12160173e78688a2d4c6616e495d7ecd00ae24db0edc7eb"
+    },
+    {
+      "path": "owner-source-snapshots/source-1363.bin",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\source-1363.bin",
+      "bytes": 19311,
+      "sha256": "8f851a96ee6c331552bb53baaa952ff5efa257e43c6003a109ea9946adbf7854"
+    },
+    {
+      "path": "owner-source-snapshots/source-1366.bin",
+      "source": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-frame\\.runtime\\client-anchor-depth-player-owner-r16-v1\\source-1366.bin",
+      "bytes": 5636,
+      "sha256": "9b570754e36e8e0dfc711c8118a46fe65db8b0292e12eeca0164048bc91562b5"
+    }
+  ],
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false
+}

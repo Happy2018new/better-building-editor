@@ -1,0 +1,537 @@
+"""Freeze and supervise one background owner diagnostic; default is offline verification."""
+import argparse
+import ast
+from datetime import datetime, timezone
+import hashlib
+import http.client
+import json
+import os
+from pathlib import Path
+import socket
+import subprocess
+import sys
+import threading
+import time
+import urllib.request
+
+import execute_client_anchor_depth_candidate_r15 as runtime
+
+
+ROOT = runtime.ROOT
+TOOLS = ROOT / '.agents/skills/pyreact-debugging/scripts'
+sys.path.insert(0, str(TOOLS))
+sys.path.insert(0, str(ROOT / '.runtime/frame-baseline-plan-r11'))
+import mcdk
+import capture_native_burst as capture
+from _session import registry_dir, process_identity
+from session_pack_stage import file_identity
+from verify_sign_visuals import SignCheck
+
+OWNER = 'frame-r15-background'
+PREFIX = 'client-anchor-depth-r15-v1'
+PLAN_HASH = '533521976e014d1c7606010060c2ad111e40aac8b3f1dcea64cd8f58a720e55a'
+CANDIDATE = ROOT / '.runtime' / PREFIX
+REPO = ROOT.parents[1]
+WGC = REPO / '.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe'
+MCDK = REPO / '.runtime/mcdk-retry-r11/build-ipc-framing-r11/tools/mcdk/mcdk.exe'
+DLL = REPO / '.runtime/worktree-archive-r7/p0-integration/files/.runtime/native_focus_guard-final-r7/native_focus_guard.dll'
+GAME = Path('D:/MCStudioDownload/game/MinecraftPE_Netease/3.9.0.401155/Minecraft.Windows.exe')
+BINARY_PINS = {str(WGC): 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8',
+               str(MCDK): 'b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9',
+               str(DLL): 'c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178'}
+START_ENV = 'MCDEV_ANCHOR_DEPTH_R15_STARTED_MONOTONIC'
+ENTRYPOINT = Path(__file__).resolve()
+TRANSPORT = ROOT / '.runtime/frame-baseline-plan-r11/run_client_anchor_world_ui.py'
+IDENTITY = '''import json,os,sys,time
+import mod.%s.extra%sApi as api
+_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),
+ 'clock':time.time(),'version':api.GetMinecraftVersion()})
+'''
+READINESS = '''import json,os,sys,time,math
+import mod.client.extraClientApi as api
+from modern_projection.pyreact import navigator
+owner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+s=owner.session if owner is not None else None
+b=owner.bridge if owner is not None else None
+ready=bool(s is not None and s.ready is True and b is not None and b.session is s and navigator.is_ready
+ and not navigator.is_transitioning and not navigator.get_entries()
+ and not s.busy and not s.projection_active and not b.preparing_entity)
+player=api.GetLocalPlayerId()
+foot=None
+screen=None
+if ready and player and player!='-1':
+ foot=b.factory.CreatePos(player).GetFootPos()
+ screen=b.factory.CreateGame(b.level).GetScreenSize()
+ ready=bool(foot is not None and len(foot)==3 and all(not math.isnan(v) and not math.isinf(v) for v in foot)
+  and -1024.<foot[1]<4096. and screen is not None and len(screen)==2 and all(v>32 for v in screen))
+else:ready=False
+_result=json.dumps({'ready':ready,'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),
+ 'clock':time.time(),'player':player,'foot':foot,'screen':screen,
+ 'probe_present':hasattr(sys,'_client_anchor_depth_probe')})
+'''
+
+
+def require(value, message):
+    if not value:
+        raise ValueError(message)
+
+
+def digest(path):
+    return runtime.candidate.digest(Path(path).read_bytes())
+
+
+def timestamp():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def owner_contract():
+    return {'schema': 1, 'owner': OWNER, 'project': str(ROOT), 'candidate': str(CANDIDATE),
+            'candidate_sha256': PLAN_HASH,
+            'startup_attempts': 1, 'startup_wait_seconds': 180, 'startup_outer_seconds': 240,
+            'normal_seconds': 90, 'cleanup_seconds': 120, 'outer_seconds': 150,
+            'health_normal_seconds': 20, 'health_cleanup_seconds': 30, 'health_outer_seconds': 40,
+            'wgc_dispatches': 14, 'execute_attempts': 1, 'native_retries': 0,
+            'cow_gate_before_binding': True, 'cow_roi': 'PaperDoll native ROI intersect fixed_ui_roi',
+            'fixed_ui_roi': [0, 111, 1994, 1105], 'physical_size': [1994, 1105],
+            'background_only': True, 'activation_or_resize_or_desktop_input': False,
+            'resource_or_shader_or_player_or_world_or_inventory_mutation': False,
+            'production_rendering_accepted': False, 'editor_frame_content_accepted': False,
+            'shared_depth_accepted': False, 'enchantment_glint_accepted': False}
+
+
+def save(path, report):
+    runtime.dependencies()['execute_frame_item_translation'].save_report(Path(path), report)
+
+
+def protected_sources():
+    runtime.dependencies()
+    sources = {Path(__file__).resolve(), Path(runtime.__file__).resolve(), Path(runtime.candidate.__file__).resolve(),
+               TRANSPORT, ROOT / 'tools/capture_native_window.py', TOOLS / 'instances.py',
+               TOOLS / '_game_bridge.py', ROOT / '.mcdev.json'}
+    for module in list(sys.modules.values()):
+        path = getattr(module, '__file__', None)
+        if path:
+            path = Path(path).resolve()
+            if path.suffix == '.py' and (path.is_relative_to(ROOT) or path.is_relative_to(runtime.ENTITIES)):
+                sources.add(path)
+    for pack in ('behavior_pack', 'resource_pack'):
+        sources.update(path.resolve() for path in (ROOT / pack).rglob('*')
+                       if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc')
+    return {str(path): digest(path) for path in sorted(sources)}
+
+
+def prepare(output):
+    output = Path(output).resolve()
+    require(not output.exists(), 'Preserve previous owner plan')
+    runtime.candidate.verify(CANDIDATE)
+    require(digest(CANDIDATE / 'plan.json') == PLAN_HASH, 'Exact candidate plan changed')
+    pins = dict(BINARY_PINS)
+    pins[str(GAME)] = digest(GAME)
+    for path, expected in pins.items():
+        require(digest(path) == expected, 'Protected binary changed: ' + path)
+    sources = protected_sources()
+    plan = dict(owner_contract(), source_pins=sources, binary_pins=pins)
+    output.mkdir(parents=True)
+    for index, (path, expected) in enumerate(sources.items()):
+        (output / ('source-%03d.bin' % index)).write_bytes(Path(path).read_bytes())
+    save(output / 'plan.json', plan)
+    verify(output)
+    return plan
+
+
+def verify(bundle):
+    bundle = Path(bundle).resolve(strict=True)
+    plan = json.loads((bundle / 'plan.json').read_bytes())
+    require(all(plan.get(key) == value for key, value in owner_contract().items()) and
+            plan['source_pins'] == protected_sources(),
+            'Frozen owner source closure changed')
+    for index, (path, expected) in enumerate(plan['source_pins'].items()):
+        require(digest(path) == expected and digest(bundle / ('source-%03d.bin' % index)) == expected,
+                'Frozen actual import/source bytes changed: ' + path)
+    require(set(plan['binary_pins']) == set(BINARY_PINS) | {str(GAME)}, 'Protected binary inventory changed')
+    for path, expected in plan['binary_pins'].items():
+        require(digest(path) == expected and BINARY_PINS.get(path, expected) == expected,
+                'Protected binary bytes changed: ' + path)
+    require(digest(CANDIDATE / 'plan.json') == PLAN_HASH, 'Exact candidate changed')
+    runtime.candidate.verify(CANDIDATE)
+    config = json.loads((ROOT / '.mcdev.json').read_bytes())
+    require(config.get('included_mod_dirs') == ['./'] and config.get('world_type') == 2 and
+            config.get('world_seed') == 0 and config.get('game_mode') == 1 and
+            all(config.get(key) is False for key in ('auto_hot_reload_mods', 'auto_hot_reload_ui',
+                                                    'auto_hot_reload_shaders', 'auto_hot_reload_materials')),
+            'Frozen isolated project or disabled reload config changed')
+    return plan
+
+
+def absolute_http_open(*args):
+    # Execute only the original source-pinned function, without importing the
+    # old owner module or its stale session-bound orchestrator.
+    tree = ast.parse(TRANSPORT.read_text(encoding='utf8'))
+    node = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'absolute_http_open')
+    scope = {'http': http, 'socket': socket, 'threading': threading, 'urllib': urllib, 'require': require}
+    exec(compile(ast.Module(body=[node], type_ignores=[]), str(TRANSPORT), 'exec'), scope)
+    return scope['absolute_http_open'](*args)
+
+
+class OwnerGuard:
+    def __init__(self, session_file, plan):
+        self.session_file = Path(session_file).resolve(strict=True)
+        self.frozen_plan = plan
+        self.session_bytes = self.session_file.read_bytes()
+        self.binding, binaries = capture._session_binding(self.session_file, OWNER)
+        self.source = ROOT / 'resource_pack'
+        require(binaries == {key: {'path': str(path.resolve()), 'sha256': BINARY_PINS[str(path)]}
+                             for key, path in (('mcdk', MCDK), ('dll', DLL))},
+                'Fresh protected binaries differ from owner plan')
+        self.window = None
+        self.plan = {'owner': OWNER, 'session_file': str(self.session_file),
+                     'game': {'pid': self.binding['game_pid'], 'identity': self.binding['game_identity']},
+                     'finite_execution': {'capture_helper_sha256': BINARY_PINS[str(WGC)]}}
+        self.config_file = self.session_file.parent / '.mcdev.json'
+        self.config_bytes = self.config_file.read_bytes()
+        self.guard()
+        self.loaded = self.loaded_resources()
+
+    def guard(self):
+        require(self.session_file.read_bytes() == self.session_bytes and self.config_file.read_bytes() == self.config_bytes,
+                'Fresh owner session/config bytes changed')
+        binding, _ = capture._session_binding(self.session_file, OWNER)
+        require(binding == self.binding, 'Fresh owner process identity changed')
+        observed, window = capture._background(binding, self.window)
+        require([window['width'], window['height']] == [1994, 1105], 'Prospective physical extent changed')
+        if self.window is None:
+            self.window = window
+        return observed
+
+    def loaded_resources(self):
+        session = json.loads(self.session_bytes)
+        world = Path(session['world_path']).absolute()
+        appdata = Path(session['appdata']) / 'MinecraftPE_Netease/games/com.netease'
+        original = runtime.candidate.archived_files()
+        files = {row['path']: row for row in original['files']}
+        resources = runtime.dependencies()['probe_client_anchor_paper_doll'].RESOURCE_FILES
+        result = {'world': file_identity(world, directory=True), 'packs': {}, 'resources': {}}
+        for pack in ('behavior_pack', 'resource_pack'):
+            source = ROOT / pack
+            header = json.loads((source / 'manifest.json').read_bytes())['header']
+            manifest = world / ('world_' + pack + 's.json')
+            selected = [row for row in json.loads(manifest.read_bytes()) if row['pack_id'] == header['uuid']]
+            require(len(selected) == 1 and selected[0]['version'] == header['version'], 'Loaded pack selection changed')
+            lookups = {}
+            for location, base in (('world', world), ('appdata', appdata)):
+                matches = [path for path in (base / (pack + 's')).iterdir()
+                           if (path / 'manifest.json').is_file() and
+                           json.loads((path / 'manifest.json').read_bytes())['header']['uuid'] == header['uuid']]
+                require(len(matches) == 1 and matches[0].resolve(strict=True) == source.resolve(),
+                        'Loaded pack source is absent or ambiguous: ' + location + '/' + pack)
+                lookups[location] = matches[0]
+            result['packs'][pack] = {'selection_sha256': digest(manifest),
+                                     'source_manifest_sha256': digest(source / 'manifest.json'),
+                                     'lookups': {key: file_identity(path, directory=True) for key, path in lookups.items()}}
+            for name, relative in resources.items():
+                relative = Path(relative)
+                if relative.parts[0] != pack:
+                    continue
+                row = files[name]
+                require(digest(ROOT / relative) == row['sha256'], 'Frozen anchor resource changed: ' + name)
+                paths = {key: path / Path(*relative.parts[1:]) for key, path in lookups.items()}
+                require(all(path.resolve(strict=True) == (ROOT / relative).resolve() and digest(path) == row['sha256']
+                            for path in paths.values()), 'Loaded anchor resource bytes changed: ' + name)
+                result['resources'][name] = {key: dict(file_identity(path), sha256=digest(path)) for key, path in paths.items()}
+        require(set(result['resources']) == set(resources), 'Loaded resource check incomplete')
+        return result
+
+    def verify_after(self):
+        self.guard()
+        require(self.loaded_resources() == self.loaded, 'Loaded anchor physical source changed')
+        require(protected_sources() == self.frozen_plan['source_pins'], 'Protected actual sources changed')
+
+
+def recorded_client(guard, report, preserve, normal_deadline, outer_deadline):
+    class DeadlineOpener:
+        def __init__(self, underlying, client):
+            self.underlying, self.client = underlying, client
+
+        def open(self, request, timeout=None):
+            deadline = outer_deadline if request.get_method() == 'DELETE' else self.client.frame_dispatch_deadline
+            row = {'http_method': request.get_method(), 'started_at': timestamp()}
+            report['network_requests'].append(row)
+            preserve()
+
+            def finished(error=None):
+                row.update(finished_at=timestamp())
+                if error is not None:
+                    row['error'] = repr(error)
+                preserve()
+
+            try:
+                remaining = deadline - time.monotonic()
+                require(remaining > 0, 'Actual owner network deadline exhausted')
+                row['timeout_seconds'] = min(10., remaining, timeout if timeout is not None else 10.)
+                row['deadline_monotonic'] = min(deadline, time.monotonic() + row['timeout_seconds'])
+                return absolute_http_open(self.underlying, request, row['timeout_seconds'],
+                                          row['deadline_monotonic'], time.monotonic, finished)
+            except Exception as error:
+                finished(error)
+                raise
+
+    class RecordedClient(mcdk.Client):
+        def __init__(self):
+            super().__init__(timeout=min(10., normal_deadline - time.monotonic()))
+            self.frame_dispatch_deadline = normal_deadline
+            self.opener = DeadlineOpener(self.opener, self)
+
+        def _post(self, method, params=None, notification=False):
+            request = {'jsonrpc': '2.0', 'method': method, 'params': params or {}}
+            if not notification:
+                request['id'] = self.counter + 1
+            row = {'request': request, 'started_at': timestamp()}
+            report['requests'].append(row)
+            preserve()
+            try:
+                require(time.monotonic() < self.frame_dispatch_deadline, 'Owner SDK deadline exhausted')
+                if method == 'tools/call':
+                    row['background'] = guard.guard()
+                    row['window'] = guard.window
+                previous = self.timeout
+                self.timeout = min(previous, 10., self.frame_dispatch_deadline - time.monotonic())
+                require(self.timeout > 0, 'Owner guard consumed dispatch budget')
+                try:
+                    row['response'] = super()._post(method, params, notification)
+                finally:
+                    self.timeout = previous
+                return row['response']
+            except Exception as error:
+                row['error'] = repr(error)
+                raise
+            finally:
+                row['finished_at'] = timestamp()
+                preserve()
+    return RecordedClient()
+
+
+def execute(client, code, is_client=True):
+    result = client.call('execute_code', {'code': code, 'is_client': is_client, 'direct_return': True})
+    require(not result.get('isError'), 'Owner native execution returned error: ' + repr(result))
+    result = mcdk.return_value(result)
+    return json.loads(result) if isinstance(result, str) else result
+
+
+def validate_identity(value, client):
+    require(value['pid'] == client.binding['game_pid'] and value['token'] == client.binding['token'],
+            'Fresh workspace runtime PID/token changed')
+
+
+def artifact_directory(session_file):
+    session_file = Path(session_file).resolve(strict=True)
+    session = json.loads(session_file.read_bytes())
+    require(session.get('owner') == OWNER and Path(session.get('project', '')).resolve() == ROOT and
+            Path(session.get('session_file', '')).resolve() == session_file,
+            'Artifact directory requires the exact owned project session')
+    artifacts = session_file.parent / 'artifacts'
+    require(Path(session.get('artifacts', '')).resolve() == artifacts.resolve(), 'Saved artifacts path escaped the owner session')
+    artifacts.mkdir(exist_ok=True)
+    require(artifacts.resolve(strict=True).parent == session_file.parent and artifacts.is_dir() and
+            not artifacts.is_symlink() and not artifacts.is_junction(), 'Artifact directory is linked or outside the owner session')
+    return artifacts
+
+
+def ready_workspace(client, deadline, report, preserve):
+    # A transport token alone is insufficient: require the initialized Session,
+    # bridge, navigator, loaded player and advancing client/server execution.
+    until = min(deadline, time.monotonic() + 15.)
+    while time.monotonic() < until:
+        row = execute(client, READINESS)
+        validate_identity(row, client)
+        report.setdefault('readiness_attempts', []).append(row)
+        preserve()
+        require(not row['probe_present'], 'Owned depth fixture already exists')
+        if row['ready']:
+            break
+        time.sleep(min(.2, max(0., until - time.monotonic())))
+    else:
+        raise TimeoutError('Real workspace readiness was not reached')
+    before = {}
+    for side, module, suffix in ((True, 'client', 'Client'), (False, 'server', 'Server')):
+        value = execute(client, IDENTITY % (module, suffix), side)
+        validate_identity(value, client)
+        before[module] = value
+    require(time.monotonic() + .3 < deadline, 'No readiness clock observation budget')
+    time.sleep(.3)
+    after = {}
+    for side, module, suffix in ((True, 'client', 'Client'), (False, 'server', 'Server')):
+        value = execute(client, IDENTITY % (module, suffix), side)
+        validate_identity(value, client)
+        require(value['clock'] > before[module]['clock'], 'Workspace clock did not advance')
+        after[module] = value
+    report['ready_clocks'] = {'before': before, 'after': after}
+    preserve()
+
+
+def child(bundle, session_file, started, health=False):
+    plan = verify(bundle)
+    guard = OwnerGuard(session_file, plan)
+    artifacts = artifact_directory(session_file)
+    suffix = '.health' if health else '.owner'
+    output = artifacts / (PREFIX + suffix + '.json')
+    require(not output.exists() and not output.with_name(output.name + '.tmp').exists(), 'Preserve existing owner evidence')
+    normal, cleanup, outer = (20., 30., 40.) if health else (90., 120., 150.)
+    report = {'schema': 1, 'owner': OWNER, 'session_file': str(session_file), 'started_at': timestamp(),
+              'plan_sha256': digest(Path(bundle) / 'plan.json'), 'requests': [], 'network_requests': [],
+              'errors': [], 'cleanup_errors': [], 'completed': False, 'restored': False,
+              'normal_deadline': started + normal, 'cleanup_deadline': started + cleanup,
+              'outer_deadline': started + outer, 'fixture_mutation_attempted': False,
+              'production_rendering_accepted': False, 'editor_frame_content_accepted': False,
+              'shared_depth_accepted': False, 'enchantment_glint_accepted': False,
+              'loaded_resources_before': guard.loaded}
+    cleanup_phase, client = False, None
+
+    def preserve():
+        try:
+            save(output, report)
+        except Exception as error:
+            report['cleanup_errors'].append('owner persistence: ' + repr(error))
+            report['restored'] = False
+            # After a fixture may have been dispatched, persistence must not
+            # prevent exact cleanup; its failure keeps acceptance false.
+            cleanup_dispatch = client is not None and client.frame_dispatch_deadline == started + cleanup
+            if not cleanup_phase and not cleanup_dispatch:
+                raise
+
+    preserve()
+    try:
+        os.environ['MCDEV_SESSION_FILE'] = str(session_file)
+        os.environ['MCDEV_OWNER'] = OWNER
+        os.environ['MCDEV_NATIVE_CAPTURE_EXE'] = str(WGC)
+        client = recorded_client(guard, report, preserve, started + normal, started + outer)
+        client.__enter__()
+        ready_workspace(client, started + normal, report, preserve)
+        if health:
+            report.update(completed=True, restored=True)
+        else:
+            target = artifacts / (PREFIX + '.runtime.json')
+            runtime.preflight(CANDIDATE, target)
+            report['fixture_mutation_attempted'] = True
+            preserve()
+            check = SignCheck(client, target, 10, native_resolution=True, background_only=True,
+                              native_capture_helper=str(ROOT / 'tools/capture_native_window.py'))
+            result = runtime.execute_probe(CANDIDATE, target, check, guard, started + cleanup)
+            report.update(completed=result['completed'], restored=result['restored'],
+                          runtime_report={'path': str(target), 'sha256': digest(target)})
+            report['errors'].extend(result['errors'])
+            report['cleanup_errors'].extend(result['cleanup_errors'])
+    except Exception as error:
+        report['errors'].append(repr(error))
+    finally:
+        cleanup_phase = True
+        if client is not None:
+            client.frame_dispatch_deadline = started + cleanup
+            try:
+                client.close()
+            except Exception as error:
+                report['cleanup_errors'].append('connection close: ' + repr(error))
+        try:
+            require(time.monotonic() < started + outer, 'Outer verification deadline exhausted')
+            guard.verify_after()
+            report['loaded_resources_after'] = guard.loaded_resources()
+            report['protected_sources_unchanged'] = True
+        except Exception as error:
+            report['cleanup_errors'].append('source/config/resource verification: ' + repr(error))
+        report['restored'] = report['restored'] and not report['cleanup_errors']
+        report.update(finished_at=timestamp(), elapsed_seconds=time.monotonic() - started)
+        preserve()
+    return report
+
+
+def supervise(bundle, session_file, health=False, run=subprocess.run):
+    started = time.monotonic()
+    verify(bundle)
+    output = artifact_directory(session_file) / (PREFIX + ('.health-supervision.json' if health else '.supervision.json'))
+    require(not output.exists(), 'Preserve one-shot supervision evidence')
+    report = {'schema': 1, 'attempts': 1, 'timed_out': False, 'completed': False, 'no_retry': True,
+              'outer_seconds': 40 if health else 150, 'started_at': timestamp()}
+    save(output, report)
+    environment = dict(os.environ, **{START_ENV: repr(started)})
+    command = [sys.executable, '-X', 'utf8', str(ENTRYPOINT), 'health-child' if health else 'execute-child',
+               str(bundle), '--session-file', str(session_file)]
+    try:
+        remaining = started + report['outer_seconds'] - time.monotonic()
+        require(remaining > 0, 'Owner preflight consumed outer budget')
+        result = run(command, cwd=str(ROOT), env=environment, capture_output=True, text=True, encoding='utf8',
+                     timeout=remaining, creationflags=subprocess.CREATE_NO_WINDOW)
+        report.update(completed=True, returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
+    except subprocess.TimeoutExpired as error:
+        report.update(timed_out=True, error=repr(error), cleanup_verified=False, unresolved_runtime_requires_owner_review=True)
+    except Exception as error:
+        report['error'] = repr(error)
+    finally:
+        report.update(finished_at=timestamp(), elapsed_seconds=time.monotonic() - started)
+        save(output, report)
+    return report
+
+
+def launch(bundle, run=subprocess.run):
+    started = time.monotonic()
+    verify(bundle)
+    living = []
+    for path in registry_dir().glob('*/session.json'):
+        session = json.loads(path.read_bytes())
+        pid, identity = session.get('game_pid'), session.get('game_identity')
+        if pid and identity and process_identity(pid) == identity:
+            living.append({'session_file': str(path), 'owner': session.get('owner'), 'pid': pid, 'identity': identity})
+    require(len(living) < 5, 'Five live-game team capacity is exhausted')
+    output = Path(bundle) / 'startup.json'
+    require(not output.exists() and not output.with_name(output.name + '.tmp').exists(), 'Only one startup attempt is authorized')
+    report = {'schema': 1, 'attempts': 1, 'no_retry': True, 'wait_seconds': 180, 'outer_seconds': 240,
+              'started_at': timestamp(), 'completed': False, 'timed_out': False, 'living_before': living}
+    save(output, report)
+    command = [sys.executable, '-X', 'utf8', str(TOOLS / 'instances.py'), 'start', '--project', str(ROOT),
+               '--owner', OWNER, '--name', 'R15 owned depth controls', '--mcdk', str(MCDK),
+               '--noactivate-dll', str(DLL), '--noactivate-sha256', BINARY_PINS[str(DLL)],
+               '--noactivate-mcdk-sha256', BINARY_PINS[str(MCDK)], '--game-exe', str(GAME), '--wait', '180']
+    try:
+        remaining = started + 240. - time.monotonic()
+        require(remaining > 0, 'Startup source verification exhausted outer budget')
+        result = run(command, cwd=str(ROOT), capture_output=True, text=True, encoding='utf8', timeout=remaining,
+                     creationflags=subprocess.CREATE_NO_WINDOW)
+        report.update(completed=True, returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
+    except subprocess.TimeoutExpired as error:
+        report.update(timed_out=True, error=repr(error), preserve_owned_processes_and_session=True)
+    except Exception as error:
+        report['error'] = repr(error)
+    finally:
+        report.update(finished_at=timestamp(), elapsed_seconds=time.monotonic() - started)
+        save(output, report)
+    return report
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('command', choices=('prepare', 'verify', 'launch', 'execute', 'execute-child', 'health', 'health-child'))
+    parser.add_argument('bundle')
+    parser.add_argument('--session-file')
+    args = parser.parse_args()
+    if args.command in ('prepare', 'verify'):
+        value = prepare(args.bundle) if args.command == 'prepare' else verify(args.bundle)
+        print(json.dumps({'validated': True, 'source_files': len(value['source_pins']),
+                          'owner_plan_sha256': digest(Path(args.bundle) / 'plan.json'), 'sdk_dispatch_attempted': False}))
+        return 0
+    if args.command == 'launch':
+        value = launch(args.bundle)
+    else:
+        require(args.session_file, 'An exact fresh owned session file is required')
+        if args.command.endswith('-child'):
+            require(START_ENV in os.environ, 'Finite owner supervisor is required')
+            started = float(os.environ[START_ENV])
+            outer = 40 if args.command == 'health-child' else 150
+            require(0 <= time.monotonic() - started < outer, 'Stale owner supervisor budget')
+            value = child(args.bundle, Path(args.session_file).resolve(strict=True), started, args.command == 'health-child')
+            print(json.dumps({key: value[key] for key in ('completed', 'restored', 'elapsed_seconds', 'errors', 'cleanup_errors')}))
+            return 0 if value['completed'] and value['restored'] and not value['errors'] else 1
+        value = supervise(args.bundle, Path(args.session_file).resolve(strict=True), args.command == 'health')
+    print(json.dumps(value))
+    return 0 if value.get('returncode') == 0 and not value['timed_out'] else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

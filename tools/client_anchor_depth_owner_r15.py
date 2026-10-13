@@ -20,18 +20,30 @@ import execute_client_anchor_depth_candidate_r15 as runtime
 ROOT = runtime.ROOT
 TOOLS = ROOT / '.agents/skills/pyreact-debugging/scripts'
 sys.path.insert(0, str(TOOLS))
-sys.path.insert(0, str(ROOT / '.runtime/frame-baseline-plan-r11'))
 import mcdk
 import capture_native_burst as capture
 from _session import registry_dir, process_identity
-from session_pack_stage import file_identity
+from native_file_identity import file_identity
 from verify_sign_visuals import SignCheck
 
 OWNER = 'frame-r15-background'
 PREFIX = 'client-anchor-depth-r15-v1'
 PLAN_HASH = '533521976e014d1c7606010060c2ad111e40aac8b3f1dcea64cd8f58a720e55a'
 CANDIDATE = ROOT / '.runtime' / PREFIX
-REPO = ROOT.parents[1]
+
+
+def repository_root(project):
+    """Find shared binaries in the main checkout from either Git worktree."""
+    common = subprocess.check_output(
+        ['git', 'rev-parse', '--path-format=absolute', '--git-common-dir'],
+        cwd=project, text=True, encoding='utf8', timeout=5).strip()
+    common = Path(common).resolve(strict=True)
+    if common.name != '.git' or not common.is_dir():
+        raise ValueError('Expected a normal repository Git directory')
+    return common.parent
+
+
+REPO = repository_root(ROOT)
 WGC = REPO / '.runtime/worktree-archive-r7/p0-blueprint-qa-r3/files/.runtime/native_wgc/build/Release/native_wgc_capture.exe'
 MCDK = REPO / '.runtime/mcdk-retry-r11/build-ipc-framing-r11/tools/mcdk/mcdk.exe'
 DLL = REPO / '.runtime/worktree-archive-r7/p0-integration/files/.runtime/native_focus_guard-final-r7/native_focus_guard.dll'
@@ -40,7 +52,9 @@ BINARY_PINS = {str(WGC): 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5
                str(MCDK): 'b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9',
                str(DLL): 'c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178'}
 START_ENV = 'MCDEV_ANCHOR_DEPTH_R15_STARTED_MONOTONIC'
-TRANSPORT = ROOT / '.runtime/frame-baseline-plan-r11/run_client_anchor_world_ui.py'
+ENTRYPOINT = Path(__file__).resolve()
+TRANSPORT = ROOT / 'docs/evidence/client-anchor-depth-r15-v1/owner-source-snapshots/source-011.bin'
+TRANSPORT_SHA256 = '430bba6bf5a0883a862242a99d3c6056c693950c82ecc046d0bf4a9a06fb3613'
 IDENTITY = '''import json,os,sys,time
 import mod.%s.extra%sApi as api
 _result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),
@@ -107,11 +121,12 @@ def protected_sources():
     sources = {Path(__file__).resolve(), Path(runtime.__file__).resolve(), Path(runtime.candidate.__file__).resolve(),
                TRANSPORT, ROOT / 'tools/capture_native_window.py', TOOLS / 'instances.py',
                TOOLS / '_game_bridge.py', ROOT / '.mcdev.json'}
+    sources.update(runtime.HELPERS / (name + '.py') for name in runtime.HELPER_PINS)
     for module in list(sys.modules.values()):
         path = getattr(module, '__file__', None)
         if path:
             path = Path(path).resolve()
-            if path.suffix == '.py' and (path.is_relative_to(ROOT) or path.is_relative_to(runtime.ENTITIES)):
+            if path.suffix == '.py' and path.is_relative_to(ROOT):
                 sources.add(path)
     for pack in ('behavior_pack', 'resource_pack'):
         sources.update(path.resolve() for path in (ROOT / pack).rglob('*')
@@ -165,6 +180,7 @@ def verify(bundle):
 def absolute_http_open(*args):
     # Execute only the original source-pinned function, without importing the
     # old owner module or its stale session-bound orchestrator.
+    require(digest(TRANSPORT) == TRANSPORT_SHA256, 'Frozen HTTP deadline source changed')
     tree = ast.parse(TRANSPORT.read_text(encoding='utf8'))
     node = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'absolute_http_open')
     scope = {'http': http, 'socket': socket, 'threading': threading, 'urllib': urllib, 'require': require}
@@ -321,6 +337,20 @@ def validate_identity(value, client):
             'Fresh workspace runtime PID/token changed')
 
 
+def artifact_directory(session_file):
+    session_file = Path(session_file).resolve(strict=True)
+    session = json.loads(session_file.read_bytes())
+    require(session.get('owner') == OWNER and Path(session.get('project', '')).resolve() == ROOT and
+            Path(session.get('session_file', '')).resolve() == session_file,
+            'Artifact directory requires the exact owned project session')
+    artifacts = session_file.parent / 'artifacts'
+    require(Path(session.get('artifacts', '')).resolve() == artifacts.resolve(), 'Saved artifacts path escaped the owner session')
+    artifacts.mkdir(exist_ok=True)
+    require(artifacts.resolve(strict=True).parent == session_file.parent and artifacts.is_dir() and
+            not artifacts.is_symlink() and not artifacts.is_junction(), 'Artifact directory is linked or outside the owner session')
+    return artifacts
+
+
 def ready_workspace(client, deadline, report, preserve):
     # A transport token alone is insufficient: require the initialized Session,
     # bridge, navigator, loaded player and advancing client/server execution.
@@ -356,8 +386,7 @@ def ready_workspace(client, deadline, report, preserve):
 def child(bundle, session_file, started, health=False):
     plan = verify(bundle)
     guard = OwnerGuard(session_file, plan)
-    artifacts = Path(session_file).parent / 'artifacts'
-    artifacts.mkdir(exist_ok=True)
+    artifacts = artifact_directory(session_file)
     suffix = '.health' if health else '.owner'
     output = artifacts / (PREFIX + suffix + '.json')
     require(not output.exists() and not output.with_name(output.name + '.tmp').exists(), 'Preserve existing owner evidence')
@@ -432,13 +461,13 @@ def child(bundle, session_file, started, health=False):
 def supervise(bundle, session_file, health=False, run=subprocess.run):
     started = time.monotonic()
     verify(bundle)
-    output = Path(session_file).parent / 'artifacts' / (PREFIX + ('.health-supervision.json' if health else '.supervision.json'))
+    output = artifact_directory(session_file) / (PREFIX + ('.health-supervision.json' if health else '.supervision.json'))
     require(not output.exists(), 'Preserve one-shot supervision evidence')
     report = {'schema': 1, 'attempts': 1, 'timed_out': False, 'completed': False, 'no_retry': True,
               'outer_seconds': 40 if health else 150, 'started_at': timestamp()}
     save(output, report)
     environment = dict(os.environ, **{START_ENV: repr(started)})
-    command = [sys.executable, '-X', 'utf8', str(Path(__file__)), 'health-child' if health else 'execute-child',
+    command = [sys.executable, '-X', 'utf8', str(ENTRYPOINT), 'health-child' if health else 'execute-child',
                str(bundle), '--session-file', str(session_file)]
     try:
         remaining = started + report['outer_seconds'] - time.monotonic()
