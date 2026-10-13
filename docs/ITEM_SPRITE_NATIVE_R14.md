@@ -95,6 +95,13 @@ reported as unscored world pixels while editor controls still run. Calibration
 cleanup failure aborts the run. The item fixture identity stays a string; its
 separate blueprint result is retained as `fixture_state`.
 
+Fresh owned `item-product-r14-v2` passed all three stone views at effective
+vertical FOV **66.6 degrees**, 1994x1105 physical pixels and 499x277 engine units.
+It then stopped before item pixels because the runner wrongly required item
+controls on the testing page, which has no item Scene. That harness gate is now
+limited to actual preview phases. The game and supervisor were exactly cleaned;
+no item body or glint acceptance is inferred from the camera-only result.
+
 User-authorized foreground observation is recorded explicitly; the runner does
 not activate or resize a game. Shared capture schema 3 must retain owner identity,
 guarded noactivation and fresh native frame checks even when the user switches

@@ -271,8 +271,9 @@ def main(with_world=False, camera_calibration=None):
                     check.wait('source-facing camera',lambda pose:len(pose)==len(expected_pose) and
                         all(abs(a-b)<.0001 for a,b in zip(pose,expected_pose)),
                         lambda:check.run('_result=s.camera_pose'))
-                state=check.wait('item controls '+label,lambda value:value['plan_ready'] and
-                                 not value['pending'] and not value['error'],lambda:check.run(STATE))
+                state=(check.run(STATE) if label=='testing_page' else
+                       check.wait('item controls '+label,lambda value:value['plan_ready'] and
+                                  not value['pending'] and not value['error'],lambda:check.run(STATE)))
                 save(label+'.state.json',state)
                 if tree is not None:
                     save(label+'.tree.json',tree)
