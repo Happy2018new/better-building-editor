@@ -33,6 +33,8 @@ LIMITS = {'rgb_delta': 8, 'temporal_delta': 2, 'minimum_body_pixels': 8,
           'minimum_body_iou': .70, 'maximum_boundary_pixels': 4,
           'minimum_motion_pixels': 4, 'minimum_motion_fraction': .04,
           'maximum_control_motion_pixels': 3, 'maximum_escape_fraction': .05}
+REPLAY_ANALYSIS_FILES = frozenset(('tools/analyze_item_sprite_product.py',
+                                 'tools/analyze_item_sprite_closeup.py'))
 
 
 def item_polygons(position, texture, pose, rotation=0., facing=2):
@@ -242,8 +244,10 @@ def analyze(path):
     current_inputs = snapshot_sources(ROOT)
     analysis_path = Path(__file__).relative_to(ROOT).as_posix()
     result['capture_analyzer_sha256'] = inputs.get(analysis_path)
-    if {key: value for key, value in current_inputs.items() if key != analysis_path} != {
-            key: value for key, value in inputs.items() if key != analysis_path}:
+    result['analysis_only_replay_inputs'] = {key: {'launch': inputs.get(key), 'replay': current_inputs.get(key)}
+                                           for key in sorted(REPLAY_ANALYSIS_FILES)}
+    if {key: value for key, value in current_inputs.items() if key not in REPLAY_ANALYSIS_FILES} != {
+            key: value for key, value in inputs.items() if key not in REPLAY_ANALYSIS_FILES}:
         failures.append('Replay source/resource files differ from the frozen capture inputs')
         result['evidence_valid'] = result['captures_verified'] = False
         return result

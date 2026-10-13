@@ -137,3 +137,62 @@ guarded noactivation and fresh native frame checks even when the user switches
 to the game. An unreliable capture is reported as a failure, with no activation
 fallback. Native launches are still on hold pending the shared full-pack startup
 diagnosis; no new item pixels were obtained while preparing these tools.
+
+## Enlarged Animation V5
+
+Frozen `item-product-r14-v5`, source `d5015c38`, completed all ordinary captures
+and 46 closeup captures with exact owned-game cleanup and no native item shader
+errors. Actual near swords measure 56x56 physical pixels in the editor and
+53--55 by 53 pixels in world projection. Native QPC spans are 29.847 seconds
+and 35.048 seconds. Ordinary swords and empty-frame controls have zero temporal
+motion. Every independently observed enchanted sword pixel changes over the
+sequence; movement stays inside the observed silhouette. Editor near body
+positions pass; world near ordinary sword still fails the fixed body gate.
+The original distant editor/world body gates also still fail. These results
+do not qualify production or establish vanilla glint parity.
+
+`analyze_item_sprite_closeup.py` writes fixed-crop GIFs from the original native
+frames at native QPC intervals rounded to GIF's 10ms granularity. It never
+resizes, enhances, synthesizes or paints on those frames. Raw PNGs and receipts
+remain separate. World crosshair occludes part of the center sword and remains
+visible; it is not erased. Cutaway can release model IDs and restoration can
+allocate new IDs, so transition controls validate unchanged camera while
+positive/hidden/temporal controls require exact native model layout equality.
+
+Only the two explicitly named offline analyzer files may differ at replay;
+launch and replay hashes are retained. Every runtime, shader, texture, pose,
+capture helper and bootstrap input still requires its original frozen hash.
+
+## Prospective Native Glint Comparison
+
+The next private test will place actual `minecraft:frame` blocks and their stone
+supports at previously confirmed-air coordinates. SDK server
+`CreateBlockEntity(level).SetFrameItem(pos, dimension, itemDict)` supports
+`enchantData`; `GetFrameItem` reads it back, and `SetFrameRotation` sets the
+original rotation in degrees. `CreateBlockInfo(level).GetBlockEntityData`
+supplies independently read typed native `Item` NBT. A diagnostic actor bound
+to a free model is never called an actual frame block. The selected public
+ordinary/enchanted pair is diamond sword already; any variant must explicitly
+record its public source, desired identity and actual typed readback.
+
+Before collecting that run, comparison uses these fixed rules: each route
+retains ordinary, enchanted and empty controls for at least seven seconds;
+the sword's physical bounding sides must both be at least 48 pixels. Use the
+same world camera, coordinates, frame face, item rotation, fixed environment,
+and opaque full/missing projection. A content-only hidden control establishes
+the observed sword mask independently of modeled geometry. For each body,
+report native frame intervals, maximum RGB temporal range, luma temporal range,
+the fraction whose temporal RGB range exceeds 2 and 8, per-step highlight
+centroid travel divided by body width and real elapsed seconds, and ordinary
+and empty negative motion. The enchanted control must satisfy the existing
+moving-highlight gate (at least four moving pixels, at least 4% of body pixels,
+at most 5% movement outside its silhouette); ordinary and empty controls allow
+at most three moving pixels. Compare those measurements descriptively against
+the actual frame. A stronger visual match is not claimed merely because a
+temporal gate passes. Different native lighting, projected material response,
+screen perspective or crosshair occlusion must be stated; no fitted offsets,
+postcapture brightness normalization or adjusted acceptance thresholds.
+
+Every changed native block is tracked before mutation and restored to its
+confirmed original air state. The test uses the existing private debugger
+entry and adds no production RPC or authorization surface.

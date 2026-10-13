@@ -18,6 +18,7 @@ from analyze_item_sprite_product import (analyze, body_measurement, expected_mas
                                          temporal_measurement, point_sampled_mask)
 from item_sprite_capture_contract import (camera_matches, paired_layout_matches,
                                           scene_layout, snapshot_digest)
+from analyze_item_sprite_closeup import elapsed_sequence
 from projection.camera import OrbitCamera
 from projection.debug_blueprints import build
 from projection.debug_item_blueprints import IDENTITY, PAIRS
@@ -155,6 +156,13 @@ class ItemPixelTests(unittest.TestCase):
 
 
 class ItemCaptureContracts(unittest.TestCase):
+    def test_animation_duration_uses_native_frame_clock_and_rejects_duplicate_or_short_sequences(self):
+        def sequence(times):
+            return [{'capture': {'frame': {'frame_qpc_100ns': int(value*10000000)}}} for value in times]
+        self.assertTrue(elapsed_sequence(sequence([100., 102., 104., 107.]))['passed'])
+        self.assertFalse(elapsed_sequence(sequence([100., 100., 107.]))['passed'])
+        self.assertFalse(elapsed_sequence(sequence([100., 103., 106.]))['passed'])
+
     def scene(self):
         return {'camera_pose': [180., 20., 1.6], 'camera_pan': [0., 0.],
                 'camera_depth': 0., 'screen_size': [1200., 800.], 'banks': [
