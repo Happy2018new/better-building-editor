@@ -109,7 +109,7 @@ the earlier failures.
 ## Serial baseline result
 
 The exact baseline full-pack control failed in 37.0 seconds, before world IPC
-or any fresh engine log. Tracked BP/RP bytes matched 52189693 and all 1,362
+or any fresh engine log. Tracked BP/RP bytes matched 52189693 and all 1,370
 source pins were unchanged after cleanup. MCDK listed only the existing Mod
 BP/RP, its debug BP and the owner-bound session probe. The game was PID 24552;
 both its identity and the MCDK identity were null after cleanup.
@@ -130,3 +130,28 @@ one next contrast: the previously healthy minimal diagnostic BP together with
 an exact private copy of baseline 52189693 RP, omitting the original Mod BP.
 That run retains the existing guarded process, registry, deadline and cleanup
 contracts; both original and mounted resource bytes are checked for drift.
+
+## Minimal BP with baseline RP result
+
+This single control completed in 97.05 seconds with real world readiness:
+UiInit true, 82 render ticks and the same loaded player foot position. The
+pure-read palette probe succeeded. All 59 recorded background checks passed;
+the real WGC frame was fresh at 1994 by 1105 and was actually viewed. It shows
+the flat grass world, sky, player hand and HUD. Missing-BP custom-block/item
+warnings are visible because the original Mod BP is intentionally omitted.
+Those entries may be skipped, so this pass does not prove that the complete
+registered BP/RP resources are valid together. The exact original and mounted
+resource byte checks passed. Game/MCDK identities were null after cleanup.
+
+[Sanitized result, original plan, frozen source and image](evidence/background-minimal-baseline-rp-r14-v1/result.json)
+preserve this result. The separate shutdown WER at 19:51:40 was again
+ucrtbase.dll c0000409 at 00000000000a527e, report
+79932724-5181-454b-b11d-bbb53c2d5549. No product render qualification is claimed.
+
+The user then reported that another fullscreen game, previously running during
+these tests, had been closed around 19:55 and explicitly requested a retry.
+That is a user report, not an independent detection or established crash cause.
+The root authorized one complete baseline-52189693 BP/RP retry, retaining the
+same frozen files and background/identity/deadline contracts. Further BP factor
+decomposition is held; the new owner/output preserve this external-condition
+contrast separately.

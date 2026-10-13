@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "owner": "background-minimal-r14-preworld-v1",
+  "completed": false,
+  "launches": 1,
+  "error": "PermissionError: [Errno 13] Permission denied: 'C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\4821fa715245423d8d25a2eaf181f43c\\\\session.json'",
+  "background_check_count": 8,
+  "all_background_safe": true,
+  "all_window_noactivation": true,
+  "game_pid": 16392,
+  "game_identity": "134363643152181213",
+  "world": null,
+  "capture": null,
+  "normal_stop_returncode": 1,
+  "normal_stop_stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+  "cleanup_errors": [],
+  "identities_after_stop": {
+    "game": null,
+    "mcdk": null
+  },
+  "pins_unchanged": {
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": true
+  },
+  "elapsed_seconds": 45.10665719999997,
+  "original_report_sha256": "7a9e427281aaf7fcca78015dd6bf0a1261d64fc0e40ac9ac5050f90163eff912",
+  "production_acceptance": false,
+  "engine_log": {
+    "fresh_created": true,
+    "filename": "Debug_Log2026-10-13_19-25-30.txt",
+    "last_known_stage": "OnAppStart/initMultiplayerRequestHandler"
+  },
+  "race_interpretation": {
+    "read_stage": "find_session registry manifest read",
+    "winerror_recorded": false,
+    "replacement_sharing_race_proven": false,
+    "original_input_unchanged": true
+  }
+}

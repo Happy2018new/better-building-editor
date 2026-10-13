@@ -47,11 +47,13 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main(full_baseline=False, baseline_rp=False):
+def main(full_baseline=False, baseline_rp=False, after_user_fullscreen=False):
     global OWNER, OUT
+    if after_user_fullscreen:
+        full_baseline = True
     if full_baseline:
-        OWNER = 'background-baseline-r14-preworld-v1'
-        OUT = ROOT / '.runtime/baseline-startup-r14-v1'
+        OWNER = 'background-baseline-r14-after-user-fullscreen-v1' if after_user_fullscreen else 'background-baseline-r14-preworld-v1'
+        OUT = ROOT / ('.runtime/baseline-after-user-fullscreen-r14-v1' if after_user_fullscreen else '.runtime/baseline-startup-r14-v1')
     elif baseline_rp:
         OWNER = 'background-minimal-baseline-rp-r14-v1'
         OUT = ROOT / '.runtime/minimal-baseline-rp-startup-r14-v1'
@@ -111,6 +113,10 @@ def main(full_baseline=False, baseline_rp=False):
                                   'Healthy minimal BP plus exact baseline 52189693 RP' if baseline_rp else
                                   'Bounded PermissionError-only manifest read retry'),
             'pack_mode': 'baseline-full' if full_baseline else 'minimal-baseline-rp' if baseline_rp else 'minimal',
+            'external_condition': {'source': 'user report relayed by root',
+                                   'reported_time': '2026-10-13T19:55:00+08:00 (approximate)',
+                                   'description': 'User reports another fullscreen game has been closed',
+                                   'independently_verified': False} if after_user_fullscreen else None,
             'launches_permitted': 1, 'outer_seconds': 240, 'cleanup_seconds': 40,
             'background_only': not _window.user_foreground_allowed(),
             'user_foreground_allowed': _window.user_foreground_allowed(),
@@ -276,5 +282,7 @@ if __name__ == '__main__':
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--baseline-full', action='store_true', help='One serial exact 52189693 full-pack contrast')
     group.add_argument('--baseline-rp', action='store_true', help='One serial exact 52189693 RP with healthy minimal BP')
+    group.add_argument('--after-user-fullscreen', action='store_true', help='One baseline full-pack retry after user-reported fullscreen game exit')
     args = parser.parse_args()
-    sys.exit(main(full_baseline=args.baseline_full, baseline_rp=args.baseline_rp))
+    sys.exit(main(full_baseline=args.baseline_full, baseline_rp=args.baseline_rp,
+                  after_user_fullscreen=args.after_user_fullscreen))
