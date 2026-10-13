@@ -131,6 +131,82 @@ class RawArchiveBindings(unittest.TestCase):
                 raise ValueError('frozen import refused')
         self.assertEqual(os.getcwd(), previous)
 
+    def mixed_index(self):
+        row = dict(self.record, project_relative_path='tools/analyze_liquid_native_write.py')
+        row['original_path'] = 'Z:/retired-development-machine/.runtime/frozen/sources/scorer.py'
+        (self.root / 'frame.png').write_bytes(b'original-png-bytes')
+        image = {'original_path': 'Z:/retired-development-machine/.runtime/frame.png',
+                 'archive_path': 'frame.png', 'bytes': 18,
+                 'sha256': hashlib.sha256(b'original-png-bytes').hexdigest()}
+        index = {'schema': 1, 'frozen_project': 'Z:/retired-development-machine', 'files': [image, row]}
+        (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+        return index
+
+    def test_mixed_index_filters_non_sources_and_derives_exact_project_alias(self):
+        self.mixed_index()
+        original_index = (self.root / 'archive-index.json').read_bytes()
+        archive = replay.Archive(self.root)
+        self.assertEqual(archive.resolve({'path': self.original, 'sha256': self.record['sha256']}).read_bytes(),
+                         self.raw)
+        _, files, _ = replay.verify_closure(archive, 'archive-index.json')
+        self.assertEqual(list(files), ['tools/analyze_liquid_native_write.py'])
+        self.assertEqual(archive.source_alias_manifest['schema'], 1)
+        self.assertEqual(len(archive.source_alias_manifest['sources']), 1)
+        self.assertEqual(archive.source_alias_manifest['archive_index_sha256'],
+                         hashlib.sha256(original_index).hexdigest())
+        self.assertEqual((self.root / 'archive-index.json').read_bytes(), original_index)
+
+    def test_derived_alias_rejects_collision_even_when_bytes_match(self):
+        index = self.mixed_index()
+        (self.root / 'raw/another.py').write_bytes(self.raw)
+        index['files'].append(dict(self.record, archive_path='raw/another.py'))
+        (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+        with self.assertRaisesRegex(ValueError, 'Derived project alias conflicts'):
+            replay.Archive(self.root)
+
+    def test_mixed_archive_requires_contained_python_source_paths(self):
+        for relative in ('../tools/scorer.py', 'Z:/tools/scorer.py', '/tools/scorer.py',
+                         'tools/frame.png', 'tools//scorer.py'):
+            with self.subTest(relative=relative):
+                index = self.mixed_index()
+                index['files'][1]['project_relative_path'] = relative
+                (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+                with self.assertRaisesRegex(ValueError, 'source closure path'):
+                    replay.Archive(self.root)
+
+    def test_mixed_archive_requires_absolute_frozen_project(self):
+        index = self.mixed_index()
+        index['frozen_project'] = 'retired-development-machine'
+        (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+        with self.assertRaisesRegex(ValueError, 'must be absolute'):
+            replay.Archive(self.root)
+
+    def test_duplicate_declared_sources_are_rejected_before_alias_derivation(self):
+        index = self.mixed_index()
+        (self.root / 'raw/another.py').write_bytes(self.raw)
+        index['files'].append(dict(index['files'][1], original_path='Z:/another/scorer.py',
+                                   archive_path='raw/another.py'))
+        (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+        with self.assertRaisesRegex(ValueError, 'Duplicate source closure project path'):
+            replay.Archive(self.root)
+
+    def test_posix_frozen_project_alias_and_recorded_frozen_reference_both_resolve(self):
+        index = self.mixed_index()
+        index['frozen_project'] = '/retired-project'
+        row = index['files'][1]
+        row['frozen_original_path'] = '/old-freeze/scorer.py'
+        (self.root / 'archive-index.json').write_text(json.dumps(index), encoding='ascii')
+        archive = replay.Archive(self.root)
+        for path in ('/retired-project/tools/analyze_liquid_native_write.py', row['original_path'],
+                     row['frozen_original_path']):
+            self.assertEqual(archive.resolve({'path': path, 'sha256': row['sha256']}).read_bytes(), self.raw)
+
+    def test_project_alias_hash_is_still_required(self):
+        self.mixed_index()
+        archive = replay.Archive(self.root)
+        with self.assertRaisesRegex(ValueError, 'missing or changed'):
+            archive.resolve({'path': self.original, 'sha256': '0' * 64})
+
 
 if __name__ == '__main__':
     unittest.main()

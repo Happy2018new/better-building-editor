@@ -5,6 +5,7 @@ are integrated. BBE_LIQUID_REPLAY_EVIDENCE_ROOT can select a staging archive
 root; that root supplies bytes only, never imports or live runtime access.
 """
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -80,6 +81,95 @@ class RealColdReplay(unittest.TestCase):
         (index_path.parent / matches[0]['archive_path']).unlink()
         index['files'] = [row for row in index['files'] if row not in matches]
         index_path.write_text(json.dumps(index), encoding='ascii')
+        with self.assertRaisesRegex(ValueError, "No module named 'projection.block_traits'"):
+            self.execute()
+        self.assertFalse((self.cold / 'replay.json').exists())
+
+
+@unittest.skipUnless((EVIDENCE / 'liquid-native-write-r13-v4b/archive-index.json').is_file(),
+                     'Exact mixed V4b archive is not integrated in this checkout')
+class MixedColdReplay(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory(prefix='bbe-liquid-v4b-cold-test-')
+        self.addCleanup(self.directory.cleanup)
+        self.cold = Path(self.directory.name)
+        self.archive = self.cold / 'archive'
+        shutil.copytree(EVIDENCE / 'liquid-native-write-r13-v4b', self.archive)
+        helper_path = self.cold / 'replay.py'
+        shutil.copyfile(ROOT / 'tools/replay_liquid_native_archive.py', helper_path)
+        spec = importlib.util.spec_from_file_location('mixed_cold_replay_helper', helper_path)
+        self.helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.helper)
+        self.index_path = self.archive / 'archive-index.json'
+        self.original_index = self.index_path.read_bytes()
+
+    def execute(self):
+        return self.helper.replay(self.archive, 'archive-index.json', self.cold / 'replay.json',
+                                  expected_name='native-write-analysis.json')
+
+    def rewrite_index(self, index):
+        self.index_path.write_text(json.dumps(index), encoding='ascii')
+
+    def test_single_mixed_archive_reproduces_exact_observation_and_alias_manifest(self):
+        report = self.execute()
+        expected = json.loads((self.archive / 'native-write-analysis.json').read_bytes())
+        self.assertTrue(report['reproduced'])
+        self.assertEqual(report['schema'], 2)
+        self.assertEqual(replay.semantic_result(report['recomputed']), replay.semantic_result(expected))
+        self.assertEqual(report['recomputed']['status'], 'OBSERVED')
+        self.assertTrue(report['recomputed']['native_visibility_observed'])
+        for name in ('side_uv_qualified', 'transparency_qualified', 'animation_qualified', 'production_qualified'):
+            self.assertFalse(report['recomputed'][name])
+        self.assertEqual(len(report['imported_source_sha256']), 46)
+        self.assertEqual(len(report['source_alias_manifests']), 1)
+        manifest = report['source_alias_manifests'][0]
+        self.assertEqual(manifest['schema'], 1)
+        self.assertEqual(len(manifest['sources']), 117)
+        self.assertEqual(manifest['archive_index_sha256'], hashlib.sha256(self.original_index).hexdigest())
+        self.assertEqual(report['new_launches'], 0)
+        self.assertEqual(report['sdk_or_network_calls'], 0)
+        self.assertEqual(self.index_path.read_bytes(), self.original_index)
+
+    def test_non_source_bytes_are_verified_even_when_excluded_from_imports(self):
+        index = json.loads(self.original_index)
+        row = next(row for row in index['files'] if row['archive_path'].endswith('.png'))
+        path = self.archive / row['archive_path']
+        path.write_bytes(path.read_bytes() + b'tampered')
+        with self.assertRaisesRegex(ValueError, 'Archived original bytes changed'):
+            self.execute()
+        self.assertFalse((self.cold / 'replay.json').exists())
+
+    def test_source_newlines_still_refuse_through_project_alias(self):
+        path = self.archive / 'sources/tools/analyze_liquid_native_write.py'
+        raw = path.read_bytes()
+        self.assertIn(b'\n', raw)
+        changed = raw.replace(b'\r\n', b'\n') if b'\r\n' in raw else raw.replace(b'\n', b'\r\n')
+        self.assertNotEqual(raw, changed)
+        path.write_bytes(changed)
+        with self.assertRaisesRegex(ValueError, 'Archived original bytes changed'):
+            self.execute()
+        self.assertFalse((self.cold / 'replay.json').exists())
+
+    def test_modified_geometry_plan_and_reindexed_hash_do_not_replace_original_binding(self):
+        path = self.archive / 'original-priority_geometry_plan.json'
+        plan = json.loads(path.read_bytes())
+        plan['source_bindings']['tools/analyze_liquid_sides.py']['sha256'] = '0' * 64
+        path.write_text(json.dumps(plan), encoding='ascii')
+        index = json.loads(self.original_index)
+        row = next(row for row in index['files'] if row['archive_path'] == path.name)
+        row.update(sha256=replay.digest(path), bytes=path.stat().st_size)
+        self.rewrite_index(index)
+        with self.assertRaisesRegex(ValueError, 'Original reference is missing or changed'):
+            self.execute()
+        self.assertFalse((self.cold / 'replay.json').exists())
+
+    def test_missing_mixed_source_cannot_import_current_checkout(self):
+        index = json.loads(self.original_index)
+        relative = 'behavior_pack/modern_projection/projection/block_traits.py'
+        row = next(row for row in index['files'] if row.get('project_relative_path') == relative)
+        (self.archive / row['archive_path']).unlink()
+        index['files'].remove(row)
+        self.rewrite_index(index)
         with self.assertRaisesRegex(ValueError, "No module named 'projection.block_traits'"):
             self.execute()
         self.assertFalse((self.cold / 'replay.json').exists())

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "scope": "Default mixed-index CLI and isolated cold replay; no rendering qualification",
+  "original_archive_records": 193,
+  "derived_python_sources": 117,
+  "actual_imported_sources": 46,
+  "tests": {
+    "command": "python -X utf8 -m unittest discover -s tests -p test_liquid_archive_replay*.py",
+    "passed": 26,
+    "failed": 0,
+    "elapsed_seconds": 16.359,
+    "cold_helper_copy": true,
+    "v2_legacy_replay": true,
+    "v4b_mixed_replay": true,
+    "checks": [
+      "exact original results and source/capture gates",
+      "original index bytes unchanged",
+      "capture-byte tamper rejection",
+      "source-newline tamper rejection",
+      "derived alias conflict rejection",
+      "contained Python source paths",
+      "original geometry plan binding cannot be replaced",
+      "missing source cannot import current checkout"
+    ]
+  },
+  "fingerprints": {
+    "tools/replay_liquid_native_archive.py": "34b180cebf3a27146be3973506071c770ac04941ee6d9d4149844e568686c962",
+    "tests/test_liquid_archive_replay.py": "ec460d33f8e62e84761f198f83e9d5061adfcd541c6032e714c98389593afe02",
+    "tests/test_liquid_archive_replay_integration.py": "1573475ef7db03d39db73127711f8e7049c3135952b1ecefa4b72189f55e27ad",
+    "docs/evidence/liquid-native-write-r13-v4b/archive-index.json": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342",
+    "replay.json": "48d403b49dfcc7db4caaf40671f1cc92d7d24542da26b4d3dd054bfef9b16d29"
+  },
+  "new_game_launches": 0,
+  "sdk_or_network_calls": 0,
+  "original_index_unchanged": true,
+  "original_result": "OBSERVED",
+  "side_uv_qualified": false,
+  "transparency_qualified": false,
+  "animation_qualified": false,
+  "production_qualified": false
+}

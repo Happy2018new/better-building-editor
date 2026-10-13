@@ -1,0 +1,1220 @@
+{
+  "schema": 2,
+  "scope": "Exact raw-byte offline replay; only file locations redirected",
+  "reproduced": true,
+  "new_launches": 0,
+  "sdk_or_network_calls": 0,
+  "replay_helper_sha256": "34b180cebf3a27146be3973506071c770ac04941ee6d9d4149844e568686c962",
+  "host": {
+    "python": "3.13.13 (tags/v3.13.13:01104ce, Apr  7 2026, 19:25:48) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.4",
+    "pillow": "12.0.0"
+  },
+  "archive_index_sha256": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342",
+  "source_archive_index_sha256": [],
+  "source_alias_manifests": [
+    {
+      "schema": 1,
+      "rule": "frozen_project + contained project_relative_path",
+      "archive_index_sha256": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342",
+      "sources": [
+        {
+          "project_relative_path": ".agents/skills/pyreact-debugging/scripts/_session.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+          "archive_path": "sources/.agents/skills/pyreact-debugging/scripts/_session.py",
+          "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+          "bytes": 6209
+        },
+        {
+          "project_relative_path": ".agents/skills/pyreact-debugging/scripts/_window.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+          "archive_path": "sources/.agents/skills/pyreact-debugging/scripts/_window.py",
+          "sha256": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+          "bytes": 9909
+        },
+        {
+          "project_relative_path": ".agents/skills/pyreact-debugging/scripts/mcdk.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+          "archive_path": "sources/.agents/skills/pyreact-debugging/scripts/mcdk.py",
+          "sha256": "1654750459fc71a4e9f0e0202f253b45c169eede59e2a3e059bacb7bef34798a",
+          "bytes": 14273
+        },
+        {
+          "project_relative_path": ".runtime/liquid_native_write_session_r13_v4b.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid_native_write_session_r13_v4b.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\liquid_native_write_session_r13_v4b.py",
+          "archive_path": "sources/.runtime/liquid_native_write_session_r13_v4b.py",
+          "sha256": "8212b134e4c91e0e59ab2df88c0743d52e6c929d55dcac62a7d8f5624d11f9a0",
+          "bytes": 14466
+        },
+        {
+          "project_relative_path": ".runtime/liquid_passive_guard_r12_v8.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid_passive_guard_r12_v8.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\liquid_passive_guard_r12_v8.py",
+          "archive_path": "sources/.runtime/liquid_passive_guard_r12_v8.py",
+          "sha256": "0ec918299631766cd0c70641e49fd85622210978a0e10e8fdd3e0418c9e1863b",
+          "bytes": 11808
+        },
+        {
+          "project_relative_path": ".runtime/liquid_priority_guard_r12_v9.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid_priority_guard_r12_v9.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\liquid_priority_guard_r12_v9.py",
+          "archive_path": "sources/.runtime/liquid_priority_guard_r12_v9.py",
+          "sha256": "3c0ccc4124cd275e10323e27b797458541f64e2ab853e573ee7d9c711e10583f",
+          "bytes": 9693
+        },
+        {
+          "project_relative_path": ".runtime/prepare_liquid_native_write_r13_v4b.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\prepare_liquid_native_write_r13_v4b.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\prepare_liquid_native_write_r13_v4b.py",
+          "archive_path": "sources/.runtime/prepare_liquid_native_write_r13_v4b.py",
+          "sha256": "3457278f6adbe45bab2b10ed2e7b2cd5accc813ba3371ee4c18a07ecbf4e63d8",
+          "bytes": 5829
+        },
+        {
+          "project_relative_path": ".runtime/read_native_capacity_snapshot_r12.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\read_native_capacity_snapshot_r12.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\read_native_capacity_snapshot_r12.py",
+          "archive_path": "sources/.runtime/read_native_capacity_snapshot_r12.py",
+          "sha256": "78efe485cf62c7f952955c017ba38fbc8e4ec69dd2f159b3b3cb3cf746824a59",
+          "bytes": 7007
+        },
+        {
+          "project_relative_path": ".runtime/runtime-health-r12/check_runtime_health.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\runtime-health-r12\\check_runtime_health.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\.runtime\\runtime-health-r12\\check_runtime_health.py",
+          "archive_path": "sources/.runtime/runtime-health-r12/check_runtime_health.py",
+          "sha256": "b42350289d93c292f6394e43bfd7c31572a057cdacf2c3b276dc70a8a872550c",
+          "bytes": 6429
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/__init__.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\__init__.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\__init__.py",
+          "archive_path": "sources/behavior_pack/modern_projection/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/__init__.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\__init__.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\__init__.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/__init__.py",
+          "sha256": "3b28f9eef3553006a6a6883ae7f30a0f49f41d189f18263202b80057125d4adc",
+          "bytes": 93
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/appearance_defaults_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\appearance_defaults_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\appearance_defaults_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/appearance_defaults_data.py",
+          "sha256": "bc7add55545a4d53fe7b663d6a29155342f1fd5f7dfb0d8d6bf20a2c338893a4",
+          "bytes": 2503
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/biome_water_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\biome_water_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\biome_water_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/biome_water_data.py",
+          "sha256": "9ab33c1491c4317105a08289be57820be5174174ee748d96693cd243892fc652",
+          "bytes": 3903
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/biomes.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\biomes.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\biomes.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/biomes.py",
+          "sha256": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+          "bytes": 6609
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_edits.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_edits.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_edits.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_edits.py",
+          "sha256": "e87670ff0f6fab78e347be045fffafd5d4b28f069882a14d7f160e32b81b97ff",
+          "bytes": 4070
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_groups.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_groups.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_groups.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_groups.py",
+          "sha256": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747",
+          "bytes": 15448
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_neighbors.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_neighbors.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_neighbors.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_neighbors.py",
+          "sha256": "9c12c2a26f92fe09203f911bed1d39e674ab71f48fd3180267105b73b680cd3f",
+          "bytes": 23025
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_registry.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_registry.py",
+          "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+          "bytes": 3229
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_registry_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_registry_data.py",
+          "sha256": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786",
+          "bytes": 286459
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_traits.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_traits.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_traits.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_traits.py",
+          "sha256": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+          "bytes": 2712
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/block_traits_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\block_traits_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\block_traits_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/block_traits_data.py",
+          "sha256": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+          "bytes": 46046
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/catalog.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\catalog.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\catalog.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/catalog.py",
+          "sha256": "08f691e66461a01ade082179bf01b578ca5fa226a5809bb6bfa652cbf65d24d0",
+          "bytes": 11503
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/cell.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\cell.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\cell.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/cell.py",
+          "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+          "bytes": 14070
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/codec.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\codec.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\codec.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/codec.py",
+          "sha256": "ce0ce93d7d847dada99c80d802250a8cfa2adc77e97f8bbb5ebe7d1abbeb4050",
+          "bytes": 8007
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/compact_chunk.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\compact_chunk.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\compact_chunk.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/compact_chunk.py",
+          "sha256": "ef5b8f2d676ae28227404fe6c419af5df5127a7ce767e53614ef2296e0e281f4",
+          "bytes": 5475
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_action_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_action_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_action_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_action_blueprints.py",
+          "sha256": "9b964ad00372a7594b18cef1ed78f1436c0c481d986f49275e2cda6546d49666",
+          "bytes": 4893
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_appearance_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_appearance_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_appearance_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_appearance_blueprints.py",
+          "sha256": "78464934d7d85276f106cdaeb10ff224eaa201458555c6306e255ba50fafaf24",
+          "bytes": 3201
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_blueprints.py",
+          "sha256": "151dbda8a887beb3ab6a9331ee9dfbdeffb32770b659d765e44cd2deeaeddd3e",
+          "bytes": 17190
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_botanical_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_botanical_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_botanical_blueprints.py",
+          "sha256": "6f3b7823534d0160e594b52e2902c15db1722fb437e498251800e187c2f3b283",
+          "bytes": 5365
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_connection_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_connection_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_connection_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_connection_blueprints.py",
+          "sha256": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800",
+          "bytes": 4318
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_dripstone_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_dripstone_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py",
+          "sha256": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c",
+          "bytes": 1872
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_entity_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_entity_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_entity_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_entity_blueprints.py",
+          "sha256": "52ab228c5f7fabf63cc899cfecaa0f9dfd42882b7b91495f40f7ad42dfb0c45a",
+          "bytes": 5703
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_entity_defaults.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_entity_defaults.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_entity_defaults.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_entity_defaults.py",
+          "sha256": "2d0474548dd1cfccbed134aeaee7b80b9fa132a7e4306016a1167d15723ce1fb",
+          "bytes": 149
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_item_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_item_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_item_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_item_blueprints.py",
+          "sha256": "0c0cf2a94c90a7deb402836a93b48975980d2ff0b0f829a09e02f47b7227f308",
+          "bytes": 4781
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_liquid_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_liquid_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_liquid_blueprints.py",
+          "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9",
+          "bytes": 7006
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_neighborhood_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_neighborhood_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py",
+          "sha256": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874",
+          "bytes": 4476
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_pot_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_pot_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_pot_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_pot_blueprints.py",
+          "sha256": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3",
+          "bytes": 2492
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_sign_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_sign_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_sign_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_sign_blueprints.py",
+          "sha256": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+          "bytes": 4187
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_snow_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_snow_blueprints.py",
+          "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+          "bytes": 6404
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/debug_water_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\debug_water_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\debug_water_blueprints.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/debug_water_blueprints.py",
+          "sha256": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e",
+          "bytes": 2431
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/entity_defaults.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\entity_defaults.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\entity_defaults.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/entity_defaults.py",
+          "sha256": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0",
+          "bytes": 3018
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/entity_defaults_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\entity_defaults_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\entity_defaults_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/entity_defaults_data.py",
+          "sha256": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf",
+          "bytes": 46936
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/entity_overlays.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\entity_overlays.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\entity_overlays.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/entity_overlays.py",
+          "sha256": "c94e51d016375e387663f4c03504570b923423b82763006e657fd4925c5a7324",
+          "bytes": 6178
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/entity_render.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\entity_render.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\entity_render.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/entity_render.py",
+          "sha256": "ad3319acd20b2a6c72d4cccb1ad114fdf4e12d410945fa52d047d5b68fa3c865",
+          "bytes": 11521
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/frame_rotation_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\frame_rotation_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\frame_rotation_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/frame_rotation_data.py",
+          "sha256": "9e4fe7d6d3c0431bdb5c326679017d7c173271c144efe7f3c04d9dd1fa5e9406",
+          "bytes": 332
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/item_contents_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\item_contents_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\item_contents_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/item_contents_data.py",
+          "sha256": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151",
+          "bytes": 1296
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/jobs.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\jobs.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\jobs.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/jobs.py",
+          "sha256": "572e12dea221867ec7ca1d534486e55895b0124c8234ed67bac478ed223837c5",
+          "bytes": 27338
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/model.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\model.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\model.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/model.py",
+          "sha256": "1dc76b8cfac13ee2bddefd69f4e5fef8d45ae0531d59739ac57a6b2d341fbeda",
+          "bytes": 36680
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_appearance.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_appearance.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_appearance.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_appearance.py",
+          "sha256": "8ee814d221249492773382cbdd7dfe390e43a12a0b366425e83db2eb633c632c",
+          "bytes": 2607
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_layers.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_layers.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_layers.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_layers.py",
+          "sha256": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1",
+          "bytes": 5587
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_pot.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_pot.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_pot.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_pot.py",
+          "sha256": "ada5f4cc428562373b370917f69d7332768872dae9a719e06f213e28952737e1",
+          "bytes": 2360
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_pot_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_pot_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_pot_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_pot_data.py",
+          "sha256": "1da26e77409c707eaef1f985200ba43cf356e149c4764eb2a24459f5c024ca58",
+          "bytes": 551
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_pot_sherd_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_pot_sherd_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_pot_sherd_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_pot_sherd_data.py",
+          "sha256": "e679d8dc3ccca1ad0635896b5904515afd87b2903688dab8b6632774f2602aba",
+          "bytes": 459
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_sign.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_sign.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_sign.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_sign.py",
+          "sha256": "34eaa77e5e5183e4db3bab31002572f848ddfcb640c530b25dc49ea9840b8a6a",
+          "bytes": 2785
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/native_sign_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\native_sign_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\native_sign_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/native_sign_data.py",
+          "sha256": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+          "bytes": 19766
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/nbt_spatial.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\nbt_spatial.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\nbt_spatial.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/nbt_spatial.py",
+          "sha256": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+          "bytes": 10685
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/packed.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\packed.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\packed.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/packed.py",
+          "sha256": "7a02559573ff9dfc99d176c879062b5357c7dd9d91dc05b97bd7eec1f7adee81",
+          "bytes": 4001
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/pasting.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\pasting.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\pasting.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/pasting.py",
+          "sha256": "f639ece231575c1febf175cac558eca1b2b2aa68df3c28481b830eb88acff14a",
+          "bytes": 636
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/rail_neighbor_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\rail_neighbor_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\rail_neighbor_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/rail_neighbor_data.py",
+          "sha256": "580ed85e2718cd96863c886df5a940eb7b62aa2cf4a297c36c48e125739ffb3d",
+          "bytes": 638
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/scaffold_neighbors.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\scaffold_neighbors.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\scaffold_neighbors.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/scaffold_neighbors.py",
+          "sha256": "151b1e40f5569101a9f6beb42f1ed4f6144c1d80060989207b36e12e547f0652",
+          "bytes": 4582
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/scaffold_support_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\scaffold_support_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\scaffold_support_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/scaffold_support_data.py",
+          "sha256": "c648881d653bc0136419dc14295ab991edaf98314b53c521bf6f0883ae58546f",
+          "bytes": 962
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/semantic_wire.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\semantic_wire.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\semantic_wire.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/semantic_wire.py",
+          "sha256": "6d769f4e740c1e8dfb6ea2cab33693cff2132777ac11139e4427e61867e57b4e",
+          "bytes": 5279
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/state_transform.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\state_transform.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\state_transform.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/state_transform.py",
+          "sha256": "ee20291ac3a7efb30405e4769d519c55a2951291074cb1fd6cd21aa475e820c2",
+          "bytes": 15683
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_bed.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_bed.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_bed.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_bed.py",
+          "sha256": "aa778092f10ee23365af0612a05d022ae313ce61208edb201d737e111071caf8",
+          "bytes": 4651
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_bed_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_bed_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_bed_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_bed_data.py",
+          "sha256": "31d3035bc837520a73daf67174eaac17180ee33a63999d45db2ffd5011fae952",
+          "bytes": 244
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_chest_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_chest_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_chest_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_chest_data.py",
+          "sha256": "789a8c12a2225deb0380c9446e1fba739e3e1d515589c1b6ae265a93e8f5bfaa",
+          "bytes": 216
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_neighbor_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_neighbor_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_neighbor_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_neighbor_data.py",
+          "sha256": "2ed1a888d9f4afeea8292fa874b4761d28dd79518c445e9f57d3bf61aa7b373c",
+          "bytes": 1039
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_shulker_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_shulker_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_shulker_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_shulker_data.py",
+          "sha256": "3a9f4758f37da3dd91ed4a9de194920d29f6e17ae49fbf20d20777a7351e29b0",
+          "bytes": 211
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_skull.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_skull.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_skull.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_skull.py",
+          "sha256": "44b25884017a45b249cc7e938043da00e9c323398a61f7a2207b0eca8ebd6a41",
+          "bytes": 2329
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/static_skull_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\static_skull_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\static_skull_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/static_skull_data.py",
+          "sha256": "9316172af9248e549e054408a8f8984c9526b2b4a13f3e207eae9e7879e6701f",
+          "bytes": 246
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/storage.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\storage.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\storage.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/storage.py",
+          "sha256": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+          "bytes": 14263
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/visible_actor.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\visible_actor.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\visible_actor.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/visible_actor.py",
+          "sha256": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+          "bytes": 2972
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/water_interaction_data.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\water_interaction_data.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\water_interaction_data.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/water_interaction_data.py",
+          "sha256": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7",
+          "bytes": 5678
+        },
+        {
+          "project_relative_path": "behavior_pack/modern_projection/projection/water_interactions.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\behavior_pack\\modern_projection\\projection\\water_interactions.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\behavior_pack\\modern_projection\\projection\\water_interactions.py",
+          "archive_path": "sources/behavior_pack/modern_projection/projection/water_interactions.py",
+          "sha256": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360",
+          "bytes": 1232
+        },
+        {
+          "project_relative_path": "tests/test_liquid_native_write_analysis.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tests\\test_liquid_native_write_analysis.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tests\\test_liquid_native_write_analysis.py",
+          "archive_path": "sources/tests/test_liquid_native_write_analysis.py",
+          "sha256": "6df3af10caffdd1e5374d59e60794e91521421af34a11c02e9caccd7e4d71de5",
+          "bytes": 7668
+        },
+        {
+          "project_relative_path": "tests/test_liquid_original_probe_state.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tests\\test_liquid_original_probe_state.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tests\\test_liquid_original_probe_state.py",
+          "archive_path": "sources/tests/test_liquid_original_probe_state.py",
+          "sha256": "7cc337d4c40dd0078583f92cef63436a2eb3fa4ff9abfa9b1409412a0e50ca07",
+          "bytes": 6327
+        },
+        {
+          "project_relative_path": "tools/analyze_liquid_native_write.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\analyze_liquid_native_write.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\analyze_liquid_native_write.py",
+          "archive_path": "sources/tools/analyze_liquid_native_write.py",
+          "sha256": "ccd6afb4cfbd409cc7cda9eeacf8d7c2a505770ebdf14999879022b78db7bb68",
+          "bytes": 9980
+        },
+        {
+          "project_relative_path": "tools/analyze_liquid_sides.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\analyze_liquid_sides.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\analyze_liquid_sides.py",
+          "archive_path": "sources/tools/analyze_liquid_sides.py",
+          "sha256": "6cdf290e9b96151b51d4391ba63e0aff72a80078f02ecb47c3758f7947cb8a7f",
+          "bytes": 46412
+        },
+        {
+          "project_relative_path": "tools/analyze_liquid_workspace.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\analyze_liquid_workspace.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\analyze_liquid_workspace.py",
+          "archive_path": "sources/tools/analyze_liquid_workspace.py",
+          "sha256": "bcd25a3eeb909587c4f87d212585fe5ff705c2b285b36231bbbc26eff4d4a591",
+          "bytes": 13190
+        },
+        {
+          "project_relative_path": "tools/camera_projection.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\camera_projection.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\camera_projection.py",
+          "archive_path": "sources/tools/camera_projection.py",
+          "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+          "bytes": 3168
+        },
+        {
+          "project_relative_path": "tools/capture_frozen_liquid_controls.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\capture_frozen_liquid_controls.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\capture_frozen_liquid_controls.py",
+          "archive_path": "sources/tools/capture_frozen_liquid_controls.py",
+          "sha256": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04",
+          "bytes": 16067
+        },
+        {
+          "project_relative_path": "tools/capture_native_window.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\capture_native_window.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\capture_native_window.py",
+          "archive_path": "sources/tools/capture_native_window.py",
+          "sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754",
+          "bytes": 6010
+        },
+        {
+          "project_relative_path": "tools/capture_pure_liquid_native_controls.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\capture_pure_liquid_native_controls.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\capture_pure_liquid_native_controls.py",
+          "archive_path": "sources/tools/capture_pure_liquid_native_controls.py",
+          "sha256": "233f2639012ecca4c81d7abee067b7edcbc5b79199bdfc07c914b0441016a64f",
+          "bytes": 34059
+        },
+        {
+          "project_relative_path": "tools/context_test_environment.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\context_test_environment.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\context_test_environment.py",
+          "archive_path": "sources/tools/context_test_environment.py",
+          "sha256": "147e9a6b7bdeccc787195fe02e93c17e9ed8decf50b3b9eecdc6f3cf8c5373d4",
+          "bytes": 1773
+        },
+        {
+          "project_relative_path": "tools/generate_liquid_native_input_fixture.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\generate_liquid_native_input_fixture.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\generate_liquid_native_input_fixture.py",
+          "archive_path": "sources/tools/generate_liquid_native_input_fixture.py",
+          "sha256": "dfd6f00f0926719eef946bbff86517b26ba1514a0deec813c474be7ebceffca5",
+          "bytes": 6672
+        },
+        {
+          "project_relative_path": "tools/generate_liquid_payload_poc.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\generate_liquid_payload_poc.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\generate_liquid_payload_poc.py",
+          "archive_path": "sources/tools/generate_liquid_payload_poc.py",
+          "sha256": "996756d438a2c1ab871d3c960b22e8ea5dd9d0dc910340212294d42b100d4163",
+          "bytes": 17849
+        },
+        {
+          "project_relative_path": "tools/generate_liquid_uniform_fixture.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\generate_liquid_uniform_fixture.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\generate_liquid_uniform_fixture.py",
+          "archive_path": "sources/tools/generate_liquid_uniform_fixture.py",
+          "sha256": "1b58abfec8801c697e1e588d0dd1e7eea7bc39b2c232f9862a8849b4427e3d87",
+          "bytes": 11752
+        },
+        {
+          "project_relative_path": "tools/generate_shulker_proxies.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\generate_shulker_proxies.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\generate_shulker_proxies.py",
+          "archive_path": "sources/tools/generate_shulker_proxies.py",
+          "sha256": "3655cf8a4513439ba205617cc427a204e54ae5b1bfa0be066f1b3e6defa1be87",
+          "bytes": 10392
+        },
+        {
+          "project_relative_path": "tools/liquid_payload_poc.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\liquid_payload_poc.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\liquid_payload_poc.py",
+          "archive_path": "sources/tools/liquid_payload_poc.py",
+          "sha256": "93adac7eef6f4e42112120ff4efb417c761a3f057ba49de8fc7cd9de81ede312",
+          "bytes": 7454
+        },
+        {
+          "project_relative_path": "tools/mcdk.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\mcdk.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\mcdk.py",
+          "archive_path": "sources/tools/mcdk.py",
+          "sha256": "b457026c01b26ccffd972089d7e55382011bba93f73d495131fafc0abebcafd5",
+          "bytes": 2088
+        },
+        {
+          "project_relative_path": "tools/probe_liquid_original_sides.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\probe_liquid_original_sides.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\probe_liquid_original_sides.py",
+          "archive_path": "sources/tools/probe_liquid_original_sides.py",
+          "sha256": "ca5f7a440a7b9b05ce20fd52a48507937770edcaeeeb6e60d29e98deefe2ab4b",
+          "bytes": 44182
+        },
+        {
+          "project_relative_path": "tools/probe_liquid_pose_channel.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\probe_liquid_pose_channel.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\probe_liquid_pose_channel.py",
+          "archive_path": "sources/tools/probe_liquid_pose_channel.py",
+          "sha256": "a1191252b766162c2e66dcd849a9a709b7a7ab6cb7aee4e57f7ecbaa4dbe1e2d",
+          "bytes": 20683
+        },
+        {
+          "project_relative_path": "tools/probe_liquid_scene.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\probe_liquid_scene.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\probe_liquid_scene.py",
+          "archive_path": "sources/tools/probe_liquid_scene.py",
+          "sha256": "2843e32ab43d5befc41a4a158b5f62d46272b0ef36f39be3f68538f5f6556a1f",
+          "bytes": 7731
+        },
+        {
+          "project_relative_path": "tools/probe_liquid_uniform_transport.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\probe_liquid_uniform_transport.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\probe_liquid_uniform_transport.py",
+          "archive_path": "sources/tools/probe_liquid_uniform_transport.py",
+          "sha256": "4c45030a391945637ae49ae1f39cc84c5a556a7f0219879dd3560f4a627d33f5",
+          "bytes": 12136
+        },
+        {
+          "project_relative_path": "tools/probe_liquid_workspace.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\probe_liquid_workspace.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\probe_liquid_workspace.py",
+          "archive_path": "sources/tools/probe_liquid_workspace.py",
+          "sha256": "3cb180c0e649e12751278bd2ef5d4ca1524ed0cf799d4c10079701cdb3fe0b2f",
+          "bytes": 45519
+        },
+        {
+          "project_relative_path": "tools/release_owned_game_focus.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\release_owned_game_focus.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\release_owned_game_focus.py",
+          "archive_path": "sources/tools/release_owned_game_focus.py",
+          "sha256": "a710cac06e2ac236a54681314781ac42a1206c8dc8503898270ff6cc799b20f6",
+          "bytes": 2375
+        },
+        {
+          "project_relative_path": "tools/shulker_pixels.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\shulker_pixels.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\shulker_pixels.py",
+          "archive_path": "sources/tools/shulker_pixels.py",
+          "sha256": "2a111c4886366c955bff6abc7496a4eb402ad4643be65d140109f4d727dba68b",
+          "bytes": 7632
+        },
+        {
+          "project_relative_path": "tools/sign_panel_oracle.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\sign_panel_oracle.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\sign_panel_oracle.py",
+          "archive_path": "sources/tools/sign_panel_oracle.py",
+          "sha256": "b7472e2fd901bfedc403bc02622c27fdeda910c8e15760713775eeb0ccb99f44",
+          "bytes": 3315
+        },
+        {
+          "project_relative_path": "tools/verify_botanical_neighbor_world_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_botanical_neighbor_world_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_botanical_neighbor_world_visuals.py",
+          "archive_path": "sources/tools/verify_botanical_neighbor_world_visuals.py",
+          "sha256": "c738da28ec3f08e484bca5c76475741f14bf262ff359dd541e1f6da35fc5a9d5",
+          "bytes": 751
+        },
+        {
+          "project_relative_path": "tools/verify_context_batch_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_context_batch_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_context_batch_visuals.py",
+          "archive_path": "sources/tools/verify_context_batch_visuals.py",
+          "sha256": "92eaa22743e360a85dea04e868ba5633eb29651486231c83e49c2574c237f0ef",
+          "bytes": 3129
+        },
+        {
+          "project_relative_path": "tools/verify_debug_blueprints.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_debug_blueprints.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_debug_blueprints.py",
+          "archive_path": "sources/tools/verify_debug_blueprints.py",
+          "sha256": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+          "bytes": 22223
+        },
+        {
+          "project_relative_path": "tools/verify_debug_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_debug_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_debug_visuals.py",
+          "archive_path": "sources/tools/verify_debug_visuals.py",
+          "sha256": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+          "bytes": 14752
+        },
+        {
+          "project_relative_path": "tools/verify_dripstone_direct_seed.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_dripstone_direct_seed.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_dripstone_direct_seed.py",
+          "archive_path": "sources/tools/verify_dripstone_direct_seed.py",
+          "sha256": "52796b8e961321541b2d0889c4c61a661719fb560f803e88311c561911df2ecf",
+          "bytes": 23271
+        },
+        {
+          "project_relative_path": "tools/verify_dripstone_native_boxes.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_dripstone_native_boxes.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_dripstone_native_boxes.py",
+          "archive_path": "sources/tools/verify_dripstone_native_boxes.py",
+          "sha256": "62a0b34011d8f1e1346417d40b93a875c08e85fc8e1944e97521eadf1e448339",
+          "bytes": 18966
+        },
+        {
+          "project_relative_path": "tools/verify_dripstone_world_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_dripstone_world_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_dripstone_world_visuals.py",
+          "archive_path": "sources/tools/verify_dripstone_world_visuals.py",
+          "sha256": "eab820f7fc8fd5b40159ec1ccd6788518807d0c5c6799a368470638cc93a7790",
+          "bytes": 1718
+        },
+        {
+          "project_relative_path": "tools/verify_extended_neighbor_world_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_extended_neighbor_world_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_extended_neighbor_world_visuals.py",
+          "archive_path": "sources/tools/verify_extended_neighbor_world_visuals.py",
+          "sha256": "1307d2eac80f19cee40d066c5d328c74c302e753a2e331d26e61237c4b292fc2",
+          "bytes": 1305
+        },
+        {
+          "project_relative_path": "tools/verify_missing_neighbor_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_missing_neighbor_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_missing_neighbor_visuals.py",
+          "archive_path": "sources/tools/verify_missing_neighbor_visuals.py",
+          "sha256": "045ebd940dc4ba8b00ec7b085566edf8aee59e6f6347307761911f16cb036f67",
+          "bytes": 30814
+        },
+        {
+          "project_relative_path": "tools/verify_native_entity_appearances.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_native_entity_appearances.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_native_entity_appearances.py",
+          "archive_path": "sources/tools/verify_native_entity_appearances.py",
+          "sha256": "d2d19437e25f6b7f5362f923ea027ad70b634d6d652efe6a30b395cdc513592d",
+          "bytes": 6052
+        },
+        {
+          "project_relative_path": "tools/verify_native_sign_fields.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_native_sign_fields.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_native_sign_fields.py",
+          "archive_path": "sources/tools/verify_native_sign_fields.py",
+          "sha256": "0b205cebbd41abc01fbbee3525eddbe442d03a54b4abb39a7b39a30ada23b8b5",
+          "bytes": 9672
+        },
+        {
+          "project_relative_path": "tools/verify_neighbor_native_png.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_neighbor_native_png.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_neighbor_native_png.py",
+          "archive_path": "sources/tools/verify_neighbor_native_png.py",
+          "sha256": "276d256eb22ff9b21355a2ebc44dd440885426c211043c08ccea45ae0f0d863c",
+          "bytes": 5200
+        },
+        {
+          "project_relative_path": "tools/verify_neighbor_world_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_neighbor_world_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_neighbor_world_visuals.py",
+          "archive_path": "sources/tools/verify_neighbor_world_visuals.py",
+          "sha256": "7c948a91dd1f03dd3307b96ead989e8f3e0e2828f1ab5e0484211c5c0eb73258",
+          "bytes": 27508
+        },
+        {
+          "project_relative_path": "tools/verify_shulker_orientations.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_shulker_orientations.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_shulker_orientations.py",
+          "archive_path": "sources/tools/verify_shulker_orientations.py",
+          "sha256": "0745199a433f82adaf5cb98298bd35b0037cd5a3226268aac318ea16c6ed90d1",
+          "bytes": 28212
+        },
+        {
+          "project_relative_path": "tools/verify_sign_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_sign_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_sign_visuals.py",
+          "archive_path": "sources/tools/verify_sign_visuals.py",
+          "sha256": "efa1b1537b50b9bbe13c40e6c7f7be45d75452acf2aa584cce8925cde3d15e8b",
+          "bytes": 45220
+        },
+        {
+          "project_relative_path": "tools/verify_static_neighbor_world_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_static_neighbor_world_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_static_neighbor_world_visuals.py",
+          "archive_path": "sources/tools/verify_static_neighbor_world_visuals.py",
+          "sha256": "8a69062274617ac9741d4f63f7e813e0c776bcead0728590c41df2bb98ae0a70",
+          "bytes": 10580
+        },
+        {
+          "project_relative_path": "tools/verify_wet_actor_visuals.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\verify_wet_actor_visuals.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\verify_wet_actor_visuals.py",
+          "archive_path": "sources/tools/verify_wet_actor_visuals.py",
+          "sha256": "5e7f3a9ae6095086d0044d9b211b8fd8dd5bafc5cb6f045b5a25a484e7a1bb2e",
+          "bytes": 20184
+        },
+        {
+          "project_relative_path": "tools/visual_environment.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\tools\\visual_environment.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\sources\\tools\\visual_environment.py",
+          "archive_path": "sources/tools/visual_environment.py",
+          "sha256": "1a71b530c88dc22dc66cb9f9c68f56b2a039741c058c6a0de2ec6cb419500519",
+          "bytes": 1309
+        },
+        {
+          "project_relative_path": ".runtime/measure_near_liquid_shapes_v4b.py",
+          "derived_original_path": "D:\\bbe-r13-liquid\\.runtime\\measure_near_liquid_shapes_v4b.py",
+          "indexed_original_path": "D:\\bbe-r13-liquid\\.runtime\\measure_near_liquid_shapes_v4b.py",
+          "archive_path": "sources/.runtime/measure_near_liquid_shapes_v4b.py",
+          "sha256": "2e780e4824e9d7716f786f584215e9d7785e040a311157d5bd3fdf1d205d9da3",
+          "bytes": 3440
+        }
+      ]
+    }
+  ],
+  "source_closure_sha256": "d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342",
+  "original_input_sha256": "9733eff75b960ffef582570da4db96885a10d0b1a64a2e8c484ecb7cff3c615c",
+  "original_result_sha256": "1bff535fee35dd4d07af35e9af17455d879f617e2d376d14982943502dcea372",
+  "imported_source_sha256": {
+    "tools/analyze_liquid_native_write.py": "ccd6afb4cfbd409cc7cda9eeacf8d7c2a505770ebdf14999879022b78db7bb68",
+    "tools/analyze_liquid_workspace.py": "bcd25a3eeb909587c4f87d212585fe5ff705c2b285b36231bbbc26eff4d4a591",
+    "tools/camera_projection.py": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+    "tools/analyze_liquid_sides.py": "6cdf290e9b96151b51d4391ba63e0aff72a80078f02ecb47c3758f7947cb8a7f",
+    "behavior_pack/modern_projection/projection/__init__.py": "3b28f9eef3553006a6a6883ae7f30a0f49f41d189f18263202b80057125d4adc",
+    "behavior_pack/modern_projection/projection/cell.py": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+    "behavior_pack/modern_projection/projection/block_registry_data.py": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786",
+    "behavior_pack/modern_projection/projection/block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9",
+    "tools/capture_pure_liquid_native_controls.py": "233f2639012ecca4c81d7abee067b7edcbc5b79199bdfc07c914b0441016a64f",
+    "behavior_pack/modern_projection/projection/block_traits_data.py": "898f04631971ee61ec6ff0059d9735d376ca8af8bdb0eff6846477a642ed88e6",
+    "behavior_pack/modern_projection/projection/block_traits.py": "e272de3267a6ce764672a4aa8a880650f5fe38933192b75d69aecf9e3703dc4c",
+    "behavior_pack/modern_projection/projection/native_layers.py": "78d662eebc148ee1c620269268463427d1d2ad55377bab2a68d20a224406ddd1",
+    ".agents/skills/pyreact-debugging/scripts/_session.py": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+    ".agents/skills/pyreact-debugging/scripts/_window.py": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+    ".agents/skills/pyreact-debugging/scripts/mcdk.py": "1654750459fc71a4e9f0e0202f253b45c169eede59e2a3e059bacb7bef34798a",
+    "tools/verify_debug_blueprints.py": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+    "tools/verify_debug_visuals.py": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+    "tools/verify_missing_neighbor_visuals.py": "045ebd940dc4ba8b00ec7b085566edf8aee59e6f6347307761911f16cb036f67",
+    "tools/capture_frozen_liquid_controls.py": "01482101a84bfaa2e2d7eb4e826eea13b61c06392bc04b109a5e7a70a40a6e04",
+    "behavior_pack/modern_projection/projection/catalog.py": "08f691e66461a01ade082179bf01b578ca5fa226a5809bb6bfa652cbf65d24d0",
+    "behavior_pack/modern_projection/projection/packed.py": "7a02559573ff9dfc99d176c879062b5357c7dd9d91dc05b97bd7eec1f7adee81",
+    "behavior_pack/modern_projection/projection/storage.py": "ae82f1c80715ff35a905081889ef4e155e9d3d59f29ff6f2ccc6d83a4961354e",
+    "behavior_pack/modern_projection/projection/model.py": "1dc76b8cfac13ee2bddefd69f4e5fef8d45ae0531d59739ac57a6b2d341fbeda",
+    "behavior_pack/modern_projection/projection/nbt_spatial.py": "aac80300547ce5e99c332e8e43a83df320fca89493ef543f41c113d402f3a3fe",
+    "behavior_pack/modern_projection/projection/visible_actor.py": "06a45742aa05787c19a63757d69785a124a2241a3eb93e2637f9234d6b4880e7",
+    "behavior_pack/modern_projection/projection/block_groups.py": "25d82ed827b798cd319cab006f3df331dc3ca47a6f1b56cd15e1d30e3a70e747",
+    "behavior_pack/modern_projection/projection/native_sign_data.py": "f1c0e6c65fde69f687d79688eb5204eedf353a1de0ba17fb4392c5be0672b785",
+    "behavior_pack/modern_projection/projection/debug_sign_blueprints.py": "c01324f53add969f71333590c175d439fb8e5593f9ef3c46b898f6d099db0b46",
+    "behavior_pack/modern_projection/projection/water_interaction_data.py": "0762950329b6f48fe7feaaa3c718f8bb62ca2fc6762d8fcb77f49287ae9ae5e7",
+    "behavior_pack/modern_projection/projection/debug_water_blueprints.py": "5aa889e2cee250dc88ce5676c2be3433c5706ea3e587dce0e6f67d297f16f11e",
+    "behavior_pack/modern_projection/projection/debug_pot_blueprints.py": "2179237903d1c8e1986009cfd74c373252f686bab9657fddcf2604dc7d0653b3",
+    "behavior_pack/modern_projection/projection/debug_dripstone_blueprints.py": "00445d51d6f363fc8d24be6f26cc2d44e0ff43808a1674698a5f9b90ffe3871c",
+    "behavior_pack/modern_projection/projection/debug_snow_blueprints.py": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+    "behavior_pack/modern_projection/projection/debug_neighborhood_blueprints.py": "2199be544d04933c1152d611be296387260fe1848f20649b7f6c16893ca71874",
+    "behavior_pack/modern_projection/projection/debug_connection_blueprints.py": "00d16732c8d3a8416544461d6bf31ab69edea331736671a8caa4f87055905800",
+    "behavior_pack/modern_projection/projection/item_contents_data.py": "667996410248920efd051c88c448945fa6d7d9678ea53a8dacfcab5eef117151",
+    "behavior_pack/modern_projection/projection/debug_item_blueprints.py": "0c0cf2a94c90a7deb402836a93b48975980d2ff0b0f829a09e02f47b7227f308",
+    "behavior_pack/modern_projection/projection/debug_action_blueprints.py": "9b964ad00372a7594b18cef1ed78f1436c0c481d986f49275e2cda6546d49666",
+    "behavior_pack/modern_projection/projection/debug_botanical_blueprints.py": "6f3b7823534d0160e594b52e2902c15db1722fb437e498251800e187c2f3b283",
+    "behavior_pack/modern_projection/projection/debug_blueprints.py": "151dbda8a887beb3ab6a9331ee9dfbdeffb32770b659d765e44cd2deeaeddd3e",
+    "behavior_pack/modern_projection/projection/biomes.py": "899968dd2748847ac178d5a43a3b284de6cba6589474e2a082e4b2f17b1bf9ef",
+    "behavior_pack/modern_projection/projection/entity_defaults_data.py": "5ee014684757737c4dd78949bdfcf98b9110b2d70bb35b8cc5e3c852992b6dbf",
+    "behavior_pack/modern_projection/projection/entity_defaults.py": "26d94ace4b843dbf154dcae3c2ef3af906d8a72468656e68c0fb1517bae833e0",
+    "behavior_pack/modern_projection/projection/debug_entity_defaults.py": "2d0474548dd1cfccbed134aeaee7b80b9fa132a7e4306016a1167d15723ce1fb",
+    "behavior_pack/modern_projection/projection/water_interactions.py": "80b0987ef0bc6151549226f31c993d1e3ccf60b604da59afd06ed748f2ab1360"
+  },
+  "recomputed": {
+    "schema": 1,
+    "source": {
+      "path": "D:\\bbe-r13e-background\\docs\\evidence\\liquid-native-write-r13-v4b\\original-priority.json",
+      "sha256": "9733eff75b960ffef582570da4db96885a10d0b1a64a2e8c484ecb7cff3c615c"
+    },
+    "geometry_plan": {
+      "path": "D:\\bbe-r13e-background\\docs\\evidence\\liquid-native-write-r13-v4b\\original-priority_geometry_plan.json",
+      "sha256": "f910636c905388fabe93da3993259f3bbf915dfea6019308195bbf6664d79d5a"
+    },
+    "analyzer": {
+      "path": "C:\\Users\\Happy2018new\\AppData\\Local\\Temp\\liquid-raw-replay-mqw_2fw_\\tools\\analyze_liquid_native_write.py",
+      "sha256": "ccd6afb4cfbd409cc7cda9eeacf8d7c2a505770ebdf14999879022b78db7bb68"
+    },
+    "limits": {
+      "rgb_delta": 12,
+      "minimum_signal_pixels": 80,
+      "inset_pixels": 3,
+      "crosshair_half_extent": 20,
+      "hud_top_fraction": 0.12,
+      "hud_bottom_fraction": 0.9
+    },
+    "missing_captures": [],
+    "completed": true,
+    "restored": true,
+    "cleanup_errors": [],
+    "cases": {
+      "h_vnw": {
+        "native_palette": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 206833,
+              "bounds": [
+                601,
+                328,
+                1364,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        },
+        "native_direct": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 206833,
+              "bounds": [
+                601,
+                328,
+                1364,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        },
+        "full": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 206404,
+              "bounds": [
+                601,
+                328,
+                1364,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        }
+      },
+      "l_vnw": {
+        "native_palette": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 31168,
+              "bounds": [
+                648,
+                532,
+                1322,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        },
+        "native_direct": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 31168,
+              "bounds": [
+                648,
+                532,
+                1322,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        },
+        "full": {
+          "status": "OBSERVED",
+          "readback_or_source_gate": true,
+          "pixels": {
+            "support": {
+              "pixels": 215249,
+              "bounds": [
+                659,
+                582,
+                1313,
+                994
+              ],
+              "eligible_pixels": 215249,
+              "observed": true
+            },
+            "water_envelope": {
+              "pixels": 31302,
+              "bounds": [
+                648,
+                532,
+                1322,
+                716
+              ],
+              "eligible_pixels": 335680,
+              "observed": true
+            }
+          }
+        }
+      }
+    },
+    "native_visibility_observed": true,
+    "side_uv_qualified": false,
+    "transparency_qualified": false,
+    "animation_qualified": false,
+    "production_qualified": false,
+    "scope": "Source-derived native write visibility only; no native shape, UV, tint, alpha or animation acceptance",
+    "status": "OBSERVED"
+  },
+  "comparison": "All values identical except three output filesystem paths"
+}
