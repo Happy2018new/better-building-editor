@@ -10,13 +10,13 @@ import sys
 import time
 
 from PIL import Image, ImageStat
+from diagnose_window_dpi import physical_dpi_context as physical_window_coordinates
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'.agents/skills/pyreact-debugging/scripts'))
 from _session import load_session
 from _window import (_find_game_window, _list_windows_windows, user32,
-                     background_guard_state, foreground_policy_satisfied, user_foreground_allowed,
-                     physical_window_coordinates)
+                     background_guard_state, foreground_policy_satisfied, user_foreground_allowed)
 
 
 def sha256(path):
