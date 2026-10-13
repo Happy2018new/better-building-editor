@@ -182,6 +182,55 @@ _result=True
 '''
 ALPHA_PHASES = ((0.,'0'),(.25,'0_25'),(.45,'0_45'),(.75,'0_75'),(1.,'1'),(-1.,'default'))
 
+QUALIFICATION_PREPARE = '''import json,math,sys
+import mod.server.extraServerApi as api
+assert not hasattr(sys,'_liquid_pose_world')
+factory=api.GetEngineCompFactory()
+player=api.GetPlayerList()[0]
+dimension=factory.CreateDimension(player).GetEntityDimensionId()
+foot=factory.CreatePos(player).GetFootPos()
+assert dimension==0 and foot and len(foot)==3
+assert all(not math.isnan(value) and not math.isinf(value) for value in foot)
+assert -64<=foot[1]<320 and abs(foot[0])<=1000000 and abs(foot[2])<=1000000
+origin=(int(math.floor(foot[0]))+6,int(math.floor(foot[1]))+24,int(math.floor(foot[2]))+6)
+info=factory.CreateBlockInfo(player)
+region=[(origin[0]+x,origin[1]+y,origin[2]+z) for x in range(-2,4) for y in range(-2,4) for z in range(-2,4)]
+assert all(-64<=pos[1]<320 for pos in region)
+for pos in region:
+ front=info.GetBlockNew(pos,dimension);back=info.GetLiquidBlock(pos,dimension)
+ assert front and front.get('name')=='minecraft:air',(pos,front)
+ assert back is None or back.get('name')=='minecraft:air',(pos,back)
+sys._liquid_pose_world={'origin':origin,'region':region,'player':player,'dimension':dimension,'foot_before':foot,
+ 'workspace_cells':[]}
+assert info.SetBlockNew(origin,{'name':'minecraft:stone','aux':0},0,dimension,True,False)
+placed=info.GetBlockNew(origin,dimension)
+assert placed and placed.get('name')=='minecraft:stone',(origin,placed)
+_result=json.dumps({'origin':origin,'player':player,'dimension':dimension,'region':region,'foot':foot,
+ 'placed':placed,'reserved_native_write_readback_passed':True,'position_write_attempted':False})
+'''
+QUALIFICATION_CLEAN_WORLD = '''import json,sys
+import mod.server.extraServerApi as api
+saved=getattr(sys,'_liquid_pose_world',None)
+rows=[]
+if saved is not None:
+ info=api.GetEngineCompFactory().CreateBlockInfo(saved['player'])
+ for pos in saved['region']:
+  before=info.GetBlockNew(tuple(pos),saved['dimension'])
+  if before.get('name')!='minecraft:air':
+   assert info.SetBlockNew(tuple(pos),{'name':'minecraft:air','aux':0},0,saved['dimension'],True,False)
+  after=info.GetBlockNew(tuple(pos),saved['dimension'])
+  rows.append({'pos':pos,'after':after})
+ assert all(row['after'].get('name')=='minecraft:air' for row in rows)
+ del sys._liquid_pose_world
+_result=json.dumps({'restored':True,'rows':rows,'position_write_attempted':False})
+'''
+
+
+def guarded_cleanup(code, journal):
+    return ('import sys\nif hasattr(sys,%r):\n' % journal +
+            ''.join(' ' + line + '\n' for line in code.splitlines()) +
+            'else:\n _result=True\n')
+
 TRANSPARENCY_REGIONS = {'submerged_body':((3.43,3.2,3.5),(3.57,3.5,3.5)),
                         'behind_block':((3.10,3.2,3.5),(3.25,3.5,3.5))}
 
@@ -283,9 +332,12 @@ def main():
     parser.add_argument('--max-handles', type=int, default=280000, help='Abort and restore before the native session handle cutoff')
     parser.add_argument('--deployment-profile', action='store_true', help='Use the generated disabled deployment candidate explicitly')
     parser.add_argument('--qualification-minimal', action='store_true', help='Twelve fixed-topology alpha PNGs across Scene/full/missing')
+    parser.add_argument('--physical-readiness', type=Path, help='Passed read-only client/server feet and reserve receipt')
     args = parser.parse_args()
     if args.qualification_minimal and (not args.transparency_controls or not args.deployment_profile or args.scene_only):
         parser.error('Minimal qualification requires generated deployment plus three-route transparency controls')
+    if args.qualification_minimal and not args.physical_readiness:
+        parser.error('Minimal qualification requires passed physical world readiness')
     if args.transparency_controls and (args.case not in (None,['fence_rear']) or args.scene_controls):
         parser.error('Transparency controls require the declared fence_rear fixture and fixed camera')
     if args.transparency_controls and not args.scene_only and not args.camera_calibration:
@@ -301,6 +353,14 @@ def main():
         parser.error('The session belongs to another project')
     if not session.get('noactivation', {}).get('window_noactivate'):
         parser.error('A guarded NOACTIVATE session is required')
+    physical = None
+    if args.physical_readiness:
+        physical = json.loads(args.physical_readiness.read_bytes())
+        binding = physical.get('session_binding', {})
+        if (not all(physical.get(key) is True for key in ('passed', 'completed', 'read_only'))
+                or physical.get('world_write_attempted') or physical.get('position_write_attempted')
+                or any(binding.get(key) != session[key] for key in ('owner', 'session_file', 'game_pid', 'game_identity'))):
+            parser.error('Physical readiness must be passed and bound to the exact owned session')
     contract = json.loads(args.contract.read_bytes())
     calibration=None
     if args.camera_calibration:
@@ -324,6 +384,9 @@ def main():
                   native_shape_accepted=False, native_uv_accepted=False, native_alpha_accepted=False,
                   production_editor_accepted=False, production_world_accepted=False, production_memory_accepted=False,
                   resource_contract=contract)
+    if physical:
+        report['physical_readiness'] = {'path':str(args.physical_readiness.resolve()),
+            'sha256':hashlib.sha256(args.physical_readiness.read_bytes()).hexdigest(), 'binding':physical['session_binding']}
     archive.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(__file__,archive)
     report['probe_source'] = {'path':str(archive.resolve()),'sha256':report['probe_sha256']}
@@ -367,7 +430,7 @@ def main():
 
     with base.Client(timeout=45) as client:
         check = blueprints.BlueprintCheck(client, args.output, 45.)
-        installed = world_saved = visual_saved = patched = False
+        installed = world_saved = visual_saved = patched = environment_attempted = False
         try:
             report['measurements'].append(dict(transport.metrics(args.session, args.owner), label='before'))
             report['setup'] = check.run(blueprints.INSTALL_PROBE)
@@ -450,12 +513,15 @@ _result=json.dumps({'production_qualified':False,'deployment_candidate':True,'fr
                 check.wait('close Scene for native reference', lambda row:not row['open'] and not row['transition'], check.navigation)
                 report['visual_saved'] = check.run(visuals.SAVE_VISUAL)
                 visual_saved = True
+                environment_attempted = True
                 report['environment'] = base.run(client, base.ENVIRONMENT, True)
-                report['reservation'] = base.run(client, base.PREPARE % 'minecraft:stone', True)
                 world_saved = True
+                report['reservation'] = base.run(client, QUALIFICATION_PREPARE if args.qualification_minimal
+                                                else base.PREPARE % 'minecraft:stone', True)
                 report['cleared_seed'] = base.run(client, base.CLEAR, True)
                 report['flow_freeze'] = base.run(client, FLOW % True, True)
-                report['near_player'] = base.run(client, base.NEAR_PLAYER, True)
+                report['near_player'] = ({'position_write_attempted':False,'scope':'Original player position retained'}
+                                        if args.qualification_minimal else base.run(client, base.NEAR_PLAYER, True))
                 time.sleep(1.)
                 origin = tuple(report['reservation']['origin'])
                 document_origin = tuple(axis-3 for axis in origin)
@@ -583,9 +649,12 @@ _result=json.dumps({'production_qualified':False,'deployment_candidate':True,'fr
         finally:
             actions = [('projection', lambda:check.run('b.stop_projection()\n_result=True'))]
             if world_saved:
-                actions.extend((('native_clear', lambda:base.run(client, WRITE % native.wire([]), True)),
-                                ('flow_restore', lambda:base.run(client, FLOW % False, True)),
-                                ('world_cleanup', lambda:base.run(client, base.CLEAN_WORLD, True))))
+                actions.extend((('native_clear', lambda:base.run(client,
+                                    guarded_cleanup(WRITE % native.wire([]), '_liquid_pose_world'), True)),
+                                ('flow_restore', lambda:base.run(client,
+                                    guarded_cleanup(FLOW % False, '_liquid_pose_world'), True)),
+                                ('world_cleanup', lambda:base.run(client, QUALIFICATION_CLEAN_WORLD
+                                    if args.qualification_minimal else base.CLEAN_WORLD, True))))
             if visual_saved:
                 actions.append(('camera_restore', lambda:check.run(visuals.camera_restore_code(False))))
                 actions.append(('visual_restore', lambda:check.run('saved=sys._blueprint_visual_saved\ns.origin=saved["origin"]\n'
@@ -611,8 +680,9 @@ if hasattr(sys,'_liquid_workspace_source'):del sys._liquid_workspace_source
   else:delattr(owner,method)
  del sys._liquid_workspace_opacity_methods
 _result=True''')))
-            if report.get('environment'):
-                actions.append(('environment_restore', lambda:base.run(client, base.RESTORE_ENVIRONMENT, True)))
+            if environment_attempted:
+                actions.append(('environment_restore', lambda:base.run(client,
+                    guarded_cleanup(base.RESTORE_ENVIRONMENT, '_context_environment_saved'), True)))
             for label, action in actions:
                 try:
                     report[label] = action()
