@@ -1,0 +1,1077 @@
+{
+  "at": "2026-10-13T15:41:45.204128+00:00",
+  "is_client": false,
+  "code_sha256": "d7ffa7583b742e8d148b7902ae88a2d8487bd1f9b0bbff0b07affa6da37583a0",
+  "pixel_acceptance": false,
+  "result": {
+    "commands": [
+      [
+        "/gamerule dofiretick false",
+        true
+      ],
+      [
+        "/gamerule randomtickspeed 0",
+        true
+      ],
+      [
+        "/gamerule domobspawning false",
+        true
+      ],
+      [
+        "/time set noon",
+        true
+      ],
+      [
+        "/weather clear",
+        true
+      ]
+    ],
+    "journal_count": 373,
+    "origin": [
+      -8,
+      -60,
+      8
+    ],
+    "rows": [
+      {
+        "case": {
+          "block": "stone",
+          "id": "stone"
+        },
+        "id": "stone",
+        "local": [
+          1,
+          0,
+          1
+        ],
+        "pos": [
+          -7,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:stone"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:stone",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "water",
+          "contained": true,
+          "id": "water",
+          "states": {
+            "liquid_depth": 0
+          }
+        },
+        "id": "water",
+        "local": [
+          4,
+          0,
+          1
+        ],
+        "pos": [
+          -4,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:water"
+          },
+          "actual_states": {
+            "liquid_depth": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:water",
+          "requested_states": {
+            "liquid_depth": 0
+          },
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "flowing_water",
+          "contained": true,
+          "id": "flowing_water",
+          "states": {
+            "liquid_depth": 5
+          }
+        },
+        "id": "flowing_water",
+        "local": [
+          7,
+          0,
+          1
+        ],
+        "pos": [
+          -1,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 5,
+            "name": "minecraft:water"
+          },
+          "actual_states": {
+            "liquid_depth": 5
+          },
+          "changed": true,
+          "requested_name": "minecraft:flowing_water",
+          "requested_states": {
+            "liquid_depth": 5
+          },
+          "resolved_aux": 5
+        }
+      },
+      {
+        "case": {
+          "block": "lava",
+          "contained": true,
+          "id": "lava",
+          "states": {
+            "liquid_depth": 0
+          }
+        },
+        "id": "lava",
+        "local": [
+          10,
+          0,
+          1
+        ],
+        "pos": [
+          2,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:lava"
+          },
+          "actual_states": {
+            "liquid_depth": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:lava",
+          "requested_states": {
+            "liquid_depth": 0
+          },
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "fire",
+          "id": "fire"
+        },
+        "id": "fire",
+        "local": [
+          13,
+          0,
+          1
+        ],
+        "pos": [
+          5,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:fire"
+          },
+          "actual_states": {
+            "age": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:fire",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "background_write": true,
+        "case": {
+          "block": "oak_fence",
+          "id": "wet_fence",
+          "wet": true
+        },
+        "id": "wet_fence",
+        "local": [
+          16,
+          0,
+          1
+        ],
+        "pos": [
+          8,
+          -60,
+          9
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:oak_fence"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:oak_fence",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "base": 1,
+          "block": "standing_banner",
+          "id": "banner_plain",
+          "placement": "banner"
+        },
+        "id": "banner_plain",
+        "local": [
+          1,
+          0,
+          4
+        ],
+        "pos": [
+          -7,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "base": 4,
+          "block": "standing_banner",
+          "id": "banner_patterns",
+          "patterns": true,
+          "placement": "banner"
+        },
+        "id": "banner_patterns",
+        "local": [
+          4,
+          0,
+          4
+        ],
+        "pos": [
+          -4,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "base": 15,
+          "block": "standing_banner",
+          "id": "banner_ominous",
+          "ominous": true,
+          "placement": "banner"
+        },
+        "id": "banner_ominous",
+        "local": [
+          7,
+          0,
+          4
+        ],
+        "pos": [
+          -1,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "base": 1,
+          "block": "wall_banner",
+          "id": "wall_banner_plain",
+          "placement": "banner",
+          "wall": true
+        },
+        "id": "wall_banner_plain",
+        "local": [
+          10,
+          0,
+          4
+        ],
+        "pos": [
+          2,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "base": 4,
+          "block": "wall_banner",
+          "id": "wall_banner_patterns",
+          "patterns": true,
+          "placement": "banner",
+          "wall": true
+        },
+        "id": "wall_banner_patterns",
+        "local": [
+          13,
+          0,
+          4
+        ],
+        "pos": [
+          5,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "base": 15,
+          "block": "wall_banner",
+          "id": "wall_banner_ominous",
+          "ominous": true,
+          "placement": "banner",
+          "wall": true
+        },
+        "id": "wall_banner_ominous",
+        "local": [
+          16,
+          0,
+          4
+        ],
+        "pos": [
+          8,
+          -60,
+          12
+        ]
+      },
+      {
+        "case": {
+          "block": "standing_sign",
+          "id": "standing_sign_empty",
+          "states": {
+            "ground_sign_direction": 0
+          }
+        },
+        "id": "standing_sign_empty",
+        "local": [
+          1,
+          0,
+          7
+        ],
+        "pos": [
+          -7,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:standing_sign"
+          },
+          "actual_states": {
+            "ground_sign_direction": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:standing_sign",
+          "requested_states": {
+            "ground_sign_direction": 0
+          },
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "standing_sign",
+          "id": "standing_sign_text",
+          "sign_text": true,
+          "states": {
+            "ground_sign_direction": 0
+          }
+        },
+        "id": "standing_sign_text",
+        "local": [
+          4,
+          0,
+          7
+        ],
+        "pos": [
+          -4,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:standing_sign"
+          },
+          "actual_states": {
+            "ground_sign_direction": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:standing_sign",
+          "requested_states": {
+            "ground_sign_direction": 0
+          },
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "chest",
+          "id": "chest_empty"
+        },
+        "id": "chest_empty",
+        "local": [
+          7,
+          0,
+          7
+        ],
+        "pos": [
+          -1,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:chest"
+          },
+          "actual_states": {
+            "minecraft:cardinal_direction": "north"
+          },
+          "changed": true,
+          "requested_name": "minecraft:chest",
+          "requested_states": {},
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "chest",
+          "container_item": "diamond_sword",
+          "id": "chest_content"
+        },
+        "id": "chest_content",
+        "local": [
+          10,
+          0,
+          7
+        ],
+        "pos": [
+          2,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:chest"
+          },
+          "actual_states": {
+            "minecraft:cardinal_direction": "north"
+          },
+          "changed": true,
+          "requested_name": "minecraft:chest",
+          "requested_states": {},
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "purple_shulker_box",
+          "id": "shulker_empty"
+        },
+        "id": "shulker_empty",
+        "local": [
+          13,
+          0,
+          7
+        ],
+        "pos": [
+          5,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:purple_shulker_box"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:purple_shulker_box",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "purple_shulker_box",
+          "container_item": "diamond_sword",
+          "id": "shulker_content"
+        },
+        "id": "shulker_content",
+        "local": [
+          16,
+          0,
+          7
+        ],
+        "pos": [
+          8,
+          -60,
+          15
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:purple_shulker_box"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:purple_shulker_box",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "flower_pot",
+          "id": "pot_empty"
+        },
+        "id": "pot_empty",
+        "local": [
+          1,
+          0,
+          10
+        ],
+        "pos": [
+          -7,
+          -60,
+          18
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:flower_pot"
+          },
+          "actual_states": {
+            "update_bit": false
+          },
+          "changed": true,
+          "requested_name": "minecraft:flower_pot",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "flower_pot",
+          "id": "pot_content",
+          "use_item": "poppy"
+        },
+        "id": "pot_content",
+        "local": [
+          4,
+          0,
+          10
+        ],
+        "pos": [
+          -4,
+          -60,
+          18
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:flower_pot"
+          },
+          "actual_states": {
+            "update_bit": false
+          },
+          "changed": true,
+          "requested_name": "minecraft:flower_pot",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "frame",
+          "id": "frame_empty",
+          "placement": "frame",
+          "wall": true
+        },
+        "id": "frame_empty",
+        "local": [
+          7,
+          0,
+          10
+        ],
+        "pos": [
+          -1,
+          -60,
+          18
+        ]
+      },
+      {
+        "case": {
+          "block": "frame",
+          "id": "frame_normal_sword",
+          "placement": "frame",
+          "use_item": "diamond_sword",
+          "wall": true
+        },
+        "id": "frame_normal_sword",
+        "local": [
+          10,
+          0,
+          10
+        ],
+        "pos": [
+          2,
+          -60,
+          18
+        ]
+      },
+      {
+        "case": {
+          "block": "frame",
+          "enchanted": true,
+          "id": "frame_enchanted_sword",
+          "placement": "frame",
+          "use_item": "diamond_sword",
+          "wall": true
+        },
+        "id": "frame_enchanted_sword",
+        "local": [
+          13,
+          0,
+          10
+        ],
+        "pos": [
+          5,
+          -60,
+          18
+        ]
+      },
+      {
+        "case": {
+          "block": "cauldron",
+          "id": "cauldron_water",
+          "use_item": "water_bucket"
+        },
+        "id": "cauldron_water",
+        "local": [
+          16,
+          0,
+          10
+        ],
+        "pos": [
+          8,
+          -60,
+          18
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "actual_states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:cauldron",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "bell",
+          "id": "bell"
+        },
+        "id": "bell",
+        "local": [
+          1,
+          0,
+          13
+        ],
+        "pos": [
+          -7,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:bell"
+          },
+          "actual_states": {
+            "attachment": "standing",
+            "direction": 0,
+            "toggle_bit": false
+          },
+          "changed": true,
+          "requested_name": "minecraft:bell",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "conduit",
+          "id": "conduit"
+        },
+        "id": "conduit",
+        "local": [
+          4,
+          0,
+          13
+        ],
+        "pos": [
+          -4,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:conduit"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:conduit",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "copper_chest",
+          "id": "copper_chest_empty"
+        },
+        "id": "copper_chest_empty",
+        "local": [
+          7,
+          0,
+          13
+        ],
+        "pos": [
+          -1,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:copper_chest"
+          },
+          "actual_states": {
+            "minecraft:cardinal_direction": "north"
+          },
+          "changed": true,
+          "requested_name": "minecraft:copper_chest",
+          "requested_states": {},
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "copper_chest",
+          "container_item": "diamond_sword",
+          "id": "copper_chest_content"
+        },
+        "id": "copper_chest_content",
+        "local": [
+          10,
+          0,
+          13
+        ],
+        "pos": [
+          2,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:copper_chest"
+          },
+          "actual_states": {
+            "minecraft:cardinal_direction": "north"
+          },
+          "changed": true,
+          "requested_name": "minecraft:copper_chest",
+          "requested_states": {},
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "copper_golem_statue",
+          "id": "copper_statue"
+        },
+        "id": "copper_statue",
+        "local": [
+          13,
+          0,
+          13
+        ],
+        "pos": [
+          5,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:copper_golem_statue"
+          },
+          "actual_states": {
+            "minecraft:cardinal_direction": "south"
+          },
+          "changed": true,
+          "requested_name": "minecraft:copper_golem_statue",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "barrier",
+          "id": "barrier_negative"
+        },
+        "id": "barrier_negative",
+        "local": [
+          16,
+          0,
+          13
+        ],
+        "pos": [
+          8,
+          -60,
+          21
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:barrier"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:barrier",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "wall_sign",
+          "id": "wall_sign_empty",
+          "states": {
+            "facing_direction": 2
+          },
+          "wall": true
+        },
+        "id": "wall_sign_empty",
+        "local": [
+          1,
+          0,
+          16
+        ],
+        "pos": [
+          -7,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:wall_sign"
+          },
+          "actual_states": {
+            "facing_direction": 2
+          },
+          "changed": true,
+          "requested_name": "minecraft:wall_sign",
+          "requested_states": {
+            "facing_direction": 2
+          },
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "wall_sign",
+          "id": "wall_sign_text",
+          "sign_text": true,
+          "states": {
+            "facing_direction": 2
+          },
+          "wall": true
+        },
+        "id": "wall_sign_text",
+        "local": [
+          4,
+          0,
+          16
+        ],
+        "pos": [
+          -4,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:wall_sign"
+          },
+          "actual_states": {
+            "facing_direction": 2
+          },
+          "changed": true,
+          "requested_name": "minecraft:wall_sign",
+          "requested_states": {
+            "facing_direction": 2
+          },
+          "resolved_aux": 2
+        }
+      },
+      {
+        "case": {
+          "block": "oak_hanging_sign",
+          "id": "hanging_sign_empty",
+          "overhead": true
+        },
+        "id": "hanging_sign_empty",
+        "local": [
+          7,
+          0,
+          16
+        ],
+        "pos": [
+          -1,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:oak_hanging_sign"
+          },
+          "actual_states": {
+            "attached_bit": false,
+            "facing_direction": 0,
+            "ground_sign_direction": 0,
+            "hanging": false
+          },
+          "changed": true,
+          "requested_name": "minecraft:oak_hanging_sign",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "oak_hanging_sign",
+          "id": "hanging_sign_text",
+          "overhead": true,
+          "sign_text": true
+        },
+        "id": "hanging_sign_text",
+        "local": [
+          10,
+          0,
+          16
+        ],
+        "pos": [
+          2,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:oak_hanging_sign"
+          },
+          "actual_states": {
+            "attached_bit": false,
+            "facing_direction": 0,
+            "ground_sign_direction": 0,
+            "hanging": false
+          },
+          "changed": true,
+          "requested_name": "minecraft:oak_hanging_sign",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "cauldron",
+          "id": "cauldron_empty"
+        },
+        "id": "cauldron_empty",
+        "local": [
+          13,
+          0,
+          16
+        ],
+        "pos": [
+          5,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "actual_states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          },
+          "changed": true,
+          "requested_name": "minecraft:cauldron",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      },
+      {
+        "case": {
+          "block": "oak_fence",
+          "id": "dry_fence"
+        },
+        "id": "dry_fence",
+        "local": [
+          16,
+          0,
+          16
+        ],
+        "pos": [
+          8,
+          -60,
+          24
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:oak_fence"
+          },
+          "actual_states": {},
+          "changed": true,
+          "requested_name": "minecraft:oak_fence",
+          "requested_states": {},
+          "resolved_aux": 0
+        }
+      }
+    ]
+  }
+}

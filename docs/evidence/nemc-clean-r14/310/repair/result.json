@@ -1,0 +1,149 @@
+{
+  "at": "2026-10-13T15:49:44.132244+00:00",
+  "is_client": false,
+  "code_sha256": "6a381ce830a20bf1fd5e101c2ec418101da3816d169de29610e4068254e6a94d",
+  "pixel_acceptance": false,
+  "result": {
+    "inventory_restored": true,
+    "rows": [
+      {
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:water"
+        },
+        "changed": true,
+        "id": "flowing_water",
+        "nbt": null,
+        "states": {
+          "liquid_depth": 8
+        }
+      },
+      {
+        "actual": {
+          "aux": 10,
+          "name": "minecraft:standing_banner"
+        },
+        "changed": true,
+        "id": "banner_patterns",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            }
+          ],
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "states": {
+          "ground_sign_direction": 10
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "changed": true,
+        "id": "wall_banner_patterns",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            }
+          ],
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "states": {
+          "facing_direction": 2
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1966 @@
+{
+  "at": "2026-10-13T15:56:13.480116+00:00",
+  "is_client": false,
+  "code_sha256": "a7f367c9f590c45aa49c693941a3c6c3233509a2f770d0699aaca03c7b779fd5",
+  "pixel_acceptance": false,
+  "result": {
+    "modern_projection_modules": [],
+    "origin": [
+      -8,
+      -60,
+      8
+    ],
+    "rows": [
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:stone"
+        },
+        "id": "stone",
+        "nbt": null,
+        "pos": [
+          -7,
+          -60,
+          9
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:water"
+        },
+        "id": "water",
+        "nbt": null,
+        "pos": [
+          -4,
+          -60,
+          9
+        ],
+        "states": {
+          "liquid_depth": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:water"
+        },
+        "id": "flowing_water",
+        "nbt": null,
+        "pos": [
+          -1,
+          -60,
+          9
+        ],
+        "states": {
+          "liquid_depth": 8
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:lava"
+        },
+        "id": "lava",
+        "nbt": null,
+        "pos": [
+          2,
+          -60,
+          9
+        ],
+        "states": {
+          "liquid_depth": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:fire"
+        },
+        "id": "fire",
+        "nbt": null,
+        "pos": [
+          5,
+          -60,
+          9
+        ],
+        "states": {
+          "age": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:oak_fence"
+        },
+        "id": "wet_fence",
+        "nbt": null,
+        "pos": [
+          8,
+          -60,
+          9
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "id": "banner_plain",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -7
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          -7,
+          -60,
+          12
+        ],
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "id": "banner_patterns",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            }
+          ],
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          -4,
+          -60,
+          12
+        ],
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "actual": {
+          "aux": 8,
+          "name": "minecraft:standing_banner"
+        },
+        "id": "banner_ominous",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 15
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          -1,
+          -60,
+          12
+        ],
+        "states": {
+          "ground_sign_direction": 8
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "id": "wall_banner_plain",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          2,
+          -60,
+          12
+        ],
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "id": "wall_banner_patterns",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 4
+          },
+          "Patterns": [
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 1
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "bs"
+              }
+            },
+            {
+              "Color": {
+                "__type__": 3,
+                "__value__": 14
+              },
+              "Pattern": {
+                "__type__": 8,
+                "__value__": "ts"
+              }
+            }
+          ],
+          "Type": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          5,
+          -60,
+          12
+        ],
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_banner"
+        },
+        "id": "wall_banner_ominous",
+        "nbt": {
+          "Base": {
+            "__type__": 3,
+            "__value__": 15
+          },
+          "Type": {
+            "__type__": 3,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Banner"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 12
+          }
+        },
+        "pos": [
+          8,
+          -60,
+          12
+        ],
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:standing_sign"
+        },
+        "id": "standing_sign_empty",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Sign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -7
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          -7,
+          -60,
+          15
+        ],
+        "states": {
+          "ground_sign_direction": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:standing_sign"
+        },
+        "id": "standing_sign_text",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16711936
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE BACK\nOTHER SIDE"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -65536
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE FRONT\nNBT TEXT"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Sign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          -4,
+          -60,
+          15
+        ],
+        "states": {
+          "ground_sign_direction": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:chest"
+        },
+        "id": "chest_empty",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [],
+          "id": {
+            "__type__": 8,
+            "__value__": "Chest"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          -1,
+          -60,
+          15
+        ],
+        "states": {
+          "minecraft:cardinal_direction": "north"
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:chest"
+        },
+        "id": "chest_content",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [
+            {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              },
+              "Slot": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              }
+            }
+          ],
+          "id": {
+            "__type__": 8,
+            "__value__": "Chest"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          2,
+          -60,
+          15
+        ],
+        "states": {
+          "minecraft:cardinal_direction": "north"
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:purple_shulker_box"
+        },
+        "id": "shulker_empty",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [],
+          "facing": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ShulkerBox"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          5,
+          -60,
+          15
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:purple_shulker_box"
+        },
+        "id": "shulker_content",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [
+            {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              },
+              "Slot": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              }
+            }
+          ],
+          "facing": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ShulkerBox"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 15
+          }
+        },
+        "pos": [
+          8,
+          -60,
+          15
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:flower_pot"
+        },
+        "id": "pot_empty",
+        "nbt": {
+          "id": {
+            "__type__": 8,
+            "__value__": "FlowerPot"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -7
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          -7,
+          -60,
+          18
+        ],
+        "states": {
+          "update_bit": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 1,
+          "name": "minecraft:flower_pot"
+        },
+        "id": "pot_content",
+        "nbt": {
+          "PlantBlock": {
+            "name": {
+              "__type__": 8,
+              "__value__": "minecraft:poppy"
+            },
+            "states": {},
+            "val": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "version": {
+              "__type__": 3,
+              "__value__": 18168865
+            }
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "FlowerPot"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          -4,
+          -60,
+          18
+        ],
+        "states": {
+          "update_bit": true
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        },
+        "id": "frame_empty",
+        "nbt": {
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          -1,
+          -60,
+          18
+        ],
+        "states": {
+          "facing_direction": 2,
+          "item_frame_map_bit": false,
+          "item_frame_photo_bit": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        },
+        "id": "frame_normal_sword",
+        "nbt": {
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          2,
+          -60,
+          18
+        ],
+        "states": {
+          "facing_direction": 2,
+          "item_frame_map_bit": false,
+          "item_frame_photo_bit": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        },
+        "id": "frame_enchanted_sword",
+        "nbt": {
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "id": {
+                    "__type__": {
+                      "__repr__": "2",
+                      "__type__": "int"
+                    },
+                    "__value__": {
+                      "__repr__": "9",
+                      "__type__": "int"
+                    }
+                  },
+                  "lvl": {
+                    "__type__": {
+                      "__repr__": "2",
+                      "__type__": "int"
+                    },
+                    "__value__": {
+                      "__repr__": "1",
+                      "__type__": "int"
+                    }
+                  },
+                  "modEnchant": {
+                    "__type__": {
+                      "__repr__": "8",
+                      "__type__": "int"
+                    },
+                    "__value__": {
+                      "__repr__": "''",
+                      "__type__": "str"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          5,
+          -60,
+          18
+        ],
+        "states": {
+          "facing_direction": 2,
+          "item_frame_map_bit": false,
+          "item_frame_photo_bit": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 6,
+          "name": "minecraft:cauldron"
+        },
+        "id": "cauldron_water",
+        "nbt": {
+          "Items": [],
+          "PotionId": {
+            "__type__": 2,
+            "__value__": -1
+          },
+          "PotionType": {
+            "__type__": 2,
+            "__value__": -1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Cauldron"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 8
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 18
+          }
+        },
+        "pos": [
+          8,
+          -60,
+          18
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 6
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:bell"
+        },
+        "id": "bell",
+        "nbt": {
+          "Direction": {
+            "__type__": 3,
+            "__value__": 255
+          },
+          "Ringing": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Ticks": {
+            "__type__": 3,
+            "__value__": 13
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Bell"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -7
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 21
+          }
+        },
+        "pos": [
+          -7,
+          -60,
+          21
+        ],
+        "states": {
+          "attachment": "standing",
+          "direction": 0,
+          "toggle_bit": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:conduit"
+        },
+        "id": "conduit",
+        "nbt": {
+          "Active": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Target": {
+            "__type__": 4,
+            "__value__": -1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Conduit"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 21
+          }
+        },
+        "pos": [
+          -4,
+          -60,
+          21
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:copper_chest"
+        },
+        "id": "copper_chest_empty",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [],
+          "id": {
+            "__type__": 8,
+            "__value__": "Chest"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 21
+          }
+        },
+        "pos": [
+          -1,
+          -60,
+          21
+        ],
+        "states": {
+          "minecraft:cardinal_direction": "north"
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:copper_chest"
+        },
+        "id": "copper_chest_content",
+        "nbt": {
+          "Findable": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsIgnoreShuffle": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "IsOpened": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "Items": [
+            {
+              "Count": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "Damage": {
+                "__type__": 2,
+                "__value__": 0
+              },
+              "Name": {
+                "__type__": 8,
+                "__value__": "minecraft:diamond_sword"
+              },
+              "Slot": {
+                "__type__": 1,
+                "__value__": 0
+              },
+              "WasPickedUp": {
+                "__type__": 1,
+                "__value__": 0
+              }
+            }
+          ],
+          "id": {
+            "__type__": 8,
+            "__value__": "Chest"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 21
+          }
+        },
+        "pos": [
+          2,
+          -60,
+          21
+        ],
+        "states": {
+          "minecraft:cardinal_direction": "north"
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:copper_golem_statue"
+        },
+        "id": "copper_statue",
+        "nbt": {
+          "Actor": {
+            "ActorIdentifier": {
+              "__type__": 8,
+              "__value__": "minecraft:copper_golem<>"
+            },
+            "SaveData": {}
+          },
+          "Pose": {
+            "__type__": 3,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "CopperGolemStatue"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 21
+          }
+        },
+        "pos": [
+          5,
+          -60,
+          21
+        ],
+        "states": {
+          "minecraft:cardinal_direction": "south"
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:barrier"
+        },
+        "id": "barrier_negative",
+        "nbt": null,
+        "pos": [
+          8,
+          -60,
+          21
+        ],
+        "states": {}
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_sign"
+        },
+        "id": "wall_sign_empty",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Sign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -7
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 24
+          }
+        },
+        "pos": [
+          -7,
+          -60,
+          24
+        ],
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "actual": {
+          "aux": 2,
+          "name": "minecraft:wall_sign"
+        },
+        "id": "wall_sign_text",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16711936
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE BACK\nOTHER SIDE"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -65536
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE FRONT\nNBT TEXT"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Sign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -4
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 24
+          }
+        },
+        "pos": [
+          -4,
+          -60,
+          24
+        ],
+        "states": {
+          "facing_direction": 2
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:oak_hanging_sign"
+        },
+        "id": "hanging_sign_empty",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16777216
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "HangingSign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": -1
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 24
+          }
+        },
+        "pos": [
+          -1,
+          -60,
+          24
+        ],
+        "states": {
+          "attached_bit": false,
+          "facing_direction": 0,
+          "ground_sign_direction": 0,
+          "hanging": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:oak_hanging_sign"
+        },
+        "id": "hanging_sign_text",
+        "nbt": {
+          "BackText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -16711936
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE BACK\nOTHER SIDE"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "FrontText": {
+            "FilteredText": {
+              "__type__": 8,
+              "__value__": ""
+            },
+            "HideGlowOutline": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "IgnoreLighting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "PersistFormatting": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "SignTextColor": {
+              "__type__": 3,
+              "__value__": -65536
+            },
+            "Text": {
+              "__type__": 8,
+              "__value__": "NATIVE FRONT\nNBT TEXT"
+            },
+            "TextOwner": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          },
+          "IsWaxed": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "HangingSign"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 2
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 24
+          }
+        },
+        "pos": [
+          2,
+          -60,
+          24
+        ],
+        "states": {
+          "attached_bit": false,
+          "facing_direction": 0,
+          "ground_sign_direction": 0,
+          "hanging": false
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:cauldron"
+        },
+        "id": "cauldron_empty",
+        "nbt": {
+          "Items": [],
+          "PotionId": {
+            "__type__": 2,
+            "__value__": -1
+          },
+          "PotionType": {
+            "__type__": 2,
+            "__value__": -1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "Cauldron"
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 5
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -60
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": 24
+          }
+        },
+        "pos": [
+          5,
+          -60,
+          24
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 0
+        }
+      },
+      {
+        "actual": {
+          "aux": 0,
+          "name": "minecraft:oak_fence"
+        },
+        "id": "dry_fence",
+        "nbt": null,
+        "pos": [
+          8,
+          -60,
+          24
+        ],
+        "states": {}
+      }
+    ],
+    "runtime": "1.21.120.0"
+  }
+}
