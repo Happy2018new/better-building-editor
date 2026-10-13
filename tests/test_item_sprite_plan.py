@@ -14,6 +14,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'behavior_pack/modern_projection'))
 sys.path.insert(0,str(ROOT/'tools'))
+sys.path.insert(0,str(ROOT/'tests'))
 from projection.cell import make_cell
 from projection.item_sprite_plan import (iter_render_steps, sprite_content, validate_uniforms,
                                          with_preview_distance, WORLD_TAG)
@@ -22,8 +23,8 @@ from projection.item_sprite_render import SkeletonItemRenderer, WorldItemRendere
 from projection.item_sprite_projection import ItemProjection, projection_plan
 from projection.item_sprite_preview import ItemPreview
 from projection.model import Document
-from test_static_frame_items import actor, frame
-from test_liquid_render import Doll, Model, Runtime
+from tests.test_static_frame_items import actor, frame
+from tests.test_liquid_render import Doll, Model, Runtime
 import generate_flat_item_proxies as flat
 import generate_item_sprite_resources as resources
 
@@ -114,6 +115,21 @@ class ItemPlanTests(unittest.TestCase):
             targets={'volume':volume,'common':{frame():indices}}
             with self.assertRaises(ValueError):
                 projection_plan(doc,candidate_profile(),targets,lambda pos:True,.5)
+
+    def test_non_frame_and_hidden_cells_yield_before_scanning_the_complete_document(self):
+        class CountingStore(object):
+            def __init__(self):self.reads=0
+            def items(self):
+                for x in range(4096):
+                    self.reads+=1
+                    yield (x,0,0),('minecraft:stone',0)
+        for visible in (None,lambda pos:False):
+            store=CountingStore()
+            iterator=iter_render_steps(SimpleNamespace(blocks=store),candidate_profile(),visible)
+            self.assertIsNone(next(iterator))
+            self.assertEqual(1,store.reads)
+            for unused in range(63):self.assertIsNone(next(iterator))
+            self.assertEqual(64,store.reads)
 
 
 class ItemLifetimeTests(unittest.TestCase):

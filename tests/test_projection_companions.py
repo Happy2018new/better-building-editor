@@ -6,15 +6,24 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'behavior_pack/modern_projection'))
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 from projection.cell import make_cell
 from projection.item_sprite_projection import ItemProjection
 from projection.item_sprite_profile import candidate_profile
 from projection.liquid_projection import LiquidProjection
+from projection.liquid_render_plan import LiquidSurface
 from projection.projection_companions import ProjectionCompanions
 from projection.model import Document
-from test_liquid_render import Runtime
-from test_liquid_projection import profile
-from test_static_frame_items import actor,frame
+from tests.test_liquid_render import Runtime
+from tests.test_static_frame_items import actor,frame
+
+
+def water_profile():
+    provider=SimpleNamespace(surface=lambda document,pos,layer,value:
+                             LiquidSurface(pos,layer,(.5,)*4,63,'still_water_grey'))
+    return SimpleNamespace(provider_factory=lambda document:provider,max_groups=16,
+        world_models={('still_water_grey',None):'registered_world_water'},
+        world_scale=(16.,)*3,world_rotation=(0.,180.,0.))
 
 
 class CompanionTests(unittest.TestCase):
@@ -23,7 +32,7 @@ class CompanionTests(unittest.TestCase):
         self.runtime.session=SimpleNamespace(opacity=.5)
         self.document=Document((2,1,1),{(0,0,0):make_cell(frame(),('minecraft:water',0),actor()),
                                         (1,0,0):make_cell(frame(),nbt=actor(45.))})
-        self.water=LiquidProjection(self.runtime,self.document,(10,64,20),profile([]),0)
+        self.water=LiquidProjection(self.runtime,self.document,(10,64,20),water_profile(),0)
         self.items=ItemProjection(self.runtime,self.document,(10,64,20),candidate_profile(),0)
         self.bundle=ProjectionCompanions((self.water,self.items))
         self.time=0.

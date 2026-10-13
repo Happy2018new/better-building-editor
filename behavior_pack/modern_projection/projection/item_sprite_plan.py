@@ -87,6 +87,7 @@ def iter_render_steps(document, profile, visible=None, world=False, opacity=1.):
         raise ValueError('Item projection opacity must be between zero and one')
     groups = {}
     for position, cell in document.blocks.items():
+        yield None
         if visible is not None and not visible(position):
             continue
         material = foreground(cell)
@@ -97,7 +98,6 @@ def iter_render_steps(document, profile, visible=None, world=False, opacity=1.):
             item, facing, rotation, enchanted = content
             origin = tuple(axis // 4 * 4 for axis in position)
             groups.setdefault((origin, item), []).append((position, facing, rotation, enchanted))
-        yield None
     count = 0
     for (origin, item), rows in sorted(groups.items()):
         for start in range(0, len(rows), SLOTS):
