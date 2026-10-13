@@ -101,8 +101,10 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
         check.run("navigator.pop()\n_result=True")
         check.wait('closed editor',lambda value:not value['open'] and not value['transition'],check.navigation)
         check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
+            "from modern_projection.projection.debug_item_blueprints import VISUAL_CASE\n"
             "center=tuple(s.origin[axis]+s.editor.document.size[axis]*.5 for axis in range(3))\n"
-            "camera_pos=(center[0],center[1]+6.,center[2]-28.)\n"
+            "offset=VISUAL_CASE['camera']['world_offset']\n"
+            "camera_pos=tuple(center[axis]+offset[axis] for axis in range(3))\n"
             "rotation=api.GetRotFromDir(tuple(center[axis]-camera_pos[axis] for axis in range(3)))\n"
             "cam.SetCameraPos(camera_pos)\ncam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))\n_result=True")
         time.sleep(1.)
@@ -208,6 +210,13 @@ def main(with_world=False):
             check.run('from modern_projection.projection.item_sprite_profile import candidate_profile\n'
                       's.item_profile=candidate_profile()\n_result=True')
             def native_capture(label, tree=None):
+                if label=='test_entities_item_contents':
+                    expected_pose=check.run('from modern_projection.projection.debug_item_blueprints import VISUAL_CASE\n'
+                              's.camera_view(*VISUAL_CASE["camera"]["editor"])\n'
+                              '_result=VISUAL_CASE["camera"]["editor"]')
+                    check.wait('source-facing camera',lambda pose:len(pose)==len(expected_pose) and
+                        all(abs(a-b)<.0001 for a,b in zip(pose,expected_pose)),
+                        lambda:check.run('_result=s.camera_pose'))
                 state=check.wait('item controls '+label,lambda value:value['plan_ready'] and
                                  not value['pending'] and not value['error'],lambda:check.run(STATE))
                 save(label+'.state.json',state)

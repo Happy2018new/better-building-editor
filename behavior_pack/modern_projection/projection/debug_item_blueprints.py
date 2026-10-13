@@ -25,6 +25,7 @@ PAIRS = (
 VISUAL_CASE = {
     'schema': SCHEMA_VERSION, 'fixture': IDENTITY, 'pairs': PAIRS,
     'modes': ('editor', 'full', 'missing'),
+    'camera': {'editor': (180., 20., 1.6), 'world_offset': (0., 6., -28.)},
     'minimum_temporal_frames': 3,
     'source_kind': 'Native inventory-enchanted swords inserted by block interaction',
     'native_enchanted_payload_verified': True,
