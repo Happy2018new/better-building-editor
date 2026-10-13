@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "scope": "Probe fix plus exactly one failed noactivation startup with recovery; no new native image evidence",
+  "plan": {
+    "runtime_path": "D:\\liquid-r12-followup\\.runtime\\liquid-native-write-r12-v12\\plan.json",
+    "sha256": "2b2b5a95e3f3cfc3b84d7c359f7fe82eb5b7bda723a114b77d9e61b41d92df17"
+  },
+  "baseline_commit": "ec2e25a0f21b1f953af08b9136e3a65dd67f1072",
+  "candidate_commit": "708da5570b99cfc80cab9ca54cb6c507e602c418",
+  "runtime_files_frozen": 1370,
+  "host_files_frozen": 1251,
+  "capture_schedule": {
+    "preflight_png_count": 1,
+    "stone_png_count": 6,
+    "empty_native_png_count": 1,
+    "palette_native_png_count": 2,
+    "direct_native_png_count": 2,
+    "full_projection_png_count": 2,
+    "total_native_png_count": 14,
+    "sources": [
+      "water_depth_0_foreground",
+      "water_depth_3_foreground"
+    ],
+    "view": "vnw",
+    "same_cells_camera_readbacks_required": true,
+    "minimum_low_side_pixels": 24,
+    "write_routes": [
+      "WorldAdapter.write palette",
+      "SetBlockNew isLegacy=True updateNeighbors=False"
+    ],
+    "direct_only_front_stone_water_air_background_no_actor": true,
+    "two_actual_render_events_after_each_write": true,
+    "full_wait_reads_preserved": true,
+    "two_actual_render_events_after_full_project": true
+  },
+  "limits": {
+    "startup_seconds": 180,
+    "launch_work_seconds": 180,
+    "startup_phase_guard_outer_seconds": 240,
+    "end_to_end_from_exact_game_creation_seconds": 300,
+    "pre_creation_fallback_end_to_end_seconds": 240,
+    "ready_budget_origin": "full actual UiInit + stable feet + reserved-area gate completion",
+    "ready_outer_formula": "min(actual-world-ready+150, exact-game-creation+300)",
+    "insufficient_full150_reservation": "read-only rejection before first fixture or WGC",
+    "budget_change_basis": "V9d measured signal times 8.157/7.936/7.407s plus repeated extraction; repeated live extraction now removed",
+    "ready_normal_seconds": 120,
+    "ready_fixture_cleanup_seconds": 132,
+    "ready_outer_seconds": 150,
+    "priority_rpc_seconds": 3,
+    "normal_owner_stop_seconds": 6,
+    "exact_force_wait_seconds_each": 1,
+    "native_capture_helper_seconds": 15,
+    "single_cold_launch": true,
+    "absolute_handles_cap": 100000,
+    "passive_interval_seconds": 5,
+    "post_ready_growth_stop_minimum_delta": 2500,
+    "post_ready_growth_intervals": 3,
+    "startup_and_actual_world_wait_growth_observation_only": true,
+    "growth_stop_enabled_after_actual_world_gate": true
+  },
+  "camera_settle": {
+    "predeclared_sdk_yaw_adjustments": [
+      180.0,
+      0.0
+    ],
+    "actual_render_events_after_request_minimum": 2,
+    "stable_readbacks_required": 2,
+    "actual_GetForward_to_target_cosine_exclusive_minimum": 0.99,
+    "declaration_uses_settled_actual_camera": true,
+    "capture_reapplies_pose_and_requires_same_frozen_actual_camera": true,
+    "failed_capture_before_state_persisted_before_assert": true,
+    "observer_removed_in_cleanup": true,
+    "position_geometry_pixel_thresholds_changed": false
+  },
+  "probe": {
+    "path": "tools/probe_liquid_original_sides.py",
+    "sha256": "28aad1405c04e47fe1ff7f04adb410a8a79556b21eaa279ad66c09ff6e76cbb1"
+  },
+  "tests": {
+    "path": "tests/test_liquid_original_probe_state.py",
+    "sha256": "688c2494faf038b8253fa7ea27edc67034ddead497fd4abf0f82705f7bd65df9"
+  },
+  "native_evidence": false,
+  "native_visibility_hypothesis_proven": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "native_run_dispatched": true,
+  "launch_attempt_count": 1
+}

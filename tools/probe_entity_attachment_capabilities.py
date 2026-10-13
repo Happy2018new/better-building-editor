@@ -3,6 +3,12 @@
 Uses public appearance blueprint payloads without editing them. Native API
 return values and actual pixels are separate observations. Production editor,
 world projection placement, and native-world block parity are not accepted.
+
+--skeleton-model replaces only the owned anchor's client model. A rejected
+SetModel result stops before mounting the UI or binding an item, and the raw
+result is preserved for cleanup. A valid model ID is an SDK acknowledgement;
+the visible body and attachment still require independent pixel controls.
+See probe_entity_attachment_capabilities.md for the next ordinary-sword route.
 """
 # pylint: disable=unexpected-keyword-arg,E1123
 import argparse
@@ -185,6 +191,13 @@ def camera_restored(result):
             all(before[key] == after[key] for key in ('pitch_lock', 'yaw_lock')))
 
 
+def validate_skeleton_setup(result, model_name):
+    identity = result.get('model_id') if isinstance(result, dict) else None
+    if (not isinstance(result, dict) or result.get('model') != model_name or
+            type(identity) is not int or identity < 0):
+        raise ValueError('Owned anchor SetModel failed: %r' % result)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--session', required=True)
@@ -229,6 +242,8 @@ saved['skeleton_model']=%r
 saved['skeleton_id']=factory.CreateModel(saved['entities']['anchor']).SetModel(saved['skeleton_model'])
 _result=json.dumps({'model':saved['skeleton_model'],'model_id':saved['skeleton_id']})
 ''' % args.skeleton_model)
+                record()
+                validate_skeleton_setup(report['skeleton_setup'], args.skeleton_model)
             record()
             report['ui_setup'] = base.run(client, OPEN_UI)
             deadline = time.monotonic() + 15.

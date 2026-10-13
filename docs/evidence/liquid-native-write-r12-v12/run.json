@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "completed": false,
+  "passed": false,
+  "phase_receipts": {},
+  "owner": "liquid-r12-native-write-v12",
+  "scope": "One hypothesis: palette readback without native terrain visibility; H/L NW palette/direct/full diagnostic only",
+  "plan_sha256": "2b2b5a95e3f3cfc3b84d7c359f7fe82eb5b7bda723a114b77d9e61b41d92df17",
+  "capacity_receipt_sha256": "9b119d8171f00edc5948e7017799cfd6d7734c7e0ee94ffc097f9764e4094c47",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791863231.7217827,
+  "startup_deadline_unix": 1791863411.7217827,
+  "outer_deadline_unix": 1791863531.7217827,
+  "error": "RuntimeError: Single cold launch failed; preserve failure and do not retry",
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 22.16947340965271
+}

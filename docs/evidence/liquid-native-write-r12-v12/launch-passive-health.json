@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": false,
+  "read_only_monitor": true,
+  "owner": "liquid-r12-native-write-v12",
+  "timeout_seconds": 180.0,
+  "outer_deadline_unix": 1791863466.3973444,
+  "samples": [],
+  "failure": "RuntimeError: Owned game creation identity changed",
+  "observed_session": {
+    "id": "1a237d2368d44787a2497ccc50488703",
+    "owner": "liquid-r12-native-write-v12",
+    "project": "D:\\liquid-r12-followup",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\session.json",
+    "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata",
+    "port": 59897,
+    "mcp_url": "http://127.0.0.1:59897/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+    "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+    "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+    "game_pid": 48412,
+    "game_identity": "134363368317217820",
+    "mcdk_pid": 36652,
+    "mcdk_identity": "134363368315048054"
+  },
+  "persistence_errors": [],
+  "startup": true,
+  "growth_enabled": false,
+  "child_pid": 9272,
+  "started_at": 1791863226.4393587,
+  "returncode": 1,
+  "resource_failure_cleanup": {
+    "authorized": true,
+    "force_used": false,
+    "pinned_binding": {
+      "id": "1a237d2368d44787a2497ccc50488703",
+      "owner": "liquid-r12-native-write-v12",
+      "project": "D:\\liquid-r12-followup",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\session.json",
+      "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata",
+      "port": 59897,
+      "mcp_url": "http://127.0.0.1:59897/mcp",
+      "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+      "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+      "game_pid": 48412,
+      "game_identity": "134363368317217820",
+      "mcdk_pid": 36652,
+      "mcdk_identity": "134363368315048054"
+    },
+    "outer_deadline_unix": 1791863466.3973444,
+    "attempts": [],
+    "identities_before": {
+      "game": null,
+      "mcdk": null
+    },
+    "identities_after": {
+      "game": null,
+      "mcdk": null
+    },
+    "passed": true,
+    "finished_at": 1791863250.6450315,
+    "outer_deadline_met": true
+  },
+  "finished_at": 1791863250.646926
+}

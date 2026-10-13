@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "id": "1a237d2368d44787a2497ccc50488703",
+  "name": "liquid-r12-native-write-v12",
+  "owner": "liquid-r12-native-write-v12",
+  "project": "D:\\liquid-r12-followup",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\session.json",
+  "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\artifacts",
+  "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata",
+  "log": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\mcdk.log",
+  "state": "failed",
+  "created_at": 1791863226.6102352,
+  "ready": false,
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 8392184,
+      "pid": 48412,
+      "process": "Minecraft.Windows.exe",
+      "identity": "134363368317217820",
+      "title": "(1994, 1105) Minecraft",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 8392184,
+        "pid": 48412,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": false,
+    "window_noactivate": true
+  },
+  "mcp_url": "http://127.0.0.1:59897/mcp",
+  "port": 59897,
+  "world": "PYR_1a237d2368d44787a2497ccc50488703",
+  "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+  "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+  "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\1a237d2368d44787a2497ccc50488703\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_1a237d2368d44787a2497ccc50488703",
+  "foreground_before": {
+    "hwnd": 118294788,
+    "pid": 55632,
+    "process": "msedge.exe",
+    "identity": "134362941428603019",
+    "title": "Black Pixel 和另外 2 个页面 - 个人 - Microsoft​ Edge",
+    "visible": true,
+    "minimized": false
+  },
+  "mcdk_pid": 36652,
+  "mcdk_identity": "134363368315048054",
+  "discovery_observations": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 7.437,
+      "children": [
+        48412
+      ],
+      "listeners": [
+        36652
+      ]
+    }
+  ],
+  "game_pid": 48412,
+  "game_identity": "134363368317217820",
+  "startup_endpoint_discovered": true,
+  "error": "Owned game violated the noactivation window contract",
+  "foreground_after": {
+    "hwnd": 66242,
+    "pid": 16652,
+    "process": "explorer.exe",
+    "identity": "134359988678614630",
+    "title": "",
+    "visible": true,
+    "minimized": false
+  },
+  "foreground_before_still_valid": true,
+  "foreground_unchanged": false
+}

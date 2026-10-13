@@ -225,6 +225,18 @@ def validate(spec, native=None):
                     raise ValueError('Installed native plant alpha metadata changed: '+name)
 
 
+def centered_cross_model(spec, identifier, texture_key):
+    """Reuse the centered cross template at unit height without an X/Z shift."""
+    model = deepcopy(spec['template'])
+    for bone in model['netease:block_geometry']['bones']:
+        bone['pivot'][1] = 8
+        for cube in bone['cubes']:
+            cube['size'][1] = 16
+    model['netease:block_geometry']['description'].update(
+        identifier=identifier, textures=[texture_key], item_texture=texture_key)
+    return model
+
+
 def outputs(spec):
     blocks_path = ROOT/'resource_pack/blocks.json'
     atlas_path = ROOT/'resource_pack/textures/terrain_texture.json'
@@ -248,13 +260,7 @@ def outputs(spec):
         identifier = 'modern_projection:preview_'+name
         filename = 'preview_'+name+'.json'
         key = 'modern_projection_static_'+name
-        model = deepcopy(spec['template'])
-        for bone in model['netease:block_geometry']['bones']:
-            bone['pivot'][1] = 8
-            for cube in bone['cubes']:
-                cube['size'][1] = 16
-        description = model['netease:block_geometry']['description']
-        description.update(identifier=identifier, textures=[key], item_texture=key)
+        model = centered_cross_model(spec, identifier, key)
         definition = behavior(identifier, 'alpha')
         definition['minecraft:block']['components'].update({
             'netease:water_source': {'value': True}, 'netease:water_flow_source': {'value': True}})

@@ -80,3 +80,7 @@ tools/data/snow-h0-four-state-plan-r12-v1e/** -text -diff
 tools/data/snow-h0-native-r12-v1e-result/** -text -diff
 tools/data/snow-h0-four-state-plan-r12-v1f/** -text -diff
 tools/data/snow-h0-native-r12-v1f-result/** -text -diff
+# Preserve original R11 evidence bytes and centered diagnostic artifacts.
+tools/data/plant-position-native-evidence-r11-v*.json -text
+tools/data/centered-plant-candidate-r12-v1/** -text
+tools/data/centered-plant-continuation-r12-v1/** -text

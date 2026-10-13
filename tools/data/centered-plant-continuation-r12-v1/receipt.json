@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-13T03:48:43.632466+00:00",
+  "status": "offline_candidate_only_no_native_run",
+  "production_acceptance": false,
+  "position_fidelity_accepted": false,
+  "new_game_launches": 0,
+  "new_game_images": 0,
+  "new_desktop_input": 0,
+  "new_fixture_camera_player_mutations": 0,
+  "decision": "No complete reviewed candidate launch freeze by 11:42 Asia/Shanghai; retain candidate and tests",
+  "candidate_index": {
+    "path": "tools/data/centered-plant-candidate-r12-v1/index.json",
+    "sha256": "a9925b6d7a960f1002baadc0ee35bc730d236b047cf95652b338d6861947d375"
+  },
+  "baseline_references": {
+    "index.json": {
+      "path": "tools/data/snow-h0-native-r12-v1f-result/index.json",
+      "sha256": "5f9234781b4e0fb28e6a90756524a4c7bd6427f3f32a4cb0a40443a833e179f3",
+      "bytes": 18760,
+      "baseline_commit": "ae473ceb7b5cfed08878095b9521e8711e9a1117"
+    },
+    "post-cleanup-verification.json": {
+      "path": "tools/data/snow-h0-native-r12-v1f-result/post-cleanup-verification.json",
+      "sha256": "ef6f12a966d2800b3764c9b27c7cd6f1c7df4db979e919e47ccfd0e65f0eb9a4",
+      "bytes": 1649,
+      "baseline_commit": "ae473ceb7b5cfed08878095b9521e8711e9a1117"
+    },
+    "run/visual-inspection.json": {
+      "path": "tools/data/snow-h0-native-r12-v1f-result/run/visual-inspection.json",
+      "sha256": "22bb4231f59d69e6ed086d49d27ebe128ce81c5c41b45d9bc33f950104d72e68",
+      "bytes": 8855,
+      "baseline_commit": "ae473ceb7b5cfed08878095b9521e8711e9a1117"
+    }
+  },
+  "existing_session_reinspection": {
+    "id": "fea09f3d993142c1b1f4aa4e2263516b",
+    "owner": "snow-r12-h0-native",
+    "historical_registration": "ready",
+    "game_pid": 12648,
+    "game_identity": "134363320620951138",
+    "mcdk_pid": 20832,
+    "mcdk_identity": "134363320618934992",
+    "inspection": {
+      "alive": {},
+      "mismatch": []
+    },
+    "stop_required": false
+  },
+  "unchanged_prior_v1f_pixels": {
+    "native_plant": 12370,
+    "projection_plant": 0,
+    "native_snow": 25956,
+    "projection_snow": 25846,
+    "native_covered_minus_snow": 10344,
+    "projection_covered_minus_snow": 0
+  },
+  "review": {
+    "runtime_routes": "plant_position,render_context",
+    "files": 2,
+    "parse_ok": 2,
+    "findings": 0,
+    "host_scripts": "Excluded by MOD-only MCP scanner; source reviewed with focused tests"
+  },
+  "native_mesh_authority_recovered": false,
+  "accepted_scope_unchanged": {
+    "positive_states": 29,
+    "height_observations": 232,
+    "actual_negative_states": 8
+  }
+}

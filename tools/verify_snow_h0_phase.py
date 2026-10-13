@@ -262,6 +262,36 @@ else:_result=json.dumps({'removed':True,'installation_not_observed':True})
 '''
 
 
+PLANT_PROFILE_RESTORE = '''from modern_projection.projection.plant_position import POSITION_PLANT_PROXIES
+if hasattr(sys,'_snow_h0_plant_profiles'):
+ POSITION_PLANT_PROXIES.clear()
+ POSITION_PLANT_PROXIES.update(sys._snow_h0_plant_profiles)
+ del sys._snow_h0_plant_profiles
+_result=json.dumps({'default_empty':not POSITION_PLANT_PROXIES,'journal_absent':not hasattr(sys,'_snow_h0_plant_profiles')})
+'''
+
+
+def candidate_profile_install_code(candidate):
+    if candidate is None:
+        return None
+    if (candidate.get('identifier') != 'modern_projection:diagnostic_centered_poppy' or
+            candidate.get('alpha_top_height') != .6875 or
+            candidate.get('production_default_enabled') is not False or
+            candidate.get('xz_translation') != [0., 0.] or
+            candidate.get('unit_cross_height') != 1. or
+            candidate.get('geometry_fit_allowed') is not False or
+            candidate.get('native_random_offset_applied') is not False):
+        raise ValueError('Unsupported diagnostic plant candidate contract')
+    return '''from modern_projection.projection.plant_position import POSITION_PLANT_PROXIES
+assert not POSITION_PLANT_PROXIES, 'Default plant profiles must stay empty'
+assert not hasattr(sys,'_snow_h0_plant_profiles')
+sys._snow_h0_plant_profiles=dict(POSITION_PLANT_PROXIES)
+POSITION_PLANT_PROXIES[('minecraft:poppy',0)]=lambda position:(%r,.6875)
+_result=json.dumps({'installed':True,'default_before':False,'identifier':%r,
+ 'xz_translation':[0.,0.],'native_random_offset_applied':False,'production_acceptance':False})
+''' % (candidate['identifier'], candidate['identifier'])
+
+
 def run_phase(plan, host, session, output, work_deadline, restore_deadline, health):
     output = Path(output)
     receipt = output / 'h0-phase.json'
@@ -372,6 +402,7 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
         return path
 
     try:
+        candidate_install = candidate_profile_install_code(plan.get('plant_candidate'))
         client = BoundedClient(timeout=3)
         client.__enter__()
         result['preflight'] = run(preflight_code, True)
@@ -379,6 +410,9 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
         mutation_attempted = result['mutation_attempted'] = True
         save(receipt, result)
         run(blueprint['INSTALL_PROBE'])
+        if candidate_install is not None:
+            result['plant_candidate'] = run(candidate_install)
+            save(receipt, result)
         visual_saved = run(visual['SAVE_VISUAL'] + '''sys._blueprint_visual_saved['fov']=cam.GetFov()
 _result=json.dumps(sys._blueprint_visual_saved)
 ''')
@@ -539,6 +573,10 @@ _result=True
                 if not status['part_scales'] or any(scale != [1.,1.,1.] for scale in status['part_scales']):
                     raise AssertionError(('Projection part scale is not the declared unit scale',status))
                 submitted = run(visual['PROJECTION_SOURCE'])
+                journal['actual_native_palettes'] = run('''_result=json.dumps([row for row in sys._blueprint_qa_records
+ if row['nonce']==sys._blueprint_qa_nonce and row['editor_id']==id(s.editor)
+ and row['document_id']==id(s.editor.document)])
+''')
                 journal.update(status_before_capture=status, source_before_capture=submitted)
                 save(receipt, result)
                 if not (submitted['work_current'] and submitted['cache_current'] and submitted['origin_current'] and
@@ -600,6 +638,11 @@ else:_result=json.dumps([])
             try:
                 stage_deadline = min(restore_deadline, host.now() + 5.)
                 restore = '''b.stop_projection()
+if hasattr(sys,'_snow_h0_plant_profiles'):
+ from modern_projection.projection.plant_position import POSITION_PLANT_PROXIES
+ POSITION_PLANT_PROXIES.clear()
+ POSITION_PLANT_PROXIES.update(sys._snow_h0_plant_profiles)
+ del sys._snow_h0_plant_profiles
 if hasattr(sys,'_blueprint_visual_saved'):
  saved=sys._blueprint_visual_saved
  s.origin=saved['origin']
@@ -667,6 +710,13 @@ _result=True
 ''')
                     except Exception as error:
                         result['cleanup_errors'].append('Render observer cleanup: ' + str(error))
+                if plan.get('plant_candidate') is not None:
+                    try:
+                        result['plant_candidate_restored'] = run(PLANT_PROFILE_RESTORE)
+                        if result['plant_candidate_restored'] != {'default_empty': True, 'journal_absent': True}:
+                            raise AssertionError('Diagnostic plant profile restoration failed')
+                    except Exception as error:
+                        result['cleanup_errors'].append('Plant candidate profile cleanup: ' + str(error))
         if client is not None:
             client.close()
         for key, previous in environment.items():

@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "observed_at_unix": 1791863210.8067853,
+  "owner": "liquid-r12-native-write-v12",
+  "project": "D:\\liquid-r12-followup",
+  "baseline_commit": "ec2e25a0f21b1f953af08b9136e3a65dd67f1072",
+  "candidate_commit": "708da5570b99cfc80cab9ca54cb6c507e602c418",
+  "same_owner_or_project_sessions": [],
+  "launch_attempt_exists": false,
+  "temporary_configuration_exists": false,
+  "native_run_dispatched": false,
+  "native_png_count": 0,
+  "reason": "First freeze check passed at 11:39; full render QA fix check passed at 11:42:03. Conditional dispatch clock read 11:45:00, after the final 11:44 launch cutoff.",
+  "offline_tests": {
+    "passed": true,
+    "count": 3,
+    "command": "python -m unittest discover -s tests -p test_liquid_original_probe_state.py -v"
+  },
+  "QA_passed": true,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "native_visibility_hypothesis_proven": false
+}
