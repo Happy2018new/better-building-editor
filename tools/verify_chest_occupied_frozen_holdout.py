@@ -138,10 +138,23 @@ def restoration_matches(baseline, observed):
             all(baseline[key] == observed[key] for key in ('can_fly', 'flying')))
 
 
+def occupancy_plan(cells, half):
+    if half not in ('main', 'sub') or len(cells) != 2 or cells[0] == cells[1]:
+        raise ValueError('Choose main or sub on a two-cell double chest')
+    occupied_index = 0 if half == 'main' else 1
+    remaining_index = 1 - occupied_index
+    focuses = ((1, 1, 1), (2, 1, 1))
+    return {'half': half, 'occupied_world': tuple(cells[occupied_index]),
+            'remaining_world': tuple(cells[remaining_index]),
+            'remaining_focus': focuses[remaining_index], 'focuses': focuses,
+            'expected': tuple(2 if index == occupied_index else 1 for index in range(2))}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('--case-limit', type=int, choices=(1, 2), default=2)
+    parser.add_argument('--occupied-half', choices=('main', 'sub'), default='sub')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh evidence directory')
@@ -156,7 +169,8 @@ def main():
     frozen = {'schema': 1, 'production': production, 'tools': tools, 'config': config, 'limits': LIMITS,
               'world_signal_roi': [.38, .38, .62, .62],
               'checked_out_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-              'scope': 'Real stone sub-half occupancy in missing projection; preserve logical main/sub double context; dynamic, initial and recovery',
+              'scope': 'Real stone %s-half occupancy in missing projection; preserve logical main/sub double context; dynamic, initial and recovery' % args.occupied_half,
+              'occupied_half': args.occupied_half,
               'oracle': 'Native full double restricted to remaining target bounds from independent stone cube before chest frames; real single/composite diagnostics separately'}
     args.output.mkdir(parents=True)
     write_json(args.output/'frozen_source.json', frozen)
@@ -191,7 +205,10 @@ def main():
                     (config['native_background'], editor.material(config['native_background']['material'])))
                 target = tuple(report['native_setup']['target'])
                 cells = (target, (target[0]+1, target[1], target[2]))
-                calibration = report['calibration'] = {'placement': native.server_run(client, editor.CUBE)}
+                plan = report['occupancy_plan'] = occupancy_plan(cells, args.occupied_half)
+                calibration_code = editor.CUBE.replace("target=tuple(saved['target'])",
+                                                      'target=%r' % (plan['remaining_world'],))
+                calibration = report['calibration'] = {'placement': native.server_run(client, calibration_code)}
                 pose = report['declared_pose'] = declared_pose(check, cells, config)
                 time.sleep(1.)
                 calibration['shown'] = public.capture_at(check, 'cube_remaining_target', pose)
@@ -224,20 +241,20 @@ def main():
                     check.run(native.PROJECT.replace('s.projection_missing=False', 's.projection_missing=True'))
                     check.run('sys._entity_visual_r8_document=s.editor.document.to_data()\n'
                               'sys._entity_visual_r8_history=(len(s.editor.undo_stack),len(s.editor.redo_stack))\n_result=True')
-                    focuses = ((1, 1, 1), (2, 1, 1))
+                    focuses = plan['focuses']
                     row['unoccupied_state'] = settled(check, focuses, (1, 1))
                     unoccupied = visibility_pair(check, label+'_unoccupied', focuses[0], pose)
                     row['unoccupied'] = unoccupied
                     positive = editor.extract(unoccupied['screenshot']['path'], unoccupied['hidden_screenshot']['path'], crop,
                                               args.output/(label+'_projection_double_signal.png'))
                     row['positive_comparison'] = comparison(double, positive)
-                    row['reservation'] = execute(client, occupied.RESERVE % (cells[1],)); flags.add('occupied')
+                    row['reservation'] = execute(client, occupied.RESERVE % (plan['occupied_world'],)); flags.add('occupied')
                     row['stone_write'] = execute(client, occupied.WRITE % 'minecraft:stone')
                     for phase in ('dynamic', 'initial'):
                         if phase == 'initial':
                             check.run('b.stop_projection()\nb.project()\n_result=True')
-                        row[phase+'_state'] = settled(check, focuses, (1, 2))
-                        pair = visibility_pair(check, label+'_'+phase, focuses[0], pose)
+                        row[phase+'_state'] = settled(check, focuses, plan['expected'])
+                        pair = visibility_pair(check, label+'_'+phase, plan['remaining_focus'], pose)
                         row[phase] = pair
                         fragment = editor.extract(pair['screenshot']['path'], pair['hidden_screenshot']['path'], half_crop,
                                                   args.output/(label+'_'+phase+'_half_signal.png'))
@@ -256,7 +273,9 @@ def main():
                     row['native_single'] = public.capture_at(check, label+'_native_single', pose)
                     native.server_run(client, native.CLEAR); time.sleep(.5)
                     row['native_single_empty'] = public.capture_at(check, label+'_native_single_empty', pose)
-                    single = editor.extract(row['native_single']['path'], row['native_single_empty']['path'], half_crop,
+                    # Native single is always at the first cell, including when the
+                    # second cell was the earlier logical-half acceptance target.
+                    single = editor.extract(row['native_single']['path'], row['native_single_empty']['path'], crop,
                                             args.output/(label+'_native_single_signal.png'))
                     row['native_single_signal'] = single[2]
                     row['single_versus_logical_half_diagnostic'] = comparison(single, native_half)
