@@ -141,6 +141,7 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
 
 
 def main(with_world=False):
+    os.environ['MCDEV_ALLOW_USER_FOREGROUND']='1'
     OUTPUT.mkdir(parents=True, exist_ok=False)
     for path, expected in PINS.items():
         if sha(path)!=expected:
@@ -154,6 +155,7 @@ def main(with_world=False):
     config_path.write_text(json.dumps(config,indent=2)+'\n',encoding='ascii')
     config_sha=sha(config_path)
     report={'schema':1,'completed':False,'background_only':True,'fixture':'test.entities.item_contents',
+            'user_foreground_allowed':True,'agent_activation_allowed':False,
             'launches':0,'cleanup_errors':[],'captures':[],'checks':[],
             'production_qualified':False,'pins':{str(p):h for p,h in PINS.items()},
             'source':subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True).stdout.strip()}
@@ -173,8 +175,6 @@ def main(with_world=False):
         report['capacity']=active
         if len(active)>=5:
             raise RuntimeError('No active-game slot available')
-        if _window.foreground_snapshot()['process'].lower().startswith('minecraft'):
-            raise RuntimeError('A game is already foreground')
         command=[sys.executable,'-X','utf8',str(SCRIPTS/'instances.py'),'start','--project',str(ROOT),
                  '--owner',OWNER,'--name',OWNER,'--preset','ui','--wait','120','--mcdk',str(MCDK),
                  '--noactivate-dll',str(GUARD),'--noactivate-sha256',PINS[GUARD],
@@ -189,9 +189,11 @@ def main(with_world=False):
                 session=find_session()
                 if session and session.get('game_pid'):
                     guard=_window.background_guard_state(session['game_pid'],Path(session['game_executable']).name)
+                    guard['identity_matches']=bool(session.get('game_identity') and
+                        _session.process_identity(session['game_pid'])==session['game_identity'])
                     report['checks'].append({'seconds':time.monotonic()-started,'guard':guard})
                     save('report.json',report)
-                    if not guard['background_safe'] or guard['windows'] and not guard['window_noactivate']:
+                    if not guard['identity_matches'] or guard['windows'] and not guard['window_noactivate']:
                         raise RuntimeError('Background startup guard failed')
                 time.sleep(.5)
             if launcher.poll() is None:
