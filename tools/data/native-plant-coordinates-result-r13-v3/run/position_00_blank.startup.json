@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": true,
+  "reliable": true,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-13T07:05:28.399563+00:00",
+  "timeout_seconds": 4.983031999960076,
+  "output": "D:\\bbe-r13-snow\\.runtime\\native-plant-positions-r13-v3\\run\\position_00_blank.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b4a74d36e5c43369d64d80acd3a04a6\\session.json",
+    "sha256": "6827bee86de3436cf15da5f8bc35446c8013c6d4a742a2fb740c864e4dd35326",
+    "bytes": 29493
+  },
+  "session_id": "0b4a74d36e5c43369d64d80acd3a04a6",
+  "owner": "snow-r13-centered-native",
+  "project": "D:\\bbe-r13-snow",
+  "state_before": "ready",
+  "helper": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "processes_before": {
+    "mcdk": {
+      "pid": 7940,
+      "identity": "134363486309359218",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 61716,
+      "identity": "134363486311636280",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "ipc_port": {
+    "port": 55435,
+    "log_sha256": "bd0add99e647e54c9442d238cd2a32101f455b7b5be618d97474593d139218bd",
+    "log_bytes": 185176,
+    "actual_child_environment_recorded": false,
+    "source": "MCDK listener log; not a game getenv observation"
+  },
+  "tcp": {
+    "ipv4_rows": [
+      {
+        "state": 2,
+        "pid": 7940,
+        "local_address": "127.0.0.1",
+        "local_port": 55435,
+        "remote_address": "0.0.0.0",
+        "remote_port": 0
+      },
+      {
+        "state": 5,
+        "pid": 7940,
+        "local_address": "127.0.0.1",
+        "local_port": 55435,
+        "remote_address": "127.0.0.1",
+        "remote_port": 57021
+      },
+      {
+        "state": 5,
+        "pid": 61716,
+        "local_address": "127.0.0.1",
+        "local_port": 57021,
+        "remote_address": "127.0.0.1",
+        "remote_port": 55435
+      }
+    ],
+    "owned_listener_observed": true,
+    "owned_established_pair_observed": true,
+    "passive_table_only": true,
+    "private_ipc_connection_attempted": false,
+    "limits": "An OS established pair is not an SDK-ready result; polling can miss transient connections."
+  },
+  "guard_before": {
+    "foreground": {
+      "hwnd": 34802164,
+      "pid": 46908,
+      "process": "ShellHost.exe",
+      "identity": "134363419314736789",
+      "title": "\u5feb\u901f\u8bbe\u7f6e",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 81595808,
+        "pid": 61716,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "window": {
+    "hwnd": 81595808,
+    "pid": 61716,
+    "process": "Minecraft.Windows.exe",
+    "title": "(1994, 1105) Minecraft",
+    "x": 283,
+    "y": 264,
+    "width": 1994,
+    "height": 1105,
+    "minimized": false,
+    "noactivate": true
+  },
+  "helper_returncode": 0,
+  "helper_stdout": "{\"ok\":true,\"backend\":\"Windows.Graphics.Capture\",\"native_resolution\":true,\"request_qpc_100ns\":3499156225791,\"frame_qpc_100ns\":3499156337656,\"width\":1994,\"height\":1105}\n",
+  "helper_stderr": "",
+  "manifest_after": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\0b4a74d36e5c43369d64d80acd3a04a6\\session.json",
+    "sha256": "6827bee86de3436cf15da5f8bc35446c8013c6d4a742a2fb740c864e4dd35326",
+    "bytes": 29493
+  },
+  "processes_after": {
+    "mcdk": {
+      "pid": 7940,
+      "identity": "134363486309359218",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 61716,
+      "identity": "134363486311636280",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "state_after": "ready",
+  "guard_after": {
+    "foreground": {
+      "hwnd": 34802164,
+      "pid": 46908,
+      "process": "ShellHost.exe",
+      "identity": "134363419314736789",
+      "title": "\u5feb\u901f\u8bbe\u7f6e",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 81595808,
+        "pid": 61716,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "frame": {
+    "ok": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "request_qpc_100ns": 3499156225791,
+    "frame_qpc_100ns": 3499156337656,
+    "width": 1994,
+    "height": 1105
+  },
+  "pixels": {
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      1698.2398800800672,
+      2763.355430734956,
+      10305.674984338451
+    ],
+    "sha256": "8ebd33b9f198f7929615c551c3bad3b028cfd152d00a1264d525f1ea0efbcd9d",
+    "bytes": 905899
+  },
+  "finished_at": "2026-10-13T07:05:29.661618+00:00",
+  "elapsed_seconds": 1.262071700009983
+}
