@@ -16,6 +16,9 @@ from mcdk import Client, return_value
 import _session, _window
 from capture_native_window import capture
 from verify_debug_blueprints import BlueprintCheck, INSTALL_PROBE, RESTORE
+from item_sprite_capture_contract import snapshot_sources, snapshot_digest
+from item_sprite_calibration import calibrate
+from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
 
 OWNER = 'item-product-r14-v1'
 OUTPUT = ROOT/'.runtime'/OWNER
@@ -32,10 +35,21 @@ _result=json.dumps({'groups':len(items.groups) if items else None,
  'pending':controls.pending if controls else None,
  'error':str((items.error if items else '') or (controls.error if controls else '') or s.item_error),
  'enabled':s.item_profile is not None,'blocks':len(s.editor.document.blocks),
+ 'camera_pose':s.camera_pose,'camera_pan':s.camera_pan,'camera_depth':s.camera_depth_pose,
+ 'screen_size':b.factory.CreateGame(b.level).GetScreenSize(),
+ 'groups_data':[{'key':repr(group.key),'origin':group.origin,'model':group.model_name,
+  'uniforms':group.uniforms} for group in items.groups.values()] if items else [],
  'banks':[{'key':repr(key),'front':entry['renderer'].front,
   'ids':entry['renderer'].ids,'visible':entry['renderer'].visible,
-  'uniforms':entry['renderer'].uniforms} for key,entry in controls.registry.items()
+  'uniforms':entry['renderer'].uniforms,'poses':entry['renderer'].poses,
+  'doll_positions':[ref.current.GetGlobalPosition() for ref in entry['dolls']],
+  'doll_sizes':[ref.current.GetSize() for ref in entry['dolls']]}
+  for key,entry in controls.registry.items()
   if entry.get('renderer')] if controls else []})
+'''
+CAMERA = '''cam=b.factory.CreateCamera(b.level)
+_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()})
 '''
 
 
@@ -79,6 +93,9 @@ item_owners=[item for item in owners if item.__class__.__name__=='ItemProjection
 _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_entity),
  'groups':sum(len(item.renderer.active) for item in item_owners),
  'slots':sum(int(row['group'].uniforms[3][1]) for item in item_owners for row in item.renderer.active.values()),
+ 'origin':s.origin,'groups_data':[{'key':repr(row['group'].key),'origin':row['group'].origin,
+  'uniforms':row['group'].uniforms,'anchor':row['anchor'],'visible':row['visible']}
+  for item in item_owners for row in item.renderer.active.values()],
  'error':str(companion.error or companion.renderer.error) if companion and (companion.error or companion.renderer.error) else '',
  'occupied':list(b.projection_occupancy.state) if b.projection_occupancy else None,
  'pending_pair':bool(b.projection_occupancy and b.projection_occupancy.pending_pair)})
@@ -88,8 +105,12 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
                          and value['slots']==expected_slots and not value['error'] and not value['pending_pair'],
                          lambda:check.run(state_source))
         save(label+'.state.json',state)
+        camera_before=check.run(CAMERA)
         image=capture(session['session_file'],OWNER,OUTPUT/(label+'.png'),WGC)
-        report['captures'].append({'label':label,'capture':image,'state':state})
+        camera_after=check.run(CAMERA)
+        report['captures'].append({'label':label,'capture':image,'state':state,
+            'camera_before':camera_before,'camera_after':camera_after,
+            'camera_expected':report['world_camera']})
         save('report.json',report)
         return state
     try:
@@ -100,17 +121,28 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
                    and value['slots']==4 and not value['error'],lambda:check.run(state_source))
         check.run("navigator.pop()\n_result=True")
         check.wait('closed editor',lambda value:not value['open'] and not value['transition'],check.navigation)
-        check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
+        report['world_camera']=check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
             "from modern_projection.projection.debug_item_blueprints import VISUAL_CASE\n"
             "center=tuple(s.origin[axis]+s.editor.document.size[axis]*.5 for axis in range(3))\n"
             "offset=VISUAL_CASE['camera']['world_offset']\n"
             "camera_pos=tuple(center[axis]+offset[axis] for axis in range(3))\n"
             "rotation=api.GetRotFromDir(tuple(center[axis]-camera_pos[axis] for axis in range(3)))\n"
-            "cam.SetCameraPos(camera_pos)\ncam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))\n_result=True")
+            "cam.SetCameraPos(camera_pos)\ncam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))\n"
+            "_result={'position':camera_pos,'target':center,'rotation':(rotation[0],rotation[1]+180.,0.),"
+            "'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()}")
         time.sleep(1.)
         for index in range(3):
             time.sleep(.8)
             sample('world_full_'+str(index),4)
+        check.run("companion=b.projection_liquid\nowners=getattr(companion,'companions',(companion,))\n"
+            "items=[item for item in owners if item.__class__.__name__=='ItemProjection']\n"
+            "assert len(items)==1\nassert not hasattr(sys,'_item_world_qa_muted')\n"
+            "sys._item_world_qa_muted=items[0]\nassert items[0].renderer.set_visible(False)\n_result=True")
+        try:
+            sample('world_full_items_hidden',4)
+        finally:
+            check.run("assert sys._item_world_qa_muted.renderer.set_visible(True)\n"
+                      "del sys._item_world_qa_muted\n_result=True")
         check.run('b.toggle_missing()\n_result=True')
         sample('world_missing_air',4)
         server("from modern_projection.projection.cell import AIR\n"
@@ -140,12 +172,16 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
         save('report.json',report)
 
 
-def main(with_world=False):
+def main(with_world=False, camera_calibration=None):
     os.environ['MCDEV_ALLOW_USER_FOREGROUND']='1'
     OUTPUT.mkdir(parents=True, exist_ok=False)
     for path, expected in PINS.items():
         if sha(path)!=expected:
             raise ValueError('Background startup pin changed: '+str(path))
+    calibration = ({'path':str(camera_calibration.resolve()), 'sha256':sha(camera_calibration),
+                    'data':json.loads(camera_calibration.read_bytes())}
+                   if camera_calibration is not None else None)
+    inputs=snapshot_sources(ROOT)
     config_path=ROOT/'.mcdev.json'
     if config_path.exists():
         raise ValueError('Worktree launch config must be absent')
@@ -154,14 +190,19 @@ def main(with_world=False):
             'auto_hot_reload_materials':False,'auto_hot_reload_shaders':False}
     config_path.write_text(json.dumps(config,indent=2)+'\n',encoding='ascii')
     config_sha=sha(config_path)
-    report={'schema':1,'completed':False,'background_only':True,'fixture':'test.entities.item_contents',
+    report={'schema':2,'completed':False,'background_only':False,'fixture':'test.entities.item_contents',
             'user_foreground_allowed':True,'agent_activation_allowed':False,
+            'foreground_policy':'allow_user_foreground','guarded_no_activation':True,
+            'world_requested':with_world,
             'launches':0,'cleanup_errors':[],'captures':[],'checks':[],
             'production_qualified':False,'pins':{str(p):h for p,h in PINS.items()},
+            'launch_inputs':inputs,'launch_inputs_sha256':snapshot_digest(inputs),
             'source':subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True).stdout.strip()}
+    if calibration is not None:
+        report['camera_calibration']=calibration
     started=time.monotonic()
     launcher=session=None
-    installed=False
+    installed=environment_saved=False
     try:
         capacity_cmd="@(Get-CimInstance Win32_Process -Filter \"Name='Minecraft.Windows.exe'\" | Select-Object ProcessId,ThreadCount,HandleCount,VirtualSize,KernelModeTime,UserModeTime)|ConvertTo-Json -Compress"
         census=subprocess.run(['powershell.exe','-NoProfile','-Command',capacity_cmd],capture_output=True,
@@ -209,8 +250,19 @@ def main(with_world=False):
                 client.call('execute_code',{'code':"import mod.client.extraClientApi as api\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\n_result=owner is not None and owner.session is not None\n",'is_client':True,'direct_return':True})))
             check.run(INSTALL_PROBE)
             installed=True
+            report['environment']=run_environment(client,SETUP_ENVIRONMENT)
+            environment_saved=True
             check.run('from modern_projection.projection.item_sprite_profile import candidate_profile\n'
+                      'assert not hasattr(sys,"_item_product_saved_profile")\n'
+                      'sys._item_product_saved_profile=s.item_profile\n'
                       's.item_profile=candidate_profile()\n_result=True')
+            if with_world:
+                calibrated=calibrate(check,session,OWNER,OUTPUT,WGC,save)
+                calibration_path=OUTPUT/'camera.json'
+                report['camera_calibration']={'path':str(calibration_path.resolve()),
+                    'sha256':sha(calibration_path),'data':calibrated}
+                if calibrated['cleanup_errors']:
+                    raise RuntimeError('Independent camera cleanup failed')
             def native_capture(label, tree=None):
                 if label=='test_entities_item_contents':
                     expected_pose=check.run('from modern_projection.projection.debug_item_blueprints import VISUAL_CASE\n'
@@ -225,15 +277,29 @@ def main(with_world=False):
                 if tree is not None:
                     save(label+'.tree.json',tree)
                 result=capture(session['session_file'],OWNER,OUTPUT/(label+'.png'),WGC)
-                report['captures'].append({'label':label,'capture':result,'state':state})
+                after=check.run(STATE)
+                report['captures'].append({'label':label,'capture':result,'state':state,'state_after':after})
                 save('report.json',report)
                 return result
             check.capture=native_capture
             check.page()
-            report['fixture']=check.fixture('test.entities.item_contents')
+            report['fixture_state']=check.fixture('test.entities.item_contents')
             for index in range(3):
                 time.sleep(.8)
                 native_capture('editor_temporal_'+str(index))
+            check.run("assert not hasattr(sys,'_item_qa_muted')\n"
+                "sys._item_qa_muted=(s.item_controls,s.item_controls.closed,"
+                "[(entry['renderer'],tuple(entry['renderer'].visible)) for entry in s.item_controls.registry.values()])\n"
+                "s.item_controls.closed=True\n"
+                "for renderer,visible in sys._item_qa_muted[2]:\n"
+                " for slot in (0,1):renderer._show(slot,False)\n_result=True")
+            try:
+                native_capture('editor_items_hidden')
+            finally:
+                check.run("controls,closed,rows=sys._item_qa_muted\n"
+                    "for renderer,visible in rows:\n"
+                    " for slot in (0,1):renderer._show(slot,visible[slot])\n"
+                    "controls.closed=closed\ndel sys._item_qa_muted\n_result=True")
             check.run("from modern_projection.projection.cell import AIR\n"
                       "from modern_projection.projection.native_appearance import FRAME_NAMES\n"
                       "from modern_projection.projection.cell import foreground\n"
@@ -257,7 +323,11 @@ def main(with_world=False):
             if installed:
                 check.run(RESTORE)
                 installed=False
-                check.run('s.item_profile=None\nnavigator.pop()\n_result=True')
+                check.run('s.item_profile=sys._item_product_saved_profile\n'
+                          'del sys._item_product_saved_profile\nnavigator.pop()\n_result=True')
+            if environment_saved:
+                report['environment_restored']=run_environment(client,RESTORE_ENVIRONMENT)
+                environment_saved=False
     except Exception as error:
         report['error']=type(error).__name__+': '+str(error)
     finally:
@@ -288,6 +358,8 @@ def main(with_world=False):
         else:
             report['cleanup_errors'].append('Worktree configuration changed; cleanup refused')
         report['elapsed_seconds']=time.monotonic()-started
+        report['inputs_after']=snapshot_sources(ROOT)
+        report['source_unchanged']=report['launch_inputs']==report['inputs_after']
         save('report.json',report)
     print(json.dumps({k:report.get(k) for k in ('completed','error','elapsed_seconds','cleanup_errors')},ensure_ascii=True))
     return 0 if report['completed'] else 1
@@ -297,9 +369,11 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id',default='v1')
     parser.add_argument('--world',action='store_true',help='Also test full/missing projection and one restored occupied cell')
+    parser.add_argument('--camera-calibration',type=Path,
+                        help='Independent world camera calibration required by pixel scoring')
     args=parser.parse_args()
     if not args.run_id or any(char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for char in args.run_id):
         parser.error('run-id must contain only ASCII letters, numbers, hyphens or underscores')
     OWNER='item-product-r14-'+args.run_id
     OUTPUT=ROOT/'.runtime'/OWNER
-    sys.exit(main(args.world))
+    sys.exit(main(args.world,args.camera_calibration))
