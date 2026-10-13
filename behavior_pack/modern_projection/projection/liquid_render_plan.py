@@ -177,6 +177,7 @@ def iter_group_steps(document, shape_provider, targets=None, visible=None):
     """
     requests = _document_requests(document) if targets is None else _target_requests(document, targets)
     pending, appearance = {}, {}
+    coincident = {} if getattr(shape_provider, 'coalesce_coincident_layers', False) else None
 
     def group(key, surfaces):
         origin, texture, unused_template = key
@@ -194,6 +195,15 @@ def iter_group_steps(document, shape_provider, targets=None, visible=None):
         if visible is not None and not visible(pos):
             continue
         parts = _surface_parts(shape_provider.surface(document, pos, layer, value), pos, layer, value)
+        if (coincident is not None and any(part.faces for part in parts)
+                and foreground(document.get(pos))[0] in WATER_NAMES
+                and background(document.get(pos))[0] in WATER_NAMES):
+            # Logical layers stay in the snapshot. Draw one identical surface,
+            # including when targets select only the normally secondary layer.
+            identity = tuple((part.heights, part.faces, part.texture_key, part.flow_uv) for part in parts)
+            if coincident.get(pos) == identity:
+                continue
+            coincident[pos] = identity
         for surface in parts:
             if not surface.faces:
                 continue

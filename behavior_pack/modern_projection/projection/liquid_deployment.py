@@ -23,6 +23,10 @@ def candidate_profile(frozen=False, flowing_top=False):
 
 
 def production_profile():
+    from .liquid_product_deployment import production_profile as product_profile
+    product = product_profile()
+    if product is not None:
+        return product
     if not source.PRODUCTION_QUALIFIED:
         return None
     evidence = source.QUALIFICATION_SHA256
