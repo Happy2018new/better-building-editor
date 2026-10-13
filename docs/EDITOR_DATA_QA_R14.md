@@ -57,6 +57,44 @@ passing `.py` to the scope selector would have incorrectly reviewed zero files.
   import aliases are made; the replay has no checkout fallback. Original
   observations and failed rendering gates remain unchanged.
 
+### Product water rules
+
+The pure product policy in `2d268824` was independently reviewed in
+`D:/bbe-r13e-rules`. Its 21 focused methods and the generator's `--check`
+passed. No definite blocker was found in source-layer sampling, conditional
+diagonals, below-neighbor flow, physical-vector UV orientation, version checks,
+or preservation of old diagnostic traversal and floating-point ordering.
+
+An additional independent continuity experiment checked 9,216 neighborhoods.
+Two horizontally adjacent target water cells had every pair of saved depths
+0 through 15. The two cells bordering their shared north corner independently
+used air, stone, water depth 0, water depth 7, falling depth 8, or foreground
+fence with background water depth 4. Each document used the actual product
+provider. Both shared-edge corner heights were exactly equal, and both
+internal faces were absent in every case. This is a continuity invariant,
+not a claim that Java-style heights match native Bedrock pixels.
+
+The provider intentionally caches complete-source samples. Callers must rebuild
+it after changing the source document; keeping the same provider after edits
+can reuse stale neighbors even if the requested target cell did not change.
+Missing projection filtering must keep the complete source for that provider.
+
+### Product connection matrix
+
+The 19 supported fixture cases and live wrapper in `9129da98` were reviewed
+read-only in `D:/bbe-r13e-groups`; all 12 new focused tests passed. The declared
+stair transform literals, per-case perpendicular side cameras, scene-relative
+editor pivot and body-only document isolation were checked. The editor signal
+gate explicitly measures aggregate body visibility; independent editor shape
+acceptance remains `None`. Generic missing-mode occupancy replaces the client
+observation; the real-world chest and bed occupancy routes remain separate.
+
+One new finalization risk was sent to the group specialist: if restoring the
+saved grid raises, the wrapper skips final source verification and report
+publication, potentially leaving the underlying runner's `passed=true` and
+`restored=true` report. That cleanup must make the final report fail and still
+publish its fingerprints. Resolution is pending in this report revision.
+
 ## Limits and integration
 
 These results validate host data and control-flow contracts. They do not prove
