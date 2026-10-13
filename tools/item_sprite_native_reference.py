@@ -13,19 +13,54 @@ assert not hasattr(sys,'_item_native_reference')
 for row in rows:
  for key in ('position','support'):
   assert adapter.read(tuple(row[key]))==AIR
-sys._item_native_reference={'changed':[],'rows':rows,'dimension':adapter.dimension}
-frames=adapter.factory.CreateBlockEntity(adapter.level)
+items=adapter.factory.CreateItem(players[0])
+player_info=adapter.factory.CreateBlockInfo(players[0])
+rot=adapter.factory.CreateRot(players[0])
+item_type=api.GetMinecraftEnum().ItemPosType.INVENTORY
+slot=next((index for index in range(36) if not items.GetPlayerItem(item_type,index,True)
+           or not items.GetPlayerItem(item_type,index,True).get('count')),None)
+assert slot is not None
+sys._item_native_reference={'changed':[],'rows':rows,'dimension':adapter.dimension,
+ 'slot':slot,'rotation':rot.GetRot()}
+assert rot.SetRot((0.,0.))
 for row in rows:
  support,position=tuple(row['support']),tuple(row['position'])
  sys._item_native_reference['changed'].append(support)
  assert adapter.write(support,('minecraft:stone',0))
  sys._item_native_reference['changed'].append(position)
- assert adapter.write(position,tuple(row['material']))
+ assert items.SetInvItemNum(slot,0)
+ assert items.SpawnItemToPlayerInv({'itemName':'minecraft:frame','auxValue':0,'count':1},players[0],slot)
+ assert player_info.PlayerUseItemToPos(support,item_type,slot,2)
+ assert adapter.read(position)[0]=='minecraft:frame'
+assert items.SetInvItemNum(slot,0)
+assert rot.SetRot(sys._item_native_reference['rotation'])
+_result=json.dumps({'rows':rows,'slot':slot,'coordinates_confirmed_air':True,
+ 'placement':'native PlayerUseItemToPos on support face2'})
+'''
+
+FILL = '''import sys,json
+from modern_projection.projection.nbt_spatial import root_payload,scalar,field_key
+saved=sys._item_native_reference
+rows=saved['rows']
+items=adapter.factory.CreateItem(players[0])
+player_info=adapter.factory.CreateBlockInfo(players[0])
+frames=adapter.factory.CreateBlockEntity(adapter.level)
+item_type=api.GetMinecraftEnum().ItemPosType.INVENTORY
+slot=saved['slot']
+for row in rows:
+ position=tuple(row['position'])
  if row['mode']!='empty':
+  assert items.SetInvItemNum(slot,0)
+  assert items.SpawnItemToPlayerInv({'itemName':'minecraft:diamond_sword','auxValue':0,'count':1},players[0],slot)
+  if row['mode']=='enchanted':
+   assert items.AddEnchantToInvItem(slot,9,3)
+  assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' else ())
+  assert player_info.PlayerUseItemToPos(position,item_type,slot,2)
   item={'itemName':'minecraft:diamond_sword','auxValue':0,'count':1,
         'enchantData':[(9,3)] if row['mode']=='enchanted' else []}
   assert frames.SetFrameItem(position,adapter.dimension,item)
   assert frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
+assert items.SetInvItemNum(slot,0)
 observed=[]
 for row in rows:
  position=tuple(row['position'])
@@ -48,22 +83,40 @@ for row in rows:
  observed.append({'source':row,'item_api':item,'typed_nbt':nbt})
 _result=json.dumps({'kind':'actual native frame blocks','observed':observed,
  'dimension':adapter.dimension,'coordinates_confirmed_air':True,
- 'source':'public test.entities.item_contents first frame pair; SetFrameItem diamond sword and ENCHANTMENT(9,3)'})
+ 'source':'public test.entities.item_contents first frame pair; actual native frame and inventory diamond sword interaction; AddEnchantToInvItem(9,3), followed by matching SetFrameItem/SetFrameRotation'})
 '''
 
-HIDE = '''import json,sys
-frames=adapter.factory.CreateBlockEntity(adapter.level)
+HIDE_CLEAR = '''import sys
+from modern_projection.projection.cell import AIR
 for row in sys._item_native_reference['rows']:
  if row['mode']!='empty':
-  position=tuple(row['position'])
-  assert frames.SetFrameItem(position,adapter.dimension,{'itemName':'minecraft:air','auxValue':0,'count':0})
-  assert frames.GetFrameItem(position,adapter.dimension) is None
+  assert adapter.write(tuple(row['position']),AIR)
+_result=True
+'''
+
+HIDE_PLACE = '''import sys
+saved=sys._item_native_reference
+items=adapter.factory.CreateItem(players[0])
+info=adapter.factory.CreateBlockInfo(players[0])
+rot=adapter.factory.CreateRot(players[0])
+assert rot.SetRot((0.,0.))
+for row in saved['rows']:
+ if row['mode']!='empty':
+  assert items.SetInvItemNum(saved['slot'],0)
+  assert items.SpawnItemToPlayerInv({'itemName':'minecraft:frame','auxValue':0,'count':1},players[0],saved['slot'])
+  assert info.PlayerUseItemToPos(tuple(row['support']),api.GetMinecraftEnum().ItemPosType.INVENTORY,saved['slot'],2)
+assert items.SetInvItemNum(saved['slot'],0)
+assert rot.SetRot(saved['rotation'])
 _result=True
 '''
 
 RESTORE = '''import sys
 from modern_projection.projection.cell import AIR
 saved=sys._item_native_reference
+items=adapter.factory.CreateItem(players[0])
+rot=adapter.factory.CreateRot(players[0])
+assert items.SetInvItemNum(saved['slot'],0)
+assert rot.SetRot(saved['rotation'])
 for position in reversed(saved['changed']):
  assert adapter.write(position,AIR)
 assert all(adapter.read(position)==AIR for position in saved['changed'])
@@ -96,12 +149,11 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
         # Mark pending before the call: it may partially mutate and fail.
         initialized = True
         result = server(PREPARE % rows)
-        reference['placement'] = json.loads(result) if isinstance(result, str) else result
+        reference['frame_setup'] = json.loads(result) if isinstance(result, str) else result
         persist()
         check.wait('native frames replicated to client', lambda value: value is True,
             lambda: check.run("info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\n"
                 "_result=all(info.GetBlockEntityData(tuple(row['position'])) is not None for row in positions)"))
-        time.sleep(1.)
         def sample(label):
             before = check.run(camera_source)
             image = capture(session['session_file'], session['owner'], folder/(label+'.png'), wgc)
@@ -110,11 +162,42 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
             reference['captures'].append({'label': label, 'capture': image,
                 'camera_before': before, 'camera_after': after, 'camera_expected': closeup['world_camera']})
             persist()
+        sample('native_before_fill')
+        result = server(FILL)
+        reference['placement'] = json.loads(result) if isinstance(result,str) else result
+        client_read = "from modern_projection.projection.nbt_spatial import root_payload,scalar,field_key\n" \
+            "info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\nobserved=[]\n" \
+            "for row in positions:\n" \
+            " root=root_payload(info.GetBlockEntityData(tuple(row['position'])))\n" \
+            " item=root_payload(root.get(field_key(root,'Item'))) if root else None\n" \
+            " tags=root_payload(item.get(field_key(item,'tag'))) if item else None\n" \
+            " ench=tags.get(field_key(tags,'ench')) if tags else None\n" \
+            " actual=[(scalar(value,'id'),scalar(value,'lvl')) for value in (ench or ())]\n" \
+            " passed=(bool(root) and (not item or not scalar(item,'Count'))) if row['mode']=='empty' else " \
+            "(bool(item) and scalar(item,'Name')=='minecraft:diamond_sword' and scalar(item,'Count')==1 " \
+            "and actual==([(9,3)] if row['mode']=='enchanted' else []))\n" \
+            " observed.append({'source':row,'typed_nbt':root,'passed':passed})\n" \
+            "_result={'passed':all(row['passed'] for row in observed),'rows':observed}"
+        reference['client_item_readback'] = check.wait('actual native client typed items',
+            lambda value:value['passed'],lambda:check.run(client_read))
+        persist()
         for index in range(20):
             time.sleep(.4)
             sample('native_'+str(index))
-        reference['hidden_readback'] = server(HIDE)
-        time.sleep(1.)
+        reference['hidden_clear'] = server(HIDE_CLEAR)
+        check.wait('native hidden frame cells replicated air',lambda value:value is True,
+            lambda:check.run("info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\n"
+                "_result=all(info.GetBlockNew(tuple(row['position']))['name']=='minecraft:air' "
+                "for row in positions if row['mode']!='empty')"))
+        reference['hidden_readback'] = server(HIDE_PLACE)
+        check.wait('native recreated empty frames replicated',lambda value:value is True,
+            lambda:check.run("from modern_projection.projection.nbt_spatial import root_payload,field_key,scalar\n"
+                "info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\nvalid=[]\n"
+                "for row in positions:\n"
+                " root=root_payload(info.GetBlockEntityData(tuple(row['position'])))\n"
+                " item=root_payload(root.get(field_key(root,'Item'))) if root else None\n"
+                " valid.append(bool(root) and (not item or not scalar(item,'Count')))\n"
+                "_result=all(valid)"))
         sample('native_items_hidden')
         reference['completed'] = True
     finally:

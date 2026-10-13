@@ -125,6 +125,10 @@ def native_comparison(source, rows, texture, spec, size, output):
                     max(row[2] for row in crops), max(row[3] for row in crops))
         result['routes'][route] = {'duration': elapsed_sequence(sequence), 'items': measurements,
                                   'gif': save_gif(sequence,gif_crop,output/(route+'-comparison.gif'))}
+    native = result['routes']['native']
+    result['reference_valid'] = bool(native['duration']['passed'] and all(
+        row['scale_passed'] and row['temporal']['passed'] for row in native['items'].values()))
+    result['comparison_status'] = 'SCORED_AGAINST_VISIBLE_NATIVE_ITEMS' if result['reference_valid'] else 'NATIVE_REFERENCE_UNAVAILABLE'
     return result
 
 
@@ -253,7 +257,7 @@ def main():
     print(json.dumps({'evidence_valid': result['evidence_valid'], 'routes': {
         route: {key: value[key] for key in ('animation_observed', 'declared_body_passed', 'duration')}
         for route, value in result['routes'].items()}}))
-    return 0 if result['evidence_valid'] else 1
+    return 0 if result['evidence_valid'] and result.get('native_comparison',{}).get('reference_valid',True) else 1
 
 
 if __name__ == '__main__':

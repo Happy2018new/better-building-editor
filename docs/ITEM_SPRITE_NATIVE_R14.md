@@ -202,3 +202,26 @@ policy. Twenty native frames per route retain their actual sparse QPC intervals;
 these do not establish smooth or continuous 60fps motion. The shifted camera
 target `(4.8,2.5,2.9375)` keeps the world crosshair off the center sword equally
 for full, missing and actual native frame routes.
+
+Frozen `item-product-r14-v6`, source `7a98ec29`, completed in 382.85s with
+unchanged inputs, no native item shader errors, six original air cells restored
+and exact game/supervisor cleanup. Editor/full/missing analytic-highlight
+controls passed at visible 53--56px sword size; ordinary/empty temporal motion
+remained zero. Their enchanted luma temporal-range P90 values were approximately
+25.86, 24.71 and 24.79 respectively. Actual native `SetFrameItem` API and typed
+server NBT readbacks contained the correct diamond swords and Sharpness III,
+but both swords were absent from all native images. That native reference is
+unavailable; valid capture receipts and server data are not visible-item or
+glint acceptance. No native brightness or speed comparison can be claimed.
+
+The next attempt uses the repository's already observed native
+`PlayerUseItemToPos` frame placement, temporary inventory sword and
+`AddEnchantToInvItem` interaction path, then verifies the matching SDK frame
+item and rotation setters. An empty inventory slot and player rotation are
+recorded and restored. Client typed Item/enchantment readback is now required
+before temporal capture. The native negative control recreates genuinely empty
+frames after confirmed client air replication; this avoids assuming a server
+item-clearing API updates visible client contents. The analyzer reports
+`NATIVE_REFERENCE_UNAVAILABLE` and exits nonzero unless the actual native
+positive controls have visible >=48px bodies and pass their fixed temporal
+gates. No pixel threshold or postcapture brightness changes.
