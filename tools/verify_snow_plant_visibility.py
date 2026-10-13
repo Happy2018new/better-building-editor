@@ -607,7 +607,8 @@ _result=json.dumps(diagnostic)
     return result['pose']
 
 
-def projection_capture(check, label, focus, offset, missing=False, fixture_lift_y=0, world_target=None):
+def projection_capture(check, label, focus, offset, missing=False, fixture_lift_y=0, world_target=None,
+                       settle_seconds=.45):
     native_before = check.run('_result=len(sys._blueprint_qa_records)')
     check.run('''focus=%r
 foot=b.player_origin()
@@ -638,7 +639,7 @@ _result=True
     camera_code = ('cam=b.factory.CreateCamera(b.level)\n_result=json.dumps({'
                    '"position":cam.GetPosition(),"rotation":cam.GetCameraRotation()})')
     check.wait('snow world camera', lambda value: camera_matches(value, pose), lambda: check.run(camera_code))
-    time.sleep(.45)
+    time.sleep(settle_seconds)
     shown = check.capture(label + '_world_closeup')
     try:
         check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(True)\n_result=True')

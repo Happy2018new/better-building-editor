@@ -26,6 +26,7 @@ from generate_centered_plant_profiles import PROFILE, validate_profile
 from projection.geometry_palette import PLANT_MAX_Y
 from projection.debug_snow_blueprints import NAMES, VISUAL_CASE
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
+from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
 
 
 def selected_heights(name):
@@ -114,7 +115,7 @@ def run(args):
               'capture_policy': 'Owner-bound guarded capture; user may foreground the game',
               'native_random_jitter_is_diagnostic': True,
               'scope': 'Centered snapshot dry and alpha burial boundaries; built-in editor and separate full/missing projections'}
-    installed = saved = options_saved = False
+    installed = saved = options_saved = environment_saved = False
     snow_frames, snow_records = {}, {}
     started = time.monotonic()
     with Client(timeout=30) as client:
@@ -127,9 +128,11 @@ def run(args):
             saved = True
             report['capture_options'] = check.run(CAPTURE_OPTIONS)
             options_saved = True
+            report['environment'] = run_environment(client, SETUP_ENVIRONMENT)
+            environment_saved = True
             focus = tuple(VISUAL_CASE['focus'])
-            offset = (-2., 1.2, -2.5)
-            target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,2,6)[i] for i in range(3)))'))
+            offset = tuple(VISUAL_CASE['camera']['world_offset'])
+            target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,32,6)[i] for i in range(3)))'))
             report['target'], report['world_offset'] = target, offset
             for plant in plants:
                 assets = cross_assets(session, plant)
@@ -183,7 +186,8 @@ def run(args):
                     world_frames = {}
                     for mode in ('full', 'missing'):
                         world = projection_capture(check, label+'_'+mode, focus, offset,
-                                                   missing=mode == 'missing', world_target=target)
+                                                   missing=mode == 'missing', world_target=target,
+                                                   settle_seconds=2.)
                         width, pixels_high = world['screenshot']['size']
                         world_crop = (width//4, pixels_high//4, width*3//4, pixels_high*3//4)
                         roi, roi_record = world_cell_roi(check, world_crop, (width, pixels_high), target, world['pose'], calibration)
@@ -252,6 +256,8 @@ def run(args):
                 report['error'] = prior[0].__name__+': '+str(prior[1])
             errors = []
             actions = []
+            if environment_saved:
+                actions.append(('environment', lambda: run_environment(client, RESTORE_ENVIRONMENT)))
             if options_saved:
                 actions.append(('capture_options', lambda: check.run(RESTORE_OPTIONS)))
             if saved:
