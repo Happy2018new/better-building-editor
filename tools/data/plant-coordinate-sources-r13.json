@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-13T07:25:34Z",
+  "query": "wiki random_offset --top 3",
+  "documentation_replies": [
+    {
+      "type": "text",
+      "text": "### Components\n\n-   Updated `minecraft:destruction_particles`\n    -   Released `particle_count` parameter from experimental\n-   Updated `minecraft:geometry`\n    -   Released `uv_lock` parameter from experimental\n\n<Label color=\"green\">Versioned</Label>\n\n-   Released `minecraft:movable` from experimental\n-   Released `minecraft:random_offset` from experimental\n\n"
+    },
+    {
+      "type": "text",
+      "text": "#### Object Format {#random-offset-object}\n\n-   `<axis>`{lang=xml}: Object (optional)\n    -   The following offset parameters are separately defined for the `x`, `y` and `z` axes.\n    -   `range` \u2014 [Range](/documentation/shared-constructs#range-objects)\n        -   Determines how large offsets can be on each axis.\n    -   `steps` \u2014 Integer\n        -   Determines how many equally-spaced random values can be chosen across the `range`.\n        -   A value of `0`{lang=json} means that any value within the `range` can be used.\n\n<CodeHeader>minecraft:block > components</CodeHeader>\n\n```json\n\"minecraft:random_offset\": {\n    \"x\": {\n        \"steps\": 0,\n        \"range\": {\n            \"min\": -8,\n            \"max\": 8\n        }\n    },\n    \"y\": {\n        \"steps\": 3,\n        \"range\": {\n            \"min\": -2,\n            \"max\": 0\n        }\n    },\n    \"z\": {\n        \"steps\": 0,\n        \"range\": {\n            \"min\": -8,\n            \"max\": 8\n        }\n    }\n}\n```\n\n"
+    },
+    {
+      "type": "text",
+      "text": "### Components\n\n-   Updated `minecraft:geometry`\n    -   Released `culling_layer` parameter from experimental\n-   Updated `minecraft:material_instances`\n    -   Updated the `*` instance to be optional.\n\n<Label color=\"green\">Versioned</Label>\n\n-   Removed `minecraft:custom_components`\n\n    -   Custom components should now be applied in the same way as vanilla components, as entries in the `components` object:\n\n        <CodeHeader>minecraft:block</CodeHeader>\n\n        ```json\n        \"components\": {\n            \"minecraft:friction\": 0.4,\n            \"wiki:custom_component\": {\n                \"parameter\": \"value\"\n            }\n        }\n        ```\n\n<Tag name=\"experimental\" />\n<Label color=\"blue\">Upcoming Creator Features</Label>\n\n-   Added `minecraft:movable`\n    -   Determines how a block can be moved by pistons.\n    -   Contains `movement_type` which can be one of the following values: `immovable`, `popped`, `push` or `push_pull` (default).\n    -   Contains `sticky` which can be set to `same` to replicate Slime/Honey Block functionality.\n-   Added `minecraft:random_offset`\n    -   Causes a random offset to be applied to the block based on its position in the world\n    -   Affects the block's collision box, selection box and geometry.\n    -   Contains `x`, `y` and `z` which determine the possible offsets via the following parameters:\n        -   `range` which is a [range object](/documentation/shared-constructs#range-objects) that determines how large offsets can be on each axis.\n        -   `steps` which determines how many equally-spaced random values can be chosen across the `range`.\n            -   A value of `0` means that any value within the `range` can be used.\n\n<Tag name=\"experimental\" />\n<Label color=\"blue\">Upcoming Creator Features</Label>\n<Label color=\"green\">Versioned</Label>\n\n-   Updated `minecraft:destruction_particles`\n    -   Added `particle_count` parameter which determines how many particles are created when the block is destroyed (0-255).\n    -   By default, 100 particles are created.\n-   Updated `minecraft:geometry`\n    -   Added `uv_lock` parameter which determines whether UVs should be locked to their original rotation when rotation from the [transformation](/blocks/block-components#transformation) component is applied.\n\n"
+    }
+  ],
+  "source_search_complete": false,
+  "native_algorithm_recovered": false,
+  "production_acceptance": false,
+  "scope": "Bounded source follow-up; documentation describes custom block coordinate offset parameters, not NEMC vanilla seed/hash implementation.",
+  "documentation_text_sha256": [
+    "b04ae09e9627a6a800dc7dcb95a587795bcecf948e3df82cedb94da9bae47d4a",
+    "44464c5428e3cac538c74a94c3555e9ba33c74e896c33dd442acd2918c79ddbb",
+    "f0c028b03895c16c57cb7f4e4d6ca5524f4864b7c4c7ffd783aff07d1dc68e90"
+  ],
+  "local_sources": [
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\blocks.json",
+      "sha256": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa"
+    },
+    {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\terrain_texture.json",
+      "sha256": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\neomega-blocks\\rt_hash\\init.go",
+      "sha256": "c146d7f00e2400e2fa215527ccc148a9407c590a386643bbdda2486ba1be56f3"
+    },
+    {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\neomega-blocks\\convert.go",
+      "sha256": "041a285073e68fcbe64c061f3b2d1ce8471acfd44c41839c3653af95d802c2ab"
+    }
+  ],
+  "installed_resource_observations": {
+    "poppy": {
+      "textures": "poppy",
+      "sound": "grass"
+    },
+    "fern": {
+      "textures": "fern",
+      "carried_textures": "fern_carried",
+      "sound": "grass"
+    },
+    "vanilla_rp_models_subdirectories": [
+      "entity"
+    ],
+    "vanilla_bp_blocks_directory_present": false,
+    "native_algorithm_declaration_found": false
+  },
+  "neomega_targeted_search": {
+    "globs": [
+      "*.go",
+      "*.md",
+      "*.json"
+    ],
+    "regex": "random.?offset|pos.*random|coord.*hash|getseed|3129871|116129781|42317861",
+    "matches": 0,
+    "runtime_hash_classification": "Block identity/state lookup tables, not world coordinate rendering offsets",
+    "scope_limit": "Targeted textual search; not proof of absence from all possible sources"
+  }
+}
