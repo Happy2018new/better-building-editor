@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT / '.agents/skills/pyreact-debugging/scripts'))
 import _session
 import _window
 from _session import load_session
-from _window import _find_game_window, background_guard_state
+from _window import _find_game_window, background_guard_state, user_foreground_allowed
 
 MAX_JSON_BYTES = 64 * 1024 * 1024
 MAX_PNG_BYTES = 136 * 1024 * 1024
@@ -93,7 +93,7 @@ def _host_sources():
     return {str(path.resolve()): sha256(path) for path in paths}
 
 
-def _session_binding(session_file, owner):
+def _session_binding(session_file, owner, allow_foreground=False):
     _require(isinstance(owner, str) and bool(owner.strip()), 'An explicit session owner is required')
     path = Path(session_file).resolve(strict=True)
     session = load_session(path, owner, live=True)
@@ -125,6 +125,8 @@ def _session_binding(session_file, owner):
             'game_executable', 'mcp_url', 'noactivation')
     binding = json.loads(json.dumps({key: session[key] for key in keys}))
     binding.update(session_file=str(path), project=str(ROOT.resolve()))
+    if allow_foreground:
+        binding['user_foreground_allowed'] = True
     return binding, protected_binaries
 
 
@@ -149,11 +151,15 @@ def _background(binding, expected_window=None, report=None, label='before'):
     if report is not None:
         report['background_' + label] = guard
     _require(isinstance(guard, dict), 'Independent background observation is unavailable')
-    _require(guard.get('background_safe') is True and guard.get('window_noactivate') is True,
+    _require(guard.get('window_noactivate') is True,
              'Independent background/noactivation guard failed')
     foreground = guard.get('foreground')
     _require(isinstance(foreground, dict) and type(foreground.get('pid')) is int and
-             foreground['pid'] != binding['game_pid'], 'Owned game is foreground')
+             foreground['pid'] >= 0 and type(foreground.get('hwnd')) is int and
+             foreground['hwnd'] >= 0, 'Independent foreground observation is invalid')
+    background = foreground['pid'] != binding['game_pid']
+    _equal(guard.get('background_safe'), background, 'Independent actual background status')
+    _require(background or binding.get('user_foreground_allowed') is True, 'Owned game is foreground')
     windows = guard.get('windows')
     _require(isinstance(windows, list) and bool(windows), 'Owned game has no visible window')
     _require(all(isinstance(window, dict) and window.get('pid') == binding['game_pid'] and
@@ -222,7 +228,11 @@ def _window_state(state, binding, window, baseline=None):
     style = _integer(state.get('extended_style'), 'Native window style', 0, 0xffffffff)
     _require(bool(style & NOACTIVATE), 'Native window lost WS_EX_NOACTIVATE')
     foreground_pid = _integer(state.get('foreground_pid'), 'Native foreground PID')
-    _require(foreground_pid != binding['game_pid'], 'Native guard observed foreground game')
+    background = foreground_pid != binding['game_pid']
+    _require(background or binding.get('user_foreground_allowed') is True,
+             'Native guard observed foreground game')
+    if binding.get('user_foreground_allowed') is True:
+        _equal(state.get('background_safe'), background, 'Native actual background status')
     _integer(state.get('foreground_hwnd'), 'Native foreground HWND')
     observed = _integer(state.get('observed_qpc_100ns'), 'Native guard observation', 1)
     client = _rectangle(state.get('client_rect_screen'), 'Native client rectangle')
@@ -312,15 +322,23 @@ def _validate_native(report, binding, window, stdout):
     report['native_manifest'] = native
     _require(isinstance(native, dict), 'Native manifest must be an object')
     _equal(_json_document(stdout), native, 'Native stdout/manifest')
-    for key, value in (('schema', 1), ('backend', 'Windows.Graphics.Capture'),
+    allow_foreground = binding.get('user_foreground_allowed') is True
+    for key, value in (('schema', 2 if allow_foreground else 1), ('backend', 'Windows.Graphics.Capture'),
                        ('mode', 'persistent_burst'), ('clock', 'compositor_system_relative_qpc_100ns'),
-                       ('background_only', True), ('activation_fallback', False),
+                       ('background_only', not allow_foreground), ('activation_fallback', False),
                        ('native_resolution', True), ('pixel_acceptance', False),
                        ('source_frame_loss_known', False), ('owned_hwnd', window['hwnd']),
                        ('owned_pid', binding['game_pid']), ('owned_creation_time', binding['game_identity']),
                        ('max_frame_age_ms', 1000), ('timestamp_policy', 'strict_after_bounded_qpc_wait'),
                        ('future_timestamp_wait_limit_ms', 50), ('future_timestamp_wait_guard_limit', 128)):
         _equal(native.get(key), value, 'Native manifest ' + key)
+    if allow_foreground:
+        for key, value in (('foreground_policy', 'allow_user_foreground'),
+                           ('user_foreground_allowed', True), ('agent_activation_allowed', False)):
+            _equal(native.get(key), value, 'Native manifest ' + key)
+    else:
+        _require('foreground_policy' not in native and 'user_foreground_allowed' not in native and
+                 'agent_activation_allowed' not in native, 'Legacy native policy contains foreground opt-in')
     for key in ('planned_duration_ms', 'max_frames', 'max_gap_ms'):
         _equal(native.get(key), report['request'][key], 'Native requested ' + key)
     request = _integer(native.get('request_qpc_100ns'), 'Native request timestamp', 1)
@@ -508,20 +526,24 @@ def _write_report(handle, report):
 
 def capture(session_file, owner, output, executable, expected_sha256,
             duration_ms=1000, max_frames=180, max_gap_ms=150):
+    allow_foreground = user_foreground_allowed()
     output = Path(output).absolute()
     _require(not output.exists() and not _linked(output), 'Choose a fresh native output directory')
     output.parent.mkdir(parents=True, exist_ok=True)
     output = output.parent.resolve() / output.name
     report_path = output.with_name(output.name + '.capture.json')
     _require(not report_path.exists() and not _linked(report_path), 'Choose a fresh wrapper receipt')
-    report = {'schema': 1, 'ok': False, 'reliable': False, 'capture_valid': False,
-              'temporal_complete': False, 'background_only': True, 'activation_fallback': False,
+    report = {'schema': 2 if allow_foreground else 1, 'ok': False, 'reliable': False, 'capture_valid': False,
+              'temporal_complete': False, 'background_only': not allow_foreground, 'activation_fallback': False,
               'native_resolution': True, 'pixel_acceptance': False, 'animation_acceptance': False,
               'source_frame_loss_known': False, 'backend': 'Windows.Graphics.Capture',
               'mode': 'persistent_burst', 'output_directory': str(output),
               'wrapper_receipt': str(report_path), 'started_at': datetime.now(timezone.utc).isoformat(),
               'request': {'planned_duration_ms': duration_ms, 'max_frames': max_frames, 'max_gap_ms': max_gap_ms},
               'helper_timed_out': False, 'own_helper_terminated': False, 'errors': []}
+    if allow_foreground:
+        report.update(foreground_policy='allow_user_foreground', user_foreground_allowed=True,
+                      agent_activation_allowed=False)
     started = time.perf_counter()
     with report_path.open('x', encoding='ascii') as receipt:
         _write_report(receipt, report)
@@ -533,7 +555,7 @@ def capture(session_file, owner, output, executable, expected_sha256,
             report['helper'] = _binary_record(executable, expected_sha256)
             report['expected_helper_sha256'] = _expected_hash(expected_sha256)
             report['host_sources_before'] = _host_sources()
-            binding, binaries = _session_binding(session_file, owner)
+            binding, binaries = _session_binding(session_file, owner, allow_foreground)
             report.update(instance=binding, protected_binaries_before=binaries)
             guard, window = _background(binding, report=report)
             report.update(background_before=guard, window=window)
@@ -542,6 +564,8 @@ def capture(session_file, owner, output, executable, expected_sha256,
             phase = 'helper'
             command = [report['helper']['path'], str(window['hwnd']), str(binding['game_pid']),
                        binding['game_identity'], str(output), str(duration_ms), str(max_frames), str(max_gap_ms)]
+            if allow_foreground:
+                command.append('--allow-user-foreground')
             stdout = b''
             try:
                 stdout = _run_helper(report, command)
@@ -549,12 +573,14 @@ def capture(session_file, owner, output, executable, expected_sha256,
                 _failure(report, 'helper', error)
 
             def postflight(label):
-                current, binaries_after = _session_binding(session_file, owner)
+                current, binaries_after = _session_binding(session_file, owner, allow_foreground)
                 report['instance_' + label] = current
                 report['protected_binaries_' + label] = binaries_after
                 _equal(current, binding, 'Owner/session identity')
                 guard_after, _ = _background(binding, window, report, label)
                 report['background_' + label] = guard_after
+                if allow_foreground:
+                    report['background_safe'] = guard_after['background_safe']
 
             def helper_binding():
                 report['helper_after'] = _binary_record(executable, expected_sha256)

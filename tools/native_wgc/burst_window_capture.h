@@ -30,12 +30,13 @@ namespace NativeWgcBurst {
     };
 
     inline std::string windowFailure(const WindowBinding& expected, const WindowState& current,
-                                     const WindowState* baseline = nullptr) {
+                                     const WindowState* baseline = nullptr, bool allowUserForeground = false) {
         if (!current.processLive || current.creationTime != expected.creationTime)
             return "process_identity_changed";
         if (!current.windowValid || current.hwnd != expected.hwnd || current.pid != expected.pid)
             return "window_identity_changed";
-        if (current.foregroundPid == expected.pid) return "owned_process_became_foreground";
+        if (!allowUserForeground && current.foregroundPid == expected.pid)
+            return "owned_process_became_foreground";
         if (!(current.extendedStyle & 0x08000000U)) return "window_missing_noactivate_style";
         if (!current.visible || current.minimized || current.cloaked) return "window_not_capturable_in_background";
         if (!current.geometryValid || current.client.right <= current.client.left ||
@@ -46,8 +47,9 @@ namespace NativeWgcBurst {
     }
 
     inline std::string guardedFrameFailure(const WindowBinding& expected, const WindowState& current,
-                                           const WindowState& baseline, const std::string& frameError) {
-        const auto guardError = windowFailure(expected, current, &baseline);
+                                           const WindowState& baseline, const std::string& frameError,
+                                           bool allowUserForeground = false) {
+        const auto guardError = windowFailure(expected, current, &baseline, allowUserForeground);
         return guardError.empty() ? frameError : guardError;
     }
 
@@ -56,6 +58,7 @@ namespace NativeWgcBurst {
         uint32_t maxFrames = 180;
         uint32_t maxGapMs = 150;
         uint32_t maxFrameAgeMs = 1000;
+        bool allowUserForeground = false;
     };
 
     inline bool validOptions(const CaptureOptions& options) {

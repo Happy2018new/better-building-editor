@@ -2,6 +2,7 @@
 import copy
 from io import BytesIO
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -57,6 +58,9 @@ class FakeHelper:
 
 class NativeBurstWrapperTests(unittest.TestCase):
     def setUp(self):
+        environment = mock.patch.dict(os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '0'})
+        environment.start()
+        self.addCleanup(environment.stop)
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
@@ -188,6 +192,57 @@ class NativeBurstWrapperTests(unittest.TestCase):
         self.assertNotIn('frames', compact)
         self.assertNotIn('native_manifest', compact)
         self.assertEqual(3, compact['valid_frames'])
+
+    def allow_foreground_manifest(self):
+        self.manifest.update(schema=2, background_only=False, foreground_policy='allow_user_foreground',
+                             user_foreground_allowed=True, agent_activation_allowed=False)
+        states = [self.manifest['baseline'], self.manifest['final_window_state']]
+        for frame in self.manifest['frames']:
+            states.extend(frame[key] for key in ('before', 'after_readback', 'before_png_write',
+                                                 'after_png_write', 'last_window_state'))
+            states.extend(frame['future_timestamp_wait']['guards'])
+        for state in states:
+            state['background_safe'] = state['foreground_pid'] != 123
+        return states
+
+    def test_explicit_user_foreground_preserves_real_snapshots_and_continues_burst(self):
+        states = self.allow_foreground_manifest()
+        for state in states:
+            state.update(foreground_pid=123, foreground_hwnd=42, background_safe=False)
+        owned = copy.deepcopy(self.guard)
+        owned.update(background_safe=False, foreground={'pid': 123, 'hwnd': 42})
+        with mock.patch.dict(os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}), \
+                mock.patch.object(burst, 'background_guard_state', side_effect=[self.guard, owned, owned]):
+            report = self.capture()
+        self.assertTrue(report['ok'])
+        self.assertEqual(2, report['schema'])
+        self.assertFalse(report['background_only'])
+        self.assertFalse(report['background_safe'])
+        self.assertEqual(123, report['background_after']['foreground']['pid'])
+        self.assertIn('--allow-user-foreground', report['helper_command'])
+        self.assertFalse(report['animation_acceptance'])
+
+    def test_user_foreground_opt_in_cannot_forge_actual_native_background_status(self):
+        self.allow_foreground_manifest()
+        self.manifest['frames'][1]['after_readback']['background_safe'] = False
+        with mock.patch.dict(os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}):
+            self.failure('Native actual background status mismatch')
+
+    def test_user_foreground_opt_in_cannot_waive_window_protection(self):
+        self.allow_foreground_manifest()
+        self.manifest['frames'][0]['after_readback']['window_noactivate_style'] = False
+        with mock.patch.dict(os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}):
+            self.failure('Native window window_noactivate_style mismatch')
+
+    def test_native_foreground_permission_requires_matching_explicit_policy(self):
+        self.allow_foreground_manifest()
+        self.manifest['agent_activation_allowed'] = True
+        with mock.patch.dict(os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}):
+            self.failure('Native manifest agent_activation_allowed mismatch')
+
+    def test_legacy_native_manifest_cannot_add_unrequested_foreground_permission(self):
+        self.manifest['user_foreground_allowed'] = True
+        self.failure('Legacy native policy contains foreground opt-in')
 
     def waited_frame(self, index=0):
         record = self.manifest['frames'][index]

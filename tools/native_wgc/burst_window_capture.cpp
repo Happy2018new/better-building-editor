@@ -140,6 +140,7 @@ namespace NativeWgcBurst {
                 rectJson(value.client) << ",\"dwm_frame_rect\":" << rectJson(value.frame)
                 << ",\"foreground_hwnd\":" << value.foregroundHwnd << ",\"foreground_pid\":" <<
                 value.foregroundPid << ",\"extended_style\":" << value.extendedStyle
+                << ",\"background_safe\":" << (value.foregroundPid != value.pid)
                 << ",\"window_noactivate_style\":" <<
                 ((value.extendedStyle & WS_EX_NOACTIVATE) != 0)
                 << ",\"observed_qpc_100ns\":" << value.observedQpc100ns << '}';
@@ -239,9 +240,15 @@ namespace NativeWgcBurst {
                 const bool complete = timeline &&
                     timeline->complete(stopReason == "duration_elapsed", !failure.empty());
                 std::ostringstream out;
-                out << std::boolalpha << "{\"schema\":1,\"backend\":\"Windows.Graphics.Capture\","
+                out << std::boolalpha << "{\"schema\":" << (options.allowUserForeground ? 2 : 1)
+                    << ",\"backend\":\"Windows.Graphics.Capture\","
                     "\"mode\":\"persistent_burst\",\"clock\":\"compositor_system_relative_qpc_100ns\","
-                    "\"background_only\":true,\"activation_fallback\":false,\"native_resolution\":true,"
+                    "\"background_only\":" << !options.allowUserForeground
+                    << ",\"activation_fallback\":false,\"native_resolution\":true,";
+                if (options.allowUserForeground)
+                    out << "\"foreground_policy\":\"allow_user_foreground\",\"user_foreground_allowed\":true,"
+                        "\"agent_activation_allowed\":false,";
+                out <<
                     "\"pixel_acceptance\":false,\"ok\":" << (captureValid && complete)
                     << ",\"capture_valid\":" << captureValid << ",\"temporal_complete\":" << complete
                     << ",\"owned_hwnd\":" << binding.hwnd << ",\"owned_pid\":" << binding.pid
@@ -282,7 +289,7 @@ namespace NativeWgcBurst {
             Handle process{OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE, FALSE, run.binding.pid)};
             run.baseline = observe(run.binding, process.value, run.frequency);
             run.finalState = run.baseline;
-            if (const auto error = windowFailure(run.binding, run.baseline); !error.empty())
+            if (const auto error = windowFailure(run.binding, run.baseline, nullptr, run.options.allowUserForeground); !error.empty())
                 throw std::runtime_error(error);
             if (!GraphicsCaptureSession::IsSupported()) throw std::runtime_error("wgc_not_supported");
             const auto hwnd = reinterpret_cast<HWND>(static_cast<uintptr_t>(run.binding.hwnd));
@@ -348,7 +355,7 @@ namespace NativeWgcBurst {
                 const auto before = observe(run.binding, process.value, run.frequency);
                 run.finalState = before;
                 run.arrivals = signal->arrivals;
-                if (const auto error = windowFailure(run.binding, before, &run.baseline); !error.empty())
+                if (const auto error = windowFailure(run.binding, before, &run.baseline, run.options.allowUserForeground); !error.empty())
                     throw std::runtime_error(error);
                 if (signal->closed) throw std::runtime_error("capture_item_closed");
                 const bool durationElapsed = before.observedQpc100ns >= run.deadline;
@@ -418,7 +425,7 @@ namespace NativeWgcBurst {
                                 waitOutcome = "clock_regressed";
                                 break;
                             }
-                            error = windowFailure(run.binding, waiting, &run.baseline);
+                            error = windowFailure(run.binding, waiting, &run.baseline, run.options.allowUserForeground);
                             if (!error.empty()) {
                                 waitOutcome = "window_guard_failure";
                                 break;
@@ -449,12 +456,12 @@ namespace NativeWgcBurst {
                         auto bitmap = copyBitmap(device.get(), context.get(), factory.get(), frame.value, size, crop);
                         afterRead = observe(run.binding, process.value, run.frequency);
                         run.finalState = afterRead;
-                        error = windowFailure(run.binding, afterRead, &run.baseline);
+                        error = windowFailure(run.binding, afterRead, &run.baseline, run.options.allowUserForeground);
                         if (error.empty()) {
                             auto png = encodePng(factory.get(), bitmap.get(), width, height);
                             beforeWrite = observe(run.binding, process.value, run.frequency);
                             run.finalState = beforeWrite;
-                            error = windowFailure(run.binding, beforeWrite, &run.baseline);
+                            error = windowFailure(run.binding, beforeWrite, &run.baseline, run.options.allowUserForeground);
                             if (error.empty()) {
                                 std::ostringstream name;
                                 name << "frame_" << std::setw(6) << std::setfill('0') << run.attempts << ".png";
@@ -462,7 +469,7 @@ namespace NativeWgcBurst {
                                 writeFreshFile(run.directory / pngName, png.data(), png.size());
                                 afterWrite = observe(run.binding, process.value, run.frequency);
                                 run.finalState = afterWrite;
-                                error = windowFailure(run.binding, afterWrite, &run.baseline);
+                                error = windowFailure(run.binding, afterWrite, &run.baseline, run.options.allowUserForeground);
                             }
                         }
                     }
@@ -474,7 +481,8 @@ namespace NativeWgcBurst {
                 if (!error.empty()) {
                     try {
                         run.finalState = observe(run.binding, process.value, run.frequency);
-                        error = guardedFrameFailure(run.binding, run.finalState, run.baseline, error);
+                        error = guardedFrameFailure(run.binding, run.finalState, run.baseline, error,
+                                                    run.options.allowUserForeground);
                     } catch (const winrt::hresult_error& problem) {
                         error = "rejected_frame_guard_hresult: " + winrt::to_string(problem.message());
                     } catch (const std::exception& problem) {
@@ -538,7 +546,7 @@ namespace NativeWgcBurst {
             }
             run.finalState = observe(run.binding, process.value, run.frequency);
             run.arrivals = signal->arrivals;
-            if (const auto error = windowFailure(run.binding, run.finalState, &run.baseline); !error.empty())
+            if (const auto error = windowFailure(run.binding, run.finalState, &run.baseline, run.options.allowUserForeground); !error.empty())
                 throw std::runtime_error(error);
         }
     }

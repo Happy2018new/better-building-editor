@@ -99,6 +99,24 @@ int main(int argc, char** argv) {
             current = first; current.extendedStyle = 0;
             require(windowFailure(binding,current,&first) == "window_missing_noactivate_style", "noactivate change accepted");
             require(windowFailure(binding,current) == "window_missing_noactivate_style", "missing initial noactivate accepted");
+        } else if (scenario == "allowed_user_foreground") {
+            const WindowBinding binding{789,123,456};
+            const auto first = baseline();
+            auto current = first;
+            current.foregroundPid = binding.pid; current.foregroundHwnd = binding.hwnd;
+            require(windowFailure(binding,current,&first,true).empty(), "user observation rejected despite opt-in");
+            require(guardedFrameFailure(binding,current,first,"frame_not_after_request",true) ==
+                    "frame_not_after_request", "user observation concealed timestamp rejection");
+            require(!windowFailure(binding,current,&first).empty(), "default policy unexpectedly permits foreground");
+            current.extendedStyle = 0;
+            require(windowFailure(binding,current,&first,true) == "window_missing_noactivate_style",
+                    "foreground opt-in waived noactivate protection");
+            current = first; current.creationTime += 1;
+            require(windowFailure(binding,current,&first,true) == "process_identity_changed",
+                    "foreground opt-in waived process identity");
+            current = first; current.client.left += 1;
+            require(windowFailure(binding,current,&first,true) == "window_geometry_or_thread_changed",
+                    "foreground opt-in waived stable geometry");
         } else if (scenario == "rejected_frame_guard") {
             const WindowBinding binding{789,123,456};
             const auto first = baseline();
@@ -219,6 +237,9 @@ class NativeBurstContractTests(unittest.TestCase):
 
     def test_process_creation_window_owner_and_client_geometry_are_bound(self):
         self.scenario('identity_geometry')
+
+    def test_explicit_user_foreground_preserves_identity_window_and_timestamp_checks(self):
+        self.scenario('allowed_user_foreground')
 
     def test_rejected_timestamp_cannot_mask_a_transient_window_guard_failure(self):
         self.scenario('rejected_frame_guard')
