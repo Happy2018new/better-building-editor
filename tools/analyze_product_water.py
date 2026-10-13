@@ -128,9 +128,9 @@ def analyze(path):
                     or row['scene_before'] != row['scene_after']
                     or row['scene_before'] != scene_capture_state(row.get('ready'))):
                 failures.append({'scene_layout_drift': label})
-            dry = source['rows'].get(label[:-3] + 'dry') if row.get('control') == 'wet' else None
-            if dry and (scene_pose(row.get('ready')) is None
-                        or scene_pose(row.get('ready')) != scene_pose(dry.get('ready'))):
+            wet = source['rows'].get(row['route'] + '_' + row['case'] + '_wet')
+            if wet and (scene_pose(row.get('ready')) is None
+                        or scene_pose(row.get('ready')) != scene_pose(wet.get('ready'))):
                 failures.append({'paired_scene_pose_drift': label})
             continue
         fields = ('camera_expected', 'camera', 'camera_before', 'camera_after')
@@ -142,8 +142,8 @@ def analyze(path):
             failures.append({'camera_drift': label})
         if not calibrated_viewport_matches(row['camera'], source.get('camera_calibration', {})):
             failures.append({'calibrated_viewport_drift': label})
-        dry = source['rows'].get(label[:-3] + 'dry') if row.get('control') == 'wet' else None
-        if dry and (not isinstance(dry.get('camera'), dict) or not camera_matches(row['camera'], dry['camera'])):
+        wet = source['rows'].get(row['route'] + '_' + row['case'] + '_wet')
+        if wet and (not isinstance(wet.get('camera'), dict) or not camera_matches(row['camera'], wet['camera'])):
             failures.append({'paired_camera_drift': label})
     for label, frame in source['captures'].items():
         if label.startswith('editor_'):

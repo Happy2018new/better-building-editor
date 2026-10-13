@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from PIL import Image
@@ -13,7 +14,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from analyze_product_water import analyze, contribution, product_geometry
-from water_capture_contract import camera_matches
+from water_capture_contract import camera_matches, scene_capture_state
 
 
 class ProductWaterAnalysisTests(unittest.TestCase):
@@ -146,6 +147,72 @@ class ProductWaterAnalysisTests(unittest.TestCase):
         selected[10:20, 12:16] = True
         self.assertFalse(contribution(first, later, selected)['passed'])
         self.assertTrue(contribution(first, later, selected, threshold=2)['passed'])
+
+    def transparency_evidence(self, directory, opaque=False):
+        source = self.evidence(directory)
+        controls = ('wet', 'dry', 'liquid_only', 'water_only', 'rearless', 'empty')
+        source.update(routes=['editor'], cases=['wet_oak_fence'], controls=controls)
+        body = np.zeros((32, 32), dtype=bool)
+        body[10:20, 10:14] = True
+        rear = np.zeros_like(body)
+        rear[10:20, 20:24] = True
+        ready = {'camera_pose': [0., 0., 3.], 'camera_pan': [0., 0.], 'camera_depth': 0., 'depth_plane': None,
+                 'scene_origin': [0, 0, 0], 'scene_size': [10, 8, 10], 'screen_size': [32, 32],
+                 'liquid_control_requests': []}
+        for control in controls:
+            pixels = np.zeros((32, 32, 3), dtype=np.uint8)
+            pixels[0, 0] = 200
+            if control != 'empty':
+                pixels[body | rear] = (20, 40, 70)
+            if control == 'dry':
+                pixels[body | rear] = (150, 100, 50)
+            elif control == 'wet' and not opaque:
+                pixels[body] = (80, 60, 60)
+                pixels[rear] = (90, 70, 40)
+            elif control == 'liquid_only':
+                pixels[rear] = (90, 70, 40)
+            elif control == 'rearless':
+                pixels[body] = (80, 60, 60)
+            label = 'editor_wet_oak_fence_' + control
+            path = Path(directory) / (label + '.png')
+            Image.fromarray(pixels).save(path)
+            row = dict(route='editor', case='wet_oak_fence', control=control, ready=deepcopy(ready),
+                       scene_before=scene_capture_state(ready), scene_after=scene_capture_state(ready))
+            source['rows'][label] = row
+            source['captures'][label] = dict(source['captures']['frame'], path=str(path),
+                sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+                scene_before=deepcopy(row['scene_before']), scene_after=deepcopy(row['scene_after']))
+        return source, body, rear
+
+    def replay_transparency(self, directory, source, body, rear):
+        def region(unused_row, unused_source, unused_size, points):
+            return body if points[0][0] > 3.4 else rear
+        with patch('analyze_product_water.expected_mask', return_value=body | rear), \
+                patch('analyze_product_water.region_mask', side_effect=region):
+            return self.replay(directory, source)
+
+    def test_full_replay_transparency_uses_all_independent_controls(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source, body, rear = self.transparency_evidence(directory)
+            result = self.replay_transparency(directory, source, body, rear)
+            self.assertTrue(result['evidence_valid'])
+            self.assertTrue(result['observed_product_gates']['transparency'])
+            opaque, body, rear = self.transparency_evidence(directory, opaque=True)
+            self.assertFalse(self.replay_transparency(directory, opaque, body, rear)['observed_product_gates']['transparency'])
+
+    def test_individually_stable_transparency_controls_must_share_one_scene_pose(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source, body, rear = self.transparency_evidence(directory)
+            label = 'editor_wet_oak_fence_liquid_only'
+            row = source['rows'][label]
+            row['ready']['camera_pan'][0] = 1.
+            row['scene_before'] = scene_capture_state(row['ready'])
+            row['scene_after'] = deepcopy(row['scene_before'])
+            source['captures'][label]['scene_before'] = deepcopy(row['scene_before'])
+            source['captures'][label]['scene_after'] = deepcopy(row['scene_after'])
+            result = self.replay_transparency(directory, source, body, rear)
+            self.assert_rejected(result)
+            self.assertIn({'paired_scene_pose_drift': label}, result['capture_failures'])
 
 
 if __name__ == '__main__':
