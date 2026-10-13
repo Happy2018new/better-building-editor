@@ -1,5 +1,6 @@
 """Risk-focused h0 budget, first-capture, handle-stop and replication regressions."""
 import copy
+import ast
 import json
 from pathlib import Path
 import sys
@@ -23,6 +24,7 @@ class H0Host(FakeHost):
         self.handle_counts = [100, 100, 100, 100, 100, 100, 100]
         self.handle_reads = 0
         self.ready_capture_fail = False
+        self.application_delay = 0
 
     def find_session(self, plan, initial):
         self.ready = self.clock >= self.ready_at
@@ -32,11 +34,17 @@ class H0Host(FakeHost):
     def observe(self, session, plan, output, timeout):
         self.observations.append(output.name)
         self.clock += min(1, timeout)
-        ready = output.name == 'startup-first-ready.png'
-        value = {'ok': ready and not self.ready_capture_fail, 'reliable': ready and not self.ready_capture_fail,
+        ready = output.name != 'startup-first-scheduled.png'
+        failed = self.ready_capture_fail and output.name == 'startup-first-application-ready.png'
+        value = {'ok': ready and not failed, 'reliable': ready and not failed,
                  'state_before': 'ready' if ready else 'starting', 'state_after': 'ready' if ready else 'starting',
                  'tcp': {'owned_established_pair_observed': ready}, 'pixels': {'width': 1994, 'height': 1105}}
         return {'returncode': 0 if value['ok'] else 1, 'stdout': json.dumps(value), 'timeout': False}
+
+    def application_ready(self, session, plan, deadline):
+        self.clock += .1
+        ready = self.clock >= self.ready_at + self.application_delay
+        return {'owner_present': ready, 'session_present': ready, 'bridge_present': ready, 'initialized': ready}
 
     def handle_sample(self, session):
         count = self.handle_counts[min(self.handle_reads, len(self.handle_counts) - 1)]
@@ -76,7 +84,8 @@ class FiniteControlTests(unittest.TestCase):
         self.assertGreaterEqual(self.phase_calls[0]['remaining'], 83)
         self.assertEqual(210, self.phase_calls[0]['restore_deadline'])
         self.assertLessEqual(value['run_elapsed_seconds'], 240)
-        self.assertEqual(['startup-first-scheduled.png', 'startup-first-ready.png'], self.host.observations)
+        self.assertEqual(['startup-first-scheduled.png', 'startup-first-ready.png',
+                          'startup-first-application-ready.png'], self.host.observations)
         self.assertTrue(value['owned_processes_dead'])
         self.assertTrue(self.host.restored)
         self.assertEqual({11, 22}, {row['pid'] for row in self.host.force_stops})
@@ -87,15 +96,38 @@ class FiniteControlTests(unittest.TestCase):
         self.assertFalse(value['matrix_started'])
         self.assertEqual([], self.phase_calls)
         self.assertEqual(1, self.host.observations.count('startup-first-ready.png'))
+        self.assertEqual(1, self.host.observations.count('startup-first-application-ready.png'))
         self.assertEqual(1, self.host.launches)
         self.assertTrue(value['owned_processes_dead'])
 
     def test_late_ready_refuses_matrix_even_when_world_frame_is_valid(self):
         self.host.ready_at = self.host.launch_done_at = 112
         value = self.run_control()
-        self.assertIn('less than 83', value['error'])
+        self.assertIn('reserved budget', value['error'])
         self.assertFalse(value['matrix_started'])
         self.assertEqual([], self.phase_calls)
+        self.assertTrue(value['owned_processes_dead'])
+
+    def test_sdk_ready_waits_for_actual_uiinit_session_before_one_application_capture(self):
+        self.host.ready_at = self.host.launch_done_at = 82
+        self.host.application_delay = 8
+        value = self.run_control()
+        self.assertTrue(value['diagnostic_completed'])
+        reads = value['application_readiness_reads']
+        self.assertFalse(reads[0]['initialized'])
+        self.assertTrue(reads[-1]['initialized'])
+        self.assertEqual(1, self.host.observations.count('startup-first-ready.png'))
+        self.assertEqual(1, self.host.observations.count('startup-first-application-ready.png'))
+        self.assertFalse(value['first_post_sdk_ready_world_pixels_accepted'])
+        self.assertTrue(value['first_application_ready_world_pixels_require_visual_review'])
+
+    def test_uninitialized_business_session_times_out_without_probe_or_relaunch(self):
+        self.host.application_delay = 100
+        value = self.run_control()
+        self.assertIn('UiInit readiness', value['error'])
+        self.assertEqual([], self.phase_calls)
+        self.assertEqual(1, self.host.launches)
+        self.assertNotIn('startup-first-application-ready.png', self.host.observations)
         self.assertTrue(value['owned_processes_dead'])
 
     def test_two_post_ready_rapid_intervals_stop_only_own_processes(self):
@@ -152,6 +184,31 @@ class FiniteControlTests(unittest.TestCase):
 
 
 class StateContractTests(unittest.TestCase):
+    def test_readonly_gate_requires_existing_initialize_ready_and_uiinit_hud(self):
+        tree = ast.parse(Path(control.__file__).read_bytes())
+        code = next(node.value for node in ast.walk(tree) if isinstance(node, ast.Constant)
+                    and isinstance(node.value, str) and 'bridge_session_matches=' in node.value)
+        session = SimpleNamespace(ready=False)
+        bridge = SimpleNamespace(session=session)
+        owner = SimpleNamespace(session=session, bridge=bridge, hud=None)
+        api = SimpleNamespace(GetSystem=lambda *args: owner, GetMinecraftVersion=lambda: 'test')
+        modules = {'mod': SimpleNamespace(client=SimpleNamespace(extraClientApi=api)),
+                   'mod.client': SimpleNamespace(extraClientApi=api), 'mod.client.extraClientApi': api}
+
+        def read():
+            values = {}
+            with mock.patch.dict(sys.modules, modules):
+                exec(compile(code, '<actual-uiinit-readonly-gate>', 'exec'), values)
+            return json.loads(values['_result'])
+
+        self.assertFalse(read()['initialized'])
+        session.ready = True
+        self.assertFalse(read()['initialized'])
+        owner.hud = object()
+        self.assertTrue(read()['initialized'])
+        bridge.session = object()
+        self.assertFalse(read()['initialized'])
+
     def test_normal_stop_uses_actual_h0_owner_and_parent_timeout(self):
         host = object.__new__(control.WindowsHost)
         for owner in ('snow-r12-h0-native', 'snow-r12-h0-alpha'):

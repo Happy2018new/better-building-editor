@@ -1,9 +1,12 @@
 # Native Snow H0 Four-State Proposal
 
-This is a concrete prospective control awaiting final source review and a
-coordinated WGC slot. The V6 ready/world-frame prerequisite passed, but
-resource health remains unaccepted. No additional launch, fixture mutation
-or SDK request has been made for this preparation. The parent coordinator
+This V1C preparation awaits final source review and a coordinated WGC slot.
+V6 showed a world frame, but the single original-texture V1B H0 run retained
+a loading overlay as its first SDK-ready frame and stopped at the existing
+`Workspace is not initialized` assertion before fixture/camera mutation.
+That run and all old first captures are immutable. V1C preparation adds no
+launch, fixture mutation or SDK request. Resource health remains unaccepted.
+The parent coordinator
 authorized a separate finite 240/190/50/90 total/work/cleanup/launcher plan;
 V6's immutable 150/110/40/90 startup receipts stay unchanged.
 
@@ -133,12 +136,31 @@ or total deadline overrun fails the diagnostic.
 
 Under V6 observation end T0+110 the matrix would have needed ready by T0+27;
 its final ready result at T0+90.755 left only 19.245 seconds. The separate
-240/190 plan requires final readiness plus a passing first post-ready world
-frame by T0+107, retaining all 83 seconds through work cutoff. At the observed
+240/190 plan requires actual application readiness and its first selected
+machine-valid capture by T0+107, retaining all 83 seconds through work cutoff.
+World pixels require direct image review before visual acceptance. At the observed
 V6 ready time, about 99.245 seconds would remain under that contract. The
 full existing snow/camera/SignCheck paths have unbounded outer waits and are
 unsuitable. A slow fixture stage fails and proceeds to cleanup instead of
 borrowing an implicit longer deadline or replacing the first capture.
+
+SDK readiness is distinct from application readiness. V1C preserves the
+first scheduled and first SDK-ready attempts, then makes only bounded
+read-only queries through the actual client system. Require the existing
+owner/session/bridge, `session.ready is True`, `bridge.session is session`,
+and the HUD created after `session.initialize()` in `UiInitFinished`.
+No initializer or event handler is called manually, no flag is fabricated,
+and no business source is modified. Require final launcher rc0/ready before
+these queries. Retain every reply, query at most 20 times over at most 20
+seconds, with at least one second between starts and each network request
+capped at one second and the application deadline. The query deadline is
+no later than T0+102, leaving five seconds for one separately locked first
+application-ready WGC attempt and the full 83-second phase reservation.
+All startup WGC attempts are capped at five seconds. A failed selected
+application attempt aborts; no replacement or relaunch is allowed. Machine
+capture checks never establish that a loading overlay has disappeared;
+the actual first application image and all diagnostic rows are inspected
+and archived before accepting any visual finding.
 
 Loaded fixed terrain, same-session camera capability, final reviewed frozen
 adapter, full budget reservation, and a separately coordinated runtime slot

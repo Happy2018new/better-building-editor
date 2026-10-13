@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": false,
+  "reliable": false,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-13T01:18:16.487949+00:00",
+  "timeout_seconds": 4.978570799983572,
+  "output": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\startup-first-scheduled.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\39e5d2a778d444cdad2dce2e1925cd86\\session.json",
+    "sha256": "6f67499732aebc44b15ad4b94a971161ed224f0f15c0e04f0dec4f2961b2dcd0",
+    "bytes": 4545
+  },
+  "session_id": "39e5d2a778d444cdad2dce2e1925cd86",
+  "owner": "snow-r12-h0-native",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+  "state_before": "starting",
+  "helper": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "processes_before": {
+    "mcdk": {
+      "pid": 42080,
+      "identity": "134363278765172484",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 27188,
+      "identity": "134363278767269899",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "ipc_port": {
+    "port": 50453,
+    "log_sha256": "2522823ad2ca4d809dc07047db2b63b94d234e9c0e9781db31c156b5cef38ce1",
+    "log_bytes": 6298,
+    "actual_child_environment_recorded": false,
+    "source": "MCDK listener log; not a game getenv observation"
+  },
+  "tcp": {
+    "ipv4_rows": [
+      {
+        "state": 2,
+        "pid": 42080,
+        "local_address": "127.0.0.1",
+        "local_port": 50453,
+        "remote_address": "0.0.0.0",
+        "remote_port": 0
+      }
+    ],
+    "owned_listener_observed": true,
+    "owned_established_pair_observed": false,
+    "passive_table_only": true,
+    "private_ipc_connection_attempted": false,
+    "limits": "An OS established pair is not an SDK-ready result; polling can miss transient connections."
+  },
+  "guard_before": {
+    "foreground": {
+      "hwnd": 74974350,
+      "pid": 21024,
+      "process": "vmware.exe",
+      "identity": "134363254763801532",
+      "title": "Ubuntu 64 \u4f4d - VMware Workstation",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 9112154,
+        "pid": 27188,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "window": {
+    "hwnd": 9112154,
+    "pid": 27188,
+    "process": "Minecraft.Windows.exe",
+    "title": "(1994, 1105) Minecraft",
+    "x": 283,
+    "y": 264,
+    "width": 1994,
+    "height": 1105,
+    "minimized": false,
+    "noactivate": true
+  },
+  "helper_returncode": 0,
+  "helper_stdout": "{\"ok\":true,\"backend\":\"Windows.Graphics.Capture\",\"native_resolution\":true,\"request_qpc_100ns\":3290809256763,\"frame_qpc_100ns\":3290809378110,\"width\":1994,\"height\":1105}\n",
+  "helper_stderr": "",
+  "manifest_after": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\39e5d2a778d444cdad2dce2e1925cd86\\session.json",
+    "sha256": "26f954321986366698b1ac4608ef2649cdaad508da49922f9eaae86cac3eebc4",
+    "bytes": 4848
+  },
+  "processes_after": {
+    "mcdk": {
+      "pid": 42080,
+      "identity": "134363278765172484",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 27188,
+      "identity": "134363278767269899",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "state_after": "starting",
+  "guard_after": {
+    "foreground": {
+      "hwnd": 74974350,
+      "pid": 21024,
+      "process": "vmware.exe",
+      "identity": "134363254763801532",
+      "title": "Ubuntu 64 \u4f4d - VMware Workstation",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 9112154,
+        "pid": 27188,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "frame": {
+    "ok": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "request_qpc_100ns": 3290809256763,
+    "frame_qpc_100ns": 3290809378110,
+    "width": 1994,
+    "height": 1105
+  },
+  "pixels": {
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      0.03022171688965777,
+      0.03022171688965777,
+      0.03022171688965777
+    ],
+    "sha256": "2813e22852cc4cf13c233d49b92af9b7034f931c02824211f5e84690af65d18d",
+    "bytes": 6718
+  },
+  "error": "RuntimeError: Startup image is blank; no activation fallback",
+  "finished_at": "2026-10-13T01:18:17.452927+00:00",
+  "elapsed_seconds": 0.9650030999910086
+}

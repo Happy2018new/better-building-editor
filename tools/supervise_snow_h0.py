@@ -6,7 +6,9 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import os
 import sys
+from types import ModuleType
 
 import supervise_owned_startup as startup
 from verify_snow_h0_phase import run_phase
@@ -15,6 +17,12 @@ ROOT = Path(__file__).resolve().parents[1]
 TOTAL = 240
 WORK = 190
 RESERVATION = 83
+APPLICATION_READINESS = {'maximum_wait_seconds': 20, 'query_timeout_seconds': 1,
+                         'query_interval_seconds': 1, 'maximum_queries': 20,
+                         'capture_wait_seconds': 5,
+                         'required': ['owner', 'session', 'bridge', 'session.ready', 'bridge.session', 'hud'],
+                         'existing_uiinit_only': True, 'manual_initialization': False,
+                         'first_sdk_capture_retained': True, 'first_application_capture_replaced': False}
 COPY_TARGETS = startup.COPY_TARGETS
 
 
@@ -28,6 +36,7 @@ def validate_plan(path, expected_sha):
             or plan.get('texture_condition') not in ('native_original', 'native_alpha_preserved')
             or plan.get('budgets') != {'total': TOTAL, 'work': WORK, 'cleanup_reserved': 50, 'launcher_wait': 90}
             or plan.get('post_ready_reservation_seconds') != RESERVATION
+            or plan.get('application_readiness') != APPLICATION_READINESS
             or plan.get('target') != [6, 117, 6] or plan.get('public_camera_offset') != [-2., .15, -2.5]
             or plan.get('max_launches') != 1 or plan.get('max_active_games') != 5
             or plan.get('movement_normalization') is not False or plan.get('retry_or_relaunch') is not False):
@@ -78,6 +87,49 @@ def rapid_growth(previous, current, elapsed):
 
 
 class WindowsHost(startup.WindowsHost):
+    def application_ready(self, session, plan, deadline):
+        module = ModuleType('frozen_h0_readiness_client')
+        module.__file__ = plan['files']['mcdk_client']['path']
+        exec(compile(Path(module.__file__).read_bytes(), module.__file__, 'exec'), module.__dict__)
+        previous = {key: os.environ.get(key) for key in ('MCDEV_SESSION_FILE', 'MCDEV_OWNER', 'MCDEV_MCP_URL')}
+        os.environ.update(MCDEV_SESSION_FILE=session['session_file'], MCDEV_OWNER=session['owner'], MCDEV_MCP_URL=session['mcp_url'])
+        host = self
+
+        class ReadinessClient(module.Client):
+            def _post(self, *args, **kwargs):
+                self.timeout = min(1., deadline - host.now())
+                if self.timeout <= 0:
+                    raise TimeoutError('Application readiness query deadline exhausted')
+                return super()._post(*args, **kwargs)
+
+            def close(self):
+                self.timeout = max(.001, min(.2, deadline - host.now()))
+                super().close()
+
+        try:
+            with ReadinessClient(timeout=1) as client:
+                value = module.return_value(client.call('execute_code', {'code': '''import json
+import mod.client.extraClientApi as api
+owner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+session=getattr(owner,'session',None) if owner is not None else None
+bridge=getattr(owner,'bridge',None) if owner is not None else None
+session_ready=getattr(session,'ready',False) is True
+bridge_session_matches=bridge is not None and getattr(bridge,'session',None) is session
+hud_present=owner is not None and getattr(owner,'hud',None) is not None
+_result=json.dumps({'owner_present':owner is not None,'session_present':session is not None,
+ 'bridge_present':bridge is not None,'session_ready':session_ready,
+ 'bridge_session_matches':bridge_session_matches,'hud_present':hud_present,
+ 'initialized':owner is not None and session is not None and bridge is not None and session_ready and bridge_session_matches and hud_present,
+ 'runtime_version':api.GetMinecraftVersion()})
+''', 'is_client': True, 'direct_return': True}))
+                return json.loads(value) if isinstance(value, str) else value
+        finally:
+            for key, value in previous.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
+
     def normal_stop(self, session, timeout):
         command = [sys.executable, '-X', 'utf8', str(ROOT / COPY_TARGETS[0]), 'stop',
                    '--session', session['session_file'], '--owner', session['owner']]
@@ -143,6 +195,8 @@ def supervise(plan, host, output, phase=run_phase):
     session, initial = None, set()
     first_scheduled = False
     first_ready = False
+    application_ready = False
+    application_gate_deadline = None
     capacity_checked = False
     consecutive = {'game': 0, 'mcdk': 0}
 
@@ -219,25 +273,46 @@ def supervise(plan, host, output, phase=run_phase):
                         report['first_scheduled_sample_locked'] = True
                         startup.save(receipt, report)
                         row = host.observe(session, plan, output / 'startup-first-scheduled.png',
-                                           max(.001, min(10., work_deadline - host.now())))
+                                           max(.001, min(5., work_deadline - host.now())))
                         report['samples'].append(dict(row, label='first_scheduled', game_elapsed=host.game_elapsed(session)))
                     if session.get('state') == 'ready' and session.get('ready') is True and not first_ready:
                         first_ready = True
                         report['first_post_ready_sample_locked'] = True
                         startup.save(receipt, report)
                         row = host.observe(session, plan, output / 'startup-first-ready.png',
-                                           max(.001, min(10., work_deadline - host.now())))
+                                           max(.001, min(5., work_deadline - host.now())))
                         report['samples'].append(dict(row, label='first_post_ready', game_elapsed=host.game_elapsed(session)))
-                        report['first_post_ready_passed'] = healthy_frame(row)
-                        if not report['first_post_ready_passed']:
-                            raise RuntimeError('First post-ready frame failed; replacement refused')
+                        report['first_post_sdk_ready_machine_checks_passed'] = healthy_frame(row)
+                        report['first_post_sdk_ready_world_pixels_accepted'] = False
+                        application_gate_deadline = min(work_deadline - RESERVATION - 5, host.now() + 20)
             if not host.launcher_alive():
                 report['launcher_result'] = host.launcher_result()
                 report['launcher_finished_at_elapsed_seconds'] = host.now() - started
                 ready = json.loads(report['launcher_result']['stdout']) if report['launcher_result'].get('stdout') else {}
                 if report['launcher_result']['returncode'] != 0 or ready.get('ready') is not True:
                     raise RuntimeError('H0 cold launcher did not finish ready')
-                if first_ready and report['first_post_ready_passed']:
+                if first_ready and not application_ready:
+                    if (host.now() >= application_gate_deadline or
+                            len(report.get('application_readiness_reads', [])) >= 20):
+                        raise TimeoutError('Modern projection UiInit readiness did not complete within reserved budget')
+                    health()
+                    semantic = host.application_ready(session, plan, application_gate_deadline)
+                    report.setdefault('application_readiness_reads', []).append(dict(semantic, elapsed_seconds=host.now() - started))
+                    if semantic['initialized']:
+                        application_ready = True
+                        report['first_application_ready_sample_locked'] = True
+                        startup.save(receipt, report)
+                        row = host.observe(session, plan, output / 'startup-first-application-ready.png',
+                                           max(.001, min(5., work_deadline - RESERVATION - host.now())))
+                        report['samples'].append(dict(row, label='first_application_ready', game_elapsed=host.game_elapsed(session)))
+                        report['first_application_ready_machine_checks_passed'] = healthy_frame(row)
+                        report['first_application_ready_world_pixels_accepted'] = False
+                        report['first_application_ready_world_pixels_require_visual_review'] = True
+                        if not report['first_application_ready_machine_checks_passed']:
+                            raise RuntimeError('First application-ready frame failed; replacement refused')
+                    else:
+                        host.sleep(min(.8, max(0, application_gate_deadline - host.now())))
+                if application_ready and report['first_application_ready_machine_checks_passed']:
                     if work_deadline - host.now() < RESERVATION:
                         raise TimeoutError('H0 ready frame left less than 83 seconds for the matrix')
                     health()
