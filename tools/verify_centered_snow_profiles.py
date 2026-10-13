@@ -35,6 +35,13 @@ def selected_heights(name):
     return tuple(sorted({0, max(0, burial-1), max(0, burial), 7}))
 
 
+def height_matrix(plants, requested=None):
+    heights = tuple(sorted(set(requested))) if requested else None
+    if heights is not None and any(type(height) is not int or not 0 <= height <= 7 for height in heights):
+        raise ValueError('Snow product heights must be integers from 0 to 7')
+    return {name: heights if heights is not None else selected_heights(name) for name in plants}
+
+
 def shape_metrics(expected, observed, minimum=80):
     expected_count, observed_count = count(expected), count(observed)
     recall = count(ImageChops.multiply(expected, observed.filter(ImageFilter.MaxFilter(7))))/max(1, expected_count)
@@ -98,11 +105,13 @@ def run(args):
     if not calibration.get('passed') or Path(calibration['session_file']).resolve() != Path(session['session_file']).resolve():
         raise ValueError('Same-session passing cube calibration is required')
     plants = tuple(dict.fromkeys(args.plant or NAMES))
+    heights = height_matrix(plants, args.height)
     report = {'schema': 1, 'completed': False, 'passed': False, 'rows': [],
               'style': profile['style'], 'profile_sha256': hashlib.sha256(PROFILE.read_bytes()).hexdigest(),
-              'plants': plants, 'heights': {name: selected_heights(name) for name in plants},
+              'plants': plants, 'heights': heights,
               'calibration': calibration, 'blueprint_case': VISUAL_CASE,
-              'session_file': session['session_file'], 'background_only': True,
+              'session_file': session['session_file'], 'agent_activation_allowed': False,
+              'capture_policy': 'Owner-bound guarded capture; user may foreground the game',
               'native_random_jitter_is_diagnostic': True,
               'scope': 'Centered snapshot dry and alpha burial boundaries; built-in editor and separate full/missing projections'}
     installed = saved = options_saved = False
@@ -130,7 +139,7 @@ def run(args):
                 report.setdefault('assets', {})[plant] = asset_record
                 frames = {'editor': {}, 'full': {}, 'missing': {}}
                 blank = None
-                cases = [('blank', 0), ('plant', 0)]+[(kind, height) for height in selected_heights(plant)
+                cases = [('blank', 0), ('plant', 0)]+[(kind, height) for height in heights[plant]
                                                      for kind in ('snow', 'covered')]
                 for kind, height in cases:
                     label = plant+'_'+kind+'_h'+str(height)
@@ -162,7 +171,7 @@ def run(args):
                     frame = capture_frame(editor['path'], crop, blank['path'], geometry=geometry)
                     if kind == 'plant':
                         frame['above_snow'] = {h: editor_cross_above_snow(crop, camera_state, focus, h, model, texture)
-                                               for h in selected_heights(plant)}
+                                               for h in heights[plant]}
                         expected = editor_cross_above_snow(crop, camera_state, focus, -1, model, texture)
                         row['checks']['editor_shape'] = shape_metrics(expected, frame['object'])
                         row['editor_expected_alpha'] = save_mask(expected, args.output, label+'_editor_expected')
@@ -190,7 +199,7 @@ def run(args):
                         if kind == 'plant':
                             expected = world_alpha(model, texture, world['pose'], (width, pixels_high), world_crop, target, calibration)
                             actual['above_snow'] = {h: world_alpha(model, texture, world['pose'], (width, pixels_high), world_crop, target, calibration, h)
-                                                   for h in selected_heights(plant)}
+                                                   for h in heights[plant]}
                             row['checks'][mode+'_shape'] = shape_metrics(expected, actual['object'])
                             world['expected_alpha'] = save_mask(expected, args.output, label+'_'+mode+'_expected')
                         if kind == 'snow':
@@ -277,6 +286,8 @@ def main():
     parser.add_argument('output', type=Path)
     parser.add_argument('--camera-calibration', type=Path, required=True)
     parser.add_argument('--plant', choices=NAMES, action='append')
+    parser.add_argument('--height', choices=range(8), type=int, action='append',
+                        help='Explicit snow height matrix; defaults to each plant burial boundaries')
     parser.add_argument('--timeout', type=float, default=45)
     args = parser.parse_args()
     report = run(args)

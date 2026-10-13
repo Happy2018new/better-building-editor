@@ -8,12 +8,21 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
-from verify_centered_snow_profiles import shape_metrics, selected_heights, world_alpha
+from verify_centered_snow_profiles import shape_metrics, selected_heights, height_matrix, world_alpha
 from generate_centered_plant_profiles import PROFILE, outputs
 from projection.debug_snow_blueprints import NAMES
 
 
 class CenteredSnowVisualTests(unittest.TestCase):
+    def test_explicit_eight_height_matrix_and_burial_defaults(self):
+        names = ('short_grass', 'fern', 'poppy')
+        explicit = height_matrix(names, list(reversed(range(8)))+[7])
+        self.assertEqual({name: tuple(range(8)) for name in names}, explicit)
+        self.assertEqual({name: selected_heights(name) for name in names}, height_matrix(names))
+        for value in (-1, 8, True, .5):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                height_matrix(names, [value])
+
     def test_oracle_presence_cannot_pass_an_empty_actual_capture(self):
         expected = Image.new('L', (128, 128))
         ImageDraw.Draw(expected).rectangle((30, 30, 80, 100), fill=255)
