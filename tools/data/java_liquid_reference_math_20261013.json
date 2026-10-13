@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "scope": "Derived reference math and current-candidate comparison, not native acceptance",
+  "java_game_executed": false,
+  "bedrock_game_executed": false,
+  "production_modified": false,
+  "native_geometry_accepted": false,
+  "uv_accepted": false,
+  "animation_accepted": false,
+  "production_accepted": false,
+  "current_sources": [
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_shape.py",
+      "sha256": "1794b32ff0384276b11af563e5f8c2ead687078eff806620ba1e67c3f4a16e46"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_shape_data.py",
+      "sha256": "3bd1e54a97cf941938a5bc980c6a3f6bd7ff28a63cb070b4cf1391ae83e253e5"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_flow_top.py",
+      "sha256": "4e9d7bf68811e42e286b5911bd5325239b41800c870b8557c38450a482e9c7b7"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_flow_top_data.py",
+      "sha256": "3d6ecff297437b4696abb7a9049486d81f93001984e0fce7ada7bbf22ddac17b"
+    },
+    {
+      "path": "behavior_pack/modern_projection/projection/liquid_native_shapes.py",
+      "sha256": "c344c5257d832a6191e5d1de306b6afde8da6540d72ed08880788054a017a14f"
+    }
+  ],
+  "height_cases": [
+    {
+      "name": "isolated_source",
+      "depths_c_a_b_d": [
+        0,
+        null,
+        null,
+        null
+      ],
+      "reference_heights": {
+        "java_1_12_2": {
+          "rational": "44/63",
+          "height": 0.6984126984126984,
+          "nearest_byte": 178,
+          "repeated_byte_uniform": 45746
+        },
+        "java_1_16_5": {
+          "rational": "80/117",
+          "height": 0.6837606837606838,
+          "nearest_byte": 174,
+          "repeated_byte_uniform": 44718
+        },
+        "java_1_21": {
+          "rational": "20/27",
+          "height": 0.7407407407407407,
+          "nearest_byte": 189,
+          "repeated_byte_uniform": 48573
+        }
+      },
+      "current_height": 0.6984126984126984,
+      "current_matches_inspected_legacy_example": true
+    },
+    {
+      "name": "isolated_depth3",
+      "depths_c_a_b_d": [
+        3,
+        null,
+        null,
+        null
+      ],
+      "reference_heights": {
+        "java_1_12_2": {
+          "rational": "5/36",
+          "height": 0.1388888888888889,
+          "nearest_byte": 35,
+          "repeated_byte_uniform": 8995
+        },
+        "java_1_16_5": {
+          "rational": "5/36",
+          "height": 0.1388888888888889,
+          "nearest_byte": 35,
+          "repeated_byte_uniform": 8995
+        },
+        "java_1_21": {
+          "rational": "5/27",
+          "height": 0.18518518518518517,
+          "nearest_byte": 47,
+          "repeated_byte_uniform": 12079
+        }
+      },
+      "current_height": 0.1388888888888889,
+      "current_matches_inspected_legacy_example": true
+    },
+    {
+      "name": "low_diagonal",
+      "depths_c_a_b_d": [
+        3,
+        null,
+        null,
+        3
+      ],
+      "reference_heights": {
+        "java_1_12_2": {
+          "rational": "5/18",
+          "height": 0.2777777777777778,
+          "nearest_byte": 71,
+          "repeated_byte_uniform": 18247
+        },
+        "java_1_16_5": {
+          "rational": "5/18",
+          "height": 0.2777777777777778,
+          "nearest_byte": 71,
+          "repeated_byte_uniform": 18247
+        },
+        "java_1_21": {
+          "rational": "5/27",
+          "height": 0.18518518518518517,
+          "nearest_byte": 47,
+          "repeated_byte_uniform": 12079
+        }
+      },
+      "current_height": 0.2777777777777778,
+      "current_matches_inspected_legacy_example": true
+    },
+    {
+      "name": "source_low_orthogonal",
+      "depths_c_a_b_d": [
+        0,
+        3,
+        null,
+        null
+      ],
+      "reference_heights": {
+        "java_1_12_2": {
+          "rational": "31/42",
+          "height": 0.7380952380952381,
+          "nearest_byte": 188,
+          "repeated_byte_uniform": 48316
+        },
+        "java_1_16_5": {
+          "rational": "85/117",
+          "height": 0.7264957264957265,
+          "nearest_byte": 185,
+          "repeated_byte_uniform": 47545
+        },
+        "java_1_21": {
+          "rational": "85/117",
+          "height": 0.7264957264957265,
+          "nearest_byte": 185,
+          "repeated_byte_uniform": 47545
+        }
+      },
+      "current_height": 0.738095238095238,
+      "current_matches_inspected_legacy_example": true
+    }
+  ],
+  "top_uv": {
+    "comparison_points": 1536,
+    "current_code_offset_for_ideal_java_template": -64,
+    "maximum_normalized_error": 2.220446049250313e-16,
+    "java_east_nw_uv_before_shrink": [
+      0.75,
+      0.25
+    ],
+    "current_east_nw_uv": [
+      0.25,
+      0.25
+    ],
+    "native_orientation_identified": false
+  },
+  "flow_counterexample": {
+    "top_candidate_heights": [
+      0.6984126984126984,
+      0.6984126984126984,
+      0.6984126984126984,
+      0.6984126984126984
+    ],
+    "current_corner_gradient_rotation": null,
+    "java_raw_xz_flow": [
+      0.0,
+      -0.8888888888888888
+    ],
+    "java_top_material": "flowing",
+    "actual_current_document_comparisons": [
+      {
+        "water_below_north_air": false,
+        "current_corner_heights": [
+          0.6984126984126984,
+          0.6984126984126984,
+          0.6984126984126984,
+          0.6984126984126984
+        ],
+        "current_top_choice": [
+          "still_water_grey",
+          null
+        ]
+      },
+      {
+        "water_below_north_air": true,
+        "current_corner_heights": [
+          0.6984126984126984,
+          0.6984126984126984,
+          0.6984126984126984,
+          0.6984126984126984
+        ],
+        "current_top_choice": [
+          "still_water_grey",
+          null
+        ]
+      }
+    ],
+    "neighborhood_difference": "water below north adjacent air only",
+    "bedrock_rule_identified": false
+  }
+}

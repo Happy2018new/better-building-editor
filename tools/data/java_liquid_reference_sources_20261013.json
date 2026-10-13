@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "research_date": "2026-10-13",
+  "target_bedrock_version": "NEMC 3.9.0.401155 / Minecraft 1.21.120.0",
+  "root_source_commit": "a280682",
+  "scope": "Official Java distribution internal reference, not an open-source release or Bedrock equivalence proof",
+  "game_code_in_repository": false,
+  "game_executed": false,
+  "official_distributions": [
+    {
+      "version": "1.12.2",
+      "version_url": "https://piston-meta.mojang.com/v1/packages/832d95b9f40699d4961394dcf6cf549e65f15dc5/1.12.2.json",
+      "version_sha1": "832d95b9f40699d4961394dcf6cf549e65f15dc5",
+      "downloads": {
+        "client": {
+          "url": "https://piston-data.mojang.com/v1/objects/0f275bc1547d01fa5f56ba34bdc87d981ee12daf/client.jar",
+          "sha1": "0f275bc1547d01fa5f56ba34bdc87d981ee12daf",
+          "sha256": "8ada07da5ee77dad3527bd7278fbd05ee1fc8a597813b216a871a2d7d64cc64f",
+          "size": 10180113
+        }
+      },
+      "class_identification": {
+        "water_renderer": "unique minecraft:blocks/water_overlay constant in bvn",
+        "liquid_height_gap": "aru.b(int), directly referenced by bvn"
+      },
+      "selected_class_fingerprints": [
+        {
+          "archive_entry": "bvn.class",
+          "sha256": "b4a0238596eda325ff9b5a1dbe5dc73e3990893ee9b44378358ae0d48e4bca84",
+          "size": 6962,
+          "javap_output_sha256": "7d0085f0d96551f5cb62a67d78d959eae36acb5e5ad345865cad78819ebf9d34"
+        },
+        {
+          "archive_entry": "aru.class",
+          "sha256": "c80f7d7e0d9fe1b8f1522404ca2d2061a984cf217099ce300ec677bdea75145b",
+          "size": 9837,
+          "javap_output_sha256": "d944059f399b9c91591f87066297661288140baabe21b4cedc530f1465ae74ce"
+        }
+      ]
+    },
+    {
+      "version": "1.16.5",
+      "version_url": "https://piston-meta.mojang.com/v1/packages/fba9f7833e858a1257d810d21a3a9e3c967f9077/1.16.5.json",
+      "version_sha1": "fba9f7833e858a1257d810d21a3a9e3c967f9077",
+      "downloads": {
+        "client_mappings": {
+          "url": "https://piston-data.mojang.com/v1/objects/374c6b789574afbdc901371207155661e0509e17/client.txt",
+          "sha1": "374c6b789574afbdc901371207155661e0509e17",
+          "sha256": "7931ed6d723eceb1d621d05a76e10ddf643bf468c6ecf1c4ecf377bd72cf8b8c",
+          "size": 5746047
+        },
+        "client": {
+          "url": "https://piston-data.mojang.com/v1/objects/37fd3c903861eeff3bc24b71eed48f828b5269c8/client.jar",
+          "sha1": "37fd3c903861eeff3bc24b71eed48f828b5269c8",
+          "sha256": "00b5ebbc33e95ea88c1ab80601599c9827e9aa861d93ccc2cfcbbfd996e86263",
+          "size": 17547153
+        }
+      },
+      "class_identification": {
+        "net.minecraft.client.renderer.block.LiquidBlockRenderer": "eay",
+        "net.minecraft.world.level.material.FlowingFluid": "cuv"
+      },
+      "selected_class_fingerprints": [
+        {
+          "archive_entry": "eay.class",
+          "sha256": "032b3faa7ffd1a86e8089c8edc93eac2aa83c2a04c64b549a4564b5ef0209902",
+          "size": 8820,
+          "javap_output_sha256": "bec5cfbfe998bc56cc807143041ba83b389dd0452d30606fd4e5b900b50af8f4"
+        },
+        {
+          "archive_entry": "cuv.class",
+          "sha256": "3fee5157ceef73710bc161ee980e95a19b6031397cdb5ffdca412c7e741265d6",
+          "size": 15965,
+          "javap_output_sha256": "a65c486d4636c4c30c77c2b56bd526527dbffdaf295c8155584eaf83960a8079"
+        }
+      ]
+    },
+    {
+      "version": "1.21.1",
+      "version_url": "https://piston-meta.mojang.com/v1/packages/cedfc3b6dcbca34e2b478d498bf1d56a8fa2f404/1.21.1.json",
+      "version_sha1": "cedfc3b6dcbca34e2b478d498bf1d56a8fa2f404",
+      "downloads": {
+        "client": {
+          "url": "https://piston-data.mojang.com/v1/objects/30c73b1c5da787909b2f73340419fdf13b9def88/client.jar",
+          "size": 26836906,
+          "sha1": "30c73b1c5da787909b2f73340419fdf13b9def88",
+          "sha256": "499f6897d1837516680f3114072d8106e11c9adcd933fe5cf051b551089b0c99"
+        },
+        "client_mappings": {
+          "url": "https://piston-data.mojang.com/v1/objects/2244b6f072256667bcd9a73df124d6c58de77992/client.txt",
+          "size": 9598610,
+          "sha1": "2244b6f072256667bcd9a73df124d6c58de77992",
+          "sha256": "140c47931cccc8fc9e4c22d7603e2d714d1a953a146f51ea7397d95c955536ec"
+        }
+      },
+      "class_identification": {
+        "net.minecraft.client.renderer.block.LiquidBlockRenderer": "gfu",
+        "net.minecraft.client.renderer.texture.SpriteContents": "gqf",
+        "net.minecraft.client.renderer.texture.TextureAtlasSprite": "gql",
+        "net.minecraft.world.level.material.FlowingFluid": "epc",
+        "net.minecraft.world.level.material.FluidState": "epe",
+        "net.minecraft.world.level.material.WaterFluid": "epk"
+      },
+      "selected_class_fingerprints": [
+        {
+          "archive_entry": "gfu.class",
+          "sha256": "69d3e5d0d6bfffff6cb73be1dd8648befd79cd28c9a37e2dfb9e0c4a3a45e12c",
+          "size": 11067,
+          "javap_output_sha256": "da1da0bed7e03c579de5a7e544e4eeb11e62ae9d172a1af5e70b35ccdc0af0bf"
+        },
+        {
+          "archive_entry": "epc.class",
+          "sha256": "1613a730625c78afbcb4884f3535206cde19992de0160fd968dc482dd9a3d373",
+          "size": 16311,
+          "javap_output_sha256": "6f748008e18d5e1f7dbd629443195d6082f68e0fce3c426a9b216879060614e5"
+        },
+        {
+          "archive_entry": "gql.class",
+          "sha256": "a1a10bb56da038072d45e5ccfd5d28a25d65d332aa2dbc537e45483741db0b53",
+          "size": 3133,
+          "javap_output_sha256": "f18a54203074faa1f11b2063135b643b0361851e64da0d8e41cdeb75424e0952"
+        }
+      ]
+    },
+    {
+      "version": "1.21.11",
+      "version_url": "https://piston-meta.mojang.com/v1/packages/6827f8e998ee6add1b3acff9286b6c95ebeebdc1/1.21.11.json",
+      "version_sha1": "6827f8e998ee6add1b3acff9286b6c95ebeebdc1",
+      "downloads": {
+        "client_mappings": {
+          "url": "https://piston-data.mojang.com/v1/objects/031a68bebf55d824f66d6573d8c752f0e1bf232a/client.txt",
+          "sha1": "031a68bebf55d824f66d6573d8c752f0e1bf232a",
+          "sha256": "517799a8485e107e932dc1bd27c002b2d0b9207eb2396b685bcfe6c3321a9fbd",
+          "size": 11779287
+        },
+        "client": {
+          "url": "https://piston-data.mojang.com/v1/objects/ba2df812c2d12e0219c489c4cd9a5e1f0760f5bd/client.jar",
+          "sha1": "ba2df812c2d12e0219c489c4cd9a5e1f0760f5bd",
+          "sha256": "1473c9489ac50fda3c435049a76a70d61a10b8610db27f5ba9d8756b686cd3bd",
+          "size": 31152600
+        }
+      },
+      "class_identification": {
+        "net.minecraft.client.renderer.block.LiquidBlockRenderer": "hpx",
+        "net.minecraft.world.level.material.FlowingFluid": "fkz"
+      },
+      "selected_class_fingerprints": [
+        {
+          "archive_entry": "hpx.class",
+          "sha256": "2feff9f1c5517b685237ef5abc12be1a5d22b457a77aaf77f2679249fe24cead",
+          "size": 10525,
+          "javap_output_sha256": "59ee507ba8dba4d27e20ffd66a75f11a676360daa01a0a29a7a516d048288120"
+        },
+        {
+          "archive_entry": "fkz.class",
+          "sha256": "4dacb1e9f8979176252b6cbbeb9af021ff4b52a81f7149a45ed9e8c43c8989ee",
+          "size": 14050,
+          "javap_output_sha256": "67251a1f0057a3b83af27cb72cfbef4c02edacef58288a2c06c5611781f5a647"
+        },
+        {
+          "archive_entry": "ilp.class",
+          "sha256": "22dbf53af6635d5c98c45943189ad5b03af8fc5be6f14320aa4ab20c88345c31",
+          "size": 4021
+        }
+      ]
+    }
+  ],
+  "inspection_tools": {
+    "java": "22.0.1",
+    "javap": "22.0.1",
+    "cfr_version": "0.152",
+    "cfr_download_url": "https://www.benf.org/other/cfr/cfr-0.152.jar",
+    "cfr_sha256": "f686e8f3ded377d7bc87d216a90e9e9512df4156e75b06c655a16648ae8765b2"
+  },
+  "license_references": [
+    "https://www.minecraft.net/en-us/eula",
+    "https://www.minecraft.net/en-us/article/minecraft-snapshot-19w36a"
+  ],
+  "internal_reference_directory": ".runtime/java-water-study-20261013",
+  "limitations": [
+    "CFR produces invalid local declarations in tesselate for some versions; important height helpers were cross-checked with javap bytecode.",
+    "Names for 1.12.2 were identified from constants and call relationships, without an official mapping download.",
+    "Only inspected method-level differences are claimed; no full game or library equivalence proof."
+  ],
+  "java_asset_summaries": [
+    {
+      "version": "1.12.2",
+      "archive_entry": "assets/minecraft/textures/blocks/water_flow.png",
+      "sha256": "ab13ff3fcac7c8c41718e5bb9b8208b1fe3abd258295a121beab055a7b93e9bc",
+      "size": 9720,
+      "dimensions": [
+        32,
+        1024
+      ],
+      "rgba_extrema": [
+        [
+          43,
+          73
+        ],
+        [
+          59,
+          118
+        ],
+        [
+          244,
+          245
+        ],
+        [
+          165,
+          211
+        ]
+      ]
+    },
+    {
+      "version": "1.12.2",
+      "archive_entry": "assets/minecraft/textures/blocks/water_still.png",
+      "sha256": "2fef429515591b671525477e886da265595027b288b771cac185fa331b0c52ba",
+      "size": 9315,
+      "dimensions": [
+        16,
+        512
+      ],
+      "rgba_extrema": [
+        [
+          42,
+          73
+        ],
+        [
+          58,
+          118
+        ],
+        [
+          244,
+          245
+        ],
+        [
+          168,
+          226
+        ]
+      ]
+    },
+    {
+      "version": "1.12.2",
+      "archive_entry": "assets/minecraft/textures/blocks/water_flow.png.mcmeta",
+      "sha256": "802acdb8f55f30146d5ed18414b21ba35650d4e550f81825ea104131c12dc4fc",
+      "size": 21,
+      "metadata": {
+        "animation": {}
+      }
+    },
+    {
+      "version": "1.12.2",
+      "archive_entry": "assets/minecraft/textures/blocks/water_still.png.mcmeta",
+      "sha256": "e9b8025fde1b09b0a4d2a38427b04f98f28a593045be6d177eb2b29164c872b0",
+      "size": 44,
+      "metadata": {
+        "animation": {
+          "frametime": 2
+        }
+      }
+    },
+    {
+      "version": "1.16.5",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png",
+      "sha256": "e539220969695a96f2d591b649566f051e6c5829ecac583bd3bb67e1e5d60db7",
+      "size": 5489,
+      "dimensions": [
+        32,
+        1024
+      ],
+      "rgba_extrema": [
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    },
+    {
+      "version": "1.16.5",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png",
+      "sha256": "35cfb387e0aef6460e5aa8c900ae654ef94e065b96d97cc0630c2f61ec88ebd8",
+      "size": 2419,
+      "dimensions": [
+        16,
+        512
+      ],
+      "rgba_extrema": [
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    },
+    {
+      "version": "1.16.5",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png.mcmeta",
+      "sha256": "802acdb8f55f30146d5ed18414b21ba35650d4e550f81825ea104131c12dc4fc",
+      "size": 21,
+      "metadata": {
+        "animation": {}
+      }
+    },
+    {
+      "version": "1.16.5",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png.mcmeta",
+      "sha256": "e9b8025fde1b09b0a4d2a38427b04f98f28a593045be6d177eb2b29164c872b0",
+      "size": 44,
+      "metadata": {
+        "animation": {
+          "frametime": 2
+        }
+      }
+    },
+    {
+      "version": "1.21.1",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png.mcmeta",
+      "sha256": "e9b8025fde1b09b0a4d2a38427b04f98f28a593045be6d177eb2b29164c872b0",
+      "size": 44,
+      "metadata": {
+        "animation": {
+          "frametime": 2
+        }
+      }
+    },
+    {
+      "version": "1.21.1",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png",
+      "sha256": "b53b424a188e5c4d5c586cb053950529cdca3333ecfd8b9587ab3cd3f7886991",
+      "size": 3244,
+      "dimensions": [
+        32,
+        1024
+      ],
+      "rgba_extrema": [
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    },
+    {
+      "version": "1.21.1",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png",
+      "sha256": "5843e8826507c484dfc15d5d255843d041804bcaa2036ed137320610d7fb9af7",
+      "size": 1513,
+      "dimensions": [
+        16,
+        512
+      ],
+      "rgba_extrema": [
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    },
+    {
+      "version": "1.21.1",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png.mcmeta",
+      "sha256": "802acdb8f55f30146d5ed18414b21ba35650d4e550f81825ea104131c12dc4fc",
+      "size": 21,
+      "metadata": {
+        "animation": {}
+      }
+    },
+    {
+      "version": "1.21.11",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png.mcmeta",
+      "sha256": "802acdb8f55f30146d5ed18414b21ba35650d4e550f81825ea104131c12dc4fc",
+      "size": 21,
+      "metadata": {
+        "animation": {}
+      }
+    },
+    {
+      "version": "1.21.11",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png",
+      "sha256": "683df6ad9c23a50b7ce9323a5fe231aa79f94a63c6d750f3cf87a1fd44422551",
+      "size": 1481,
+      "dimensions": [
+        16,
+        512
+      ],
+      "rgba_extrema": [
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          165,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    },
+    {
+      "version": "1.21.11",
+      "archive_entry": "assets/minecraft/textures/block/water_still.png.mcmeta",
+      "sha256": "e9b8025fde1b09b0a4d2a38427b04f98f28a593045be6d177eb2b29164c872b0",
+      "size": 44,
+      "metadata": {
+        "animation": {
+          "frametime": 2
+        }
+      }
+    },
+    {
+      "version": "1.21.11",
+      "archive_entry": "assets/minecraft/textures/block/water_flow.png",
+      "sha256": "1d1f27fe65b12dea2ec8995f1955f0ac9c5efe60b9bc4322625217c205382981",
+      "size": 3162,
+      "dimensions": [
+        32,
+        1024
+      ],
+      "rgba_extrema": [
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          157,
+          255
+        ],
+        [
+          180,
+          180
+        ]
+      ]
+    }
+  ],
+  "installed_bedrock_artwork_comparison": [
+    {
+      "name": "water_still_grey.png",
+      "installed_path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\water_still_grey.png",
+      "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+      "dimensions": [
+        16,
+        512
+      ],
+      "rgba_extrema": [
+        [
+          154,
+          247
+        ],
+        [
+          154,
+          247
+        ],
+        [
+          154,
+          247
+        ],
+        [
+          240,
+          240
+        ]
+      ],
+      "java_pixel_comparisons": [
+        {
+          "version": "1.12.2",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.16.5",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.21.1",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.21.11",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        }
+      ]
+    },
+    {
+      "name": "water_flow_grey.png",
+      "installed_path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\water_flow_grey.png",
+      "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+      "dimensions": [
+        32,
+        1024
+      ],
+      "rgba_extrema": [
+        [
+          141,
+          255
+        ],
+        [
+          141,
+          255
+        ],
+        [
+          141,
+          255
+        ],
+        [
+          255,
+          255
+        ]
+      ],
+      "java_pixel_comparisons": [
+        {
+          "version": "1.12.2",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.16.5",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.21.1",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        },
+        {
+          "version": "1.21.11",
+          "same_dimensions": true,
+          "same_rgb_pixels": false,
+          "same_rgba_pixels": false
+        }
+      ]
+    }
+  ]
+}

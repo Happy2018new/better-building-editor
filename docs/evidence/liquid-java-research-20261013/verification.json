@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "PASSED_RESEARCH_VERIFICATION",
+  "source_baseline": "a280682",
+  "date": "2026-10-13",
+  "official_downloads": [
+    {
+      "version": "1.12.2",
+      "kind": "client",
+      "size": 10180113,
+      "sha256": "8ada07da5ee77dad3527bd7278fbd05ee1fc8a597813b216a871a2d7d64cc64f"
+    },
+    {
+      "version": "1.16.5",
+      "kind": "client_mappings",
+      "size": 5746047,
+      "sha256": "7931ed6d723eceb1d621d05a76e10ddf643bf468c6ecf1c4ecf377bd72cf8b8c"
+    },
+    {
+      "version": "1.16.5",
+      "kind": "client",
+      "size": 17547153,
+      "sha256": "00b5ebbc33e95ea88c1ab80601599c9827e9aa861d93ccc2cfcbbfd996e86263"
+    },
+    {
+      "version": "1.21.1",
+      "kind": "client",
+      "size": 26836906,
+      "sha256": "499f6897d1837516680f3114072d8106e11c9adcd933fe5cf051b551089b0c99"
+    },
+    {
+      "version": "1.21.1",
+      "kind": "client_mappings",
+      "size": 9598610,
+      "sha256": "140c47931cccc8fc9e4c22d7603e2d714d1a953a146f51ea7397d95c955536ec"
+    },
+    {
+      "version": "1.21.11",
+      "kind": "client_mappings",
+      "size": 11779287,
+      "sha256": "517799a8485e107e932dc1bd27c002b2d0b9207eb2396b685bcfe6c3321a9fbd"
+    },
+    {
+      "version": "1.21.11",
+      "kind": "client",
+      "size": 31152600,
+      "sha256": "1473c9489ac50fda3c435049a76a70d61a10b8610db27f5ba9d8756b686cd3bd"
+    }
+  ],
+  "selected_java_classes_checked": 10,
+  "java_asset_entries_checked": 16,
+  "bedrock_pngs_checked": 2,
+  "math_uv_points": 1536,
+  "math_height_cases": 4,
+  "actual_current_flow_documents": 2,
+  "existing_regression_tests": {
+    "test_liquid_shape": 11,
+    "test_liquid_flow_top": 9,
+    "passed": true
+  },
+  "bedrock_study_origin_commit": "a23df76",
+  "production_sources_modified": false,
+  "game_executed": false,
+  "native_acceptance_changed": false,
+  "protected_index_matches_original_snapshot": true,
+  "protected_worktree_matches_saved_raw_checkpoint": true,
+  "protected_newline_checks": [
+    {
+      "path": "tools/p0_palette_actor_write_probe.py",
+      "worktree_crlf": 50,
+      "index_crlf": 0,
+      "only_crlf_lf_difference": true,
+      "index_sha256_matches_snapshot": true,
+      "worktree_sha256": "a7d723b6c37ddf23abfbe6c062be0226dd0ca3da5a9e35e78d2b6f47b1bb349e",
+      "index_sha256": "4896c834c169d6f45db8a27356159a554f33e47ba273078ce09d2c4891735967"
+    },
+    {
+      "path": "tools/p0_palette_client_probe.py",
+      "worktree_crlf": 20,
+      "index_crlf": 0,
+      "only_crlf_lf_difference": true,
+      "index_sha256_matches_snapshot": true,
+      "worktree_sha256": "7868f056e241bdd267f4ad570cc728e8e4f433e8c7250c840758e285c9e528f8",
+      "index_sha256": "fb4a27e7d46d553df053d06177d6ffb00df9e71ed84f32d26fec35ca3bdc8f14"
+    },
+    {
+      "path": "tools/p0_palette_probe.py",
+      "worktree_crlf": 81,
+      "index_crlf": 0,
+      "only_crlf_lf_difference": true,
+      "index_sha256_matches_snapshot": true,
+      "worktree_sha256": "0b467c17e9185726fd00e24369ac51333eb8bacdb93560a9f2ea8f4a10396382",
+      "index_sha256": "b42b4b6ae68fd2da6f7659a43bbca7125db3628718f3636e9b5668700e46c025"
+    },
+    {
+      "path": "tools/p0_palette_shape_probe.py",
+      "worktree_crlf": 16,
+      "index_crlf": 0,
+      "only_crlf_lf_difference": true,
+      "index_sha256_matches_snapshot": true,
+      "worktree_sha256": "4ac41cdc435b60da18d90aa6188ac2f634a8a0326441247bc40815fefd747aa8",
+      "index_sha256": "561fa437efd3bd86fba7d7c208936d7e3aceb8c5f3a563470a62da8d1c25aa3d"
+    },
+    {
+      "path": "tools/p0_palette_write_probe.py",
+      "worktree_crlf": 38,
+      "index_crlf": 0,
+      "only_crlf_lf_difference": true,
+      "index_sha256_matches_snapshot": true,
+      "worktree_sha256": "1ceb4f6e3f32ca1217150d596b68668c6d0711830ec1e85efde195eb648cc6cf",
+      "index_sha256": "89eded2b65c55e8e75c494ba94a07cc7b0361908f7bbd43f43b5fe9b699387ca"
+    }
+  ],
+  "main_and_render_dragon_unchanged": true,
+  "initial_guard_assumption_rejected": {
+    "cause": "Original protected snapshot hashes identify index LF bytes, not worktree CRLF bytes.",
+    "resolution": "Verified exact original index hashes and CRLF-only worktree difference, then preserved both raw forms without edits."
+  },
+  "research_file_sha256": {
+    "docs/LIQUID_JAVA_REFERENCE_STUDY_20261013.md": "aa5e0134ac6771aaa756d0808a4cbcd601d0db0c3d6b6d775d7b8c2b21945da5",
+    "docs/LIQUID_BEDROCK_REFERENCE_STUDY_20261013.md": "4d97ee4e2284358d78442e85b08cff54460ab23d201abaf4a18bb8c632c87d26",
+    "docs/IMPLEMENTATION_GAPS.md": "fa2fe5df3b30bb92a9a6d01489ade42b564c2b5d5e0406839b892c881253fc52",
+    "docs/CONVERSATION_HANDOFF.md": "9f6afd1bd5a44c1205a659da8c962d44a11c188271da4964e1b43c92f4358890",
+    "tools/study_java_liquid_reference.py": "e2dbf04cc8a2432a1f2749659043c86b71d626aaf84932d53a6865564667b0b5",
+    "tools/data/java_liquid_reference_math_20261013.json": "15e77d679f1d25a43342b3d852ae89ae59d005957bb1bc330b834c72b43dfb50",
+    "tools/data/java_liquid_reference_sources_20261013.json": "e36ceb7e2c60247f7a4f7a0ff8bf45d3d9b0a53a1a2d254b4e9e3948b21227ff"
+  },
+  "research_file_git_blob_sha256": {
+    "docs/LIQUID_JAVA_REFERENCE_STUDY_20261013.md": "aa5e0134ac6771aaa756d0808a4cbcd601d0db0c3d6b6d775d7b8c2b21945da5",
+    "docs/LIQUID_BEDROCK_REFERENCE_STUDY_20261013.md": "4d97ee4e2284358d78442e85b08cff54460ab23d201abaf4a18bb8c632c87d26",
+    "docs/IMPLEMENTATION_GAPS.md": "a2cb71722ea4524ef9e2f74804fa77ab320a8bee2fcb06358bf34ee24c91e28e",
+    "docs/CONVERSATION_HANDOFF.md": "0f14b2d93d9a6a9968309d0a60b68998b0380b263469d786ec1c106c44e6bff2",
+    "tools/study_java_liquid_reference.py": "e2dbf04cc8a2432a1f2749659043c86b71d626aaf84932d53a6865564667b0b5",
+    "tools/data/java_liquid_reference_math_20261013.json": "68d56f4da127e910211edb264c45ac7b05bdcb5a403a50689466b74bbd0f1800",
+    "tools/data/java_liquid_reference_sources_20261013.json": "c2a035392a6bb9a3c9d3eac04436401aa77ea2593659542860a5dad84eadc921"
+  },
+  "research_git_text_normalization": {
+    "docs/LIQUID_JAVA_REFERENCE_STUDY_20261013.md": "exact_raw_bytes",
+    "docs/LIQUID_BEDROCK_REFERENCE_STUDY_20261013.md": "exact_raw_bytes",
+    "docs/IMPLEMENTATION_GAPS.md": "Git text CRLF to LF; raw fingerprint preserved separately",
+    "docs/CONVERSATION_HANDOFF.md": "Git text CRLF to LF; raw fingerprint preserved separately",
+    "tools/study_java_liquid_reference.py": "exact_raw_bytes",
+    "tools/data/java_liquid_reference_math_20261013.json": "Git text CRLF to LF; raw fingerprint preserved separately",
+    "tools/data/java_liquid_reference_sources_20261013.json": "Git text CRLF to LF; raw fingerprint preserved separately"
+  },
+  "post_commit_check": "Raw working files and exact committed blobs both checked; text normalization is explicit and does not affect original binary/native evidence."
+}
