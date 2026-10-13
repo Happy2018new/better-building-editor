@@ -20,13 +20,35 @@ def edit_material(value, material, mode):
     return edit_cell(value, material, mode)
 
 
+def _retained_parts(previous, updated, promote_background=False):
+    """Match each remaining part once, including automatic layer promotion."""
+    old = (foreground(previous), background(previous))
+    new = (foreground(updated), background(updated))
+    if promote_background and old[1] != AIR and new == (old[1], AIR):
+        return set((1,))
+    retained, available = set(), set((0, 1))
+    for index in (0, 1):
+        if old[index] != AIR and old[index] == new[index]:
+            retained.add(index)
+            available.discard(index)
+    for index in (0, 1):
+        if index in retained or old[index] == AIR:
+            continue
+        target = next((target for target in sorted(available) if new[target] == old[index]), None)
+        if target is not None:
+            retained.add(index)
+            available.remove(target)
+    return retained
+
+
 def _remove_replaced_parts(get_cell, result, pos, mode):
     previous, updated = get_cell(pos) or AIR, result[pos]
-    remaining = (foreground(updated), background(updated)) if mode == 2 else (layer(updated, mode),)
+    retained = _retained_parts(previous, updated, mode == 2) if mode == 2 else set(
+        (mode,) if layer(previous, mode) == layer(updated, mode) else ())
     selected = (0, 1) if mode == 2 else (mode,)
     for index in selected:
         original = layer(previous, index)
-        if original == AIR or original in remaining:
+        if original == AIR or index in retained:
             continue
         linked = paired_cell_part(get_cell, pos, index)
         if linked is None:
@@ -77,10 +99,10 @@ def reconcile_whole_group_steps(document, after, placements, write, locked_layer
 
     for pos in placements:
         previous, updated = document.get(pos), after.get(pos, AIR)
-        remaining = foreground(updated), background(updated)
+        retained = _retained_parts(previous, updated)
         for index in (0, 1):
             original = layer(previous, index)
-            if original in remaining or group_partner(original) is None:
+            if index in retained or group_partner(original) is None:
                 continue
             partner, partner_index = paired_cell_part(get_before, pos, index)
             other = after.get(partner, AIR)
