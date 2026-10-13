@@ -1,0 +1,2217 @@
+{
+  "schema": 2,
+  "completed": true,
+  "passed": true,
+  "mode": "physical_item_use",
+  "scope": "Public sharpness control independently produced by native inventory enchantment and item interaction",
+  "production_rendering_accepted": false,
+  "enchantment_glint_accepted": false,
+  "client_palette_independently_contains_item_nbt": false,
+  "public_fixture": "test.entities.item_contents",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8a235173e37646729768cfc9191e5183\\session.json",
+  "owner": "entities-r11-background",
+  "source_sha256": {
+    "tools\\verify_enchanted_frame_nbt.py": "d4b8a54dd341acaa062c3cdc58243fe2baba7ec159e1c1cc0bd75dfdb458b337",
+    "behavior_pack\\modern_projection\\projection\\debug_item_blueprints.py": "d21a8fa3665e4b5d769dee322294e0e90ecec0b4234dcde1f9a00097a10965b9",
+    "behavior_pack\\modern_projection\\server_system.py": "9e4e55b71b4b8edad68140ab2659488c81a991e820d8a153a15f80d17b7e8a9a",
+    "tools\\p0_entity_appearance_setup.py": "1a2787862563f4d37c233a6c101b8942d191a3d332af563e19ea59faf0d2caf0",
+    "tools\\p0_entity_appearance_read.py": "8bb502afc9aa4a04527f2ddd1850870e557c8d27fa05e8f33ffd87f8cfc7bde0",
+    "tools\\p0_entity_appearance_cleanup.py": "2feab7a14c28a80ef4aee021c3e3ef98f12180b40e3be834b9cd1d9e0c3917d0"
+  },
+  "setup": {
+    "reserved": [
+      [
+        20,
+        -44,
+        -20
+      ],
+      [
+        20,
+        -44,
+        -19
+      ],
+      [
+        27,
+        -44,
+        -20
+      ],
+      [
+        27,
+        -44,
+        -19
+      ]
+    ],
+    "player": "-8589934591",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "setup_cleanup_errors": [],
+    "rotation": [
+      0.0,
+      -3.0517578125e-05
+    ],
+    "slot": 0,
+    "rows": [
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          20,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 389,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "ItemFrame",
+        "cells": [
+          [
+            20,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              20,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 20
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              }
+            }
+          }
+        ],
+        "support": [
+          20,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          27,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "glow_frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:glow_frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 850,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:glow_frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:glow_frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "GlowItemFrame",
+        "cells": [
+          [
+            27,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 27
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "GlowItemFrame"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              27,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 27
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "GlowItemFrame"
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              }
+            }
+          }
+        ],
+        "support": [
+          27,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:glow_frame"
+        }
+      }
+    ],
+    "placement": "native PlayerUseItemToPos; bed colour uses SetBedColor",
+    "schema": 1,
+    "dimension": 0,
+    "game_version": "NEMC 3.9.0.401155"
+  },
+  "client_before_interaction": {
+    "ready": true,
+    "source": "actual client palette after native player placement",
+    "rows": [
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          20,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "palette_origin": [
+          20,
+          -44,
+          -20
+        ],
+        "spawn_return": true,
+        "case": "frame_filled",
+        "palette": {
+          "states": [
+            {
+              "material": [
+                "minecraft:frame",
+                2
+              ],
+              "value": {
+                "facing_direction": 2,
+                "item_frame_map_bit": false,
+                "item_frame_photo_bit": false
+              }
+            }
+          ],
+          "extra": [],
+          "void": false,
+          "actor": {
+            "minecraft:frame": {
+              "0": {}
+            }
+          },
+          "volume": [
+            1,
+            1,
+            1
+          ],
+          "extraStates": [],
+          "common": [
+            {
+              "material": [
+                "minecraft:frame",
+                2
+              ],
+              "value": [
+                0
+              ]
+            }
+          ],
+          "eliminateAir": false
+        },
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:frame",
+          "modItemId": "",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 389,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "isDiggerItem": false,
+          "itemName": "minecraft:frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:frame",
+        "observed_color": null,
+        "support": [
+          20,
+          -44,
+          -19
+        ],
+        "observed_id": "ItemFrame",
+        "cells": [
+          [
+            20,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              20,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 20
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              }
+            }
+          }
+        ],
+        "yaw": 0.0,
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          27,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "palette_origin": [
+          27,
+          -44,
+          -20
+        ],
+        "spawn_return": true,
+        "case": "glow_frame_filled",
+        "palette": {
+          "states": [
+            {
+              "material": [
+                "minecraft:glow_frame",
+                2
+              ],
+              "value": {
+                "facing_direction": 2,
+                "item_frame_map_bit": false,
+                "item_frame_photo_bit": false
+              }
+            }
+          ],
+          "extra": [],
+          "void": false,
+          "actor": {
+            "minecraft:glow_frame": {
+              "0": {}
+            }
+          },
+          "volume": [
+            1,
+            1,
+            1
+          ],
+          "extraStates": [],
+          "common": [
+            {
+              "material": [
+                "minecraft:glow_frame",
+                2
+              ],
+              "value": [
+                0
+              ]
+            }
+          ],
+          "eliminateAir": false
+        },
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:glow_frame",
+          "modItemId": "",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 850,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "isDiggerItem": false,
+          "itemName": "minecraft:glow_frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:glow_frame",
+        "observed_color": null,
+        "support": [
+          27,
+          -44,
+          -19
+        ],
+        "observed_id": "GlowItemFrame",
+        "cells": [
+          [
+            27,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 27
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "GlowItemFrame"
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              27,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 27
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "GlowItemFrame"
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              }
+            }
+          }
+        ],
+        "yaw": 0.0,
+        "block": {
+          "aux": 2,
+          "name": "minecraft:glow_frame"
+        }
+      }
+    ],
+    "pending": [],
+    "schema": 1
+  },
+  "native_readback": {
+    "source_version": "NEMC 3.9.0.401155",
+    "rows": [
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          20,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 389,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "ItemFrame",
+        "cells": [
+          [
+            20,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              20,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 20
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              }
+            }
+          }
+        ],
+        "support": [
+          20,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          27,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "glow_frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:glow_frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 850,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:glow_frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:glow_frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "GlowItemFrame",
+        "cells": [
+          [
+            27,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 27
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "GlowItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              27,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 27
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "GlowItemFrame"
+              }
+            }
+          }
+        ],
+        "support": [
+          27,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:glow_frame"
+        }
+      }
+    ],
+    "results": [
+      {
+        "inventory_after_enchants": [
+          [
+            9,
+            3
+          ]
+        ],
+        "public_source": [
+          10,
+          2,
+          3
+        ],
+        "inventory_after": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [
+            [
+              9,
+              3
+            ]
+          ],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": {
+            "ench": [
+              {
+                "lvl": {
+                  "__type__": 2,
+                  "__value__": 3
+                },
+                "id": {
+                  "__type__": 2,
+                  "__value__": 9
+                },
+                "modEnchant": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              }
+            ]
+          },
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "observed_enchantments": [
+          [
+            9,
+            3
+          ]
+        ],
+        "actual_ench": [
+          {
+            "lvl": {
+              "__type__": 2,
+              "__value__": 3
+            },
+            "id": {
+              "__type__": 2,
+              "__value__": 9
+            },
+            "modEnchant": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          }
+        ],
+        "case": "frame_filled",
+        "world_target": [
+          20,
+          -44,
+          -20
+        ],
+        "expected_enchantment": [
+          9,
+          3
+        ],
+        "native_spawn_return": true,
+        "inventory_before": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "passed": true,
+        "native_interaction_return": true,
+        "readback_is_enchanted": true,
+        "native_add_enchant_return": true,
+        "inventory_before_enchants": [],
+        "actual_item": {
+          "Count": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "WasPickedUp": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "tag": {
+            "ench": [
+              {
+                "lvl": {
+                  "__type__": 2,
+                  "__value__": 3
+                },
+                "id": {
+                  "__type__": 2,
+                  "__value__": 9
+                },
+                "modEnchant": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              }
+            ]
+          },
+          "Damage": {
+            "__type__": 2,
+            "__value__": 0
+          },
+          "Name": {
+            "__type__": 8,
+            "__value__": "minecraft:diamond_sword"
+          }
+        }
+      },
+      {
+        "inventory_after_enchants": [
+          [
+            9,
+            3
+          ]
+        ],
+        "public_source": [
+          10,
+          2,
+          10
+        ],
+        "inventory_after": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [
+            [
+              9,
+              3
+            ]
+          ],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": {
+            "ench": [
+              {
+                "lvl": {
+                  "__type__": 2,
+                  "__value__": 3
+                },
+                "id": {
+                  "__type__": 2,
+                  "__value__": 9
+                },
+                "modEnchant": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              }
+            ]
+          },
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "observed_enchantments": [
+          [
+            9,
+            3
+          ]
+        ],
+        "actual_ench": [
+          {
+            "lvl": {
+              "__type__": 2,
+              "__value__": 3
+            },
+            "id": {
+              "__type__": 2,
+              "__value__": 9
+            },
+            "modEnchant": {
+              "__type__": 8,
+              "__value__": ""
+            }
+          }
+        ],
+        "case": "glow_frame_filled",
+        "world_target": [
+          27,
+          -44,
+          -20
+        ],
+        "expected_enchantment": [
+          9,
+          3
+        ],
+        "native_spawn_return": true,
+        "inventory_before": {
+          "count": 1,
+          "newItemName": "minecraft:diamond_sword",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 1561,
+          "itemId": 276,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:diamond_sword",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "passed": true,
+        "native_interaction_return": true,
+        "readback_is_enchanted": true,
+        "native_add_enchant_return": true,
+        "inventory_before_enchants": [],
+        "actual_item": {
+          "Count": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "WasPickedUp": {
+            "__type__": 1,
+            "__value__": 0
+          },
+          "tag": {
+            "ench": [
+              {
+                "lvl": {
+                  "__type__": 2,
+                  "__value__": 3
+                },
+                "id": {
+                  "__type__": 2,
+                  "__value__": 9
+                },
+                "modEnchant": {
+                  "__type__": 8,
+                  "__value__": ""
+                }
+              }
+            ]
+          },
+          "Damage": {
+            "__type__": 2,
+            "__value__": 0
+          },
+          "Name": {
+            "__type__": 8,
+            "__value__": "minecraft:diamond_sword"
+          }
+        }
+      }
+    ],
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01"
+  },
+  "client_palette": {
+    "ready": true,
+    "source": "actual client palette after native player placement",
+    "rows": [
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          20,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "palette_origin": [
+          20,
+          -44,
+          -20
+        ],
+        "spawn_return": true,
+        "case": "frame_filled",
+        "palette": {
+          "states": [
+            {
+              "material": [
+                "minecraft:frame",
+                2
+              ],
+              "value": {
+                "facing_direction": 2,
+                "item_frame_map_bit": false,
+                "item_frame_photo_bit": false
+              }
+            }
+          ],
+          "extra": [],
+          "void": false,
+          "actor": {
+            "minecraft:frame": {
+              "0": {}
+            }
+          },
+          "volume": [
+            1,
+            1,
+            1
+          ],
+          "extraStates": [],
+          "common": [
+            {
+              "material": [
+                "minecraft:frame",
+                2
+              ],
+              "value": [
+                0
+              ]
+            }
+          ],
+          "eliminateAir": false
+        },
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:frame",
+          "modItemId": "",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 389,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "isDiggerItem": false,
+          "itemName": "minecraft:frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:frame",
+        "observed_color": null,
+        "support": [
+          20,
+          -44,
+          -19
+        ],
+        "observed_id": "ItemFrame",
+        "cells": [
+          [
+            20,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            }
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              20,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                }
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 20
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              }
+            }
+          }
+        ],
+        "yaw": 0.0,
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          27,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "palette_origin": [
+          27,
+          -44,
+          -20
+        ],
+        "spawn_return": true,
+        "case": "glow_frame_filled",
+        "palette": {
+          "states": [
+            {
+              "material": [
+                "minecraft:glow_frame",
+                2
+              ],
+              "value": {
+                "facing_direction": 2,
+                "item_frame_map_bit": false,
+                "item_frame_photo_bit": false
+              }
+            }
+          ],
+          "extra": [],
+          "void": false,
+          "actor": {
+            "minecraft:glow_frame": {
+              "0": {}
+            }
+          },
+          "volume": [
+            1,
+            1,
+            1
+          ],
+          "extraStates": [],
+          "common": [
+            {
+              "material": [
+                "minecraft:glow_frame",
+                2
+              ],
+              "value": [
+                0
+              ]
+            }
+          ],
+          "eliminateAir": false
+        },
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:glow_frame",
+          "modItemId": "",
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 850,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "isDiggerItem": false,
+          "itemName": "minecraft:glow_frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:glow_frame",
+        "observed_color": null,
+        "support": [
+          27,
+          -44,
+          -19
+        ],
+        "observed_id": "GlowItemFrame",
+        "cells": [
+          [
+            27,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            }
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 27
+          },
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "GlowItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              27,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                }
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 27
+              },
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "GlowItemFrame"
+              }
+            }
+          }
+        ],
+        "yaw": 0.0,
+        "block": {
+          "aux": 2,
+          "name": "minecraft:glow_frame"
+        }
+      }
+    ],
+    "pending": [],
+    "schema": 1
+  },
+  "client_registry": {
+    "source_version": "NEMC 3.9.0.401155",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01"
+  },
+  "final_server_snapshot": {
+    "reserved": [
+      [
+        20,
+        -44,
+        -20
+      ],
+      [
+        20,
+        -44,
+        -19
+      ],
+      [
+        27,
+        -44,
+        -20
+      ],
+      [
+        27,
+        -44,
+        -19
+      ]
+    ],
+    "player": "-8589934591",
+    "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "setup_cleanup_errors": [],
+    "rotation": [
+      0.0,
+      -3.0517578125e-05
+    ],
+    "slot": 0,
+    "rows": [
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          20,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 389,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "ItemFrame",
+        "cells": [
+          [
+            20,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 20
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "ItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              20,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 20
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "ItemFrame"
+              }
+            }
+          }
+        ],
+        "support": [
+          20,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:frame"
+        }
+      },
+      {
+        "observed_type": null,
+        "player_rotation": [
+          0.0,
+          0.0
+        ],
+        "pos": [
+          27,
+          -44,
+          -20
+        ],
+        "fill_item": "minecraft:diamond_sword",
+        "spawn_return": true,
+        "case": "glow_frame_filled",
+        "temporary_item": {
+          "count": 1,
+          "newItemName": "minecraft:glow_frame",
+          "isDiggerItem": false,
+          "enchantData": [],
+          "durability": 0,
+          "itemId": 850,
+          "customTips": "",
+          "extraId": "",
+          "newAuxValue": 0,
+          "modEnchantData": [],
+          "modId": "",
+          "userData": null,
+          "modItemId": "",
+          "itemName": "minecraft:glow_frame",
+          "auxValue": 0,
+          "showInHand": true
+        },
+        "name": "minecraft:glow_frame",
+        "observed_color": null,
+        "yaw": 0.0,
+        "observed_id": "GlowItemFrame",
+        "cells": [
+          [
+            27,
+            -44,
+            -20
+          ]
+        ],
+        "face": 2,
+        "placed": true,
+        "entity_nbt": {
+          "z": {
+            "__type__": 3,
+            "__value__": -20
+          },
+          "Item": {
+            "Count": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "WasPickedUp": {
+              "__type__": 1,
+              "__value__": 0
+            },
+            "tag": {
+              "ench": [
+                {
+                  "lvl": {
+                    "__type__": 2,
+                    "__value__": 3
+                  },
+                  "id": {
+                    "__type__": 2,
+                    "__value__": 9
+                  },
+                  "modEnchant": {
+                    "__type__": 8,
+                    "__value__": ""
+                  }
+                }
+              ]
+            },
+            "Damage": {
+              "__type__": 2,
+              "__value__": 0
+            },
+            "Name": {
+              "__type__": 8,
+              "__value__": "minecraft:diamond_sword"
+            }
+          },
+          "ItemDropChance": {
+            "__type__": 5,
+            "__value__": 1.0
+          },
+          "ItemRotation": {
+            "__type__": 5,
+            "__value__": 0.0
+          },
+          "y": {
+            "__type__": 3,
+            "__value__": -44
+          },
+          "x": {
+            "__type__": 3,
+            "__value__": 27
+          },
+          "isMovable": {
+            "__type__": 1,
+            "__value__": 1
+          },
+          "id": {
+            "__type__": 8,
+            "__value__": "GlowItemFrame"
+          }
+        },
+        "observed_rotation": null,
+        "cell_nbt": [
+          {
+            "pos": [
+              27,
+              -44,
+              -20
+            ],
+            "nbt": {
+              "z": {
+                "__type__": 3,
+                "__value__": -20
+              },
+              "Item": {
+                "Count": {
+                  "__type__": 1,
+                  "__value__": 1
+                },
+                "WasPickedUp": {
+                  "__type__": 1,
+                  "__value__": 0
+                },
+                "tag": {
+                  "ench": [
+                    {
+                      "lvl": {
+                        "__type__": 2,
+                        "__value__": 3
+                      },
+                      "id": {
+                        "__type__": 2,
+                        "__value__": 9
+                      },
+                      "modEnchant": {
+                        "__type__": 8,
+                        "__value__": ""
+                      }
+                    }
+                  ]
+                },
+                "Damage": {
+                  "__type__": 2,
+                  "__value__": 0
+                },
+                "Name": {
+                  "__type__": 8,
+                  "__value__": "minecraft:diamond_sword"
+                }
+              },
+              "ItemDropChance": {
+                "__type__": 5,
+                "__value__": 1.0
+              },
+              "ItemRotation": {
+                "__type__": 5,
+                "__value__": 0.0
+              },
+              "y": {
+                "__type__": 3,
+                "__value__": -44
+              },
+              "x": {
+                "__type__": 3,
+                "__value__": 27
+              },
+              "isMovable": {
+                "__type__": 1,
+                "__value__": 1
+              },
+              "id": {
+                "__type__": 8,
+                "__value__": "GlowItemFrame"
+              }
+            }
+          }
+        ],
+        "support": [
+          27,
+          -44,
+          -19
+        ],
+        "block": {
+          "aux": 2,
+          "name": "minecraft:glow_frame"
+        }
+      }
+    ],
+    "placement": "native PlayerUseItemToPos; bed colour uses SetBedColor",
+    "schema": 1,
+    "dimension": 0,
+    "game_version": "NEMC 3.9.0.401155"
+  },
+  "native_cleaned": true,
+  "client_cleaned": true,
+  "cleanup_errors": [],
+  "restored": true
+}

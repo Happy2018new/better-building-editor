@@ -1,0 +1,256 @@
+# -*- coding: utf-8 -*-
+"""Transform known block-entity spatial fields while preserving NBT tags.
+
+Inventories, item tags, commands and arbitrary nested coordinates are data, not
+positions of this block entity. They must never be rewritten recursively.
+"""
+from .cell import freeze, thaw, integer_types, text_type
+
+SCHEMA_VERSION = 3
+OPERATIONS = frozenset(('rotate_y90', 'rotate_y180', 'rotate_y270',
+                        'mirror_x', 'mirror_y', 'mirror_z'))
+VISIBLE_DIRECTIONS = (('facingDirection', 'facing_direction', 6),
+                      ('signStandingRotation', 'ground_sign_direction', 16))
+# Actor-only directions require an entity ID; arbitrary fields are opaque data.
+NBT_DIRECTIONS = {'ShulkerBox': (('facing', 'facing_direction', 6),)}
+NBT_DIRECTIONS.update((name.encode('ascii'), rules)
+                      for name, rules in tuple(NBT_DIRECTIONS.items()))
+
+
+def root_payload(data):
+    """Return a mutable root compound view, with or without an SDK root tag."""
+    if not isinstance(data, dict):
+        return None
+    from .visible_actor import is_envelope
+    if is_envelope(data):
+        return root_payload(data['nbt'] if data['nbt'] is not None else data['render'])
+    kind = data.get('__type__', data.get(b'__type__'))
+    compound = ((isinstance(kind, integer_types) and kind == 10) or
+                kind in ('TAG_Compound', b'TAG_Compound'))
+    if not compound:
+        return data
+    tagged = data.get('__value__', data.get(b'__value__'))
+    return tagged if isinstance(tagged, dict) else data
+
+
+def field_key(data, name):
+    if name in data:
+        return name
+    encoded = name.encode('utf8')
+    return encoded if encoded in data else None
+
+
+def scalar(data, name):
+    key = field_key(data, name)
+    value = data.get(key) if key is not None else None
+    if isinstance(value, dict):
+        tag = field_key(value, '__value__')
+        return value.get(tag) if tag is not None else None
+    return value
+
+
+def set_scalar(data, name, value):
+    """Replace an existing scalar without changing its native tag or key type."""
+    key = field_key(data, name)
+    if key is None:
+        return False
+    current = data[key]
+    if isinstance(current, dict):
+        tag = field_key(current, '__value__')
+        if tag is None:
+            return False
+        current[tag] = value
+    else:
+        data[key] = value
+    return True
+
+
+def rebase(data, delta):
+    """Clone an actor and translate root position and chest-pair coordinates."""
+    if data is None:
+        return None
+    result = thaw(freeze(data))
+    _rebase_actor(result, delta)
+    return result
+
+
+def _rebase_actor(data, delta):
+    if data is None:
+        return
+    from .visible_actor import is_envelope
+    if is_envelope(data):
+        _rebase_actor(data['render'], delta)
+        _rebase_actor(data['nbt'], delta)
+        return
+    root = root_payload(data)
+    if root is None:
+        raise ValueError('Block entity payload must be a compound')
+    for name, axis in (('x', 0), ('y', 1), ('z', 2), ('pairx', 0), ('pairz', 2)):
+        value = scalar(root, name)
+        if isinstance(value, integer_types) and type(value) is not bool:
+            set_scalar(root, name, value + delta[axis])
+
+
+def transform_pair(data, origin, operation, material=None):
+    """Transform visible actor directions and pair offsets before moving the cell."""
+    if operation not in OPERATIONS or data is None:
+        return data
+    result = thaw(freeze(data))
+    _transform_actor(result, origin, operation, material)
+    return result
+
+
+def _transform_actor(data, origin, operation, material=None, skull_facing=None, renderer=None):
+    if data is None:
+        return
+    from .visible_actor import is_envelope, is_tagged_nbt
+    if is_envelope(data):
+        render_root = root_payload(data['render'])
+        skull_facing = scalar(render_root, 'facingDirection') if render_root is not None else None
+        _transform_actor(data['render'], origin, operation, material, skull_facing, True)
+        _transform_actor(data['nbt'], origin, operation, material, skull_facing, False)
+        return
+    if renderer is None:
+        renderer = not is_tagged_nbt(data)
+    root = root_payload(data)
+    if root is None:
+        raise ValueError('Block entity payload must be a compound')
+    _skull_rotation(root, operation, material, skull_facing, renderer)
+    _frame_rotation(root, operation, material)
+    if renderer:
+        _bed_direction(root, operation, material)
+    _pot_sherds(root, operation, material, renderer)
+    _directions(root, operation, renderer)
+    _chest_roles(root, operation, renderer)
+    _pair_coordinates(root, origin, operation)
+
+
+def _frame_rotation(root, operation, material):
+    from .native_appearance import FRAME_NAMES, angle, transform_frame_rotation
+    if material is None or material[0] not in FRAME_NAMES:
+        return
+    identifier = scalar(root, 'id')
+    if identifier not in ('ItemFrame', b'ItemFrame', 'GlowItemFrame', b'GlowItemFrame'):
+        return
+    key = field_key(root, 'ItemRotation')
+    raw = root.get(key) if key is not None else None
+    value = scalar(root, 'ItemRotation')
+    if (not isinstance(raw, dict) or scalar(raw, '__type__') != 5 or
+            not angle(value) or not 0 <= value < 360):
+        return
+    from .block_registry import states
+    record = states(material)
+    if record is not None:
+        set_scalar(root, 'ItemRotation',
+                   transform_frame_rotation(value, record['facing_direction'], operation))
+
+
+def _skull_rotation(root, operation, material, facing, renderer):
+    from .native_appearance import SKULL_NAMES, angle, transform_yaw
+    identifier = scalar(root, 'id')
+    known_material = material is not None and material[0] in SKULL_NAMES
+    if not known_material:
+        return
+    from .block_registry import states
+    record = states(material)
+    facing = record.get('facing_direction') if record is not None else facing
+    if facing != 1 or operation == 'mirror_y':
+        return
+    if identifier in ('Skull', b'Skull'):
+        field = 'Rotation'
+        raw = root[field_key(root, field)] if field_key(root, field) is not None else None
+        if not isinstance(raw, dict) or scalar(raw, '__type__') != 5:
+            return
+    elif renderer and identifier is None and scalar(root, 'skullType') is not None:
+        field = 'rotation'
+    else:
+        return
+    value = scalar(root, field)
+    if angle(value):
+        set_scalar(root, field, transform_yaw(value, operation))
+
+
+def _bed_direction(root, operation, material):
+    if material is None or material[0] != 'minecraft:bed' or scalar(root, 'id') is not None:
+        return
+    value = scalar(root, 'direction')
+    if not isinstance(value, integer_types) or type(value) is bool or not 0 <= value < 4:
+        return
+    from .state_transform import transform_states
+    from .block_registry import states
+    record = states(material)
+    if record is not None:
+        set_scalar(root, 'direction', transform_states(record, operation)['direction'])
+
+
+def _pot_sherds(root, operation, material, renderer):
+    if (operation not in ('mirror_x', 'mirror_z') or material is None or
+            material[0] != 'minecraft:decorated_pot'):
+        return
+    identifier = scalar(root, 'id')
+    # Native four-direction captures establish side slots 1/2; front/back stay put.
+    if identifier in ('DecoratedPot', b'DecoratedPot'):
+        sherds = root.get(field_key(root, 'sherds'))
+        if (isinstance(sherds, list) and len(sherds) == 4 and
+                all(isinstance(tag, dict) and scalar(tag, '__type__') == 8 and
+                    isinstance(scalar(tag, '__value__'), (bytes, text_type))
+                    for tag in sherds)):
+            sherds[1], sherds[2] = sherds[2], sherds[1]
+    elif renderer and identifier is None and scalar(root, 'decoratedPotShredNamesSize') == 4:
+        fields = tuple('decoratedPotShredNames' + str(index) for index in range(4))
+        names = tuple(scalar(root, field) for field in fields)
+        if all(isinstance(name, (bytes, text_type)) for name in names):
+            set_scalar(root, fields[1], names[2])
+            set_scalar(root, fields[2], names[1])
+
+
+def _directions(root, operation, renderer):
+    from .state_transform import transform_states
+    identifier = scalar(root, 'id')
+    rules = NBT_DIRECTIONS.get(identifier, ()) if isinstance(identifier, (bytes, text_type)) else ()
+    # Client field names can also occur as opaque server NBT metadata.
+    for field, property_name, maximum in (VISIBLE_DIRECTIONS if renderer else ()) + rules:
+        value = scalar(root, field)
+        if isinstance(value, integer_types) and type(value) is not bool and 0 <= value < maximum:
+            set_scalar(root, field, transform_states({property_name: value}, operation)[property_name])
+
+
+def _chest_roles(root, operation, renderer):
+    if operation not in ('mirror_x', 'mirror_z'):
+        return
+    if renderer and scalar(root, 'chestIsLargeChest') is True:
+        main = scalar(root, 'chestMainSubChest')
+        if type(main) is bool:
+            set_scalar(root, 'chestMainSubChest', not main)
+            set_scalar(root, 'chestModelOffset', 0.0 if not main else -0.5)
+    identifier = scalar(root, 'id')
+    if identifier not in ('Chest', b'Chest'):
+        return
+    pair = (scalar(root, 'pairx'), scalar(root, 'pairz'))
+    if any(not isinstance(value, integer_types) or type(value) is bool for value in pair):
+        return
+    for field in ('pairlead', 'renderlead'):
+        lead = scalar(root, field)
+        if type(lead) is bool:
+            set_scalar(root, field, not lead)
+        elif isinstance(lead, integer_types) and lead in (0, 1):
+            set_scalar(root, field, 1 - lead)
+
+
+def _pair_coordinates(root, origin, operation):
+    if operation == 'mirror_y':
+        return
+    pair_x, pair_z = scalar(root, 'pairx'), scalar(root, 'pairz')
+    if (not isinstance(pair_x, integer_types) or type(pair_x) is bool or
+            not isinstance(pair_z, integer_types) or type(pair_z) is bool):
+        return
+    dx, dz = pair_x - origin[0], pair_z - origin[2]
+    if operation.startswith('rotate_y'):
+        for unused in range(int(operation[8:]) // 90):
+            dx, dz = -dz, dx
+    elif operation == 'mirror_x':
+        dx = -dx
+    else:
+        dz = -dz
+    set_scalar(root, 'pairx', origin[0] + dx)
+    set_scalar(root, 'pairz', origin[2] + dz)

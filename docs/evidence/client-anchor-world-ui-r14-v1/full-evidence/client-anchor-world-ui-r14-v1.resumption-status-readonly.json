@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-13T00:53:44.743316+00:00",
+  "scope": "Read-only host PID/creation identity status before resumed SDK dispatch; no RPC, restart, input or cleanup attempted",
+  "command": [
+    "python",
+    "-X",
+    "utf8",
+    ".agents/skills/pyreact-debugging/scripts/instances.py",
+    "status",
+    "--session",
+    "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\session.json",
+    "--owner",
+    "frame-r11-background"
+  ],
+  "status": {
+    "schema": 1,
+    "id": "773c643b5cf344918e04d8b4eef2657a",
+    "name": "frame-zero-marker-baseline-retry-r11",
+    "owner": "frame-r11-background",
+    "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-frame",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\session.json",
+    "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts",
+    "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\appdata",
+    "log": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\mcdk.log",
+    "state": "ready",
+    "created_at": 1791816727.8510017,
+    "ready": true,
+    "noactivation": {
+      "schema": 1,
+      "requested": true,
+      "dll": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+        "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+      },
+      "mcdk": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+        "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+      },
+      "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+      "foreground": {
+        "hwnd": 29757788,
+        "pid": 60556,
+        "process": "哔哩哔哩.exe",
+        "identity": "134362827761995015",
+        "title": "一把椅子卖到几千块：人体工学椅到底有多暴利？",
+        "visible": true,
+        "minimized": false
+      },
+      "windows": [
+        {
+          "hwnd": 29102794,
+          "pid": 44536,
+          "process": "Minecraft.Windows.exe",
+          "title": "(1994, 1105) Minecraft",
+          "x": 189,
+          "y": 176,
+          "width": 1329,
+          "height": 736,
+          "minimized": false,
+          "noactivate": true
+        }
+      ],
+      "background_safe": true,
+      "window_noactivate": true
+    },
+    "mcp_url": "http://127.0.0.1:53100/mcp",
+    "port": 53100,
+    "world": "PYR_773c643b5cf344918e04d8b4eef2657a",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+    "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a",
+    "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a",
+    "foreground_before": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "mcdk_pid": 42372,
+    "mcdk_identity": "134362903315012341",
+    "game_pid": 44536,
+    "game_identity": "134362903316974407",
+    "foreground_after": {
+      "hwnd": 29757788,
+      "pid": 60556,
+      "process": "哔哩哔哩.exe",
+      "identity": "134362827761995015",
+      "title": "一把椅子卖到几千块：人体工学椅到底有多暴利？",
+      "visible": true,
+      "minimized": false
+    },
+    "foreground_before_still_valid": true,
+    "foreground_unchanged": false,
+    "process_alive": {
+      "mcdk": false,
+      "game": false
+    }
+  },
+  "current_runtime_health_verified": false,
+  "historical_post_restoration_health_verified": true,
+  "decision": "Do not dispatch to recorded stale identities; continue offline archive and route analysis."
+}

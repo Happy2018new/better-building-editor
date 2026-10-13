@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "states": [
+    "world_empty",
+    "ui_empty",
+    "ui_plain",
+    "world_plain",
+    "world_empty_restored",
+    "ui_empty_restored"
+  ],
+  "frames_per_state": 2,
+  "normal_budget_seconds": 90,
+  "cleanup_reserve_seconds": 30,
+  "outer_budget_seconds": 150,
+  "rpc_timeout_seconds": 10,
+  "native_retries": 0,
+  "new_game_starts": 0,
+  "actor_identifier": "modern_projection:anchor",
+  "bone": "root",
+  "is_client_entity": true,
+  "item_offset": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_rotation_zyx": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_scale": 1.0,
+  "binding_count": 1,
+  "ui": {
+    "scale": 0.35,
+    "render_depth": -50,
+    "init_rot_x": 0.0,
+    "init_rot_y": 0.0,
+    "init_rot_z": 0.0
+  },
+  "world_ray_distance": 3.0,
+  "world_empty_box_half_extent": 1.0,
+  "physical_size": [
+    1994,
+    1105
+  ],
+  "fixed_rois": {
+    "world": [
+      0,
+      111,
+      1994,
+      1105
+    ],
+    "ui": [
+      0,
+      111,
+      1994,
+      1105
+    ]
+  },
+  "roi_basis": "fixed physical capture extent and debug exclusion; camera-forward anchor; centered UI bounds, all declared before first capture",
+  "ordinary_minimum_stable_pixels": 80,
+  "difference_channel_threshold": 25,
+  "marker_contract": "unchanged V4; all UI markers must pass one physical pixel, including holdouts",
+  "camera_mutation": false,
+  "player_movement": false,
+  "body_geometry_creation": false,
+  "world_or_inventory_mutation": false,
+  "shader_or_material_mutation": false,
+  "actor_absence_requires": "recorded positive type before exact destroy, then observed None",
+  "runtime_executor_sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662",
+  "anchor_source_sha256": "2d93d4314e49dadc4bbe6e93b40c9b6c1e7e0ec5ab7b0c3304072f6ba8366a85",
+  "base_source_sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a",
+  "sdk_dispatch_authorized": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "enchantment_glint_accepted": false,
+  "nonce": "d06adfe2faa045968c96e1b7cdece2af",
+  "files": [
+    {
+      "path": "source.py",
+      "bytes": 27143,
+      "sha256": "df0ef8e095aab50db5dfb073f26bb033ffdea532fdfd5b2b57d5964298de263a"
+    },
+    {
+      "path": "tests.py",
+      "bytes": 16423,
+      "sha256": "ec3fe4a734cfe3fafa03d40ff5fedbe87de415593af76b5d14c11d746606a919"
+    },
+    {
+      "path": "diagnostic.md",
+      "bytes": 3709,
+      "sha256": "6845033b16a4e530a61e70417f18da308260e7640627ee65e1259a3a225e1eaa"
+    },
+    {
+      "path": "native-original.json",
+      "bytes": 55516,
+      "sha256": "a853a88604aa5dc05a4cf60d0f18a43db66eda8c7cb012e28db0322548bc86fc"
+    },
+    {
+      "path": "plain.json",
+      "bytes": 99,
+      "sha256": "886e960aead7e4e75e7c9aaef56d87ca68de796cc9701c5d341bd30cf5b500e4"
+    },
+    {
+      "path": "r13-source.py",
+      "bytes": 36038,
+      "sha256": "2d93d4314e49dadc4bbe6e93b40c9b6c1e7e0ec5ab7b0c3304072f6ba8366a85"
+    },
+    {
+      "path": "r13-tests.py",
+      "bytes": 27191,
+      "sha256": "14fdf5ca044adbe65493af204b0835885aa062c1e6b179a7a56307fdc4929b95"
+    },
+    {
+      "path": "v4-source.py",
+      "bytes": 46149,
+      "sha256": "7d4496ef5d616998d281a802c1dff3ef343808c1e6c1e9f4a26f49a7daf00e1a"
+    },
+    {
+      "path": "v4-tests.py",
+      "bytes": 43334,
+      "sha256": "2ad2023e9f0e2bb08f9e0ea8f592ba81f0932dbb8696e80a4e8848902f0aae42"
+    },
+    {
+      "path": "runtime-executor.py",
+      "bytes": 26089,
+      "sha256": "7b3d7db8e5d25da97a7b8018a83f40eddc100e0d4c44977581ea98a0ce2a2662"
+    },
+    {
+      "path": "anchor.entity.json",
+      "bytes": 494,
+      "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+    },
+    {
+      "path": "anchor.geo.json",
+      "bytes": 655,
+      "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+    },
+    {
+      "path": "anchor.behavior.json",
+      "bytes": 571,
+      "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+    },
+    {
+      "path": "anchor.controller.json",
+      "bytes": 612,
+      "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+    },
+    {
+      "path": "transparent.png",
+      "bytes": 68,
+      "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+    },
+    {
+      "path": "install_client.py",
+      "bytes": 5028,
+      "sha256": "9a1d5f732afc6f8e18fd0251fcaf8acb60096f764861c2fe56b5d7dccdc2b9d8"
+    },
+    {
+      "path": "actor_ready_client.py",
+      "bytes": 455,
+      "sha256": "8d1f68502369980f0dd064e1477d88f4ad8f01cfcad53faf9d8e35ed6884ed44"
+    },
+    {
+      "path": "open_ui_client.py",
+      "bytes": 1616,
+      "sha256": "e9e299d97cd31746dc78e4f2726a96dcc589b52cc8911c637f3a6b653084ae1b"
+    },
+    {
+      "path": "status_client.py",
+      "bytes": 3466,
+      "sha256": "3f281e39eaca40a77b68c4823d5ec9d630824d9da355b28825da022d431eeb7a"
+    },
+    {
+      "path": "remove_client.py",
+      "bytes": 806,
+      "sha256": "3d55e489ada4c8333ae86d373df4dd9ec5657994d9e2a76bb1676518ee68b660"
+    },
+    {
+      "path": "navigation_client.py",
+      "bytes": 338,
+      "sha256": "34be61d8128e6d5f332a15b0f01bcd8bea56332bef466110841ed161e9a02dae"
+    },
+    {
+      "path": "pop_client.py",
+      "bytes": 342,
+      "sha256": "777f67dff65446479af6385b9ee250ecf30ea022dcef1937ecf53225f559284f"
+    },
+    {
+      "path": "destroy_client.py",
+      "bytes": 1078,
+      "sha256": "553d7a628105d4c1a91ea46737c24c2e243a216110d48b71fc248ee1fcced4a4"
+    },
+    {
+      "path": "absent_client.py",
+      "bytes": 648,
+      "sha256": "f0c430a44f680221575bdb58f932f686428fdbb0f0b91accfe28f0f64ba7987d"
+    },
+    {
+      "path": "verify_client.py",
+      "bytes": 2431,
+      "sha256": "7fdf1cee4c1b42a38e253557618e961f808ccf4948657feb25e45161ac646094"
+    },
+    {
+      "path": "world_empty_client.py",
+      "bytes": 2998,
+      "sha256": "ea7a6a766f4a4f87511dcdcbdfdc7ce4b1d56836cffb96abfac540f28883235a"
+    },
+    {
+      "path": "ui_empty_client.py",
+      "bytes": 2995,
+      "sha256": "64d4fd2a326107e73252dec00a9583d4c01cfd2c1a6087ab3eb8feb47ee59b5b"
+    },
+    {
+      "path": "ui_plain_client.py",
+      "bytes": 2995,
+      "sha256": "8b854eed9428eb58e95cfd62ede374610866d6b92abee074acb73d2d69e88a39"
+    },
+    {
+      "path": "world_plain_client.py",
+      "bytes": 2998,
+      "sha256": "b99b180d0331a95d59dfe1100a75ec341b2c661b0cf192961c2e11c0ae630b58"
+    },
+    {
+      "path": "world_empty_restored_client.py",
+      "bytes": 3007,
+      "sha256": "96f66211c64edbcdf24e7ff384b3855932275ebc048ca6e87567f5449634336c"
+    },
+    {
+      "path": "ui_empty_restored_client.py",
+      "bytes": 3004,
+      "sha256": "7eaf1c3244147e8686039b1ee4035bbdb0da5524845bf1082c1f06cf3b46babe"
+    }
+  ]
+}

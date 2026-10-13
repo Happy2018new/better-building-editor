@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "scope": "Fresh v2 attempt; preserve original junction entries on physical parent volume",
+  "status": "Review only; no stage, lookup rename, shader write, reload or fixture call performed",
+  "base_plan": "frame-shader-staging-execution-plan-v1.json",
+  "base_plan_sha256": "37d0c57015a1cb3020d42946e87355d3a17f4045d7af21ef2995e03b666403da",
+  "supersedes_amendment": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\artifacts\\frame-shader-staging-execution-plan-v2-amendment.json",
+  "supersedes_amendment_sha256": "c05680ab8f1fc59606c25b648eec2b81b5cbbfeb2f72906185734d5371058332",
+  "physical_world_root": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a",
+  "stage_pack": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\frame_shader_stage_v2\\resource_pack",
+  "loaded_lookup_paths": [
+    {
+      "kind": "world",
+      "path": "C:/Users/Happy2018new/AppData/Roaming/MinecraftPE_Netease/minecraftWorlds/PYR_773c643b5cf344918e04d8b4eef2657a/resource_packs/mcdk_7c6a9da7a34340868c15a60ade3d3367",
+      "original_backup_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a\\frame_shader_original_links_v2\\world",
+      "retired_stage_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a\\frame_shader_retired_links_v2\\world",
+      "physical_lookup_parent": {
+        "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a\\resource_packs",
+        "volume": 2721374072,
+        "file_id": 562949955734072,
+        "bytes": 0
+      },
+      "original_entry_identity": {
+        "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a\\resource_packs\\mcdk_7c6a9da7a34340868c15a60ade3d3367",
+        "volume": 2721374072,
+        "file_id": 562949955734073,
+        "bytes": 0
+      },
+      "physical_backup_boundary": {
+        "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_773c643b5cf344918e04d8b4eef2657a",
+        "volume": 2721374072,
+        "file_id": 1407374885865989,
+        "bytes": 4096
+      }
+    },
+    {
+      "kind": "appdata",
+      "path": "C:/Users/Happy2018new/.pyreact-debug/instances/773c643b5cf344918e04d8b4eef2657a/appdata/MinecraftPE_Netease/games/com.netease/resource_packs/7c6a9da7a34340868c15a60ade3d3367",
+      "original_backup_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\frame_shader_original_links_v2\\appdata",
+      "retired_stage_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\frame_shader_retired_links_v2\\appdata",
+      "physical_lookup_parent": {
+        "final_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\appdata\\MinecraftPE_Netease\\games\\com.netease\\resource_packs",
+        "volume": 3394437802,
+        "file_id": 18295873487634883,
+        "bytes": 0
+      },
+      "original_entry_identity": {
+        "final_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a\\appdata\\MinecraftPE_Netease\\games\\com.netease\\resource_packs\\7c6a9da7a34340868c15a60ade3d3367",
+        "volume": 3394437802,
+        "file_id": 17169973580792260,
+        "bytes": 0
+      },
+      "physical_backup_boundary": {
+        "final_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\773c643b5cf344918e04d8b4eef2657a",
+        "volume": 3394437802,
+        "file_id": 19703248371096056,
+        "bytes": 4096
+      }
+    }
+  ],
+  "rename_requirements": [
+    "Rename only exact reviewed pairs of original lookup, original backup and retired stage entries.",
+    "Before each rename compare handle-derived physical parent volume serials, including ancestor junctions.",
+    "Keep world original and retired entries inside the exact physical world root outside resource_packs.",
+    "Keep appdata original and retired entries inside the owner-bound session outside resource_packs.",
+    "Preserve original junctions by native rename and verify exact original targets and shader file identities.",
+    "Set lookup_mutation_occurred immediately after a successful rename before journal or validation work."
+  ],
+  "cleanup_reload": "Only after loaded lookup, loaded shader or runtime mutation; filesystem cleanup always runs.",
+  "native_limit_seconds": 150,
+  "cleanup_reserve_seconds": 30,
+  "native_controls": 12,
+  "retries": 0,
+  "recursive_delete_permitted": false,
+  "original_pack_or_repository_writes_permitted": false,
+  "production_rendering_accepted": false,
+  "animation_acceptance": false
+}
