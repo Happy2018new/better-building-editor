@@ -18,15 +18,19 @@ class NativePaletteReadbackTests(unittest.TestCase):
     def observation(self):
         return {'schema': 1, 'kind': 'scaffold_palette_air_readback', 'runtime': '1.21.120.0', 'mutations': [],
                 'acceptance': {'editor': 'pending', 'full': 'pending', 'missing': 'pending'}, 'cells': [
-                    {'label': 'loaded_ground', 'readback': {'front': {'name': 'minecraft:grass_block', 'aux': 0}, 'states': {}}},
+                    {'label': 'loaded_ground', 'readback': {'front': {'name': 'minecraft:grass_block', 'aux': 0}, 'states': {}},
+                     'volume': [1, 1, 1], 'common': [[['minecraft:grass_block', 0], [0]]],
+                     'states_repr': "{('minecraft:grass_block', 0): {}}"},
                     {'label': 'natural_air', 'readback': {'front': {'name': 'minecraft:air', 'aux': 0}, 'states': None, 'liquid': None},
                      'volume': [1, 1, 1], 'common': [[['minecraft:air', 0], [0]]], 'extra': [],
-                     'states_repr': '{}', 'extraStates_repr': '{}', 'actor_repr': '{}'}]}
+                     'states_repr': "{('minecraft:air', 0): {}}", 'extraStates_repr': '{}', 'actor_repr': '{}',
+                     'void': False, 'eliminateAir': False}]}
 
     def test_encoding_requires_independent_native_ground_and_air_controls(self):
         expected = palette.encoding_from_observation(self.observation())
-        self.assertEqual({'common': [[['minecraft:air', 0], [0]]], 'extra': []}, expected)
-        for change in ('ground', 'fluid', 'actor', 'extra', 'volume'):
+        self.assertEqual({'common': [[['minecraft:air', 0], [0]]], 'extra': [],
+                          'states': [[['minecraft:air', 0], {}]], 'extraStates': []}, expected)
+        for change in ('ground', 'fluid', 'actor', 'extra', 'volume', 'typed_material', 'typed_index', 'states'):
             value = self.observation()
             air = value['cells'][1]
             if change == 'ground':
@@ -37,8 +41,14 @@ class NativePaletteReadbackTests(unittest.TestCase):
                 air['actor_repr'] = "{'Chest': {}}"
             elif change == 'extra':
                 air['extra'] = [[['minecraft:stone', 0], [0]]]
-            else:
+            elif change == 'volume':
                 air['volume'] = [1, 1, 2]
+            elif change == 'typed_material':
+                air['common'][0][0][1] = False
+            elif change == 'typed_index':
+                air['common'][0][1][0] = False
+            else:
+                air['states_repr'] = "{('minecraft:air', 0): {'nonair': True}}"
             with self.subTest(change=change), self.assertRaises(ValueError):
                 palette.encoding_from_observation(value)
 
@@ -59,7 +69,7 @@ class NativePaletteReadbackTests(unittest.TestCase):
                 name = 'minecraft:grass_block' if low == (0, -61, 0) else front['name']
                 data = {'volume': (1, 1, 1), 'common': {(name, 0): [0]},
                         'extra': {('minecraft:stone', 0): [0]} if extra['value'] else {},
-                        'states': {}, 'extraStates': {}, 'actor': {}, 'void': False, 'eliminateAir': False}
+                        'states': {(name, 0): {}}, 'extraStates': {}, 'actor': {}, 'void': False, 'eliminateAir': False}
                 return types.SimpleNamespace(SerializeBlockPalette=lambda: data)
             def GetBlankBlockPalette(self):
                 return types.SimpleNamespace(DeserializeBlockPalette=lambda value: True)

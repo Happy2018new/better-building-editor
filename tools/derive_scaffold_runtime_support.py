@@ -20,7 +20,24 @@ def _same_support(actual, pair, states):
             and common.state_key(actual['states']) == common.state_key(states))
 
 
-def classify(row):
+def _typed_key(value):
+    if isinstance(value, dict):
+        return ('dict', tuple(sorted((key, _typed_key(item)) for key, item in value.items())))
+    if isinstance(value, (tuple, list)):
+        return (type(value).__name__, tuple(_typed_key(item) for item in value))
+    return (type(value).__name__, value)
+
+
+def _same_layers(actual, previous):
+    if (not isinstance(actual, dict) or not isinstance(previous, dict)
+            or not isinstance(actual.get('palette'), dict) or 'liquid' not in actual
+            or not isinstance(previous.get('palette'), dict) or 'liquid' not in previous):
+        return False
+    return (_typed_key(actual['palette']) == _typed_key(previous['palette'])
+            and _typed_key(actual['liquid']) == _typed_key(previous['liquid']))
+
+
+def classify(row, air_encoding):
     """A changed or unavailable measurement is not an unsupported block."""
     pair, expected = row['requested'], row['expected_states']
     if (row.get('conversion_failed') or type(row.get('converted_aux')) is not int or row['converted_aux'] < 0
@@ -31,11 +48,15 @@ def classify(row):
         return None
     immediate, delayed = row.get('scaffold_written', {}), row.get('delayed', {})
     if (not _same_support(immediate.get('support'), pair, expected)
-            or not _same_support(delayed.get('support'), pair, expected)):
+            or not _same_support(delayed.get('support'), pair, expected)
+            or not _same_layers(immediate.get('support'), row.get('support_written'))
+            or not _same_layers(delayed.get('support'), row.get('support_written'))):
         return None
     # Overwriting a pre-existing door half does not measure an isolated support.
     upper = row.get('upper_before_scaffold', {})
-    if upper.get('front') != {'name': 'minecraft:air', 'aux': 0} or upper.get('liquid') is not None:
+    if (upper.get('front') != {'name': 'minecraft:air', 'aux': 0}
+            or type(upper.get('front', {}).get('aux')) is not int
+            or upper.get('liquid') is not None or not valid_air_palette(upper.get('palette'), air_encoding)):
         return None
     scaffold = delayed.get('scaffold', {})
     front, states = scaffold.get('front'), scaffold.get('states')
@@ -129,7 +150,7 @@ def capabilities(reports, require_full=False):
             pair = tuple(row['requested'])
             if pair in observed:
                 raise ValueError('Overlapping semantic support segment')
-            observed[pair] = classify(row)
+            observed[pair] = classify(row, report['air_encoding'])
     if len(sources) != 1:
         raise ValueError('Semantic support segments used different sources')
     if require_full and set(observed) != set(states):

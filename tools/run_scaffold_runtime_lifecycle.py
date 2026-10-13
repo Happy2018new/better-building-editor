@@ -108,6 +108,7 @@ def main():
     world.build_pack(ROOT, pack)
     sources = [Path(__file__), Path(world.__file__), Path(air_control.__file__), Path(lifecycle.__file__),
                Path(air_control.base.__file__), Path(palette_readback.__file__),
+               ROOT / 'tools/probe_scaffold_palette_air_readback.py',
                Path(catalogue.__file__), ROOT / 'tools/derive_scaffold_runtime_support.py',
                Path(lifecycle.base.__file__), ROOT / 'tools/capture_native_window.py',
                ROOT / 'tools/context_test_environment.py', ROOT / 'tools/verify_debug_blueprints.py',
@@ -144,18 +145,19 @@ def main():
     if args.catalogue_count:
         plan['native_sequence'].append(catalogue.METHOD)
     save('plan.json', plan)
+    if args.air_observation is not None:
+        observation_raw = args.air_observation.read_bytes()
+        observation = json.loads(observation_raw)
+        air_encoding = palette_readback.encoding_from_observation(observation)
+        (output / 'air-observation.json').write_bytes(observation_raw)
+        plan['air_observation_sha256'] = hashlib.sha256(observation_raw).hexdigest()
+        plan['air_encoding'] = air_encoding
+        save('plan.json', plan)
     if not args.execute:
         print(json.dumps({'prepared': True, 'plan': str(output / 'plan.json')}))
         return 0
     if args.air_observation is None:
         raise ValueError('Execute requires an independent native palette air encoding observation')
-    observation_raw = args.air_observation.read_bytes()
-    observation = json.loads(observation_raw)
-    air_encoding = palette_readback.encoding_from_observation(observation)
-    (output / 'air-observation.json').write_bytes(observation_raw)
-    plan['air_observation_sha256'] = hashlib.sha256(observation_raw).hexdigest()
-    plan['air_encoding'] = air_encoding
-    save('plan.json', plan)
     config_path = ROOT / '.mcdev.json'
     if config_path.exists():
         raise ValueError('Own worktree configuration already exists')

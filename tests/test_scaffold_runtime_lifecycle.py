@@ -13,7 +13,8 @@ import probe_scaffold_state_lifecycle as base
 import probe_scaffold_runtime_lifecycle as probe
 import test_scaffold_state_lifecycle as legacy_tests
 
-AIR_ENCODING = {'common': [[['minecraft:air', 0], [0]]], 'extra': []}
+AIR_ENCODING = {'common': [[['minecraft:air', 0], [0]]], 'extra': [],
+                'states': [[['minecraft:air', 0], {}]], 'extraStates': []}
 
 
 class RuntimeLifecycleTests(legacy_tests.ScaffoldStateLifecycleTests):
@@ -34,7 +35,8 @@ class RuntimeLifecycleTests(legacy_tests.ScaffoldStateLifecycleTests):
             value = native.GetBlockNew(low, dimension)
             return types.SimpleNamespace(SerializeBlockPalette=lambda: {
                 'volume': (1, 1, 1), 'common': {(value['name'], value['aux']): [0]},
-                'extra': {}, 'states': {}, 'extraStates': {}, 'actor': {}, 'void': False, 'eliminateAir': False})
+                'extra': {}, 'states': {(value['name'], value['aux']): previous(low, dimension)},
+                'extraStates': {}, 'actor': {}, 'void': False, 'eliminateAir': False})
         native.GetBlockPaletteBetweenPos = palette
         previous_clear = native.SetBlockByBlockPalette
         def clear(*args):

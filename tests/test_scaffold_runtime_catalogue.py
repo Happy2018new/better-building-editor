@@ -56,14 +56,22 @@ class RuntimeCatalogueTests(harness.RuntimeLifecycleTests):
     def test_changed_support_and_missing_native_scaffold_states_remain_unknown(self):
         pair = probe.common.registry.from_states('minecraft:oak_stairs', {'weirdo_direction': 0, 'upside_down_bit': True})
         expected = probe.common.registry.states(pair)
-        material = {'front': {'name': pair[0], 'aux': 999}, 'states': copy.deepcopy(expected)}
+        air_palette = {'volume': [1, 1, 1], 'common': harness.AIR_ENCODING['common'], 'extra': harness.AIR_ENCODING['extra'],
+                       'states': harness.AIR_ENCODING['states'], 'extraStates': harness.AIR_ENCODING['extraStates'],
+                       'actor_empty': True, 'void': False, 'eliminateAir': False}
+        support_palette = copy.deepcopy(air_palette)
+        support_palette['common'] = [[[pair[0], 999], [0]]]
+        material = {'front': {'name': pair[0], 'aux': 999}, 'states': copy.deepcopy(expected),
+                    'liquid': None, 'palette': support_palette}
         scaffold_states = {'stability': 0, 'stability_check': True}
         row = {'requested': list(pair), 'expected_states': expected, 'converted_aux': 999,
                'conversion_states': expected, 'semantic_set_returned': True, 'support_written': material,
-               'scaffold_written': {'support': material}, 'upper_before_scaffold': {'front': {'name': 'minecraft:air', 'aux': 0}, 'liquid': None},
+               'scaffold_written': {'support': material}, 'upper_before_scaffold': {
+                   'front': {'name': 'minecraft:air', 'aux': 0}, 'liquid': None, 'palette': air_palette},
                'delayed': {'support': material, 'scaffold': {'front': {'name': 'minecraft:scaffolding', 'aux': 999}, 'states': scaffold_states}}}
-        self.assertTrue(derive.classify(row))
-        for change in ('different_support', 'missing', 'typed', 'conversion', 'door_upper'):
+        self.assertTrue(derive.classify(row, harness.AIR_ENCODING))
+        for change in ('different_support', 'missing', 'typed', 'conversion', 'door_upper',
+                       'upper_background', 'upper_bool', 'support_background', 'support_liquid', 'missing_palette'):
             altered = copy.deepcopy(row)
             if change == 'different_support':
                 altered['delayed']['support']['states']['upside_down_bit'] = False
@@ -73,12 +81,25 @@ class RuntimeCatalogueTests(harness.RuntimeLifecycleTests):
                 altered['delayed']['scaffold']['states']['stability'] = False
             elif change == 'conversion':
                 altered['converted_aux'] = -1
-            else:
+            elif change == 'door_upper':
                 altered['upper_before_scaffold']['front']['name'] = 'minecraft:oak_door'
+            elif change == 'upper_background':
+                altered['upper_before_scaffold']['palette']['extra'] = [[['minecraft:stone', 0], [0]]]
+            elif change == 'upper_bool':
+                altered['upper_before_scaffold']['front']['aux'] = False
+            elif change == 'support_background':
+                altered['delayed']['support'] = copy.deepcopy(material)
+                altered['delayed']['support']['palette']['extra'] = [[['minecraft:water', 0], [0]]]
+            elif change == 'support_liquid':
+                altered['delayed']['support'] = copy.deepcopy(material)
+                altered['delayed']['support']['liquid'] = {'name': 'minecraft:water', 'aux': 0}
+            else:
+                altered['delayed']['support'] = copy.deepcopy(material)
+                altered['delayed']['support'].pop('palette')
             with self.subTest(change=change):
-                self.assertIsNone(derive.classify(altered))
+                self.assertIsNone(derive.classify(altered, harness.AIR_ENCODING))
         row['delayed']['scaffold']['states']['stability'] = 7
-        self.assertFalse(derive.classify(row))
+        self.assertFalse(derive.classify(row, harness.AIR_ENCODING))
 
     def test_segments_need_real_layer_proof_typed_plans_and_no_overlap(self):
         original = self.complete()
