@@ -36,10 +36,13 @@ def foreground_policy_failures(row):
         if not isinstance(guard, dict) or not isinstance(snapshot, dict):
             problems.append('guard_' + phase)
             continue
+        guard_foreground = guard.get('foreground')
         if (type(snapshot.get('pid')) is not int or snapshot['pid'] < 0
                 or type(snapshot.get('hwnd')) is not int or snapshot['hwnd'] < 0
                 or bool(snapshot['hwnd']) != bool(snapshot['pid'])
-                or guard.get('foreground') != snapshot):
+                or not isinstance(guard_foreground, dict)
+                or any(type(guard_foreground.get(key)) is not int
+                       or guard_foreground[key] != snapshot[key] for key in ('hwnd', 'pid'))):
             problems.append('foreground_' + phase)
         if guard.get('background_safe') is not (snapshot.get('pid') != game_pid):
             problems.append('guard_' + phase + '/background_safe')

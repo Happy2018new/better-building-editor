@@ -48,6 +48,15 @@ class UserForegroundCaptureContractTests(unittest.TestCase):
                         binding, row = self.receipt(directory, before, after)
                         self.assertEqual([], capture_failures({'frame': row}, binding))
 
+    def test_guard_snapshots_can_retain_richer_foreground_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            binding, row = self.receipt(directory, False, True)
+            for phase in ('before', 'after'):
+                row['guard_' + phase]['foreground'].update(identity='123', title='Game', visible=True)
+            self.assertEqual([], capture_failures({'frame': row}, binding))
+            row['guard_before']['foreground']['pid'] = 3
+            self.assert_rejected(binding, row)
+
     def test_policy_flags_require_explicit_exact_values(self):
         with tempfile.TemporaryDirectory() as directory:
             binding, original = self.receipt(directory, True, True)
