@@ -165,15 +165,19 @@ def burst_frames(capture):
     return images, times
 
 
-def analyze_flow(source_path):
+def analyze_flow(source_path, partial_diagnostics=False):
     source = json.loads(source_path.read_bytes())
     base = analyze(source_path)
     result = {'schema': 1, 'source_sha256': sha(source_path), 'analyzer_sha256': sha(__file__),
               'limits': LIMITS, 'evidence_valid': base['evidence_valid'], 'rows': {},
               'capture_failures': base['capture_failures'], 'passed': False,
+              'partial_diagnostics': partial_diagnostics,
               'native_parity_claimed': False, 'product_style_accepted': False,
               'scope': 'Independent physical face motion in short owner-bound compositor bursts'}
-    if not base['evidence_valid'] or source.get('frozen'):
+    restored_source = (source.get('restored') is True and not source.get('cleanup_errors')
+                       and source.get('source_unchanged') is True)
+    if ((not base['evidence_valid'] and not (partial_diagnostics and restored_source))
+            or source.get('frozen')):
         return result
     result['atlas'] = atlas_motion(ROOT / 'resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png')
     for label, burst in source.get('flow_bursts', {}).items():
@@ -181,9 +185,9 @@ def analyze_flow(source_path):
         case = row['case']
         observed = result['rows'][label] = {'case': case, 'route': row['route'], 'passed': False}
         try:
+            images, times = burst_frames(burst['capture'])
             if burst['before'] != burst['after']:
                 raise ValueError('Physical camera changed during flow burst')
-            images, times = burst_frames(burst['capture'])
             observed['frames'] = len(times)
             if case in PHYSICAL_FLOW:
                 document = source_document(case)
@@ -215,7 +219,8 @@ def analyze_flow(source_path):
     required = {route + '_' + case + '_wet' for route in source['routes']
                 for case in source['cases'] if case in PHYSICAL_FLOW or case == 'falling'}
     result['missing_requested_bursts'] = sorted(required - set(result['rows']))
-    result['passed'] = (bool(required) and not result['missing_requested_bursts']
+    result['passed'] = (base['evidence_valid'] and not partial_diagnostics
+                        and bool(required) and not result['missing_requested_bursts']
                         and all(result['rows'][label]['passed'] for label in required))
     return result
 
@@ -224,10 +229,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--partial-diagnostics', action='store_true',
+                        help='Inspect individually complete bursts without qualifying the failed batch')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose fresh flow-direction evidence')
-    result = analyze_flow(args.source)
+    result = analyze_flow(args.source, args.partial_diagnostics)
     args.output.write_text(json.dumps(result, indent=2) + '\n', encoding='ascii')
     print(json.dumps({'passed': result['passed'], 'rows': {label: row['passed']
                        for label, row in result['rows'].items()}}))

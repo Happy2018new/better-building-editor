@@ -87,4 +87,8 @@ v6 源水在编辑器／完整／缺失投影的 IoU 分别为 `.975248/.967962/
 
 `verify_product_water_motion_host.py` 随后使用实际 indexed mesh、产品 vertex／fragment、安装版原始 atlas 和公开四方向蓝图的 provider UV code，按 `20Hz` 采集整个 32-frame 循环。UI／world 四方向顶面与向下侧面共 320 帧，全部十例的相邻 31 对图案位移方向正确比例为 `1.0`，逆序时间反例均拒绝。相关性先扣除各物理点的时序均值，以排除静态主体／背景；门控同时限制帧间隔、运动信号、正反方向相关差和正确比例。宿主 PNG 原始 atlas 与真实游戏上传、引擎时钟或后台提交的行为并不等价，因此原生方向仍待短 burst 验证，不据此否认用户观察或开启资格。工具的 RGBA 返回使用 base64 批量传输，避免把数千万通道拆成 JS／Python 数字对象。
 
+23:16 启动的 `water-product-r14-v8-flow-root` 完成同会话标定和编辑器五例 burst、完整投影东／南 burst。完整西捕获有 `163.6375ms` 间隙，超过原 `150ms` 门槛，被 wrapper 拒绝；没有使用失败帧继续生成通过。监督器在 `277.85s` 结束，精确 game／MCDK 身份回收、原配置按字节恢复、pins 未变、清理错误为空。探针 `completed=False`、`restored/source_unchanged=True`，原始 PNG 与 receipt 保留在 root `.runtime/water-product-r14-v8-flow-root/`。`--partial-diagnostics` 只能检查独立完整 burst，整批 `passed` 必须继续为 `False`；标准模式仍拒绝这份未完成矩阵。
+
+v8 原生像素证据确认用户的反向观察：东向顶面 22 对明确向西、0 对向东；南向 20 对向北、0 对向南；西向 22 对向东、0 对向西；北向 21 对向南、0 对向北；落水南侧 21 对向上、0 对向下。静止对分别为 3／6／4／5／2，并未当作正确运动。完整投影东／南也分别有 8／9 对反向、0 对正向。物理 provider、传入 UV 和宿主实际纹理时序已经独立通过，原生顶面与侧面同时反向，因此不只给顶面旋转加半圈。下一项是对原生 `TOTAL_REAL_WORLD_TIME` 做独立编码色短 burst，分离时钟递进与原生纹理帧序／坐标差异；该错误尚未修复。
+
 大版本升级时，更新仓库 dump 表后先运行规则／资源／owner 生成器并 diff 合同，再运行宿主规则与三角形回归，最后执行上述实机矩阵；不为新版本沿用旧资格 SHA。
