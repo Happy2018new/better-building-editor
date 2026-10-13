@@ -7,7 +7,7 @@ assert len(players)==1
 adapter=WorldAdapter(players[0])
 target=%r
 lo=(target[0]-2,target[1]-16,target[2]+12)
-hi=(target[0]+22,target[1]+8,target[2]+12)
+hi=(target[0]+22,target[1]+24,target[2]+12)
 assert -64<=lo[1] and hi[1]<320
 palette=adapter.palette_block.GetBlockPaletteBetweenPos(adapter.dimension,lo,hi,False)
 assert palette is not None

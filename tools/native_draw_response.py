@@ -4,6 +4,7 @@ import time
 from PIL import Image, ImageChops
 
 from verify_debug_blueprints import walk, write_json
+from mcdk import MCDKError
 
 INSTALL = '''assert not hasattr(sys,'_snow_product_render_frames')
 class SnowProductRenderFrames(object):
@@ -24,7 +25,28 @@ _result=True
 
 
 def frame_count(check):
-    return check.run('_result=sys._snow_product_render_frames.count')
+    """Retry this fixed read once, never the surrounding visibility mutation."""
+    client = getattr(check, 'client', None)
+    original_timeout = getattr(client, 'timeout', None)
+    if original_timeout is not None:
+        client.timeout = min(original_timeout, 5.)
+    try:
+        for attempt in range(2):
+            try:
+                return check.run('_result=sys._snow_product_render_frames.count')
+            except (MCDKError, TimeoutError) as error:
+                transient = isinstance(error, TimeoutError) or 'IPC JSON request timed out' in str(error)
+                if not transient or attempt == 1:
+                    raise
+                retries = getattr(check, 'native_frame_read_retries', None)
+                if retries is None:
+                    retries = check.native_frame_read_retries = []
+                retries.append({'query': 'GameRenderTickEvent.count', 'attempt': attempt+1,
+                                'error_type': type(error).__name__, 'mutation_replayed': False})
+                time.sleep(.2)
+    finally:
+        if original_timeout is not None:
+            client.timeout = original_timeout
 
 
 def await_frames(check, before, deadline):
@@ -55,7 +77,7 @@ def native_clock(record):
         return {'crop': crop, 'sha256': hashlib.sha256(pixels.tobytes()).hexdigest()}
 
 
-def capture_response(check, label, reference, crop, before, minimum=80, seconds=6.):
+def capture_response(check, label, reference, crop, before, minimum=80, seconds=6., validate=None):
     """Poll frames/captures only; never replay the caller's native mutation."""
     deadline = time.monotonic()+seconds
     attempts = []
@@ -68,8 +90,11 @@ def capture_response(check, label, reference, crop, before, minimum=80, seconds=
         changed = changed_pixels(reference, capture, crop)
         row = {'capture': capture, 'render_frames': ticks, 'clock': clock,
                'changed_pixels': changed, 'native_clock_advanced': clock['sha256'] != reference_clock['sha256']}
+        if validate is not None:
+            row['validation'] = validate(capture)
         attempts.append(row)
-        if changed >= minimum and row['native_clock_advanced']:
+        if (changed >= minimum and row['native_clock_advanced'] and
+                (validate is None or row['validation']['passed'])):
             return capture, {'passed': True, 'reference_clock': reference_clock, 'attempts': attempts,
                              'minimum_changed_pixels': minimum, 'channel_threshold': 20}
         time.sleep(.2)
@@ -79,6 +104,27 @@ def capture_response(check, label, reference, crop, before, minimum=80, seconds=
     path = check.output.with_name(check.output.stem+'_'+label+'_response_error.json')
     write_json(path, failure)
     raise RuntimeError('Native visible response failed; retained evidence '+str(path))
+
+
+def backdrop_pixel_coverage(record, crop, roi, maximum=55):
+    """The independent hidden capture must show opaque dark wall behind the cell."""
+    with Image.open(record['path']) as image:
+        width, height = image.size
+        channels = image.convert('RGB').crop(crop).split()
+    brightness = ImageChops.lighter(ImageChops.lighter(channels[0], channels[1]), channels[2])
+    from PIL import ImageDraw, ImageFilter
+    interior = roi.filter(ImageFilter.MinFilter(5))
+    # The ordinary native world crosshair is UI, not the distant wall.
+    ImageDraw.Draw(interior).rectangle((width//2-crop[0]-20, height//2-crop[1]-20,
+                                       width//2-crop[0]+20, height//2-crop[1]+20), fill=0)
+    tested = interior.histogram()[255]
+    bright = ImageChops.multiply(interior, brightness.point(lambda value: 255 if value > maximum else 0))
+    outside = bright.histogram()[255]
+    return {'passed': tested >= 80 and outside/max(1, tested) <= .01,
+            'tested_pixels': tested, 'non_wall_pixels': outside,
+            'non_wall_bounds': bright.getbbox(), 'maximum_wall_channel': maximum,
+            'minimum_wall_coverage': .99,
+            'method': 'Actual hidden native pixels inside calibrated cell hull, excluding native crosshair'}
 
 
 def ui_preflight(check):

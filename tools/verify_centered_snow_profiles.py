@@ -27,8 +27,11 @@ from projection.geometry_palette import PLANT_MAX_Y
 from projection.debug_snow_blueprints import NAMES, VISUAL_CASE
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
 from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
-from native_draw_response import INSTALL as INSTALL_FRAMES, REMOVE as REMOVE_FRAMES, ui_preflight
+from native_draw_response import (INSTALL as INSTALL_FRAMES, REMOVE as REMOVE_FRAMES,
+                                  ui_preflight, frame_count, capture_response,
+                                  backdrop_pixel_coverage)
 from snow_contrast_backdrop import SETUP as SETUP_BACKDROP, RESTORE as RESTORE_BACKDROP
+from plant_alpha_geometry import planar_alpha_spans
 
 WORLD_OFFSET = (-2., 1.2, -2.5)
 
@@ -83,17 +86,13 @@ def world_alpha(model, texture, pose, screenshot_size, crop, base, calibration, 
                                            calibration['vertical_fov'], pose['rotation'][2])[0]
                 return projected['screenX']-crop[0], projected['screenY']-crop[1]
 
-            for row in range(texture.height):
-                low = max(snow_top, (oy+sy*(1.-(row+1)/float(texture.height)))/16.)
-                high = (oy+sy*(1.-row/float(texture.height)))/16.
+            for left, right, y0, y1 in planar_alpha_spans(cube, texture):
+                low = max(snow_top, (oy+sy*y0)/16.)
+                high = (oy+sy*y1)/16.
                 if high <= low:
                     continue
-                for column in range(texture.width):
-                    if texture.getpixel((column, row))[3] <= 127:
-                        continue
-                    left, right = column/float(texture.width), (column+1)/float(texture.width)
-                    for a, b in ((left, right), (1.-right, 1.-left)):
-                        draw.polygon((point(a, low), point(b, low), point(b, high), point(a, high)), fill=255)
+                draw.polygon((point(left, low), point(right, low),
+                              point(right, high), point(left, high)), fill=255)
     return result
 
 
@@ -167,14 +166,28 @@ def run(args):
                         continue
                     check.run('b.stop_projection()\nowner.open_workspace()\n_result=True')
                     check.wait('open centered snapshot editor', lambda nav: nav['open'] and not nav['transition'], check.navigation)
+                    before_source = frame_count(check)
                     source = check.run(LOAD % (plant, height, kind))
                     check.editor_preview(label, source['metadata'], source['editor_id'], source['document_id'])
                     camera_state = check.run('_result=json.dumps({"pose":s.camera_pose,"pan":s.camera_pan,"pivot":s.camera_pivot,"size":s.scene_size})')
-                    time.sleep(.15)
-                    editor = check.capture(label+'_editor')
+                    editor_response = None
+                    if kind == 'blank':
+                        editor = check.capture(label+'_editor')
+                    else:
+                        response_crop = viewport_crop(check, blank)
+                        validation = None
+                        if kind == 'plant':
+                            response_alpha = editor_cross_above_snow(response_crop, camera_state, focus, -1, model, texture)
+                            def validation(record):
+                                observed = capture_frame(record['path'], response_crop, blank['path'])
+                                return shape_metrics(response_alpha, observed['object'])
+                        editor, editor_response = capture_response(
+                            check, label+'_editor', blank, response_crop, before_source,
+                            validate=validation)
                     crop = viewport_crop(check, editor)
                     row = {'plant': plant, 'kind': kind, 'height': height, 'source': source,
                            'editor': editor, 'editor_crop': crop, 'camera_state': camera_state,
+                           'native_editor_response': editor_response,
                            'checks': {}}
                     if kind == 'blank':
                         blank = editor
@@ -207,6 +220,8 @@ def run(args):
                         width, pixels_high = world['screenshot']['size']
                         world_crop = (width//4, pixels_high//4, width*3//4, pixels_high*3//4)
                         roi, roi_record = world_cell_roi(check, world_crop, (width, pixels_high), target, world['pose'], calibration)
+                        row['checks'][mode+'_backdrop'] = backdrop_pixel_coverage(
+                            world['hidden_screenshot'], world_crop, roi)
                         unclipped = capture_frame(world['screenshot']['path'], world_crop, world['hidden_screenshot']['path'])
                         outside = ImageChops.subtract(unclipped['object'], roi.filter(ImageFilter.MaxFilter(7)))
                         outside_pixels = count(outside)
@@ -301,6 +316,7 @@ def run(args):
                 except Exception as error:
                     errors.append('navigation: '+str(error))
             report['cleanup_errors'], report['restored'] = errors, not errors
+            report['native_frame_read_retries'] = getattr(check, 'native_frame_read_retries', [])
             report['elapsed_seconds'] = time.monotonic()-started
             report['passed'] = report['completed'] and report['restored'] and all(row.get('passed', True) for row in report['rows']) and report.get('cutaway', {}).get('passed', False)
             write_json(args.output, report)

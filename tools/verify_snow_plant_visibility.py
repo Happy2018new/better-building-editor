@@ -260,6 +260,7 @@ def editor_snow_geometry(crop, camera_state, focus, height):
 
 def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
     """Project opaque plant texels above snow; screen hulls cannot express depth."""
+    from plant_alpha_geometry import planar_alpha_spans
     width, pixels_high = crop[2]-crop[0], crop[3]-crop[1]
     camera = OrbitCamera(*camera_state['pose'])
     camera.pivot = tuple(camera_state['pivot']) if camera_state['pivot'] is not None else None
@@ -285,19 +286,13 @@ def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
                 z = pz-dx*math.sin(angle)+dz*math.cos(angle)
                 return project((focus[0]-x/16., focus[1]+y, focus[2]+z/16.))
 
-            for row in range(texture.height):
-                low = max(snow_top, (oy+sy*(1.-(row+1)/float(texture.height)))/16.)
-                high = (oy+sy*(1.-row/float(texture.height)))/16.
+            for left, right, y0, y1 in planar_alpha_spans(cube, texture):
+                low = max(snow_top, (oy+sy*y0)/16.)
+                high = (oy+sy*y1)/16.
                 if high <= low:
                     continue
-                for col in range(texture.width):
-                    if texture.getpixel((col, row))[3] <= 127:
-                        continue
-                    left, right = col/float(texture.width), (col+1)/float(texture.width)
-                    # Both native faces have mirrored winding; the standalone
-                    # pixel mask selects the face actually visible in this pose.
-                    for a, b in ((left, right), (1.-right, 1.-left)):
-                        draw.polygon((point(a, low), point(b, low), point(b, high), point(a, high)), fill=255)
+                draw.polygon((point(left, low), point(right, low),
+                              point(right, high), point(left, high)), fill=255)
     return mask
 
 
