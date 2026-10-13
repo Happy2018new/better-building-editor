@@ -290,3 +290,30 @@ return and actual restored-air reads are retained. Teleport may reset a
 departed camera, so its same declared pose is reapplied and independently
 checked before sampling; no fitted camera offset is introduced. Player foot
 and platform are restored along with the six frame/support cells.
+
+Frozen `item-product-r14-v11`, source `4b05d6af`, completed in 441.73s.
+Actual native ordinary and enchanted sword bodies are now visible after moving
+the owned player from `(0.5,-60,0.5)` to `(9.5,-40,3.5)`. Full production
+resources, physical frame interaction, typed NBT and the declared camera remain
+unchanged. This establishes player proximity as a sufficient visibility change
+in this fixture; the engine's precise item-frame culling policy is not inferred
+from the public entity-distance API. Seven original-air cells and the actual
+original player foot readback restore, and both owned process identities exit.
+
+Fresh source-bound analysis has valid native captures and a valid visible native
+reference. Native swords measure 53--56 by 53 physical pixels across 40.315s.
+All native and custom ordinary/empty controls remain still; enchanted motion
+is contained inside the independently observed sword bodies. Enchanted luma
+temporal-range P90 is 23.412 native, 24.357 editor, 25.786 full and 24.357
+missing. RGB temporal-range P90 is 100 native versus 60/64/60 custom. Native
+mean enchanted-body luma is about 88 versus 105--106 custom, with different
+native/custom lighting retained. Sparse highlight-centroid displacement is
+faster for native, without a claim to continuously measured phase velocity.
+The custom highlight has similar luma variation but not established native
+color or speed parity. The editor closeup fixed body gate passes; the world
+fixed body gate still fails. No production qualification is promoted.
+
+Original native/full/missing/editor PNGs and capture receipts are retained in
+`.runtime/item-product-r14-v11/closeup/`. Source-bound analysis and real-timed
+fixed-crop comparison GIFs are in its `animation-v1/` directory. These sparse
+native frames remain separate from animation smoothness or 60fps acceptance.
