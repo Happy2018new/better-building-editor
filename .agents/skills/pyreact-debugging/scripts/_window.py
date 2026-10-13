@@ -5,6 +5,7 @@ from __future__ import print_function
 
 import ctypes
 from ctypes import wintypes
+from contextlib import contextmanager
 import json
 import os
 import sys
@@ -209,6 +210,24 @@ def validate_foreground_snapshot(snapshot):
 
 def user_foreground_allowed():
     return os.environ.get('MCDEV_ALLOW_USER_FOREGROUND') == '1'
+
+
+@contextmanager
+def physical_window_coordinates():
+    """Match native WGC's client pixels without changing process-wide DPI policy."""
+    setter = getattr(user32, 'SetThreadDpiAwarenessContext', None)
+    if setter is None:
+        raise RuntimeError('Physical window coordinates require thread DPI awareness support')
+    setter.argtypes = [ctypes.c_void_p]
+    setter.restype = ctypes.c_void_p
+    previous = setter(ctypes.c_void_p(-4))
+    if not previous:
+        raise RuntimeError('Could not enter per-monitor-v2 window coordinates')
+    try:
+        yield
+    finally:
+        if not setter(previous):
+            raise RuntimeError('Could not restore thread DPI awareness')
 
 
 def foreground_policy_satisfied(guard, pid):

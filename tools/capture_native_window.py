@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'.agents/skills/pyreact-debugging/scripts'))
 from _session import load_session
 from _window import (_find_game_window, _list_windows_windows, user32,
-                     background_guard_state, foreground_policy_satisfied, user_foreground_allowed)
+                     background_guard_state, foreground_policy_satisfied, user_foreground_allowed,
+                     physical_window_coordinates)
 
 
 def sha256(path):
@@ -33,7 +34,8 @@ def foreground():
 
 
 def capture_guard(session, window):
-    guard = background_guard_state(session['game_pid'], Path(session['game_executable']).name)
+    with physical_window_coordinates():
+        guard = background_guard_state(session['game_pid'], Path(session['game_executable']).name)
     # Capture receipts need only window identity, not another application's title.
     guard['foreground'] = {key: guard['foreground'][key] for key in ('hwnd', 'pid')}
     if (not foreground_policy_satisfied(guard, session['game_pid']) or
@@ -62,7 +64,8 @@ def capture(session_file, owner, output, executable):
               'path': str(output.resolve()), 'started_at': datetime.now(timezone.utc).isoformat()}
     if allow_foreground:
         report.update(foreground_policy='allow_user_foreground', user_foreground_allowed=True,
-                      agent_activation_allowed=False, activation_fallback=False, guarded_no_activation=True)
+                      agent_activation_allowed=False, activation_fallback=False, guarded_no_activation=True,
+                      window_coordinate_units='physical_pixels', dpi_awareness='per_monitor_v2')
     started = time.perf_counter()
     try:
         session = load_session(session_file, owner, live=True)
@@ -75,8 +78,13 @@ def capture(session_file, owner, output, executable):
             report['noactivation_requested'] = protection.get('requested') is True
             if not report['noactivation_requested'] or protection.get('window_noactivate') is not True:
                 raise RuntimeError('User foreground capture requires a protected managed session')
-        window = _find_game_window(_list_windows_windows(), pid=session['game_pid'],
-                                   process_name=Path(session['game_executable']).name)
+        if allow_foreground:
+            with physical_window_coordinates():
+                window = _find_game_window(_list_windows_windows(), pid=session['game_pid'],
+                                          process_name=Path(session['game_executable']).name)
+        else:
+            window = _find_game_window(_list_windows_windows(), pid=session['game_pid'],
+                                      process_name=Path(session['game_executable']).name)
         if window is None:
             raise RuntimeError('The owned game has no visible window')
         report['window'] = window
