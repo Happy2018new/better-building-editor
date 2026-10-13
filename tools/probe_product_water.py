@@ -18,7 +18,8 @@ import verify_debug_blueprints as blueprints
 import verify_debug_visuals as visuals
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
 from verify_sign_visuals import SAVE_HUD, RESTORE_HUD
-from water_capture_contract import camera_matches, calibrated_viewport_matches, scene_capture_state
+from water_capture_contract import (camera_matches, calibrated_viewport_matches, scene_capture_state,
+                                    stable_scene_predicate)
 from _session import load_session
 
 PROFILE = '''from modern_projection.projection.liquid_product_deployment import candidate_profile
@@ -262,7 +263,9 @@ def main():
                         row = report['rows'][label] = {'route': route, 'case': identity, 'control': control,
                             'source': check.run(LOAD % ((identity, control, pose),))}
                         if route == 'editor':
-                            row['ready'] = check.wait(label, workspace.scene_ready, lambda: check.run(SCENE_STATE))
+                            pan = (.15, -.08) if pose[:2] == (0., 0.) else (0., 0.)
+                            row['ready'] = check.wait(label + ' settled native layout',
+                                stable_scene_predicate(pose, pan, workspace.scene_ready), lambda: check.run(SCENE_STATE))
                         else:
                             check.run('s.projection_missing=%r\nb.project()\n_result=True' % (route == 'missing',))
                             row['ready'] = check.wait(label, workspace.world_ready, lambda: check.run(WORLD_STATE))

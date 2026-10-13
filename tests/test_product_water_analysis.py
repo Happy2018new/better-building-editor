@@ -14,7 +14,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from analyze_product_water import analyze, contribution, product_geometry
-from water_capture_contract import camera_matches, calibrated_viewport_matches, scene_capture_state
+from water_capture_contract import (camera_matches, calibrated_viewport_matches, scene_capture_state,
+                                    stable_scene_predicate)
 
 
 class ProductWaterAnalysisTests(unittest.TestCase):
@@ -124,6 +125,45 @@ class ProductWaterAnalysisTests(unittest.TestCase):
         calibration = {'engine_screen': [499., 277.], 'capture_size': [1994, 1105], 'reported_fov': 60.}
         self.assertTrue(calibrated_viewport_matches(pose, calibration))
         self.assertFalse(calibrated_viewport_matches(dict(pose, screen=[1994, 1105]), calibration))
+
+    def scene_state(self):
+        return {'camera_pose': [35., 25., 4.6], 'camera_pan': [0., 0.], 'camera_depth': 0.,
+                'depth_plane': None, 'scene_origin': [0, 0, 0], 'scene_size': [10, 8, 10],
+                'screen_size': [499., 277.], 'backend_ready': True,
+                'liquid_control_requests': [{'key': 'water', 'geometry': [[0., 0.], [300., 120.]],
+                    'visible': [True], 'poses': [[.32, -65., 0., 35.]],
+                    'doll_positions': [[58., 121.]], 'doll_sizes': [[300., 120.]]}]}
+
+    def test_scene_settlement_waits_for_exact_target_then_native_layout_stability(self):
+        accept = stable_scene_predicate((35., 25., 4.6), (0., 0.), lambda state: state['backend_ready'])
+        moving = self.scene_state()
+        moving['camera_pose'][2] = 4.599760046768113
+        self.assertFalse(accept(moving))
+        self.assertFalse(accept(deepcopy(moving)))
+        self.assertFalse(accept(self.scene_state()))
+        self.assertTrue(accept(self.scene_state()))
+
+    def test_scene_settlement_rejects_native_layout_drift_and_resets_after_pending(self):
+        accept = stable_scene_predicate((35., 25., 4.6), (0., 0.), lambda state: state['backend_ready'])
+        self.assertFalse(accept(self.scene_state()))
+        moved = self.scene_state()
+        moved['liquid_control_requests'][0]['doll_positions'][0][0] += .001
+        self.assertFalse(accept(deepcopy(moved)))
+        self.assertTrue(accept(deepcopy(moved)))
+        pending = deepcopy(moved)
+        pending['backend_ready'] = False
+        self.assertFalse(accept(pending))
+        self.assertFalse(accept(deepcopy(moved)))
+        self.assertTrue(accept(deepcopy(moved)))
+
+    def test_scene_settlement_cannot_accept_wrong_requested_pose_or_pan(self):
+        for field, axis in (('camera_pose', 0), ('camera_pose', 1), ('camera_pose', 2), ('camera_pan', 0)):
+            with self.subTest(field=field, axis=axis):
+                accept = stable_scene_predicate((35., 25., 4.6), (0., 0.), lambda state: state['backend_ready'])
+                wrong = self.scene_state()
+                wrong[field][axis] += .00001
+                self.assertFalse(accept(deepcopy(wrong)))
+                self.assertFalse(accept(deepcopy(wrong)))
 
     def test_blank_and_wrong_water_silhouettes_fail_even_when_in_the_roi(self):
         expected = np.zeros((64, 64), dtype=bool)

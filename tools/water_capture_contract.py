@@ -42,3 +42,23 @@ def scene_capture_state(state):
         {key: row[key] for key in keys}
         for row in state['liquid_control_requests']]
     return result
+
+
+def stable_scene_predicate(expected_pose, expected_pan, ready):
+    """Wait for the requested pose and two equal native layouts before freezing it."""
+    previous = [None]
+
+    def accept(state):
+        if not ready(state):
+            previous[0] = None
+            return False
+        current = scene_capture_state(state)
+        if (current is None or tuple(current['camera_pose']) != tuple(expected_pose)
+                or tuple(current['camera_pan']) != tuple(expected_pan)):
+            previous[0] = None
+            return False
+        settled = current == previous[0]
+        previous[0] = current
+        return settled
+
+    return accept
