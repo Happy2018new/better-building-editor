@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "candidate": "ordinary_entity_ui_depth",
+  "states": [
+    "ui_cow_positive",
+    "ui_empty",
+    "ui_plain_depth15",
+    "ui_plain_depth50",
+    "ui_plain_depth15_repeat",
+    "ui_empty_restored",
+    "ui_cow_positive_restored"
+  ],
+  "frames_per_state": 2,
+  "physical_size": [
+    1994,
+    1105
+  ],
+  "fixed_ui_roi": [
+    0,
+    111,
+    1994,
+    1105
+  ],
+  "ui": {
+    "scale": 0.35,
+    "render_depth": -15,
+    "init_rot_x": 0.0,
+    "init_rot_y": 0.0,
+    "init_rot_z": 0.0
+  },
+  "old_depth_control": -50,
+  "positive_control": {
+    "entity_identifier": "minecraft:cow",
+    "scale": 0.35,
+    "render_depth": -15,
+    "init_rot_x": 0.0,
+    "init_rot_y": 60.0,
+    "init_rot_z": 0.0
+  },
+  "same_owned_page_visible_for_every_capture": true,
+  "world_captures": 0,
+  "binding_count": 1,
+  "bone": "root",
+  "is_client_entity": true,
+  "item_offset": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_rotation_zyx": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "item_scale": 1.0,
+  "ordinary_minimum_stable_pixels": 80,
+  "difference_channel_threshold": 25,
+  "marker_contract": "Unchanged V4 training/holdout corners and one-physical-pixel gate",
+  "normal_budget_seconds": 90,
+  "cleanup_deadline_seconds": 120,
+  "outer_budget_seconds": 150,
+  "native_retries": 0,
+  "sdk_dispatch_authorized": false,
+  "owner_runner_ready": false,
+  "original_r14_plan_sha256": "3b9c2a9ea2a11c3d7c136b6c5f7c3b08ab599e93c2ffc5257781965a5fb258df",
+  "source_sha256": "ee00b1b4cbd3f34387005f5e424fabae8ebadef68b3e456fcce78178e3f60668",
+  "resources_modified": false,
+  "production_modified": false,
+  "player_or_camera_mutation": false,
+  "world_or_inventory_mutation": false,
+  "enchantment_tested": false,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false,
+  "nonce": "d02831073f4641b495dbc983ee45aaa0",
+  "files": [
+    {
+      "path": "absent_client.py",
+      "bytes": 645,
+      "sha256": "e532ad13182f793a5cd9e66a41e9e0527b7e53603c090aa5a224a8466c75bf48"
+    },
+    {
+      "path": "actor_ready_client.py",
+      "bytes": 452,
+      "sha256": "2fb03410ac6e8cf0689a94b832b77e4f551730fdbe500194d4afbdd0a7ca3ec9"
+    },
+    {
+      "path": "destroy_client.py",
+      "bytes": 1075,
+      "sha256": "7ae3a2260735f29cb3675f24fa5bf8e3e0ad89d01f88f2ff52e2dbf38b5c033d"
+    },
+    {
+      "path": "install_client.py",
+      "bytes": 5025,
+      "sha256": "5f37540ddf9ceabfc5af3e3a05d06a813cf65f5323c3167fc243246ae3747cf7"
+    },
+    {
+      "path": "navigation_client.py",
+      "bytes": 335,
+      "sha256": "a176964c39c20694d475a9cb9aacbb39ad27cc2c286f94c1ef38deae8c940252"
+    },
+    {
+      "path": "open_ui_client.py",
+      "bytes": 1613,
+      "sha256": "bbca82850dad1bec7633b0fd38f7940e686d29ef654afe45f68da2f13c2f3b5e"
+    },
+    {
+      "path": "original-r14-plan.json",
+      "bytes": 7022,
+      "sha256": "3b9c2a9ea2a11c3d7c136b6c5f7c3b08ab599e93c2ffc5257781965a5fb258df"
+    },
+    {
+      "path": "plain.json",
+      "bytes": 99,
+      "sha256": "886e960aead7e4e75e7c9aaef56d87ca68de796cc9701c5d341bd30cf5b500e4"
+    },
+    {
+      "path": "pop_client.py",
+      "bytes": 339,
+      "sha256": "4b9714ce93f8ee002cfbfcee05cad4fade94615b2b526839b16b12166137ddcd"
+    },
+    {
+      "path": "remove_client.py",
+      "bytes": 803,
+      "sha256": "a4e77950f2c6c53f91e58d57723f9a6c1d0af255724683e7e1d1df3aaf644bb6"
+    },
+    {
+      "path": "source.py",
+      "bytes": 8735,
+      "sha256": "ee00b1b4cbd3f34387005f5e424fabae8ebadef68b3e456fcce78178e3f60668"
+    },
+    {
+      "path": "status_client.py",
+      "bytes": 3563,
+      "sha256": "4cf3b1ef78ac819c978c029bfd1f9541cf92a24e54cf7f52419a4c2c60ef90fb"
+    },
+    {
+      "path": "ui_cow_positive_client.py",
+      "bytes": 3437,
+      "sha256": "7fe790fb775ae12c69874897b8116a6c37d42b267067a7bdec7d7f2f2e84caf3"
+    },
+    {
+      "path": "ui_cow_positive_restored_client.py",
+      "bytes": 3446,
+      "sha256": "7387a96dc0d9e3504691d44d2168b610e3064ba0a5d23258a929131956fbc0ca"
+    },
+    {
+      "path": "ui_empty_client.py",
+      "bytes": 3430,
+      "sha256": "a5418cdcbdba335fc7915a9f51cb3568cd40dff9e972798769ceb9368034f006"
+    },
+    {
+      "path": "ui_empty_restored_client.py",
+      "bytes": 3439,
+      "sha256": "b967a800e5df486f6f36b32fe8a13eda22c21a68f6e9baff726adb143c889f90"
+    },
+    {
+      "path": "ui_plain_depth15_client.py",
+      "bytes": 3438,
+      "sha256": "a92cce82fb3a56e6a8b7ea77e83d47e5307642251b5ceaacb98a393440039462"
+    },
+    {
+      "path": "ui_plain_depth15_repeat_client.py",
+      "bytes": 3445,
+      "sha256": "91a80f6a411338842dcd92cbcbb961667f76dbe50908179eca451473e5779e6e"
+    },
+    {
+      "path": "ui_plain_depth50_client.py",
+      "bytes": 3438,
+      "sha256": "d2b950eea9fa44531c5aca31f6beb27fde76f157308973d8ecad866de73a6be9"
+    },
+    {
+      "path": "verify_client.py",
+      "bytes": 2425,
+      "sha256": "d5feb8c189a1b50c9aca5f48df004e7cc35de9429710f137dc07af53e4e14083"
+    }
+  ]
+}
