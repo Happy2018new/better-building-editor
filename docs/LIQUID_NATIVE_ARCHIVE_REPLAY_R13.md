@@ -40,3 +40,11 @@ python -X utf8 -m unittest discover -s tests -p 'test_liquid_archive_replay*.py'
 ```
 
 这是一条原始观察的可重放路径；不新增渲染认可，也不扩展原六路径 H/L 试验范围。未来大版本升级应保留旧归档，新增新版本的原始截图、读取结果、源码闭包和索引，不能用新源码替换旧绑定来让旧证据通过。
+
+## V4b 收尾兼容检查
+
+15:37 对已完成的 V4b 归档进行一次只读冷复制重放，无新游戏、SDK 或网络调用。原 193 条索引含 117 个源码记录；原索引 SHA256 为 `d43ed2405aa85ce8cc184e39134a41d89a914088672ca1144d9866ecf6cde342`，检查前后相同。当前 helper 原字节不改，实际导入 46 个冻结源码，复算与原 `native-write-analysis.json` 全字段一致（仅三个路径不同）：`status=OBSERVED`、`native_visibility_observed=true`，UV、透明度、动画、生产认可仍为 `false`。
+
+直接把 V4b 混合索引传作 `--closure` 尚不支持：76 个非源码记录没有 `project_relative_path`；源码记录的两个原路径均指向冻结 `.runtime/sources`，缺少原计划绑定的项目路径别名。此次只在冷副本新增派生源码清单，按已有 `frozen_project + project_relative_path` 得到项目别名，并保留冻结原别名和所有原 SHA/bytes。每个源仍须通过完整原索引和原计划的双重检查，没有归一化或门槛降低。输出及派生规则的原始工件保存于 `docs/evidence/liquid-native-archive-replay-r13-v4b/`。
+
+下轮待办：为 V4b 补充不可变的 117 源码清单及项目路径别名，或在 host helper 中明确支持从混合索引派生并测试这一规则。需要同时覆盖非源码记录过滤、重复别名冲突、原索引不可改、原计划 SHA 不可替换，以及 `--expected native-write-analysis.json`；不能把此次一次性兼容验证误报为已完成默认 CLI 接入。统一待办和交接应引用本条。

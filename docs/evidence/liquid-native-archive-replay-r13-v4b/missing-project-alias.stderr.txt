@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 283, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 276, in main
+    report = replay(args.archive, args.closure, args.output, args.input, args.expected,
+                    source_archives=args.source_archive)
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 252, in replay
+    raise ValueError('Frozen replay refused: ' + result.stderr.strip())
+ValueError: Frozen replay refused: Traceback (most recent call last):
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 283, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 272, in main
+    report = worker(args.archive, args.closure, args.input, args.expected, args.source_archive)
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 169, in worker
+    archive.resolve(row)
+    ~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-v4b-cold-9qmny0jy\replay.py", line 81, in resolve
+    raise ValueError('Original reference is missing or changed: ' + reference['path'])
+ValueError: Original reference is missing or changed: D:\bbe-r13-liquid\tools\analyze_liquid_sides.py
