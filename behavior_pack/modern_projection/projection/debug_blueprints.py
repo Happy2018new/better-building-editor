@@ -15,6 +15,7 @@ from .debug_snow_blueprints import METADATA as SNOW_METADATA, VISUAL_CASE as SNO
 from .debug_neighborhood_blueprints import METADATA as NEIGHBOR_METADATA, VISUAL_CASE as NEIGHBOR_VISUAL_CASE
 from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL_CASE as CONNECTION_VISUAL_CASE
 from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
+from .debug_product_water_blueprints import METADATA as WATER_STYLE_METADATA, VISUAL_CASE as WATER_STYLE_VISUAL_CASE
 from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
 from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
 from .debug_botanical_blueprints import METADATA as BOTANICAL_METADATA, VISUAL_CASE as BOTANICAL_VISUAL_CASE
@@ -26,6 +27,7 @@ CATEGORIES = (('layers', '双层'), ('groups', '多格'), ('connections', '连�
 BLUEPRINTS = (
     ('test.layers.water', 'layers', '含水方块', (32, 8, 24), 'minecraft:oak_fence'),
     LIQUID_METADATA,
+    WATER_STYLE_METADATA,
     SNOW_METADATA,
     ('test.groups.parts', 'groups', '门、床与高植物', (32, 8, 24), 'minecraft:wooden_door'),
     ('test.connections.context', 'connections', '楼梯、铁轨、墙与双箱', (32, 12, 32), 'minecraft:rail'),
@@ -53,6 +55,7 @@ VISUAL_CASES = {
     'item_contents': ITEM_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
+    'water_style': WATER_STYLE_VISUAL_CASE,
     'sign_styles': SIGN_VISUAL_CASE,
     'pot_artwork': POT_VISUAL_CASE,
     'dripstone_neighbors': DRIPSTONE_VISUAL_CASE,
@@ -309,6 +312,9 @@ def build(identity):
     fixture = Fixture(metadata)
     if identity == LIQUID_METADATA[0]:
         from .debug_liquid_blueprints import populate
+        return populate(fixture)
+    if identity == WATER_STYLE_METADATA[0]:
+        from .debug_product_water_blueprints import populate
         return populate(fixture)
     if identity == WATER_METADATA[0]:
         from .debug_water_blueprints import populate
