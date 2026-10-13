@@ -1,0 +1,2310 @@
+{
+  "schema": 1,
+  "owner": "snow-r12-h0-native",
+  "name": "snow-h0-r12-native-v1e",
+  "launches": 1,
+  "budgets": {
+    "total": 240,
+    "work": 190,
+    "cleanup_reserved": 50,
+    "launcher_wait": 90
+  },
+  "backup": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\original-instances.py",
+      "sha256": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+      "installed_sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\original-mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "installed_sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json",
+      "backup": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\original-.mcdev.json",
+      "sha256": "d7c27652dc9e172a87207cf1df61960914a55e3263451b5e896c246bc924d16e",
+      "installed_sha256": "6a396884d97fb9b7e9d1a7c4b751f19b5ee8b507d52e80d409b2b33c2152f021",
+      "restored": true
+    }
+  ],
+  "samples": [
+    {
+      "returncode": 1,
+      "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": false, \"reliable\": false, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T01:59:12.601807+00:00\", \"timeout_seconds\": 4.98182339995401, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\startup-first-scheduled.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"fdd66948cf64ac25ec3ead95c96c9051442e421995b97cb29f9242fede3a91f5\", \"bytes\": 4535}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"starting\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"7130b05bf11c139186da52dc62a007504cfc2b49d844bf879050a4e8cf14f3d5\", \"log_bytes\": 6298, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": false, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315369905824,\\\"frame_qpc_100ns\\\":3315369998809,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"025f99c42e36a6c9f6f6f2e556937c477ddc9b4be158e2c4c624cd4b222515ca\", \"bytes\": 4838}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"starting\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315369905824, \"frame_qpc_100ns\": 3315369998809, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [0.03022171688965777, 0.03022171688965777, 0.03022171688965777], \"sha256\": \"2813e22852cc4cf13c233d49b92af9b7034f931c02824211f5e84690af65d18d\", \"bytes\": 6718}, \"error\": \"RuntimeError: Startup image is blank; no activation fallback\", \"finished_at\": \"2026-10-13T01:59:13.545968+00:00\", \"elapsed_seconds\": 0.9441764999646693}",
+      "stderr": "",
+      "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\startup-first-scheduled.startup.json",
+      "timeout": false,
+      "observer_in_process": true,
+      "capture_child_direct": true,
+      "window_geometry_space": "physical_per_monitor_v2",
+      "label": "first_scheduled",
+      "game_elapsed": 24.5403953
+    },
+    {
+      "returncode": 0,
+      "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T01:59:50.855484+00:00\", \"timeout_seconds\": 4.905639800010249, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\startup-first-ready.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"dcc0bde1b3598ecc73e02cd05f1d55f938c6da66ee46fcb2eb8727cdae16c098\", \"log_bytes\": 102512, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315756423798,\\\"frame_qpc_100ns\\\":3315756537832,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315756423798, \"frame_qpc_100ns\": 3315756537832, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [3394.6523891680413, 3584.7644613945363, 7513.988092246383], \"sha256\": \"3d032e1b1e9938cadd26ec8d69f7bc017ad43a22a440dd6810aa7e38e02af541\", \"bytes\": 1251528}, \"finished_at\": \"2026-10-13T01:59:52.318698+00:00\", \"elapsed_seconds\": 1.4632506999769248}",
+      "stderr": "",
+      "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\startup-first-ready.startup.json",
+      "timeout": false,
+      "observer_in_process": true,
+      "capture_child_direct": true,
+      "window_geometry_space": "physical_per_monitor_v2",
+      "label": "first_post_ready",
+      "game_elapsed": 63.3118897
+    },
+    {
+      "returncode": 0,
+      "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T01:59:55.057561+00:00\", \"timeout_seconds\": 4.985224600008223, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\startup-first-application-ready.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"dba19e765122e0f36f84b6d20afdb134f06d217ed771af316cd5d2c417c99171\", \"log_bytes\": 112716, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315794830092,\\\"frame_qpc_100ns\\\":3315794900982,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315794830092, \"frame_qpc_100ns\": 3315794900982, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1008.5014907240758, 1264.2649557260331, 4888.25666266277], \"sha256\": \"f7099663705f733390c191a870832b765feea963d604a5b80374954c051641cf\", \"bytes\": 367315}, \"finished_at\": \"2026-10-13T01:59:55.980253+00:00\", \"elapsed_seconds\": 0.9227093000081368}",
+      "stderr": "",
+      "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\startup-first-application-ready.startup.json",
+      "timeout": false,
+      "observer_in_process": true,
+      "capture_child_direct": true,
+      "window_geometry_space": "physical_per_monitor_v2",
+      "label": "first_application_ready",
+      "game_elapsed": 66.9737771
+    }
+  ],
+  "cleanup_errors": [],
+  "handle_samples": [
+    {
+      "monotonic": 331536.2622064,
+      "elapsed_seconds": 31.693184199975803,
+      "captured_at": "2026-10-13T01:59:12.554220+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 658,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 213,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        }
+      },
+      "ready": false,
+      "post_ready_baseline": false,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    },
+    {
+      "monotonic": 331551.6433772,
+      "elapsed_seconds": 47.07435499998974,
+      "captured_at": "2026-10-13T01:59:27.935396+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 672,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 229,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        }
+      },
+      "ready": false,
+      "post_ready_baseline": false,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    },
+    {
+      "monotonic": 331566.7536885,
+      "elapsed_seconds": 62.184666299959645,
+      "captured_at": "2026-10-13T01:59:43.045702+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 710,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 229,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": true
+        }
+      },
+      "ready": false,
+      "post_ready_baseline": false,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    },
+    {
+      "monotonic": 331574.3888891,
+      "elapsed_seconds": 69.81986689998303,
+      "captured_at": "2026-10-13T01:59:50.680909+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 852,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 233,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        }
+      },
+      "ready": true,
+      "post_ready_baseline": true,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    },
+    {
+      "monotonic": 331589.4562911,
+      "elapsed_seconds": 84.88726889999816,
+      "captured_at": "2026-10-13T02:00:05.748309+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 866,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 233,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        }
+      },
+      "ready": true,
+      "post_ready_baseline": false,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    },
+    {
+      "monotonic": 331605.4424613,
+      "elapsed_seconds": 100.8734390999889,
+      "captured_at": "2026-10-13T02:00:21.734480+00:00",
+      "processes": {
+        "game": {
+          "pid": 54224,
+          "identity": "134363303290096225",
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "handle_count": 863,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        },
+        "mcdk": {
+          "pid": 20380,
+          "identity": "134363303287095657",
+          "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+          "handle_count": 233,
+          "status": "live",
+          "qualifying_interval": false,
+          "consecutive_qualifying_intervals": 0,
+          "pre_ready_growth_observation_only": false
+        }
+      },
+      "ready": true,
+      "post_ready_baseline": false,
+      "sdk_or_window_mutation": false,
+      "cause_attribution": false
+    }
+  ],
+  "handle_rule_triggered": false,
+  "resource_health_accepted": false,
+  "matrix_started": true,
+  "production_acceptance": false,
+  "started_at": "2026-10-13T01:58:40.861035+00:00",
+  "capacity_checks": [
+    {
+      "source": "CIM candidates verified by _session.process_identity",
+      "live_check": "GetExitCodeProcess == STILL_ACTIVE (259) plus creation identity",
+      "rows": [
+        {
+          "pid": 39736,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 49152,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46240,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 47140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 50436,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 3460,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 52300,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 8040,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 29080,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 37744,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 33996,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 228,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 22924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 17828,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 61924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41036,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 59752,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41892,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 63732,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 39612,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        }
+      ],
+      "active_pids": [],
+      "excluded_pids": [
+        39736,
+        46240,
+        46140,
+        47140,
+        50436,
+        3460,
+        52300,
+        8040,
+        29080,
+        37744,
+        33996,
+        228,
+        22924,
+        17828,
+        61924,
+        41036,
+        59752,
+        41892,
+        63732,
+        39612
+      ],
+      "uncertain_pids": [],
+      "process_mutation_attempted": false,
+      "phase": "before_preparation"
+    },
+    {
+      "source": "CIM candidates verified by _session.process_identity",
+      "live_check": "GetExitCodeProcess == STILL_ACTIVE (259) plus creation identity",
+      "rows": [
+        {
+          "pid": 39736,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 49152,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46240,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 47140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 50436,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 3460,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 52300,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 8040,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 29080,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 37744,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 33996,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 228,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 22924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 17828,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 61924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41036,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 59752,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41892,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 63732,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 39612,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        }
+      ],
+      "active_pids": [],
+      "excluded_pids": [
+        39736,
+        46240,
+        46140,
+        47140,
+        50436,
+        3460,
+        52300,
+        8040,
+        29080,
+        37744,
+        33996,
+        228,
+        22924,
+        17828,
+        61924,
+        41036,
+        59752,
+        41892,
+        63732,
+        39612
+      ],
+      "uncertain_pids": [],
+      "process_mutation_attempted": false,
+      "phase": "immediately_before_launch"
+    },
+    {
+      "source": "CIM candidates verified by _session.process_identity",
+      "live_check": "GetExitCodeProcess == STILL_ACTIVE (259) plus creation identity",
+      "rows": [
+        {
+          "pid": 39736,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 49152,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46240,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 47140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 50436,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 3460,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 52300,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 8040,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 29080,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 37744,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 33996,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 228,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 22924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 17828,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 61924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41036,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 59752,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41892,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 63732,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 39612,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 54224,
+          "thread_count": 62,
+          "handle_count": 649,
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "working_set_bytes": 740892672,
+          "identity": "134363303290096225",
+          "status": "verified_live"
+        }
+      ],
+      "active_pids": [
+        54224
+      ],
+      "excluded_pids": [
+        39736,
+        46240,
+        46140,
+        47140,
+        50436,
+        3460,
+        52300,
+        8040,
+        29080,
+        37744,
+        33996,
+        228,
+        22924,
+        17828,
+        61924,
+        41036,
+        59752,
+        41892,
+        63732,
+        39612
+      ],
+      "uncertain_pids": [],
+      "process_mutation_attempted": false,
+      "phase": "after_game_publication"
+    }
+  ],
+  "active_game_pids_before": [],
+  "marker_installation_attempted": false,
+  "marker_original_absence": true,
+  "native_texture_sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+  "active_game_pids_prelaunch": [],
+  "launcher_started_at_elapsed_seconds": 3.9734382999595255,
+  "session": {
+    "id": "b4ca81720aa4443eb49915be098014be",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b4ca81720aa4443eb49915be098014be\\session.json",
+    "owner": "snow-r12-h0-native",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+    "game_pid": 54224,
+    "game_identity": "134363303290096225",
+    "mcdk_pid": 20380,
+    "mcdk_identity": "134363303287095657"
+  },
+  "active_game_pids_after": [
+    54224
+  ],
+  "handle_stop_reason": null,
+  "first_scheduled_sample_locked": true,
+  "first_post_ready_sample_locked": true,
+  "first_post_sdk_ready_machine_checks_passed": true,
+  "first_post_sdk_ready_world_pixels_accepted": false,
+  "launcher_result": {
+    "returncode": 0,
+    "command": [
+      "D:\\Program\\Python\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "start",
+      "--project",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+      "--owner",
+      "snow-r12-h0-native",
+      "--name",
+      "snow-h0-r12-native-v1e",
+      "--mcdk",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "--noactivate-dll",
+      "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "--noactivate-sha256",
+      "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+      "--noactivate-mcdk-sha256",
+      "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+      "--wait",
+      "90"
+    ],
+    "stdout": "{\n  \"schema\": 1,\n  \"id\": \"b4ca81720aa4443eb49915be098014be\",\n  \"name\": \"snow-h0-r12-native-v1e\",\n  \"owner\": \"snow-r12-h0-native\",\n  \"project\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\",\n  \"session_file\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\",\n  \"artifacts\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\artifacts\",\n  \"appdata\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\appdata\",\n  \"log\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\mcdk.log\",\n  \"state\": \"ready\",\n  \"created_at\": 1791856725.0612113,\n  \"ready\": true,\n  \"noactivation\": {\n    \"schema\": 1,\n    \"requested\": true,\n    \"dll\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-integration\\\\files\\\\.runtime\\\\native_focus_guard-final-r7\\\\native_focus_guard.dll\",\n      \"sha256\": \"c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178\"\n    },\n    \"mcdk\": {\n      \"path\": \"D:\\\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\",\n      \"sha256\": \"b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9\"\n    },\n    \"patch\": \"native_focus_guard/mcdk-v1.6.1.patch\",\n    \"foreground\": {\n      \"hwnd\": 60363468,\n      \"pid\": 63392,\n      \"process\": \"WINWORD.EXE\",\n      \"identity\": \"134363255800434567\",\n      \"title\": \"\u5b9e\u9a8c1 - \u6a21\u677f\uff083-5\u73ed\uff09.doc  -  \u517c\u5bb9\u6027\u6a21\u5f0f - Word\",\n      \"visible\": true,\n      \"minimized\": false\n    },\n    \"windows\": [\n      {\n        \"hwnd\": 86771066,\n        \"pid\": 54224,\n        \"process\": \"Minecraft.Windows.exe\",\n        \"title\": \"(1994, 1105) Minecraft\",\n        \"x\": 189,\n        \"y\": 176,\n        \"width\": 1329,\n        \"height\": 736,\n        \"minimized\": false,\n        \"noactivate\": true\n      }\n    ],\n    \"background_safe\": true,\n    \"window_noactivate\": true\n  },\n  \"mcp_url\": \"http://127.0.0.1:50982/mcp\",\n  \"port\": 50982,\n  \"world\": \"PYR_b4ca81720aa4443eb49915be098014be\",\n  \"game_executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\",\n  \"world_path\": \"C:\\\\Users\\\\Happy2018new\\\\AppData\\\\Roaming\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_b4ca81720aa4443eb49915be098014be\",\n  \"world_link\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\appdata\\\\MinecraftPE_Netease\\\\minecraftWorlds\\\\PYR_b4ca81720aa4443eb49915be098014be\",\n  \"foreground_before\": {\n    \"hwnd\": 395596,\n    \"pid\": 42832,\n    \"process\": \"QQ.exe\",\n    \"identity\": \"134361542599996099\",\n    \"title\": \"QQ\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"mcdk_pid\": 20380,\n  \"mcdk_identity\": \"134363303287095657\",\n  \"discovery_observations\": [\n    {\n      \"attempt\": 1,\n      \"elapsed_seconds\": 6.952,\n      \"children\": [\n        54224\n      ],\n      \"listeners\": [\n        20380\n      ]\n    }\n  ],\n  \"game_pid\": 54224,\n  \"game_identity\": \"134363303290096225\",\n  \"startup_endpoint_discovered\": true,\n  \"last_sdk_error\": {\n    \"phase\": \"client_process_environment\",\n    \"method\": \"tools/call\",\n    \"error_type\": \"MCDKError\",\n    \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n  },\n  \"sdk_errors\": [\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    },\n    {\n      \"phase\": \"client_process_environment\",\n      \"method\": \"tools/call\",\n      \"error_type\": \"MCDKError\",\n      \"error\": \"{\\\"isError\\\": true, \\\"content\\\": [{\\\"text\\\": \\\"Code execution failed. The player may not be in the game or the target is unavailable.\\\", \\\"type\\\": \\\"text\\\"}]}\"\n    }\n  ],\n  \"foreground_after\": {\n    \"hwnd\": 60363468,\n    \"pid\": 63392,\n    \"process\": \"WINWORD.EXE\",\n    \"identity\": \"134363255800434567\",\n    \"title\": \"\u5b9e\u9a8c1 - \u6a21\u677f\uff083-5\u73ed\uff09.doc  -  \u517c\u5bb9\u6027\u6a21\u5f0f - Word\",\n    \"visible\": true,\n    \"minimized\": false\n  },\n  \"foreground_before_still_valid\": true,\n  \"foreground_unchanged\": false\n}\n",
+    "stderr": ""
+  },
+  "launcher_finished_at_elapsed_seconds": 71.46259169996483,
+  "application_readiness_reads": [
+    {
+      "hud_present": false,
+      "bridge_present": false,
+      "runtime_version": "1.21.120.0",
+      "session_present": false,
+      "initialized": false,
+      "bridge_session_matches": false,
+      "owner_present": true,
+      "session_ready": false,
+      "elapsed_seconds": 72.2308958999929
+    },
+    {
+      "hud_present": true,
+      "bridge_present": true,
+      "runtime_version": "1.21.120.0",
+      "session_present": true,
+      "initialized": true,
+      "bridge_session_matches": true,
+      "owner_present": true,
+      "session_ready": true,
+      "elapsed_seconds": 74.17283060000045
+    }
+  ],
+  "first_application_ready_sample_locked": true,
+  "first_application_ready_machine_checks_passed": true,
+  "first_application_ready_world_pixels_accepted": false,
+  "first_application_ready_world_pixels_require_visual_review": true,
+  "matrix": {
+    "schema": 1,
+    "started": true,
+    "completed": false,
+    "production_acceptance": false,
+    "session": "b4ca81720aa4443eb49915be098014be",
+    "condition": "native_original",
+    "rows": [
+      {
+        "label": "qualification_stone",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_stone.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 1144,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331584.2063474,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:00.514567+00:00\", \"timeout_seconds\": 4.989038799947593, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\qualification_stone.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"62f9ed9906684080a4efaaaa20b392b08071e73dfecdb5651765d32812e03b00\", \"log_bytes\": 124136, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315849036333,\\\"frame_qpc_100ns\\\":3315849142657,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315849036333, \"frame_qpc_100ns\": 3315849142657, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1896.2569648328358, 3101.0469642418075, 9910.696004539737], \"sha256\": \"c93a4e185ae40773599254d9318e32640d9e96ffb3d2dce4194707590432c47f\", \"bytes\": 893686}, \"finished_at\": \"2026-10-13T02:00:01.439154+00:00\", \"elapsed_seconds\": 0.9246055000112392}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_stone.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 1604,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105
+      },
+      {
+        "label": "qualification_blank",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_blank.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 2055,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331586.5540873,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:02.873129+00:00\", \"timeout_seconds\": 4.98228980001295, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\qualification_blank.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"9cd7dcc2088a6c1f9f7721caf610e078bf7f33bf7a868b27fefc9eef6d283ae0\", \"log_bytes\": 127696, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315872252489,\\\"frame_qpc_100ns\\\":3315872354129,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315872252489, \"frame_qpc_100ns\": 3315872354129, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1949.795905304303, 3080.9194243456755, 10170.58668325875], \"sha256\": \"68f9696704e4838dcdef966ff49a8e86199cd0aa4ad8acbf32832c7cbc9c6101\", \"bytes\": 907759}, \"finished_at\": \"2026-10-13T02:00:03.769288+00:00\", \"elapsed_seconds\": 0.8961788000306115}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_blank.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 2629,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105
+      },
+      {
+        "label": "native_covered_h0",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_covered_h0.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 4345,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331591.4420323,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:07.759070+00:00\", \"timeout_seconds\": 4.427298599970527, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\native_covered_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"1a10d300243d7b87df663331276cb826887ca70170674448d865efc162d0fbc4\", \"log_bytes\": 132680, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315921162710,\\\"frame_qpc_100ns\\\":3315921262226,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315921162710, \"frame_qpc_100ns\": 3315921262226, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1768.9986300177227, 2789.528598139722, 10243.913680959433], \"sha256\": \"63a9f3f70430d3929b4e709828913142e7fa3656a120a517291e8514b4b07ead\", \"bytes\": 898387}, \"finished_at\": \"2026-10-13T02:00:08.670861+00:00\", \"elapsed_seconds\": 0.9118086000089534}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_covered_h0.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 4869,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105,
+        "kind": "covered",
+        "mode": "native",
+        "readback": {
+          "front": {
+            "aux": 8,
+            "name": "minecraft:snow_layer"
+          },
+          "states": {
+            "covered_bit": true,
+            "height": 0
+          },
+          "result": true,
+          "target": [
+            6,
+            -48,
+            6
+          ]
+        },
+        "client_palette": {
+          "common": [
+            [
+              "minecraft:snow_layer",
+              8,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": [
+            [
+              "minecraft:poppy",
+              0,
+              [
+                0
+              ]
+            ]
+          ]
+        },
+        "client_palette_after": {
+          "common": [
+            [
+              "minecraft:snow_layer",
+              8,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": [
+            [
+              "minecraft:poppy",
+              0,
+              [
+                0
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "label": "native_snow_h0",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_snow_h0.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 5722,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331594.3713613,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:10.683259+00:00\", \"timeout_seconds\": 4.557841099973302, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\native_snow_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"ca6f6afbec8febf6fd075a217641bfc30f5feb99983776e6a2196a1d10222bed\", \"log_bytes\": 136952, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315950360869,\\\"frame_qpc_100ns\\\":3315950474001,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315950360869, \"frame_qpc_100ns\": 3315950474001, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1758.0804440328368, 2766.037243780339, 10208.11400602289], \"sha256\": \"975df96b4d698b940b13a9e181a818b0d71524aede425eb54c4a67a3e024d7ae\", \"bytes\": 897688}, \"finished_at\": \"2026-10-13T02:00:11.596165+00:00\", \"elapsed_seconds\": 0.9129211999825202}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_snow_h0.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 6288,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105,
+        "kind": "snow",
+        "mode": "native",
+        "readback": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:snow_layer"
+          },
+          "states": {
+            "covered_bit": false,
+            "height": 0
+          },
+          "kind": "snow",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "client_palette": {
+          "common": [
+            [
+              "minecraft:snow_layer",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "client_palette_after": {
+          "common": [
+            [
+              "minecraft:snow_layer",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      {
+        "label": "native_plant_h0",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_plant_h0.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 7024,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331597.192498,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:13.508875+00:00\", \"timeout_seconds\": 4.671088599949144, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\native_plant_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"4a7007fdd3e9b3dab52baf2b28c42d515f0e96571821d93559eaf738cb40a208\", \"log_bytes\": 141224, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3315978348474,\\\"frame_qpc_100ns\\\":3315978473389,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3315978348474, \"frame_qpc_100ns\": 3315978473389, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1720.659621333318, 2785.207081929523, 10337.51082170055], \"sha256\": \"75f85a14cfeeb519675baf1e483c5c46fe2c18553cb1463b2cc0e7c100993796\", \"bytes\": 904468}, \"finished_at\": \"2026-10-13T02:00:14.387587+00:00\", \"elapsed_seconds\": 0.878730500000529}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_plant_h0.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 7628,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105,
+        "kind": "plant",
+        "mode": "native",
+        "readback": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:poppy"
+          },
+          "states": {},
+          "kind": "plant",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "client_palette": {
+          "common": [
+            [
+              "minecraft:poppy",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "client_palette_after": {
+          "common": [
+            [
+              "minecraft:poppy",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      {
+        "label": "native_blank_h0",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_blank_h0.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 8431,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331600.1928878,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:16.506422+00:00\", \"timeout_seconds\": 4.5316310999915, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\native_blank_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"c248e92a3600a79f41735afd7728e7bd1286021780c620501f6c9575f0d36f95\", \"log_bytes\": 145496, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3316008709264,\\\"frame_qpc_100ns\\\":3316008776237,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3316008709264, \"frame_qpc_100ns\": 3316008776237, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1695.8884396518565, 2756.5233413314986, 10304.87845649789], \"sha256\": \"28c0b93327979120a14c449ef310f45dbdb5b7dd996e1134a2f042bcde9386d5\", \"bytes\": 904443}, \"finished_at\": \"2026-10-13T02:00:17.397666+00:00\", \"elapsed_seconds\": 0.8912619999609888}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\native_blank_h0.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 8944,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105,
+        "kind": "blank",
+        "mode": "native",
+        "readback": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "states": null,
+          "kind": "blank",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "client_palette": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "client_palette_after": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      {
+        "label": "projection_covered_h0",
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\projection_covered_h0.png",
+        "first_capture_attempt_locked": true,
+        "before": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 10294,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_before": 0.9999999999998105,
+        "elapsed_before": 331604.5316893,
+        "capture": {
+          "returncode": 0,
+          "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T02:00:20.852531+00:00\", \"timeout_seconds\": 4.980208399996627, \"output\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\\\\.runtime\\\\snow-h0-native-r12-v1e\\\\projection_covered_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"session_id\": \"b4ca81720aa4443eb49915be098014be\", \"owner\": \"snow-r12-h0-native\", \"project\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\r11-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 51015, \"log_sha256\": \"18ad8d762e9676f0d62fdd6ba443fa63da103f7d49f5f974370b6638f000c17b\", \"log_bytes\": 152616, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 20380, \"local_address\": \"127.0.0.1\", \"local_port\": 51015, \"remote_address\": \"127.0.0.1\", \"remote_port\": 59730}, {\"state\": 5, \"pid\": 54224, \"local_address\": \"127.0.0.1\", \"local_port\": 59730, \"remote_address\": \"127.0.0.1\", \"remote_port\": 51015}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3316051792574,\\\"frame_qpc_100ns\\\":3316051866214,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\b4ca81720aa4443eb49915be098014be\\\\session.json\", \"sha256\": \"ee211ea8b34eee4c6d213155473d7fcbaba58cc10c2c93d4cbfc63aaf0251a4b\", \"bytes\": 20629}, \"processes_after\": {\"mcdk\": {\"pid\": 20380, \"identity\": \"134363303287095657\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 54224, \"identity\": \"134363303290096225\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 60363468, \"pid\": 63392, \"process\": \"WINWORD.EXE\", \"identity\": \"134363255800434567\", \"title\": \"\\u5b9e\\u9a8c1 - \\u6a21\\u677f\\uff083-5\\u73ed\\uff09.doc  -  \\u517c\\u5bb9\\u6027\\u6a21\\u5f0f - Word\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 86771066, \"pid\": 54224, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3316051792574, \"frame_qpc_100ns\": 3316051866214, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1787.9775132497348, 2788.9706889596005, 10227.285887783572], \"sha256\": \"b32b0fed5f1dfd29af2c270ca4a7206e457eb1330a34f5624b8cecd55535f607\", \"bytes\": 898495}, \"finished_at\": \"2026-10-13T02:00:21.719461+00:00\", \"elapsed_seconds\": 0.8669500999967568}",
+          "stderr": "",
+          "observer_receipt": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\projection_covered_h0.startup.json",
+          "timeout": false,
+          "observer_in_process": true,
+          "capture_child_direct": true,
+          "window_geometry_space": "physical_per_monitor_v2"
+        },
+        "after": {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 10808,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        },
+        "forward_cosine_after": 0.9999999999998105
+      }
+    ],
+    "cleanup_errors": [],
+    "mutation_attempted": true,
+    "preflight": {
+      "player_foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "cells": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "position": [
+            6,
+            -48,
+            6
+          ]
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "position": [
+            6,
+            -49,
+            6
+          ]
+        }
+      ],
+      "dimension": 0,
+      "player_flying": false
+    },
+    "original_player_follow_camera": {
+      "origin": [
+        0,
+        -60,
+        0
+      ],
+      "opacity": 0.45,
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "camera_pos": [
+        0.5,
+        -58.37998962402344,
+        0.5
+      ],
+      "outline": true,
+      "pitch_lock": false,
+      "missing": true,
+      "yaw_lock": false,
+      "fov": 60.0,
+      "camera_rot": [
+        -0.0,
+        179.99996948242188,
+        0.0
+      ]
+    },
+    "client_chunk_event_observation": {
+      "target_chunk": [
+        0,
+        0
+      ],
+      "source": "existing ChunkLoadedClientEvent/ChunkAcquireDiscardedClientEvent set",
+      "observed_chunks": 545,
+      "matching_xz": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "native_section_mesh_ready_proven": false,
+      "target_section_y": -3
+    },
+    "render_frame_observer": {
+      "render_events": 0,
+      "source": "actual GameRenderTickEvent"
+    },
+    "native_setup": {
+      "biome": "plains",
+      "target": [
+        6,
+        -48,
+        6
+      ],
+      "daylight_cycle": false,
+      "support": [
+        6,
+        -49,
+        6
+      ],
+      "player": "-8589934591",
+      "time": 0,
+      "dimension": 0
+    },
+    "camera_before_request": {
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "fov": 60.0,
+      "yaw_lock": false,
+      "pitch_lock": false,
+      "render_events": 227,
+      "forward": [
+        3.01991519791045e-07,
+        0.0,
+        0.9999995231628418
+      ],
+      "position": [
+        0.5,
+        -58.37998962402344,
+        0.5
+      ],
+      "rotation": [
+        -0.0,
+        179.99996948242188,
+        0.0
+      ],
+      "screen": [
+        499.0,
+        277.0
+      ]
+    },
+    "camera_direction_candidates": [
+      {
+        "yaw_adjustment": 180.0,
+        "pose_request_attempted": true,
+        "predeclared_sdk_semantics": true,
+        "readbacks": [
+          {
+            "player": [
+              0.5,
+              -60.0,
+              0.5
+            ],
+            "fov": 60.0,
+            "yaw_lock": true,
+            "pitch_lock": true,
+            "render_events": 476,
+            "forward": [
+              0.6240106225013733,
+              -0.046800676733255386,
+              0.7800129652023315
+            ],
+            "position": [
+              4.5,
+              -47.349998474121094,
+              4.0
+            ],
+            "rotation": [
+              2.6824610233306885,
+              141.3401641845703,
+              -1.3728783414990176e-05
+            ],
+            "screen": [
+              499.0,
+              277.0
+            ]
+          }
+        ],
+        "captures_before_selection": 0,
+        "pose": {
+          "target": [
+            6.5,
+            -47.5,
+            6.5
+          ],
+          "render_events_at_request": 368,
+          "yaw_adjustment": 180.0,
+          "position": [
+            4.5,
+            -47.35,
+            4.0
+          ],
+          "rotation": [
+            2.682467460632324,
+            141.34019088745117,
+            0.0
+          ],
+          "sdk_GetRotFromDir": [
+            2.682467460632324,
+            -38.65980911254883
+          ]
+        },
+        "forward_cosine": 0.9999999999998105,
+        "selected": true
+      }
+    ],
+    "camera": {
+      "target": [
+        6.5,
+        -47.5,
+        6.5
+      ],
+      "render_events_at_request": 368,
+      "yaw_adjustment": 180.0,
+      "position": [
+        4.5,
+        -47.35,
+        4.0
+      ],
+      "rotation": [
+        2.682467460632324,
+        141.34019088745117,
+        0.0
+      ],
+      "sdk_GetRotFromDir": [
+        2.682467460632324,
+        -38.65980911254883
+      ]
+    },
+    "actual_camera_direction": {
+      "readback": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 476,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "target": [
+        6.5,
+        -47.5,
+        6.5
+      ],
+      "forward_cosine": 0.9999999999998105,
+      "actual_GetForward": true,
+      "predeclared_yaw_candidates": [
+        180.0,
+        0.0
+      ],
+      "minimum_cosine_exclusive": 0.99,
+      "qualification_capture_started": false
+    },
+    "qualification": {
+      "screen": [
+        499.0,
+        277.0
+      ],
+      "points": [
+        [
+          6.0,
+          -48.0,
+          6.0
+        ],
+        [
+          6.0,
+          -48.0,
+          7.0
+        ],
+        [
+          6.0,
+          -47.0,
+          6.0
+        ],
+        [
+          6.0,
+          -47.0,
+          7.0
+        ],
+        [
+          7.0,
+          -48.0,
+          6.0
+        ],
+        [
+          7.0,
+          -48.0,
+          7.0
+        ],
+        [
+          7.0,
+          -47.0,
+          6.0
+        ],
+        [
+          7.0,
+          -47.0,
+          7.0
+        ]
+      ],
+      "fov": 60.0,
+      "version": "1.21.120.0",
+      "native": null,
+      "method": "same_session_native_stone_blank_cell_silhouette",
+      "stone": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_stone.png",
+      "blank": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualification_blank.png",
+      "pixels": 113706,
+      "bounds": [
+        306,
+        115,
+        683,
+        455
+      ],
+      "analytical_projection_or_fov_fit": false,
+      "roi": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1e\\qualified-cell-roi.png",
+      "roi_sha256": "ba7ccbb82bc5126b69ce5217e61826febe35356821160926de03c18c5018d0cb"
+    },
+    "fixed_camera_readback": {
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "fov": 60.0,
+      "yaw_lock": true,
+      "pitch_lock": true,
+      "render_events": 3580,
+      "forward": [
+        0.6240106225013733,
+        -0.046800676733255386,
+        0.7800129652023315
+      ],
+      "position": [
+        4.5,
+        -47.349998474121094,
+        4.0
+      ],
+      "rotation": [
+        2.6824610233306885,
+        141.3401641845703,
+        -1.3728783414990176e-05
+      ],
+      "screen": [
+        499.0,
+        277.0
+      ]
+    },
+    "error": "AssertionError: ('Projection actor/mesh drift during capture', {'origin': [5, -49, 5], 'part_scales': [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], 'camera': [4.5, -47.349998474121094, 4.0], 'active': True, 'mesh': ['-9223372036854775807', 'modern_projection_buffer_0_0', [5, -49, 5], [6.5, -47.5, 6.5]], 'preparing': False, 'ready': True, 'message': '\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b', 'rotation': [2.6824610233306885, 141.3401641845703, -1.3728783414990176e-05], 'scale': [1.0, 1.0, 1.0], 'player': [0.5, -60.0, 0.5], 'actor': '-9223372036854775807', 'parts': [['modern_projection_buffer_0_0_c_0_0_0', [0, 0, 0], True], ['modern_projection_buffer_0_0_o_0_0_0', [0, 0, 0], False]], 'actors': 1, 'error': None}, {'origin': [5, -49, 5], 'part_scales': [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], 'camera': [4.5, -47.349998474121094, 4.0], 'active': True, 'mesh': ['-9223372036854775807', 'modern_projection_buffer_0_0', [5, -49, 5], [0.5, -59.0, 0.5]], 'preparing': False, 'ready': True, 'message': '\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b', 'rotation': [2.6824610233306885, 141.3401641845703, -1.3728783414990176e-05], 'scale': [1.0, 1.0, 1.0], 'player': [0.5, -60.0, 0.5], 'actor': '-9223372036854775807', 'parts': [['modern_projection_buffer_0_0_c_0_0_0', [0, 0, 0], True], ['modern_projection_buffer_0_0_o_0_0_0', [0, 0, 0], False]], 'actors': 1, 'error': None})",
+    "native_cleanup": [
+      {
+        "changed": false,
+        "pos": [
+          6,
+          -48,
+          6
+        ],
+        "clean": true
+      },
+      {
+        "changed": true,
+        "pos": [
+          6,
+          -49,
+          6
+        ],
+        "clean": true
+      },
+      {
+        "resource": "world_biome",
+        "clean": true
+      },
+      {
+        "resource": "world_time",
+        "clean": true
+      },
+      {
+        "resource": "daylight_cycle",
+        "clean": true
+      }
+    ],
+    "client_restore_requested": {
+      "requested": true,
+      "saved_camera_retained": true,
+      "render_events": 11303
+    },
+    "client_restore_reads": [
+      {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": false,
+        "pitch_lock": false,
+        "render_events": 11412,
+        "forward": [
+          3.019915482127544e-07,
+          -6.776260346860135e-21,
+          0.9999997615814209
+        ],
+        "position": [
+          0.5,
+          -58.37998962402344,
+          0.5
+        ],
+        "rotation": [
+          0.0,
+          179.99996948242188,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      }
+    ],
+    "client_restored": {
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "fov": 60.0,
+      "yaw_lock": false,
+      "pitch_lock": false,
+      "render_events": 11412,
+      "forward": [
+        3.019915482127544e-07,
+        -6.776260346860135e-21,
+        0.9999997615814209
+      ],
+      "position": [
+        0.5,
+        -58.37998962402344,
+        0.5
+      ],
+      "rotation": [
+        0.0,
+        179.99996948242188,
+        -1.3660377589985728e-05
+      ],
+      "screen": [
+        499.0,
+        277.0
+      ]
+    },
+    "saved_camera_journal_cleared_after_verified_readback": true,
+    "post_restore": {
+      "player_foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "cells": [
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "position": [
+            6,
+            -48,
+            6
+          ]
+        },
+        {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "position": [
+            6,
+            -49,
+            6
+          ]
+        }
+      ],
+      "dimension": 0,
+      "player_flying": false
+    },
+    "render_frame_observer_removed": true
+  },
+  "error": "RuntimeError: H0 finite phase did not complete: AssertionError: ('Projection actor/mesh drift during capture', {'origin': [5, -49, 5], 'part_scales': [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], 'camera': [4.5, -47.349998474121094, 4.0], 'active': True, 'mesh': ['-9223372036854775807', 'modern_projection_buffer_0_0', [5, -49, 5], [6.5, -47.5, 6.5]], 'preparing': False, 'ready': True, 'message': '\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b', 'rotation': [2.6824610233306885, 141.3401641845703, -1.3728783414990176e-05], 'scale': [1.0, 1.0, 1.0], 'player': [0.5, -60.0, 0.5], 'actor': '-9223372036854775807', 'parts': [['modern_projection_buffer_0_0_c_0_0_0', [0, 0, 0], True], ['modern_projection_buffer_0_0_o_0_0_0', [0, 0, 0], False]], 'actors': 1, 'error': None}, {'origin': [5, -49, 5], 'part_scales': [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], 'camera': [4.5, -47.349998474121094, 4.0], 'active': True, 'mesh': ['-9223372036854775807', 'modern_projection_buffer_0_0', [5, -49, 5], [0.5, -59.0, 0.5]], 'preparing': False, 'ready': True, 'message': '\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b', 'rotation': [2.6824610233306885, 141.3401641845703, -1.3728783414990176e-05], 'scale': [1.0, 1.0, 1.0], 'player': [0.5, -60.0, 0.5], 'actor': '-9223372036854775807', 'parts': [['modern_projection_buffer_0_0_c_0_0_0', [0, 0, 0], True], ['modern_projection_buffer_0_0_o_0_0_0', [0, 0, 0], False]], 'actors': 1, 'error': None})",
+  "cleanup_inspection_before": {
+    "alive": {
+      "game": {
+        "pid": 54224,
+        "identity": "134363303290096225",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+      },
+      "mcdk": {
+        "pid": 20380,
+        "identity": "134363303287095657",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+      }
+    },
+    "mismatch": []
+  },
+  "normal_stop": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+    "timeout": false
+  },
+  "cleanup_inspection_after_normal": {
+    "alive": {
+      "game": {
+        "pid": 54224,
+        "identity": "134363303290096225",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+      },
+      "mcdk": {
+        "pid": 20380,
+        "identity": "134363303287095657",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+      }
+    },
+    "mismatch": []
+  },
+  "force_stop_after_inspection": {
+    "identities": {
+      "game": {
+        "pid": 54224,
+        "identity": "134363303290096225",
+        "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+      },
+      "mcdk": {
+        "pid": 20380,
+        "identity": "134363303287095657",
+        "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+      }
+    },
+    "results": [
+      {
+        "kind": "game",
+        "pid": 54224,
+        "identity": "134363303290096225",
+        "termination": {
+          "wait_ms": 4993,
+          "wait_result": 0,
+          "timeout": false
+        }
+      },
+      {
+        "kind": "mcdk",
+        "pid": 20380,
+        "identity": "134363303287095657",
+        "termination": {
+          "wait_ms": 4992,
+          "wait_result": 0,
+          "timeout": false
+        }
+      }
+    ]
+  },
+  "cleanup_inspection_final": {
+    "alive": {},
+    "mismatch": []
+  },
+  "owned_processes_dead": true,
+  "native_texture_unchanged": true,
+  "marker_restored": true,
+  "run_elapsed_seconds": 114.31652799999574,
+  "deadline_exceeded": false,
+  "diagnostic_completed": false
+}

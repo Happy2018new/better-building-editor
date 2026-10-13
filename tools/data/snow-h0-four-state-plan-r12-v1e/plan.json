@@ -1,0 +1,554 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-13T01:53:43.545672+00:00",
+  "amends_unrun_v1d_only": {
+    "native_plan_sha256": "917981f97a4a5a91e24b3e0f22de3a48323a9e85b76f121b74b1a144f17583e8",
+    "alpha_plan_sha256": "5b539e660119de0477fe643914353813c41305779e56d02331d67860bfb665d1",
+    "result_index_sha256": "be90173454dec65faf9fb3e9c57178d44a84f2593bd1d896dd40e9fe45adfd28",
+    "prior_v1_v1b_v1c_v1d_and_runs_unchanged": true,
+    "prior_v1d_executed": false,
+    "prior_v1d_index_sha256": "9fbf1668bdbb82fccb3d11cb7696134abfa40fec3c8726baf5316743d85e9f28",
+    "private_fixture_translation": [
+      0,
+      -165,
+      0
+    ],
+    "player_movement": false,
+    "source_coordinate_or_relative_geometry_change": false,
+    "changes": "V1D near-player fixture and restoration unchanged; two predeclared SDK yaw candidates selected before qualification with actual cosine >0.99; journal render observer before uncertain event registration; retain both candidate pose/readbacks; record first launcher exit observation once"
+  },
+  "status": "finite_adapter_prepared_awaiting_final_review_and_wgc_slot",
+  "runtime_authorized": false,
+  "new_launches": 0,
+  "new_sdk_calls": 0,
+  "new_window_or_player_mutations": 0,
+  "historical_v6_ready_world_frame_proven": true,
+  "current_session_world_pixels_accepted": false,
+  "resource_health_accepted": false,
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+  "built_in": {
+    "fixture": "test.layers.snow",
+    "schema": 4,
+    "metadata_size": [
+      64,
+      8,
+      64
+    ],
+    "extracted_size": [
+      3,
+      3,
+      3
+    ],
+    "focus": [
+      1,
+      1,
+      1
+    ],
+    "source_cells_verified_by_offline_build": true,
+    "rows": [
+      {
+        "kind": "covered",
+        "height": 0,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "extraction_rebase": [
+          -17,
+          0,
+          -8
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          8
+        ],
+        "back": [
+          "minecraft:poppy",
+          0
+        ],
+        "snow_states": {
+          "covered_bit": true,
+          "height": 0
+        },
+        "native_capture": "native_covered_h0.png",
+        "projection_capture": "projection_covered_h0.png"
+      },
+      {
+        "kind": "snow",
+        "height": 0,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "extraction_rebase": [
+          -17,
+          0,
+          -8
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          0
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "snow_states": {
+          "covered_bit": false,
+          "height": 0
+        },
+        "native_capture": "native_snow_h0.png",
+        "projection_capture": "projection_snow_h0.png"
+      },
+      {
+        "kind": "plant",
+        "height": 0,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "extraction_rebase": [
+          -17,
+          0,
+          -2
+        ],
+        "front": [
+          "minecraft:poppy",
+          0
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "snow_states": null,
+        "native_capture": "native_plant_h0.png",
+        "projection_capture": "projection_plant_h0.png"
+      },
+      {
+        "kind": "blank",
+        "height": 0,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "extraction_rebase": [
+          -17,
+          0,
+          -2
+        ],
+        "front": [
+          "minecraft:air",
+          0
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "snow_states": null,
+        "native_capture": "native_blank_h0.png",
+        "projection_capture": "projection_blank_h0.png"
+      }
+    ]
+  },
+  "registry": {
+    "source_version": "NEMC 3.9.0.401155",
+    "fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+    "render_layout_version": 2,
+    "position_profiles": 0,
+    "position_registry_acceptance": false
+  },
+  "destination": {
+    "target": [
+      6,
+      -48,
+      6
+    ],
+    "support": [
+      6,
+      -49,
+      6
+    ],
+    "support_material": [
+      "minecraft:dirt",
+      0
+    ],
+    "projection_origin": [
+      5,
+      -49,
+      5
+    ],
+    "loaded_terrain_required": true,
+    "target_and_support_initial_front_extra_air_required": true,
+    "world_y_interval_half_open": [
+      -64,
+      320
+    ],
+    "movement_normalization": false,
+    "player_teleport_or_flight_mutation": false,
+    "native_near_player_snippet_excluded": true,
+    "unloaded_or_occupied_fixed_cell_action": "retain failure and cleanup; no target relocation"
+  },
+  "camera": {
+    "view": "public",
+    "center": [
+      6.5,
+      -47.5,
+      6.5
+    ],
+    "offset": [
+      -2.0,
+      0.15,
+      -2.5
+    ],
+    "position": [
+      4.5,
+      -47.35,
+      4.0
+    ],
+    "rotation": "predeclared GetRotFromDir(center-position): (pitch,yaw+180,0) then (pitch,yaw,0); first actual forward cosine >0.99",
+    "same_session_qualification_required": true,
+    "actual_GetForward_required": true,
+    "minimum_forward_cosine_exclusive": 0.99,
+    "predeclared_yaw_candidates": [
+      180.0,
+      0.0
+    ],
+    "selection_before_first_qualification_capture": true,
+    "unbounded_yaw_search_allowed": false,
+    "actual_render_events_before_capture_and_after_restore": 2,
+    "camera_saved_journal_cleared_only_after_verified_readback": true,
+    "primary": "successful actual public WorldToScreenPoint at eight fixed cell corners",
+    "fallback": "bounded same-cell native stone/blank pixel silhouette ROI; no analytical camera conversion",
+    "fallback_ready": true,
+    "other_session_calibration_allowed": false,
+    "fov_or_offset_search_allowed": false,
+    "geometry_fit_allowed": false
+  },
+  "pixels": {
+    "physical_size": [
+      1994,
+      1105
+    ],
+    "fixed_crop": [
+      498,
+      276,
+      1495,
+      828
+    ],
+    "roi": "one fixed qualified world-cell hull before snow captures",
+    "min_positive_plant_pixels": 80,
+    "difference_threshold_per_channel": 20,
+    "edge_tolerance_pixels": 3,
+    "physical_size_drift_action": "fail, no resize or recrop",
+    "first_capture_outcome_retained": true,
+    "direct_owned_wgc_child_required": true
+  },
+  "texture_conditions": {
+    "native_original": {
+      "sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_sha256": "7060164de76ea6e3de651a42f4a6dfbdae27dc4d86daccbd5f7b1807fce1008c",
+      "alpha_bounds": [
+        5,
+        5,
+        12,
+        16
+      ]
+    },
+    "own_marker_native_alpha_preserved": {
+      "sha256": "46fc92e57b7a81922dd18c60a2b429be87050ce8b623fc9bfac6f9b8122de1f2",
+      "size": [
+        16,
+        16
+      ],
+      "alpha_sha256": "7060164de76ea6e3de651a42f4a6dfbdae27dc4d86daccbd5f7b1807fce1008c",
+      "alpha_bounds": [
+        5,
+        5,
+        12,
+        16
+      ]
+    }
+  },
+  "texture_cold_load": "separate coordinated single cold start per condition",
+  "native_state_order": [
+    "covered",
+    "snow",
+    "plant",
+    "blank"
+  ],
+  "projection_state_order": [
+    "covered",
+    "snow",
+    "plant",
+    "blank"
+  ],
+  "controls": {
+    "positive": [
+      "plant-minus-blank native",
+      "plant-minus-blank projection"
+    ],
+    "contribution": [
+      "covered-minus-snow native",
+      "covered-minus-snow projection"
+    ],
+    "native_projection": "same actual target/camera/physical crop; native target air during projection"
+  },
+  "unchanged_contract_seconds": {
+    "total": 150,
+    "observation": 110,
+    "cleanup_reserved": 40,
+    "launcher_wait": 90
+  },
+  "separate_h0_contract_seconds": {
+    "total": 240,
+    "work": 190,
+    "cleanup_reserved": 50,
+    "launcher_wait": 90
+  },
+  "prospective_post_ready_reservation_seconds": {
+    "setup": 10,
+    "camera_qualification": 12,
+    "native_four_rows": 24,
+    "projection_four_rows": 32,
+    "sdk_state_restoration": 5,
+    "total": 83
+  },
+  "budget_feasibility": {
+    "v6_latest_ready_and_world_frame_elapsed_seconds": 27,
+    "h0_latest_ready_and_world_frame_elapsed_seconds": 107,
+    "observed_v6_launcher_ready_elapsed_seconds": 90.7550779999583,
+    "observed_remaining_before_observation_end_seconds": 19.244922000041697,
+    "h0_remaining_at_observed_v6_ready_seconds": 99.2449220000417,
+    "fits_observed_v6_remaining_budget": false,
+    "fits_separate_h0_reservation": true,
+    "implicit_deadline_extension_allowed": false
+  },
+  "finite_adapter_implemented": true,
+  "launch_gates": [
+    "actual existing UiInit session.ready/bridge link/HUD",
+    "final reviewed finite adapter",
+    "loaded fixed terrain",
+    "same-session camera qualification",
+    "full 83-second remaining reservation",
+    "no persistent rapid owned handle growth",
+    "root-coordinated WGC slot"
+  ],
+  "cleanup": "journal before each owned mutation; bounded exact layer/camera/projection/world restoration; verify readback; stop only exact owned identities; restore exact host bytes and original absence",
+  "retry_or_relaunch": false,
+  "production_acceptance": false,
+  "existing_acceptance_unchanged": {
+    "positive_states": 29,
+    "height_observations": 232,
+    "actual_negative_states": 8
+  },
+  "files": {
+    "debug_snow_blueprints.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\debug_snow_blueprints.py",
+      "frozen": "sources/projection/debug_snow_blueprints.py",
+      "sha256": "17076e039ed1cb26e45a3460d08c9de18ab0dc6a38ceba23a0a801712b6937de",
+      "bytes": 6404
+    },
+    "debug_blueprints.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+      "frozen": "sources/projection/debug_blueprints.py",
+      "sha256": "8ca7193204df61b7b4bf341f9ce1bd3c696060174f4db293c9149fc4b8d1cadc",
+      "bytes": 16597
+    },
+    "block_registry.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+      "frozen": "sources/projection/block_registry.py",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+      "bytes": 3229
+    },
+    "block_registry_data.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+      "frozen": "sources/projection/block_registry_data.py",
+      "sha256": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786",
+      "bytes": 286459
+    },
+    "cell.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "frozen": "sources/projection/cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6",
+      "bytes": 14070
+    },
+    "model.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\model.py",
+      "frozen": "sources/projection/model.py",
+      "sha256": "1dc76b8cfac13ee2bddefd69f4e5fef8d45ae0531d59739ac57a6b2d341fbeda",
+      "bytes": 36680
+    },
+    "render_layout.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\render_layout.py",
+      "frozen": "sources/projection/render_layout.py",
+      "sha256": "f4d3cacf41b5d80498f85ec59cfd46a9bb2fbe5d82865aadba315574cf2f6997",
+      "bytes": 2412
+    },
+    "plant_position.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\plant_position.py",
+      "frozen": "sources/projection/plant_position.py",
+      "sha256": "04aa62b2002c192b019181dd45f8daf0c681514e72ea8678b16fa7f3683d6ccb",
+      "bytes": 1046
+    },
+    "geometry_palette.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\geometry_palette.py",
+      "frozen": "sources/projection/geometry_palette.py",
+      "sha256": "62d2aa5fcdbe155f2ade810b3461892537d8c52fc92c32152878d0b106f2264d",
+      "bytes": 11553
+    },
+    "verify_snow_plant_visibility.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_snow_plant_visibility.py",
+      "frozen": "sources/tools/verify_snow_plant_visibility.py",
+      "sha256": "89840f5f94959b10c608fe3a5a4a8fcecf254a155625a26775f88320191710d4",
+      "bytes": 55833
+    },
+    "verify_camera_projection.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\verify_camera_projection.py",
+      "frozen": "sources/tools/verify_camera_projection.py",
+      "sha256": "c0e5f37586a28fb1c7b5fabe89a836149b7c1e1d090d579254c05834b4f1960e",
+      "bytes": 18276
+    },
+    "camera_projection.py": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\camera_projection.py",
+      "frozen": "sources/tools/camera_projection.py",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c",
+      "bytes": 3168
+    },
+    "uiinit_entry": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\client_system.py",
+      "frozen": "sources/business/client_system.py",
+      "sha256": "e1554001b78826b09151bd7b4e9168734c249dcefc62e65fdba72c975c629667",
+      "bytes": 9133
+    },
+    "session_initialize": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\behavior_pack\\modern_projection\\projection\\session.py",
+      "frozen": "sources/business/session.py",
+      "sha256": "e9186209688807f1a09edaf4d3dd880a2ba3a0b991d2775cfa187bca40974fb4",
+      "bytes": 43866
+    },
+    "offline_tests": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-v1e-offline-tests.json",
+      "frozen": "offline-tests.json",
+      "sha256": "e3b336c4cd44e316cad425bb4de41295ead6d2396d20db09e2c7da7b92e26da9",
+      "bytes": 749
+    },
+    "prior_failure_index": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1b-failure\\index.json",
+      "frozen": "prerequisite/v1b-failure-index.json",
+      "sha256": "b7cffc0ebca587c3ce23559eb45084559c6cc1b8c2bdfa466f6172857749b826",
+      "bytes": 31805
+    },
+    "prior_failure_verification": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1b-failure\\post-cleanup-verification.json",
+      "frozen": "prerequisite/v1b-failure-verification.json",
+      "sha256": "cf6970a245fdcc34e582e4d6d8288cbec479033f878bfc4cc568983287d6a84d",
+      "bytes": 1937
+    },
+    "official_camera_api": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-v1d-official-api.json",
+      "frozen": "official-camera-api.json",
+      "sha256": "cfdedc365c757862e8db0a08ec4b0acd4e25c67f0904f43a3bf03c267d359641",
+      "bytes": 10488
+    },
+    "official_angle_api": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-v1e-angle-api.json",
+      "frozen": "official-angle-api.json",
+      "sha256": "5948b98659d3e5ea2a5d6dd2961bbd6ea9ed313c0648857a3b61d5c425d88398",
+      "bytes": 2227
+    },
+    "prior_v1d_index": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-four-state-plan-r12-v1d\\index.json",
+      "frozen": "prerequisite/v1d-plan-index.json",
+      "sha256": "9fbf1668bdbb82fccb3d11cb7696134abfa40fec3c8726baf5316743d85e9f28",
+      "bytes": 7099
+    },
+    "prior_v1c_index": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1c-result\\index.json",
+      "frozen": "prerequisite/v1c-result-index.json",
+      "sha256": "be90173454dec65faf9fb3e9c57178d44a84f2593bd1d896dd40e9fe45adfd28",
+      "bytes": 36454
+    },
+    "prior_v1c_verification": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1c-result\\post-cleanup-verification.json",
+      "frozen": "prerequisite/v1c-result-verification.json",
+      "sha256": "d1011581a692167d9b2ea6a0059fecc128cebe0a55afbab33436ea440a1adc34",
+      "bytes": 6341
+    },
+    "prior_first_application_world": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1c-result\\run\\startup-first-application-ready.png",
+      "frozen": "prerequisite/v1c-first-application-world.png",
+      "sha256": "47318736276c3003677d7e95e05c60d49334f8b5753a0d8c7d4633cfe41e5522",
+      "bytes": 376563
+    },
+    "prior_v1c_visual": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-h0-native-r12-v1c-result\\run\\visual-inspection.json",
+      "frozen": "prerequisite/v1c-visual-inspection.json",
+      "sha256": "25f8e819302369dfd055e3092fff8ed8926bceb6ecb9f84934faf336af60b23b",
+      "bytes": 2868
+    },
+    "proposal": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\docs\\NATIVE_SNOW_H0_PLAN_R12.md",
+      "frozen": "sources/NATIVE_SNOW_H0_PLAN_R12.md",
+      "sha256": "1f824bf87c66cb1646c138617bd40436ac112803fcd41316a45cf2c42aee1e0a",
+      "bytes": 14869
+    },
+    "native_original": {
+      "original": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_rose.png",
+      "frozen": "textures/native-original-poppy.png",
+      "sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+      "bytes": 199
+    },
+    "own_marker": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\plant-alpha-single-startup-r11-v3\\alpha-candidate.png",
+      "frozen": "textures/alpha-candidate.png",
+      "sha256": "46fc92e57b7a81922dd18c60a2b429be87050ce8b623fc9bfac6f9b8122de1f2",
+      "bytes": 186
+    },
+    "completed_plan": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-passive-startup-r12-v6\\plan.json",
+      "frozen": "prerequisite/v6-plan.json",
+      "sha256": "0c1fde7a4d32b0b090736fbd98f7a9131b5e267c04692bd4da21c30ef52bc19b",
+      "bytes": 25220
+    },
+    "completed_supervisor": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-passive-startup-attempt-r12-v6\\supervisor.json",
+      "frozen": "prerequisite/v6-supervisor.json",
+      "sha256": "b86063aede969c68fd8a6e4a06fec07a070ff2c4113bff77be51d6b383b53968",
+      "bytes": 107319
+    },
+    "cleanup_verification": {
+      "original": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\tools\\data\\snow-passive-startup-r12-v6\\post-cleanup-verification.json",
+      "frozen": "prerequisite/post-cleanup-verification.json",
+      "sha256": "801dd08b632955a31ca2eae2cd2b3df43f7581161694b57541ec53bb0afaa153",
+      "bytes": 4061
+    }
+  }
+}

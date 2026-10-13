@@ -1,10 +1,14 @@
 # Native Snow H0 Four-State Proposal
 
-This V1C preparation awaits final source review and a coordinated WGC slot.
-V6 showed a world frame, but the single original-texture V1B H0 run retained
-a loading overlay as its first SDK-ready frame and stopped at the existing
-`Workspace is not initialized` assertion before fixture/camera mutation.
-That run and all old first captures are immutable. V1C preparation adds no
+This V1E preparation awaits final source review and a coordinated WGC slot.
+V1C established actual UiInit readiness and a grass-world first application
+image, then retained an invisible high target stone/blank pair and a failed
+immediate follow-camera restoration readback. The unrun V1D translates the complete
+private fixture nearer the unchanged player and requires actual camera
+forward and render-event readback. Prior runs and first captures are immutable.
+V1E adds two predeclared SDK angle candidates selected by actual forward
+readback before the first cell image. V1D remains frozen and must not run.
+V1E preparation adds no
 launch, fixture mutation or SDK request. Resource health remains unaccepted.
 The parent coordinator
 authorized a separate finite 240/190/50/90 total/work/cleanup/launcher plan;
@@ -24,8 +28,8 @@ coordinate in every row. Offline `build` confirmed:
 | Plant only | `(18,1,3)` | `minecraft:poppy`, aux 0 | air |
 | Blank | `(18,1,3)` recorded; no block emitted | air | air |
 
-The native destination is `(6,117,6)`, dirt support `(6,116,6)`, projection
-origin `(5,116,5)` so extracted focus maps to that exact destination. The
+The V1E native destination is `(6,-48,6)`, dirt support `(6,-49,6)`, projection
+origin `(5,-49,5)` so extracted focus maps to that exact destination. The
 extraction rebase is the existing document operation, not a new plant offset
 correction. Preserve built-in source identity and actual native placement
 coordinates; record the projection origin and both coordinates. Do not
@@ -45,14 +49,40 @@ fixed-player comparison and is reported, not silently corrected.
 ## Camera And Pixels
 
 Use the public world offset `(-2.0,0.15,-2.5)` about target center
-`(6.5,117.5,6.5)`, giving detached camera position `(4.5,117.65,4.0)`.
+`(6.5,-47.5,6.5)`, giving detached camera position `(4.5,-47.35,4.0)`.
 This is an owned SDK detached-camera route used by the existing
 `native_capture`, independent of the player-follow view at Y=-60. Compute
-rotation once from the existing public `GetRotFromDir(center-position)`
-semantics plus yaw 180, preserve that pose across all captures, and record
+the two angle candidates from public `GetRotFromDir(center-position)`:
+first `(pitch,yaw+180,0)`, then `(pitch,yaw,0)` only if the first actual
+forward readback fails alignment. Select before cell qualification or any
+qualification image, preserve the selected pose across all captures, and record
 position/rotation/FOV/screen readback before and after each state. No editor
 preview is included; the built-in editor camera `(35,10,2.8)` is recorded only
 as source metadata.
+
+The target, support, camera center/position and projection origin translate
+together by Y=-165 from V1C. Source coordinates, extracted focus and relative
+geometry remain identical. The old target was 177 cells above the unchanged
+player; V1C server/palette reads did not establish that its native section
+mesh was visible. Record the existing client chunk-event set and target
+section as observation only. Keep the existing `SetBlockNew` neighbor-update
+argument: official documentation says it controls neighbor updates/events,
+and does not prove a terrain-mesh cause for the sky-only captures.
+
+Read official `CreateCamera(...).GetForward()` after at least two actual
+`GameRenderTickEvent` callbacks following the fixed camera request. Record
+the normalized dot product with actual `(target_center-camera_position)`
+and require it to be strictly greater than 0.99 before cell qualification
+and each capture. Retain every candidate pose and actual readback. The
+first aligned candidate ends selection; if neither aligns, stop without a
+qualification image. An invalid/zero forward vector, timed-out mutation,
+pose drift or render-event deadline also stops; no blind second mutation
+after an uncertain SDK call is allowed. Official camera documentation says
+rotation readback can remain stale immediately after a set, so each
+candidate must match after two actual render callbacks. No unbounded yaw
+search or adjustment after an already taken image is allowed. An owned
+finite render listener counts real engine callbacks and is
+unregistered during cleanup, including failure.
 
 Predeclare physical PNG size 1994x1105, matching the observed V6 client. The
 fixed central half crop is `(498,276,1495,828)` and must be identical for all
@@ -144,7 +174,7 @@ full existing snow/camera/SignCheck paths have unbounded outer waits and are
 unsuitable. A slow fixture stage fails and proceeds to cleanup instead of
 borrowing an implicit longer deadline or replacing the first capture.
 
-SDK readiness is distinct from application readiness. V1C preserves the
+SDK readiness is distinct from application readiness. V1E preserves the
 first scheduled and first SDK-ready attempts, then makes only bounded
 read-only queries through the actual client system. Require the existing
 owner/session/bridge, `session.ready is True`, `bridge.session is session`,
@@ -191,6 +221,16 @@ identities and restore exact host bytes/original absence. Restore time as
 saved with its original daylight-cycle setting; record any unsuccessful
 readback. Keep total measured elapsed and cleanup failures separate from
 pixel outcomes. Avoid deleting or editing previous evidence.
+
+After requesting `ResetCameraPos`, `UnDepartCamera` and saved rotation/locks,
+retain the saved camera journal. Read the actual camera across at least two
+new render events, with a five-second wait clamped to the SDK restoration
+deadline. Require saved position, rotation (allowing equivalent angle wrap),
+locks, FOV and unchanged player foot before deleting the journal. Preserve
+every restoration read; a failure keeps the journal and failed outcome until
+owned process closure. The raw original camera snapshot stays in the host
+receipt regardless of success. This addresses V1C's immediate stale read
+without declaring that asynchronous completion has already been proved.
 
 This proposal can only add narrowly scoped h0 diagnostics at one native
 coordinate/public view after both original and alpha-preserved cold controls

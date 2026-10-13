@@ -37,10 +37,19 @@ def validate_plan(path, expected_sha):
             or plan.get('budgets') != {'total': TOTAL, 'work': WORK, 'cleanup_reserved': 50, 'launcher_wait': 90}
             or plan.get('post_ready_reservation_seconds') != RESERVATION
             or plan.get('application_readiness') != APPLICATION_READINESS
-            or plan.get('target') != [6, 117, 6] or plan.get('public_camera_offset') != [-2., .15, -2.5]
+            or plan.get('target') != [6, -48, 6] or plan.get('support') != [6, -49, 6]
+            or plan.get('projection_origin') != [5, -49, 5]
+            or plan.get('public_camera_offset') != [-2., .15, -2.5]
             or plan.get('max_launches') != 1 or plan.get('max_active_games') != 5
             or plan.get('movement_normalization') is not False or plan.get('retry_or_relaunch') is not False):
         raise ValueError('H0 scope or finite bounds changed')
+    if plan.get('actual_camera_contract') != {'GetForward_required': True, 'minimum_forward_cosine_exclusive': .99,
+            'render_event_source': 'GameRenderTickEvent', 'minimum_render_events_before_capture': 2,
+            'minimum_render_events_after_restore': 2, 'camera_restore_wait_seconds': 5,
+            'camera_saved_journal_cleared_only_after_verified_readback': True,
+            'predeclared_yaw_candidates': [180., 0.], 'selection_before_first_qualification_capture': True,
+            'unbounded_yaw_search_allowed': False}:
+        raise ValueError('H0 actual camera and render-event restoration contract changed')
     if plan.get('protected_session') != startup.PROTECTED_SESSION:
         raise ValueError('Protected session changed')
     for row in plan['files'].values():
@@ -286,8 +295,9 @@ def supervise(plan, host, output, phase=run_phase):
                         report['first_post_sdk_ready_world_pixels_accepted'] = False
                         application_gate_deadline = min(work_deadline - RESERVATION - 5, host.now() + 20)
             if not host.launcher_alive():
-                report['launcher_result'] = host.launcher_result()
-                report['launcher_finished_at_elapsed_seconds'] = host.now() - started
+                if 'launcher_result' not in report:
+                    report['launcher_result'] = host.launcher_result()
+                    report['launcher_finished_at_elapsed_seconds'] = host.now() - started
                 ready = json.loads(report['launcher_result']['stdout']) if report['launcher_result'].get('stdout') else {}
                 if report['launcher_result']['returncode'] != 0 or ready.get('ready') is not True:
                     raise RuntimeError('H0 cold launcher did not finish ready')

@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "commands": [
+    "api GetForward",
+    "api ResetCameraPos",
+    "api UnDepartCamera",
+    "api SetBlockNew",
+    "api ListenForEvent",
+    "api UnListenForEvent"
+  ],
+  "responses": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## GetForward\n\n客户端\n\nmethod in mod.client.component.cameraCompClient.CameraComponentClient\n\n- 描述\n\n  返回相机向前的方向\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float,float)` | 向前的方向 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateCamera(levelId)\ncomp.GetForward()\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## ResetCameraPos\n\n客户端\n\nmethod in mod.client.component.cameraCompClient.CameraComponentClient\n\n- 描述\n\n  重置相机位置模式，使相机恢复跟随玩家。用于取消SetCameraPos设置的独立相机位置。\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| None | 无返回值 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateCamera(levelId)\n# 先设置相机位置\ncomp.SetCameraPos((100, 80, 100))\n# 之后恢复相机跟随玩家\ncomp.ResetCameraPos()\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## UnDepartCamera\n\n客户端\n\nmethod in mod.client.component.cameraCompClient.CameraComponentClient\n\n- 描述\n\n  绑定玩家与摄像机\n\n- 参数\n\n  无\n\n- 返回值\n\n  无\n\n- 备注\n\n  - 绑定之后，只能看到玩家背部\n  - 注意，使用后会默认解除视角移动锁定，效果等同\n    comp.LockModCameraYaw(0) # 解除锁定左右视角\n    comp.LockModCameraPitch(0) # 解除锁定上下视角\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateCamera(levelId)\ncomp.UnDepartCamera()\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## SetBlockNew\n\n服务端\n\nmethod in mod.server.component.blockInfoCompServer.BlockInfoComponentServer\n\n- 描述\n\n  设置某一位置的方块\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| pos | `tuple(int,int,int)` | 方块位置 |\n| blockDict | dict | 方块信息字典 |\n| oldBlockHandling | int | 0：替换，1：销毁，2：保留，默认为0 |\n| dimensionId | int | 方块所在维度，必需参数 |\n| isLegacy | bool | 是否设置为传统的aux，建议设置为True，即aux对应的state不随着版本迭代而变化。默认为False |\n| updateNeighbors | bool | 是否给相邻的方块触发[方块更新 (opens new window)](https://zh.minecraft.wiki/w/%E6%96%B9%E5%9D%97%E6%9B%B4%E6%96%B0)以及BlockNeighborChangedServerEvent事件。默认为True触发。若选择不触发可节省约30%的性能消耗。 |\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| bool | 方块是否发生了改变，是则返回True，否则返回False |\n\n- 备注\n\n  - 已经加载的地形才能设置方块，支持在对应维度的常加载区块内设置方块\n  - 若设置前后为同一个方块（方块名和附加值都相同），则接口返回False\n  - 若设置前后方块实体类型相同时（方块名相同），箱子、熔炉等容器内的物品将被清空（尽管前后附加值也相同时接口会返回False），而告示牌、物品展示框、自定义方块实体的内容会被保留（如果希望清空，可以先设置为空气再设置相应方块）。\n  - 随着版本更新，aux值对应的方块state会发生改变，对于有多种状态的方块，aux计算方式比较复杂，推荐先通过GetBlockAuxValueFromStates获取传统aux值再进行设置。\n  - 若调用SetBlockNew接口后立即调用其它会影响客户端表现的服务端接口，并且这个表现和此方块有关系（比如使用SetBlockNew放置一个箱子，并立即调用PlayerUseItemToPos接口打开这个箱子），可能会出现异常表现，如有类似需求，建议在下一帧对方块进行操作\n\n- 示例\n\n```python\nimport mod.server.extraServerApi as serverApi\n\ncomp = serverApi.GetEngineCompFactory().CreateBlockState(levelId)\n# GetBlockAuxValueFromStates 只需要调用一次，得到的auxValue可以缓存以来以供后续使用\nauxValue = comp.GetBlockAuxValueFromStates(\"minecraft:wool\", { 'color': 'orange' })\n\nblockDict = {\n    'name': 'minecraft:wool',\n    'aux': auxValue\n}\ncomp = serverApi.GetEngineCompFactory().CreateBlockInfo(levelId)\ncomp.SetBlockNew((0, 5, 0), blockDict, 0, 0, True)\n# updateNeighbors置为False，则不会触发相邻方块的更新。例如将耕地替换成泥土，其上方的小麦不会掉落。\ncomp.SetBlockNew((0, 6, 0), blockDict, 0, 0, True, False)\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## ListenForEvent\n\n服务端客户端\n\nmethod in mod.common.system.baseSystem.BaseSystem\n\n- 描述\n\n  注册监听某个系统抛出的事件。若监听引擎事件时，namespace和systemName分别为GetEngineNamespace()和GetEngineSystemName()。具体每个事件的详细事件data可以参考\"事件\"分类下的内容\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| namespace | str | 所监听事件的来源系统的namespace |\n| systemName | str | 所监听事件的来源系统的systemName |\n| eventName | str | 事件名 |\n| instance | any | 回调函数所属的类的实例 |\n| func | function | 回调函数 |\n| priority | int | 这个回调函数的优先级。默认值为0，这个数值越大表示被执行的优先级越高，最高为10。 |\n\n- 返回值\n\n  无\n\n- 备注\n\n  - 服务端system监听的客户端系统事件的回调参数中会自带一个叫\"\\_\\_id\\_\\_\"的key，值为对应客户端的玩家id\n\n- 示例\n\n```python\nimport mod.server.extraServerApi as serverApi\nServerSystem = serverApi.GetServerSystemCls()\nclass FpsServerSystem(ServerSystem):\n    def ListenEvent(self):\n        # 监听了引擎事件'ServerChatEvent'\n        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerChatEvent', self, self.OnServerChat)\n        # 监听客户端系统事件\n        self.ListenForEvent(\"MyFpsMod\", \"FpsClientSystem\", \"MyEvent\", self, self.OnMyEvent)\n\n    def OnServerChat(self, args):\n        print 'OnServerChat', args\n\n    def OnMyEvent(self, args):\n        print 'OnMyEvent', args['__id__'], args\n\n```\n\n"
+        },
+        {
+          "type": "text",
+          "text": "## UnListenForEvent\n\n服务端客户端\n\nmethod in mod.common.system.baseSystem.BaseSystem\n\n- 描述\n\n  反注册监听某个系统抛出的事件，即不再监听。若是引擎事件，则namespace和systemName分别为[GetEngineNamespace](#getenginenamespace)和[GetEngineSystemName](#getenginesystemname)。与ListenForEvent对应。\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| namespace | str | 所监听事件的来源系统的namespace |\n| systemName | str | 所监听事件的来源系统的systemName |\n| eventName | str | 事件名 |\n| instance | any | 回调函数所属的类的实例 |\n| func | function | 回调函数 |\n| priority | int | 这个回调函数的优先级。默认值为0，这个数值越大表示被执行的优先级越高。 |\n\n- 返回值\n\n  无\n\n- 示例\n\n```python\nimport mod.server.extraServerApi as serverApi\nServerSystem = serverApi.GetServerSystemCls()\nclass FpsServerSystem(ServerSystem):\n    def ListenEvent(self):\n        # 服务端脚本自定义了1个事件\n        self.DefineEvent('BulletHit')\n        # 服务器端脚本监听了引擎的1个事件'ServerChatEvent'\n        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerChatEvent', self, self.OnServerChat)\n    def UnListenEvent(self):\n        # 取消自定义的事件\n        self.UnDefineEvent('BulletHit')\n        # 取消监听的系统事件\n        self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerChatEvent', self, self.OnServerChat)\n\n```\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## UnListenForEvent\n\n服务端客户端\n\nmethod in mod.common.system.baseSystem.BaseSystem\n\n- 描述\n\n  反注册监听某个系统抛出的事件，即不再监听。若是引擎事件，则namespace和systemName分别为[GetEngineNamespace](#getenginenamespace)和[GetEngineSystemName](#getenginesystemname)。与ListenForEvent对应。\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| namespace | str | 所监听事件的来源系统的namespace |\n| systemName | str | 所监听事件的来源系统的systemName |\n| eventName | str | 事件名 |\n| instance | any | 回调函数所属的类的实例 |\n| func | function | 回调函数 |\n| priority | int | 这个回调函数的优先级。默认值为0，这个数值越大表示被执行的优先级越高。 |\n\n- 返回值\n\n  无\n\n- 示例\n\n```python\nimport mod.server.extraServerApi as serverApi\nServerSystem = serverApi.GetServerSystemCls()\nclass FpsServerSystem(ServerSystem):\n    def ListenEvent(self):\n        # 服务端脚本自定义了1个事件\n        self.DefineEvent('BulletHit')\n        # 服务器端脚本监听了引擎的1个事件'ServerChatEvent'\n        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerChatEvent', self, self.OnServerChat)\n    def UnListenEvent(self):\n        # 取消自定义的事件\n        self.UnDefineEvent('BulletHit')\n        # 取消监听的系统事件\n        self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'ServerChatEvent', self, self.OnServerChat)\n\n```\n"
+        }
+      ],
+      "isError": false
+    }
+  ],
+  "new_sdk_calls": 0,
+  "new_game_launches": 0
+}

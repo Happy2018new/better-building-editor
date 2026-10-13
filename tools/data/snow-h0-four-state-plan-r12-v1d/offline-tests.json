@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "completed_at": "2026-10-13T01:41:50.680379+00:00",
+  "command": "python -B -m unittest discover -s tests -p test_snow_h0_finite_control.py",
+  "exit_code": 0,
+  "tests": 21,
+  "elapsed_seconds": 31.42,
+  "stdout": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 31.420s\n\nOK\n",
+  "new_launches": 0,
+  "new_sdk_calls": 0,
+  "files": {
+    "tools/supervise_snow_h0.py": "eded3355d2a4214badc363b00a736313bf957c9456883560aba2dc5974cb9602",
+    "tools/verify_snow_h0_phase.py": "24cb5989907a03ed33b73122869c764450979b15c9747536b803c8f73379a372",
+    "tests/test_snow_h0_finite_control.py": "1f3cd2197982349b0bc57e422e948cb53414bae3f2ee05efb1cd6e8bd3c75f02"
+  }
+}

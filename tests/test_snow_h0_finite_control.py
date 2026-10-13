@@ -238,38 +238,206 @@ class StateContractTests(unittest.TestCase):
         actual['player'][1] += 1
         self.assertFalse(camera_matches(actual, expected, [0., -60., 0.]))
 
+    def test_forward_requires_actual_finite_direction_toward_fixed_target(self):
+        value = {'position': [4.5, -47.35, 4.], 'forward': [2., -.15, 2.5]}
+        target = [6.5, -47.5, 6.5]
+        self.assertAlmostEqual(1., phase_module.forward_cosine(value, target))
+        value['forward'] = [-2., .15, -2.5]
+        self.assertAlmostEqual(-1., phase_module.forward_cosine(value, target))
+        for invalid in ([0., 0., 0.], [float('nan'), 0., 1.]):
+            value['forward'] = invalid
+            with self.assertRaises(ValueError):
+                phase_module.forward_cosine(value, target)
+
+    def test_plan_geometry_snippets_translate_together_without_source_rebase_changes(self):
+        target = (6, -48, 6)
+        codes = (phase_module.PALETTE % (target,),
+                 phase_module.SERVER_PREFLIGHT % ((target, (6, -49, 6)),),
+                 phase_module.CAMERA_SET % ((6.5, -47.5, 6.5), (4.5, -47.35, 4.), 180.))
+        for code in codes:
+            compile(code, '<near-player-fixed-fixture>', 'exec')
+            self.assertNotIn('117', code)
+        expected = {'position': [0., -58., 0.], 'rotation': [0., 180., 0.]}
+        actual = dict(expected, rotation=[0., -180., 0.], player=[0., -60., 0.])
+        self.assertTrue(camera_matches(actual, expected, actual['player']))
+
+    def test_render_counter_advances_only_on_engine_callback_and_unregisters_exact_listener(self):
+        owner = SimpleNamespace(ListenForEvent=mock.Mock(), UnListenForEvent=mock.Mock())
+        api = SimpleNamespace(GetEngineNamespace=lambda: 'engine', GetEngineSystemName=lambda: 'system')
+        values = {'sys': SimpleNamespace(), 'owner': owner, 'api': api, 'json': json}
+        exec(compile(phase_module.FRAME_INSTALL, '<actual-render-observer>', 'exec'), values)
+        registration = owner.ListenForEvent.call_args.args
+        probe, callback = registration[3:]
+        self.assertEqual(0, probe.count)
+        callback({})
+        callback({})
+        self.assertEqual(2, probe.count)
+        tree = ast.parse(Path(phase_module.__file__).read_bytes())
+        cleanup = next(node.value for node in ast.walk(tree) if isinstance(node, ast.Constant)
+                       and isinstance(node.value, str) and 'owner.UnListenForEvent(' in node.value)
+        exec(compile(cleanup, '<render-observer-cleanup>', 'exec'), values)
+        self.assertEqual(registration, owner.UnListenForEvent.call_args.args)
+        self.assertFalse(hasattr(values['sys'], '_snow_h0_render_frames'))
+
     def test_frozen_snippets_and_generated_cleanup_are_syntax_valid(self):
         root = Path(__file__).resolve().parents[1]
         snow = phase_module.constants(root / 'tools/verify_snow_plant_visibility.py',
                    ('LOAD', 'NATIVE_SETUP', 'NATIVE_MUTATE', 'NATIVE_SNOW', 'NATIVE_CLEANUP'))
         for code in (snow['LOAD'] % ('poppy', 0, 'covered'), snow['NATIVE_SETUP'] % ((6, 117, 6),),
                      snow['NATIVE_MUTATE'] % ('poppy', 'covered', 0), snow['NATIVE_SNOW'] % 1,
-                     phase_module.CAMERA_SET, phase_module.SERVER_PREFLIGHT,
+                     phase_module.CAMERA_SET % ((6.5, -47.5, 6.5), (4.5, -47.35, 4.), 180.),
+                     phase_module.SERVER_PREFLIGHT % (((6, -48, 6), (6, -49, 6)),), phase_module.FRAME_INSTALL,
                      'import json,sys\nif hasattr(sys,"_snow_visibility_native"):\n' +
                      '\n'.join(' ' + line for line in snow['NATIVE_CLEANUP'].splitlines()) +
                      '\nelse:_result=json.dumps([])\n'):
             compile(code, '<frozen-snow-snippet>', 'exec')
 
-    def test_resource_stop_after_partial_setup_still_attempts_both_sdk_restorations(self):
+    def candidate_phase(self, cosines, timeout_first=False):
+        """Drive the real phase through camera selection, then stop at qualification."""
         root = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
             stub = output / 'empty-client.py'
             stub.write_text('pass\n', encoding='ascii')
-            plan = {'texture_condition': 'native_original', 'files': {
+            plan = {'texture_condition': 'native_original', 'target': [6, -48, 6], 'support': [6, -49, 6],
+                'projection_origin': [5, -49, 5], 'public_camera_offset': [-2., .15, -2.5], 'files': {
                 'mcdk_client': {'path': str(stub)},
                 'snow_reference': {'path': str(root / 'tools/verify_snow_plant_visibility.py')},
                 'blueprint_reference': {'path': str(root / 'tools/verify_debug_blueprints.py')},
                 'visual_reference': {'path': str(root / 'tools/verify_debug_visuals.py')}}}
-            state = {'stopped': False, 'calls': [], 'cleanup': []}
-            preflight = {'player_foot': [0., -60., 0.], 'player_flying': False}
-            host = SimpleNamespace(now=lambda: 100.)
+            clock = [100.]
+            state = {'candidates': [], 'qualification': [], 'cleanup': [], 'restoring': False,
+                     'frames': 0, 'pose': None, 'candidate_reads': 0}
+            preflight = {'player_foot': [0., -60., 0.], 'player_flying': False, 'dimension': 0}
+            saved = {'camera_pos': [0., -58., 0.], 'camera_rot': [0., 0., 0.],
+                     'pitch_lock': False, 'yaw_lock': False, 'fov': 70., 'player': [0., -60., 0.]}
+            host = SimpleNamespace(now=lambda: clock[0],
+                sleep=lambda seconds: clock.__setitem__(0, clock[0] + seconds), observe=mock.Mock())
 
             class FakeClient:
                 def __init__(self, timeout):
                     self.timeout = timeout
 
                 def _post(self, method, arguments):
+                    clock[0] += .05
+                    code = arguments['code']
+                    if code.startswith('import json,sys\nif hasattr(sys,'):
+                        state['cleanup'].append('native')
+                        return []
+                    if 'cam.ResetCameraPos()' in code:
+                        state['cleanup'].append('client')
+                        state['restoring'] = True
+                        return {'requested': True, 'render_events': state['frames'], 'saved_camera_retained': True}
+                    if "sys._blueprint_visual_saved['fov']" in code:
+                        return saved
+                    if 'players=server_api.GetPlayerList()' in code:
+                        return preflight
+                    if 'cam.DepartCamera()' in code:
+                        yaw = next(ast.literal_eval(node.value) for node in ast.parse(code).body
+                                   if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name)
+                                   and node.targets[0].id == 'yaw_adjustment')
+                        state['candidates'].append(yaw)
+                        if timeout_first:
+                            raise TimeoutError('uncertain camera SDK mutation')
+                        state['candidate_reads'] = 0
+                        state['pose'] = {'position': [4.5, -47.35, 4.], 'rotation': [0., yaw, 0.],
+                                         'render_events_at_request': state['frames'], 'yaw_adjustment': yaw}
+                        return state['pose']
+                    if "'forward':cam.GetForward()" in code:
+                        state['frames'] += 1
+                        state['candidate_reads'] += 1
+                        pose = state['pose']
+                        restore_or_initial = state['restoring'] or pose is None
+                        sign = 1. if restore_or_initial else cosines[len(state['candidates']) - 1]
+                        return {'position': saved['camera_pos'] if restore_or_initial else pose['position'],
+                                'rotation': saved['camera_rot'] if restore_or_initial else pose['rotation'],
+                                'forward': [sign * 2., sign * -.15, sign * 2.5],
+                                'render_events': state['frames'], 'pitch_lock': False, 'yaw_lock': False,
+                                'fov': 70., 'player': saved['player'], 'screen': [499., 277.]}
+                    if 'cam.WorldToScreenPoint' in code:
+                        snapshot = json.loads((output / 'h0-phase.json').read_bytes())
+                        state['qualification'].append(snapshot)
+                        raise RuntimeError('qualification boundary reached')
+                    return True
+
+                def call(self, name, arguments):
+                    return self._post(name, arguments)
+
+                def __enter__(self):
+                    return self
+
+                def close(self):
+                    pass
+
+            with mock.patch.object(phase_module, 'ModuleType', side_effect=lambda name:
+                    SimpleNamespace(Client=FakeClient, return_value=lambda value: value)):
+                value = phase_module.run_phase(plan, host, {'id': 'owned', 'session_file': 'owned.json',
+                    'owner': 'owned', 'mcp_url': 'http://owned'}, output, 190., 210., lambda: None)
+            host.observe.assert_not_called()
+            self.assertEqual([], value['rows'])
+            self.assertEqual(['native', 'client'], state['cleanup'])
+            self.assertEqual([], value['cleanup_errors'])
+            self.assertTrue(value['render_frame_observer_removed'])
+            return value, state
+
+    def test_first_aligned_candidate_is_selected_before_qualification_without_second_mutation(self):
+        value, state = self.candidate_phase([1.])
+        self.assertEqual([180.], state['candidates'])
+        self.assertEqual(1, len(state['qualification']))
+        self.assertIn('qualification boundary reached', value['error'])
+        candidate = state['qualification'][0]['camera_direction_candidates'][0]
+        self.assertTrue(candidate['selected'])
+        self.assertGreaterEqual(len(candidate['readbacks']), 2)
+        self.assertAlmostEqual(1., candidate['forward_cosine'])
+
+    def test_reverse_first_candidate_selects_only_predeclared_direct_sdk_angle_before_capture(self):
+        value, state = self.candidate_phase([-1., 1.])
+        self.assertEqual([180., 0.], state['candidates'])
+        self.assertEqual(1, len(state['qualification']))
+        candidates = state['qualification'][0]['camera_direction_candidates']
+        self.assertEqual([False, True], [row['selected'] for row in candidates])
+        self.assertAlmostEqual(-1., candidates[0]['forward_cosine'])
+        self.assertAlmostEqual(1., candidates[1]['forward_cosine'])
+        self.assertEqual(0., value['camera']['yaw_adjustment'])
+
+    def test_two_unaligned_candidates_stop_before_any_cell_qualification(self):
+        value, state = self.candidate_phase([-1., -1.])
+        self.assertEqual([180., 0.], state['candidates'])
+        self.assertEqual([], state['qualification'])
+        self.assertIn('Neither predeclared SDK camera direction', value['error'])
+        self.assertNotIn('camera', value)
+        self.assertEqual([False, False], [row['selected'] for row in value['camera_direction_candidates']])
+
+    def test_uncertain_first_camera_mutation_stops_without_second_candidate_or_capture(self):
+        value, state = self.candidate_phase([], timeout_first=True)
+        self.assertEqual([180.], state['candidates'])
+        self.assertEqual([], state['qualification'])
+        self.assertIn('uncertain camera SDK mutation', value['error'])
+        self.assertNotIn('camera', value)
+
+    def partial_setup_resource_stop(self, restore_converges):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            stub = output / 'empty-client.py'
+            stub.write_text('pass\n', encoding='ascii')
+            plan = {'texture_condition': 'native_original', 'target': [6, -48, 6], 'support': [6, -49, 6],
+                'projection_origin': [5, -49, 5], 'public_camera_offset': [-2., .15, -2.5], 'files': {
+                'mcdk_client': {'path': str(stub)},
+                'snow_reference': {'path': str(root / 'tools/verify_snow_plant_visibility.py')},
+                'blueprint_reference': {'path': str(root / 'tools/verify_debug_blueprints.py')},
+                'visual_reference': {'path': str(root / 'tools/verify_debug_visuals.py')}}}
+            state = {'stopped': False, 'calls': [], 'cleanup': [], 'restoring': False, 'restore_reads': 0}
+            preflight = {'player_foot': [0., -60., 0.], 'player_flying': False, 'dimension': 0}
+            clock = [100.]
+            host = SimpleNamespace(now=lambda: clock[0], sleep=lambda seconds: clock.__setitem__(0, clock[0] + seconds))
+
+            class FakeClient:
+                def __init__(self, timeout):
+                    self.timeout = timeout
+
+                def _post(self, method, arguments):
+                    clock[0] += .05
                     code = arguments['code']
                     state['calls'].append(code)
                     if code.startswith('import json,sys\nif hasattr(sys,'):
@@ -277,16 +445,24 @@ class StateContractTests(unittest.TestCase):
                         return []
                     if 'cam.ResetCameraPos()' in code:
                         state['cleanup'].append('client')
-                        return {'position': [0., -58., 0.], 'rotation': [0., 0., 0.],
-                                'pitch_lock': False, 'yaw_lock': False, 'fov': 70., 'player': [0., -60., 0.]}
+                        state['restoring'] = True
+                        return {'requested': True, 'render_events': 10, 'saved_camera_retained': True}
                     if "sys._blueprint_visual_saved['fov']" in code:
                         return {'camera_pos': [0., -58., 0.], 'camera_rot': [0., 0., 0.],
                                 'pitch_lock': False, 'yaw_lock': False, 'fov': 70., 'player': [0., -60., 0.]}
                     if 'players=server_api.GetPlayerList()' in code:
                         return preflight
-                    if 'position=(4.5,117.65,4.)' in code:
+                    if 'cam.DepartCamera()' in code:
                         state['stopped'] = True
-                        return {'position': [4.5, 117.65, 4.], 'rotation': [0., 90., 0.]}
+                        return {'position': [4.5, -47.35, 4.], 'rotation': [0., 90., 0.]}
+                    if "'forward':cam.GetForward()" in code:
+                        if state['restoring']:
+                            state['restore_reads'] += 1
+                        settled = restore_converges and state['restore_reads'] >= 2
+                        return {'position': [0., -58., 0.] if settled or not state['stopped'] else [4.5, -47.35, 4.],
+                                'rotation': [0., 0., 0.], 'forward': [0., 0., 1.],
+                                'render_events': 10 + state['restore_reads'], 'pitch_lock': False,
+                                'yaw_lock': False, 'fov': 70., 'player': [0., -60., 0.], 'screen': [499., 277.]}
                     return True
 
                 def call(self, name, arguments):
@@ -308,10 +484,28 @@ class StateContractTests(unittest.TestCase):
             with mock.patch.object(phase_module, 'ModuleType', side_effect=make_module):
                 value = phase_module.run_phase(plan, host, {'id': 'owned', 'session_file': 'owned.json',
                     'owner': 'owned', 'mcp_url': 'http://owned'}, output, 190., 210., health)
-            self.assertFalse(value['completed'])
-            self.assertIn('persistent rapid growth', value['error'])
-            self.assertEqual(['native', 'client'], state['cleanup'])
-            self.assertEqual([], value['cleanup_errors'])
+            return value, state
+
+    def test_resource_stop_after_partial_setup_still_attempts_both_sdk_restorations(self):
+        value, state = self.partial_setup_resource_stop(True)
+        self.assertFalse(value['completed'])
+        self.assertIn('persistent rapid growth', value['error'])
+        self.assertEqual(['native', 'client'], state['cleanup'])
+        self.assertEqual([], value['cleanup_errors'])
+        self.assertEqual(2, len(value['client_restore_reads']))
+        self.assertTrue(value['saved_camera_journal_cleared_after_verified_readback'])
+        request = next(code for code in state['calls'] if 'cam.ResetCameraPos()' in code)
+        self.assertNotIn('del sys._blueprint_visual_saved', request)
+        self.assertIn('del sys._blueprint_visual_saved', state['calls'][-3])
+
+    def test_camera_restore_that_never_settles_retains_journal_and_removes_render_listener(self):
+        value, state = self.partial_setup_resource_stop(False)
+        self.assertEqual(['native', 'client'], state['cleanup'])
+        self.assertTrue(value['saved_camera_journal_retained_on_failure'])
+        self.assertTrue(value['render_frame_observer_removed'])
+        self.assertNotIn('saved_camera_journal_cleared_after_verified_readback', value)
+        self.assertTrue(any('Original follow camera restoration after render events' in error for error in value['cleanup_errors']))
+        self.assertTrue(all('del sys._blueprint_visual_saved' not in code for code in state['calls']))
 
 
 if __name__ == '__main__':

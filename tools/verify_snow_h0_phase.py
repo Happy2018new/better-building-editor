@@ -11,10 +11,7 @@ from types import ModuleType
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = (6, 117, 6)
 FOCUS = (1, 1, 1)
-ORIGIN = (5, 116, 5)
-POSITION = (4.5, 117.65, 4.)
 CROP = (498, 276, 1495, 828)
 SIZE = (1994, 1105)
 KINDS = ('covered', 'snow', 'plant', 'blank')
@@ -65,8 +62,19 @@ def palette_matches(data, kind):
 
 def camera_matches(value, expected, player):
     return (all(abs(value['position'][i] - expected['position'][i]) < .01 for i in range(3)) and
-            all(abs(value['rotation'][i] - expected['rotation'][i]) < .01 for i in range(3)) and
+            all(abs((value['rotation'][i] - expected['rotation'][i] + 180.) % 360. - 180.) < .01 for i in range(3)) and
             all(abs(value['player'][i] - player[i]) < .1 for i in range(3)))
+
+
+def forward_cosine(value, center):
+    forward = value['forward']
+    direction = [center[i] - value['position'][i] for i in range(3)]
+    if not all(math.isfinite(axis) for vector in (forward, direction) for axis in vector):
+        raise ValueError('Actual camera forward or target direction is not finite')
+    denominator = math.sqrt(sum(axis * axis for axis in forward) * sum(axis * axis for axis in direction))
+    if denominator <= 0:
+        raise ValueError('Actual camera forward or target direction has no length')
+    return sum(forward[i] * direction[i] for i in range(3)) / denominator
 
 
 def changed(first, second, threshold=20):
@@ -109,26 +117,31 @@ def analyze_controls(paths, roi, output):
             'production_acceptance': False, 'native_mesh_or_offset_authority': False}
 
 
-PALETTE = '''target=(6,117,6)
+PALETTE = '''target=%r
 palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,False)
 data=palette.SerializeBlockPalette() if palette is not None else {}
 _result=json.dumps(dict((key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')))
 '''
 CAMERA_READ = '''cam=b.factory.CreateCamera(b.level)
 _result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'forward':cam.GetForward(),'render_events':getattr(getattr(sys,'_snow_h0_render_frames',None),'count',None),
+ 'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw(),
  'player':b.player_position.GetFootPos(),'fov':cam.GetFov(),
  'screen':b.factory.CreateGame(b.level).GetScreenSize()})
 '''
-CAMERA_SET = '''center=(6.5,117.5,6.5)
-position=(4.5,117.65,4.)
+CAMERA_SET = '''center=%r
+position=%r
 direction=api.GetRotFromDir(tuple(center[i]-position[i] for i in range(3)))
-rotation=(direction[0],direction[1]+180.,0.)
+yaw_adjustment=%r
+rotation=(direction[0],direction[1]+yaw_adjustment,0.)
 cam=b.factory.CreateCamera(b.level)
 cam.DepartCamera()
 cam.LockModCameraPitch(True)
 cam.LockModCameraYaw(True)
 assert cam.SetCameraPos(position) and cam.SetCameraRotation(rotation)
-_result=json.dumps({'target':center,'position':position,'rotation':rotation})
+_result=json.dumps({'target':center,'position':position,'rotation':rotation,
+ 'sdk_GetRotFromDir':direction,'yaw_adjustment':yaw_adjustment,
+ 'render_events_at_request':getattr(sys._snow_h0_render_frames,'count',None)})
 '''
 SERVER_PREFLIGHT = '''import json,sys
 import mod.server.extraServerApi as server_api
@@ -138,7 +151,7 @@ assert len(players)==1, ('Owned fixture requires one player',players)
 player=players[0]
 adapter=WorldAdapter(player)
 rows=[]
-for pos in ((6,117,6),(6,116,6)):
+for pos in %r:
  assert -64<=pos[1]<320
  front=adapter.info.GetBlockNew(pos,adapter.dimension)
  assert front and front['name']=='minecraft:air', ('Fixed target must be loaded air',pos,front)
@@ -150,6 +163,17 @@ for pos in ((6,117,6),(6,116,6)):
 _result=json.dumps({'cells':rows,'dimension':adapter.dimension,
  'player_foot':adapter.factory.CreatePos(player).GetFootPos(),
  'player_flying':adapter.factory.CreateFly(player).IsPlayerFlying()})
+'''
+
+
+FRAME_INSTALL = '''assert not hasattr(sys,'_snow_h0_render_frames'), 'Previous h0 render observer needs cleanup'
+class SnowH0RenderFrames(object):
+ def __init__(self):self.count=0
+ def tick(self,unused):self.count+=1
+probe=SnowH0RenderFrames()
+sys._snow_h0_render_frames=probe
+owner.ListenForEvent(api.GetEngineNamespace(),api.GetEngineSystemName(),'GameRenderTickEvent',probe,probe.tick)
+_result=json.dumps({'render_events':probe.count,'source':'actual GameRenderTickEvent'})
 '''
 
 
@@ -190,6 +214,15 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
     player = None
     pose = None
     visual_saved = None
+    target = tuple(plan['target'])
+    support = tuple(plan['support'])
+    origin = tuple(plan['projection_origin'])
+    center = tuple(axis + .5 for axis in target)
+    position = tuple(center[i] + plan['public_camera_offset'][i] for i in range(3))
+    palette_code = PALETTE % (target,)
+    camera_code = None
+    preflight_code = SERVER_PREFLIGHT % ((target, support),)
+    frame_observer_installed = False
 
     def run(code, server=False):
         value = module.return_value(client.call('execute_code', {'code': code if server else blueprint['CLIENT'] + code,
@@ -205,7 +238,8 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
     def wait(label, predicate, read):
         value = None
         while host.now() < stage_deadline:
-            health()
+            if not restoring:
+                health()
             value = read()
             if predicate(value):
                 return value
@@ -214,7 +248,10 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
 
     def capture(label):
         health()
-        before = run(CAMERA_READ)
+        current = run(CAMERA_READ)
+        before = wait('actual render frame after state/camera request',
+                      lambda value: value['render_events'] >= current['render_events'] + 2,
+                      lambda: run(CAMERA_READ))
         if not camera_matches(before, pose, player):
             raise AssertionError(('Camera or player drift before capture', before, pose, player))
         baseline = result.get('fixed_camera_readback')
@@ -225,9 +262,11 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
             raise TimeoutError('H0 stage has no capture budget')
         path = output / (label + '.png')
         row = {'label': label, 'path': str(path), 'first_capture_attempt_locked': True,
-               'before': before, 'elapsed_before': host.now()}
+               'before': before, 'forward_cosine_before': forward_cosine(before, center), 'elapsed_before': host.now()}
         result['rows'].append(row)
         save(receipt, result)
+        if row['forward_cosine_before'] <= .99:
+            raise AssertionError(('Actual GetForward alignment does not exceed 0.99 before capture', row))
         observation = host.observe(session, plan, path, seconds)
         row['capture'] = observation
         save(receipt, result)
@@ -238,6 +277,9 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
             raise AssertionError('H0 physical PNG size changed; no resize or recrop')
         after = run(CAMERA_READ)
         row['after'] = after
+        row['forward_cosine_after'] = forward_cosine(after, center)
+        if row['forward_cosine_after'] <= .99:
+            raise AssertionError(('Actual GetForward alignment does not exceed 0.99 after capture', row))
         if not camera_matches(after, pose, player) or abs(after['fov'] - before['fov']) > .01 or after['screen'] != before['screen']:
             raise AssertionError(('H0 camera/FOV/screen/player drift after capture', before, after))
         save(receipt, result)
@@ -246,7 +288,7 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
     try:
         client = BoundedClient(timeout=3)
         client.__enter__()
-        result['preflight'] = run(SERVER_PREFLIGHT, True)
+        result['preflight'] = run(preflight_code, True)
         player = result['preflight']['player_foot']
         mutation_attempted = result['mutation_attempted'] = True
         save(receipt, result)
@@ -256,12 +298,56 @@ _result=json.dumps(sys._blueprint_visual_saved)
 ''')
         result['original_player_follow_camera'] = visual_saved
         save(receipt, result)
-        result['native_setup'] = run(reference['NATIVE_SETUP'] % (TARGET,), True)
-        pose = run(CAMERA_SET)
-        result['camera'] = pose
+        result['client_chunk_event_observation'] = run('''dimension=%r
+target=%r
+observed=list(owner.projection_loaded_chunks)
+_result=json.dumps({'source':'existing ChunkLoadedClientEvent/ChunkAcquireDiscardedClientEvent set',
+ 'observed_chunks':len(observed),'target_chunk':[target[0]//16,target[2]//16],
+ 'target_section_y':target[1]//16,'matching_xz':[row for row in observed if row[0]==dimension and row[1]==target[0]//16 and row[2]==target[2]//16],
+ 'native_section_mesh_ready_proven':False})
+''' % (result['preflight']['dimension'], target))
+        save(receipt, result)
+        frame_observer_installed = True
+        result['render_frame_observer'] = run(FRAME_INSTALL)
+        result['native_setup'] = run(reference['NATIVE_SETUP'] % (target,), True)
+        before_camera = run(CAMERA_READ)
+        result['camera_before_request'] = before_camera
         # A fresh owned cold session starts in player-follow mode; no movement is applied.
         stage(12)
-        qualification = run('''base=(6,117,6)
+        result['camera_direction_candidates'] = []
+        for yaw_adjustment in (180., 0.):
+            candidate = {'yaw_adjustment': yaw_adjustment, 'pose_request_attempted': True,
+                         'predeclared_sdk_semantics': True, 'readbacks': [], 'captures_before_selection': 0}
+            result['camera_direction_candidates'].append(candidate)
+            save(receipt, result)
+            candidate_code = CAMERA_SET % (center, position, yaw_adjustment)
+            candidate['pose'] = run(candidate_code)
+            save(receipt, result)
+
+            def read_candidate():
+                value = run(CAMERA_READ)
+                candidate['readbacks'].append(value)
+                save(receipt, result)
+                return value
+
+            actual_camera = wait('camera candidate readback after actual render events',
+                                lambda value: value['render_events'] >= candidate['pose']['render_events_at_request'] + 2 and
+                                              camera_matches(value, candidate['pose'], player), read_candidate)
+            candidate['forward_cosine'] = forward_cosine(actual_camera, center)
+            candidate['selected'] = candidate['forward_cosine'] > .99
+            save(receipt, result)
+            if candidate['selected']:
+                pose, camera_code = candidate['pose'], candidate_code
+                result['camera'] = pose
+                result['actual_camera_direction'] = {'readback': actual_camera, 'target': center,
+                    'forward_cosine': candidate['forward_cosine'], 'actual_GetForward': True,
+                    'predeclared_yaw_candidates': [180., 0.], 'minimum_cosine_exclusive': .99,
+                    'qualification_capture_started': False}
+                save(receipt, result)
+                break
+        if camera_code is None:
+            raise AssertionError(('Neither predeclared SDK camera direction reaches cosine >0.99', result['camera_direction_candidates']))
+        qualification = run('base=%r\n' % (target,) + '''
 cam=b.factory.CreateCamera(b.level)
 points=[tuple(base[i]+delta[i] for i in range(3)) for delta in ((x,y,z) for x in (0.,1.) for y in (0.,1.) for z in (0.,1.))]
 native=[cam.WorldToScreenPoint(*point) for point in points] if hasattr(cam,'WorldToScreenPoint') else None
@@ -286,20 +372,24 @@ adapter=WorldAdapter(saved['player'])
 assert adapter.info.SetBlockNew(saved['target'],{'name':'minecraft:stone','aux':0},0,saved['dimension'],True,False)
 _result=True
 ''', True)
-            wait('native stone replication', lambda value: any(row[0] == 'minecraft:stone' for row in value['common']), lambda: run(PALETTE))
+            wait('native stone replication', lambda value: any(row[0] == 'minecraft:stone' for row in value['common']), lambda: run(palette_code))
             stone = capture('qualification_stone')
             run(reference['NATIVE_MUTATE'] % ('poppy', 'blank', 0), True)
-            wait('qualification blank replication', lambda value: palette_matches(value, 'blank'), lambda: run(PALETTE))
+            wait('qualification blank replication', lambda value: palette_matches(value, 'blank'), lambda: run(palette_code))
             blank = capture('qualification_blank')
             with Image.open(stone) as first, Image.open(blank) as second:
                 signal = changed(first.convert('RGB').crop(CROP), second.convert('RGB').crop(CROP))
             pixel_helpers = helpers(plan['files']['camera_reference']['path'], ('largest_component', 'fill_enclosed_holes'))
             roi = pixel_helpers['fill_enclosed_holes'](pixel_helpers['largest_component'](signal))
-            if roi.histogram()[255] < 1000:
-                raise AssertionError('Same-session native stone cell lacks 1000 observable pixels')
             qualification.update(method='same_session_native_stone_blank_cell_silhouette',
                                  stone=str(stone), blank=str(blank), pixels=roi.histogram()[255],
                                  bounds=roi.getbbox(), analytical_projection_or_fov_fit=False)
+            result['qualification'] = qualification
+            save(receipt, result)
+            signal.save(output / 'qualification-difference.png')
+            roi.save(output / 'qualification-component.png')
+            if roi.histogram()[255] < 1000:
+                raise AssertionError('Same-session native stone cell lacks 1000 observable pixels')
         roi_path = output / 'qualified-cell-roi.png'
         roi.save(roi_path)
         qualification.update(roi=str(roi_path), roi_sha256=hashlib.sha256(roi_path.read_bytes()).hexdigest())
@@ -318,10 +408,10 @@ _result=True
                 raise AssertionError(('Native requested front mismatch', native))
             if kind in ('covered', 'snow') and (native['states']['height'] != 0 or bool(native['states']['covered_bit']) != (kind == 'covered')):
                 raise AssertionError(('Native requested snow state mismatch', native))
-            replicated = wait('native ' + kind + ' palette', lambda value: palette_matches(value, kind), lambda: run(PALETTE))
+            replicated = wait('native ' + kind + ' palette', lambda value: palette_matches(value, kind), lambda: run(palette_code))
             host.sleep(min(.25, max(0, stage_deadline - host.now())))
             path = capture('native_' + kind + '_h0')
-            palette_after = run(PALETTE)
+            palette_after = run(palette_code)
             if not palette_matches(palette_after, kind):
                 raise AssertionError(('Native palette drift during capture', kind, palette_after))
             paths['native'][kind] = path
@@ -333,7 +423,7 @@ _result=True
             run('b.stop_projection()\n_result=True')
             source = run(reference['LOAD'] % ('poppy', 0, kind))
             if kind != 'blank':
-                run('s.origin=(5,116,5)\ns.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=True')
+                run('s.origin=%r\ns.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=True' % (origin,))
                 status = wait('projection ' + kind, lambda value: value['active'] and value['ready'] and
                               not value['preparing'] and value['actors'] == 1 and value['mesh'] and value['scale'] is not None,
                               lambda: run(visual['PROJECTION_STATUS']))
@@ -347,7 +437,7 @@ _result=True
                 submitted = None
                 if status['active'] or status['actors']:
                     raise AssertionError(('Blank projection still active', status))
-            run(CAMERA_SET)
+            run(camera_code)
             host.sleep(min(.25, max(0, stage_deadline - host.now())))
             path = capture('projection_' + kind + '_h0')
             final_status = run(visual['PROJECTION_STATUS'])
@@ -383,8 +473,8 @@ else:_result=json.dumps([])
             except Exception as error:
                 result['cleanup_errors'].append('Native cleanup: ' + str(error))
             try:
+                stage_deadline = min(restore_deadline, host.now() + 5.)
                 restore = '''b.stop_projection()
-restored_camera=None
 if hasattr(sys,'_blueprint_visual_saved'):
  saved=sys._blueprint_visual_saved
  s.origin=saved['origin']
@@ -398,27 +488,55 @@ if hasattr(sys,'_blueprint_visual_saved'):
  cam.LockModCameraPitch(saved['pitch_lock'])
  cam.LockModCameraYaw(saved['yaw_lock'])
  assert all(abs(b.player_position.GetFootPos()[i]-saved['player'][i])<.1 for i in range(3)), 'Player moved; no corrective teleport'
- restored_camera={'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
-  'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw(),
-  'fov':cam.GetFov(),'player':b.player_position.GetFootPos()}
- del sys._blueprint_visual_saved
 if hasattr(sys,'_blueprint_qa_saved'):
-''' + '\n'.join(' ' + line for line in blueprint['RESTORE'].splitlines()) + '\n_result=json.dumps(restored_camera)\n'
-                result['client_restored'] = run(restore)
+''' + '\n'.join(' ' + line for line in blueprint['RESTORE'].splitlines()) + '''
+_result=json.dumps({'requested':True,'render_events':getattr(getattr(sys,'_snow_h0_render_frames',None),'count',None),
+ 'saved_camera_retained':hasattr(sys,'_blueprint_visual_saved')})
+'''
+                result['client_restore_requested'] = run(restore)
+                save(receipt, result)
                 if visual_saved is not None:
-                    restored = result['client_restored']
                     expected = {'position': visual_saved['camera_pos'], 'rotation': visual_saved['camera_rot']}
-                    if not (restored and camera_matches(restored, expected, visual_saved['player']) and
-                            restored['pitch_lock'] == visual_saved['pitch_lock'] and
-                            restored['yaw_lock'] == visual_saved['yaw_lock'] and
-                            abs(restored['fov'] - visual_saved['fov']) < .01):
-                        raise AssertionError(('Original follow camera restoration readback failed', restored, visual_saved))
-                after = run(SERVER_PREFLIGHT, True)
+                    frame_baseline = result['client_restore_requested']['render_events']
+
+                    def restored_readback():
+                        value = run(CAMERA_READ)
+                        result.setdefault('client_restore_reads', []).append(value)
+                        save(receipt, result)
+                        return value
+
+                    def restored_after_render_events(value):
+                        rendered = (not frame_observer_installed or
+                                    value['render_events'] >= frame_baseline + 2)
+                        return (rendered and camera_matches(value, expected, visual_saved['player']) and
+                                value['pitch_lock'] == visual_saved['pitch_lock'] and
+                                value['yaw_lock'] == visual_saved['yaw_lock'] and
+                                abs(value['fov'] - visual_saved['fov']) < .01)
+
+                    result['client_restored'] = wait('Original follow camera restoration after render events',
+                                                    restored_after_render_events, restored_readback)
+                    run("del sys._blueprint_visual_saved\n_result=True")
+                    result['saved_camera_journal_cleared_after_verified_readback'] = True
+                stage_deadline = restore_deadline
+                after = run(preflight_code, True)
                 result['post_restore'] = after
                 if after['player_flying'] != result['preflight']['player_flying'] or any(abs(after['player_foot'][i] - player[i]) >= .1 for i in range(3)):
                     raise AssertionError('Player foot/flight drift; no corrective movement')
             except Exception as error:
+                result['saved_camera_journal_retained_on_failure'] = visual_saved is not None
                 result['cleanup_errors'].append('Client/player restoration: ' + str(error))
+            finally:
+                stage_deadline = restore_deadline
+                if frame_observer_installed:
+                    try:
+                        result['render_frame_observer_removed'] = run('''if hasattr(sys,'_snow_h0_render_frames'):
+ probe=sys._snow_h0_render_frames
+ owner.UnListenForEvent(api.GetEngineNamespace(),api.GetEngineSystemName(),'GameRenderTickEvent',probe,probe.tick)
+ del sys._snow_h0_render_frames
+_result=True
+''')
+                    except Exception as error:
+                        result['cleanup_errors'].append('Render observer cleanup: ' + str(error))
         if client is not None:
             client.close()
         for key, previous in environment.items():
