@@ -641,10 +641,19 @@ _result=True
     check.wait('snow world camera', lambda value: camera_matches(value, pose), lambda: check.run(camera_code))
     time.sleep(settle_seconds)
     shown = check.capture(label + '_world_closeup')
+    response = None
     try:
+        if getattr(check, 'require_native_response', False):
+            from native_draw_response import frame_count, capture_response
+            render_before = frame_count(check)
         check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(True)\n_result=True')
-        time.sleep(.3)
-        hidden = check.capture(label + '_world_hidden')
+        if getattr(check, 'require_native_response', False):
+            width, height = shown['size']
+            crop = (width//4, height//4, width*3//4, height*3//4)
+            hidden, response = capture_response(check, label+'_world_hidden', shown, crop, render_before)
+        else:
+            time.sleep(.3)
+            hidden = check.capture(label + '_world_hidden')
     finally:
         check.run('assert b.factory.CreateActorRender(b.entity).SetNotRenderAtAll(False)\n_result=True')
     final = check.run(PROJECTION_STATUS)
@@ -663,6 +672,7 @@ _result=True
                for row in calls), calls
     state.update(pose=pose, final=final, camera=actual_camera, screenshot=shown,
                  hidden_screenshot=hidden, native_calls=calls, source=current_source,
+                 native_draw_response=response,
                  native_evidence='current_source_submission' if calls else 'current_source_cached_geometry')
     return state
 

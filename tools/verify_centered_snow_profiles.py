@@ -27,6 +27,8 @@ from projection.geometry_palette import PLANT_MAX_Y
 from projection.debug_snow_blueprints import NAMES, VISUAL_CASE
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
 from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
+from native_draw_response import INSTALL as INSTALL_FRAMES, REMOVE as REMOVE_FRAMES, ui_preflight
+from snow_contrast_backdrop import SETUP as SETUP_BACKDROP, RESTORE as RESTORE_BACKDROP
 
 WORLD_OFFSET = (-2., 1.2, -2.5)
 
@@ -119,7 +121,7 @@ def run(args):
               'capture_policy': 'Owner-bound guarded capture; user may foreground the game',
               'native_random_jitter_is_diagnostic': True,
               'scope': 'Centered snapshot dry and alpha burial boundaries; built-in editor and separate full/missing projections'}
-    installed = saved = options_saved = environment_saved = False
+    installed = saved = options_saved = environment_saved = frames_installed = backdrop_started = False
     snow_frames, snow_records = {}, {}
     started = time.monotonic()
     with Client(timeout=30) as client:
@@ -139,6 +141,12 @@ def run(args):
             offset = WORLD_OFFSET
             target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,32,6)[i] for i in range(3)))'))
             report['target'], report['world_offset'] = target, offset
+            check.run(INSTALL_FRAMES)
+            frames_installed = True
+            backdrop_started = True
+            report['backdrop'] = run_environment(client, SETUP_BACKDROP % (target,))
+            check.require_native_response = True
+            ui_verified = False
             for plant in plants:
                 assets = cross_assets(session, plant)
                 if assets is None:
@@ -170,6 +178,9 @@ def run(args):
                            'checks': {}}
                     if kind == 'blank':
                         blank = editor
+                        if not ui_verified:
+                            report['native_draw_preflight'] = ui_preflight(check)
+                            ui_verified = True
                         report['rows'].append(row)
                         write_json(args.output, report)
                         continue
@@ -261,6 +272,10 @@ def run(args):
                 report['error'] = prior[0].__name__+': '+str(prior[1])
             errors = []
             actions = []
+            if frames_installed:
+                actions.append(('render_observer', lambda: check.run(REMOVE_FRAMES)))
+            if backdrop_started:
+                actions.append(('contrast_backdrop', lambda: run_environment(client, RESTORE_BACKDROP)))
             if environment_saved:
                 actions.append(('environment', lambda: run_environment(client, RESTORE_ENVIRONMENT)))
             if options_saved:
