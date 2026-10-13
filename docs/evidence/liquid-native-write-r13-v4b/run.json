@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "phase_receipts": {
+    "actual-world": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\actual-world-passive-health.json"
+    },
+    "preflight": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\preflight-passive-health.json"
+    },
+    "physical": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\physical-passive-health.json"
+    },
+    "health": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\health-passive-health.json"
+    },
+    "calibrate": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\calibrate-passive-health.json"
+    },
+    "original-priority": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v4b\\original-priority-passive-health.json"
+    }
+  },
+  "owner": "liquid-r13-native-write-v4b",
+  "scope": "V3-established near +2 terrain visibility; same-session calibration and unchanged H/L NW palette/direct/full diagnostic",
+  "plan_sha256": "5a79b5a4fb58221269e28b3d968816c7575adbfa86254e5173b45f503786ef1c",
+  "capacity_receipt_sha256": "386a02b5bdec14af03327f0702bc7a5144b377eb2c02bed8f3c119e7f1b06253",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791875254.929554,
+  "startup_deadline_unix": 1791875434.929554,
+  "outer_deadline_unix": 1791875625.011236,
+  "transport_ready_observed_at": 1791875313.9279366,
+  "ready_observed_at": 1791875325.011236,
+  "normal_deadline_unix": 1791875565.011236,
+  "fixture_cleanup_deadline_unix": 1791875595.011236,
+  "full_work_cleanup_reserve_verified": true,
+  "actual_world_receipt_sha256": "9fc622229610191de7ee3ea13884ddce14c913a72ba8d6cd92192df19f3d5d6a",
+  "resource_failure_cleanup": {
+    "authorized": true,
+    "force_used": true,
+    "pinned_binding": {
+      "id": "211f3e3692fc4c0fae79d2a92974cfde",
+      "owner": "liquid-r13-native-write-v4b",
+      "project": "D:\\bbe-r13-liquid",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\211f3e3692fc4c0fae79d2a92974cfde\\session.json",
+      "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\211f3e3692fc4c0fae79d2a92974cfde\\appdata",
+      "port": 59905,
+      "mcp_url": "http://127.0.0.1:59905/mcp",
+      "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_211f3e3692fc4c0fae79d2a92974cfde",
+      "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\211f3e3692fc4c0fae79d2a92974cfde\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_211f3e3692fc4c0fae79d2a92974cfde",
+      "game_pid": 56632,
+      "game_identity": "134363488549295541",
+      "mcdk_pid": 51980,
+      "mcdk_identity": "134363488546967793"
+    },
+    "outer_deadline_unix": 1791875625.011236,
+    "attempts": [
+      {
+        "force": true,
+        "kind": "game",
+        "pid": 56632
+      },
+      {
+        "force": true,
+        "kind": "mcdk",
+        "pid": 51980
+      }
+    ],
+    "identities_before": {
+      "game": "134363488549295541",
+      "mcdk": "134363488546967793"
+    },
+    "ordinary_close_sent": true,
+    "identities_after": {
+      "game": null,
+      "mcdk": null
+    },
+    "passed": true,
+    "finished_at": 1791875434.3683643,
+    "outer_deadline_met": true
+  },
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 183.61930966377258,
+  "ready_to_stopped_seconds": 113.53762912750244
+}

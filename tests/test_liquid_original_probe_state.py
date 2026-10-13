@@ -98,4 +98,20 @@ class DirectWriteTests(unittest.TestCase):
                 self.run_write(cells,{(1,3,3):('minecraft:water',0)})
 
 
+class NearReservationTests(unittest.TestCase):
+    def test_explicit_near_control_retains_every_air_gate_and_default_far_template(self):
+        near = probe.native_comparison_prepare(2)
+        self.assertIn('int(math.floor(foot[1]))+2,', near)
+        self.assertIn("assert front and front.get('name')=='minecraft:air'", near)
+        self.assertIn("assert back is None or back.get('name')=='minecraft:air'", near)
+        self.assertEqual(probe.workspace.QUALIFICATION_PREPARE, probe.native_comparison_prepare(24))
+        with self.assertRaisesRegex(ValueError, 'reviewed'):
+            probe.native_comparison_prepare(-64)
+
+    def test_changed_reservation_template_is_rejected(self):
+        with patch.object(probe.workspace, 'QUALIFICATION_PREPARE', 'unknown origin'):
+            with self.assertRaisesRegex(ValueError, 'template changed'):
+                probe.native_comparison_prepare(2)
+
+
 if __name__=='__main__':unittest.main()

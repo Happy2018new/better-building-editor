@@ -178,6 +178,17 @@ def native_comparison_positions(source_cells, document_origin, reserved):
     return sorted(selected)
 
 
+def native_comparison_prepare(height_above_foot):
+    """Explicit near/far reservation; never alter a previously frozen plan."""
+    if height_above_foot not in (2, 24):
+        raise ValueError('Native comparison height must be a reviewed near/far control')
+    marker = 'int(math.floor(foot[1]))+24'
+    if workspace.QUALIFICATION_PREPARE.count(marker) != 1:
+        raise ValueError('Native air reservation template changed')
+    return workspace.QUALIFICATION_PREPARE.replace(marker,
+        'int(math.floor(foot[1]))+' + str(height_above_foot))
+
+
 def camera_matches(actual, expected):
     return (all(actual[key] == expected[key] for key in ('position', 'screen', 'fov'))
             and all(abs((a - b + 180.) % 360. - 180.) <= 1.e-6
@@ -261,10 +272,14 @@ def main():
     parser.add_argument('--cleanup-deadline-unix', type=float)
     parser.add_argument('--native-write-compare', action='store_true',
                         help='H/L palette, direct SetBlockNew and full projection, with one empty native baseline')
+    parser.add_argument('--fixture-height-above-foot', choices=(2, 24), type=int, default=24,
+                        help='Explicit reviewed native terrain section; +2 was visible in the R13V3 native control')
     args = parser.parse_args()
     priority_mode = args.priority_world_alpha or args.native_write_compare
     if args.priority_world_alpha and args.native_write_compare:
         parser.error('Select one finite diagnostic mode')
+    if args.fixture_height_above_foot != 24 and not args.native_write_compare:
+        parser.error('Near terrain reservation is restricted to the native write comparison')
     if args.output.exists():
         parser.error('Keep the finite original-art receipt fresh')
     if priority_mode and (args.normal_deadline_unix is None or args.cleanup_deadline_unix is None
@@ -316,7 +331,10 @@ def main():
                 'independent animation', 'production qualification'])
     if args.native_write_compare:
         report.update(scope='H/L NW palette versus direct SetBlockNew native visibility diagnostic',
-            hypothesis='Palette-only front-cell writes may update SDK readback without terrain mesh publication',
+            hypothesis=('At the V3-visible near terrain section, native water H/L and full projection'
+                if args.fixture_height_above_foot == 2 else
+                'Palette-only front-cell writes may update SDK readback without terrain mesh publication'),
+            fixture_height_above_foot=args.fixture_height_above_foot,
             original_png_count=6, empty_native_png_count=1, alpha_png_count=0,
             native_write_receipts={}, full_wait_reads={}, full_render_requests={})
     save = lambda: base.write(args.output, report)
@@ -456,7 +474,9 @@ def main():
             environment_attempted = True
             report['environment'] = base.run(client, base.ENVIRONMENT, True)
             world_saved = True
-            report['reservation'] = base.run(client, workspace.QUALIFICATION_PREPARE, True)
+            report['reservation'] = base.run(client,
+                native_comparison_prepare(args.fixture_height_above_foot)
+                if args.native_write_compare else workspace.QUALIFICATION_PREPARE, True)
             base.run(client, base.CLEAR, True)
             base.run(client, workspace.FLOW % True, True)
             origin = tuple(report['reservation']['origin'])
