@@ -155,3 +155,31 @@ The root authorized one complete baseline-52189693 BP/RP retry, retaining the
 same frozen files and background/identity/deadline contracts. Further BP factor
 decomposition is held; the new owner/output preserve this external-condition
 contrast separately.
+
+## Complete baseline after the user report
+
+The one authorized complete baseline retry succeeded in 88.68 seconds. The
+existing ModernProjectionClientSystem had a non-None session and HUD created
+by UiInitFinished, the player foot position was loaded, and the frozen server
+palette probe returned real ground and natural air observations. All 64
+recorded background checks passed, and all 1,370 source/mounted file pins
+remained unchanged. WGC returned a fresh native 1994 by 1105 frame; actual image
+inspection shows a normal flat grass world, sky, hand and HUD, without the
+previous missing-BP warnings, black frame or loading popup. Exact game/MCDK
+cleanup completed and both identities were null.
+
+The [sanitized complete baseline result](evidence/background-baseline-after-user-fullscreen-r14-v1/result.json)
+is separate from every earlier control. Its original plan, exact supervisor
+sources and WGC PNG are byte-preserved. The subsequent shutdown WER at
+19:58:00 again reports ucrtbase.dll c0000409 at 00000000000a527e, report
+fe3cf63f-d651-440f-a554-3d3b5b68ef68. Successful startup and image observation
+do not erase that shutdown failure.
+
+The unchanged complete baseline can now initialize under the new conditions.
+A single comparison does not prove that the previously running fullscreen game
+caused the failures, and no failing Mod resource is identified. Root released
+the reserved slot for exactly one water product launch, with all other lanes
+still held. This support task launches no more games and leaves no running
+owned Minecraft or MCDK instance. Product water, snow, item, editor and
+projection acceptance remain with their specialist evidence, not this startup
+checkpoint.
