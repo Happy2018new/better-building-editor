@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "product_style_version": "java_snapshot_water_v1",
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "supported_names": ["minecraft:water", "minecraft:flowing_water"],
+  "height_policy": "conditional_diagonal_weighted_v1",
+  "flow_policy": "horizontal_and_below_snapshot_v1",
+  "occlusion_policy": "opaque_full_cube_names_v1",
+  "water": {
+    "heights": [0.8888888888888888, 0.7777777777777778, 0.6666666666666666, 0.5555555555555556, 0.4444444444444444, 0.3333333333333333, 0.2222222222222222, 0.1111111111111111, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888],
+    "weights": [10, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, 10, 10],
+    "empty_weight": 1,
+    "above_height": 1,
+    "flow_below_drop": 0.8888888888888888,
+    "falling_depth_policy": "saved_depth_8_to_15_own_height_8_over_9"
+  },
+  "top_template": "candidate_water_top_center_turn256_v1",
+  "top_rotation_offset": -64,
+  "rotation_steps": 256,
+  "native_parity_claimed": false,
+  "reference": {
+    "report": "docs/LIQUID_JAVA_REFERENCE_STUDY_20261013.md",
+    "sources": "tools/data/java_liquid_reference_sources_20261013.json",
+    "sources_canonical_sha256": "325b7b8980e38f1997feb29faac19b5a7b322f2e37bd59afb1745a5454ffeace",
+    "java_versions": ["1.21.1", "1.21.11"],
+    "scope": "Independently expressed snapshot mathematics. No copied game code; no Bedrock equivalence or native visual acceptance claim."
+  }
+}
