@@ -87,7 +87,7 @@ void main() {
     vec3 rgb=texel.rgb;
     if(itemEnchanted>0.5) {
         // Period7 divides the engine's210-second clock wrap exactly.
-        float phase=TIME*6.283185307179586/7.0;
+        float phase=mod(TIME,7.0)*(6.283185307179586/7.0);
         float first=pow(0.5+0.5*sin((itemUv.x+itemUv.y)*18.84955592153876+phase),8.0);
         float second=pow(0.5+0.5*sin((itemUv.x-itemUv.y)*12.56637061435917-phase),8.0);
         rgb=clamp(rgb+vec3(0.22,0.10,0.36)*(0.20+0.45*first+0.35*second),0.0,1.0);

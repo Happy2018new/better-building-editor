@@ -179,13 +179,26 @@ class ItemResourceTests(unittest.TestCase):
     def test_glint_has_no_outside_alpha_or_clock_wrap_discontinuity(self):
         for u,v in ((0.,0.),(.25,.75),(1.,1.)):
             def strength(time):
-                phase=time*2.*math.pi/7.
+                phase=(time%7.)*2.*math.pi/7.
                 return (.2+.45*(.5+.5*math.sin((u+v)*6.*math.pi+phase))**8+
                         .35*(.5+.5*math.sin((u-v)*4.*math.pi-phase))**8)
             self.assertAlmostEqual(strength(0.),strength(210.),places=12)
             self.assertNotAlmostEqual(strength(0.),strength(.8),places=4)
         self.assertIn('if(texel.a<0.5) discard;',resources.FRAGMENT)
         self.assertIn('itemEnchanted>0.5',resources.FRAGMENT)
+        self.assertIn('float phase=mod(TIME,7.0)*',resources.FRAGMENT)
+
+    def test_shaders_keep_packed_depth_and_fragment_varyings_at_matching_highp(self):
+        output=resources.outputs()
+        fragment=output['resource_pack/shaders/glsl/modern_projection_item_sprite.fragment'].decode('ascii')
+        for name in ('modern_projection_item_sprite.vertex','modern_projection_item_sprite_world.vertex'):
+            vertex=output['resource_pack/shaders/glsl/'+name].decode('ascii')
+            self.assertLess(vertex.index('precision highp float;'),vertex.index('#include'))
+            for declaration in ('varying highp vec2 itemUv;','varying highp float itemVisible;',
+                                'varying highp float itemEnchanted;','varying highp float itemClip;'):
+                self.assertIn(declaration,vertex)
+                self.assertIn(declaration,fragment)
+        self.assertLess(fragment.index('precision highp float;'),fragment.index('#include'))
 
 
 if __name__=='__main__':
