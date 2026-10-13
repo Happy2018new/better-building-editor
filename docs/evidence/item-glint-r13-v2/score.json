@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "phase": "glint",
+  "ui_marker_gate_passed": true,
+  "skeleton_positive_pixels": {
+    "ui_skeleton_positive": [
+      1722,
+      1722
+    ],
+    "ui_skeleton_positive_restored": [
+      1722,
+      1722
+    ]
+  },
+  "positive_skeleton_gate_passed": true,
+  "classification": "same_pose_glint_positive_requires_visual_review",
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "projection_frame_content_accepted": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false,
+  "enchantment_tested": true,
+  "ordinary_poses": {
+    "ui_plain_x90": {
+      "stable_pixels": 1908,
+      "bbox": [
+        472,
+        402,
+        568,
+        464
+      ],
+      "bbox_ratio": 0.6458333333333334,
+      "inside_frozen_doll_roi": true
+    }
+  },
+  "restored_difference_pixels": 0,
+  "ordinary_broadside_gate": true,
+  "glint_changed_pixels": 1819,
+  "glint_temporal_pixels": 990,
+  "ordinary_temporal_pixels": 0,
+  "diagnostic_glint_gate_passed": true,
+  "visual_review_required": true,
+  "runtime_sha256": "f41f3cbb1ac29e4d9e3774d06f86ff22236edfba2b7b313805888536303b5954",
+  "scorer_sha256": "46e890db7bfe1112cdb8ff72dc715babfb7d1fda8b3a142885b59b3a111b436f"
+}
