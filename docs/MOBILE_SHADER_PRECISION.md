@@ -1,5 +1,17 @@
 # 手机着色器精度修复
 
+## 2026-10-13 开发接续检查
+
+主资源包当前 36 个 vertex/fragment 入口，以及独立星穹包的 2 个入口，均在任何引擎头文件之前声明 `precision highp float;`。新增水产品资源包含 4 个顶点和 6 个片元入口；`liquidUv`、`liquidVisible`、`liquidClip` 两端均显式使用 `highp`。引擎 `UNIFORM` 宏没有覆盖精度，时间和四组 payload uniform 因此继承入口的 `highp`。新物品资源的 3 个入口在所属工作树检查通过，UV、visible、enchanted、clip 两端同样为 `highp`，集成后再运行统一检查。
+
+水的动画使用 `TOTAL_REAL_WORLD_TIME` 的 3600 秒周期。最大动画时钟为 72000，在已检查的 23 位浮点精度后端，其步长为 1/128 帧；周期与帧序列闭合。物品光效先将 `TIME` 化为 7 秒内的相位再计算，7 秒也整除原生 210 秒回绕。不能用后置声明弥补 uniform 已经丢失的精度，也不能为编译通过而静默换成 `mediump`。
+
+统一回归 `tests/test_shader_precision.py` 已覆盖两个包的递归入口，以及本项目共享头文件的默认精度和浮点 uniform/varying 降级。引擎保留的局部 `lowp` 发光采样及原生文字 POSITION 声明不等于动画或 payload 降级，不做无依据的修改。运行 `python -X utf8 -m unittest discover -s tests -p test_shader_precision.py`，该测试也随版本包的全量测试执行。
+
+桌面宿主 GLES 2/3 的顶点和片元高精度查询为 23 位、指数范围 127；这是离线后端证据，不是安卓硬件证明。安卓 shader 编译、精度及性能继续归入 V01，当前实机启动阻塞也不能由这些静态检查宣称已经解决。
+
+## 2026-09-26 修复记录
+
 2026-09-26。已检查主资源包的全部 11 个 GLSL 着色器，以及独立星穹特效包的 2 个着色器。本次修复精度声明及其顺序，使手机端使用与 PC 高精度路径一致的计算；星点密度、速度、颜色和几何参数不变。
 
 ## 两处主要问题

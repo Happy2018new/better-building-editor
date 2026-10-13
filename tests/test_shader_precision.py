@@ -6,18 +6,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKS = (ROOT / 'resource_pack', ROOT / 'extras/astral_survey_v1/resource_pack')
+FLOAT_TYPES = r'(?:float|vec[234]|mat[234](?:x[234])?)'
 
 
 def code_only(source):
     return re.sub(r'/\*.*?\*/|//[^\n]*', '', source, flags=re.S)
 
 
+def shader_sources(suffixes):
+    return sorted(p for pack in PACKS for p in (pack / 'shaders/glsl').rglob('*')
+                  if p.is_file() and p.suffix in suffixes)
+
+
 class MobileShaderPrecisionTests(unittest.TestCase):
     def test_shader_precision_is_explicit_before_headers_or_declarations(self):
         # GLES permits a mediump default. An override after an include cannot
         # repair TIME, matrices or function signatures already declared there.
-        shaders = [p for pack in PACKS for p in (pack / 'shaders/glsl').iterdir()
-                   if p.suffix in ('.vertex', '.fragment')]
+        shaders = shader_sources(('.vertex', '.fragment'))
         self.assertTrue(shaders)
         for path in shaders:
             with self.subTest(shader=path.relative_to(ROOT).as_posix()):
@@ -27,6 +32,25 @@ class MobileShaderPrecisionTests(unittest.TestCase):
                 # and function arguments even if varyings remain highp.
                 defaults = re.findall(r'precision\s+(\w+)\s+float\s*;', code)
                 self.assertEqual(['highp'], defaults)
+
+    def test_shared_headers_do_not_downgrade_the_callers_float_precision(self):
+        headers = shader_sources(('.h', '.glsl'))
+        self.assertTrue(headers)
+        for path in headers:
+            with self.subTest(shader=path.relative_to(ROOT).as_posix()):
+                code = code_only(path.read_text(encoding='utf8'))
+                defaults = re.findall(r'precision\s+(\w+)\s+float\s*;', code)
+                self.assertTrue(all(value == 'highp' for value in defaults))
+
+    def test_float_uniforms_and_varyings_do_not_override_highp_with_lower_precision(self):
+        # Native emissive samples may remain lowp; packed payloads and the
+        # vertex/fragment interface must keep the caller's highp precision.
+        pattern = (r'\b(?:uniform|UNIFORM|varying)\s+(?:lowp|mediump)\s+'
+                   + FLOAT_TYPES + r'\b')
+        for path in shader_sources(('.vertex', '.fragment', '.h', '.glsl')):
+            with self.subTest(shader=path.relative_to(ROOT).as_posix()):
+                code = code_only(path.read_text(encoding='utf8'))
+                self.assertNotRegex(code, pattern)
 
 
 if __name__ == '__main__':
