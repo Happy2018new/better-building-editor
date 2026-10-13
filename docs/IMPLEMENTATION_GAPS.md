@@ -24,6 +24,23 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **22:37 实际增量：** 根全量2611项测试及统一版本入口27项／99份来源／15,858状态×六变换通过。水v7采集与恢复有效，离线分析30个几何中28通过，editor falling与full pool边界仍失败；42动画中41通过，full湿橡木楼梯贡献不足，均保留原失败。含雪v7三植物／八雪高的54行矩阵全部通过并恢复625格背景，29名称目录仍运行。物品真实展示框v8的客户端／服务端物品与附魔数据读回通过，但实际仍无物品像素；后续阶段接口使用错误、恢复断言也未通过，不能作为原生光效对照或完整恢复证据。
 
+**23:15 动态资源盘点与旗帜边界：** 新增`tools/audit_native_animated_blocks.py`遍历全部1340名称／15,858状态，将`textures`及`carried_textures`关联到原版80条flipbook；flattened atlas通过相同图片来源关联，得到48名称／516候选状态。原始三份资源JSON按字节归档于`docs/reference/native_animations/nemc_3.9.0.401155/`，报告为`tools/data/native_animated_blocks_nemc_3.9.0.401155.json`，来源SHA与dump版本绑定；188名称没有直接同名资源定义、`lava_cauldron`资源键不在dump中，均显式保持未知。候选不是动画已通过，也不表示每个候选状态都有动画；模型、实体与粒子仍须另行盘点。
+
+| 贴图动画候选家族 | 当前版本名称（省略`minecraft:`） |
+| --- | --- |
+| 流体与锅内液体 | `water`、`flowing_water`、`lava`、`flowing_lava`、`bubble_column`、`cauldron` |
+| 火与营火 | `fire`、`soul_fire`、`campfire`、`soul_campfire` |
+| 灯笼 | `lantern`、`soul_lantern`、`copper_lantern`、`exposed_copper_lantern`、`weathered_copper_lantern`、`oxidized_copper_lantern`及上述四种铜灯笼的`waxed_`版本 |
+| 幽匿家族 | `sculk`、`sculk_vein`、`sculk_sensor`、`calibrated_sculk_sensor`、`sculk_catalyst`、`sculk_shrieker` |
+| 植物 | `kelp`、`seagrass`、`firefly_bush` |
+| 海晶石 | `prismarine`、`prismarine_slab`、`prismarine_double_slab`、`prismarine_stairs`、`prismarine_wall`、`sea_lantern` |
+| 下界木材 | `crimson_stem`、`crimson_hyphae`、`warped_stem`、`warped_hyphae` |
+| 其他 | `magma`、`portal`、`respawn_anchor`、`command_block`、`chain_command_block`、`repeating_command_block`、`lit_blast_furnace`、`lit_smoker`、`stonecutter_block` |
+
+**F03-B01 旗帜显示尚未完成。** `entity_overlays.banner_item`只解析并保留typed `Base`／`Type`／`Patterns`，公开蓝图已有普通／不祥样本；原生client palette的旗帜actor为空，当前sprite方案只针对框内已验证静态物品，不能表达NBT图案。接续方案以基岩版实际NBT和原版旗帜模型／遮罩／颜色来源为准：先独立验证原生物品挂接；若不可用，按底色与原有图案顺序实现专属分层渲染，editor／projection共用解析与资源，各自管理owner／姿态／显隐。必须测正反面、全部立式／墙挂朝向、图案顺序、动画／透明度、切面及占用恢复；未知图案和超限内容保存原NBT、显式报告，不能静默丢层。原版`uniformBannerConstants.h`有7组颜色／UV、fragment按底纹和图案遮罩混合，这是内部实现参考，不是公开SDK参数，也不是现有显示通过。尚未采用Java旗帜代码。
+
+**3.10 独立官方支持测试：** 用户明确要求额外专项，工作树`D:/bbe-r14-nemc310`，不将新增支持用于当前3.9产品。真实安装`3.10.0.420447`、双端Minecraft版本`1.21.130.0`、`UiInit`及保护已核验；受管实例owner `nemc310-support-r14`，同屏展示真实方块和官方Combine／AddActorBlockGeometry投影。非默认NBT、水／岩浆／火和旗帜等正在检查，报告入口为`docs/NEMC310_PROJECTION_SUPPORT_AUDIT.md`。初始图水火和默认实体可见，水岩浆交互使初版岩浆无效；隔离槽、实际帧动画及非默认内容未验收前不能宣称官方已支持。用户明确要求保留实例供观察，root亦须实际看图；全机仍最多5个活动MC，不关闭用户实例。此额外专项是用户对三专项安排的新增授权，完成后归还槽位。
+
 **20:20 前台观察策略更正：** 用户明确要求手动将 MC 切到前台观察时自动测试继续，不暂停，不因前台关闭实例；测试器仍不得主动激活、resize 或使用桌面输入。共享入口以 `MCDEV_ALLOW_USER_FOREGROUND=1` 显式记录此授权，WGC schema 3 保存真实前后 foreground PID／background_safe 及 noactivate guard，继续验证身份、窗口保护、截图新鲜度和相机稳定。此前 water-product-r14-v2-root 的监督器先记录 `Noactivation guard failed` 并清理，随后才发生 WER，不能记为 Minecraft 自发崩溃或水渲染错误；六张石块图未完成标定，也未运行水 probe。该实例已按所属身份清理，下一次启动须使用修正后的完整入口。
 
 **21:15 实机接续：** 三个专项分别使用独立受管实例，未主动激活／resize／桌面输入，最多五个 MC。前台策略、WGC 物理像素 DPI 坐标及水布局精确稳定已修正；DPI 复用 `diagnose_window_dpi.physical_dpi_context`，不按缩放比例猜测，不改变进程全局设置。相关 60 项集成回归通过。水 v5 完成源水／低水／含水栅栏三路线共 30 张有效图及同会话六张石块标定图，捕获、来源及恢复通过，几何仍呈远侧可见而近侧／顶面缺失，正在验证仅产品材质 `InvertCulling` 候选。含雪短草 h0 的三路线形状／雪／切面已取得有效阳性；其他雪高和 29 植物继续验收，动态背景及低视点造成的旧失败保留。物品 v3 原生 shader 编译因缺少声明 `PROJ` 的头文件失败；v4 补头文件后真实剑可见，普通静止、附魔时间变化通过局部检查，几何轮廓及世界位置尚未完全通过。当前水与物品生产资格仍关闭，不能用局部通过替代完整资格。

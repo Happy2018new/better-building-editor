@@ -298,6 +298,7 @@ def commands(manifest, tests=False):
         ['tools/generate_native_item_contents.py', '--check'],
         ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_liquid_face_textures.py', '--check'],
+        ['tools/audit_native_animated_blocks.py', '--check'],
         ['tools/generate_liquid_shapes.py', '--check'],
         ['tools/generate_liquid_flow_top.py', '--check'],
         ['tools/generate_liquid_product_shapes.py', '--check'],
