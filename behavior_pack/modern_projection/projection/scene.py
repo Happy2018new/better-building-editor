@@ -155,7 +155,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
     def reset_cursor():
         hover_preview.current = None
         placed_pointer.current = None
-    use_effect(reset_cursor, [session.direct_mode, active])
+    use_effect(reset_cursor, [session.direct_mode, session.editor.edit_layer, active])
 
     def clip():
         if canvas.current:
@@ -442,7 +442,7 @@ def Scene(session=None, revision=0, width=400, height=300, navigation=None, prev
                 if placed_pointer.current is not None and tuple(point) != placed_pointer.current:
                     placed_pointer.current = None
                 if placed_pointer.current is None:
-                    key = (tuple(point), signature, e.revision, e.layer, e.material, e.mask,
+                    key = (tuple(point), signature, e.revision, e.layer, e.edit_layer, e.material, e.mask,
                            e.filter_material, tuple(sorted(e.locked_layers)), session.preview_signature(), session.direct_mode)
                     if hover_preview.current is None or hover_preview.current[0] != key:
                         px, py = pointer.current.GetGlobalPosition()
