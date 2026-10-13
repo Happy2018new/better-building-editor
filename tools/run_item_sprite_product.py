@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 SHARED = Path('D:/Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6/GitHub/better-building-editor')
@@ -43,7 +44,13 @@ def sha(path):
 
 
 def save(name, value):
-    (OUTPUT/name).write_text(json.dumps(value, ensure_ascii=True, indent=2)+'\n', encoding='ascii')
+    def redact(row):
+        if isinstance(row, dict):
+            return {key:redact(data) for key,data in row.items() if key not in ('token','title')}
+        if isinstance(row, (list,tuple)):
+            return [redact(data) for data in row]
+        return row
+    (OUTPUT/name).write_text(json.dumps(redact(value), ensure_ascii=True, indent=2)+'\n', encoding='ascii')
 
 
 def find_session():
@@ -112,7 +119,7 @@ def main():
                 raise TimeoutError('Bounded startup did not finish')
         session=find_session()
         if session is None or not session.get('ready'):
-            raise RuntimeError('Startup did not reach ready: '+str(session))
+            raise RuntimeError('Startup did not reach ready: '+str(session.get('error') if session else 'missing session'))
         report['session']=session
         os.environ.update(MCDEV_SESSION_FILE=session['session_file'],MCDEV_OWNER=OWNER)
         with Client(timeout=15) as client:
@@ -192,4 +199,11 @@ def main():
 
 
 if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--run-id',default='v1')
+    args=parser.parse_args()
+    if not args.run_id or any(char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for char in args.run_id):
+        parser.error('run-id must contain only ASCII letters, numbers, hyphens or underscores')
+    OWNER='item-product-r14-'+args.run_id
+    OUTPUT=ROOT/'.runtime'/OWNER
     sys.exit(main())
