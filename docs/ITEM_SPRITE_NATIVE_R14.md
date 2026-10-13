@@ -102,6 +102,16 @@ controls on the testing page, which has no item Scene. That harness gate is now
 limited to actual preview phases. The game and supervisor were exactly cleaned;
 no item body or glint acceptance is inferred from the camera-only result.
 
+Fresh `item-product-r14-v3` completed all planned capture phases with unchanged
+sources, valid guarded receipts, same-session calibration and exact cleanup.
+Both editor and world body/highlight gates failed: all four expected content
+silhouettes had zero observed item pixels. Empty controls remained stable.
+Actual game `mcdk.log` reported `C1503: undefined variable PROJ` when compiling
+the item fragment shader; the MCP latest-error endpoint returned no errors.
+The generator now includes the installed `uniformWorldConstants.h`, which
+declares `PROJ`, and owned-run reports explicitly collect this native compiler
+failure family. No item plane, source bitmap or pixel threshold changed.
+
 User-authorized foreground observation is recorded explicitly; the runner does
 not activate or resize a game. Shared capture schema 3 must retain owner identity,
 guarded noactivation and fresh native frame checks even when the user switches

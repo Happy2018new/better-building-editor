@@ -75,6 +75,7 @@ precision highp float;
 #include "uniformPerFrameConstants.h"
 #include "uniformExtraVectorConstants.h"
 #include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
 uniform sampler2D TEXTURE_0;
 varying highp vec2 itemUv;
 varying highp float itemVisible;

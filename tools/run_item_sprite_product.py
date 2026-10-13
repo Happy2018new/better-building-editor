@@ -361,6 +361,14 @@ def main(with_world=False, camera_calibration=None):
         report['elapsed_seconds']=time.monotonic()-started
         report['inputs_after']=snapshot_sources(ROOT)
         report['source_unchanged']=report['launch_inputs']==report['inputs_after']
+        if session:
+            log_path=Path(session['session_file']).parent/'mcdk.log'
+            if log_path.exists():
+                lines=log_path.read_text(encoding='utf8',errors='replace').splitlines()
+                report['native_shader_errors']=[{'line':index+1,'shader':line.split('Compiler error ',1)[1],
+                    'detail':lines[index+1] if index+1<len(lines) else ''}
+                    for index,line in enumerate(lines)
+                    if 'Compiler error shaders/glsl/modern_projection_item_sprite' in line]
         save('report.json',report)
     print(json.dumps({k:report.get(k) for k in ('completed','error','elapsed_seconds','cleanup_errors')},ensure_ascii=True))
     return 0 if report['completed'] else 1

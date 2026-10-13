@@ -207,6 +207,7 @@ def analyze(path):
               'body': {}, 'temporal': {}, 'observed_product_gates': {},
               'requested_routes': ['editor', 'full'] if source.get('world_requested') else ['editor'],
               'production_qualified': False, 'native_glint_accepted': False,
+              'native_shader_errors': source.get('native_shader_errors', []),
               'pending': ['all six faces and eight rotations', 'depth and opacity', 'item replacement',
                           'unsupported item families and shelf slots'],
               'scope': 'Declared diamond-sword silhouette and moving analytic highlight; not vanilla glint parity'}
@@ -305,7 +306,7 @@ def main():
         result['observed_product_gates'].get(route, {}).get('status') == 'SCORED'
         and result['observed_product_gates'][route]['body']
         and result['observed_product_gates'][route]['animation']
-        for route in result['requested_routes']) else 1
+        for route in result['requested_routes']) and not result['native_shader_errors'] else 1
 
 
 if __name__ == '__main__':
