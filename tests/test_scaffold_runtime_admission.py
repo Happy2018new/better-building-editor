@@ -1,10 +1,12 @@
 """World admission keeps air None, but never admits missing nonair states."""
 import copy
 import hashlib
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -78,6 +80,51 @@ class SourceArchiveTests(unittest.TestCase):
             source.write_bytes(b'outside')
             with self.assertRaises(ValueError):
                 runner.archive_sources(root, Path(directory) / 'output', [source])
+
+
+class UserForegroundTests(unittest.TestCase):
+    def guard(self, foreground_pid=42):
+        return {'foreground': {'pid': foreground_pid}, 'background_safe': foreground_pid != 42,
+                'windows': [{'pid': 42, 'noactivate': True}], 'window_noactivate': True}
+
+    def test_user_foreground_continues_with_explicit_environment_permission(self):
+        for permitted in ('', '0', 'true', '1'):
+            with self.subTest(permitted=permitted), patch.dict(os.environ, MCDEV_ALLOW_USER_FOREGROUND=permitted):
+                self.assertEqual(runner.scaffold_guard_satisfied(self.guard(), 42), permitted == '1')
+                self.assertEqual(runner.scaffold_guard_satisfied(self.guard(), 42, require_window=True), permitted == '1')
+                self.assertTrue(runner.scaffold_guard_satisfied(self.guard(43), 42))
+                metadata = runner.foreground_metadata()
+                self.assertEqual(metadata['user_foreground_allowed'], permitted == '1')
+                self.assertEqual(metadata['background_only'], permitted != '1')
+                self.assertIs(metadata['agent_activation_allowed'], False)
+                self.assertIs(metadata['activation_fallback'], False)
+
+    def test_foreground_permission_does_not_hide_false_receipts_or_missing_guard(self):
+        with patch.dict(os.environ, MCDEV_ALLOW_USER_FOREGROUND='1'):
+            for change in ('background_claim', 'guard_lost', 'guard_int', 'pid_bool', 'pid_missing'):
+                guard = self.guard()
+                if change == 'background_claim':
+                    guard['background_safe'] = True
+                elif change == 'guard_lost':
+                    guard['window_noactivate'] = False
+                elif change == 'guard_int':
+                    guard['window_noactivate'] = 1
+                elif change == 'pid_bool':
+                    guard['foreground']['pid'] = True
+                else:
+                    guard['foreground'].pop('pid')
+                with self.subTest(change=change):
+                    self.assertFalse(runner.scaffold_guard_satisfied(guard, 42))
+            guard = self.guard()
+            guard['windows'] = []
+            self.assertTrue(runner.scaffold_guard_satisfied(guard, 42))
+            self.assertFalse(runner.scaffold_guard_satisfied(guard, 42, require_window=True))
+
+    def test_existing_minecraft_foreground_is_allowed_only_by_the_user_policy(self):
+        for allowed in ('0', '1'):
+            with patch.dict(os.environ, MCDEV_ALLOW_USER_FOREGROUND=allowed):
+                self.assertEqual(runner.startup_foreground_satisfied({'process': 'Minecraft.Windows.exe'}), allowed == '1')
+                self.assertTrue(runner.startup_foreground_satisfied({'process': 'Code.exe'}))
 
 
 if __name__ == '__main__':

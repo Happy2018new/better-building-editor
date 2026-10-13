@@ -14,7 +14,7 @@ projection, or missing projection pixel acceptance.
   upper cells and unchanged typed support palettes across all three phases.
 - The production generator still reports 14 observed and 15,844 unobserved
   states. Unknown states remain unknown, never inferred non-supporting.
-- All 88 scaffold tests pass. Native Python 2 payload compile checks pass.
+- All 91 scaffold tests pass. Native Python 2 payload compile checks pass.
 - No new game was launched for these changes. New launches remain paused until
   the root owner resolves the independent full-pack startup failure.
 
@@ -67,14 +67,19 @@ This permits exactly one cold start and preserves a 330-second outer budget with
 70 seconds reserved for cleanup. It checks a single stone/air control, 17 real
 legacy/semantic lifecycle cases, then the first 256 semantic support states.
 Cleanup records the exact game and MCDK creation identities. Only the approved
-noactivation guard and WGC may be used; no foreground, resizing, desktop input,
-fallback screenshot, or unrelated process cleanup is permitted.
+noactivation guard and WGC may be used. The user may manually bring the game to
+the foreground to observe it; this does not pause or terminate the tests. Both
+entry points explicitly set `MCDEV_ALLOW_USER_FOREGROUND=1` and record this
+policy in their plans and receipts. Actual `background_safe=false` observations
+remain recorded. The agent must not activate or resize the game, send desktop
+input, use a fallback screenshot, or clean up unrelated processes. A lost
+noactivation guard or changed process identity remains a real failure.
 
 Existing prepared artifacts, with no launch or mutation:
 
 ```text
-.runtime/scaffold-r14-runtime-v3-prepared/plan.json
-.runtime/scaffold-r14-collection-v3-prepared/plan.json
+.runtime/scaffold-r14-runtime-v4-prepared/plan.json
+.runtime/scaffold-r14-collection-v4-prepared/plan.json
 ```
 
 If either source changed after these preparations, retain their original files

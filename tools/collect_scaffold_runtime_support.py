@@ -69,6 +69,8 @@ def main():
     parser.add_argument('--execute', action='store_true')
     parser.add_argument('--fresh-owned-flow-allowed', action='store_true')
     args = parser.parse_args()
+    os.environ['MCDEV_ALLOW_USER_FOREGROUND'] = '1'
+    foreground_policy = supervisor.foreground_metadata()
     ranges = segment_ranges(args.start_index, args.count)
     if not 120 <= args.max_seconds <= 7200:
         parser.error('Use an absolute collection budget in 120..7200 seconds')
@@ -97,13 +99,14 @@ def main():
         (output / name).write_text(json.dumps(value, ensure_ascii=True, indent=2) + '\n', encoding='ascii')
     plan = {'schema': 1, 'method': METHOD, 'status': 'prepared_not_executed',
             'created_at': datetime.now(timezone.utc).isoformat(), 'launches_permitted': 0,
-            'background_only': True, 'real_input': False, 'resize': False,
+            'real_input': False, 'resize': False,
             'max_seconds': args.max_seconds, 'cleanup_seconds': CLEANUP_SECONDS, 'ranges': ranges,
             'game_version': probe.common.registry.SOURCE_VERSION,
             'palette_sha256': probe.common.registry.SOURCE_SHA256,
             'source_pins': source_pins, 'source_archive_pins': archive_pins,
             'air_observation_sha256': hashlib.sha256(observation_raw).hexdigest(), 'air_encoding': encoding,
             'acceptance': derive.ACCEPTANCE}
+    plan.update(foreground_policy)
     save('plan.json', plan)
     if not args.execute:
         print(json.dumps({'prepared': True, 'ranges': len(ranges), 'planned_states': args.count,
@@ -117,6 +120,7 @@ def main():
               'owner': owner, 'identity': {key: session[key] for key in ('id', 'game_pid', 'game_identity')},
               'segments': [], 'checks': [], 'cleanup_errors': [], 'world_qualified': False,
               'world_observations': [], 'acceptance': derive.ACCEPTANCE}
+    report.update(foreground_policy)
     started = time.monotonic()
     deadline = started + args.max_seconds
     child, child_identity, current_path, current = None, None, None, None
@@ -128,7 +132,7 @@ def main():
             raise RuntimeError('Exact managed game or MCDK creation identity changed')
         value = supervisor._window.background_guard_state(session['game_pid'], Path(session['game_executable']).name)
         report['checks'].append({'at_seconds': time.monotonic() - started, 'guard': value})
-        if not value['background_safe'] or not value['window_noactivate']:
+        if not supervisor.scaffold_guard_satisfied(value, session['game_pid'], require_window=True):
             raise RuntimeError('Existing owner is not a guarded background game')
         verify_pins(output, source_pins, archive_pins)
     try:

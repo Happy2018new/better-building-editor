@@ -2,6 +2,7 @@
 
 The one fresh diagnostic world is retired in finally. No activation, resizing,
 desktop input, inventory read or fallback capture is permitted by this runner.
+The user's own foreground observation does not interrupt its guarded tests.
 """
 import argparse
 from datetime import datetime, timezone
@@ -40,6 +41,25 @@ OUTER_SECONDS, CLEANUP_SECONDS = 330, 70
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def foreground_metadata():
+    allowed = _window.user_foreground_allowed()
+    return {'background_only': not allowed, 'user_foreground_allowed': allowed,
+            'foreground_policy': 'allow_user_foreground' if allowed else 'background_only',
+            'agent_activation_allowed': False, 'activation_fallback': False}
+
+
+def scaffold_guard_satisfied(guard, pid, require_window=False):
+    if not _window.foreground_policy_satisfied(guard, pid):
+        return False
+    windows = guard.get('windows', [])
+    return ((not require_window or bool(windows))
+            and (not windows or guard.get('window_noactivate') is True))
+
+
+def startup_foreground_satisfied(snapshot):
+    return _window.user_foreground_allowed() or not snapshot.get('process', '').lower().startswith('minecraft')
 
 
 def archive_sources(root, output, sources):
@@ -102,6 +122,8 @@ def main():
     parser.add_argument('--air-observation', type=Path, help='Independent native air/ground palette encoding read')
     parser.add_argument('--catalogue-count', type=int, default=0, help='Optional first semantic segment, maximum 256 states')
     args = parser.parse_args()
+    os.environ['MCDEV_ALLOW_USER_FOREGROUND'] = '1'
+    foreground_policy = foreground_metadata()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     pack = output / 'diagnostic-pack'
@@ -131,7 +153,7 @@ def main():
         raise ValueError('Near-read template changed')
     plan = {'schema': 1, 'owner': OWNER, 'created_at': datetime.now(timezone.utc).isoformat(),
             'status': 'prepared_not_executed', 'launches_permitted': 1, 'outer_seconds': OUTER_SECONDS,
-            'cleanup_seconds': CLEANUP_SECONDS, 'world_seconds': 65, 'background_only': True,
+            'cleanup_seconds': CLEANUP_SECONDS, 'world_seconds': 65,
             'real_input': False, 'resize': False, 'config': config,
             'source_pins': source_pins, 'source_archive_pins': archive_pins,
             'binary_pins': {str(path): expected for path, expected in PINS.items()},
@@ -139,6 +161,7 @@ def main():
             'payload_sha256': {'world_client': hashlib.sha256(world.CLIENT.encode('ascii')).hexdigest(),
                                'world_server': hashlib.sha256(near_server.encode('ascii')).hexdigest()},
             'acceptance': lifecycle.ACCEPTANCE, 'native_sequence': [air_control.METHOD, lifecycle.METHOD]}
+    plan.update(foreground_policy)
     if not 0 <= args.catalogue_count <= catalogue.MAX_COUNT:
         raise ValueError('Catalogue segment exceeds the bounded 256-state limit')
     plan['catalogue_count'] = args.catalogue_count
@@ -165,6 +188,7 @@ def main():
     config_hash = digest(config_path)
     report = {'schema': 1, 'completed': False, 'launches': 0, 'checks': [], 'world_observations': [],
               'world_qualified': False, 'cleanup_errors': [], 'acceptance': lifecycle.ACCEPTANCE}
+    report.update(foreground_policy)
     session = launcher = child = None
     child_identity = None
     started = time.monotonic()
@@ -188,7 +212,7 @@ def main():
         guard = _window.background_guard_state(session['game_pid'], GAME.name)
         report['checks'].append({'at_seconds': time.monotonic() - started, 'guard': guard})
         checkpoint()
-        if not guard['background_safe'] or guard['windows'] and not guard['window_noactivate']:
+        if not scaffold_guard_satisfied(guard, session['game_pid']):
             raise RuntimeError('Passive noactivation guard failed')
     try:
         first = census()
@@ -201,7 +225,7 @@ def main():
         checkpoint()
         if len(active) >= 5:
             raise RuntimeError('Five-game capacity reached')
-        if report['foreground_before']['process'].lower().startswith('minecraft'):
+        if not startup_foreground_satisfied(report['foreground_before']):
             raise RuntimeError('A game is already foreground')
         command = [sys.executable, '-X', 'utf8', str(ROOT / '.agents/skills/pyreact-debugging/scripts/instances.py'),
                    'start', '--project', str(ROOT), '--owner', OWNER, '--name', OWNER, '--preset', 'ui',
