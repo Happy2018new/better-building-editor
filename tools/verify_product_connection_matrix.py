@@ -41,8 +41,35 @@ _result=json.dumps({'pivot':s.camera_pivot,'scene_origin':s.scene_origin,'view':
 
 
 def source_fingerprints():
+    paths = set(SOURCE_PATHS)
+    paths.update(path.relative_to(ROOT).as_posix() for path in (ROOT / 'tools').glob('*.py'))
     return [dict(path=path, sha256=hashlib.sha256((ROOT / path).read_bytes()).hexdigest())
-            for path in SOURCE_PATHS]
+            for path in sorted(paths)]
+
+
+def production_fingerprint():
+    records = [(path.relative_to(ROOT).as_posix(), hashlib.sha256(path.read_bytes()).hexdigest())
+               for directory in ('behavior_pack', 'resource_pack')
+               for path in sorted((ROOT / directory).rglob('*')) if path.is_file() and path.suffix != '.pyc']
+    payload = json.dumps(records, ensure_ascii=True, separators=(',', ':')).encode('ascii')
+    return {'files': len(records), 'sha256': hashlib.sha256(payload).hexdigest(),
+            'format': 'sorted-relative-path-and-sha256-json-v1'}
+
+
+def finalize_report(output, frozen, production, grid_error=None):
+    report = json.loads(output.read_text(encoding='utf8')) if output.exists() else {
+        'schema': 1, 'completed': False, 'passed': False, 'restored': False, 'cases': []}
+    report.update(source_fingerprints=frozen, source_unchanged=frozen == source_fingerprints(),
+                  production_fingerprint=production, production_unchanged=production == production_fingerprint(),
+                  palette_sha256=registry.fingerprint(), game_version=registry.source_version())
+    if grid_error is not None:
+        report.setdefault('cleanup_errors', []).append(grid_error)
+        report['restored'] = False
+    report['passed'] = (report['passed'] and report.get('completed', False) and report.get('restored', False) and
+                        report['source_unchanged'] and report['production_unchanged'])
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+    return report['passed']
 
 
 def offline_report():
@@ -122,7 +149,11 @@ def live_main(arguments):
 
     if '--replay' in arguments:
         raise ValueError('Product editor body captures need a product-specific replay gate')
+    output = Path(arguments[0])
+    if output.exists():
+        raise ValueError('Choose a fresh product native report path')
     frozen = source_fingerprints()
+    production = production_fingerprint()
     suite.configure(VISUAL_CASE)
     suite.native.CROP_FIXTURE = suite.native.CROP_FIXTURE.replace('(6,24,6)', '(6,2,6)')
     suite.native.CELL_ROIS = suite.native.CELL_ROIS.replace('(0.,1.6)', '(0.,1.)')
@@ -207,22 +238,19 @@ def live_main(arguments):
     with suite.world.Client(timeout=30) as client:
         check = background_check(client, Path(arguments[0]), 60)
         saved_grid = check.run('_result=s.grid')
-    output = Path(arguments[0])
     exit_code = 1
     try:
         exit_code = suite.world.main()
     finally:
+        grid_error = None
         if saved_grid is not None:
-            with suite.world.Client(timeout=30) as client:
-                background_check(client, Path(arguments[0]), 60).run('s.grid=%r\ns.emit()\n_result=True' % saved_grid)
-        if output.exists():
-            report = json.loads(output.read_text(encoding='utf8'))
-            report.update(source_fingerprints=frozen, source_unchanged=frozen == source_fingerprints(),
-                          palette_sha256=registry.fingerprint(), game_version=registry.source_version())
-            report['passed'] = report['passed'] and report['source_unchanged']
-            output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
-            if not report['passed']:
-                exit_code = 1
+            try:
+                with suite.world.Client(timeout=30) as client:
+                    background_check(client, output, 60).run('s.grid=%r\ns.emit()\n_result=True' % saved_grid)
+            except Exception as error:
+                grid_error = 'grid: ' + type(error).__name__ + ': ' + str(error)
+        if not finalize_report(output, frozen, production, grid_error):
+            exit_code = 1
     return exit_code
 
 

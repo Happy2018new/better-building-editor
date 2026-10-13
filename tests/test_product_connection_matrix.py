@@ -18,6 +18,7 @@ from projection.debug_blueprints import BLUEPRINTS, VISUAL_CASES, build, materia
 from projection.debug_product_connections import METADATA, VISUAL_CASE, source_document
 from projection.model import Document, Editor
 from verify_product_connection_matrix import CENTER_BODY, LOAD_BODY, body_presence, offline_report
+from verify_product_connection_matrix import finalize_report
 from verify_chest_occupied_frozen_holdout import occupancy_plan
 
 
@@ -181,6 +182,42 @@ class ChestOccupancyPlanTests(unittest.TestCase):
                             (((0, 0, 0), (1, 0, 0)), 'all')):
             with self.assertRaises(ValueError):
                 occupancy_plan(cells, half)
+
+
+class ProductFinalReportTests(unittest.TestCase):
+    def test_grid_restore_failure_overrides_a_previous_success_and_keeps_fingerprints(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'report.json'
+            output.write_text(json.dumps({'completed': True, 'passed': True, 'restored': True,
+                                          'cleanup_errors': []}), encoding='utf8')
+            with patch('verify_product_connection_matrix.source_fingerprints', return_value=['frozen']), \
+                 patch('verify_product_connection_matrix.production_fingerprint', return_value={'sha256': 'fixed'}):
+                passed = finalize_report(output, ['frozen'], {'sha256': 'fixed'}, 'grid: ConnectionError: gone')
+            report = json.loads(output.read_text(encoding='utf8'))
+            self.assertFalse(passed)
+            self.assertFalse(report['passed'])
+            self.assertFalse(report['restored'])
+            self.assertEqual(['grid: ConnectionError: gone'], report['cleanup_errors'])
+            self.assertTrue(report['source_unchanged'] and report['production_unchanged'])
+
+    def test_source_or_production_drift_rejects_a_previous_success(self):
+        for tools, production in ((['changed'], {'sha256': 'fixed'}),
+                                  (['frozen'], {'sha256': 'changed'})):
+            with tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / 'report.json'
+                output.write_text(json.dumps({'completed': True, 'passed': True, 'restored': True}), encoding='utf8')
+                with patch('verify_product_connection_matrix.source_fingerprints', return_value=tools), \
+                     patch('verify_product_connection_matrix.production_fingerprint', return_value=production):
+                    self.assertFalse(finalize_report(output, ['frozen'], {'sha256': 'fixed'}))
+
+    def test_failure_before_first_report_still_leaves_an_explicit_failed_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'new' / 'report.json'
+            with patch('verify_product_connection_matrix.source_fingerprints', return_value=['frozen']), \
+                 patch('verify_product_connection_matrix.production_fingerprint', return_value={'sha256': 'fixed'}):
+                self.assertFalse(finalize_report(output, ['frozen'], {'sha256': 'fixed'}))
+            report = json.loads(output.read_text(encoding='utf8'))
+            self.assertFalse(report['completed'] or report['passed'] or report['restored'])
 
 
 if __name__ == '__main__':
