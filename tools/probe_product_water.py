@@ -130,11 +130,19 @@ def main():
     parser.add_argument('--frozen', action='store_true')
     parser.add_argument('--controls', choices=('wet', 'all'), default='all')
     parser.add_argument('--extras', action='store_true', help='Animation, biome and missing occupancy transitions')
+    parser.add_argument('--flow-burst-exe', type=Path,
+                        help='Pinned persistent WGC helper for independent flow-direction samples')
+    parser.add_argument('--flow-burst-sha256')
+    parser.add_argument('--flow-burst-duration-ms', type=int, default=1200)
     parser.add_argument('--max-seconds', type=float, default=1200.)
     parser.add_argument('--max-handles', type=int, default=250000)
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Choose a fresh evidence report')
+    if bool(args.flow_burst_exe) != bool(args.flow_burst_sha256):
+        parser.error('Flow burst helper and expected SHA256 must be provided together')
+    if args.flow_burst_exe and args.frozen:
+        parser.error('Flow direction needs animated water')
     os.environ.update(MCDEV_SESSION_FILE=str(Path(args.session).resolve(strict=True)), MCDEV_OWNER=args.owner)
     session = load_session(args.session, args.owner, live=True)
     if Path(session['project']).resolve() != base.ROOT or not session.get('noactivation', {}).get('window_noactivate'):
@@ -157,7 +165,8 @@ def main():
                 or Path(calibration.get('session_file', '')).resolve() != Path(session['session_file']).resolve()):
             parser.error('Camera calibration must pass and restore in this exact session')
     report = {'schema': 1, 'completed': False, 'restored': False, 'cleanup_errors': [], 'captures': {},
-              'rows': {}, 'extra_rows': {}, 'frozen': args.frozen, 'routes': routes, 'cases': cases, 'controls': controls,
+              'rows': {}, 'extra_rows': {}, 'flow_bursts': {}, 'frozen': args.frozen,
+              'routes': routes, 'cases': cases, 'controls': controls,
               'session_binding': {key: session[key] for key in ('id', 'owner', 'game_pid', 'game_identity', 'session_file')},
               'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
               'product_style_accepted': False,
@@ -221,6 +230,39 @@ def main():
                 raise RuntimeError('Scene layout moved during water capture: ' + label)
         record()
 
+    def capture_flow_burst(label, row):
+        from capture_native_burst import CaptureError, capture as native_burst
+        if time.monotonic() - started > args.max_seconds:
+            raise TimeoutError('Product-water flow burst budget expired')
+        if row['route'] == 'editor':
+            before = scene_capture_state(check.run(SCENE_STATE))
+            if before is None or before != scene_capture_state(row['ready']):
+                raise RuntimeError('Scene layout moved before flow burst: ' + label)
+        else:
+            before = check.run(CAMERA_STATE)
+            if (not camera_matches(before, row['camera_expected'])
+                    or not calibrated_viewport_matches(before, report['camera_calibration'])):
+                raise RuntimeError('World camera moved before flow burst: ' + label)
+        output = args.output.with_name(args.output.stem + '_' + label + '_burst')
+        try:
+            sample = native_burst(args.session, args.owner, output, args.flow_burst_exe,
+                                  args.flow_burst_sha256, duration_ms=args.flow_burst_duration_ms,
+                                  max_frames=240, max_gap_ms=150)
+        except CaptureError as error:
+            report['flow_bursts'][label] = {'row': row, 'before': before, 'after': None,
+                                          'capture': error.report}
+            record()
+            raise
+        after = (scene_capture_state(check.run(SCENE_STATE)) if row['route'] == 'editor'
+                 else check.run(CAMERA_STATE))
+        report['flow_bursts'][label] = {'row': row, 'before': before, 'after': after,
+                                      'capture': sample}
+        record()
+        if before != after:
+            raise RuntimeError('Physical face camera moved during flow burst: ' + label)
+        if row['route'] != 'editor' and [sample['window']['width'], sample['window']['height']] != report['camera_calibration']['capture_size']:
+            raise RuntimeError('Flow burst viewport differs from the same-session calibration')
+
     with base.Client(timeout=45) as client:
         check = blueprints.BlueprintCheck(client, args.output, 45.)
         installed = visual_saved = environment_attempted = world_saved = options_attempted = hud_attempted = False
@@ -277,6 +319,9 @@ def main():
                             row['camera']['target'] = row['camera_expected']['target']
                         time.sleep(.35)
                         capture(label, row)
+                        if (control == 'wet' and args.flow_burst_exe
+                                and (identity.startswith('flow_') or identity == 'falling')):
+                            capture_flow_burst(label, row)
                         if control == 'wet' and args.extras:
                             row['temporal_initial'] = report['captures'][label]
                             time.sleep(.55)
