@@ -1,0 +1,2919 @@
+{
+  "schema": 1,
+  "completed": false,
+  "passed": false,
+  "rows": [],
+  "style": {
+    "schema": 1,
+    "name": "fixed_centered_snapshot",
+    "xz_translation": [
+      0,
+      0
+    ],
+    "cross_height": 1,
+    "native_random_offset": false,
+    "world_lifecycle": false,
+    "cell_span": [
+      0.1,
+      0.9
+    ]
+  },
+  "profile_sha256": "286b75deb1155a4f111fdb20140ed278948a4438709e304c2f01d9f8464592da",
+  "plants": [
+    "short_grass"
+  ],
+  "heights": {
+    "short_grass": [
+      0
+    ]
+  },
+  "calibration": {
+    "schema": 1,
+    "passed": true,
+    "completed": true,
+    "views": [
+      {
+        "view": "front",
+        "pose": {
+          "position": [
+            6.5,
+            -25.5,
+            12.5
+          ],
+          "rotation": [
+            -0.0,
+            0.0,
+            0.0
+          ],
+          "target": [
+            6.5,
+            -25.5,
+            6.5
+          ]
+        },
+        "camera": {
+          "position": [
+            6.5,
+            -25.5,
+            12.5
+          ],
+          "rotation": [
+            0.0,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0
+        },
+        "candidates": {
+          "vertical": {
+            "vertical_fov": 60.0,
+            "bounds": [
+              910,
+              465,
+              1084,
+              640
+            ],
+            "max_boundary_error_pixels": 11
+          },
+          "horizontal": {
+            "vertical_fov": 35.48371558842684,
+            "bounds": [
+              840,
+              395,
+              1154,
+              710
+            ],
+            "max_boundary_error_pixels": 81
+          }
+        },
+        "convention": "vertical",
+        "passed": true,
+        "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_front_signal.png",
+        "shown": {
+          "path": "calibration_front_shown_native.png",
+          "bytes": 357079,
+          "sha256": "51710c5f3e49c9e0e5e6cd10f60a0bcbceb3ded975f3c15863c8393ee77aa464",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "hidden": {
+          "path": "calibration_front_hidden_native.png",
+          "bytes": 612597,
+          "sha256": "6168ff444b6ab520d362a820dc62a8c179c2d4cc05d7c39f3fcc0f378e58f19b",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_front_signal_outline_comparison.png",
+        "fit": {
+          "vertical_fov": 66.6,
+          "bounds": [
+            920,
+            474,
+            1075,
+            629
+          ],
+          "predicted_bounds": [
+            920,
+            476,
+            1074,
+            629
+          ],
+          "boundary_rms_pixels": 1.118033988749895,
+          "mask_iou": 0.9808092581800016,
+          "outline_recall_2px": 1.0,
+          "outline_precision_2px": 1.0,
+          "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+        }
+      },
+      {
+        "view": "right",
+        "pose": {
+          "position": [
+            12.5,
+            -25.5,
+            6.5
+          ],
+          "rotation": [
+            -0.0,
+            270.0,
+            0.0
+          ],
+          "target": [
+            6.5,
+            -25.5,
+            6.5
+          ]
+        },
+        "camera": {
+          "position": [
+            12.5,
+            -25.5,
+            6.5
+          ],
+          "rotation": [
+            0.0,
+            -90.0,
+            -1.3660377589985728e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0
+        },
+        "candidates": {
+          "vertical": {
+            "vertical_fov": 60.0,
+            "bounds": [
+              910,
+              465,
+              1084,
+              640
+            ],
+            "max_boundary_error_pixels": 11
+          },
+          "horizontal": {
+            "vertical_fov": 35.48371558842684,
+            "bounds": [
+              840,
+              395,
+              1154,
+              710
+            ],
+            "max_boundary_error_pixels": 81
+          }
+        },
+        "convention": "vertical",
+        "passed": true,
+        "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_right_signal.png",
+        "shown": {
+          "path": "calibration_right_shown_native.png",
+          "bytes": 529307,
+          "sha256": "a2c2eb0958d3ed356c258ab9f7181cfcac571676bf399db46b95042a80eea4e0",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "hidden": {
+          "path": "calibration_right_hidden_native.png",
+          "bytes": 601234,
+          "sha256": "aa855fb2e11690c9242320847f74b943af7bab512f0154805820831245ce61ce",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_right_signal_outline_comparison.png",
+        "fit": {
+          "vertical_fov": 66.6,
+          "bounds": [
+            920,
+            474,
+            1075,
+            629
+          ],
+          "predicted_bounds": [
+            920,
+            476,
+            1074,
+            629
+          ],
+          "boundary_rms_pixels": 1.118033988749895,
+          "mask_iou": 0.9808092581800016,
+          "outline_recall_2px": 1.0,
+          "outline_precision_2px": 1.0,
+          "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+        }
+      },
+      {
+        "view": "tilted",
+        "pose": {
+          "position": [
+            6.5,
+            -28.5,
+            12.5
+          ],
+          "rotation": [
+            -26.56505012512207,
+            0.0,
+            0.0
+          ],
+          "target": [
+            6.5,
+            -25.5,
+            6.5
+          ]
+        },
+        "camera": {
+          "position": [
+            6.5,
+            -28.5,
+            12.5
+          ],
+          "rotation": [
+            -26.565046310424805,
+            1.3660377589985728e-05,
+            -1.3660377589985728e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ],
+          "fov": 60.0
+        },
+        "candidates": {
+          "vertical": {
+            "vertical_fov": 60.0,
+            "bounds": [
+              917,
+              453,
+              1077,
+              646
+            ],
+            "max_boundary_error_pixels": 12
+          },
+          "horizontal": {
+            "vertical_fov": 35.48371558842684,
+            "bounds": [
+              853,
+              373,
+              1141,
+              720
+            ],
+            "max_boundary_error_pixels": 91
+          }
+        },
+        "convention": "vertical",
+        "passed": true,
+        "signal": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_tilted_signal.png",
+        "shown": {
+          "path": "calibration_tilted_shown_native.png",
+          "bytes": 95547,
+          "sha256": "ce04ffaf1ce3611d0a294592ed0c35fced527911843fc54eda54212c7d84b53c",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "hidden": {
+          "path": "calibration_tilted_hidden_native.png",
+          "bytes": 92887,
+          "sha256": "b70790c4bcfe5e51d0287fb2f015e2f5bd25b96f520a6fbd12bb5fcb8ebd47c8",
+          "mime": "image/png",
+          "size": [
+            1994,
+            1105
+          ]
+        },
+        "outline_comparison": "D:\\bbe-r13e-snow\\<retained-runtime>\\calibration_tilted_signal_outline_comparison.png",
+        "fit": {
+          "vertical_fov": 66.6,
+          "bounds": [
+            927,
+            464,
+            1068,
+            634
+          ],
+          "predicted_bounds": [
+            927,
+            465,
+            1067,
+            634
+          ],
+          "boundary_rms_pixels": 0.7071067811865476,
+          "mask_iou": 0.9867616218105557,
+          "outline_recall_2px": 1.0,
+          "outline_precision_2px": 1.0,
+          "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+        }
+      }
+    ],
+    "scope": "Exact full native client cube; world blocks and player position untouched",
+    "native_resolution": true,
+    "skyward_tilted": true,
+    "fixture_lift_y": 26,
+    "environment": {
+      "rules": {
+        "command_blocks_enabled": true,
+        "mob_griefing": true,
+        "enable": true,
+        "keep_inventory": true,
+        "entities_drop_loot": true,
+        "daylight_cycle": false,
+        "random_tick_speed": 1,
+        "mob_spawn": true,
+        "weather_cycle": false,
+        "show_days_played": false,
+        "recipes_unlock": true,
+        "is_flat_world": true,
+        "always_day": false,
+        "skip_night_by_sleeping": true,
+        "player_sleeping_percentage": 100
+      },
+      "raining": false,
+      "thunder": false,
+      "time": 0
+    },
+    "capture_options": {
+      "clouds_during_capture": 0,
+      "clouds_before": 0
+    },
+    "weather_settle_seconds": 10.0,
+    "fixture": {
+      "cube_material": [
+        "minecraft:stone",
+        0
+      ],
+      "projection_origin": [
+        5,
+        -27,
+        5
+      ],
+      "cube_cell": [
+        1,
+        1,
+        1
+      ],
+      "cube_size": [
+        3,
+        3,
+        3
+      ],
+      "player_origin": [
+        0,
+        -60,
+        0
+      ]
+    },
+    "fov_convention": "calibrated_vertical",
+    "reported_fov": 60.0,
+    "screen_aspect": 1.8014440433212997,
+    "reported_fov_is_effective": false,
+    "runtime_minecraft_version": "1.21.120.0",
+    "vertical_fov": 66.6,
+    "individual_fitted_vertical_fov": [
+      66.3,
+      66.3,
+      66.6
+    ],
+    "limits": {
+      "boundary_rms_pixels": 2,
+      "mask_iou": 0.95,
+      "outline_recall_2px": 0.985,
+      "outline_precision_2px": 0.985,
+      "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+    },
+    "environment_restored": true,
+    "capture_options_restored": true,
+    "projection_restored": true,
+    "camera_restored": true,
+    "visual_restored": true,
+    "editor_restored": true,
+    "cleanup_errors": [],
+    "restored": true
+  },
+  "blueprint_case": {
+    "schema": 4,
+    "fixture": "test.layers.snow",
+    "cells": [
+      {
+        "plant": "short_grass",
+        "standalone": [
+          3,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              3,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              34,
+              1,
+              3
+            ]
+          ],
+          [
+            2,
+            [
+              37,
+              1,
+              3
+            ]
+          ],
+          [
+            3,
+            [
+              40,
+              1,
+              3
+            ]
+          ],
+          [
+            4,
+            [
+              43,
+              1,
+              3
+            ]
+          ],
+          [
+            5,
+            [
+              3,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              46,
+              1,
+              3
+            ]
+          ],
+          [
+            7,
+            [
+              49,
+              1,
+              3
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "fern",
+        "standalone": [
+          8,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              8,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              52,
+              1,
+              3
+            ]
+          ],
+          [
+            2,
+            [
+              55,
+              1,
+              3
+            ]
+          ],
+          [
+            3,
+            [
+              58,
+              1,
+              3
+            ]
+          ],
+          [
+            4,
+            [
+              61,
+              1,
+              3
+            ]
+          ],
+          [
+            5,
+            [
+              8,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              34,
+              1,
+              6
+            ]
+          ],
+          [
+            7,
+            [
+              37,
+              1,
+              6
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "dandelion",
+        "standalone": [
+          13,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              13,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              40,
+              1,
+              6
+            ]
+          ],
+          [
+            2,
+            [
+              43,
+              1,
+              6
+            ]
+          ],
+          [
+            3,
+            [
+              46,
+              1,
+              6
+            ]
+          ],
+          [
+            4,
+            [
+              49,
+              1,
+              6
+            ]
+          ],
+          [
+            5,
+            [
+              13,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              52,
+              1,
+              6
+            ]
+          ],
+          [
+            7,
+            [
+              55,
+              1,
+              6
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "poppy",
+        "standalone": [
+          18,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              18,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              58,
+              1,
+              6
+            ]
+          ],
+          [
+            2,
+            [
+              61,
+              1,
+              6
+            ]
+          ],
+          [
+            3,
+            [
+              34,
+              1,
+              9
+            ]
+          ],
+          [
+            4,
+            [
+              37,
+              1,
+              9
+            ]
+          ],
+          [
+            5,
+            [
+              18,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              40,
+              1,
+              9
+            ]
+          ],
+          [
+            7,
+            [
+              43,
+              1,
+              9
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "blue_orchid",
+        "standalone": [
+          23,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              23,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              46,
+              1,
+              9
+            ]
+          ],
+          [
+            2,
+            [
+              49,
+              1,
+              9
+            ]
+          ],
+          [
+            3,
+            [
+              52,
+              1,
+              9
+            ]
+          ],
+          [
+            4,
+            [
+              55,
+              1,
+              9
+            ]
+          ],
+          [
+            5,
+            [
+              23,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              58,
+              1,
+              9
+            ]
+          ],
+          [
+            7,
+            [
+              61,
+              1,
+              9
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "allium",
+        "standalone": [
+          28,
+          1,
+          3
+        ],
+        "covered": [
+          [
+            0,
+            [
+              28,
+              1,
+              9
+            ]
+          ],
+          [
+            1,
+            [
+              34,
+              1,
+              12
+            ]
+          ],
+          [
+            2,
+            [
+              37,
+              1,
+              12
+            ]
+          ],
+          [
+            3,
+            [
+              40,
+              1,
+              12
+            ]
+          ],
+          [
+            4,
+            [
+              43,
+              1,
+              12
+            ]
+          ],
+          [
+            5,
+            [
+              28,
+              1,
+              16
+            ]
+          ],
+          [
+            6,
+            [
+              46,
+              1,
+              12
+            ]
+          ],
+          [
+            7,
+            [
+              49,
+              1,
+              12
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "azure_bluet",
+        "standalone": [
+          52,
+          1,
+          12
+        ],
+        "covered": [
+          [
+            0,
+            [
+              55,
+              1,
+              12
+            ]
+          ],
+          [
+            1,
+            [
+              58,
+              1,
+              12
+            ]
+          ],
+          [
+            2,
+            [
+              61,
+              1,
+              12
+            ]
+          ],
+          [
+            3,
+            [
+              34,
+              1,
+              15
+            ]
+          ],
+          [
+            4,
+            [
+              37,
+              1,
+              15
+            ]
+          ],
+          [
+            5,
+            [
+              40,
+              1,
+              15
+            ]
+          ],
+          [
+            6,
+            [
+              43,
+              1,
+              15
+            ]
+          ],
+          [
+            7,
+            [
+              46,
+              1,
+              15
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "brown_mushroom",
+        "standalone": [
+          49,
+          1,
+          15
+        ],
+        "covered": [
+          [
+            0,
+            [
+              52,
+              1,
+              15
+            ]
+          ],
+          [
+            1,
+            [
+              55,
+              1,
+              15
+            ]
+          ],
+          [
+            2,
+            [
+              58,
+              1,
+              15
+            ]
+          ],
+          [
+            3,
+            [
+              61,
+              1,
+              15
+            ]
+          ],
+          [
+            4,
+            [
+              34,
+              1,
+              18
+            ]
+          ],
+          [
+            5,
+            [
+              37,
+              1,
+              18
+            ]
+          ],
+          [
+            6,
+            [
+              40,
+              1,
+              18
+            ]
+          ],
+          [
+            7,
+            [
+              43,
+              1,
+              18
+            ]
+          ]
+        ],
+        "support": "podzol"
+      },
+      {
+        "plant": "bush",
+        "standalone": [
+          46,
+          1,
+          18
+        ],
+        "covered": [
+          [
+            0,
+            [
+              49,
+              1,
+              18
+            ]
+          ],
+          [
+            1,
+            [
+              52,
+              1,
+              18
+            ]
+          ],
+          [
+            2,
+            [
+              55,
+              1,
+              18
+            ]
+          ],
+          [
+            3,
+            [
+              58,
+              1,
+              18
+            ]
+          ],
+          [
+            4,
+            [
+              61,
+              1,
+              18
+            ]
+          ],
+          [
+            5,
+            [
+              34,
+              1,
+              21
+            ]
+          ],
+          [
+            6,
+            [
+              37,
+              1,
+              21
+            ]
+          ],
+          [
+            7,
+            [
+              40,
+              1,
+              21
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "closed_eyeblossom",
+        "standalone": [
+          43,
+          1,
+          21
+        ],
+        "covered": [
+          [
+            0,
+            [
+              46,
+              1,
+              21
+            ]
+          ],
+          [
+            1,
+            [
+              49,
+              1,
+              21
+            ]
+          ],
+          [
+            2,
+            [
+              52,
+              1,
+              21
+            ]
+          ],
+          [
+            3,
+            [
+              55,
+              1,
+              21
+            ]
+          ],
+          [
+            4,
+            [
+              58,
+              1,
+              21
+            ]
+          ],
+          [
+            5,
+            [
+              61,
+              1,
+              21
+            ]
+          ],
+          [
+            6,
+            [
+              34,
+              1,
+              24
+            ]
+          ],
+          [
+            7,
+            [
+              37,
+              1,
+              24
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "cornflower",
+        "standalone": [
+          40,
+          1,
+          24
+        ],
+        "covered": [
+          [
+            0,
+            [
+              43,
+              1,
+              24
+            ]
+          ],
+          [
+            1,
+            [
+              46,
+              1,
+              24
+            ]
+          ],
+          [
+            2,
+            [
+              49,
+              1,
+              24
+            ]
+          ],
+          [
+            3,
+            [
+              52,
+              1,
+              24
+            ]
+          ],
+          [
+            4,
+            [
+              55,
+              1,
+              24
+            ]
+          ],
+          [
+            5,
+            [
+              58,
+              1,
+              24
+            ]
+          ],
+          [
+            6,
+            [
+              61,
+              1,
+              24
+            ]
+          ],
+          [
+            7,
+            [
+              34,
+              1,
+              27
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "crimson_fungus",
+        "standalone": [
+          37,
+          1,
+          27
+        ],
+        "covered": [
+          [
+            0,
+            [
+              40,
+              1,
+              27
+            ]
+          ],
+          [
+            1,
+            [
+              43,
+              1,
+              27
+            ]
+          ],
+          [
+            2,
+            [
+              46,
+              1,
+              27
+            ]
+          ],
+          [
+            3,
+            [
+              49,
+              1,
+              27
+            ]
+          ],
+          [
+            4,
+            [
+              52,
+              1,
+              27
+            ]
+          ],
+          [
+            5,
+            [
+              55,
+              1,
+              27
+            ]
+          ],
+          [
+            6,
+            [
+              58,
+              1,
+              27
+            ]
+          ],
+          [
+            7,
+            [
+              61,
+              1,
+              27
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "crimson_roots",
+        "standalone": [
+          34,
+          1,
+          30
+        ],
+        "covered": [
+          [
+            0,
+            [
+              37,
+              1,
+              30
+            ]
+          ],
+          [
+            1,
+            [
+              40,
+              1,
+              30
+            ]
+          ],
+          [
+            2,
+            [
+              43,
+              1,
+              30
+            ]
+          ],
+          [
+            3,
+            [
+              46,
+              1,
+              30
+            ]
+          ],
+          [
+            4,
+            [
+              49,
+              1,
+              30
+            ]
+          ],
+          [
+            5,
+            [
+              52,
+              1,
+              30
+            ]
+          ],
+          [
+            6,
+            [
+              55,
+              1,
+              30
+            ]
+          ],
+          [
+            7,
+            [
+              58,
+              1,
+              30
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "firefly_bush",
+        "standalone": [
+          61,
+          1,
+          30
+        ],
+        "covered": [
+          [
+            0,
+            [
+              34,
+              1,
+              33
+            ]
+          ],
+          [
+            1,
+            [
+              37,
+              1,
+              33
+            ]
+          ],
+          [
+            2,
+            [
+              40,
+              1,
+              33
+            ]
+          ],
+          [
+            3,
+            [
+              43,
+              1,
+              33
+            ]
+          ],
+          [
+            4,
+            [
+              46,
+              1,
+              33
+            ]
+          ],
+          [
+            5,
+            [
+              49,
+              1,
+              33
+            ]
+          ],
+          [
+            6,
+            [
+              52,
+              1,
+              33
+            ]
+          ],
+          [
+            7,
+            [
+              55,
+              1,
+              33
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "lily_of_the_valley",
+        "standalone": [
+          58,
+          1,
+          33
+        ],
+        "covered": [
+          [
+            0,
+            [
+              61,
+              1,
+              33
+            ]
+          ],
+          [
+            1,
+            [
+              34,
+              1,
+              36
+            ]
+          ],
+          [
+            2,
+            [
+              37,
+              1,
+              36
+            ]
+          ],
+          [
+            3,
+            [
+              40,
+              1,
+              36
+            ]
+          ],
+          [
+            4,
+            [
+              43,
+              1,
+              36
+            ]
+          ],
+          [
+            5,
+            [
+              46,
+              1,
+              36
+            ]
+          ],
+          [
+            6,
+            [
+              49,
+              1,
+              36
+            ]
+          ],
+          [
+            7,
+            [
+              52,
+              1,
+              36
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "nether_sprouts",
+        "standalone": [
+          55,
+          1,
+          36
+        ],
+        "covered": [
+          [
+            0,
+            [
+              58,
+              1,
+              36
+            ]
+          ],
+          [
+            1,
+            [
+              61,
+              1,
+              36
+            ]
+          ],
+          [
+            2,
+            [
+              34,
+              1,
+              39
+            ]
+          ],
+          [
+            3,
+            [
+              37,
+              1,
+              39
+            ]
+          ],
+          [
+            4,
+            [
+              40,
+              1,
+              39
+            ]
+          ],
+          [
+            5,
+            [
+              43,
+              1,
+              39
+            ]
+          ],
+          [
+            6,
+            [
+              46,
+              1,
+              39
+            ]
+          ],
+          [
+            7,
+            [
+              49,
+              1,
+              39
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "open_eyeblossom",
+        "standalone": [
+          52,
+          1,
+          39
+        ],
+        "covered": [
+          [
+            0,
+            [
+              55,
+              1,
+              39
+            ]
+          ],
+          [
+            1,
+            [
+              58,
+              1,
+              39
+            ]
+          ],
+          [
+            2,
+            [
+              61,
+              1,
+              39
+            ]
+          ],
+          [
+            3,
+            [
+              34,
+              1,
+              42
+            ]
+          ],
+          [
+            4,
+            [
+              37,
+              1,
+              42
+            ]
+          ],
+          [
+            5,
+            [
+              40,
+              1,
+              42
+            ]
+          ],
+          [
+            6,
+            [
+              43,
+              1,
+              42
+            ]
+          ],
+          [
+            7,
+            [
+              46,
+              1,
+              42
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "orange_tulip",
+        "standalone": [
+          49,
+          1,
+          42
+        ],
+        "covered": [
+          [
+            0,
+            [
+              52,
+              1,
+              42
+            ]
+          ],
+          [
+            1,
+            [
+              55,
+              1,
+              42
+            ]
+          ],
+          [
+            2,
+            [
+              58,
+              1,
+              42
+            ]
+          ],
+          [
+            3,
+            [
+              61,
+              1,
+              42
+            ]
+          ],
+          [
+            4,
+            [
+              34,
+              1,
+              45
+            ]
+          ],
+          [
+            5,
+            [
+              37,
+              1,
+              45
+            ]
+          ],
+          [
+            6,
+            [
+              40,
+              1,
+              45
+            ]
+          ],
+          [
+            7,
+            [
+              43,
+              1,
+              45
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "oxeye_daisy",
+        "standalone": [
+          46,
+          1,
+          45
+        ],
+        "covered": [
+          [
+            0,
+            [
+              49,
+              1,
+              45
+            ]
+          ],
+          [
+            1,
+            [
+              52,
+              1,
+              45
+            ]
+          ],
+          [
+            2,
+            [
+              55,
+              1,
+              45
+            ]
+          ],
+          [
+            3,
+            [
+              58,
+              1,
+              45
+            ]
+          ],
+          [
+            4,
+            [
+              61,
+              1,
+              45
+            ]
+          ],
+          [
+            5,
+            [
+              34,
+              1,
+              48
+            ]
+          ],
+          [
+            6,
+            [
+              37,
+              1,
+              48
+            ]
+          ],
+          [
+            7,
+            [
+              40,
+              1,
+              48
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "pink_tulip",
+        "standalone": [
+          43,
+          1,
+          48
+        ],
+        "covered": [
+          [
+            0,
+            [
+              46,
+              1,
+              48
+            ]
+          ],
+          [
+            1,
+            [
+              49,
+              1,
+              48
+            ]
+          ],
+          [
+            2,
+            [
+              52,
+              1,
+              48
+            ]
+          ],
+          [
+            3,
+            [
+              55,
+              1,
+              48
+            ]
+          ],
+          [
+            4,
+            [
+              58,
+              1,
+              48
+            ]
+          ],
+          [
+            5,
+            [
+              61,
+              1,
+              48
+            ]
+          ],
+          [
+            6,
+            [
+              34,
+              1,
+              51
+            ]
+          ],
+          [
+            7,
+            [
+              37,
+              1,
+              51
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "red_mushroom",
+        "standalone": [
+          40,
+          1,
+          51
+        ],
+        "covered": [
+          [
+            0,
+            [
+              43,
+              1,
+              51
+            ]
+          ],
+          [
+            1,
+            [
+              46,
+              1,
+              51
+            ]
+          ],
+          [
+            2,
+            [
+              49,
+              1,
+              51
+            ]
+          ],
+          [
+            3,
+            [
+              52,
+              1,
+              51
+            ]
+          ],
+          [
+            4,
+            [
+              55,
+              1,
+              51
+            ]
+          ],
+          [
+            5,
+            [
+              58,
+              1,
+              51
+            ]
+          ],
+          [
+            6,
+            [
+              61,
+              1,
+              51
+            ]
+          ],
+          [
+            7,
+            [
+              34,
+              1,
+              54
+            ]
+          ]
+        ],
+        "support": "podzol"
+      },
+      {
+        "plant": "red_tulip",
+        "standalone": [
+          37,
+          1,
+          54
+        ],
+        "covered": [
+          [
+            0,
+            [
+              40,
+              1,
+              54
+            ]
+          ],
+          [
+            1,
+            [
+              43,
+              1,
+              54
+            ]
+          ],
+          [
+            2,
+            [
+              46,
+              1,
+              54
+            ]
+          ],
+          [
+            3,
+            [
+              49,
+              1,
+              54
+            ]
+          ],
+          [
+            4,
+            [
+              52,
+              1,
+              54
+            ]
+          ],
+          [
+            5,
+            [
+              55,
+              1,
+              54
+            ]
+          ],
+          [
+            6,
+            [
+              58,
+              1,
+              54
+            ]
+          ],
+          [
+            7,
+            [
+              61,
+              1,
+              54
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "short_dry_grass",
+        "standalone": [
+          34,
+          1,
+          57
+        ],
+        "covered": [
+          [
+            0,
+            [
+              37,
+              1,
+              57
+            ]
+          ],
+          [
+            1,
+            [
+              40,
+              1,
+              57
+            ]
+          ],
+          [
+            2,
+            [
+              43,
+              1,
+              57
+            ]
+          ],
+          [
+            3,
+            [
+              46,
+              1,
+              57
+            ]
+          ],
+          [
+            4,
+            [
+              49,
+              1,
+              57
+            ]
+          ],
+          [
+            5,
+            [
+              52,
+              1,
+              57
+            ]
+          ],
+          [
+            6,
+            [
+              55,
+              1,
+              57
+            ]
+          ],
+          [
+            7,
+            [
+              58,
+              1,
+              57
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "tall_dry_grass",
+        "standalone": [
+          61,
+          1,
+          57
+        ],
+        "covered": [
+          [
+            0,
+            [
+              34,
+              1,
+              60
+            ]
+          ],
+          [
+            1,
+            [
+              37,
+              1,
+              60
+            ]
+          ],
+          [
+            2,
+            [
+              40,
+              1,
+              60
+            ]
+          ],
+          [
+            3,
+            [
+              43,
+              1,
+              60
+            ]
+          ],
+          [
+            4,
+            [
+              46,
+              1,
+              60
+            ]
+          ],
+          [
+            5,
+            [
+              49,
+              1,
+              60
+            ]
+          ],
+          [
+            6,
+            [
+              52,
+              1,
+              60
+            ]
+          ],
+          [
+            7,
+            [
+              55,
+              1,
+              60
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "torchflower",
+        "standalone": [
+          58,
+          1,
+          60
+        ],
+        "covered": [
+          [
+            0,
+            [
+              61,
+              1,
+              60
+            ]
+          ],
+          [
+            1,
+            [
+              3,
+              1,
+              25
+            ]
+          ],
+          [
+            2,
+            [
+              6,
+              1,
+              25
+            ]
+          ],
+          [
+            3,
+            [
+              9,
+              1,
+              25
+            ]
+          ],
+          [
+            4,
+            [
+              12,
+              1,
+              25
+            ]
+          ],
+          [
+            5,
+            [
+              15,
+              1,
+              25
+            ]
+          ],
+          [
+            6,
+            [
+              18,
+              1,
+              25
+            ]
+          ],
+          [
+            7,
+            [
+              21,
+              1,
+              25
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "warped_fungus",
+        "standalone": [
+          24,
+          1,
+          25
+        ],
+        "covered": [
+          [
+            0,
+            [
+              27,
+              1,
+              25
+            ]
+          ],
+          [
+            1,
+            [
+              30,
+              1,
+              25
+            ]
+          ],
+          [
+            2,
+            [
+              3,
+              1,
+              28
+            ]
+          ],
+          [
+            3,
+            [
+              6,
+              1,
+              28
+            ]
+          ],
+          [
+            4,
+            [
+              9,
+              1,
+              28
+            ]
+          ],
+          [
+            5,
+            [
+              12,
+              1,
+              28
+            ]
+          ],
+          [
+            6,
+            [
+              15,
+              1,
+              28
+            ]
+          ],
+          [
+            7,
+            [
+              18,
+              1,
+              28
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "warped_roots",
+        "standalone": [
+          21,
+          1,
+          28
+        ],
+        "covered": [
+          [
+            0,
+            [
+              24,
+              1,
+              28
+            ]
+          ],
+          [
+            1,
+            [
+              27,
+              1,
+              28
+            ]
+          ],
+          [
+            2,
+            [
+              30,
+              1,
+              28
+            ]
+          ],
+          [
+            3,
+            [
+              3,
+              1,
+              31
+            ]
+          ],
+          [
+            4,
+            [
+              6,
+              1,
+              31
+            ]
+          ],
+          [
+            5,
+            [
+              9,
+              1,
+              31
+            ]
+          ],
+          [
+            6,
+            [
+              12,
+              1,
+              31
+            ]
+          ],
+          [
+            7,
+            [
+              15,
+              1,
+              31
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "white_tulip",
+        "standalone": [
+          18,
+          1,
+          31
+        ],
+        "covered": [
+          [
+            0,
+            [
+              21,
+              1,
+              31
+            ]
+          ],
+          [
+            1,
+            [
+              24,
+              1,
+              31
+            ]
+          ],
+          [
+            2,
+            [
+              27,
+              1,
+              31
+            ]
+          ],
+          [
+            3,
+            [
+              30,
+              1,
+              31
+            ]
+          ],
+          [
+            4,
+            [
+              3,
+              1,
+              34
+            ]
+          ],
+          [
+            5,
+            [
+              6,
+              1,
+              34
+            ]
+          ],
+          [
+            6,
+            [
+              9,
+              1,
+              34
+            ]
+          ],
+          [
+            7,
+            [
+              12,
+              1,
+              34
+            ]
+          ]
+        ],
+        "support": "dirt"
+      },
+      {
+        "plant": "wither_rose",
+        "standalone": [
+          15,
+          1,
+          34
+        ],
+        "covered": [
+          [
+            0,
+            [
+              18,
+              1,
+              34
+            ]
+          ],
+          [
+            1,
+            [
+              21,
+              1,
+              34
+            ]
+          ],
+          [
+            2,
+            [
+              24,
+              1,
+              34
+            ]
+          ],
+          [
+            3,
+            [
+              27,
+              1,
+              34
+            ]
+          ],
+          [
+            4,
+            [
+              30,
+              1,
+              34
+            ]
+          ],
+          [
+            5,
+            [
+              3,
+              1,
+              37
+            ]
+          ],
+          [
+            6,
+            [
+              6,
+              1,
+              37
+            ]
+          ],
+          [
+            7,
+            [
+              9,
+              1,
+              37
+            ]
+          ]
+        ],
+        "support": "dirt"
+      }
+    ],
+    "size": [
+      3,
+      3,
+      3
+    ],
+    "focus": [
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "camera": {
+      "editor": [
+        35.0,
+        10.0,
+        2.8
+      ],
+      "world_offset": [
+        -2.0,
+        0.15,
+        -2.5
+      ]
+    },
+    "native_biome": "minecraft:ice_plains",
+    "fungus_boundary": {
+      "schema": 1,
+      "geometry_status": "Centered cross measured at two fixed views; authoritative native mesh unverified",
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "crimson_fungus": [
+          4,
+          5
+        ],
+        "warped_fungus": [
+          3,
+          4
+        ]
+      },
+      "scope": "Dry and immediately before/at the alpha-derived candidate burial boundary, both modes and both fixed views",
+      "all_eight_snow_heights_accepted": false
+    },
+    "fungus_remaining": {
+      "schema": 1,
+      "geometry_status": "R7 centered cross; remaining-height acceptance pending independent native pixels",
+      "native_target": [
+        -47,
+        117,
+        -70
+      ],
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "crimson_fungus": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7
+        ],
+        "warped_fungus": [
+          0,
+          1,
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      "scope": "Dry control and the six heights absent from the R7 boundary matrix, both modes and both fixed views",
+      "all_eight_snow_heights_accepted": false
+    },
+    "static_root_screen": {
+      "schema": 1,
+      "geometry_status": "Native omission or centered-cross hypothesis; plant acceptance pending independent pixels",
+      "native_target": [
+        -47,
+        117,
+        -70
+      ],
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "crimson_roots": [
+          0
+        ],
+        "warped_roots": [
+          0
+        ],
+        "nether_sprouts": [
+          0
+        ]
+      },
+      "scope": "Dry control and thin snow screening, both modes and fixed views; no all-height acceptance",
+      "all_eight_snow_heights_accepted": false
+    },
+    "static_root_remaining": {
+      "schema": 1,
+      "geometry_status": "Centered-cross hypothesis; acceptance requires the independent screen and remaining heights",
+      "native_target": [
+        -47,
+        117,
+        -70
+      ],
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "crimson_roots": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "warped_roots": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "nether_sprouts": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "scope": "Seven heights absent from the screening profile, both modes and fixed views",
+      "all_eight_snow_heights_accepted": false
+    },
+    "cross_candidate_screen": {
+      "schema": 1,
+      "geometry_status": "Experimental unit-height/clip-translation cross; native mesh and offset authority unverified",
+      "native_target": [
+        -47,
+        117,
+        -70
+      ],
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "poppy": [
+          0
+        ],
+        "short_grass": [
+          0
+        ],
+        "fern": [
+          0
+        ],
+        "crimson_roots": [
+          0
+        ],
+        "warped_roots": [
+          0
+        ],
+        "nether_sprouts": [
+          0
+        ]
+      },
+      "scope": "Dry and h0 candidate screen at one declared cell/two views; no new production acceptance",
+      "all_eight_snow_heights_accepted": false
+    },
+    "poppy_candidate_remaining": {
+      "schema": 1,
+      "geometry_status": "Unchanged R10B unit-height/clip-translation candidate; native mesh and offset authority unverified",
+      "native_target": [
+        -47,
+        117,
+        -70
+      ],
+      "views": {
+        "public": [
+          -2.0,
+          0.15,
+          -2.5
+        ],
+        "right": [
+          2.0,
+          0.15,
+          -2.5
+        ]
+      },
+      "heights": {
+        "poppy": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "scope": "Dry control and seven heights absent from the h0 candidate screen, at the same fixed cell/two views; no production acceptance",
+      "all_eight_snow_heights_accepted": false
+    }
+  },
+  "agent_activation_allowed": false,
+  "capture_policy": "Owner-bound guarded capture; user may foreground the game",
+  "native_random_jitter_is_diagnostic": true,
+  "scope": "Centered snapshot dry and alpha burial boundaries; built-in editor and separate full/missing projections",
+  "capture_options": {
+    "clouds_during_capture": 0,
+    "clouds_before": 0
+  },
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": false,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": false,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": true,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 0
+  },
+  "target": [
+    6,
+    -28,
+    6
+  ],
+  "world_offset": [
+    -2.0,
+    1.2,
+    -2.5
+  ],
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: (1, 25, 25)\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 443, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 472, in _RUN_SERVER_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 15, in <module>\\nAssertionError: (1, 25, 25)\\n\", \"type\": \"text\"}]}",
+  "cleanup_errors": [],
+  "restored": true,
+  "elapsed_seconds": 5.0396800999988045
+}

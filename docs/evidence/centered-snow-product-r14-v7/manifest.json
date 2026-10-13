@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "source_reports": {
+    "calibration": {
+      "original_sha256": "e6775464a94a455671a9524f480c70068d9d7ac9020107a43d331e0bd6b24ebf",
+      "completed": true,
+      "passed": true,
+      "restored": true
+    },
+    "positive": {
+      "original_sha256": "497a4deef6f8dbd0b0dcaa202e925008a056ba97c8e365ce9df3e0c6f63d5086",
+      "completed": true,
+      "passed": true,
+      "restored": true
+    },
+    "screen": {
+      "original_sha256": "0398bcbb067d377256ead2ad9f6643b1fa7e65aa5144f574395176bf2ab8de36",
+      "completed": true,
+      "passed": true,
+      "restored": true
+    },
+    "all-heights": {
+      "original_sha256": "f82a55eb557661c031c01e0e8a347f25cc1a592426c47265aa60f4546ec9b46d",
+      "completed": true,
+      "passed": true,
+      "restored": true
+    },
+    "catalogue": {
+      "original_sha256": "b03d65143845beface8f52410e951608357636a564d577442cb4b01d0123bcad",
+      "completed": false,
+      "passed": false,
+      "restored": true
+    },
+    "report": {
+      "original_sha256": "a910c08c4e719b2b42fb847a42a7f06a7b983f45e037d8a9f58652763b8cccda",
+      "completed": false,
+      "passed": null,
+      "restored": null
+    },
+    "historical_v2_positive": {
+      "original_sha256": "64af3d8269cf50017c0ad0b1aa208f98c3da3679836be50d31c37acd8c06d5e3",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "historical_v3_screen": {
+      "original_sha256": "880269a6aa0be829fb8970f6f2616d6eee5c8e2f76541e6bfe5981d527c8b784",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "historical_v4_positive": {
+      "original_sha256": "e3b647fd1c3ce2e5bd307f72fdd95dbfba74f9d069d470fbad244a372e74c1e7",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "historical_v5_calibration": {
+      "original_sha256": "58503a8759208a62059b478382246f1150f53a2899fb7f38291667c6d840157d",
+      "completed": true,
+      "passed": false,
+      "restored": true
+    },
+    "historical_v6_positive": {
+      "original_sha256": "5161a2c4d341aa39db7d4ec2e283ce74b4d627199a787f3c32a3637402600dd1",
+      "completed": false,
+      "passed": false,
+      "restored": true
+    }
+  },
+  "artifacts": {
+    "editor": {
+      "path": "editor_contact_sheet.png",
+      "sha256": "d8651e97b2bfe08cee2f44f771521522ca98abbc47b4c048a9022dfd2dbd8b8a",
+      "plants": 14,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "full": {
+      "path": "full_contact_sheet.png",
+      "sha256": "7aeae876b476ce85ae341ea64d270bed3e24a6d6d6aa9dfce00cc588580d82af",
+      "plants": 14,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "missing": {
+      "path": "missing_contact_sheet.png",
+      "sha256": "7aeae876b476ce85ae341ea64d270bed3e24a6d6d6aa9dfce00cc588580d82af",
+      "plants": 14,
+      "tile_policy": "Same source full screenshot crop, no pixel recoloring"
+    },
+    "positive_short_grass_covered_h0_missing_world_closeup_native.png": {
+      "path": "positive_short_grass_covered_h0_missing_world_closeup_native.png",
+      "sha256": "44e4d7bfb470bbfc0066e984b2c3b7e81feadf6321c24b78ebf236744ede407f",
+      "native_full_frame": true
+    },
+    "positive_short_grass_covered_h0_missing_world_hidden_native.png": {
+      "path": "positive_short_grass_covered_h0_missing_world_hidden_native.png",
+      "sha256": "224e20cfd5dd984c591091685e00e205ca479cc35652091f2d94299dfe734d94",
+      "native_full_frame": true
+    },
+    "screen_fern_covered_h5_full_world_closeup_native.png": {
+      "path": "screen_fern_covered_h5_full_world_closeup_native.png",
+      "sha256": "b25148aa6c83d6aacc8fc31df18df4ab3130a79f9f72d1043e60b8291f8fa40d",
+      "native_full_frame": true
+    },
+    "historical_v4_positive_short_grass_covered_h0_missing_world_closeup_native.png": {
+      "path": "historical_v4_positive_short_grass_covered_h0_missing_world_closeup_native.png",
+      "sha256": "0c11acb346f66fc1c8f47e97e6d10b6de5b83db038f679fae5716e2b48c70eb4",
+      "original_failure_retained": true
+    },
+    "historical_v4_positive_short_grass_covered_h0_missing_world_hidden_native.png": {
+      "path": "historical_v4_positive_short_grass_covered_h0_missing_world_hidden_native.png",
+      "sha256": "0c11acb346f66fc1c8f47e97e6d10b6de5b83db038f679fae5716e2b48c70eb4",
+      "original_failure_retained": true
+    },
+    "historical_v5_calibration_right_signal_outline_comparison.png": {
+      "path": "historical_v5_calibration_right_signal_outline_comparison.png",
+      "sha256": "cb932555abf19508de22027acf18cea89d1502be6698f10d042105c5c74b8f01",
+      "original_failure_retained": true
+    }
+  },
+  "scope": "Curated evidence; exact original reports and all native PNGs remain in owned runtime"
+}

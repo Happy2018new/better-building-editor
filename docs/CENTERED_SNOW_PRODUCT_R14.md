@@ -59,9 +59,21 @@ and verifies:
 - Editor cutaway against an independently captured empty editor control.
 
 All visual calls are SDK-only. Capture is owner-bound WGC at native resolution;
-there is no window activation, resizing, desktop input or real-world block
-placement. The suite requires a passing stone camera calibration from the
+there is no window activation, resizing or desktop input. The suite reserves
+625 preflight-verified air cells for a black concrete background, at least
+12 blocks from the tested cell. Each attempted write is journaled beforehand;
+cleanup restores air and verifies both native palette layers and actor absence.
+The background does not alter the tested cell's native neighbor relationships.
+The suite requires a passing stone camera calibration from the
 same managed game. Missing, tiny or shifted plant masks fail its controls.
+
+`native_draw_response.py` observes actual `GameRenderTickEvent` callbacks and
+requires visible pixel responses as well as the pictured native debug clock
+to advance. The ordinary inspector header must visibly hide and return to its
+original pixels before the matrix can start. Every full/missing projection
+hide control has a six-second response bound. Only read-only frame/capture
+polls repeat; native visibility mutations are not replayed. A compositor's
+fresh frame timestamp or a successful API return alone cannot pass these gates.
 
 **Live acceptance is pending.** The first guarded startup on 2026-10-13 exited
 before the game/session binding at 41.516 seconds. No product screenshot or
@@ -75,6 +87,57 @@ The retained first attempt is in the specialist's ignored
 one launch, approved MCDK / guard / WGC hashes, a 2700-second total cap and
 0.5-second background checks. Old native failure captures and acceptance
 manifests have not been rewritten as product passes.
+
+Subsequent attempts retain their original failure reports:
+
+| Attempt | Observed Result | Interpretation |
+| --- | --- | --- |
+| v2 | Minimal short grass shape, thin snow and cutaway passed; outside-cell gate failed | 2,379 full-mode difference pixels were a changing distant terrain edge and 485 a moving pig; original FAIL remains |
+| v3 | 30 boundary rows completed; fern h5 world upper retention failed | Camera eye was below the snow surface; the Y-only alpha oracle could not represent foreground snow occlusion from below |
+| v4 | Above-snow view had poor dry grass contrast; one missing-mode hidden screenshot retained the object | Compositor receipt was fresh but the pictured native debug time was unchanged; reliable native draw response was not proved |
+| v5 | Front and tilted cube calibration passed, right calibration failed | A moving horse behind the cube touched the extracted right edge; strict outline thresholds were retained |
+| v6 | All elevated skyward calibration views passed; backdrop setup rejected the palette | Host tool incorrectly assumed XYZ volume order; actual SDK contract is ZXY. No block writes occurred, cleanup succeeded |
+
+v7 uses the elevated skyward cube calibration, above-snow plant camera and
+distant contrast background. Its minimal short-grass h0 suite passed in the
+editor, full and missing projections, including independent native UI and
+projection response gates. The 30-row short-grass / fern / poppy boundary
+matrix also passed with zero failed rows, including fern at h5 and complete
+burial. Its editor cutaway had exactly zero residual object pixels. Both
+stages restored all settings and their 625-cell distant background. The
+all-eight-height matrix then passed all 54 rows for the same three plants,
+again with zero failed rows and successful restoration. The 29-name catalogue
+completed 141 rows with six failed rows before a read-only native render-frame
+query timed out through IPC. Its report is incomplete and failed. Background,
+navigation, weather and time restoration succeeded; the exact owned game and
+MCDK identities were removed with no cleanup errors. The earlier failures do
+not become passes when their causes are understood.
+
+The retained v7 reports and representative exact native screenshots are in
+`docs/evidence/centered-snow-product-r14-v7/`. Its manifest fingerprints the
+original reports; the full original captures remain in the specialist's
+ignored runtime directory. Three follow-ups are required before acceptance:
+
+- Blue orchid and lily-of-the-valley use asymmetric texture alpha. The current
+  oracle incorrectly unions each front-face alpha with a mirrored copy. The
+  actual signed south UV and opposite geometric winding make the two faces
+  coincide. A model-derived signed-UV oracle must replace this union, with
+  asymmetric and cropped-UV negative controls. Derived reanalysis must retain
+  the original failed reports and cannot select a mapping from observed pixels.
+- Bush at snow h4 passes the cell hull and upper-retention checks, but some dry
+  leaf tips project above the distant black background onto green terrain.
+  Their contrast is below the existing difference threshold, so the dry control
+  misses pixels made visible by white snow. Raise the background and validate
+  its full projected cell coverage; retain the original threshold and FAIL.
+- Crimson roots' first editor display is actually blank even though its source
+  reports one block. Later snow controls show the roots. Require a bounded real
+  native Scene response after source readiness, then run a targeted editor and
+  independent full/missing projection retest. Source state alone is not visual
+  acceptance. The original blank screenshot remains a failed result.
+
+Only read-only frame observations may retry an IPC timeout. Visibility changes,
+world writes and launch operations must never be replayed by that retry path.
+The targeted corrected matrix and the remaining catalogue are still pending.
 
 ## Version Updates
 
