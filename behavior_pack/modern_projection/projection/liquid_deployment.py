@@ -11,11 +11,14 @@ def ui_offset(size):
     return 0., min(size) / 4.
 
 
-def candidate_profile(frozen=False):
+def candidate_profile(frozen=False, flowing_top=False):
     """Explicit diagnostic entry; it does not change the production gate."""
-    resources = dict(source.RESOURCES)
+    resources = dict(source.FLOWING_TOP_RESOURCES if flowing_top else source.RESOURCES)
     if frozen:
-        resources['models'] = source.FROZEN_MODELS
+        resources['models'] = source.FROZEN_FLOWING_TOP_MODELS if flowing_top else source.FROZEN_MODELS
+    if flowing_top:
+        from .liquid_flow_top import candidate_flow_uv
+        return NativeLiquidProfile(resources, ui_pose, ui_offset, candidate_flow_uv)
     return NativeLiquidProfile(resources, ui_pose, ui_offset)
 
 

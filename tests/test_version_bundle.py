@@ -204,6 +204,8 @@ class VersionBundleTests(unittest.TestCase):
                             root / 'resource_pack/textures/models/modern_projection/liquid')
             shutil.copyfile(ROOT / 'tools/generate_liquid_skeleton_resources.py',
                             root / 'tools/generate_liquid_skeleton_resources.py')
+            shutil.copyfile(ROOT / 'tools/generate_liquid_flow_top.py',
+                            root / 'tools/generate_liquid_flow_top.py')
             with patch.object(items, 'validate', wraps=items.validate) as validate:
                 bundle.check_provenance(root=root)
             self.assertTrue(validate.called)

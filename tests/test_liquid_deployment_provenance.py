@@ -24,6 +24,11 @@ class LiquidDeploymentProvenanceTests(unittest.TestCase):
             'tools/generate_liquid_skeleton_resources.py',
             'behavior_pack/modern_projection/projection/liquid_resource_data.py',
             'resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h'}
+        if self.contract.get('flow_top_candidate'):
+            files.update({self.contract['flow_top_candidate']['source_file'],
+                          'tools/generate_liquid_flow_top.py',
+                          'behavior_pack/modern_projection/projection/liquid_flow_top_data.py',
+                          'behavior_pack/modern_projection/projection/liquid_flow_top.py'})
         for relative in files:
             target = self.root / relative
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -85,6 +90,19 @@ class LiquidDeploymentProvenanceTests(unittest.TestCase):
         self.rewrite_generated(FROZEN_MODELS=())
         with self.assertRaisesRegex(ValueError, 'shape and texture'):
             check_liquid_deployment(self.manifest, self.root)
+
+    def test_flow_top_candidate_source_generator_and_runtime_drift_are_rejected(self):
+        for relative in (self.contract['flow_top_candidate']['source_file'],
+                         'tools/generate_liquid_flow_top.py',
+                         'behavior_pack/modern_projection/projection/liquid_flow_top_data.py',
+                         'behavior_pack/modern_projection/projection/liquid_flow_top.py'):
+            with self.subTest(relative=relative):
+                path = self.root / relative
+                original = path.read_bytes()
+                path.write_bytes(original + b'\n')
+                with self.assertRaisesRegex(ValueError, 'flow top source'):
+                    check_liquid_deployment(self.manifest, self.root)
+                path.write_bytes(original)
 
     def test_extra_render_fields_or_changed_material_state_require_requalification(self):
         path = self.root / 'resource_pack/materials/entity.material'

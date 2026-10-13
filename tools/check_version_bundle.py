@@ -66,7 +66,7 @@ def module_constants(path):
     selected = {'SOURCE_VERSION', 'SOURCE_SHA256', 'PALETTE_SHA256', 'SCHEMA_VERSION',
                 'FRAME_ITEMS', 'EVIDENCE', 'RUNTIME', 'RESOURCES', 'FROZEN_MODELS',
                 'RESOURCE_CONTRACT_SHA256', 'PRODUCTION_QUALIFIED', 'QUALIFICATION_SHA256',
-                'QUALIFICATION_RESOURCE_CONTRACT_SHA256'}
+                'QUALIFICATION_RESOURCE_CONTRACT_SHA256', 'FLOWING_TOP_RESOURCES', 'FROZEN_FLOWING_TOP_MODELS'}
     result = {}
     for node in ast.parse(path.read_text(encoding='utf8'), filename=str(path)).body:
         if isinstance(node, ast.Assign):
@@ -148,6 +148,29 @@ def check_liquid_deployment(manifest, root=ROOT):
     if (resources != resource_profile(contract) or
             generated.get('FROZEN_MODELS') != resource_profile(contract, frozen=True)['models']):
         raise ValueError('Generated liquid deployment differs from the current shape and texture sources')
+    flow_files = []
+    candidate = contract.get('flow_top_candidate')
+    if candidate is not None:
+        from generate_liquid_flow_top import DEFAULT_SOURCE, validate, runtime_source, digest as flow_digest
+        if candidate.get('source_file') != DEFAULT_SOURCE.relative_to(ROOT).as_posix():
+            raise ValueError('Liquid flow top needs its versioned relative source file')
+        source_file = root / candidate['source_file']
+        flow_generator = root / 'tools/generate_liquid_flow_top.py'
+        flow_data_file = root / 'behavior_pack/modern_projection/projection/liquid_flow_top_data.py'
+        flow_implementation = root / 'behavior_pack/modern_projection/projection/liquid_flow_top.py'
+        data = validate(json.loads(source_file.read_bytes()), manifest)
+        if (hashlib.sha256(source_file.read_bytes()).hexdigest() != candidate['source_sha256']
+                or flow_digest(data) != candidate['candidate_sha256']
+                or data['native_source_sha256'] != candidate['native_source_sha256']
+                or hashlib.sha256(flow_generator.read_bytes()).hexdigest() != candidate['generator_sha256']
+                or hashlib.sha256(flow_implementation.read_bytes()).hexdigest() != candidate['implementation_sha256']
+                or flow_data_file.read_text(encoding='ascii') != runtime_source(data)):
+            raise ValueError('Liquid flow top source, generator or generated candidate differs')
+        if (generated.get('FLOWING_TOP_RESOURCES') != resource_profile(contract, flowing_top=True)
+                or generated.get('FROZEN_FLOWING_TOP_MODELS') != resource_profile(contract, True, True)['models']):
+            raise ValueError('Generated liquid flow top differs from the current shape and texture sources')
+        flow_files = [str(path.relative_to(root)) for path in
+                      (source_file, flow_generator, flow_data_file, flow_implementation)]
     generator = root / 'tools/generate_liquid_skeleton_resources.py'
     if hashlib.sha256(generator.read_bytes()).hexdigest() != contract.get('generator_sha256'):
         raise ValueError('Liquid deployment resource generator changed; regenerate the bundle')
@@ -190,7 +213,7 @@ def check_liquid_deployment(manifest, root=ROOT):
           generated.get('QUALIFICATION_RESOURCE_CONTRACT_SHA256') is not None):
         raise ValueError('Disabled liquid deployment must retain empty qualification fingerprints')
     return [str(path.relative_to(root)), str(generated_path.relative_to(root)),
-            str(generator.relative_to(root)), str(header.relative_to(root))] + list(contract['output_sha256'])
+            str(generator.relative_to(root)), str(header.relative_to(root))] + flow_files + list(contract['output_sha256'])
 
 
 def check_provenance(root=ROOT):
@@ -269,6 +292,7 @@ def commands(manifest, tests=False):
         ['tools/generate_liquid_materials.py', '--check'],
         ['tools/generate_liquid_face_textures.py', '--check'],
         ['tools/generate_liquid_shapes.py', '--check'],
+        ['tools/generate_liquid_flow_top.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/generate_flat_item_proxies.py', '--check'],

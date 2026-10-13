@@ -7,7 +7,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
-from projection import block_registry, liquid_shape_data, liquid_face_texture_data
+from projection import block_registry, liquid_shape_data, liquid_face_texture_data, liquid_flow_top_data
 from generate_liquid_payload_poc import source_snapshot
 from generate_liquid_skeleton_resources import digest
 
@@ -40,7 +40,7 @@ def native_source_root(contract):
     return archived.parents[len(relative.parts) - 1]
 
 
-def resource_profile(contract, frozen=False):
+def resource_profile(contract, frozen=False, flowing_top=False):
     if not contract.get('world_bone_matrix') or not contract.get('preview_depth'):
         raise ValueError('Deployment needs both existing UI-depth and world-bone resource paths')
     models, capabilities = [], []
@@ -58,7 +58,30 @@ def resource_profile(contract, frozen=False):
                 raise ValueError('Deployment model transform/depth/rotation differs: ' + name)
         models.append((texture, template, model, model + '_world'))
         capabilities.append((texture, template, (0,)))
-    return {'schema_version': 2, 'payload_version': contract['payload_version'],
+    candidate = contract.get('flow_top_candidate')
+    if flowing_top:
+        from generate_liquid_flow_top import SAMPLING, DEFAULT_SOURCE
+        if (not isinstance(candidate, dict) or candidate.get('candidate_sha256') != liquid_flow_top_data.CANDIDATE_SHA256
+                or candidate.get('source_file') != DEFAULT_SOURCE.relative_to(ROOT).as_posix()
+                or candidate.get('template') != liquid_flow_top_data.TEMPLATE
+                or candidate.get('sampling') != SAMPLING
+                or any(candidate.get(flag) is not False for flag in
+                       ('native_direction_verified', 'native_uv_accepted', 'production_accepted'))):
+            raise ValueError('Deployment flow top differs from its explicit unverified candidate')
+        model = 'modern_projection_liquid_flowing_water_grey_top' + suffix
+        for name, transform in ((model, 'native_ui_neg_x_neg_z_neg_y_center1_5'),
+                                (model + '_world', 'native_bone_after_reverse_z')):
+            options = contract['model_options'].get(name, {})
+            expected_sampling = dict(SAMPLING, pixel_coordinates='liquidUv*FRAME_PIXELS')
+            if (name not in contract['models'] or options.get('texture') != 'flowing_water_grey'
+                    or options.get('transform') != transform or options.get('uv_rotations') != list(range(256))
+                    or options.get('uv_template') != candidate['template'] or options.get('faces') != [0]
+                    or options.get('sampling') != expected_sampling
+                    or options.get('preview_depth') is not (name == model)):
+                raise ValueError('Deployment flow top model transform/depth/rotation/sampling differs: ' + name)
+        models.append(('flowing_water_grey', candidate['template'], model, model + '_world'))
+        capabilities.append(('flowing_water_grey', candidate['template'], tuple(range(256))))
+    result = {'schema_version': 2, 'payload_version': contract['payload_version'],
             'game_version': block_registry.source_version(),
             'palette_sha256': block_registry.fingerprint(),
             'shape_candidate_sha256': liquid_shape_data.CANDIDATE_SHA256,
@@ -68,6 +91,10 @@ def resource_profile(contract, frozen=False):
             'side_templates': {'flowing_water_grey': (TEMPLATE, 0)},
             'world_scale': (16., 16., 16.), 'world_rotation': (0., 0., 0.),
             'max_groups': 256}
+    if flowing_top:
+        result['flow_top_candidate_sha256'] = candidate['candidate_sha256']
+        result['top_templates'] = {'flowing_water_grey': candidate['template']}
+    return result
 
 
 def verify_installed_resources(path, project):
@@ -96,6 +123,20 @@ def runtime_source(path, native, project=ROOT):
     if contract['generator_sha256'] != digest(ROOT / 'tools/generate_liquid_skeleton_resources.py'):
         raise ValueError('Deployment resource generator differs from the concrete bundle')
     original_native = native_source_root(contract)
+    if contract.get('flow_top_candidate') is not None:
+        from generate_liquid_flow_top import DEFAULT_SOURCE, validate, verify_native, digest as candidate_digest
+        candidate = contract['flow_top_candidate']
+        if candidate.get('source_file') != DEFAULT_SOURCE.relative_to(ROOT).as_posix():
+            raise ValueError('Deployment flow top needs its versioned relative source file')
+        source_path = project / candidate['source_file']
+        data = validate(json.loads(source_path.read_bytes()),
+                        json.loads((ROOT / 'tools/data/block_registry_manifest.json').read_bytes()))
+        verify_native(data, native)
+        if (digest(source_path) != candidate['source_sha256'] or candidate_digest(data) != candidate['candidate_sha256']
+                or digest(ROOT / 'tools/generate_liquid_flow_top.py') != candidate['generator_sha256']
+                or digest(project / 'behavior_pack/modern_projection/projection/liquid_flow_top.py') != candidate['implementation_sha256']
+                or data['native_source_sha256'] != candidate['native_source_sha256']):
+            raise ValueError('Deployment flow top candidate source or generator differs from the bundle')
     for reference, expected in contract['source_sha256'].items():
         archived = PureWindowsPath(reference)
         if archived.name == 'modern_projection_liquid_preview_depth.h':
@@ -125,12 +166,16 @@ def runtime_source(path, native, project=ROOT):
     verify_installed_resources(path, project)
     resources = resource_profile(contract)
     frozen = resource_profile(contract, True)['models']
-    return ('"""Generated native liquid resources; visible qualification is still required."""\n'
+    result = ('"""Generated native liquid resources; visible qualification is still required."""\n'
             'PRODUCTION_QUALIFIED = False\nQUALIFICATION_SHA256 = None\n'
             'QUALIFICATION_RESOURCE_CONTRACT_SHA256 = None\n'
             'RESOURCE_CONTRACT_SHA256 = %r\nRESOURCES = %s\nFROZEN_MODELS = %s\n' %
             (digest(path), pprint.pformat(resources, width=100, sort_dicts=True),
              pprint.pformat(frozen, width=100)))
+    top_resources = resource_profile(contract, flowing_top=True) if contract.get('flow_top_candidate') else None
+    top_frozen = resource_profile(contract, True, True)['models'] if top_resources else None
+    return result + 'FLOWING_TOP_RESOURCES = %s\nFROZEN_FLOWING_TOP_MODELS = %s\n' % (
+        pprint.pformat(top_resources, width=100, sort_dicts=True), pprint.pformat(top_frozen, width=100))
 
 
 def main():

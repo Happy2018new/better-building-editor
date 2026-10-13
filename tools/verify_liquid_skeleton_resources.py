@@ -118,6 +118,45 @@ def fixtures(image, ticks, frozen, diagnostic_opacity=None, sampling=None, blend
     return rows
 
 
+def top_fixtures(image, ticks, frozen, diagnostic_opacity=None, blend=True):
+    """Independent full-turn pixel oracle; this verifies the candidate, not native UVs."""
+    import math
+    width, height = image.size
+    frames = height // width
+    rows = []
+    for code in range(256):
+        angle = code * 2. * math.pi / 256.
+        for slot in range(4):
+            u, v = (.137, .269) if slot % 2 == 0 else (.731, .863)
+            x, z = u - .5, v - .5
+            source_u = .5 + .5 * (math.cos(angle) * x + math.sin(angle) * z)
+            source_v = .5 + .5 * (-math.sin(angle) * x + math.cos(angle) * z)
+            px, py = int(source_u * width), int(source_v * width)
+            clock = 0. if frozen else .5
+            first = image.getpixel((px, int(clock) * width + py))
+            second = image.getpixel((px, ((int(clock) + 1) % frames) * width + py))
+            fraction = clock % 1. if blend else 0.
+            texel = tuple(a * (1. - fraction) + b * fraction for a, b in zip(first, second))
+            expected = [round(texel[i] * tint / 255.) for i, tint in enumerate((18, 52, 86))]
+            expected.append(round((texel[3] if diagnostic_opacity is None else diagnostic_opacity * 255.) * .5))
+            addresses = [0., 0., 0., 0.]
+            addresses[slot] = float(64 + code * 4096)
+            rows.append({'name': 'top/%d/slot%d' % (code, slot), 'time': clock * ticks / 20.,
+                         'position': [slot * 2. + u, v, 0., 1.],
+                         'uniforms': [addresses, [45746.] * 4, [45746.] * 4,
+                                      [39686., -1., float(0x123456), .5]], 'expected': expected})
+    first = rows[0]
+    for name, position, code, tag in (
+            ('non_top_face', [.137, 2.269, 0., 1.], 4032., 39686.),
+            ('faces_zero', first['position'], 0., 39686.),
+            ('rotation_outside_eight_bits', first['position'], 64. + 256. * 4096., 39686.),
+            ('invalid_tag', first['position'], 64., 0.)):
+        rows.append({'name': name, 'time': 0., 'position': position,
+                     'uniforms': [[code, 0., 0., 0.], [45746.] * 4, [45746.] * 4,
+                                  [tag, -1., float(0xFFFFFF), 1.]], 'expected': [0, 0, 0, 0]})
+    return rows
+
+
 def main():
     from playwright.sync_api import sync_playwright
     parser = argparse.ArgumentParser(description=__doc__)
@@ -148,17 +187,35 @@ def main():
         with Image.open(path).convert('RGBA') as image:
             pixels, size = base64.b64encode(image.tobytes()).decode('ascii'), image.size
             animation = texture.get('animation_parameters', texture['flipbook'])
-            inputs = fixtures(image, 1 if texture.get('frozen_diagnostic_only') else
+            fixture_factory = top_fixtures if options.get('uv_template') else fixtures
+            parameters = ({} if options.get('uv_template') else {'sampling': texture.get('sampling')})
+            inputs = fixture_factory(image, 1 if texture.get('frozen_diagnostic_only') else
                               animation['ticks_per_frame'],
                               options.get('variant') == 'frozen' or name.endswith('_frozen'),
                               contract.get('diagnostic_water_opacity') if 'water' in key else None,
-                              texture.get('sampling'), animation.get('blend_frames', True))
+                              blend=animation.get('blend_frames', True), **parameters)
         for version in (100, 300):
             for flags in (('BLEND',), ('BLEND', 'FOG')):
                 cases.append({'name': '%s/%s/%s' % (name, version, flags), 'version': version,
                               'vertex': shader_source(shaders / (options.get('vertex_shader') or contract.get('vertex_shader', 'liquid_candidate.vertex')), args.headers, version, flags),
                               'fragment': shader_source(shaders / (options.get('fragment_shader') or name + '.fragment'), args.headers, version, flags),
                               'size': size, 'rgba': pixels, 'fixtures': inputs})
+        if options.get('uv_template'):
+            # Coordinate colors remove native water artwork symmetry from the angle oracle.
+            diagnostic = Image.new('RGBA', size)
+            width, height = size
+            diagnostic.putdata([(x * 7 % 256, y % width * 5 % 256, y // width * 8 % 256, 240)
+                                for y in range(height) for x in range(width)])
+            synthetic_inputs = top_fixtures(diagnostic, animation['ticks_per_frame'],
+                options.get('variant') == 'frozen', contract.get('diagnostic_water_opacity'),
+                animation.get('blend_frames', True))
+            for version in (100, 300):
+                cases.append({'name': '%s/%s/asymmetric-coordinate-texture' % (name, version),
+                    'version': version,
+                    'vertex': shader_source(shaders / options['vertex_shader'], args.headers, version, ('BLEND',)),
+                    'fragment': shader_source(shaders / options['fragment_shader'], args.headers, version, ('BLEND',)),
+                    'size': size, 'rgba': base64.b64encode(diagnostic.tobytes()).decode('ascii'),
+                    'fixtures': synthetic_inputs})
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=args.browser, headless=True,
                                               args=['--use-angle=swiftshader', '--enable-unsafe-swiftshader'])
@@ -169,6 +226,7 @@ def main():
     report = {'schema': 1, 'results': results, 'passed': all(row['passed'] for row in results),
               'checks': sum(row.get('checks', 0) for row in results),
               'contract_sha256': hashlib.sha256((args.overlay / 'contract.json').read_bytes()).hexdigest(),
+              'verifier_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'scope': 'Host native bitmap frame/tint/alpha controls, no native shape or public editor acceptance'}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + '\n', encoding='ascii')

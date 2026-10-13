@@ -1,0 +1,31 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
+uniform sampler2D TEXTURE_0;
+varying highp vec2 liquidUv;
+varying highp float liquidVisible;
+varying highp float liquidClip;
+const float FRAME_COUNT = 32.0;
+const float FRAME_PIXELS = 32.0;
+const float TICKS_PER_FRAME = 1.0;
+const float DIAGNOSTIC_DEFAULT_OPACITY = 0.45;
+vec4 sampleFrame(float frame) {
+    vec2 pixel=liquidUv*FRAME_PIXELS;
+    return texture2D(TEXTURE_0,vec2(pixel.x/FRAME_PIXELS,(pixel.y/FRAME_PIXELS+frame)/FRAME_COUNT));
+}
+void main() {
+    if (liquidVisible<0.5 || liquidClip>0.0) discard;
+    float clock = 0.0;
+    float frame=mod(floor(clock),FRAME_COUNT);
+    vec4 texel=mix(sampleFrame(frame),sampleFrame(mod(frame+1.0,FRAME_COUNT)),0.0);
+    float tint=EXTRA_VECTOR4.z;
+    vec3 rgb=vec3(floor(tint/65536.0),mod(floor(tint/256.0),256.0),mod(tint,256.0))/255.0;
+    float defaultAlpha=DIAGNOSTIC_DEFAULT_OPACITY<0.0 ? texel.a : DIAGNOSTIC_DEFAULT_OPACITY;
+    float alpha=EXTRA_VECTOR4.y<0.0 ? defaultAlpha : EXTRA_VECTOR4.y;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    gl_FragColor=vec4(texel.rgb*rgb,alpha*EXTRA_VECTOR4.w);
+}

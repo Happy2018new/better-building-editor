@@ -14,6 +14,8 @@ PREFIX = 'modern_projection_liquid_'
 ASSET_PATH = 'modern_projection/liquid'
 VERTEX_NAME = 'modern_projection_liquid.vertex'
 WORLD_VERTEX_NAME = 'modern_projection_liquid_world.vertex'
+TOP_VERTEX_NAME = 'modern_projection_liquid_top.vertex'
+TOP_WORLD_VERTEX_NAME = 'modern_projection_liquid_top_world.vertex'
 VERTEX = '''// __multiversion__
 precision highp float;
 #include "neteaseModelVertexUtil.h"
@@ -221,12 +223,14 @@ def sampling_region(atlas_entry):
             'scope': 'Existing unaccepted full-frame sampling candidate'}
 
 
-def mesh(texture):
+def mesh(texture, top_only=False):
     vertices, indices = [], []
     normals = ((0., 1., 0.), (0., 0., -1.), (0., 0., 1.),
                (-1., 0., 0.), (1., 0., 0.), (0., -1., 0.))
     for slot in range(4):
         for face, normal in enumerate(normals):
+            if top_only and face != 0:
+                continue
             start = len(vertices)
             for u, v in ((0., 0.), (1., 0.), (1., 1.), (0., 1.)):
                 vertices.append({'pos': [slot * 2. + u, face * 2. + v, 0.],
@@ -235,8 +239,20 @@ def mesh(texture):
     return {'mesh': [{'material': texture, 'vertices': vertices, 'indices': indices}]}
 
 
+def top_vertex(vertex):
+    """Dedicated decoder: payload angle is a full turn; non-top faces are hidden."""
+    return vertex.replace('        liquidUv=vec2(u,v);', '''        float angle=floor(code/4096.0)*(6.283185307179586/256.0);
+        float cosine=cos(angle);
+        float sine=sin(angle);
+        vec2 centered=vec2(u,v)-vec2(0.5);
+        liquidUv=vec2(0.5)+0.5*vec2(cosine*centered.x+sine*centered.y,
+                                  -sine*centered.x+cosine*centered.y);''', 1).replace(
+        'if (!payloadValid || floor(code/4096.0)>0.5) liquidVisible=0.0;',
+        'if (!payloadValid || face>0.5 || code<0.0 || floor(code/4096.0)>255.0) liquidVisible=0.0;')
+
+
 def generate(output, native, keys, world_bone=False, preview_depth=False, packet_control=False,
-             diagnostic_flow=False, diagnostic_water_opacity=None, flow_animation=None):
+             diagnostic_flow=False, diagnostic_water_opacity=None, flow_animation=None, flowing_top=False):
     if output.exists():
         raise ValueError('Choose a fresh resource candidate directory')
     if diagnostic_water_opacity is not None and (isinstance(diagnostic_water_opacity, bool)
@@ -244,6 +260,15 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
             or not math.isfinite(diagnostic_water_opacity) or not 0. < diagnostic_water_opacity < 1.):
         raise ValueError('Diagnostic water opacity must be an explicit finite value between zero and one')
     snapshot = source_snapshot(native)
+    top_candidate = None
+    if flowing_top:
+        from generate_liquid_flow_top import DEFAULT_SOURCE, SAMPLING, validate, verify_native, digest as candidate_digest
+        root = Path(__file__).resolve().parents[1]
+        top_candidate = validate(json.loads(DEFAULT_SOURCE.read_bytes()),
+                                 json.loads((root / 'tools/data/block_registry_manifest.json').read_bytes()))
+        verify_native(top_candidate, native)
+        if not diagnostic_flow and flow_animation is None:
+            raise ValueError('Flowing top needs the existing explicit flow animation or frozen diagnostic')
     animations = dict((row['atlas_tile'], row) for row in snapshot['native_flipbook_entries'])
     if flow_animation is not None:
         if (diagnostic_flow or not isinstance(flow_animation, dict)
@@ -280,11 +305,18 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
         vertex = vertex.replace('// LIQUID_PREVIEW_DEPTH',
             'liquidUniformPreviewDepth(vec3(-localPoint.x,-localPoint.z,-localPoint.y),EXTRA_VECTOR4.x,gl_Position,liquidClip);')
     (shader_dir / VERTEX_NAME).write_text(vertex, encoding='ascii')
+    top_targets = ()
+    if flowing_top:
+        (shader_dir / TOP_VERTEX_NAME).write_text(top_vertex(vertex), encoding='ascii')
+        top_targets = (('', TOP_VERTEX_NAME),)
     targets = (('', VERTEX_NAME),)
     if world_bone:
         world_vertex = VERTEX.replace('// LIQUID_WORLD_BONE', WORLD_BONE).replace('    // LIQUID_UI_COORDINATES\n', '')
         (shader_dir / WORLD_VERTEX_NAME).write_text(world_vertex, encoding='ascii')
         targets += (('_world', WORLD_VERTEX_NAME),)
+        if flowing_top:
+            (shader_dir / TOP_WORLD_VERTEX_NAME).write_text(top_vertex(world_vertex), encoding='ascii')
+            top_targets += (('_world', TOP_WORLD_VERTEX_NAME),)
     for key in keys:
         entry = animations.get(key)
         sampling = sampling_region(snapshot['native_atlas_entries'][key])
@@ -344,6 +376,30 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                        'uv_rotations':[0],
                                        'transform': 'native_bone_after_reverse_z' if suffix else 'native_ui_neg_x_neg_z_neg_y_center1_5',
                                        'preview_depth': bool(preview_depth and not suffix)}
+            if flowing_top and key == 'flowing_water_grey':
+                top_stem = PREFIX + key + '_top' + ('_' + variant if variant != 'animated' else '')
+                top_fragment = top_stem + '.fragment'
+                top_sampling = dict(SAMPLING, pixel_coordinates='liquidUv*FRAME_PIXELS')
+                # Full-frame center window is a hypothesis; native quad:1 does not prove it.
+                top_source = fragment.replace(sampling['pixel_coordinates'], top_sampling['pixel_coordinates'])
+                (shader_dir / top_fragment).write_text(PACKET_FRAGMENT if variant == 'packet' else top_source,
+                                                      encoding='ascii')
+                top_mesh = ASSET_PATH + '/' + key + '_top_mesh.json'
+                write_json(output / ('resource_pack/models/' + top_mesh), mesh(texture, top_only=True))
+                for suffix, top_shader in top_targets:
+                    name = top_stem + suffix
+                    registry[name] = {'dy_load': True, 'mesh': top_mesh, 'skeleton': ASSET_PATH + '/skeleton.json',
+                                      'animation': {}, 'material': name, 'texture': {'tex0': texture}}
+                    materials[name + ':entity_for_skeleton_alpha'] = {
+                        'vertexShader': 'shaders/glsl/' + top_shader,
+                        'fragmentShader': 'shaders/glsl/' + top_fragment,
+                        '+states': ['Blending', 'DisableDepthWrite', 'DisableCulling'],
+                        'blendSrc': 'SourceAlpha', 'blendDst': 'OneMinusSrcAlpha'}
+                    model_options[name] = {'texture': key, 'variant': variant, 'vertex_shader': top_shader,
+                        'fragment_shader': top_fragment, 'uv_template': top_candidate['template'],
+                        'uv_rotations': list(range(256)), 'sampling': top_sampling, 'faces': [0],
+                        'transform': 'native_bone_after_reverse_z' if suffix else 'native_ui_neg_x_neg_z_neg_y_center1_5',
+                        'preview_depth': bool(preview_depth and not suffix)}
     if packet_control:
         name = PREFIX + 'matrix'
         registry[name] = dict(registry[PREFIX + keys[0]], material=name)
@@ -375,6 +431,15 @@ def generate(output, native, keys, world_bone=False, preview_depth=False, packet
                                           'native_alignment_accepted': False},
                   diagnostic_water_opacity=diagnostic_water_opacity,
                   explicit_flow_animation_candidate=flow_animation,
+                  flow_top_candidate=({'candidate_sha256': candidate_digest(top_candidate),
+                        'source_file': DEFAULT_SOURCE.relative_to(root).as_posix(),
+                        'source_sha256': digest(DEFAULT_SOURCE),
+                        'generator_sha256': digest(root / 'tools/generate_liquid_flow_top.py'),
+                        'implementation_sha256': digest(root / 'behavior_pack/modern_projection/projection/liquid_flow_top.py'),
+                        'native_source_sha256': top_candidate['native_source_sha256'],
+                        'template': top_candidate['template'], 'sampling': SAMPLING,
+                        'native_direction_verified': False, 'native_uv_accepted': False,
+                        'production_accepted': False} if flowing_top else None),
                   blend_state_contract={'states':['Blending', 'DisableDepthWrite', 'DisableCulling'],
                                         'source':'SourceAlpha', 'destination':'OneMinusSrcAlpha',
                                         'active_native_blending_accepted':False},
@@ -405,6 +470,7 @@ def main():
     parser.add_argument('--flow-ticks-per-frame', type=int,
                         help='Explicit unaccepted flowing-water cadence; omitted native metadata stays intact')
     parser.add_argument('--flow-no-blend', action='store_true')
+    parser.add_argument('--flowing-top', action='store_true', help='Separate opt-in unverified flow-top candidate')
     args = parser.parse_args()
     if bool(args.install_project) != bool(args.backup):
         parser.error('--install-project and --backup must be supplied together')
@@ -415,7 +481,7 @@ def main():
                        'blend_frames': not args.flow_no_blend, 'replicate': 2})
     report = generate(args.output.resolve(), args.native_data.resolve(), tuple(args.texture or ('still_water_grey',)),
                       args.world_bone, args.preview_depth, args.packet_control,args.diagnostic_flow,
-                      args.diagnostic_water_opacity, flow_animation)
+                      args.diagnostic_water_opacity, flow_animation, args.flowing_top)
     if args.install_project:
         install_overlay(args.output.resolve(), args.install_project.resolve(), args.backup.resolve())
     print(json.dumps({'models': list(report['models']), 'native_shape_accepted': False}))

@@ -104,6 +104,19 @@ class NativeLiquidProfile(object):
         self.models, self.world_models = _models(resources.get('models'))
         self.uv_rotations = _uv_rotations(resources.get('uv_rotations'), self.models)
         self.side_templates = _side_templates(resources.get('side_templates'), self.models, self.uv_rotations)
+        self.top_templates = None
+        if 'flow_top_candidate_sha256' in resources:
+            from . import liquid_flow_top_data
+            from .liquid_flow_top import check_version as check_flow_version
+            check_flow_version()
+            template = liquid_flow_top_data.TEMPLATE
+            if (resources['flow_top_candidate_sha256'] != liquid_flow_top_data.CANDIDATE_SHA256
+                    or resources.get('top_templates') != {'flowing_water_grey': template}
+                    or self.uv_rotations.get(('flowing_water_grey', template)) != frozenset(range(256))
+                    or any(uv[0] == template for uv in self.side_templates.values())
+                    or flow_uv is None):
+                raise ValueError('Flow top resources need their distinct versioned template and all angle codes')
+            self.top_templates = dict(resources['top_templates'])
         names = resources.get('supported_names', liquid_shape_data.SUPPORTED_NAMES)
         if (not isinstance(names, (tuple, list, set, frozenset)) or not names
                 or any(not _text(name) for name in names)
@@ -128,4 +141,4 @@ class NativeLiquidProfile(object):
 
     def provider_factory(self, document):
         return LiquidFaceTextures(shape_provider(document, self.flow_uv, self.supported_names),
-                                  self.side_templates, self.uv_rotations)
+                                  self.side_templates, self.uv_rotations, self.top_templates)
