@@ -15,7 +15,7 @@ from projection.debug_product_water_blueprints import FOCUS, source_document
 from projection.liquid_preview import LiquidPreview
 from projection.liquid_projection import LiquidProjection
 from projection.liquid_transport import validate_uniforms
-from test_liquid_render import Runtime
+from tests.test_liquid_render import Runtime
 
 
 def session(document):
