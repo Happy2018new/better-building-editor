@@ -757,7 +757,7 @@ class Editor(object):
         return out
 
     def run(self, tool):
-        if self.document.volume > SMALL_VOLUME or tool.startswith("paste"):
+        if self.document.volume > SMALL_VOLUME or tool.startswith("paste") or tool == "cut":
             from .jobs import EditJob
 
             job = EditJob(self, tool)
