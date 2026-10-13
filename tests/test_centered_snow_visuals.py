@@ -39,7 +39,8 @@ class CenteredSnowVisualTests(unittest.TestCase):
             self.assertIn(7, heights)
             self.assertEqual(tuple(sorted(set(heights))), heights)
             if name in profile['plants']:
-                top = 1.-profile['plants'][name]['alpha_bounds'][1]/16.
+                plant = profile['plants'][name]
+                top = plant['mesh']['height']*(1.-plant['alpha_bounds'][1]/16.)
                 before = [height for height in heights if (height+1)/8. < top]
                 after = [height for height in heights if (height+1)/8. >= top]
                 self.assertTrue(before and after, name)

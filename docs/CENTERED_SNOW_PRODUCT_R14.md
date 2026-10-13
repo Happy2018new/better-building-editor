@@ -8,17 +8,19 @@ random-offset disagreement does not decide whether the centered product works.
 ## Responsibilities
 
 - `centered_plant_data.py` owns the versioned product mapping and opaque alpha
-  top of 27 flowers, mushrooms, roots, dry grasses, eyeblossoms and firefly bush.
+  top of all 29 supported snow plant names, including grass and fern.
 - The existing short grass / fern and tall-half meshes keep their established
-  centered geometry. All 29 empirically supported snow plant names now have a
-  render proxy. Native snow capability remains the separately measured table.
+  centered geometry. The schema-2 source profile fingerprints grass / fern's
+  original model bytes and original atlas textures; their alpha tops account
+  for the retained 0.8-block mesh height. The other 27 names use generated
+  unit-height meshes. Native snow capability remains the separately measured table.
 - `geometry_palette.py` only selects these render proxies and temporary snow
   overlays. It does not change document foreground, background, actor data or
   saved material identity. Burial uses `(snow height + 1) / 8 >= alpha top`.
 - `generate_centered_plant_profiles.py` owns vanilla resource collection and
   regeneration. Its input path follows the registry manifest's NEMC version.
   It checks the dump fingerprint, source atlas, texture bytes, texture alpha,
-  fixed-centered style and cross template.
+  fixed-centered style, cross template and retained original mesh metadata.
 - `plant_proxy_data.py` and the four historical `preview_*` mushroom/fungus
   resources remain untouched for old native diagnostics. Their historical
   acceptance version no longer blocks current product rendering. Both old and
@@ -37,8 +39,11 @@ material acceptance.
 
 The new offline tests cover all 29 supported names in strict and automatic
 layer erasure, undo preservation, all eight snow heights for all 27 generated
-plants, layer-order normalization, positive/negative render origins, geometry
-containment and stale source rejection. The existing geometry, editor,
+plants and the two retained original meshes, layer-order normalization,
+positive/negative render origins, geometry containment and stale source
+rejection. The visual alpha source contract covers all 29 names, including
+grass / fern; neither can silently fall back to an unversioned texture path.
+The existing geometry, editor,
 render-context, native-source diagnostic and bridge tests continue to run.
 
 `verify_centered_snow_profiles.py` is the separate product visual suite. It

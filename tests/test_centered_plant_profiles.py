@@ -1,5 +1,6 @@
 """Centered snapshot plants cover known snow states without changing cells."""
 from copy import deepcopy
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -10,7 +11,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools'))
 sys.path.insert(0, str(ROOT/'behavior_pack/modern_projection'))
-from generate_centered_plant_profiles import PROFILE, STYLE, validate_profile, outputs
+from generate_centered_plant_profiles import EXISTING, PROFILE, STYLE, validate_profile, outputs
 from projection import block_registry as registry, centered_plant_data
 from projection.block_traits_data import SNOW_COVERABLE_BLOCKS
 from projection.cell import make_cell, foreground, background
@@ -29,12 +30,15 @@ class CenteredPlantProfilesTests(unittest.TestCase):
         self.assertFalse(materials-set(PLANT_PROXIES))
         self.assertEqual('fixed_centered_snapshot', centered_plant_data.STYLE)
         for name, profile in self.profile['plants'].items():
-            self.assertEqual(1.-profile['alpha_bounds'][1]/16., PLANT_MAX_Y[('minecraft:'+name, 0)])
+            self.assertEqual(profile['mesh']['height']*(1.-profile['alpha_bounds'][1]/16.),
+                             PLANT_MAX_Y[('minecraft:'+name, 0)])
 
     def test_all_generated_meshes_stay_in_cell_and_have_original_texture(self):
         files = outputs(self.profile)
         atlas = files[ROOT/'resource_pack/textures/terrain_texture.json']['texture_data']
         for name, plant in self.profile['plants'].items():
+            if name in EXISTING:
+                continue
             self.assertEqual(plant['texture_path'].rsplit('.', 1)[0], atlas['modern_projection_centered_'+name]['textures'])
             model = files[ROOT/'resource_pack/models/netease_block'/('centered_'+name+'.json')]['netease:block_geometry']
             for bone in model['bones']:
@@ -50,6 +54,28 @@ class CenteredPlantProfilesTests(unittest.TestCase):
                         self.assertGreaterEqual(coordinate, .1-1e-7)
                         self.assertLessEqual(coordinate, .9+1e-7)
 
+    def test_original_grass_meshes_are_fingerprinted_without_generated_replacements(self):
+        files = outputs(self.profile)
+        for name in EXISTING:
+            plant = self.profile['plants'][name]
+            model_path = ROOT/plant['mesh']['path']
+            model_text = model_path.read_text(encoding='utf8')
+            model = json.loads(model_text)['netease:block_geometry']
+            self.assertNotIn(model_path, files)
+            self.assertNotIn(ROOT/'resource_pack/models/netease_block'/('centered_'+name+'.json'), files)
+            self.assertEqual('modern_projection:preview_'+name, model['description']['identifier'])
+            self.assertEqual(hashlib.sha256(model_text.encode('utf8')).hexdigest(), plant['mesh']['sha256_utf8_lf'])
+            self.assertEqual({.8}, {cube['size'][1]/16. for bone in model['bones'] for cube in bone['cubes']})
+            self.assertLessEqual(PLANT_MAX_Y[('minecraft:'+name, 0)], .8)
+
+    def test_profile_rejects_changed_retained_mesh_source(self):
+        for name in EXISTING:
+            for field, value in (('height', 1.), ('sha256_utf8_lf', '0'*64), ('path', 'other.json')):
+                changed = deepcopy(self.profile)
+                changed['plants'][name]['mesh'][field] = value
+                with self.subTest(plant=name, field=field), self.assertRaisesRegex(ValueError, 'mesh source changed'):
+                    validate_profile(changed)
+
     def test_profile_rejects_version_mapping_style_and_alpha_drift(self):
         for kind in ('version', 'registry', 'style', 'coverage', 'mapping', 'alpha'):
             changed = deepcopy(self.profile)
@@ -64,7 +90,8 @@ class CenteredPlantProfilesTests(unittest.TestCase):
 
     def test_snow_alpha_boundary_and_layers_survive_all_heights_and_origins(self):
         for name in self.profile['plants']:
-            material, proxy = ('minecraft:'+name, 0), ('modern_projection:centered_'+name, 0)
+            material = ('minecraft:'+name, 0)
+            proxy = (PLANT_PROXIES[material], 0)
             top = PLANT_MAX_Y[material]
             for height in range(8):
                 snow = registry.from_states('minecraft:snow_layer', {'height': height, 'covered_bit': True})
@@ -93,7 +120,7 @@ class CenteredPlantProfilesTests(unittest.TestCase):
 
     def test_stale_centered_table_is_rejected_on_render(self):
         doc = Document((1, 1, 1), {(0, 0, 0): ('minecraft:poppy', 0)})
-        for field, value in (('SCHEMA_VERSION', 2), ('STYLE_VERSION', 2), ('SOURCE_VERSION', 'future'),
+        for field, value in (('SCHEMA_VERSION', 3), ('STYLE_VERSION', 2), ('SOURCE_VERSION', 'future'),
                              ('PALETTE_SHA256', '0'*64), ('STYLE', 'random')):
             with self.subTest(field=field), patch.object(centered_plant_data, field, value):
                 with self.assertRaisesRegex(ValueError, 'Centered plant profiles need regeneration'):

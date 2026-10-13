@@ -213,7 +213,7 @@ class StaticPlantProxyTests(unittest.TestCase):
     def test_generated_plant_provenance_is_checked_by_full_and_missing_render_routes(self):
         from projection import centered_plant_data
         self.assert_stale_runtime_table_rejected(centered_plant_data,
-            (('SCHEMA_VERSION', 2), ('SCHEMA_VERSION', None),
+            (('SCHEMA_VERSION', 3), ('SCHEMA_VERSION', None),
              ('SOURCE_VERSION', 'NEMC old'), ('PALETTE_SHA256', '0'*64)),
             False, 'Centered plant profiles need regeneration')
 

@@ -18,6 +18,7 @@ MANIFEST = ROOT/'tools/data/block_registry_manifest.json'
 PROFILE = source_path(json.loads(MANIFEST.read_bytes())).with_name(
     source_path(json.loads(MANIFEST.read_bytes())).name.replace('static_plant_sources_', 'centered_plant_profiles_'))
 TABLE = ROOT/'behavior_pack/modern_projection/projection/centered_plant_data.py'
+PROFILE_SCHEMA_VERSION = 2
 EXISTING = frozenset(('short_grass', 'fern'))
 # The atlas's carried variants are the native static combination of the
 # separate stem/eyes or bush/firefly sprites. Snapshots never advance the world.
@@ -27,12 +28,23 @@ STYLE = {'schema': 1, 'name': 'fixed_centered_snapshot', 'xz_translation': [0, 0
          'world_lifecycle': False, 'cell_span': [.1, .9]}
 
 
+def retained_mesh(name):
+    path = ROOT/'resource_pack/models/netease_block'/('preview_'+name+'.json')
+    text = path.read_text(encoding='utf8')
+    model = json.loads(text)['netease:block_geometry']
+    heights = {cube['size'][1]/16. for bone in model['bones'] for cube in bone['cubes']}
+    if heights != {.8} or model['description']['identifier'] != 'modern_projection:preview_'+name:
+        raise ValueError('Retained centered grass mesh contract changed: '+name)
+    return {'path': path.relative_to(ROOT).as_posix(), 'height': .8,
+            'sha256_utf8_lf': hashlib.sha256(text.encode('utf8')).hexdigest()}
+
+
 def snapshot(native):
     registry = json.loads(MANIFEST.read_bytes())
     blocks = json.loads((native/'blocks.json').read_bytes())
     atlas = json.loads((native/'textures/terrain_texture.json').read_bytes())
     plants = {}
-    for name in sorted(set(NAMES)-EXISTING):
+    for name in sorted(NAMES):
         definition = blocks[name]
         key = definition['carried_textures'] if name in CARRIED else definition['textures']
         if isinstance(key, dict):
@@ -53,8 +65,9 @@ def snapshot(native):
         plants[name] = {'definition': definition, 'texture_key': key,
                         'atlas_record': atlas['texture_data'][key], 'texture_path': relative,
                         'texture_sha256': digest(native/relative), 'texture_size': size,
-                        'alpha_bounds': list(alpha), 'static_carried_combination': name in CARRIED}
-    return {'schema': 1, 'game_version': registry['game_version'],
+                        'alpha_bounds': list(alpha), 'static_carried_combination': name in CARRIED,
+                        'mesh': retained_mesh(name) if name in EXISTING else {'height': 1., 'generated': True}}
+    return {'schema': PROFILE_SCHEMA_VERSION, 'game_version': registry['game_version'],
             'palette_sha256': registry['source_sha256'].lower(), 'style': STYLE,
             'source_sha256': {'blocks': digest(native/'blocks.json'),
                               'terrain': digest(native/'textures/terrain_texture.json'),
@@ -64,10 +77,10 @@ def snapshot(native):
 
 def validate_profile(profile, native=None):
     registry = json.loads(MANIFEST.read_bytes())
-    if (profile.get('schema') != 1 or profile.get('game_version') != registry['game_version'] or
+    if (profile.get('schema') != PROFILE_SCHEMA_VERSION or profile.get('game_version') != registry['game_version'] or
             profile.get('palette_sha256') != registry['source_sha256'].lower() or profile.get('style') != STYLE):
         raise ValueError('Centered plant profile version or style differs')
-    if set(profile['plants']) != set(NAMES)-EXISTING:
+    if set(profile['plants']) != set(NAMES):
         raise ValueError('Centered plant profile does not cover this snow catalogue')
     if profile['source_sha256']['template'] != hashlib.sha256(TEMPLATE.read_text(encoding='utf8').encode('utf8')).hexdigest():
         raise ValueError('Centered plant cross template changed')
@@ -82,6 +95,9 @@ def validate_profile(profile, native=None):
             raise ValueError('Centered plant atlas mapping differs: '+name)
         if plant['static_carried_combination'] != (name in CARRIED):
             raise ValueError('Centered plant static snapshot choice differs: '+name)
+        expected_mesh = retained_mesh(name) if name in EXISTING else {'height': 1., 'generated': True}
+        if plant.get('mesh') != expected_mesh:
+            raise ValueError('Centered plant mesh source changed: '+name)
         fingerprint = plant['texture_sha256']
         if len(fingerprint) != 64 or any(char not in '0123456789abcdef' for char in fingerprint):
             raise ValueError('Centered plant source fingerprint invalid: '+name)
@@ -105,6 +121,10 @@ def outputs(profile):
     blocks, atlas = (json.loads(path.read_bytes()) for path in (blocks_path, atlas_path))
     result, proxies, heights = {}, {}, {}
     for name, plant in sorted(profile['plants'].items()):
+        material = ('minecraft:'+name, 0)
+        heights[material] = plant['mesh']['height']*(1.-plant['alpha_bounds'][1]/16.)
+        if name in EXISTING:
+            continue
         identifier, key = 'modern_projection:centered_'+name, 'modern_projection_centered_'+name
         definition = behavior(identifier, 'alpha')
         definition['minecraft:block']['components'].update({
@@ -116,11 +136,9 @@ def outputs(profile):
             appearance['use_colormap'] = 'textures/colormap/grass'
         blocks[identifier] = appearance
         atlas['texture_data'][key] = {'textures': plant['texture_path'].rsplit('.', 1)[0]}
-        material = ('minecraft:'+name, 0)
         proxies[material] = identifier
-        heights[material] = 1. - plant['alpha_bounds'][1]/16.
     lines = ['# Generated by tools/generate_centered_plant_profiles.py; do not edit.',
-             'from __future__ import unicode_literals', 'SCHEMA_VERSION = 1',
+             'from __future__ import unicode_literals', 'SCHEMA_VERSION = '+repr(PROFILE_SCHEMA_VERSION),
              'STYLE_VERSION = 1', 'STYLE = '+repr(STYLE['name']),
              'SOURCE_VERSION = '+repr(profile['game_version']),
              'PALETTE_SHA256 = '+repr(profile['palette_sha256']),
@@ -158,7 +176,8 @@ def main():
             path.write_text(text, encoding='ascii')
     if stale:
         raise SystemExit('Stale centered plant profiles: '+', '.join(stale))
-    print('%s %d centered plant snapshot profiles' % ('Checked' if args.check else 'Generated', len(profile['plants'])))
+    print('%s %d centered plant source profiles; %d new proxies' %
+          ('Checked' if args.check else 'Generated', len(profile['plants']), len(profile['plants'])-len(EXISTING)))
 
 
 if __name__ == '__main__':

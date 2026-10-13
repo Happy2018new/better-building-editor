@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "game_version": "NEMC 3.9.0.401155",
   "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
   "style": {
@@ -44,7 +44,11 @@
         11,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "azure_bluet": {
       "definition": {
@@ -67,7 +71,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "blue_orchid": {
       "definition": {
@@ -90,7 +98,11 @@
         15,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "brown_mushroom": {
       "definition": {
@@ -113,7 +125,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "bush": {
       "definition": {
@@ -137,7 +153,11 @@
         16,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "closed_eyeblossom": {
       "definition": {
@@ -162,7 +182,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "cornflower": {
       "definition": {
@@ -185,7 +209,11 @@
         11,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "crimson_fungus": {
       "definition": {
@@ -208,7 +236,11 @@
         13,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "crimson_roots": {
       "definition": {
@@ -238,7 +270,11 @@
         15,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "dandelion": {
       "definition": {
@@ -261,7 +297,40 @@
         11,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
+    },
+    "fern": {
+      "definition": {
+        "textures": "fern",
+        "carried_textures": "fern_carried",
+        "sound": "grass"
+      },
+      "texture_key": "fern",
+      "atlas_record": {
+        "textures": "textures/blocks/fern"
+      },
+      "texture_path": "textures/blocks/fern.tga",
+      "texture_sha256": "8b2c5b195cec35870f8929e7446d258c39d8a4d3ff60fc408e974cef20801637",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        15,
+        16
+      ],
+      "static_carried_combination": false,
+      "mesh": {
+        "path": "resource_pack/models/netease_block/preview_fern.json",
+        "height": 0.8,
+        "sha256_utf8_lf": "b91d7e75e55456ad914825fb0b44a7e277ab52ff195cfe9f4efb65b5c8235adb"
+      }
     },
     "firefly_bush": {
       "definition": {
@@ -285,7 +354,11 @@
         16,
         16
       ],
-      "static_carried_combination": true
+      "static_carried_combination": true,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "lily_of_the_valley": {
       "definition": {
@@ -308,7 +381,11 @@
         13,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "nether_sprouts": {
       "definition": {
@@ -333,7 +410,11 @@
         15,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "open_eyeblossom": {
       "definition": {
@@ -359,7 +440,11 @@
         13,
         16
       ],
-      "static_carried_combination": true
+      "static_carried_combination": true,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "orange_tulip": {
       "definition": {
@@ -382,7 +467,11 @@
         10,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "oxeye_daisy": {
       "definition": {
@@ -405,7 +494,11 @@
         11,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "pink_tulip": {
       "definition": {
@@ -428,7 +521,11 @@
         10,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "poppy": {
       "definition": {
@@ -451,7 +548,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "red_mushroom": {
       "definition": {
@@ -474,7 +575,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "red_tulip": {
       "definition": {
@@ -497,7 +602,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "short_dry_grass": {
       "definition": {
@@ -522,7 +631,40 @@
         14,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
+    },
+    "short_grass": {
+      "definition": {
+        "textures": "short_grass",
+        "carried_textures": "short_grass_carried",
+        "sound": "grass"
+      },
+      "texture_key": "short_grass",
+      "atlas_record": {
+        "textures": "textures/blocks/tallgrass"
+      },
+      "texture_path": "textures/blocks/tallgrass.tga",
+      "texture_sha256": "da8b4bff9c95ded682549b3e5516c19b225007a6f2c2e519c42bb49aee35422e",
+      "texture_size": [
+        16,
+        16
+      ],
+      "alpha_bounds": [
+        0,
+        2,
+        16,
+        16
+      ],
+      "static_carried_combination": false,
+      "mesh": {
+        "path": "resource_pack/models/netease_block/preview_short_grass.json",
+        "height": 0.8,
+        "sha256_utf8_lf": "0b900277c12a25819dac5067865e6b36b3ab1047f3631f2da87dae46c79fba2b"
+      }
     },
     "tall_dry_grass": {
       "definition": {
@@ -547,7 +689,11 @@
         15,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "torchflower": {
       "definition": {
@@ -570,7 +716,11 @@
         16,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "warped_fungus": {
       "definition": {
@@ -593,7 +743,11 @@
         13,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "warped_roots": {
       "definition": {
@@ -623,7 +777,11 @@
         15,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "white_tulip": {
       "definition": {
@@ -646,7 +804,11 @@
         11,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     },
     "wither_rose": {
       "definition": {
@@ -669,7 +831,11 @@
         12,
         16
       ],
-      "static_carried_combination": false
+      "static_carried_combination": false,
+      "mesh": {
+        "height": 1.0,
+        "generated": true
+      }
     }
   }
 }

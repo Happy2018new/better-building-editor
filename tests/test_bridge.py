@@ -1119,7 +1119,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
             doc = Document((1, 1, 1), {(0, 0, 0): value})
             self.assertTrue(b.geometry(doc))
             counts = len(observed), len(builds), len(b.models), len(b.model_layouts)
-            for field, changed in (('SCHEMA_VERSION', 2), ('SOURCE_VERSION', 'NEMC old'),
+            for field, changed in (('SCHEMA_VERSION', metadata.SCHEMA_VERSION+1), ('SOURCE_VERSION', 'NEMC old'),
                                    (hash_field, '0'*64)):
                 with patch.object(metadata, field, changed):
                     for context in (None, doc):

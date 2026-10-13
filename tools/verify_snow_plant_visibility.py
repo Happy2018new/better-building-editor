@@ -302,33 +302,30 @@ def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
 
 
 def cross_assets(session, plant):
-    native_name = {'short_grass': 'tallgrass', 'fern': 'fern'}.get(plant)
     native_root = Path(session['game_executable']).parent / 'data/resource_packs/vanilla'
     from projection.centered_plant_data import CENTERED_PLANT_PROXIES
+    from projection.geometry_palette import PLANT_PROXIES
+    material = ('minecraft:'+plant, 0)
+    if material not in PLANT_PROXIES:
+        return None
     centered = CENTERED_PLANT_PROXIES.get(('minecraft:'+plant, 0))
-    if native_name is None:
-        from projection.geometry_palette import PLANT_PROXIES
-        if ('minecraft:'+plant, 0) not in PLANT_PROXIES:
-            return None
-        if centered is not None:
-            from generate_centered_plant_profiles import PROFILE, validate_profile
-            source = json.loads(PROFILE.read_bytes())
-        else:
-            from generate_static_plant_proxies import SOURCE
-            source = json.loads(SOURCE.read_text(encoding='utf8'))
-        record = source.get('plants', {}).get(plant)
-        if record is None:
-            raise ValueError('Registered static plant has no versioned alpha source: '+plant)
-        if centered is not None:
-            validate_profile(source, native_root)
-        texture_path = native_root/record['texture_path']
-        expected = record['texture_sha256'] if centered is not None else source['sha256']['texture_'+plant]
-        if hashlib.sha256(texture_path.read_bytes()).hexdigest() != expected:
-            raise ValueError('Installed static plant alpha source changed: '+plant)
+    from generate_centered_plant_profiles import EXISTING, PROFILE, validate_profile
+    product_profile = centered is not None or plant in EXISTING
+    if product_profile:
+        source = json.loads(PROFILE.read_bytes())
     else:
-        texture_path = native_root/'textures/blocks'/(native_name+'.tga')
-    model_path = ROOT / 'resource_pack/models/netease_block' / ((centered.split(':', 1)[1]
-                if centered is not None else 'preview_'+plant)+'.json')
+        from generate_static_plant_proxies import SOURCE
+        source = json.loads(SOURCE.read_text(encoding='utf8'))
+    record = source.get('plants', {}).get(plant)
+    if record is None:
+        raise ValueError('Registered static plant has no versioned alpha source: '+plant)
+    if product_profile:
+        validate_profile(source, native_root)
+    texture_path = native_root/record['texture_path']
+    expected = record['texture_sha256'] if product_profile else source['sha256']['texture_'+plant]
+    if hashlib.sha256(texture_path.read_bytes()).hexdigest() != expected:
+        raise ValueError('Installed static plant alpha source changed: '+plant)
+    model_path = ROOT / 'resource_pack/models/netease_block' / (PLANT_PROXIES[material].split(':', 1)[1]+'.json')
     texture_raw, model_raw = texture_path.read_bytes(), model_path.read_bytes()
     with Image.open(texture_path) as source:
         texture = source.convert('RGBA')

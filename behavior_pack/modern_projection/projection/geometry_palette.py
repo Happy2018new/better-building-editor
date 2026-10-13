@@ -17,7 +17,7 @@ from .plant_position import (plant_render, position_sensitive,
 
 
 def validate_plant_source():
-    if (getattr(centered_source, 'SCHEMA_VERSION', None) != 1 or
+    if (getattr(centered_source, 'SCHEMA_VERSION', None) != 2 or
             getattr(centered_source, 'STYLE_VERSION', None) != 1 or
             getattr(centered_source, 'STYLE', None) != 'fixed_centered_snapshot' or
             getattr(centered_source, 'SOURCE_VERSION', None) != registry.source_version() or

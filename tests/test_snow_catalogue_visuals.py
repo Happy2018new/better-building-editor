@@ -116,8 +116,9 @@ class SnowCatalogueVisualTests(unittest.TestCase):
             source = root/'centered_plant_profiles_nemc_next.json'
             source.write_text(json.dumps({'plants': {}}), encoding='utf8')
             with patch('generate_centered_plant_profiles.PROFILE', source):
-                with self.assertRaisesRegex(ValueError, 'no versioned alpha source: brown_mushroom'):
-                    cross_assets(session, 'brown_mushroom')
+                for plant in ('brown_mushroom', 'short_grass', 'fern'):
+                    with self.subTest(plant=plant), self.assertRaisesRegex(ValueError, 'no versioned alpha source: '+plant):
+                        cross_assets(session, plant)
 
     def test_poppy_remaining_profile_preserves_the_original_h0_partition(self):
         screen = VISUAL_CASE['cross_candidate_screen']
