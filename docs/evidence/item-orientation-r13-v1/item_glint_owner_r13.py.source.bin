@@ -1,0 +1,42 @@
+"""Own one bounded orientation or subsequent glint experiment in the ready game."""
+import argparse
+import os
+from pathlib import Path
+import sys
+
+import item_server_skeleton_owner_r13 as previous
+import execute_item_glint_r13 as runtime
+import prepare_item_glint_r13 as candidate
+
+shared=previous.shared
+shared.runtime=runtime
+shared.ENTRYPOINT=Path(__file__).resolve()
+old_contract=shared.owner_contract
+
+
+def contract():
+    value=old_contract()
+    value.pop('resource_or_shader_or_player_or_world_or_inventory_mutation',None)
+    value.update(wgc_dispatches=len(candidate.STATES)*2,phase=candidate.PHASE,selected_pose=candidate.POSE,
+                 diagnostic_server_world_entity_created=True,resources_or_shaders_mutated_during_probe=False,
+                 player_or_inventory_or_existing_entities_mutated=False,explicit_server_absence_readback=True,
+                 ordinary_broadside_before_separate_glint_probe=True,ordinary_sword_bind_count=2)
+    return value
+
+
+shared.owner_contract=contract
+
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(add_help=False)
+    parser.add_argument('--phase',choices=('orientation','glint'))
+    parser.add_argument('--pose',choices=tuple(candidate.ROTATIONS))
+    known,remainder=parser.parse_known_args(sys.argv[1:])
+    if known.phase:os.environ['MCDEV_ITEM_R13_PHASE']=known.phase
+    if known.pose:os.environ['MCDEV_ITEM_R13_POSE']=known.pose
+    candidate.configure(os.environ.get('MCDEV_ITEM_R13_PHASE','orientation'),os.environ.get('MCDEV_ITEM_R13_POSE','x90'))
+    shared.PREFIX='item-'+candidate.PHASE+'-r13-v1'
+    sys.argv=[sys.argv[0]]+remainder
+    previous.route.configure()
+    candidate.EXACT_PLAN_SHA256=shared.PLAN_HASH
+    raise SystemExit(shared.main())
