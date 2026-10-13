@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "scope": "One owned R13 cold background startup, not rendering feature acceptance",
+  "files": [
+    {
+      "path": "plan.json",
+      "sha256": "0b6e83bcbacbd1e32aadeb898f12cca67495772dffabd5e49c8f0f8154d2b97e",
+      "bytes": 1672,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\plan.json",
+      "original_sha256": "0b6e83bcbacbd1e32aadeb898f12cca67495772dffabd5e49c8f0f8154d2b97e",
+      "transformed": false
+    },
+    {
+      "path": "world.png",
+      "sha256": "7beb36b2bd25df15d7627d8de24a3384633c38c2d0a46159292a37c666e6ec40",
+      "bytes": 375744,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\world.png",
+      "original_sha256": "7beb36b2bd25df15d7627d8de24a3384633c38c2d0a46159292a37c666e6ec40",
+      "transformed": false
+    },
+    {
+      "path": "world.capture.json",
+      "sha256": "f04ddd64c704bb2d98623a7f93671f936ac3932767378a737d912b62e7494525",
+      "bytes": 2762,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\world.capture.json",
+      "original_sha256": "f04ddd64c704bb2d98623a7f93671f936ac3932767378a737d912b62e7494525",
+      "transformed": false
+    },
+    {
+      "path": "launch-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\launch-stderr.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "report.sanitized.json",
+      "sha256": "d383d4d6125abf6418dbb83bec2e9b039edc327341a8e49f7069e6c97f1b20d9",
+      "bytes": 164217,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\report.json",
+      "original_sha256": "a994e86629686f942a28c7755459e25141c9cc730fbbd461f732eaf83c19f77d",
+      "transformed": true,
+      "transformation": "Session token values replaced with SHA256; all other JSON values retained"
+    },
+    {
+      "path": "launch.sanitized.json",
+      "sha256": "39bdefd36d5006675391ff51e0e76ab7a7e21dd07bbb7f7c9e78a79f6aa90dd3",
+      "bytes": 29791,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\background-smoke-r13-v1\\launch-stdout.txt",
+      "original_sha256": "4e4effa4508f5694b281046a39d1ca232b1306574770a1f78da5cc3bbacd08f8",
+      "transformed": true,
+      "transformation": "Session token values replaced with SHA256; all other JSON values retained"
+    },
+    {
+      "path": "sources/guard.cpp",
+      "sha256": "b3dd62d4c91aa1c330e5d1f3a223d8f9c650c0a35f0eefa60345036b765fa4b1",
+      "bytes": 5419,
+      "original_source": "D:\\bbe-r13-background\\tools\\native_focus_guard\\guard.cpp",
+      "original_sha256": "b3dd62d4c91aa1c330e5d1f3a223d8f9c650c0a35f0eefa60345036b765fa4b1",
+      "transformed": false
+    },
+    {
+      "path": "sources/probe.cpp",
+      "sha256": "e222bb59a4422b411300cdb4b4fbde37961b087081aeab44be4cb2d735b4a32a",
+      "bytes": 4533,
+      "original_source": "D:\\bbe-r13-background\\tools\\native_focus_guard\\probe.cpp",
+      "original_sha256": "e222bb59a4422b411300cdb4b4fbde37961b087081aeab44be4cb2d735b4a32a",
+      "transformed": false
+    },
+    {
+      "path": "sources/inject.hpp",
+      "sha256": "a85af27be793d227dfdb5038be3405c7534b8c652178840863e20a38d58a8f70",
+      "bytes": 3580,
+      "original_source": "D:\\bbe-r13-background\\tools\\native_focus_guard\\inject.hpp",
+      "original_sha256": "a85af27be793d227dfdb5038be3405c7534b8c652178840863e20a38d58a8f70",
+      "transformed": false
+    },
+    {
+      "path": "sources/snapshot_test.cpp",
+      "sha256": "e9ef892a73fcc0948621e70fe10ea9455bad93bd34c9a3a44ad0191a95157c61",
+      "bytes": 1942,
+      "original_source": "D:\\bbe-r13-background\\tools\\native_focus_guard\\snapshot_test.cpp",
+      "original_sha256": "e9ef892a73fcc0948621e70fe10ea9455bad93bd34c9a3a44ad0191a95157c61",
+      "transformed": false
+    },
+    {
+      "path": "sources/build.ps1",
+      "sha256": "8aea400af70ac7cea09c82dc3ee76cc6e112b32bd4d2d572a74a97856e7964f6",
+      "bytes": 2422,
+      "original_source": "D:\\bbe-r13-background\\tools\\native_focus_guard\\build.ps1",
+      "original_sha256": "8aea400af70ac7cea09c82dc3ee76cc6e112b32bd4d2d572a74a97856e7964f6",
+      "transformed": false
+    },
+    {
+      "path": "sources/instances.py",
+      "sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "bytes": 32219,
+      "original_source": "D:\\bbe-r13-background\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "original_sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "transformed": false
+    },
+    {
+      "path": "sources/_window.py",
+      "sha256": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+      "bytes": 9909,
+      "original_source": "D:\\bbe-r13-background\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+      "original_sha256": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+      "transformed": false
+    },
+    {
+      "path": "sources/_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+      "bytes": 6209,
+      "original_source": "D:\\bbe-r13-background\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "original_sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+      "transformed": false
+    },
+    {
+      "path": "sources/capture_native_window.py",
+      "sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754",
+      "bytes": 6010,
+      "original_source": "D:\\bbe-r13-background\\tools\\capture_native_window.py",
+      "original_sha256": "b008a23aaf53411e2fdda2752d43f2b4c219cfbb9b22ceff3cefa973b9c92754",
+      "transformed": false
+    },
+    {
+      "path": "sources/smoke-r13.py",
+      "sha256": "79ba06e3e6d425e521ae26bf8903540896795ad544a6c021df855ead15fdf6f8",
+      "bytes": 8571,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\smoke-r13.py",
+      "original_sha256": "79ba06e3e6d425e521ae26bf8903540896795ad544a6c021df855ead15fdf6f8",
+      "transformed": false
+    },
+    {
+      "path": "inputs/native_focus_guard.dll",
+      "sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+      "bytes": 20992,
+      "original_source": "D:\\bbe-r13-background\\.runtime\\native_focus_guard-r13-v1\\native_focus_guard.dll",
+      "original_sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+      "transformed": false
+    },
+    {
+      "path": "regressions.json",
+      "sha256": "b054ed36973adcd08a72ba85d99e2fca0a16f0c3608921b87cf791cb4a6da72d",
+      "bytes": 1784,
+      "transformed": false,
+      "source": "Fresh direct native probe/snapshot and existing launcher tests; no Minecraft launch"
+    }
+  ],
+  "total_files": 18,
+  "total_bytes": 677776
+}

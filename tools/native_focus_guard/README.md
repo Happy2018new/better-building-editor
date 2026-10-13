@@ -8,6 +8,16 @@ activation and bring-to-top requests return failure. Other processes are not
 hooked. It does not restore focus, synthesize input, resize a game window or
 change the installed MCDK executable.
 
+`SetFocus` is also guarded. [Its documented behavior](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setfocus)
+activates the focused window or its parent, which can bypass a hook on the public
+`SetActiveWindow` entry point. For this owned background test process, a non-null
+focus request returns null and `ERROR_ACCESS_DENIED`, including requests for a
+child control; a null request still releases focus through the real API. Render
+initialization and background SDK/UI calls do not require OS keyboard focus. The
+real cold-start smoke below verifies application initialization under this
+restriction. The legacy `SetWindowLongW/A` style APIs also preserve
+`WS_EX_NOACTIVATE` on x64 rather than relying only on their pointer variants.
+
 The guard is test instrumentation, not part of the shipped addon. It covers the
 listed Win32 APIs; it is not a claim about every possible native activation
 mechanism or code executing during DLL initialization before guard installation.
@@ -30,6 +40,9 @@ git clone --no-checkout https://github.com/TsudaKageyu/minhook.git .runtime/nati
 The probe installs the guard before resuming its own child, then exercises both
 the main thread and a new thread. Each checks window creation, style replacement,
 show, explicit foreground, bring-to-top, active-window and position APIs. An
+additional check rejects focus on the top-level window and its child, verifies
+the denial result and actual unchanged focus/foreground, then permits releasing
+focus. Both legacy style setters are exercised as well. An
 ordinary user switch between other applications is allowed. A timeout closes
 only the probe's owned child. `CMakeLists.txt` is the alternate portable build;
 the current host script uses MSVC directly because isolated CMake configuration
@@ -102,3 +115,21 @@ remain under `.runtime/native_focus_guard` and the isolated MCDK build.
 An in-use DLL cannot be overwritten. Use `build.ps1 -BuildDirectory
 '<fresh build directory>'` to compile a new revision while existing owned
 instances keep their originally loaded version.
+
+## Round Thirteen Cold Start
+
+The revised two-thread native probe and module-snapshot regression passed on
+2026-10-13. One bounded cold Minecraft startup then passed all 66 passive window
+observations, client/server session identity binding, actual world and workspace
+initialization, and a fresh nonblank 1994x1105 WGC frame. The game's window kept
+`WS_EX_NOACTIVATE`; the foreground remained the same non-game ShellHost window
+before and after capture. Ordinary owner-bound stop left both process creation
+identities absent and no cleanup errors. The run took 108.37 seconds including
+cleanup. See [the result](../../docs/BACKGROUND_FOCUS_STARTUP_RESULT_R13.md) and
+`docs/evidence/background-focus-r13-v1/` for the frozen inputs, image, raw
+observations and binary pins.
+
+This closes the immediate launch prerequisite. It does not establish which
+native call caused the older V12 foreground failure; that run did not record a
+call trace. Each later startup and capture must still enforce the actual owned
+foreground and process identity checks. No startup guard was relaxed.

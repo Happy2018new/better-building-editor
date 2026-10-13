@@ -10,6 +10,9 @@ decltype(&ShowWindowAsync) showAsync;
 decltype(&SetWindowPos) position;
 decltype(&SetWindowLongPtrW) longW;
 decltype(&SetWindowLongPtrA) longA;
+decltype(&SetWindowLongW) legacyLongW;
+decltype(&SetWindowLongA) legacyLongA;
+decltype(&SetFocus) focus;
 
 DWORD nonactivatingStyle(DWORD extended, DWORD style) {
     return (style & WS_CHILD) ? extended : extended | WS_EX_NOACTIVATE;
@@ -42,6 +45,21 @@ LONG_PTR WINAPI guardedLongA(HWND window, int index, LONG_PTR value) {
     if (index == GWL_EXSTYLE && !(GetWindowLongPtrA(window, GWL_STYLE) & WS_CHILD)) value |= WS_EX_NOACTIVATE;
     return longA(window, index, value);
 }
+LONG WINAPI guardedLegacyLongW(HWND window, int index, LONG value) {
+    if (index == GWL_EXSTYLE && !(GetWindowLongPtrW(window, GWL_STYLE) & WS_CHILD)) value |= WS_EX_NOACTIVATE;
+    return legacyLongW(window, index, value);
+}
+LONG WINAPI guardedLegacyLongA(HWND window, int index, LONG value) {
+    if (index == GWL_EXSTYLE && !(GetWindowLongPtrA(window, GWL_STYLE) & WS_CHILD)) value |= WS_EX_NOACTIVATE;
+    return legacyLongA(window, index, value);
+}
+HWND WINAPI guardedFocus(HWND window) {
+    // SetFocus can activate the containing top-level window internally, without
+    // calling the public SetActiveWindow entry point. Clearing focus is safe.
+    if (!window) return focus(nullptr);
+    SetLastError(ERROR_ACCESS_DENIED);
+    return nullptr;
+}
 BOOL WINAPI rejectForeground(HWND) { return FALSE; }
 BOOL WINAPI rejectBring(HWND) { return FALSE; }
 void WINAPI rejectSwitch(HWND, BOOL) {}
@@ -62,6 +80,9 @@ extern "C" __declspec(dllexport) DWORD WINAPI FocusGuardInitialize(LPVOID) {
         && attach("SetWindowPos", reinterpret_cast<LPVOID>(guardedPosition), reinterpret_cast<LPVOID*>(&position))
         && attach("SetWindowLongPtrW", reinterpret_cast<LPVOID>(guardedLongW), reinterpret_cast<LPVOID*>(&longW))
         && attach("SetWindowLongPtrA", reinterpret_cast<LPVOID>(guardedLongA), reinterpret_cast<LPVOID*>(&longA))
+        && attach("SetWindowLongW", reinterpret_cast<LPVOID>(guardedLegacyLongW), reinterpret_cast<LPVOID*>(&legacyLongW))
+        && attach("SetWindowLongA", reinterpret_cast<LPVOID>(guardedLegacyLongA), reinterpret_cast<LPVOID*>(&legacyLongA))
+        && attach("SetFocus", reinterpret_cast<LPVOID>(guardedFocus), reinterpret_cast<LPVOID*>(&focus))
         && attach("SetForegroundWindow", reinterpret_cast<LPVOID>(rejectForeground))
         && attach("BringWindowToTop", reinterpret_cast<LPVOID>(rejectBring))
         && attach("SwitchToThisWindow", reinterpret_cast<LPVOID>(rejectSwitch))

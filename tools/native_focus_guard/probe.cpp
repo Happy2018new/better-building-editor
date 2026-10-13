@@ -18,6 +18,10 @@ DWORD WINAPI exercise(LPVOID) {
     if (window) {
         SetWindowLongPtrW(window, GWL_EXSTYLE, 0);
         passed &= (GetWindowLongPtrW(window, GWL_EXSTYLE) & WS_EX_NOACTIVATE) != 0;
+        SetWindowLongW(window, GWL_EXSTYLE, 0);
+        passed &= (GetWindowLongPtrW(window, GWL_EXSTYLE) & WS_EX_NOACTIVATE) != 0;
+        SetWindowLongA(window, GWL_EXSTYLE, 0);
+        passed &= (GetWindowLongPtrW(window, GWL_EXSTYLE) & WS_EX_NOACTIVATE) != 0;
         ShowWindow(window, SW_SHOW);
         passed &= GetForegroundWindow() != window;
         passed &= !SetForegroundWindow(window);
@@ -25,6 +29,20 @@ DWORD WINAPI exercise(LPVOID) {
         SetActiveWindow(window);
         SetWindowPos(window, HWND_TOP, 0, 0, 120, 90, 0);
         passed &= GetForegroundWindow() != window;
+        HWND child = CreateWindowExW(0, L"STATIC", L"Owned child", WS_CHILD | WS_VISIBLE,
+            0, 0, 20, 20, window, nullptr, instance, nullptr);
+        passed &= child != nullptr;
+        for (HWND target : {window, child}) {
+            SetLastError(ERROR_SUCCESS);
+            passed &= SetFocus(target) == nullptr;
+            passed &= GetLastError() == ERROR_ACCESS_DENIED;
+            passed &= GetFocus() != target;
+            passed &= GetForegroundWindow() != window;
+        }
+        // Releasing focus does not activate a window and remains available.
+        SetLastError(ERROR_SUCCESS);
+        SetFocus(nullptr);
+        passed &= GetLastError() != ERROR_ACCESS_DENIED;
         DestroyWindow(window);
     }
     // Other applications may legitimately switch during this test.

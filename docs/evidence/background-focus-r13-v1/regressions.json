@@ -1,0 +1,63 @@
+[
+  {
+    "command": [
+      "D:\\bbe-r13-background\\.runtime\\native_focus_guard-r13-v1\\native_focus_probe.exe"
+    ],
+    "returncode": 0,
+    "stdout": "{\"case\":\"activation_apis\",\"passed\":true,\"foreground_before\":34802164,\"foreground_after\":34802164}\r\n{\"case\":\"activation_apis\",\"passed\":true,\"foreground_before\":34802164,\"foreground_after\":34802164}\r\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\bbe-r13-background\\.runtime\\native_focus_guard-r13-v1\\native_focus_snapshot_test.exe"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Program\\Python\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_noactivation_startup.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "........\r\n----------------------------------------------------------------------\r\nRan 8 tests in 0.126s\r\n\r\nOK\r\n"
+  },
+  {
+    "command": [
+      "D:\\Program\\Python\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_background_startup.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "........\r\n----------------------------------------------------------------------\r\nRan 8 tests in 0.369s\r\n\r\nOK\r\n"
+  },
+  {
+    "command": [
+      "D:\\Program\\Python\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_startup_readiness.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ".............\r\n----------------------------------------------------------------------\r\nRan 13 tests in 0.703s\r\n\r\nOK\r\n"
+  }
+]
