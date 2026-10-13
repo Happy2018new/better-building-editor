@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "supported_names": ["minecraft:water"],
+  "rules": {
+    "water": {
+      "heights": [0.8888888888888888, 0.7777777777777778, 0.6666666666666666, 0.5555555555555556, 0.4444444444444444, 0.3333333333333333, 0.2222222222222222, 0.1111111111111111, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888, 0.8888888888888888],
+      "weights": [11, 1, 1, 1, 1, 1, 1, 1, 11, 11, 11, 11, 11, 11, 11, 11],
+      "empty_weight": 1,
+      "above_height": 1
+    }
+  },
+  "accepted": false,
+  "scope": "Diagnostic candidate. Independent frozen uniform 2x2 pools pass all sixteen static water depths, and eight explicit mixed/above/source/gradient/corner/stone-neighbor contexts pass outer silhouettes. General neighbors, hidden faces, UVs and production rendering remain unaccepted.",
+  "neighbor_evidence_file": "tools/data/native_liquid_neighbor_shape_nemc_3.9.0.401155.json",
+  "original_candidate_sha256": "6382af0b7014cad5fc6e8358bd04f5f6a629e20839befc738380e16e8e72deb5",
+  "evidence": {
+    "session": "a0a5ab4f82f44124bd036df9bc6cc2e1",
+    "owner": "p0-water-flat-r9",
+    "source_reports": [
+      {
+        "file": "static-water-backdrop-depths0-7-r9-v1.json",
+        "sha256": "a8f9107009069b5478f7411204f0a0870f499397126ad0cd203ffa8bc54293da",
+        "depths": [0, 1, 2, 3, 4, 5, 6, 7]
+      },
+      {
+        "file": "static-water-backdrop-depths8-15-r9-v1.json",
+        "sha256": "c931cc66f6651b3b39f9a4178276912a70bee3287e2b41a957371a4067013bc1",
+        "depths": [8, 9, 10, 11, 12, 13, 14, 15]
+      }
+    ],
+    "analyses": [
+      {
+        "file": ".runtime/liquid-profile-depths0-7-r9-v1/report.json",
+        "sha256": "16730748a23bdaf71f7ca40a547421cd579660b46e13dc14a5cbc000ef2579a1"
+      },
+      {
+        "file": ".runtime/liquid-profile-depths8-15-r9-v1/report.json",
+        "sha256": "aec0fe114d23573f270ab3d11ccb3d3e5553a428ddebcd9f0e92300c1f45b9cc"
+      }
+    ],
+    "mask_iou_minimum": 0.9841934795678905,
+    "outline_recall_minimum": 1.0,
+    "outline_precision_minimum": 1.0,
+    "fixed_acceptance_threshold": 0.95,
+    "outline_tolerance_pixels": 3,
+    "native_geometry_accepted": false,
+    "accuracy_accepted": false,
+    "production_accepted": false
+  }
+}
