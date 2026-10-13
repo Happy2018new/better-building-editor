@@ -47,8 +47,9 @@ class ProductWaterResourcesTests(unittest.TestCase):
         self.assertEqual(.45, DEFAULT_OPACITY)
         for name, options in self.contract['model_options'].items():
             material = self.contract['materials'][name + ':entity_for_skeleton_alpha']
-            self.assertEqual(['Blending', 'DisableDepthWrite'], material['+states'])
+            self.assertEqual(['Blending', 'DisableDepthWrite', 'InvertCulling'], material['+states'])
             self.assertNotIn('DisableCulling', material['+states'])
+            self.assertEqual('InvertCulling', options['native_culling_state'])
             self.assertEqual('SourceAlpha', material['blendSrc'])
             self.assertEqual('OneMinusSrcAlpha', material['blendDst'])
             self.assertEqual('Point', material['+samplerStates'][0]['textureFilter'])
@@ -81,7 +82,9 @@ class ProductWaterResourcesTests(unittest.TestCase):
 
     def test_invalid_style_metadata_and_drifted_registry_are_rejected(self):
         for field, value in (('native_parity_claimed', True), ('default_opacity', 1.),
-                             ('product_style_version', 'future'), ('payload_version', 3)):
+                             ('product_style_version', 'future'), ('payload_version', 3),
+                             ('resource_style_version', 'nemc_artwork_water_v1'),
+                             ('native_culling_state', 'DisableCulling'), ('native_culling_accepted', True)):
             altered = dict(self.contract, **{field: value})
             with self.subTest(field=field), self.assertRaises(ValueError):
                 resource_profile(altered)
@@ -90,6 +93,17 @@ class ProductWaterResourcesTests(unittest.TestCase):
         material['blendSrc'] = 'One'
         with self.assertRaisesRegex(ValueError, 'material registry'):
             verify_contract(altered, ROOT)
+
+    def test_culling_update_preserves_diagnostic_mesh_bytes_and_keeps_acceptance_closed(self):
+        self.assertEqual(12, len(self.contract['models']))
+        self.assertEqual('InvertCulling', self.contract['native_culling_state'])
+        self.assertFalse(self.contract['native_culling_accepted'])
+        self.assertFalse(product.PRODUCT_RESOURCES['native_culling_accepted'])
+        baseline = json.loads((ROOT / 'tools/data/liquid_deployment_r12_contract.json').read_bytes())
+        for relative, expected in baseline['output_sha256'].items():
+            if relative.startswith('resource_pack/models/modern_projection/liquid/'):
+                self.assertEqual(expected, self.contract['output_sha256'][relative], relative)
+                self.assertEqual(expected, digest(ROOT / relative), relative)
 
     def test_installer_preserves_unrelated_source_format_and_updates_only_its_values(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -104,6 +118,22 @@ class ProductWaterResourcesTests(unittest.TestCase):
             merge_registry(path, {'product:base': {'depthFunc': 'Equal'}}, nested=True)
             self.assertEqual('Equal', json.loads(path.read_bytes())['materials']['product:base']['depthFunc'])
             self.assertIn('"user": {"+states": ["Blending"]}', path.read_text('ascii'))
+
+    def test_installer_preserves_unrelated_crlf_bytes_when_changing_culling(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'entity.material'
+            unrelated = b'    "diagnostic": {"+states": ["Blending"]},\r\n'
+            original = (b'{\r\n  "materials": {\r\n' + unrelated +
+                        b'    "product:base": {\r\n      "+states": [\r\n'
+                        b'        "Blending"\r\n      ]\r\n    }\r\n  }\r\n}\r\n')
+            path.write_bytes(original)
+            merge_registry(path, {'product:base': {'+states': ['Blending', 'InvertCulling']}}, nested=True)
+            updated = path.read_bytes()
+            self.assertIn(unrelated, updated)
+            self.assertNotIn(b'\n', updated.replace(b'\r\n', b''))
+            self.assertIn(b'        "InvertCulling"\r\n', updated)
+            merge_registry(path, {'product:base': {'+states': ['Blending', 'InvertCulling']}}, nested=True)
+            self.assertEqual(updated, path.read_bytes())
 
     def test_frozen_host_report_binds_real_shaders_and_keeps_game_claims_false(self):
         report = json.loads((ROOT / 'tools/data/liquid_product_host_gles_v1.json').read_bytes())

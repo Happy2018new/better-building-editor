@@ -1,5 +1,5 @@
 """Generated product water style; game acceptance is tracked separately."""
-PRODUCT_RESOURCE_CONTRACT_SHA256 = 'e5e8fd4a68f9af42feae7591bcd434d0c9edc99e8f256197e760b7f076e8fb53'
+PRODUCT_RESOURCE_CONTRACT_SHA256 = '096fdd8721d02bd94924248fc2ff57810c76643caf5e96a38db5353d747fd578'
 PRODUCT_RESOURCES = {'animation_clock': 'TOTAL_REAL_WORLD_TIME',
  'animation_reset_seconds': 3600,
  'default_opacity': 0.45,
@@ -18,11 +18,13 @@ PRODUCT_RESOURCES = {'animation_clock': 'TOTAL_REAL_WORLD_TIME',
              'candidate_water_top_center_turn256_v1',
              'modern_projection_liquid_product_flowing_water_grey_top',
              'modern_projection_liquid_product_flowing_water_grey_top_world')),
+ 'native_culling_accepted': False,
+ 'native_culling_state': 'InvertCulling',
  'native_parity_claimed': False,
  'palette_sha256': '6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01',
  'payload_version': 2,
  'product_style_version': 'java_snapshot_water_v1',
- 'resource_style_version': 'nemc_artwork_water_v1',
+ 'resource_style_version': 'nemc_artwork_water_v2',
  'schema_version': 2,
  'side_templates': {'flowing_water_grey': ('native_water_side_nw_bottom_edges_v1', 0)},
  'single_sided': True,

@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PREFIX = 'modern_projection_liquid_product_'
 ASSET_PATH = 'modern_projection/liquid'
 PRODUCT_STYLE_VERSION = 'java_snapshot_water_v1'
-RESOURCE_STYLE_VERSION = 'nemc_artwork_water_v1'
+RESOURCE_STYLE_VERSION = 'nemc_artwork_water_v2'
+NATIVE_CULLING_STATE = 'InvertCulling'
 SIDE_TEMPLATE = 'native_water_side_nw_bottom_edges_v1'
 TOP_TEMPLATE = 'candidate_water_top_center_turn256_v1'
 DEFAULT_OPACITY = .45
@@ -70,7 +71,9 @@ def object_spans(source, start=0):
 
 
 def merge_registry(path, values, nested=False):
-    source = path.read_text(encoding='ascii')
+    with path.open(encoding='ascii', newline='') as stream:
+        source = stream.read()
+    newline = '\r\n' if '\r\n' in source else '\n'
     current = json.loads(source)
     offset = 0
     if nested:
@@ -83,19 +86,25 @@ def merge_registry(path, values, nested=False):
             added[name] = value
         elif current[name] != value:
             begin, end = spans[name]
-            changes.append((begin, end, json.dumps(value, indent=2)))
+            line = source[source.rfind('\n', 0, begin) + 1:begin]
+            indent = line[:len(line) - len(line.lstrip())]
+            lines = json.dumps(value, indent=2).splitlines()
+            replacement = newline.join([lines[0]] + [indent + item for item in lines[1:]])
+            changes.append((begin, end, replacement))
     if added:
         indent = '    ' if nested else '  '
         encoded = json.dumps(added, indent=2)[2:-2]
         if nested:
             encoded = '\n'.join('  ' + line for line in encoded.splitlines())
         insertion = ',\n' + encoded + '\n' + indent[:-2]
+        insertion = insertion.replace('\n', newline)
         previous_end = max(end for _, end in spans.values())
         changes.append((previous_end, close, insertion))
     for begin, end, replacement in sorted(changes, reverse=True):
         source = source[:begin] + replacement + source[end:]
     json.loads(source)
-    path.write_text(source, encoding='ascii')
+    with path.open('w', encoding='ascii', newline='') as stream:
+        stream.write(source)
 
 
 def animation_contract(frames, ticks):
@@ -127,6 +136,8 @@ def resource_profile(contract, frozen=False):
     if (contract.get('schema_version') != 1 or contract.get('payload_version') != 2
             or contract.get('product_style_version') != PRODUCT_STYLE_VERSION
             or contract.get('resource_style_version') != RESOURCE_STYLE_VERSION
+            or contract.get('native_culling_state') != NATIVE_CULLING_STATE
+            or contract.get('native_culling_accepted') is not False
             or contract.get('default_opacity') != DEFAULT_OPACITY
             or contract.get('native_parity_claimed') is not False
             or contract.get('game_acceptance_claimed') is not False):
@@ -154,7 +165,8 @@ def resource_profile(contract, frozen=False):
             'max_groups': 256, 'default_opacity': DEFAULT_OPACITY,
             'animation_clock': 'frozen_frame_zero' if frozen else 'TOTAL_REAL_WORLD_TIME',
             'animation_reset_seconds': 3600,
-            'single_sided': True, 'native_parity_claimed': False}
+            'single_sided': True, 'native_culling_state': NATIVE_CULLING_STATE,
+            'native_culling_accepted': False, 'native_parity_claimed': False}
 
 
 def runtime_source(contract_path):
@@ -275,14 +287,15 @@ def generate(output, native, face_source=FACE_SOURCE):
                     materials[model + ':entity_for_skeleton_alpha'] = {
                         'vertexShader': 'shaders/glsl/' + vertex_name,
                         'fragmentShader': 'shaders/glsl/' + fragment_name,
-                        '+states': ['Blending', 'DisableDepthWrite'],
+                        '+states': ['Blending', 'DisableDepthWrite', NATIVE_CULLING_STATE],
                         'blendSrc': 'SourceAlpha', 'blendDst': 'OneMinusSrcAlpha',
                         '+samplerStates': [{'samplerIndex': 0, 'textureFilter': 'Point'}]}
                     options[model] = {'texture': key, 'top_only': top, 'frozen': frozen,
                         'uv_template': TOP_TEMPLATE if top else SIDE_TEMPLATE if key.startswith('flowing_') else None,
                         'vertex_shader': vertex_name, 'fragment_shader': fragment_name,
                         'pixel_coordinates': coordinates, 'preview_depth': not bool(suffix),
-                        'single_sided': True, 'outward_winding': True}
+                        'single_sided': True, 'outward_winding': True,
+                        'native_culling_state': NATIVE_CULLING_STATE}
     write_json(output / 'resource_pack/models/netease_models.json', registry)
     write_json(output / 'resource_pack/materials/entity.material', {'materials': materials})
     contract = {'schema_version': 1, 'payload_version': 2,
@@ -295,7 +308,9 @@ def generate(output, native, face_source=FACE_SOURCE):
         'models': registry, 'materials': materials, 'model_options': options,
         'default_opacity': DEFAULT_OPACITY,
         'opacity_contract': 'Explicit biome opacity overrides the product default; projection and UI alpha multiply it',
-        'draw_contract': 'Opaque scene bodies first; outward faces, source-alpha blend, no liquid depth writes',
+        'draw_contract': 'Opaque scene bodies first; physical outward winding with native InvertCulling, source-alpha blend, no liquid depth writes',
+        'native_culling_state': NATIVE_CULLING_STATE,
+        'native_culling_accepted': False,
         'native_parity_claimed': False, 'game_acceptance_claimed': False,
         'output_sha256': {p.relative_to(output).as_posix(): digest(p) for p in sorted(output.rglob('*')) if p.is_file()}}
     write_json(output / 'contract.json', contract)

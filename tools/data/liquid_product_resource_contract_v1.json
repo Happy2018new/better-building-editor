@@ -1,10 +1,10 @@
 {
   "default_opacity": 0.45,
-  "draw_contract": "Opaque scene bodies first; outward faces, source-alpha blend, no liquid depth writes",
+  "draw_contract": "Opaque scene bodies first; physical outward winding with native InvertCulling, source-alpha blend, no liquid depth writes",
   "face_texture_rows_sha256": "2e40f6fa259137251e87b29297f80a0b103b843f9885253187184b4f7a775109",
   "game_acceptance_claimed": false,
   "game_version": "NEMC 3.9.0.401155",
-  "generator_sha256": "26b7431b346d97357c1acb146802529b37ddffdb2ca495a3b985d72e52869ccd",
+  "generator_sha256": "89bc07bdfb26e933ddec259518ce5cffd73f2d6a08e80605aad58827543af9b7",
   "materials": {
     "modern_projection_liquid_product_flowing_water_grey:entity_for_skeleton_alpha": {
       "+samplerStates": [
@@ -15,7 +15,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -31,7 +32,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -47,7 +49,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -63,7 +66,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -79,7 +83,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -95,7 +100,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -111,7 +117,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -127,7 +134,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -143,7 +151,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -159,7 +168,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -175,7 +185,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -191,7 +202,8 @@
       ],
       "+states": [
         "Blending",
-        "DisableDepthWrite"
+        "DisableDepthWrite",
+        "InvertCulling"
       ],
       "blendDst": "OneMinusSrcAlpha",
       "blendSrc": "SourceAlpha",
@@ -204,6 +216,7 @@
     "modern_projection_liquid_product_flowing_water_grey": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
       "preview_depth": true,
@@ -216,6 +229,7 @@
     "modern_projection_liquid_product_flowing_water_grey_frozen": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
       "preview_depth": true,
@@ -228,6 +242,7 @@
     "modern_projection_liquid_product_flowing_water_grey_frozen_world": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
       "preview_depth": false,
@@ -240,6 +255,7 @@
     "modern_projection_liquid_product_flowing_water_grey_top": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "liquidUv*FRAME_PIXELS",
       "preview_depth": true,
@@ -252,6 +268,7 @@
     "modern_projection_liquid_product_flowing_water_grey_top_frozen": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "liquidUv*FRAME_PIXELS",
       "preview_depth": true,
@@ -264,6 +281,7 @@
     "modern_projection_liquid_product_flowing_water_grey_top_frozen_world": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "liquidUv*FRAME_PIXELS",
       "preview_depth": false,
@@ -276,6 +294,7 @@
     "modern_projection_liquid_product_flowing_water_grey_top_world": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "liquidUv*FRAME_PIXELS",
       "preview_depth": false,
@@ -288,6 +307,7 @@
     "modern_projection_liquid_product_flowing_water_grey_world": {
       "fragment_shader": "modern_projection_liquid_product_flowing_water_grey.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
       "preview_depth": false,
@@ -300,6 +320,7 @@
     "modern_projection_liquid_product_still_water_grey": {
       "fragment_shader": "modern_projection_liquid_product_still_water_grey.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
       "preview_depth": true,
@@ -312,6 +333,7 @@
     "modern_projection_liquid_product_still_water_grey_frozen": {
       "fragment_shader": "modern_projection_liquid_product_still_water_grey_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
       "preview_depth": true,
@@ -324,6 +346,7 @@
     "modern_projection_liquid_product_still_water_grey_frozen_world": {
       "fragment_shader": "modern_projection_liquid_product_still_water_grey_frozen.fragment",
       "frozen": true,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
       "preview_depth": false,
@@ -336,6 +359,7 @@
     "modern_projection_liquid_product_still_water_grey_world": {
       "fragment_shader": "modern_projection_liquid_product_still_water_grey.fragment",
       "frozen": false,
+      "native_culling_state": "InvertCulling",
       "outward_winding": true,
       "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
       "preview_depth": false,
@@ -468,6 +492,8 @@
       }
     }
   },
+  "native_culling_accepted": false,
+  "native_culling_state": "InvertCulling",
   "native_parity_claimed": false,
   "native_source_sha256": {
     "resource_packs/vanilla/blocks.json": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
@@ -480,7 +506,7 @@
   },
   "opacity_contract": "Explicit biome opacity overrides the product default; projection and UI alpha multiply it",
   "output_sha256": {
-    "resource_pack/materials/entity.material": "d0b20315e7a09183f4895a92eb15bbac859b9bccd47f76031336697c145f8453",
+    "resource_pack/materials/entity.material": "a23ba26340a9261749c4d8ae0a11aecddab0a1991255dcd03299e76d55e5a1d6",
     "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json": "31dd928fd955da704cf9880b6aedcfee760bcc4173edd505f5a4697fcb797210",
     "resource_pack/models/modern_projection/liquid/flowing_water_grey_top_mesh.json": "46fad464f8b33324f75a9a4c98157dd6329a3bd1658a70830974f6a145e22546",
     "resource_pack/models/modern_projection/liquid/skeleton.json": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db",
@@ -508,10 +534,10 @@
     "tools/data/native_liquid_face_textures_nemc_3.9.0.401155.json": "6a71b914d8646549ab420cc05f1249fc5ae662b8f341bf105d918479f7bc1351",
     "tools/generate_liquid_face_textures.py": "54d8bb522ac32112043b6693ae9724b2783c1ea314da3d3551c81bba04134cbe",
     "tools/generate_liquid_payload_poc.py": "b582c56570d6a46bd01d8fd8622c4ef4becbed66a63650f28c432e9441d83ffb",
-    "tools/generate_liquid_product_resources.py": "26b7431b346d97357c1acb146802529b37ddffdb2ca495a3b985d72e52869ccd",
+    "tools/generate_liquid_product_resources.py": "89bc07bdfb26e933ddec259518ce5cffd73f2d6a08e80605aad58827543af9b7",
     "tools/generate_liquid_skeleton_resources.py": "6a7102cbc8ce93c550246cb0a4cee736315be6c832ae94e763c5f81afe3ef843"
   },
-  "resource_style_version": "nemc_artwork_water_v1",
+  "resource_style_version": "nemc_artwork_water_v2",
   "schema_version": 1,
   "textures": {
     "flowing_water_grey": {

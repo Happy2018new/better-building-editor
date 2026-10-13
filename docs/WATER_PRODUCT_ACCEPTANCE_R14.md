@@ -59,7 +59,9 @@ v4 水探针在第一次编辑器截图前被精确姿态门控拒绝：首次 `
 
 v5 的源水三路线 IoU 分别为 `.670586/.630662/.630662`，编辑器外缘最大误差为 `42` 像素；低水位分别为 `.327884/.264177/.284137`，均未通过几何门控。实际查看编辑器和完整投影的源水 PNG，水呈现顶面缺失、近侧面未显示的壳状外观。当前假设是原生正面剔除约定与宿主 GLES 验证不同，尚未确认；不能通过放宽几何容差或启用双面绘制把它标成通过。含水栅栏六种独立对照的主体和后方贡献三路线通过：编辑器主体／后方均分别有 `560/440` 个有效贡献像素，两种投影分别有 `300/210` 个。该结果仅证明这次错误几何下可以看到主体和后方，修复剔除后必须重新验证透明度，不启用任何生产资格。
 
-剔除核对的原生依据是安装版 `vanilla/materials/shadows.material` 的 `shadow_back` 和 `vanilla_netease/materials/entity.material` 的 `netease_entity_outline`，二者明确使用 `InvertCulling`；原生 `entity_for_skeleton_alpha` 只设置 `Blending/DisableDepthWrite`。当前产品模型沿用共享诊断 mesh 的 `(0,2,1)/(0,3,2)` 索引，产品材质无 `InvertCulling`；world shader 还包含 Z 轴反号。宿主实际三角形测试明确使用 `gl.frontFace(gl.CCW)`，不能由此推断原生正面约定。修正须限定产品材质或独立产品模型，保留共享诊断资源及旧失败合同。
+剔除核对的原生依据是安装版 `vanilla/materials/shadows.material` 的 `shadow_back` 和 `vanilla_netease/materials/entity.material` 的 `netease_entity_outline`、`netease_drawline_example:entity_for_skeleton`，均明确使用 `InvertCulling`；原生 `entity_for_skeleton_alpha` 只设置 `Blending/DisableDepthWrite`。v5 产品模型沿用共享诊断 mesh 的 `(0,2,1)/(0,3,2)` 索引，产品材质无 `InvertCulling`；world shader 还包含 Z 轴反号。宿主实际三角形测试明确使用 `gl.frontFace(gl.CCW)`，不能由此推断原生正面约定。
+
+下一批的限定修正将资源风格升级为 `nemc_artwork_water_v2`，只为十二个产品材质追加 `InvertCulling`，保持单面绘制；所有共享诊断 mesh、skeleton、旧失败合同和资格不变。资源合同与 runtime profile 明确记录 `native_culling_state=InvertCulling`、`native_culling_accepted=False`，拒绝旧资源版本和伪造的已验收标志。重新绑定的宿主 shader 检查仍为 20,504 项通过，它们只验证 GLSL、UV、透明合成和时钟，不验证原生剔除。最终依据仍是重新标定会话中的同一三路线源水／低水位／栅栏矩阵；不能复用 v5 的局部透明通过结果。
 
 离线规则、相邻水连续性、实际三角形／UV／alpha 的宿主验证和 owner 测试已经完成；这些不替代游戏观察。捕获工具的 40 项相关回归通过，独立 QA 还构造了编辑器／world 各五种「各自稳定但相机不同」的对照，十种都被完整 analyzer 拒绝。
 
