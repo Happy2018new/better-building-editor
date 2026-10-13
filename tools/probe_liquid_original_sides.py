@@ -480,6 +480,12 @@ def main():
                 'side_uv_qualified': False, 'production_qualified': False}
             if priority_mode:
                 geometry_plan['kind'] = 'liquid_native_write_compare6' if args.native_write_compare else 'liquid_original_world_priority8'
+            if args.native_write_compare:
+                import analyze_liquid_native_write as visibility
+                geometry_plan['native_write_visibility'] = {
+                    'limits': visibility.LIMITS,
+                    'analyzer': oracle.fingerprint(visibility.__file__),
+                    'scope': 'Publication visibility only; independent native rendering gates remain false'}
             geometry_path = args.output.with_name(args.output.stem + '_geometry_plan.json')
             if geometry_path.exists():
                 raise ValueError('Geometry plan must be fresh before first water PNG')
