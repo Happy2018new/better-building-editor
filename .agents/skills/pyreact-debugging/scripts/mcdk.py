@@ -8,7 +8,8 @@ import sys
 import time
 import urllib.request
 from _session import load_session, desktop_lock, registry_dir, write_json
-from _window import _find_game_window, background_guard_state
+from _window import (_find_game_window, background_guard_state,
+                     foreground_policy_satisfied, user_foreground_allowed)
 
 
 class MCDKError(RuntimeError):
@@ -54,11 +55,13 @@ class Client:
                     'mcdk_identity', 'mcp_url', 'token', 'game_executable'):
             if current.get(key) != self.binding.get(key):
                 raise MCDKError('Assigned instance identity changed before execute_code: ' + key)
+        allow_foreground = user_foreground_allowed()
         report = {'ok': False, 'category': 'protected_execute_code_preflight',
                   'execute_code_blocked': True, 'execute_code_dispatched': False,
                   'python_return_checked': False, 'window_unavailable': False,
                   'guard_invalid': False, 'owned_process_foreground': False,
-                  'background_only': True, 'activation_fallback': False,
+                  'background_only': not allow_foreground, 'activation_fallback': False,
+                  'user_foreground_allowed': allow_foreground, 'agent_activation_allowed': False,
                   'owner': current['owner'], 'session_file': current['session_file'],
                   'game_pid': current['game_pid'], 'game_identity': current['game_identity']}
         self.last_execute_code_preflight = report
@@ -69,8 +72,9 @@ class Client:
             raise ProtectedWindowError(report)
 
         protection = current.get('noactivation')
-        if not isinstance(protection, dict) or not all(protection.get(key) is True for key in
-                ('requested', 'background_safe', 'window_noactivate')):
+        if (not isinstance(protection, dict) or not all(protection.get(key) is True for key in
+                ('requested', 'window_noactivate')) or
+                (not allow_foreground and protection.get('background_safe') is not True)):
             refuse('protected_session_contract_invalid', 'guard_invalid')
         try:
             guard = background_guard_state(current['game_pid'], Path(current['game_executable']).name)
@@ -85,7 +89,8 @@ class Client:
         except Exception as exc:
             report['observation_error'] = '%s: %s' % (type(exc).__name__, exc)
             refuse('owned_window_observation_unavailable', 'window_unavailable')
-        if foreground.get('pid') == current['game_pid']:
+        report['owned_process_foreground'] = foreground.get('pid') == current['game_pid']
+        if report['owned_process_foreground'] and not allow_foreground:
             refuse('owned_game_is_foreground', 'owned_process_foreground')
         if window is None:
             refuse('owned_game_has_no_usable_visible_window', 'window_unavailable')
@@ -96,7 +101,8 @@ class Client:
                 window['hwnd'] <= 0 or type(window.get('width')) is not int or
                 type(window.get('height')) is not int or window['width'] <= 1 or window['height'] <= 1):
             refuse('owned_game_has_no_usable_visible_window', 'window_unavailable')
-        if (guard.get('background_safe') is not True or guard.get('window_noactivate') is not True or
+        if (not foreground_policy_satisfied(guard, current['game_pid']) or
+                guard.get('window_noactivate') is not True or
                 type(foreground.get('pid')) is not int or not all(
                     window.get('pid') == current['game_pid'] and window.get('noactivate') is True
                     for window in windows)):

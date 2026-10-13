@@ -220,6 +220,42 @@ class BackgroundStartupBudgetTests(unittest.TestCase):
         self.client.assert_not_called()
         self.assert_retained(result)
 
+    def test_user_foreground_opt_in_keeps_startup_running_without_activation(self):
+        self.run.side_effect = self.query
+        guard = {'foreground': {'hwnd': 200, 'pid': 42}, 'windows': [{'hwnd': 200}],
+                 'background_safe': False, 'window_noactivate': True}
+        with patch.dict(instances.os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}), \
+                patch.object(instances, 'noactivate_contract', return_value={'requested': True, 'dll': {'path': 'guard.dll'}}), \
+                patch.object(instances, 'background_guard_state', return_value=guard):
+            result = instances.start(self.args)
+        self.assertEqual('ready', result['state'])
+        self.assertFalse(result['noactivation']['background_safe'])
+        self.assert_retained(result)
+
+    def test_opt_in_still_refuses_lost_noactivate_style(self):
+        self.run.side_effect = self.query
+        guard = {'foreground': {'hwnd': 200, 'pid': 42}, 'windows': [{'hwnd': 200}],
+                 'background_safe': False, 'window_noactivate': False}
+        with patch.dict(instances.os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}), \
+                patch.object(instances, 'noactivate_contract', return_value={'requested': True, 'dll': {'path': 'guard.dll'}}), \
+                patch.object(instances, 'background_guard_state', return_value=guard):
+            result = instances.start(self.args)
+        self.assertEqual('failed', result['state'])
+        self.assertEqual(2, self.terminate.call_count)
+        self.activate.assert_not_called()
+
+    def test_default_policy_still_refuses_owned_foreground(self):
+        self.run.side_effect = self.query
+        guard = {'foreground': {'hwnd': 200, 'pid': 42}, 'windows': [{'hwnd': 200}],
+                 'background_safe': False, 'window_noactivate': True}
+        with patch.dict(instances.os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '0'}), \
+                patch.object(instances, 'noactivate_contract', return_value={'requested': True, 'dll': {'path': 'guard.dll'}}), \
+                patch.object(instances, 'background_guard_state', return_value=guard):
+            result = instances.start(self.args)
+        self.assertEqual('failed', result['state'])
+        self.assertEqual(2, self.terminate.call_count)
+        self.activate.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -112,7 +112,9 @@ def main(full_baseline=False, baseline_rp=False):
                                   'Bounded PermissionError-only manifest read retry'),
             'pack_mode': 'baseline-full' if full_baseline else 'minimal-baseline-rp' if baseline_rp else 'minimal',
             'launches_permitted': 1, 'outer_seconds': 240, 'cleanup_seconds': 40,
-            'background_only': True, 'activation_resize_desktop_input': False,
+            'background_only': not _window.user_foreground_allowed(),
+            'user_foreground_allowed': _window.user_foreground_allowed(),
+            'agent_activation_allowed': False, 'activation_resize_desktop_input': False,
             'block_or_actor_writes': False, 'production_acceptance': False,
             'pins': {str(path): sha(path) for path in [Path(__file__), Path(world.__file__),
                      ROOT / 'tools/managed_registry_snapshot.py', CONFIG] + list(PINS)},
@@ -132,7 +134,8 @@ def main(full_baseline=False, baseline_rp=False):
         value = _window.background_guard_state(session['game_pid'], 'Minecraft.Windows.exe')
         report['checks'].append({'at_seconds': time.monotonic() - started, 'guard': value})
         checkpoint()
-        if not value['background_safe'] or value['windows'] and not value['window_noactivate']:
+        if (not _window.foreground_policy_satisfied(value, session['game_pid']) or
+                value['windows'] and not value['window_noactivate']):
             raise RuntimeError('Minimal background guard failed')
 
     def read_retry(receipt):
@@ -160,7 +163,8 @@ def main(full_baseline=False, baseline_rp=False):
         if len(active) >= 5:
             raise RuntimeError('No owned-game capacity')
         report['foreground_before'] = _window.foreground_snapshot()
-        if report['foreground_before']['process'].lower().startswith('minecraft'):
+        if (not _window.user_foreground_allowed() and
+                report['foreground_before']['process'].lower().startswith('minecraft')):
             raise RuntimeError('Game already foreground')
         args = [sys.executable, '-X', 'utf8', str(ROOT / '.agents/skills/pyreact-debugging/scripts/instances.py'),
                 'start', '--project', str(ROOT), '--owner', OWNER, '--name', OWNER, '--preset', 'ui', '--wait', '120',

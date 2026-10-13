@@ -207,6 +207,20 @@ def validate_foreground_snapshot(snapshot):
             and bool(user32.IsWindowVisible(hwnd)) and not user32.IsIconic(hwnd))
 
 
+def user_foreground_allowed():
+    return os.environ.get('MCDEV_ALLOW_USER_FOREGROUND') == '1'
+
+
+def foreground_policy_satisfied(guard, pid):
+    foreground_pid = guard.get('foreground', {}).get('pid')
+    if type(foreground_pid) is not int or foreground_pid < 0:
+        return False
+    background = foreground_pid != pid
+    if guard.get('background_safe') is not background:
+        return False
+    return background or user_foreground_allowed()
+
+
 def background_guard_state(pid, process_name):
     """Inspect the owned windows without showing, resizing or activating them."""
     windows = [window for window in _list_windows_windows()

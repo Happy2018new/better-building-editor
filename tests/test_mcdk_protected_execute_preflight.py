@@ -155,6 +155,41 @@ class ProtectedExecutePreflightTests(unittest.TestCase):
         self.assertEqual(1, len(self.requests))
         self.assertIn('_pyreact_mcdk_session', self.requests[0]['params']['arguments']['code'])
 
+    def test_user_foreground_opt_in_keeps_token_and_business_dispatch(self):
+        self.guard['foreground'] = {'hwnd': 42, 'pid': 123}
+        self.guard['background_safe'] = False
+        self.binding['noactivation']['background_safe'] = False
+        with mock.patch.dict(mcdk.os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}):
+            with self.client() as client:
+                client.call('execute_code', {'code': 'observe_product()'})
+                report = client.last_execute_code_preflight
+                self.assertTrue(report['ok'] and report['owned_process_foreground'])
+                self.assertFalse(report['background_only'] or report['agent_activation_allowed'])
+                self.assertFalse(report['window_guard']['background_safe'])
+        self.assertEqual(3, len([request for request in self.requests if request['method'] == 'tools/call']))
+
+    def test_foreground_opt_in_does_not_bypass_window_or_identity_guards(self):
+        for fault in ('style', 'minimized', 'identity', 'inconsistent'):
+            with self.subTest(fault=fault):
+                guard, binding = copy.deepcopy(self.guard), copy.deepcopy(self.binding)
+                guard['foreground'] = {'hwnd': 42, 'pid': 123}
+                guard['background_safe'] = False
+                if fault == 'style':
+                    guard['windows'][0]['noactivate'] = False
+                elif fault == 'minimized':
+                    guard['windows'][0]['minimized'] = True
+                elif fault == 'identity':
+                    binding['game_identity'] = 'changed'
+                else:
+                    guard['background_safe'] = True
+                client = self.client()
+                with mock.patch.dict(mcdk.os.environ, {'MCDEV_ALLOW_USER_FOREGROUND': '1'}), \
+                        mock.patch.object(mcdk, 'load_session', return_value=binding), \
+                        mock.patch.object(mcdk, 'background_guard_state', return_value=guard):
+                    with self.assertRaises(mcdk.MCDKError):
+                        client.call('execute_code', {'code': 'observe_product()'})
+                self.assert_no_execute_dispatched()
+
     def test_owner_loader_failure_and_changed_identity_are_not_sent_to_runtime(self):
         client = self.client()
         with mock.patch.object(mcdk, 'load_session', side_effect=ValueError('Instance owner mismatch')):

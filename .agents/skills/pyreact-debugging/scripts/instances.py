@@ -19,7 +19,8 @@ from _session import (file_lock, load_session, process_identity, registry_dir,
                       terminate_owned, write_json)
 from mcdk import Client, return_value
 from setup_mcdk import resolve_game, resolve_mcdk
-from _window import background_guard_state, foreground_snapshot, validate_foreground_snapshot
+from _window import (background_guard_state, foreground_snapshot, validate_foreground_snapshot,
+                     foreground_policy_satisfied, user_foreground_allowed)
 
 SCRIPTS = Path(__file__).resolve().parent
 RUNNABLE = {"mcdk.py", "get_ui_tree.py", "query_tree.py", "print_ui_tree.py",
@@ -115,6 +116,7 @@ def noactivate_contract(args, executable):
             or b'Focus guard DLL identity not found in owned process' not in source):
         raise ValueError('Patched MCDK lacks the suspended-child focus guard contract')
     return {'schema': 1, 'requested': True, 'dll': guard, 'mcdk': mcdk,
+            'user_foreground_allowed': user_foreground_allowed(), 'agent_activation_allowed': False,
             'patch': 'native_focus_guard/mcdk-v1.6.1.patch'}
 
 
@@ -363,7 +365,8 @@ def start(args):
                 write_json(session_file, data)
                 return finish_start(data)
         data['foreground_before'] = foreground_snapshot()
-        if noactivate and data['foreground_before']['process'].lower().startswith('minecraft'):
+        if (noactivate and not user_foreground_allowed() and
+                data['foreground_before']['process'].lower().startswith('minecraft')):
             data.update(state='failed', error='Noactivation startup requires a non-Minecraft foreground')
             return finish_start(data)
         try:
@@ -434,7 +437,8 @@ def start(args):
             if noactivate:
                 guard = background_guard_state(game_pid, Path(data['game_executable']).name)
                 data['noactivation'].update(guard)
-                if not guard['background_safe'] or guard['windows'] and not guard['window_noactivate']:
+                if (not foreground_policy_satisfied(guard, game_pid) or
+                        guard['windows'] and not guard['window_noactivate']):
                     data.update(state='failed', error='Owned game violated the noactivation window contract')
                     terminate_owned(game_pid, identity)
                     terminate_owned(data['mcdk_pid'], data['mcdk_identity'])
@@ -472,7 +476,7 @@ def start(args):
             if noactivate:
                 guard = background_guard_state(game_pid, Path(data['game_executable']).name)
                 data['noactivation'].update(guard)
-                if not guard['background_safe'] or not guard['window_noactivate']:
+                if not foreground_policy_satisfied(guard, game_pid) or not guard['window_noactivate']:
                     data.update(state='failed', ready=False,
                                 error='Owned game violated the noactivation contract before readiness')
                     terminate_owned(game_pid, identity)
