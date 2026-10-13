@@ -287,10 +287,84 @@ class StateContractTests(unittest.TestCase):
                      snow['NATIVE_MUTATE'] % ('poppy', 'covered', 0), snow['NATIVE_SNOW'] % 1,
                      phase_module.CAMERA_SET % ((6.5, -47.5, 6.5), (4.5, -47.35, 4.), 180.),
                      phase_module.SERVER_PREFLIGHT % (((6, -48, 6), (6, -49, 6)),), phase_module.FRAME_INSTALL,
+                     phase_module.OFFSET_INSTALL, phase_module.PLACEMENT_READ, phase_module.OFFSET_REMOVE,
                      'import json,sys\nif hasattr(sys,"_snow_visibility_native"):\n' +
                      '\n'.join(' ' + line for line in snow['NATIVE_CLEANUP'].splitlines()) +
                      '\nelse:_result=json.dumps([])\n'):
             compile(code, '<frozen-snow-snippet>', 'exec')
+
+    def test_compensated_placement_requires_native_actor_and_acknowledged_offsets(self):
+        value = {'actor': 'owned', 'mesh': ['owned','model',[5,-49,5],[.5,-59,.5]],
+            'session_origin':[5,-49,5], 'actor_position':[.5,-59,.5], 'shader_anchor':[.5,-59,.5],
+            'player':[.5,-60,.5], 'offsets':[{'model':'part','chunk':[0,0,0],'context':True,
+                 'native_submission':{'offset':[-5.,10.,-5.],'result':True,'render_events':20}}]}
+        self.assertTrue(phase_module.placement_matches(value,[5,-49,5],[.5,-60,.5]))
+        before = phase_module.placement_signature(value)
+        value['offsets'][0]['native_submission']['render_events'] = 40
+        self.assertEqual(before,phase_module.placement_signature(value))
+        for field in ('actor_position','shader_anchor'):
+            broken = copy.deepcopy(value)
+            broken[field][1] += 1
+            self.assertFalse(phase_module.placement_matches(broken,[5,-49,5],[.5,-60,.5]))
+        for result in (False,None):
+            broken = copy.deepcopy(value)
+            broken['offsets'][0]['native_submission']['result'] = result
+            self.assertFalse(phase_module.placement_matches(broken,[5,-49,5],[.5,-60,.5]))
+        broken = copy.deepcopy(value)
+        broken['offsets'][0]['native_submission']['offset'][1] += 1
+        self.assertFalse(phase_module.placement_matches(broken,[5,-49,5],[.5,-60,.5]))
+
+    def test_native_offset_probe_preserves_actual_calls_results_and_uncertainty(self):
+        target = SimpleNamespace(AddActorBlockGeometry=mock.Mock(return_value=True),
+            SetActorBlockGeometryOffset=mock.Mock(return_value=True))
+        factory = SimpleNamespace(CreateActorRender=mock.Mock(return_value=target))
+        bridge = SimpleNamespace(factory=factory)
+        values = {'sys':SimpleNamespace(_snow_h0_render_frames=SimpleNamespace(count=4)), 'b':bridge,'json':json}
+        exec(compile(phase_module.OFFSET_INSTALL,'<native-offset-observer>','exec'),values)
+        renderer=bridge.factory.CreateActorRender('owned')
+        self.assertTrue(renderer.AddActorBlockGeometry('part',(-5.,10.,-5.),(0.,180.,0.)))
+        target.AddActorBlockGeometry.assert_called_once_with('part',(-5.,10.,-5.),(0.,180.,0.))
+        target.SetActorBlockGeometryOffset.return_value=False
+        self.assertFalse(renderer.SetActorBlockGeometryOffset('part',(1.,2.,3.)))
+        target.SetActorBlockGeometryOffset.side_effect=TimeoutError('uncertain native setter')
+        with self.assertRaises(TimeoutError):renderer.SetActorBlockGeometryOffset('part',(4.,5.,6.))
+        journal=values['sys']._snow_h0_offsets
+        self.assertEqual((-5.,10.,-5.),journal.offsets['owned','part']['offset'])
+        self.assertEqual(3,len(journal.records))
+        self.assertIn('uncertain native setter',journal.records[-1]['error'])
+        exec(compile(phase_module.OFFSET_REMOVE,'<native-offset-cleanup>','exec'),values)
+        self.assertIs(factory,bridge.factory)
+        self.assertFalse(hasattr(values['sys'],'_snow_h0_offsets'))
+
+    def test_ordinary_product_follow_settles_real_owner_before_baseline_without_world_origin_change(self):
+        from test_bridge import ProjectionLifecycleTests
+        fixture=ProjectionLifecycleTests(methodName='test_camera_anchor_preserves_world_coordinates_without_rebuilding')
+        fixture.setUp()
+        try:
+            b,r=fixture.bridge,fixture.runtime
+            b.session.origin=(5,-49,5)
+            r.GetFootPos=lambda:(.5,-60.,.5)
+            r.GetPos=lambda:r.actor_positions[r.moving][1]
+            values={'sys':SimpleNamespace(_snow_h0_render_frames=SimpleNamespace(count=4)),
+                    'b':b,'s':b.session,'json':json}
+            exec(compile(phase_module.OFFSET_INSTALL,'<ordinary-owner-offset-observer>','exec'),values)
+            b.project()
+            fixture.drain_projection()
+            b.context_models={b.projection_mesh[1]:[(name,chunk,context)
+                for name,(chunk,context) in b.projection_shader.parts[b.projection_shader.bank].items()]}
+            b.follow_projection()
+            exec(compile(phase_module.PLACEMENT_READ,'<ordinary-owner-placement>','exec'),values)
+            first=json.loads(values['_result'])
+            self.assertTrue(phase_module.placement_matches(first,[5,-49,5],[.5,-60.,.5]))
+            self.assertEqual([.5,-59.,.5],first['actor_position'])
+            values['sys']._snow_h0_render_frames.count+=2
+            b.follow_projection()
+            exec(compile(phase_module.PLACEMENT_READ,'<ordinary-owner-placement>','exec'),values)
+            second=json.loads(values['_result'])
+            self.assertEqual(phase_module.placement_signature(first),phase_module.placement_signature(second))
+            exec(compile(phase_module.OFFSET_REMOVE,'<ordinary-owner-observer-cleanup>','exec'),values)
+        finally:
+            fixture.tearDown()
 
     def candidate_phase(self, cosines, timeout_first=False):
         """Drive the real phase through camera selection, then stop at qualification."""
@@ -496,7 +570,9 @@ class StateContractTests(unittest.TestCase):
         self.assertTrue(value['saved_camera_journal_cleared_after_verified_readback'])
         request = next(code for code in state['calls'] if 'cam.ResetCameraPos()' in code)
         self.assertNotIn('del sys._blueprint_visual_saved', request)
-        self.assertIn('del sys._blueprint_visual_saved', state['calls'][-3])
+        cleared = [i for i,code in enumerate(state['calls']) if 'del sys._blueprint_visual_saved' in code]
+        self.assertEqual(1,len(cleared))
+        self.assertGreater(cleared[0],state['calls'].index(request))
 
     def test_camera_restore_that_never_settles_retains_journal_and_removes_render_listener(self):
         value, state = self.partial_setup_resource_stop(False)

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "commands": [
+    "api GetRotFromDir",
+    "api SetCameraRotation",
+    "api GetCameraRotation"
+  ],
+  "responses": [
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## GetRotFromDir\n\n服务端客户端\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## SetCameraRotation\n\n客户端\n\nmethod in mod.client.component.cameraCompClient.CameraComponentClient\n\n- 描述\n\n  设定摄像机的朝向\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| rot | `tuple(float,float,float)` | 朝向，其中3个值分别代表Pitch（俯仰角），Yaw（偏航角），Roll（翻滚角）的角度。如果传进来的tuple长度为2，则Roll（翻滚角）的角度默认为0。 |\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| bool | 是否设置成功 |\n\n- 备注\n\n  - 与F3显示的相机调试信息的Pitch、Yaw相反。\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateCamera(levelId)\ncomp.SetCameraRotation((1, 1, 1))\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## GetCameraRotation\n\n客户端\n\nmethod in mod.client.component.cameraCompClient.CameraComponentClient\n\n- 描述\n\n  获取摄像机的朝向\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float,float)` | 朝向，分别代表Pitch（俯仰角），Yaw（偏航角），Roll（翻滚角）的角度 |\n\n- 备注\n\n  - 若在使用[SetCameraRotation](#SetCameraRotation)立马调用该接口，会得到修改前的结果，因为摄像机是在逻辑帧之间插值移动变化的，而不是马上改变。\n  - 与F3显示的相机调试信息的Pitch、Yaw相反。\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreateCamera(levelId)\nrot = comp.GetCameraRotation()\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    }
+  ],
+  "new_sdk_calls": 0,
+  "new_game_launches": 0
+}

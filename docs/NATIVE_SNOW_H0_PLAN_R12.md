@@ -1,14 +1,18 @@
 # Native Snow H0 Four-State Proposal
 
-This V1E preparation awaits final source review and a coordinated WGC slot.
+This V1F preparation awaits final source review and a coordinated WGC slot.
 V1C established actual UiInit readiness and a grass-world first application
 image, then retained an invisible high target stone/blank pair and a failed
 immediate follow-camera restoration readback. The unrun V1D translates the complete
 private fixture nearer the unchanged player and requires actual camera
 forward and render-event readback. Prior runs and first captures are immutable.
-V1E adds two predeclared SDK angle candidates selected by actual forward
-readback before the first cell image. V1D remains frozen and must not run.
-V1E preparation adds no
+V1E proved visible native h0 snow/poppy and verified camera restoration, then
+stopped at a raw mesh-tuple guard after the ordinary product follow owner
+changed the physical actor anchor while compensating its geometry offset.
+Its first projected covered image shows snow without a visible poppy.
+V1F waits for that existing owner to settle before declaring a new projection
+baseline; it retains V1E's failure and makes no cause claim for the missing
+plant. V1D remains frozen and must not run. V1F preparation adds no
 launch, fixture mutation or SDK request. Resource health remains unaccepted.
 The parent coordinator
 authorized a separate finite 240/190/50/90 total/work/cleanup/launcher plan;
@@ -28,7 +32,7 @@ coordinate in every row. Offline `build` confirmed:
 | Plant only | `(18,1,3)` | `minecraft:poppy`, aux 0 | air |
 | Blank | `(18,1,3)` recorded; no block emitted | air | air |
 
-The V1E native destination is `(6,-48,6)`, dirt support `(6,-49,6)`, projection
+The V1F native destination is `(6,-48,6)`, dirt support `(6,-49,6)`, projection
 origin `(5,-49,5)` so extracted focus maps to that exact destination. The
 extraction rebase is the existing document operation, not a new plant offset
 correction. Preserve built-in source identity and actual native placement
@@ -137,6 +141,32 @@ versions, ready actor/mesh for nonblank states, opacity 1, missing/outline
 false, and declared origin. Blank requires no projected target contribution.
 No native plant or snow may remain behind the projection actor.
 
+After ordinary `b.project()`, wait at least two actual render events and
+observe the existing `Bridge.follow_projection()` path settle the physical
+actor at unchanged `(player_foot.x, player_foot.y+1, player_foot.z)`. Keep this
+necessary culler follow enabled. Before the first projection image, freeze
+actual native actor `GetPos`, mesh actor/model/logical origin, shader anchor,
+all context/overlay parts and unit scales. A transparent owned ActorRender
+probe records actual `AddActorBlockGeometry`/`SetActorBlockGeometryOffset`
+arguments, render counts and native boolean returns, without replacing
+their behavior or submitting an additional move. Require a successful native
+offset acknowledgment for every displayed part. For each part chunk `c`,
+recover the declared logical origin from actor `a` and submitted offset `o`
+as `(a.x-o.x-.5-c.x, a.y+o.y-c.y, a.z-o.z-.5-c.z)` and require the exact
+declared world placement within .01. Preserve every read and submission,
+including failed/uncertain setter calls. A timeout or incomplete settlement
+stops the condition without a capture or unbounded recovery.
+
+MCP did not expose an official `GetActorBlockGeometryOffset` getter. Offset
+evidence therefore consists of actual native setter acknowledgments plus
+source-defined compensation and actual actor position, not a GPU/readback
+claim. Compare the settled physical actor and offsets, logical origin,
+actor/model/parts/scale and current document source before/after each image;
+repeated successful identical submissions may have different render counts.
+Remove the observer during partial or normal cleanup and restore the exact
+factory. Do not disable the product follow owner or infer plant causality
+from this fixture guard amendment.
+
 Retain all eight raw images. Native plant-minus-blank and projection
 plant-minus-blank are separate positive controls. Require at least 80
 observable plant pixels inside the same qualified ROI before interpreting
@@ -174,7 +204,7 @@ full existing snow/camera/SignCheck paths have unbounded outer waits and are
 unsuitable. A slow fixture stage fails and proceeds to cleanup instead of
 borrowing an implicit longer deadline or replacing the first capture.
 
-SDK readiness is distinct from application readiness. V1E preserves the
+SDK readiness is distinct from application readiness. V1F preserves the
 first scheduled and first SDK-ready attempts, then makes only bounded
 read-only queries through the actual client system. Require the existing
 owner/session/bridge, `session.ready is True`, `bridge.session is session`,

@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "commands": [
+    "api GetActorBlockGeometryOffset",
+    "api SetActorBlockGeometryOffset",
+    "api GetFootPos"
+  ],
+  "responses": [
+    {
+      "content": [],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## SetActorBlockGeometryOffset\n\n客户端\n\nmethod in mod.client.component.actorRenderCompClient.ActorRenderCompClient\n\n- 描述\n\n  设置实体的方块几何体模型的位置偏移。\n\n- 参数\n\n| 参数名 | 数据类型 | 说明 |\n| --- | --- | --- |\n| geometryName | str | 几何体模型的名称，用于标识每个几何体模型，相当于是该模型的id |\n| offset | `tuple(float,float,float)` | 方块几何体模型相对实体的位置偏移值，默认为(0, 0, 0)。 |\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| bool | 设置是否成功，成功返回True，失败返回False。 |\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\nactorRenderComp = clientApi.GetEngineCompFactory().CreateActorRender(\"-4294967295\")\nprint actorRenderComp.SetActorBlockGeometryOffset(\"my_block_geometry\", (1,1,1))\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    },
+    {
+      "content": [
+        {
+          "type": "text",
+          "text": "## GetFootPos\n\n服务端客户端\n\n"
+        },
+        {
+          "type": "text",
+          "text": "### 服务端接口\n\nmethod in mod.server.component.posCompServer.PosComponentServer\n\n- 描述\n\n  获取实体位置\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float,float)` | 位置信息 |\n\n- 备注\n\n  - 对于非玩家，获取到的是脚底部位的位置\n  - 对于玩家，如果处于行走，站立，游泳，潜行，滑翔状态，获得的位置比脚底位置高1.62；如果处于睡觉状态，获得的位置比最低位置高0.2\n  - 类似接口有[GetFootPos](#getfootpos)，对任何实体都是获取脚底部位的位置\n\n- 示例\n\n```python\nimport mod.server.extraServerApi as serverApi\ncomp = serverApi.GetEngineCompFactory().CreatePos(entityId)\ncomp.GetPos()\n\n```\n\n"
+        },
+        {
+          "type": "text",
+          "text": "### 客户端接口\n\nmethod in mod.client.component.posCompClient.PosComponentClient\n\n- 描述\n\n  获取实体位置\n\n- 参数\n\n  无\n\n- 返回值\n\n| 数据类型 | 说明 |\n| --- | --- |\n| `tuple(float,float,float)` | 实体的坐标 |\n\n- 备注\n\n  - 对于非玩家，获取到的是脚底部位的位置\n  - 对于玩家，如果处于行走，站立，游泳，潜行，滑翔状态，获得的位置比脚底位置高1.62，如果处于睡觉状态，获得的位置比最低位置高0.2\n  - 类似接口有[GetFootPos](#getfootpos)，对任何实体都是获取脚底部位的位置\n\n- 示例\n\n```python\nimport mod.client.extraClientApi as clientApi\ncomp = clientApi.GetEngineCompFactory().CreatePos(entityId)\n#获取位置：\nentityPos = comp.GetPos()\n\n```\n\n"
+        }
+      ],
+      "isError": false
+    }
+  ],
+  "new_sdk_calls": 0,
+  "new_game_launches": 0,
+  "limits": "No public GetActorBlockGeometryOffset docs found; use actual Set native return and actual actor position. The GetFootPos response includes official PosComponentClient.GetPos documentation."
+}

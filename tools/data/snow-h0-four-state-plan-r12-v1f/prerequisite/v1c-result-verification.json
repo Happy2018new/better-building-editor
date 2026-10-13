@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "verified_at": "2026-10-13T01:20:58.278872+00:00",
+  "session": "39e5d2a778d444cdad2dce2e1925cd86",
+  "new_launches_during_archive": 0,
+  "owned_current_identities": {
+    "game": null,
+    "mcdk": null
+  },
+  "backups": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "sha256": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json",
+      "sha256": "d7c27652dc9e172a87207cf1df61960914a55e3263451b5e896c246bc924d16e",
+      "restored": true
+    }
+  ],
+  "project_inventory_restored": 1432,
+  "own_marker_absence_restored": true,
+  "native_texture_unchanged": true,
+  "historical_launcher_rc": 0,
+  "historical_launcher_ready": true,
+  "first_post_sdk_ready_machine_checks_passed": true,
+  "application_readiness_reads": [
+    {
+      "hud_present": false,
+      "bridge_present": false,
+      "runtime_version": "1.21.120.0",
+      "session_present": false,
+      "initialized": false,
+      "bridge_session_matches": false,
+      "owner_present": true,
+      "session_ready": false,
+      "elapsed_seconds": 72.49019410001347
+    },
+    {
+      "hud_present": false,
+      "bridge_present": false,
+      "runtime_version": "1.21.120.0",
+      "session_present": false,
+      "initialized": false,
+      "bridge_session_matches": false,
+      "owner_present": true,
+      "session_ready": false,
+      "elapsed_seconds": 74.70537530002184
+    },
+    {
+      "hud_present": true,
+      "bridge_present": true,
+      "runtime_version": "1.21.120.0",
+      "session_present": true,
+      "initialized": true,
+      "bridge_session_matches": true,
+      "owner_present": true,
+      "session_ready": true,
+      "elapsed_seconds": 76.4183219000115
+    }
+  ],
+  "first_application_ready_machine_checks_passed": true,
+  "direct_visual_inspection": {
+    "schema": 1,
+    "inspected_at": "2026-10-13T01:20:56.403775+00:00",
+    "method": "direct original images opened through view_image; offline frozen difference logic",
+    "files": [
+      {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\startup-first-scheduled.png",
+        "sha256": "2813e22852cc4cf13c233d49b92af9b7034f931c02824211f5e84690af65d18d",
+        "opened_original": true,
+        "finding": "black first scheduled outcome, retained"
+      },
+      {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\startup-first-ready.png",
+        "sha256": "6d9f2685c8e3ff0ba7719364ceba7ee4405882189792fad0186912cd94ed9268",
+        "opened_original": true,
+        "finding": "Minecraft loading overlay, SDK-ready machine result is not a world frame"
+      },
+      {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\startup-first-application-ready.png",
+        "sha256": "47318736276c3003677d7e95e05c60d49334f8b5753a0d8c7d4633cfe41e5522",
+        "opened_original": true,
+        "finding": "actual first-person grass-world frame with sky/horizon/hand/HUD; no loading overlay"
+      },
+      {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\qualification_stone.png",
+        "sha256": "12696bd307f6e468cf7b301f70b74bbd47a23a3c7175d528cdf3e3135b1e3be6",
+        "opened_original": true,
+        "finding": "sky/hand/HUD at detached camera; no visible stone target or support"
+      },
+      {
+        "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1c\\qualification_blank.png",
+        "sha256": "c49c8ff75baf116e9678920addd580df1c7cf9f8ba959a1b801022c5a7602c28",
+        "opened_original": true,
+        "finding": "same sky/hand/HUD; no visible target stone or support"
+      }
+    ],
+    "first_application_world_frame_prerequisite_passed": true,
+    "qualification_pixels": {
+      "threshold": 20,
+      "fixed_crop": [
+        498,
+        276,
+        1495,
+        828
+      ],
+      "all_changed_pixels": 0,
+      "largest_filled_component_pixels": 0,
+      "required_minimum": 1000,
+      "component_bounds": null,
+      "passed": false
+    },
+    "native_snow_rows": 0,
+    "projection_snow_rows": 0,
+    "positive_plant_control_passed": false,
+    "covered_minus_snow_conclusion_accepted": false,
+    "camera_restoration_readback_passed": false,
+    "production_acceptance": false,
+    "offset_acceptance": false,
+    "resource_health_accepted": false,
+    "new_launches": 0,
+    "new_sdk_calls": 0
+  },
+  "phase_completed": false,
+  "native_projection_rows": 2,
+  "failure": "RuntimeError: H0 finite phase did not complete: AssertionError: Same-session native stone cell lacks 1000 observable pixels",
+  "cleanup_errors_retained": [
+    "Client/player restoration: ('Original follow camera restoration readback failed', {'fov': 60.0, 'yaw_lock': False, 'player': [0.5, -60.0, 0.5], 'pitch_lock': False, 'position': [4.5, 117.6500015258789, 4.0], 'rotation': [2.6824610233306885, 141.3401641845703, -1.3728783414990176e-05]}, {'origin': [0, -60, 0], 'opacity': 0.45, 'player': [0.5, -60.0, 0.5], 'camera_pos': [0.5, -58.37998962402344, 0.5], 'outline': True, 'pitch_lock': False, 'missing': True, 'yaw_lock': False, 'fov': 60.0, 'camera_rot': [-0.0, 179.99996948242188, 0.0]})"
+  ],
+  "process_and_byte_cleanup_verified": true,
+  "production_acceptance": false,
+  "resource_health_accepted": false
+}

@@ -77,6 +77,40 @@ def forward_cosine(value, center):
     return sum(forward[i] * direction[i] for i in range(3)) / denominator
 
 
+def placement_matches(value, origin, player):
+    """Validate physical actor readback plus acknowledged owner offset submissions."""
+    anchor = (player[0], player[1] + 1., player[2])
+    if not value['mesh'] or not value['offsets'] or value['actor'] != value['mesh'][0]:
+        return False
+    if tuple(value['mesh'][2]) != tuple(origin) or tuple(value['session_origin']) != tuple(origin):
+        return False
+    for actual in (value['actor_position'], value['mesh'][3], value['shader_anchor']):
+        if actual is None or not all(math.isfinite(axis) for axis in actual):
+            return False
+        if any(abs(actual[i] - anchor[i]) >= .01 for i in range(3)):
+            return False
+    for part in value['offsets']:
+        record = part['native_submission']
+        if not record or record.get('result') is not True:
+            return False
+        offset, chunk, actual = record['offset'], part['chunk'], value['actor_position']
+        if not all(math.isfinite(axis) for axis in offset):
+            return False
+        restored_origin = (actual[0] - offset[0] - .5 - chunk[0],
+                           actual[1] + offset[1] - chunk[1],
+                           actual[2] - offset[2] - .5 - chunk[2])
+        if any(abs(restored_origin[i] - origin[i]) >= .01 for i in range(3)):
+            return False
+    return all(abs(value['player'][i] - player[i]) < .1 for i in range(3))
+
+
+def placement_signature(value):
+    return {'actor': value['actor'], 'mesh': value['mesh'], 'actor_position': value['actor_position'],
+            'offsets': [{'model': part['model'], 'chunk': part['chunk'], 'context': part['context'],
+                        'offset': part['native_submission']['offset'], 'result': part['native_submission']['result']}
+                       for part in value['offsets']]}
+
+
 def changed(first, second, threshold=20):
     delta = ImageChops.difference(first, second).split()
     maximum = ImageChops.lighter(ImageChops.lighter(delta[0], delta[1]), delta[2])
@@ -176,6 +210,57 @@ owner.ListenForEvent(api.GetEngineNamespace(),api.GetEngineSystemName(),'GameRen
 _result=json.dumps({'render_events':probe.count,'source':'actual GameRenderTickEvent'})
 '''
 
+OFFSET_INSTALL = '''assert not hasattr(sys,'_snow_h0_offsets'), 'Previous h0 offset probe needs cleanup'
+class SnowH0OffsetJournal(object):
+ def __init__(self,factory):self.factory=factory;self.probe=None;self.records=[];self.offsets={}
+journal=SnowH0OffsetJournal(b.factory)
+sys._snow_h0_offsets=journal
+class SnowH0ActorRenderProbe(object):
+ def __init__(self,target,entity):self.target=target;self.entity=entity
+ def __getattr__(self,name):return getattr(self.target,name)
+ def submit(self,method,args,kwargs):
+  name,offset=args[:2]
+  row={'actor':self.entity,'model':name,'method':method,'offset':offset,
+       'render_events':getattr(sys._snow_h0_render_frames,'count',None),'attempted':True}
+  journal.records.append(row)
+  try:
+   result=getattr(self.target,method)(*args,**kwargs)
+   row['result']=result
+   if result is True:journal.offsets[(self.entity,name)]=row
+   return result
+  except Exception as error:
+   row['error']=str(error)
+   raise
+ def AddActorBlockGeometry(self,*args,**kwargs):return self.submit('AddActorBlockGeometry',args,kwargs)
+ def SetActorBlockGeometryOffset(self,*args,**kwargs):return self.submit('SetActorBlockGeometryOffset',args,kwargs)
+class SnowH0OffsetFactoryProbe(object):
+ def __init__(self,target):self.target=target
+ def __getattr__(self,name):return getattr(self.target,name)
+ def CreateActorRender(self,entity):return SnowH0ActorRenderProbe(self.target.CreateActorRender(entity),entity)
+journal.probe=SnowH0OffsetFactoryProbe(b.factory)
+b.factory=journal.probe
+_result=json.dumps({'installed':True,'native_offset_getter_available_from_official_docs':False,
+ 'evidence':'actual native Add/Set call arguments and boolean acknowledgments, not GPU readback'})
+'''
+PLACEMENT_READ = '''mesh=b.projection_mesh
+parts=b.context_models.get(mesh[1],()) if mesh else ()
+journal=sys._snow_h0_offsets
+_result=json.dumps({'actor':b.entity,'mesh':mesh,'session_origin':s.origin,
+ 'actor_position':b.factory.CreatePos(b.entity).GetPos() if b.entity else None,
+ 'shader_anchor':getattr(b.projection_shader,'anchor',None),
+ 'player':b.player_position.GetFootPos(),'render_events':sys._snow_h0_render_frames.count,
+ 'offsets':[{'model':name,'chunk':chunk,'context':context,'native_submission':journal.offsets.get((b.entity,name))} for name,chunk,context in parts],
+ 'native_submission_count':len(journal.records),'evidence':'actual actor GetPos plus native offset submission acknowledgment; no public offset getter'})
+'''
+OFFSET_REMOVE = '''if hasattr(sys,'_snow_h0_offsets'):
+ journal=sys._snow_h0_offsets
+ if b.factory is journal.probe:b.factory=journal.factory
+ assert b.factory is not journal.probe
+ _result=json.dumps({'removed':True,'native_offset_submissions':journal.records})
+ del sys._snow_h0_offsets
+else:_result=json.dumps({'removed':True,'installation_not_observed':True})
+'''
+
 
 def run_phase(plan, host, session, output, work_deadline, restore_deadline, health):
     output = Path(output)
@@ -223,6 +308,7 @@ def run_phase(plan, host, session, output, work_deadline, restore_deadline, heal
     camera_code = None
     preflight_code = SERVER_PREFLIGHT % ((target, support),)
     frame_observer_installed = False
+    offset_probe_installed = False
 
     def run(code, server=False):
         value = module.return_value(client.call('execute_code', {'code': code if server else blueprint['CLIENT'] + code,
@@ -309,6 +395,8 @@ _result=json.dumps({'source':'existing ChunkLoadedClientEvent/ChunkAcquireDiscar
         save(receipt, result)
         frame_observer_installed = True
         result['render_frame_observer'] = run(FRAME_INSTALL)
+        offset_probe_installed = True
+        result['native_offset_probe'] = run(OFFSET_INSTALL)
         result['native_setup'] = run(reference['NATIVE_SETUP'] % (target,), True)
         before_camera = run(CAMERA_READ)
         result['camera_before_request'] = before_camera
@@ -420,14 +508,39 @@ _result=True
             save(receipt, result)
         for kind in KINDS:
             stage(8)
+            journal = {'kind': kind, 'projection_request_attempted': False}
+            result.setdefault('projection_state_journals', []).append(journal)
+            save(receipt, result)
             run('b.stop_projection()\n_result=True')
             source = run(reference['LOAD'] % ('poppy', 0, kind))
+            journal['source'] = source
+            save(receipt, result)
             if kind != 'blank':
+                journal['projection_request_attempted'] = True
+                save(receipt, result)
                 run('s.origin=%r\ns.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n_result=True' % (origin,))
                 status = wait('projection ' + kind, lambda value: value['active'] and value['ready'] and
                               not value['preparing'] and value['actors'] == 1 and value['mesh'] and value['scale'] is not None,
                               lambda: run(visual['PROJECTION_STATUS']))
+                journal['initial_ready_status'] = status
+                render_baseline = run(CAMERA_READ)['render_events']
+
+                def read_placement():
+                    value = run(PLACEMENT_READ)
+                    journal.setdefault('placement_reads', []).append(value)
+                    save(receipt, result)
+                    return value
+
+                placement = wait('ordinary render owner settles compensated projection placement',
+                    lambda value: value['render_events'] >= render_baseline + 2 and placement_matches(value, origin, player),
+                    read_placement)
+                journal['settled_placement_before_capture'] = placement
+                status = run(visual['PROJECTION_STATUS'])
+                if not status['part_scales'] or any(scale != [1.,1.,1.] for scale in status['part_scales']):
+                    raise AssertionError(('Projection part scale is not the declared unit scale',status))
                 submitted = run(visual['PROJECTION_SOURCE'])
+                journal.update(status_before_capture=status, source_before_capture=submitted)
+                save(receipt, result)
                 if not (submitted['work_current'] and submitted['cache_current'] and submitted['origin_current'] and
                         submitted['editor_id'] == source['editor_id'] and submitted['document_id'] == source['document_id'] and
                         submitted['fixture'] == 'snow.visibility.poppy.' + kind + '.0'):
@@ -442,11 +555,23 @@ _result=True
             path = capture('projection_' + kind + '_h0')
             final_status = run(visual['PROJECTION_STATUS'])
             final_source = run(visual['PROJECTION_SOURCE']) if kind != 'blank' else None
+            journal.update(status_after_capture=final_status, source_after_capture=final_source)
+            if kind != 'blank':
+                final_placement = run(PLACEMENT_READ)
+                journal['placement_after_capture'] = final_placement
+                save(receipt, result)
+                if not placement_matches(final_placement, origin, player):
+                    raise AssertionError(('Compensated projection placement drift during capture', placement, final_placement))
+                if placement_signature(final_placement) != placement_signature(placement):
+                    raise AssertionError(('Projection physical actor/offset changed after settled baseline', placement, final_placement))
             if kind != 'blank' and any(final_source.get(key) != submitted.get(key) for key in
                          ('editor_id', 'document_id', 'fixture', 'nonce', 'serial', 'model', 'work_current', 'cache_current', 'origin_current')):
                 raise AssertionError(('Projection source drift during capture', submitted, final_source))
             if final_status['actor'] != status['actor'] or final_status['mesh'] != status['mesh']:
                 raise AssertionError(('Projection actor/mesh drift during capture', status, final_status))
+            if kind != 'blank' and (final_status['parts'] != status['parts'] or
+                    final_status['part_scales'] != status['part_scales'] or final_status['origin'] != status['origin']):
+                raise AssertionError(('Projection logical origin/parts/scale drift during capture',status,final_status))
             paths['projection'][kind] = path
             result['rows'][-1].update(kind=kind, mode='projection', source=source, status=status,
                                       submitted=submitted, final_status=final_status, final_source=final_source)
@@ -527,6 +652,11 @@ _result=json.dumps({'requested':True,'render_events':getattr(getattr(sys,'_snow_
                 result['cleanup_errors'].append('Client/player restoration: ' + str(error))
             finally:
                 stage_deadline = restore_deadline
+                if offset_probe_installed:
+                    try:
+                        result['native_offset_probe_removed'] = run(OFFSET_REMOVE)
+                    except Exception as error:
+                        result['cleanup_errors'].append('Native offset probe cleanup: ' + str(error))
                 if frame_observer_installed:
                     try:
                         result['render_frame_observer_removed'] = run('''if hasattr(sys,'_snow_h0_render_frames'):

@@ -50,6 +50,15 @@ def validate_plan(path, expected_sha):
             'predeclared_yaw_candidates': [180., 0.], 'selection_before_first_qualification_capture': True,
             'unbounded_yaw_search_allowed': False}:
         raise ValueError('H0 actual camera and render-event restoration contract changed')
+    if plan.get('projection_placement_contract') != {
+            'owner': 'existing Bridge.follow_projection on actual GameRenderTickEvent',
+            'physical_anchor': 'unchanged player foot plus (0,1,0)',
+            'minimum_render_events_before_baseline': 2, 'baseline_before_first_projection_capture': True,
+            'actual_actor_GetPos_required': True, 'native_offset_submission_ack_required': True,
+            'public_native_offset_getter_proven': False, 'gpu_offset_readback_claimed': False,
+            'logical_origin_actor_model_parts_unit_scale_and_compensated_world_origin_fixed': True,
+            'disable_or_replace_product_follow_allowed': False}:
+        raise ValueError('H0 settled projection placement contract changed')
     if plan.get('protected_session') != startup.PROTECTED_SESSION:
         raise ValueError('Protected session changed')
     for row in plan['files'].values():

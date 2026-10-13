@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "verified_at": "2026-10-12T18:48:07.509650+00:00",
+  "scope": "Offline archive and host-only process identity query",
+  "new_launches": 0,
+  "sdk_or_window_operations": 0,
+  "process_mutations": 0,
+  "executed_plan_sha256": "0c1fde7a4d32b0b090736fbd98f7a9131b5e267c04692bd4da21c30ef52bc19b",
+  "session": "038844c8f42a436aa1474086ce66f8bb",
+  "historical_manifest_state": "ready",
+  "historical_manifest_ready": true,
+  "owned_processes_current": {
+    "game": {
+      "pid": 62696,
+      "expected_identity": "134363035328996422",
+      "current_identity": null,
+      "exact_owned_process_live": false
+    },
+    "mcdk": {
+      "pid": 44228,
+      "expected_identity": "134363035326797077",
+      "current_identity": null,
+      "exact_owned_process_live": false
+    }
+  },
+  "protected_processes_current_read_only": {
+    "game": {
+      "pid": 44536,
+      "expected_identity": "134362903316974407",
+      "current_identity": "134362903316974407",
+      "exact_protected_process_live": true,
+      "read_only": true
+    },
+    "mcdk": {
+      "pid": 42372,
+      "expected_identity": "134362903315012341",
+      "current_identity": "134362903315012341",
+      "exact_protected_process_live": true,
+      "read_only": true
+    }
+  },
+  "restored_files": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "sha256": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "restored": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.mcdev.json",
+      "sha256": "d7c27652dc9e172a87207cf1df61960914a55e3263451b5e896c246bc924d16e",
+      "restored": true
+    }
+  ],
+  "own_marker_original_absence_restored": true,
+  "native_texture_sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+  "project_inventory": {
+    "expected": 1432,
+    "actual": 1432,
+    "missing": [],
+    "added": [],
+    "changed": [],
+    "restored": true
+  },
+  "handle_intervals": [
+    {
+      "seconds": 33.71777500002645,
+      "from": "2026-10-12T18:32:54.009570+00:00",
+      "to": "2026-10-12T18:33:27.727347+00:00",
+      "game": {
+        "delta": 29502,
+        "handles_per_second": 874.9687664733766,
+        "qualifies_rapid_growth": true
+      },
+      "mcdk": {
+        "delta": 0,
+        "handles_per_second": 0.0,
+        "qualifies_rapid_growth": false
+      }
+    },
+    {
+      "seconds": 16.336933300015517,
+      "from": "2026-10-12T18:33:27.727347+00:00",
+      "to": "2026-10-12T18:33:44.064276+00:00",
+      "game": {
+        "delta": 1719,
+        "handles_per_second": 105.22170645076743,
+        "qualifies_rapid_growth": false
+      },
+      "mcdk": {
+        "delta": 4,
+        "handles_per_second": 0.2448439940681034,
+        "qualifies_rapid_growth": false
+      }
+    },
+    {
+      "seconds": 22.616421599988826,
+      "from": "2026-10-12T18:33:44.064276+00:00",
+      "to": "2026-10-12T18:34:06.680704+00:00",
+      "game": {
+        "comparable_live_interval": false
+      },
+      "mcdk": {
+        "comparable_live_interval": false
+      }
+    }
+  ],
+  "resource_health_accepted": false,
+  "handle_sampling_limits": [
+    "No creation-time baseline",
+    "First follow-up was late at 33.718 seconds",
+    "No live pre-cleanup end sample",
+    "Maximum 66566 is observed, not lifetime peak"
+  ],
+  "final_launcher_ready": true,
+  "historical_sdk_errors": 96,
+  "startup_ready_world_frame_prerequisite": true,
+  "production_acceptance": false
+}
