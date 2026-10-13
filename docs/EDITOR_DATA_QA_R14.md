@@ -125,21 +125,74 @@ generator's `--check` passed independently. No GPU result exists for these
 new bytes; the dry shape, snow boundary, editor/full/missing and cutaway visual
 suite remains pending.
 
-### Pending specialist follow-ups
+The follow-up `fd4cb23a` includes the original short-grass and fern sources in
+schema 2. Their existing 0.8-high meshes remain unchanged, with LF-normalized
+source hashes, installed native texture hashes and alpha bounds. The generated
+alpha top is scaled by the retained mesh height, giving 0.7 for short grass and
+0.8 for fern. The visual tool now binds these two plants to the same versioned
+source validation as the other 27. Independent execution of the profile,
+centered visual and static proxy modules passed all 24 methods; the generator's
+`--check` passed. These new source contracts have no live visual acceptance.
 
-- Water probe review found unverified camera interpolation and paired-control
-  framing, no complete launch/before/after resource freeze, and an unused
-  declared temporal threshold. The specialist is implementing explicit pose
-  waits, per-frame evidence, source equality gates and threshold 2 for animation.
-  FOV/resolution stability, editor-control alignment and source-drift negative
-  test independence need final verification.
-- Scaffold collector review of `07454a5f` found that `classify` checked the
-  upper cell's foreground and fluid but ignored its native palette. An upper
-  non-fluid background stone still classified as supporting; `aux=False`
-  also passed equality with zero. These must remain unknown unless the exact
-  observed dry-air palette and integer aux are verified. Five catalogue and
-  four native-palette methods passed independently, but these extra negative
-  cases are pending specialist fixes.
+### Product water capture contracts
+
+The bounded capture/replay tools in `35b51c1e`, with fixes `e08d2acb` and
+`8e4c6150`, were reviewed read-only in `D:/bbe-r13e-liquid`. Independent final
+execution passed all 40 methods from the analysis, managed registry, product
+profile, blueprint and resource modules.
+
+The review found and closed several concrete evidence defects:
+
+- Requested world cameras previously lacked a verified interpolation wait.
+  Each camera now waits for its requested pose and verifies before/after every
+  frame. FOV, engine viewport and native capture size are bound to all three
+  views of the same-session stone calibration.
+- Editor controls now retain camera, pan, depth, cut plane, origin, size and
+  the actual liquid controls' visibility, poses, positions and sizes, with
+  before/after equality. Biome extra captures pass their newly ready scene
+  state rather than omitting the frame's layout contract.
+- Input snapshots now compare launch, before and after bytes across BP, RP,
+  all top-level host Python tools and the debugging skill's Python scripts.
+  The new `water_capture_contract.py` helper is included in that closure.
+- Animation uses its declared RGB threshold 2, independently of the geometry
+  threshold 8. The transparency ROI also requires positive dry body/rear and
+  water-only signals before wet-minus-removed contributions can pass.
+- Wet/dry alignment alone was insufficient for transparency. All controls,
+  including liquid-only, water-only, rearless and empty, now share the wet
+  control's scene pose or world camera.
+
+An additional independent full-analyzer experiment changed each of the five
+non-wet controls' poses while keeping every frame individually stable. All
+ten editor/full-route negative cases rejected evidence and kept every observed
+gate false; the aligned baselines remained valid. Synthetic opaque water also
+fails the body/rear contribution gate. These checks validate rejection and
+measurement logic; they do not establish actual water geometry, transparency
+or animation. Product and historical native acceptance flags remain false.
+
+### Scaffold native palette proof
+
+The collector/derive review of `07454a5f` reproduced two false positives: an
+upper cell with air foreground but background stone classified as supporting,
+and `aux=False` compared equal to air's zero. The specialist fixed these in
+`9933b4d0`, following the source archive change `335cbd3b`.
+
+Classification now requires an integer air aux and an exact native dry palette
+for the upper cell, while support palette and liquid values must remain
+recursively typed-equal across the three measurement phases. Native state
+material buckets are retained instead of assuming the whole bucket is empty.
+Independent native-palette, runtime-catalogue, runtime-lifecycle, admission
+and legacy single-air modules passed 22 methods. The actual background
+agent's archived read-only palette observation was also parsed independently:
+
+- Source: `D:/bbe-r13e-background/docs/evidence/background-startup-contrast-r14-v2/palette.json`
+- SHA-256: `7d8c1e20bb11df8447a82c2d0a558718ddaef646b8520774f274a4b1559444dd`
+- Observed air state encoding: `[[["minecraft:air", 0], {}]]`; common has the
+  same material at index 0, and both extra buckets are empty.
+
+This closes the reported isolation defects. No complete catalogue or visual
+acceptance exists. The new sequential collection wrapper remains under
+specialist development; its source closure was separately flagged for the
+single-air modules imported by the supervisor.
 
 ## Limits and integration
 
