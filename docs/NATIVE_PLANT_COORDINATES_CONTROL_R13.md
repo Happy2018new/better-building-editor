@@ -25,6 +25,17 @@ change requires a new version and hash. Root coordinates the slot and cold
 start timing, with at most five live Minecraft processes. This document is
 preparation evidence, not a runtime success receipt.
 
+V1 was not launched. V2 added an explicit client palette availability gate,
+preventing an unavailable palette from being mistaken for empty air. V3 adds
+strict integer aux checks (so `False == 0` cannot pass), and allows matching
+absent native collision boxes while still requiring a selection clip for
+non-air blocks. The actual R9 poppy collision observations are zero-size
+boxes; this control does not force a solid plant collision shape. V2 was
+also not launched. The current V3 frozen plan is
+`.runtime/native-plant-positions-r13-v3/plan.json`, SHA256
+`7c47e75bc5b9021fd6d40416d4e783832c3b8bf428f6c6d694770aa713ac8101`.
+Both earlier plans and their original source bytes remain archived.
+
 ## Native observations and visual positive controls
 
 The server first requires all eight target/support cells to be loaded air
@@ -82,9 +93,10 @@ errors prevent diagnostic completion; production acceptance always remains
 false. Owned process identity and host-file restoration follow the unchanged
 supervisor contract.
 
-Preparation has 13 focused host tests, including moving-actor and wrong-region
+Preparation has 17 focused host tests, including moving-actor and wrong-region
 stone rejection, client/server aux mismatch, stale boxes/coordinates, absent
-air boxes and changed frozen scope/reference. The existing 28 finite h0
+air/collision boxes, missing client palettes and changed frozen scope/reference.
+The existing 28 finite h0
 supervisor tests pass. The MOD review tool parses zero host-tool files, so
 its empty finding list is not counted as source review; these host tools
 require manual independent review. One launch has total/work/cleanup/startup

@@ -31,6 +31,15 @@ class NativeCoordinateControlTests(unittest.TestCase):
         value=self.snapshot();value['client']['front'][1]=1
         self.assertFalse(phase.boxes_consistent(value,value,(6,-48,6),'minecraft:poppy'))
 
+    def test_boolean_aux_cannot_match_integer_zero(self):
+        value=self.snapshot();value['client']['front'][1]=False
+        self.assertFalse(phase.boxes_consistent(value,value,(6,-48,6),'minecraft:poppy'))
+
+    def test_matching_absent_collision_does_not_invent_a_plant_solid_box(self):
+        value=self.snapshot()
+        for side in ('server','client'):value[side]['collision']=None
+        self.assertTrue(phase.boxes_consistent(value,value,(6,-48,6),'minecraft:poppy'))
+
     def test_box_changes_across_capture_fail(self):
         before=self.snapshot();after=copy.deepcopy(before)
         for side in ('server','client'):after[side]['clip']['min'][0]+=.01
@@ -50,6 +59,17 @@ class NativeCoordinateControlTests(unittest.TestCase):
         value=self.snapshot()
         for side in ('server','client'):value[side]['clip']=None
         self.assertFalse(phase.boxes_consistent(value,value,(6,-48,6),'minecraft:poppy'))
+
+    def test_unavailable_palette_cannot_qualify_blank(self):
+        value={'available':False,'common':[],'extra':[]}
+        self.assertFalse(phase.replicated_palette(value,'blank'))
+        value['available']=True
+        self.assertTrue(phase.replicated_palette(value,'blank'))
+
+    def test_extra_layer_prevents_clean_stone_qualification(self):
+        value={'available':True,'common':[['minecraft:stone',0,[0]]],
+               'extra':[['minecraft:water',0,[0]]]}
+        self.assertFalse(phase.replicated_palette(value,'stone'))
 
     def mask(self, rect):
         image=Image.new('L',(997,552));ImageDraw.Draw(image).rectangle(rect,fill=255)

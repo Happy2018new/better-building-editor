@@ -8,7 +8,7 @@ from types import ModuleType
 from PIL import Image, ImageChops, ImageFilter
 
 from verify_snow_h0_phase import (CAMERA_READ, CAMERA_SET, CROP, FRAME_INSTALL,
-                                  PALETTE, SERVER_PREFLIGHT, SIZE, camera_matches,
+                                  SERVER_PREFLIGHT, SIZE, camera_matches,
                                   changed, constants, forward_cosine, helpers,
                                   palette_matches, save)
 
@@ -25,6 +25,22 @@ CONTRACT = {'targets': [list(pos) for pos in TARGETS],
             'stone_reference_minimum_recall_precision': [.75, .75],
             'stone_reference_tolerance_pixels': 3,
             'stone_reference_area_ratio': [.5, 2.]}
+
+NATIVE_PALETTE = '''target=%r
+palette=b.factory.CreateBlock(b.level).GetBlockPaletteBetweenPos(target,target,False)
+data=palette.SerializeBlockPalette() if palette is not None else {}
+_result=json.dumps(dict([('available',palette is not None)]+[(key,[[value[0],value[1],indices] for value,indices in data.get(key,{}).items()]) for key in ('common','extra')]))
+'''
+
+
+def replicated_palette(value, state):
+    if value.get('available') is not True:
+        return False
+    if state == 'stone':
+        return (any(item[0] == 'minecraft:stone' and item[1] == 0 for item in value['common']) and
+                all(item[0] in ('minecraft:air','minecraft:stone') for item in value['common']) and
+                all(item[0] == 'minecraft:air' for item in value['extra']))
+    return palette_matches(value,state)
 
 SERVER_BOXES = '''import json,sys
 import mod.server.extraServerApi as api
@@ -82,10 +98,12 @@ def boxes_consistent(before, after, target, expected):
             return False
         if server['front']['name'] != expected or client['front'][0] != expected:
             return False
+        if type(server['front']['aux']) is not int or type(client['front'][1]) is not int:
+            return False
         if server['front']['aux'] != client['front'][1]:
             return False
         for key in ('clip', 'collision'):
-            if server[key] != client[key] or (expected != 'minecraft:air' and server[key] is None):
+            if server[key] != client[key] or (key == 'clip' and expected != 'minecraft:air' and server[key] is None):
                 return False
     return before == after
 
@@ -260,10 +278,11 @@ class NativePositionControl:
         row['fixture'] = self.run(self.reference['NATIVE_SETUP'] % (target,), True)
         support = (target[0], target[1]-1, target[2])
         row['support_palette'] = self.wait('Native dirt support replication',
-            lambda value: any(item[0] == 'minecraft:dirt' and item[1] == 0 for item in value['common']) and
+            lambda value: value.get('available') is True and
+                          any(item[0] == 'minecraft:dirt' and item[1] == 0 for item in value['common']) and
                           all(item[0] in ('minecraft:air','minecraft:dirt') for item in value['common']) and
                           all(item[0] == 'minecraft:air' for item in value['extra']),
-            lambda: self.run(PALETTE % (support,)))
+            lambda: self.run(NATIVE_PALETTE % (support,)))
         self.select_camera(row)
         paths = {}
         roi = None
@@ -273,10 +292,9 @@ class NativePositionControl:
                 self.run(STONE, True)
             else:
                 self.run(self.reference['NATIVE_MUTATE'] % ('poppy', state, 0), True)
-            palette = PALETTE % (target,)
+            palette = NATIVE_PALETTE % (target,)
             self.wait('Native coordinate state replication',
-                lambda value: any(value[0] == 'minecraft:stone' for value in value['common'])
-                    if state == 'stone' else palette_matches(value, state), lambda: self.run(palette))
+                lambda value: replicated_palette(value,state), lambda: self.run(palette))
             paths[state] = self.capture(row, state)
             if state == 'blank':
                 with Image.open(paths['stone']) as stone, Image.open(paths['blank']) as blank:
@@ -345,7 +363,7 @@ class NativePositionControl:
             self.result['post_restore'] = self.run(SERVER_PREFLIGHT % (self.cells,), True)
             self.result['client_empty_readbacks'] = [
                 {'position': pos, 'palette': self.wait('Restored native target/support client blank',
-                    lambda value: palette_matches(value,'blank'), lambda pos=pos: self.run(PALETTE % (pos,)))}
+                    lambda value: replicated_palette(value,'blank'), lambda pos=pos: self.run(NATIVE_PALETTE % (pos,)))}
                 for pos in self.cells]
             before, after = self.result['preflight'], self.result['post_restore']
             if before['player_flying'] != after['player_flying'] or any(abs(before['player_foot'][i]-after['player_foot'][i]) >= .1 for i in range(3)):
