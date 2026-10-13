@@ -188,15 +188,17 @@ def analyze_flow(source_path):
             if case in PHYSICAL_FLOW:
                 document = source_document(case)
                 provider = product_shape_provider(document)
-                value = document.get_layer((3, 3, 3), 0)
-                vector = provider.flow_vector(document, (3, 3, 3), 0, value)
                 expected = PHYSICAL_FLOW[case]
+                upstream = (3 - expected[0], 3, 3 - expected[1])
+                value = document.get_layer(upstream, 0)
+                vector = provider.flow_vector(document, upstream, 0, value)
                 if vector[0] * expected[0] + vector[1] * expected[1] <= 0:
                     raise ValueError('Blueprint provider flow does not follow the independently declared slope')
                 shape = next(shape for shape in row['ready']['shapes']
-                             if shape['faces'] & 1 and tuple(shape['position']) == (3, 3, 3))
+                             if shape['faces'] & 1 and tuple(shape['position']) == upstream)
                 signal, spacing = physical_samples(images, shape, 0, row, source)
-                observed.update(provider_vector=vector, transmitted_top_uv=shape['flow_uv'],
+                observed.update(physical_sample_position=upstream, provider_vector=vector,
+                                transmitted_top_uv=shape['flow_uv'],
                                 top=motion(signal, times, 1 if expected[0] else 0,
                                            expected[0] or expected[1], spacing, 16))
                 observed['passed'] = observed['top']['passed']
