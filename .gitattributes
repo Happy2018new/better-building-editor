@@ -135,3 +135,6 @@ behavior_pack/modern_projection/projection/liquid_product_resource_data.py text 
 resource_pack/shaders/glsl/modern_projection_liquid_product_* text eol=lf
 # Mixed-index offline replay retains its exact generated report bytes.
 docs/evidence/liquid-native-archive-mixed-replay-r14-v1/** -text -diff whitespace=cr-at-eol
+# Independent triangle checks and original host receipts retain exact bytes.
+tools/verify_liquid_product_triangles.py text eol=lf
+docs/evidence/liquid-product-triangles-r14/** -text -diff
