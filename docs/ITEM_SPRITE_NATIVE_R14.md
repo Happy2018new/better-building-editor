@@ -252,3 +252,20 @@ cleanup positions are attempted before evaluating readback; an already-air
 write returning False cannot stop later restoration. This tests whether native
 setters disturb the visible physical item route without modifying glint style
 or acceptance thresholds.
+
+Frozen `item-product-r14-v9`, source `0990d6e4`, completed in 348.61s with
+unchanged runtime/resource/capture inputs and no item shader compiler errors.
+Physical inventory interaction alone produced matching server and client
+typed sword/enchantment data, but both visible native sword body masks remain
+empty across 33.672s of genuine frames. The native comparison correctly reports
+`NATIVE_REFERENCE_UNAVAILABLE`; independent editor/full/missing highlight
+motion is observed while the fixed world body gate still fails. All six
+modified cells read back as air, and owned game/supervisor identities exited.
+
+The next material control records actual physical frame aux/block states and
+client block/entity render distances before and after projection stop. It
+temporarily omits only the two global native material overrides from the owned
+worktree's launch resources; custom sprite materials remain unchanged. The
+exact variant material file is bound by launch/source hashes, and the original
+file must be restored after the game exits. This is a diagnostic comparison,
+not a production material change or visual acceptance.

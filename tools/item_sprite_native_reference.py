@@ -31,7 +31,10 @@ for row in rows:
  assert items.SetInvItemNum(slot,0)
  assert items.SpawnItemToPlayerInv({'itemName':'minecraft:frame','auxValue':0,'count':1},players[0],slot)
  assert player_info.PlayerUseItemToPos(support,item_type,slot,2)
- assert adapter.read(position)[0]=='minecraft:frame'
+ actual=adapter.read(position)
+ assert actual[0]=='minecraft:frame'
+ row['placed_material']=actual
+ row['placed_block']=adapter.info.GetBlockNew(position,adapter.dimension)
 assert items.SetInvItemNum(slot,0)
 assert rot.SetRot(sys._item_native_reference['rotation'])
 _result=json.dumps({'rows':rows,'slot':slot,'coordinates_confirmed_air':True,
@@ -143,7 +146,13 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
     for index in range(20):
         time.sleep(.4)
         world_capture('world_missing_'+str(index))
+    distances = "info=b.factory.CreateBlockInfo(b.level)\nrender=b.factory.CreateActorRender(b.player)\n" \
+        "_result={'block':info.GetBlockRenderDistance(),'entity':render.GetEntityRenderDistance()," \
+        "'projection_lease':b.projection_distance,'foot':b.player_origin()}"
+    reference['render_distances_before_stop'] = check.run(distances)
     check.run('b.stop_projection()\n_result=True')
+    reference['render_distances_after_stop'] = check.run(distances)
+    persist()
     initialized = False
     try:
         # Mark pending before the call: it may partially mutate and fail.
