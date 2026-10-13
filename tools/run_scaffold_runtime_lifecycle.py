@@ -42,6 +42,22 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def archive_sources(root, output, sources):
+    """Retain exact source bytes alongside the paths and hashes used to run."""
+    source_pins, archive_pins = {}, {}
+    for path in sources:
+        path = path.resolve()
+        relative = path.relative_to(root.resolve())
+        target = output / 'sources' / relative
+        raw = path.read_bytes()
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(raw)
+        value = hashlib.sha256(raw).hexdigest()
+        source_pins[str(path)] = value
+        archive_pins[str(target.relative_to(output))] = value
+    return source_pins, archive_pins
+
+
 def census():
     command = ('@(Get-CimInstance Win32_Process -Filter "Name=\'Minecraft.Windows.exe\'" | '
                'Select-Object ProcessId,ThreadCount,HandleCount,VirtualSize,KernelModeTime,UserModeTime,CreationDate)'
@@ -100,6 +116,7 @@ def main():
                ROOT / '.agents/skills/pyreact-debugging/scripts/_session.py',
                ROOT / '.agents/skills/pyreact-debugging/scripts/_window.py',
                ROOT / '.agents/skills/pyreact-debugging/scripts/mcdk.py']
+    source_pins, archive_pins = archive_sources(ROOT, output, sources)
     for path, expected in PINS.items():
         if digest(path) != expected:
             raise ValueError('Reviewed binary pin differs: ' + str(path))
@@ -115,7 +132,7 @@ def main():
             'status': 'prepared_not_executed', 'launches_permitted': 1, 'outer_seconds': OUTER_SECONDS,
             'cleanup_seconds': CLEANUP_SECONDS, 'world_seconds': 65, 'background_only': True,
             'real_input': False, 'resize': False, 'config': config,
-            'source_pins': {str(path): digest(path) for path in sources},
+            'source_pins': source_pins, 'source_archive_pins': archive_pins,
             'binary_pins': {str(path): expected for path, expected in PINS.items()},
             'pack_pins': {str(path.relative_to(output)): digest(path) for path in pack.rglob('*') if path.is_file()},
             'payload_sha256': {'world_client': hashlib.sha256(world.CLIENT.encode('ascii')).hexdigest(),
@@ -337,8 +354,11 @@ def main():
         else:
             report['cleanup_errors'].append('Private configuration changed; removal refused')
         report['source_pins_unchanged'] = all(path.is_file() and digest(path) == plan['source_pins'][str(path)] for path in sources)
+        report['source_archive_pins_unchanged'] = all((output / path).is_file() and digest(output / path) == value
+            for path, value in plan['source_archive_pins'].items())
         report['pack_pins_unchanged'] = all((output / path).is_file() and digest(output / path) == value for path, value in plan['pack_pins'].items())
-        if not report['source_pins_unchanged'] or not report['pack_pins_unchanged']:
+        if (not report['source_pins_unchanged'] or not report['source_archive_pins_unchanged']
+                or not report['pack_pins_unchanged']):
             report['cleanup_errors'].append('Frozen source or diagnostic pack changed during execution')
         report['foreground_after'] = _window.foreground_snapshot()
         report['elapsed_seconds'] = time.monotonic() - started
