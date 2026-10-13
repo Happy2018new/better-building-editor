@@ -1,0 +1,1581 @@
+{
+  "schema": 1,
+  "started_at": "2026-10-13T05:43:33.481925+00:00",
+  "normal_seconds": 30,
+  "cleanup_seconds": 45,
+  "outer_seconds": 60,
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\session.json",
+  "owner": "item-skeleton-r13-v1",
+  "owner_plan_sha256": "7bbcd0f8aa510c85f6b84dcc84076be0e1e25a2d99312bc2bfa62d17111230ce",
+  "requests": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "pyreact-debugging",
+            "version": "1"
+          }
+        },
+        "id": 1
+      },
+      "started_at": "2026-10-13T05:43:33.530458+00:00",
+      "response": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_at": "2026-10-13T05:43:33.637802+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      },
+      "started_at": "2026-10-13T05:43:33.643857+00:00",
+      "response": null,
+      "finished_at": "2026-10-13T05:43:33.724231+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "params": {},
+        "id": 3
+      },
+      "started_at": "2026-10-13T05:43:33.731368+00:00",
+      "response": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:33.796390+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 4
+      },
+      "started_at": "2026-10-13T05:43:33.807115+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:34.049855+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 5
+      },
+      "started_at": "2026-10-13T05:43:34.060841+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:34.296729+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nb=owner.bridge\nassert not hasattr(sys,'_item_model_resolution_r13') and not hasattr(sys,'_item_skeleton_r13_probe')\nassert not navigator.get_entries() and not navigator.is_transitioning\nassert b.session.ready and not b.session.busy and not b.session.projection_active\nplayer=api.GetLocalPlayerId()\nfoot=b.factory.CreatePos(player).GetFootPos()\nsaved={'actor':None,'models':[],'journal':[],'cleanup_errors':[],'player':player,'foot':foot,'created_clock':time.time()}\nsys._item_model_resolution_r13=saved\nsaved['actor']=b.system.CreateClientEntityByTypeStr('modern_projection:anchor',(foot[0]+2.,foot[1]+1.,foot[2]+2.),(0.,0.))\nassert saved['actor'] and saved['actor']!=player\n_result=json.dumps({'actor':saved['actor'],'created_clock':saved['created_clock'],'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None)})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 6
+      },
+      "started_at": "2026-10-13T05:43:34.303985+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"created_clock\": 1791870214.502, \"pid\": 53792, \"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"actor\": \"-9223372036854775806\"}'\nReturn value JSON: \"{\\\"created_clock\\\": 1791870214.502, \\\"pid\\\": 53792, \\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:34.528849+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 7
+      },
+      "started_at": "2026-10-13T05:43:34.538097+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:34.727971+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,time,sys\nimport mod.client.extraClientApi as api\nb=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge\nsaved=sys._item_model_resolution_r13\nkind=b.factory.CreateEngineType(saved['actor']).GetEngineTypeStr()\nbone=b.factory.CreateActorRender(saved['actor']).GetQueryableBoneOrientation('root',True)\n_result=json.dumps({'actor':saved['actor'],'kind':kind,'bone':bone,'clock':time.time(),\n 'ready':kind=='modern_projection:anchor' and bone is not None and len(bone)==4})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 8
+      },
+      "started_at": "2026-10-13T05:43:34.734815+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"ready\": true, \"kind\": \"modern_projection:anchor\", \"bone\": [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 24.0, 0.0, 1.0]], \"actor\": \"-9223372036854775806\", \"clock\": 1791870214.901}'\nReturn value JSON: \"{\\\"ready\\\": true, \\\"kind\\\": \\\"modern_projection:anchor\\\", \\\"bone\\\": [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 24.0, 0.0, 1.0]], \\\"actor\\\": \\\"-9223372036854775806\\\", \\\"clock\\\": 1791870214.901}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:34.925786+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 9
+      },
+      "started_at": "2026-10-13T05:43:34.942883+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:35.145989+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,time,sys\nimport mod.client.extraClientApi as api\nb=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge\nsaved=sys._item_model_resolution_r13\nname='modern_projection_diagnostic_item_body_r13'\nlevel=b.factory.CreateModel(b.level)\nevent={'model':name,'operation':'CreateFreeModel','state':'pending','clock':time.time()}\nsaved['journal'].append(event)\nidentity=level.CreateFreeModel(name)\nevent.update(state='returned',model_id=identity)\nif isinstance(identity,(int,long)) and not isinstance(identity,bool) and identity>0:\n saved['models'].append({'id':identity,'model':name,'removed':False})\n event['texture']=level.GetTexture(identity)\n event['material']=level.GetModelMaterial(identity)\nevent={'model':name,'operation':'SetModel','state':'pending','clock':time.time(),'actor':saved['actor']}\nsaved['journal'].append(event)\nidentity=b.factory.CreateModel(saved['actor']).SetModel(name)\nevent.update(state='returned',model_id=identity)\n_result=json.dumps({'journal':saved['journal'],'models':saved['models'],'actor':saved['actor'],'clock':time.time()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 10
+      },
+      "started_at": "2026-10-13T05:43:35.154661+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"models\": [{\"model\": \"modern_projection_diagnostic_item_body_r13\", \"removed\": false, \"id\": 1}], \"journal\": [{\"model_id\": 1, \"state\": \"returned\", \"clock\": 1791870215.354, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"modern_projection/item_diagnostic_r13/body\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870215.548, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}], \"actor\": \"-9223372036854775806\", \"clock\": 1791870215.548}'\nReturn value JSON: \"{\\\"models\\\": [{\\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"removed\\\": false, \\\"id\\\": 1}], \\\"journal\\\": [{\\\"model_id\\\": 1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.354, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"modern_projection/item_diagnostic_r13/body\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.548, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}], \\\"actor\\\": \\\"-9223372036854775806\\\", \\\"clock\\\": 1791870215.548}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:35.606748+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 11
+      },
+      "started_at": "2026-10-13T05:43:35.624975+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:35.911937+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,time,sys\nimport mod.client.extraClientApi as api\nb=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge\nsaved=sys._item_model_resolution_r13\nname='ceshi_body'\nlevel=b.factory.CreateModel(b.level)\nevent={'model':name,'operation':'CreateFreeModel','state':'pending','clock':time.time()}\nsaved['journal'].append(event)\nidentity=level.CreateFreeModel(name)\nevent.update(state='returned',model_id=identity)\nif isinstance(identity,(int,long)) and not isinstance(identity,bool) and identity>0:\n saved['models'].append({'id':identity,'model':name,'removed':False})\n event['texture']=level.GetTexture(identity)\n event['material']=level.GetModelMaterial(identity)\nevent={'model':name,'operation':'SetModel','state':'pending','clock':time.time(),'actor':saved['actor']}\nsaved['journal'].append(event)\nidentity=b.factory.CreateModel(saved['actor']).SetModel(name)\nevent.update(state='returned',model_id=identity)\n_result=json.dumps({'journal':saved['journal'],'models':saved['models'],'actor':saved['actor'],'clock':time.time()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 12
+      },
+      "started_at": "2026-10-13T05:43:35.924575+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"models\": [{\"model\": \"modern_projection_diagnostic_item_body_r13\", \"removed\": false, \"id\": 1}, {\"model\": \"ceshi_body\", \"removed\": false, \"id\": 2}], \"journal\": [{\"model_id\": 1, \"state\": \"returned\", \"clock\": 1791870215.354, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"modern_projection/item_diagnostic_r13/body\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870215.548, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}, {\"model_id\": 2, \"state\": \"returned\", \"clock\": 1791870216.088, \"model\": \"ceshi_body\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"for_developer/ceshi\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870216.092, \"model\": \"ceshi_body\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}], \"actor\": \"-9223372036854775806\", \"clock\": 1791870216.092}'\nReturn value JSON: \"{\\\"models\\\": [{\\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"removed\\\": false, \\\"id\\\": 1}, {\\\"model\\\": \\\"ceshi_body\\\", \\\"removed\\\": false, \\\"id\\\": 2}], \\\"journal\\\": [{\\\"model_id\\\": 1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.354, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"modern_projection/item_diagnostic_r13/body\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.548, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}, {\\\"model_id\\\": 2, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.088, \\\"model\\\": \\\"ceshi_body\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"for_developer/ceshi\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.092, \\\"model\\\": \\\"ceshi_body\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}], \\\"actor\\\": \\\"-9223372036854775806\\\", \\\"clock\\\": 1791870216.092}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:36.136876+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 13
+      },
+      "started_at": "2026-10-13T05:43:36.155542+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:36.413714+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,time,sys\nimport mod.client.extraClientApi as api\nb=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge\nsaved=getattr(sys,'_item_model_resolution_r13',None)\nif saved is None:\n _result=json.dumps({'restored':True,'owned':False})\nelse:\n model=b.factory.CreateModel(b.level)\n for row in saved['models']:\n  if not row.get('remove_attempted'):\n   row['remove_attempted']=True\n   try:\n    row['remove_result']=model.RemoveFreeModel(row['id'])\n    row['removed']=row['remove_result'] is True\n    if not row['removed']:saved['cleanup_errors'].append('Free model removal failed: '+repr(row))\n   except Exception as error:saved['cleanup_errors'].append(repr(error))\n if saved['actor'] and not saved.get('destroy_attempted'):\n  saved['destroy_attempted']=True\n  try:\n   b.system.DestroyClientEntity(saved['actor'])\n   saved['destroy_returned']=True\n  except Exception as error:saved['cleanup_errors'].append(repr(error))\n _result=json.dumps({'cleanup_errors':saved['cleanup_errors'],'models':saved['models'],\n  'journal':saved['journal'],'actor':saved['actor'],'destroy_returned':saved.get('destroy_returned',False)})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 14
+      },
+      "started_at": "2026-10-13T05:43:36.421863+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"cleanup_errors\": [], \"models\": [{\"remove_result\": true, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"removed\": true, \"id\": 1, \"remove_attempted\": true}, {\"remove_result\": true, \"model\": \"ceshi_body\", \"removed\": true, \"id\": 2, \"remove_attempted\": true}], \"journal\": [{\"model_id\": 1, \"state\": \"returned\", \"clock\": 1791870215.354, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"modern_projection/item_diagnostic_r13/body\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870215.548, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}, {\"model_id\": 2, \"state\": \"returned\", \"clock\": 1791870216.088, \"model\": \"ceshi_body\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"for_developer/ceshi\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870216.092, \"model\": \"ceshi_body\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}], \"destroy_returned\": true, \"actor\": \"-9223372036854775806\"}'\nReturn value JSON: \"{\\\"cleanup_errors\\\": [], \\\"models\\\": [{\\\"remove_result\\\": true, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"removed\\\": true, \\\"id\\\": 1, \\\"remove_attempted\\\": true}, {\\\"remove_result\\\": true, \\\"model\\\": \\\"ceshi_body\\\", \\\"removed\\\": true, \\\"id\\\": 2, \\\"remove_attempted\\\": true}], \\\"journal\\\": [{\\\"model_id\\\": 1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.354, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"modern_projection/item_diagnostic_r13/body\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.548, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}, {\\\"model_id\\\": 2, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.088, \\\"model\\\": \\\"ceshi_body\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"for_developer/ceshi\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.092, \\\"model\\\": \\\"ceshi_body\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}], \\\"destroy_returned\\\": true, \\\"actor\\\": \\\"-9223372036854775806\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:36.676078+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 15
+      },
+      "started_at": "2026-10-13T05:43:36.687921+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:36.922134+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,time,sys\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nb=api.GetSystem('ModernProjection','ModernProjectionClientSystem').bridge\nsaved=getattr(sys,'_item_model_resolution_r13',None)\nif saved is None:_result=json.dumps({'restored':True,'owned':False})\nelse:\n kind=b.factory.CreateEngineType(saved['actor']).GetEngineTypeStr() if saved['actor'] else None\n foot=b.factory.CreatePos(saved['player']).GetFootPos()\n restored=kind is None and not saved['cleanup_errors'] and all(row['removed'] for row in saved['models'])\n assert not navigator.get_entries() and not navigator.is_transitioning\n assert all(abs(a-v)<.0001 for a,v in zip(foot,saved['foot']))\n _result=json.dumps({'restored':restored,'actor_absent':kind is None,'journal':saved['journal'],'models':saved['models'],'clock':time.time()})\n if restored:del sys._item_model_resolution_r13\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 16
+      },
+      "started_at": "2026-10-13T05:43:36.929812+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"models\": [{\"remove_result\": true, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"removed\": true, \"id\": 1, \"remove_attempted\": true}, {\"remove_result\": true, \"model\": \"ceshi_body\", \"removed\": true, \"id\": 2, \"remove_attempted\": true}], \"journal\": [{\"model_id\": 1, \"state\": \"returned\", \"clock\": 1791870215.354, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"modern_projection/item_diagnostic_r13/body\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870215.548, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}, {\"model_id\": 2, \"state\": \"returned\", \"clock\": 1791870216.088, \"model\": \"ceshi_body\", \"material\": [\"entity_for_skeleton\"], \"operation\": \"CreateFreeModel\", \"texture\": \"for_developer/ceshi\"}, {\"model_id\": -1, \"state\": \"returned\", \"clock\": 1791870216.092, \"model\": \"ceshi_body\", \"operation\": \"SetModel\", \"actor\": \"-9223372036854775806\"}], \"actor_absent\": true, \"restored\": true, \"clock\": 1791870217.136}'\nReturn value JSON: \"{\\\"models\\\": [{\\\"remove_result\\\": true, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"removed\\\": true, \\\"id\\\": 1, \\\"remove_attempted\\\": true}, {\\\"remove_result\\\": true, \\\"model\\\": \\\"ceshi_body\\\", \\\"removed\\\": true, \\\"id\\\": 2, \\\"remove_attempted\\\": true}], \\\"journal\\\": [{\\\"model_id\\\": 1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.354, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"modern_projection/item_diagnostic_r13/body\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870215.548, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}, {\\\"model_id\\\": 2, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.088, \\\"model\\\": \\\"ceshi_body\\\", \\\"material\\\": [\\\"entity_for_skeleton\\\"], \\\"operation\\\": \\\"CreateFreeModel\\\", \\\"texture\\\": \\\"for_developer/ceshi\\\"}, {\\\"model_id\\\": -1, \\\"state\\\": \\\"returned\\\", \\\"clock\\\": 1791870216.092, \\\"model\\\": \\\"ceshi_body\\\", \\\"operation\\\": \\\"SetModel\\\", \\\"actor\\\": \\\"-9223372036854775806\\\"}], \\\"actor_absent\\\": true, \\\"restored\\\": true, \\\"clock\\\": 1791870217.136}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:43:37.175927+00:00"
+    }
+  ],
+  "network_requests": [
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:33.538895+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345009.8624216,
+      "finished_at": "2026-10-13T05:43:33.630901+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:33.649929+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345009.973935,
+      "finished_at": "2026-10-13T05:43:33.716965+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:33.738172+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345010.0614696,
+      "finished_at": "2026-10-13T05:43:33.790864+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:33.856068+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345010.1794246,
+      "finished_at": "2026-10-13T05:43:34.041198+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:34.105811+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345010.4294149,
+      "finished_at": "2026-10-13T05:43:34.288367+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:34.351128+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345010.6762464,
+      "finished_at": "2026-10-13T05:43:34.520355+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:34.580134+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345010.904282,
+      "finished_at": "2026-10-13T05:43:34.719267+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:34.780164+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345011.1046596,
+      "finished_at": "2026-10-13T05:43:34.919337+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:34.990441+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345011.3142846,
+      "finished_at": "2026-10-13T05:43:35.135989+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:35.204600+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345011.5301652,
+      "finished_at": "2026-10-13T05:43:35.599746+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:35.669694+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345011.9965267,
+      "finished_at": "2026-10-13T05:43:35.894904+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:35.969608+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345012.2954528,
+      "finished_at": "2026-10-13T05:43:36.127924+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:36.207113+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345012.5365788,
+      "finished_at": "2026-10-13T05:43:36.404392+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:36.467488+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345012.7962037,
+      "finished_at": "2026-10-13T05:43:36.666472+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:36.738040+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345013.0624995,
+      "finished_at": "2026-10-13T05:43:36.913346+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:43:36.978400+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 345013.3045104,
+      "finished_at": "2026-10-13T05:43:37.163051+00:00"
+    },
+    {
+      "http_method": "DELETE",
+      "started_at": "2026-10-13T05:43:37.195165+00:00",
+      "timeout_seconds": 2,
+      "deadline_monotonic": 345005.5194397,
+      "finished_at": "2026-10-13T05:43:37.243782+00:00"
+    }
+  ],
+  "errors": [],
+  "cleanup_errors": [],
+  "completed": true,
+  "restored": true,
+  "no_ui_mount": true,
+  "no_screenshots": true,
+  "no_items_bound": true,
+  "production_rendering_accepted": false,
+  "prepare": {
+    "created_clock": 1791870214.502,
+    "pid": 53792,
+    "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+    "actor": "-9223372036854775806"
+  },
+  "readiness": [
+    {
+      "ready": true,
+      "kind": "modern_projection:anchor",
+      "bone": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          24.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "actor": "-9223372036854775806",
+      "clock": 1791870214.901
+    }
+  ],
+  "observations": [
+    {
+      "models": [
+        {
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "removed": false,
+          "id": 1
+        }
+      ],
+      "journal": [
+        {
+          "model_id": 1,
+          "state": "returned",
+          "clock": 1791870215.354,
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "material": [
+            "entity_for_skeleton"
+          ],
+          "operation": "CreateFreeModel",
+          "texture": "modern_projection/item_diagnostic_r13/body"
+        },
+        {
+          "model_id": -1,
+          "state": "returned",
+          "clock": 1791870215.548,
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "operation": "SetModel",
+          "actor": "-9223372036854775806"
+        }
+      ],
+      "actor": "-9223372036854775806",
+      "clock": 1791870215.548
+    },
+    {
+      "models": [
+        {
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "removed": false,
+          "id": 1
+        },
+        {
+          "model": "ceshi_body",
+          "removed": false,
+          "id": 2
+        }
+      ],
+      "journal": [
+        {
+          "model_id": 1,
+          "state": "returned",
+          "clock": 1791870215.354,
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "material": [
+            "entity_for_skeleton"
+          ],
+          "operation": "CreateFreeModel",
+          "texture": "modern_projection/item_diagnostic_r13/body"
+        },
+        {
+          "model_id": -1,
+          "state": "returned",
+          "clock": 1791870215.548,
+          "model": "modern_projection_diagnostic_item_body_r13",
+          "operation": "SetModel",
+          "actor": "-9223372036854775806"
+        },
+        {
+          "model_id": 2,
+          "state": "returned",
+          "clock": 1791870216.088,
+          "model": "ceshi_body",
+          "material": [
+            "entity_for_skeleton"
+          ],
+          "operation": "CreateFreeModel",
+          "texture": "for_developer/ceshi"
+        },
+        {
+          "model_id": -1,
+          "state": "returned",
+          "clock": 1791870216.092,
+          "model": "ceshi_body",
+          "operation": "SetModel",
+          "actor": "-9223372036854775806"
+        }
+      ],
+      "actor": "-9223372036854775806",
+      "clock": 1791870216.092
+    }
+  ],
+  "cleanup": {
+    "cleanup_errors": [],
+    "models": [
+      {
+        "remove_result": true,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "removed": true,
+        "id": 1,
+        "remove_attempted": true
+      },
+      {
+        "remove_result": true,
+        "model": "ceshi_body",
+        "removed": true,
+        "id": 2,
+        "remove_attempted": true
+      }
+    ],
+    "journal": [
+      {
+        "model_id": 1,
+        "state": "returned",
+        "clock": 1791870215.354,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "material": [
+          "entity_for_skeleton"
+        ],
+        "operation": "CreateFreeModel",
+        "texture": "modern_projection/item_diagnostic_r13/body"
+      },
+      {
+        "model_id": -1,
+        "state": "returned",
+        "clock": 1791870215.548,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "operation": "SetModel",
+        "actor": "-9223372036854775806"
+      },
+      {
+        "model_id": 2,
+        "state": "returned",
+        "clock": 1791870216.088,
+        "model": "ceshi_body",
+        "material": [
+          "entity_for_skeleton"
+        ],
+        "operation": "CreateFreeModel",
+        "texture": "for_developer/ceshi"
+      },
+      {
+        "model_id": -1,
+        "state": "returned",
+        "clock": 1791870216.092,
+        "model": "ceshi_body",
+        "operation": "SetModel",
+        "actor": "-9223372036854775806"
+      }
+    ],
+    "destroy_returned": true,
+    "actor": "-9223372036854775806"
+  },
+  "verify": {
+    "models": [
+      {
+        "remove_result": true,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "removed": true,
+        "id": 1,
+        "remove_attempted": true
+      },
+      {
+        "remove_result": true,
+        "model": "ceshi_body",
+        "removed": true,
+        "id": 2,
+        "remove_attempted": true
+      }
+    ],
+    "journal": [
+      {
+        "model_id": 1,
+        "state": "returned",
+        "clock": 1791870215.354,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "material": [
+          "entity_for_skeleton"
+        ],
+        "operation": "CreateFreeModel",
+        "texture": "modern_projection/item_diagnostic_r13/body"
+      },
+      {
+        "model_id": -1,
+        "state": "returned",
+        "clock": 1791870215.548,
+        "model": "modern_projection_diagnostic_item_body_r13",
+        "operation": "SetModel",
+        "actor": "-9223372036854775806"
+      },
+      {
+        "model_id": 2,
+        "state": "returned",
+        "clock": 1791870216.088,
+        "model": "ceshi_body",
+        "material": [
+          "entity_for_skeleton"
+        ],
+        "operation": "CreateFreeModel",
+        "texture": "for_developer/ceshi"
+      },
+      {
+        "model_id": -1,
+        "state": "returned",
+        "clock": 1791870216.092,
+        "model": "ceshi_body",
+        "operation": "SetModel",
+        "actor": "-9223372036854775806"
+      }
+    ],
+    "actor_absent": true,
+    "restored": true,
+    "clock": 1791870217.136
+  },
+  "protected_sources_unchanged": true,
+  "finished_at": "2026-10-13T05:43:38.553737+00:00",
+  "elapsed_seconds": 5.071831299981568
+}

@@ -1,0 +1,2695 @@
+{
+  "schema": 1,
+  "owner": "item-skeleton-r13-v1",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\session.json",
+  "started_at": "2026-10-13T05:35:53.714332+00:00",
+  "plan_sha256": "5a782adaadd90f3419961d6104a168e51d384053a0b7d6816ef6d26074986972",
+  "requests": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "pyreact-debugging",
+            "version": "1"
+          }
+        },
+        "id": 1
+      },
+      "started_at": "2026-10-13T05:35:53.847662+00:00",
+      "response": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_at": "2026-10-13T05:35:54.026377+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      },
+      "started_at": "2026-10-13T05:35:54.037233+00:00",
+      "response": null,
+      "finished_at": "2026-10-13T05:35:54.169363+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "params": {},
+        "id": 3
+      },
+      "started_at": "2026-10-13T05:35:54.178753+00:00",
+      "response": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:54.308684+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 4
+      },
+      "started_at": "2026-10-13T05:35:54.325059+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:54.601879+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 5
+      },
+      "started_at": "2026-10-13T05:35:54.624786+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:54.908865+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time,math\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\ns=owner.session if owner is not None else None\nb=owner.bridge if owner is not None else None\nready=bool(s is not None and s.ready is True and b is not None and b.session is s and navigator.is_ready\n and not navigator.is_transitioning and not navigator.get_entries()\n and not s.busy and not s.projection_active and not b.preparing_entity)\nplayer=api.GetLocalPlayerId()\nfoot=None\nscreen=None\nif ready and player and player!='-1':\n foot=b.factory.CreatePos(player).GetFootPos()\n screen=b.factory.CreateGame(b.level).GetScreenSize()\n ready=bool(foot is not None and len(foot)==3 and all(not math.isnan(v) and not math.isinf(v) for v in foot)\n  and -1024.<foot[1]<4096. and screen is not None and len(screen)==2 and all(v>32 for v in screen))\nelse:ready=False\n_result=json.dumps({'ready':ready,'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'player':player,'foot':foot,'screen':screen,\n 'probe_present':hasattr(sys,'_item_skeleton_r13_probe')})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 6
+      },
+      "started_at": "2026-10-13T05:35:54.915878+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"player\": \"-8589934591\", \"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"foot\": [0.5, -60.0, 0.5], \"clock\": 1791869755.13, \"ready\": true, \"screen\": [499.0, 277.0], \"pid\": 53792, \"probe_present\": false}'\nReturn value JSON: \"{\\\"player\\\": \\\"-8589934591\\\", \\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"foot\\\": [0.5, -60.0, 0.5], \\\"clock\\\": 1791869755.13, \\\"ready\\\": true, \\\"screen\\\": [499.0, 277.0], \\\"pid\\\": 53792, \\\"probe_present\\\": false}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:55.170448+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 7
+      },
+      "started_at": "2026-10-13T05:35:55.198739+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:55.499978+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.client.extraClientApi as api\n_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'version':api.GetMinecraftVersion()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 8
+      },
+      "started_at": "2026-10-13T05:35:55.510086+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"version\": \"1.21.120.0\", \"pid\": 53792, \"clock\": 1791869755.778}'\nReturn value JSON: \"{\\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"version\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 53792, \\\"clock\\\": 1791869755.778}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:55.816810+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 9
+      },
+      "started_at": "2026-10-13T05:35:55.837737+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:56.198241+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.server.extraServerApi as api\n_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'version':api.GetMinecraftVersion()})\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 10
+      },
+      "started_at": "2026-10-13T05:35:56.208076+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"version\": \"1.21.120.0\", \"pid\": 53792, \"clock\": 1791869756.433}'\nReturn value JSON: \"{\\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"version\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 53792, \\\"clock\\\": 1791869756.433}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:56.479138+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 11
+      },
+      "started_at": "2026-10-13T05:35:56.798081+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:57.064057+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.client.extraClientApi as api\n_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'version':api.GetMinecraftVersion()})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 12
+      },
+      "started_at": "2026-10-13T05:35:57.073740+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"version\": \"1.21.120.0\", \"pid\": 53792, \"clock\": 1791869757.325}'\nReturn value JSON: \"{\\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"version\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 53792, \\\"clock\\\": 1791869757.325}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:57.390777+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 13
+      },
+      "started_at": "2026-10-13T05:35:57.401121+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:57.697093+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.server.extraServerApi as api\n_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'version':api.GetMinecraftVersion()})\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 14
+      },
+      "started_at": "2026-10-13T05:35:57.705883+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"token\": \"10f1fc7d805948d9bdbd9320acfa0de9\", \"version\": \"1.21.120.0\", \"pid\": 53792, \"clock\": 1791869757.932}'\nReturn value JSON: \"{\\\"token\\\": \\\"10f1fc7d805948d9bdbd9320acfa0de9\\\", \\\"version\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 53792, \\\"clock\\\": 1791869757.932}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:57.991134+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 15
+      },
+      "started_at": "2026-10-13T05:35:58.518830+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:58.802804+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\ndef native_camera_snapshot():\n cam=b.factory.CreateCamera(b.level)\n return {'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),'forward':cam.GetForward(),\n  'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw(),\n  'motions':cam.GetCameraMotions()}\ndef native_camera_matches(actual,expected):\n return (all(abs(a-v)<=.01 for a,v in zip(actual['position'],expected['position'])) and\n  all(abs((a-v+180.)%360.-180.)<=.01 for a,v in zip(actual['rotation'],expected['rotation'])) and\n  all(abs(a-v)<=.0001 for a,v in zip(actual['forward'],expected['forward'])) and\n  all(actual[key]==expected[key] for key in ('pitch_lock','yaw_lock','motions')))\nfrom copy import deepcopy\nimport math\nfrom modern_projection.projection.bridge import _stable_palette\nfrom modern_projection.projection import static_frame_item_data\nassert not hasattr(sys,'_item_skeleton_r13_probe')\nassert navigator.is_ready and not navigator.is_transitioning\nassert not navigator.get_entries(), 'World view requires no pre-existing pages'\nassert not s.busy and not s.projection_active and not b.preparing_entity\nassert not any(profile['accepted'] for profile in static_frame_item_data.FRAME_ITEMS.values())\nplayer=api.GetLocalPlayerId()\nassert player and player!='-1'\nfoot=b.factory.CreatePos(player).GetFootPos()\nassert foot is not None and len(foot)==3 and all(not math.isnan(value) and not math.isinf(value) for value in foot),foot\nassert -1024.<foot[1]<4096.,('Player level is not physically loaded',foot)\nscreen=b.factory.CreateGame(b.level).GetScreenSize()\nassert len(screen)==2 and all(value>32 for value in screen),screen\nsaved={'nonce':'7f41d6c1d369445a818c94af4a6e6e94','key':'client_anchor_depth_'+'7f41d6c1d369445a818c94af4a6e6e94','player':player,'foot':foot,\n 'navigation':[entry.key for entry in navigator.get_entries()],\n 'document':deepcopy(s.editor.document.to_data()),\n 'profiles':repr(_stable_palette(static_frame_item_data.FRAME_ITEMS)),\n 'camera':deepcopy(dict((key,getattr(s,key)) for key in ('camera_pose','camera_pivot','camera_pan','camera_depth_pose'))),\n 'plain':json.loads('{\"isEnchanted\": false, \"newAuxValue\": 0, \"newItemName\": \"minecraft:diamond_sword\", \"userData\": {}}'),'actor':None,'create':{'state':'pending','attempted':True},\n 'journal':[],'attachments':[],'current':None,'body':None,'control':'world_empty',\n 'push_attempted':False,'declared_size':min(240.,screen[0]-32.,screen[1]-32.),\n 'size_inputs':screen,'markers':(('native_item_marker_tl', [0, 255, 255]), ('native_item_marker_tr', [255, 0, 255]), ('native_item_marker_bl', [255, 255, 0]), ('native_item_marker_br', [0, 255, 0])),'ui_params':{'scale': 0.35, 'render_depth': -15, 'init_rot_x': 0.0, 'init_rot_y': 0.0, 'init_rot_z': 0.0}}\ncam_before=native_camera_snapshot()\nassert not cam_before['motions'],('Camera has active motions',cam_before)\nfor key in ('position','rotation','forward'):\n values=cam_before[key]\n assert values is not None and len(values)==3 and all(not math.isnan(v) and not math.isinf(v) for v in values),(key,values)\nforward=cam_before['forward']\nlength=math.sqrt(sum(v*v for v in forward))\nassert length>.000001,('Camera forward is invalid',forward)\nposition=tuple(cam_before['position'][i]+forward[i]*3./length for i in range(3))\nassert -1024.<position[1]<4096.,('Anchor placement is outside loaded height',position)\nblock=b.factory.CreateBlockInfo(b.level)\nempty_cells=[]\nfor x in range(int(math.floor(position[0]-1.)),int(math.floor(position[0]+1.))+1):\n for y in range(int(math.floor(position[1]-1.)),int(math.floor(position[1]+1.))+1):\n  for z in range(int(math.floor(position[2]-1.)),int(math.floor(position[2]+1.))+1):\n   cell=(x,y,z)\n   value=block.GetBlock(cell)\n   assert value is not None and len(value)==2 and value[0]=='minecraft:air',('Placement is not verified loaded air',cell,value)\n   empty_cells.append({'position':cell,'block':value})\nsaved['native_camera']=cam_before\nsaved['position']=position\nsaved['empty_cells']=empty_cells\nsaved['roi_receipt']={'physical_size':[1994,1105],'world':[0,111,1994,1105],'ui':[0,111,1994,1105],\n 'declared_before_capture':True,'basis':'fixed native capture extent; top debug band excluded; anchor at camera forward ray distance 3; UI centered declared bounds'}\n\nsys._item_skeleton_r13_probe=saved\ncandidate=b.system.CreateClientEntityByTypeStr('modern_projection:anchor',saved['position'],(0.,0.))\nsaved['create']['value']=candidate\nsaved['create']['state']='returned'\nif candidate is not None and candidate!='':\n saved['create']['state']='invalid_return'\n assert isinstance(candidate,basestring) and candidate not in ('-1',player),saved['create']\n saved['actor']=candidate\n saved['create']['state']='returned'\nassert saved['actor'] is not None,saved['create']\nsaved['ui_params']['entity_id']=saved['actor']\nsaved['skeleton_setup']={'model':'modern_projection_diagnostic_item_body_r13','state':'pending'}\nsaved['skeleton_setup']['model_id']=b.factory.CreateModel(saved['actor']).SetModel('modern_projection_diagnostic_item_body_r13')\nsaved['skeleton_setup']['state']='returned'\nidentity=saved['skeleton_setup']['model_id']\nassert isinstance(identity,(int,long)) and not isinstance(identity,bool) and identity>=0,saved['skeleton_setup']\n_result=json.dumps(dict((key,saved[key]) for key in ('nonce','key','player','foot','position','actor','create','navigation','document','profiles','camera','declared_size','size_inputs','ui_params','native_camera','empty_cells','roi_receipt','skeleton_setup')))\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 16
+      },
+      "started_at": "2026-10-13T05:35:58.812050+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": true,
+        "content": [
+          {
+            "text": "Code execution failed: {'model_id': -1, 'model': 'modern_projection_diagnostic_item_body_r13', 'state': 'returned'}\nTraceback (most recent call last):\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 419, in _TASK\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 469, in _RUN_CLIENT_CODE\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 360, in _EXEC_CODE_RESULT\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 345, in _EXEC_CODE_VALUE\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 325, in _EXEC_CODE_OBJECT\n  File \"<string>\", line 1, in <module>\n  File \"<string>\", line 83, in <module>\nAssertionError: {'model_id': -1, 'model': 'modern_projection_diagnostic_item_body_r13', 'state': 'returned'}\n",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:59.139489+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 17
+      },
+      "started_at": "2026-10-13T05:35:59.202846+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:59.474634+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\n_result=True\nif saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94':\n errors=[]\n if saved['actor'] is not None:\n  item=b.factory.CreateItem(b.level)\n  for row in saved['attachments']:\n   if row['state']=='bound' and row['id'] is not None and not row.get('remove_attempted'):\n    row['remove_attempted']=True\n    try:\n     row['remove_result']=item.SetBindBoneForBindItem(saved['actor'],row['id'],'',True)\n     if row['remove_result'] is True:row['state']='removed'\n     else:errors.append('Exact owned attachment removal rejected: '+repr(row['id']))\n    except Exception as error:errors.append(repr(error))\n _result=json.dumps({'attachments':saved['attachments'],'errors':errors,'actor':saved['actor'],'create':saved['create'],'skeleton_setup':saved.get('skeleton_setup')})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 18
+      },
+      "started_at": "2026-10-13T05:35:59.487665+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"skeleton_setup\": {\"model_id\": -1, \"model\": \"modern_projection_diagnostic_item_body_r13\", \"state\": \"returned\"}, \"create\": {\"attempted\": true, \"state\": \"returned\", \"value\": \"-9223372036854775807\"}, \"errors\": [], \"attachments\": [], \"actor\": \"-9223372036854775807\"}'\nReturn value JSON: \"{\\\"skeleton_setup\\\": {\\\"model_id\\\": -1, \\\"model\\\": \\\"modern_projection_diagnostic_item_body_r13\\\", \\\"state\\\": \\\"returned\\\"}, \\\"create\\\": {\\\"attempted\\\": true, \\\"state\\\": \\\"returned\\\", \\\"value\\\": \\\"-9223372036854775807\\\"}, \\\"errors\\\": [], \\\"attachments\\\": [], \\\"actor\\\": \\\"-9223372036854775807\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:35:59.741805+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 19
+      },
+      "started_at": "2026-10-13T05:35:59.803317+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:00.144339+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\nowned=bool(saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94')\n_result=json.dumps({'owned':owned,'transition':bool(navigator.is_transitioning),\n 'contains_owned':owned and navigator.contains(saved['key']),\n 'top':navigator.top.key if navigator.top else None})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 20
+      },
+      "started_at": "2026-10-13T05:36:00.160073+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"top\": null, \"transition\": false, \"owned\": true, \"contains_owned\": false}'\nReturn value JSON: \"{\\\"top\\\": null, \\\"transition\\\": false, \\\"owned\\\": true, \\\"contains_owned\\\": false}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:00.492693+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 21
+      },
+      "started_at": "2026-10-13T05:36:00.549303+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:00.865536+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\n_result=True\nif saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94' and navigator.contains(saved['key']):\n assert not navigator.is_transitioning and navigator.top.key==saved['key'],'Owned probe is not top; refuse unrelated pop'\n assert navigator.pop()\n_result=True\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 22
+      },
+      "started_at": "2026-10-13T05:36:00.878957+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: bool\nReturn repr: True\nReturn value JSON: true",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:01.174195+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 23
+      },
+      "started_at": "2026-10-13T05:36:01.259392+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:01.574029+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\nowned=bool(saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94')\n_result=json.dumps({'owned':owned,'transition':bool(navigator.is_transitioning),\n 'contains_owned':owned and navigator.contains(saved['key']),\n 'top':navigator.top.key if navigator.top else None})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 24
+      },
+      "started_at": "2026-10-13T05:36:01.585384+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"top\": null, \"transition\": false, \"owned\": true, \"contains_owned\": false}'\nReturn value JSON: \"{\\\"top\\\": null, \\\"transition\\\": false, \\\"owned\\\": true, \\\"contains_owned\\\": false}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:01.921545+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 25
+      },
+      "started_at": "2026-10-13T05:36:02.024938+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:02.402002+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\n_result=True\nif saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94':\n actor=saved['actor']\n if actor is not None:\n  assert actor!=saved['player'] and saved['create'].get('value')==actor\n  assert not saved.get('destroy_attempted'),'Do not retry uncertain actor destruction'\n  try:\n   saved['pre_destroy_kind']=b.factory.CreateEngineType(actor).GetEngineTypeStr()\n   if saved['pre_destroy_kind'] is not None:saved['observed_actor_kind']=saved['pre_destroy_kind']\n  except Exception as error:saved['pre_destroy_kind_error']=repr(error)\n  saved['destroy_attempted']=True\n  saved['destroy_result']=b.system.DestroyClientEntity(actor)\n  saved['destroy_returned']=True\n _result=json.dumps({'actor':actor,'create':saved['create'],'observed_actor_kind':saved.get('observed_actor_kind'),'pre_destroy_kind':saved.get('pre_destroy_kind'),'pre_destroy_kind_error':saved.get('pre_destroy_kind_error'),'destroy_attempted':saved.get('destroy_attempted',False),'destroy_returned':saved.get('destroy_returned',False)})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 26
+      },
+      "started_at": "2026-10-13T05:36:02.418985+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"destroy_returned\": true, \"create\": {\"attempted\": true, \"state\": \"returned\", \"value\": \"-9223372036854775807\"}, \"pre_destroy_kind_error\": null, \"pre_destroy_kind\": \"modern_projection:anchor\", \"actor\": \"-9223372036854775807\", \"observed_actor_kind\": \"modern_projection:anchor\", \"destroy_attempted\": true}'\nReturn value JSON: \"{\\\"destroy_returned\\\": true, \\\"create\\\": {\\\"attempted\\\": true, \\\"state\\\": \\\"returned\\\", \\\"value\\\": \\\"-9223372036854775807\\\"}, \\\"pre_destroy_kind_error\\\": null, \\\"pre_destroy_kind\\\": \\\"modern_projection:anchor\\\", \\\"actor\\\": \\\"-9223372036854775807\\\", \\\"observed_actor_kind\\\": \\\"modern_projection:anchor\\\", \\\"destroy_attempted\\\": true}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:02.709546+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 27
+      },
+      "started_at": "2026-10-13T05:36:02.784882+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:03.144735+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\n_result=json.dumps({'owned':False,'absent':True})\nif saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94':\n actor=saved['actor']\n kind=b.factory.CreateEngineType(actor).GetEngineTypeStr() if actor is not None else None\n absent=(actor is not None and saved.get('observed_actor_kind') is not None and saved.get('destroy_attempted') and kind is None) or (actor is None and saved['create']['state']=='returned')\n _result=json.dumps({'owned':True,'actor':actor,'kind':kind,'observed_actor_kind':saved.get('observed_actor_kind'),'absent':bool(absent),'create':saved['create']})\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 28
+      },
+      "started_at": "2026-10-13T05:36:03.161937+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"absent\": true, \"kind\": null, \"create\": {\"attempted\": true, \"state\": \"returned\", \"value\": \"-9223372036854775807\"}, \"actor\": \"-9223372036854775807\", \"observed_actor_kind\": \"modern_projection:anchor\", \"owned\": true}'\nReturn value JSON: \"{\\\"absent\\\": true, \\\"kind\\\": null, \\\"create\\\": {\\\"attempted\\\": true, \\\"state\\\": \\\"returned\\\", \\\"value\\\": \\\"-9223372036854775807\\\"}, \\\"actor\\\": \\\"-9223372036854775807\\\", \\\"observed_actor_kind\\\": \\\"modern_projection:anchor\\\", \\\"owned\\\": true}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:03.485485+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 29
+      },
+      "started_at": "2026-10-13T05:36:03.569512+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '10f1fc7d805948d9bdbd9320acfa0de9'\nReturn value JSON: \"10f1fc7d805948d9bdbd9320acfa0de9\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:03.927045+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,sys,time\nimport mod.client.extraClientApi as api\nfrom modern_projection.pyreact import navigator\nowner=api.GetSystem('ModernProjection','ModernProjectionClientSystem')\nassert owner is not None and owner.session is not None, 'Workspace is not initialized'\ns=owner.session\nb=owner.bridge\ndef native_camera_snapshot():\n cam=b.factory.CreateCamera(b.level)\n return {'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),'forward':cam.GetForward(),\n  'pitch_lock':cam.IsModCameraLockPitch(),'yaw_lock':cam.IsModCameraLockYaw(),\n  'motions':cam.GetCameraMotions()}\ndef native_camera_matches(actual,expected):\n return (all(abs(a-v)<=.01 for a,v in zip(actual['position'],expected['position'])) and\n  all(abs((a-v+180.)%360.-180.)<=.01 for a,v in zip(actual['rotation'],expected['rotation'])) and\n  all(abs(a-v)<=.0001 for a,v in zip(actual['forward'],expected['forward'])) and\n  all(actual[key]==expected[key] for key in ('pitch_lock','yaw_lock','motions')))\nfrom modern_projection.projection.bridge import _stable_palette\nfrom modern_projection.projection import static_frame_item_data\nsaved=getattr(sys,'_item_skeleton_r13_probe',None)\n_result=json.dumps({'restored':True,'owned':False})\nif saved is not None and saved['nonce']=='7f41d6c1d369445a818c94af4a6e6e94':\n assert not navigator.is_transitioning and not navigator.contains(saved['key'])\n assert [entry.key for entry in navigator.get_entries()]==saved['navigation']\n assert s.editor.document.to_data()==saved['document']\n assert repr(_stable_palette(static_frame_item_data.FRAME_ITEMS))==saved['profiles']\n assert dict((key,getattr(s,key)) for key in ('camera_pose','camera_pivot','camera_pan','camera_depth_pose'))==saved['camera']\n actual=native_camera_snapshot()\n foot=b.factory.CreatePos(saved['player']).GetFootPos()\n assert native_camera_matches(actual,saved['native_camera']),('Native camera changed',actual,saved['native_camera'])\n assert foot is not None and len(foot)==3 and all(abs(v-a)<=.0001 for v,a in zip(foot,saved['foot'])),('Player foot changed',foot,saved['foot'])\n actor=saved['actor']\n assert (actor is not None and saved.get('observed_actor_kind') is not None and saved.get('destroy_attempted') and b.factory.CreateEngineType(actor).GetEngineTypeStr() is None) or (actor is None and saved['create']['state']=='returned'),saved['create']\n for row in saved['attachments']:\n  if row['state'] not in ('removed','rejected'):row['disposed_by_owned_actor_destruction']=True\n _result=json.dumps({'restored':True,'actor_absent':True,'observed_actor_kind':saved.get('observed_actor_kind'),'attachments':saved['attachments'],'body':saved['body'],'journal':saved['journal'],'create':saved['create']})\n del sys._item_skeleton_r13_probe\n",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 30
+      },
+      "started_at": "2026-10-13T05:36:03.948645+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"body\": null, \"actor_absent\": true, \"journal\": [], \"observed_actor_kind\": \"modern_projection:anchor\", \"create\": {\"attempted\": true, \"state\": \"returned\", \"value\": \"-9223372036854775807\"}, \"restored\": true, \"attachments\": []}'\nReturn value JSON: \"{\\\"body\\\": null, \\\"actor_absent\\\": true, \\\"journal\\\": [], \\\"observed_actor_kind\\\": \\\"modern_projection:anchor\\\", \\\"create\\\": {\\\"attempted\\\": true, \\\"state\\\": \\\"returned\\\", \\\"value\\\": \\\"-9223372036854775807\\\"}, \\\"restored\\\": true, \\\"attachments\\\": []}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T05:36:04.292038+00:00"
+    }
+  ],
+  "network_requests": [
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:53.861607+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344550.19167,
+      "finished_at": "2026-10-13T05:35:54.013759+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:54.051347+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344550.3817389,
+      "finished_at": "2026-10-13T05:35:54.153944+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:54.188313+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344550.5177502,
+      "finished_at": "2026-10-13T05:35:54.302654+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:54.409757+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344550.7397744,
+      "finished_at": "2026-10-13T05:35:54.592994+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:54.701198+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344551.0274911,
+      "finished_at": "2026-10-13T05:35:54.899171+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:54.980971+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344551.3070518,
+      "finished_at": "2026-10-13T05:35:55.159603+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:55.257746+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344551.5864953,
+      "finished_at": "2026-10-13T05:35:55.486583+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:55.589365+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344551.9186278,
+      "finished_at": "2026-10-13T05:35:55.805366+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:55.929991+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344552.2567906,
+      "finished_at": "2026-10-13T05:35:56.187916+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:56.277822+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344552.6051427,
+      "finished_at": "2026-10-13T05:35:56.464790+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:56.866974+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344553.1940451,
+      "finished_at": "2026-10-13T05:35:57.053363+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:57.148898+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344553.4777057,
+      "finished_at": "2026-10-13T05:35:57.380594+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:57.453693+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344553.7797167,
+      "finished_at": "2026-10-13T05:35:57.688234+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:57.775144+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344554.1077404,
+      "finished_at": "2026-10-13T05:35:57.979536+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:58.597161+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344554.9276504,
+      "finished_at": "2026-10-13T05:35:58.788957+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:58.916626+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344555.2498495,
+      "finished_at": "2026-10-13T05:35:59.126273+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:59.276141+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344555.6013943,
+      "finished_at": "2026-10-13T05:35:59.464923+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:59.552611+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344555.8794385,
+      "finished_at": "2026-10-13T05:35:59.728413+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:35:59.877952+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344556.2104384,
+      "finished_at": "2026-10-13T05:36:00.128394+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:00.247405+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344556.5799593,
+      "finished_at": "2026-10-13T05:36:00.483327+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:00.635818+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344556.9680366,
+      "finished_at": "2026-10-13T05:36:00.850046+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:00.964319+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344557.2988707,
+      "finished_at": "2026-10-13T05:36:01.157844+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:01.364399+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344557.6962334,
+      "finished_at": "2026-10-13T05:36:01.559812+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:01.663383+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344557.9968779,
+      "finished_at": "2026-10-13T05:36:01.898830+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:02.122082+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344558.4590513,
+      "finished_at": "2026-10-13T05:36:02.389075+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:02.504267+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344558.8348875,
+      "finished_at": "2026-10-13T05:36:02.699203+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:02.884901+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344559.2182935,
+      "finished_at": "2026-10-13T05:36:03.129892+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:03.243414+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344559.5709338,
+      "finished_at": "2026-10-13T05:36:03.469117+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:03.664518+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344559.9988917,
+      "finished_at": "2026-10-13T05:36:03.902913+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T05:36:04.059699+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 344560.393671,
+      "finished_at": "2026-10-13T05:36:04.270108+00:00"
+    },
+    {
+      "http_method": "DELETE",
+      "started_at": "2026-10-13T05:36:04.318771+00:00",
+      "timeout_seconds": 2,
+      "deadline_monotonic": 344552.6550514,
+      "finished_at": "2026-10-13T05:36:04.441319+00:00"
+    }
+  ],
+  "errors": [
+    "MCDKError('{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: {\\'model_id\\': -1, \\'model\\': \\'modern_projection_diagnostic_item_body_r13\\', \\'state\\': \\'returned\\'}\\\\nTraceback (most recent call last):\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 419, in _TASK\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 469, in _RUN_CLIENT_CODE\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 360, in _EXEC_CODE_RESULT\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 345, in _EXEC_CODE_VALUE\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 325, in _EXEC_CODE_OBJECT\\\\n  File \\\\\"<string>\\\\\", line 1, in <module>\\\\n  File \\\\\"<string>\\\\\", line 83, in <module>\\\\nAssertionError: {\\'model_id\\': -1, \\'model\\': \\'modern_projection_diagnostic_item_body_r13\\', \\'state\\': \\'returned\\'}\\\\n\", \"type\": \"text\"}]}')"
+  ],
+  "cleanup_errors": [],
+  "completed": false,
+  "restored": true,
+  "normal_deadline": 344620.800662,
+  "cleanup_deadline": 344650.800662,
+  "outer_deadline": 344680.800662,
+  "fixture_mutation_attempted": true,
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false,
+  "loaded_resources_before": {
+    "world": {
+      "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_24b38560ce6a48f7b71af108d1b7c6db",
+      "volume": 2721374072,
+      "file_id": 281474979104198,
+      "bytes": 4096
+    },
+    "packs": {
+      "behavior_pack": {
+        "selection_sha256": "95adff0d1a21063750ac40e5c780fc4ae7d9cdaa11e46dc2d60960e27e82f832",
+        "source_manifest_sha256": "237281582b27eac4ecb75b83bd38d57e73d2881220450dd2c39bc2087ba15222",
+        "lookups": {
+          "world": {
+            "final_path": "D:\\bbe-r13-item\\behavior_pack",
+            "volume": 2721374072,
+            "file_id": 281474979093046,
+            "bytes": 4096
+          },
+          "appdata": {
+            "final_path": "D:\\bbe-r13-item\\behavior_pack",
+            "volume": 2721374072,
+            "file_id": 281474979093046,
+            "bytes": 4096
+          }
+        }
+      },
+      "resource_pack": {
+        "selection_sha256": "da7640ddd87e37e0e983be8871e9193d6a0c4963f7855fb072eb4b3de60184fd",
+        "source_manifest_sha256": "5b804992b80df034d4d3d9f0dcba8399796bc5d87c9693d527040b1c994eaf91",
+        "lookups": {
+          "world": {
+            "final_path": "D:\\bbe-r13-item\\resource_pack",
+            "volume": 2721374072,
+            "file_id": 281474979094825,
+            "bytes": 4096
+          },
+          "appdata": {
+            "final_path": "D:\\bbe-r13-item\\resource_pack",
+            "volume": 2721374072,
+            "file_id": 281474979094825,
+            "bytes": 4096
+          }
+        }
+      }
+    },
+    "resources": {
+      "anchor.behavior.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\behavior_pack\\entities\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979093048,
+          "bytes": 571,
+          "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\behavior_pack\\entities\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979093048,
+          "bytes": 571,
+          "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+        }
+      },
+      "anchor.entity.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\entity\\modern_projection_anchor.entity.json",
+          "volume": 2721374072,
+          "file_id": 281474979094834,
+          "bytes": 494,
+          "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\entity\\modern_projection_anchor.entity.json",
+          "volume": 2721374072,
+          "file_id": 281474979094834,
+          "bytes": 494,
+          "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+        }
+      },
+      "anchor.geo.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\entity\\modern_projection_anchor.geo.json",
+          "volume": 2721374072,
+          "file_id": 281474979094849,
+          "bytes": 655,
+          "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\entity\\modern_projection_anchor.geo.json",
+          "volume": 2721374072,
+          "file_id": 281474979094849,
+          "bytes": 655,
+          "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+        }
+      },
+      "anchor.controller.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\render_controllers\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979095321,
+          "bytes": 612,
+          "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\render_controllers\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979095321,
+          "bytes": 612,
+          "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+        }
+      },
+      "transparent.png": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\modern_projection\\transparent.png",
+          "volume": 2721374072,
+          "file_id": 281474979095508,
+          "bytes": 68,
+          "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\modern_projection\\transparent.png",
+          "volume": 2721374072,
+          "file_id": 281474979095508,
+          "bytes": 68,
+          "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+        }
+      }
+    },
+    "opaque_skeleton_resources": {
+      "models/modern_projection/item_diagnostic_r13/mesh.json": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\modern_projection\\item_diagnostic_r13\\mesh.json",
+        "volume": 2721374072,
+        "file_id": 1407374885921384,
+        "bytes": 9603,
+        "sha256": "eae09be8fd6c090259e9afc2d1d416eb6fbb97c324569bf03908481661ea6e46"
+      },
+      "models/modern_projection/item_diagnostic_r13/skeleton.json": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\modern_projection\\item_diagnostic_r13\\skeleton.json",
+        "volume": 2721374072,
+        "file_id": 1407374885921385,
+        "bytes": 857,
+        "sha256": "191146c0520b6823bdac2baafdb40101b16c7d94607c0984ecb660b1f300d079"
+      },
+      "textures/models/modern_projection/item_diagnostic_r13/body.png": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\models\\modern_projection\\item_diagnostic_r13\\body.png",
+        "volume": 2721374072,
+        "file_id": 1407374885921387,
+        "bytes": 79,
+        "sha256": "fb854322ae30b1144ac1cb5a5fcc49c0b84f7f6d98b230bf2c98ec415cfff6f6"
+      }
+    }
+  },
+  "readiness_attempts": [
+    {
+      "player": "-8589934591",
+      "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+      "foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "clock": 1791869755.13,
+      "ready": true,
+      "screen": [
+        499.0,
+        277.0
+      ],
+      "pid": 53792,
+      "probe_present": false
+    }
+  ],
+  "ready_clocks": {
+    "before": {
+      "client": {
+        "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+        "version": "1.21.120.0",
+        "pid": 53792,
+        "clock": 1791869755.778
+      },
+      "server": {
+        "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+        "version": "1.21.120.0",
+        "pid": 53792,
+        "clock": 1791869756.433
+      }
+    },
+    "after": {
+      "client": {
+        "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+        "version": "1.21.120.0",
+        "pid": 53792,
+        "clock": 1791869757.325
+      },
+      "server": {
+        "token": "10f1fc7d805948d9bdbd9320acfa0de9",
+        "version": "1.21.120.0",
+        "pid": 53792,
+        "clock": 1791869757.932
+      }
+    }
+  },
+  "runtime_report": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-skeleton-r13-v1.runtime.json",
+    "sha256": "2317ee29d208293d7548d02a290a653508d4edb70ccd7740867ca7f3413c4351"
+  },
+  "loaded_resources_after": {
+    "world": {
+      "final_path": "D:\\WpSystem\\S-1-5-21-161055342-1825932921-342039769-1001\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_24b38560ce6a48f7b71af108d1b7c6db",
+      "volume": 2721374072,
+      "file_id": 281474979104198,
+      "bytes": 4096
+    },
+    "packs": {
+      "behavior_pack": {
+        "selection_sha256": "95adff0d1a21063750ac40e5c780fc4ae7d9cdaa11e46dc2d60960e27e82f832",
+        "source_manifest_sha256": "237281582b27eac4ecb75b83bd38d57e73d2881220450dd2c39bc2087ba15222",
+        "lookups": {
+          "world": {
+            "final_path": "D:\\bbe-r13-item\\behavior_pack",
+            "volume": 2721374072,
+            "file_id": 281474979093046,
+            "bytes": 4096
+          },
+          "appdata": {
+            "final_path": "D:\\bbe-r13-item\\behavior_pack",
+            "volume": 2721374072,
+            "file_id": 281474979093046,
+            "bytes": 4096
+          }
+        }
+      },
+      "resource_pack": {
+        "selection_sha256": "da7640ddd87e37e0e983be8871e9193d6a0c4963f7855fb072eb4b3de60184fd",
+        "source_manifest_sha256": "5b804992b80df034d4d3d9f0dcba8399796bc5d87c9693d527040b1c994eaf91",
+        "lookups": {
+          "world": {
+            "final_path": "D:\\bbe-r13-item\\resource_pack",
+            "volume": 2721374072,
+            "file_id": 281474979094825,
+            "bytes": 4096
+          },
+          "appdata": {
+            "final_path": "D:\\bbe-r13-item\\resource_pack",
+            "volume": 2721374072,
+            "file_id": 281474979094825,
+            "bytes": 4096
+          }
+        }
+      }
+    },
+    "resources": {
+      "anchor.behavior.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\behavior_pack\\entities\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979093048,
+          "bytes": 571,
+          "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\behavior_pack\\entities\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979093048,
+          "bytes": 571,
+          "sha256": "a7596bedca4d963a9ea102500b8f7f352fb19d0f0d38e39c621089fda821849c"
+        }
+      },
+      "anchor.entity.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\entity\\modern_projection_anchor.entity.json",
+          "volume": 2721374072,
+          "file_id": 281474979094834,
+          "bytes": 494,
+          "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\entity\\modern_projection_anchor.entity.json",
+          "volume": 2721374072,
+          "file_id": 281474979094834,
+          "bytes": 494,
+          "sha256": "0d98834aa5099de67bc3de0adf106c078cc1bd620992abbd317119386beec718"
+        }
+      },
+      "anchor.geo.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\entity\\modern_projection_anchor.geo.json",
+          "volume": 2721374072,
+          "file_id": 281474979094849,
+          "bytes": 655,
+          "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\entity\\modern_projection_anchor.geo.json",
+          "volume": 2721374072,
+          "file_id": 281474979094849,
+          "bytes": 655,
+          "sha256": "cde3bcf47d4f31d08993ee33dd4ba31ee3643168e05046526269a32542343f70"
+        }
+      },
+      "anchor.controller.json": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\render_controllers\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979095321,
+          "bytes": 612,
+          "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\render_controllers\\modern_projection_anchor.json",
+          "volume": 2721374072,
+          "file_id": 281474979095321,
+          "bytes": 612,
+          "sha256": "485c5e884e8a3ada42725572b410e60e4a58baf24141393874fffe66aae6676c"
+        }
+      },
+      "transparent.png": {
+        "world": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\modern_projection\\transparent.png",
+          "volume": 2721374072,
+          "file_id": 281474979095508,
+          "bytes": 68,
+          "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+        },
+        "appdata": {
+          "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\modern_projection\\transparent.png",
+          "volume": 2721374072,
+          "file_id": 281474979095508,
+          "bytes": 68,
+          "sha256": "980055f32603462384baae4a3dbfa580f0579627bb98c190f84443a047126613"
+        }
+      }
+    },
+    "opaque_skeleton_resources": {
+      "models/modern_projection/item_diagnostic_r13/mesh.json": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\modern_projection\\item_diagnostic_r13\\mesh.json",
+        "volume": 2721374072,
+        "file_id": 1407374885921384,
+        "bytes": 9603,
+        "sha256": "eae09be8fd6c090259e9afc2d1d416eb6fbb97c324569bf03908481661ea6e46"
+      },
+      "models/modern_projection/item_diagnostic_r13/skeleton.json": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\models\\modern_projection\\item_diagnostic_r13\\skeleton.json",
+        "volume": 2721374072,
+        "file_id": 1407374885921385,
+        "bytes": 857,
+        "sha256": "191146c0520b6823bdac2baafdb40101b16c7d94607c0984ecb660b1f300d079"
+      },
+      "textures/models/modern_projection/item_diagnostic_r13/body.png": {
+        "final_path": "D:\\bbe-r13-item\\resource_pack\\textures\\models\\modern_projection\\item_diagnostic_r13\\body.png",
+        "volume": 2721374072,
+        "file_id": 1407374885921387,
+        "bytes": 79,
+        "sha256": "fb854322ae30b1144ac1cb5a5fcc49c0b84f7f6d98b230bf2c98ec415cfff6f6"
+      }
+    }
+  },
+  "protected_sources_unchanged": true,
+  "finished_at": "2026-10-13T05:36:07.982733+00:00",
+  "elapsed_seconds": 23.49861259997124
+}

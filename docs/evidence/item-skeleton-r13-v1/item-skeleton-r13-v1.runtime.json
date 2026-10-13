@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "plan_sha256": "ff1dbf7fee59c14fa5559787e7878a7e42e0d5f69bfaddf1292a9468de858b02",
+  "completed": false,
+  "restored": true,
+  "sdk_dispatch_attempted": true,
+  "states": {},
+  "errors": [
+    "MCDKError('{\"isError\": true, \"content\": [{\"text\": \"Code execution failed: {\\'model_id\\': -1, \\'model\\': \\'modern_projection_diagnostic_item_body_r13\\', \\'state\\': \\'returned\\'}\\\\nTraceback (most recent call last):\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 419, in _TASK\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 469, in _RUN_CLIENT_CODE\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 360, in _EXEC_CODE_RESULT\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 345, in _EXEC_CODE_VALUE\\\\n  File \\\\\"DEBUG_ENV_SCRIPT.IPCSystem\\\\\", line 325, in _EXEC_CODE_OBJECT\\\\n  File \\\\\"<string>\\\\\", line 1, in <module>\\\\n  File \\\\\"<string>\\\\\", line 83, in <module>\\\\nAssertionError: {\\'model_id\\': -1, \\'model\\': \\'modern_projection_diagnostic_item_body_r13\\', \\'state\\': \\'returned\\'}\\\\n\", \"type\": \"text\"}]}')"
+  ],
+  "cleanup_errors": [],
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false,
+  "attempted_operation": "verify_client.py",
+  "cleanup_remove": {
+    "skeleton_setup": {
+      "model_id": -1,
+      "model": "modern_projection_diagnostic_item_body_r13",
+      "state": "returned"
+    },
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-9223372036854775807"
+    },
+    "errors": [],
+    "attachments": [],
+    "actor": "-9223372036854775807"
+  },
+  "cleanup_pop": true,
+  "cleanup_destroy": {
+    "destroy_returned": true,
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-9223372036854775807"
+    },
+    "pre_destroy_kind_error": null,
+    "pre_destroy_kind": "modern_projection:anchor",
+    "actor": "-9223372036854775807",
+    "observed_actor_kind": "modern_projection:anchor",
+    "destroy_attempted": true
+  },
+  "actor_absence": {
+    "absent": true,
+    "kind": null,
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-9223372036854775807"
+    },
+    "actor": "-9223372036854775807",
+    "observed_actor_kind": "modern_projection:anchor",
+    "owned": true
+  },
+  "restore": {
+    "body": null,
+    "actor_absent": true,
+    "journal": [],
+    "observed_actor_kind": "modern_projection:anchor",
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-9223372036854775807"
+    },
+    "restored": true,
+    "attachments": []
+  }
+}
