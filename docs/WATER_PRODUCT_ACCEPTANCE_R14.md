@@ -51,6 +51,10 @@ python -X utf8 tools/analyze_product_water.py <water-frozen.json> <water-frozen-
 
 20:30 的 `water-product-r14-v3-root` 在新前台策略下进入世界，首次石块 shown 捕获取得 fresh、非空的 `1994×1105` WGC PNG。新增尺寸门控将 Python 默认 DPI 线程下的 `1329×736` 逻辑客户区错误地与实际像素比较并拒绝，因此相机 `views` 为空、水探针未执行。相机自身全部恢复成功；监督器 94.32 秒结束，清理错误为空、原配置按字节恢复、game／MCDK 的准确创建身份均已回收、pins 不变。已实际查看 PNG，石块可见，画面显示 GUI scale 为 `4.0`；前一次 v2 相机 `GetScreenSize=[499,277]` 也说明 UI／截图并非同一种尺寸。原件保留在 root `.runtime/water-product-r14-v3-root/`；这是一项捕获工具的单位错误，不能归因于水材质或算作水验收成功。
 
+20:41 的 `water-product-r14-v4-root` 使用局部物理 DPI 上下文后，取得完整六张石块截图并完成 front／right／tilted 三视角独立标定：`completed/restored/passed=True`，清理错误为空，实际有效垂直 FOV 为 `66.5` 度，SDK 原始 FOV 为 `60`，游戏 UI 视口为 `499×277`、物理 PNG 为 `1994×1105`。该标定只属于当次受管会话，其他会话须重新运行，不能借用成功标志或仅复制标量。
+
+v4 水探针在第一次编辑器截图前被精确姿态门控拒绝：首次 `scene_ready` 的 zoom 为 `4.599760046768113`，随后相机动画精确到位为 `4.6`，导致几何和原生 doll 坐标正常变化。并非 tuple／list 格式问题，没有产生有效水 PNG。相机和水探针均恢复成功，134.65 秒内完成精确实例回收，原配置恢复、清理错误为空、来源指纹不变。修复后的探针要求相机与 pan 精确达到请求值，且两次连续原生布局完全相同，再冻结 ready 状态；捕获前后及全部对照的原有精确门控保持不变。三项新回归包含当次动画数字、原生坐标轻微变化、后端重新 pending 和错误视角；不放宽数值容差。原件保留在 root `.runtime/water-product-r14-v4-root/`。
+
 离线规则、相邻水连续性、实际三角形／UV／alpha 的宿主验证和 owner 测试已经完成；这些不替代游戏观察。捕获工具的 40 项相关回归通过，独立 QA 还构造了编辑器／world 各五种「各自稳定但相机不同」的对照，十种都被完整 analyzer 拒绝。
 
 实机仍须完成：
