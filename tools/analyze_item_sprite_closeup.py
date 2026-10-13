@@ -51,6 +51,83 @@ def save_gif(rows, bounds, path):
             'pixels': 'Fixed crop only; no resizing, synthesis, enhancement or runtime overlay'}
 
 
+def glint_metrics(images, mask, times):
+    selected = np.stack([image[mask] for image in images])
+    if not selected.shape[1]:
+        return {'body_pixels': 0, 'status': 'NO_OBSERVED_BODY'}
+    rgb_range = np.ptp(selected, axis=0).max(axis=1)
+    luma = np.tensordot(selected, np.array((.2126, .7152, .0722)), axes=(2, 0))
+    luma_range = np.ptp(luma, axis=0)
+    yy, xx = np.nonzero(mask)
+    width = max(1, int(xx.max()-xx.min()+1))
+    highlights = luma-luma.min(axis=0)
+    centers = []
+    for row in highlights:
+        eligible = row > 8.
+        centers.append((float(xx[eligible].mean()), float(yy[eligible].mean())) if eligible.any() else None)
+    speeds = [float(np.linalg.norm(np.subtract(second, first))/(width*(b-a)))
+              for first, second, a, b in zip(centers, centers[1:], times, times[1:])
+              if first is not None and second is not None and b>a]
+    return {'body_pixels': int(mask.sum()), 'status': 'MEASURED',
+            'rgb_range_p50_p90_max': [float(value) for value in np.percentile(rgb_range, (50,90,100))],
+            'luma_range_p50_p90_max': [float(value) for value in np.percentile(luma_range, (50,90,100))],
+            'motion_fraction_rgb_gt2': float(np.mean(rgb_range > 2)),
+            'motion_fraction_rgb_gt8': float(np.mean(rgb_range > 8)),
+            'mean_body_luma_p50_p90': [float(value) for value in np.percentile(luma.mean(axis=1), (50,90))],
+            'highlight_centroid_body_widths_per_second': speeds,
+            'speed_limitations': 'Sparse frame centroid displacement; not continuous phase velocity'}
+
+
+def native_comparison(source, rows, texture, spec, size, output):
+    closeup = source['closeup']
+    reference = closeup['native_reference']
+    native_rows = {row['label']: row for row in reference.get('captures', ())}
+    failures = capture_failures({key: row['capture'] for key,row in native_rows.items()}, source['session'])
+    if not reference.get('completed') or not reference.get('restored') or reference.get('cleanup_errors'):
+        failures.append('Actual native frame reference did not complete and restore')
+    for label,row in native_rows.items():
+        if not all(camera_matches(row.get(key), closeup['world_camera']) for key in
+                   ('camera_before','camera_after','camera_expected')):
+            failures.append({'native_camera_drift': label})
+    result = {'capture_failures': failures, 'routes': {}, 'production_qualified': False,
+              'native_parity_accepted': False,
+              'lighting_limitations': 'Clear noon is fixed; native lighting and custom material lighting are different',
+              'source': reference.get('placement')}
+    if failures:
+        return result
+    for route in ('editor','world','world_missing','native'):
+        captures = native_rows if route == 'native' else rows
+        sequence = [captures[route+'_'+str(index)] for index in range(20)]
+        hidden_label = route+'_items_hidden' if route in ('editor','native') else 'world_items_hidden'
+        hidden_row = captures[hidden_label]
+        images = [rgb(row['capture']['path']) for row in sequence]
+        hidden = rgb(hidden_row['capture']['path'])
+        first = rows['editor_0'] if route == 'editor' else rows['world_0']
+        calibration = None if route == 'editor' else source['camera_calibration']['data']
+        times = [row['capture']['frame']['frame_qpc_100ns']/10000000. for row in sequence]
+        measurements, crops = {}, []
+        for mode,position in POSITIONS.items():
+            expected = expected_mask(position,first,texture,spec['frame_pose'],size,calibration)
+            bounds = mask_row(expected)['bounds']
+            crop = (max(0,bounds[0]-32),max(0,bounds[1]-32),min(size[0],bounds[2]+32),min(size[1],bounds[3]+32))
+            region = np.zeros_like(expected)
+            region[crop[1]:crop[3],crop[0]:crop[2]] = True
+            observed = difference_mask(images[0],hidden,region,LIMITS['rgb_delta'])
+            observation = mask_row(observed)
+            moving_mask = observed if mode != 'empty' else expected
+            measurements[mode] = {'body': observation, 'extent_pixels': extent(observed),
+                'scale_passed': min(extent(observed))>=48 if mode != 'empty' else True,
+                'negative_control_passed': bool(observed.sum()<=3) if mode=='empty' else None,
+                'temporal': temporal_measurement(images,moving_mask,mode=='enchanted'),
+                'glint': glint_metrics(images,moving_mask,times)}
+            crops.append(crop)
+        gif_crop = (min(row[0] for row in crops), min(row[1] for row in crops),
+                    max(row[2] for row in crops), max(row[3] for row in crops))
+        result['routes'][route] = {'duration': elapsed_sequence(sequence), 'items': measurements,
+                                  'gif': save_gif(sequence,gif_crop,output/(route+'-comparison.gif'))}
+    return result
+
+
 def analyze(path, output):
     source = json.loads(path.read_bytes())
     base = analyze_base(path)
@@ -158,6 +235,9 @@ def analyze(path, output):
                 for row in route_result['items'].values()))
             route_result['declared_body_passed'] = all(row['body']['passed'] for row in route_result['items'].values())
             result['routes'][route] = route_result
+        if 'native_reference' in closeup:
+            result['native_comparison'] = native_comparison(source, rows, texture, spec, size, output)
+            failures.extend(result['native_comparison']['capture_failures'])
     result['evidence_valid'] = not failures and base['evidence_valid']
     return result
 

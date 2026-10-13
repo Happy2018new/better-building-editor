@@ -34,7 +34,7 @@ _result={'source_fixture':IDENTITY,'source_pair':pair,'positions':positions,'siz
 '''
 
 
-def run(check, client, session, report, state_source, camera_source, output, wgc, save):
+def run(check, client, session, report, state_source, camera_source, output, wgc, save, native_reference=False):
     folder = output/'closeup'
     folder.mkdir()
     closeup = {'schema': 1, 'completed': False, 'captures': [], 'frames_per_route': FRAMES,
@@ -125,12 +125,13 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         check.run('navigator.pop()\n_result=True')
         check.wait('closeup workspace closed', lambda row: not row['open'] and not row['transition'], check.navigation)
         closeup['world_camera'] = check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
-            "target=tuple(s.origin[axis]+(5.5,2.5,2.9375)[axis] for axis in range(3))\n"
+            "target=tuple(s.origin[axis]+%r[axis] for axis in range(3))\n"
             "position=tuple(target[axis]+(0.,1.,-8.)[axis] for axis in range(3))\n"
             "rot=api.GetRotFromDir(tuple(target[axis]-position[axis] for axis in range(3)))\n"
             "rotation=(rot[0],rot[1]+180.,0.)\nassert cam.SetCameraPos(position)\n"
             "assert cam.SetCameraRotation(rotation)\n_result={'position':position,'target':target,'rotation':rotation,"
-            "'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()}")
+            "'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()}" %
+            ((4.8,2.5,2.9375) if native_reference else (5.5,2.5,2.9375),))
         check.wait('exact closeup world camera', lambda row: camera_matches(row, closeup['world_camera']),
                    lambda: check.run(camera_source))
         time.sleep(.5)
@@ -155,6 +156,9 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         wrote = False
         check.run('b.projection_interaction('+repr(tuple(world_position))+')\n_result=True')
         world_capture('world_restored')
+        if native_reference:
+            from item_sprite_native_reference import run as run_reference
+            run_reference(check,server,session,closeup,world_capture,state_source,camera_source,folder,wgc,persist)
         closeup['completed'] = True
     finally:
         if wrote:

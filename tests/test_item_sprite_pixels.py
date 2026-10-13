@@ -18,7 +18,7 @@ from analyze_item_sprite_product import (analyze, body_measurement, expected_mas
                                          temporal_measurement, point_sampled_mask)
 from item_sprite_capture_contract import (camera_matches, paired_layout_matches,
                                           scene_layout, snapshot_digest)
-from analyze_item_sprite_closeup import elapsed_sequence
+from analyze_item_sprite_closeup import elapsed_sequence, glint_metrics
 from projection.camera import OrbitCamera
 from projection.debug_blueprints import build
 from projection.debug_item_blueprints import IDENTITY, PAIRS
@@ -56,6 +56,17 @@ class ItemPixelTests(unittest.TestCase):
         background = moving.copy()
         background[6:22, 6:22] += 10
         self.assertFalse(temporal_measurement([self.body, background, self.body], self.mask, True)['passed'])
+
+    def test_native_comparison_reports_highlight_strength_instead_of_only_presence(self):
+        dim, bright = self.body.copy(), self.body.copy()
+        dim[self.mask] += 3
+        bright[self.mask] += 30
+        weak = glint_metrics([self.body,dim,self.body],self.mask,[0.,1.,2.])
+        strong = glint_metrics([self.body,bright,self.body],self.mask,[0.,1.,2.])
+        self.assertEqual(weak['motion_fraction_rgb_gt2'],strong['motion_fraction_rgb_gt2'])
+        self.assertLess(weak['luma_range_p50_p90_max'][1],strong['luma_range_p50_p90_max'][1])
+        self.assertEqual(0.,weak['motion_fraction_rgb_gt8'])
+        self.assertEqual(1.,strong['motion_fraction_rgb_gt8'])
 
     def test_opaque_bitmap_pixels_and_all_faces_have_finite_declared_planes(self):
         image = Image.new('RGBA', (2, 2))

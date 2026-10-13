@@ -196,3 +196,9 @@ postcapture brightness normalization or adjusted acceptance thresholds.
 Every changed native block is tracked before mutation and restored to its
 confirmed original air state. The test uses the existing private debugger
 entry and adds no production RPC or authorization surface.
+
+The reference run retains the authorized user-foreground single-frame capture
+policy. Twenty native frames per route retain their actual sparse QPC intervals;
+these do not establish smooth or continuous 60fps motion. The shifted camera
+target `(4.8,2.5,2.9375)` keeps the world crosshair off the center sword equally
+for full, missing and actual native frame routes.

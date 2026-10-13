@@ -173,7 +173,7 @@ _result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_en
         save('report.json',report)
 
 
-def main(with_world=False, camera_calibration=None, with_closeup=False):
+def main(with_world=False, camera_calibration=None, with_closeup=False, native_reference=False):
     os.environ['MCDEV_ALLOW_USER_FOREGROUND']='1'
     OUTPUT.mkdir(parents=True, exist_ok=False)
     for path, expected in PINS.items():
@@ -318,7 +318,7 @@ def main(with_world=False, camera_calibration=None, with_closeup=False):
             if with_world:
                 world_matrix(check,client,session,report)
             if with_closeup:
-                run_closeup(check,client,session,report,STATE,CAMERA,OUTPUT,WGC,save)
+                run_closeup(check,client,session,report,STATE,CAMERA,OUTPUT,WGC,save,native_reference)
             report['logs']=client.call('get_latest_error_logs',{'max_count':40})
             report['completed']=True
             if not with_world:
@@ -384,6 +384,7 @@ if __name__=='__main__':
     parser.add_argument('--camera-calibration',type=Path,
                         help='Independent world camera calibration required by pixel scoring')
     parser.add_argument('--closeup',action='store_true',help='Also record enlarged ordinary/enchanted/empty controls for at least seven seconds per route')
+    parser.add_argument('--native-reference',action='store_true',help='Compare closeup against SDK-written actual frame blocks and typed item readback')
     args=parser.parse_args()
     if not args.run_id or any(char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for char in args.run_id):
         parser.error('run-id must contain only ASCII letters, numbers, hyphens or underscores')
@@ -391,4 +392,6 @@ if __name__=='__main__':
     OUTPUT=ROOT/'.runtime'/OWNER
     if args.closeup and not args.world:
         parser.error('--closeup requires --world for independent calibration')
-    sys.exit(main(args.world,args.camera_calibration,args.closeup))
+    if args.native_reference and not args.closeup:
+        parser.error('--native-reference requires --closeup')
+    sys.exit(main(args.world,args.camera_calibration,args.closeup,args.native_reference))
