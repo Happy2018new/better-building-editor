@@ -1,0 +1,2277 @@
+{
+  "schema": 1,
+  "plan_sha256": "2b9ed0abfc3770f15715906e371d8684818d669d7b7475ebc686540fd8a0680d",
+  "completed": false,
+  "restored": true,
+  "sdk_dispatch_attempted": true,
+  "states": {
+    "ui_skeleton_positive": {
+      "state": "captured",
+      "frames": [
+        {
+          "status": {
+            "control": "ui_skeleton_positive",
+            "model_id": 7,
+            "native_camera": {
+              "pitch_lock": false,
+              "yaw_lock": false,
+              "motions": {},
+              "forward": [
+                3.01991519791045e-07,
+                0.0,
+                0.9999995231628418
+              ],
+              "position": [
+                0.5,
+                -58.37998962402344,
+                0.5
+              ],
+              "rotation": [
+                -0.0,
+                179.99996948242188,
+                0.0
+              ]
+            },
+            "attachments": [],
+            "clock": 1791874090.169,
+            "model_read_deferred": false,
+            "journal": [
+              {
+                "requested": true,
+                "return": null,
+                "attempted": true,
+                "readback": true,
+                "state": "returned",
+                "operation": "owned_root_visibility:ui_skeleton_positive"
+              },
+              {
+                "attempted": true,
+                "operation": "RenderEntity:ui_skeleton_positive",
+                "state": "returned",
+                "value": true
+              }
+            ],
+            "native_layout": {
+              "paper_doll": {
+                "y": 18.5,
+                "x": 129.5,
+                "height": 240.0,
+                "width": 240.0,
+                "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+              },
+              "markers": [
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    255
+                  ],
+                  "key": "native_item_marker_tl",
+                  "y": 8.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tl__27"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    0,
+                    255
+                  ],
+                  "key": "native_item_marker_tr",
+                  "y": 8.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tr__28"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_bl",
+                  "y": 263.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_bl__29"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_br",
+                  "y": 263.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_br__30"
+                  },
+                  "size": 6.0
+                }
+              ],
+              "screen_size_api_observed": [
+                499.0,
+                277.0
+              ],
+              "screen_view_api_observed": [
+                1995.0,
+                1107.0,
+                0.0,
+                0.0
+              ],
+              "size_inputs": [
+                499.0,
+                277.0
+              ],
+              "declared_size": 240.0,
+              "root": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root/native_item_probe_root__25"
+              },
+              "viewport": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root"
+              }
+            },
+            "body": null,
+            "actor": "-8589934097",
+            "version": "1.21.120.0",
+            "player_foot": [
+              0.5,
+              -60.0,
+              0.5
+            ],
+            "actor_kind": "modern_projection:anchor",
+            "camera_matches": true,
+            "root_visible": true,
+            "ready": true,
+            "roi_receipt": {
+              "physical_size": [
+                1994,
+                1105
+              ],
+              "world": [
+                0,
+                111,
+                1994,
+                1105
+              ],
+              "ui": [
+                0,
+                111,
+                1994,
+                1105
+              ],
+              "declared_before_capture": true,
+              "basis": "fixed native capture extent; top debug band excluded; anchor at camera forward ray distance 3; UI centered declared bounds"
+            },
+            "skeleton_setup": {
+              "model_id": 7,
+              "model": "modern_projection_diagnostic_item_body_r13",
+              "state": "returned"
+            },
+            "last_submission": {
+              "entity_id": "-8589934097",
+              "scale": 1.4,
+              "render_depth": -15,
+              "init_rot_z": 0.0,
+              "init_rot_y": 0.0,
+              "init_rot_x": 0.0
+            },
+            "player_foot_matches": true,
+            "ui_params": {
+              "entity_id": "-8589934097",
+              "scale": 1.4,
+              "render_depth": -15,
+              "init_rot_z": 0.0,
+              "init_rot_y": 0.0,
+              "init_rot_x": 0.0
+            }
+          },
+          "tree": {
+            "style": {},
+            "id": "<ClientAnchorPaperDollProbe:2138444310408>",
+            "key": null,
+            "props": {},
+            "type": "ClientAnchorPaperDollProbe",
+            "children": [
+              {
+                "opacity": 1.0,
+                "style": {
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "width": "100%",
+                  "height": "100%"
+                },
+                "layout": {
+                  "y": 0.0,
+                  "x": 0.0,
+                  "height": 277.0,
+                  "width": 499.0
+                },
+                "id": "native_item_probe_root__25",
+                "key": "native_item_probe_root",
+                "props": {
+                  "color": {
+                    "a": 1.0,
+                    "r": 0.9686274509803922,
+                    "b": 0.9882352941176471,
+                    "g": 0.9764705882352941
+                  }
+                },
+                "type": "Image",
+                "children": [
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "width": 240.0,
+                      "height": 240.0
+                    },
+                    "layout": {
+                      "y": 18.5,
+                      "x": 129.5,
+                      "height": 240.0,
+                      "width": 240.0
+                    },
+                    "id": "native_item_probe_doll__26",
+                    "key": "native_item_probe_doll",
+                    "props": {
+                      "scale": 1.4,
+                      "initRotZ": 0.0,
+                      "initRotY": 0.0,
+                      "initRotX": 0.0,
+                      "renderType": "entity",
+                      "entityId": "-8589934097",
+                      "renderDepth": -15
+                    },
+                    "type": "PaperDoll",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 8.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 8.0
+                    },
+                    "layout": {
+                      "y": 8.0,
+                      "x": 8.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_tl__27",
+                    "key": "native_item_marker_tl",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 0.0,
+                        "b": 1.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 8.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 485.0
+                    },
+                    "layout": {
+                      "y": 8.0,
+                      "x": 485.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_tr__28",
+                    "key": "native_item_marker_tr",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 1.0,
+                        "b": 1.0,
+                        "g": 0.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 263.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 8.0
+                    },
+                    "layout": {
+                      "y": 263.0,
+                      "x": 8.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_bl__29",
+                    "key": "native_item_marker_bl",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 1.0,
+                        "b": 0.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 263.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 485.0
+                    },
+                    "layout": {
+                      "y": 263.0,
+                      "x": 485.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_br__30",
+                    "key": "native_item_marker_br",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 0.0,
+                        "b": 0.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "capture": {
+            "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-world-glint-r13-v1.runtime_ui_skeleton_positive_0_native.png",
+            "sha256": "e333b0dd023f88c0628d02c04f216ffa330e49fe16656d4dfd9ed46d55e24946",
+            "bytes": 17062,
+            "size": [
+              1994,
+              1105
+            ],
+            "mime": "image/png",
+            "capture": {
+              "schema": 2,
+              "ok": true,
+              "reliable": true,
+              "background_only": true,
+              "backend": "Windows.Graphics.Capture",
+              "native_resolution": true,
+              "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-world-glint-r13-v1.runtime_ui_skeleton_positive_0_native.png",
+              "started_at": "2026-10-13T06:48:10.833812+00:00",
+              "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\session.json",
+              "owner": "item-skeleton-r13-v1",
+              "game_pid": 53792,
+              "game_identity": "134363432612984169",
+              "window": {
+                "hwnd": 22549236,
+                "pid": 53792,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 189,
+                "y": 176,
+                "width": 1329,
+                "height": 736,
+                "minimized": false
+              },
+              "helper": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+                "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+                "sources": {
+                  "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+                  "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+                  "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+                  "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+                  "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+                  "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+                  "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+                  "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+                  "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+                }
+              },
+              "foreground_before": {
+                "hwnd": 34802164,
+                "pid": 46908
+              },
+              "foreground_after": {
+                "hwnd": 34802164,
+                "pid": 46908
+              },
+              "foreground_unchanged": true,
+              "background_safe": true,
+              "helper_returncode": 0,
+              "helper_stderr": "",
+              "frame": {
+                "ok": true,
+                "backend": "Windows.Graphics.Capture",
+                "native_resolution": true,
+                "request_qpc_100ns": 3488780463229,
+                "frame_qpc_100ns": 3488780572940,
+                "width": 1994,
+                "height": 1105
+              },
+              "width": 1994,
+              "height": 1105,
+              "variance": [
+                121.94533229366264,
+                144.3560247530103,
+                136.50262947566418
+              ],
+              "sha256": "e333b0dd023f88c0628d02c04f216ffa330e49fe16656d4dfd9ed46d55e24946",
+              "bytes": 17062,
+              "finished_at": "2026-10-13T06:48:11.976650+00:00",
+              "elapsed_seconds": 1.1428427000064403
+            },
+            "host_capture_requested_epoch": 1791874090.8326542
+          },
+          "fixed_roi": [
+            0,
+            111,
+            1994,
+            1105
+          ],
+          "layout": {
+            "native_readback": {
+              "paper_doll": {
+                "y": 18.5,
+                "x": 129.5,
+                "height": 240.0,
+                "width": 240.0,
+                "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+              },
+              "markers": [
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    255
+                  ],
+                  "key": "native_item_marker_tl",
+                  "y": 8.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tl__27"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    0,
+                    255
+                  ],
+                  "key": "native_item_marker_tr",
+                  "y": 8.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tr__28"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_bl",
+                  "y": 263.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_bl__29"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_br",
+                  "y": 263.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_br__30"
+                  },
+                  "size": 6.0
+                }
+              ],
+              "screen_size_api_observed": [
+                499.0,
+                277.0
+              ],
+              "screen_view_api_observed": [
+                1995.0,
+                1107.0,
+                0.0,
+                0.0
+              ],
+              "size_inputs": [
+                499.0,
+                277.0
+              ],
+              "declared_size": 240.0,
+              "root": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root/native_item_probe_root__25"
+              },
+              "viewport": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root"
+              }
+            },
+            "screen_to_ui_scale": 1.0,
+            "paper_doll": {
+              "y": 18.5,
+              "x": 129.5,
+              "height": 240.0,
+              "width": 240.0,
+              "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+            },
+            "root": {
+              "y": 0.0,
+              "x": 0.0,
+              "height": 277.0,
+              "width": 499.0,
+              "path": "/root/native_item_probe_root__25"
+            },
+            "props": {
+              "entityId": "-8589934097",
+              "renderType": "entity",
+              "scale": 1.4,
+              "renderDepth": -15,
+              "initRotX": 0.0,
+              "initRotY": 0.0,
+              "initRotZ": 0.0
+            }
+          },
+          "marker_mapping": {
+            "calibration": {
+              "scale": 3.9974978978239917,
+              "translation": [
+                0.12427449291408266,
+                -2.1534588486227904
+              ],
+              "training_keys": [
+                "native_item_marker_tl",
+                "native_item_marker_br"
+              ],
+              "holdout_keys": [
+                "native_item_marker_tr",
+                "native_item_marker_bl"
+              ],
+              "maximum_error_pixels": 1.0,
+              "physical_size": [
+                1994,
+                1105
+              ]
+            },
+            "markers": [
+              {
+                "bounds": [
+                  32,
+                  30,
+                  56,
+                  54
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_tl",
+                "center": [
+                  44.0,
+                  42.0
+                ],
+                "center_errors": [
+                  0.09675136897799064,
+                  0.18098197255888238
+                ],
+                "edge_errors": [
+                  0.10425767550601961,
+                  0.17347566603085696,
+                  0.08924506244996877,
+                  0.18848827908690424
+                ],
+                "holdout": false
+              },
+              {
+                "bounds": [
+                  1939,
+                  30,
+                  1963,
+                  54
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_tr",
+                "center": [
+                  1951.0,
+                  42.0
+                ],
+                "center_errors": [
+                  0.096751368977948,
+                  0.18098197255888238
+                ],
+                "edge_errors": [
+                  0.08924506244989061,
+                  0.17347566603085696,
+                  0.1042576755060054,
+                  0.18848827908690424
+                ],
+                "holdout": true
+              },
+              {
+                "bounds": [
+                  32,
+                  1049,
+                  56,
+                  1073
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_bl",
+                "center": [
+                  44.0,
+                  1061.0
+                ],
+                "center_errors": [
+                  0.09675136897799064,
+                  0.1809819725590387
+                ],
+                "edge_errors": [
+                  0.10425767550601961,
+                  0.18848827908686872,
+                  0.08924506244996877,
+                  0.17347566603075393
+                ],
+                "holdout": true
+              },
+              {
+                "bounds": [
+                  1939,
+                  1049,
+                  1963,
+                  1073
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_br",
+                "center": [
+                  1951.0,
+                  1061.0
+                ],
+                "center_errors": [
+                  0.096751368977948,
+                  0.1809819725590387
+                ],
+                "edge_errors": [
+                  0.08924506244989061,
+                  0.18848827908686872,
+                  0.1042576755060054,
+                  0.17347566603075393
+                ],
+                "holdout": false
+              }
+            ],
+            "passed": true,
+            "legacy_api_uniform_mapping": {
+              "passed": false,
+              "reason": "Game pixel to physical capture mapping is not uniform; aspect or DPI changed",
+              "maximum_residual_pixels": 1.0
+            }
+          },
+          "paper_doll_roi": [
+            517,
+            71,
+            1478,
+            1032
+          ]
+        },
+        {
+          "status": {
+            "control": "ui_skeleton_positive",
+            "model_id": 7,
+            "native_camera": {
+              "pitch_lock": false,
+              "yaw_lock": false,
+              "motions": {},
+              "forward": [
+                3.01991519791045e-07,
+                0.0,
+                0.9999995231628418
+              ],
+              "position": [
+                0.5,
+                -58.37998962402344,
+                0.5
+              ],
+              "rotation": [
+                -0.0,
+                179.99996948242188,
+                0.0
+              ]
+            },
+            "attachments": [],
+            "clock": 1791874093.316,
+            "model_read_deferred": false,
+            "journal": [
+              {
+                "requested": true,
+                "return": null,
+                "attempted": true,
+                "readback": true,
+                "state": "returned",
+                "operation": "owned_root_visibility:ui_skeleton_positive"
+              },
+              {
+                "attempted": true,
+                "operation": "RenderEntity:ui_skeleton_positive",
+                "state": "returned",
+                "value": true
+              }
+            ],
+            "native_layout": {
+              "paper_doll": {
+                "y": 18.5,
+                "x": 129.5,
+                "height": 240.0,
+                "width": 240.0,
+                "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+              },
+              "markers": [
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    255
+                  ],
+                  "key": "native_item_marker_tl",
+                  "y": 8.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tl__27"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    0,
+                    255
+                  ],
+                  "key": "native_item_marker_tr",
+                  "y": 8.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tr__28"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_bl",
+                  "y": 263.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_bl__29"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_br",
+                  "y": 263.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_br__30"
+                  },
+                  "size": 6.0
+                }
+              ],
+              "screen_size_api_observed": [
+                499.0,
+                277.0
+              ],
+              "screen_view_api_observed": [
+                1995.0,
+                1107.0,
+                0.0,
+                0.0
+              ],
+              "size_inputs": [
+                499.0,
+                277.0
+              ],
+              "declared_size": 240.0,
+              "root": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root/native_item_probe_root__25"
+              },
+              "viewport": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root"
+              }
+            },
+            "body": null,
+            "actor": "-8589934097",
+            "version": "1.21.120.0",
+            "player_foot": [
+              0.5,
+              -60.0,
+              0.5
+            ],
+            "actor_kind": "modern_projection:anchor",
+            "camera_matches": true,
+            "root_visible": true,
+            "ready": true,
+            "roi_receipt": {
+              "physical_size": [
+                1994,
+                1105
+              ],
+              "world": [
+                0,
+                111,
+                1994,
+                1105
+              ],
+              "ui": [
+                0,
+                111,
+                1994,
+                1105
+              ],
+              "declared_before_capture": true,
+              "basis": "fixed native capture extent; top debug band excluded; anchor at camera forward ray distance 3; UI centered declared bounds"
+            },
+            "skeleton_setup": {
+              "model_id": 7,
+              "model": "modern_projection_diagnostic_item_body_r13",
+              "state": "returned"
+            },
+            "last_submission": {
+              "entity_id": "-8589934097",
+              "scale": 1.4,
+              "render_depth": -15,
+              "init_rot_z": 0.0,
+              "init_rot_y": 0.0,
+              "init_rot_x": 0.0
+            },
+            "player_foot_matches": true,
+            "ui_params": {
+              "entity_id": "-8589934097",
+              "scale": 1.4,
+              "render_depth": -15,
+              "init_rot_z": 0.0,
+              "init_rot_y": 0.0,
+              "init_rot_x": 0.0
+            }
+          },
+          "tree": {
+            "style": {},
+            "id": "<ClientAnchorPaperDollProbe:2138444310408>",
+            "key": null,
+            "props": {},
+            "type": "ClientAnchorPaperDollProbe",
+            "children": [
+              {
+                "opacity": 1.0,
+                "style": {
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "width": "100%",
+                  "height": "100%"
+                },
+                "layout": {
+                  "y": 0.0,
+                  "x": 0.0,
+                  "height": 277.0,
+                  "width": 499.0
+                },
+                "id": "native_item_probe_root__25",
+                "key": "native_item_probe_root",
+                "props": {
+                  "color": {
+                    "a": 1.0,
+                    "r": 0.9686274509803922,
+                    "b": 0.9882352941176471,
+                    "g": 0.9764705882352941
+                  }
+                },
+                "type": "Image",
+                "children": [
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "width": 240.0,
+                      "height": 240.0
+                    },
+                    "layout": {
+                      "y": 18.5,
+                      "x": 129.5,
+                      "height": 240.0,
+                      "width": 240.0
+                    },
+                    "id": "native_item_probe_doll__26",
+                    "key": "native_item_probe_doll",
+                    "props": {
+                      "scale": 1.4,
+                      "initRotZ": 0.0,
+                      "initRotY": 0.0,
+                      "initRotX": 0.0,
+                      "renderType": "entity",
+                      "entityId": "-8589934097",
+                      "renderDepth": -15
+                    },
+                    "type": "PaperDoll",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 8.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 8.0
+                    },
+                    "layout": {
+                      "y": 8.0,
+                      "x": 8.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_tl__27",
+                    "key": "native_item_marker_tl",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 0.0,
+                        "b": 1.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 8.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 485.0
+                    },
+                    "layout": {
+                      "y": 8.0,
+                      "x": 485.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_tr__28",
+                    "key": "native_item_marker_tr",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 1.0,
+                        "b": 1.0,
+                        "g": 0.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 263.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 8.0
+                    },
+                    "layout": {
+                      "y": 263.0,
+                      "x": 8.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_bl__29",
+                    "key": "native_item_marker_bl",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 1.0,
+                        "b": 0.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  },
+                  {
+                    "opacity": 1.0,
+                    "style": {
+                      "position": "absolute",
+                      "top": 263.0,
+                      "height": 6.0,
+                      "width": 6.0,
+                      "left": 485.0
+                    },
+                    "layout": {
+                      "y": 263.0,
+                      "x": 485.0,
+                      "height": 6.0,
+                      "width": 6.0
+                    },
+                    "id": "native_item_marker_br__30",
+                    "key": "native_item_marker_br",
+                    "props": {
+                      "color": {
+                        "a": 1.0,
+                        "r": 0.0,
+                        "b": 0.0,
+                        "g": 1.0
+                      }
+                    },
+                    "type": "Image",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "capture": {
+            "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-world-glint-r13-v1.runtime_ui_skeleton_positive_1_native.png",
+            "sha256": "ae42eddc139794ec1f3570956cd1de33069c122327c8590daa4b6dbcf7cc9f24",
+            "bytes": 17095,
+            "size": [
+              1994,
+              1105
+            ],
+            "mime": "image/png",
+            "capture": {
+              "schema": 2,
+              "ok": true,
+              "reliable": true,
+              "background_only": true,
+              "backend": "Windows.Graphics.Capture",
+              "native_resolution": true,
+              "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-world-glint-r13-v1.runtime_ui_skeleton_positive_1_native.png",
+              "started_at": "2026-10-13T06:48:14.027394+00:00",
+              "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\session.json",
+              "owner": "item-skeleton-r13-v1",
+              "game_pid": 53792,
+              "game_identity": "134363432612984169",
+              "window": {
+                "hwnd": 22549236,
+                "pid": 53792,
+                "process": "Minecraft.Windows.exe",
+                "title": "(1994, 1105) Minecraft",
+                "x": 189,
+                "y": 176,
+                "width": 1329,
+                "height": 736,
+                "minimized": false
+              },
+              "helper": {
+                "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+                "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+                "sources": {
+                  "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+                  "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+                  "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+                  "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+                  "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+                  "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+                  "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+                  "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+                  "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+                }
+              },
+              "foreground_before": {
+                "hwnd": 34802164,
+                "pid": 46908
+              },
+              "foreground_after": {
+                "hwnd": 34802164,
+                "pid": 46908
+              },
+              "foreground_unchanged": true,
+              "background_safe": true,
+              "helper_returncode": 0,
+              "helper_stderr": "",
+              "frame": {
+                "ok": true,
+                "backend": "Windows.Graphics.Capture",
+                "native_resolution": true,
+                "request_qpc_100ns": 3488811970873,
+                "frame_qpc_100ns": 3488812087719,
+                "width": 1994,
+                "height": 1105
+              },
+              "width": 1994,
+              "height": 1105,
+              "variance": [
+                122.21805589678041,
+                144.63411025042183,
+                136.78938013890658
+              ],
+              "sha256": "ae42eddc139794ec1f3570956cd1de33069c122327c8590daa4b6dbcf7cc9f24",
+              "bytes": 17095,
+              "finished_at": "2026-10-13T06:48:15.077497+00:00",
+              "elapsed_seconds": 1.0501130999764428
+            },
+            "host_capture_requested_epoch": 1791874094.0262282
+          },
+          "fixed_roi": [
+            0,
+            111,
+            1994,
+            1105
+          ],
+          "layout": {
+            "native_readback": {
+              "paper_doll": {
+                "y": 18.5,
+                "x": 129.5,
+                "height": 240.0,
+                "width": 240.0,
+                "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+              },
+              "markers": [
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    255
+                  ],
+                  "key": "native_item_marker_tl",
+                  "y": 8.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tl__27"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    0,
+                    255
+                  ],
+                  "key": "native_item_marker_tr",
+                  "y": 8.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 8.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_tr__28"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    255,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_bl",
+                  "y": 263.0,
+                  "x": 8.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 8.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_bl__29"
+                  },
+                  "size": 6.0
+                },
+                {
+                  "rgb": [
+                    0,
+                    255,
+                    0
+                  ],
+                  "key": "native_item_marker_br",
+                  "y": 263.0,
+                  "x": 485.0,
+                  "rect": {
+                    "y": 263.0,
+                    "x": 485.0,
+                    "height": 6.0,
+                    "width": 6.0,
+                    "path": "/root/native_item_probe_root__25/native_item_marker_br__30"
+                  },
+                  "size": 6.0
+                }
+              ],
+              "screen_size_api_observed": [
+                499.0,
+                277.0
+              ],
+              "screen_view_api_observed": [
+                1995.0,
+                1107.0,
+                0.0,
+                0.0
+              ],
+              "size_inputs": [
+                499.0,
+                277.0
+              ],
+              "declared_size": 240.0,
+              "root": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root/native_item_probe_root__25"
+              },
+              "viewport": {
+                "y": 0.0,
+                "x": 0.0,
+                "height": 277.0,
+                "width": 499.0,
+                "path": "/root"
+              }
+            },
+            "screen_to_ui_scale": 1.0,
+            "paper_doll": {
+              "y": 18.5,
+              "x": 129.5,
+              "height": 240.0,
+              "width": 240.0,
+              "path": "/root/native_item_probe_root__25/native_item_probe_doll__26"
+            },
+            "root": {
+              "y": 0.0,
+              "x": 0.0,
+              "height": 277.0,
+              "width": 499.0,
+              "path": "/root/native_item_probe_root__25"
+            },
+            "props": {
+              "entityId": "-8589934097",
+              "renderType": "entity",
+              "scale": 1.4,
+              "renderDepth": -15,
+              "initRotX": 0.0,
+              "initRotY": 0.0,
+              "initRotZ": 0.0
+            }
+          },
+          "marker_mapping": {
+            "calibration": {
+              "scale": 3.9974978978239917,
+              "translation": [
+                0.12427449291408266,
+                -2.1534588486227904
+              ],
+              "training_keys": [
+                "native_item_marker_tl",
+                "native_item_marker_br"
+              ],
+              "holdout_keys": [
+                "native_item_marker_tr",
+                "native_item_marker_bl"
+              ],
+              "maximum_error_pixels": 1.0,
+              "physical_size": [
+                1994,
+                1105
+              ]
+            },
+            "markers": [
+              {
+                "bounds": [
+                  32,
+                  30,
+                  56,
+                  54
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_tl",
+                "center": [
+                  44.0,
+                  42.0
+                ],
+                "center_errors": [
+                  0.09675136897799064,
+                  0.18098197255888238
+                ],
+                "edge_errors": [
+                  0.10425767550601961,
+                  0.17347566603085696,
+                  0.08924506244996877,
+                  0.18848827908690424
+                ],
+                "holdout": false
+              },
+              {
+                "bounds": [
+                  1939,
+                  30,
+                  1963,
+                  54
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_tr",
+                "center": [
+                  1951.0,
+                  42.0
+                ],
+                "center_errors": [
+                  0.096751368977948,
+                  0.18098197255888238
+                ],
+                "edge_errors": [
+                  0.08924506244989061,
+                  0.17347566603085696,
+                  0.1042576755060054,
+                  0.18848827908690424
+                ],
+                "holdout": true
+              },
+              {
+                "bounds": [
+                  32,
+                  1049,
+                  56,
+                  1073
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_bl",
+                "center": [
+                  44.0,
+                  1061.0
+                ],
+                "center_errors": [
+                  0.09675136897799064,
+                  0.1809819725590387
+                ],
+                "edge_errors": [
+                  0.10425767550601961,
+                  0.18848827908686872,
+                  0.08924506244996877,
+                  0.17347566603075393
+                ],
+                "holdout": true
+              },
+              {
+                "bounds": [
+                  1939,
+                  1049,
+                  1963,
+                  1073
+                ],
+                "pixels": 576,
+                "rectangle_fill": 1.0,
+                "key": "native_item_marker_br",
+                "center": [
+                  1951.0,
+                  1061.0
+                ],
+                "center_errors": [
+                  0.096751368977948,
+                  0.1809819725590387
+                ],
+                "edge_errors": [
+                  0.08924506244989061,
+                  0.18848827908686872,
+                  0.1042576755060054,
+                  0.17347566603075393
+                ],
+                "holdout": false
+              }
+            ],
+            "passed": true,
+            "legacy_api_uniform_mapping": {
+              "passed": false,
+              "reason": "Game pixel to physical capture mapping is not uniform; aspect or DPI changed",
+              "maximum_residual_pixels": 1.0
+            }
+          },
+          "paper_doll_roi": [
+            517,
+            71,
+            1478,
+            1032
+          ]
+        }
+      ],
+      "native": {
+        "control": "ui_skeleton_positive",
+        "attachments": [],
+        "clock": 1791874089.416,
+        "native_item": null,
+        "actor": "-8589934097",
+        "journal": [
+          {
+            "requested": true,
+            "return": null,
+            "attempted": true,
+            "readback": true,
+            "state": "returned",
+            "operation": "owned_root_visibility:ui_skeleton_positive"
+          },
+          {
+            "attempted": true,
+            "operation": "RenderEntity:ui_skeleton_positive",
+            "state": "returned",
+            "value": true
+          }
+        ]
+      }
+    },
+    "world_body": {
+      "state": "pending",
+      "frames": [],
+      "native": {
+        "control": "world_body",
+        "attachments": [],
+        "clock": 1791874096.017,
+        "native_item": null,
+        "actor": "-8589934097",
+        "journal": [
+          {
+            "requested": true,
+            "return": null,
+            "attempted": true,
+            "readback": true,
+            "state": "returned",
+            "operation": "owned_root_visibility:ui_skeleton_positive"
+          },
+          {
+            "attempted": true,
+            "operation": "RenderEntity:ui_skeleton_positive",
+            "state": "returned",
+            "value": true
+          },
+          {
+            "requested": false,
+            "return": null,
+            "attempted": true,
+            "readback": false,
+            "state": "returned",
+            "operation": "owned_root_visibility:world_body"
+          }
+        ]
+      }
+    }
+  },
+  "errors": [
+    "ValueError('Anchor native bounds differ from snapshot')"
+  ],
+  "cleanup_errors": [],
+  "production_rendering_accepted": false,
+  "editor_frame_content_accepted": false,
+  "projection_frame_content_accepted": false,
+  "projection_tested": false,
+  "shared_depth_accepted": false,
+  "enchantment_glint_accepted": false,
+  "attempted_operation": "verify_client.py",
+  "initial": {
+    "nonce": "0d75886eed414f05b3d0caf79fdf024c",
+    "roi_receipt": {
+      "physical_size": [
+        1994,
+        1105
+      ],
+      "world": [
+        0,
+        111,
+        1994,
+        1105
+      ],
+      "basis": "fixed native capture extent; top debug band excluded; anchor at camera forward ray distance 3; UI centered declared bounds",
+      "ui": [
+        0,
+        111,
+        1994,
+        1105
+      ],
+      "declared_before_capture": true
+    },
+    "declared_size": 240.0,
+    "native_camera": {
+      "pitch_lock": false,
+      "yaw_lock": false,
+      "motions": {},
+      "forward": [
+        3.01991519791045e-07,
+        0.0,
+        0.9999995231628418
+      ],
+      "position": [
+        0.5,
+        -58.37998962402344,
+        0.5
+      ],
+      "rotation": [
+        -0.0,
+        179.99996948242188,
+        0.0
+      ]
+    },
+    "size_inputs": [
+      499.0,
+      277.0
+    ],
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-8589934097"
+    },
+    "actor": "-8589934097",
+    "player": "-8589934591",
+    "empty_cells": [
+      {
+        "position": [
+          -1,
+          -60,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -60,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -60,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -59,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -59,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -59,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -58,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -58,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          -1,
+          -58,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -60,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -60,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -60,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -59,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -59,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -59,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -58,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -58,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          0,
+          -58,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -60,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -60,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -60,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -59,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -59,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -59,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -58,
+          2
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -58,
+          3
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "position": [
+          1,
+          -58,
+          4
+        ],
+        "block": [
+          "minecraft:air",
+          0
+        ]
+      }
+    ],
+    "camera": {
+      "camera_pivot": null,
+      "camera_depth_pose": 0.0,
+      "camera_pose": [
+        35.0,
+        25.0,
+        1.0
+      ],
+      "camera_pan": [
+        0.0,
+        0.0
+      ]
+    },
+    "profiles": "((('minecraft:diamond_sword', 0), (('acceptance_evidence', None), ('accepted', False), ('proxies', (((0, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r0'), ((0, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r1'), ((0, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r2'), ((0, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r3'), ((0, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r4'), ((0, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r5'), ((0, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r6'), ((0, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f0_r7'), ((1, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r0'), ((1, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r1'), ((1, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r2'), ((1, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r3'), ((1, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r4'), ((1, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r5'), ((1, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r6'), ((1, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f1_r7'), ((2, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r0'), ((2, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r1'), ((2, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r2'), ((2, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r3'), ((2, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r4'), ((2, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r5'), ((2, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r6'), ((2, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f2_r7'), ((3, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r0'), ((3, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r1'), ((3, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r2'), ((3, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r3'), ((3, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r4'), ((3, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r5'), ((3, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r6'), ((3, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f3_r7'), ((4, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r0'), ((4, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r1'), ((4, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r2'), ((4, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r3'), ((4, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r4'), ((4, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r5'), ((4, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r6'), ((4, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f4_r7'), ((5, 0), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r0'), ((5, 1), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r1'), ((5, 2), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r2'), ((5, 3), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r3'), ((5, 4), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r4'), ((5, 5), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r5'), ((5, 6), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r6'), ((5, 7), 'modern_projection:preview_item_minecraft_diamond_sword_0_f5_r7'))))),)",
+    "key": "client_anchor_depth_0d75886eed414f05b3d0caf79fdf024c",
+    "skeleton_setup": {
+      "model_id": 7,
+      "model": "modern_projection_diagnostic_item_body_r13",
+      "state": "returned"
+    },
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "position": [
+      0.5000009059749914,
+      -58.37998962402344,
+      3.499999999999863
+    ],
+    "document": {
+      "biome": "plains",
+      "palette": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "name": "\u6797\u95f4\u767d\u76d2\u5efa\u7b51\u7ec3\u4e60",
+      "cellVersion": 1,
+      "blockCount": 1307,
+      "materials": [
+        [
+          "minecraft:air",
+          {}
+        ],
+        [
+          "minecraft:grass_block",
+          {},
+          [
+            "minecraft:grass",
+            0
+          ]
+        ],
+        [
+          "minecraft:quartz_block",
+          {
+            "pillar_axis": "y"
+          }
+        ],
+        [
+          "minecraft:spruce_planks",
+          {},
+          [
+            "minecraft:planks",
+            1
+          ]
+        ],
+        [
+          "minecraft:glass",
+          {}
+        ],
+        [
+          "minecraft:cyan_stained_glass",
+          {},
+          [
+            "minecraft:stained_glass",
+            9
+          ]
+        ],
+        [
+          "minecraft:oak_leaves",
+          {
+            "persistent_bit": false,
+            "update_bit": false
+          },
+          [
+            "minecraft:leaves",
+            0
+          ]
+        ]
+      ],
+      "chunkEncoding": 1,
+      "version": 6,
+      "chunks": [
+        [
+          0,
+          0,
+          0,
+          "1p:eJxjZWBmYGBkYAJSLAzIwGGSiuckFeqSDPiBAlCJJ0UkLtDAyMDAg1N2Q+7tbbxEkeSZrzCJxYOLQQHI4iBAjpo/WM1nZuPBSS6YyOzGR5H5+AEobXMSRQ5O80fBEAEAD1Vgyg=="
+        ],
+        [
+          0,
+          0,
+          1,
+          "1r:eJxjYmBg4GNgZGAikl4CpHmAPBY0mhlIMwLJC0CaG0izotEsSPIg0zihNCsWPjfUXGLUg+xlZmBj4EJi80Lp/TTUC3PnVRqo40biExK/CGQAAPYfC5A="
+        ],
+        [
+          1,
+          0,
+          0,
+          "1p:eJxjY2BmYGBkYAJSrAxsDMjAcxL1SSzAAMGcxEIpid98CFDhJJ8kxnyqgVtM6OTQMn8UjIJRMKQAAGm4GgE="
+        ],
+        [
+          1,
+          0,
+          1,
+          "1r:eJxjY2Bk4GJgYGAjgl4FpFkYmBh40GgBIM3IwMxwGsxnZTCA8v9D6XdAmhloAi8afReH+C6ghQBt5QZJ"
+        ]
+      ],
+      "registry": {
+        "sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "version": "NEMC 3.9.0.401155"
+      },
+      "size": [
+        24,
+        16,
+        24
+      ]
+    },
+    "navigation": [],
+    "ui_params": {
+      "entity_id": "-8589934097",
+      "scale": 1.4,
+      "render_depth": -15,
+      "init_rot_z": 0.0,
+      "init_rot_y": 0.0,
+      "init_rot_x": 0.0
+    }
+  },
+  "actor_ready": {
+    "ready": true,
+    "model_id": 7,
+    "kind": "modern_projection:anchor",
+    "actor": "-8589934097",
+    "clock": 1791874087.217
+  },
+  "ui_opened": true,
+  "frozen_marker_calibration": {
+    "scale": 3.9974978978239917,
+    "translation": [
+      0.12427449291408266,
+      -2.1534588486227904
+    ],
+    "training_keys": [
+      "native_item_marker_tl",
+      "native_item_marker_br"
+    ],
+    "holdout_keys": [
+      "native_item_marker_tr",
+      "native_item_marker_bl"
+    ],
+    "maximum_error_pixels": 1.0,
+    "physical_size": [
+      1994,
+      1105
+    ]
+  },
+  "positive_gate": {
+    "schema": 1,
+    "phase": "world_glint",
+    "positive_skeleton_gate_passed": true,
+    "skeleton_positive_pixels": {
+      "ui_skeleton_positive": [
+        1722,
+        1722
+      ]
+    },
+    "classification": "partial_controls",
+    "production_rendering_accepted": false,
+    "editor_frame_content_accepted": false,
+    "projection_frame_content_accepted": false,
+    "projection_tested": false,
+    "shared_depth_accepted": false,
+    "enchantment_glint_accepted": false
+  },
+  "cleanup_remove": {
+    "skeleton_setup": {
+      "model_id": 7,
+      "model": "modern_projection_diagnostic_item_body_r13",
+      "state": "returned"
+    },
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-8589934097"
+    },
+    "errors": [],
+    "attachments": [],
+    "actor": "-8589934097"
+  },
+  "cleanup_pop": true,
+  "cleanup_destroy": {
+    "server_owned": true,
+    "destroy_returned": true,
+    "destroy_attempted": true,
+    "actor": "-8589934097"
+  },
+  "actor_absence": {
+    "absent": true,
+    "kind": null,
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-8589934097"
+    },
+    "actor": "-8589934097",
+    "observed_actor_kind": "modern_projection:anchor",
+    "owned": true
+  },
+  "restore": {
+    "body": null,
+    "actor_absent": true,
+    "journal": [
+      {
+        "requested": true,
+        "return": null,
+        "attempted": true,
+        "readback": true,
+        "state": "returned",
+        "operation": "owned_root_visibility:ui_skeleton_positive"
+      },
+      {
+        "attempted": true,
+        "operation": "RenderEntity:ui_skeleton_positive",
+        "state": "returned",
+        "value": true
+      },
+      {
+        "requested": false,
+        "return": null,
+        "attempted": true,
+        "readback": false,
+        "state": "returned",
+        "operation": "owned_root_visibility:world_body"
+      }
+    ],
+    "observed_actor_kind": "modern_projection:anchor",
+    "create": {
+      "attempted": true,
+      "state": "returned",
+      "value": "-8589934097"
+    },
+    "restored": true,
+    "attachments": []
+  },
+  "server_fixture_journal": [
+    {
+      "operation": "create",
+      "result": {
+        "nonce": "0d75886eed414f05b3d0caf79fdf024c",
+        "created_clock": 1791874085.076,
+        "actor": "-8589934097",
+        "player": "-8589934591",
+        "position": [
+          0.5000009059749914,
+          -58.37998962402344,
+          3.499999999999863
+        ],
+        "create_state": "returned",
+        "dimension": 0
+      }
+    },
+    {
+      "operation": "replicate",
+      "observations": [
+        {
+          "ready": true,
+          "kind": "modern_projection:anchor",
+          "bone": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              24.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "actor": "-8589934097",
+          "clock": 1791874086.119
+        }
+      ]
+    },
+    {
+      "operation": "destroy",
+      "result": {
+        "nonce": "0d75886eed414f05b3d0caf79fdf024c",
+        "clock": 1791874100.276,
+        "server_absence_kind": null,
+        "created_clock": 1791874085.076,
+        "actor": "-8589934097",
+        "destroyed": true,
+        "player": "-8589934591",
+        "destroy_attempted": true,
+        "position": [
+          0.5000009059749914,
+          -58.37998962402344,
+          3.499999999999863
+        ],
+        "create_state": "returned",
+        "destroy_result": true,
+        "dimension": 0
+      }
+    }
+  ]
+}

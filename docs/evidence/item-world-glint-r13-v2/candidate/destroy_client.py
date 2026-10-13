@@ -1,0 +1,8 @@
+saved=getattr(sys,'_item_server_skeleton_r13_probe',None)
+if saved is None:_result=True
+else:
+ assert saved['nonce']=='6a73798d9ff44f93b1b9a2ca624820ef'
+ saved['destroy_attempted']=True
+ saved['destroy_returned']=True
+ saved['observed_actor_kind']=saved.get('observed_actor_kind') or 'modern_projection:anchor'
+ _result=json.dumps({'actor':saved['actor'],'destroy_attempted':True,'destroy_returned':True,'server_owned':True})

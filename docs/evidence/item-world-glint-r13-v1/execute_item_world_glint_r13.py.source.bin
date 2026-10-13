@@ -1,0 +1,184 @@
+"""Bounded native world capture with UI positive controls and exact cleanup."""
+import argparse
+import json
+from pathlib import Path
+import time
+
+import execute_item_glint_r13 as ui
+import prepare_item_world_glint_r13 as candidate
+
+ui.candidate=candidate
+ui.server.candidate=candidate
+ui.shared.candidate=candidate
+shared=ui.shared
+ROOT=candidate.ROOT
+dependencies,HELPERS,HELPER_PINS=ui.dependencies,ui.HELPERS,ui.HELPER_PINS
+preflight=ui.preflight
+
+
+def validate_state(label,status,initial,native,binding_id):
+    return ui.validate_state(label,status,initial,native,binding_id,label.startswith('ui_'))
+
+
+def score_probe(report,allow_partial=False):
+    from PIL import Image,ImageChops
+    helpers=dependencies()
+    anchor=helpers['probe_client_anchor_paper_doll']
+    count=helpers['verify_snow_plant_visibility'].count
+    capture_payload=helpers['flat_frame_item_visual_checks'].capture_payload
+    if report['plan_sha256']!=candidate.EXACT_PLAN_SHA256:raise ValueError('Exact world candidate changed')
+    if not allow_partial and (not report.get('completed') or not report.get('restored') or report.get('cleanup_errors')):
+        raise ValueError('Complete restored native world runtime required')
+    if list(report['states'])!=list(candidate.STATES)[:len(report['states'])]:raise ValueError('World state ordering changed')
+    images,positive={},{}
+    clock=report['actor_ready']['clock']
+    ids=None
+    for label,row in report['states'].items():
+        if len(row['frames'])!=2:raise ValueError('Two advancing physical frames per state required')
+        images[label]=[]
+        for frame in row['frames']:
+            status=frame['status']
+            ids=validate_state(label,status,report['initial'],row['native'],ids)
+            if (status['clock']<=clock or not status['camera_matches'] or not status['player_foot_matches'] or
+                status['actor']!=report['initial']['actor'] or status['root_visible'] is not label.startswith('ui_')):
+                raise ValueError('World exact actor, clock, view or owned root visibility changed')
+            clock=status['clock']
+            if frame['fixed_roi']!=[0,111,1994,1105]:raise ValueError('Frozen physical world ROI changed')
+            with Image.open(capture_payload(frame['capture'])) as source:
+                if list(source.size)!=[1994,1105]:raise ValueError('Physical extent changed')
+                image=source.convert('RGB').crop(tuple(frame['fixed_roi']))
+                images[label].append(image)
+            if label.startswith('ui_'):
+                mapping=anchor.base.marker_mapping(frame['capture'],frame['layout'],report['frozen_marker_calibration'])
+                if not mapping['passed'] or mapping!=frame['marker_mapping']:raise ValueError('Actual UI marker control failed')
+        if label.startswith('ui_'):
+            positive[label]=[shared.cow_pixels(frame) for frame in row['frames']]
+    gate=bool(positive and all(v>=80 for values in positive.values() for v in values))
+    score={'schema':1,'phase':candidate.PHASE,'positive_skeleton_gate_passed':gate,'skeleton_positive_pixels':positive,
+           'classification':'partial_controls','production_rendering_accepted':False,'editor_frame_content_accepted':False,
+           'projection_frame_content_accepted':False,'projection_tested':False,'shared_depth_accepted':False,'enchantment_glint_accepted':False}
+    if not all(state in images for state in candidate.STATES):return score
+    body=[sum(1 for r,g,b in image.getdata() if r>100 and b>50 and g<80 and r>g*1.8 and b>g*1.2) for image in images['world_body']]
+    refs=images['world_body']+images['world_body_restored']
+    mask=anchor.stable_difference(images['world_plain'],refs)
+    ordinary=count(mask)
+    drift=count(anchor.stable_difference(images['world_plain'][:1],images['world_plain'][1:]))
+    restored=count(anchor.stable_difference(images['world_body_restored'],images['world_body']))
+    enchanted=images['world_enchanted']+images['world_enchanted_later']
+    changed=count(ImageChops.multiply(anchor.stable_difference(enchanted,images['world_plain']),mask))
+    temporal=Image.new('L',mask.size)
+    for a,b in zip(enchanted,enchanted[1:]):
+        temporal=ImageChops.lighter(temporal,ImageChops.multiply(anchor.stable_difference([a],[b]),mask))
+    varying=count(temporal)
+    glint=gate and min(body)>=80 and ordinary>=80 and drift<=2 and restored<=2 and changed>=80 and varying>=40
+    score.update(world_body_magenta_pixels=body,world_stable_ordinary_pixels=ordinary,world_ordinary_temporal_pixels=drift,
+                 world_restored_difference_pixels=restored,world_glint_changed_pixels=changed,world_glint_temporal_pixels=varying,
+                 native_world_glint_gate_passed=glint,classification='native_world_glint_positive_requires_visual_review' if glint else 'native_world_glint_failed',
+                 visual_review_required=True)
+    return score
+
+
+def finite_probe(bundle,output,check,guard,deadline):
+    modules=dependencies()
+    executor,anchor=modules['execute_frame_item_translation'],modules['probe_client_anchor_paper_doll']
+    preflight(bundle,output)
+    output,bundle=Path(output),Path(bundle)
+    runtime=executor.BoundedRuntime(check,guard,deadline)
+    runtime.capture_adapter()
+    report={'schema':1,'plan_sha256':candidate.digest((bundle/'plan.json').read_bytes()),'completed':False,'restored':False,
+            'sdk_dispatch_attempted':False,'states':{},'errors':[],'cleanup_errors':[],'production_rendering_accepted':False,
+            'editor_frame_content_accepted':False,'projection_frame_content_accepted':False,'projection_tested':False,'shared_depth_accepted':False,'enchantment_glint_accepted':False}
+    original_run,original_wait=check.run,check.wait
+    def preserve():executor.save_report(output,report)
+    def run(name):
+        report['attempted_operation']=name
+        preserve()
+        return check.run((bundle/name).read_text(encoding='ascii'))
+    preserve()
+    try:
+        check.run,check.wait=runtime.run,runtime.wait
+        report['sdk_dispatch_attempted']=True
+        report['initial']=run('install_client.py')
+        report['actor_ready']=runtime.wait('owned root',lambda row:row['ready'],lambda:run('actor_ready_client.py'))
+        report['ui_opened']=run('open_ui_client.py')
+        runtime.wait('mounted UI',lambda row:row['ready'],lambda:run('status_client.py'))
+        last_clock,frozen,fixed,ids=report['actor_ready']['clock'],None,None,None
+        for label in candidate.STATES:
+            row=report['states'][label]={'state':'pending','frames':[]}
+            row['native']=run(label+'_client.py')
+            time.sleep(min(.2,runtime.remaining()))
+            for index in range(2):
+                status=runtime.wait(label,lambda value:value['ready'],lambda:run('status_client.py'))
+                ids=validate_state(label,status,report['initial'],row['native'],ids)
+                tree=check.command('dump_tree')['tree']
+                if (status['clock']<=last_clock or not status['camera_matches'] or not status['player_foot_matches'] or
+                    status['actor']!=report['initial']['actor'] or status['root_visible'] is not label.startswith('ui_')):
+                    raise ValueError('World actor, clock, camera or visibility changed')
+                layout=ui.layout_readback(anchor,tree,status,report['initial'])
+                if fixed is not None and layout!=fixed:raise ValueError('Owned UI layout changed while hidden')
+                fixed=layout
+                capture=runtime.capture(anchor.base.capture_path(output,label,index))
+                frame={'status':status,'tree':tree,'capture':capture,'fixed_roi':[0,111,1994,1105],'layout':layout}
+                row['frames'].append(frame)
+                preserve()
+                if label.startswith('ui_'):
+                    mapping=anchor.base.marker_mapping(capture,layout,frozen)
+                    if not mapping['passed']:raise ValueError('UI marker control failed')
+                    if frozen is None:frozen=report['frozen_marker_calibration']=mapping['calibration']
+                    frame['marker_mapping']=mapping
+                    frame['paper_doll_roi']=anchor.base.frame_crop(layout,capture['size'],mapping)
+                last_clock=status['clock']
+                preserve()
+                if index==0:time.sleep(min(.4,runtime.remaining()))
+            row['state']='captured'
+            if label==candidate.POSITIVE_STATES[0]:
+                report['positive_gate']=score_probe(report,True)
+                if not report['positive_gate']['positive_skeleton_gate_passed']:raise ValueError('Opaque UI body gate failed before world item binding')
+            preserve()
+        report['completed']=True
+    except Exception as error:report['errors'].append(repr(error))
+    finally:
+        runtime.cleanup=True
+        try:
+            report['cleanup_remove']=run('remove_client.py')
+            report['cleanup_errors'].extend(report['cleanup_remove']['errors'])
+        except Exception as error:report['cleanup_errors'].append('remove: '+repr(error))
+        try:
+            runtime.wait('owned transition settled',lambda row:not row['owned'] or not row['transition'],lambda:run('navigation_client.py'))
+            report['cleanup_pop']=run('pop_client.py')
+            runtime.wait('owned page absent',lambda row:not row['transition'] and not row['contains_owned'],lambda:run('navigation_client.py'))
+        except Exception as error:report['cleanup_errors'].append('page: '+repr(error))
+        try:report['cleanup_destroy']=run('destroy_client.py')
+        except Exception as error:report['cleanup_errors'].append('destroy: '+repr(error))
+        try:
+            report['actor_absence']=runtime.wait('owned actor absent',lambda row:row['absent'],lambda:run('absent_client.py'))
+            report['restore']=run('verify_client.py')
+            report['restored']=report['restore'].get('restored') is True and not report['cleanup_errors']
+        except Exception as error:report['cleanup_errors'].append('restore: '+repr(error))
+        check.run,check.wait=original_run,original_wait
+        preserve()
+    return report
+
+
+shared.execute_probe=finite_probe
+execute_probe=ui.server.execute_probe
+
+
+def main():
+    parser=argparse.ArgumentParser(description='Offline native world score only')
+    parser.add_argument('report')
+    parser.add_argument('--candidate',required=True)
+    parser.add_argument('--output',required=True)
+    args=parser.parse_args()
+    candidate.verify(args.candidate)
+    candidate.EXACT_PLAN_SHA256=candidate.digest((Path(args.candidate)/'plan.json').read_bytes())
+    output=Path(args.output)
+    if output.exists():raise ValueError('Preserve prior score')
+    source=Path(args.report)
+    score=score_probe(json.loads(source.read_bytes()))
+    score.update(runtime_sha256=candidate.digest(source.read_bytes()),scorer_sha256=candidate.digest(Path(__file__).read_bytes()))
+    dependencies()['execute_frame_item_translation'].save_report(output,score)
+    print(json.dumps(score))
+
+
+if __name__=='__main__':main()
