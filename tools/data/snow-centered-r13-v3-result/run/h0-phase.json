@@ -1,0 +1,4886 @@
+{
+  "schema": 1,
+  "started": true,
+  "completed": true,
+  "production_acceptance": false,
+  "session": "c39ff8732a2946dc90250a51b007026c",
+  "condition": "native_original",
+  "rows": [
+    {
+      "label": "qualification_stone",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_stone.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 662,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346875.7170919,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:14:49.417098+00:00\", \"timeout_seconds\": 4.9875387999927625, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\qualification_stone.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"2cb668aa65b615c67304a748c9b299f9c724b342b8d35548da41bf63d43e5400\", \"log_bytes\": 178501, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468766340237,\\\"frame_qpc_100ns\\\":3468766424048,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468766340237, \"frame_qpc_100ns\": 3468766424048, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1909.0194780572576, 3082.275645713848, 9910.865907743495], \"sha256\": \"e39e6610fbfa978836a5cab29d78455705714b36422b7b7da523c4e33356db8c\", \"bytes\": 892346}, \"finished_at\": \"2026-10-13T06:14:50.603830+00:00\", \"elapsed_seconds\": 1.186755600036122}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_stone.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 1012,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105
+    },
+    {
+      "label": "qualification_blank",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_blank.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 1276,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346878.2837227,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:14:51.981243+00:00\", \"timeout_seconds\": 4.99042260000715, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\qualification_blank.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"04a9913ccaeae155e02644b65d526ea292088a5df2a154b143090e8913950044\", \"log_bytes\": 182061, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468791529784,\\\"frame_qpc_100ns\\\":3468791635689,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468791529784, \"frame_qpc_100ns\": 3468791635689, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1794.8546433595186, 2837.251169175455, 9945.82761156546], \"sha256\": \"b985c265de60e4b12b3eb82df85bdb9b10286ec687822b39d7cdeba5320f3edb\", \"bytes\": 915148}, \"finished_at\": \"2026-10-13T06:14:53.281370+00:00\", \"elapsed_seconds\": 1.3001461999956518}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_blank.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 1691,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105
+    },
+    {
+      "label": "native_plant_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_plant_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 2512,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346883.29322,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:14:56.992598+00:00\", \"timeout_seconds\": 4.171312000020407, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\native_plant_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"80e9cb45a14e6b0a6db1b989e5e2a78d564d08e8429b481d23c5b7254711b121\", \"log_bytes\": 187045, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468842612558,\\\"frame_qpc_100ns\\\":3468842725828,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468842612558, \"frame_qpc_100ns\": 3468842725828, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1721.8213941001425, 2790.5495361165245, 10338.429110100675], \"sha256\": \"c077338c2ec5afa4e34d5599017d8733fc77df12f8115481792588ca25ce78a7\", \"bytes\": 905343}, \"finished_at\": \"2026-10-13T06:14:58.249727+00:00\", \"elapsed_seconds\": 1.257147199998144}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_plant_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 2907,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "plant",
+      "mode": "native",
+      "readback": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:poppy"
+        },
+        "states": {},
+        "kind": "plant",
+        "target": [
+          6,
+          -48,
+          6
+        ],
+        "height": 0
+      },
+      "client_palette": {
+        "common": [
+          [
+            "minecraft:poppy",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      },
+      "client_palette_after": {
+        "common": [
+          [
+            "minecraft:poppy",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      }
+    },
+    {
+      "label": "native_blank_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_blank_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 3403,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346886.7726137,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:00.470462+00:00\", \"timeout_seconds\": 4.362697999982629, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\native_blank_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"cd11d88addda6e4e00e42866792344ea583d508b319d6a21436a6ddcd08e64e9\", \"log_bytes\": 192029, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468876938776,\\\"frame_qpc_100ns\\\":3468877028179,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468876938776, \"frame_qpc_100ns\": 3468877028179, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1698.6626866068766, 2764.720262636775, 10306.232230788606], \"sha256\": \"2bd3263a324d6472f6a6a65d14a9ebd432b32bfbc3149e3176c4cbcc1ebe3772\", \"bytes\": 905836}, \"finished_at\": \"2026-10-13T06:15:01.592885+00:00\", \"elapsed_seconds\": 1.1224388999980874}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_blank_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 3762,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "blank",
+      "mode": "native",
+      "readback": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "states": null,
+        "kind": "blank",
+        "target": [
+          6,
+          -48,
+          6
+        ],
+        "height": 0
+      },
+      "client_palette": {
+        "common": [
+          [
+            "minecraft:air",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      },
+      "client_palette_after": {
+        "common": [
+          [
+            "minecraft:air",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      }
+    },
+    {
+      "label": "projection_plant_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_plant_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 4972,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346893.1137549,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:06.818106+00:00\", \"timeout_seconds\": 3.4142121999757364, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\projection_plant_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"e0babc001498e392a2a148a29d022ee90b7e9446977ee96644e37f8c9ca1cb37\", \"log_bytes\": 203421, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468940320057,\\\"frame_qpc_100ns\\\":3468940421120,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468940320057, \"frame_qpc_100ns\": 3468940421120, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1723.345903326757, 2784.707570113914, 10326.950412803946], \"sha256\": \"232dd7ae2cffda9cbe1b84d38e149fc66e8f787e32f4e8350bf58b42f9069376\", \"bytes\": 907710}, \"finished_at\": \"2026-10-13T06:15:08.100846+00:00\", \"elapsed_seconds\": 1.2828423000173643}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_plant_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 5312,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "plant",
+      "mode": "projection",
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319528856,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:poppy",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "document_id": 2229654917864,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775807",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "submitted": {
+        "nonce": 1,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.plant.0",
+        "path": "incremental",
+        "serial": 4,
+        "editor_id": 2229319528856,
+        "document_id": 2229654917864,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "final_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775807",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "final_source": {
+        "nonce": 1,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.plant.0",
+        "path": "incremental",
+        "serial": 4,
+        "editor_id": 2229319528856,
+        "document_id": 2229654917864,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      }
+    },
+    {
+      "label": "projection_blank_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_blank_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 6171,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346898.1814587,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:11.876926+00:00\", \"timeout_seconds\": 4.991334799968172, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\projection_blank_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"b8f68d9c3a7287e4138f5784dea364cc77c9c9a463b91fb23fc131b339bd513a\", \"log_bytes\": 212677, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3468991464780,\\\"frame_qpc_100ns\\\":3468991571696,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3468991464780, \"frame_qpc_100ns\": 3468991571696, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1697.0735383328986, 2761.718656857121, 10303.955017476983], \"sha256\": \"a16c5691270e5f509f03f7e867220f1ca6dcfd1046ca44f300233e65e441c2c4\", \"bytes\": 905680}, \"finished_at\": \"2026-10-13T06:15:13.135351+00:00\", \"elapsed_seconds\": 1.2584414000157267}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_blank_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 6557,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "blank",
+      "mode": "projection",
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319528688,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:air",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "document_id": 2229319499448,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 0,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": false,
+        "mesh": null,
+        "preparing": false,
+        "ready": true,
+        "message": "\u5df2\u8f7d\u5165\u5efa\u7b51\u914d\u7f6e",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": null,
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": null,
+        "parts": [],
+        "actors": 0,
+        "error": null
+      },
+      "submitted": null,
+      "final_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": false,
+        "mesh": null,
+        "preparing": false,
+        "ready": true,
+        "message": "\u5df2\u8f7d\u5165\u5efa\u7b51\u914d\u7f6e",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": null,
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": null,
+        "parts": [],
+        "actors": 0,
+        "error": null
+      },
+      "final_source": null
+    },
+    {
+      "label": "native_snow_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_snow_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 7202,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346902.2132896,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:15.908807+00:00\", \"timeout_seconds\": 4.2782617000630125, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\native_snow_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"7cd0779b896fbda4275f870f1d7c81b23e047864be30ec37aaf48f1740ad6ab2\", \"log_bytes\": 218373, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3469030622251,\\\"frame_qpc_100ns\\\":3469030722654,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3469030622251, \"frame_qpc_100ns\": 3469030722654, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1759.1354185191672, 2770.9928171415168, 10207.697020344047], \"sha256\": \"ea5d475a0e6c9973be4e61f5191c0f6b7f066e23761a192e80dee5713adbd920\", \"bytes\": 899149}, \"finished_at\": \"2026-10-13T06:15:17.055539+00:00\", \"elapsed_seconds\": 1.1467502000159584}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_snow_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 7544,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "snow",
+      "mode": "native",
+      "readback": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:snow_layer"
+        },
+        "states": {
+          "covered_bit": false,
+          "height": 0
+        },
+        "kind": "snow",
+        "target": [
+          6,
+          -48,
+          6
+        ],
+        "height": 0
+      },
+      "client_palette": {
+        "common": [
+          [
+            "minecraft:snow_layer",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      },
+      "client_palette_after": {
+        "common": [
+          [
+            "minecraft:snow_layer",
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": []
+      }
+    },
+    {
+      "label": "native_covered_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_covered_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 8107,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346905.8325729,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:19.530426+00:00\", \"timeout_seconds\": 4.069826300023124, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\native_covered_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"6dba62bb5542252daae83ca54947c289402816491357e539832a0a7d6252b7a1\", \"log_bytes\": 224069, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3469067103446,\\\"frame_qpc_100ns\\\":3469067206878,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3469067103446, \"frame_qpc_100ns\": 3469067206878, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1769.2308517156644, 2792.8567589917925, 10243.659973458378], \"sha256\": \"d04bad555382bf8f62bd3e3ddee6a60d9b8d38bb596fefabd7caa3bda35a8035\", \"bytes\": 900199}, \"finished_at\": \"2026-10-13T06:15:20.714222+00:00\", \"elapsed_seconds\": 1.1838152999989688}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_covered_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 8471,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "covered",
+      "mode": "native",
+      "readback": {
+        "front": {
+          "aux": 8,
+          "name": "minecraft:snow_layer"
+        },
+        "states": {
+          "covered_bit": true,
+          "height": 0
+        },
+        "result": true,
+        "target": [
+          6,
+          -48,
+          6
+        ]
+      },
+      "client_palette": {
+        "common": [
+          [
+            "minecraft:snow_layer",
+            8,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": [
+          [
+            "minecraft:poppy",
+            0,
+            [
+              0
+            ]
+          ]
+        ]
+      },
+      "client_palette_after": {
+        "common": [
+          [
+            "minecraft:snow_layer",
+            8,
+            [
+              0
+            ]
+          ]
+        ],
+        "extra": [
+          [
+            "minecraft:poppy",
+            0,
+            [
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "label": "projection_snow_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_snow_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 9656,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346912.1193576,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:25.816100+00:00\", \"timeout_seconds\": 3.5352952999528497, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\projection_snow_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"208db9016f23c37502696a513ad8f958697d800551ef56c91c7ede1894370e15\", \"log_bytes\": 235461, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3469131074364,\\\"frame_qpc_100ns\\\":3469131145257,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3469131074364, \"frame_qpc_100ns\": 3469131145257, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1788.0400832754156, 2791.136361492345, 10226.725256024665], \"sha256\": \"1f7583f062f79d7bc11297470a7df3290ca1b1bffc55b5d5b3ee9e4ddb79be8b\", \"bytes\": 899968}, \"finished_at\": \"2026-10-13T06:15:27.098059+00:00\", \"elapsed_seconds\": 1.28197569999611}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_snow_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 10000,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "snow",
+      "mode": "projection",
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229320146056,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "document_id": 2233383321384,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775806",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "submitted": {
+        "nonce": 3,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.snow.0",
+        "path": "incremental",
+        "serial": 9,
+        "editor_id": 2229320146056,
+        "document_id": 2233383321384,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "final_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775806",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "final_source": {
+        "nonce": 3,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.snow.0",
+        "path": "incremental",
+        "serial": 9,
+        "editor_id": 2229320146056,
+        "document_id": 2233383321384,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      }
+    },
+    {
+      "label": "projection_covered_h0",
+      "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_covered_h0.png",
+      "first_capture_attempt_locked": true,
+      "before": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 11303,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_before": 0.9999999999998105,
+      "elapsed_before": 346919.3188536,
+      "capture": {
+        "returncode": 0,
+        "stdout": "{\"schema\": 1, \"scope\": \"Passive host startup snapshot\", \"ok\": true, \"reliable\": true, \"timeout\": false, \"production_acceptance\": false, \"game_or_mcdk_launched\": false, \"sdk_or_mcp_called\": false, \"game_input_or_window_mutation_attempted\": false, \"background_only\": true, \"started_at\": \"2026-10-13T06:15:33.015045+00:00\", \"timeout_seconds\": 3.501313399989158, \"output\": \"D:\\\\bbe-r13-snow\\\\.runtime\\\\snow-centered-r13-v3\\\\run\\\\projection_covered_h0.png\", \"permitted_states\": [\"failed\", \"ready\", \"starting\"], \"manifest\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"session_id\": \"c39ff8732a2946dc90250a51b007026c\", \"owner\": \"snow-r13-centered-native\", \"project\": \"D:\\\\bbe-r13-snow\", \"state_before\": \"ready\", \"helper\": {\"path\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe\", \"sha256\": \"cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8\"}, \"processes_before\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"ipc_port\": {\"port\": 53496, \"log_sha256\": \"6f2ba7c0c8e18134d19d35960ba97741cfb492003c885aee754d40707cbae8db\", \"log_bytes\": 248989, \"actual_child_environment_recorded\": false, \"source\": \"MCDK listener log; not a game getenv observation\"}, \"tcp\": {\"ipv4_rows\": [{\"state\": 2, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"0.0.0.0\", \"remote_port\": 0}, {\"state\": 5, \"pid\": 52912, \"local_address\": \"127.0.0.1\", \"local_port\": 53496, \"remote_address\": \"127.0.0.1\", \"remote_port\": 58160}, {\"state\": 5, \"pid\": 62504, \"local_address\": \"127.0.0.1\", \"local_port\": 58160, \"remote_address\": \"127.0.0.1\", \"remote_port\": 53496}], \"owned_listener_observed\": true, \"owned_established_pair_observed\": true, \"passive_table_only\": true, \"private_ipc_connection_attempted\": false, \"limits\": \"An OS established pair is not an SDK-ready result; polling can miss transient connections.\"}, \"guard_before\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"window\": {\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}, \"helper_returncode\": 0, \"helper_stdout\": \"{\\\"ok\\\":true,\\\"backend\\\":\\\"Windows.Graphics.Capture\\\",\\\"native_resolution\\\":true,\\\"request_qpc_100ns\\\":3469202607249,\\\"frame_qpc_100ns\\\":3469202719791,\\\"width\\\":1994,\\\"height\\\":1105}\\n\", \"helper_stderr\": \"\", \"manifest_after\": {\"path\": \"C:\\\\Users\\\\Happy2018new\\\\.pyreact-debug\\\\instances\\\\c39ff8732a2946dc90250a51b007026c\\\\session.json\", \"sha256\": \"bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15\", \"bytes\": 29487}, \"processes_after\": {\"mcdk\": {\"pid\": 52912, \"identity\": \"134363455931257472\", \"executable\": \"D:\\\\Happy2018new\\u306e\\u4e2a\\u4eba\\u6587\\u4ef6\\\\GitHub\\\\better-building-editor\\\\.runtime\\\\mcdk-retry-r11\\\\build-ipc-framing-r11\\\\tools\\\\mcdk\\\\mcdk.exe\"}, \"game\": {\"pid\": 62504, \"identity\": \"134363455933965559\", \"executable\": \"D:\\\\MCStudioDownload\\\\game\\\\MinecraftPE_Netease\\\\3.9.0.401155\\\\Minecraft.Windows.exe\"}}, \"state_after\": \"ready\", \"guard_after\": {\"foreground\": {\"hwnd\": 34802164, \"pid\": 46908, \"process\": \"ShellHost.exe\", \"identity\": \"134363419314736789\", \"title\": \"\\u5feb\\u901f\\u8bbe\\u7f6e\", \"visible\": true, \"minimized\": false}, \"windows\": [{\"hwnd\": 20844538, \"pid\": 62504, \"process\": \"Minecraft.Windows.exe\", \"title\": \"(1994, 1105) Minecraft\", \"x\": 283, \"y\": 264, \"width\": 1994, \"height\": 1105, \"minimized\": false, \"noactivate\": true}], \"background_safe\": true, \"window_noactivate\": true}, \"frame\": {\"ok\": true, \"backend\": \"Windows.Graphics.Capture\", \"native_resolution\": true, \"request_qpc_100ns\": 3469202607249, \"frame_qpc_100ns\": 3469202719791, \"width\": 1994, \"height\": 1105}, \"pixels\": {\"width\": 1994, \"height\": 1105, \"variance\": [1798.6688133893329, 2807.3777302814074, 10254.044193133837], \"sha256\": \"6fd2e6570be0959059db0d49e18e1b99e3114f3084f75f284f99e82f71102bec\", \"bytes\": 900982}, \"finished_at\": \"2026-10-13T06:15:34.283529+00:00\", \"elapsed_seconds\": 1.2685135999927297}",
+        "stderr": "",
+        "observer_receipt": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_covered_h0.startup.json",
+        "timeout": false,
+        "observer_in_process": true,
+        "capture_child_direct": true,
+        "window_geometry_space": "physical_per_monitor_v2"
+      },
+      "after": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "fov": 60.0,
+        "yaw_lock": true,
+        "pitch_lock": true,
+        "render_events": 11652,
+        "forward": [
+          0.6240106225013733,
+          -0.046800676733255386,
+          0.7800129652023315
+        ],
+        "position": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ]
+      },
+      "forward_cosine_after": 0.9999999999998105,
+      "kind": "covered",
+      "mode": "projection",
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319503768,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:poppy",
+          0
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          8
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "document_id": 2229319500128,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775805",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "submitted": {
+        "nonce": 4,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.covered.0",
+        "path": "incremental",
+        "serial": 11,
+        "editor_id": 2229319503768,
+        "document_id": 2229319500128,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "final_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775805",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "final_source": {
+        "nonce": 4,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.covered.0",
+        "path": "incremental",
+        "serial": 11,
+        "editor_id": 2229319503768,
+        "document_id": 2229319500128,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      }
+    }
+  ],
+  "cleanup_errors": [],
+  "mutation_attempted": true,
+  "preflight": {
+    "player_foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "cells": [
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          -48,
+          6
+        ]
+      },
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          -49,
+          6
+        ]
+      }
+    ],
+    "dimension": 0,
+    "player_flying": false
+  },
+  "plant_candidate": {
+    "xz_translation": [
+      0.0,
+      0.0
+    ],
+    "production_acceptance": false,
+    "native_random_offset_applied": false,
+    "installed": true,
+    "default_before": false,
+    "identifier": "modern_projection:diagnostic_centered_poppy"
+  },
+  "original_player_follow_camera": {
+    "origin": [
+      0,
+      -60,
+      0
+    ],
+    "opacity": 0.45,
+    "player": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "camera_pos": [
+      0.5,
+      -58.37998962402344,
+      0.5
+    ],
+    "outline": true,
+    "pitch_lock": false,
+    "missing": true,
+    "yaw_lock": false,
+    "fov": 60.0,
+    "camera_rot": [
+      -0.0,
+      179.99996948242188,
+      0.0
+    ]
+  },
+  "client_chunk_event_observation": {
+    "target_chunk": [
+      0,
+      0
+    ],
+    "source": "existing ChunkLoadedClientEvent/ChunkAcquireDiscardedClientEvent set",
+    "observed_chunks": 545,
+    "matching_xz": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "native_section_mesh_ready_proven": false,
+    "target_section_y": -3
+  },
+  "render_frame_observer": {
+    "render_events": 0,
+    "source": "actual GameRenderTickEvent"
+  },
+  "native_offset_probe": {
+    "native_offset_getter_available_from_official_docs": false,
+    "evidence": "actual native Add/Set call arguments and boolean acknowledgments, not GPU readback",
+    "installed": true
+  },
+  "native_setup": {
+    "biome": "plains",
+    "target": [
+      6,
+      -48,
+      6
+    ],
+    "daylight_cycle": false,
+    "support": [
+      6,
+      -49,
+      6
+    ],
+    "player": "-8589934591",
+    "time": 0,
+    "dimension": 0
+  },
+  "camera_before_request": {
+    "player": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "fov": 60.0,
+    "yaw_lock": false,
+    "pitch_lock": false,
+    "render_events": 196,
+    "forward": [
+      3.01991519791045e-07,
+      0.0,
+      0.9999995231628418
+    ],
+    "position": [
+      0.5,
+      -58.37998962402344,
+      0.5
+    ],
+    "rotation": [
+      -0.0,
+      179.99996948242188,
+      0.0
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ]
+  },
+  "camera_direction_candidates": [
+    {
+      "yaw_adjustment": 180.0,
+      "pose_request_attempted": true,
+      "predeclared_sdk_semantics": true,
+      "readbacks": [
+        {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "fov": 60.0,
+          "yaw_lock": true,
+          "pitch_lock": true,
+          "render_events": 336,
+          "forward": [
+            0.6240106225013733,
+            -0.046800676733255386,
+            0.7800129652023315
+          ],
+          "position": [
+            4.5,
+            -47.349998474121094,
+            4.0
+          ],
+          "rotation": [
+            2.6824610233306885,
+            141.3401641845703,
+            -1.3728783414990176e-05
+          ],
+          "screen": [
+            499.0,
+            277.0
+          ]
+        }
+      ],
+      "captures_before_selection": 0,
+      "pose": {
+        "target": [
+          6.5,
+          -47.5,
+          6.5
+        ],
+        "render_events_at_request": 268,
+        "yaw_adjustment": 180.0,
+        "position": [
+          4.5,
+          -47.35,
+          4.0
+        ],
+        "rotation": [
+          2.682467460632324,
+          141.34019088745117,
+          0.0
+        ],
+        "sdk_GetRotFromDir": [
+          2.682467460632324,
+          -38.65980911254883
+        ]
+      },
+      "forward_cosine": 0.9999999999998105,
+      "selected": true
+    }
+  ],
+  "camera": {
+    "target": [
+      6.5,
+      -47.5,
+      6.5
+    ],
+    "render_events_at_request": 268,
+    "yaw_adjustment": 180.0,
+    "position": [
+      4.5,
+      -47.35,
+      4.0
+    ],
+    "rotation": [
+      2.682467460632324,
+      141.34019088745117,
+      0.0
+    ],
+    "sdk_GetRotFromDir": [
+      2.682467460632324,
+      -38.65980911254883
+    ]
+  },
+  "actual_camera_direction": {
+    "readback": {
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "fov": 60.0,
+      "yaw_lock": true,
+      "pitch_lock": true,
+      "render_events": 336,
+      "forward": [
+        0.6240106225013733,
+        -0.046800676733255386,
+        0.7800129652023315
+      ],
+      "position": [
+        4.5,
+        -47.349998474121094,
+        4.0
+      ],
+      "rotation": [
+        2.6824610233306885,
+        141.3401641845703,
+        -1.3728783414990176e-05
+      ],
+      "screen": [
+        499.0,
+        277.0
+      ]
+    },
+    "target": [
+      6.5,
+      -47.5,
+      6.5
+    ],
+    "forward_cosine": 0.9999999999998105,
+    "actual_GetForward": true,
+    "predeclared_yaw_candidates": [
+      180.0,
+      0.0
+    ],
+    "minimum_cosine_exclusive": 0.99,
+    "qualification_capture_started": false
+  },
+  "qualification": {
+    "screen": [
+      499.0,
+      277.0
+    ],
+    "points": [
+      [
+        6.0,
+        -48.0,
+        6.0
+      ],
+      [
+        6.0,
+        -48.0,
+        7.0
+      ],
+      [
+        6.0,
+        -47.0,
+        6.0
+      ],
+      [
+        6.0,
+        -47.0,
+        7.0
+      ],
+      [
+        7.0,
+        -48.0,
+        6.0
+      ],
+      [
+        7.0,
+        -48.0,
+        7.0
+      ],
+      [
+        7.0,
+        -47.0,
+        6.0
+      ],
+      [
+        7.0,
+        -47.0,
+        7.0
+      ]
+    ],
+    "fov": 60.0,
+    "version": "1.21.120.0",
+    "native": null,
+    "method": "same_session_native_stone_blank_cell_silhouette",
+    "stone": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_stone.png",
+    "blank": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_blank.png",
+    "pixels": 113706,
+    "bounds": [
+      306,
+      115,
+      683,
+      455
+    ],
+    "analytical_projection_or_fov_fit": false,
+    "roi": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualified-cell-roi.png",
+    "roi_sha256": "ba7ccbb82bc5126b69ce5217e61826febe35356821160926de03c18c5018d0cb"
+  },
+  "fixed_camera_readback": {
+    "player": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "fov": 60.0,
+    "yaw_lock": true,
+    "pitch_lock": true,
+    "render_events": 2076,
+    "forward": [
+      0.6240106225013733,
+      -0.046800676733255386,
+      0.7800129652023315
+    ],
+    "position": [
+      4.5,
+      -47.349998474121094,
+      4.0
+    ],
+    "rotation": [
+      2.6824610233306885,
+      141.3401641845703,
+      -1.3728783414990176e-05
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ]
+  },
+  "capture_schedule": [
+    [
+      "native",
+      "plant"
+    ],
+    [
+      "native",
+      "blank"
+    ],
+    [
+      "projection",
+      "plant"
+    ],
+    [
+      "projection",
+      "blank"
+    ],
+    [
+      "native",
+      "snow"
+    ],
+    [
+      "native",
+      "covered"
+    ],
+    [
+      "projection",
+      "snow"
+    ],
+    [
+      "projection",
+      "covered"
+    ]
+  ],
+  "projection_state_journals": [
+    {
+      "kind": "plant",
+      "projection_request_attempted": true,
+      "native_target_cleared": {
+        "mutation": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "states": null,
+          "kind": "blank",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "palette_before": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "support_preserved_by_target_only_mutation": true,
+        "palette_after": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319528856,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:poppy",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "document_id": 2229654917864,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "initial_ready_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            6.5,
+            -47.5,
+            6.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775807",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "placement_reads": [
+        {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "mesh": [
+            "-9223372036854775807",
+            "modern_projection_buffer_0_0",
+            [
+              5,
+              -49,
+              5
+            ],
+            [
+              0.5,
+              -59.0,
+              0.5
+            ]
+          ],
+          "shader_anchor": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "render_events": 4446,
+          "session_origin": [
+            5,
+            -49,
+            5
+          ],
+          "actor_position": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "offsets": [
+            {
+              "native_submission": {
+                "attempted": true,
+                "actor": "-9223372036854775807",
+                "result": true,
+                "offset": [
+                  -5.0,
+                  10.0,
+                  -5.0
+                ],
+                "render_events": 4270,
+                "model": "modern_projection_buffer_0_0_c_0_0_0",
+                "method": "SetActorBlockGeometryOffset"
+              },
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "chunk": [
+                0,
+                0,
+                0
+              ],
+              "context": true
+            }
+          ],
+          "native_submission_count": 4,
+          "actor": "-9223372036854775807",
+          "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+        }
+      ],
+      "settled_placement_before_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 4446,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775807",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 4270,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          }
+        ],
+        "native_submission_count": 4,
+        "actor": "-9223372036854775807",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      },
+      "actual_native_palettes": [
+        {
+          "nonce": 1,
+          "states": 0,
+          "actor_cells": 0,
+          "name": "modern_projection_chunk_0_0_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0,
+          "fixture": "snow.visibility.poppy.plant.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            3,
+            3,
+            3
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                13
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319528856,
+          "extra_materials": 0,
+          "document_id": 2229654917864,
+          "result": "modern_projection_chunk_0_0_0_0_0"
+        },
+        {
+          "nonce": 1,
+          "states": 0,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_0_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0009999275207519531,
+          "fixture": "snow.visibility.poppy.plant.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319528856,
+          "extra_materials": 0,
+          "document_id": 2229654917864,
+          "result": "modern_projection_buffer_0_0_c_0_0_0"
+        },
+        {
+          "nonce": 1,
+          "states": 0,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_1_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0009999275207519531,
+          "fixture": "snow.visibility.poppy.plant.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319528856,
+          "extra_materials": 0,
+          "document_id": 2229654917864,
+          "result": "modern_projection_buffer_0_1_c_0_0_0"
+        }
+      ],
+      "status_before_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775807",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_before_capture": {
+        "nonce": 1,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.plant.0",
+        "path": "incremental",
+        "serial": 4,
+        "editor_id": 2229319528856,
+        "document_id": 2229654917864,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "status_after_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775807",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_after_capture": {
+        "nonce": 1,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.plant.0",
+        "path": "incremental",
+        "serial": 4,
+        "editor_id": 2229319528856,
+        "document_id": 2229654917864,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "placement_after_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775807",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 5575,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775807",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 4270,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          }
+        ],
+        "native_submission_count": 4,
+        "actor": "-9223372036854775807",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      }
+    },
+    {
+      "kind": "blank",
+      "projection_request_attempted": false,
+      "native_target_cleared": {
+        "mutation": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "states": null,
+          "kind": "blank",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "palette_before": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "support_preserved_by_target_only_mutation": true,
+        "palette_after": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319528688,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:air",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          3
+        ],
+        "document_id": 2229319499448,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 0,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "status_after_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": false,
+        "mesh": null,
+        "preparing": false,
+        "ready": true,
+        "message": "\u5df2\u8f7d\u5165\u5efa\u7b51\u914d\u7f6e",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": null,
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": null,
+        "parts": [],
+        "actors": 0,
+        "error": null
+      },
+      "source_after_capture": null
+    },
+    {
+      "kind": "snow",
+      "projection_request_attempted": true,
+      "native_target_cleared": {
+        "mutation": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "states": null,
+          "kind": "blank",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "palette_before": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "support_preserved_by_target_only_mutation": true,
+        "palette_after": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229320146056,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:air",
+          0
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          0
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "document_id": 2233383321384,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "initial_ready_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775806",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "placement_reads": [
+        {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "mesh": [
+            "-9223372036854775806",
+            "modern_projection_buffer_0_0",
+            [
+              5,
+              -49,
+              5
+            ],
+            [
+              0.5,
+              -59.0,
+              0.5
+            ]
+          ],
+          "shader_anchor": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "render_events": 9121,
+          "session_origin": [
+            5,
+            -49,
+            5
+          ],
+          "actor_position": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "offsets": [
+            {
+              "native_submission": {
+                "attempted": true,
+                "actor": "-9223372036854775806",
+                "result": true,
+                "offset": [
+                  -5.0,
+                  10.0,
+                  -5.0
+                ],
+                "render_events": 8975,
+                "model": "modern_projection_buffer_0_0_c_0_0_0",
+                "method": "SetActorBlockGeometryOffset"
+              },
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "chunk": [
+                0,
+                0,
+                0
+              ],
+              "context": true
+            }
+          ],
+          "native_submission_count": 8,
+          "actor": "-9223372036854775806",
+          "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+        }
+      ],
+      "settled_placement_before_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 9121,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775806",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 8975,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          }
+        ],
+        "native_submission_count": 8,
+        "actor": "-9223372036854775806",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      },
+      "actual_native_palettes": [
+        {
+          "nonce": 3,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_chunk_0_0_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0,
+          "fixture": "snow.visibility.poppy.snow.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            3,
+            3,
+            3
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                13
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229320146056,
+          "extra_materials": 0,
+          "document_id": 2233383321384,
+          "result": "modern_projection_chunk_0_0_0_0_0"
+        },
+        {
+          "nonce": 3,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_0_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0009999275207519531,
+          "fixture": "snow.visibility.poppy.snow.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229320146056,
+          "extra_materials": 0,
+          "document_id": 2233383321384,
+          "result": "modern_projection_buffer_0_0_c_0_0_0"
+        },
+        {
+          "nonce": 3,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_1_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0009999275207519531,
+          "fixture": "snow.visibility.poppy.snow.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229320146056,
+          "extra_materials": 0,
+          "document_id": 2233383321384,
+          "result": "modern_projection_buffer_0_1_c_0_0_0"
+        }
+      ],
+      "status_before_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775806",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_before_capture": {
+        "nonce": 3,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.snow.0",
+        "path": "incremental",
+        "serial": 9,
+        "editor_id": 2229320146056,
+        "document_id": 2233383321384,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "status_after_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775806",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_after_capture": {
+        "nonce": 3,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.snow.0",
+        "path": "incremental",
+        "serial": 9,
+        "editor_id": 2229320146056,
+        "document_id": 2233383321384,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "placement_after_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775806",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 10257,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775806",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 8975,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          }
+        ],
+        "native_submission_count": 8,
+        "actor": "-9223372036854775806",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      }
+    },
+    {
+      "kind": "covered",
+      "projection_request_attempted": true,
+      "native_target_cleared": {
+        "mutation": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "states": null,
+          "kind": "blank",
+          "target": [
+            6,
+            -48,
+            6
+          ],
+          "height": 0
+        },
+        "palette_before": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        },
+        "support_preserved_by_target_only_mutation": true,
+        "palette_after": {
+          "common": [
+            [
+              "minecraft:air",
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "extra": []
+        }
+      },
+      "source": {
+        "runtime_minecraft_version": "1.21.120.0",
+        "editor_id": 2229319503768,
+        "fixture": "test.layers.snow",
+        "registry_version": "NEMC 3.9.0.401155",
+        "focus": [
+          1,
+          1,
+          1
+        ],
+        "back": [
+          "minecraft:poppy",
+          0
+        ],
+        "front": [
+          "minecraft:snow_layer",
+          8
+        ],
+        "render_layout_version": 2,
+        "source_position": [
+          18,
+          1,
+          9
+        ],
+        "document_id": 2229319500128,
+        "registry_fingerprint": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+        "fixture_schema": 4,
+        "metadata": {
+          "blocks": 1,
+          "name": "Snow plant visibility check",
+          "size": [
+            3,
+            3,
+            3
+          ]
+        }
+      },
+      "initial_ready_status": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775805",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "placement_reads": [
+        {
+          "player": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "mesh": [
+            "-9223372036854775805",
+            "modern_projection_buffer_0_0",
+            [
+              5,
+              -49,
+              5
+            ],
+            [
+              0.5,
+              -59.0,
+              0.5
+            ]
+          ],
+          "shader_anchor": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "render_events": 10810,
+          "session_origin": [
+            5,
+            -49,
+            5
+          ],
+          "actor_position": [
+            0.5,
+            -59.0,
+            0.5
+          ],
+          "offsets": [
+            {
+              "native_submission": {
+                "attempted": true,
+                "actor": "-9223372036854775805",
+                "result": true,
+                "offset": [
+                  -5.0,
+                  10.0,
+                  -5.0
+                ],
+                "render_events": 10640,
+                "model": "modern_projection_buffer_0_0_c_0_0_0",
+                "method": "SetActorBlockGeometryOffset"
+              },
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "chunk": [
+                0,
+                0,
+                0
+              ],
+              "context": true
+            },
+            {
+              "native_submission": {
+                "attempted": true,
+                "actor": "-9223372036854775805",
+                "result": true,
+                "offset": [
+                  -5.0,
+                  10.0,
+                  -5.0
+                ],
+                "render_events": 10640,
+                "model": "modern_projection_buffer_0_0_o_0_0_0",
+                "method": "SetActorBlockGeometryOffset"
+              },
+              "model": "modern_projection_buffer_0_0_o_0_0_0",
+              "chunk": [
+                0,
+                0,
+                0
+              ],
+              "context": false
+            }
+          ],
+          "native_submission_count": 16,
+          "actor": "-9223372036854775805",
+          "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+        }
+      ],
+      "settled_placement_before_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 10810,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775805",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 10640,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          },
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775805",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 10640,
+              "model": "modern_projection_buffer_0_0_o_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_o_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": false
+          }
+        ],
+        "native_submission_count": 16,
+        "actor": "-9223372036854775805",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      },
+      "actual_native_palettes": [
+        {
+          "nonce": 4,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_chunk_0_0_0_0_1",
+          "frame_materials": [],
+          "seconds": 0.0,
+          "fixture": "snow.visibility.poppy.covered.0",
+          "common_cells": 2,
+          "extra_states": 1,
+          "extra_cells": 1,
+          "volume": [
+            3,
+            3,
+            7
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                13
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                8
+              ]
+            },
+            {
+              "indices": [
+                49
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 2,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319503768,
+          "extra_materials": 1,
+          "document_id": 2229319500128,
+          "result": "modern_projection_chunk_0_0_0_0_1"
+        },
+        {
+          "nonce": 4,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_0_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0009999275207519531,
+          "fixture": "snow.visibility.poppy.covered.0",
+          "common_cells": 1,
+          "extra_states": 1,
+          "extra_cells": 1,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                8
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319503768,
+          "extra_materials": 1,
+          "document_id": 2229319500128,
+          "result": "modern_projection_buffer_0_0_c_0_0_0"
+        },
+        {
+          "nonce": 4,
+          "states": 0,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_0_o_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0,
+          "fixture": "snow.visibility.poppy.covered.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            16,
+            16,
+            16
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                273
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319503768,
+          "extra_materials": 0,
+          "document_id": 2229319500128,
+          "result": "modern_projection_buffer_0_0_o_0_0_0"
+        },
+        {
+          "nonce": 4,
+          "states": 1,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_1_c_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0010001659393310547,
+          "fixture": "snow.visibility.poppy.covered.0",
+          "common_cells": 1,
+          "extra_states": 1,
+          "extra_cells": 1,
+          "volume": [
+            64,
+            64,
+            64
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                20805
+              ],
+              "material": [
+                "minecraft:snow_layer",
+                8
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319503768,
+          "extra_materials": 1,
+          "document_id": 2229319500128,
+          "result": "modern_projection_buffer_0_1_c_0_0_0"
+        },
+        {
+          "nonce": 4,
+          "states": 0,
+          "actor_cells": 0,
+          "name": "modern_projection_buffer_0_1_o_0_0_0",
+          "frame_materials": [],
+          "seconds": 0.0,
+          "fixture": "snow.visibility.poppy.covered.0",
+          "common_cells": 1,
+          "extra_states": 0,
+          "extra_cells": 0,
+          "volume": [
+            16,
+            16,
+            16
+          ],
+          "submitted_materials": [
+            {
+              "indices": [
+                273
+              ],
+              "material": [
+                "modern_projection:diagnostic_centered_poppy",
+                0
+              ]
+            }
+          ],
+          "common_materials": 1,
+          "mode": 0,
+          "actor_names": [],
+          "editor_id": 2229319503768,
+          "extra_materials": 0,
+          "document_id": 2229319500128,
+          "result": "modern_projection_buffer_0_1_o_0_0_0"
+        }
+      ],
+      "status_before_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775805",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_before_capture": {
+        "nonce": 4,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.covered.0",
+        "path": "incremental",
+        "serial": 11,
+        "editor_id": 2229319503768,
+        "document_id": 2229319500128,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "status_after_capture": {
+        "origin": [
+          5,
+          -49,
+          5
+        ],
+        "part_scales": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "camera": [
+          4.5,
+          -47.349998474121094,
+          4.0
+        ],
+        "active": true,
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "preparing": false,
+        "ready": true,
+        "message": "\u5b8c\u6574\u6295\u5f71\u5df2\u751f\u6210\uff0c\u5173\u95ed\u5de5\u4f5c\u53f0\u5373\u53ef\u67e5\u770b",
+        "rotation": [
+          2.6824610233306885,
+          141.3401641845703,
+          -1.3728783414990176e-05
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "actor": "-9223372036854775805",
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "actors": 1,
+        "error": null
+      },
+      "source_after_capture": {
+        "nonce": 4,
+        "missing": false,
+        "work_current": true,
+        "fixture": "snow.visibility.poppy.covered.0",
+        "path": "incremental",
+        "serial": 11,
+        "editor_id": 2229319503768,
+        "document_id": 2229319500128,
+        "cache_model": "modern_projection_buffer_0_0",
+        "cache_current": true,
+        "parts": [
+          [
+            "modern_projection_buffer_0_0_c_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            true
+          ],
+          [
+            "modern_projection_buffer_0_0_o_0_0_0",
+            [
+              0,
+              0,
+              0
+            ],
+            false
+          ]
+        ],
+        "origin_current": true,
+        "model": "modern_projection_buffer_0_0"
+      },
+      "placement_after_capture": {
+        "player": [
+          0.5,
+          -60.0,
+          0.5
+        ],
+        "mesh": [
+          "-9223372036854775805",
+          "modern_projection_buffer_0_0",
+          [
+            5,
+            -49,
+            5
+          ],
+          [
+            0.5,
+            -59.0,
+            0.5
+          ]
+        ],
+        "shader_anchor": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "render_events": 11932,
+        "session_origin": [
+          5,
+          -49,
+          5
+        ],
+        "actor_position": [
+          0.5,
+          -59.0,
+          0.5
+        ],
+        "offsets": [
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775805",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 10640,
+              "model": "modern_projection_buffer_0_0_c_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_c_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": true
+          },
+          {
+            "native_submission": {
+              "attempted": true,
+              "actor": "-9223372036854775805",
+              "result": true,
+              "offset": [
+                -5.0,
+                10.0,
+                -5.0
+              ],
+              "render_events": 10640,
+              "model": "modern_projection_buffer_0_0_o_0_0_0",
+              "method": "SetActorBlockGeometryOffset"
+            },
+            "model": "modern_projection_buffer_0_0_o_0_0_0",
+            "chunk": [
+              0,
+              0,
+              0
+            ],
+            "context": false
+          }
+        ],
+        "native_submission_count": 16,
+        "actor": "-9223372036854775805",
+        "evidence": "actual actor GetPos plus native offset submission acknowledgment; no public offset getter"
+      }
+    }
+  ],
+  "early_plant_positive_controls": {
+    "modes": {
+      "native": {
+        "plant_pixels": 12367,
+        "minimum_pixels": 80,
+        "passed": true,
+        "mask": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_early_plant_mask.png",
+        "sha256": "8236eee157ee0b739767a07e35b70ec668611b504ee8958000a05de6fb0d4ea0"
+      },
+      "projection": {
+        "plant_pixels": 10924,
+        "minimum_pixels": 80,
+        "passed": true,
+        "mask": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_early_plant_mask.png",
+        "sha256": "0fa6f0e97c4cd801858d978ea103dc0df33305e50974bc02740ef6ad42bd3c37"
+      }
+    },
+    "passed": true,
+    "geometry_fidelity_accepted": false,
+    "production_acceptance": false
+  },
+  "pixels": {
+    "modes": {
+      "native": {
+        "plant_pixels": 12367,
+        "snow_pixels": 25956,
+        "covered_minus_snow_pixels": 10341,
+        "plant_bounds": [
+          462,
+          225,
+          608,
+          416
+        ],
+        "snow_bounds": [
+          309,
+          350,
+          681,
+          455
+        ],
+        "contribution_bounds": [
+          462,
+          225,
+          608,
+          390
+        ],
+        "positive_control": true,
+        "plant_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_plant_mask.png",
+          "sha256": "8236eee157ee0b739767a07e35b70ec668611b504ee8958000a05de6fb0d4ea0"
+        },
+        "snow_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_snow_mask.png",
+          "sha256": "046566c92567f1762f9ebcea1086e923f28f6a99e5d44998d669983815741a77"
+        },
+        "contribution_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\native_contribution_mask.png",
+          "sha256": "6a030420e6af7cde530f012c87a64b4ef473a764eb04ae88c56f41c50bdaec47"
+        }
+      },
+      "projection": {
+        "plant_pixels": 10924,
+        "snow_pixels": 25846,
+        "covered_minus_snow_pixels": 9088,
+        "plant_bounds": [
+          443,
+          225,
+          573,
+          414
+        ],
+        "snow_bounds": [
+          309,
+          350,
+          681,
+          455
+        ],
+        "contribution_bounds": [
+          443,
+          225,
+          572,
+          408
+        ],
+        "positive_control": true,
+        "plant_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_plant_mask.png",
+          "sha256": "0fa6f0e97c4cd801858d978ea103dc0df33305e50974bc02740ef6ad42bd3c37"
+        },
+        "snow_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_snow_mask.png",
+          "sha256": "8839bc80ed9e990ff68de7fcbc87099737a754f89f5ccee18c1a50ca6e1822c6"
+        },
+        "contribution_mask": {
+          "path": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\projection_contribution_mask.png",
+          "sha256": "97785bd0855efa64f3368fa671e608c74ce006dad0f9c0d9e67afa969295bf10"
+        }
+      }
+    },
+    "native_projection": {
+      "plant": {
+        "native_pixels": 12367,
+        "projection_pixels": 10924,
+        "recall_3px": 0.5981240397832942,
+        "precision_3px": 0.6853716587330648,
+        "diagnostic_match": false
+      },
+      "snow": {
+        "native_pixels": 25956,
+        "projection_pixels": 25846,
+        "recall_3px": 1.0,
+        "precision_3px": 1.0,
+        "diagnostic_match": true
+      },
+      "covered": {
+        "native_pixels": 34455,
+        "projection_pixels": 33236,
+        "recall_3px": 0.9088666376433029,
+        "precision_3px": 0.938951739078108,
+        "diagnostic_match": true
+      }
+    },
+    "positive_controls_passed": true,
+    "diagnostic_matches": false,
+    "production_acceptance": false,
+    "native_mesh_or_offset_authority": false
+  },
+  "native_cleanup": [
+    {
+      "changed": false,
+      "pos": [
+        6,
+        -48,
+        6
+      ],
+      "clean": true
+    },
+    {
+      "changed": true,
+      "pos": [
+        6,
+        -49,
+        6
+      ],
+      "clean": true
+    },
+    {
+      "resource": "world_biome",
+      "clean": true
+    },
+    {
+      "resource": "world_time",
+      "clean": true
+    },
+    {
+      "resource": "daylight_cycle",
+      "clean": true
+    }
+  ],
+  "client_restore_requested": {
+    "requested": true,
+    "saved_camera_retained": true,
+    "render_events": 12280
+  },
+  "client_restore_reads": [
+    {
+      "player": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "fov": 60.0,
+      "yaw_lock": false,
+      "pitch_lock": false,
+      "render_events": 12350,
+      "forward": [
+        3.019915482127544e-07,
+        -6.776260346860135e-21,
+        0.9999997615814209
+      ],
+      "position": [
+        0.5,
+        -58.37998962402344,
+        0.5
+      ],
+      "rotation": [
+        0.0,
+        179.99996948242188,
+        -1.3660377589985728e-05
+      ],
+      "screen": [
+        499.0,
+        277.0
+      ]
+    }
+  ],
+  "client_restored": {
+    "player": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "fov": 60.0,
+    "yaw_lock": false,
+    "pitch_lock": false,
+    "render_events": 12350,
+    "forward": [
+      3.019915482127544e-07,
+      -6.776260346860135e-21,
+      0.9999997615814209
+    ],
+    "position": [
+      0.5,
+      -58.37998962402344,
+      0.5
+    ],
+    "rotation": [
+      0.0,
+      179.99996948242188,
+      -1.3660377589985728e-05
+    ],
+    "screen": [
+      499.0,
+      277.0
+    ]
+  },
+  "saved_camera_journal_cleared_after_verified_readback": true,
+  "post_restore": {
+    "player_foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "cells": [
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          -48,
+          6
+        ]
+      },
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          -49,
+          6
+        ]
+      }
+    ],
+    "dimension": 0,
+    "player_flying": false
+  },
+  "native_offset_probe_removed": {
+    "removed": true,
+    "native_offset_submissions": [
+      {
+        "attempted": true,
+        "actor": "-9223372036854775807",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 4270,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775807",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 4270,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775807",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 4270,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775807",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 4270,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775806",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 8975,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775806",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 8975,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775806",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 8975,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775806",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 8975,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_0_o_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          1.0,
+          -1.5,
+          1.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_1_o_0_0_0",
+        "method": "AddActorBlockGeometry"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_0_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_0_o_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_1_c_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      },
+      {
+        "attempted": true,
+        "actor": "-9223372036854775805",
+        "result": true,
+        "offset": [
+          -5.0,
+          10.0,
+          -5.0
+        ],
+        "render_events": 10640,
+        "model": "modern_projection_buffer_0_1_o_0_0_0",
+        "method": "SetActorBlockGeometryOffset"
+      }
+    ]
+  },
+  "render_frame_observer_removed": true,
+  "plant_candidate_restored": {
+    "journal_absent": true,
+    "default_empty": true
+  }
+}

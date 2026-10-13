@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": true,
+  "reliable": true,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-13T06:14:49.417098+00:00",
+  "timeout_seconds": 4.9875387999927625,
+  "output": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v3\\run\\qualification_stone.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c39ff8732a2946dc90250a51b007026c\\session.json",
+    "sha256": "bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15",
+    "bytes": 29487
+  },
+  "session_id": "c39ff8732a2946dc90250a51b007026c",
+  "owner": "snow-r13-centered-native",
+  "project": "D:\\bbe-r13-snow",
+  "state_before": "ready",
+  "helper": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "processes_before": {
+    "mcdk": {
+      "pid": 52912,
+      "identity": "134363455931257472",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 62504,
+      "identity": "134363455933965559",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "ipc_port": {
+    "port": 53496,
+    "log_sha256": "2cb668aa65b615c67304a748c9b299f9c724b342b8d35548da41bf63d43e5400",
+    "log_bytes": 178501,
+    "actual_child_environment_recorded": false,
+    "source": "MCDK listener log; not a game getenv observation"
+  },
+  "tcp": {
+    "ipv4_rows": [
+      {
+        "state": 2,
+        "pid": 52912,
+        "local_address": "127.0.0.1",
+        "local_port": 53496,
+        "remote_address": "0.0.0.0",
+        "remote_port": 0
+      },
+      {
+        "state": 5,
+        "pid": 52912,
+        "local_address": "127.0.0.1",
+        "local_port": 53496,
+        "remote_address": "127.0.0.1",
+        "remote_port": 58160
+      },
+      {
+        "state": 5,
+        "pid": 62504,
+        "local_address": "127.0.0.1",
+        "local_port": 58160,
+        "remote_address": "127.0.0.1",
+        "remote_port": 53496
+      }
+    ],
+    "owned_listener_observed": true,
+    "owned_established_pair_observed": true,
+    "passive_table_only": true,
+    "private_ipc_connection_attempted": false,
+    "limits": "An OS established pair is not an SDK-ready result; polling can miss transient connections."
+  },
+  "guard_before": {
+    "foreground": {
+      "hwnd": 34802164,
+      "pid": 46908,
+      "process": "ShellHost.exe",
+      "identity": "134363419314736789",
+      "title": "\u5feb\u901f\u8bbe\u7f6e",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 20844538,
+        "pid": 62504,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "window": {
+    "hwnd": 20844538,
+    "pid": 62504,
+    "process": "Minecraft.Windows.exe",
+    "title": "(1994, 1105) Minecraft",
+    "x": 283,
+    "y": 264,
+    "width": 1994,
+    "height": 1105,
+    "minimized": false,
+    "noactivate": true
+  },
+  "helper_returncode": 0,
+  "helper_stdout": "{\"ok\":true,\"backend\":\"Windows.Graphics.Capture\",\"native_resolution\":true,\"request_qpc_100ns\":3468766340237,\"frame_qpc_100ns\":3468766424048,\"width\":1994,\"height\":1105}\n",
+  "helper_stderr": "",
+  "manifest_after": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c39ff8732a2946dc90250a51b007026c\\session.json",
+    "sha256": "bdfe37ffebb27f01ac91b92e26c788e2b3ca4aec88ca52e13ae0123aaa3b4f15",
+    "bytes": 29487
+  },
+  "processes_after": {
+    "mcdk": {
+      "pid": 52912,
+      "identity": "134363455931257472",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 62504,
+      "identity": "134363455933965559",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "state_after": "ready",
+  "guard_after": {
+    "foreground": {
+      "hwnd": 34802164,
+      "pid": 46908,
+      "process": "ShellHost.exe",
+      "identity": "134363419314736789",
+      "title": "\u5feb\u901f\u8bbe\u7f6e",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 20844538,
+        "pid": 62504,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "frame": {
+    "ok": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "request_qpc_100ns": 3468766340237,
+    "frame_qpc_100ns": 3468766424048,
+    "width": 1994,
+    "height": 1105
+  },
+  "pixels": {
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      1909.0194780572576,
+      3082.275645713848,
+      9910.865907743495
+    ],
+    "sha256": "e39e6610fbfa978836a5cab29d78455705714b36422b7b7da523c4e33356db8c",
+    "bytes": 892346
+  },
+  "finished_at": "2026-10-13T06:14:50.603830+00:00",
+  "elapsed_seconds": 1.186755600036122
+}
