@@ -19,6 +19,7 @@ class WorldProjection(object):
         self.hidden = set(s.preview_hidden())
         self.layer = s.editor.layer if s.solo_layer else None
         self.opacity, self.missing = s.opacity, s.projection_missing
+        self.item_profile = getattr(s, 'item_profile', None)
         from .occupancy import ProjectionOccupancy
         self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
         self.size = tuple(self.document.size)
@@ -41,7 +42,7 @@ class WorldProjection(object):
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
             companions.append(LiquidProjection(bridge, self.document, origin, profile, dimension,
                                                self.hidden, self.layer))
-        item_profile = getattr(s, 'item_profile', None)
+        item_profile = self.item_profile
         if item_profile is not None:
             from .item_sprite_projection import ItemProjection
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
@@ -96,7 +97,8 @@ class WorldProjection(object):
                 yield None
             self.completed.add(key)
         from .render_context import ContextBatchBuilder
-        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin)
+        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin,
+                                      item_profile=self.item_profile)
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data

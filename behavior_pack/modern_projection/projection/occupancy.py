@@ -33,6 +33,7 @@ class ProjectionOccupancy(object):
         self.size = tuple(source.size)
         self.hidden = set(bridge.session.preview_hidden())
         self.layer = bridge.session.editor.layer if bridge.session.solo_layer else None
+        self.item_profile = getattr(bridge.session, 'item_profile', None)
         self.info = bridge.factory.CreateBlockInfo(bridge.level)
         self.camera = bridge.factory.CreateCamera(bridge.level)
         self.loaded_chunks = getattr(bridge.system, 'projection_loaded_chunks', None)
@@ -272,7 +273,8 @@ class ProjectionOccupancy(object):
                     self.output.add_indices(value, indices)
             yield True
         from .render_context import ContextBatchBuilder
-        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin)
+        builder = ContextBatchBuilder(self.document, self.output.palette_data(), render_origin=self.origin,
+                                      item_profile=self.item_profile)
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data

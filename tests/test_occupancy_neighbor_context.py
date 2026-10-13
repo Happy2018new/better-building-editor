@@ -54,6 +54,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
             work.origin, work.document = tracker.origin, document
             work.keys = tuple(sorted(document.blocks.chunks))
             work.occupancy, work.completed, work.shader = tracker, set(), tracker.shader
+            work.item_profile = tracker.item_profile
             work.hidden, work.layer, work.liquid = set(), None, None
             work.output, work.prepared = SurfacePalette(document.size), None
             for unused in work.prepare():
@@ -162,6 +163,7 @@ class MissingOnlyNeighborContextTests(unittest.TestCase):
         work.origin = tracker.origin
         work.document, work.keys = tracker.document, tuple(sorted(document.blocks.chunks))
         work.occupancy, work.completed = tracker, set()
+        work.item_profile = tracker.item_profile
         work.shader = tracker.shader
         work.hidden, work.layer = set(), None
         work.output, work.prepared = SurfacePalette(document.size), None

@@ -137,15 +137,27 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
     return (volume[0], volume[1], overlay_base + volume[2])
 
 
-def _append_frame_items(common, actors, logical, overlay_base):
+def _append_frame_items(common, actors, logical, overlay_base, item_profile=None,
+                        original_common=None):
     materials = dict((index, value) for value, positions in common.items()
                      if value[0] in FRAME_NAMES for index in positions)
     if not materials:
         return None
+    sprite_materials = {}
+    if item_profile is not None:
+        from .item_sprite_plan import sprite_content
+        for original, positions in original_common.items():
+            value = canonical(original)
+            if value[0] in FRAME_NAMES:
+                sprite_materials.update((index, value) for index in positions)
     overlays = {}
     for entries in actors.values():
         for index, payload in entries.items():
             material = materials.get(index)
+            sprite_material = sprite_materials.get(index)
+            if sprite_material is not None:
+                if sprite_content(sprite_material, payload, item_profile.items) is not None:
+                    continue
             proxy = frame_item_proxy(material, payload) if material is not None else None
             if proxy is not None:
                 overlays.setdefault(proxy, []).append(index)
@@ -164,7 +176,7 @@ def _append_frame_items(common, actors, logical, overlay_base):
 
 
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
-                    inferred_bed_colors=None, render_origin=(0, 0, 0)):
+                    inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
     render_origin = validate_render_origin(render_origin)
@@ -191,7 +203,8 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     normalize_palette_layers(common, common_states, extra, extra_states)
     volume = _append_snow_overlays(common, common_states, extra, extra_states,
                                   source.get('volume'), overlay_base, render_origin)
-    item_volume = _append_frame_items(common, source.get('actor', {}), source.get('volume'), overlay_base)
+    item_volume = _append_frame_items(common, source.get('actor', {}), source.get('volume'),
+                                      overlay_base, item_profile, source.get('common', {}))
     if item_volume is not None:
         volume = item_volume
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),

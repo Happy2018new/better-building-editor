@@ -69,3 +69,31 @@ oracle, moving highlight inside the same silhouette, blank empty controls,
 depth occlusion, cutaway, removal/replacement and full/missing projection
 separately. Unreliable background capture remains an explicit pending result;
 no foreground, resize or desktop-input fallback is authorized for this task.
+
+## Single Item Owner Boundary
+
+The static flat-icon candidates and private animated sprites can otherwise draw
+the same ordinary sword twice when both profiles are qualified. Static item
+profiles are currently unaccepted, so this is an integration guard for candidate
+and future production combinations rather than evidence of a current visible
+production defect.
+
+`prepare_palette` accepts the same item profile used by the private companion.
+Only a logically foreground frame whose exact item, typed payload and pose are
+supported by `sprite_content` loses its static item overlay. The native frame
+body remains. Disabled and unsupported profiles keep their previous behavior;
+secondary-only frames promoted temporarily by native layer normalization are
+not classified as private sprite targets. No document or NBT is modified.
+
+Context builders carry this profile through initial full/missing meshes and
+occupancy rebuilds. `WorldProjection` and `ProjectionOccupancy` freeze it at
+construction, so a later session profile change cannot switch only one side of
+the published pair. Editor source signatures and mesh caches distinguish profile
+enable/disable even when document cells are identical.
+
+`tests/test_item_sprite_boundary.py` checks both frame families across six faces
+and eight rotations, observed ordinary/enchanted/empty payloads, unknown and
+custom content, invalid poses, promoted secondary layers, hidden layers,
+target-only context, occupied-cell restoration and editor cache reuse. Nine
+focused regressions pass. Visible body pose, glint, depth and native projection
+acceptance remain pending.

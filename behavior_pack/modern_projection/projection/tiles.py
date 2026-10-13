@@ -305,7 +305,8 @@ class TiledPreview(object):
             self.seconds += time.time()-started
 
     def submit(self, key, palette, origin):
-        data = (palette.common, palette.extra, palette.actor, palette.size, tuple(origin))
+        data = (palette.common, palette.extra, palette.actor, palette.size, tuple(origin),
+                id(getattr(self.session, 'item_profile', None)))
         part = self.parts.get(key)
         if part is not None and data == part['data']:
             part['signature'] = self.session.preview_signature()

@@ -119,7 +119,7 @@ class _ContextWriter(object):
             bucket[index] = rebase(payload, delta)
 
 
-def prepare_context_palette(source, targets, render_origin=(0, 0, 0)):
+def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profile=None):
     """Return a final native render palette; do not prepare it a second time.
 
     ``source`` contains the whole logical document. ``targets`` contains only
@@ -134,7 +134,7 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0)):
         data.update(common={}, extra={}, actor={}, states={}, extraStates={})
         return data
     logical_volume = source['volume']
-    prepared = prepare_palette(source, render_origin=render_origin)
+    prepared = prepare_palette(source, render_origin=render_origin, item_profile=item_profile)
     cells, overlays = _cells(prepared, logical_volume)
     volume = (CONTEXT_STRIDE * (max(pos[2] for pos in positions) + 1),
               CONTEXT_STRIDE * (max(pos[0] for pos in positions) + 1),
@@ -169,8 +169,9 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0)):
 
 class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
-    def __init__(self, document, targets, render_origin=(0, 0, 0)):
+    def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None):
         self.document, self.targets = document, targets
+        self.item_profile = item_profile
         self.render_origin = validate_render_origin(render_origin)
         sx, sy, sz = document.size
         self.logical_volume = (sz, sx, sy)
@@ -245,7 +246,8 @@ class ContextPaletteBuilder(object):
             source['actor'][front[0]] = {0: actor}
         rendered = prepare_palette(source, {(front[0], 0): part} if part is not None else None,
                                    inferred_bed_colors={0: color} if color is not None else None,
-                                   render_origin=tuple(self.render_origin[i] + (x, y, z)[i] for i in range(3)))
+                                   render_origin=tuple(self.render_origin[i] + (x, y, z)[i] for i in range(3)),
+                                   item_profile=self.item_profile)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
@@ -331,9 +333,10 @@ class ContextPaletteBuilder(object):
                                   if value in self.data[layer])
 
 
-def prepare_document_context(document, targets, render_origin=(0, 0, 0)):
+def prepare_document_context(document, targets, render_origin=(0, 0, 0), item_profile=None):
     """Synchronously adapt a small palette without serializing the whole source."""
-    builder = ContextPaletteBuilder(document, targets, render_origin=render_origin)
+    builder = ContextPaletteBuilder(document, targets, render_origin=render_origin,
+                                    item_profile=item_profile)
     for unused in builder.prepare():
         pass
     return builder.data
@@ -412,8 +415,9 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                      'volume': self.logical_volume}
 
 
-def prepare_context_batches(document, targets, render_origin=(0, 0, 0)):
-    builder = ContextBatchBuilder(document, targets, render_origin=render_origin)
+def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None):
+    builder = ContextBatchBuilder(document, targets, render_origin=render_origin,
+                                  item_profile=item_profile)
     for unused in builder.prepare():
         pass
     return builder.data

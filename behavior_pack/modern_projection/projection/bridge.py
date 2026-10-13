@@ -413,13 +413,15 @@ class ClientBridge(object):
         elif context_document is not None:
             from .render_context import prepare_context_batches
             data = prepare_context_batches(context_document, document.palette_data(visible),
-                                           render_origin=render_origin)
+                                           render_origin=render_origin,
+                                           item_profile=getattr(self.session, 'item_profile', None))
         else:
             from .geometry_palette import prepare_palette
             # One empty Y cell separates source top vertices from overlay
             # bottom vertices so the shader never classifies both alike.
             data = prepare_palette(document.palette_data(visible), overlay_base=document.size[1]+1,
-                                   render_origin=render_origin)
+                                   render_origin=render_origin,
+                                   item_profile=getattr(self.session, 'item_profile', None))
         if '_context_batches' in data:
             if not hasattr(self, 'context_models'):
                 self.context_models = {}

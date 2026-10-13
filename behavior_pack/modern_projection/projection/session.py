@@ -603,7 +603,8 @@ class Session(object):
 
     def preview_signature(self):
         return (id(self.editor), self.editor.revision, tuple(sorted(self.editor.hidden_layers)), self.solo_layer,
-                self.editor.layer if self.solo_layer or self.section else -1, self.section)
+                self.editor.layer if self.solo_layer or self.section else -1, self.section,
+                id(getattr(self, 'item_profile', None)))
 
     def depth_plane(self):
         from .camera import OrbitCamera
