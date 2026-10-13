@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": false,
+  "reliable": false,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-13T05:38:39.200550+00:00",
+  "timeout_seconds": 4.9701425999519415,
+  "output": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v2\\run\\startup-first-scheduled.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\549fe764de7f4f1db42f03b4285fe7ec\\session.json",
+    "sha256": "812a3a5ad466c4453d36fcbdddfe1883cf18fa1d0f3249171fb21e00b7348e1e",
+    "bytes": 4956
+  },
+  "session_id": "549fe764de7f4f1db42f03b4285fe7ec",
+  "owner": "snow-r13-centered-native",
+  "project": "D:\\bbe-r13-snow",
+  "state_before": "starting",
+  "error": "FileNotFoundError: [WinError 3] \u7cfb\u7edf\u627e\u4e0d\u5230\u6307\u5b9a\u7684\u8def\u5f84\u3002: 'D:\\\\bbe-r13-snow\\\\.runtime\\\\worktree-archive-r7\\\\p0-blueprint-qa-r3\\\\files\\\\.runtime\\\\native_wgc\\\\build\\\\Release\\\\native_wgc_capture.exe'",
+  "finished_at": "2026-10-13T05:38:39.211989+00:00",
+  "elapsed_seconds": 0.011469900025986135
+}

@@ -21,6 +21,7 @@ LAUNCHER_WAIT_SECONDS = 90
 SAMPLES = (1, 15, 30, 45, 60, 75, 90, 105)
 COPY_TARGETS = ('.agents/skills/pyreact-debugging/scripts/instances.py',
                 '.agents/skills/pyreact-debugging/scripts/mcdk.py', '.mcdev.json')
+CAPTURE_HELPER_SHA256 = 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8'
 
 
 def sha(path):
@@ -423,6 +424,15 @@ class WindowsHost:
         module = ModuleType('reviewed_owned_startup_observer')
         module.__file__ = str(path)
         exec(compile(payload, str(path), 'exec'), module.__dict__)
+        capture = plan['files']['capture']
+        capture_path = Path(capture['path']).resolve(strict=True)
+        if (capture.get('sha256') != CAPTURE_HELPER_SHA256 or
+                sha(capture_path) != CAPTURE_HELPER_SHA256):
+            raise ValueError('Reviewed capture helper differs from approved single-WGC bytes')
+        # The frozen plan owns the exact helper path. A short worktree need not
+        # contain the shared runtime archive at the observer's default ROOT.
+        module.CAPTURE_EXECUTABLE = capture_path
+        module.CAPTURE_SHA256 = CAPTURE_HELPER_SHA256
         dpi_path = Path(plan['files']['dpi_helper']['path']).resolve(strict=True)
         dpi_payload = dpi_path.read_bytes()
         if hashlib.sha256(dpi_payload).hexdigest() != plan['files']['dpi_helper']['sha256']:

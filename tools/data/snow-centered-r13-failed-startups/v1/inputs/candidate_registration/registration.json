@@ -1,0 +1,38 @@
+{
+  "identifier": "modern_projection:diagnostic_centered_poppy",
+  "appearance": {
+    "netease_model": "modern_projection:diagnostic_centered_poppy",
+    "sound": "grass"
+  },
+  "texture_key": "modern_projection_diagnostic_centered_poppy",
+  "texture_entry": {
+    "textures": "textures/blocks/flower_rose"
+  },
+  "native_material": [
+    "minecraft:poppy",
+    0
+  ],
+  "alpha_top_height": 0.6875,
+  "production_default_enabled": false,
+  "opt_in_required": true,
+  "position_contract": {
+    "xz_translation": [
+      0.0,
+      0.0
+    ],
+    "unit_cross_height": 1.0,
+    "native_random_offset_applied": false,
+    "native_mesh_authority": false,
+    "position_fidelity_accepted": false,
+    "geometry_fit_allowed": false,
+    "hypothesis": "Existing centered cross template, unit height; native texture alpha unchanged"
+  },
+  "source": {
+    "manifest": "tools/data/static_plant_sources_nemc_3.9.0.401155.json",
+    "manifest_sha256": "433a839c185a28050f0a6446a9b884ff38679ddc7ee51af02168e4ab3d0ebade",
+    "template": "resource_pack/models/netease_block/preview_fern.json",
+    "template_sha256": "f460cb21dee29470140e1e759eeae75afcd9406f5982806cabea9e4d47d70f96",
+    "native_texture_path": "textures/blocks/flower_rose.png",
+    "native_texture_sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b"
+  }
+}

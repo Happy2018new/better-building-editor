@@ -585,10 +585,14 @@ class StartupCaptureLifecycleTests(unittest.TestCase):
         dpi_source = supervisor.ROOT / 'tools/diagnose_window_dpi.py'
         self.helper = self.root / 'single-wgc.exe'
         self.helper.write_bytes(b'Offline fake helper; never executed')
+        capture_sha = supervisor.sha(self.helper)
+        patch = mock.patch.object(supervisor, 'CAPTURE_HELPER_SHA256', capture_sha)
+        patch.start()
+        self.addCleanup(patch.stop)
         self.plan = {'owner': supervisor.OWNER, 'project': str(self.root), 'files': {
             'observer': {'path': str(source), 'sha256': supervisor.sha(source)},
             'dpi_helper': {'path': str(dpi_source), 'sha256': supervisor.sha(dpi_source)},
-            'capture': {'path': str(self.helper)}}}
+            'capture': {'path': str(self.helper), 'sha256': capture_sha}}}
         self.session_file = self.root / 'session.json'
         self.session = {'schema': 1, 'id': 'owned-session', 'owner': supervisor.OWNER,
             'project': str(self.root), 'session_file': str(self.session_file), 'state': 'starting',
@@ -597,6 +601,21 @@ class StartupCaptureLifecycleTests(unittest.TestCase):
             'game_executable': str(self.root / 'Minecraft.Windows.exe'),
             'noactivation': {'requested': True, 'mcdk': {'path': str(self.root / 'mcdk.exe')}}}
         self.session_file.write_text(json.dumps(self.session), encoding='utf8')
+
+    def test_short_worktree_uses_exact_frozen_capture_pin_without_default_archive(self):
+        observer = self.host.observer_adapter(self.plan)
+        self.assertEqual(self.helper.resolve(), observer.CAPTURE_EXECUTABLE)
+        self.assertEqual(supervisor.sha(self.helper), observer.CAPTURE_SHA256)
+        self.assertFalse((self.root / '.runtime/worktree-archive-r7').exists())
+
+    def test_changed_capture_pin_or_bytes_is_refused_before_child_capture(self):
+        self.plan['files']['capture']['sha256'] = 'changed-pin'
+        with self.assertRaisesRegex(ValueError, 'approved single-WGC'):
+            self.host.observer_adapter(self.plan)
+        self.plan['files']['capture']['sha256'] = supervisor.CAPTURE_HELPER_SHA256
+        self.helper.write_bytes(b'external different executable')
+        with self.assertRaisesRegex(ValueError, 'approved single-WGC'):
+            self.host.observer_adapter(self.plan)
 
     def test_capture_timeout_kills_and_reaps_the_only_child_before_failed_receipt(self):
         observer = self.host.observer_adapter(self.plan)

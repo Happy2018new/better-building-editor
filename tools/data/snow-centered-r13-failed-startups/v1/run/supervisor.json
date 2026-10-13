@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "owner": "snow-r13-centered-native",
+  "name": "snow-centered-r13-v1",
+  "launches": 0,
+  "budgets": {
+    "total": 240,
+    "work": 190,
+    "cleanup_reserved": 50,
+    "launcher_wait": 90
+  },
+  "backup": [
+    {
+      "target": "D:\\bbe-r13-snow\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "backup": "D:\\bbe-r13-snow\\.runtime\\snow-centered-r13-v1\\run\\original-instances.py",
+      "sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "restored": true
+    }
+  ],
+  "samples": [],
+  "cleanup_errors": [],
+  "handle_samples": [],
+  "handle_rule_triggered": false,
+  "resource_health_accepted": false,
+  "matrix_started": false,
+  "production_acceptance": false,
+  "started_at": "2026-10-13T05:35:32.079449+00:00",
+  "capacity_checks": [
+    {
+      "source": "CIM candidates verified by _session.process_identity",
+      "live_check": "GetExitCodeProcess == STILL_ACTIVE (259) plus creation identity",
+      "rows": [
+        {
+          "pid": 39736,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 49152,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46240,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 46140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 47140,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 50436,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 3460,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 52300,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 8040,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 29080,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 37744,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 33996,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 28672,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 228,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 22924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 17828,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 61924,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41036,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 59752,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 41892,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 63732,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 39612,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 36864,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 59004,
+          "thread_count": 0,
+          "handle_count": 0,
+          "executable": null,
+          "working_set_bytes": 32768,
+          "identity": null,
+          "status": "excluded_terminated_cim_object"
+        },
+        {
+          "pid": 53792,
+          "thread_count": 76,
+          "handle_count": 867,
+          "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+          "working_set_bytes": 1360343040,
+          "identity": "134363432612984169",
+          "status": "verified_live"
+        }
+      ],
+      "active_pids": [
+        53792
+      ],
+      "excluded_pids": [
+        39736,
+        46240,
+        46140,
+        47140,
+        50436,
+        3460,
+        52300,
+        8040,
+        29080,
+        37744,
+        33996,
+        228,
+        22924,
+        17828,
+        61924,
+        41036,
+        59752,
+        41892,
+        63732,
+        39612,
+        59004
+      ],
+      "uncertain_pids": [],
+      "process_mutation_attempted": false,
+      "phase": "before_preparation"
+    }
+  ],
+  "active_game_pids_before": [
+    53792
+  ],
+  "error": "SameFileError: 'D:\\\\bbe-r13-snow\\\\.agents\\\\skills\\\\pyreact-debugging\\\\scripts\\\\instances.py' and WindowsPath('D:/bbe-r13-snow/.agents/skills/pyreact-debugging/scripts/instances.py') are the same file",
+  "native_texture_unchanged": true,
+  "centered_plant_resources_restored": {
+    "installed": false,
+    "restored": true,
+    "errors": []
+  },
+  "marker_restored": true,
+  "run_elapsed_seconds": 2.5501383999944665,
+  "deadline_exceeded": false,
+  "diagnostic_completed": false
+}

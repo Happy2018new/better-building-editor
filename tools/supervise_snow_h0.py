@@ -27,6 +27,12 @@ APPLICATION_READINESS = {'maximum_wait_seconds': 20, 'query_timeout_seconds': 1,
 COPY_TARGETS = startup.COPY_TARGETS
 
 
+def validate_preparation_sources(project, files):
+    for target, key in zip(COPY_TARGETS, ('instances', 'mcdk_client', 'config')):
+        if Path(files[key]['path']).resolve() == (Path(project) / target).resolve():
+            raise ValueError('H0 copy input must be frozen separately from its target: ' + key)
+
+
 def validate_plan(path, expected_sha):
     if startup.sha(path) != expected_sha:
         raise ValueError('Frozen h0 plan changed')
@@ -65,6 +71,7 @@ def validate_plan(path, expected_sha):
     for row in plan['files'].values():
         if startup.sha(row['path']) != row['sha256']:
             raise ValueError('Frozen h0 input changed: ' + row['path'])
+    validate_preparation_sources(ROOT, plan['files'])
     expected = json.loads(Path(plan['files']['project_source']['path']).read_bytes())['files']
     actual = {path.relative_to(ROOT).as_posix(): startup.sha(path)
               for name in ('behavior_pack', 'resource_pack') for path in (ROOT / name).rglob('*') if path.is_file()}

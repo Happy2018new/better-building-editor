@@ -26,7 +26,7 @@ plant/blank first. The unchanged 80-pixel positive-control gate must pass in
 both modes before snow/covered captures begin. Every native capture stops the
 virtual projection. Every projected capture clears only the real target,
 waits for a blank client palette, and checks blank again after the image;
-the separate stone support remains. This prevents an interleaved native
+the separate dirt support remains. This prevents an interleaved native
 snow/covered fixture from contaminating later projection frames.
 
 All original thresholds remain: fixed physical image 1994×1105 and crop,

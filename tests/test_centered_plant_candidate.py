@@ -23,6 +23,7 @@ from verify_snow_h0_phase import (CROP, PLANT_PROFILE_RESTORE, candidate_profile
                                   capture_schedule, plant_positive_controls)
 from verify_snow_h0_phase import clear_native_for_projection
 from PIL import Image, ImageDraw
+from supervise_snow_h0 import COPY_TARGETS, validate_preparation_sources
 
 
 class CenteredPlantCandidateTests(unittest.TestCase):
@@ -222,6 +223,15 @@ class IsolatedCandidateResourcesTests(unittest.TestCase):
                 self.assertEqual('minecraft:stone', state['support'])
                 self.assertEqual([['minecraft:air', 0]], result['palette_before']['common'])
             self.assertEqual(3, len([row for row in calls if row[1]]))
+
+    def test_same_file_cold_copy_input_is_refused_before_preparation(self):
+        keys = ('instances', 'mcdk_client', 'config')
+        files = {key: {'path': str(self.output / (key + '.input'))} for key in keys}
+        validate_preparation_sources(self.project, files)
+        for target, key in zip(COPY_TARGETS, keys):
+            altered = dict(files, **{key: {'path': str(self.project / target)}})
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, 'frozen separately'):
+                validate_preparation_sources(self.project, altered)
 
 
 if __name__ == '__main__':
