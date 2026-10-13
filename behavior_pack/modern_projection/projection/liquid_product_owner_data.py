@@ -1,3 +1,3 @@
 """Generated water rule and owner fingerprints; regenerate before acceptance."""
 SCHEMA_VERSION = 1
-IMPLEMENTATION_CONTRACT_SHA256 = '7b13634a6a1aa1888a8aef8c251768a9ae34157122247ccf243380790f4af368'
+IMPLEMENTATION_CONTRACT_SHA256 = '79b7f04a4041e5065df70ce6e014de12fa5c3e2cda34a0be0e00ead85e88248a'

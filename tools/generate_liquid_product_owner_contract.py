@@ -12,6 +12,7 @@ SOURCES = tuple('behavior_pack/modern_projection/projection/' + name + '.py' for
     'liquid_face_textures', 'liquid_face_texture_data', 'liquid_product_profile',
     'liquid_render_plan', 'liquid_transport', 'liquid_render', 'liquid_preview',
     'liquid_projection', 'liquid_viewport', 'liquid_scene', 'scene', 'world_projection',
+    'projection_companions',
     'liquid_product_deployment', 'liquid_deployment', 'biomes', 'biome_water_data',
     'block_traits', 'block_traits_data', 'block_registry', 'block_registry_data',
     'debug_product_water_blueprints'))

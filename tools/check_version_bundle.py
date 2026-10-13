@@ -273,6 +273,13 @@ def check_provenance(root=ROOT):
     checked.extend((data['source_report_file'], data['source_session_manifest_file']))
     session = json.loads((root / data['source_session_manifest_file']).read_bytes())
     checked.append(session['startup_log']['file'])
+    from generate_liquid_product_resources import verify_contract, runtime_source
+    path = root / 'tools/data/liquid_product_resource_contract_v1.json'
+    verify_contract(json.loads(path.read_bytes()), root, sources=root)
+    generated = root / 'behavior_pack/modern_projection/projection/liquid_product_resource_data.py'
+    if generated.read_text(encoding='ascii') != runtime_source(path):
+        raise ValueError('Generated product water differs from its versioned resources')
+    checked.extend((str(path.relative_to(root)), str(generated.relative_to(root))))
     return manifest, checked
 
 
@@ -293,11 +300,15 @@ def commands(manifest, tests=False):
         ['tools/generate_liquid_face_textures.py', '--check'],
         ['tools/generate_liquid_shapes.py', '--check'],
         ['tools/generate_liquid_flow_top.py', '--check'],
+        ['tools/generate_liquid_product_shapes.py', '--check'],
+        ['tools/generate_liquid_product_owner_contract.py', '--check'],
+        ['tools/generate_item_sprite_resources.py', '--check'],
         ['tools/generate_native_pot_sherds.py', '--check'],
         ['tools/generate_skull_proxies.py', '--check'],
         ['tools/generate_flat_item_proxies.py', '--check'],
         ['tools/check_snow_blueprints.py', '--check'],
         ['tools/generate_static_plant_proxies.py', '--check'],
+        ['tools/generate_centered_plant_profiles.py', '--check'],
         ['tools/generate_bed_proxies.py', '--check'],
         ['tools/generate_scaffold_support.py', '--check'],
         ['tools/generate_biome_water.py', '--source',
