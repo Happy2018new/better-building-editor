@@ -50,7 +50,7 @@ RUN = r'''items=>items.map(item=>{
    gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
    gl.drawElements(gl.TRIANGLES,item.indices.flat().length,gl.UNSIGNED_SHORT,0);
    const pixels=new Uint8Array(item.size*item.size*4);gl.readPixels(0,0,item.size,item.size,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
-   frames.push([...pixels]);}
+   frames.push(btoa(String.fromCharCode(...pixels)));}
   return {name:item.name,frames};
  }finally{gl.getExtension('WEBGL_lose_context').loseContext();}
 })'''
@@ -117,7 +117,8 @@ def main():
     u, v = np.meshgrid(np.linspace(.08, .92, GRID), np.linspace(.08, .92, GRID))
     results = []
     for item, rendered in zip(items, renders):
-        pixels = np.asarray(rendered['frames']).reshape((-1, SIZE, SIZE, 4))
+        pixels = np.stack([np.frombuffer(base64.b64decode(frame), dtype=np.uint8).reshape((SIZE, SIZE, 4))
+                           for frame in rendered['frames']])
         x, y = SIZE * (.1 + .8 * u), SIZE * (.1 + .8 * (1 - v if item['face'] == 0 else v))
         signal = np.array([map_coordinates(frame[:, :, :3].mean(axis=2), (y, x), order=1)
                            for frame in pixels])
