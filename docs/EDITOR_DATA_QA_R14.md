@@ -90,10 +90,56 @@ acceptance remains `None`. Generic missing-mode occupancy replaces the client
 observation; the real-world chest and bed occupancy routes remain separate.
 
 One new finalization risk was sent to the group specialist: if restoring the
-saved grid raises, the wrapper skips final source verification and report
+saved grid raised, the wrapper skipped final source verification and report
 publication, potentially leaving the underlying runner's `passed=true` and
-`restored=true` report. That cleanup must make the final report fail and still
-publish its fingerprints. Resolution is pending in this report revision.
+`restored=true` report. It was fixed in `9a6d62f6`. Independent execution of all
+15 focused methods passed, including injected restoration failure, source
+drift, and missing initial report. Finalization now publishes fingerprints
+and failed receipts even if grid restoration fails.
+
+### Item sprite candidate
+
+The private candidate integration in `71d0b7c7`, precision update `70586411`,
+and shared projection companions were reviewed read-only. The 15 initial item
+methods, 7 companion methods and resource generator `--check` passed
+independently. Publication checks reject superseded generations and retain
+failed release records for retry. The supported sprite family is currently
+flat `diamond_sword`; unknown visual NBT and other item families are retained
+as data rather than declared rendered. Production qualification remains false.
+
+An actual frame-budget defect was reproduced: 4,095 non-frame source cells
+followed by a frame were all scanned by the first `next()` call. Invisible
+cells similarly bypassed budget yields. The item specialist fixed this in
+`b3052c32`, yielding for every source cell before filtering. All 16 final item
+methods passed independently; the added counter test verifies one scanned
+cell after one step and 64 after 64 steps, including hidden cells.
+
+### Centered snow plants
+
+The product profile change `c42f9ad2` was independently reviewed read-only.
+Version, dump and style validation, 27 generated centered profiles plus two
+existing grass/fern profiles, cell bounds, alpha burial thresholds, strict
+layer erasure and automatic promotion were checked. No definite production
+blocker was found. All 24 methods matching `test_centered*.py` and the centered
+generator's `--check` passed independently. No GPU result exists for these
+new bytes; the dry shape, snow boundary, editor/full/missing and cutaway visual
+suite remains pending.
+
+### Pending specialist follow-ups
+
+- Water probe review found unverified camera interpolation and paired-control
+  framing, no complete launch/before/after resource freeze, and an unused
+  declared temporal threshold. The specialist is implementing explicit pose
+  waits, per-frame evidence, source equality gates and threshold 2 for animation.
+  FOV/resolution stability, editor-control alignment and source-drift negative
+  test independence need final verification.
+- Scaffold collector review of `07454a5f` found that `classify` checked the
+  upper cell's foreground and fluid but ignored its native palette. An upper
+  non-fluid background stone still classified as supporting; `aux=False`
+  also passed equality with zero. These must remain unknown unless the exact
+  observed dry-air palette and integer aux are verified. Five catalogue and
+  four native-palette methods passed independently, but these extra negative
+  cases are pending specialist fixes.
 
 ## Limits and integration
 
