@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "read_only_monitor": true,
+  "owner": "liquid-r13-native-write-v2",
+  "timeout_seconds": 94.31985425949097,
+  "outer_deadline_unix": 1791872086.402689,
+  "samples": [
+    {
+      "observed_at": 1791871692.1354015,
+      "handles": 66558,
+      "working_set_bytes": 1055371264,
+      "private_commit_bytes": 2291404800
+    },
+    {
+      "observed_at": 1791871697.3833482,
+      "handles": 67520,
+      "working_set_bytes": 501309440,
+      "private_commit_bytes": 2426621952
+    },
+    {
+      "observed_at": 1791871702.611973,
+      "handles": 68684,
+      "working_set_bytes": 692568064,
+      "private_commit_bytes": 2493394944
+    }
+  ],
+  "failure": null,
+  "observed_session": {
+    "id": "fe85154cdf3d47849b46ac7ddc3cb440",
+    "owner": "liquid-r13-native-write-v2",
+    "project": "D:\\bbe-r13-liquid",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\session.json",
+    "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\appdata",
+    "port": 64895,
+    "mcp_url": "http://127.0.0.1:64895/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+    "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_fe85154cdf3d47849b46ac7ddc3cb440",
+    "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_fe85154cdf3d47849b46ac7ddc3cb440",
+    "game_pid": 59380,
+    "game_identity": "134363452064026900",
+    "mcdk_pid": 57676,
+    "mcdk_identity": "134363452061580849"
+  },
+  "persistence_errors": [],
+  "startup": false,
+  "growth_enabled": false,
+  "child_pid": 53284,
+  "started_at": 1791871692.1276786,
+  "terminal_sample": {
+    "observed_at": 1791871706.0986571,
+    "handles": 69539,
+    "working_set_bytes": 694190080,
+    "private_commit_bytes": 2484928512
+  },
+  "returncode": 0,
+  "finished_at": 1791871706.098674
+}

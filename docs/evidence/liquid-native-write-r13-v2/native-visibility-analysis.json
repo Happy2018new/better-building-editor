@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "source": {
+    "path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\original-priority.json",
+    "sha256": "66e16efe64101958b437b477d39123bc11580f63a05fc75f61218864380160d7"
+  },
+  "geometry_plan": {
+    "path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\original-priority_geometry_plan.json",
+    "sha256": "247d903454bd7c6cc6f0dc29625f6b109e51454ecab91c109e0b823716d908a0"
+  },
+  "analyzer": {
+    "path": "D:\\bbe-r13-liquid\\tools\\analyze_liquid_native_write.py",
+    "sha256": "ccd6afb4cfbd409cc7cda9eeacf8d7c2a505770ebdf14999879022b78db7bb68"
+  },
+  "limits": {
+    "rgb_delta": 12,
+    "minimum_signal_pixels": 80,
+    "inset_pixels": 3,
+    "crosshair_half_extent": 20,
+    "hud_top_fraction": 0.12,
+    "hud_bottom_fraction": 0.9
+  },
+  "missing_captures": [],
+  "completed": true,
+  "restored": true,
+  "cleanup_errors": [],
+  "cases": {
+    "h_vnw": {
+      "native_palette": {
+        "status": "FAIL",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 481,
+            "bounds": [
+              696,
+              849,
+              719,
+              878
+            ],
+            "eligible_pixels": 215249,
+            "observed": true
+          },
+          "water_envelope": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 335680,
+            "observed": false
+          }
+        }
+      },
+      "native_direct": {
+        "status": "FAIL",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 527,
+            "bounds": [
+              863,
+              889,
+              887,
+              918
+            ],
+            "eligible_pixels": 215249,
+            "observed": true
+          },
+          "water_envelope": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 335680,
+            "observed": false
+          }
+        }
+      },
+      "full": {
+        "status": "OBSERVED",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 215249,
+            "bounds": [
+              659,
+              582,
+              1313,
+              994
+            ],
+            "eligible_pixels": 215249,
+            "observed": true
+          },
+          "water_envelope": {
+            "pixels": 206404,
+            "bounds": [
+              601,
+              328,
+              1364,
+              716
+            ],
+            "eligible_pixels": 335680,
+            "observed": true
+          }
+        }
+      }
+    },
+    "l_vnw": {
+      "native_palette": {
+        "status": "FAIL",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 215249,
+            "observed": false
+          },
+          "water_envelope": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 335680,
+            "observed": false
+          }
+        }
+      },
+      "native_direct": {
+        "status": "FAIL",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 215249,
+            "observed": false
+          },
+          "water_envelope": {
+            "pixels": 0,
+            "bounds": null,
+            "eligible_pixels": 335680,
+            "observed": false
+          }
+        }
+      },
+      "full": {
+        "status": "OBSERVED",
+        "readback_or_source_gate": true,
+        "pixels": {
+          "support": {
+            "pixels": 215249,
+            "bounds": [
+              659,
+              582,
+              1313,
+              994
+            ],
+            "eligible_pixels": 215249,
+            "observed": true
+          },
+          "water_envelope": {
+            "pixels": 31302,
+            "bounds": [
+              648,
+              532,
+              1322,
+              716
+            ],
+            "eligible_pixels": 335680,
+            "observed": true
+          }
+        }
+      }
+    }
+  },
+  "native_visibility_observed": false,
+  "side_uv_qualified": false,
+  "transparency_qualified": false,
+  "animation_qualified": false,
+  "production_qualified": false,
+  "scope": "Source-derived native write visibility only; no native shape, UV, tint, alpha or animation acceptance",
+  "status": "FAIL"
+}

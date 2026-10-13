@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "phase_receipts": {
+    "actual-world": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\actual-world-passive-health.json"
+    },
+    "preflight": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\preflight-passive-health.json"
+    },
+    "physical": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\physical-passive-health.json"
+    },
+    "health": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\health-passive-health.json"
+    },
+    "calibrate": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\calibrate-passive-health.json"
+    },
+    "original-priority": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v2\\original-priority-passive-health.json"
+    }
+  },
+  "owner": "liquid-r13-native-write-v2",
+  "scope": "One hypothesis: palette readback without native terrain visibility; H/L NW palette/direct/full diagnostic only",
+  "plan_sha256": "82a14b8aa8b98dfd90f52e56d6e9b76041ac6e30c233fa8bbcdc6989bf4b936e",
+  "capacity_receipt_sha256": "5646e4a81be2ef9345bdc4317971edb3f7464823aeafdd61b322835a9d66eb93",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791871606.402689,
+  "startup_deadline_unix": 1791871786.402689,
+  "outer_deadline_unix": 1791872006.025989,
+  "transport_ready_observed_at": 1791871692.0783203,
+  "ready_observed_at": 1791871706.025989,
+  "normal_deadline_unix": 1791871946.025989,
+  "fixture_cleanup_deadline_unix": 1791871976.025989,
+  "full_work_cleanup_reserve_verified": true,
+  "actual_world_receipt_sha256": "8fb20d447b9b6ab5330b54eef926830924c7cf1c335184b16bf0a741910bbc00",
+  "resource_failure_cleanup": {
+    "authorized": true,
+    "force_used": true,
+    "pinned_binding": {
+      "id": "fe85154cdf3d47849b46ac7ddc3cb440",
+      "owner": "liquid-r13-native-write-v2",
+      "project": "D:\\bbe-r13-liquid",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\session.json",
+      "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\appdata",
+      "port": 64895,
+      "mcp_url": "http://127.0.0.1:64895/mcp",
+      "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_fe85154cdf3d47849b46ac7ddc3cb440",
+      "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\fe85154cdf3d47849b46ac7ddc3cb440\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_fe85154cdf3d47849b46ac7ddc3cb440",
+      "game_pid": 59380,
+      "game_identity": "134363452064026900",
+      "mcdk_pid": 57676,
+      "mcdk_identity": "134363452061580849"
+    },
+    "outer_deadline_unix": 1791872006.025989,
+    "attempts": [
+      {
+        "force": true,
+        "kind": "game",
+        "pid": 59380
+      },
+      {
+        "force": true,
+        "kind": "mcdk",
+        "pid": 57676
+      }
+    ],
+    "identities_before": {
+      "game": "134363452064026900",
+      "mcdk": "134363452061580849"
+    },
+    "ordinary_close_sent": true,
+    "identities_after": {
+      "game": null,
+      "mcdk": null
+    },
+    "passed": true,
+    "finished_at": 1791871834.614599,
+    "outer_deadline_met": true
+  },
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 232.72362208366394,
+  "ready_to_stopped_seconds": 133.100323677063
+}
