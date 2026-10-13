@@ -203,6 +203,198 @@
       ],
       "blendSrc": "SourceAlpha",
       "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_liquid_product_flowing_water_grey:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
     }
   }
 }

@@ -126,3 +126,12 @@ docs/evidence/liquid-native-write-r13-v4b/** -text -diff
 docs/evidence/liquid-native-height-basis-r13-v4b/** -text -diff
 docs/evidence/liquid-native-archive-replay-r13-v4b/** -text -diff whitespace=cr-at-eol
 docs/evidence/round13-integrated-verification/** -text -diff
+# Product water resources have their own byte contract; native diagnostics stay frozen.
+tools/generate_liquid_product_resources.py text eol=lf
+tools/verify_liquid_product_resources.py text eol=lf
+tools/data/liquid_product_resource_contract_v1.json text eol=lf
+tools/data/liquid_product_host_gles_v1.json text eol=lf
+behavior_pack/modern_projection/projection/liquid_product_resource_data.py text eol=lf
+resource_pack/shaders/glsl/modern_projection_liquid_product_* text eol=lf
+# Mixed-index offline replay retains its exact generated report bytes.
+docs/evidence/liquid-native-archive-mixed-replay-r14-v1/** -text -diff whitespace=cr-at-eol

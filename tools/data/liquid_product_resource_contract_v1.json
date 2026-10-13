@@ -1,0 +1,578 @@
+{
+  "default_opacity": 0.45,
+  "draw_contract": "Opaque scene bodies first; outward faces, source-alpha blend, no liquid depth writes",
+  "face_texture_rows_sha256": "2e40f6fa259137251e87b29297f80a0b103b843f9885253187184b4f7a775109",
+  "game_acceptance_claimed": false,
+  "game_version": "NEMC 3.9.0.401155",
+  "generator_sha256": "26b7431b346d97357c1acb146802529b37ddffdb2ca495a3b985d72e52869ccd",
+  "materials": {
+    "modern_projection_liquid_product_flowing_water_grey:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_world:entity_for_skeleton_alpha": {
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "version": "1.0.0"
+  },
+  "model_options": {
+    "modern_projection_liquid_product_flowing_water_grey": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": false,
+      "uv_template": "native_water_side_nw_bottom_edges_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": false,
+      "uv_template": "native_water_side_nw_bottom_edges_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen_world": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": false,
+      "uv_template": "native_water_side_nw_bottom_edges_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "liquidUv*FRAME_PIXELS",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": true,
+      "uv_template": "candidate_water_top_center_turn256_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "liquidUv*FRAME_PIXELS",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": true,
+      "uv_template": "candidate_water_top_center_turn256_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_top.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen_world": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "liquidUv*FRAME_PIXELS",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": true,
+      "uv_template": "candidate_water_top_center_turn256_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_world": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey_top.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "liquidUv*FRAME_PIXELS",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": true,
+      "uv_template": "candidate_water_top_center_turn256_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_top_world.vertex"
+    },
+    "modern_projection_liquid_product_flowing_water_grey_world": {
+      "fragment_shader": "modern_projection_liquid_product_flowing_water_grey.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS*0.5-1.0)+0.5",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "flowing_water_grey",
+      "top_only": false,
+      "uv_template": "native_water_side_nw_bottom_edges_v1",
+      "vertex_shader": "modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey": {
+      "fragment_shader": "modern_projection_liquid_product_still_water_grey.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "still_water_grey",
+      "top_only": false,
+      "uv_template": null,
+      "vertex_shader": "modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen": {
+      "fragment_shader": "modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
+      "preview_depth": true,
+      "single_sided": true,
+      "texture": "still_water_grey",
+      "top_only": false,
+      "uv_template": null,
+      "vertex_shader": "modern_projection_liquid_product_geometry.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen_world": {
+      "fragment_shader": "modern_projection_liquid_product_still_water_grey_frozen.fragment",
+      "frozen": true,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "still_water_grey",
+      "top_only": false,
+      "uv_template": null,
+      "vertex_shader": "modern_projection_liquid_product_geometry_world.vertex"
+    },
+    "modern_projection_liquid_product_still_water_grey_world": {
+      "fragment_shader": "modern_projection_liquid_product_still_water_grey.fragment",
+      "frozen": false,
+      "outward_winding": true,
+      "pixel_coordinates": "clamp(liquidUv,0.0,1.0)*(FRAME_PIXELS-1.0)+0.5",
+      "preview_depth": false,
+      "single_sided": true,
+      "texture": "still_water_grey",
+      "top_only": false,
+      "uv_template": null,
+      "vertex_shader": "modern_projection_liquid_product_geometry_world.vertex"
+    }
+  },
+  "models": {
+    "modern_projection_liquid_product_flowing_water_grey": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey",
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_frozen",
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_frozen_world",
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_top",
+      "mesh": "modern_projection/liquid/flowing_water_grey_top_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_top_frozen",
+      "mesh": "modern_projection/liquid/flowing_water_grey_top_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_top_frozen_world",
+      "mesh": "modern_projection/liquid/flowing_water_grey_top_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_top_world",
+      "mesh": "modern_projection/liquid/flowing_water_grey_top_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_flowing_water_grey_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_flowing_water_grey_world",
+      "mesh": "modern_projection/liquid/flowing_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/flowing_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_still_water_grey": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_still_water_grey",
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_still_water_grey_frozen",
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_still_water_grey_frozen_world",
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    },
+    "modern_projection_liquid_product_still_water_grey_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_liquid_product_still_water_grey_world",
+      "mesh": "modern_projection/liquid/still_water_grey_mesh.json",
+      "skeleton": "modern_projection/liquid/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/liquid/still_water_grey"
+      }
+    }
+  },
+  "native_parity_claimed": false,
+  "native_source_sha256": {
+    "resource_packs/vanilla/blocks.json": "cb3aad2d0d012bfb63a462ec9a5d8af54128c8afc26d74ac6f4ae074c9d50faa",
+    "resource_packs/vanilla/textures/blocks/water_flow_grey.png": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+    "resource_packs/vanilla/textures/blocks/water_still_grey.png": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+    "resource_packs/vanilla/textures/flipbook_textures.json": "54fef45e43eabb065a703f829d70320430c746744289775e57af582cb240fd7a",
+    "resource_packs/vanilla/textures/terrain_texture.json": "9ce3e389999a7aff19968a60fd21dad1811cf63ec3edd6afac0af0df649e212c",
+    "resource_packs/vanilla_netease/materials/entity.material": "b6079bb007bff8a307c65001bf1f3b3021b6d0492a90bb541db1bbf714e9716f",
+    "shaders/glsl/uniformInterFrameConstants.h": "88e557dd3a94f6c1c9f1e8b58e7a9405f04962a0ad7f909f1a616f42373b5ac0"
+  },
+  "opacity_contract": "Explicit biome opacity overrides the product default; projection and UI alpha multiply it",
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "d0b20315e7a09183f4895a92eb15bbac859b9bccd47f76031336697c145f8453",
+    "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json": "31dd928fd955da704cf9880b6aedcfee760bcc4173edd505f5a4697fcb797210",
+    "resource_pack/models/modern_projection/liquid/flowing_water_grey_top_mesh.json": "46fad464f8b33324f75a9a4c98157dd6329a3bd1658a70830974f6a145e22546",
+    "resource_pack/models/modern_projection/liquid/skeleton.json": "2ee4a750956632219fb9bec5c7dc0abaf521bcafd3f0e25c02bf331b7d2656db",
+    "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json": "fc1d11b68d0a5068970442fae3888db4240a0e8c66023cd15071dd897e5ad15e",
+    "resource_pack/models/netease_models.json": "4c4d0b58a4a7272cf4ae5cd5c07154d2ad0a8ea631dfd0f5b1f3cccb0703a17a",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey.fragment": "a65c244ce66342b8291746b43585859bd768e829edf97334b55d755cd686e72f",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey_frozen.fragment": "757c67cc104426c5f1008c66a13a4889ab5b554c1bc127b9e82cc35a90fb900b",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top.fragment": "4b3d2cbf0759560c78785a89bbdaeac385fd22959b1977b2d86e253703035873",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_flowing_water_grey_top_frozen.fragment": "c30e0d596eff9da0ae4cb5f660c36199cdfc02050ef0cf687be1aaccff8bc9df",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry.vertex": "2e24fac949da37ed8e4f13253f9c06901e3110fafeedb6a264680a1e79b53f63",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_top.vertex": "9d3f0f05be9967d9db4315455dab59a4b2d46b868e7dba8ad46118e1228b9ab9",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_top_world.vertex": "bf27fc693b888472f2521d48426c2b5b5430523330c0cc2ed884f5922c09299b",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_geometry_world.vertex": "ca969afd8072b1560fa519119d1af48c7a2329c0dadfa1257d98d88d17d3923f",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_still_water_grey.fragment": "22bcca55255079fc29196e8851633d38b3234940d94b68fab09e5f3979cdce32",
+    "resource_pack/shaders/glsl/modern_projection_liquid_product_still_water_grey_frozen.fragment": "8ee90995be6b097aef07a80c6a43ea241271edf0c95d76b15541090e26a69e8f",
+    "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+    "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3"
+  },
+  "palette_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "payload_version": 2,
+  "product_style_version": "java_snapshot_water_v1",
+  "project_source_fingerprint": "sha256_utf8_text_with_lf",
+  "project_source_sha256": {
+    "resource_pack/shaders/glsl/modern_projection_liquid_preview_depth.h": "38f86204d01b550c1e4ec4d93214e1b2ff92348e7f1947a810b05d516f5da5c0",
+    "tools/data/native_liquid_face_textures_nemc_3.9.0.401155.json": "6a71b914d8646549ab420cc05f1249fc5ae662b8f341bf105d918479f7bc1351",
+    "tools/generate_liquid_face_textures.py": "54d8bb522ac32112043b6693ae9724b2783c1ea314da3d3551c81bba04134cbe",
+    "tools/generate_liquid_payload_poc.py": "b582c56570d6a46bd01d8fd8622c4ef4becbed66a63650f28c432e9441d83ffb",
+    "tools/generate_liquid_product_resources.py": "26b7431b346d97357c1acb146802529b37ddffdb2ca495a3b985d72e52869ccd",
+    "tools/generate_liquid_skeleton_resources.py": "6a7102cbc8ce93c550246cb0a4cee736315be6c832ae94e763c5f81afe3ef843"
+  },
+  "resource_style_version": "nemc_artwork_water_v1",
+  "schema_version": 1,
+  "textures": {
+    "flowing_water_grey": {
+      "alpha_range": [
+        255,
+        255
+      ],
+      "animation": {
+        "blend_frames": true,
+        "cadence_source": "product_style_default",
+        "clock_uniform": "TOTAL_REAL_WORLD_TIME",
+        "cycles_per_reset": 2250,
+        "engine_clock_observed": false,
+        "frames": 32,
+        "header": "uniformInterFrameConstants.h",
+        "native_cadence_claimed": false,
+        "reset_seconds": 3600,
+        "ticks_per_frame": 1,
+        "ticks_per_second": 20
+      },
+      "flipbook": {
+        "atlas_tile": "flowing_water_grey",
+        "flipbook_texture": "textures/blocks/water_flow_grey",
+        "replicate": 2
+      },
+      "sha256": "f803fa03de42513b8e19db50e8c0743c5c82a06337afe0191efddd3e47684246",
+      "size": [
+        32,
+        1024
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/water_flow_grey.png"
+    },
+    "still_water_grey": {
+      "alpha_range": [
+        240,
+        240
+      ],
+      "animation": {
+        "blend_frames": true,
+        "cadence_source": "installed_metadata",
+        "clock_uniform": "TOTAL_REAL_WORLD_TIME",
+        "cycles_per_reset": 1125,
+        "engine_clock_observed": false,
+        "frames": 32,
+        "header": "uniformInterFrameConstants.h",
+        "native_cadence_claimed": false,
+        "reset_seconds": 3600,
+        "ticks_per_frame": 2,
+        "ticks_per_second": 20
+      },
+      "flipbook": {
+        "atlas_tile": "still_water_grey",
+        "flipbook_texture": "textures/blocks/water_still_grey",
+        "ticks_per_frame": 2
+      },
+      "sha256": "db3edc3132d88a595d466e90840a8e8839593776421435c23aa880fbd2a779c3",
+      "size": [
+        16,
+        512
+      ],
+      "source": "resource_packs/vanilla/textures/blocks/water_still_grey.png"
+    }
+  }
+}

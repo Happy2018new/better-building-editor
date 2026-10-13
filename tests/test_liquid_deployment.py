@@ -284,7 +284,7 @@ class LiquidDeploymentTests(unittest.TestCase):
             value = committed(relative)
             if relative == 'resource_pack/materials/entity.material':
                 actual = json.loads(value)['materials']
-                self.assertEqual(len(contract['models']), sum(name.startswith('modern_projection_liquid_') for name in actual))
+                self.assertEqual(len(contract['models']), sum(name.split(':', 1)[0] in contract['models'] for name in actual))
             elif relative == 'resource_pack/models/netease_models.json':
                 actual = json.loads(value)
                 self.assertTrue(all(actual.get(name) == row for name, row in contract['models'].items()))
