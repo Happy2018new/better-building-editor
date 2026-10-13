@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "scope": "One requested read-only high-game census; live sampling window already closed",
+  "recorded_at_utc": "2026-10-13T06:15:12Z",
+  "owner": "liquid-r13-native-write-v2",
+  "session_id": "fe85154cdf3d47849b46ac7ddc3cb440",
+  "pid": 59380,
+  "expected_creation_identity": "134363452064026900",
+  "helper": "D:/Happy2018newの个人文件/GitHub/better-building-editor/.runtime/frame-material-review-r11/audit_handle_types_readonly.py",
+  "helper_returncode": 1,
+  "error_type": "RuntimeError",
+  "error_message": "Owned process is no longer running",
+  "refusal_point": "Process creation identity checked, then GetExitCodeProcess did not report STILL_ACTIVE; census exited before NtQuerySystemInformation or target handle duplication",
+  "type_snapshot_produced": false,
+  "name_samples_performed": 0,
+  "target_handle_or_world_mutation": false,
+  "new_launches": 0,
+  "retries": 0,
+  "owner_followup": "Owner separately confirmed the matrix completed and restored, then exact game/MCDK stopped before this query. Prior health counts are owner evidence, not object classification by this reviewer.",
+  "type_or_allocation_cause_conclusion": null
+}

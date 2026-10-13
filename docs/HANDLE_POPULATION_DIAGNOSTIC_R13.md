@@ -82,3 +82,16 @@ belong to their owner at
 `D:/bbe-r13-liquid/.runtime/liquid-native-write-r13-v1/*passive-health.json`;
 they were reported to this reviewer but were not retroactively reclassified
 as AFD objects after those games had stopped.
+
+## V2 high-game live window closed
+
+Root subsequently requested one read-only high-case census of liquid V2 game
+PID 59380, creation identity `134363452064026900`, session
+`fe85154cdf3d47849b46ac7ddc3cb440`. The helper verified the supplied creation
+identity but refused when `GetExitCodeProcess` showed the game was no longer
+running, before querying the NT handle table or duplicating any target handle.
+The liquid owner separately confirmed its fourteen-image matrix had completed
+and restored, then the exact game and MCDK processes had already stopped. There
+was no retry, name sample or new launch. The refused-query receipt is preserved
+as `liquid-v2-unavailable.json`; it supplies no classification of the V2 high
+counts or allocation cause.
