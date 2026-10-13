@@ -2,6 +2,16 @@
 
 本轮形式截止为今日 12:00，不休眠。03:10 后中断，08:46 恢复；暂停时段不计工时。10:35 查询 API 订阅可用约 40.75 美元，充值余额未知，已接近 40 美元保留目标；提前收束。最后一次水诊断、恢复、必要回归和所属结果提交已完成，不再追加候选或 Astra 咨询。
 
+11:09 用户要求继续至 12:00，替代上一段提前收束决定。水、含雪、物品代理恢复有限开发，11:50 停止长实验并收尾；保留旧来源／失败，另建新修复或候选，后台实例限制不变，不追加 Astra。11:11 订阅可用约 37.60 美元，充值未知；主代理继续额度核对，避免余额耗尽。
+
+截止保存：11:37 用户切换 API 后重启丢失代理，旧额度不代表当前接口。最后根代码提交 `f040958` 保存水 pending 快照修复、独立居中罂粟候选、SetModel 失败门控和最小结果。根完整检查 2,260 tests／452.683 秒、97 来源及生成检查通过（`.runtime/version-bundle-r12-final-reopen.json`，早于最后候选）；最后定点 water3／item2／candidate7／single5／evidence6／snow28 通过，静态植物生成检查通过。五个用户探针独立保护，main/render-dragon 不改、不推送，本轮不休眠。
+
+水新来源为短树 `D:/liquid-r12-followup` 的 `708da55` + `c28e2b8`，均已精确合入根。唯一 V12 启动因游戏取得前台违反 noactivation 契约而自动停止，0 PNG、0 fixture；无显式激活／input／resize，但不能声称保持后台。外层 identity changed 是停止后次级观察；game48412 creation134363368317217820、MCDK36652 creation134363368315048054 均 null，session1a237d2368d44787a2497ccc50488703 stopped，配置与冻结来源恢复、无 cleanup／persistence errors。先修后台冷启动，再运行现有冻结写入路径对照；不再从读回推断 terrain 可见。
+
+含雪来源 `fdc1516` + `ad3e0bc` 只按 19 个所属路径整合，未合并其基线同步提交 ae473ceb。共享 cross 构造输出保持，独立 poppy 用原纹理、单位高度、零 XZ 平移，排除旧 -0.116666 fit；生产资源和默认映射不变。R11 两份原始 CRLF 证据按 -text 恢复并核验真实 Git blob。0 新MC／0 新图，需新资源 inventory 和当前 adapter freeze，再做 plant-only／covered 正控。候选与来源在 docs/CENTERED_PLANT_CANDIDATE_R12.md，旧失败不可改。
+
+物品来源 `a554100` 已合入根，SetModel -1／非法结果保存后即拒绝 UI mount、bind、capture，并 finally restore。下一普通剑骨骼路线在 tools/probe_entity_attachment_capabilities.md；此次未运行 R17，尚无主体／附件像素资格，glint 仍未完成。API 中断前的设计进度不得当作候选已实机运行。
+
 唯一待办仍为 [IMPLEMENTATION_GAPS.md](IMPLEMENTATION_GAPS.md)，本文件仅保存恢复入口。进度口径继续为本轮粗估贡献 2–4 个百分点、总体约 75%（70%–80%）。主要水／含雪植物／物品附件／glint 缺口尚无完整关闭，不能用测试数或运行完成标志提高功能进度。
 
 根仓库在 `dev`，不推送，不改变 `main`／`render-dragon`。五个 `tools/p0_palette_*probe.py` 用户文件保持原暂存状态，禁止混入提交。所有整合都使用准确 owned 路径；新归档中 ignored 配置仅准确路径 force-add；无需 stash 用户修改。
