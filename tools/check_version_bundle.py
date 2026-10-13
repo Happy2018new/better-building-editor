@@ -10,6 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from check_native_actor_materials import check as check_actor_materials
+from configure_development_runtime import load_target
 MODULES = (
     'block_registry_data', 'block_traits_data', 'entity_defaults_data',
     'appearance_defaults_data', 'frame_rotation_data', 'native_appearance',
@@ -332,6 +333,11 @@ def main():
         manifest, checked = check_provenance()
         report.update(game_version=manifest['game_version'], registry_sha256=manifest['source_sha256'], files=checked)
         report['checks'].append({'name': 'provenance', 'passed': True, 'files': len(checked)})
+        target = load_target()
+        report.update(engine_version=target['engine_version'], resource_version=target['resource_version'],
+                      registry_update_deferred=target['block_registry_update_deferred'],
+                      transforms_update_deferred=target['transforms_update_deferred'])
+        report['checks'].append({'name': 'development_runtime_target', 'passed': True})
         if not args.provenance_only:
             for command in commands(manifest, args.tests):
                 result = subprocess.run(command, cwd=ROOT, check=False)
