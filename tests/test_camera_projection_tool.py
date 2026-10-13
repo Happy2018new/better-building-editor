@@ -11,7 +11,7 @@ from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
 from verify_missing_neighbor_visuals import CELL_ROIS, compare_complete
 from verify_snow_plant_visibility import LOAD
 from verify_camera_projection import fit_fov, largest_component, projected_mask, stone_signal
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw
 
 
 class CameraProjectionTests(unittest.TestCase):
@@ -71,6 +71,42 @@ class CameraProjectionTests(unittest.TestCase):
         self.assertLessEqual(abs(fitted['vertical_fov'] - 80.), 1.)
         self.assertEqual(fitted['boundary_rms_pixels'], 0.)
         self.assertEqual(fitted['mask_iou'], 1.)
+
+    def test_calibration_crop_score_matches_full_raster_search(self):
+        poses = ({'position': (0., 0., 6.), 'target': (0., 0., 0.)},
+                 {'position': (6., -3., 0.), 'target': (0., 0., 0.)})
+        for pose in poses:
+            with self.subTest(pose=pose):
+                actual = projected_mask(pose, (320, 180), 66.3)
+                draw = ImageDraw.Draw(actual)
+                draw.rectangle((2, 2, 8, 7), fill=255)
+                draw.rectangle((158, 85, 161, 89), fill=0)
+                bounds, best = actual.getbbox(), None
+                for step in range(300, 1301):
+                    predicted = projected_mask(pose, actual.size, step / 10.)
+                    error = sum((bounds[i] - predicted.getbbox()[i]) ** 2 for i in range(4))
+                    union = ImageChops.lighter(actual, predicted).histogram()[255]
+                    intersection = ImageChops.multiply(actual, predicted).histogram()[255]
+                    score = (-intersection / max(1, union), error)
+                    if best is None or score < best[0]:
+                        best = (score, step / 10., predicted.getbbox())
+                fitted = fit_fov(actual, pose)
+                self.assertEqual(fitted['vertical_fov'], best[1])
+                self.assertEqual(fitted['mask_iou'], -best[0][0])
+                self.assertEqual(fitted['predicted_bounds'], best[2])
+
+    def test_calibration_crop_score_preserves_viewport_clipping(self):
+        pose = {'position': (0., 0., .75), 'target': (0., 0., 0.)}
+        actual = projected_mask(pose, (120, 80), 110.)
+        ImageDraw.Draw(actual).rectangle((0, 20, 20, 35), fill=0)
+        for fov in (30., 60., 110., 130.):
+            with self.subTest(fov=fov):
+                predicted = projected_mask(pose, actual.size, fov)
+                union = ImageChops.lighter(actual, predicted).histogram()[255]
+                intersection = ImageChops.multiply(actual, predicted).histogram()[255]
+                fitted = fit_fov(actual, pose, fov)
+                self.assertEqual(fitted['mask_iou'], intersection / max(1, union))
+                self.assertEqual(fitted['predicted_bounds'], predicted.getbbox())
 
     def test_calibration_excludes_disconnected_background_changes(self):
         mask = Image.new('L', (100, 80))

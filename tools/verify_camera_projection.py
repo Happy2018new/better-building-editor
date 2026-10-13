@@ -73,13 +73,18 @@ def fit_fov(actual, pose, fixed_fov=None):
     if bounds is None:
         raise AssertionError('The native calibration cube is invisible')
     best = None
+    actual_pixels = actual.histogram()[255]
     candidates = (fixed_fov,) if fixed_fov is not None else (step / 10. for step in range(300, 1301))
     for fov in candidates:
         predicted = projected_mask(pose, actual.size, fov)
         expected = predicted.getbbox()
         error = sum((bounds[i] - expected[i]) ** 2 for i in range(4))
-        union = ImageChops.lighter(actual, predicted).histogram()[255]
-        intersection = ImageChops.multiply(actual, predicted).histogram()[255]
+        # The full native raster remains the oracle. Outside its bounding box
+        # the prediction is zero, so only this exact crop contributes overlap.
+        predicted_crop = predicted.crop(expected)
+        predicted_pixels = predicted_crop.histogram()[255]
+        intersection = ImageChops.multiply(actual.crop(expected), predicted_crop).histogram()[255]
+        union = actual_pixels + predicted_pixels - intersection
         score = (-intersection / max(1, union), error)
         if best is None or score < best[0]:
             best = (score, fov, predicted)
@@ -250,7 +255,6 @@ def main():
                     bounds = actual.getbbox()
                     assert bounds and bounds[0] > size[0] / 4. and bounds[2] < size[0] * 3. / 4., bounds
                     assert bounds[1] > size[1] / 4. and bounds[3] < size[1] * 3. / 4., bounds
-                    fit = fit_fov(actual, pose)
                     native_fov = camera['fov']
                     horizontal = math.degrees(2. * math.atan(math.tan(math.radians(native_fov) / 2.) * size[1] / size[0]))
                     candidates = {}
@@ -263,24 +267,17 @@ def main():
                     path = args.output.with_name(args.output.stem + '_' + label + '_signal.png')
                     actual.save(path)
                     outline_path = path.with_name(path.stem + '_outline_comparison.png')
-                    native_outline = actual.filter(ImageFilter.FIND_EDGES)
-                    fitted_outline = projected_mask(pose, size, fit['vertical_fov']).filter(ImageFilter.FIND_EDGES)
-                    Image.merge('RGB', (native_outline, fitted_outline, Image.new('L', size))).save(outline_path)
-                    row = {'view': label, 'pose': pose, 'camera': camera, 'fit': fit,
+                    row = {'view': label, 'pose': pose, 'camera': camera,
                            'candidates': candidates, 'convention': chosen,
-                           'passed': fit['boundary_rms_pixels'] <= 2 and fit['mask_iou'] >= .97 and
-                           fit['outline_recall_2px'] >= .97 and fit['outline_precision_2px'] >= .97,
+                           'passed': False,
                            'signal': str(path.resolve()), 'shown': shown, 'hidden': hidden}
                     row['outline_comparison'] = str(outline_path.resolve())
                     evidence['views'].append(row)
                     write_json(args.output, evidence)
                 evidence['completed'] = True
-                fitted = sorted(row['fit']['vertical_fov'] for row in evidence['views'])
-                evidence['passed'] = all(row['passed'] for row in evidence['views']) and fitted[-1] - fitted[0] <= 1.2
                 direct = all(row['candidates'][row['convention']]['max_boundary_error_pixels'] <= 4
                              for row in evidence['views']) and len({row['convention'] for row in evidence['views']}) == 1
                 evidence['fov_convention'] = evidence['views'][0]['convention'] if direct else 'calibrated_vertical'
-                evidence['vertical_fov'] = fitted[len(fitted) // 2]
                 evidence['reported_fov'] = evidence['views'][0]['camera']['fov']
                 evidence['screen_aspect'] = evidence['views'][0]['camera']['screen'][0] / evidence['views'][0]['camera']['screen'][1]
                 evidence['reported_fov_is_effective'] = direct
