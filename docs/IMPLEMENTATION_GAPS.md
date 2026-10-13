@@ -26,7 +26,11 @@ F01–F04 是本轮 P0 跟踪项，F02 的全原版状态离线实现已完成�
 
 **后续预算安排：** 从23:30开始的第十五轮最多同时使用三个子代理，由根承担集成与复核；当前已完成的专项不继续追加任务，不再进行昂贵模型咨询。暂估从第十五轮起还需12–20小时有效墙钟时间（包含当轮7.5小时），前提是当前水／含雪产品路径顺利接入；当前轮若完整关闭两者则可能8–12小时，若后台或物品深度仍需返工则20–30小时。范围仅限已授权P0、多格／连缀及相关维护验收，不含全部P1／P2、RenderDragon或全面移动端认证；23:30按实际关闭项重估，不按经过时间机械扣减。
 
-**着色器精度门控：** 用户再次要求所有自编shader具备精度设置。当前主包36个入口及独立特效包2个入口均在引擎头文件之前声明`precision highp float;`；水与待集成物品的关键varying两端显式为highp，时间与payload继承highp，不允许静默mediump回退。统一回归已补递归入口、共享头文件及浮点uniform/varying降级检查；具体范围和时间回绕见[MOBILE_SHADER_PRECISION.md](MOBILE_SHADER_PRECISION.md)。桌面GLES高精度查询通过不代表安卓GPU已验收，V01继续保留。
+**着色器精度门控：** 用户再次要求所有自编shader具备精度设置。集成后主包39个入口及独立特效包2个入口均在引擎头文件之前声明`precision highp float;`；水与物品的关键varying两端显式为highp，时间与payload继承highp，不允许静默mediump回退。统一回归已补递归入口、共享头文件及浮点uniform/varying降级检查，3项通过；具体范围和时间回绕见[MOBILE_SHADER_PRECISION.md](MOBILE_SHADER_PRECISION.md)。桌面GLES高精度查询通过不代表安卓GPU已验收，V01继续保留。
+
+**晚间集成检查点：** 根`dev`已按所属提交合入显示选区／多格闭包修复、19场景公开连缀蓝图、公开水蓝图和独立产品Profile、物品sprite／光效候选及192朝向控制、29种含雪植物的居中版本化来源、独立水三角形QA、真实编码脚手架采集／分段工具及独立QA报告。水与物品生产资格仍关闭，完整editor／full／missing画面待验收；脚手架能力仍仅14个实测状态，不把prepare当作全表测量。水owner合同补入共享`projection_companions`并重生成，原native actor材质条目与`52189693`结构相同，仅增加12水／2物品条目；适配一致性指纹据此更新，未改变任何旧视觉资格。统一版本入口已补新生成器和水资源合同检查；首跑来源、15,858状态×6变换及生成器通过，全量测试有一处新资源fixture遗漏，正在修复并重跑。详细证据见[水产品验收](WATER_PRODUCT_ACCEPTANCE_R14.md)、[独立三角形QA](LIQUID_PRODUCT_TRIANGLE_QA_R14.md)、[居中含雪](CENTERED_SNOW_PRODUCT_R14.md)、[物品接入](ITEM_SPRITE_INTEGRATION_R14.md)、[连缀矩阵](PRODUCT_CONNECTION_MATRIX_R14.md)、[脚手架采集](SCAFFOLD_RUNTIME_COLLECTION_R14.md)和[独立数据QA](EDITOR_DATA_QA_R14.md)。
+
+**后台启动条件：** 纯诊断BP最小对照和诊断BP＋原完整RP对照均能进入世界并取得新鲜WGC截图；原`52189693`完整BP/RP仍有一次启动崩溃，故本轮新增资源不是失败的必要条件，原因仍未定位。两次成功实例在停止后另有`ucrtbase c0000409`记录，单独保留，不混为启动错误。用户随后报告此前正在玩另一全屏游戏，现已关闭并要求重试；根授权同原完整包串行再试，仅作为新的外部条件记录，不据此直接判定故障原因。所有实例仍要求受管身份、后台guard、最多5个，其他专项暂停并发启动。见[后台启动诊断](BACKGROUND_STARTUP_DIAGNOSIS_R14.md)。
 
 ### 第十三轮后水专项研究（2026-10-13，17:30 截止）
 

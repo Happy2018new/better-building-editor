@@ -2,7 +2,7 @@
 
 ## 2026-10-13 开发接续检查
 
-主资源包当前 36 个 vertex/fragment 入口，以及独立星穹包的 2 个入口，均在任何引擎头文件之前声明 `precision highp float;`。新增水产品资源包含 4 个顶点和 6 个片元入口；`liquidUv`、`liquidVisible`、`liquidClip` 两端均显式使用 `highp`。引擎 `UNIFORM` 宏没有覆盖精度，时间和四组 payload uniform 因此继承入口的 `highp`。新物品资源的 3 个入口在所属工作树检查通过，UV、visible、enchanted、clip 两端同样为 `highp`，集成后再运行统一检查。
+主资源包当前 39 个 vertex/fragment 入口，以及独立星穹包的 2 个入口，均在任何引擎头文件之前声明 `precision highp float;`。新增水产品资源包含 4 个顶点和 6 个片元入口；`liquidUv`、`liquidVisible`、`liquidClip` 两端均显式使用 `highp`。引擎 `UNIFORM` 宏没有覆盖精度，时间和四组 payload uniform 因此继承入口的 `highp`。新物品资源的 3 个入口已经集成，UV、visible、enchanted、clip 两端同样为 `highp`。集成后的统一精度检查 3 项全部通过。
 
 水的动画使用 `TOTAL_REAL_WORLD_TIME` 的 3600 秒周期。最大动画时钟为 72000，在已检查的 23 位浮点精度后端，其步长为 1/128 帧；周期与帧序列闭合。物品光效先将 `TIME` 化为 7 秒内的相位再计算，7 秒也整除原生 210 秒回绕。不能用后置声明弥补 uniform 已经丢失的精度，也不能为编译通过而静默换成 `mediump`。
 

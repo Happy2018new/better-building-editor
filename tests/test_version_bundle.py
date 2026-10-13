@@ -202,10 +202,14 @@ class VersionBundleTests(unittest.TestCase):
             shutil.copytree(ROOT / 'resource_pack/models', root / 'resource_pack/models')
             shutil.copytree(ROOT / 'resource_pack/textures/models/modern_projection/liquid',
                             root / 'resource_pack/textures/models/modern_projection/liquid')
-            shutil.copyfile(ROOT / 'tools/generate_liquid_skeleton_resources.py',
-                            root / 'tools/generate_liquid_skeleton_resources.py')
-            shutil.copyfile(ROOT / 'tools/generate_liquid_flow_top.py',
-                            root / 'tools/generate_liquid_flow_top.py')
+            product_contract = json.loads((ROOT / 'tools/data/liquid_product_resource_contract_v1.json').read_bytes())
+            sources = set(product_contract['project_source_sha256'])
+            sources.update(('tools/generate_liquid_skeleton_resources.py',
+                            'tools/generate_liquid_flow_top.py'))
+            for relative in sources:
+                destination = root / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / relative, destination)
             with patch.object(items, 'validate', wraps=items.validate) as validate:
                 bundle.check_provenance(root=root)
             self.assertTrue(validate.called)
@@ -234,6 +238,9 @@ class VersionBundleTests(unittest.TestCase):
         self.assertIn(['tools/generate_liquid_materials.py', '--check'], [row[3:] for row in commands])
         self.assertIn(['tools/generate_bed_proxies.py', '--check'], [row[3:] for row in commands])
         self.assertIn(['tools/generate_flat_item_proxies.py', '--check'], [row[3:] for row in commands])
+        for generator in ('generate_liquid_product_shapes', 'generate_liquid_product_owner_contract',
+                          'generate_item_sprite_resources', 'generate_centered_plant_profiles'):
+            self.assertIn(['tools/' + generator + '.py', '--check'], [row[3:] for row in commands])
         self.assertEqual(commands[-1][3:], ['-m', 'unittest', 'discover', '-s', 'tests', '-q'])
 
 
