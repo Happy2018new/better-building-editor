@@ -55,6 +55,12 @@ python -X utf8 tools/analyze_product_water.py <water-frozen.json> <water-frozen-
 
 v4 水探针在第一次编辑器截图前被精确姿态门控拒绝：首次 `scene_ready` 的 zoom 为 `4.599760046768113`，随后相机动画精确到位为 `4.6`，导致几何和原生 doll 坐标正常变化。并非 tuple／list 格式问题，没有产生有效水 PNG。相机和水探针均恢复成功，134.65 秒内完成精确实例回收，原配置恢复、清理错误为空、来源指纹不变。修复后的探针要求相机与 pan 精确达到请求值，且两次连续原生布局完全相同，再冻结 ready 状态；捕获前后及全部对照的原有精确门控保持不变。三项新回归包含当次动画数字、原生坐标轻微变化、后端重新 pending 和错误视角；不放宽数值容差。原件保留在 root `.runtime/water-product-r14-v4-root/`。
 
+20:55 的 `water-product-r14-v5-root` 首次完整取得水证据：同会话石块标定通过，源水取得六张 wet／dry 截图，低水位和含水橡木栅栏取得二十四张截图，覆盖编辑器、完整投影、缺失投影。两份报告均 `completed/restored/source_unchanged=True`、清理错误为空；两份 analyzer 均 `evidence_valid/captures_verified=True`、捕获失败为空。监督器在 264.68 秒结束，原配置按字节恢复、game `24912` 与 MCDK `26448` 的准确创建身份均已回收、pins 不变。证据原件位于 root `.runtime/water-product-r14-v5-root/`。
+
+v5 的源水三路线 IoU 分别为 `.670586/.630662/.630662`，编辑器外缘最大误差为 `42` 像素；低水位分别为 `.327884/.264177/.284137`，均未通过几何门控。实际查看编辑器和完整投影的源水 PNG，水呈现顶面缺失、近侧面未显示的壳状外观。当前假设是原生正面剔除约定与宿主 GLES 验证不同，尚未确认；不能通过放宽几何容差或启用双面绘制把它标成通过。含水栅栏六种独立对照的主体和后方贡献三路线通过：编辑器主体／后方均分别有 `560/440` 个有效贡献像素，两种投影分别有 `300/210` 个。该结果仅证明这次错误几何下可以看到主体和后方，修复剔除后必须重新验证透明度，不启用任何生产资格。
+
+剔除核对的原生依据是安装版 `vanilla/materials/shadows.material` 的 `shadow_back` 和 `vanilla_netease/materials/entity.material` 的 `netease_entity_outline`，二者明确使用 `InvertCulling`；原生 `entity_for_skeleton_alpha` 只设置 `Blending/DisableDepthWrite`。当前产品模型沿用共享诊断 mesh 的 `(0,2,1)/(0,3,2)` 索引，产品材质无 `InvertCulling`；world shader 还包含 Z 轴反号。宿主实际三角形测试明确使用 `gl.frontFace(gl.CCW)`，不能由此推断原生正面约定。修正须限定产品材质或独立产品模型，保留共享诊断资源及旧失败合同。
+
 离线规则、相邻水连续性、实际三角形／UV／alpha 的宿主验证和 owner 测试已经完成；这些不替代游戏观察。捕获工具的 40 项相关回归通过，独立 QA 还构造了编辑器／world 各五种「各自稳定但相机不同」的对照，十种都被完整 analyzer 拒绝。
 
 实机仍须完成：
