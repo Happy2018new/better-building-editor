@@ -3,8 +3,10 @@ import argparse
 import json
 from pathlib import Path
 
-import execute_client_anchor_depth_candidate_r15 as shared
+from isolated_diagnostic_module import load
 import prepare_item_skeleton_candidate_r13 as candidate
+
+shared=load('execute_client_anchor_depth_candidate_r15')
 
 shared.candidate = candidate
 ROOT = candidate.ROOT

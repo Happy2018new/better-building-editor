@@ -4,8 +4,10 @@ import argparse
 import json
 from pathlib import Path
 
-import execute_item_server_skeleton_r13 as server
+from isolated_diagnostic_module import load
 import prepare_item_glint_r13 as candidate
+
+server=load('execute_item_server_skeleton_r13')
 
 shared=server.body_runtime.shared
 server.candidate=candidate
@@ -34,7 +36,7 @@ def layout_readback(anchor,tree,status,initial):
     return result
 
 
-def validate_state(label,status,initial,native,binding_id):
+def validate_state(label,status,initial,native,binding_id,require_render=True):
     setup=initial['skeleton_setup']
     if (setup.get('model')!=candidate.MODEL or type(setup.get('model_id')) is not int or setup['model_id']<0 or
         status.get('skeleton_setup')!=setup or type(status.get('model_id')) is not int or status['model_id']<0 or
@@ -43,12 +45,14 @@ def validate_state(label,status,initial,native,binding_id):
         native['control']!=label or native['actor']!=initial['actor'] or native['journal']!=status['journal']):
         raise ValueError('Frozen skeleton actor/submission/readback changed')
     renders=[r for r in native['journal'] if r['operation']=='RenderEntity:'+label]
-    if len(renders)!=1 or renders[0].get('state')!='returned' or renders[0].get('value') is not True:
+    if require_render and (len(renders)!=1 or renders[0].get('state')!='returned' or renders[0].get('value') is not True):
         raise ValueError('Native rendering acknowledgment changed')
+    if not require_render and renders:raise ValueError('World state unexpectedly rendered UI entity')
     expected=[]
     for state in candidate.STATES[:candidate.STATES.index(label)+1]:
         enchanted,rotation=candidate.state_parameters(state)
-        if enchanted is not None and state!='ui_enchanted_later':expected.append((state,enchanted,rotation))
+        if enchanted is not None and state!=getattr(candidate,'TEMPORAL_LABEL','ui_enchanted_later'):
+            expected.append((state,enchanted,rotation))
     rows=status['attachments']
     if len(rows)!=len(expected):raise ValueError('Owned attachment ledger length changed')
     identities=tuple(row['id'] for row in rows)

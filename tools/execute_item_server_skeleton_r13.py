@@ -2,8 +2,10 @@
 from pathlib import Path
 import time
 
-import execute_item_skeleton_candidate_r13 as body_runtime
+from isolated_diagnostic_module import load
 import prepare_item_server_skeleton_r13 as candidate
+
+body_runtime=load('execute_item_skeleton_candidate_r13')
 
 body_runtime.candidate=candidate
 body_runtime.shared.candidate=candidate
