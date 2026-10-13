@@ -16,6 +16,17 @@ from modern_projection.projection.cell import AIR, encode, make_cell
 
 
 class ProjectionStateTests(unittest.TestCase):
+    def test_native_compare_observes_complete_neighborhood_in_reserved_region(self):
+        origin=(10,20,30)
+        cells=[[[3,2,3],['minecraft:stone',0]],[[3,3,3],['minecraft:water',0]]]
+        reserved=[(x,y,z) for x in range(10,17) for y in range(20,27) for z in range(30,37)]
+        actual=probe.native_comparison_positions(cells,origin,reserved)
+        expected=[(x,y,z) for x in range(12,15) for y in range(21,25) for z in range(32,35)]
+        self.assertEqual(expected,actual)
+        self.assertEqual(36,len(actual))
+        with self.assertRaisesRegex(ValueError,'exceeds'):
+            probe.native_comparison_positions(cells,origin,[pos for pos in reserved if pos!=(12,21,32)])
+
     def test_inactive_pending_and_published_snapshots_follow_publication(self):
         document=SimpleNamespace(blocks={(3,3,3):('minecraft:water',0)},biome=1)
         s=SimpleNamespace(projection_active=False,origin=(0,0,0),opacity=1.,

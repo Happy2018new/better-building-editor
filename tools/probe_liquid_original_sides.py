@@ -168,6 +168,16 @@ def sides(source, label):
     return [{'position': list(position), 'layer': 0, 'face': face} for position, face in zip(positions, faces)]
 
 
+def native_comparison_positions(source_cells, document_origin, reserved):
+    """Observe the exact source and its complete one-cell neighborhood."""
+    selected = {tuple(document_origin[axis] + pos[axis] + delta[axis] for axis in range(3))
+                for pos, unused in source_cells for delta in
+                ((x, y, z) for x in (-1, 0, 1) for y in (-1, 0, 1) for z in (-1, 0, 1))}
+    if not selected.issubset(set(map(tuple, reserved))):
+        raise ValueError('Complete native comparison neighborhood exceeds the reserved air region')
+    return sorted(selected)
+
+
 def camera_matches(actual, expected):
     return (all(actual[key] == expected[key] for key in ('position', 'screen', 'fov'))
             and all(abs((a - b + 180.) % 360. - 180.) <= 1.e-6
@@ -513,15 +523,20 @@ def main():
                 save()
                 cells = [(tuple(document_origin[i] + pos[i] for i in range(3)), value)
                          for pos, value in source_row['source_cells']]
+                observed_positions = (native_comparison_positions(source_row['source_cells'], document_origin, positions)
+                                      if args.native_write_compare else positions)
+                if args.native_write_compare:
+                    report.setdefault('native_observed_positions', {})[label] = observed_positions
+                    save()
                 def native_state():
-                    return {'server': base.run(client, native.snapshot_code(positions, True), True),
-                            'client': check.run(native.snapshot_code(positions)),
+                    return {'server': base.run(client, native.snapshot_code(observed_positions, True), True),
+                            'client': check.run(native.snapshot_code(observed_positions)),
                             'camera': check.run(CAMERA_STATE)}
                 expected = frozen.native_reference(cells)
                 if args.native_write_compare and label == schedule[0][0]:
                     empty_before = native_state()
                     empty_expected = frozen.native_reference([])
-                    if any(not native.matches(empty_before[side], empty_expected, positions) for side in ('client','server')):
+                    if any(not native.matches(empty_before[side], empty_expected, observed_positions) for side in ('client','server')):
                         raise RuntimeError('Empty native baseline differs')
                     identity = 'native_empty_vnw'
                     if not camera_matches(empty_before['camera'], fixed_camera):
@@ -531,7 +546,7 @@ def main():
                     empty_after = native_state()
                     report['states'][identity] = {'before':empty_before,'after':empty_after}; save()
                     if (not camera_matches(empty_after['camera'],fixed_camera) or
-                            any(not native.matches(empty_after[side],empty_expected,positions) for side in ('client','server'))):
+                            any(not native.matches(empty_after[side],empty_expected,observed_positions) for side in ('client','server'))):
                         raise RuntimeError('Empty native baseline changed across capture')
                 writes = (('palette',workspace.WRITE),('direct',DIRECT_WRITE)) if args.native_write_compare else (('palette',workspace.WRITE),)
                 for write_mode,write_code in writes:
@@ -546,12 +561,12 @@ def main():
                     if args.native_write_compare:
                         report['native_write_receipts'][write_mode+'_'+label]['settled_camera']=settled; save()
                     initial = native_state()
-                    if any(not native.matches(initial[side], expected, positions) for side in ('client', 'server')):
+                    if any(not native.matches(initial[side], expected, observed_positions) for side in ('client', 'server')):
                         raise RuntimeError('Exact native original source readback differs: ' + label)
                     identity=('native_'+write_mode+'_' if args.native_write_compare else 'native_')+label
                     frame(identity, native_state)
                     captured = report['states'][identity]
-                    if any(not native.matches(captured[point][side], expected, positions)
+                    if any(not native.matches(captured[point][side], expected, observed_positions)
                            for point in ('before', 'after') for side in ('client', 'server')):
                         raise RuntimeError('Native reference changed across original water capture: ' + label)
                 base.run(client, workspace.WRITE % native.wire([]), True)
