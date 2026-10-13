@@ -16,6 +16,9 @@ import probe_liquid_pose_channel as base
 import probe_liquid_workspace as workspace
 import verify_debug_blueprints as blueprints
 import verify_debug_visuals as visuals
+from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
+from verify_sign_visuals import SAVE_HUD, RESTORE_HUD
+from water_capture_contract import camera_matches, calibrated_viewport_matches, scene_capture_state
 from _session import load_session
 
 PROFILE = '''from modern_projection.projection.liquid_product_deployment import candidate_profile
@@ -88,10 +91,28 @@ RESTORE_PROFILE = '''if hasattr(sys,'_product_water_saved_profile'):
  s.liquid_profile,s.grid=sys._product_water_saved_profile
  del sys._product_water_saved_profile
 ''' + blueprints.RESTORE
+CAMERA_STATE = '''cam=b.factory.CreateCamera(b.level)
+_result=json.dumps({'position':cam.GetPosition(),'rotation':cam.GetCameraRotation(),
+ 'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()})
+'''
+CAMERA = workspace.CAMERA.replace("'position':cam.GetPosition(),'rotation':cam.GetCameraRotation()",
+                                "'position':position,'rotation':(direction[0],direction[1]+180.,0.)")
 
 
 def fingerprint(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def snapshot_sources(root):
+    paths = [path for folder in ('behavior_pack', 'resource_pack') for path in (root / folder).rglob('*')
+             if path.is_file() and '__pycache__' not in path.parts and path.suffix not in ('.pyc', '.pyo')]
+    paths += list((root / 'tools').glob('*.py'))
+    paths += list((root / '.agents/skills/pyreact-debugging/scripts').glob('*.py'))
+    return {path.relative_to(root).as_posix(): fingerprint(path) for path in sorted(paths)}
+
+
+def snapshot_digest(snapshot):
+    return hashlib.sha256(json.dumps(snapshot, sort_keys=True, separators=(',', ':')).encode('ascii')).hexdigest()
 
 
 def main():
@@ -101,6 +122,8 @@ def main():
     parser.add_argument('--capture-exe', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--camera-calibration', type=Path)
+    parser.add_argument('--launch-inputs', required=True, type=Path,
+                        help='Exact source/resource snapshot saved immediately before this game launch')
     parser.add_argument('--route', action='append', choices=('editor', 'full', 'missing'))
     parser.add_argument('--case', action='append')
     parser.add_argument('--frozen', action='store_true')
@@ -119,6 +142,10 @@ def main():
     cases = tuple(args.case or ('source', 'low', 'flow_east', 'flow_south', 'flow_west',
                                 'flow_north', 'pool', 'falling', 'wet_oak_fence'))
     controls = ('wet', 'dry', 'liquid_only', 'water_only', 'rearless', 'empty') if args.controls == 'all' else ('wet',)
+    launch_inputs = json.loads(args.launch_inputs.read_bytes())
+    before_sources = snapshot_sources(base.ROOT)
+    if launch_inputs.get('source_sha256') != before_sources:
+        parser.error('Project source/resources changed since this game launch')
     calibration = None
     if set(routes) - {'editor'}:
         if not args.camera_calibration:
@@ -133,6 +160,9 @@ def main():
               'session_binding': {key: session[key] for key in ('id', 'owner', 'game_pid', 'game_identity', 'session_file')},
               'native_shape_accepted': False, 'native_uv_accepted': False, 'native_alpha_accepted': False,
               'product_style_accepted': False,
+              'launch_source_sha256': launch_inputs['source_sha256'],
+              'source_file_sha256_before': before_sources, 'source_file_sha256_after': None,
+              'source_contract_sha256': snapshot_digest(before_sources), 'source_unchanged': False,
               'source_sha256': {name: fingerprint(base.ROOT / name) for name in (
                   'behavior_pack/modern_projection/projection/liquid_product_profile.py',
                   'behavior_pack/modern_projection/projection/liquid_product_resource_data.py',
@@ -144,24 +174,55 @@ def main():
     if calibration:
         report['camera_calibration'] = {'path': str(args.camera_calibration.resolve()),
                                         'sha256': fingerprint(args.camera_calibration),
-                                        'vertical_fov': calibration['vertical_fov']}
+                                        'vertical_fov': calibration['vertical_fov'],
+                                        'reported_fov': calibration['reported_fov'],
+                                        'engine_screen': calibration['views'][0]['camera']['screen'],
+                                        'capture_size': calibration['views'][0]['shown']['size']}
+        if any(not calibrated_viewport_matches(view['camera'], report['camera_calibration'])
+               or view['shown']['size'] != report['camera_calibration']['capture_size']
+               for view in calibration['views']):
+            parser.error('Camera calibration changed its FOV or viewport between controls')
     started = time.monotonic()
     record = lambda: base.write(args.output, report)
 
-    def capture(label):
+    def capture(label, row=None):
         if time.monotonic() - started > args.max_seconds:
             raise TimeoutError('Product-water capture budget expired')
         sample = dict(workspace.transport.metrics(args.session, args.owner), label=label)
         report['measurements'].append(sample)
         if sample['handles'] >= args.max_handles:
             raise RuntimeError('Native handle budget reached')
+        if row is not None and row['route'] != 'editor':
+            row['camera_before'] = check.run(CAMERA_STATE)
+            if not camera_matches(row['camera_before'], row['camera_expected']):
+                raise RuntimeError('Camera moved before water capture: ' + label)
+        elif row is not None:
+            row['scene_before'] = scene_capture_state(check.run(SCENE_STATE))
+            if row['scene_before'] is None or row['scene_before'] != scene_capture_state(row['ready']):
+                raise RuntimeError('Scene layout moved before water capture: ' + label)
         report['captures'][label] = base.capture(args.session, args.owner,
             args.output.with_name(args.output.stem + '_' + label + '.png'), args.capture_exe)
+        if row is not None and row['route'] != 'editor':
+            row['camera_after'] = check.run(CAMERA_STATE)
+            if (not camera_matches(row['camera_after'], row['camera_expected'])
+                    or not camera_matches(row['camera_after'], row['camera_before'])):
+                raise RuntimeError('Camera moved during water capture: ' + label)
+            report['captures'][label].update(camera_expected=row['camera_expected'],
+                                            camera_before=row['camera_before'], camera_after=row['camera_after'])
+            if not calibrated_viewport_matches(row['camera_after'], report['camera_calibration']):
+                raise RuntimeError('World FOV/viewport changed from the stone calibration: ' + label)
+            if [report['captures'][label]['width'], report['captures'][label]['height']] != report['camera_calibration']['capture_size']:
+                raise RuntimeError('Native capture resolution changed from the stone calibration: ' + label)
+        elif row is not None:
+            row['scene_after'] = scene_capture_state(check.run(SCENE_STATE))
+            report['captures'][label].update(scene_before=row['scene_before'], scene_after=row['scene_after'])
+            if row['scene_before'] != row['scene_after']:
+                raise RuntimeError('Scene layout moved during water capture: ' + label)
         record()
 
     with base.Client(timeout=45) as client:
         check = blueprints.BlueprintCheck(client, args.output, 45.)
-        installed = visual_saved = environment_attempted = world_saved = False
+        installed = visual_saved = environment_attempted = world_saved = options_attempted = hud_attempted = False
         try:
             check.run(blueprints.INSTALL_PROBE)
             installed = True
@@ -172,6 +233,10 @@ def main():
             if set(routes) - {'editor'}:
                 report['visual_saved'] = check.run(visuals.SAVE_VISUAL)
                 visual_saved = True
+                options_attempted = True
+                report['capture_options'] = check.run(CAPTURE_OPTIONS)
+                hud_attempted = True
+                report['capture_hud'] = check.run(SAVE_HUD)
                 environment_attempted = True
                 report['environment'] = base.run(client, base.ENVIRONMENT, True)
                 report['reservation'] = base.run(client, RESERVE, True)
@@ -203,20 +268,24 @@ def main():
                             row['ready'] = check.wait(label, workspace.world_ready, lambda: check.run(WORLD_STATE))
                             target = tuple(origin[i] + (.5 if i != 1 else 1.35 if wet_case else .5) for i in range(3))
                             offset = (0., 0., 12.) if wet_case else (6., 5., 8.)
-                            row['camera'] = check.run(workspace.CAMERA % ((target, offset),))
+                            row['camera_expected'] = check.run(CAMERA % ((target, offset),))
+                            row['camera'] = check.wait(label + ' camera',
+                                lambda value: camera_matches(value, row['camera_expected']), lambda: check.run(CAMERA_STATE))
+                            row['camera']['target'] = row['camera_expected']['target']
                         time.sleep(.35)
-                        capture(label)
+                        capture(label, row)
                         if control == 'wet' and args.extras:
                             row['temporal_initial'] = report['captures'][label]
                             time.sleep(.55)
-                            capture(label + '_later')
+                            capture(label + '_later', row)
                             if route == 'editor' and identity in ('source', 'wet_oak_fence'):
                                 for biome in ('swampland', 'mangrove_swamp', 'plains'):
                                     check.run('s.set_biome(%r)\n_result=True' % biome)
-                                    report['extra_rows'][label + '_biome_' + biome] = check.wait(
+                                    ready = check.wait(
                                         'Scene biome', lambda state: workspace.scene_ready(state) and state['biome'] == biome,
                                         lambda: check.run(SCENE_STATE))
-                                    capture(label + '_biome_' + biome)
+                                    extra_row = report['extra_rows'][label + '_biome_' + biome] = dict(row, ready=ready)
+                                    capture(label + '_biome_' + biome, extra_row)
                             elif identity == 'pool' and route == 'missing':
                                 occupied = [(origin, row['source']['cells'][next(index for index, item in enumerate(row['source']['cells'])
                                              if tuple(item[0]) == (3, 3, 3))][1])]
@@ -226,14 +295,14 @@ def main():
                                     lambda state: workspace.world_ready(state) and state['occupancy']['rendered_keep'] == 2
                                     and not state['occupancy']['pending'] and not state['occupancy']['changed'],
                                     lambda: check.run(WORLD_STATE))
-                                capture(label + '_occupied')
+                                capture(label + '_occupied', row)
                                 report['extra_rows'][label + '_clear_write'] = base.run(client,
                                     workspace.WRITE % native.wire([]), True)
                                 report['extra_rows'][label + '_restored'] = check.wait('restored pool',
                                     lambda state: workspace.world_ready(state) and state['occupancy']['rendered_keep'] != 2
                                     and not state['occupancy']['pending'] and not state['occupancy']['changed'],
                                     lambda: check.run(WORLD_STATE))
-                                capture(label + '_restored')
+                                capture(label + '_restored', row)
                         if route != 'editor':
                             check.run('b.stop_projection()\n_result=True')
                             row['stopped'] = check.run('''_result=json.dumps({'active':s.projection_active,
@@ -267,6 +336,12 @@ _result=True'''))))
             if environment_attempted:
                 actions.append(('environment_restore', lambda: base.run(client,
                     workspace.guarded_cleanup(base.RESTORE_ENVIRONMENT, '_context_environment_saved'), True)))
+            if hud_attempted:
+                actions.append(('hud_restore', lambda: check.run(
+                    workspace.guarded_cleanup(RESTORE_HUD, '_sign_visual_hud_saved'))))
+            if options_attempted:
+                actions.append(('capture_options_restore', lambda: check.run(
+                    workspace.guarded_cleanup(RESTORE_OPTIONS, '_neighbor_visual_options_saved'))))
             for name, action in actions:
                 try:
                     report[name] = action()
@@ -274,6 +349,11 @@ _result=True'''))))
                     report['cleanup_errors'].append(name + ': ' + type(error).__name__ + ': ' + str(error))
                 record()
             report['restored'] = not report['cleanup_errors']
+            report['source_file_sha256_after'] = snapshot_sources(base.ROOT)
+            report['source_unchanged'] = before_sources == report['source_file_sha256_after']
+            if not report['source_unchanged']:
+                report['cleanup_errors'].append('Project source/resources changed during the capture')
+                report['restored'] = False
             report['elapsed_seconds'] = time.monotonic() - started
             record()
     print(json.dumps({key: report[key] for key in ('completed', 'restored', 'elapsed_seconds')}))

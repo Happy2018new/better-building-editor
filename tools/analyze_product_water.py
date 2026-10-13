@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFilter
 
 from analyze_liquid_workspace import capture_failures, difference_mask, mask_row, rgb
 from camera_projection import project_points
+from water_capture_contract import camera_matches, calibrated_viewport_matches, scene_capture_state, scene_pose
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
@@ -96,11 +97,12 @@ def product_geometry(actual, expected):
                            and edge is not None and edge <= LIMITS['maximum_boundary_pixels'])}
 
 
-def contribution(first, second, eligible):
-    changed = difference_mask(first, second, eligible, LIMITS['rgb_delta'])
+def contribution(first, second, eligible, threshold=None):
+    threshold = LIMITS['rgb_delta'] if threshold is None else threshold
+    changed = difference_mask(first, second, eligible, threshold)
     pixels = int(changed.sum())
     total = int(eligible.sum())
-    return {'eligible_pixels': total, 'contribution_pixels': pixels, 'fraction': pixels / max(1, total),
+    return {'eligible_pixels': total, 'contribution_pixels': pixels, 'rgb_delta': threshold, 'fraction': pixels / max(1, total),
             'passed': bool(pixels >= LIMITS['minimum_contribution_pixels']
                            and pixels / max(1, total) >= LIMITS['minimum_contribution_fraction'])}
 
@@ -108,12 +110,56 @@ def contribution(first, second, eligible):
 def analyze(path):
     source = json.loads(path.read_bytes())
     failures = capture_failures(source['captures'], source['session_binding'])
+    inputs = source.get('source_file_sha256_before')
+    if (not isinstance(inputs, dict) or not inputs or source.get('source_unchanged') is not True
+            or inputs != source.get('source_file_sha256_after') or inputs != source.get('launch_source_sha256')
+            or source.get('source_contract_sha256') != hashlib.sha256(
+                json.dumps(inputs, sort_keys=True, separators=(',', ':')).encode('ascii')).hexdigest()):
+        failures.append('Source/resource snapshot was absent, changed or inconsistent with the game launch')
     sizes = {(row.get('width'), row.get('height')) for row in source['captures'].values()}
     if len(sizes) > 1:
         failures.append('Capture dimensions changed during the paired controls')
     missing = sorted(set(source['rows']) - set(source['captures']))
     if missing:
         failures.append({'missing_row_captures': missing})
+    for label, row in source['rows'].items():
+        if row.get('route') == 'editor':
+            if (row.get('scene_before') is None or row.get('scene_after') is None
+                    or row['scene_before'] != row['scene_after']
+                    or row['scene_before'] != scene_capture_state(row.get('ready'))):
+                failures.append({'scene_layout_drift': label})
+            dry = source['rows'].get(label[:-3] + 'dry') if row.get('control') == 'wet' else None
+            if dry and (scene_pose(row.get('ready')) is None
+                        or scene_pose(row.get('ready')) != scene_pose(dry.get('ready'))):
+                failures.append({'paired_scene_pose_drift': label})
+            continue
+        fields = ('camera_expected', 'camera', 'camera_before', 'camera_after')
+        if any(not isinstance(row.get(field), dict) for field in fields):
+            failures.append({'camera_evidence_missing': label})
+            continue
+        expected = row['camera_expected']
+        if any(not camera_matches(row[field], expected) for field in fields[1:]):
+            failures.append({'camera_drift': label})
+        if not calibrated_viewport_matches(row['camera'], source.get('camera_calibration', {})):
+            failures.append({'calibrated_viewport_drift': label})
+        dry = source['rows'].get(label[:-3] + 'dry') if row.get('control') == 'wet' else None
+        if dry and (not isinstance(dry.get('camera'), dict) or not camera_matches(row['camera'], dry['camera'])):
+            failures.append({'paired_camera_drift': label})
+    for label, frame in source['captures'].items():
+        if label.startswith('editor_'):
+            if frame.get('scene_before') is None or frame.get('scene_before') != frame.get('scene_after'):
+                failures.append({'frame_scene_layout_drift': label})
+            continue
+        if not label.startswith(('full_', 'missing_')):
+            continue
+        fields = ('camera_expected', 'camera_before', 'camera_after')
+        if any(not isinstance(frame.get(field), dict) for field in fields):
+            failures.append({'frame_camera_evidence_missing': label})
+        elif any(not camera_matches(frame[field], frame['camera_expected']) for field in fields[1:]):
+            failures.append({'frame_camera_drift': label})
+        elif (not calibrated_viewport_matches(frame['camera_after'], source.get('camera_calibration', {}))
+              or [frame['width'], frame['height']] != source.get('camera_calibration', {}).get('capture_size')):
+            failures.append({'frame_calibrated_viewport_drift': label})
     for route in source.get('routes', ()):
         for case in source.get('cases', ()):
             for control in source.get('controls', ('wet',)):
@@ -152,7 +198,7 @@ def analyze(path):
         later = label + '_later'
         if later in images and not source['frozen']:
             interior = np.asarray(Image.fromarray((expected * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(5))) > 0
-            output['animation'][label] = contribution(images[label], images[later], interior)
+            output['animation'][label] = contribution(images[label], images[later], interior, LIMITS['temporal_delta'])
         if row['case'] != 'wet_oak_fence':
             continue
         required = {name: label[:-3] + name for name in ('dry', 'liquid_only', 'water_only', 'rearless', 'empty')}
@@ -165,9 +211,12 @@ def analyze(path):
         }
         result = output['transparency'][label] = {'water_pixels': int(water.sum()), 'regions': {}}
         for name, points in regions.items():
-            eligible = region_mask(row, source, size, points) & water
+            region = region_mask(row, source, size, points)
+            underlying = difference_mask(images[required['dry']], images[required['empty']], region, LIMITS['rgb_delta'])
+            eligible = region & water & underlying
             control = 'liquid_only' if name == 'body' else 'rearless'
             result['regions'][name] = contribution(images[label], images[required[control]], eligible)
+            result['regions'][name]['underlying_control_pixels'] = int(underlying.sum())
         result['passed'] = (result['water_pixels'] >= LIMITS['minimum_water_pixels']
                             and all(value['passed'] for value in result['regions'].values()))
     output['observed_product_gates'] = {
