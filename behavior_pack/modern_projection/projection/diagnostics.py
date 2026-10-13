@@ -61,6 +61,8 @@ def inspect(session, value):
     e = session.editor
     liquid = getattr(session, 'liquid_preview', None)
     liquid_controls = getattr(session, 'liquid_controls', None)
+    items = getattr(session, 'item_preview', None)
+    item_controls = getattr(session, 'item_controls', None)
     return {'size': e.document.size, 'sceneSize': session.scene_size, 'origin': session.scene_origin,
             'sceneScale': session.scene_scale, 'pending': session.preview_pending, 'error': session.preview_error,
             'liquid': {'enabled': getattr(session, 'liquid_profile', None) is not None,
@@ -69,6 +71,12 @@ def inspect(session, value):
                        'planReady': liquid is not None and liquid.published == liquid.signature(),
                        'controlsPending': liquid_controls.pending if liquid_controls is not None else False,
                        'error': getattr(session, 'liquid_error', '')},
+            'items': {'enabled': getattr(session, 'item_profile', None) is not None,
+                      'groups': len(items.groups) if items is not None else 0,
+                      'revision': items.revision if items is not None else 0,
+                      'planReady': items is not None and items.published == items.signature(),
+                      'controlsPending': item_controls.pending if item_controls is not None else False,
+                      'error': getattr(session, 'item_error', '')},
             'blocks': len(e.document.blocks), 'model': session.model_name, 'selection': len(e.selection),
             'start': e.start, 'end': e.end, 'anchor': session.box_anchor, 'focused': session.focused,
             'pose': session.camera_pose, 'grid': session.grid, 'pan': session.camera_pan,

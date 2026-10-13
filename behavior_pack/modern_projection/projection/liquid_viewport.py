@@ -27,8 +27,10 @@ def group_view(origin, camera, scene_origin, scene_size, viewport, unit):
 
 class LiquidControls(object):
     """Scene-owned controls; their containing components own native unmounting."""
-    def __init__(self, registry, model_component):
+    def __init__(self, registry, model_component, renderer_factory=SkeletonLiquidRenderer,
+                 distance_adapter=with_preview_distance):
         self.registry, self.model_component = registry, model_component
+        self.renderer_factory, self.distance_adapter = renderer_factory, distance_adapter
         self.pending = False
         self.error = None
         self.closed = False
@@ -42,7 +44,7 @@ class LiquidControls(object):
             control = surfaces[slot].current
             if control is not None:
                 return control.SetVisible(visible, False)
-        renderer = SkeletonLiquidRenderer(
+        renderer = self.renderer_factory(
             tuple(ref.current.asNeteasePaperDoll() for ref in entry['dolls']),
             self.model_component, show)
         entry['renderer'] = renderer
@@ -81,8 +83,8 @@ class LiquidControls(object):
                     renderer.update(None, None, now)
                     entry.pop('ready_request', None)
                     continue
-                displayed = with_preview_distance(group, view.distance)
-                pose = SkeletonLiquidRenderer.validate(displayed, pose_at(view))
+                displayed = self.distance_adapter(group, view.distance)
+                pose = self.renderer_factory.validate(displayed, pose_at(view))
             except ValueError as error:
                 message = str(error) or 'Invalid liquid UI request'
                 entry['validation_error'] = group, message

@@ -843,7 +843,7 @@ class ClientBridge(object):
                 liquid.advance()
             if liquid.error is not None and not getattr(liquid, 'reported_error', False):
                 liquid.reported_error = True
-                self.session.editor.message = '水投影更新失败，请更新投影：%s' % liquid.error
+                self.session.editor.message = '附加投影更新失败，请更新投影：%s' % liquid.error
                 self.session.emit()
 
     def own_projection_entity(self, entity, shader):

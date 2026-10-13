@@ -1,0 +1,27 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+uniform sampler2D TEXTURE_0;
+varying highp vec2 itemUv;
+varying highp float itemVisible;
+varying highp float itemEnchanted;
+varying highp float itemClip;
+void main() {
+    if(itemVisible<0.5 || itemClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    vec4 texel=texture2D(TEXTURE_0,itemUv);
+    if(texel.a<0.5) discard;
+    vec3 rgb=texel.rgb;
+    if(itemEnchanted>0.5) {
+        // Period7 divides the engine's210-second clock wrap exactly.
+        float phase=TIME*6.283185307179586/7.0;
+        float first=pow(0.5+0.5*sin((itemUv.x+itemUv.y)*18.84955592153876+phase),8.0);
+        float second=pow(0.5+0.5*sin((itemUv.x-itemUv.y)*12.56637061435917-phase),8.0);
+        rgb=clamp(rgb+vec3(0.22,0.10,0.36)*(0.20+0.45*first+0.35*second),0.0,1.0);
+    }
+    float alpha=EXTRA_VECTOR4.w*texel.a;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    gl_FragColor=vec4(rgb,alpha);
+}

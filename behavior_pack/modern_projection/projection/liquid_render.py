@@ -286,7 +286,8 @@ class WorldLiquidRenderer(object):
     SETTLE_SECONDS = .075
     CREATIONS_PER_FRAME = 8
 
-    def __init__(self, bridge, max_groups, dimension, scale, rotation):
+    def __init__(self, bridge, max_groups, dimension, scale, rotation,
+                 payload_validator=validate_uniforms, world_tag=PAYLOAD_TAG):
         if isinstance(max_groups, bool) or not isinstance(max_groups, integer_types) or max_groups < 1:
             raise ValueError('Liquid renderer needs an explicit positive group budget')
         if isinstance(dimension, bool) or not isinstance(dimension, integer_types) or dimension < 0:
@@ -296,6 +297,7 @@ class WorldLiquidRenderer(object):
         if any(axis <= 0. for axis in self.scale):
             raise ValueError('Liquid world scale must be positive')
         self.bridge, self.max_groups = bridge, max_groups
+        self.payload_validator, self.world_tag = payload_validator, world_tag
         self.dimension = dimension
         self.model = bridge.factory.CreateModel(bridge.level)
         self.active, self.staging = {}, {}
@@ -400,8 +402,8 @@ class WorldLiquidRenderer(object):
             raise ValueError('Liquid render plan exceeds its owned group budget')
         keys = set()
         for group in groups:
-            validate_uniforms(group.uniforms)
-            if group.uniforms[3][0] != PAYLOAD_TAG:
+            self.payload_validator(group.uniforms)
+            if group.uniforms[3][0] != self.world_tag:
                 raise ValueError('World liquid models cannot receive a UI depth packet')
             _finite_tuple(group.origin, 3, 'world group origin')
             if group.key in keys or not group.model_name:

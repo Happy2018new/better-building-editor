@@ -34,12 +34,24 @@ class WorldProjection(object):
         self.ready, self.error, self.model = False, None, None
         self.cleanup_errors = []
         self.liquid = None
+        companions = []
         profile = getattr(s, 'liquid_profile', None)
         if profile is not None:
             from .liquid_projection import LiquidProjection
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
-            self.liquid = LiquidProjection(bridge, self.document, origin, profile, dimension,
-                                           self.hidden, self.layer)
+            companions.append(LiquidProjection(bridge, self.document, origin, profile, dimension,
+                                               self.hidden, self.layer))
+        item_profile = getattr(s, 'item_profile', None)
+        if item_profile is not None:
+            from .item_sprite_projection import ItemProjection
+            dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+            companions.append(ItemProjection(bridge, self.document, origin, item_profile, dimension,
+                                             self.hidden, self.layer))
+        if len(companions) == 1:
+            self.liquid = companions[0]
+        elif companions:
+            from .projection_companions import ProjectionCompanions
+            self.liquid = ProjectionCompanions(companions)
 
     def active(self):
         return self.bridge.alive and self.bridge.projection_serial == self.serial

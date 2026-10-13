@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "payload_version": 1,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "strategy": "client_owned_flat_icon_silhouette_with_analytic_glint",
+  "max_groups": 256,
+  "production_qualified": false,
+  "qualification_sha256": null,
+  "qualification_resource_sha256": null,
+  "limits": [
+    "Only versioned flat icon families with an observed texture path are supported",
+    "Unknown visual userData, maps and block items remain unrendered and unchanged",
+    "UI and world units, shared depth and all frame poses require native acceptance",
+    "Moving purple highlights are a private fallback, not exact vanilla glint"
+  ]
+}

@@ -38,6 +38,10 @@ class Session(object):
         self.liquid_preview = self.liquid_controls = None
         from .liquid_deployment import production_profile
         self.liquid_profile = production_profile()
+        self.item_error = ''
+        self.item_preview = self.item_controls = None
+        from .item_sprite_profile import production_profile as item_production_profile
+        self.item_profile = item_production_profile()
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.

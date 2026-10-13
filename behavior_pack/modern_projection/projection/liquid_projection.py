@@ -24,13 +24,15 @@ def _copy_targets(targets):
 class LiquidProjection(object):
     BUILD_SECONDS = .0015
 
-    def __init__(self, bridge, document, origin, profile, dimension, hidden=(), layer=None):
+    def __init__(self, bridge, document, origin, profile, dimension, hidden=(), layer=None,
+                 renderer_factory=WorldLiquidRenderer, plan_factory=None):
         self.document = Document(document.size, biome=document.biome)
         self.document.blocks = document.blocks.copy()
         self.origin, self.profile = tuple(origin), profile
         self.hidden, self.layer = frozenset(hidden), layer
-        self.renderer = WorldLiquidRenderer(bridge, profile.max_groups, dimension,
-                                            profile.world_scale, profile.world_rotation)
+        self.renderer = renderer_factory(bridge, profile.max_groups, dimension,
+                                         profile.world_scale, profile.world_rotation)
+        self.plan_factory = plan_factory
         self.renderer.set_visible(False)
         self.iterator = None
         self.preparing = []
@@ -61,10 +63,14 @@ class LiquidProjection(object):
         def visible(pos):
             return (pos[1] not in hidden and (layer is None or pos[1] == layer)
                     and (occupied is None or occupied[(pos[1] * sx + pos[0]) * sz + pos[2]] != 2))
-        provider = self.profile.provider_factory(snapshot)
-        groups = iter_group_steps(snapshot, provider, targets=targets, visible=visible)
-        iterator = render_steps(groups, self.profile.world_models,
-                                self.renderer.bridge.session.opacity, self.profile.max_groups)
+        if self.plan_factory is None:
+            provider = self.profile.provider_factory(snapshot)
+            groups = iter_group_steps(snapshot, provider, targets=targets, visible=visible)
+            iterator = render_steps(groups, self.profile.world_models,
+                                    self.renderer.bridge.session.opacity, self.profile.max_groups)
+        else:
+            iterator = self.plan_factory(snapshot, self.profile, targets, visible,
+                                         self.renderer.bridge.session.opacity)
         # A rejected provider must leave the previous request and biome retryable.
         if not self.renderer.cancel_preparation():
             raise ValueError('Liquid publication restoration is still pending')
