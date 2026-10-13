@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "completed": true,
+  "scope": "read-only system handle-table census; no game mutation, injection or fixture",
+  "pid": 17276,
+  "creation_identity": "134362834338766836",
+  "process_handle_count": 168927,
+  "process_handle_count_query_ok": true,
+  "system_handle_count": 816299,
+  "selected_table_entries": 168927,
+  "type_counts": {
+    "File": 168180,
+    "index:56": 228,
+    "Event": 171,
+    "Thread": 77,
+    "Key": 69,
+    "Semaphore": 62,
+    "WaitCompletionPacket": 35,
+    "Mutant": 28,
+    "Section": 22,
+    "ALPC Port": 17,
+    "IoCompletion": 13,
+    "IRTimer": 12,
+    "TpWorkerFactory": 6,
+    "Directory": 2,
+    "WindowStation": 2,
+    "Desktop": 1,
+    "IoCompletionReserve": 1,
+    "SchedulerSharedData": 1
+  },
+  "type_indices": {
+    "3": 2,
+    "9": 77,
+    "12": 1,
+    "17": 1,
+    "21": 171,
+    "22": 28,
+    "24": 62,
+    "26": 12,
+    "29": 2,
+    "30": 1,
+    "35": 6,
+    "40": 13,
+    "41": 35,
+    "42": 168180,
+    "48": 17,
+    "49": 22,
+    "50": 69,
+    "56": 228
+  },
+  "type_names_by_index": {
+    "3": "Directory",
+    "9": "Thread",
+    "12": "IoCompletionReserve",
+    "17": "SchedulerSharedData",
+    "21": "Event",
+    "22": "Mutant",
+    "24": "Semaphore",
+    "26": "IRTimer",
+    "29": "WindowStation",
+    "30": "Desktop",
+    "35": "TpWorkerFactory",
+    "40": "IoCompletion",
+    "41": "WaitCompletionPacket",
+    "42": "File",
+    "48": "ALPC Port",
+    "49": "Section",
+    "50": "Key",
+    "56": null
+  },
+  "type_name_errors": {
+    "56": "DuplicateHandle:50"
+  },
+  "granted_access_counts": {
+    "ALPC Port": {
+      "0x001f0001": 17
+    },
+    "Desktop": {
+      "0x000f01ff": 1
+    },
+    "Directory": {
+      "0x00000003": 1,
+      "0x0000000f": 1
+    },
+    "Event": {
+      "0x00000002": 1,
+      "0x00100000": 1,
+      "0x00100001": 1,
+      "0x001f0003": 168
+    },
+    "File": {
+      "0x00100001": 9,
+      "0x00100003": 1,
+      "0x00100020": 3,
+      "0x00100080": 1,
+      "0x00120089": 26,
+      "0x00120196": 9,
+      "0x0012019f": 6,
+      "0x00160084": 1,
+      "0x0016019f": 168124
+    },
+    "IRTimer": {
+      "0x00100002": 12
+    },
+    "IoCompletion": {
+      "0x001f0003": 13
+    },
+    "IoCompletionReserve": {
+      "0x000f0003": 1
+    },
+    "Key": {
+      "0x00000001": 5,
+      "0x00000009": 1,
+      "0x00000010": 3,
+      "0x00020019": 54,
+      "0x0002001f": 2,
+      "0x000f003f": 4
+    },
+    "Mutant": {
+      "0x00100001": 6,
+      "0x00120001": 1,
+      "0x001f0001": 21
+    },
+    "SchedulerSharedData": {
+      "0x00000001": 1
+    },
+    "Section": {
+      "0x00000000": 2,
+      "0x00000002": 3,
+      "0x00000004": 6,
+      "0x00000006": 2,
+      "0x000f0007": 4,
+      "0x000f001f": 5
+    },
+    "Semaphore": {
+      "0x00100003": 46,
+      "0x001f0003": 16
+    },
+    "Thread": {
+      "0x00000840": 1,
+      "0x001f1fff": 1,
+      "0x001fffff": 75
+    },
+    "TpWorkerFactory": {
+      "0x000f00ff": 6
+    },
+    "WaitCompletionPacket": {
+      "0x00000001": 35
+    },
+    "WindowStation": {
+      "0x000f037f": 2
+    },
+    "index:56": {
+      "0x00000804": 228
+    }
+  },
+  "elapsed_seconds": 1.182,
+  "method": {
+    "system_information_class": 64,
+    "one_duplicate_per_type_index": true,
+    "duplicates_closed_immediately": true,
+    "source_process_access": "PROCESS_DUP_HANDLE|PROCESS_QUERY_LIMITED_INFORMATION"
+  },
+  "captured_at_unix": 1791811565.3180668,
+  "host_pid": 64116
+}
