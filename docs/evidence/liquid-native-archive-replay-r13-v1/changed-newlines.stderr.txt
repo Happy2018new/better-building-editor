@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 283, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 276, in main
+    report = replay(args.archive, args.closure, args.output, args.input, args.expected,
+                    source_archives=args.source_archive)
+  File "C:\Users\HAPPY2~1\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 252, in replay
+    raise ValueError('Frozen replay refused: ' + result.stderr.strip())
+ValueError: Frozen replay refused: Traceback (most recent call last):
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 283, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 272, in main
+    report = worker(args.archive, args.closure, args.input, args.expected, args.source_archive)
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 153, in worker
+    supplements = [Archive(directory) for directory in source_directories]
+                   ~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Happy2018new\AppData\Local\Temp\bbe-cold-liquid-r13-muz0kclm\replay.py", line 59, in __init__
+    raise ValueError('Archived original bytes changed: ' + name)
+ValueError: Archived original bytes changed: sources/tools/analyze_liquid_sides.py

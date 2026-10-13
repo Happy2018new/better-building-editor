@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "scope": "Offline cold relocation plus exact-byte tamper refusal",
+  "cold_root": "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm",
+  "new_game_launches": 0,
+  "sdk_or_network_calls": 0,
+  "initial_contents": [
+    "liquid-native-write-r13-v2",
+    "liquid-native-write-r13-v2-source-closure",
+    "liquid-native-write-r13-v2-source-closure-extra",
+    "replay.py"
+  ],
+  "source_indexes": {
+    "liquid-native-write-r13-v2": "56e01f25e434afd49c3c931e5e6e235cfbb25efc001f9a18f3fccc45ca36305d",
+    "liquid-native-write-r13-v2-source-closure": "caa468c7bf4d04d915002f5e2a0afb3acac6155d18f5c736591589d462178564",
+    "liquid-native-write-r13-v2-source-closure-extra": "4a482571f9f2eb8ca441785062826c5d3239a301e59a29d4707ea2459030d79a"
+  },
+  "helper_sha256": "268e8bd26ac753aea817e30a38f1a36b78b6ff360bed8d4586318bfeeeea2484",
+  "checks": [
+    {
+      "returncode": 0,
+      "output_written": true,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\replay.py",
+        "--archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2",
+        "--closure",
+        "archive-index.json",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure-extra",
+        "--output",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\cold-original.json"
+      ],
+      "cwd": "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm",
+      "expected_success": true,
+      "report_sha256": "11a8aae8895653e6945fb1f624f737877978f9b15bbf56f8843ecc56fce19ca4",
+      "imported_sources": 46
+    },
+    {
+      "returncode": 1,
+      "output_written": false,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\replay.py",
+        "--archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2",
+        "--closure",
+        "archive-index.json",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure-extra",
+        "--output",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\changed-newlines.json"
+      ],
+      "cwd": "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm",
+      "expected_success": false,
+      "refusal": "Exact-byte index mismatch before source scoring; no output created"
+    },
+    {
+      "returncode": 1,
+      "output_written": false,
+      "command": [
+        "D:\\Program\\Python\\python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\replay.py",
+        "--archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2",
+        "--closure",
+        "archive-index.json",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure",
+        "--source-archive",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\liquid-native-write-r13-v2-source-closure-extra",
+        "--output",
+        "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm\\changed-capture-byte.json"
+      ],
+      "cwd": "C:\\Users\\HAPPY2~1\\AppData\\Local\\Temp\\bbe-cold-liquid-r13-muz0kclm",
+      "expected_success": false,
+      "refusal": "Exact-byte index mismatch before source scoring; no output created"
+    }
+  ],
+  "all_checks_passed": true
+}
