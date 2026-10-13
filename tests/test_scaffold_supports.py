@@ -56,6 +56,35 @@ class ScaffoldSupportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate'):
             capabilities(self.report, self.manifest)
 
+    def test_boolean_stability_or_aux_cannot_classify_a_requested_support(self):
+        for mutation in ('stability', 'support_aux', 'scaffold_aux'):
+            report = copy.deepcopy(self.report)
+            row = report['native']['rows'][0]
+            support = next(cell for cell in row['cells'] if cell['pos'] == [0, 1, 0])
+            scaffold = next(cell for cell in row['cells'] if cell['pos'] == [0, 2, 0])
+            if mutation == 'stability':
+                scaffold['states']['stability'] = False
+            elif mutation == 'support_aux':
+                support['value']['aux'] = False
+            else:
+                scaffold['value']['aux'] = True
+            with self.subTest(mutation=mutation):
+                data = capabilities(report, self.manifest)
+                self.assertNotIn('minecraft:stone', data['blocks'])
+                self.assertEqual((0,), data['unknown']['minecraft:stone'])
+
+    def test_boolean_requested_aux_and_integer_native_byte_are_rejected(self):
+        report = copy.deepcopy(self.report)
+        report['native']['rows'][0]['metadata']['support'][1] = False
+        with self.assertRaisesRegex(ValueError, 'unknown scaffold support states'):
+            capabilities(report, self.manifest)
+        report = copy.deepcopy(self.report)
+        scaffold = next(cell for cell in report['native']['rows'][0]['cells'] if cell['pos'] == [0, 2, 0])
+        self.assertIs(scaffold['states']['stability_check'], True)
+        scaffold['states']['stability_check'] = 1
+        with self.assertRaisesRegex(ValueError, 'Native scaffold state'):
+            capabilities(report, self.manifest)
+
 
 if __name__ == '__main__':
     unittest.main()

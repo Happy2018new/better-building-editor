@@ -42,7 +42,9 @@ def capabilities(report, manifest):
     expected = {(name, aux) for name in registry.BLOCKS for aux in registry.aux_values(name)}
     rows = report['native'].get('rows', []) if method == CATALOGUE_METHOD else _sample_rows(report)
     observed = [tuple(row['requested']) for row in rows]
-    if not observed or len(set(observed)) != len(observed) or not set(observed) <= expected:
+    if (not observed or any(len(pair) != 2 or not isinstance(pair[0], str)
+                            or type(pair[1]) is not int for pair in observed)
+            or len(set(observed)) != len(observed) or not set(observed) <= expected):
         raise ValueError('Duplicate or unknown scaffold support states')
     if method == CATALOGUE_METHOD and (set(observed) != expected or report['native'].get('states') != len(expected)):
         raise ValueError('Scaffold support catalogue does not cover the dumped states exactly')
@@ -50,12 +52,16 @@ def capabilities(report, manifest):
     for row in rows:
         name, aux = row['requested']
         actual, scaffold, states = row.get('support'), row.get('scaffold'), row.get('states')
-        same = actual is not None and (actual.get('name'), actual.get('aux')) == (name, aux)
-        isolated = scaffold is not None and scaffold.get('name') == 'minecraft:scaffolding'
-        if not same or not isolated or not isinstance(states, dict) or states.get('stability') not in (0, 7):
+        same = (isinstance(actual, dict) and type(actual.get('aux')) is int
+                and (actual.get('name'), actual.get('aux')) == (name, aux))
+        isolated = (isinstance(scaffold, dict) and scaffold.get('name') == 'minecraft:scaffolding'
+                    and type(scaffold.get('aux')) is int)
+        if (not same or not isolated or not isinstance(states, dict)
+                or type(states.get('stability')) is not int or states['stability'] not in (0, 7)):
             unknown[name].add(aux)
             continue
-        if registry.states((scaffold['name'], scaffold['aux'])) != states:
+        expected_states = registry.states((scaffold['name'], scaffold['aux']))
+        if registry._state_key(expected_states) != registry._state_key(states):
             raise ValueError('Native scaffold state is absent from the current registry')
         (supporting if states['stability'] == 0 else nonsupporting)[name].add(aux)
     blocks, partial = [], {}
