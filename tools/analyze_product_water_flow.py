@@ -99,8 +99,8 @@ def physical_samples(images, shape, face, row, source):
 def correlation(first, second):
     first, second = first.flatten(), second.flatten()
     first, second = first - first.mean(), second - second.mean()
-    denominator = np.linalg.norm(first) * np.linalg.norm(second)
-    return float(first @ second / denominator) if denominator > 1e-9 else 0.
+    denominator = np.sqrt(np.sum(first * first) * np.sum(second * second))
+    return float(np.sum(first * second) / denominator) if denominator > 1e-9 else 0.
 
 
 def motion(signal, times, axis, expected_sign, spacing, texels_per_unit):
