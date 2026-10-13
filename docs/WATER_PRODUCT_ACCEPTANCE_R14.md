@@ -41,11 +41,15 @@ python -X utf8 tools/analyze_product_water.py <water-frozen.json> <water-frozen-
 
 每帧检查位置／角度／FOV／引擎尺寸稳定，绑定同一会话标定的原始 FOV 和截图分辨率。编辑器检查相机、切面、平移、scene 尺寸及实际原生娃娃控件布局。全部六种同一场景的对照必须共享相机。WGC 帧检查明确的前台策略、窗口状态、绑定、时间戳、PNG 尺寸和 SHA；任何缺失、漂移或恢复失败都禁止产生通过的产品 gate。旧格式的后台帧不因新策略而获得豁免。
 
+尺寸有三种单位，不能互相当作同一数值：Windows 默认 Python 线程可能读取逻辑客户区尺寸；WGC 返回物理客户区像素；游戏 `GetScreenSize` 返回 UI 尺寸并受 GUI scale 影响。捕获端需在局部 per-monitor-v2 DPI 线程上下文读取物理客户区并与 WGC／PNG 严格比较，之后恢复原线程上下文，不按显示缩放猜测或放宽容差。相机合同分别保存游戏 `engine_screen` 与物理 `capture_size`；world 几何使用截图像素，editor 原生 UI 坐标按各自完整视口转换，两种视口均必须在配对捕获期间稳定。
+
 ## 当前证据与剩余工作
 
 19:10 的 `water-product-r14-v1` 在 ready 前退出。监督器在 37.19 秒内得到 `Owned game creation identity changed; refusing to bind`，后续共同诊断确认游戏访问冲突 `c0000005`。本次没有执行水探针、没有截图尝试，也没有 shader 或 Python traceback。前台保持原应用；受管 game／MCDK 的原进程创建身份已回收，配置已删除，批准二进制 SHA 未改变，清理错误为空。原始记录保存在本工作树 `.runtime/water-product-r14-v1/`；共同诊断见 `BACKGROUND_STARTUP_DIAGNOSIS_R14.md`。禁止把这种退出写成“不可靠截图”或进行相同条件盲目重启。
 
 20:05 的 root 项目 `water-product-r14-v2-root` 已进入实际世界和工作区，并取得六张有效 WGC 石块标定截图（front／right／tilted 的 shown＋hidden）。用户手动将游戏切到前台后，旧监督器在 104.95 秒时把前台状态错误地当作护栏失败，即使无激活样式仍有效。它随后发起 WM_CLOSE，再在正常关闭超时后回收精确匹配身份的自有进程；115.86 秒结束，清理错误为空、原配置按字节恢复、game／MCDK 身份均已消失、二进制 pins 不变。20:05:46 的 `ucrtbase.dll c0000409` 出现在监督器发起关闭之后，不能作为未解释的水资源启动崩溃。该次相机报告仅登记了 front／right，`passed`、`completed`、`restored` 均未通过，水探针尚未执行。原件保留在 root `.runtime/water-product-r14-v2-root/`，不会与之后的重试混用。
+
+20:30 的 `water-product-r14-v3-root` 在新前台策略下进入世界，首次石块 shown 捕获取得 fresh、非空的 `1994×1105` WGC PNG。新增尺寸门控将 Python 默认 DPI 线程下的 `1329×736` 逻辑客户区错误地与实际像素比较并拒绝，因此相机 `views` 为空、水探针未执行。相机自身全部恢复成功；监督器 94.32 秒结束，清理错误为空、原配置按字节恢复、game／MCDK 的准确创建身份均已回收、pins 不变。已实际查看 PNG，石块可见，画面显示 GUI scale 为 `4.0`；前一次 v2 相机 `GetScreenSize=[499,277]` 也说明 UI／截图并非同一种尺寸。原件保留在 root `.runtime/water-product-r14-v3-root/`；这是一项捕获工具的单位错误，不能归因于水材质或算作水验收成功。
 
 离线规则、相邻水连续性、实际三角形／UV／alpha 的宿主验证和 owner 测试已经完成；这些不替代游戏观察。捕获工具的 40 项相关回归通过，独立 QA 还构造了编辑器／world 各五种「各自稳定但相机不同」的对照，十种都被完整 analyzer 拒绝。
 

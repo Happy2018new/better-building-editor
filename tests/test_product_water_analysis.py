@@ -14,7 +14,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from analyze_product_water import analyze, contribution, product_geometry
-from water_capture_contract import camera_matches, scene_capture_state
+from water_capture_contract import camera_matches, calibrated_viewport_matches, scene_capture_state
 
 
 class ProductWaterAnalysisTests(unittest.TestCase):
@@ -118,6 +118,12 @@ class ProductWaterAnalysisTests(unittest.TestCase):
         for field, value in (('screen', [64, 64]), ('fov', 61.)):
             with self.subTest(field=field):
                 self.assertFalse(camera_matches(pose, dict(pose, **{field: value})))
+
+    def test_engine_ui_units_are_independent_from_physical_capture_pixels(self):
+        pose = {'position': [0., 0., 12.], 'rotation': [0., 0., 0.], 'screen': [499., 277.], 'fov': 60.}
+        calibration = {'engine_screen': [499., 277.], 'capture_size': [1994, 1105], 'reported_fov': 60.}
+        self.assertTrue(calibrated_viewport_matches(pose, calibration))
+        self.assertFalse(calibrated_viewport_matches(dict(pose, screen=[1994, 1105]), calibration))
 
     def test_blank_and_wrong_water_silhouettes_fail_even_when_in_the_roi(self):
         expected = np.zeros((64, 64), dtype=bool)
