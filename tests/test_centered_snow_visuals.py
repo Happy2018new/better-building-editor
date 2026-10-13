@@ -69,6 +69,10 @@ class CenteredSnowVisualTests(unittest.TestCase):
         self.assertIsNotNone(thin.getbbox())
         self.assertIsNone(covered.getbbox())
         self.assertTrue(all(0 < edge < size for edge, size in zip(dry.getbbox(), (512, 384, 512, 384))))
+        low_pose = dict(pose, position=(-1.5, .65, -2.))
+        with self.assertRaisesRegex(ValueError, 'camera above the snow surface'):
+            world_alpha(model, texture, low_pose, (1024, 768), (256, 192, 768, 576),
+                        (0, 0, 0), calibration, 5)
 
 
 if __name__ == '__main__':

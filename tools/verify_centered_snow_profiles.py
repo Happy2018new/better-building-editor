@@ -28,6 +28,8 @@ from projection.debug_snow_blueprints import NAMES, VISUAL_CASE
 from verify_neighbor_world_visuals import CAPTURE_OPTIONS, RESTORE_OPTIONS
 from context_test_environment import run as run_environment, SETUP as SETUP_ENVIRONMENT, RESTORE as RESTORE_ENVIRONMENT
 
+WORLD_OFFSET = (-2., 1.2, -2.5)
+
 
 def selected_heights(name):
     """Thin, immediately before/at alpha burial, and completely covered."""
@@ -60,6 +62,8 @@ def world_alpha(model, texture, pose, screenshot_size, crop, base, calibration, 
     result = Image.new('L', (crop[2]-crop[0], crop[3]-crop[1]))
     draw = ImageDraw.Draw(result)
     snow_top = (height+1)/8.
+    if height >= 0 and pose['position'][1] <= base[1]+snow_top:
+        raise ValueError('Y-clipped plant oracle requires a camera above the snow surface')
     for bone in model['netease:block_geometry']['bones']:
         angle = math.radians(bone['rotation'][1])
         px, unused, pz = bone['pivot']
@@ -131,7 +135,8 @@ def run(args):
             report['environment'] = run_environment(client, SETUP_ENVIRONMENT)
             environment_saved = True
             focus = tuple(VISUAL_CASE['focus'])
-            offset = tuple(VISUAL_CASE['camera']['world_offset'])
+            # Y clipping alone does not model snow's occlusion from below.
+            offset = WORLD_OFFSET
             target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,32,6)[i] for i in range(3)))'))
             report['target'], report['world_offset'] = target, offset
             for plant in plants:
