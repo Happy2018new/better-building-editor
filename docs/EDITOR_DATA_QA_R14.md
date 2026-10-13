@@ -189,10 +189,30 @@ agent's archived read-only palette observation was also parsed independently:
 - Observed air state encoding: `[[["minecraft:air", 0], {}]]`; common has the
   same material at index 0, and both extra buckets are empty.
 
-This closes the reported isolation defects. No complete catalogue or visual
-acceptance exists. The new sequential collection wrapper remains under
-specialist development; its source closure was separately flagged for the
-single-air modules imported by the supervisor.
+The sequential wrapper `b690790d` was also reviewed. Its original source list
+omitted the single-air modules imported by the supervisor; they and the
+projection package initializer are now retained. Independent execution of the
+collection module passed all nine methods. A default preparation was run in
+`D:/bbe-r13e-qa/.runtime/scaffold-collector-qa-r14-prepared-v1/`; all 19 local
+Python modules loaded in a fresh process had archived source pins, with no
+missing current or archived bytes. The plan permits zero launches and remains
+`prepared_not_executed`. Completed segment receipts are rehashed before union
+and loaded one at a time; the original receipt remains the evidence source.
+
+A further validator defect was independently reproduced: if both an actual
+palette and the report-provided expected palette had background stone, the
+original `valid(actual, expected)` accepted them as dry air. The real producer
+rejected this encoding, but independent report validation did not. The final
+`12de62f9` now validates the expected four typed buckets as dry air, checks
+native volume axes are integers, and requires observation fingerprint format
+in both catalogue and lifecycle validation.
+
+All 24 final focused palette, catalogue, lifecycle and collection methods
+passed independently. Eleven additional direct/report negatives rejected
+matching background-stone palettes, invalid expected encodings, and missing,
+short, nonhex or integer observation hashes in both validators. This closes
+the reported isolation and evidence defects. No complete native catalogue or
+editor/full/missing visual acceptance exists.
 
 ## Limits and integration
 
