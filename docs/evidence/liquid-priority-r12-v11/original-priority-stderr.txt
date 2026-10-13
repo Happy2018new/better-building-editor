@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\.runtime\probe_liquid_original_sides_r12_v11.py", line 556, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\.runtime\probe_liquid_original_sides_r12_v11.py", line 494, in main
+    check.wait(route + '/' + label, workspace.world_ready, lambda: check.run(WORLD_STATE))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\.runtime\probe_liquid_original_sides_r12_v11.py", line 210, in wait
+    return super().wait(label, predicate, read)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\tools\verify_debug_blueprints.py", line 234, in wait
+    last = read()
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\.runtime\probe_liquid_original_sides_r12_v11.py", line 494, in <lambda>
+    check.wait(route + '/' + label, workspace.world_ready, lambda: check.run(WORLD_STATE))
+                                                                   ~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\tools\verify_debug_blueprints.py", line 210, in run
+    response = self.client.call('execute_code', {
+        'code': CLIENT + code, 'is_client': True, 'direct_return': True})
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\.runtime\r12-liquid-production\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 212, in call
+    raise MCDKError(json.dumps(result, ensure_ascii=False))
+mcdk.MCDKError: {"isError": true, "content": [{"text": "Code execution failed: 'NoneType' object has no attribute 'renderer'\nTraceback (most recent call last):\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 419, in _TASK\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 469, in _RUN_CLIENT_CODE\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 360, in _EXEC_CODE_RESULT\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 345, in _EXEC_CODE_VALUE\n  File \"DEBUG_ENV_SCRIPT.IPCSystem\", line 325, in _EXEC_CODE_OBJECT\n  File \"<string>\", line 1, in <module>\n  File \"<string>\", line 39, in <module>\nAttributeError: 'NoneType' object has no attribute 'renderer'\n", "type": "text"}]}

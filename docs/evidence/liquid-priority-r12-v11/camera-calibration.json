@@ -1,0 +1,886 @@
+{
+  "schema": 1,
+  "passed": true,
+  "completed": true,
+  "views": [
+    {
+      "view": "front",
+      "pose": {
+        "position": [
+          6.5,
+          -21.5,
+          12.5
+        ],
+        "rotation": [
+          -0.0,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -21.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          -21.5,
+          12.5
+        ],
+        "rotation": [
+          0.0,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_signal.png",
+      "shown": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_shown_native.png",
+        "bytes": 448053,
+        "sha256": "6519519fb740e133d9c4ec709fb334acabe892b1d0b6dd8806315b50a824a259",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          761.6746975667143,
+          1335.3862789915704,
+          3840.930675006048
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_shown_native.png",
+          "started_at": "2026-10-13T02:38:55.692954+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339200938588,
+            "frame_qpc_100ns": 3339201041277,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            761.6746975667143,
+            1335.3862789915704,
+            3840.930675006048
+          ],
+          "sha256": "6519519fb740e133d9c4ec709fb334acabe892b1d0b6dd8806315b50a824a259",
+          "bytes": 448053,
+          "finished_at": "2026-10-13T02:38:56.597770+00:00",
+          "elapsed_seconds": 0.9048063000082038
+        },
+        "requested_label": "front_shown",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "hidden": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_hidden_native.png",
+        "bytes": 573828,
+        "sha256": "352d2585fbcfd8a6e687e049d25f0fcb0021ba98457bd8714fd03f06605fc49c",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          1257.7769008923265,
+          1990.0023554390327,
+          7056.343484906232
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_hidden_native.png",
+          "started_at": "2026-10-13T02:38:57.439043+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339217721931,
+            "frame_qpc_100ns": 3339217828951,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            1257.7769008923265,
+            1990.0023554390327,
+            7056.343484906232
+          ],
+          "sha256": "352d2585fbcfd8a6e687e049d25f0fcb0021ba98457bd8714fd03f06605fc49c",
+          "bytes": 573828,
+          "finished_at": "2026-10-13T02:38:58.273668+00:00",
+          "elapsed_seconds": 0.8346260000253096
+        },
+        "requested_label": "front_hidden",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_front_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "right",
+      "pose": {
+        "position": [
+          12.5,
+          -21.5,
+          6.5
+        ],
+        "rotation": [
+          -0.0,
+          270.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -21.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          12.5,
+          -21.5,
+          6.5
+        ],
+        "rotation": [
+          0.0,
+          -90.0,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            910,
+            465,
+            1084,
+            640
+          ],
+          "max_boundary_error_pixels": 11
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            840,
+            395,
+            1154,
+            710
+          ],
+          "max_boundary_error_pixels": 81
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_signal.png",
+      "shown": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_shown_native.png",
+        "bytes": 515239,
+        "sha256": "73ad549a7da0927cd1a630eaf76ad75260290ce5fdd675c3474fb9601504e42e",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          1059.241932117655,
+          1740.684315980217,
+          5648.797095672255
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_shown_native.png",
+          "started_at": "2026-10-13T02:39:07.031196+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339314076185,
+            "frame_qpc_100ns": 3339314190716,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            1059.241932117655,
+            1740.684315980217,
+            5648.797095672255
+          ],
+          "sha256": "73ad549a7da0927cd1a630eaf76ad75260290ce5fdd675c3474fb9601504e42e",
+          "bytes": 515239,
+          "finished_at": "2026-10-13T02:39:07.909024+00:00",
+          "elapsed_seconds": 0.8778270999900997
+        },
+        "requested_label": "right_shown",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "hidden": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_hidden_native.png",
+        "bytes": 567615,
+        "sha256": "82396cd782a03662563fec4a3036fd41846bedc8e1df2df843c238de13fbad52",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          1255.3989389462276,
+          1973.8078485455192,
+          7038.358473761827
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_hidden_native.png",
+          "started_at": "2026-10-13T02:39:08.618146+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339329848919,
+            "frame_qpc_100ns": 3339329947996,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            1255.3989389462276,
+            1973.8078485455192,
+            7038.358473761827
+          ],
+          "sha256": "82396cd782a03662563fec4a3036fd41846bedc8e1df2df843c238de13fbad52",
+          "bytes": 567615,
+          "finished_at": "2026-10-13T02:39:09.420198+00:00",
+          "elapsed_seconds": 0.8020548999775201
+        },
+        "requested_label": "right_hidden",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_right_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          920,
+          474,
+          1075,
+          629
+        ],
+        "predicted_bounds": [
+          920,
+          476,
+          1074,
+          629
+        ],
+        "boundary_rms_pixels": 1.118033988749895,
+        "mask_iou": 0.9808092581800016,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    },
+    {
+      "view": "tilted",
+      "pose": {
+        "position": [
+          6.5,
+          -24.5,
+          12.5
+        ],
+        "rotation": [
+          -26.56505012512207,
+          0.0,
+          0.0
+        ],
+        "target": [
+          6.5,
+          -21.5,
+          6.5
+        ]
+      },
+      "camera": {
+        "position": [
+          6.5,
+          -24.5,
+          12.5
+        ],
+        "rotation": [
+          -26.565046310424805,
+          1.3660377589985728e-05,
+          -1.3660377589985728e-05
+        ],
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "fov": 60.0
+      },
+      "candidates": {
+        "vertical": {
+          "vertical_fov": 60.0,
+          "bounds": [
+            917,
+            453,
+            1077,
+            646
+          ],
+          "max_boundary_error_pixels": 12
+        },
+        "horizontal": {
+          "vertical_fov": 35.48371558842684,
+          "bounds": [
+            853,
+            373,
+            1141,
+            720
+          ],
+          "max_boundary_error_pixels": 91
+        }
+      },
+      "convention": "vertical",
+      "passed": true,
+      "signal": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_signal.png",
+      "shown": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_shown_native.png",
+        "bytes": 95525,
+        "sha256": "8b8670e41dd3c587c7ac82633afe9b6ffda4c5ebc7afa02742f83d065e449a87",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          538.5094608975877,
+          930.6514392148749,
+          2174.7127791949465
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_shown_native.png",
+          "started_at": "2026-10-13T02:39:17.576327+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339420370558,
+            "frame_qpc_100ns": 3339420492114,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            538.5094608975877,
+            930.6514392148749,
+            2174.7127791949465
+          ],
+          "sha256": "8b8670e41dd3c587c7ac82633afe9b6ffda4c5ebc7afa02742f83d065e449a87",
+          "bytes": 95525,
+          "finished_at": "2026-10-13T02:39:18.516941+00:00",
+          "elapsed_seconds": 0.9406140000210144
+        },
+        "requested_label": "tilted_shown",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "hidden": {
+        "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_hidden_native.png",
+        "bytes": 92849,
+        "sha256": "f9054387915d23025f2a9fa0b318ff9834d56896e3ebd39428eff4c9e84517e4",
+        "mime": "image/png",
+        "size": [
+          1994,
+          1105
+        ],
+        "variance": [
+          507.10001185203834,
+          842.6879297794445,
+          1935.7785108875642
+        ],
+        "compact_screenshot": null,
+        "capture": {
+          "schema": 2,
+          "ok": true,
+          "reliable": true,
+          "background_only": true,
+          "backend": "Windows.Graphics.Capture",
+          "native_resolution": true,
+          "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_hidden_native.png",
+          "started_at": "2026-10-13T02:39:19.229624+00:00",
+          "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+          "owner": "liquid-r12-priority-v11",
+          "game_pid": 1556,
+          "game_identity": "134363326438374356",
+          "window": {
+            "hwnd": 15597660,
+            "pid": 1556,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 189,
+            "y": 176,
+            "width": 1329,
+            "height": 736,
+            "minimized": false
+          },
+          "helper": {
+            "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+            "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+            "sources": {
+              "burst_main.cpp": "0f2d14748534075e805f50c2cce823846839096a629c0d3ff1513f5134e2bee9",
+              "burst_window_capture.cpp": "d31c0f9f5bba2fd6a2dd2d51b0f2a5b5ddf124a2e22356f3186080d788f0e582",
+              "burst_window_capture.h": "a06f1de5dfd6214f8a2730bd38473b0fc9a2e9b69149e7b5d0a5c18e15917dd5",
+              "CMakeLists.txt": "f4b6f44d905d4c704700d94d8dc027d5ca59ec5150a4c0b03a4ae2d7fdd7ce26",
+              "main.cpp": "71451f5efb417a62f6e7d8babc5ee580c5ac46ee874b2246757d5c045410508d",
+              "README.md": "2c5dcb7e2e73f7059ed42b4a1f517322088851fe7e5b524a09e2369c5fcda33c",
+              "UPSTREAM_LICENSE": "0c4256010779e95977308835a49cdb3f4235f3420f0291131cbc73c8fecff7b2",
+              "window_capture.cpp": "47f94c48d98a77631b8a11e5eafece6b03bcf876d611531f78e4b1119abf7f84",
+              "window_capture.h": "061a611388c2736de59a7e5bdf5ae0ad2130c0f0d8f4cb8c7347d50e0a50d0a9"
+            }
+          },
+          "foreground_before": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_after": {
+            "hwnd": 8982250,
+            "pid": 63392
+          },
+          "foreground_unchanged": true,
+          "background_safe": true,
+          "helper_returncode": 0,
+          "helper_stderr": "",
+          "frame": {
+            "ok": true,
+            "backend": "Windows.Graphics.Capture",
+            "native_resolution": true,
+            "request_qpc_100ns": 3339435050296,
+            "frame_qpc_100ns": 3339435158501,
+            "width": 1994,
+            "height": 1105
+          },
+          "width": 1994,
+          "height": 1105,
+          "variance": [
+            507.10001185203834,
+            842.6879297794445,
+            1935.7785108875642
+          ],
+          "sha256": "f9054387915d23025f2a9fa0b318ff9834d56896e3ebd39428eff4c9e84517e4",
+          "bytes": 92849,
+          "finished_at": "2026-10-13T02:39:19.970574+00:00",
+          "elapsed_seconds": 0.7409496000036597
+        },
+        "requested_label": "tilted_hidden",
+        "capture_sequence": 1,
+        "background_only": true
+      },
+      "outline_comparison": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration_tilted_signal_outline_comparison.png",
+      "fit": {
+        "vertical_fov": 66.6,
+        "bounds": [
+          927,
+          464,
+          1068,
+          634
+        ],
+        "predicted_bounds": [
+          927,
+          465,
+          1067,
+          634
+        ],
+        "boundary_rms_pixels": 0.7071067811865476,
+        "mask_iou": 0.9867616218105557,
+        "outline_recall_2px": 1.0,
+        "outline_precision_2px": 1.0,
+        "fit_contract": "Complete convex hull of eight world cube corners and native silhouette, not width alone"
+      }
+    }
+  ],
+  "scope": "Exact full native client cube; world blocks and player position untouched",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+  "native_resolution": true,
+  "skyward_tilted": true,
+  "fixture_lift_y": 30,
+  "environment": {
+    "rules": {
+      "command_blocks_enabled": true,
+      "mob_griefing": true,
+      "enable": true,
+      "keep_inventory": true,
+      "entities_drop_loot": true,
+      "daylight_cycle": false,
+      "random_tick_speed": 1,
+      "mob_spawn": true,
+      "weather_cycle": false,
+      "show_days_played": false,
+      "recipes_unlock": true,
+      "is_flat_world": true,
+      "always_day": false,
+      "skip_night_by_sleeping": true,
+      "player_sleeping_percentage": 100
+    },
+    "raining": false,
+    "thunder": false,
+    "time": 0
+  },
+  "capture_options": {
+    "clouds_during_capture": 0,
+    "clouds_before": 0
+  },
+  "weather_settle_seconds": 10.0,
+  "fixture": {
+    "cube_material": [
+      "minecraft:stone",
+      0
+    ],
+    "projection_origin": [
+      5,
+      -23,
+      5
+    ],
+    "cube_cell": [
+      1,
+      1,
+      1
+    ],
+    "cube_size": [
+      3,
+      3,
+      3
+    ],
+    "player_origin": [
+      0,
+      -60,
+      0
+    ]
+  },
+  "fov_convention": "calibrated_vertical",
+  "reported_fov": 60.0,
+  "screen_aspect": 1.8014440433212997,
+  "reported_fov_is_effective": false,
+  "runtime_minecraft_version": "1.21.120.0",
+  "vertical_fov": 66.6,
+  "individual_fitted_vertical_fov": [
+    66.3,
+    66.3,
+    66.6
+  ],
+  "limits": {
+    "boundary_rms_pixels": 2,
+    "mask_iou": 0.95,
+    "outline_recall_2px": 0.985,
+    "outline_precision_2px": 0.985,
+    "source": "Native JPEG edge extraction; complete hull must agree within two pixels in all three views"
+  },
+  "environment_restored": true,
+  "capture_options_restored": true,
+  "projection_restored": true,
+  "camera_restored": true,
+  "visual_restored": true,
+  "editor_restored": true,
+  "cleanup_errors": [],
+  "restored": true
+}

@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": false,
+  "read_only_monitor": true,
+  "owner": "liquid-r12-priority-v11",
+  "timeout_seconds": 59.07484149932861,
+  "outer_deadline_unix": 1791859267.016404,
+  "samples": [
+    {
+      "observed_at": 1791859189.9693742,
+      "handles": 845,
+      "working_set_bytes": 736448512,
+      "private_commit_bytes": 2455007232
+    },
+    {
+      "observed_at": 1791859195.1979501,
+      "handles": 846,
+      "working_set_bytes": 741371904,
+      "private_commit_bytes": 2646241280
+    },
+    {
+      "observed_at": 1791859200.4062805,
+      "handles": 848,
+      "working_set_bytes": 742494208,
+      "private_commit_bytes": 2666254336
+    },
+    {
+      "observed_at": 1791859205.6567423,
+      "handles": 845,
+      "working_set_bytes": 753061888,
+      "private_commit_bytes": 2695180288
+    },
+    {
+      "observed_at": 1791859210.8999698,
+      "handles": 848,
+      "working_set_bytes": 816226304,
+      "private_commit_bytes": 2738429952
+    },
+    {
+      "observed_at": 1791859216.1674812,
+      "handles": 846,
+      "working_set_bytes": 735793152,
+      "private_commit_bytes": 2738429952
+    }
+  ],
+  "failure": "RuntimeError: Owned child exited with code 1",
+  "observed_session": {
+    "id": "c717a150a6964991956bda8de03f4151",
+    "owner": "liquid-r12-priority-v11",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+    "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\appdata",
+    "port": 55907,
+    "mcp_url": "http://127.0.0.1:55907/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+    "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_c717a150a6964991956bda8de03f4151",
+    "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_c717a150a6964991956bda8de03f4151",
+    "game_pid": 1556,
+    "game_identity": "134363326438374356",
+    "mcdk_pid": 52556,
+    "mcdk_identity": "134363326436169860"
+  },
+  "persistence_errors": [],
+  "startup": false,
+  "growth_enabled": true,
+  "child_pid": 63188,
+  "started_at": 1791859189.9669461,
+  "terminal_sample": {
+    "observed_at": 1791859221.2816796,
+    "handles": 843,
+    "working_set_bytes": 735895552,
+    "private_commit_bytes": 2738364416
+  },
+  "returncode": 1,
+  "resource_failure_cleanup": {
+    "authorized": true,
+    "force_used": true,
+    "pinned_binding": {
+      "id": "c717a150a6964991956bda8de03f4151",
+      "owner": "liquid-r12-priority-v11",
+      "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+      "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\appdata",
+      "port": 55907,
+      "mcp_url": "http://127.0.0.1:55907/mcp",
+      "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_c717a150a6964991956bda8de03f4151",
+      "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_c717a150a6964991956bda8de03f4151",
+      "game_pid": 1556,
+      "game_identity": "134363326438374356",
+      "mcdk_pid": 52556,
+      "mcdk_identity": "134363326436169860"
+    },
+    "outer_deadline_unix": 1791859267.016404,
+    "attempts": [
+      {
+        "force": true,
+        "kind": "game",
+        "pid": 1556
+      },
+      {
+        "force": true,
+        "kind": "mcdk",
+        "pid": 52556
+      }
+    ],
+    "identities_before": {
+      "game": "134363326438374356",
+      "mcdk": "134363326436169860"
+    },
+    "ordinary_close_sent": true,
+    "identities_after": {
+      "game": null,
+      "mcdk": null
+    },
+    "passed": true,
+    "finished_at": 1791859227.574368,
+    "outer_deadline_met": true
+  },
+  "finished_at": 1791859227.5763154
+}

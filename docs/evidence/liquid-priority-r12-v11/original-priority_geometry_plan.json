@@ -1,0 +1,802 @@
+{
+  "schema": 1,
+  "kind": "liquid_original_world_priority8",
+  "source_bindings": {
+    "tools/analyze_liquid_sides.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\tools\\analyze_liquid_sides.py",
+      "sha256": "6cdf290e9b96151b51d4391ba63e0aff72a80078f02ecb47c3758f7947cb8a7f"
+    },
+    "tools/camera_projection.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\tools\\camera_projection.py",
+      "sha256": "6240b10336326f7545a9fa232e81ea0459358adbc49cb31605995e780a5a968c"
+    },
+    "tools/analyze_liquid_workspace.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\tools\\analyze_liquid_workspace.py",
+      "sha256": "bcd25a3eeb909587c4f87d212585fe5ff705c2b285b36231bbbc26eff4d4a591"
+    },
+    "behavior_pack/modern_projection/projection/debug_liquid_blueprints.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\debug_liquid_blueprints.py",
+      "sha256": "e439f64ff9d1d72023651d99343e4870c3a38ec6919a875aca60cabe3d7b59c9"
+    },
+    "behavior_pack/modern_projection/projection/debug_blueprints.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\debug_blueprints.py",
+      "sha256": "151dbda8a887beb3ab6a9331ee9dfbdeffb32770b659d765e44cd2deeaeddd3e"
+    },
+    "behavior_pack/modern_projection/projection/block_registry_data.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+      "sha256": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786"
+    },
+    "behavior_pack/modern_projection/projection/block_registry.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\block_registry.py",
+      "sha256": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a"
+    },
+    "behavior_pack/modern_projection/projection/cell.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "behavior_pack/modern_projection/projection/model.py": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\behavior_pack\\modern_projection\\projection\\model.py",
+      "sha256": "1dc76b8cfac13ee2bddefd69f4e5fef8d45ae0531d59739ac57a6b2d341fbeda"
+    }
+  },
+  "declarations": [
+    {
+      "id": "native_h_vnw",
+      "source_id": "water_depth_0_foreground",
+      "route": "native",
+      "role": "native_original",
+      "view": "vnw",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            0
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "north"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "west"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 1463,
+        "forward": [
+          0.5976137518882751,
+          -0.3585684597492218,
+          0.7171372771263123
+        ],
+        "position": [
+          5.5,
+          -35.04999923706055,
+          5.300000190734863
+        ],
+        "rotation": [
+          21.01230812072754,
+          140.19444274902344,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "full_h_vnw",
+      "source_id": "water_depth_0_foreground",
+      "route": "full",
+      "role": "original",
+      "view": "vnw",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            0
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "north"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "west"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 1463,
+        "forward": [
+          0.5976137518882751,
+          -0.3585684597492218,
+          0.7171372771263123
+        ],
+        "position": [
+          5.5,
+          -35.04999923706055,
+          5.300000190734863
+        ],
+        "rotation": [
+          21.01230812072754,
+          140.19444274902344,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "native_l_vnw",
+      "source_id": "water_depth_3_foreground",
+      "route": "native",
+      "role": "native_original",
+      "view": "vnw",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            3
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "north"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "west"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 2060,
+        "forward": [
+          0.5976137518882751,
+          -0.3585684597492218,
+          0.7171372771263123
+        ],
+        "position": [
+          5.5,
+          -35.04999923706055,
+          5.300000190734863
+        ],
+        "rotation": [
+          21.01230812072754,
+          140.19444274902344,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "full_l_vnw",
+      "source_id": "water_depth_3_foreground",
+      "route": "full",
+      "role": "original",
+      "view": "vnw",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            3
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "north"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "west"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 2060,
+        "forward": [
+          0.5976137518882751,
+          -0.3585684597492218,
+          0.7171372771263123
+        ],
+        "position": [
+          5.5,
+          -35.04999923706055,
+          5.300000190734863
+        ],
+        "rotation": [
+          21.01230812072754,
+          140.19444274902344,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "native_h_vse",
+      "source_id": "water_depth_0_foreground",
+      "route": "native",
+      "role": "native_original",
+      "view": "vse",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            0
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "south"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "east"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 2518,
+        "forward": [
+          -0.5976141095161438,
+          -0.3585685193538666,
+          -0.717137336730957
+        ],
+        "position": [
+          7.5,
+          -35.04999923706055,
+          7.699999809265137
+        ],
+        "rotation": [
+          21.01230812072754,
+          -39.80555725097656,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "full_h_vse",
+      "source_id": "water_depth_0_foreground",
+      "route": "full",
+      "role": "original",
+      "view": "vse",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            0
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "south"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "east"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 2518,
+        "forward": [
+          -0.5976141095161438,
+          -0.3585685193538666,
+          -0.717137336730957
+        ],
+        "position": [
+          7.5,
+          -35.04999923706055,
+          7.699999809265137
+        ],
+        "rotation": [
+          21.01230812072754,
+          -39.80555725097656,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "native_l_vse",
+      "source_id": "water_depth_3_foreground",
+      "route": "native",
+      "role": "native_original",
+      "view": "vse",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            3
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "south"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "east"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 3035,
+        "forward": [
+          -0.5976141095161438,
+          -0.3585685193538666,
+          -0.717137336730957
+        ],
+        "position": [
+          7.5,
+          -35.04999923706055,
+          7.699999809265137
+        ],
+        "rotation": [
+          21.01230812072754,
+          -39.80555725097656,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    },
+    {
+      "id": "full_l_vse",
+      "source_id": "water_depth_3_foreground",
+      "route": "full",
+      "role": "original",
+      "view": "vse",
+      "control": "supported_positive",
+      "source_cells": [
+        [
+          [
+            3,
+            2,
+            3
+          ],
+          [
+            "minecraft:stone",
+            0
+          ]
+        ],
+        [
+          [
+            3,
+            3,
+            3
+          ],
+          [
+            "minecraft:water",
+            3
+          ]
+        ]
+      ],
+      "sides": [
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "south"
+        },
+        {
+          "position": [
+            3,
+            3,
+            3
+          ],
+          "layer": 0,
+          "face": "east"
+        }
+      ],
+      "projection": {
+        "fov": 60.0,
+        "screen": [
+          499.0,
+          277.0
+        ],
+        "render_events": 3035,
+        "forward": [
+          -0.5976141095161438,
+          -0.3585685193538666,
+          -0.717137336730957
+        ],
+        "position": [
+          7.5,
+          -35.04999923706055,
+          7.699999809265137
+        ],
+        "rotation": [
+          21.01230812072754,
+          -39.80555725097656,
+          -1.3718863556277938e-05
+        ],
+        "target": [
+          6.5,
+          -35.65,
+          6.5
+        ],
+        "vertical_fov": 66.6,
+        "origin": [
+          3,
+          -39,
+          3
+        ],
+        "kind": "perspective",
+        "native_image_screen": [
+          1994,
+          1105
+        ]
+      }
+    }
+  ],
+  "session_binding": {
+    "owner": "liquid-r12-priority-v11",
+    "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\c717a150a6964991956bda8de03f4151\\session.json",
+    "game_pid": 1556,
+    "game_identity": "134363326438374356"
+  },
+  "prerequisites": {
+    "physical": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\physical-readiness.json",
+      "sha256": "75dd159a233c6b8acae4f1dff51538fa4d60265c0286d3a6c3b977a4d6cb56d1"
+    },
+    "calibration": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\camera-calibration.json",
+      "sha256": "a2d67965bc5c551f6b746a9c33f0b6ff072bdf85f36e73492dd6126f86abd995"
+    },
+    "viewport": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\preflight.capture.json",
+      "sha256": "cfbdf8bca031dab448250562daf3445b6fe917601a15e06c6b176c2e3bc27c29"
+    }
+  },
+  "limits": {
+    "minimum_mask_iou": 0.95,
+    "maximum_boundary_pixels": 3.0,
+    "minimum_low_side_pixels": 24.0,
+    "minimum_marker_contrast": 12.0,
+    "minimum_marker_samples": 80,
+    "maximum_rgb_rmse": 3.0
+  },
+  "side_uv_qualified": false,
+  "production_qualified": false
+}

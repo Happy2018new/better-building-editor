@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "completed": false,
+  "passed": false,
+  "phase_receipts": {
+    "actual-world": {
+      "returncode": 0,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\actual-world-passive-health.json"
+    },
+    "preflight": {
+      "returncode": 0,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\preflight-passive-health.json"
+    },
+    "physical": {
+      "returncode": 0,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\physical-passive-health.json"
+    },
+    "health": {
+      "returncode": 0,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\health-passive-health.json"
+    },
+    "calibrate": {
+      "returncode": 0,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\calibrate-passive-health.json"
+    },
+    "original-priority": {
+      "returncode": 1,
+      "monitor": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r12-liquid-production\\.runtime\\liquid-priority-r12-v11\\original-priority-passive-health.json"
+    }
+  },
+  "owner": "liquid-r12-priority-v11",
+  "scope": "Original-world8 then alpha6 native diagnostic only, all acceptance false",
+  "plan_sha256": "7bccac448271093c6cdda2a0efc6e7ed521c1eb16dc317cc576818d792c27585",
+  "capacity_receipt_sha256": "9af8477caf946c60e86f1ee6f0f205c7f987bf828e86ef261139bf03066bec9e",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791859043.8374348,
+  "startup_deadline_unix": 1791859223.8374348,
+  "outer_deadline_unix": 1791859267.016404,
+  "transport_ready_observed_at": 1791859107.0793622,
+  "ready_observed_at": 1791859117.016404,
+  "normal_deadline_unix": 1791859237.016404,
+  "fixture_cleanup_deadline_unix": 1791859249.016404,
+  "full_work_cleanup_reserve_verified": true,
+  "actual_world_receipt_sha256": "f4cf7898b73bcd28b49af51b7c51edcf494fb66db1cc326bc9383dd528270ddb",
+  "error": "RuntimeError: Phase failed, no replay: original-priority",
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 187.3383297920227,
+  "ready_to_stopped_seconds": 114.15936207771301
+}
