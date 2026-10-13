@@ -52,6 +52,25 @@ class NativePaletteReadbackTests(unittest.TestCase):
             with self.subTest(change=change), self.assertRaises(ValueError):
                 palette.encoding_from_observation(value)
 
+    def test_matching_tampered_encoding_is_not_an_air_baseline(self):
+        expected = palette.encoding_from_observation(self.observation())
+        actual = dict(copy.deepcopy(expected), volume=[1, 1, 1], actor_empty=True, void=False, eliminateAir=False)
+        self.assertTrue(palette.valid(actual, expected))
+        for change in ('background', 'material_bool', 'index_bool', 'states', 'volume_bool'):
+            encoding, value = copy.deepcopy(expected), copy.deepcopy(actual)
+            if change == 'background':
+                encoding['extra'] = value['extra'] = [[['minecraft:stone', 0], [0]]]
+            elif change == 'material_bool':
+                encoding['common'][0][0][1] = value['common'][0][0][1] = False
+            elif change == 'index_bool':
+                encoding['common'][0][1][0] = value['common'][0][1][0] = False
+            elif change == 'states':
+                encoding['states'][0][1] = value['states'][0][1] = {'nonair': True}
+            else:
+                value['volume'][0] = True
+            with self.subTest(change=change):
+                self.assertFalse(palette.valid(value, encoding))
+
     def native(self, background_stone=False, missing_palette=False, raw_states=None):
         front = {'name': 'minecraft:air', 'aux': 0}
         extra = {'value': background_stone}

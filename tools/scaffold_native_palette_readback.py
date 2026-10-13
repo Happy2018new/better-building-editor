@@ -25,7 +25,7 @@ HELPER = '''def palette_read(pos):
     value[key].append([list(material),content])
  return value
 def palette_air(value):
- return (value['volume'] in ((1,1,1),[1,1,1])
+ return (value['volume'] in ((1,1,1),[1,1,1]) and all(type(axis) is int for axis in value['volume'])
   and all(value[key]==config['air_encoding'][key] for key in ('common','extra','states','extraStates'))
   and value['actor_empty'] and value['void'] is False and value['eliminateAir'] is False)
 '''
@@ -89,8 +89,19 @@ def _typed(value):
     return (type(value).__name__, value)
 
 
+def valid_encoding(expected):
+    if not isinstance(expected, dict) or set(expected) != {'common', 'extra', 'states', 'extraStates'}:
+        return False
+    air = [[['minecraft:air', 0], [0]]]
+    empty_states = [[['minecraft:air', 0], {}]]
+    return (_typed(expected['common']) == _typed(air)
+            and _typed(expected['extra']) in (_typed([]), _typed(air))
+            and _typed(expected['states']) in (_typed([]), _typed(empty_states))
+            and _typed(expected['extraStates']) == _typed([]))
+
+
 def valid(value, expected):
-    if (not isinstance(value, dict) or tuple(value.get('volume', ())) != (1, 1, 1)
+    if (not valid_encoding(expected) or not isinstance(value, dict) or tuple(value.get('volume', ())) != (1, 1, 1)
             or any(type(axis) is not int for axis in value['volume'])
             or value.get('actor_empty') is not True or value.get('void') is not False
             or value.get('eliminateAir') is not False):

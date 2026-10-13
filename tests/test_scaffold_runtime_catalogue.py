@@ -35,7 +35,7 @@ class RuntimeCatalogueTests(harness.RuntimeLifecycleTests):
                 'palette_sha256': probe.common.registry.SOURCE_SHA256, 'completed': True,
                 'restored': cleanup['restored'], 'source_sha256': 'a' * 64, 'identity': self.identity,
                 'start': initial, 'native': native, 'cleanup': cleanup, 'range': [start, start + count],
-                'plans': probe.plans(start, count), 'air_encoding': harness.AIR_ENCODING,
+                'plans': probe.plans(start, count), 'air_encoding': harness.AIR_ENCODING, 'air_observation_sha256': 'd' * 64,
                 'acceptance': derive.ACCEPTANCE, 'payload_sha256': {name: probe.common.digest(code.encode('utf8'))
                     for name, code in (('start', probe.start_payload(start, count, self.identity, 'a' * 64, True, harness.AIR_ENCODING)),
                         ('status', probe.STATUS % (probe.MARKER, self.identity)), ('restore', probe.restore_payload(self.identity)))}}

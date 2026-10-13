@@ -8,7 +8,7 @@ from collections import defaultdict
 
 import probe_scaffold_state_lifecycle as common
 import probe_scaffold_runtime_catalogue as probe
-from scaffold_native_palette_readback import valid as valid_air_palette
+from scaffold_native_palette_readback import valid as valid_air_palette, valid_encoding
 
 ACCEPTANCE = {'editor': 'pending', 'full': 'pending', 'missing': 'pending'}
 
@@ -108,7 +108,10 @@ def validate_segment(report, source_sha256=None):
                    for row, plan in zip(recorded, selected))):
         raise ValueError('Runtime support requested range differs')
     identity, source, air = report.get('identity', {}), report.get('source_sha256'), report.get('air_encoding', {})
-    if (not isinstance(source, str) or len(source) != 64 or any(c not in '0123456789abcdef' for c in source)
+    air_source = report.get('air_observation_sha256')
+    if (not valid_encoding(air) or not isinstance(air_source, str) or len(air_source) != 64
+            or any(c not in '0123456789abcdef' for c in air_source)
+            or not isinstance(source, str) or len(source) != 64 or any(c not in '0123456789abcdef' for c in source)
             or not all(identity.get(key) for key in ('session_id', 'owner', 'game_pid', 'game_identity', 'run_id'))
             or start.get('identity') != identity or start.get('game_version') != common.registry.SOURCE_VERSION
             or start.get('palette_sha256') != common.registry.SOURCE_SHA256):

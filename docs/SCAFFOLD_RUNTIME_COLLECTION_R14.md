@@ -14,7 +14,7 @@ projection, or missing projection pixel acceptance.
   upper cells and unchanged typed support palettes across all three phases.
 - The production generator still reports 14 observed and 15,844 unobserved
   states. Unknown states remain unknown, never inferred non-supporting.
-- All 87 scaffold tests pass. Native Python 2 payload compile checks pass.
+- All 88 scaffold tests pass. Native Python 2 payload compile checks pass.
 - No new game was launched for these changes. New launches remain paused until
   the root owner resolves the independent full-pack startup failure.
 
@@ -73,8 +73,8 @@ fallback screenshot, or unrelated process cleanup is permitted.
 Existing prepared artifacts, with no launch or mutation:
 
 ```text
-.runtime/scaffold-r14-runtime-v2-prepared/plan.json
-.runtime/scaffold-r14-collection-v2-prepared/plan.json
+.runtime/scaffold-r14-runtime-v3-prepared/plan.json
+.runtime/scaffold-r14-collection-v3-prepared/plan.json
 ```
 
 If either source changed after these preparations, retain their original files

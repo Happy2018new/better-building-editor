@@ -10,7 +10,7 @@ from pathlib import Path
 import uuid
 
 import probe_scaffold_state_lifecycle as base
-from scaffold_native_palette_readback import HELPER, valid as valid_air_palette, encoding_from_observation
+from scaffold_native_palette_readback import HELPER, valid as valid_air_palette, encoding_from_observation, valid_encoding
 
 ROOT = Path(__file__).resolve().parents[1]
 KIND = 'scaffold_runtime_state_lifecycle_diagnostic'
@@ -139,9 +139,7 @@ def validate_report(report, source_sha256=None, base_sha256=None):
     if not all(identity.get(key) for key in ('session_id', 'owner', 'game_pid', 'game_identity', 'run_id')):
         raise ValueError('Runtime lifecycle session identity is missing')
     air_encoding = report.get('air_encoding')
-    if (not isinstance(air_encoding, dict) or not _hash(report.get('air_observation_sha256'))
-            or air_encoding.get('common') != [[['minecraft:air', 0], [0]]]
-            or air_encoding.get('extra') not in ([], [[['minecraft:air', 0], [0]]])):
+    if not valid_encoding(air_encoding) or not _hash(report.get('air_observation_sha256')):
         raise ValueError('Independent native two-layer air encoding is missing')
     hashes = report.get('payload_sha256', {})
     expected_hashes = {'start': base.digest(start_payload(identity, source, True, air_encoding).encode('utf8')),
