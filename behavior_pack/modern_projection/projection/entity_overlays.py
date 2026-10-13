@@ -82,20 +82,27 @@ def actor_item(material, actor):
 
 
 class BoundItems(object):
-    """Own attachments on one client actor; clear before destroying that actor.
+    """Own native items on one actor; clear before destroying that actor.
 
     Rows are (stable key, native item dict, offset, rotation, scale). Offsets and
     ZYX Euler degrees are supplied by the renderer after native calibration.
     """
-    def __init__(self, component, entity):
+    def __init__(self, component, entity, model_family='minecraft', is_client_entity=True):
+        if model_family not in ('minecraft', 'skeleton'):
+            raise ValueError('Item attachments require an explicit native model family')
+        if type(is_client_entity) is not bool:
+            raise ValueError('Item attachments require an explicit client entity flag')
         self.component, self.entity = component, entity
+        self.model_family, self.is_client_entity = model_family, is_client_entity
+        self.bind_item = (component.BindItemToSkeletonModel if model_family == 'skeleton'
+                          else component.BindItemToMinecraftModel)
         self.rows = {}
 
     def remove(self, key):
         current = self.rows.get(key)
         if current is None:
             return True
-        if not self.component.SetBindBoneForBindItem(self.entity, current[0], b'', True):
+        if not self.component.SetBindBoneForBindItem(self.entity, current[0], b'', self.is_client_entity):
             return False
         del self.rows[key]
         return True
@@ -121,9 +128,9 @@ class BoundItems(object):
                     continue
                 current = None
             if current is None:
-                identity = self.component.BindItemToMinecraftModel(
-                    self.entity, item, b'root', True, tuple(offset), tuple(rotation), float(scale))
-                if identity == -1:
+                identity = self.bind_item(
+                    self.entity, item, b'root', self.is_client_entity, tuple(offset), tuple(rotation), float(scale))
+                if not isinstance(identity, integer_types) or type(identity) is bool or identity < 0:
                     success = False
                     continue
                 self.rows[key] = (identity, content, tuple(offset), tuple(rotation), float(scale))
@@ -135,7 +142,7 @@ class BoundItems(object):
             changed = list(current)
             for index, value, setter in updates:
                 if current[index] != value:
-                    if setter(self.entity, identity, value, True):
+                    if setter(self.entity, identity, value, self.is_client_entity):
                         changed[index] = value
                     else:
                         success = False
