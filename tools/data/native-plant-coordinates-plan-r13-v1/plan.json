@@ -1,0 +1,482 @@
+{
+  "schema": 1,
+  "status": "reviewed_finite_h0_control",
+  "final_review_and_slot_pending": false,
+  "project": "D:\\bbe-r13-snow",
+  "owner": "snow-r13-centered-native",
+  "name": "native-plant-positions-r13-v1",
+  "protected_session": "773c643b5cf344918e04d8b4eef2657a",
+  "protected_processes": {
+    "game": {
+      "pid": 44536,
+      "identity": "134362903316974407"
+    },
+    "mcdk": {
+      "pid": 42372,
+      "identity": "134362903315012341"
+    }
+  },
+  "max_launches": 1,
+  "max_active_games": 5,
+  "texture_condition": "native_original",
+  "budgets": {
+    "total": 240,
+    "work": 190,
+    "cleanup_reserved": 50,
+    "launcher_wait": 90
+  },
+  "post_ready_reservation_seconds": 83,
+  "application_readiness": {
+    "maximum_wait_seconds": 20,
+    "query_timeout_seconds": 1,
+    "query_interval_seconds": 1,
+    "maximum_queries": 20,
+    "capture_wait_seconds": 5,
+    "required": [
+      "owner",
+      "session",
+      "bridge",
+      "session.ready",
+      "bridge.session",
+      "hud"
+    ],
+    "existing_uiinit_only": true,
+    "manual_initialization": false,
+    "first_sdk_capture_retained": true,
+    "first_application_capture_replaced": false
+  },
+  "actual_camera_contract": {
+    "GetForward_required": true,
+    "minimum_forward_cosine_exclusive": 0.99,
+    "render_event_source": "GameRenderTickEvent",
+    "minimum_render_events_before_capture": 2,
+    "minimum_render_events_after_restore": 2,
+    "camera_restore_wait_seconds": 5,
+    "camera_saved_journal_cleared_only_after_verified_readback": true,
+    "predeclared_yaw_candidates": [
+      180.0,
+      0.0
+    ],
+    "selection_before_first_qualification_capture": true,
+    "unbounded_yaw_search_allowed": false
+  },
+  "projection_placement_contract": {
+    "owner": "existing Bridge.follow_projection on actual GameRenderTickEvent",
+    "physical_anchor": "unchanged player foot plus (0,1,0)",
+    "minimum_render_events_before_baseline": 2,
+    "baseline_before_first_projection_capture": true,
+    "actual_actor_GetPos_required": true,
+    "native_offset_submission_ack_required": true,
+    "public_native_offset_getter_proven": false,
+    "gpu_offset_readback_claimed": false,
+    "logical_origin_actor_model_parts_unit_scale_and_compensated_world_origin_fixed": true,
+    "disable_or_replace_product_follow_allowed": false
+  },
+  "target": [
+    6,
+    -48,
+    6
+  ],
+  "support": [
+    6,
+    -49,
+    6
+  ],
+  "projection_origin": [
+    5,
+    -49,
+    5
+  ],
+  "public_camera_offset": [
+    -2.0,
+    0.15,
+    -2.5
+  ],
+  "physical_size": [
+    1994,
+    1105
+  ],
+  "crop": [
+    498,
+    276,
+    1495,
+    828
+  ],
+  "matrix_included": true,
+  "movement_normalization": false,
+  "player_teleport": false,
+  "retry_or_relaunch": false,
+  "root_coordinated_wgc_slot_required": true,
+  "first_scheduled_and_first_post_ready_attempt_retained": true,
+  "fixed_row_first_attempt_retained": true,
+  "camera_qualification": {
+    "view": "public",
+    "center": [
+      6.5,
+      -47.5,
+      6.5
+    ],
+    "offset": [
+      -2.0,
+      0.15,
+      -2.5
+    ],
+    "position": [
+      4.5,
+      -47.35,
+      4.0
+    ],
+    "rotation": "predeclared GetRotFromDir(center-position): (pitch,yaw+180,0) then (pitch,yaw,0); first actual forward cosine >0.99",
+    "same_session_qualification_required": true,
+    "actual_GetForward_required": true,
+    "minimum_forward_cosine_exclusive": 0.99,
+    "predeclared_yaw_candidates": [
+      180.0,
+      0.0
+    ],
+    "selection_before_first_qualification_capture": true,
+    "unbounded_yaw_search_allowed": false,
+    "actual_render_events_before_capture_and_after_restore": 2,
+    "camera_saved_journal_cleared_only_after_verified_readback": true,
+    "primary": "successful actual public WorldToScreenPoint at eight fixed cell corners",
+    "fallback": "bounded same-cell native stone/blank pixel silhouette ROI; no analytical camera conversion",
+    "fallback_ready": true,
+    "other_session_calibration_allowed": false,
+    "fov_or_offset_search_allowed": false,
+    "geometry_fit_allowed": false
+  },
+  "rows": [
+    {
+      "kind": "covered",
+      "height": 0,
+      "source_position": [
+        18,
+        1,
+        9
+      ],
+      "focus": [
+        1,
+        1,
+        1
+      ],
+      "extraction_rebase": [
+        -17,
+        0,
+        -8
+      ],
+      "front": [
+        "minecraft:snow_layer",
+        8
+      ],
+      "back": [
+        "minecraft:poppy",
+        0
+      ],
+      "snow_states": {
+        "covered_bit": true,
+        "height": 0
+      },
+      "native_capture": "native_covered_h0.png",
+      "projection_capture": "projection_covered_h0.png"
+    },
+    {
+      "kind": "snow",
+      "height": 0,
+      "source_position": [
+        18,
+        1,
+        9
+      ],
+      "focus": [
+        1,
+        1,
+        1
+      ],
+      "extraction_rebase": [
+        -17,
+        0,
+        -8
+      ],
+      "front": [
+        "minecraft:snow_layer",
+        0
+      ],
+      "back": [
+        "minecraft:air",
+        0
+      ],
+      "snow_states": {
+        "covered_bit": false,
+        "height": 0
+      },
+      "native_capture": "native_snow_h0.png",
+      "projection_capture": "projection_snow_h0.png"
+    },
+    {
+      "kind": "plant",
+      "height": 0,
+      "source_position": [
+        18,
+        1,
+        3
+      ],
+      "focus": [
+        1,
+        1,
+        1
+      ],
+      "extraction_rebase": [
+        -17,
+        0,
+        -2
+      ],
+      "front": [
+        "minecraft:poppy",
+        0
+      ],
+      "back": [
+        "minecraft:air",
+        0
+      ],
+      "snow_states": null,
+      "native_capture": "native_plant_h0.png",
+      "projection_capture": "projection_plant_h0.png"
+    },
+    {
+      "kind": "blank",
+      "height": 0,
+      "source_position": [
+        18,
+        1,
+        3
+      ],
+      "focus": [
+        1,
+        1,
+        1
+      ],
+      "extraction_rebase": [
+        -17,
+        0,
+        -2
+      ],
+      "front": [
+        "minecraft:air",
+        0
+      ],
+      "back": [
+        "minecraft:air",
+        0
+      ],
+      "snow_states": null,
+      "native_capture": "native_blank_h0.png",
+      "projection_capture": "projection_blank_h0.png"
+    }
+  ],
+  "handle_health": {
+    "sample_interval_seconds": 15,
+    "max_samples": 18,
+    "absolute_game_handle_limit": 100000,
+    "pre_ready_growth_observation_only": true,
+    "post_ready_growth_baseline_required": true,
+    "consecutive_intervals": 2,
+    "minimum_delta_each": 5000,
+    "minimum_handles_per_second_each": 200
+  },
+  "resource_health_accepted": false,
+  "production_acceptance": false,
+  "synchronous_host_io_is_independent_hard_watchdog": false,
+  "cleanup": "journal before each owned mutation; bounded exact layer/camera/projection/world restoration; verify readback; stop only exact owned identities; restore exact host bytes and original absence",
+  "files": {
+    "supervisor": {
+      "path": "D:\\bbe-r13-snow\\tools\\supervise_owned_startup.py",
+      "sha256": "e8b0f45cec30c308d98c8108ced0c6ff2b20e4f4291967f9c6bc932d9f28223f",
+      "bytes": 33313
+    },
+    "observer": {
+      "path": "D:\\bbe-r13-snow\\tools\\observe_owned_startup.py",
+      "sha256": "950cb24da27c18cc84736600c76013adabd1bb1a3d0c1a50a4ad806fac294ba7",
+      "bytes": 16219
+    },
+    "instances": {
+      "path": "D:\\bbe-r13-snow\\.runtime\\native-plant-positions-r13-v1\\frozen-instances.py",
+      "sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "bytes": 32219
+    },
+    "mcdk_client": {
+      "path": "D:\\bbe-r13-snow\\.runtime\\native-plant-positions-r13-v1\\frozen-mcdk_client.py",
+      "sha256": "1654750459fc71a4e9f0e0202f253b45c169eede59e2a3e059bacb7bef34798a",
+      "bytes": 14273
+    },
+    "config": {
+      "path": "D:\\bbe-r13-snow\\.runtime\\native-plant-positions-r13-v1\\frozen-config.json",
+      "sha256": "6a396884d97fb9b7e9d1a7c4b751f19b5ee8b507d52e80d409b2b33c2152f021",
+      "bytes": 510
+    },
+    "mcdk_binary": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+      "bytes": 2776064
+    },
+    "guard": {
+      "path": "D:\\bbe-r13-background\\.runtime\\native_focus_guard-r13-v1\\native_focus_guard.dll",
+      "sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+      "bytes": 20992
+    },
+    "capture": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+      "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+      "bytes": 276992
+    },
+    "native_texture": {
+      "path": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\data\\resource_packs\\vanilla\\textures\\blocks\\flower_rose.png",
+      "sha256": "85fa5e4921f05131a75501fa6b729b4abfccae8683bd6fde11ca848dcbcf824b",
+      "bytes": 199
+    },
+    "session_api": {
+      "path": "D:\\bbe-r13-snow\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3",
+      "bytes": 6209
+    },
+    "window_api": {
+      "path": "D:\\bbe-r13-snow\\.agents\\skills\\pyreact-debugging\\scripts\\_window.py",
+      "sha256": "737c59187f187f971d73e462b12bb08d5e4e613b6cd39cd45baf2951df3b3e9d",
+      "bytes": 9909
+    },
+    "dpi_helper": {
+      "path": "D:\\bbe-r13-snow\\tools\\diagnose_window_dpi.py",
+      "sha256": "b23015302c5691772032072c81d6e3e0740867e0e8690b08b78fc8f7b348b261",
+      "bytes": 8852
+    },
+    "adapter": {
+      "path": "D:\\bbe-r13-snow\\tools\\supervise_snow_h0.py",
+      "sha256": "5bbcedbd3907a7c4ae11cea90df05b9063dce7de2e4b333796097bdcd629b603",
+      "bytes": 25917
+    },
+    "phase": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_snow_h0_phase.py",
+      "sha256": "3a71f14ae643d34d1f6eaf5781dd33b25561d46f3c681bc183494f16227efcd1",
+      "bytes": 44653
+    },
+    "handle_reader": {
+      "path": "D:\\bbe-r13-snow\\tools\\read_owned_startup_handles.py",
+      "sha256": "461c17161bc3d689a54fa2f0d2f92624433326345011dedd49f42e6eaa7176fb",
+      "bytes": 4927
+    },
+    "snow_reference": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_snow_plant_visibility.py",
+      "sha256": "89840f5f94959b10c608fe3a5a4a8fcecf254a155625a26775f88320191710d4",
+      "bytes": 55833
+    },
+    "blueprint_reference": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_debug_blueprints.py",
+      "sha256": "73b725a0bb14d354ae0e6648578c24f8fe2de622ba98a1d4eae39d14737b89f9",
+      "bytes": 22223
+    },
+    "visual_reference": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_debug_visuals.py",
+      "sha256": "2dc121a997909330f592165707d895ce6a1f2a781288e865f14aa360d9272c9b",
+      "bytes": 14752
+    },
+    "camera_reference": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_camera_projection.py",
+      "sha256": "09c58eac9c759d7772e40719824fc552225b8762d946e0608af266fc1bdd1435",
+      "bytes": 18479
+    },
+    "phase_tests": {
+      "path": "D:\\bbe-r13-snow\\tests\\test_snow_h0_finite_control.py",
+      "sha256": "9bee186daa18141ef7d099a37f7a2d2dede5b8d865ce60beb5ba191a8593a09c",
+      "bytes": 34925
+    },
+    "block_manifest": {
+      "path": "D:\\bbe-r13-snow\\tools\\data\\block_registry_manifest.json",
+      "sha256": "c08c6bc677b0b90f68ea7d2782bd5956ed6a8fc4c0a1bad194343089ba4018fd",
+      "bytes": 336
+    },
+    "project_source": {
+      "path": "D:\\bbe-r13-snow\\.runtime\\native-plant-positions-r13-v1\\project-source.json",
+      "sha256": "aa9b7574159a0cb2c4b74ffc14c44b337a0154fc21b3a78a9424a7ec5fbcb394",
+      "bytes": 203436
+    },
+    "native_coordinate_runner": {
+      "path": "D:\\bbe-r13-snow\\tools\\run_native_plant_positions.py",
+      "sha256": "4e6e2ff1bdcab1a68bd9e5b61b513adf4f8c7e241eb4a98625e1d95e949d3df0",
+      "bytes": 2053
+    },
+    "native_coordinate_phase": {
+      "path": "D:\\bbe-r13-snow\\tools\\verify_native_plant_positions_phase.py",
+      "sha256": "49480c7858137886d45f65d12aaf55dbe578dda63dd694cbd136c26fcebaa1e0",
+      "bytes": 22497
+    },
+    "native_coordinate_tests": {
+      "path": "D:\\bbe-r13-snow\\tests\\test_native_plant_positions_control.py",
+      "sha256": "f8492633a5f7bb0217deaf1a455889246255ad6b830c4544f148780f86c22da2",
+      "bytes": 4990
+    },
+    "native_stone_reference_roi": {
+      "path": "D:\\bbe-r13-snow\\tools\\data\\snow-centered-r13-v3-result\\run\\qualified-cell-roi.png",
+      "sha256": "ba7ccbb82bc5126b69ce5217e61826febe35356821160926de03c18c5018d0cb",
+      "bytes": 1746
+    }
+  },
+  "amendment": {
+    "startup_contract_reused": true,
+    "phase_override": "native_coordinate_phase",
+    "prior_v3_result_production_false": true,
+    "no_pixel_fitting": true,
+    "stone_qualification_before_poppy": true,
+    "one_cold_launch": true
+  },
+  "native_coordinate_control": {
+    "targets": [
+      [
+        6,
+        -48,
+        6
+      ],
+      [
+        7,
+        -48,
+        6
+      ],
+      [
+        6,
+        -48,
+        7
+      ],
+      [
+        -6,
+        -48,
+        -6
+      ]
+    ],
+    "plant": "minecraft:poppy",
+    "states": [
+      "stone",
+      "blank",
+      "plant"
+    ],
+    "client_server_clip_collision_before_after": true,
+    "relative_camera_offset": [
+      -2.0,
+      0.15,
+      -2.5
+    ],
+    "original_texture_only": true,
+    "native_only": true,
+    "snapshot_fitting_allowed": false,
+    "production_acceptance": false,
+    "selection_boxes_are_mesh_pivots": false,
+    "stone_qualification_before_plant": true,
+    "stone_reference_roi_sha256": "ba7ccbb82bc5126b69ce5217e61826febe35356821160926de03c18c5018d0cb",
+    "stone_reference_minimum_recall_precision": [
+      0.75,
+      0.75
+    ],
+    "stone_reference_tolerance_pixels": 3,
+    "stone_reference_area_ratio": [
+      0.5,
+      2.0
+    ]
+  }
+}
