@@ -18,7 +18,9 @@ previous_contract=shared.owner_contract
 
 def owner_contract():
     value=previous_contract()
+    value.pop('resource_or_shader_or_player_or_world_or_inventory_mutation',None)
     value.update(server_owned_diagnostic_actor_count=1,is_client_entity_for_items=False,
+                 diagnostic_server_world_entity_created=True,resources_or_shaders_mutated_during_probe=False,
                  exact_actor_replication_before_set_model=True,server_actor_is_npc=True,
                  player_or_inventory_or_existing_entities_mutated=False,
                  server_destroy_after_item_remove_and_ui_unmount=True)

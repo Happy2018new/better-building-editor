@@ -14,18 +14,33 @@ sys.path.insert(0,'tools')
 import client_anchor_depth_owner_r15 as old
 fields=('runtime','OWNER','ENTRYPOINT','PREFIX','CANDIDATE','owner_contract','OwnerGuard','READINESS')
 before={field:getattr(old,field) for field in fields}
+contracts=[(old,old.owner_contract())]
 import item_skeleton_owner_r13 as body
 body_before={field:getattr(body.shared,field) for field in fields}
+contracts.append((body.shared,body.shared.owner_contract()))
 import item_server_skeleton_owner_r13 as server
 server_before={field:getattr(server.shared,field) for field in fields}
+server_contract=server.shared.owner_contract()
+assert server_contract['server_owned_diagnostic_actor_count']==1
+assert server_contract['diagnostic_server_world_entity_created'] is True
+assert server_contract['resources_or_shaders_mutated_during_probe'] is False
+assert server_contract['player_or_inventory_or_existing_entities_mutated'] is False
+assert 'resource_or_shader_or_player_or_world_or_inventory_mutation' not in server_contract
+contracts.append((server.shared,server_contract))
 import item_glint_owner_r13 as glint
 glint_before={field:getattr(glint.shared,field) for field in fields}
+contracts.append((glint.shared,glint.shared.owner_contract()))
 import item_world_glint_owner_r13 as world
 world_before={field:getattr(world.shared,field) for field in fields}
+contracts.append((world.shared,world.shared.owner_contract()))
 import item_scaffold_readonly_owner_r13 as read
+contracts.append((read.shared,read.shared.owner_contract()))
 import probe_item_model_resolution_r13 as resolve
+contracts.append((resolve.shared,resolve.shared.owner_contract()))
 for module,values in ((old,before),(body.shared,body_before),(server.shared,server_before),(glint.shared,glint_before),(world.shared,world_before)):
  assert all(getattr(module,field)==value for field,value in values.items()),module.__name__
+for module,contract in contracts:
+ assert module.owner_contract()==contract,module.__name__
 owners=(old,body.shared,server.shared,glint.shared,world.shared,read.shared,resolve.shared)
 assert len({id(module) for module in owners})==len(owners)
 for module in owners:
