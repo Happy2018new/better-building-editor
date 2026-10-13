@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "completed": true,
+  "passed": true,
+  "phase_receipts": {
+    "actual-world": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-sections-r13-v3\\actual-world-passive-health.json"
+    },
+    "preflight": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-sections-r13-v3\\preflight-passive-health.json"
+    },
+    "physical": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-sections-r13-v3\\physical-passive-health.json"
+    },
+    "health": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-sections-r13-v3\\health-passive-health.json"
+    },
+    "native-sections": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-sections-r13-v3\\native-sections-passive-health.json"
+    }
+  },
+  "owner": "liquid-r13-native-sections-v3",
+  "scope": "Native-only near/far section publication control at player foot+2 and+24; no editor/projection created",
+  "plan_sha256": "eeefd53faa05e0daf1dbc8410bdcc83ad0c7e32bd03a41f0e82c9817c9ab58db",
+  "capacity_receipt_sha256": "c256ab826e9db92da157c47cddc28c6090e521761a463e9c47afebb9e8dbc547",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791873661.6491547,
+  "startup_deadline_unix": 1791873841.6491547,
+  "outer_deadline_unix": 1791874078.8092237,
+  "transport_ready_observed_at": 1791873762.203718,
+  "ready_observed_at": 1791873778.8092237,
+  "normal_deadline_unix": 1791874018.8092237,
+  "fixture_cleanup_deadline_unix": 1791874048.8092237,
+  "full_work_cleanup_reserve_verified": true,
+  "actual_world_receipt_sha256": "a79f65eae9736be0c578429d88fc3c8a78558ec6c9682a17c39572ac79bb1dd5",
+  "resource_failure_cleanup": {
+    "authorized": true,
+    "force_used": true,
+    "pinned_binding": {
+      "id": "99ebd504de124b53ace65eecbb51e37f",
+      "owner": "liquid-r13-native-sections-v3",
+      "project": "D:\\bbe-r13-liquid",
+      "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\99ebd504de124b53ace65eecbb51e37f\\session.json",
+      "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\99ebd504de124b53ace65eecbb51e37f\\appdata",
+      "port": 49401,
+      "mcp_url": "http://127.0.0.1:49401/mcp",
+      "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+      "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_99ebd504de124b53ace65eecbb51e37f",
+      "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\99ebd504de124b53ace65eecbb51e37f\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_99ebd504de124b53ace65eecbb51e37f",
+      "game_pid": 65480,
+      "game_identity": "134363472616491558",
+      "mcdk_pid": 60920,
+      "mcdk_identity": "134363472613854527"
+    },
+    "outer_deadline_unix": 1791874078.8092237,
+    "attempts": [
+      {
+        "force": true,
+        "kind": "game",
+        "pid": 65480
+      },
+      {
+        "force": true,
+        "kind": "mcdk",
+        "pid": 60920
+      }
+    ],
+    "identities_before": {
+      "game": "134363472616491558",
+      "mcdk": "134363472613854527"
+    },
+    "ordinary_close_sent": true,
+    "identities_after": {
+      "game": null,
+      "mcdk": null
+    },
+    "passed": true,
+    "finished_at": 1791873862.3727643,
+    "outer_deadline_met": true
+  },
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 206.13971161842346,
+  "ready_to_stopped_seconds": 88.97964429855347
+}
