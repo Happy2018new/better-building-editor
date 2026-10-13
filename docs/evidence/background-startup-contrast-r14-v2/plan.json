@@ -1,0 +1,33 @@
+{
+  "schema": 2,
+  "owner": "background-minimal-r14-preworld-v2",
+  "created_at": "2026-10-13T11:36:00.688216+00:00",
+  "hypothesis": "Minimal BP versus full-pack crash before engine logs and world IPC",
+  "changed_condition": "Bounded PermissionError-only manifest read retry",
+  "launches_permitted": 1,
+  "outer_seconds": 240,
+  "cleanup_seconds": 40,
+  "background_only": true,
+  "activation_resize_desktop_input": false,
+  "block_or_actor_writes": false,
+  "production_acceptance": false,
+  "pins": {
+    "D:\\bbe-r13e-background\\tools\\run_minimal_startup_control_r14.py": "97761b2b849e7b7ef5a6b1d07fe1de8b783299a5cf90c2fa01ebea83c5f7b129",
+    "D:\\bbe-r13e-background\\tools\\scaffold_diagnostic_world.py": "0c93dfe6a6d8a81a5bdca37db3580fd32cc3dbf93bdd8d748d2cefba2f891b54",
+    "D:\\bbe-r13e-background\\tools\\managed_registry_snapshot.py": "d9c5a54369da2fa619938f40d4dbdbc76a951c318b1d0893e6bf70106f26348d",
+    "D:\\bbe-r13e-background\\.mcdev.json": "2f2b8f5e0ed0ee107a0ea307c70210ae49a142c752baf431ea7f0e52f2ea37bc",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93",
+    "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8",
+    "D:\\bbe-r13e-scaffold\\tools\\probe_scaffold_palette_air_readback.py": "08b14a0914c189972df1dc86338a90564bf0c798b1f3f056749165e9b0d0efb8"
+  },
+  "pack_pins": {
+    "minimal-pack\\behavior_pack\\manifest.json": "c044ca5068ae5887920d73b8e6cbb02efb8e4202eed7f64585a0d569c1070186",
+    "minimal-pack\\behavior_pack\\modern_projection\\client_system.py": "86272ba850eacc707f7a708733bc6ab90a596a3ed5a6fcc1de071fb34a064eb1",
+    "minimal-pack\\behavior_pack\\modern_projection\\modMain.py": "e5e71d932be2aaa0be5a8bd0b69b095342ac3bfb8de3aa18b2ec314ebd3f7b5a",
+    "minimal-pack\\behavior_pack\\modern_projection\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minimal-pack\\behavior_pack\\modern_projection\\projection\\block_registry.py": "eda1d96b46ff9c3c5b2db98ba236a1ace58fed88c9abb1707c7ae2ff1ea2fb7a",
+    "minimal-pack\\behavior_pack\\modern_projection\\projection\\block_registry_data.py": "c22343884d56317cab3093d70d051e1e23f8c1212cc704b07c129e0c2c192786",
+    "minimal-pack\\behavior_pack\\modern_projection\\projection\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "owner": "background-minimal-r14-preworld-v2",
+  "completed": true,
+  "launches": 1,
+  "error": null,
+  "world": {
+    "foot": [
+      0.5,
+      -60,
+      0.5
+    ],
+    "player": "-8589934591",
+    "render_ticks": 83,
+    "runtime": "1.21.120.0",
+    "ui_initialized": true
+  },
+  "palette_readback": {
+    "acceptance": {
+      "editor": "pending",
+      "full": "pending",
+      "missing": "pending"
+    },
+    "cells": [
+      {
+        "actor_repr": "{}",
+        "common": [
+          [
+            [
+              "minecraft:grass_block",
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates_repr": "{}",
+        "keys": [
+          "actor",
+          "common",
+          "eliminateAir",
+          "extra",
+          "extraStates",
+          "states",
+          "void",
+          "volume"
+        ],
+        "label": "loaded_ground",
+        "raw_palette_repr": "{'states': {('minecraft:grass_block', 0): {}}, 'volume': (1, 1, 1), 'extraStates': {}, 'common': {('minecraft:grass_block', 0): [0]}, 'extra': {}, 'void': False, 'eliminateAir': False, 'actor': {}}",
+        "readback": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:grass_block"
+          },
+          "liquid": null,
+          "pos": [
+            0,
+            -61,
+            0
+          ],
+          "states": {}
+        },
+        "states_repr": "{('minecraft:grass_block', 0): {}}",
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "actor_repr": "{}",
+        "common": [
+          [
+            [
+              "minecraft:air",
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ],
+        "eliminateAir": false,
+        "extra": [],
+        "extraStates_repr": "{}",
+        "keys": [
+          "actor",
+          "common",
+          "eliminateAir",
+          "extra",
+          "extraStates",
+          "states",
+          "void",
+          "volume"
+        ],
+        "label": "natural_air",
+        "raw_palette_repr": "{'states': {('minecraft:air', 0): {}}, 'volume': (1, 1, 1), 'extraStates': {}, 'common': {('minecraft:air', 0): [0]}, 'extra': {}, 'void': False, 'eliminateAir': False, 'actor': {}}",
+        "readback": {
+          "front": {
+            "aux": 0,
+            "name": "minecraft:air"
+          },
+          "liquid": null,
+          "pos": [
+            4,
+            -58,
+            4
+          ],
+          "states": null
+        },
+        "states_repr": "{('minecraft:air', 0): {}}",
+        "void": false,
+        "volume": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "dimension": 0,
+    "foot": [
+      0.5,
+      -60,
+      0.5
+    ],
+    "kind": "scaffold_palette_air_readback",
+    "mutations": [],
+    "player": "-8589934591",
+    "runtime": "1.21.120.0",
+    "schema": 1
+  },
+  "registry_read_retries": [],
+  "check_count": 61,
+  "all_background_safe": true,
+  "all_window_noactivation": true,
+  "capture": {
+    "ok": true,
+    "reliable": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "frame": {
+      "ok": true,
+      "backend": "Windows.Graphics.Capture",
+      "native_resolution": true,
+      "request_qpc_100ns": 43458520689,
+      "frame_qpc_100ns": 43458645225,
+      "width": 1994,
+      "height": 1105
+    },
+    "sha256": "cdc6986e5b70b9ed6bbf76b3cdea88ca45f016ab3600b50fdd64ea2117fd80ed",
+    "foreground_unchanged": true,
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      1777.659144882266,
+      2320.622389359415,
+      7456.5577288493505
+    ]
+  },
+  "normal_stop_returncode": 1,
+  "normal_stop_stderr": "[instances] Game has not closed; inspect it or explicitly use stop --force\n",
+  "cleanup_errors": [],
+  "identities_after_stop": {
+    "game": null,
+    "mcdk": null
+  },
+  "pins_unchanged": {
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": true,
+    "D:\\bbe-r13e-scaffold\\tools\\probe_scaffold_palette_air_readback.py": true
+  },
+  "elapsed_seconds": 80.28817549999985,
+  "original_report_sha256": "4c18ce58c16a5d631376b9ddcceeee03b8258a91383f638ce9239c70d43a11b9",
+  "production_acceptance": false,
+  "visual_review": {
+    "performed": true,
+    "result": "Visible flat grass world, sky, player hand and HUD; no loading popup or black frame. No product render qualification."
+  },
+  "shutdown_wer": {
+    "time": "2026-10-13T19:37:14+08:00",
+    "module": "ucrtbase.dll",
+    "exception": "c0000409",
+    "offset": "00000000000a527e",
+    "report_id": "b822c2cd-a1eb-4754-84ec-72d756ee6c8c",
+    "startup_failure": false
+  }
+}

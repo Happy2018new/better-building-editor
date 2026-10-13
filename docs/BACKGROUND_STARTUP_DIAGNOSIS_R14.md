@@ -75,3 +75,33 @@ Ten offline regression cases cover transient recovery, persistent denial,
 callback guard failure, wrong bindings, ambiguity, malformed data and bounded
 time. Their pass does not establish native startup or visual acceptance. The
 second native control and actual image review will be recorded separately.
+
+## Second minimal result
+
+The changed-condition minimal run completed in 80.3 seconds. Client UiInit was
+true, 83 render ticks were recorded, and loaded player feet were (0.5, -60.0,
+0.5). The frozen server probe read real grass at (0, -61, 0) and natural air at
+(4, -58, 4). For natural air, GetBlockStates returned None; the raw palette
+independently contained air in common and its empty state dictionary, with
+empty extra, extraStates and actor maps. Those observations remain distinct.
+
+WGC returned a fresh native 1994 by 1105 frame. Actual image inspection shows
+the flat grass world, sky, player hand and HUD, with no black frame or loading
+popup. All recorded guards remained valid, the foreground stayed unchanged
+through capture, and game/MCDK identities were null after exact cleanup.
+[Sanitized result](evidence/background-startup-contrast-r14-v2/result.json),
+the exact supervisor sources, plan and PNG are preserved separately. This is
+startup and native palette evidence, not editor or projection acceptance.
+
+No startup access violation occurred. A later shutdown WER at 19:37:14 reports
+ucrtbase.dll c0000409 at 00000000000a527e, report
+b822c2cd-a1eb-4754-84ec-72d756ee6c8c. This matches the earlier minimal control's
+shutdown signature and is separate from the full-pack startup faults.
+
+The root authorized one further serial baseline-52189693 full-pack contrast.
+Its BP/RP tracked files must exactly match that commit; no diagnostic resource
+pack is added. Client readiness reads existing UiInitFinished-created
+session/hud fields, followed by the same frozen server pure-read probe, WGC
+and exact cleanup. All other starts remain held. Healthy minimal startup does
+not prove which resource, concurrency condition or shared startup state caused
+the earlier failures.

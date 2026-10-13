@@ -1,4 +1,5 @@
 """One guarded, read-only minimal-BP startup contrast; no automatic relaunch."""
+import argparse
 import ast
 from datetime import datetime, timezone
 import hashlib
@@ -29,13 +30,27 @@ PINS = {MCDK: 'b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9'
         GUARD: '04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93',
         WGC: 'cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8',
         PROBE: '08b14a0914c189972df1dc86338a90564bf0c798b1f3f056749165e9b0d0efb8'}
+FULL_CLIENT = '''def _baseline_world_client_r14():
+ import mod.client.extraClientApi as api
+ player=api.GetLocalPlayerId()
+ system=api.GetSystem('ModernProjection','ModernProjectionClientSystem')
+ return {'player':player,'foot':api.GetEngineCompFactory().CreatePos(player).GetFootPos() if player else None,
+  'runtime':api.GetMinecraftVersion(),'ui_initialized':system is not None and system.session is not None and system.hud is not None,
+  'readiness_source':'existing UiInitFinished session/hud initialization'}
+_result=_baseline_world_client_r14()
+del _baseline_world_client_r14
+'''
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main():
+def main(full_baseline=False):
+    global OWNER, OUT
+    if full_baseline:
+        OWNER = 'background-baseline-r14-preworld-v1'
+        OUT = ROOT / '.runtime/baseline-startup-r14-v1'
     for path, expected in PINS.items():
         if sha(path) != expected:
             raise ValueError('Frozen input differs: ' + str(path))
@@ -53,8 +68,21 @@ def main():
         raise ValueError('Own config already exists')
     OUT.mkdir(exist_ok=False)
     PACK = OUT / 'minimal-pack'
-    world.build_pack(ROOT, PACK)
-    config = {'included_mod_dirs': [str(PACK)], 'world_type': 2, 'world_seed': 0, 'game_mode': 1,
+    if full_baseline:
+        unchanged = subprocess.run(['git', 'diff', '--exit-code', '52189693', '--', 'behavior_pack', 'resource_pack'],
+                                   cwd=ROOT, capture_output=True, timeout=10)
+        untracked = subprocess.run(['git', 'ls-files', '--others', '--exclude-standard', '--', 'behavior_pack', 'resource_pack'],
+                                   cwd=ROOT, capture_output=True, timeout=10)
+        tracked = subprocess.run(['git', 'ls-files', '-z', '--', 'behavior_pack', 'resource_pack'],
+                                 cwd=ROOT, capture_output=True, timeout=10)
+        if unchanged.returncode or untracked.returncode or untracked.stdout or tracked.returncode:
+            raise ValueError('Baseline 52189693 production packs are not exact')
+        production_paths = [ROOT / name.decode('utf8') for name in tracked.stdout.split(b'\0') if name]
+        pack_pins = {str(path.relative_to(ROOT)): sha(path) for path in production_paths}
+    else:
+        world.build_pack(ROOT, PACK)
+        pack_pins = {str(path.relative_to(OUT)): sha(path) for path in PACK.rglob('*') if path.is_file()}
+    config = {'included_mod_dirs': [str(ROOT if full_baseline else PACK)], 'world_type': 2, 'world_seed': 0, 'game_mode': 1,
               'auto_hot_reload_mods': False, 'auto_hot_reload_ui': False,
               'auto_hot_reload_materials': False, 'auto_hot_reload_shaders': False}
     CONFIG.write_text(json.dumps(config, indent=2) + '\n', encoding='ascii')
@@ -65,13 +93,14 @@ def main():
 
     plan = {'schema': 2, 'owner': OWNER, 'created_at': datetime.now(timezone.utc).isoformat(),
             'hypothesis': 'Minimal BP versus full-pack crash before engine logs and world IPC',
-            'changed_condition': 'Bounded PermissionError-only manifest read retry',
+            'changed_condition': 'Serial exact baseline 52189693 full packs' if full_baseline else 'Bounded PermissionError-only manifest read retry',
+            'pack_mode': 'baseline-full' if full_baseline else 'minimal',
             'launches_permitted': 1, 'outer_seconds': 240, 'cleanup_seconds': 40,
             'background_only': True, 'activation_resize_desktop_input': False,
             'block_or_actor_writes': False, 'production_acceptance': False,
             'pins': {str(path): sha(path) for path in [Path(__file__), Path(world.__file__),
                      ROOT / 'tools/managed_registry_snapshot.py', CONFIG] + list(PINS)},
-            'pack_pins': {str(path.relative_to(OUT)): sha(path) for path in PACK.rglob('*') if path.is_file()}}
+            'pack_pins': pack_pins}
     save('plan.json', plan)
     report = {'schema': 2, 'owner': OWNER, 'completed': False, 'launches': 0, 'checks': [],
               'registry_read_retries': [], 'cleanup_errors': [], 'production_acceptance': False}
@@ -144,10 +173,12 @@ def main():
             while time.monotonic() < deadline:
                 guard()
                 client.timeout = min(8, max(.1, deadline - time.monotonic()))
-                value = return_value(client.call('execute_code', {'code': world.CLIENT, 'is_client': True, 'direct_return': True}))
+                value = return_value(client.call('execute_code', {'code': FULL_CLIENT if full_baseline else world.CLIENT,
+                                                                  'is_client': True, 'direct_return': True}))
                 report['world'] = value
                 checkpoint()
-                if value.get('ui_initialized') and value.get('render_ticks', 0) >= 2 and world.foot_valid(value.get('foot')):
+                if (value.get('runtime') == '1.21.120.0' and value.get('ui_initialized') is True
+                        and (full_baseline or value.get('render_ticks', 0) >= 2) and world.foot_valid(value.get('foot'))):
                     break
                 time.sleep(.5)
             else:
@@ -202,6 +233,9 @@ def main():
         else:
             report['cleanup_errors'].append('Private config changed; removal refused')
         report['pins_unchanged'] = {str(path): sha(path) == expected for path, expected in PINS.items()}
+        if full_baseline:
+            report['production_pack_pins_unchanged'] = {name: sha(ROOT / name) == expected
+                                                       for name, expected in pack_pins.items()}
         report['foreground_after'] = _window.foreground_snapshot()
         report['elapsed_seconds'] = time.monotonic() - started
         checkpoint()
@@ -211,4 +245,7 @@ def main():
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--baseline-full', action='store_true', help='One serial exact 52189693 full-pack contrast')
+    args = parser.parse_args()
+    sys.exit(main(full_baseline=args.baseline_full))
