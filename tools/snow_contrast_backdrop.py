@@ -13,7 +13,7 @@ palette=adapter.palette_block.GetBlockPaletteBetweenPos(adapter.dimension,lo,hi,
 assert palette is not None
 data=palette.SerializeBlockPalette()
 expected_cells=(hi[0]-lo[0]+1)*(hi[1]-lo[1]+1)
-assert tuple(data['volume'])==(hi[0]-lo[0]+1,hi[1]-lo[1]+1,1),data['volume']
+assert tuple(data['volume'])==(1,hi[0]-lo[0]+1,hi[1]-lo[1]+1),data['volume']
 assert sum(len(indices) for indices in data.get('common',{}).values())==expected_cells,data
 assert all(value[0]=='minecraft:air' for layer in ('common','extra') for value in data.get(layer,{})),data
 assert not data.get('actor'),data
