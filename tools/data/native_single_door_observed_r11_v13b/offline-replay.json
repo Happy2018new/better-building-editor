@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "scope": "Offline replay of already captured V13b single-pair observations",
+  "new_native_calls": 0,
+  "new_sdk_calls": 0,
+  "new_launches": 0,
+  "source_probe_sha256": "34bc6c096daa378b442a714a1bbe7c3fbf3e723909942d61fa461cb7ff95925d",
+  "original_scorer_sha256": "42ca1687e23b8ebb40adf0f178788538e49d7bb79214bdb7dec748e62cebf88e",
+  "corrected_scorer_sha256": "50d1148ab69c85572d45d0d1a026d044f24a512791329c061e7dd7946aa0d41d",
+  "replay_source_sha256": "c6ae764fdbd6be1068689363f5f18e73921ce6937a7ff947653f0525f3e92ff4",
+  "original_verdicts": {
+    "data_replication_verified": false,
+    "client_typed_pair_verified": false,
+    "physical_orientation_accepted": false
+  },
+  "physical_orientation_accepted": false,
+  "client_typed_pair_verified": false,
+  "capture_reliable": false,
+  "production_mapping_changed": false,
+  "observations": {
+    "after_200ms": {
+      "thawed_metadata_key_types": [
+        "bytes"
+      ],
+      "text_volume_lookup": null,
+      "byte_volume_lookup": [
+        1,
+        1,
+        2
+      ],
+      "original_diagnosis": {
+        "server_typed_pair_exact": true,
+        "client_front_pair_and_support_exact": true,
+        "data_replication_verified": false,
+        "client_typed_upper_verified": false,
+        "palette_covered_indices": [],
+        "palette_omitted_indices": [
+          0,
+          1
+        ],
+        "loaded_chunk_tracking": {
+          "available": true,
+          "chunk": [
+            0,
+            0,
+            0
+          ],
+          "present": true
+        },
+        "physical_orientation_accepted": false,
+        "classification": "pair_palette_invalid",
+        "palette_error": "Pair palette volume must be (1,1,2)"
+      },
+      "original_diagnosis_reproduced": true,
+      "corrected_offline_diagnosis": {
+        "server_typed_pair_exact": true,
+        "client_front_pair_and_support_exact": true,
+        "data_replication_verified": true,
+        "client_typed_upper_verified": false,
+        "palette_covered_indices": [
+          0
+        ],
+        "palette_omitted_indices": [
+          1
+        ],
+        "loaded_chunk_tracking": {
+          "available": true,
+          "chunk": [
+            0,
+            0,
+            0
+          ],
+          "present": true
+        },
+        "physical_orientation_accepted": false,
+        "classification": "documented_upper_omission_observed"
+      },
+      "observed_palette_rows": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ],
+          "states": {
+            "door_hinge_bit": false,
+            "open_bit": false,
+            "minecraft:cardinal_direction": "south",
+            "upper_block_bit": false
+          },
+          "state_source": "pair_palette"
+        }
+      ]
+    },
+    "later": {
+      "thawed_metadata_key_types": [
+        "bytes"
+      ],
+      "text_volume_lookup": null,
+      "byte_volume_lookup": [
+        1,
+        1,
+        2
+      ],
+      "original_diagnosis": {
+        "server_typed_pair_exact": true,
+        "client_front_pair_and_support_exact": true,
+        "data_replication_verified": false,
+        "client_typed_upper_verified": false,
+        "palette_covered_indices": [],
+        "palette_omitted_indices": [
+          0,
+          1
+        ],
+        "loaded_chunk_tracking": {
+          "available": true,
+          "chunk": [
+            0,
+            0,
+            0
+          ],
+          "present": true
+        },
+        "physical_orientation_accepted": false,
+        "classification": "pair_palette_invalid",
+        "palette_error": "Pair palette volume must be (1,1,2)"
+      },
+      "original_diagnosis_reproduced": true,
+      "corrected_offline_diagnosis": {
+        "server_typed_pair_exact": true,
+        "client_front_pair_and_support_exact": true,
+        "data_replication_verified": true,
+        "client_typed_upper_verified": false,
+        "palette_covered_indices": [
+          0
+        ],
+        "palette_omitted_indices": [
+          1
+        ],
+        "loaded_chunk_tracking": {
+          "available": true,
+          "chunk": [
+            0,
+            0,
+            0
+          ],
+          "present": true
+        },
+        "physical_orientation_accepted": false,
+        "classification": "documented_upper_omission_observed"
+      },
+      "observed_palette_rows": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ],
+          "states": {
+            "door_hinge_bit": false,
+            "open_bit": false,
+            "minecraft:cardinal_direction": "south",
+            "upper_block_bit": false
+          },
+          "state_source": "pair_palette"
+        }
+      ]
+    }
+  },
+  "original_bytes_unchanged": true,
+  "data_replication_verified_from_existing_observations": true
+}

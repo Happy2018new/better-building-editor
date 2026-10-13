@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "scope": "Prepared one-pair server typed state and client front replication diagnosis",
+  "native_attempted": false,
+  "physical_orientation_accepted": false,
+  "production_mapping_changed": false,
+  "root_review_required_before_native_attempt": true,
+  "fixture_door_pairs": 1,
+  "reserved_cells": 17,
+  "delayed_observations": 2,
+  "client_palette_queries_per_observation": 4,
+  "external_supervisor_limit_seconds": 150,
+  "observation_cleanup_threshold_seconds": 90,
+  "client_cleanup_limit_seconds": 10,
+  "files": {
+    "native_state_transform_shapes_r11.door-pair-prepared.probe.py": "6fe41694606a33f6ede15cbccf72f4c4a951dcf424017ce524af1ae0281517a8",
+    "native_state_transform_shapes_r11.door-pair-prepared.plan.md": "d82d56eaa406a6f28a1e834994cf48bd3be9a7a55f0e758502285674807eb999"
+  },
+  "sdk_reference": "ModAPI/\u63a5\u53e3/\u4e16\u754c/\u65b9\u5757\u7ec4\u5408.md#GetBlockPaletteBetweenPos",
+  "documented_client_contract": {
+    "door_upper_half_ignored": true,
+    "requires_fully_loaded_area": true,
+    "eliminate_air": false,
+    "client_GetBlockNew_exists": false,
+    "client_GetBlockStates_exists": false
+  },
+  "limits": [
+    "Prepared source and offline tests are not new native observations",
+    "Client upper typed states are not synthesized from lower states or legacy aux",
+    "Successful data replication does not establish physical door orientation or editor pixels",
+    "No native retry or existing healthy instance access without root review and assignment"
+  ]
+}

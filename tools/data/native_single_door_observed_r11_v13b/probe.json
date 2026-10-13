@@ -1,0 +1,4724 @@
+{
+  "schema": 3,
+  "scope": "One supported native door pair after a bounded read-only load gate",
+  "completed": true,
+  "restored": true,
+  "mutation_attempted": true,
+  "exact_native_pair": false,
+  "observation_errors": [],
+  "server_exact_native_pair": true,
+  "data_replication_verified": false,
+  "client_typed_pair_verified": false,
+  "client_observation_method": "whole_pair_and_fronts_v2",
+  "background_only": true,
+  "desktop_input": false,
+  "physical_orientation_accepted": false,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "experiment_limit_seconds": 93.4354514000006,
+  "limits": {
+    "load": 30,
+    "fixture": 20,
+    "cleanup": 20,
+    "close": 2
+  },
+  "rpc_journal": [
+    {
+      "phase": "load_handshake",
+      "method": "initialize",
+      "intent": true,
+      "started_monotonic": 306556.6870038,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_monotonic": 306556.7287658
+    },
+    {
+      "phase": "load_handshake",
+      "method": "notifications/initialized",
+      "intent": true,
+      "started_monotonic": 306556.7321155,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": null,
+      "finished_monotonic": 306556.7390182
+    },
+    {
+      "phase": "load_handshake",
+      "method": "tools/list",
+      "intent": true,
+      "started_monotonic": 306556.7428795,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_monotonic": 306556.7516231
+    },
+    {
+      "phase": "load_handshake",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306556.767944,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306556.9197072
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306556.9333034,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306557.0745317
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306557.0774682,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, 32768.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, 32768.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306557.2980832
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306557.5682087,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306557.8372508
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306557.8419691,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, 32768.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, 32768.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306558.0208455
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306558.2922925,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306558.5112722
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306558.5155228,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, 32768.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, 32768.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306558.6970297
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306558.9646581,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306559.2611709
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306559.2652727,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, 32768.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, 32768.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306559.3999295
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306559.668171,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306559.8632701
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306559.8679754,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, -60.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, -60.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306560.0493914
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306560.0649096,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306560.2946221
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306560.2976284,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"foot_after_chunks\": [0.5, -60.0, 0.5], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"same_anchor\": true, \"foot\": [0.5, -60.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0, \"chunks\": [{\"loaded\": true, \"chunk\": [0, 0], \"pos\": [3, -49, 4]}]}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"foot_after_chunks\\\": [0.5, -60.0, 0.5], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"same_anchor\\\": true, \\\"foot\\\": [0.5, -60.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0, \\\"chunks\\\": [{\\\"loaded\\\": true, \\\"chunk\\\": [0, 0], \\\"pos\\\": [3, -49, 4]}]}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306560.4336269
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306560.7017106,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306560.8800283
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306560.8830138,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"foot\": [0.5, -60.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"foot\\\": [0.5, -60.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306561.0041791
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306561.0159457,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306561.1428814
+    },
+    {
+      "phase": "load_read",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306561.1475274,
+      "deadline_monotonic": 306586.5141599,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"players\": [\"-8589934591\"], \"foot_after_chunks\": [0.5, -60.0, 0.5], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"same_anchor\": true, \"foot\": [0.5, -60.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0, \"chunks\": [{\"loaded\": true, \"chunk\": [0, 0], \"pos\": [3, -49, 4]}]}'\nReturn value JSON: \"{\\\"players\\\": [\\\"-8589934591\\\"], \\\"foot_after_chunks\\\": [0.5, -60.0, 0.5], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"same_anchor\\\": true, \\\"foot\\\": [0.5, -60.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0, \\\"chunks\\\": [{\\\"loaded\\\": true, \\\"chunk\\\": [0, 0], \\\"pos\\\": [3, -49, 4]}]}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306561.2798882
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306561.2969606,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306561.4493931
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306561.4522805,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"support_write\": {\"states\": {}, \"returned\": true, \"value\": {\"aux\": 0, \"name\": \"minecraft:stone\"}, \"pos\": [4, -49, 4]}, \"after\": {\"rows\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"runtime\": \"1.21.120.0\"}, \"classification\": \"setup_completed\", \"marker_before_write\": false, \"write_intents\": [{\"kind\": \"support\", \"method\": \"SetBlockNew\", \"value\": {\"aux\": 0, \"name\": \"minecraft:stone\"}, \"pos\": [4, -49, 4]}, {\"legacy_aux\": 0, \"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"kind\": \"door_half\", \"method\": \"SetBlockNew\", \"pos\": [4, -48, 4]}, {\"legacy_aux\": 8, \"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"kind\": \"door_half\", \"method\": \"SetBlockNew\", \"pos\": [4, -47, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"kind\": \"door_states\", \"method\": \"SetBlockStates\", \"pos\": [4, -48, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"kind\": \"door_states\", \"method\": \"SetBlockStates\", \"pos\": [4, -47, 4]}], \"chunks_before_marker\": [{\"loaded\": true, \"chunk\": [0, 0], \"pos\": [3, -49, 4]}], \"reserve_reads\": [{\"liquid\": null, \"pos\": [3, -49, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [3, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [3, -47, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -50, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -49, 3], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -49, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -49, 5], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -48, 3], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -48, 5], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -47, 3], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -47, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -47, 5], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [4, -46, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [5, -49, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [5, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}, {\"liquid\": null, \"pos\": [5, -47, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:air\"}}], \"guard\": {\"players\": [\"-8589934591\"], \"foot_after_chunks\": [0.5, -60.0, 0.5], \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\", \"player\": \"-8589934591\", \"same_anchor\": true, \"foot\": [0.5, -60.0, 0.5], \"runtime\": \"1.21.120.0\", \"marker_present\": false, \"dimension\": 0, \"chunks\": [{\"loaded\": true, \"chunk\": [0, 0], \"pos\": [3, -49, 4]}]}, \"binding_before_marker\": {\"players\": [\"-8589934591\"], \"runtime\": \"1.21.120.0\", \"dimension\": 0, \"level\": \"PYR_8a49cffa2b9a4ba090d84101483d76e7\"}, \"mutation_attempted\": true, \"foot_before_marker\": [0.5, -60.0, 0.5], \"steps\": [{\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"returned\": true, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"pos\": [4, -48, 4], \"legacy_aux\": 0, \"method\": \"SetBlockNew\"}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"returned\": false, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"pos\": [4, -47, 4], \"legacy_aux\": 8, \"method\": \"SetBlockNew\"}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"method\": \"SetBlockStates\", \"returned\": true, \"pos\": [4, -48, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"method\": \"SetBlockStates\", \"returned\": true, \"pos\": [4, -47, 4]}], \"error\": null}'\nReturn value JSON: \"{\\\"support_write\\\": {\\\"states\\\": {}, \\\"returned\\\": true, \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:stone\\\"}, \\\"pos\\\": [4, -49, 4]}, \\\"after\\\": {\\\"rows\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"runtime\\\": \\\"1.21.120.0\\\"}, \\\"classification\\\": \\\"setup_completed\\\", \\\"marker_before_write\\\": false, \\\"write_intents\\\": [{\\\"kind\\\": \\\"support\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:stone\\\"}, \\\"pos\\\": [4, -49, 4]}, {\\\"legacy_aux\\\": 0, \\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"kind\\\": \\\"door_half\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"pos\\\": [4, -48, 4]}, {\\\"legacy_aux\\\": 8, \\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"kind\\\": \\\"door_half\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"pos\\\": [4, -47, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"kind\\\": \\\"door_states\\\", \\\"method\\\": \\\"SetBlockStates\\\", \\\"pos\\\": [4, -48, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"kind\\\": \\\"door_states\\\", \\\"method\\\": \\\"SetBlockStates\\\", \\\"pos\\\": [4, -47, 4]}], \\\"chunks_before_marker\\\": [{\\\"loaded\\\": true, \\\"chunk\\\": [0, 0], \\\"pos\\\": [3, -49, 4]}], \\\"reserve_reads\\\": [{\\\"liquid\\\": null, \\\"pos\\\": [3, -49, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [3, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [3, -47, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -50, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -49, 3], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -49, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -49, 5], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -48, 3], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -48, 5], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -47, 3], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -47, 5], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [4, -46, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [5, -49, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [5, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}, {\\\"liquid\\\": null, \\\"pos\\\": [5, -47, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:air\\\"}}], \\\"guard\\\": {\\\"players\\\": [\\\"-8589934591\\\"], \\\"foot_after_chunks\\\": [0.5, -60.0, 0.5], \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\", \\\"player\\\": \\\"-8589934591\\\", \\\"same_anchor\\\": true, \\\"foot\\\": [0.5, -60.0, 0.5], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"marker_present\\\": false, \\\"dimension\\\": 0, \\\"chunks\\\": [{\\\"loaded\\\": true, \\\"chunk\\\": [0, 0], \\\"pos\\\": [3, -49, 4]}]}, \\\"binding_before_marker\\\": {\\\"players\\\": [\\\"-8589934591\\\"], \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"dimension\\\": 0, \\\"level\\\": \\\"PYR_8a49cffa2b9a4ba090d84101483d76e7\\\"}, \\\"mutation_attempted\\\": true, \\\"foot_before_marker\\\": [0.5, -60.0, 0.5], \\\"steps\\\": [{\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"returned\\\": true, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"pos\\\": [4, -48, 4], \\\"legacy_aux\\\": 0, \\\"method\\\": \\\"SetBlockNew\\\"}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"returned\\\": false, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"pos\\\": [4, -47, 4], \\\"legacy_aux\\\": 8, \\\"method\\\": \\\"SetBlockNew\\\"}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"method\\\": \\\"SetBlockStates\\\", \\\"returned\\\": true, \\\"pos\\\": [4, -48, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"method\\\": \\\"SetBlockStates\\\", \\\"returned\\\": true, \\\"pos\\\": [4, -47, 4]}], \\\"error\\\": null}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306561.6360291
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306561.8514297,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.0082079
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.0120509,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"rows\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"runtime\": \"1.21.120.0\"}'\nReturn value JSON: \"{\\\"rows\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"runtime\\\": \\\"1.21.120.0\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.1634261
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.1766183,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.3017473
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.3049363,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"fronts_after\": [{\"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, {\"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, {\"pos\": [4, -49, 4], \"value\": [\"minecraft:stone\", 0]}], \"palettes\": {\"pair\": {\"high\": [4, -47, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"dict\", [[[\"bytes\", \"ZG9vcl9oaW5nZV9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"b3Blbl9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\"], [\"bytes\", \"c291dGg=\"]], [[\"bytes\", \"dXBwZXJfYmxvY2tfYml0\"], [\"bool\", false]]]]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"2\"]]]]]], \"low\": [4, -48, 4]}, \"upper\": {\"high\": [4, -47, 4], \"available\": false, \"serialized\": null, \"low\": [4, -47, 4]}, \"lower\": {\"high\": [4, -48, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"dict\", [[[\"bytes\", \"ZG9vcl9oaW5nZV9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"b3Blbl9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\"], [\"bytes\", \"c291dGg=\"]], [[\"bytes\", \"dXBwZXJfYmxvY2tfYml0\"], [\"bool\", false]]]]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"1\"]]]]]], \"low\": [4, -48, 4]}, \"support\": {\"high\": [4, -49, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0OnN0b25l\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0OnN0b25l\"], [\"int\", \"0\"]]], [\"dict\", []]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"1\"]]]]]], \"low\": [4, -49, 4]}}, \"loaded_chunk_tracking\": {\"available\": true, \"chunk\": [0, 0, 0], \"present\": true}, \"runtime\": \"1.21.120.0\", \"fronts_before\": [{\"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, {\"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, {\"pos\": [4, -49, 4], \"value\": [\"minecraft:stone\", 0]}]}'\nReturn value JSON: \"{\\\"fronts_after\\\": [{\\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, {\\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, {\\\"pos\\\": [4, -49, 4], \\\"value\\\": [\\\"minecraft:stone\\\", 0]}], \\\"palettes\\\": {\\\"pair\\\": {\\\"high\\\": [4, -47, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", [[[\\\"bytes\\\", \\\"ZG9vcl9oaW5nZV9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"b3Blbl9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\\\"], [\\\"bytes\\\", \\\"c291dGg=\\\"]], [[\\\"bytes\\\", \\\"dXBwZXJfYmxvY2tfYml0\\\"], [\\\"bool\\\", false]]]]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"2\\\"]]]]]], \\\"low\\\": [4, -48, 4]}, \\\"upper\\\": {\\\"high\\\": [4, -47, 4], \\\"available\\\": false, \\\"serialized\\\": null, \\\"low\\\": [4, -47, 4]}, \\\"lower\\\": {\\\"high\\\": [4, -48, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", [[[\\\"bytes\\\", \\\"ZG9vcl9oaW5nZV9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"b3Blbl9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\\\"], [\\\"bytes\\\", \\\"c291dGg=\\\"]], [[\\\"bytes\\\", \\\"dXBwZXJfYmxvY2tfYml0\\\"], [\\\"bool\\\", false]]]]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"]]]]]], \\\"low\\\": [4, -48, 4]}, \\\"support\\\": {\\\"high\\\": [4, -49, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OnN0b25l\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OnN0b25l\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", []]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"]]]]]], \\\"low\\\": [4, -49, 4]}}, \\\"loaded_chunk_tracking\\\": {\\\"available\\\": true, \\\"chunk\\\": [0, 0, 0], \\\"present\\\": true}, \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"fronts_before\\\": [{\\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, {\\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, {\\\"pos\\\": [4, -49, 4], \\\"value\\\": [\\\"minecraft:stone\\\", 0]}]}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.4892298
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.701065,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.8605696
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.8648473,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"rows\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"runtime\": \"1.21.120.0\"}'\nReturn value JSON: \"{\\\"rows\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"runtime\\\": \\\"1.21.120.0\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306562.9833529
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306562.9953306,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306563.0928187
+    },
+    {
+      "phase": "fixture",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306563.0962691,
+      "deadline_monotonic": 306581.2878272,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"fronts_after\": [{\"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, {\"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, {\"pos\": [4, -49, 4], \"value\": [\"minecraft:stone\", 0]}], \"palettes\": {\"pair\": {\"high\": [4, -47, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"dict\", [[[\"bytes\", \"ZG9vcl9oaW5nZV9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"b3Blbl9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\"], [\"bytes\", \"c291dGg=\"]], [[\"bytes\", \"dXBwZXJfYmxvY2tfYml0\"], [\"bool\", false]]]]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"2\"]]]]]], \"low\": [4, -48, 4]}, \"upper\": {\"high\": [4, -47, 4], \"available\": false, \"serialized\": null, \"low\": [4, -47, 4]}, \"lower\": {\"high\": [4, -48, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\"], [\"int\", \"0\"]]], [\"dict\", [[[\"bytes\", \"ZG9vcl9oaW5nZV9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"b3Blbl9iaXQ=\"], [\"bool\", false]], [[\"bytes\", \"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\"], [\"bytes\", \"c291dGg=\"]], [[\"bytes\", \"dXBwZXJfYmxvY2tfYml0\"], [\"bool\", false]]]]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"1\"]]]]]], \"low\": [4, -48, 4]}, \"support\": {\"high\": [4, -49, 4], \"available\": true, \"serialized\": [\"dict\", [[[\"bytes\", \"Y29tbW9u\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0OnN0b25l\"], [\"int\", \"0\"]]], [\"list\", [[\"int\", \"0\"]]]]]]], [[\"bytes\", \"YWN0b3I=\"], [\"dict\", []]], [[\"bytes\", \"ZWxpbWluYXRlQWly\"], [\"bool\", false]], [[\"bytes\", \"ZXh0cmE=\"], [\"dict\", []]], [[\"bytes\", \"ZXh0cmFTdGF0ZXM=\"], [\"dict\", []]], [[\"bytes\", \"c3RhdGVz\"], [\"dict\", [[[\"tuple\", [[\"bytes\", \"bWluZWNyYWZ0OnN0b25l\"], [\"int\", \"0\"]]], [\"dict\", []]]]]], [[\"bytes\", \"dm9pZA==\"], [\"bool\", false]], [[\"bytes\", \"dm9sdW1l\"], [\"tuple\", [[\"int\", \"1\"], [\"int\", \"1\"], [\"int\", \"1\"]]]]]], \"low\": [4, -49, 4]}}, \"loaded_chunk_tracking\": {\"available\": true, \"chunk\": [0, 0, 0], \"present\": true}, \"runtime\": \"1.21.120.0\", \"fronts_before\": [{\"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, {\"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, {\"pos\": [4, -49, 4], \"value\": [\"minecraft:stone\", 0]}]}'\nReturn value JSON: \"{\\\"fronts_after\\\": [{\\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, {\\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, {\\\"pos\\\": [4, -49, 4], \\\"value\\\": [\\\"minecraft:stone\\\", 0]}], \\\"palettes\\\": {\\\"pair\\\": {\\\"high\\\": [4, -47, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", [[[\\\"bytes\\\", \\\"ZG9vcl9oaW5nZV9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"b3Blbl9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\\\"], [\\\"bytes\\\", \\\"c291dGg=\\\"]], [[\\\"bytes\\\", \\\"dXBwZXJfYmxvY2tfYml0\\\"], [\\\"bool\\\", false]]]]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"2\\\"]]]]]], \\\"low\\\": [4, -48, 4]}, \\\"upper\\\": {\\\"high\\\": [4, -47, 4], \\\"available\\\": false, \\\"serialized\\\": null, \\\"low\\\": [4, -47, 4]}, \\\"lower\\\": {\\\"high\\\": [4, -48, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0Ondvb2Rlbl9kb29y\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", [[[\\\"bytes\\\", \\\"ZG9vcl9oaW5nZV9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"b3Blbl9iaXQ=\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg==\\\"], [\\\"bytes\\\", \\\"c291dGg=\\\"]], [[\\\"bytes\\\", \\\"dXBwZXJfYmxvY2tfYml0\\\"], [\\\"bool\\\", false]]]]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"]]]]]], \\\"low\\\": [4, -48, 4]}, \\\"support\\\": {\\\"high\\\": [4, -49, 4], \\\"available\\\": true, \\\"serialized\\\": [\\\"dict\\\", [[[\\\"bytes\\\", \\\"Y29tbW9u\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OnN0b25l\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"list\\\", [[\\\"int\\\", \\\"0\\\"]]]]]]], [[\\\"bytes\\\", \\\"YWN0b3I=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZWxpbWluYXRlQWly\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"ZXh0cmE=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"ZXh0cmFTdGF0ZXM=\\\"], [\\\"dict\\\", []]], [[\\\"bytes\\\", \\\"c3RhdGVz\\\"], [\\\"dict\\\", [[[\\\"tuple\\\", [[\\\"bytes\\\", \\\"bWluZWNyYWZ0OnN0b25l\\\"], [\\\"int\\\", \\\"0\\\"]]], [\\\"dict\\\", []]]]]], [[\\\"bytes\\\", \\\"dm9pZA==\\\"], [\\\"bool\\\", false]], [[\\\"bytes\\\", \\\"dm9sdW1l\\\"], [\\\"tuple\\\", [[\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"], [\\\"int\\\", \\\"1\\\"]]]]]], \\\"low\\\": [4, -49, 4]}}, \\\"loaded_chunk_tracking\\\": {\\\"available\\\": true, \\\"chunk\\\": [0, 0, 0], \\\"present\\\": true}, \\\"runtime\\\": \\\"1.21.120.0\\\", \\\"fronts_before\\\": [{\\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, {\\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, {\\\"pos\\\": [4, -49, 4], \\\"value\\\": [\\\"minecraft:stone\\\", 0]}]}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306563.2023193
+    },
+    {
+      "phase": "fixture_cleanup",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306563.2165845,
+      "deadline_monotonic": 306583.208829,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306563.3438703
+    },
+    {
+      "phase": "fixture_cleanup",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306563.3477352,
+      "deadline_monotonic": 306583.208829,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"errors\": [], \"recovered_setup\": {\"support_write\": {\"states\": {}, \"returned\": true, \"value\": {\"aux\": 0, \"name\": \"minecraft:stone\"}, \"pos\": [4, -49, 4]}, \"classification\": \"setup_completed\", \"write_intents\": [{\"kind\": \"support\", \"method\": \"SetBlockNew\", \"value\": {\"aux\": 0, \"name\": \"minecraft:stone\"}, \"pos\": [4, -49, 4]}, {\"legacy_aux\": 0, \"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"kind\": \"door_half\", \"method\": \"SetBlockNew\", \"pos\": [4, -48, 4]}, {\"legacy_aux\": 8, \"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"kind\": \"door_half\", \"method\": \"SetBlockNew\", \"pos\": [4, -47, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"kind\": \"door_states\", \"method\": \"SetBlockStates\", \"pos\": [4, -48, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"kind\": \"door_states\", \"method\": \"SetBlockStates\", \"pos\": [4, -47, 4]}], \"after\": {\"rows\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"runtime\": \"1.21.120.0\"}, \"steps\": [{\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"returned\": true, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"pos\": [4, -48, 4], \"legacy_aux\": 0, \"method\": \"SetBlockNew\"}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"returned\": false, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"pos\": [4, -47, 4], \"legacy_aux\": 8, \"method\": \"SetBlockNew\"}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -48, 4], \"value\": [\"minecraft:wooden_door\", 0]}, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"method\": \"SetBlockStates\", \"returned\": true, \"pos\": [4, -48, 4]}, {\"requested\": {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"control\": false, \"pos\": [4, -47, 4], \"value\": [\"minecraft:wooden_door\", 8]}, \"both_halves\": [{\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": false, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -48, 4], \"value\": {\"aux\": 0, \"name\": \"minecraft:wooden_door\"}}, {\"states\": {\"open_bit\": false, \"door_hinge_bit\": false, \"upper_block_bit\": true, \"minecraft:cardinal_direction\": \"south\"}, \"pos\": [4, -47, 4], \"value\": {\"aux\": 8, \"name\": \"minecraft:wooden_door\"}}], \"method\": \"SetBlockStates\", \"returned\": true, \"pos\": [4, -47, 4]}], \"error\": null, \"mutation_attempted\": true}, \"marker_present\": true, \"player_unchanged\": true, \"clear_steps\": [{\"pos\": [4, -46, 4], \"returned\": false}, {\"pos\": [3, -47, 4], \"returned\": false}, {\"pos\": [4, -47, 3], \"returned\": false}, {\"pos\": [4, -47, 4], \"returned\": true}, {\"pos\": [4, -47, 5], \"returned\": false}, {\"pos\": [5, -47, 4], \"returned\": false}, {\"pos\": [3, -48, 4], \"returned\": false}, {\"pos\": [4, -48, 3], \"returned\": false}, {\"pos\": [4, -48, 4], \"returned\": true}, {\"pos\": [4, -48, 5], \"returned\": false}, {\"pos\": [5, -48, 4], \"returned\": false}, {\"pos\": [3, -49, 4], \"returned\": false}, {\"pos\": [4, -49, 3], \"returned\": false}, {\"pos\": [4, -49, 4], \"returned\": true}, {\"pos\": [4, -49, 5], \"returned\": false}, {\"pos\": [5, -49, 4], \"returned\": false}, {\"pos\": [4, -50, 4], \"returned\": false}], \"restored\": true}'\nReturn value JSON: \"{\\\"errors\\\": [], \\\"recovered_setup\\\": {\\\"support_write\\\": {\\\"states\\\": {}, \\\"returned\\\": true, \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:stone\\\"}, \\\"pos\\\": [4, -49, 4]}, \\\"classification\\\": \\\"setup_completed\\\", \\\"write_intents\\\": [{\\\"kind\\\": \\\"support\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:stone\\\"}, \\\"pos\\\": [4, -49, 4]}, {\\\"legacy_aux\\\": 0, \\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"kind\\\": \\\"door_half\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"pos\\\": [4, -48, 4]}, {\\\"legacy_aux\\\": 8, \\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"kind\\\": \\\"door_half\\\", \\\"method\\\": \\\"SetBlockNew\\\", \\\"pos\\\": [4, -47, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"kind\\\": \\\"door_states\\\", \\\"method\\\": \\\"SetBlockStates\\\", \\\"pos\\\": [4, -48, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"kind\\\": \\\"door_states\\\", \\\"method\\\": \\\"SetBlockStates\\\", \\\"pos\\\": [4, -47, 4]}], \\\"after\\\": {\\\"rows\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"runtime\\\": \\\"1.21.120.0\\\"}, \\\"steps\\\": [{\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"returned\\\": true, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"pos\\\": [4, -48, 4], \\\"legacy_aux\\\": 0, \\\"method\\\": \\\"SetBlockNew\\\"}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"returned\\\": false, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"pos\\\": [4, -47, 4], \\\"legacy_aux\\\": 8, \\\"method\\\": \\\"SetBlockNew\\\"}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 0]}, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"method\\\": \\\"SetBlockStates\\\", \\\"returned\\\": true, \\\"pos\\\": [4, -48, 4]}, {\\\"requested\\\": {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"control\\\": false, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:wooden_door\\\", 8]}, \\\"both_halves\\\": [{\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": false, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}, {\\\"states\\\": {\\\"open_bit\\\": false, \\\"door_hinge_bit\\\": false, \\\"upper_block_bit\\\": true, \\\"minecraft:cardinal_direction\\\": \\\"south\\\"}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": {\\\"aux\\\": 8, \\\"name\\\": \\\"minecraft:wooden_door\\\"}}], \\\"method\\\": \\\"SetBlockStates\\\", \\\"returned\\\": true, \\\"pos\\\": [4, -47, 4]}], \\\"error\\\": null, \\\"mutation_attempted\\\": true}, \\\"marker_present\\\": true, \\\"player_unchanged\\\": true, \\\"clear_steps\\\": [{\\\"pos\\\": [4, -46, 4], \\\"returned\\\": false}, {\\\"pos\\\": [3, -47, 4], \\\"returned\\\": false}, {\\\"pos\\\": [4, -47, 3], \\\"returned\\\": false}, {\\\"pos\\\": [4, -47, 4], \\\"returned\\\": true}, {\\\"pos\\\": [4, -47, 5], \\\"returned\\\": false}, {\\\"pos\\\": [5, -47, 4], \\\"returned\\\": false}, {\\\"pos\\\": [3, -48, 4], \\\"returned\\\": false}, {\\\"pos\\\": [4, -48, 3], \\\"returned\\\": false}, {\\\"pos\\\": [4, -48, 4], \\\"returned\\\": true}, {\\\"pos\\\": [4, -48, 5], \\\"returned\\\": false}, {\\\"pos\\\": [5, -48, 4], \\\"returned\\\": false}, {\\\"pos\\\": [3, -49, 4], \\\"returned\\\": false}, {\\\"pos\\\": [4, -49, 3], \\\"returned\\\": false}, {\\\"pos\\\": [4, -49, 4], \\\"returned\\\": true}, {\\\"pos\\\": [4, -49, 5], \\\"returned\\\": false}, {\\\"pos\\\": [5, -49, 4], \\\"returned\\\": false}, {\\\"pos\\\": [4, -50, 4], \\\"returned\\\": false}], \\\"restored\\\": true}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306563.4529115
+    },
+    {
+      "phase": "fixture_cleanup",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306563.4630733,
+      "deadline_monotonic": 306583.208829,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '52cc1df754ee493fa989564bf2178b8e'\nReturn value JSON: \"52cc1df754ee493fa989564bf2178b8e\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306563.6245443
+    },
+    {
+      "phase": "fixture_cleanup",
+      "method": "tools/call",
+      "intent": true,
+      "started_monotonic": 306563.628516,
+      "deadline_monotonic": 306583.208829,
+      "timeout_seconds": 2,
+      "response_received": true,
+      "result": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: '{\"rows\": [{\"states\": {}, \"pos\": [3, -49, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [3, -48, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [3, -47, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -50, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -49, 3], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -49, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -49, 5], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -48, 3], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -48, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -48, 5], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -47, 3], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -47, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -47, 5], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [4, -46, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [5, -49, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [5, -48, 4], \"value\": [\"minecraft:air\", 0]}, {\"states\": {}, \"pos\": [5, -47, 4], \"value\": [\"minecraft:air\", 0]}], \"runtime\": \"1.21.120.0\"}'\nReturn value JSON: \"{\\\"rows\\\": [{\\\"states\\\": {}, \\\"pos\\\": [3, -49, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [3, -48, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [3, -47, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -50, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -49, 3], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -49, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -49, 5], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -48, 3], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -48, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -48, 5], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -47, 3], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -47, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -47, 5], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [4, -46, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [5, -49, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [5, -48, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}, {\\\"states\\\": {}, \\\"pos\\\": [5, -47, 4], \\\"value\\\": [\\\"minecraft:air\\\", 0]}], \\\"runtime\\\": \\\"1.21.120.0\\\"}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_monotonic": 306564.4964962
+    },
+    {
+      "phase": "close",
+      "method": "DELETE",
+      "intent": true,
+      "started_monotonic": 306564.5073056,
+      "deadline_monotonic": 306566.5017941,
+      "timeout_seconds": 1.989914999983739,
+      "response_received": true,
+      "result": null,
+      "finished_monotonic": 306564.5196548
+    }
+  ],
+  "setup_intent": {
+    "sent": true,
+    "acknowledged": true,
+    "requested": [
+      {
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:wooden_door",
+          0
+        ],
+        "states": {
+          "door_hinge_bit": false,
+          "minecraft:cardinal_direction": "south",
+          "open_bit": false,
+          "upper_block_bit": false
+        },
+        "control": false
+      },
+      {
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:wooden_door",
+          8
+        ],
+        "states": {
+          "door_hinge_bit": false,
+          "minecraft:cardinal_direction": "south",
+          "open_bit": false,
+          "upper_block_bit": true
+        },
+        "control": false
+      }
+    ],
+    "reserved": [
+      [
+        3,
+        -49,
+        4
+      ],
+      [
+        3,
+        -48,
+        4
+      ],
+      [
+        3,
+        -47,
+        4
+      ],
+      [
+        4,
+        -50,
+        4
+      ],
+      [
+        4,
+        -49,
+        3
+      ],
+      [
+        4,
+        -49,
+        4
+      ],
+      [
+        4,
+        -49,
+        5
+      ],
+      [
+        4,
+        -48,
+        3
+      ],
+      [
+        4,
+        -48,
+        4
+      ],
+      [
+        4,
+        -48,
+        5
+      ],
+      [
+        4,
+        -47,
+        3
+      ],
+      [
+        4,
+        -47,
+        4
+      ],
+      [
+        4,
+        -47,
+        5
+      ],
+      [
+        4,
+        -46,
+        4
+      ],
+      [
+        5,
+        -49,
+        4
+      ],
+      [
+        5,
+        -48,
+        4
+      ],
+      [
+        5,
+        -47,
+        4
+      ]
+    ],
+    "started_monotonic": 306561.2878355,
+    "response_uncertain": false,
+    "mutation_attempted": true
+  },
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\8a49cffa2b9a4ba090d84101483d76e7\\session.json",
+  "instance": {
+    "id": "8a49cffa2b9a4ba090d84101483d76e7",
+    "owner": "transforms-r11-door-pair-v13b",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms",
+    "game_pid": 15132,
+    "game_identity": "134363052783213168",
+    "mcdk_pid": 57324,
+    "mcdk_identity": "134363052780851242",
+    "mcp_url": "http://127.0.0.1:63368/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+  },
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 88412464,
+        "pid": 15132,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "host_sources": {
+    "probe": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\probe_native_single_door.py",
+      "sha256": "42ca1687e23b8ebb40adf0f178788538e49d7bb79214bdb7dec748e62cebf88e"
+    },
+    "load_preflight": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\native_single_door_load_preflight.py",
+      "sha256": "7c857da7974effe4f63a2d90d7b3d50680f4daf3f2716d7fa18076dbc8dd0078"
+    },
+    "shape_helpers": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\capture_native_state_transform_shapes.py",
+      "sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b"
+    },
+    "palette_freezer": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "mcp_wrapper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3"
+    },
+    "session_loader": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3"
+    }
+  },
+  "load_preflight": {
+    "ready": true,
+    "classification": "loaded_stable_anchor",
+    "attempts": [
+      {
+        "started_seconds": 1.600012183189392e-06,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            32768.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "foot_outside_fixed_scope"
+      },
+      {
+        "started_seconds": 0.6319621999864466,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            32768.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "foot_outside_fixed_scope"
+      },
+      {
+        "started_seconds": 1.3557283999980427,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            32768.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "foot_outside_fixed_scope"
+      },
+      {
+        "started_seconds": 2.0313577000051737,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            32768.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "foot_outside_fixed_scope"
+      },
+      {
+        "started_seconds": 2.7344462999608368,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "chunks_loaded",
+        "raw_chunks": {
+          "players": [
+            "-8589934591"
+          ],
+          "foot_after_chunks": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "same_anchor": true,
+          "foot": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0,
+          "chunks": [
+            {
+              "loaded": true,
+              "chunk": [
+                0,
+                0
+              ],
+              "pos": [
+                3,
+                -49,
+                4
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "started_seconds": 3.7658381999935955,
+        "raw_anchor": {
+          "players": [
+            "-8589934591"
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "foot": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0
+        },
+        "status": "chunks_loaded",
+        "raw_chunks": {
+          "players": [
+            "-8589934591"
+          ],
+          "foot_after_chunks": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+          "player": "-8589934591",
+          "same_anchor": true,
+          "foot": [
+            0.5,
+            -60.0,
+            0.5
+          ],
+          "runtime": "1.21.120.0",
+          "marker_present": false,
+          "dimension": 0,
+          "chunks": [
+            {
+              "loaded": true,
+              "chunk": [
+                0,
+                0
+              ],
+              "pos": [
+                3,
+                -49,
+                4
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "dimension": 0,
+    "y_bounds": [
+      -64,
+      320
+    ],
+    "horizontal_fixture_scope": [
+      -128,
+      128
+    ],
+    "required_stable_samples": 2,
+    "mutation_attempted": false,
+    "anchor": {
+      "runtime": "1.21.120.0",
+      "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+      "player": "-8589934591",
+      "dimension": 0,
+      "foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "origin": [
+        4,
+        -48,
+        4
+      ],
+      "rows": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ],
+          "states": {
+            "door_hinge_bit": false,
+            "minecraft:cardinal_direction": "south",
+            "open_bit": false,
+            "upper_block_bit": false
+          },
+          "control": false
+        },
+        {
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ],
+          "states": {
+            "door_hinge_bit": false,
+            "minecraft:cardinal_direction": "south",
+            "open_bit": false,
+            "upper_block_bit": true
+          },
+          "control": false
+        }
+      ],
+      "support": [
+        4,
+        -49,
+        4
+      ],
+      "reserved": [
+        [
+          3,
+          -49,
+          4
+        ],
+        [
+          3,
+          -48,
+          4
+        ],
+        [
+          3,
+          -47,
+          4
+        ],
+        [
+          4,
+          -50,
+          4
+        ],
+        [
+          4,
+          -49,
+          3
+        ],
+        [
+          4,
+          -49,
+          4
+        ],
+        [
+          4,
+          -49,
+          5
+        ],
+        [
+          4,
+          -48,
+          3
+        ],
+        [
+          4,
+          -48,
+          4
+        ],
+        [
+          4,
+          -48,
+          5
+        ],
+        [
+          4,
+          -47,
+          3
+        ],
+        [
+          4,
+          -47,
+          4
+        ],
+        [
+          4,
+          -47,
+          5
+        ],
+        [
+          4,
+          -46,
+          4
+        ],
+        [
+          5,
+          -49,
+          4
+        ],
+        [
+          5,
+          -48,
+          4
+        ],
+        [
+          5,
+          -47,
+          4
+        ]
+      ]
+    },
+    "elapsed_seconds": 4.361091999977361
+  },
+  "preflight": {
+    "runtime": "1.21.120.0",
+    "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+    "player": "-8589934591",
+    "dimension": 0,
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "origin": [
+      4,
+      -48,
+      4
+    ],
+    "rows": [
+      {
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:wooden_door",
+          0
+        ],
+        "states": {
+          "door_hinge_bit": false,
+          "minecraft:cardinal_direction": "south",
+          "open_bit": false,
+          "upper_block_bit": false
+        },
+        "control": false
+      },
+      {
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:wooden_door",
+          8
+        ],
+        "states": {
+          "door_hinge_bit": false,
+          "minecraft:cardinal_direction": "south",
+          "open_bit": false,
+          "upper_block_bit": true
+        },
+        "control": false
+      }
+    ],
+    "support": [
+      4,
+      -49,
+      4
+    ],
+    "reserved": [
+      [
+        3,
+        -49,
+        4
+      ],
+      [
+        3,
+        -48,
+        4
+      ],
+      [
+        3,
+        -47,
+        4
+      ],
+      [
+        4,
+        -50,
+        4
+      ],
+      [
+        4,
+        -49,
+        3
+      ],
+      [
+        4,
+        -49,
+        4
+      ],
+      [
+        4,
+        -49,
+        5
+      ],
+      [
+        4,
+        -48,
+        3
+      ],
+      [
+        4,
+        -48,
+        4
+      ],
+      [
+        4,
+        -48,
+        5
+      ],
+      [
+        4,
+        -47,
+        3
+      ],
+      [
+        4,
+        -47,
+        4
+      ],
+      [
+        4,
+        -47,
+        5
+      ],
+      [
+        4,
+        -46,
+        4
+      ],
+      [
+        5,
+        -49,
+        4
+      ],
+      [
+        5,
+        -48,
+        4
+      ],
+      [
+        5,
+        -47,
+        4
+      ]
+    ]
+  },
+  "requested": [
+    {
+      "pos": [
+        4,
+        -48,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        0
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        -47,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        8
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    }
+  ],
+  "support": [
+    4,
+    -49,
+    4
+  ],
+  "reserved": [
+    [
+      3,
+      -49,
+      4
+    ],
+    [
+      3,
+      -48,
+      4
+    ],
+    [
+      3,
+      -47,
+      4
+    ],
+    [
+      4,
+      -50,
+      4
+    ],
+    [
+      4,
+      -49,
+      3
+    ],
+    [
+      4,
+      -49,
+      4
+    ],
+    [
+      4,
+      -49,
+      5
+    ],
+    [
+      4,
+      -48,
+      3
+    ],
+    [
+      4,
+      -48,
+      4
+    ],
+    [
+      4,
+      -48,
+      5
+    ],
+    [
+      4,
+      -47,
+      3
+    ],
+    [
+      4,
+      -47,
+      4
+    ],
+    [
+      4,
+      -47,
+      5
+    ],
+    [
+      4,
+      -46,
+      4
+    ],
+    [
+      5,
+      -49,
+      4
+    ],
+    [
+      5,
+      -48,
+      4
+    ],
+    [
+      5,
+      -47,
+      4
+    ]
+  ],
+  "setup": {
+    "support_write": {
+      "states": {},
+      "returned": true,
+      "value": {
+        "aux": 0,
+        "name": "minecraft:stone"
+      },
+      "pos": [
+        4,
+        -49,
+        4
+      ]
+    },
+    "after": {
+      "rows": [
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:wooden_door"
+          }
+        },
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": {
+            "aux": 8,
+            "name": "minecraft:wooden_door"
+          }
+        }
+      ],
+      "runtime": "1.21.120.0"
+    },
+    "classification": "setup_completed",
+    "marker_before_write": false,
+    "write_intents": [
+      {
+        "kind": "support",
+        "method": "SetBlockNew",
+        "value": {
+          "aux": 0,
+          "name": "minecraft:stone"
+        },
+        "pos": [
+          4,
+          -49,
+          4
+        ]
+      },
+      {
+        "legacy_aux": 0,
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "kind": "door_half",
+        "method": "SetBlockNew",
+        "pos": [
+          4,
+          -48,
+          4
+        ]
+      },
+      {
+        "legacy_aux": 8,
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "kind": "door_half",
+        "method": "SetBlockNew",
+        "pos": [
+          4,
+          -47,
+          4
+        ]
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "kind": "door_states",
+        "method": "SetBlockStates",
+        "pos": [
+          4,
+          -48,
+          4
+        ]
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "kind": "door_states",
+        "method": "SetBlockStates",
+        "pos": [
+          4,
+          -47,
+          4
+        ]
+      }
+    ],
+    "chunks_before_marker": [
+      {
+        "loaded": true,
+        "chunk": [
+          0,
+          0
+        ],
+        "pos": [
+          3,
+          -49,
+          4
+        ]
+      }
+    ],
+    "reserve_reads": [
+      {
+        "liquid": null,
+        "pos": [
+          3,
+          -49,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          3,
+          -48,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          3,
+          -47,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -50,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -49,
+          3
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -49,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -49,
+          5
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -48,
+          3
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -48,
+          5
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -47,
+          3
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -47,
+          5
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          4,
+          -46,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          5,
+          -49,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          5,
+          -48,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      },
+      {
+        "liquid": null,
+        "pos": [
+          5,
+          -47,
+          4
+        ],
+        "value": {
+          "aux": 0,
+          "name": "minecraft:air"
+        }
+      }
+    ],
+    "guard": {
+      "players": [
+        "-8589934591"
+      ],
+      "foot_after_chunks": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7",
+      "player": "-8589934591",
+      "same_anchor": true,
+      "foot": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "runtime": "1.21.120.0",
+      "marker_present": false,
+      "dimension": 0,
+      "chunks": [
+        {
+          "loaded": true,
+          "chunk": [
+            0,
+            0
+          ],
+          "pos": [
+            3,
+            -49,
+            4
+          ]
+        }
+      ]
+    },
+    "binding_before_marker": {
+      "players": [
+        "-8589934591"
+      ],
+      "runtime": "1.21.120.0",
+      "dimension": 0,
+      "level": "PYR_8a49cffa2b9a4ba090d84101483d76e7"
+    },
+    "mutation_attempted": true,
+    "foot_before_marker": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "steps": [
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "returned": true,
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "legacy_aux": 0,
+        "method": "SetBlockNew"
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "returned": false,
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "legacy_aux": 8,
+        "method": "SetBlockNew"
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "method": "SetBlockStates",
+        "returned": true,
+        "pos": [
+          4,
+          -48,
+          4
+        ]
+      },
+      {
+        "requested": {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "control": false,
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        "both_halves": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "method": "SetBlockStates",
+        "returned": true,
+        "pos": [
+          4,
+          -47,
+          4
+        ]
+      }
+    ],
+    "error": null
+  },
+  "after_200ms": {
+    "server": {
+      "rows": [
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:wooden_door"
+          }
+        },
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": {
+            "aux": 8,
+            "name": "minecraft:wooden_door"
+          }
+        }
+      ],
+      "runtime": "1.21.120.0"
+    },
+    "client": {
+      "fronts_after": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -49,
+            4
+          ],
+          "value": [
+            "minecraft:stone",
+            0
+          ]
+        }
+      ],
+      "palettes": {
+        "pair": {
+          "high": [
+            4,
+            -47,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        [
+                          [
+                            [
+                              "bytes",
+                              "ZG9vcl9oaW5nZV9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "b3Blbl9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg=="
+                            ],
+                            [
+                              "bytes",
+                              "c291dGg="
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "dXBwZXJfYmxvY2tfYml0"
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "2"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -48,
+            4
+          ]
+        },
+        "upper": {
+          "high": [
+            4,
+            -47,
+            4
+          ],
+          "available": false,
+          "serialized": null,
+          "low": [
+            4,
+            -47,
+            4
+          ]
+        },
+        "lower": {
+          "high": [
+            4,
+            -48,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        [
+                          [
+                            [
+                              "bytes",
+                              "ZG9vcl9oaW5nZV9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "b3Blbl9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg=="
+                            ],
+                            [
+                              "bytes",
+                              "c291dGg="
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "dXBwZXJfYmxvY2tfYml0"
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -48,
+            4
+          ]
+        },
+        "support": {
+          "high": [
+            4,
+            -49,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0OnN0b25l"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0OnN0b25l"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        []
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -49,
+            4
+          ]
+        }
+      },
+      "loaded_chunk_tracking": {
+        "available": true,
+        "chunk": [
+          0,
+          0,
+          0
+        ],
+        "present": true
+      },
+      "runtime": "1.21.120.0",
+      "fronts_before": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -49,
+            4
+          ],
+          "value": [
+            "minecraft:stone",
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "later": {
+    "server": {
+      "rows": [
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": false,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:wooden_door"
+          }
+        },
+        {
+          "states": {
+            "open_bit": false,
+            "door_hinge_bit": false,
+            "upper_block_bit": true,
+            "minecraft:cardinal_direction": "south"
+          },
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": {
+            "aux": 8,
+            "name": "minecraft:wooden_door"
+          }
+        }
+      ],
+      "runtime": "1.21.120.0"
+    },
+    "client": {
+      "fronts_after": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -49,
+            4
+          ],
+          "value": [
+            "minecraft:stone",
+            0
+          ]
+        }
+      ],
+      "palettes": {
+        "pair": {
+          "high": [
+            4,
+            -47,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        [
+                          [
+                            [
+                              "bytes",
+                              "ZG9vcl9oaW5nZV9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "b3Blbl9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg=="
+                            ],
+                            [
+                              "bytes",
+                              "c291dGg="
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "dXBwZXJfYmxvY2tfYml0"
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "2"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -48,
+            4
+          ]
+        },
+        "upper": {
+          "high": [
+            4,
+            -47,
+            4
+          ],
+          "available": false,
+          "serialized": null,
+          "low": [
+            4,
+            -47,
+            4
+          ]
+        },
+        "lower": {
+          "high": [
+            4,
+            -48,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0Ondvb2Rlbl9kb29y"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        [
+                          [
+                            [
+                              "bytes",
+                              "ZG9vcl9oaW5nZV9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "b3Blbl9iaXQ="
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "bWluZWNyYWZ0OmNhcmRpbmFsX2RpcmVjdGlvbg=="
+                            ],
+                            [
+                              "bytes",
+                              "c291dGg="
+                            ]
+                          ],
+                          [
+                            [
+                              "bytes",
+                              "dXBwZXJfYmxvY2tfYml0"
+                            ],
+                            [
+                              "bool",
+                              false
+                            ]
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -48,
+            4
+          ]
+        },
+        "support": {
+          "high": [
+            4,
+            -49,
+            4
+          ],
+          "available": true,
+          "serialized": [
+            "dict",
+            [
+              [
+                [
+                  "bytes",
+                  "Y29tbW9u"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0OnN0b25l"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "list",
+                        [
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "YWN0b3I="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZWxpbWluYXRlQWly"
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmE="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "ZXh0cmFTdGF0ZXM="
+                ],
+                [
+                  "dict",
+                  []
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "c3RhdGVz"
+                ],
+                [
+                  "dict",
+                  [
+                    [
+                      [
+                        "tuple",
+                        [
+                          [
+                            "bytes",
+                            "bWluZWNyYWZ0OnN0b25l"
+                          ],
+                          [
+                            "int",
+                            "0"
+                          ]
+                        ]
+                      ],
+                      [
+                        "dict",
+                        []
+                      ]
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9pZA=="
+                ],
+                [
+                  "bool",
+                  false
+                ]
+              ],
+              [
+                [
+                  "bytes",
+                  "dm9sdW1l"
+                ],
+                [
+                  "tuple",
+                  [
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ],
+                    [
+                      "int",
+                      "1"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "low": [
+            4,
+            -49,
+            4
+          ]
+        }
+      },
+      "loaded_chunk_tracking": {
+        "available": true,
+        "chunk": [
+          0,
+          0,
+          0
+        ],
+        "present": true
+      },
+      "runtime": "1.21.120.0",
+      "fronts_before": [
+        {
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            0
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "value": [
+            "minecraft:wooden_door",
+            8
+          ]
+        },
+        {
+          "pos": [
+            4,
+            -49,
+            4
+          ],
+          "value": [
+            "minecraft:stone",
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "diagnosis": {
+    "after_200ms": {
+      "server_typed_pair_exact": true,
+      "client_front_pair_and_support_exact": true,
+      "data_replication_verified": false,
+      "client_typed_upper_verified": false,
+      "palette_covered_indices": [],
+      "palette_omitted_indices": [
+        0,
+        1
+      ],
+      "loaded_chunk_tracking": {
+        "available": true,
+        "chunk": [
+          0,
+          0,
+          0
+        ],
+        "present": true
+      },
+      "physical_orientation_accepted": false,
+      "classification": "pair_palette_invalid",
+      "palette_error": "Pair palette volume must be (1,1,2)"
+    },
+    "later": {
+      "server_typed_pair_exact": true,
+      "client_front_pair_and_support_exact": true,
+      "data_replication_verified": false,
+      "client_typed_upper_verified": false,
+      "palette_covered_indices": [],
+      "palette_omitted_indices": [
+        0,
+        1
+      ],
+      "loaded_chunk_tracking": {
+        "available": true,
+        "chunk": [
+          0,
+          0,
+          0
+        ],
+        "present": true
+      },
+      "physical_orientation_accepted": false,
+      "classification": "pair_palette_invalid",
+      "palette_error": "Pair palette volume must be (1,1,2)"
+    }
+  },
+  "cleanup_intent": {
+    "sent": true,
+    "acknowledged": true,
+    "started_monotonic": 306563.2088316
+  },
+  "cleanup": {
+    "errors": [],
+    "recovered_setup": {
+      "support_write": {
+        "states": {},
+        "returned": true,
+        "value": {
+          "aux": 0,
+          "name": "minecraft:stone"
+        },
+        "pos": [
+          4,
+          -49,
+          4
+        ]
+      },
+      "classification": "setup_completed",
+      "write_intents": [
+        {
+          "kind": "support",
+          "method": "SetBlockNew",
+          "value": {
+            "aux": 0,
+            "name": "minecraft:stone"
+          },
+          "pos": [
+            4,
+            -49,
+            4
+          ]
+        },
+        {
+          "legacy_aux": 0,
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              0
+            ]
+          },
+          "kind": "door_half",
+          "method": "SetBlockNew",
+          "pos": [
+            4,
+            -48,
+            4
+          ]
+        },
+        {
+          "legacy_aux": 8,
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              8
+            ]
+          },
+          "kind": "door_half",
+          "method": "SetBlockNew",
+          "pos": [
+            4,
+            -47,
+            4
+          ]
+        },
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              0
+            ]
+          },
+          "kind": "door_states",
+          "method": "SetBlockStates",
+          "pos": [
+            4,
+            -48,
+            4
+          ]
+        },
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              8
+            ]
+          },
+          "kind": "door_states",
+          "method": "SetBlockStates",
+          "pos": [
+            4,
+            -47,
+            4
+          ]
+        }
+      ],
+      "after": {
+        "rows": [
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": {
+              "aux": 0,
+              "name": "minecraft:wooden_door"
+            }
+          },
+          {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": {
+              "aux": 8,
+              "name": "minecraft:wooden_door"
+            }
+          }
+        ],
+        "runtime": "1.21.120.0"
+      },
+      "steps": [
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              0
+            ]
+          },
+          "returned": true,
+          "both_halves": [
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": false,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -48,
+                4
+              ],
+              "value": {
+                "aux": 0,
+                "name": "minecraft:wooden_door"
+              }
+            },
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": true,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -47,
+                4
+              ],
+              "value": {
+                "aux": 8,
+                "name": "minecraft:wooden_door"
+              }
+            }
+          ],
+          "pos": [
+            4,
+            -48,
+            4
+          ],
+          "legacy_aux": 0,
+          "method": "SetBlockNew"
+        },
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              8
+            ]
+          },
+          "returned": false,
+          "both_halves": [
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": false,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -48,
+                4
+              ],
+              "value": {
+                "aux": 0,
+                "name": "minecraft:wooden_door"
+              }
+            },
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": true,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -47,
+                4
+              ],
+              "value": {
+                "aux": 8,
+                "name": "minecraft:wooden_door"
+              }
+            }
+          ],
+          "pos": [
+            4,
+            -47,
+            4
+          ],
+          "legacy_aux": 8,
+          "method": "SetBlockNew"
+        },
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": false,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -48,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              0
+            ]
+          },
+          "both_halves": [
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": false,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -48,
+                4
+              ],
+              "value": {
+                "aux": 0,
+                "name": "minecraft:wooden_door"
+              }
+            },
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": true,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -47,
+                4
+              ],
+              "value": {
+                "aux": 8,
+                "name": "minecraft:wooden_door"
+              }
+            }
+          ],
+          "method": "SetBlockStates",
+          "returned": true,
+          "pos": [
+            4,
+            -48,
+            4
+          ]
+        },
+        {
+          "requested": {
+            "states": {
+              "open_bit": false,
+              "door_hinge_bit": false,
+              "upper_block_bit": true,
+              "minecraft:cardinal_direction": "south"
+            },
+            "control": false,
+            "pos": [
+              4,
+              -47,
+              4
+            ],
+            "value": [
+              "minecraft:wooden_door",
+              8
+            ]
+          },
+          "both_halves": [
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": false,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -48,
+                4
+              ],
+              "value": {
+                "aux": 0,
+                "name": "minecraft:wooden_door"
+              }
+            },
+            {
+              "states": {
+                "open_bit": false,
+                "door_hinge_bit": false,
+                "upper_block_bit": true,
+                "minecraft:cardinal_direction": "south"
+              },
+              "pos": [
+                4,
+                -47,
+                4
+              ],
+              "value": {
+                "aux": 8,
+                "name": "minecraft:wooden_door"
+              }
+            }
+          ],
+          "method": "SetBlockStates",
+          "returned": true,
+          "pos": [
+            4,
+            -47,
+            4
+          ]
+        }
+      ],
+      "error": null,
+      "mutation_attempted": true
+    },
+    "marker_present": true,
+    "player_unchanged": true,
+    "clear_steps": [
+      {
+        "pos": [
+          4,
+          -46,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          3,
+          -47,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -47,
+          3
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "returned": true
+      },
+      {
+        "pos": [
+          4,
+          -47,
+          5
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          5,
+          -47,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          3,
+          -48,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -48,
+          3
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "returned": true
+      },
+      {
+        "pos": [
+          4,
+          -48,
+          5
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          5,
+          -48,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          3,
+          -49,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -49,
+          3
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -49,
+          4
+        ],
+        "returned": true
+      },
+      {
+        "pos": [
+          4,
+          -49,
+          5
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          5,
+          -49,
+          4
+        ],
+        "returned": false
+      },
+      {
+        "pos": [
+          4,
+          -50,
+          4
+        ],
+        "returned": false
+      }
+    ],
+    "restored": true
+  },
+  "client_after_cleanup": {
+    "rows": [
+      {
+        "states": {},
+        "pos": [
+          3,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -50,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -49,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -48,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -47,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          -46,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -49,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -48,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          -47,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      }
+    ],
+    "runtime": "1.21.120.0"
+  },
+  "elapsed_seconds": 8.010932100005448,
+  "within_work_limit": true
+}

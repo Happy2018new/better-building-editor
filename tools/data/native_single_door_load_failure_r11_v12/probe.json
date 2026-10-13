@@ -1,0 +1,498 @@
+{
+  "schema": 2,
+  "scope": "One supported native door pair; setter diagnosis only",
+  "completed": false,
+  "restored": true,
+  "mutation_attempted": true,
+  "exact_native_pair": false,
+  "observation_errors": [],
+  "server_exact_native_pair": false,
+  "data_replication_verified": false,
+  "client_typed_pair_verified": false,
+  "client_observation_method": "whole_pair_and_fronts_v2",
+  "background_only": true,
+  "desktop_input": false,
+  "physical_orientation_accepted": false,
+  "game_version": "NEMC 3.9.0.401155",
+  "palette_sha256": "6b2d9e961e934a745f5ab30d697cf22fb463fd3792d371a6dd42cb4342062f01",
+  "experiment_limit_seconds": 150,
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\f1f80e3a55bb40679a8bb3486b88b75e\\session.json",
+  "instance": {
+    "id": "f1f80e3a55bb40679a8bb3486b88b75e",
+    "owner": "transforms-r11-door-pair-v12",
+    "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms",
+    "game_pid": 46016,
+    "game_identity": "134363009207806181",
+    "mcdk_pid": 41960,
+    "mcdk_identity": "134363009205544415",
+    "mcp_url": "http://127.0.0.1:57503/mcp",
+    "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+  },
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 71767370,
+        "pid": 46016,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "host_sources": {
+    "probe": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\probe_native_single_door.py",
+      "sha256": "6fe41694606a33f6ede15cbccf72f4c4a951dcf424017ce524af1ae0281517a8"
+    },
+    "shape_helpers": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\tools\\capture_native_state_transform_shapes.py",
+      "sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b"
+    },
+    "palette_freezer": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\behavior_pack\\modern_projection\\projection\\cell.py",
+      "sha256": "488f369c92cfea3260a8fb540a65eb472d5135ac677cabe3013bfcb33d671bf6"
+    },
+    "mcp_wrapper": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "sha256": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3"
+    },
+    "session_loader": {
+      "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3"
+    }
+  },
+  "preflight": {
+    "foot": [
+      0.5,
+      32768.0,
+      0.5
+    ],
+    "origin": [
+      4,
+      32780,
+      4
+    ],
+    "runtime": "1.21.120.0",
+    "dimension": 0
+  },
+  "requested": [
+    {
+      "pos": [
+        4,
+        32780,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        0
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": false
+      },
+      "control": false
+    },
+    {
+      "pos": [
+        4,
+        32781,
+        4
+      ],
+      "value": [
+        "minecraft:wooden_door",
+        8
+      ],
+      "states": {
+        "door_hinge_bit": false,
+        "minecraft:cardinal_direction": "south",
+        "open_bit": false,
+        "upper_block_bit": true
+      },
+      "control": false
+    }
+  ],
+  "support": [
+    4,
+    32779,
+    4
+  ],
+  "reserved": [
+    [
+      3,
+      32779,
+      4
+    ],
+    [
+      3,
+      32780,
+      4
+    ],
+    [
+      3,
+      32781,
+      4
+    ],
+    [
+      4,
+      32778,
+      4
+    ],
+    [
+      4,
+      32779,
+      3
+    ],
+    [
+      4,
+      32779,
+      4
+    ],
+    [
+      4,
+      32779,
+      5
+    ],
+    [
+      4,
+      32780,
+      3
+    ],
+    [
+      4,
+      32780,
+      4
+    ],
+    [
+      4,
+      32780,
+      5
+    ],
+    [
+      4,
+      32781,
+      3
+    ],
+    [
+      4,
+      32781,
+      4
+    ],
+    [
+      4,
+      32781,
+      5
+    ],
+    [
+      4,
+      32782,
+      4
+    ],
+    [
+      5,
+      32779,
+      4
+    ],
+    [
+      5,
+      32780,
+      4
+    ],
+    [
+      5,
+      32781,
+      4
+    ]
+  ],
+  "setup": {
+    "support_write": {
+      "states": null,
+      "returned": false,
+      "value": {
+        "aux": 0,
+        "name": "minecraft:air"
+      },
+      "pos": [
+        4,
+        32779,
+        4
+      ]
+    },
+    "after": {
+      "rows": [
+        {
+          "states": null,
+          "pos": [
+            4,
+            32780,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:air"
+          }
+        },
+        {
+          "states": null,
+          "pos": [
+            4,
+            32781,
+            4
+          ],
+          "value": {
+            "aux": 0,
+            "name": "minecraft:air"
+          }
+        }
+      ],
+      "runtime": "1.21.120.0"
+    },
+    "steps": [],
+    "error": "AssertionError: Support not stone"
+  },
+  "error": "RuntimeError: AssertionError: Support not stone",
+  "cleanup": {
+    "player_unchanged": true,
+    "errors": [],
+    "marker_present": true,
+    "restored": true
+  },
+  "client_after_cleanup": {
+    "rows": [
+      {
+        "states": {},
+        "pos": [
+          3,
+          32779,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          32780,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          3,
+          32781,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32778,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32779,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32779,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32779,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32780,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32780,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32780,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32781,
+          3
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32781,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32781,
+          5
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          4,
+          32782,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          32779,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          32780,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      },
+      {
+        "states": {},
+        "pos": [
+          5,
+          32781,
+          4
+        ],
+        "value": [
+          "minecraft:air",
+          0
+        ]
+      }
+    ],
+    "runtime": "1.21.120.0"
+  },
+  "elapsed_seconds": 1.6495054999832064
+}

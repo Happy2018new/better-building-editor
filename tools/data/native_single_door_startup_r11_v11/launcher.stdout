@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "id": "9d11924b3f56457a83b760fc46c15dce",
+  "name": "transforms-r11-door-pair-v11",
+  "owner": "transforms-r11-door-pair-v11",
+  "project": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\r11-transforms",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9d11924b3f56457a83b760fc46c15dce\\session.json",
+  "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9d11924b3f56457a83b760fc46c15dce\\artifacts",
+  "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9d11924b3f56457a83b760fc46c15dce\\appdata",
+  "log": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9d11924b3f56457a83b760fc46c15dce\\mcdk.log",
+  "state": "failed",
+  "created_at": 1791824647.9401531,
+  "ready": false,
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-integration\\files\\.runtime\\native_focus_guard-final-r7\\native_focus_guard.dll",
+      "sha256": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 87556642,
+        "pid": 45640,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 189,
+        "y": 176,
+        "width": 1329,
+        "height": 736,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "mcp_url": "http://127.0.0.1:62363/mcp",
+  "port": 62363,
+  "world": "PYR_9d11924b3f56457a83b760fc46c15dce",
+  "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+  "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_9d11924b3f56457a83b760fc46c15dce",
+  "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\9d11924b3f56457a83b760fc46c15dce\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_9d11924b3f56457a83b760fc46c15dce",
+  "foreground_before": {
+    "hwnd": 36701588,
+    "pid": 56284,
+    "process": "ChatGPT.exe",
+    "identity": "134362669641089455",
+    "title": "ChatGPT",
+    "visible": true,
+    "minimized": false
+  },
+  "mcdk_pid": 24804,
+  "mcdk_identity": "134362982524244758",
+  "game_pid": 45640,
+  "game_identity": "134362982526790886",
+  "discovery_timeouts": [
+    {
+      "attempt": 11,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $children=@(Get-CimInstance Win32_Process -Filter 'ParentProcessId=24804' | Where-Object Name -eq 'Minecraft.Windows.exe' | Select-Object -ExpandProperty ProcessId); $listeners=@(Get-NetTCPConnection -State Listen -LocalPort 62363 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique); @{children=$children;listeners=$listeners}|ConvertTo-Json -Compress"
+      ],
+      "timeout_seconds": 1.5074436999857426,
+      "elapsed_seconds": 1.643,
+      "error": "Command '['powershell.exe', '-NoProfile', '-Command', \"$ErrorActionPreference='Stop'; $children=@(Get-CimInstance Win32_Process -Filter 'ParentProcessId=24804' | Where-Object Name -eq 'Minecraft.Windows.exe' | Select-Object -ExpandProperty ProcessId); $listeners=@(Get-NetTCPConnection -State Listen -LocalPort 62363 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique); @{children=$children;listeners=$listeners}|ConvertTo-Json -Compress\"]' timed out after 1.5074436999857426 seconds",
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "error": "Command '['powershell.exe', '-NoProfile', '-Command', \"$ErrorActionPreference='Stop'; $children=@(Get-CimInstance Win32_Process -Filter 'ParentProcessId=24804' | Where-Object Name -eq 'Minecraft.Windows.exe' | Select-Object -ExpandProperty ProcessId); $listeners=@(Get-NetTCPConnection -State Listen -LocalPort 62363 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique); @{children=$children;listeners=$listeners}|ConvertTo-Json -Compress\"]' timed out after 1.5074436999857426 seconds",
+  "foreground_after": {
+    "hwnd": 36701588,
+    "pid": 56284,
+    "process": "ChatGPT.exe",
+    "identity": "134362669641089455",
+    "title": "ChatGPT",
+    "visible": true,
+    "minimized": false
+  },
+  "foreground_before_still_valid": true,
+  "foreground_unchanged": true
+}

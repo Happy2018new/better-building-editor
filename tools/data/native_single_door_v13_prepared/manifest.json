@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "scope": "Prepared corrected read-only load gate and one supported native door pair diagnostic",
+  "native_attempted": false,
+  "root_review_required_before_native_attempt": true,
+  "maximum_live_games": 5,
+  "fixture_door_pairs": 1,
+  "reserved_cells": 17,
+  "delayed_observations": 2,
+  "client_palette_queries_per_observation": 4,
+  "data_replication_verified": false,
+  "client_typed_pair_verified": false,
+  "physical_orientation_accepted": false,
+  "capture_reliable": false,
+  "production_mapping_changed": false,
+  "runtime": "1.21.120.0",
+  "dimension": 0,
+  "y_bounds": [-64, 320],
+  "horizontal_fixture_scope": [-128, 128],
+  "required_loaded_stable_samples": 2,
+  "limits": {
+    "readiness": 120,
+    "load": 30,
+    "fixture": 20,
+    "cleanup": 20,
+    "close": 2,
+    "minimum_probe_work": 72,
+    "work": 200,
+    "total": 240,
+    "per_network_request": 2
+  },
+  "approved_shared_inputs": {
+    "mcdk": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9",
+    "guard": "c22fa0cd0bdbfb7d9218d59573b61619111f9bd180562c9bd51c69276c11c178",
+    "instances.py": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+    "mcdk.py": "3e0e8fe912e12eb6448dfbc29ae8908ae2b55d68764b10ac476b588d166f52c3",
+    "flat_config": "c3cbfd069298f2971d0041ad08bddcb567bcf23b1804be45204e8aed29231cfc"
+  },
+  "files": {
+    "load_preflight.py": {
+      "source": "tools/native_single_door_load_preflight.py",
+      "sha256": "7c857da7974effe4f63a2d90d7b3d50680f4daf3f2716d7fa18076dbc8dd0078"
+    },
+    "plan.md": {
+      "source": "docs/NATIVE_SINGLE_DOOR_V13_PLAN_R11.md",
+      "sha256": "b719c372d491ea51a1d59444f077a4bc0ba43074bbb9b6891ad9d79c87bc3967"
+    },
+    "probe.py": {
+      "source": "tools/probe_native_single_door.py",
+      "sha256": "42ca1687e23b8ebb40adf0f178788538e49d7bb79214bdb7dec748e62cebf88e"
+    },
+    "runner.py": {
+      "source": "tools/run_native_single_door.py",
+      "sha256": "11db277113b5ed42309a2e101dcd81698cf74331d89d7434a6affca71ea4c6db"
+    },
+    "session_loader.py": {
+      "source": ".agents/skills/pyreact-debugging/scripts/_session.py",
+      "sha256": "c5cae88c0ad5a1c4e2e562064455d3d0a280ce250e5449a2c0923449ef6af6f3"
+    },
+    "shape_helpers.py": {
+      "source": "tools/capture_native_state_transform_shapes.py",
+      "sha256": "2a14bb6647afc93eb23208adaa20329c0a3bbe92dd9be5a454879e1eb345f98b"
+    }
+  },
+  "limits_of_evidence": [
+    "This family has not run natively; host and SDK-stub tests are prospective checks only",
+    "No out-of-bounds coordinate is substituted or normalized and the player is never moved",
+    "A valid whole-pair legacy front and typed lower palette do not synthesize typed upper states",
+    "First pair replication and observed native direction do not establish physical transform correctness",
+    "No screenshot or background capture reliability claim is introduced",
+    "No automatic native retry or full orientation matrix is authorized by this preparation"
+  ]
+}

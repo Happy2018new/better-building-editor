@@ -1,0 +1,31 @@
+{
+  "verified_at": "2026-10-12T17:22:58.067150+00:00",
+  "inspection": "GetProcessTimes and GetExitCodeProcess from independently opened process handles",
+  "owned_game": {
+    "pid": 45640,
+    "expected_identity": "134362982526790886",
+    "observed_identity": null
+  },
+  "owned_mcdk": {
+    "pid": 24804,
+    "expected_identity": "134362982524244758",
+    "observed_identity": null
+  },
+  "frame": {
+    "pid": 44536,
+    "expected_identity": "134362903316974407",
+    "observed_identity": "134362903316974407",
+    "sdk_or_input_called": false
+  },
+  "config_present": false,
+  "restoration_at_supervisor_exit": {
+    "instances.py": "4436c3a757466135157ee56ba9e0409724ef70e566f2601027a34817b47f50be",
+    "mcdk.py": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+    "all_inputs_restored": true
+  },
+  "later_authorized_launcher_edit": {
+    "commit": "ca82cc9",
+    "sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+    "native_executed": false
+  }
+}

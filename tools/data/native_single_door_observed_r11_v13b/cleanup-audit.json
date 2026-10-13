@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-10-12T19:06:52.459545+00:00",
+  "inspection": "GetProcessTimes and GetExitCodeProcess from independently opened process handles",
+  "native_calls": 0,
+  "sdk_calls": 0,
+  "input_calls": 0,
+  "owned_processes": {
+    "game": {
+      "pid": 15132,
+      "expected_identity": "134363052783213168",
+      "observed_identity": null
+    },
+    "mcdk": {
+      "pid": 57324,
+      "expected_identity": "134363052780851242",
+      "observed_identity": null
+    }
+  },
+  "frame": {
+    "session": "773c643b5cf344918e04d8b4eef2657a",
+    "pid": 44536,
+    "expected_identity": "134362903316974407",
+    "observed_identity": "134362903316974407",
+    "sdk_or_input_called": false
+  },
+  "foreground": {
+    "hwnd": 36701588,
+    "pid": 56284,
+    "identity": "134362669641089455",
+    "before": {
+      "hwnd": 36701588,
+      "pid": 56284,
+      "process": "ChatGPT.exe",
+      "identity": "134362669641089455",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    }
+  },
+  "inputs": [
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\instances.py",
+      "originally_present": true,
+      "expected_sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "observed_sha256": "e485a7b24e8d5d3c645d1d39ffcfd3cefa6ba5a7f96c1f5c65034e696a43cfba",
+      "restored_at_supervisor_exit": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py",
+      "originally_present": true,
+      "expected_sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "observed_sha256": "3aa4555a5697a55f500d55df98bc0b5cef5b49869540d818c87e00a35e2cbdea",
+      "restored_at_supervisor_exit": true
+    },
+    {
+      "target": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-transforms\\.mcdev.json",
+      "originally_present": false,
+      "expected_sha256": null,
+      "observed_sha256": null,
+      "restored_at_supervisor_exit": true
+    }
+  ],
+  "fixture": {
+    "restored": true,
+    "player_unchanged": true,
+    "cleanup_errors": [],
+    "client_reserved_air_cells": 17,
+    "reserve_coordinates_in_world_bounds": true
+  },
+  "owned_processes_independently_absent": true,
+  "frame_identity_unchanged": true,
+  "foreground_unchanged": true,
+  "launch_inputs_restored": true
+}
