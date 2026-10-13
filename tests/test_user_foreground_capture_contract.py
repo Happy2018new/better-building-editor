@@ -23,6 +23,7 @@ class UserForegroundCaptureContractTests(unittest.TestCase):
         window = {'hwnd': 99, 'pid': 9, 'width': 8, 'height': 8, 'minimized': False, 'noactivate': True}
         row = dict(binding, schema=3, ok=True, reliable=True, native_resolution=True,
                    foreground_policy='allow_user_foreground', user_foreground_allowed=True,
+                   window_coordinate_units='physical_pixels', dpi_awareness='per_monitor_v2',
                    agent_activation_allowed=False, activation_fallback=False,
                    noactivation_requested=True, guarded_no_activation=True, background_only=False,
                    window=deepcopy(window), backend='Windows.Graphics.Capture', variance=[30., 30., 30.],
@@ -62,7 +63,7 @@ class UserForegroundCaptureContractTests(unittest.TestCase):
             binding, original = self.receipt(directory, True, True)
             fields = ('foreground_policy', 'user_foreground_allowed', 'agent_activation_allowed',
                       'activation_fallback', 'noactivation_requested', 'guarded_no_activation',
-                      'background_only', 'schema')
+                      'background_only', 'schema', 'window_coordinate_units', 'dpi_awareness')
             for key in fields:
                 for value in (None, 'true', 1):
                     with self.subTest(key=key, value=value):

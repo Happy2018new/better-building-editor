@@ -15,6 +15,9 @@ def foreground_policy_failures(row):
         return ['foreground_policy/schema']
     if row.get('foreground_policy') != 'allow_user_foreground':
         problems.append('foreground_policy')
+    for key, expected in (('window_coordinate_units', 'physical_pixels'), ('dpi_awareness', 'per_monitor_v2')):
+        if row.get(key) != expected:
+            problems.append(key)
     for key, expected in (('user_foreground_allowed', True), ('agent_activation_allowed', False),
                           ('activation_fallback', False), ('noactivation_requested', True),
                           ('guarded_no_activation', True), ('background_only', False)):
