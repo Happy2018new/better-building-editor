@@ -5,7 +5,7 @@ is no observed missing/extra liquid neighbor, blocked corner or above-water
 cell that explains H's failed boundary. The rule and published payload agree;
 this does not establish that the rule is the exact native mesh-height rule.
 
-All sixteen H and sixteen L palette/direct × before/after × client/server
+All eight H and eight L palette/direct × before/after × client/server
 36-cell snapshots have only stone at `(6,-59,6)` and water at `(6,-58,6)`;
 every other foreground cell and every background cell is air, with no actor.
 For each top corner there is therefore one liquid sample and three empty
@@ -55,7 +55,7 @@ prove that those entries were active. Wave displacement remains an unproven
 candidate and is not a reason to copy that shader or modify production.
 
 [The immutable supplemental audit](evidence/liquid-native-height-basis-r13-v4b/audit.json)
-records the exact source/readback references, all 32 neighborhood checks,
+records the exact source/readback references, all 16 neighborhood checks,
 rational heights, saved byte/uniform agreement and source-only numerical
 sensitivity. It includes original installed shader/material bytes and the
 rule/candidate sources. Original V4b plans, PNGs, failures and manifest remain
