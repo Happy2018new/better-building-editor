@@ -18,7 +18,7 @@ from analyze_item_sprite_product import (analyze, body_measurement, expected_mas
                                          temporal_measurement, point_sampled_mask)
 from item_sprite_capture_contract import (camera_matches, paired_layout_matches,
                                           scene_layout, snapshot_digest)
-from analyze_item_sprite_closeup import elapsed_sequence, glint_metrics
+from analyze_item_sprite_closeup import elapsed_sequence, glint_metrics, native_body_measurement
 from projection.camera import OrbitCamera
 from projection.debug_blueprints import build
 from projection.debug_item_blueprints import IDENTITY, PAIRS
@@ -67,6 +67,17 @@ class ItemPixelTests(unittest.TestCase):
         self.assertLess(weak['luma_range_p50_p90_max'][1],strong['luma_range_p50_p90_max'][1])
         self.assertEqual(0.,weak['motion_fraction_rgb_gt8'])
         self.assertEqual(1.,strong['motion_fraction_rgb_gt8'])
+
+    def test_paired_native_body_rejects_absence_displacement_and_extra_geometry(self):
+        native = np.zeros((96,96),dtype=bool)
+        native[20:72,20:72] = True
+        self.assertTrue(native_body_measurement(np.roll(native,1,axis=1),native)['passed'])
+        self.assertFalse(native_body_measurement(np.zeros_like(native),native)['passed'])
+        self.assertFalse(native_body_measurement(native,np.zeros_like(native))['passed'])
+        self.assertFalse(native_body_measurement(np.roll(native,5,axis=1),native)['passed'])
+        extra = native.copy()
+        extra[20:72,72:85] = True
+        self.assertFalse(native_body_measurement(extra,native)['passed'])
 
     def test_opaque_bitmap_pixels_and_all_faces_have_finite_declared_planes(self):
         image = Image.new('RGBA', (2, 2))

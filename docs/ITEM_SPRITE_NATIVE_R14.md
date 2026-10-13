@@ -317,3 +317,23 @@ Original native/full/missing/editor PNGs and capture receipts are retained in
 `.runtime/item-product-r14-v11/closeup/`. Source-bound analysis and real-timed
 fixed-crop comparison GIFs are in its `animation-v1/` directory. These sparse
 native frames remain separate from animation smoothness or 60fps acceptance.
+
+The v11 full-projection ordinary sword's observed bounds are
+`[1212,525,1268,578]`; actual native bounds with the same camera are
+`[1213,525,1269,578]`. The independent stone-calibrated prediction is
+`[1210,527,1264,578]`. Both actual routes therefore differ similarly from that
+prediction, so a failed analytical gate alone is not evidence to alter runtime
+geometry. An additional direct actual-native silhouette comparison uses the
+existing independent diagnostic's two-pixel edge tolerance, with 98.5% recall
+and precision and >=48px native/product extent. It never shifts or rescales
+either observed mask and rejects absence, displaced and additional geometry.
+The analytical result, native lighting differences and disabled production
+qualification remain separate, including when this paired body check passes.
+
+The v11 `animation-v2` replay passes all four direct native body comparisons:
+ordinary/enchanted in full/missing each have recall=1 and precision=1 at the
+declared two-pixel tolerance. Native/product enchanted bounds are identical;
+ordinary bounds differ by one horizontal pixel. This establishes the bounded
+facing2/rotation0 world support-plane alignment against an actual frame, while
+the original analytical world gate remains failed. Twelve pixel tests pass,
+including controls for absent native content, displacement and extra geometry.

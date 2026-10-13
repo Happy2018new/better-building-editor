@@ -20,6 +20,23 @@ from projection.debug_item_blueprints import IDENTITY, PAIRS
 from projection.nbt_spatial import root_payload, scalar
 from projection.visible_actor import entity_nbt
 
+NATIVE_BODY_LIMITS = {'edge_tolerance_pixels': 2, 'minimum_recall': .985,
+                      'minimum_precision': .985, 'minimum_extent_pixels': 48}
+
+
+def native_body_measurement(product, reference):
+    """Compare actual unshifted silhouettes; camera validity is checked by the caller."""
+    product_count, native_count = int(product.sum()), int(reference.sum())
+    tolerance = NATIVE_BODY_LIMITS['edge_tolerance_pixels']
+    recall = float((reference & expanded(product, tolerance*2+1)).sum())/max(1,native_count)
+    precision = float((product & expanded(reference, tolerance*2+1)).sum())/max(1,product_count)
+    scale = min(extent(product)+extent(reference)) >= NATIVE_BODY_LIMITS['minimum_extent_pixels']
+    return {'product':mask_row(product),'native':mask_row(reference), 'limits':NATIVE_BODY_LIMITS,
+            'recall':recall,'precision':precision,'scale_passed':scale,
+            'passed':bool(product_count and native_count and scale
+                and recall>=NATIVE_BODY_LIMITS['minimum_recall']
+                and precision>=NATIVE_BODY_LIMITS['minimum_precision'])}
+
 
 def elapsed_sequence(rows):
     times = [row['capture']['frame']['frame_qpc_100ns']/10000000. for row in rows]
@@ -95,6 +112,7 @@ def native_comparison(source, rows, texture, spec, size, output):
               'source': reference.get('placement')}
     if failures:
         return result
+    actual_masks = {}
     for route in ('editor','world','world_missing','native'):
         captures = native_rows if route == 'native' else rows
         sequence = [captures[route+'_'+str(index)] for index in range(20)]
@@ -114,6 +132,7 @@ def native_comparison(source, rows, texture, spec, size, output):
             region[crop[1]:crop[3],crop[0]:crop[2]] = True
             observed = difference_mask(images[0],hidden,region,LIMITS['rgb_delta'])
             observation = mask_row(observed)
+            actual_masks[(route,mode)] = observed
             moving_mask = observed if mode != 'empty' else expected
             measurements[mode] = {'body': observation, 'extent_pixels': extent(observed),
                 'scale_passed': min(extent(observed))>=48 if mode != 'empty' else True,
@@ -129,6 +148,10 @@ def native_comparison(source, rows, texture, spec, size, output):
     result['reference_valid'] = bool(native['duration']['passed'] and all(
         row['scale_passed'] and row['temporal']['passed'] for row in native['items'].values()))
     result['comparison_status'] = 'SCORED_AGAINST_VISIBLE_NATIVE_ITEMS' if result['reference_valid'] else 'NATIVE_REFERENCE_UNAVAILABLE'
+    result['paired_native_body'] = {
+        route:{mode:native_body_measurement(actual_masks[(route,mode)],actual_masks[('native',mode)])
+               for mode in ('plain','enchanted')}
+        for route in ('world','world_missing')}
     return result
 
 
