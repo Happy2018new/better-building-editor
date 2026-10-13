@@ -97,7 +97,7 @@ def run(args):
     calibration = json.loads(args.camera_calibration.read_bytes())
     if not calibration.get('passed') or Path(calibration['session_file']).resolve() != Path(session['session_file']).resolve():
         raise ValueError('Same-session passing cube calibration is required')
-    plants = tuple(args.plant or NAMES)
+    plants = tuple(dict.fromkeys(args.plant or NAMES))
     report = {'schema': 1, 'completed': False, 'passed': False, 'rows': [],
               'style': profile['style'], 'profile_sha256': hashlib.sha256(PROFILE.read_bytes()).hexdigest(),
               'plants': plants, 'heights': {name: selected_heights(name) for name in plants},
@@ -113,11 +113,11 @@ def run(args):
         try:
             check.run(INSTALL_PROBE)
             installed = True
+            original_open = check.run('_result=sys._blueprint_qa_saved["workspace"]')
             check.run(SAVE_VISUAL)
             saved = True
             report['capture_options'] = check.run(CAPTURE_OPTIONS)
             options_saved = True
-            original_open = check.navigation()['open']
             focus = tuple(VISUAL_CASE['focus'])
             offset = (-2., 1.2, -2.5)
             target = tuple(check.run('_result=json.dumps(tuple(b.player_origin()[i]+(6,2,6)[i] for i in range(3)))'))
