@@ -55,6 +55,11 @@ matrix, not editing each frame orientation by hand.
   native ordinary/enchanted/empty frames are the baseline, not synthetic item
   tag guesses. Shelf filled-slot NBT is unobserved; default Shelf NBT is not a
   filled-slot schema.
+- `test.entities.item_orientations` adds 192 public ordinary/enchanted controls:
+  both frame families, all six faces and eight rotations. Source NBT is copied,
+  spatially rebased and given the established typed ItemRotation value; no item
+  inventory field is invented. Pure checks verify complete plan coverage and
+  the owned group budget. Its native visual acceptance remains false.
 
 ## Next Acceptance
 

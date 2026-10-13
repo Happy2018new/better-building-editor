@@ -10,7 +10,10 @@ sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.cell import AIR, actor_data, foreground
 from projection.debug_appearance_blueprints import observations
 from projection.debug_blueprints import build, entries
-from projection.debug_item_blueprints import IDENTITY, PAIRS, VISUAL_CASE
+from projection.debug_item_blueprints import (IDENTITY, PAIRS, VISUAL_CASE,
+    ORIENTATION_IDENTITY, ORIENTATION_CASES, ORIENTATION_VISUAL_CASE)
+from projection.item_sprite_plan import sprite_content, iter_render_steps
+from projection.item_sprite_profile import candidate_profile
 from projection.entity_overlays import frame_item
 from projection.model import Document, Editor
 from projection.nbt_spatial import root_payload, scalar
@@ -90,6 +93,31 @@ class ItemBlueprintTests(unittest.TestCase):
         for field in ('item_content_accepted', 'enchantment_glint_accepted'):
             self.assertFalse(VISUAL_CASE[field])
         self.assertIn('shelf_item_slots', VISUAL_CASE['unverified_families'])
+
+    def test_public_orientation_fixture_covers_both_frame_families_and_all_poses(self):
+        document=build(ORIENTATION_IDENTITY)
+        self.assertIn(ORIENTATION_IDENTITY,[row[0] for row in entries('entities')])
+        self.assertEqual(96,len(ORIENTATION_CASES))
+        positions=set()
+        for case in ORIENTATION_CASES:
+            for mode in ('plain','enchanted'):
+                position=case[mode]
+                self.assertNotIn(position,positions)
+                positions.add(position)
+                cell=document.get(position)
+                item,facing,rotation,enchanted=sprite_content(foreground(cell),actor_data(cell),candidate_profile().items)
+                self.assertEqual(('minecraft:diamond_sword',0),item)
+                self.assertEqual(case['facing'],facing)
+                self.assertEqual(case['rotation_degrees']/45,rotation)
+                self.assertEqual(mode=='enchanted',enchanted)
+                root=root_payload(entity_nbt(actor_data(cell)))
+                self.assertEqual(position,tuple(scalar(root,axis) for axis in ('x','y','z')))
+        self.assertEqual(192,len(positions))
+        self.assertFalse(ORIENTATION_VISUAL_CASE['item_content_accepted'])
+        groups=tuple(group for group in iter_render_steps(document,candidate_profile()) if group is not None)
+        self.assertEqual(192,sum(int(group.uniforms[3][1]) for group in groups))
+        self.assertLessEqual(len(groups),candidate_profile().max_groups)
+        self.assertEqual(document.blocks,build(ORIENTATION_IDENTITY).blocks)
 
 
 if __name__ == '__main__':

@@ -17,6 +17,8 @@ from .debug_connection_blueprints import METADATA as CONNECTION_METADATA, VISUAL
 from .debug_liquid_blueprints import METADATA as LIQUID_METADATA, VISUAL_CASE as LIQUID_VISUAL_CASE
 from .debug_product_water_blueprints import METADATA as WATER_STYLE_METADATA, VISUAL_CASE as WATER_STYLE_VISUAL_CASE
 from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
+from .debug_item_blueprints import (ORIENTATION_METADATA as ITEM_ORIENTATION_METADATA,
+                                    ORIENTATION_VISUAL_CASE as ITEM_ORIENTATION_VISUAL_CASE)
 from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
 from .debug_botanical_blueprints import METADATA as BOTANICAL_METADATA, VISUAL_CASE as BOTANICAL_VISUAL_CASE
 from .debug_product_connections import METADATA as PRODUCT_METADATA, VISUAL_CASE as PRODUCT_VISUAL_CASE
@@ -37,6 +39,7 @@ BLUEPRINTS = (
     ('test.entities.recent', 'entities', '方块实体 · 新版本', (32, 10, 28), 'minecraft:trial_spawner'),
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 44), 'minecraft:skeleton_skull'),
     ITEM_METADATA,
+    ITEM_ORIENTATION_METADATA,
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
     WATER_METADATA,
@@ -53,6 +56,7 @@ VISUAL_CASES = {
     'product_connections': PRODUCT_VISUAL_CASE,
     'botanical_neighbors': BOTANICAL_VISUAL_CASE,
     'item_contents': ITEM_VISUAL_CASE,
+    'item_orientations': ITEM_ORIENTATION_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
     'water_style': WATER_STYLE_VISUAL_CASE,
@@ -347,6 +351,9 @@ def build(identity):
         if identity == ITEM_METADATA[0]:
             from .debug_item_blueprints import populate
             return populate(fixture)
+        if identity == ITEM_ORIENTATION_METADATA[0]:
+            from .debug_item_blueprints import populate_orientations
+            return populate_orientations(fixture)
         if identity == POT_METADATA[0]:
             from .debug_pot_blueprints import populate
             return populate(fixture)

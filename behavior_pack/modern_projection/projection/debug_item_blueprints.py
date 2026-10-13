@@ -6,13 +6,16 @@ import zlib
 from . import item_contents_data as source
 from .cell import make_cell
 from .nbt_spatial import field_key, rebase, root_payload
-from .visible_actor import compose_actor
+from .visible_actor import compose_actor, entity_nbt
 
 SCHEMA_VERSION = 2
 IDENTITY = 'test.entities.item_contents'
 ENCHANTMENT = (9, 3)
 METADATA = (IDENTITY, 'entities', 'Block Entities - Enchanted Items',
             (24, 8, 18), 'minecraft:frame')
+ORIENTATION_IDENTITY = 'test.entities.item_orientations'
+ORIENTATION_METADATA = (ORIENTATION_IDENTITY, 'entities', 'Block Entities - Item Orientations',
+                        (44, 8, 64), 'minecraft:glow_frame')
 PAIRS = (
     {'id': 'frame', 'source_case': 'frame_filled',
      'plain': (3, 2, 3), 'enchanted': (10, 2, 3), 'empty': (17, 2, 3)},
@@ -37,6 +40,20 @@ VISUAL_CASE = {
         'Verify opacity, clipping, occupancy, item replacement and resource cleanup',
     ),
     'unverified_families': ('shelf_item_slots',),
+}
+ORIENTATION_CASES = tuple({'id': '%s_f%d_r%d' % (kind, facing, rotation),
+    'source_case': kind+'_filled', 'facing': facing, 'rotation_degrees': rotation*45.,
+    'plain': (3+rotation*5, 2, 3+(facing+family*6)*5),
+    'enchanted': (5+rotation*5, 2, 3+(facing+family*6)*5)}
+    for family, kind in enumerate(('frame', 'glow_frame'))
+    for facing in range(6) for rotation in range(8))
+ORIENTATION_VISUAL_CASE = {
+    'schema': 1, 'fixture': ORIENTATION_IDENTITY, 'cases': ORIENTATION_CASES,
+    'modes': ('editor', 'full', 'missing'), 'minimum_temporal_frames': 3,
+    'native_source_sha256': source.PROBE_SHA256,
+    'item_content_accepted': False, 'enchantment_glint_accepted': False,
+    'requirements': ('All six faces and eight rotations use the same observed item payload',
+                     'Inspect body, animated highlight, support depth and partial occupancy separately'),
 }
 
 
@@ -97,4 +114,27 @@ def populate(fixture):
         fixture.plinth(position)
         fixture.put(support, material('stone'))
         fixture.document.blocks[position] = make_cell(value, nbt=actor)
+    return fixture.finish()
+
+
+def populate_orientations(fixture):
+    from .debug_appearance_blueprints import observations
+    from .debug_blueprints import material
+    rows = dict((row['case'], row) for row in observations())
+    enchanted = dict((row['case'], row) for row in enchanted_observations())
+    normals = ((0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1), (-1, 0, 0), (1, 0, 0))
+    fixture.floor()
+    for case in ORIENTATION_CASES:
+        row = rows[case['source_case']]
+        value = material(row['block']['name'], {'facing_direction': case['facing']})
+        for mode in ('plain', 'enchanted'):
+            position = case[mode]
+            native = enchanted[case['source_case']] if mode == 'enchanted' else row
+            actor = _actor(native, position, mode)
+            root = root_payload(entity_nbt(actor))
+            root[field_key(root, 'ItemRotation')]['__value__'] = case['rotation_degrees']
+            support = tuple(position[axis]-normals[case['facing']][axis] for axis in range(3))
+            fixture.plinth(position)
+            fixture.put(support, material('stone'))
+            fixture.document.blocks[position] = make_cell(value, nbt=actor)
     return fixture.finish()
