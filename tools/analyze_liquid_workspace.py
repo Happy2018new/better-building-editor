@@ -8,15 +8,84 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 
+def foreground_policy_failures(row):
+    """Authorize only explicit schema-3 receipts; preserve legacy background gates."""
+    problems = []
+    if type(row.get('schema')) is not int or row['schema'] != 3:
+        return ['foreground_policy/schema']
+    if row.get('foreground_policy') != 'allow_user_foreground':
+        problems.append('foreground_policy')
+    for key, expected in (('user_foreground_allowed', True), ('agent_activation_allowed', False),
+                          ('activation_fallback', False), ('noactivation_requested', True),
+                          ('guarded_no_activation', True), ('background_only', False)):
+        if row.get(key) is not expected:
+            problems.append(key)
+    window = row.get('window')
+    game_pid = row.get('game_pid')
+    if (not isinstance(window, dict) or type(window.get('hwnd')) is not int or window['hwnd'] <= 0
+            or type(game_pid) is not int or game_pid <= 0 or type(window.get('pid')) is not int
+            or window['pid'] != game_pid
+            or window.get('minimized') is not False
+            or type(window.get('width')) is not int or window['width'] <= 1
+            or type(window.get('height')) is not int or window['height'] <= 1
+            or row.get('width') != window['width'] or row.get('height') != window['height']):
+        return problems + ['window']
+    for phase in ('before', 'after'):
+        guard = row.get('guard_' + phase)
+        snapshot = row.get('foreground_' + phase)
+        if not isinstance(guard, dict) or not isinstance(snapshot, dict):
+            problems.append('guard_' + phase)
+            continue
+        if (type(snapshot.get('pid')) is not int or snapshot['pid'] < 0
+                or type(snapshot.get('hwnd')) is not int or snapshot['hwnd'] < 0
+                or bool(snapshot['hwnd']) != bool(snapshot['pid'])
+                or guard.get('foreground') != snapshot):
+            problems.append('foreground_' + phase)
+        if guard.get('background_safe') is not (snapshot.get('pid') != game_pid):
+            problems.append('guard_' + phase + '/background_safe')
+        windows = guard.get('windows')
+        if (guard.get('window_noactivate') is not True or not isinstance(windows, list) or not windows
+                or any(not isinstance(item, dict) or type(item.get('hwnd')) is not int
+                       or item['hwnd'] <= 0 or type(item.get('pid')) is not int or item['pid'] != game_pid
+                       or item.get('noactivate') is not True or item.get('minimized') is not False
+                       or type(item.get('width')) is not int or item['width'] <= 1
+                       or type(item.get('height')) is not int or item['height'] <= 1 for item in windows)
+                or not any(isinstance(item, dict) and item.get('hwnd') == window['hwnd'] for item in windows)):
+            problems.append('guard_' + phase + '/windows')
+        elif any(item['width'] != window['width'] or item['height'] != window['height']
+                 for item in windows if item['hwnd'] == window['hwnd']):
+            problems.append('guard_' + phase + '/dimensions')
+        elif snapshot.get('pid') == game_pid and not any(item['hwnd'] == snapshot.get('hwnd') for item in windows):
+            problems.append('foreground_' + phase + '/window')
+    after = row.get('guard_after')
+    if (not isinstance(after, dict) or type(row.get('background_safe')) is not bool
+            or row['background_safe'] is not after.get('background_safe')):
+        problems.append('background_safe')
+    if row.get('foreground_unchanged') is not (row.get('foreground_before') == row.get('foreground_after')):
+        problems.append('foreground_unchanged')
+    return problems
+
+
 def capture_failures(captures, binding):
     failures = []
     if not captures:
         return ['No captures']
     for label, row in captures.items():
         problems = []
-        for key in ('ok', 'reliable', 'background_only', 'background_safe', 'native_resolution'):
+        for key in ('ok', 'reliable', 'native_resolution'):
             if row.get(key) is not True:
                 problems.append(key)
+        if row.get('schema') == 3:
+            problems.extend(foreground_policy_failures(row))
+        else:
+            for key in ('background_only', 'background_safe'):
+                if row.get(key) is not True:
+                    problems.append(key)
+            if any(key in row for key in ('foreground_policy', 'user_foreground_allowed',
+                                         'guarded_no_activation', 'agent_activation_allowed')):
+                problems.append('foreground_policy/schema')
+            if 'schema' in row and (type(row['schema']) is not int or row['schema'] not in (1, 2)):
+                problems.append('schema')
         for key in ('owner', 'game_pid', 'game_identity', 'session_file'):
             if row.get(key) != binding.get(key):
                 problems.append('binding/'+key)
