@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "scope": "Passive host startup snapshot",
+  "ok": true,
+  "reliable": true,
+  "timeout": false,
+  "production_acceptance": false,
+  "game_or_mcdk_launched": false,
+  "sdk_or_mcp_called": false,
+  "game_input_or_window_mutation_attempted": false,
+  "background_only": true,
+  "started_at": "2026-10-13T00:52:14.967792+00:00",
+  "timeout_seconds": 9.98791299998993,
+  "output": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow\\.runtime\\snow-h0-native-r12-v1b\\startup-first-ready.png",
+  "permitted_states": [
+    "failed",
+    "ready",
+    "starting"
+  ],
+  "manifest": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\488a64a8deca487dadf6956fcbc80c0e\\session.json",
+    "sha256": "2b542944332db4c8d26209b62616fd79ef4cd3a594c19c0eaa4f9ef8ef6a76db",
+    "bytes": 26318
+  },
+  "session_id": "488a64a8deca487dadf6956fcbc80c0e",
+  "owner": "snow-r12-h0-native",
+  "project": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\r11-snow",
+  "state_before": "ready",
+  "helper": {
+    "path": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe",
+    "sha256": "cb9122a6713e9c627ee9ea7658e7610e7f72d7b451412b0c6331a5bb1fbcb5a8"
+  },
+  "processes_before": {
+    "mcdk": {
+      "pid": 10564,
+      "identity": "134363262621583841",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 64132,
+      "identity": "134363262623458150",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "ipc_port": {
+    "port": 59386,
+    "log_sha256": "cbdaeee6c7346a26ebcdebfb193d94238e13cfb854ec2907f93416f49ef80fdb",
+    "log_bytes": 134577,
+    "actual_child_environment_recorded": false,
+    "source": "MCDK listener log; not a game getenv observation"
+  },
+  "tcp": {
+    "ipv4_rows": [
+      {
+        "state": 5,
+        "pid": 64132,
+        "local_address": "127.0.0.1",
+        "local_port": 53368,
+        "remote_address": "127.0.0.1",
+        "remote_port": 59386
+      },
+      {
+        "state": 2,
+        "pid": 10564,
+        "local_address": "127.0.0.1",
+        "local_port": 59386,
+        "remote_address": "0.0.0.0",
+        "remote_port": 0
+      },
+      {
+        "state": 5,
+        "pid": 10564,
+        "local_address": "127.0.0.1",
+        "local_port": 59386,
+        "remote_address": "127.0.0.1",
+        "remote_port": 53368
+      }
+    ],
+    "owned_listener_observed": true,
+    "owned_established_pair_observed": true,
+    "passive_table_only": true,
+    "private_ipc_connection_attempted": false,
+    "limits": "An OS established pair is not an SDK-ready result; polling can miss transient connections."
+  },
+  "guard_before": {
+    "foreground": {
+      "hwnd": 9573782,
+      "pid": 41700,
+      "process": "ChatGPT.exe",
+      "identity": "134363258617661035",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 55776978,
+        "pid": 64132,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "window": {
+    "hwnd": 55776978,
+    "pid": 64132,
+    "process": "Minecraft.Windows.exe",
+    "title": "(1994, 1105) Minecraft",
+    "x": 283,
+    "y": 264,
+    "width": 1994,
+    "height": 1105,
+    "minimized": false,
+    "noactivate": true
+  },
+  "helper_returncode": 0,
+  "helper_stdout": "{\"ok\":true,\"backend\":\"Windows.Graphics.Capture\",\"native_resolution\":true,\"request_qpc_100ns\":3275203567559,\"frame_qpc_100ns\":3275203649353,\"width\":1994,\"height\":1105}\n",
+  "helper_stderr": "",
+  "manifest_after": {
+    "path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\488a64a8deca487dadf6956fcbc80c0e\\session.json",
+    "sha256": "2b542944332db4c8d26209b62616fd79ef4cd3a594c19c0eaa4f9ef8ef6a76db",
+    "bytes": 26318
+  },
+  "processes_after": {
+    "mcdk": {
+      "pid": 10564,
+      "identity": "134363262621583841",
+      "executable": "D:\\Happy2018new\u306e\u4e2a\u4eba\u6587\u4ef6\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe"
+    },
+    "game": {
+      "pid": 64132,
+      "identity": "134363262623458150",
+      "executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe"
+    }
+  },
+  "state_after": "ready",
+  "guard_after": {
+    "foreground": {
+      "hwnd": 9573782,
+      "pid": 41700,
+      "process": "ChatGPT.exe",
+      "identity": "134363258617661035",
+      "title": "ChatGPT",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [
+      {
+        "hwnd": 55776978,
+        "pid": 64132,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      }
+    ],
+    "background_safe": true,
+    "window_noactivate": true
+  },
+  "frame": {
+    "ok": true,
+    "backend": "Windows.Graphics.Capture",
+    "native_resolution": true,
+    "request_qpc_100ns": 3275203567559,
+    "frame_qpc_100ns": 3275203649353,
+    "width": 1994,
+    "height": 1105
+  },
+  "pixels": {
+    "width": 1994,
+    "height": 1105,
+    "variance": [
+      3354.607574257657,
+      3656.5054288550036,
+      6917.806073619281
+    ],
+    "sha256": "891ba1bf1e75ed9dcc0e91664145956dbeeab97efca8eccaf32a593a140fa70d",
+    "bytes": 1221077
+  },
+  "finished_at": "2026-10-13T00:52:17.086867+00:00",
+  "elapsed_seconds": 2.1190954000339843
+}

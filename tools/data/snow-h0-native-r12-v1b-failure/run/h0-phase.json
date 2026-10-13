@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "started": true,
+  "completed": false,
+  "production_acceptance": false,
+  "session": "488a64a8deca487dadf6956fcbc80c0e",
+  "condition": "native_original",
+  "rows": [],
+  "cleanup_errors": [
+    "Client/player restoration: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: Workspace is not initialized\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 5, in <module>\\nAssertionError: Workspace is not initialized\\n\", \"type\": \"text\"}]}"
+  ],
+  "mutation_attempted": true,
+  "preflight": {
+    "player_foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "cells": [
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          117,
+          6
+        ]
+      },
+      {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "position": [
+          6,
+          116,
+          6
+        ]
+      }
+    ],
+    "dimension": 0,
+    "player_flying": false
+  },
+  "error": "MCDKError: {\"isError\": true, \"content\": [{\"text\": \"Code execution failed: Workspace is not initialized\\nTraceback (most recent call last):\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 419, in _TASK\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 469, in _RUN_CLIENT_CODE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 360, in _EXEC_CODE_RESULT\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 345, in _EXEC_CODE_VALUE\\n  File \\\"DEBUG_ENV_SCRIPT.IPCSystem\\\", line 325, in _EXEC_CODE_OBJECT\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"<string>\\\", line 5, in <module>\\nAssertionError: Workspace is not initialized\\n\", \"type\": \"text\"}]}",
+  "native_cleanup": []
+}

@@ -58,3 +58,12 @@ docs/NATIVE_SINGLE_DOOR_V13B_RESULT_R11.md text eol=lf
 
 # Paired item route evidence preserves exact original bytes.
 docs/evidence/client-anchor-world-ui-r14-v1/** -text -diff
+
+# Snow h0 frozen plans and failed native attempt preserve exact evidence bytes.
+tools/data/snow-h0-four-state-plan-r12-v1b/** -text -diff
+tools/data/snow-h0-native-r12-v1b-failure/** -text -diff
+tools/supervise_snow_h0.py text eol=lf
+tools/verify_snow_h0_phase.py text eol=lf
+tools/supervise_owned_startup.py text eol=lf
+tools/observe_owned_startup.py text eol=lf
+tools/diagnose_window_dpi.py text eol=lf
