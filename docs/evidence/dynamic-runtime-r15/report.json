@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "engine": "3.10.0.420447",
+  "minecraft": "1.21.130.0",
+  "particles": "excluded",
+  "groups": {
+    "portal_family": [
+      "portal",
+      "end_portal",
+      "end_gateway"
+    ],
+    "fire_family": [
+      "fire",
+      "soul_fire"
+    ],
+    "lantern_family": [
+      "lantern",
+      "soul_lantern",
+      "copper_lantern",
+      "exposed_copper_lantern",
+      "weathered_copper_lantern",
+      "oxidized_copper_lantern",
+      "waxed_copper_lantern",
+      "waxed_exposed_copper_lantern",
+      "waxed_weathered_copper_lantern",
+      "waxed_oxidized_copper_lantern",
+      "sea_lantern"
+    ],
+    "sculk_family": [
+      "sculk",
+      "sculk_vein"
+    ],
+    "water_plants": [
+      "kelp",
+      "seagrass",
+      "big_dripleaf"
+    ],
+    "prismarine_family": [
+      "prismarine",
+      "prismarine_slab",
+      "prismarine_double_slab",
+      "prismarine_stairs",
+      "prismarine_wall",
+      "sea_lantern"
+    ],
+    "nether_family": [
+      "crimson_stem",
+      "crimson_hyphae",
+      "warped_stem",
+      "warped_hyphae",
+      "magma"
+    ]
+  },
+  "candidates": [
+    "bubble_column",
+    "fire",
+    "soul_fire",
+    "lantern",
+    "soul_lantern",
+    "copper_lantern",
+    "exposed_copper_lantern",
+    "weathered_copper_lantern",
+    "oxidized_copper_lantern",
+    "waxed_copper_lantern",
+    "waxed_exposed_copper_lantern",
+    "waxed_weathered_copper_lantern",
+    "waxed_oxidized_copper_lantern",
+    "sculk",
+    "sculk_vein",
+    "kelp",
+    "seagrass",
+    "firefly_bush",
+    "prismarine",
+    "prismarine_slab",
+    "prismarine_double_slab",
+    "prismarine_stairs",
+    "prismarine_wall",
+    "sea_lantern",
+    "crimson_stem",
+    "crimson_hyphae",
+    "warped_stem",
+    "warped_hyphae",
+    "magma",
+    "portal",
+    "respawn_anchor",
+    "stonecutter_block",
+    "chemical_heat",
+    "big_dripleaf",
+    "end_portal",
+    "end_gateway",
+    "conduit"
+  ],
+  "pixel_acceptance": false,
+  "document": "{\n  \"isError\": false,\n  \"content\": [\n    {\n      \"text\": \"Code executed successfully on client.\\nReturn type: str\\nReturn repr: '{\\\"rows\\\": [{\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:bubble_column\\\", \\\"pos\\\": [1, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:fire\\\", \\\"pos\\\": [5, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:soul_fire\\\", \\\"pos\\\": [9, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:lantern\\\", \\\"pos\\\": [13, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:soul_lantern\\\", \\\"pos\\\": [17, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:copper_lantern\\\", \\\"pos\\\": [21, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:exposed_copper_lantern\\\", \\\"pos\\\": [25, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:weathered_copper_lantern\\\", \\\"pos\\\": [29, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:oxidized_copper_lantern\\\", \\\"pos\\\": [33, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:waxed_copper_lantern\\\", \\\"pos\\\": [37, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:waxed_exposed_copper_lantern\\\", \\\"pos\\\": [41, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:waxed_weathered_copper_lantern\\\", \\\"pos\\\": [45, 1, 1]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:waxed_oxidized_copper_lantern\\\", \\\"pos\\\": [1, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:sculk\\\", \\\"pos\\\": [5, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:sculk_vein\\\", \\\"pos\\\": [9, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:kelp\\\", \\\"pos\\\": [13, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:seagrass\\\", \\\"pos\\\": [17, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:firefly_bush\\\", \\\"pos\\\": [21, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:prismarine\\\", \\\"pos\\\": [25, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:prismarine_slab\\\", \\\"pos\\\": [29, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:prismarine_double_slab\\\", \\\"pos\\\": [33, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:prismarine_stairs\\\", \\\"pos\\\": [37, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:prismarine_wall\\\", \\\"pos\\\": [41, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:sea_lantern\\\", \\\"pos\\\": [45, 1, 5]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:crimson_stem\\\", \\\"pos\\\": [1, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:crimson_hyphae\\\", \\\"pos\\\": [5, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:warped_stem\\\", \\\"pos\\\": [9, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:warped_hyphae\\\", \\\"pos\\\": [13, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:magma\\\", \\\"pos\\\": [17, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:portal\\\", \\\"pos\\\": [21, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:respawn_anchor\\\", \\\"pos\\\": [25, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:stonecutter_block\\\", \\\"pos\\\": [29, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:chemical_heat\\\", \\\"pos\\\": [33, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:big_dripleaf\\\", \\\"pos\\\": [37, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:end_portal\\\", \\\"pos\\\": [41, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:end_gateway\\\", \\\"pos\\\": [45, 1, 9]}, {\\\"aux\\\": 0, \\\"name\\\": \\\"minecraft:conduit\\\", \\\"pos\\\": [1, 1, 13]}], \\\"blocks\\\": 37, \\\"size\\\": [48, 8, 32]}'\\nReturn value JSON: \\\"{\\\\\\\"rows\\\\\\\": [{\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:bubble_column\\\\\\\", \\\\\\\"pos\\\\\\\": [1, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:fire\\\\\\\", \\\\\\\"pos\\\\\\\": [5, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:soul_fire\\\\\\\", \\\\\\\"pos\\\\\\\": [9, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [13, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:soul_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [17, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [21, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:exposed_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [25, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:weathered_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [29, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:oxidized_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [33, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:waxed_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [37, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:waxed_exposed_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [41, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:waxed_weathered_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [45, 1, 1]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:waxed_oxidized_copper_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [1, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:sculk\\\\\\\", \\\\\\\"pos\\\\\\\": [5, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:sculk_vein\\\\\\\", \\\\\\\"pos\\\\\\\": [9, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:kelp\\\\\\\", \\\\\\\"pos\\\\\\\": [13, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:seagrass\\\\\\\", \\\\\\\"pos\\\\\\\": [17, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:firefly_bush\\\\\\\", \\\\\\\"pos\\\\\\\": [21, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:prismarine\\\\\\\", \\\\\\\"pos\\\\\\\": [25, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:prismarine_slab\\\\\\\", \\\\\\\"pos\\\\\\\": [29, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:prismarine_double_slab\\\\\\\", \\\\\\\"pos\\\\\\\": [33, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:prismarine_stairs\\\\\\\", \\\\\\\"pos\\\\\\\": [37, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:prismarine_wall\\\\\\\", \\\\\\\"pos\\\\\\\": [41, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:sea_lantern\\\\\\\", \\\\\\\"pos\\\\\\\": [45, 1, 5]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:crimson_stem\\\\\\\", \\\\\\\"pos\\\\\\\": [1, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:crimson_hyphae\\\\\\\", \\\\\\\"pos\\\\\\\": [5, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:warped_stem\\\\\\\", \\\\\\\"pos\\\\\\\": [9, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:warped_hyphae\\\\\\\", \\\\\\\"pos\\\\\\\": [13, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:magma\\\\\\\", \\\\\\\"pos\\\\\\\": [17, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:portal\\\\\\\", \\\\\\\"pos\\\\\\\": [21, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:respawn_anchor\\\\\\\", \\\\\\\"pos\\\\\\\": [25, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:stonecutter_block\\\\\\\", \\\\\\\"pos\\\\\\\": [29, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:chemical_heat\\\\\\\", \\\\\\\"pos\\\\\\\": [33, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:big_dripleaf\\\\\\\", \\\\\\\"pos\\\\\\\": [37, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:end_portal\\\\\\\", \\\\\\\"pos\\\\\\\": [41, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:end_gateway\\\\\\\", \\\\\\\"pos\\\\\\\": [45, 1, 9]}, {\\\\\\\"aux\\\\\\\": 0, \\\\\\\"name\\\\\\\": \\\\\\\"minecraft:conduit\\\\\\\", \\\\\\\"pos\\\\\\\": [1, 1, 13]}], \\\\\\\"blocks\\\\\\\": 37, \\\\\\\"size\\\\\\\": [48, 8, 32]}\\\"\",\n      \"type\": \"text\"\n    }\n  ]\n}\n",
+  "captured_at": 1791913190.9519322,
+  "note": "Rows were submitted to editor preview; screenshots must be inspected independently."
+}
