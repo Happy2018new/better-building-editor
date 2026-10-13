@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "owner": "background-baseline-r14-preworld-v1",
+  "completed": false,
+  "launches": 1,
+  "error": "RuntimeError: Minimal world did not bind: Owned game creation identity changed; refusing to bind",
+  "world": null,
+  "capture": null,
+  "registry_read_retries": [],
+  "background_check_count": 0,
+  "game_pid": 24552,
+  "game_identity": "134363654322717925",
+  "normal_stop_returncode": 0,
+  "normal_stop_stderr": "",
+  "cleanup_errors": [],
+  "identities_after_stop": {
+    "game": null,
+    "mcdk": null
+  },
+  "pins_unchanged": {
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll": true,
+    "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\worktree-archive-r7\\p0-blueprint-qa-r3\\files\\.runtime\\native_wgc\\build\\Release\\native_wgc_capture.exe": true,
+    "D:\\bbe-r13e-scaffold\\tools\\probe_scaffold_palette_air_readback.py": true
+  },
+  "source_pin_count": 1370,
+  "all_source_pins_unchanged": true,
+  "elapsed_seconds": 37.00047950000044,
+  "original_report_sha256": "9b6449fcc035004ff70cea23ba98c3452bf228587f4e32e30d2de18e8fac547c",
+  "production_acceptance": false,
+  "startup_wer": {
+    "time": "2026-10-13T19:44:04+08:00",
+    "module": "unknown",
+    "exception": "c0000005",
+    "offset": "000000014f932aa0",
+    "report_id": "fb21b237-6581-403e-9200-5a0199768286",
+    "event1001": {
+      "time": "2026-10-13T19:44:14+08:00",
+      "type": "BEX64",
+      "module": "StackHash_9a2a",
+      "offset": "PCH_3F_FROM_ntdll+0x0000000000161914",
+      "exception_data": "0000000000000008"
+    },
+    "same_offset_as_earlier_startups": false
+  },
+  "visual_review": {
+    "performed": false,
+    "reason": "No world IPC or fresh WGC result was available."
+  },
+  "engine_log": {
+    "fresh_created": false,
+    "latest": "Debug_Log2026-10-13_19-36-23.txt",
+    "belongs_to": "preceding healthy minimal v2"
+  }
+}

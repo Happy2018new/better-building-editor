@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -46,11 +47,14 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main(full_baseline=False):
+def main(full_baseline=False, baseline_rp=False):
     global OWNER, OUT
     if full_baseline:
         OWNER = 'background-baseline-r14-preworld-v1'
         OUT = ROOT / '.runtime/baseline-startup-r14-v1'
+    elif baseline_rp:
+        OWNER = 'background-minimal-baseline-rp-r14-v1'
+        OUT = ROOT / '.runtime/minimal-baseline-rp-startup-r14-v1'
     for path, expected in PINS.items():
         if sha(path) != expected:
             raise ValueError('Frozen input differs: ' + str(path))
@@ -68,7 +72,8 @@ def main(full_baseline=False):
         raise ValueError('Own config already exists')
     OUT.mkdir(exist_ok=False)
     PACK = OUT / 'minimal-pack'
-    if full_baseline:
+    production_source_pins = None
+    if full_baseline or baseline_rp:
         unchanged = subprocess.run(['git', 'diff', '--exit-code', '52189693', '--', 'behavior_pack', 'resource_pack'],
                                    cwd=ROOT, capture_output=True, timeout=10)
         untracked = subprocess.run(['git', 'ls-files', '--others', '--exclude-standard', '--', 'behavior_pack', 'resource_pack'],
@@ -78,9 +83,18 @@ def main(full_baseline=False):
         if unchanged.returncode or untracked.returncode or untracked.stdout or tracked.returncode:
             raise ValueError('Baseline 52189693 production packs are not exact')
         production_paths = [ROOT / name.decode('utf8') for name in tracked.stdout.split(b'\0') if name]
-        pack_pins = {str(path.relative_to(ROOT)): sha(path) for path in production_paths}
+        if baseline_rp:
+            production_paths = [path for path in production_paths if path.relative_to(ROOT).parts[0] == 'resource_pack']
+        production_source_pins = {str(path.relative_to(ROOT)): sha(path) for path in production_paths}
+    if full_baseline:
+        pack_pins = production_source_pins
     else:
         world.build_pack(ROOT, PACK)
+        if baseline_rp:
+            for source in production_paths:
+                target = PACK / source.relative_to(ROOT)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
         pack_pins = {str(path.relative_to(OUT)): sha(path) for path in PACK.rglob('*') if path.is_file()}
     config = {'included_mod_dirs': [str(ROOT if full_baseline else PACK)], 'world_type': 2, 'world_seed': 0, 'game_mode': 1,
               'auto_hot_reload_mods': False, 'auto_hot_reload_ui': False,
@@ -93,14 +107,16 @@ def main(full_baseline=False):
 
     plan = {'schema': 2, 'owner': OWNER, 'created_at': datetime.now(timezone.utc).isoformat(),
             'hypothesis': 'Minimal BP versus full-pack crash before engine logs and world IPC',
-            'changed_condition': 'Serial exact baseline 52189693 full packs' if full_baseline else 'Bounded PermissionError-only manifest read retry',
-            'pack_mode': 'baseline-full' if full_baseline else 'minimal',
+            'changed_condition': ('Serial exact baseline 52189693 full packs' if full_baseline else
+                                  'Healthy minimal BP plus exact baseline 52189693 RP' if baseline_rp else
+                                  'Bounded PermissionError-only manifest read retry'),
+            'pack_mode': 'baseline-full' if full_baseline else 'minimal-baseline-rp' if baseline_rp else 'minimal',
             'launches_permitted': 1, 'outer_seconds': 240, 'cleanup_seconds': 40,
             'background_only': True, 'activation_resize_desktop_input': False,
             'block_or_actor_writes': False, 'production_acceptance': False,
             'pins': {str(path): sha(path) for path in [Path(__file__), Path(world.__file__),
                      ROOT / 'tools/managed_registry_snapshot.py', CONFIG] + list(PINS)},
-            'pack_pins': pack_pins}
+            'pack_pins': pack_pins, 'production_source_pins': production_source_pins}
     save('plan.json', plan)
     report = {'schema': 2, 'owner': OWNER, 'completed': False, 'launches': 0, 'checks': [],
               'registry_read_retries': [], 'cleanup_errors': [], 'production_acceptance': False}
@@ -233,9 +249,16 @@ def main(full_baseline=False):
         else:
             report['cleanup_errors'].append('Private config changed; removal refused')
         report['pins_unchanged'] = {str(path): sha(path) == expected for path, expected in PINS.items()}
-        if full_baseline:
+        if production_source_pins is not None:
             report['production_pack_pins_unchanged'] = {name: sha(ROOT / name) == expected
-                                                       for name, expected in pack_pins.items()}
+                                                       for name, expected in production_source_pins.items()}
+        report['mounted_pack_pins_unchanged'] = {name: sha((ROOT if full_baseline else OUT) / name) == expected
+                                                for name, expected in pack_pins.items()}
+        if (not all(report['pins_unchanged'].values())
+                or not all(report['mounted_pack_pins_unchanged'].values())
+                or not all(report.get('production_pack_pins_unchanged', {}).values())):
+            report['completed'] = False
+            report['error'] = 'Frozen input or mounted pack bytes changed during observation'
         report['foreground_after'] = _window.foreground_snapshot()
         report['elapsed_seconds'] = time.monotonic() - started
         checkpoint()
@@ -246,6 +269,8 @@ def main(full_baseline=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--baseline-full', action='store_true', help='One serial exact 52189693 full-pack contrast')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--baseline-full', action='store_true', help='One serial exact 52189693 full-pack contrast')
+    group.add_argument('--baseline-rp', action='store_true', help='One serial exact 52189693 RP with healthy minimal BP')
     args = parser.parse_args()
-    sys.exit(main(full_baseline=args.baseline_full))
+    sys.exit(main(full_baseline=args.baseline_full, baseline_rp=args.baseline_rp))

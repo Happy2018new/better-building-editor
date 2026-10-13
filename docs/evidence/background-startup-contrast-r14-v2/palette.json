@@ -1,0 +1,118 @@
+{
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  },
+  "cells": [
+    {
+      "actor_repr": "{}",
+      "common": [
+        [
+          [
+            "minecraft:grass_block",
+            0
+          ],
+          [
+            0
+          ]
+        ]
+      ],
+      "eliminateAir": false,
+      "extra": [],
+      "extraStates_repr": "{}",
+      "keys": [
+        "actor",
+        "common",
+        "eliminateAir",
+        "extra",
+        "extraStates",
+        "states",
+        "void",
+        "volume"
+      ],
+      "label": "loaded_ground",
+      "raw_palette_repr": "{'states': {('minecraft:grass_block', 0): {}}, 'volume': (1, 1, 1), 'extraStates': {}, 'common': {('minecraft:grass_block', 0): [0]}, 'extra': {}, 'void': False, 'eliminateAir': False, 'actor': {}}",
+      "readback": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:grass_block"
+        },
+        "liquid": null,
+        "pos": [
+          0,
+          -61,
+          0
+        ],
+        "states": {}
+      },
+      "states_repr": "{('minecraft:grass_block', 0): {}}",
+      "void": false,
+      "volume": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "actor_repr": "{}",
+      "common": [
+        [
+          [
+            "minecraft:air",
+            0
+          ],
+          [
+            0
+          ]
+        ]
+      ],
+      "eliminateAir": false,
+      "extra": [],
+      "extraStates_repr": "{}",
+      "keys": [
+        "actor",
+        "common",
+        "eliminateAir",
+        "extra",
+        "extraStates",
+        "states",
+        "void",
+        "volume"
+      ],
+      "label": "natural_air",
+      "raw_palette_repr": "{'states': {('minecraft:air', 0): {}}, 'volume': (1, 1, 1), 'extraStates': {}, 'common': {('minecraft:air', 0): [0]}, 'extra': {}, 'void': False, 'eliminateAir': False, 'actor': {}}",
+      "readback": {
+        "front": {
+          "aux": 0,
+          "name": "minecraft:air"
+        },
+        "liquid": null,
+        "pos": [
+          4,
+          -58,
+          4
+        ],
+        "states": null
+      },
+      "states_repr": "{('minecraft:air', 0): {}}",
+      "void": false,
+      "volume": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "dimension": 0,
+  "foot": [
+    0.5,
+    -60,
+    0.5
+  ],
+  "kind": "scaffold_palette_air_readback",
+  "mutations": [],
+  "player": "-8589934591",
+  "runtime": "1.21.120.0",
+  "schema": 1
+}

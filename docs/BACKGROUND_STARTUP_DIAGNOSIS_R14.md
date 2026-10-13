@@ -105,3 +105,28 @@ session/hud fields, followed by the same frozen server pure-read probe, WGC
 and exact cleanup. All other starts remain held. Healthy minimal startup does
 not prove which resource, concurrency condition or shared startup state caused
 the earlier failures.
+
+## Serial baseline result
+
+The exact baseline full-pack control failed in 37.0 seconds, before world IPC
+or any fresh engine log. Tracked BP/RP bytes matched 52189693 and all 1,362
+source pins were unchanged after cleanup. MCDK listed only the existing Mod
+BP/RP, its debug BP and the owner-bound session probe. The game was PID 24552;
+both its identity and the MCDK identity were null after cleanup.
+
+The WER signature changed: Event 1000 at 19:44:04 names unknown as the fault
+module, c0000005, address 000000014f932aa0. Event 1001 at 19:44:14 records BEX64,
+StackHash_9a2a, PCH_3F_FROM_ntdll+0x0000000000161914 and exception data
+0000000000000008, report fb21b237-6581-403e-9200-5a0199768286. The WER archive
+again contains only text, with no accessible minidump. This is not a repeat of
+the earlier Minecraft module offset. No screenshot or native product acceptance
+is claimed. [Sanitized result and frozen inputs](evidence/background-baseline-startup-r14-v1/result.json)
+preserve this failure separately.
+
+The baseline failure shows that this round's added resources are not required
+for failed admission and that serial execution alone is not sufficient. It
+does not establish a particular RP or BP defect. The root authorized exactly
+one next contrast: the previously healthy minimal diagnostic BP together with
+an exact private copy of baseline 52189693 RP, omitting the original Mod BP.
+That run retains the existing guarded process, registry, deadline and cleanup
+contracts; both original and mounted resource bytes are checked for drift.

@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "id": "b32ae3ea8b054194af3c61335e61979f",
+  "name": "background-baseline-r14-preworld-v1",
+  "owner": "background-baseline-r14-preworld-v1",
+  "project": "D:\\bbe-r13e-background",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b32ae3ea8b054194af3c61335e61979f\\session.json",
+  "artifacts": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b32ae3ea8b054194af3c61335e61979f\\artifacts",
+  "appdata": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b32ae3ea8b054194af3c61335e61979f\\appdata",
+  "log": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b32ae3ea8b054194af3c61335e61979f\\mcdk.log",
+  "state": "failed",
+  "created_at": 1791891822.905558,
+  "ready": false,
+  "noactivation": {
+    "schema": 1,
+    "requested": true,
+    "dll": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\docs\\evidence\\background-focus-r13-v1\\inputs\\native_focus_guard.dll",
+      "sha256": "04b073e1aea6fe16a70573e64c6aac31940431409ac90c79f250e02f35a3ec93"
+    },
+    "mcdk": {
+      "path": "D:\\Happy2018newの个人文件\\GitHub\\better-building-editor\\.runtime\\mcdk-retry-r11\\build-ipc-framing-r11\\tools\\mcdk\\mcdk.exe",
+      "sha256": "b8eb8959f97a4348006837bb7897d1e5cb957855d1746145974d8f37c00be9f9"
+    },
+    "patch": "native_focus_guard/mcdk-v1.6.1.patch",
+    "foreground": {
+      "hwnd": 397130,
+      "pid": 33656,
+      "process": "dwrg.exe",
+      "identity": "134363641925154131",
+      "title": "第五人格",
+      "visible": true,
+      "minimized": false
+    },
+    "windows": [],
+    "background_safe": true,
+    "window_noactivate": false
+  },
+  "mcp_url": "http://127.0.0.1:52246/mcp",
+  "port": 52246,
+  "world": "PYR_b32ae3ea8b054194af3c61335e61979f",
+  "game_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.9.0.401155\\Minecraft.Windows.exe",
+  "world_path": "C:\\Users\\Happy2018new\\AppData\\Roaming\\MinecraftPE_Netease\\minecraftWorlds\\PYR_b32ae3ea8b054194af3c61335e61979f",
+  "world_link": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\b32ae3ea8b054194af3c61335e61979f\\appdata\\MinecraftPE_Netease\\minecraftWorlds\\PYR_b32ae3ea8b054194af3c61335e61979f",
+  "foreground_before": {
+    "hwnd": 397130,
+    "pid": 33656,
+    "process": "dwrg.exe",
+    "identity": "134363641925154131",
+    "title": "第五人格",
+    "visible": true,
+    "minimized": false
+  },
+  "mcdk_pid": 25188,
+  "mcdk_identity": "134363654320840411",
+  "discovery_observations": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 8.711,
+      "children": [
+        24552
+      ],
+      "listeners": [
+        25188
+      ]
+    }
+  ],
+  "game_pid": 24552,
+  "game_identity": "134363654322717925",
+  "startup_endpoint_discovered": true,
+  "readiness_deadline_reached": false,
+  "error": "Owned game creation identity changed; refusing to bind",
+  "foreground_after": {
+    "hwnd": 397130,
+    "pid": 33656,
+    "process": "dwrg.exe",
+    "identity": "134363641925154131",
+    "title": "第五人格",
+    "visible": true,
+    "minimized": false
+  },
+  "foreground_before_still_valid": true,
+  "foreground_unchanged": true
+}
