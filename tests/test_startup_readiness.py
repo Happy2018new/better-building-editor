@@ -39,7 +39,8 @@ class StartupReadinessTests(unittest.TestCase):
             args = SimpleNamespace(project=str(folder), mcdk='mcdk.exe', game_exe='game.exe',
                 owner='readiness-test', name='readiness-test', port=None, preset=None, wait=wait)
             snapshot = {'hwnd': 1, 'pid': 99, 'identity': 'editor', 'process': 'editor.exe'}
-            guard = {'background_safe': True, 'window_noactivate': True, 'windows': [{'hwnd': 2}]}
+            guard = {'foreground': snapshot, 'background_safe': True,
+                     'window_noactivate': True, 'windows': [{'hwnd': 2}]}
 
             def discovery(pid, port, timeout):
                 self.assertEqual(101, pid)
