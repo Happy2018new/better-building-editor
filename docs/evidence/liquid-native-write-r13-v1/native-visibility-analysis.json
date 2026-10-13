@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "source": {
+    "path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\original-priority.json",
+    "sha256": "ebf85297e7b07ec4f256e7cada32aac7cfc48a72bd95c43f1bd670af27b32ebc"
+  },
+  "geometry_plan": {
+    "path": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\original-priority_geometry_plan.json",
+    "sha256": "d9ff2700bf964770a414cffd009adb15cd32e499db0510daeb6f270b25f66312"
+  },
+  "analyzer": {
+    "path": "D:\\bbe-r13-liquid\\tools\\analyze_liquid_native_write.py",
+    "sha256": "ccd6afb4cfbd409cc7cda9eeacf8d7c2a505770ebdf14999879022b78db7bb68"
+  },
+  "limits": {
+    "rgb_delta": 12,
+    "minimum_signal_pixels": 80,
+    "inset_pixels": 3,
+    "crosshair_half_extent": 20,
+    "hud_top_fraction": 0.12,
+    "hud_bottom_fraction": 0.9
+  },
+  "missing_captures": [
+    "full_h_vnw",
+    "full_l_vnw",
+    "native_direct_h_vnw",
+    "native_direct_l_vnw",
+    "native_palette_h_vnw",
+    "native_palette_l_vnw"
+  ],
+  "completed": false,
+  "restored": true,
+  "cleanup_errors": [],
+  "cases": {
+    "h_vnw": {
+      "native_palette": {
+        "status": "NOT_TESTED"
+      },
+      "native_direct": {
+        "status": "NOT_TESTED"
+      },
+      "full": {
+        "status": "NOT_TESTED"
+      }
+    },
+    "l_vnw": {
+      "native_palette": {
+        "status": "NOT_TESTED"
+      },
+      "native_direct": {
+        "status": "NOT_TESTED"
+      },
+      "full": {
+        "status": "NOT_TESTED"
+      }
+    }
+  },
+  "native_visibility_observed": false,
+  "side_uv_qualified": false,
+  "transparency_qualified": false,
+  "animation_qualified": false,
+  "production_qualified": false,
+  "scope": "Source-derived native write visibility only; no native shape, UV, tint, alpha or animation acceptance",
+  "status": "NOT_TESTED"
+}

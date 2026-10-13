@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "completed": false,
+  "passed": false,
+  "phase_receipts": {
+    "actual-world": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\actual-world-passive-health.json"
+    },
+    "preflight": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\preflight-passive-health.json"
+    },
+    "physical": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\physical-passive-health.json"
+    },
+    "health": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\health-passive-health.json"
+    },
+    "calibrate": {
+      "returncode": 0,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\calibrate-passive-health.json"
+    },
+    "original-priority": {
+      "returncode": 1,
+      "monitor": "D:\\bbe-r13-liquid\\.runtime\\liquid-native-write-r13-v1\\original-priority-passive-health.json"
+    }
+  },
+  "owner": "liquid-r13-native-write-v1",
+  "scope": "One hypothesis: palette readback without native terrain visibility; H/L NW palette/direct/full diagnostic only",
+  "plan_sha256": "c79a3bfaad583f038f71338ccf04726f6e48f92ae8bbb24ef5514f68ab56cefa",
+  "capacity_receipt_sha256": "dde12abae07102886a5d3bb2546c5ce8b536ccba6ecd1abe3162063302a81045",
+  "real_input_sent": false,
+  "activation": false,
+  "resize": false,
+  "production_qualified": false,
+  "side_uv_qualified": false,
+  "animation_qualified": false,
+  "transparency_qualified": false,
+  "persistence_errors": [],
+  "game_created_at_unix": 1791869753.5618248,
+  "startup_deadline_unix": 1791869933.5618248,
+  "outer_deadline_unix": 1791869999.748879,
+  "transport_ready_observed_at": 1791869836.769049,
+  "ready_observed_at": 1791869849.748879,
+  "normal_deadline_unix": 1791869969.748879,
+  "fixture_cleanup_deadline_unix": 1791869981.748879,
+  "full_work_cleanup_reserve_verified": true,
+  "actual_world_receipt_sha256": "16eaec42b6daaee5104a3bec65a1e3f9840cd8960515d21480d3445d11a498ea",
+  "error": "RuntimeError: Phase failed, no replay: original-priority",
+  "identities_after": {
+    "game": null,
+    "mcdk": null
+  },
+  "session_stopped": true,
+  "host_configuration_restored": true,
+  "frozen_pack_and_helpers_unchanged": true,
+  "cleanup_errors": [],
+  "outer_deadline_met": true,
+  "game_creation_to_stopped_seconds": 235.10661101341248,
+  "ready_to_stopped_seconds": 138.91955876350403
+}

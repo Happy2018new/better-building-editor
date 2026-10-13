@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "D:\bbe-r13-liquid\tools\probe_liquid_original_sides.py", line 634, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\bbe-r13-liquid\tools\probe_liquid_original_sides.py", line 552, in main
+    frame(identity, native_state)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\bbe-r13-liquid\tools\probe_liquid_original_sides.py", line 350, in frame
+    before = state()
+  File "D:\bbe-r13-liquid\tools\probe_liquid_original_sides.py", line 519, in native_state
+    'camera': check.run(CAMERA_STATE)}
+              ~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\bbe-r13-liquid\tools\verify_debug_blueprints.py", line 210, in run
+    response = self.client.call('execute_code', {
+        'code': CLIENT + code, 'is_client': True, 'direct_return': True})
+  File "D:\bbe-r13-liquid\.agents\skills\pyreact-debugging\scripts\mcdk.py", line 210, in call
+    result = self._post("tools/call", {"name": name, "arguments": arguments})
+  File "D:\bbe-r13-liquid\tools\probe_liquid_original_sides.py", line 227, in _post
+    raise TimeoutError('Fixed priority capture/cleanup deadline elapsed; call not dispatched')
+TimeoutError: Fixed priority capture/cleanup deadline elapsed; call not dispatched
