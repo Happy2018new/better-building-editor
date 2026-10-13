@@ -56,10 +56,7 @@ for row in rows:
    assert items.AddEnchantToInvItem(slot,9,3)
   assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' else ())
   assert player_info.PlayerUseItemToPos(position,item_type,slot,2)
-  item={'itemName':'minecraft:diamond_sword','auxValue':0,'count':1,
-        'enchantData':[(9,3)] if row['mode']=='enchanted' else []}
-  row['matching_set_frame_item_return']=frames.SetFrameItem(position,adapter.dimension,item)
-  row['matching_set_frame_rotation_return']=frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
+  row['item_write_route']='native inventory PlayerUseItemToPos only; no subsequent frame setters'
 assert items.SetInvItemNum(slot,0)
 observed=[]
 for row in rows:
@@ -83,7 +80,7 @@ for row in rows:
  observed.append({'source':row,'item_api':item,'typed_nbt':nbt})
 _result=json.dumps({'kind':'actual native frame blocks','observed':observed,
  'dimension':adapter.dimension,'coordinates_confirmed_air':True,
- 'source':'public test.entities.item_contents first frame pair; actual native frame and inventory diamond sword interaction; AddEnchantToInvItem(9,3), followed by matching SetFrameItem/SetFrameRotation'})
+ 'source':'public test.entities.item_contents first frame pair; actual native frame and inventory diamond sword interaction; AddEnchantToInvItem(9,3), no subsequent frame setters'})
 '''
 
 HIDE_CLEAR = '''import sys
@@ -117,11 +114,14 @@ items=adapter.factory.CreateItem(players[0])
 rot=adapter.factory.CreateRot(players[0])
 assert items.SetInvItemNum(saved['slot'],0)
 assert rot.SetRot(saved['rotation'])
+results=[]
 for position in reversed(saved['changed']):
- assert adapter.write(position,AIR)
-assert all(adapter.read(position)==AIR for position in saved['changed'])
+ wrote=adapter.write(position,AIR)
+ actual=adapter.read(position)
+ results.append({'position':position,'write_return':wrote,'actual':actual,'passed':actual==AIR})
+assert all(row['passed'] for row in results),results
 del sys._item_native_reference
-_result=True
+_result={'passed':True,'rows':results}
 '''
 
 
@@ -187,7 +187,7 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
         reference['hidden_clear'] = server(HIDE_CLEAR)
         check.wait('native hidden frame cells replicated air',lambda value:value is True,
             lambda:check.run("info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\n"
-                "_result=all(info.GetBlockNew(tuple(row['position']))['name']=='minecraft:air' "
+                "_result=all(info.GetBlock(tuple(row['position']))[0]=='minecraft:air' "
                 "for row in positions if row['mode']!='empty')"))
         reference['hidden_readback'] = server(HIDE_PLACE)
         check.wait('native recreated empty frames replicated',lambda value:value is True,
@@ -203,7 +203,8 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
     finally:
         if initialized:
             try:
-                reference['restored'] = bool(server(RESTORE))
+                reference['restoration'] = server(RESTORE)
+                reference['restored'] = reference['restoration'].get('passed') is True
             except Exception as error:
                 reference['cleanup_errors'].append(type(error).__name__+': '+str(error))
         persist()

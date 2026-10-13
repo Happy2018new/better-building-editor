@@ -235,3 +235,20 @@ inventory slot and player rotation restored; exact owned processes exited.
 The next run records both redundant setter returns alongside the independently
 verified typed payload and client readback. A False setter is never described
 as a successful write; the actual native item interaction remains the source.
+
+Frozen `item-product-r14-v8`, source `23ca18e8`, passed both server and client
+typed diamond-sword/enchantment data checks and retained twenty native positive
+images; both actual native swords were still absent. Hidden capture then failed
+because the client harness called the server-only `GetBlockNew`. Native restore
+also stopped when writing air to a previously cleared cell returned False, so
+block restoration is unverified in that now-closed disposable world. Owned game
+and supervisor identities were exactly terminated. These errors are preserved
+and never classified as an accepted native comparison.
+
+The next controlled change removes both postinteraction frame setters, keeps
+the original inventory interaction route, uses documented client `GetBlock`,
+and records each air write result with an independent actual-air readback. All
+cleanup positions are attempted before evaluating readback; an already-air
+write returning False cannot stop later restoration. This tests whether native
+setters disturb the visible physical item route without modifying glint style
+or acceptance thresholds.
