@@ -202,7 +202,7 @@ def analyze_flow(source_path):
                 observed['passed'] = observed['top']['passed']
             elif case == 'falling':
                 shape = next(shape for shape in row['ready']['shapes']
-                             if shape['faces'] & 4 and tuple(shape['position']) == (3, 4, 3))
+                             if shape['faces'] & 4 and tuple(shape['position']) == (3, 3, 3))
                 signal, spacing = physical_samples(images, shape, 2, row, source)
                 observed['south_side'] = motion(signal, times, 0, -1, spacing, 15)
                 observed['passed'] = observed['south_side']['passed']
