@@ -1,7 +1,10 @@
 import sys
+import copy
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -10,11 +13,57 @@ from verify_debug_blueprints import (INSTALL_PROBE, RESTORE, STATUS,
                                      editor_preview_ready, source_matches)
 from verify_missing_neighbor_visuals import CELL_ROIS, compare_complete
 from verify_snow_plant_visibility import LOAD
-from verify_camera_projection import fit_fov, largest_component, projected_mask, stone_signal
+from verify_camera_projection import analyze_calibration, fit_fov, largest_component, projected_mask, stone_signal
 from PIL import Image, ImageChops, ImageDraw
 
 
 class CameraProjectionTests(unittest.TestCase):
+    def calibration_evidence(self, directory):
+        evidence, cache = {'views': []}, []
+        for label, position in (('front', (0., 0., 6.)), ('right', (6., 0., 0.)), ('tilted', (0., -3., 6.))):
+            pose = {'position': position, 'target': (0., 0., 0.)}
+            cube = projected_mask(pose, (400, 300), 66.3)
+            hidden = Image.new('RGB', cube.size, (30, 80, 180))
+            shown = hidden.copy()
+            shown.paste((120, 120, 120), mask=cube)
+            row = {'view': label, 'pose': pose, 'signal': str(Path(directory) / (label + '_signal.png')),
+                   'outline_comparison': str(Path(directory) / (label + '_outline.png'))}
+            for name, image in (('shown', shown), ('hidden', hidden)):
+                path = Path(directory) / (label + '_' + name + '.png')
+                image.save(path)
+                row[name] = {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'size': list(image.size)}
+            mask = stone_signal(row['shown']['path'], row['hidden']['path'])
+            evidence['views'].append(row)
+            cache.append(((label, row['shown']['sha256'], row['hidden']['sha256']), mask))
+        return evidence, cache
+
+    def test_live_signal_cache_matches_full_reanalysis_without_extracting_again(self):
+        with tempfile.TemporaryDirectory() as directory:
+            evidence, cache = self.calibration_evidence(directory)
+            replay, live = copy.deepcopy(evidence), copy.deepcopy(evidence)
+            analyze_calibration(replay)
+            with patch('verify_camera_projection.stone_signal', side_effect=AssertionError('Duplicate live extraction')):
+                analyze_calibration(live, cache)
+            self.assertEqual(replay, live)
+            self.assertTrue(live['passed'])
+
+    def test_signal_cache_rejects_missing_swapped_pair_hash_and_viewport(self):
+        with tempfile.TemporaryDirectory() as directory:
+            evidence, cache = self.calibration_evidence(directory)
+            invalid = (cache[:2], [cache[1], cache[0], cache[2]],
+                       [(('front', 'wrong-sha', cache[0][0][2]), cache[0][1])] + cache[1:],
+                       [(cache[0][0], Image.new('L', (200, 150)))] + cache[1:])
+            for candidate in invalid:
+                with self.subTest(candidate=candidate[0][0]), self.assertRaises(AssertionError):
+                    analyze_calibration(copy.deepcopy(evidence), candidate)
+
+    def test_signal_cache_still_rejects_changed_original_png_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            evidence, cache = self.calibration_evidence(directory)
+            Path(evidence['views'][0]['shown']['path']).write_bytes(b'changed-original')
+            with self.assertRaises(AssertionError):
+                analyze_calibration(evidence, cache)
+
     def test_target_projects_to_viewport_center(self):
         point, = project_points(((0., 0., 0.),), (0., 0., 10.), (0., 0., 0.),
                                 (800, 600), 60.)

@@ -152,13 +152,21 @@ def largest_component(mask):
     return result
 
 
-def analyze_calibration(evidence):
+def analyze_calibration(evidence, signal_cache=None):
     rows = evidence['views']
+    if signal_cache is not None:
+        assert len(signal_cache) == len(rows), 'Calibration signal cache length changed'
     actual = []
-    for row in rows:
+    for index, row in enumerate(rows):
         for capture in (row['shown'], row['hidden']):
             assert hashlib.sha256(Path(capture['path']).read_bytes()).hexdigest() == capture['sha256'], capture
-        actual.append(stone_signal(row['shown']['path'], row['hidden']['path']))
+        if signal_cache is None:
+            actual.append(stone_signal(row['shown']['path'], row['hidden']['path']))
+        else:
+            key, mask = signal_cache[index]
+            assert key == (row['view'], row['shown']['sha256'], row['hidden']['sha256']), 'Calibration signal cache pair/order changed'
+            assert mask.mode == 'L' and mask.size == tuple(row['shown']['size']), 'Calibration signal cache viewport changed'
+            actual.append(mask)
     fitted = [fit_fov(image, row['pose'])['vertical_fov'] for image, row in zip(actual, rows)]
     candidates = [step / 10. for step in range(int(min(fitted) * 10), int(max(fitted) * 10) + 1)]
     def score(fov):
@@ -209,6 +217,7 @@ def main():
                 'skyward_tilted': args.skyward_tilted,
                 'fixture_lift_y': args.fixture_lift_y}
     installed = saved = environment_saved = options_saved = False
+    signal_cache = []
     try:
         with Client(timeout=30) as client:
             check = SignCheck(client, args.output, args.timeout, args.native_resolution)
@@ -273,6 +282,7 @@ def main():
                            'signal': str(path.resolve()), 'shown': shown, 'hidden': hidden}
                     row['outline_comparison'] = str(outline_path.resolve())
                     evidence['views'].append(row)
+                    signal_cache.append(((label, shown['sha256'], hidden['sha256']), actual))
                     write_json(args.output, evidence)
                 evidence['completed'] = True
                 direct = all(row['candidates'][row['convention']]['max_boundary_error_pixels'] <= 4
@@ -282,7 +292,7 @@ def main():
                 evidence['screen_aspect'] = evidence['views'][0]['camera']['screen'][0] / evidence['views'][0]['camera']['screen'][1]
                 evidence['reported_fov_is_effective'] = direct
                 evidence['runtime_minecraft_version'] = check.run('_result=json.dumps(api.GetMinecraftVersion())')
-                analyze_calibration(evidence)
+                analyze_calibration(evidence, signal_cache)
             finally:
                 cleanup_errors = []
                 for label, action in (
