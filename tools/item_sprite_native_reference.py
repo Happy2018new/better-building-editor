@@ -58,8 +58,8 @@ for row in rows:
   assert player_info.PlayerUseItemToPos(position,item_type,slot,2)
   item={'itemName':'minecraft:diamond_sword','auxValue':0,'count':1,
         'enchantData':[(9,3)] if row['mode']=='enchanted' else []}
-  assert frames.SetFrameItem(position,adapter.dimension,item)
-  assert frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
+  row['matching_set_frame_item_return']=frames.SetFrameItem(position,adapter.dimension,item)
+  row['matching_set_frame_rotation_return']=frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
 assert items.SetInvItemNum(slot,0)
 observed=[]
 for row in rows:

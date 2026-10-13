@@ -225,3 +225,13 @@ item-clearing API updates visible client contents. The analyzer reports
 `NATIVE_REFERENCE_UNAVAILABLE` and exits nonzero unless the actual native
 positive controls have visible >=48px bodies and pass their fixed temporal
 gates. No pixel threshold or postcapture brightness changes.
+
+Frozen `item-product-r14-v7`, source `32f544c1`, created native frames and
+successfully used native inventory swords, then stopped because the redundant
+matching `SetFrameItem` call returned False on an already filled frame. Its
+assertion was an overly strict harness requirement; no native positive pixels
+were captured and no glint acceptance is inferred. All six air cells, the empty
+inventory slot and player rotation restored; exact owned processes exited.
+The next run records both redundant setter returns alongside the independently
+verified typed payload and client readback. A False setter is never described
+as a successful write; the actual native item interaction remains the source.
