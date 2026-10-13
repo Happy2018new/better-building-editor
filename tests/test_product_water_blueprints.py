@@ -24,8 +24,8 @@ class ProductWaterBlueprintTests(unittest.TestCase):
 
     def test_fence_controls_isolate_water_body_and_rear_below_the_waterline(self):
         sources = {name: source_document('wet_oak_fence', name)
-                   for name in ('wet', 'dry', 'liquid_only', 'rearless', 'empty')}
-        rear = (FOCUS[0], FOCUS[1], FOCUS[2] - 1)
+                   for name in ('wet', 'dry', 'liquid_only', 'water_only', 'rearless', 'empty')}
+        rear = (FOCUS[0], FOCUS[1], FOCUS[2] - 2)
         support = (FOCUS[0], FOCUS[1] - 1, FOCUS[2])
         self.assertEqual('minecraft:oak_fence', foreground(sources['wet'].get(FOCUS))[0])
         self.assertEqual('minecraft:water', background(sources['wet'].get(FOCUS))[0])
@@ -38,7 +38,7 @@ class ProductWaterBlueprintTests(unittest.TestCase):
         self.assertEqual(AIR, sources['empty'].get(FOCUS))
         for name, source in sources.items():
             self.assertEqual('minecraft:stone', foreground(source.get(support))[0], name)
-            if name != 'rearless':
+            if name not in ('rearless', 'water_only', 'empty'):
                 self.assertEqual('minecraft:gold_block', foreground(source.get(rear))[0], name)
 
     def test_drop_below_neighbor_and_four_direction_gradients_are_exact_snapshots(self):

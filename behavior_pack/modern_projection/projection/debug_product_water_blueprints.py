@@ -54,7 +54,7 @@ CASES = _rows()
 VISUAL_CASE = {
     'schema': 1, 'fixture': METADATA[0], 'size': ISOLATED_SIZE, 'focus': FOCUS,
     'registry_version': registry.source_version(), 'registry_fingerprint': registry.fingerprint(),
-    'cases': CASES, 'controls': ('wet', 'dry', 'liquid_only', 'rearless', 'empty'),
+    'cases': CASES, 'controls': ('wet', 'dry', 'liquid_only', 'water_only', 'rearless', 'empty'),
     'modes': ('editor', 'projection_full', 'projection_missing'),
     'world_height_above_foot': 2,
     'camera': {'editor': (35., 25., 4.6), 'front': (0., 0., 3.),
@@ -74,7 +74,8 @@ def _cells(row):
         values[offset] = _water(depth)
     if row['body'] is not None:
         values[(0, 0, 0)] = make_cell(_material(row['body']), _water())
-        values[(0, 0, -1)] = _material('gold_block')
+        # Two cells back leaves the fluid's direct neighbor samples unchanged.
+        values[(0, 0, -2)] = _material('gold_block')
     return values
 
 
@@ -98,7 +99,7 @@ def source_document(identity, control='wet'):
     result = Document(ISOLATED_SIZE, name=source.name, biome=source.biome)
     liquid_positions = set(offset for offset, unused in row['shape'])
     for offset in _cells(row):
-        if control == 'rearless' and row['body'] and offset == (0, 0, -1):
+        if control in ('rearless', 'water_only', 'empty') and row['body'] and offset == (0, 0, -2):
             continue
         pos = tuple(row['anchor'][i] + offset[i] for i in range(3))
         value = source.get(pos)
@@ -107,7 +108,7 @@ def source_document(identity, control='wet'):
                 continue
             if control == 'dry':
                 value = make_cell(foreground(value) if row['body'] and offset == (0, 0, 0) else AIR)
-            elif control == 'liquid_only':
+            elif control in ('liquid_only', 'water_only'):
                 value = make_cell(AIR, background(value)) if row['body'] and offset == (0, 0, 0) else value
         target = tuple(FOCUS[i] + offset[i] for i in range(3))
         result.set_cell(target, value)
