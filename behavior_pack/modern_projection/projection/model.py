@@ -757,7 +757,17 @@ class Editor(object):
         return out
 
     def run(self, tool):
-        if self.document.volume > SMALL_VOLUME or tool.startswith("paste") or tool == "cut":
+        if tool not in BY_ID:
+            raise ValueError("未知工具")
+        group = BY_ID[tool][1]
+        job_required = self.document.volume > SMALL_VOLUME or tool.startswith("paste") or tool == "cut"
+        selection = self.selection
+        if not job_required and group not in ("select", "transform") and tool != "copy":
+            selected_layer = None if tool in ("gravity", "foundation", "heightmap") or (self.edit_layer == 2 and tool != 'erase') else self.edit_layer
+            selection = close_group_selection(self.document, self.selection, index=selected_layer)
+            # Group completion belongs to the edit, not the displayed selection.
+            job_required = selection != self.selection
+        if job_required:
             from .jobs import EditJob
 
             job = EditJob(self, tool)
@@ -766,16 +776,12 @@ class Editor(object):
             if job.error:
                 raise ValueError(job.error)
             return job.changed
-        if tool not in BY_ID:
-            raise ValueError("未知工具")
-        group = BY_ID[tool][1]
         if group == "select":
             return self._select(tool)
         if group == "transform":
             return self._transform(tool)
-        selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") or (self.edit_layer == 2 and tool != 'erase') else self.edit_layer
         if tool != "copy":
-            self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
+            self.selection = selection
             self.sync_selection_bounds()
         if not self.selection:
             raise ValueError("选区为空，请先框选或全选")
