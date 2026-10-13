@@ -1,0 +1,407 @@
+1340 names, 15858 states, 503 legacy aliases; 289192 bytes
+Audited 15858 records across 6 operations
+rotate_y90: 15858 native targets; orientation and inverse verified
+rotate_y180: 15858 native targets; orientation and inverse verified
+rotate_y270: 15858 native targets; orientation and inverse verified
+mirror_x: 15858 native targets; orientation and inverse verified
+mirror_y: 15858 native targets; orientation and inverse verified
+mirror_z: 15858 native targets; orientation and inverse verified
+Four-turn closure, XZ/half-turn equivalence, reflection conjugacy and Y commutation verified
+1340 native block definitions, 599 solid names, 29 snow-coverable names, 609 waterloggable names and 0 partial state sets
+Checked 102 shulker render-only blocks and models
+Checked 76 chest render-only blocks and models
+186 native states, 93 source transitions, 6 destroyed source families
+{"gates": 12, "hanging_moss": 1, "native_rows": 620, "scope": "Static gate wall states, hanging moss tips, and observed stone/air lower carpet sides."}
+Verified 119 wet actor names; 12 explicit unusable observations
+Verified 1 native tile rebuild rules from restored before/after evidence
+Native item contents: 2 independently enchanted controls
+{"game_version": "NEMC 3.9.0.401155", "materials": ["netease_block_as_mesh_blend", "netease_block_as_mesh_blend_enable_transparency", "netease_block_as_mesh_blend_far", "netease_block_as_mesh_blend_no_culling"], "check": true, "visual_acceptance": false}
+Native liquid face textures: 4 names; UV acceptance separate
+Liquid shape rules: 1 names; production_accepted=False
+Flow top candidate: 256 angle codes, native direction/UV/production flags false
+Native pot sherds: four typed fields across 4 directions
+Checked 80 render-only mob head poses
+{"plants": 29, "cases": 232, "fixture_schema": 4, "passed": true, "game_version": "NEMC 3.9.0.401155", "evidence": "tools\\data\\native_snow_states_nemc_3.9.0.401155.json", "evidence_sha256": "e5bb21687e3a8692654b11411b8f0a7d1e8840c660b66f1a1def90906bd55fd0", "scope": "Public blueprint data matches native readbacks; pixels are separately verified"}
+Checked 4 static plant candidates; 3 special families excluded
+Checked 128 cell-bounded bed render blocks and models
+{"full_support_names": 4, "observed_states": 14, "partial_support_names": 3, "scope": "measured_samples", "unknown_states": 1, "unobserved_states": 15844}
+Vanilla water appearance: 87 biomes; unspecified opacity preserved
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background camera and snow capture require the owned WGC helper
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background camera and snow capture require the owned WGC helper
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background camera and snow capture require --native-resolution
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background liquid capture requires the reviewed SignCheck helper
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background liquid capture requires the reviewed SignCheck helper
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: The session belongs to a different project
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: Background camera and snow capture require --native-resolution
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: This suite has not been reviewed for SDK-only background execution
+usage: run_live_check.py [-h] --session SESSION --owner OWNER
+                         [--sdk-background]
+                         script ...
+run_live_check.py: error: This suite has not been reviewed for SDK-only background execution
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\world_projection.py", line 202, in attach
+    self.shader.bind(entity, self.model, self.anchor, hidden=True)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 126, in bind
+    self.control()
+    ~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 66, in control
+    self.write(4, tint[:2]+(-1. if self.empty else float(self.bank+1),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                           tracker.bridge.session.opacity))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 54, in write
+    raise ValueError('Could not update projection shader')
+ValueError: Could not update projection shader
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 157, in retire
+    raise ValueError('Could not hide retired projection shader')
+ValueError: Could not hide retired projection shader
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\bridge.py", line 474, in update_projection_opacity
+    shader.control()
+    ~~~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 66, in control
+    self.write(4, tint[:2]+(-1. if self.empty else float(self.bank+1),
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                           tracker.bridge.session.opacity))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\occupancy_shader.py", line 54, in write
+    raise ValueError('Could not update projection shader')
+ValueError: Could not update projection shader
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_projection.py", line 94, in advance
+    group = next(self.iterator, _COMPLETE)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render_plan.py", line 234, in render_steps
+    for group in groups:
+                 ^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render_plan.py", line 196, in iter_group_steps
+    parts = _surface_parts(shape_provider.surface(document, pos, layer, value), pos, layer, value)
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_face_textures.py", line 38, in surface
+    raise ValueError('Liquid top UV template or rotation is unsupported by its model resource')
+ValueError: Liquid top UV template or rotation is unsupported by its model resource
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_projection.py", line 94, in advance
+    group = next(self.iterator, _COMPLETE)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render_plan.py", line 234, in render_steps
+    for group in groups:
+                 ^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render_plan.py", line 196, in iter_group_steps
+    parts = _surface_parts(shape_provider.surface(document, pos, layer, value), pos, layer, value)
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_face_textures.py", line 38, in surface
+    raise ValueError('Liquid top UV template or rotation is unsupported by its model resource')
+ValueError: Liquid top UV template or rotation is unsupported by its model resource
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_projection.py", line 94, in advance
+    group = next(self.iterator, _COMPLETE)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render_plan.py", line 241, in render_steps
+    raise ValueError('Liquid texture/UV template has no registered model: ' + repr(resource))
+ValueError: Liquid texture/UV template has no registered model: ('still_water_grey', None)
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 565, in follow
+    raise ValueError('Could not move owned liquid model position: %r' % record['model_id'])
+ValueError: Could not move owned liquid model position: 2
+ValueError: Could not restore owned liquid model position: 2
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 476, in prepare_publication
+    raise ValueError('Could not switch ready liquid visibility')
+ValueError: Could not switch ready liquid visibility
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 638, in set_opacity
+    raise ValueError('Could not update owned liquid opacity')
+ValueError: Could not update owned liquid opacity
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 167, in _publish
+    if self.show(previous, False) is False:
+       ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 500, in fail_hide
+    raise RuntimeError('First liquid bank hide failed')
+RuntimeError: First liquid bank hide failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 534, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 534, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+ValueError: Could not restore owned liquid skeleton visible: 1
+ValueError: Could not restore owned liquid skeleton visible: 1
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 534, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 186, in restore_publication
+    restored = self.show(key, value) is not False
+               ~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 534, in fail_hide_and_restore
+    raise RuntimeError('Old liquid surface restore failed')
+RuntimeError: Old liquid surface restore failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 164, in _publish
+    raise ValueError('Could not publish liquid skeleton payload')
+ValueError: Could not publish liquid skeleton payload
+ValueError: Could not restore owned liquid skeleton uniform: (0, 100)
+ValueError: Could not restore owned liquid skeleton uniform: (0, 100)
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 164, in _publish
+    raise ValueError('Could not publish liquid skeleton payload')
+ValueError: Could not publish liquid skeleton payload
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 163, in _publish
+    if not self.model_component.SetExtraUniformValue(self.ids[back], 4, value):
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 438, in fail_unmask
+    raise RuntimeError('Incoming native liquid unmask failed')
+RuntimeError: Incoming native liquid unmask failed
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 168, in _publish
+    raise ValueError('Could not hide previous liquid skeleton surface')
+ValueError: Could not hide previous liquid skeleton surface
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_render.py", line 167, in _publish
+    if self.show(previous, False) is False:
+       ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\behavior_pack\modern_projection\projection\liquid_viewport.py", line 44, in show
+    return control.SetVisible(visible, False)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_liquid_viewport.py", line 352, in fail_hide
+    raise RuntimeError('Old native liquid surface hide failed')
+RuntimeError: Old native liquid surface hide failed
+ValueError: Could not restore projection shader uniform: 4
+======================================================================
+ERROR: test_actual_player_submission_validator_rejects_actorless_or_anchor_target (test_client_anchor_depth_player_candidate_r16.PlayerPositive.test_actual_player_submission_validator_rejects_actorless_or_anchor_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_player_candidate_r16.py", line 54, in test_actual_player_submission_validator_rejects_actorless_or_anchor_target
+    self.assertIsNone(runtime.validate_state(label, status, initial, native, None))
+                      ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\execute_item_glint_r13.py", line 38, in validate_state
+    setup=initial['skeleton_setup']
+          ~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'skeleton_setup'
+
+======================================================================
+ERROR: test_cow_failure_stops_before_binding_and_cleans (test_client_anchor_depth_runtime_r15.CleanupAndOwner.test_cow_failure_stops_before_binding_and_cleans)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 227, in test_cow_failure_stops_before_binding_and_cleans
+    report, calls = self.fake_runtime(directory)
+                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 155, in fake_runtime
+    for name in runtime.candidate.FILES + tuple(label + '_client.py' for label in runtime.candidate.STATES):
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'prepare_item_glint_r13' has no attribute 'FILES'
+
+======================================================================
+ERROR: test_disk_failure_cannot_block_cleanup_dispatch (test_client_anchor_depth_runtime_r15.CleanupAndOwner.test_disk_failure_cannot_block_cleanup_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 246, in test_disk_failure_cannot_block_cleanup_dispatch
+    report, calls = self.fake_runtime(directory, persist_failure=True)
+                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 155, in fake_runtime
+    for name in runtime.candidate.FILES + tuple(label + '_client.py' for label in runtime.candidate.STATES):
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'prepare_item_glint_r13' has no attribute 'FILES'
+
+======================================================================
+ERROR: test_native_capture_failure_still_cleans_exact_owned_lifecycle (test_client_anchor_depth_runtime_r15.CleanupAndOwner.test_native_capture_failure_still_cleans_exact_owned_lifecycle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 237, in test_native_capture_failure_still_cleans_exact_owned_lifecycle
+    report, calls = self.fake_runtime(directory, capture_failure=True)
+                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 155, in fake_runtime
+    for name in runtime.candidate.FILES + tuple(label + '_client.py' for label in runtime.candidate.STATES):
+                ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'prepare_item_glint_r13' has no attribute 'FILES'
+
+======================================================================
+ERROR: test_layout_adapter_preserves_real_depth_and_rejects_old_prop (test_client_anchor_depth_runtime_r15.ScorerControls.test_layout_adapter_preserves_real_depth_and_rejects_old_prop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 71, in test_layout_adapter_preserves_real_depth_and_rejects_old_prop
+    initial, frame = adapt_original()
+                     ~~~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 41, in adapt_original
+    frame['layout'] = runtime.layout_readback(ANCHOR, frame['tree'], frame['status'], initial)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\execute_item_glint_r13.py", line 30, in layout_readback
+    raise ValueError('Frozen prospective PaperDoll scale changed')
+ValueError: Frozen prospective PaperDoll scale changed
+
+======================================================================
+ERROR: test_submission_and_same_binding_tamper_are_rejected (test_client_anchor_depth_runtime_r15.ScorerControls.test_submission_and_same_binding_tamper_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 89, in test_submission_and_same_binding_tamper_are_rejected
+    initial, frame = adapt_original()
+                     ~~~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 41, in adapt_original
+    frame['layout'] = runtime.layout_readback(ANCHOR, frame['tree'], frame['status'], initial)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\execute_item_glint_r13.py", line 30, in layout_readback
+    raise ValueError('Frozen prospective PaperDoll scale changed')
+ValueError: Frozen prospective PaperDoll scale changed
+
+======================================================================
+ERROR: test_synthetic_paired_depth_and_negative_restoration_controls (test_client_anchor_depth_runtime_r15.ScorerControls.test_synthetic_paired_depth_and_negative_restoration_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 139, in test_synthetic_paired_depth_and_negative_restoration_controls
+    report = self.report(directory)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 102, in report
+    initial, prototype = adapt_original()
+                         ~~~~~~~~~~~~~~^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_client_anchor_depth_runtime_r15.py", line 41, in adapt_original
+    frame['layout'] = runtime.layout_readback(ANCHOR, frame['tree'], frame['status'], initial)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\execute_item_glint_r13.py", line 30, in layout_readback
+    raise ValueError('Frozen prospective PaperDoll scale changed')
+ValueError: Frozen prospective PaperDoll scale changed
+
+======================================================================
+ERROR: test_client_install_adopt_replication_set_model_and_server_destroy_order (test_item_server_skeleton_r13.ServerContracts.test_client_install_adopt_replication_set_model_and_server_destroy_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tests\test_item_server_skeleton_r13.py", line 84, in test_client_install_adopt_replication_set_model_and_server_destroy_order
+    returned=runtime.execute_probe(bundle,Path(directory)/'out.json',check,guard,runtime.time.monotonic()+120.)
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\execute_item_server_skeleton_r13.py", line 21, in execute_probe
+    candidate.verify(bundle)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\prepare_item_glint_r13.py", line 118, in verify
+    def verify(bundle):return server.client_route.verify(bundle,snippets,contract,__file__)
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Happy2018newの个人文件\GitHub\better-building-editor\tools\prepare_item_skeleton_candidate_r13.py", line 182, in verify
+    raise ValueError('Frozen skeleton contract changed')
+ValueError: Frozen skeleton contract changed
+
+----------------------------------------------------------------------
+Ran 2345 tests in 256.610s
+
+FAILED (errors=8)
+C:\Users\HAPPY2~1\AppData\Local\Temp\tmpzni854m4\a.zip 288381 bytes
+C:\Users\HAPPY2~1\AppData\Local\Temp\tmpzni854m4\b.zip 288381 bytes
+{"completed": false, "passed": false, "restored": false}
+{"ok": false, "error": "RuntimeError: Door diagnostic failed or remained unverified", "elapsed_seconds": 232.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": true}, "owned_processes_absent": false, "cleanup_errors": []}
+{"ok": false, "error": null, "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": ["Diagnostic receipt: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"]}
+{"ok": false, "error": "RuntimeError: Door diagnostic failed or remained unverified", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": true}, "owned_processes_absent": true, "cleanup_errors": ["Emergency fixture cleanup: cleanup transport unavailable"]}
+{"ok": false, "error": "RuntimeError: Protected launch failed before door diagnosis", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": ["C:\\Users\\Happy2018new\\AppData\\Local\\Temp\\tmp3xiphy_s\\.runtime\\door\\.mcdev.json: Runtime source target changed externally; restoration refused", "C:\\Users\\Happy2018new\\AppData\\Local\\Temp\\tmp3xiphy_s\\.runtime\\door\\.agents\\skills\\pyreact-debugging\\scripts\\mcdk.py: Runtime source target changed externally; restoration refused"]}
+{"ok": false, "error": "OSError: launch intent journal unavailable", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": null, "owned_processes_absent": null, "cleanup_errors": []}
+{"ok": false, "error": "RuntimeError: Protected launch failed before door diagnosis", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": false, "error": "TimeoutError: Insufficient full load/fixture/cleanup reserve; no probe issued", "elapsed_seconds": 130.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": false, "error": "RuntimeError: Protected launch failed before door diagnosis", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": false, "error": "RuntimeError: Protected launch failed before door diagnosis", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": false, "cleanup_errors": ["Unpublished game binding unresolved; process absence unverified"]}
+{"ok": false, "error": "OSError: launch input copy interrupted", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": null, "owned_processes_absent": null, "cleanup_errors": []}
+{"ok": false, "error": "OSError: launch input copy interrupted", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": null, "owned_processes_absent": null, "cleanup_errors": []}
+{"ok": false, "error": "ValueError: Supervisor owner/name requires a fresh session: ['C:\\\\Users\\\\Happy2018new\\\\AppData\\\\Local\\\\Temp\\\\tmpied3wlko\\\\registry\\\\owned\\\\session.json']", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": null, "owned_processes_absent": null, "cleanup_errors": []}
+{"ok": true, "error": null, "elapsed_seconds": 123.0, "within_total_limit": true, "diagnosis": {"completed": true, "restored": true, "server_exact_native_pair": false, "data_replication_verified": true, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": true}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": false, "error": "RuntimeError: Door diagnostic failed or remained unverified", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": true}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": true, "error": null, "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": true, "restored": true, "server_exact_native_pair": false, "data_replication_verified": true, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": true}, "owned_processes_absent": true, "cleanup_errors": []}
+{"ok": false, "error": "RuntimeError: Protected launch failed before door diagnosis", "elapsed_seconds": 0.0, "within_total_limit": true, "diagnosis": {"completed": false, "restored": false, "server_exact_native_pair": false, "data_replication_verified": false, "client_typed_pair_verified": false, "physical_orientation_accepted": false, "mutation_attempted": false}, "owned_processes_absent": true, "cleanup_errors": []}
+186 native states, 93 source transitions, 6 destroyed source families
+[P0WaterProbe] block begin minecraft:air states=1 tested=0/8
+[P0WaterProbe] block begin minecraft:air states=1 tested=0/8
+[P0WaterProbe] default NBT begin minecraft:air aux=0
+[P0WaterProbe] default NBT complete minecraft:air has_entity=False
+[P0WaterProbe] block begin minecraft:fence states=2 tested=1/8
+[P0WaterProbe] default NBT begin minecraft:fence aux=0
+[P0WaterProbe] default NBT complete minecraft:fence has_entity=True
+[P0WaterProbe] block begin minecraft:stairs states=4 tested=3/8
+[P0WaterProbe] default NBT begin minecraft:stairs aux=0
+[P0WaterProbe] default NBT complete minecraft:stairs has_entity=False
+[P0WaterProbe] block begin minecraft:air states=1 tested=0/8
+{"schema_version": 1, "passed": false, "checks": [{"name": "provenance", "passed": true, "files": 97}, {"command": ["tools/check_block_registry.py", "docs/reference/block_palettes/nemc_3.9.0.401155.json"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_block_traits.py", "tools/data/native_block_metadata_nemc_3.9.0.401155.json", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_entity_blueprints.py", "tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_shulker_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_copper_chest_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_water_interactions.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_static_neighbor_rules.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_native_palette_adapter.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_native_entity_writes.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_native_item_contents.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_liquid_materials.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_liquid_face_textures.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_liquid_shapes.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_liquid_flow_top.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_native_pot_sherds.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_skull_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_flat_item_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/check_snow_blueprints.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_static_plant_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_bed_proxies.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_scaffold_support.py", "--check"], "passed": true, "exit_code": 0}, {"command": ["tools/generate_biome_water.py", "--source", "tools/data/biome_water_appearance_nemc_3.9.0.401155.json", "--check"], "passed": true, "exit_code": 0}, {"command": ["-m", "unittest", "discover", "-s", "tests", "-q"], "passed": false, "exit_code": 1}], "scope": "Offline version consistency and generated assets; visual acceptance is separate.", "game_version": "NEMC 3.9.0.401155", "registry_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01", "files": ["docs\\reference\\block_palettes\\nemc_3.9.0.401155.json", "behavior_pack\\modern_projection\\projection\\block_registry_data.py", "behavior_pack\\modern_projection\\projection\\block_traits_data.py", "behavior_pack\\modern_projection\\projection\\entity_defaults_data.py", "behavior_pack\\modern_projection\\projection\\appearance_defaults_data.py", "behavior_pack\\modern_projection\\projection\\frame_rotation_data.py", "behavior_pack\\modern_projection\\projection\\native_appearance.py", "behavior_pack\\modern_projection\\projection\\item_contents_data.py", "behavior_pack\\modern_projection\\projection\\native_sign_data.py", "behavior_pack\\modern_projection\\projection\\native_pot_data.py", "behavior_pack\\modern_projection\\projection\\native_pot_sherd_data.py", "behavior_pack\\modern_projection\\projection\\water_interaction_data.py", "behavior_pack\\modern_projection\\projection\\plant_proxy_data.py", "behavior_pack\\modern_projection\\projection\\static_neighbor_data.py", "behavior_pack\\modern_projection\\projection\\rail_neighbor_data.py", "behavior_pack\\modern_projection\\projection\\native_palette_actor_data.py", "behavior_pack\\modern_projection\\projection\\native_entity_write_data.py", "behavior_pack\\modern_projection\\projection\\static_bed_data.py", "behavior_pack\\modern_projection\\projection\\static_skull_data.py", "behavior_pack\\modern_projection\\projection\\static_chest_data.py", "behavior_pack\\modern_projection\\projection\\static_shulker_data.py", "behavior_pack\\modern_projection\\projection\\scaffold_support_data.py", "behavior_pack\\modern_projection\\projection\\biome_water_data.py", "behavior_pack\\modern_projection\\projection\\liquid_face_texture_data.py", "behavior_pack\\modern_projection\\projection\\liquid_shape_data.py", "behavior_pack\\modern_projection\\projection\\static_frame_item_data.py", "tools\\data\\native_block_metadata_nemc_3.9.0.401155.json", "tools\\data\\native_water_overlays_nemc_3.9.0.401155.json", "tools\\data\\native_snow_overlays_nemc_3.9.0.401155.json", "tools\\data\\native_paired_snow_nemc_3.9.0.401155.json", "tools\\data\\native_block_entity_defaults_nemc_3.9.0.401155.json", "tools\\data\\native_entity_appearances_nemc_3.9.0.401155.json", "tools\\data\\native_entity_renderers_nemc_3.9.0.401155.json", "tools\\data\\native_item_contents_nemc_3.9.0.401155.json", "tools\\data\\native_frame_rotations_nemc_3.9.0.401155.json", "tools\\data\\native_signs_nemc_3.9.0.401155.json", "tools\\data\\native_pot_poses_nemc_3.9.0.401155.json", "tools\\data\\native_pot_sherds_nemc_3.9.0.401155.json", "tools\\data\\native_pot_faces_nemc_3.9.0.401155.json", "tools\\data\\native_water_item_use_nemc_3.9.0.401155.json", "tools\\data\\native_water_extinguish_nemc_3.9.0.401155.json", "tools\\data\\native_water_source_stability_nemc_3.9.0.401155.json", "tools\\data\\native_water_flow_spread_nemc_3.9.0.401155.json", "tools\\data\\native_snow_states_nemc_3.9.0.401155.json", "tools\\data\\static_plant_sources_nemc_3.9.0.401155.json", "tools\\data\\native_static_neighbors_nemc_3.9.0.401155.json", "tools\\data\\native_palette_actors_nemc_3.9.0.401155.json", "tools\\data\\native_bed_capture_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_materials_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_geometry_support_nemc_3.9.0.401155.json", "tools\\data\\native_entity_writes_nemc_3.9.0.401155.json", "tools\\data\\native_dripstone_holdout_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_surface_diagnostics_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_shape_candidate_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_neighbor_shape_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_alias_observations_nemc_3.9.0.401155.json", "tools\\data\\native_liquid_face_textures_nemc_3.9.0.401155.json", "tools\\data\\native_scaffold_supports_nemc_3.9.0.401155.json", "tools\\data\\native_scaffold_topology_nemc_3.9.0.401155.json", "tools\\data\\flat_item_sources_nemc_3.9.0.401155.json", "tools\\data\\native_neighbor_actions_r11_nemc_3.9.0.401155.json", "tools\\data\\native_neighbor_actions_r11_axes_nemc_3.9.0.401155.json", "tools\\data\\liquid_deployment_r12_contract.json", "behavior_pack\\modern_projection\\projection\\liquid_resource_data.py", "tools\\generate_liquid_skeleton_resources.py", "resource_pack\\shaders\\glsl\\modern_projection_liquid_preview_depth.h", "tools\\data\\native_liquid_flow_top_candidate_nemc_3.9.0.401155.json", "tools\\generate_liquid_flow_top.py", "behavior_pack\\modern_projection\\projection\\liquid_flow_top_data.py", "behavior_pack\\modern_projection\\projection\\liquid_flow_top.py", "resource_pack/materials/entity.material", "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json", "resource_pack/models/modern_projection/liquid/flowing_water_grey_top_mesh.json", "resource_pack/models/modern_projection/liquid/skeleton.json", "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json", "resource_pack/models/netease_models.json", "resource_pack/shaders/glsl/modern_projection_liquid.vertex", "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_frozen.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_top.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_top_frozen.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey_frozen.fragment", "resource_pack/shaders/glsl/modern_projection_liquid_top.vertex", "resource_pack/shaders/glsl/modern_projection_liquid_top_world.vertex", "resource_pack/shaders/glsl/modern_projection_liquid_world.vertex", "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png", "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png", "tools\\data\\bed_static_model_v1.json", "tools\\data\\copper_chest_static_model_v1.json", "tools\\data\\shulker_static_model_v1.json", "tools\\data\\skull_static_model_v1.json", "tools\\data\\native_actor_materials_nemc_3.9.0.401155.json", "tools\\data\\biome_water_appearance_nemc_3.9.0.401155.json", "tools/data/native_item_contents_r11_raw.json", "tools/data/native_item_contents_r11_session.json", "tools/data/native_item_contents_r11_prepare.log"]}

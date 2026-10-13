@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "checks": [
+    {
+      "name": "provenance",
+      "passed": true,
+      "files": 97
+    },
+    {
+      "command": [
+        "tools/check_block_registry.py",
+        "docs/reference/block_palettes/nemc_3.9.0.401155.json"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_block_traits.py",
+        "tools/data/native_block_metadata_nemc_3.9.0.401155.json",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_entity_blueprints.py",
+        "tools/data/native_block_entity_defaults_nemc_3.9.0.401155.json",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_shulker_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_copper_chest_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_water_interactions.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_static_neighbor_rules.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_native_palette_adapter.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_native_entity_writes.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_native_item_contents.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_liquid_materials.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_liquid_face_textures.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_liquid_shapes.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_liquid_flow_top.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_native_pot_sherds.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_skull_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_flat_item_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/check_snow_blueprints.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_static_plant_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_bed_proxies.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_scaffold_support.py",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "tools/generate_biome_water.py",
+        "--source",
+        "tools/data/biome_water_appearance_nemc_3.9.0.401155.json",
+        "--check"
+      ],
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "scope": "Offline version consistency and generated assets; visual acceptance is separate.",
+  "game_version": "NEMC 3.9.0.401155",
+  "registry_sha256": "6B2D9E961E934A745F5AB30D697CF22FB463FD3792D371A6DD42CB4342062F01",
+  "files": [
+    "docs\\reference\\block_palettes\\nemc_3.9.0.401155.json",
+    "behavior_pack\\modern_projection\\projection\\block_registry_data.py",
+    "behavior_pack\\modern_projection\\projection\\block_traits_data.py",
+    "behavior_pack\\modern_projection\\projection\\entity_defaults_data.py",
+    "behavior_pack\\modern_projection\\projection\\appearance_defaults_data.py",
+    "behavior_pack\\modern_projection\\projection\\frame_rotation_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_appearance.py",
+    "behavior_pack\\modern_projection\\projection\\item_contents_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_sign_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_pot_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_pot_sherd_data.py",
+    "behavior_pack\\modern_projection\\projection\\water_interaction_data.py",
+    "behavior_pack\\modern_projection\\projection\\plant_proxy_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_neighbor_data.py",
+    "behavior_pack\\modern_projection\\projection\\rail_neighbor_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_palette_actor_data.py",
+    "behavior_pack\\modern_projection\\projection\\native_entity_write_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_bed_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_skull_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_chest_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_shulker_data.py",
+    "behavior_pack\\modern_projection\\projection\\scaffold_support_data.py",
+    "behavior_pack\\modern_projection\\projection\\biome_water_data.py",
+    "behavior_pack\\modern_projection\\projection\\liquid_face_texture_data.py",
+    "behavior_pack\\modern_projection\\projection\\liquid_shape_data.py",
+    "behavior_pack\\modern_projection\\projection\\static_frame_item_data.py",
+    "tools\\data\\native_block_metadata_nemc_3.9.0.401155.json",
+    "tools\\data\\native_water_overlays_nemc_3.9.0.401155.json",
+    "tools\\data\\native_snow_overlays_nemc_3.9.0.401155.json",
+    "tools\\data\\native_paired_snow_nemc_3.9.0.401155.json",
+    "tools\\data\\native_block_entity_defaults_nemc_3.9.0.401155.json",
+    "tools\\data\\native_entity_appearances_nemc_3.9.0.401155.json",
+    "tools\\data\\native_entity_renderers_nemc_3.9.0.401155.json",
+    "tools\\data\\native_item_contents_nemc_3.9.0.401155.json",
+    "tools\\data\\native_frame_rotations_nemc_3.9.0.401155.json",
+    "tools\\data\\native_signs_nemc_3.9.0.401155.json",
+    "tools\\data\\native_pot_poses_nemc_3.9.0.401155.json",
+    "tools\\data\\native_pot_sherds_nemc_3.9.0.401155.json",
+    "tools\\data\\native_pot_faces_nemc_3.9.0.401155.json",
+    "tools\\data\\native_water_item_use_nemc_3.9.0.401155.json",
+    "tools\\data\\native_water_extinguish_nemc_3.9.0.401155.json",
+    "tools\\data\\native_water_source_stability_nemc_3.9.0.401155.json",
+    "tools\\data\\native_water_flow_spread_nemc_3.9.0.401155.json",
+    "tools\\data\\native_snow_states_nemc_3.9.0.401155.json",
+    "tools\\data\\static_plant_sources_nemc_3.9.0.401155.json",
+    "tools\\data\\native_static_neighbors_nemc_3.9.0.401155.json",
+    "tools\\data\\native_palette_actors_nemc_3.9.0.401155.json",
+    "tools\\data\\native_bed_capture_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_materials_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_geometry_support_nemc_3.9.0.401155.json",
+    "tools\\data\\native_entity_writes_nemc_3.9.0.401155.json",
+    "tools\\data\\native_dripstone_holdout_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_surface_diagnostics_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_shape_candidate_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_neighbor_shape_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_alias_observations_nemc_3.9.0.401155.json",
+    "tools\\data\\native_liquid_face_textures_nemc_3.9.0.401155.json",
+    "tools\\data\\native_scaffold_supports_nemc_3.9.0.401155.json",
+    "tools\\data\\native_scaffold_topology_nemc_3.9.0.401155.json",
+    "tools\\data\\flat_item_sources_nemc_3.9.0.401155.json",
+    "tools\\data\\native_neighbor_actions_r11_nemc_3.9.0.401155.json",
+    "tools\\data\\native_neighbor_actions_r11_axes_nemc_3.9.0.401155.json",
+    "tools\\data\\liquid_deployment_r12_contract.json",
+    "behavior_pack\\modern_projection\\projection\\liquid_resource_data.py",
+    "tools\\generate_liquid_skeleton_resources.py",
+    "resource_pack\\shaders\\glsl\\modern_projection_liquid_preview_depth.h",
+    "tools\\data\\native_liquid_flow_top_candidate_nemc_3.9.0.401155.json",
+    "tools\\generate_liquid_flow_top.py",
+    "behavior_pack\\modern_projection\\projection\\liquid_flow_top_data.py",
+    "behavior_pack\\modern_projection\\projection\\liquid_flow_top.py",
+    "resource_pack/materials/entity.material",
+    "resource_pack/models/modern_projection/liquid/flowing_water_grey_mesh.json",
+    "resource_pack/models/modern_projection/liquid/flowing_water_grey_top_mesh.json",
+    "resource_pack/models/modern_projection/liquid/skeleton.json",
+    "resource_pack/models/modern_projection/liquid/still_water_grey_mesh.json",
+    "resource_pack/models/netease_models.json",
+    "resource_pack/shaders/glsl/modern_projection_liquid.vertex",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_frozen.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_top.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_flowing_water_grey_top_frozen.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_still_water_grey_frozen.fragment",
+    "resource_pack/shaders/glsl/modern_projection_liquid_top.vertex",
+    "resource_pack/shaders/glsl/modern_projection_liquid_top_world.vertex",
+    "resource_pack/shaders/glsl/modern_projection_liquid_world.vertex",
+    "resource_pack/textures/models/modern_projection/liquid/flowing_water_grey.png",
+    "resource_pack/textures/models/modern_projection/liquid/still_water_grey.png",
+    "tools\\data\\bed_static_model_v1.json",
+    "tools\\data\\copper_chest_static_model_v1.json",
+    "tools\\data\\shulker_static_model_v1.json",
+    "tools\\data\\skull_static_model_v1.json",
+    "tools\\data\\native_actor_materials_nemc_3.9.0.401155.json",
+    "tools\\data\\biome_water_appearance_nemc_3.9.0.401155.json",
+    "tools/data/native_item_contents_r11_raw.json",
+    "tools/data/native_item_contents_r11_session.json",
+    "tools/data/native_item_contents_r11_prepare.log"
+  ]
+}
