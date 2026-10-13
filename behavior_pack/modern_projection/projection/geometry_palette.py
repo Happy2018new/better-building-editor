@@ -2,13 +2,14 @@
 """Native render palettes; document and world block identities stay intact."""
 from .block_registry import canonical, states
 from . import block_registry as registry
-from . import plant_proxy_data as plant_source
+from . import centered_plant_data as centered_source
 from .native_layers import normalize_palette_layers
 from .visible_actor import render_actor
 from .entity_render import INTERNAL_BLOCKS, native_actor, prepare_static_entities
 from .block_traits import is_snow_coverable
 from .render_layout import MAX_LOGICAL_HEIGHT, OVERLAY_BASE
-from .plant_proxy_data import STATIC_PLANT_PROXIES, STATIC_PLANT_MAX_Y
+from .plant_proxy_data import STATIC_PLANT_PROXIES
+from .centered_plant_data import CENTERED_PLANT_PROXIES, CENTERED_PLANT_MAX_Y
 from .static_frame_item import INTERNAL_FRAME_ITEMS, frame_item_proxy
 from .native_appearance import FRAME_NAMES
 from .plant_position import (plant_render, position_sensitive,
@@ -16,10 +17,12 @@ from .plant_position import (plant_render, position_sensitive,
 
 
 def validate_plant_source():
-    if (getattr(plant_source, 'SCHEMA_VERSION', None) != 1 or
-            getattr(plant_source, 'SOURCE_VERSION', None) != registry.source_version() or
-            getattr(plant_source, 'PALETTE_SHA256', None) != registry.fingerprint()):
-        raise ValueError('Native plant proxies need regeneration for this block registry')
+    if (getattr(centered_source, 'SCHEMA_VERSION', None) != 1 or
+            getattr(centered_source, 'STYLE_VERSION', None) != 1 or
+            getattr(centered_source, 'STYLE', None) != 'fixed_centered_snapshot' or
+            getattr(centered_source, 'SOURCE_VERSION', None) != registry.source_version() or
+            getattr(centered_source, 'PALETTE_SHA256', None) != registry.fingerprint()):
+        raise ValueError('Centered plant profiles need regeneration for this block registry')
 
 
 # Snow-covered native leaves can lose faces in CombineBlockPaletteToGeometry.
@@ -43,11 +46,13 @@ PLANT_PROXIES = {
     ('minecraft:large_fern', 0): 'modern_projection:preview_large_fern_bottom',
     ('minecraft:large_fern', 1): 'modern_projection:preview_large_fern_top',
 }
-PLANT_PROXIES.update(STATIC_PLANT_PROXIES)
+PLANT_PROXIES.update(CENTERED_PLANT_PROXIES)
+PLANT_MAX_Y = dict(CENTERED_PLANT_MAX_Y)
 
 # The engine can return item metadata for hidden custom blocks despite
 # register_to_creative_menu=false. Keep render-only IDs out of the picker.
 INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROXIES.values()) +
+                                 list(STATIC_PLANT_PROXIES.values()) +
                                  list(INTERNAL_BLOCKS) +
                                  list(INTERNAL_FRAME_ITEMS) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
@@ -104,7 +109,7 @@ def _append_snow_overlays(common, common_states, extra, extra_states, volume, ov
     for value, positions in extra.items():
         if not is_snow_coverable(value):
             continue
-        max_y = STATIC_PLANT_MAX_Y.get(value)
+        max_y = PLANT_MAX_Y.get(value)
         # Native alpha bounds define complete burial, including exact surface equality.
         selected = []
         for index in positions:

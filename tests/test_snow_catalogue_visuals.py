@@ -106,15 +106,16 @@ class SnowCatalogueVisualTests(unittest.TestCase):
             session = {'game_executable': str(Path(directory)/'Minecraft.Windows.exe')}
             for plant in ('poppy', 'firefly_bush', 'closed_eyeblossom'):
                 with self.subTest(plant=plant):
-                    self.assertIsNone(cross_assets(session, plant))
+                    with patch.dict('projection.geometry_palette.PLANT_PROXIES', {}, clear=True):
+                        self.assertIsNone(cross_assets(session, plant))
 
     def test_registered_proxy_uses_the_selected_version_source_and_rejects_missing_record(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             session = {'game_executable': str(root/'Minecraft.Windows.exe')}
-            source = root/'static_plant_sources_nemc_next.json'
+            source = root/'centered_plant_profiles_nemc_next.json'
             source.write_text(json.dumps({'plants': {}}), encoding='utf8')
-            with patch('generate_static_plant_proxies.SOURCE', source):
+            with patch('generate_centered_plant_profiles.PROFILE', source):
                 with self.assertRaisesRegex(ValueError, 'no versioned alpha source: brown_mushroom'):
                     cross_assets(session, 'brown_mushroom')
 

@@ -304,21 +304,31 @@ def editor_cross_above_snow(crop, camera_state, focus, height, model, texture):
 def cross_assets(session, plant):
     native_name = {'short_grass': 'tallgrass', 'fern': 'fern'}.get(plant)
     native_root = Path(session['game_executable']).parent / 'data/resource_packs/vanilla'
+    from projection.centered_plant_data import CENTERED_PLANT_PROXIES
+    centered = CENTERED_PLANT_PROXIES.get(('minecraft:'+plant, 0))
     if native_name is None:
         from projection.geometry_palette import PLANT_PROXIES
-        from generate_static_plant_proxies import SOURCE
         if ('minecraft:'+plant, 0) not in PLANT_PROXIES:
             return None
-        source = json.loads(SOURCE.read_text(encoding='utf8'))
+        if centered is not None:
+            from generate_centered_plant_profiles import PROFILE, validate_profile
+            source = json.loads(PROFILE.read_bytes())
+        else:
+            from generate_static_plant_proxies import SOURCE
+            source = json.loads(SOURCE.read_text(encoding='utf8'))
         record = source.get('plants', {}).get(plant)
         if record is None:
             raise ValueError('Registered static plant has no versioned alpha source: '+plant)
+        if centered is not None:
+            validate_profile(source, native_root)
         texture_path = native_root/record['texture_path']
-        if hashlib.sha256(texture_path.read_bytes()).hexdigest() != source['sha256']['texture_'+plant]:
+        expected = record['texture_sha256'] if centered is not None else source['sha256']['texture_'+plant]
+        if hashlib.sha256(texture_path.read_bytes()).hexdigest() != expected:
             raise ValueError('Installed static plant alpha source changed: '+plant)
     else:
         texture_path = native_root/'textures/blocks'/(native_name+'.tga')
-    model_path = ROOT / 'resource_pack/models/netease_block' / ('preview_'+plant+'.json')
+    model_path = ROOT / 'resource_pack/models/netease_block' / ((centered.split(':', 1)[1]
+                if centered is not None else 'preview_'+plant)+'.json')
     texture_raw, model_raw = texture_path.read_bytes(), model_path.read_bytes()
     with Image.open(texture_path) as source:
         texture = source.convert('RGBA')

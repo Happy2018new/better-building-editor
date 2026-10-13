@@ -1102,7 +1102,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         self.assertEqual({('minecraft:quartz_block', 0)}, set(observed[0]['states']))
 
     def test_stale_plant_tables_cannot_reuse_cached_or_submit_new_native_geometry(self):
-        from projection import block_registry as registry, block_traits_data, plant_proxy_data
+        from projection import block_registry as registry, block_traits_data, centered_plant_data
         from projection.cell import make_cell
         b = self.bridge
         del b.geometry
@@ -1114,7 +1114,7 @@ class ProjectionLifecycleTests(unittest.TestCase):
         plant = ('minecraft:brown_mushroom', 0)
         snow = registry.from_states('minecraft:snow_layer', {'height': 0, 'covered_bit': True})
         for metadata, value, hash_field, message in (
-                (plant_proxy_data, plant, 'PALETTE_SHA256', 'Native plant proxies need regeneration'),
+                (centered_plant_data, plant, 'PALETTE_SHA256', 'Centered plant profiles need regeneration'),
                 (block_traits_data, make_cell(snow, plant), 'SOURCE_SHA256', 'Native snow capabilities need regeneration')):
             doc = Document((1, 1, 1), {(0, 0, 0): value})
             self.assertTrue(b.geometry(doc))

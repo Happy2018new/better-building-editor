@@ -18,6 +18,7 @@ from projection.render_layout import OVERLAY_BASE, overlay_index
 from projection.debug_blueprints import build
 from projection.entity_render import COPPER_CHEST_PROXIES
 from projection.plant_proxy_data import STATIC_PLANT_PROXIES
+from projection.centered_plant_data import CENTERED_PLANT_PROXIES
 
 
 class GeometryPaletteTests(unittest.TestCase):
@@ -118,7 +119,8 @@ class GeometryPaletteTests(unittest.TestCase):
             self.assertEqual(proxy, model['description']['identifier'])
             self.assertEqual(2, len(model['bones']))
             self.assertEqual(proxy, appearances[proxy]['netease_model'])
-            if proxy not in STATIC_PLANT_PROXIES.values():
+            if (proxy not in STATIC_PLANT_PROXIES.values() and
+                    (proxy not in CENTERED_PLANT_PROXIES.values() or proxy.endswith(':centered_bush'))):
                 self.assertEqual('textures/colormap/grass', appearances[proxy]['use_colormap'])
             else:
                 self.assertNotIn('use_colormap', appearances[proxy])
@@ -147,7 +149,8 @@ class GeometryPaletteTests(unittest.TestCase):
                         self.assertGreaterEqual(min(values), 0., proxy)
                         self.assertLessEqual(max(values), 16., proxy)
                     height = 16 if (proxy.endswith(('_bottom', '_top')) or
-                                    proxy in STATIC_PLANT_PROXIES.values()) else 12.8
+                                    proxy in STATIC_PLANT_PROXIES.values() or
+                                    proxy in CENTERED_PLANT_PROXIES.values()) else 12.8
                     self.assertEqual((0, height), (origin[1], origin[1] + size[1]))
 
     def test_full_cells_keep_background_states_and_actor_data_in_geometry_palette(self):
@@ -260,9 +263,9 @@ class GeometryPaletteTests(unittest.TestCase):
         self.assertEqual((3, 5, OVERLAY_BASE + 7), result['volume'])
         self.assertEqual([overlay_index(104, native_volume), 52], sorted(
             result['common'][('modern_projection:preview_fern', 0)], reverse=True))
-        self.assertEqual([overlay_index(0, native_volume)], result['common'][flower])
+        self.assertNotIn((PLANT_PROXIES[flower], 0), result['common'])
         self.assertEqual(source['extra'], result['extra'])
-        self.assertEqual(states(flower), result['states'][flower])
+        self.assertEqual(states(flower), result['extraStates'][flower])
         self.assertEqual(saved, source)
 
     def test_editor_overlay_stays_bounded_and_does_not_mutate_logical_layers(self):

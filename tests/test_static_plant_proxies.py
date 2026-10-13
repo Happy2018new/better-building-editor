@@ -182,7 +182,7 @@ class StaticPlantProxyTests(unittest.TestCase):
             original = deepcopy(document.to_data())
             rendered = prepare_palette(document.palette_data())
             self.assertEqual(original, document.to_data())
-            self.assertEqual([0], rendered['common'][('modern_projection:preview_'+name, 0)])
+            self.assertEqual([0], rendered['common'][('modern_projection:centered_'+name, 0)])
             self.assertEqual([0], rendered['extra'][('minecraft:water', 0)])
 
     def assert_stale_runtime_table_rejected(self, metadata, fields, snow, message):
@@ -211,11 +211,11 @@ class StaticPlantProxyTests(unittest.TestCase):
                         self.assertEqual(before, document.to_data())
 
     def test_generated_plant_provenance_is_checked_by_full_and_missing_render_routes(self):
-        from projection import plant_proxy_data
-        self.assert_stale_runtime_table_rejected(plant_proxy_data,
+        from projection import centered_plant_data
+        self.assert_stale_runtime_table_rejected(centered_plant_data,
             (('SCHEMA_VERSION', 2), ('SCHEMA_VERSION', None),
              ('SOURCE_VERSION', 'NEMC old'), ('PALETTE_SHA256', '0'*64)),
-            False, 'Native plant proxies need regeneration')
+            False, 'Centered plant profiles need regeneration')
 
     def test_generated_snow_traits_are_checked_before_using_plant_eligibility(self):
         from projection import block_traits_data
@@ -236,7 +236,7 @@ class StaticPlantProxyTests(unittest.TestCase):
         for name in sorted(CANDIDATES):
             with self.subTest(plant=name):
                 material = ('minecraft:'+name, 0)
-                proxy = ('modern_projection:preview_'+name, 0)
+                proxy = ('modern_projection:centered_'+name, 0)
                 document = Document((8, 1, 1), {
                     (height, 0, 0): make_cell(registry.from_states('minecraft:snow_layer',
                         {'height': height, 'covered_bit': True}), material,
