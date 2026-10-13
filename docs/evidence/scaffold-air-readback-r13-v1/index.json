@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "kind": "scaffold_readonly_native_air_height_comparison",
+  "files": [
+    {
+      "path": "report.json",
+      "sha256": "8a75d59e8a52c8be4d14c9b1047556bf6c32d2f5ecc54d4e19addc2095965c93",
+      "bytes": 58545,
+      "source_path": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\artifacts\\item-scaffold-readonly-r13-v1.json",
+      "source_sha256": "598a7778c96acb9ffbfeb7bef8de8077d6156c5bc62d872c5a3f1fa5c325ce2e",
+      "transformations": [
+        "Identity/session token keys replaced by token_sha256; exact token occurrences in nested strings replaced by sha256:<digest>"
+      ]
+    },
+    {
+      "path": "inputs/probe_scaffold_air_readback.py",
+      "sha256": "844bc9dbc4ff9e09c95967903db502edfb4e9c9f58365e09e5ee7f3ad1b9c011",
+      "bytes": 2014,
+      "source_path": "D:\\bbe-r13-scaffold\\tools\\probe_scaffold_air_readback.py",
+      "source_sha256": "844bc9dbc4ff9e09c95967903db502edfb4e9c9f58365e09e5ee7f3ad1b9c011",
+      "transformations": []
+    },
+    {
+      "path": "inputs/server.py",
+      "sha256": "c92637ecfa07161e0cc16e2a308f53921aa03d8af0c3bd6e9fac88f6279c0eeb",
+      "bytes": 1681,
+      "source_path": "D:\\bbe-r13-scaffold\\.runtime\\scaffold-air-readback-r13-v1-server.py",
+      "source_sha256": "c92637ecfa07161e0cc16e2a308f53921aa03d8af0c3bd6e9fac88f6279c0eeb",
+      "transformations": []
+    },
+    {
+      "path": "inputs/test_scaffold_air_readback.py",
+      "sha256": "7033ca5595c52c25a65e59eadc7ce8da17b74c5dd9bce7ed7bbce03f95d846a4",
+      "bytes": 4063,
+      "source_path": "D:\\bbe-r13-scaffold\\tests\\test_scaffold_air_readback.py",
+      "source_sha256": "7033ca5595c52c25a65e59eadc7ce8da17b74c5dd9bce7ed7bbce03f95d846a4",
+      "transformations": []
+    },
+    {
+      "path": "inputs/item_scaffold_readonly_owner_r13.py",
+      "sha256": "6a260ec5035ba8ead55c38e394bf0291479b1bc3b34a85dfe0765341176db800",
+      "bytes": 3581,
+      "source_path": "D:\\bbe-r13-item\\tools\\item_scaffold_readonly_owner_r13.py",
+      "source_sha256": "6a260ec5035ba8ead55c38e394bf0291479b1bc3b34a85dfe0765341176db800",
+      "transformations": []
+    },
+    {
+      "path": "owner-plan.json",
+      "sha256": "6a7431e66d08477dc658deee9303ebf1127f8c7b072431218e11bc1014efb788",
+      "bytes": 230779,
+      "source_path": "D:\\bbe-r13-item\\.runtime\\item-scaffold-readonly-r13-v1\\owner\\plan.json",
+      "source_sha256": "6a7431e66d08477dc658deee9303ebf1127f8c7b072431218e11bc1014efb788",
+      "transformations": []
+    }
+  ],
+  "total_bytes": 300663,
+  "owner": "item-skeleton-r13-v1",
+  "session_id": "24b38560ce6a48f7b71af108d1b7c6db",
+  "native_readonly_cells": 35,
+  "reserve_cells": 34,
+  "world_writes": 0,
+  "native_lifecycle_cases": 0,
+  "images": 0,
+  "capabilities_accepted": 0,
+  "source_sha256": "844bc9dbc4ff9e09c95967903db502edfb4e9c9f58365e09e5ee7f3ad1b9c011",
+  "snippet_sha256": "c92637ecfa07161e0cc16e2a308f53921aa03d8af0c3bd6e9fac88f6279c0eeb",
+  "conclusion": "Both foot+2 and foot+18 return raw null air states; loaded ground returns {}. Height alone does not explain the missing air API states.",
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  }
+}

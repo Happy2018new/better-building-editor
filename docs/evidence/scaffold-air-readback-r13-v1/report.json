@@ -1,0 +1,1420 @@
+{
+  "schema": 1,
+  "owner": "item-skeleton-r13-v1",
+  "session_file": "C:\\Users\\Happy2018new\\.pyreact-debug\\instances\\24b38560ce6a48f7b71af108d1b7c6db\\session.json",
+  "source_sha256": "844bc9dbc4ff9e09c95967903db502edfb4e9c9f58365e09e5ee7f3ad1b9c011",
+  "snippet_sha256": "c92637ecfa07161e0cc16e2a308f53921aa03d8af0c3bd6e9fac88f6279c0eeb",
+  "started_at": "2026-10-13T07:00:29.294020+00:00",
+  "normal_seconds": 30,
+  "outer_seconds": 60,
+  "server_read_attempts": 1,
+  "completed": true,
+  "restored": true,
+  "requests": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "pyreact-debugging",
+            "version": "1"
+          }
+        },
+        "id": 1
+      },
+      "started_at": "2026-10-13T07:00:29.362393+00:00",
+      "response": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {
+          "tools": {}
+        },
+        "serverInfo": {
+          "name": "Minecraft(BE) MCP Server(MCDK)",
+          "version": "0.1.0"
+        }
+      },
+      "finished_at": "2026-10-13T07:00:29.454109+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      },
+      "started_at": "2026-10-13T07:00:29.460355+00:00",
+      "response": null,
+      "finished_at": "2026-10-13T07:00:29.545218+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "params": {},
+        "id": 3
+      },
+      "started_at": "2026-10-13T07:00:29.552240+00:00",
+      "response": {
+        "tools": [
+          {
+            "name": "capture_game_window",
+            "description": "Captures the current Minecraft game window as a 480p JPEG screenshot and returns base64-encoded image data. This is a relatively expensive visual inspection tool and can distract from code/log based debugging. For UI structure, layout, node visibility, or JSON UI validation, prefer the specialized jsonui_debugger tool before using screenshots. Prefer get_latest_logs, get_latest_error_logs, and deterministic file/code checks first; use screenshots only when the task explicitly requires visual confirmation or logs cannot answer the question.",
+            "inputSchema": {
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "execute_code",
+            "description": "Executes provided code in the game environment.\nParameters:\n- code: The code to Py2 execute. Expression code returns the expression value; statement code may assign _result to define the returned value.\n- is_client: Whether to execute on client side (true) or server side (false)\n- direct_return: Whether to wait for and directly return the execution result (default true). Set false to use the legacy async log-based behavior.",
+            "inputSchema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "Code to execute"
+                },
+                "is_client": {
+                  "type": "boolean",
+                  "description": "Execute on client side?"
+                },
+                "direct_return": {
+                  "type": "boolean",
+                  "description": "Directly return execution result instead of relying on logs? Default true."
+                }
+              },
+              "type": "object",
+              "required": [
+                "code"
+              ]
+            }
+          },
+          {
+            "name": "get_latest_error_logs",
+            "description": "Returns stderr error log entries only. May not include all errors (e.g., JSON parsing errors). Use get_latest_logs for complete logs.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest, \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_latest_logs",
+            "description": "Returns the most recent game log entries.\n\nParameters:\n- max_count: Maximum number of log entries to return\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest\n",
+            "inputSchema": {
+              "properties": {
+                "max_count": {
+                  "type": "number",
+                  "description": "Maximum number of log entries to return"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "get_log_range",
+            "description": "Returns a specific range of recent game log entries by index.\n\nLogs are indexed relative to the most recent entry:\n- index 0 refers to the newest log\n- index 1 refers to the second newest log\n- and so on\n\nParameters:\n- start_index: Starting index (inclusive)\n- end_index: Ending index (exclusive)\n- order: \"asc\" for oldest to newest\n         \"desc\" for newest to oldest",
+            "inputSchema": {
+              "properties": {
+                "start_index": {
+                  "type": "number",
+                  "description": "Starting index (inclusive)"
+                },
+                "end_index": {
+                  "type": "number",
+                  "description": "Ending index (exclusive)"
+                },
+                "order": {
+                  "type": "string",
+                  "description": "Order of logs (asc or desc)"
+                }
+              },
+              "type": "object",
+              "required": [
+                "start_index",
+                "end_index"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "jsonui_debugger",
+            "description": "Analyze native Minecraft JSON UI runtime state through a command string. Pass the command in the cmd argument; use cmd=\"/help\" to list available commands and usage. Supports screen listing, node lookup, shallow tree inspection, layout snapshots, and HTML-like pseudo output derived from Minecraft runtime layout/render data for layout reference only. Read-only by default with depth/node limits to avoid large UI dumps.",
+            "inputSchema": {
+              "properties": {
+                "cmd": {
+                  "type": "string",
+                  "description": "Command string. Use /help to list commands and usage."
+                }
+              },
+              "type": "object",
+              "required": [
+                "cmd"
+              ]
+            },
+            "annotations": {
+              "readOnlyHint": true
+            }
+          },
+          {
+            "name": "mc_input",
+            "description": "Drives the Minecraft game window through keyboard and mouse input. One call can run a whole ordered sequence: clicks, long presses, drags, wheel, camera motion, text and waits. Use capture='end' and logs='end' to attach a screenshot and recent logs. Call /help first; /state reports window geometry and whether the game currently holds the pointer. Coordinates default to the 0.0-1.0 percentage space shared with capture_game_window. A successful result means input was dispatched to the system queue, not that the game reacted - verify with capture_game_window or logs. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /state, /run, or /click."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": false,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "mc_profiler",
+            "description": "Profiles Minecraft Python CPU, Python memory, and optional Native CPU through one bounded command tool. Native profiles can correlate instrumented Python-facing and engine C++ Tracy zone hierarchies, including lower-level stages such as data-driven JSON parsing when those zones are emitted. Call /help first. Every capture has a server deadline; temporary memory results expire after 20 idle minutes, and Markdown/SVG reports are explicit exports. Results are filtered and paged; same-kind captures support bounded server-side comparison. Input uses {op:'/...', args:{...}}.",
+            "inputSchema": {
+              "type": "object",
+              "required": [
+                "op"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "description": "Operation such as /help, /doctor, /start, or /query."
+                },
+                "args": {
+                  "type": "object",
+                  "description": "Strict operation-specific arguments."
+                }
+              },
+              "additionalProperties": false
+            },
+            "outputSchema": {
+              "type": "object",
+              "required": [
+                "ok",
+                "op",
+                "job",
+                "data",
+                "error",
+                "warnings",
+                "next_calls"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "job": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "data": {
+                  "type": [
+                    "object",
+                    "array",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "next_calls": {
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "annotations": {
+              "readOnlyHint": false,
+              "destructiveHint": true,
+              "idempotentHint": false,
+              "openWorldHint": true
+            }
+          },
+          {
+            "name": "reload_game",
+            "description": "Reloads the running game environment. Prefer automatic Python/UI/Shader/Material hot reload when available; use this only when a full engine-side refresh is still needed.\n\nParameters:\n- reload_addons: When true, trigger the more complete addon-data + game reload path. Use it for resource changes such as JSON, PNG, audio, or other addon files not handled by automatic hot reload.",
+            "inputSchema": {
+              "properties": {
+                "reload_addons": {
+                  "type": "boolean",
+                  "description": "Reload addon data together with the game environment"
+                }
+              },
+              "type": "object"
+            },
+            "annotations": {
+              "readOnlyHint": false
+            }
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:29.646678+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 4
+      },
+      "started_at": "2026-10-13T07:00:29.657260+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: 'sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc'\nReturn value JSON: \"sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:29.909434+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 5
+      },
+      "started_at": "2026-10-13T07:00:29.920772+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: 'sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc'\nReturn value JSON: \"sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:30.156168+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import json,os,sys,time\nimport mod.server.extraServerApi as api\n_result=json.dumps({'pid':os.getpid(),'token':getattr(sys,'_pyreact_mcdk_session',None),\n 'clock':time.time(),'version':api.GetMinecraftVersion()})\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 6
+      },
+      "started_at": "2026-10-13T07:00:30.163138+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: str\nReturn repr: '{\"token\": \"sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc\", \"version\": \"1.21.120.0\", \"pid\": 53792, \"clock\": 1791874830.333}'\nReturn value JSON: \"{\\\"token\\\": \\\"sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc\\\", \\\"version\\\": \\\"1.21.120.0\\\", \\\"pid\\\": 53792, \\\"clock\\\": 1791874830.333}\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:30.370947+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "import sys\n_result = getattr(sys, '_pyreact_mcdk_session', None)",
+            "is_client": true,
+            "direct_return": true
+          }
+        },
+        "id": 7
+      },
+      "started_at": "2026-10-13T07:00:30.388443+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on client.\nReturn type: str\nReturn repr: 'sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc'\nReturn value JSON: \"sha256:ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc\"",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:30.619052+00:00"
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "name": "execute_code",
+          "arguments": {
+            "code": "def _scaffold_air_readback():\n import math\n import mod.server.extraServerApi as api\n result={'schema':1,'kind':'scaffold_raw_air_readback','method':'readonly native ground and17reserve offsets at foot+2 and foot+18; raw states preserved; v1','runtime':api.GetMinecraftVersion(),\n         'player':None,'foot':None,'dimension':None,'ground':None,'planes':[],'mutations':[]}\n players=api.GetPlayerList()\n if not players:return result\n player=players[0]\n factory=api.GetEngineCompFactory()\n foot=factory.CreatePos(player).GetFootPos()\n dimension=factory.CreateDimension(player).GetEntityDimensionId()\n result.update({'player':player,'foot':foot,'dimension':dimension})\n if foot is None or not -64<=foot[1]<=320:return result\n base=tuple(int(math.floor(value)) for value in foot)\n info=factory.CreateBlockInfo(api.GetLevelId())\n state=factory.CreateBlockState(api.GetLevelId())\n def read(pos):\n  return {'pos':pos,'front':info.GetBlockNew(pos,dimension),\n          'states':state.GetBlockStates(pos,dimension),'liquid':info.GetLiquidBlock(pos,dimension)}\n result['ground']=read((base[0],base[1]-1,base[2]))\n for height in (2, 18):\n  origin=(base[0]+4,base[1]+height,base[2]+4)\n  plane={'height_above_foot':height,'origin':origin,'cells':[]}\n  for offset in ((0, -1, 0), (-1, -1, 0), (1, -1, 0), (0, -1, -1), (0, -1, 1), (0, 0, 0), (-1, 0, 0), (1, 0, 0), (0, 0, -1), (0, 0, 1), (0, 1, 0), (-1, 1, 0), (1, 1, 0), (0, 1, -1), (0, 1, 1), (0, 2, 0), (0, 3, 0)):\n   pos=tuple(origin[index]+offset[index] for index in range(3))\n   plane['cells'].append(dict(read(pos),offset=offset))\n  result['planes'].append(plane)\n return result\n_result=_scaffold_air_readback()\ndel _scaffold_air_readback\n",
+            "is_client": false,
+            "direct_return": true
+          }
+        },
+        "id": 8
+      },
+      "started_at": "2026-10-13T07:00:30.626706+00:00",
+      "background": {
+        "foreground": {
+          "hwnd": 34802164,
+          "pid": 46908,
+          "process": "ShellHost.exe",
+          "identity": "134363419314736789",
+          "title": "\u5feb\u901f\u8bbe\u7f6e",
+          "visible": true,
+          "minimized": false
+        },
+        "windows": [
+          {
+            "hwnd": 22549236,
+            "pid": 53792,
+            "process": "Minecraft.Windows.exe",
+            "title": "(1994, 1105) Minecraft",
+            "x": 283,
+            "y": 264,
+            "width": 1994,
+            "height": 1105,
+            "minimized": false,
+            "noactivate": true
+          }
+        ],
+        "background_safe": true,
+        "window_noactivate": true
+      },
+      "window": {
+        "hwnd": 22549236,
+        "pid": 53792,
+        "process": "Minecraft.Windows.exe",
+        "title": "(1994, 1105) Minecraft",
+        "x": 283,
+        "y": 264,
+        "width": 1994,
+        "height": 1105,
+        "minimized": false,
+        "noactivate": true
+      },
+      "response": {
+        "isError": false,
+        "content": [
+          {
+            "text": "Code executed successfully on server.\nReturn type: dict\nReturn repr: {'schema': 1, 'kind': 'scaffold_raw_air_readback', 'mutations': [], 'method': 'readonly native ground and17reserve offsets at foot+2 and foot+18; raw states preserved; v1', 'player': '-8589934591', 'planes': [{'origin': (4, -58, 4), 'cells': [{'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -59, 4), 'liquid': None, 'offset': (0, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -59, 4), 'liquid': None, 'offset': (-1, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -59, 4), 'liquid': None, 'offset': (1, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -59, 3), 'liquid': None, 'offset': (0, -1, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -59, 5), 'liquid': None, 'offset': (0, -1, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -58, 4), 'liquid': None, 'offset': (0, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -58, 4), 'liquid': None, 'offset': (-1, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -58, 4), 'liquid': None, 'offset': (1, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -58, 3), 'liquid': None, 'offset': (0, 0, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -58, 5), 'liquid': None, 'offset': (0, 0, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -57, 4), 'liquid': None, 'offset': (0, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -57, 4), 'liquid': None, 'offset': (-1, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -57, 4), 'liquid': None, 'offset': (1, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -57, 3), 'liquid': None, 'offset': (0, 1, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -57, 5), 'liquid': None, 'offset': (0, 1, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -56, 4), 'liquid': None, 'offset': (0, 2, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -55, 4), 'liquid': None, 'offset': (0, 3, 0)}], 'height_above_foot': 2}, {'origin': (4, -42, 4), 'cells': [{'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -43, 4), 'liquid': None, 'offset': (0, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -43, 4), 'liquid': None, 'offset': (-1, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -43, 4), 'liquid': None, 'offset': (1, -1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -43, 3), 'liquid': None, 'offset': (0, -1, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -43, 5), 'liquid': None, 'offset': (0, -1, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -42, 4), 'liquid': None, 'offset': (0, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -42, 4), 'liquid': None, 'offset': (-1, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -42, 4), 'liquid': None, 'offset': (1, 0, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -42, 3), 'liquid': None, 'offset': (0, 0, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -42, 5), 'liquid': None, 'offset': (0, 0, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -41, 4), 'liquid': None, 'offset': (0, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (3, -41, 4), 'liquid': None, 'offset': (-1, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (5, -41, 4), 'liquid': None, 'offset': (1, 1, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -41, 3), 'liquid': None, 'offset': (0, 1, -1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -41, 5), 'liquid': None, 'offset': (0, 1, 1)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -40, 4), 'liquid': None, 'offset': (0, 2, 0)}, {'front': {'aux': 0, 'name': 'minecraft:air'}, 'states': None, 'pos': (4, -39, 4), 'liquid': None, 'offset': (0, 3, 0)}], 'height_above_foot': 18}], 'foot': (0.5, -60.0, 0.5), 'runtime': '1.21.120.0', 'dimension': 0, 'ground': {'front': {'aux': 0, 'name': 'minecraft:grass_block'}, 'states': {}, 'pos': (0, -61, 0), 'liquid': None}}\nReturn value JSON: {\n  \"dimension\": 0,\n  \"foot\": [\n    0.5,\n    -60.0,\n    0.5\n  ],\n  \"ground\": {\n    \"front\": {\n      \"aux\": 0,\n      \"name\": \"minecraft:grass_block\"\n    },\n    \"liquid\": null,\n    \"pos\": [\n      0,\n      -61,\n      0\n    ],\n    \"states\": {}\n  },\n  \"kind\": \"scaffold_raw_air_readback\",\n  \"method\": \"readonly native ground and17reserve offsets at foot+2 and foot+18; raw states preserved; v1\",\n  \"mutations\": [],\n  \"planes\": [\n    {\n      \"cells\": [\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            0\n          ],\n          \"pos\": [\n            4,\n            -59,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            -1,\n            0\n          ],\n          \"pos\": [\n            3,\n            -59,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            -1,\n            0\n          ],\n          \"pos\": [\n            5,\n            -59,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -59,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            1\n          ],\n          \"pos\": [\n            4,\n            -59,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            0\n          ],\n          \"pos\": [\n            4,\n            -58,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            0,\n            0\n          ],\n          \"pos\": [\n            3,\n            -58,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            0,\n            0\n          ],\n          \"pos\": [\n            5,\n            -58,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -58,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            1\n          ],\n          \"pos\": [\n            4,\n            -58,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            0\n          ],\n          \"pos\": [\n            4,\n            -57,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            1,\n            0\n          ],\n          \"pos\": [\n            3,\n            -57,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            1,\n            0\n          ],\n          \"pos\": [\n            5,\n            -57,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -57,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            1\n          ],\n          \"pos\": [\n            4,\n            -57,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            2,\n            0\n          ],\n          \"pos\": [\n            4,\n            -56,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            3,\n            0\n          ],\n          \"pos\": [\n            4,\n            -55,\n            4\n          ],\n          \"states\": null\n        }\n      ],\n      \"height_above_foot\": 2,\n      \"origin\": [\n        4,\n        -58,\n        4\n      ]\n    },\n    {\n      \"cells\": [\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            0\n          ],\n          \"pos\": [\n            4,\n            -43,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            -1,\n            0\n          ],\n          \"pos\": [\n            3,\n            -43,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            -1,\n            0\n          ],\n          \"pos\": [\n            5,\n            -43,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -43,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            -1,\n            1\n          ],\n          \"pos\": [\n            4,\n            -43,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            0\n          ],\n          \"pos\": [\n            4,\n            -42,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            0,\n            0\n          ],\n          \"pos\": [\n            3,\n            -42,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            0,\n            0\n          ],\n          \"pos\": [\n            5,\n            -42,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -42,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            0,\n            1\n          ],\n          \"pos\": [\n            4,\n            -42,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            0\n          ],\n          \"pos\": [\n            4,\n            -41,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            -1,\n            1,\n            0\n          ],\n          \"pos\": [\n            3,\n            -41,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            1,\n            1,\n            0\n          ],\n          \"pos\": [\n            5,\n            -41,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            -1\n          ],\n          \"pos\": [\n            4,\n            -41,\n            3\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            1,\n            1\n          ],\n          \"pos\": [\n            4,\n            -41,\n            5\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            2,\n            0\n          ],\n          \"pos\": [\n            4,\n            -40,\n            4\n          ],\n          \"states\": null\n        },\n        {\n          \"front\": {\n            \"aux\": 0,\n            \"name\": \"minecraft:air\"\n          },\n          \"liquid\": null,\n          \"offset\": [\n            0,\n            3,\n            0\n          ],\n          \"pos\": [\n            4,\n            -39,\n            4\n          ],\n          \"states\": null\n        }\n      ],\n      \"height_above_foot\": 18,\n      \"origin\": [\n        4,\n        -42,\n        4\n      ]\n    }\n  ],\n  \"player\": \"-8589934591\",\n  \"runtime\": \"1.21.120.0\",\n  \"schema\": 1\n}",
+            "type": "text"
+          }
+        ]
+      },
+      "finished_at": "2026-10-13T07:00:30.853231+00:00"
+    }
+  ],
+  "network_requests": [
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:29.370381+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349625.6941542,
+      "finished_at": "2026-10-13T07:00:29.446981+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:29.466907+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349625.789165,
+      "finished_at": "2026-10-13T07:00:29.537781+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:29.562278+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349625.8869485,
+      "finished_at": "2026-10-13T07:00:29.636987+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:29.727497+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349626.0538048,
+      "finished_at": "2026-10-13T07:00:29.899169+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:29.970677+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349626.2946356,
+      "finished_at": "2026-10-13T07:00:30.148905+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:30.210212+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349626.5347986,
+      "finished_at": "2026-10-13T07:00:30.364642+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:30.436140+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349626.759622,
+      "finished_at": "2026-10-13T07:00:30.611659+00:00"
+    },
+    {
+      "http_method": "POST",
+      "started_at": "2026-10-13T07:00:30.688589+00:00",
+      "timeout_seconds": 10.0,
+      "deadline_monotonic": 349627.0136169,
+      "finished_at": "2026-10-13T07:00:30.841942+00:00"
+    },
+    {
+      "http_method": "DELETE",
+      "started_at": "2026-10-13T07:00:30.861760+00:00",
+      "timeout_seconds": 2,
+      "deadline_monotonic": 349619.1887774,
+      "finished_at": "2026-10-13T07:00:30.949216+00:00"
+    }
+  ],
+  "errors": [],
+  "cleanup_errors": [],
+  "no_world_or_entity_mutation": true,
+  "no_items_or_inventory": true,
+  "no_ui_or_capture": true,
+  "identity": {
+    "token_sha256": "ecda61998cb04ba4e09fecc7fcbf8ce61f713bc983b73885962a5240fc3283bc",
+    "version": "1.21.120.0",
+    "pid": 53792,
+    "clock": 1791874830.333
+  },
+  "raw": {
+    "dimension": 0,
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "ground": {
+      "front": {
+        "aux": 0,
+        "name": "minecraft:grass_block"
+      },
+      "liquid": null,
+      "pos": [
+        0,
+        -61,
+        0
+      ],
+      "states": {}
+    },
+    "kind": "scaffold_raw_air_readback",
+    "method": "readonly native ground and17reserve offsets at foot+2 and foot+18; raw states preserved; v1",
+    "mutations": [],
+    "planes": [
+      {
+        "cells": [
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "pos": [
+              4,
+              -59,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              -1,
+              0
+            ],
+            "pos": [
+              3,
+              -59,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              -1,
+              0
+            ],
+            "pos": [
+              5,
+              -59,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              -1
+            ],
+            "pos": [
+              4,
+              -59,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              1
+            ],
+            "pos": [
+              4,
+              -59,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "pos": [
+              4,
+              -58,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              0,
+              0
+            ],
+            "pos": [
+              3,
+              -58,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              0,
+              0
+            ],
+            "pos": [
+              5,
+              -58,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              -1
+            ],
+            "pos": [
+              4,
+              -58,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              1
+            ],
+            "pos": [
+              4,
+              -58,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              0
+            ],
+            "pos": [
+              4,
+              -57,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              1,
+              0
+            ],
+            "pos": [
+              3,
+              -57,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              1,
+              0
+            ],
+            "pos": [
+              5,
+              -57,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              -1
+            ],
+            "pos": [
+              4,
+              -57,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              1
+            ],
+            "pos": [
+              4,
+              -57,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              2,
+              0
+            ],
+            "pos": [
+              4,
+              -56,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              3,
+              0
+            ],
+            "pos": [
+              4,
+              -55,
+              4
+            ],
+            "states": null
+          }
+        ],
+        "height_above_foot": 2,
+        "origin": [
+          4,
+          -58,
+          4
+        ]
+      },
+      {
+        "cells": [
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "pos": [
+              4,
+              -43,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              -1,
+              0
+            ],
+            "pos": [
+              3,
+              -43,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              -1,
+              0
+            ],
+            "pos": [
+              5,
+              -43,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              -1
+            ],
+            "pos": [
+              4,
+              -43,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              -1,
+              1
+            ],
+            "pos": [
+              4,
+              -43,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "pos": [
+              4,
+              -42,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              0,
+              0
+            ],
+            "pos": [
+              3,
+              -42,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              0,
+              0
+            ],
+            "pos": [
+              5,
+              -42,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              -1
+            ],
+            "pos": [
+              4,
+              -42,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              0,
+              1
+            ],
+            "pos": [
+              4,
+              -42,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              0
+            ],
+            "pos": [
+              4,
+              -41,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              -1,
+              1,
+              0
+            ],
+            "pos": [
+              3,
+              -41,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              1,
+              1,
+              0
+            ],
+            "pos": [
+              5,
+              -41,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              -1
+            ],
+            "pos": [
+              4,
+              -41,
+              3
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              1,
+              1
+            ],
+            "pos": [
+              4,
+              -41,
+              5
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              2,
+              0
+            ],
+            "pos": [
+              4,
+              -40,
+              4
+            ],
+            "states": null
+          },
+          {
+            "front": {
+              "aux": 0,
+              "name": "minecraft:air"
+            },
+            "liquid": null,
+            "offset": [
+              0,
+              3,
+              0
+            ],
+            "pos": [
+              4,
+              -39,
+              4
+            ],
+            "states": null
+          }
+        ],
+        "height_above_foot": 18,
+        "origin": [
+          4,
+          -42,
+          4
+        ]
+      }
+    ],
+    "player": "-8589934591",
+    "runtime": "1.21.120.0",
+    "schema": 1
+  },
+  "protected_sources_unchanged": true,
+  "elapsed_seconds": 3.4030106000136584,
+  "finished_at": "2026-10-13T07:00:32.697023+00:00"
+}

@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "prepared_not_executed",
+  "kind": "scaffold_single_air_api_control",
+  "method": "single nearby natural air to stone to explicit dual-layer air; native raw states; synchronous restore; v1",
+  "prepared_at": "2026-10-13T07:12:22.779172+00:00",
+  "runtime": "1.21.120.0",
+  "config": {
+    "player": "-8589934591",
+    "foot": [
+      0.5,
+      -60.0,
+      0.5
+    ],
+    "dimension": 0,
+    "pos": [
+      4,
+      -58,
+      4
+    ]
+  },
+  "normal_seconds": 15,
+  "outer_seconds": 45,
+  "cleanup_reserve_seconds": 15,
+  "server_execute_attempts": 1,
+  "cold_starts_permitted": 0,
+  "background_only": true,
+  "real_input": false,
+  "resize": false,
+  "native_scope": "one nearby raw-air API control only; no lifecycle or capability acceptance",
+  "sequence": [
+    "raw natural air and loaded ground",
+    "stone legacy aux0 updateNeighbors=False",
+    "native stone positive states={}",
+    "explicit dual-layer air palette",
+    "native raw air readback",
+    "finally explicit dual-layer air and raw readback"
+  ],
+  "qa": {
+    "agent": "/root/qa_r13",
+    "source_review": "PASS",
+    "meaningful_tests": 4,
+    "python2_compile": "PASS"
+  },
+  "source_pins": {
+    "probe_scaffold_single_air_control.py": "eab0e51d24e1d29c16914d292cbbb55630a83190464d0cc7cfd1a13ee04bcec4",
+    "server.py": "cb3f8d2bcbfe353634cd0fa8c50e9ce15e9f556da3b89cbfee33d7423efa2259",
+    "test_scaffold_single_air_control.py": "11447b616cc4e14f14117cb64e4b60edd8711c5672fef76706612cca941fc7d8"
+  },
+  "owned_route": "Not bound: prior item instance stopped and liquid reservation conflicts. Before execution create a new independent exact owner/session/PID/creation-identity/server-token/source closure with this payload fingerprint.",
+  "deadline_behavior": "Do not insert into an already frozen experiment or restart for this prepared artifact. If transport times out, record uncertainty; verify or stop only the exact disposable owner. Never call result completed/restored without native receipt.",
+  "raw_air_state_policy": "Preserve None and {}; do not infer registry values. Restored describes physical dual-layer dry air; raw_states_equal_initial records API-value equivalence separately.",
+  "capabilities_accepted": 0,
+  "acceptance": {
+    "editor": "pending",
+    "full": "pending",
+    "missing": "pending"
+  }
+}
