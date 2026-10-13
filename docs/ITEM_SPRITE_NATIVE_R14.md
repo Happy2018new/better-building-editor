@@ -269,3 +269,24 @@ worktree's launch resources; custom sprite materials remain unchanged. The
 exact variant material file is bound by launch/source hashes, and the original
 file must be restored after the game exits. This is a diagnostic comparison,
 not a production material change or visual acceptance.
+
+Frozen material control `item-product-r14-v10`, source `4e6e488a`, completed
+in 480.34s with actual frame aux2 readbacks and successful client typed items.
+Both native item bodies remain absent with the two global overrides removed.
+Block render distance is 205.856 blocks and entity render distance restores
+from the projection's 256-block lease to 72 blocks, greater than fixture
+distance. All six cells and owned processes restore; the wrapper additionally
+verified exact original material byte restoration. Its analyzer exits nonzero
+for unavailable native items, preserving the failed reference. A frozen replay
+must use the retained variant material bytes during analysis, then restore the
+original bytes; restored current resources intentionally fail variant binding.
+
+The independent successful r10b native reference visibly contains a sword and
+records a player foot only 3.5 blocks from its frame. The next diagnostic keeps
+the full resource pack and all prospective camera/scoring rules, but moves
+only the owned disposable player onto a confirmed-air platform close to the
+native frames. Native block data, original/during player foot, platform write
+return and actual restored-air reads are retained. Teleport may reset a
+departed camera, so its same declared pose is reapplied and independently
+checked before sampling; no fitted camera offset is introduced. Player foot
+and platform are restored along with the six frame/support cells.

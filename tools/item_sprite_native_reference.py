@@ -9,10 +9,13 @@ PREPARE = '''import sys,json
 from modern_projection.projection.cell import AIR
 from modern_projection.projection.nbt_spatial import root_payload,scalar,field_key
 rows=%r
+platform=%r
 assert not hasattr(sys,'_item_native_reference')
 for row in rows:
  for key in ('position','support'):
   assert adapter.read(tuple(row[key]))==AIR
+if platform is not None:
+ assert adapter.read(tuple(platform))==AIR
 items=adapter.factory.CreateItem(players[0])
 player_info=adapter.factory.CreateBlockInfo(players[0])
 rot=adapter.factory.CreateRot(players[0])
@@ -22,6 +25,18 @@ slot=next((index for index in range(36) if not items.GetPlayerItem(item_type,ind
 assert slot is not None
 sys._item_native_reference={'changed':[],'rows':rows,'dimension':adapter.dimension,
  'slot':slot,'rotation':rot.GetRot()}
+if platform is not None:
+ pos=adapter.factory.CreatePos(players[0])
+ sys._item_native_reference['foot_before']=pos.GetFootPos()
+ sys._item_native_reference['changed'].append(tuple(platform))
+ wrote=adapter.write(tuple(platform),('minecraft:stone',0))
+ assert adapter.read(tuple(platform))==('minecraft:stone',0)
+ foot=(platform[0]+.5,platform[1]+1.,platform[2]+.5)
+ assert pos.SetFootPos(foot)
+ actual=pos.GetFootPos()
+ assert max(abs(actual[axis]-foot[axis]) for axis in range(3))<.002
+ sys._item_native_reference['player_placement']={'platform':platform,'write_return':wrote,
+  'foot_before':sys._item_native_reference['foot_before'],'foot_during':actual}
 assert rot.SetRot((0.,0.))
 for row in rows:
  support,position=tuple(row['support']),tuple(row['position'])
@@ -38,7 +53,8 @@ for row in rows:
 assert items.SetInvItemNum(slot,0)
 assert rot.SetRot(sys._item_native_reference['rotation'])
 _result=json.dumps({'rows':rows,'slot':slot,'coordinates_confirmed_air':True,
- 'placement':'native PlayerUseItemToPos on support face2'})
+ 'placement':'native PlayerUseItemToPos on support face2',
+ 'player_placement':sys._item_native_reference.get('player_placement')})
 '''
 
 FILL = '''import sys,json
@@ -117,18 +133,28 @@ items=adapter.factory.CreateItem(players[0])
 rot=adapter.factory.CreateRot(players[0])
 assert items.SetInvItemNum(saved['slot'],0)
 assert rot.SetRot(saved['rotation'])
+foot_restore=None
+if 'foot_before' in saved:
+ pos=adapter.factory.CreatePos(players[0])
+ requested=tuple(saved['foot_before'])
+ returned=pos.SetFootPos(requested)
+ actual=pos.GetFootPos()
+ foot_restore={'requested':requested,'actual':actual,'return':returned,
+  'passed':max(abs(actual[axis]-requested[axis]) for axis in range(3))<.002}
 results=[]
 for position in reversed(saved['changed']):
  wrote=adapter.write(position,AIR)
  actual=adapter.read(position)
  results.append({'position':position,'write_return':wrote,'actual':actual,'passed':actual==AIR})
 assert all(row['passed'] for row in results),results
+assert foot_restore is None or foot_restore['passed'],foot_restore
 del sys._item_native_reference
-_result={'passed':True,'rows':results}
+_result={'passed':True,'rows':results,'player_foot':foot_restore}
 '''
 
 
-def run(check, server, session, closeup, world_capture, state_source, camera_source, folder, wgc, persist):
+def run(check, server, session, closeup, world_capture, state_source, camera_source, folder, wgc, persist,
+        native_player_near=False):
     reference = {'schema': 1, 'completed': False, 'restored': False, 'captures': [],
                  'lighting': 'Private owned world, frozen clear noon; native materials retain their engine lighting',
                  'routes': ['editor', 'world', 'world_missing', 'native'], 'cleanup_errors': []}
@@ -157,8 +183,21 @@ def run(check, server, session, closeup, world_capture, state_source, camera_sou
     try:
         # Mark pending before the call: it may partially mutate and fail.
         initialized = True
-        result = server(PREPARE % rows)
+        platform = None
+        if native_player_near:
+            import math
+            platform = (int(math.floor(closeup['world_camera']['position'][0])),
+                        rows[0]['position'][1]-1, rows[0]['position'][2]-4)
+        reference['declared_player_platform'] = platform
+        result = server(PREPARE % (rows, platform))
         reference['frame_setup'] = json.loads(result) if isinstance(result, str) else result
+        if native_player_near:
+            # Teleport can reset a departed camera; reapply only its declared pose.
+            check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
+                "assert cam.SetCameraPos(%r)\nassert cam.SetCameraRotation(%r)\n_result=True" %
+                (tuple(closeup['world_camera']['position']),tuple(closeup['world_camera']['rotation'])))
+            check.wait('declared native near-player camera',
+                lambda value:camera_matches(value,closeup['world_camera']),lambda:check.run(camera_source))
         persist()
         check.wait('native frames replicated to client', lambda value: value is True,
             lambda: check.run("info=b.factory.CreateBlockInfo(b.level)\npositions="+repr(rows)+"\n"

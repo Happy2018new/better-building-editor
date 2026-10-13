@@ -34,7 +34,8 @@ _result={'source_fixture':IDENTITY,'source_pair':pair,'positions':positions,'siz
 '''
 
 
-def run(check, client, session, report, state_source, camera_source, output, wgc, save, native_reference=False):
+def run(check, client, session, report, state_source, camera_source, output, wgc, save, native_reference=False,
+        native_player_near=False):
     folder = output/'closeup'
     folder.mkdir()
     closeup = {'schema': 1, 'completed': False, 'captures': [], 'frames_per_route': FRAMES,
@@ -158,7 +159,8 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         world_capture('world_restored')
         if native_reference:
             from item_sprite_native_reference import run as run_reference
-            run_reference(check,server,session,closeup,world_capture,state_source,camera_source,folder,wgc,persist)
+            run_reference(check,server,session,closeup,world_capture,state_source,camera_source,folder,wgc,persist,
+                          native_player_near)
         closeup['completed'] = True
     finally:
         if wrote:
