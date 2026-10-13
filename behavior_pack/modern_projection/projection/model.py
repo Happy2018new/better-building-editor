@@ -555,15 +555,14 @@ class Editor(object):
         )
 
     def _copy(self):
-        self.selection = close_group_selection(self.document, self.selection)
-        self.sync_selection_bounds()
-        lo, hi = bounds(self.selection)
+        selection = close_group_selection(self.document, self.selection)
+        lo, hi = bounds(selection)
         self.clipboard = {
             "size": tuple(hi[i] - lo[i] + 1 for i in range(3)),
             "origin": lo,
             "blocks": dict(
                 (tuple(p[i] - lo[i] for i in range(3)), self.document.get(p))
-                for p in self.selection
+                for p in selection
             ),
         }
 
@@ -775,8 +774,9 @@ class Editor(object):
         if group == "transform":
             return self._transform(tool)
         selected_layer = None if group == "transform" or tool in ("copy", "cut", "gravity", "foundation", "heightmap") or (self.edit_layer == 2 and tool != 'erase') else self.edit_layer
-        self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
-        self.sync_selection_bounds()
+        if tool != "copy":
+            self.selection = close_group_selection(self.document, self.selection, index=selected_layer)
+            self.sync_selection_bounds()
         if not self.selection:
             raise ValueError("选区为空，请先框选或全选")
         lo, hi = bounds(self.selection)
@@ -796,7 +796,7 @@ class Editor(object):
         doc = self.document
         if tool in ("copy", "cut"):
             self._copy()
-            self.message = "已复制 %d 格" % len(self.selection)
+            self.message = "已复制 %d 格" % len(self.clipboard['blocks'])
             return dict((p, AIR) for p in self.selection) if tool == "cut" else None
         if tool == "flood":
             if self.start not in self.selection:
