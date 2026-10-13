@@ -61,7 +61,84 @@ def find_session():
     return rows[0] if rows else None
 
 
-def main():
+def world_matrix(check, client, session, report):
+    saved=check.run("_result={'origin':s.origin,'missing':s.projection_missing,'outline':s.projection_outline}")
+    position=None
+    wrote=False
+    def server(code):
+        response=client.call('execute_code',{'code':
+            "import mod.server.extraServerApi as serverApi\nplayers=serverApi.GetPlayerList()\n"
+            "assert len(players)==1\nfrom modern_projection.server_system import WorldAdapter\n"
+            "adapter=WorldAdapter(players[0])\n"+code,'is_client':False,'direct_return':True})
+        if response.get('isError'):
+            raise RuntimeError(response)
+        return return_value(response)
+    state_source='''companion=b.projection_liquid
+owners=getattr(companion,'companions',(companion,)) if companion else ()
+item_owners=[item for item in owners if item.__class__.__name__=='ItemProjection']
+_result=json.dumps({'active':s.projection_active,'preparing':bool(b.preparing_entity),
+ 'groups':sum(len(item.renderer.active) for item in item_owners),
+ 'slots':sum(int(row['group'].uniforms[3][1]) for item in item_owners for row in item.renderer.active.values()),
+ 'error':str(companion.error or companion.renderer.error) if companion and (companion.error or companion.renderer.error) else '',
+ 'occupied':list(b.projection_occupancy.state) if b.projection_occupancy else None,
+ 'pending_pair':bool(b.projection_occupancy and b.projection_occupancy.pending_pair)})
+'''
+    def sample(label, expected_slots):
+        state=check.wait(label,lambda value:value['active'] and not value['preparing']
+                         and value['slots']==expected_slots and not value['error'] and not value['pending_pair'],
+                         lambda:check.run(state_source))
+        save(label+'.state.json',state)
+        image=capture(session['session_file'],OWNER,OUTPUT/(label+'.png'),WGC)
+        report['captures'].append({'label':label,'capture':image,'state':state})
+        save('report.json',report)
+        return state
+    try:
+        position=check.run("foot=b.player_origin()\ns.origin=(foot[0]+4,foot[1]+6,foot[2]+4)\n"
+            "s.projection_missing=False\ns.projection_outline=False\ns.emit()\n"
+            "b.project()\n_result=tuple(s.origin[axis]+(10,2,3)[axis] for axis in range(3))")
+        check.wait('world item build',lambda value:value['active'] and not value['preparing']
+                   and value['slots']==4 and not value['error'],lambda:check.run(state_source))
+        check.run("navigator.pop()\n_result=True")
+        check.wait('closed editor',lambda value:not value['open'] and not value['transition'],check.navigation)
+        check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
+            "center=tuple(s.origin[axis]+s.editor.document.size[axis]*.5 for axis in range(3))\n"
+            "camera_pos=(center[0],center[1]+6.,center[2]-28.)\n"
+            "rotation=api.GetRotFromDir(tuple(center[axis]-camera_pos[axis] for axis in range(3)))\n"
+            "cam.SetCameraPos(camera_pos)\ncam.SetCameraRotation((rotation[0],rotation[1]+180.,0.))\n_result=True")
+        time.sleep(1.)
+        for index in range(3):
+            time.sleep(.8)
+            sample('world_full_'+str(index),4)
+        check.run('b.toggle_missing()\n_result=True')
+        sample('world_missing_air',4)
+        server("from modern_projection.projection.cell import AIR\n"
+               "position="+repr(tuple(position))+"\nassert adapter.read(position)==AIR\n_result=True")
+        # The only native block mutation is a confirmed-air cell in this owned test world.
+        wrote=True
+        server("adapter.write("+repr(tuple(position))+",('minecraft:stone',0))\n_result=True")
+        report['world_test_cell']=list(position)
+        save('report.json',report)
+        check.run('b.projection_interaction('+repr(tuple(position))+')\n_result=True')
+        sample('world_missing_occupied',3)
+        server("adapter.write("+repr(tuple(position))+",('minecraft:air',0))\n_result=True")
+        wrote=False
+        check.run('b.projection_interaction('+repr(tuple(position))+')\n_result=True')
+        sample('world_missing_restored',4)
+        report['native_world_acceptance']='fresh full/missing/occupied/restored captures require pixel scoring'
+    finally:
+        if wrote:
+            server("adapter.write("+repr(tuple(position))+",('minecraft:air',0))\n_result=True")
+        if position is not None:
+            report['world_cell_restored']=server("from modern_projection.projection.cell import AIR\n_result=adapter.read("+repr(tuple(position))+")==AIR")
+        check.run("b.stop_projection()\ncam=b.factory.CreateCamera(b.level)\n"
+                  "cam.ResetCameraPos()\ncam.UnDepartCamera()\n"
+                  "s.origin="+repr(tuple(saved['origin']))+"\ns.projection_missing="+repr(saved['missing'])+"\n"
+                  "s.projection_outline="+repr(saved['outline'])+"\nowner.open_workspace()\n_result=True")
+        report['world_models_released']=check.run('_result=b.projection_liquid is None and not b.projection_retired_liquids')
+        save('report.json',report)
+
+
+def main(with_world=False):
     OUTPUT.mkdir(parents=True, exist_ok=False)
     for path, expected in PINS.items():
         if sha(path)!=expected:
@@ -155,9 +232,16 @@ def main():
             native_capture('editor_removed')
             check.run('assert s.editor.undo()\ns.refresh_preview()\ns.emit()\n_result=True')
             native_capture('editor_undo')
+            check.run('s.editor.layer=1\ns.display_mode("section")\n_result=True')
+            native_capture('editor_cutaway')
+            check.run('s.display_mode("full")\n_result=True')
+            native_capture('editor_cutaway_restored')
+            if with_world:
+                world_matrix(check,client,session,report)
             report['logs']=client.call('get_latest_error_logs',{'max_count':40})
             report['completed']=True
-            report['native_world_acceptance']='pending; editor diagnostic run only'
+            if not with_world:
+                report['native_world_acceptance']='pending; editor diagnostic run only'
             save('report.json',report)
             if installed:
                 check.run(RESTORE)
@@ -201,9 +285,10 @@ def main():
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id',default='v1')
+    parser.add_argument('--world',action='store_true',help='Also test full/missing projection and one restored occupied cell')
     args=parser.parse_args()
     if not args.run_id or any(char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' for char in args.run_id):
         parser.error('run-id must contain only ASCII letters, numbers, hyphens or underscores')
     OWNER='item-product-r14-'+args.run_id
     OUTPUT=ROOT/'.runtime'/OWNER
-    sys.exit(main())
+    sys.exit(main(args.world))
