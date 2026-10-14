@@ -173,3 +173,21 @@ docs/evidence/water-production-biome310-r15-v1/** -text -diff whitespace=cr-at-e
 docs/evidence/water-production-fixed310-r15-v1/** -text -diff whitespace=cr-at-eol
 # Native typed receipts and isolated depth candidates retain original byte hashes.
 docs/evidence/native-render-profile-r15/** -text -diff whitespace=cr-at-eol
+# Round-16 qualification keeps exact tested implementation and receipt bytes.
+behavior_pack/modern_projection/projection/spawner_presence.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/spawner_marker.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/spawner_marker_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_spawner_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/geometry_palette.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/render_context.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/occupancy.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/tiles.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/world_projection.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/bridge.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/scene.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/session.py -text whitespace=cr-at-eol
+tools/data/spawner_configuration_nemc_3.10.0.420447.json -text whitespace=cr-at-eol
+docs/evidence/spawner-product-r16/** -text -diff whitespace=cr-at-eol
+docs/evidence/banner-product-r16/** -text -diff whitespace=cr-at-eol
+docs/evidence/portal-product-r16/** -text -diff whitespace=cr-at-eol
+docs/evidence/shelf-native-r16/** -text -diff whitespace=cr-at-eol
