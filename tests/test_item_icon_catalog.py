@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import tempfile
 from unittest.mock import patch
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'behavior_pack/modern_projection'))
@@ -34,6 +36,54 @@ def groups(document):
 
 
 class IconCatalogTests(unittest.TestCase):
+    def test_icon_skeleton_is_owned_and_changes_resource_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            native = root/'data/resource_packs/vanilla/textures/misc/enchanted_item_glint.png'
+            native.parent.mkdir(parents=True)
+            native.write_bytes(b'fixture glint bytes')
+            skeleton = root/'resource_pack/models/modern_projection/item_sprite/skeleton.json'
+            skeleton.parent.mkdir(parents=True)
+            skeleton.write_bytes(b'{"skeleton": [], "boundingbox": [[-2,-2,-2],[2,2,2]]}')
+            catalog = {'schema':1, 'engine_version':ENGINE, 'pose':generator.POSE,
+                       'glint':dict(generator.GLINT, source_pack='vanilla',
+                                    texture_path=generator.GLINT_TEXTURE,
+                                    texture_sha256=generator.sha(native.read_bytes())),
+                       'resources':{}, 'items':[], 'unsupported':{}}
+            with patch.object(generator, 'ROOT', root):
+                before = generator.outputs(catalog,root)
+                owned = 'resource_pack/models/modern_projection/item_icons/skeleton.json'
+                self.assertEqual(skeleton.read_bytes(), before[owned])
+                skeleton.write_bytes(b'{"skeleton": [], "boundingbox": [[-3,-3,-3],[3,3,3]]}')
+                after = generator.outputs(catalog,root)
+                data = 'behavior_pack/modern_projection/projection/item_icon_data.py'
+                self.assertNotEqual(before[data],after[data])
+        registrations = json.loads((ROOT/'tools/data/item_icon_registrations_nemc_3.10.0.420447.json').read_bytes())
+        self.assertTrue(all(model['skeleton']=='modern_projection/item_icons/skeleton.json'
+                            for model in registrations['models'].values()))
+
+    def test_exposed_side_uvs_sample_the_owning_opaque_texel_center(self):
+        image = Image.new('RGBA',(3,3))
+        occupied = {(0,0),(1,0),(1,2)}
+        for x,y in occupied:
+            image.putpixel((x,y),(255,255,255,255))
+        vertices = generator.icon_mesh(image,generator.POSE,'test')['mesh'][0]['vertices']
+        sides = 0
+        for index in range(0,len(vertices),4):
+            face = vertices[index:index+4]
+            if face[0]['normal'][2]:
+                self.assertGreater(len({tuple(vertex['uvcoord']) for vertex in face}),1)
+                continue
+            sides += 1
+            uvs = {tuple(vertex['uvcoord']) for vertex in face}
+            self.assertEqual(1,len(uvs))
+            u,v = uvs.pop()
+            x,y = int(u*3),int(v*3)
+            self.assertIn((x,y),occupied)
+            self.assertAlmostEqual((x+.5)/3.,u)
+            self.assertAlmostEqual((y+.5)/3.,v)
+        self.assertGreater(sides,0)
+
     def test_catalog_covers_measured_flat_names_with_exact_engine_gate(self):
         profile = candidate_profile(ENGINE)
         self.assertGreaterEqual(len(profile.items.by_name), 400)

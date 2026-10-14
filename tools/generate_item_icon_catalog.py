@@ -27,7 +27,8 @@ SPECIAL_IDS = {'minecraft:banner': 'patterned_geometry', 'minecraft:shield': 'pa
 SPECIAL_TAGS = {'minecraft:spawn_egg': 'tinted_spawn_egg',
                 'minecraft:leather_tier': 'tinted_leather'}
 POSE = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 15.,
-        'upward_base_rotation_degrees': 180., 'rotation_sign': -1.}
+        'upward_base_rotation_degrees': 180., 'rotation_sign': -1.,
+        'side_uv': 'opaque_texel_center_v1'}
 LAYOUT = '''float itemLayout=EXTRA_VECTOR2.x;
     if(slot>0.5) itemLayout=EXTRA_VECTOR2.y;
     if(slot>1.5) itemLayout=EXTRA_VECTOR2.z;
@@ -60,6 +61,19 @@ ICON_GLINT = '''vec2 centered=itemUv-vec2(0.5);
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def icon_mesh(image,pose,texture):
+    generated = mesh(image,pose,texture)
+    vertices = generated['mesh'][0]['vertices']
+    for index in range(0,len(vertices),4):
+        face = vertices[index:index+4]
+        if face[0]['normal'][2]:
+            continue
+        center = [sum(vertex['uvcoord'][axis] for vertex in face)/4. for axis in range(2)]
+        for vertex in face:
+            vertex['uvcoord'] = list(center)
+    return generated
 
 
 def classify(name, info, texture):
@@ -155,6 +169,10 @@ def outputs(catalog, install):
     if any(json.dumps(glint.get(key)) != json.dumps(value) for key,value in GLINT.items()):
         raise ValueError('Item icon glint contract requires regeneration from measured catalogs')
     result, registry, materials, profiles = {}, {}, {}, {}
+    # Own and fingerprint the actual skeleton used by these registrations.
+    # Changing the legacy sprite skeleton must not silently change icon bounds.
+    skeleton_path = 'resource_pack/models/'+ASSET+'/skeleton.json'
+    result[skeleton_path] = (ROOT/'resource_pack/models/modern_projection/item_sprite/skeleton.json').read_bytes()
     vertex = VERTEX.replace('    point.xy=mat2', '    '+LAYOUT+'\n'
         '    if(facing>0.5 && facing<1.5 && itemLayout<0.5) point.xy=-point.xy;\n'
         '    if(itemLayout<0.5) rotation=-rotation;\n'
@@ -181,11 +199,11 @@ def outputs(catalog, install):
         result['resource_pack/textures/models/'+texture+'.png'] = bitmap
         with Image.open(path) as image:
             result['resource_pack/models/'+texture+'_mesh.json'] = (json.dumps(
-                mesh(image, catalog['pose'], texture), separators=(',', ':'))+'\n').encode('ascii')
+                icon_mesh(image, catalog['pose'], texture), separators=(',', ':'))+'\n').encode('ascii')
         for suffix in ('', '_world'):
             name = PREFIX+key+suffix
             registry[name] = {'dy_load': True, 'mesh': texture+'_mesh.json',
-                              'skeleton': 'modern_projection/item_sprite/skeleton.json',
+                              'skeleton': ASSET+'/skeleton.json',
                               'animation': {}, 'material': 'modern_projection_item_icon'+suffix,
                               'texture': {'tex0': texture, 'tex1': GLINT_RESOURCE}}
     for suffix in ('', '_world'):
