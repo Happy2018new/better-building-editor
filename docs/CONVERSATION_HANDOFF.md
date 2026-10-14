@@ -1,5 +1,23 @@
 # 新对话交接：现代化投影建筑编辑器
 
+## 2026-10-15 03:55 选框穿透已复现，继续独立开发
+
+仍禁止代理，08:00截止并休眠，计划任务Ready。最新唯一owned MC session=`7935726409c84528b9505d137947dc2e`，owner=`root-books-depth-r17b`，project=`D:/bbe-r15-native-production`，MC4364仅供核验；复用前读session状态。下面02:20及更早实例已回收，不再使用。
+
+用户书本黑线已确认是后方真实方块选框穿透：树叶／石头／玻璃均复现，原生alpha父材质关闭深度写入；显式开启后消失。旧书20帧、新铰链书／讲台／折跃门／锅／营火100帧、锅与末地门顶面半砖对照48帧均完成恢复。自动分析旧书和新书、折跃门的air重复稳定、off负控敏感、on内部零变化，精简证据`docs/evidence/render-depth-r17-v1`。锅表面本次未复现，不能全局修改水／图标材质。native族矩阵`.runtime/depth-native-families-r17-v1`仍运行（exec9574），先确认完成／恢复再修改同实例。
+
+书参考`.runtime/book-hinged-reference-r17-v1`14帧完成恢复；讲台默认候选方向错90°，额外`.runtime/book-lectern-turn64-r17-v1`5帧证明uniform+64方向对齐，但夜间光照不能用于最终亮度接受。新geometry v3在模型中固定该90°坐标转换；主仓库生成资源仍v7。generator源与新`book_model_geometry.py`未提交，`.runtime/book-hinged-r17-v2`待安装冷启。portal generator也新增显式depth write，`.runtime/portal-depth-r17-v1`待安装冷启，尚未更新生产资源／资格。参考probe已加clear-noon保存恢复及诊断方向参数。
+
+新增深度准备／探针／分析和材质继承审计工具，7项针对性测试通过；book atlas test通过。main文件已有其他R17未完WIP，严格显式stage；五个用户palette probe不碰。后续先完成无遮蔽物品和native族调查，再冷启最终book/portal候选做完整普通路径与透明度／占用恢复，随后更新资格和提交；不要把资源hash更新等同实机通过。
+
+## 2026-10-15 02:20 用户黑线纠正与遮挡调查（优先）
+
+用户指出的横线来自后方树叶，**不是**此前修复的 atlas 黑色 padding。01:46“修复用户黑线”的表述不成立：v7 只修复另一项 UV 黑边。当前截图显示类似原生准星方块选框穿过投影书封面；`entity_for_skeleton_alpha` 原生继承 `DisableDepthWrite`，书／图标／末地表面共用该继承路径，具体受影响范围仍需实测。必须区分真实树叶表面与选框，不能全局修改流体透明材质。
+
+`.runtime/book-depth-{off,on}-r17-capture-v1` 完成恢复，但动画冻结没有生效（两帧姿态不同），所以 **addon reload 后的材质／shader 对照无效**。随后 `ReloadAllMaterials()` 导致 owned MC36448 失去响应，已通过 session/owner 受管回收（所有夹具此前已恢复）；旧 session `8b5bb11bf3cd4881acb9eec560e6d955` 已 stopped。正在冷启动 owner `root-depth-r17`，启动结果 `.runtime/r17-depth-start.json`，不得复用旧PID。
+
+新增未提交诊断参数：book generator 的 `--depth-write-control`、`--animation-time-control`；reference probe 的 `--case`、`--samples`、installed source hashes 和 `PickFacing` 回执。只修改隔离副本，不代表生产启用。书几何／折叠／UV／讲台暗色和底座穿插仍未修复。Java独立参考模型位于 ignored `.runtime/java-water-study-20261013/books-r17/decompiled/fus.java`（真实双封面／书脊／双页体／翻页片），勿提交反编译源码。
+
 ## 2026-10-15 00:42 独立恢复第十七轮
 
 01:46进展优先：完整回归2,841项／288.869秒／OK（1跳过）；图标源提交`e13ae3cf`。书本已找到有效原生参考：`.runtime/book-reference-r17-matched-player-v8`、`book-reference-r17-geometry-v9`，近眼高、实际玩家视角，native书可见；原脱离相机无书证据不能作外观依据。实际朝向与候选保持一致，玩家rot会恢复。v9 NBT rott导出约0.40 rad/s。生成器候选采用竖立idle书、讲台1.04高，转速0.4整周期回绕，最新v7修复用户书页／封面黑线（UV包含原图不透明黑padding；现在每面取有效texel中心）。`.runtime/book-product-r17-v7/report.json`23截图、completed/restored/source_unchanged均true，编辑器和full/missing投影可见，4项book tests通过，四enabled bundle校验仍通过；精简图`docs/evidence/books-r17-v7`。生产book仍False；本体底部条纹、附魔台body高度差和完整姿态校准／接线未完成。当前独占游戏reload_addons仍same session，副本只更新书v7资源，未同步icon等主分支最新源。无正在运行的书探针。保持独立开发直到08:00，禁止代理。

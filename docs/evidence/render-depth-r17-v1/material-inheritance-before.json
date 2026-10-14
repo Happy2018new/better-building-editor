@@ -1,0 +1,2485 @@
+{
+  "engine_directory": "3.10.0.420447",
+  "materials": {
+    "banner": {
+      "ancestors": [
+        "banner"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending"
+      ],
+      "variant_state_overrides": []
+    },
+    "banner_pole": {
+      "ancestors": [
+        "banner",
+        "banner_pole"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending"
+      ],
+      "variant_state_overrides": []
+    },
+    "glow_sign_text": {
+      "ancestors": [
+        "glow_sign_text"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_aura_native_glow": {
+      "ancestors": [
+        "particles_base",
+        "modern_projection_aura_native_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_book_enchanting_table": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_book_enchanting_table"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_book_enchanting_table"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_book_enchanting_table_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_book_enchanting_table_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_book_enchanting_table_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_book_lectern": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_book_lectern"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_book_lectern"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_book_lectern_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_book_lectern_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_book_lectern_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_lava": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_lava"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_lava"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_lava_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_lava_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_lava_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_plain_water": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_plain_water"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_plain_water"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_plain_water_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_plain_water_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_plain_water_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_snow": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_snow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_snow"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_snow_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_snow_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_snow_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_water": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_water"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_water"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_cauldron_water_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_cauldron_water_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_cauldron_water_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_item_icon": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_item_icon"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_item_icon_00a08bde5ef4eef9",
+        "modern_projection_item_icon_00b4ec835698910d",
+        "modern_projection_item_icon_00be8c9dfaabef60",
+        "modern_projection_item_icon_00c393cc4316f8d6",
+        "modern_projection_item_icon_012f3123fd580ba6",
+        "modern_projection_item_icon_02845f64c99e286e",
+        "modern_projection_item_icon_02bcf5aeb8d90b0a",
+        "modern_projection_item_icon_0300ebb69f2ed8b3",
+        "modern_projection_item_icon_03e7b24e0e076f0a",
+        "modern_projection_item_icon_050ca471341f9e87",
+        "modern_projection_item_icon_05221a712d387993",
+        "modern_projection_item_icon_054389222e273d90",
+        "modern_projection_item_icon_05912dd398f62f40",
+        "modern_projection_item_icon_07276a6d56c53697",
+        "modern_projection_item_icon_07355a9e4e74a720",
+        "modern_projection_item_icon_09cf315a4554748c",
+        "modern_projection_item_icon_0b7a4741e3fada15",
+        "modern_projection_item_icon_0b80de683ed4b333",
+        "modern_projection_item_icon_0c3000745e674c0b",
+        "modern_projection_item_icon_0c8257628b5b3eae",
+        "modern_projection_item_icon_0c901e4f17de2bcd",
+        "modern_projection_item_icon_0d0a4598b2a5c516",
+        "modern_projection_item_icon_0da7220b3f5809d2",
+        "modern_projection_item_icon_0eb1ea87436ddbe1",
+        "modern_projection_item_icon_0f7f419f7a0183d2",
+        "modern_projection_item_icon_0fd42ff0e12b29b4",
+        "modern_projection_item_icon_113ac4abb7fdd72d",
+        "modern_projection_item_icon_117a004c30e2cee0",
+        "modern_projection_item_icon_133ffbd14a47429f",
+        "modern_projection_item_icon_134e38eda20ed146",
+        "modern_projection_item_icon_1442104640b72338",
+        "modern_projection_item_icon_14aad22a34558aab",
+        "modern_projection_item_icon_153583a326320c30",
+        "modern_projection_item_icon_15591d905f706a9b",
+        "modern_projection_item_icon_156281faceecf4ef",
+        "modern_projection_item_icon_165f358064a52c31",
+        "modern_projection_item_icon_16864c5fa2f911e5",
+        "modern_projection_item_icon_16e18511e790105f",
+        "modern_projection_item_icon_1865ee9aa61c520b",
+        "modern_projection_item_icon_198201071e622eb1",
+        "modern_projection_item_icon_1a6fe3ea179400f7",
+        "modern_projection_item_icon_1a9d7a036f3a28f6",
+        "modern_projection_item_icon_1bb89e4ae62e906a",
+        "modern_projection_item_icon_1bc707eba558cd7a",
+        "modern_projection_item_icon_1bf18c1ce2bdd8fa",
+        "modern_projection_item_icon_1c16766414bf458c",
+        "modern_projection_item_icon_1d17fe0f921676ea",
+        "modern_projection_item_icon_1d1a58689763f2c9",
+        "modern_projection_item_icon_1d1faeae22cbb8db",
+        "modern_projection_item_icon_1dc4a6e6260fd82f",
+        "modern_projection_item_icon_1f1ce5f98bd9a932",
+        "modern_projection_item_icon_1f6e83e4886892fe",
+        "modern_projection_item_icon_1fd1fb4ba18cc1eb",
+        "modern_projection_item_icon_1ff542c9eb55759f",
+        "modern_projection_item_icon_206d06850fe5572f",
+        "modern_projection_item_icon_215cd5f75279a8db",
+        "modern_projection_item_icon_21ba6d8c5cc3f255",
+        "modern_projection_item_icon_21bb7ede0330a68b",
+        "modern_projection_item_icon_21c2b0bfeae4934a",
+        "modern_projection_item_icon_21cc4eeaece51288",
+        "modern_projection_item_icon_21f126311c36cde0",
+        "modern_projection_item_icon_234eae35a5e2fe44",
+        "modern_projection_item_icon_247f59e083653835",
+        "modern_projection_item_icon_25368208168069e1",
+        "modern_projection_item_icon_260f1d9a02674b6b",
+        "modern_projection_item_icon_275e0f746f4ae4d8",
+        "modern_projection_item_icon_2774bdaa37f577fe",
+        "modern_projection_item_icon_28751e79f7d47baf",
+        "modern_projection_item_icon_2891a68675fb8212",
+        "modern_projection_item_icon_28a1e45fec0a5830",
+        "modern_projection_item_icon_28b7a2425072e300",
+        "modern_projection_item_icon_28ba166743205fba",
+        "modern_projection_item_icon_28e1f9d332b39f30",
+        "modern_projection_item_icon_28eea9a2407df794",
+        "modern_projection_item_icon_28f4c21ea1496a4e",
+        "modern_projection_item_icon_29560d71c5341d28",
+        "modern_projection_item_icon_2985f47fe71b7bb7",
+        "modern_projection_item_icon_29a6d08de6186a70",
+        "modern_projection_item_icon_2a0c4e0e418191f4",
+        "modern_projection_item_icon_2a9a7ea151f2c26b",
+        "modern_projection_item_icon_2be01854b8c5ce3f",
+        "modern_projection_item_icon_2c08e0d0d3121e28",
+        "modern_projection_item_icon_2c66119cbcfed074",
+        "modern_projection_item_icon_2c6aaff8ee938741",
+        "modern_projection_item_icon_2e87b6aefcb4cd51",
+        "modern_projection_item_icon_304fffd9b0c6676c",
+        "modern_projection_item_icon_319dd8e9498944e4",
+        "modern_projection_item_icon_331dbdf958ebe7cd",
+        "modern_projection_item_icon_33937596b8e6c77a",
+        "modern_projection_item_icon_33eff346d4de6c0c",
+        "modern_projection_item_icon_3434c289f64026fd",
+        "modern_projection_item_icon_3485712a108b5046",
+        "modern_projection_item_icon_349d6384a08314b5",
+        "modern_projection_item_icon_34c964fbd7225665",
+        "modern_projection_item_icon_35cfd2d1f2ec047b",
+        "modern_projection_item_icon_3617e2706d9fb6cb",
+        "modern_projection_item_icon_3645607e54301680",
+        "modern_projection_item_icon_37341eee562a1f12",
+        "modern_projection_item_icon_37a7ef990d373dc9",
+        "modern_projection_item_icon_37f6c5ec79ca7385",
+        "modern_projection_item_icon_39e166c18cae4955",
+        "modern_projection_item_icon_3abaeab0886aafe8",
+        "modern_projection_item_icon_3c4153504e7a87b0",
+        "modern_projection_item_icon_3da8d416f4e2429c",
+        "modern_projection_item_icon_3e4573c27a620375",
+        "modern_projection_item_icon_3e8f5bee21fc5e13",
+        "modern_projection_item_icon_3ecc66accf2c86bc",
+        "modern_projection_item_icon_3f1e878ff3209f52",
+        "modern_projection_item_icon_3f732baa87097ab2",
+        "modern_projection_item_icon_400ca5634178384b",
+        "modern_projection_item_icon_400ff126b53910be",
+        "modern_projection_item_icon_40178ffe9c8a8a8b",
+        "modern_projection_item_icon_40a664b0f2be81bc",
+        "modern_projection_item_icon_40be94eadb8576ad",
+        "modern_projection_item_icon_40d0aa03f363b941",
+        "modern_projection_item_icon_421ae41d3ba05058",
+        "modern_projection_item_icon_42421dafa0c3f411",
+        "modern_projection_item_icon_44a68a36655236c5",
+        "modern_projection_item_icon_44dccbb07f06bb99",
+        "modern_projection_item_icon_452feb403a636242",
+        "modern_projection_item_icon_4535af58d78f30c2",
+        "modern_projection_item_icon_455b7e24cb99421e",
+        "modern_projection_item_icon_459d35ef1209fedc",
+        "modern_projection_item_icon_469af7006c7d1fc4",
+        "modern_projection_item_icon_4718cd0adf3516d6",
+        "modern_projection_item_icon_47f810b4ed3e91e4",
+        "modern_projection_item_icon_49116ea8d9244e19",
+        "modern_projection_item_icon_49273d96cac85968",
+        "modern_projection_item_icon_493e149576bbd484",
+        "modern_projection_item_icon_4a094ff57e9b1cd9",
+        "modern_projection_item_icon_4a1b0486e62d9500",
+        "modern_projection_item_icon_4aebc9f6cee26f6a",
+        "modern_projection_item_icon_4b4c85a30400f4e2",
+        "modern_projection_item_icon_4b67af61cae63555",
+        "modern_projection_item_icon_4ba9b3ef19bb8533",
+        "modern_projection_item_icon_4c0a405f584fba1a",
+        "modern_projection_item_icon_4cb8cc1492319903",
+        "modern_projection_item_icon_4d1267621bbcf044",
+        "modern_projection_item_icon_4e44ac3735fe264d",
+        "modern_projection_item_icon_4f36bc79138776de",
+        "modern_projection_item_icon_514dcbbf507be2d0",
+        "modern_projection_item_icon_51731197f96c38fb",
+        "modern_projection_item_icon_520df80a2ed8160d",
+        "modern_projection_item_icon_5327f4aec6f68e88",
+        "modern_projection_item_icon_535a4886173111f4",
+        "modern_projection_item_icon_537a6ea2927956aa",
+        "modern_projection_item_icon_53db72273ed5a8bb",
+        "modern_projection_item_icon_56850d161bb0a072",
+        "modern_projection_item_icon_56c28e8a015e2ee1",
+        "modern_projection_item_icon_56e291b45b05ec65",
+        "modern_projection_item_icon_57344fb64169c8b9",
+        "modern_projection_item_icon_58542b701c8cba4e",
+        "modern_projection_item_icon_585ec8186cbeec6d",
+        "modern_projection_item_icon_5a97f2596af268bf",
+        "modern_projection_item_icon_5aef902756dc2fa0",
+        "modern_projection_item_icon_5c4e18a8fe3c226e",
+        "modern_projection_item_icon_5d39e570387a1730",
+        "modern_projection_item_icon_5d83b7473907f332",
+        "modern_projection_item_icon_5d8d2ed9ac5db5de",
+        "modern_projection_item_icon_5e7ceaee7822c288",
+        "modern_projection_item_icon_5ecdd893f8ce7378",
+        "modern_projection_item_icon_5f6a503bc24c73b6",
+        "modern_projection_item_icon_5f6f3f949e9b928a",
+        "modern_projection_item_icon_5fb433e86dc241ed",
+        "modern_projection_item_icon_6037e8ca0d1bcf35",
+        "modern_projection_item_icon_60d00dea99d2332f",
+        "modern_projection_item_icon_60fde56a603170b7",
+        "modern_projection_item_icon_61934a2669aace65",
+        "modern_projection_item_icon_61fe7faf31be9ef4",
+        "modern_projection_item_icon_622831f6bf89e0c8",
+        "modern_projection_item_icon_629ab7ed003d5a7f",
+        "modern_projection_item_icon_62aacbcb2a19a8bf",
+        "modern_projection_item_icon_62fb764af34543c9",
+        "modern_projection_item_icon_63c97f7b795158d4",
+        "modern_projection_item_icon_6407fa3a3ad9f9a3",
+        "modern_projection_item_icon_6485b53b2b87a0b8",
+        "modern_projection_item_icon_65238f484decdf7a",
+        "modern_projection_item_icon_65a9f9ed431ff3d9",
+        "modern_projection_item_icon_65cd2a3771a77d89",
+        "modern_projection_item_icon_664f904ca9a0f876",
+        "modern_projection_item_icon_66da58b46bd4f281",
+        "modern_projection_item_icon_675495afbe03f3c6",
+        "modern_projection_item_icon_6794973e15662ffe",
+        "modern_projection_item_icon_68aa24e3d70fbee7",
+        "modern_projection_item_icon_6926b15126e72416",
+        "modern_projection_item_icon_692a3fc4fc1f407e",
+        "modern_projection_item_icon_69445de750d9b546",
+        "modern_projection_item_icon_69d35e5d9848da2a",
+        "modern_projection_item_icon_6a5be9a97a3a709f",
+        "modern_projection_item_icon_6a6b6cd60a397ffc",
+        "modern_projection_item_icon_6bc8ed19a7da9f42",
+        "modern_projection_item_icon_6bdc47e5fdb98266",
+        "modern_projection_item_icon_6be8a232d4c3c76d",
+        "modern_projection_item_icon_6e57599ca839805e",
+        "modern_projection_item_icon_6f209427d6a9e77f",
+        "modern_projection_item_icon_6fc2f45889e2275a",
+        "modern_projection_item_icon_705b3f00822b0ab9",
+        "modern_projection_item_icon_711695c4338b2232",
+        "modern_projection_item_icon_71606cee914f1e4a",
+        "modern_projection_item_icon_71a338903ac5e505",
+        "modern_projection_item_icon_71a9c144b27c81c3",
+        "modern_projection_item_icon_726ae40600c9d908",
+        "modern_projection_item_icon_727c5d9766bad29e",
+        "modern_projection_item_icon_7311e6afbbe845c5",
+        "modern_projection_item_icon_74c03fcf853605db",
+        "modern_projection_item_icon_74caf3f153068ae4",
+        "modern_projection_item_icon_764d8eae2ae89ec2",
+        "modern_projection_item_icon_76a7164623a5fc64",
+        "modern_projection_item_icon_77cdab903636f76d",
+        "modern_projection_item_icon_78b1c7e7a4776026",
+        "modern_projection_item_icon_78d18e131005cff7",
+        "modern_projection_item_icon_79557b547db13606",
+        "modern_projection_item_icon_7981a240396ded78",
+        "modern_projection_item_icon_7a0299568be0708d",
+        "modern_projection_item_icon_7a1c518733ef7f9e",
+        "modern_projection_item_icon_7afc0951ed9768f9",
+        "modern_projection_item_icon_7c412fc3400bb05d",
+        "modern_projection_item_icon_7c862b68d703e092",
+        "modern_projection_item_icon_7c865ce9f6adf321",
+        "modern_projection_item_icon_7cd96c1a03a6dfd2",
+        "modern_projection_item_icon_7e18e4a1d6fa978f",
+        "modern_projection_item_icon_7e2c2f48ce2b21fb",
+        "modern_projection_item_icon_7f3e29a6233f5cc1",
+        "modern_projection_item_icon_7f9b88b8a64c7e41",
+        "modern_projection_item_icon_7f9fa461a23f4c8d",
+        "modern_projection_item_icon_80c306857195b3a1",
+        "modern_projection_item_icon_8161a278ea6e04be",
+        "modern_projection_item_icon_819e79e69d414a1a",
+        "modern_projection_item_icon_82134803d9116380",
+        "modern_projection_item_icon_8293e5f33847659e",
+        "modern_projection_item_icon_82ea1e8e2ec3864e",
+        "modern_projection_item_icon_831b54805c771142",
+        "modern_projection_item_icon_84022c8353877999",
+        "modern_projection_item_icon_850ef296b4ef0b62",
+        "modern_projection_item_icon_85835decf03f3cfb",
+        "modern_projection_item_icon_85d51b07b2543844",
+        "modern_projection_item_icon_866e427c401a5a76",
+        "modern_projection_item_icon_86bc7c7ab8dc021a",
+        "modern_projection_item_icon_8725187908516116",
+        "modern_projection_item_icon_8793bcae2e8993be",
+        "modern_projection_item_icon_87d14409e06d012e",
+        "modern_projection_item_icon_89ef1e56d8eb3a20",
+        "modern_projection_item_icon_8a2d50be7a7140a5",
+        "modern_projection_item_icon_8a4503f81167923f",
+        "modern_projection_item_icon_8b22748b47c4968c",
+        "modern_projection_item_icon_8b799932b34471de",
+        "modern_projection_item_icon_8c1328f0a39e09aa",
+        "modern_projection_item_icon_8cab16707059b306",
+        "modern_projection_item_icon_8cf01aa6b349d211",
+        "modern_projection_item_icon_8d1a1866fd2c2536",
+        "modern_projection_item_icon_8d1dbe941a70e3c1",
+        "modern_projection_item_icon_8d45a79c62091fcc",
+        "modern_projection_item_icon_8d9915412d2de25f",
+        "modern_projection_item_icon_8e95070042a12f9b",
+        "modern_projection_item_icon_8ef2960c23049db8",
+        "modern_projection_item_icon_8fbe82e0aed8b7e5",
+        "modern_projection_item_icon_9025f133e0784811",
+        "modern_projection_item_icon_903f4b2b312ea6cc",
+        "modern_projection_item_icon_91d806928b61a5de",
+        "modern_projection_item_icon_920b9607720fb2c8",
+        "modern_projection_item_icon_92a11ff81f45890d",
+        "modern_projection_item_icon_92c7185d74b083f4",
+        "modern_projection_item_icon_936beca8d6330f93",
+        "modern_projection_item_icon_93e567e0d499915c",
+        "modern_projection_item_icon_93f1299b4eca622e",
+        "modern_projection_item_icon_940ac538e72b7a8e",
+        "modern_projection_item_icon_94469f6ebd96d0ba",
+        "modern_projection_item_icon_94c17d212e664eaf",
+        "modern_projection_item_icon_94df2b17e0c874b7",
+        "modern_projection_item_icon_953ae86c3f97acfd",
+        "modern_projection_item_icon_968713b58178b98c",
+        "modern_projection_item_icon_9709cac517e307e4",
+        "modern_projection_item_icon_97a16a1dd6302ad5",
+        "modern_projection_item_icon_98096be03f3c21fe",
+        "modern_projection_item_icon_988382d80564d1fd",
+        "modern_projection_item_icon_98a4c556b031a67e",
+        "modern_projection_item_icon_99576336880b0e4e",
+        "modern_projection_item_icon_99603cfe24d295f6",
+        "modern_projection_item_icon_996f80148a690958",
+        "modern_projection_item_icon_9a416904187432e6",
+        "modern_projection_item_icon_9a6b66473b83631d",
+        "modern_projection_item_icon_9ca09d70f2f27339",
+        "modern_projection_item_icon_9dcfbb9415c5573b",
+        "modern_projection_item_icon_9df2941b37946d9e",
+        "modern_projection_item_icon_9e1f4444ee985eb2",
+        "modern_projection_item_icon_9eec5bfe63e14cc1",
+        "modern_projection_item_icon_9f17e7675168815d",
+        "modern_projection_item_icon_a15f7bc9ba7f1e43",
+        "modern_projection_item_icon_a244ad9554b36ad3",
+        "modern_projection_item_icon_a320eaf0a9ec727a",
+        "modern_projection_item_icon_a4ae04085ded9622",
+        "modern_projection_item_icon_a5158f99d824dbc7",
+        "modern_projection_item_icon_a61e196728943385",
+        "modern_projection_item_icon_a6c49a1da5108006",
+        "modern_projection_item_icon_a6c77c295ed55b53",
+        "modern_projection_item_icon_a6fb810c978025b1",
+        "modern_projection_item_icon_a71cb9687496c14c",
+        "modern_projection_item_icon_a879abbc1651995a",
+        "modern_projection_item_icon_a9ede727a42d6966",
+        "modern_projection_item_icon_aa158721022891ee",
+        "modern_projection_item_icon_aa1c6ff73e24c7a6",
+        "modern_projection_item_icon_aa85db78fad5c803",
+        "modern_projection_item_icon_ab7300bb4014d828",
+        "modern_projection_item_icon_ac01f501160435d6",
+        "modern_projection_item_icon_ac79af59a993ce5e",
+        "modern_projection_item_icon_ac9922c79c1a25be",
+        "modern_projection_item_icon_aca7b47c5f05e00c",
+        "modern_projection_item_icon_acb1c638b4d02d42",
+        "modern_projection_item_icon_adddbf3dfd7f9298",
+        "modern_projection_item_icon_ae06506e0546cf47",
+        "modern_projection_item_icon_ae81418f42a0673e",
+        "modern_projection_item_icon_ae9d23a349a69b01",
+        "modern_projection_item_icon_af0f711c51bb28d6",
+        "modern_projection_item_icon_af16a9937de0faa0",
+        "modern_projection_item_icon_b0453d93788c97f4",
+        "modern_projection_item_icon_b06f28686ec32215",
+        "modern_projection_item_icon_b12cba79508ac468",
+        "modern_projection_item_icon_b24c99d439528818",
+        "modern_projection_item_icon_b3216fa9ecf53eb4",
+        "modern_projection_item_icon_b373b589d432cddd",
+        "modern_projection_item_icon_b4cf387017eb0622",
+        "modern_projection_item_icon_b5a94197aa27def0",
+        "modern_projection_item_icon_b65ca1f336576ed3",
+        "modern_projection_item_icon_b6f5b0ee84f3caff",
+        "modern_projection_item_icon_b77020fb3a82e51e",
+        "modern_projection_item_icon_b7f0a7d00706d2e7",
+        "modern_projection_item_icon_b82f965ee935fc1f",
+        "modern_projection_item_icon_b947bac079d2aa33",
+        "modern_projection_item_icon_b9b91654de0c96ca",
+        "modern_projection_item_icon_ba2e494c6ff75cb2",
+        "modern_projection_item_icon_ba3bbb0b011cb6f3",
+        "modern_projection_item_icon_bb699890cdf30138",
+        "modern_projection_item_icon_bbc973103fcc6f4b",
+        "modern_projection_item_icon_bbe7ded749758c78",
+        "modern_projection_item_icon_bd4158190b012f8d",
+        "modern_projection_item_icon_bd9a15f88247fb07",
+        "modern_projection_item_icon_bd9eb83ab91cb441",
+        "modern_projection_item_icon_be8ff7cd3a21b041",
+        "modern_projection_item_icon_c237d749ccdfa628",
+        "modern_projection_item_icon_c3a2679bef9bc656",
+        "modern_projection_item_icon_c3f71304377daf81",
+        "modern_projection_item_icon_c41e02d939844654",
+        "modern_projection_item_icon_c42f014667648d69",
+        "modern_projection_item_icon_c49a0822da172a80",
+        "modern_projection_item_icon_c49def2ce4ef0156",
+        "modern_projection_item_icon_c5359f3d3f89a644",
+        "modern_projection_item_icon_c5a8b1bd4529bfd3",
+        "modern_projection_item_icon_c606b57bf25c3e10",
+        "modern_projection_item_icon_c612fd8377e4107b",
+        "modern_projection_item_icon_c6181a9ac8b5451d",
+        "modern_projection_item_icon_c6af3cceccb3fc94",
+        "modern_projection_item_icon_c6af9c807088f61f",
+        "modern_projection_item_icon_c853556b549b85fb",
+        "modern_projection_item_icon_c86ad2c930d16404",
+        "modern_projection_item_icon_c99f8652436498d8",
+        "modern_projection_item_icon_c9e3947bb2f48d6e",
+        "modern_projection_item_icon_cbfbdcb9647158f9",
+        "modern_projection_item_icon_cc5a38300db57a27",
+        "modern_projection_item_icon_cd0e6d9abe49e2e5",
+        "modern_projection_item_icon_cd24755c4faecafb",
+        "modern_projection_item_icon_cf0aaacc630fa75d",
+        "modern_projection_item_icon_cf1b621f30b256be",
+        "modern_projection_item_icon_cf75a6e96b2d3e06",
+        "modern_projection_item_icon_cfca7228fafbca03",
+        "modern_projection_item_icon_d0aeaac17614c32e",
+        "modern_projection_item_icon_d0ce0f1fd989c8ce",
+        "modern_projection_item_icon_d19ff5bff710ac9e",
+        "modern_projection_item_icon_d1c1bab69b30a5a3",
+        "modern_projection_item_icon_d1d9dd7964c0d235",
+        "modern_projection_item_icon_d1ea846c563282bb",
+        "modern_projection_item_icon_d20776e046d026b3",
+        "modern_projection_item_icon_d2cb5782d5d0b641",
+        "modern_projection_item_icon_d2d3185f424e97dc",
+        "modern_projection_item_icon_d39033cde2cf5c7f",
+        "modern_projection_item_icon_d4ffc3b093c037a7",
+        "modern_projection_item_icon_d5f238d0e2b5746f",
+        "modern_projection_item_icon_d7449eb7ee952630",
+        "modern_projection_item_icon_d8702968887c9bfd",
+        "modern_projection_item_icon_d99f4eacf8140543",
+        "modern_projection_item_icon_d9b71b31a4066030",
+        "modern_projection_item_icon_d9cc6d7967cd5400",
+        "modern_projection_item_icon_d9dba7ce03204959",
+        "modern_projection_item_icon_da439cc05cfdf0fa",
+        "modern_projection_item_icon_db2526eb0ab51816",
+        "modern_projection_item_icon_db6cf31056964740",
+        "modern_projection_item_icon_dbd79fe07d222138",
+        "modern_projection_item_icon_dc00f917735155a0",
+        "modern_projection_item_icon_ddb5188fc7696532",
+        "modern_projection_item_icon_ddbb2772604bca75",
+        "modern_projection_item_icon_ddbc3019cd89c974",
+        "modern_projection_item_icon_df6db4bb08503a5a",
+        "modern_projection_item_icon_df71bce07198d9be",
+        "modern_projection_item_icon_dfc68ae5a92091aa",
+        "modern_projection_item_icon_dfd5757657c0e744",
+        "modern_projection_item_icon_e1f9b00ff418854a",
+        "modern_projection_item_icon_e2d115e632ed0d61",
+        "modern_projection_item_icon_e2d56eb3540cb04d",
+        "modern_projection_item_icon_e3ba3ccfba4bf9ba",
+        "modern_projection_item_icon_e3fea35b542c1eeb",
+        "modern_projection_item_icon_e4688a7275dee3f2",
+        "modern_projection_item_icon_e47b6db44eb33ee3",
+        "modern_projection_item_icon_e47c217af2290c0b",
+        "modern_projection_item_icon_e5fe8cdea0f77b4b",
+        "modern_projection_item_icon_e6339126b344e38b",
+        "modern_projection_item_icon_e63b4fcb6d4da4a9",
+        "modern_projection_item_icon_e655b0f964c21c5a",
+        "modern_projection_item_icon_e693920da53440c3",
+        "modern_projection_item_icon_e70f056020448ee2",
+        "modern_projection_item_icon_e7655190d91f58d6",
+        "modern_projection_item_icon_e7aa073d57c0fc16",
+        "modern_projection_item_icon_e95904094b3f542e",
+        "modern_projection_item_icon_ea0304ed720f0a65",
+        "modern_projection_item_icon_eb670bf4a7fe4a42",
+        "modern_projection_item_icon_eb8ab4253dc3b250",
+        "modern_projection_item_icon_ec8de55067ad02a5",
+        "modern_projection_item_icon_ecc9fb25a3092ea1",
+        "modern_projection_item_icon_ed1fa033e9f46514",
+        "modern_projection_item_icon_ed328ebd03604a26",
+        "modern_projection_item_icon_edb61ef4c414304e",
+        "modern_projection_item_icon_ee8fa7a1d396dd55",
+        "modern_projection_item_icon_ee996c97b6913ff1",
+        "modern_projection_item_icon_ef0ec8c12f320303",
+        "modern_projection_item_icon_f00fef632b7f7ab9",
+        "modern_projection_item_icon_f09afaf40ff0a6a6",
+        "modern_projection_item_icon_f16b47a32e8e45d8",
+        "modern_projection_item_icon_f1be2e661762e97a",
+        "modern_projection_item_icon_f1cfbcacfd55e795",
+        "modern_projection_item_icon_f394c5607d440efd",
+        "modern_projection_item_icon_f3b4ad6ba0f93dec",
+        "modern_projection_item_icon_f495ec716d480d2e",
+        "modern_projection_item_icon_f51223d176d92a54",
+        "modern_projection_item_icon_f54f4bca4eeac183",
+        "modern_projection_item_icon_f57df50042517a3a",
+        "modern_projection_item_icon_f675c6e488c15b6e",
+        "modern_projection_item_icon_f69a2d510ee138cf",
+        "modern_projection_item_icon_f6db3532e8106d95",
+        "modern_projection_item_icon_f6f6eb86633c3694",
+        "modern_projection_item_icon_f7c745fea9ce73a3",
+        "modern_projection_item_icon_f8d15cc3eba6a45a",
+        "modern_projection_item_icon_f984d17c518981ab",
+        "modern_projection_item_icon_fabef2be8a46bc9f",
+        "modern_projection_item_icon_fafc1ad43a62d941",
+        "modern_projection_item_icon_fb142138b01ab74f",
+        "modern_projection_item_icon_fb957c15376df685",
+        "modern_projection_item_icon_fbdefff611da7007",
+        "modern_projection_item_icon_fd43b8ab19b1406d",
+        "modern_projection_item_icon_fda69b942c7ca09c",
+        "modern_projection_item_icon_fe608c68d2465d42",
+        "modern_projection_item_icon_feaa5bc6e332f994",
+        "modern_projection_item_icon_ff6d34c58d6c81c1"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_item_icon_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_item_icon_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_item_icon_00a08bde5ef4eef9_world",
+        "modern_projection_item_icon_00b4ec835698910d_world",
+        "modern_projection_item_icon_00be8c9dfaabef60_world",
+        "modern_projection_item_icon_00c393cc4316f8d6_world",
+        "modern_projection_item_icon_012f3123fd580ba6_world",
+        "modern_projection_item_icon_02845f64c99e286e_world",
+        "modern_projection_item_icon_02bcf5aeb8d90b0a_world",
+        "modern_projection_item_icon_0300ebb69f2ed8b3_world",
+        "modern_projection_item_icon_03e7b24e0e076f0a_world",
+        "modern_projection_item_icon_050ca471341f9e87_world",
+        "modern_projection_item_icon_05221a712d387993_world",
+        "modern_projection_item_icon_054389222e273d90_world",
+        "modern_projection_item_icon_05912dd398f62f40_world",
+        "modern_projection_item_icon_07276a6d56c53697_world",
+        "modern_projection_item_icon_07355a9e4e74a720_world",
+        "modern_projection_item_icon_09cf315a4554748c_world",
+        "modern_projection_item_icon_0b7a4741e3fada15_world",
+        "modern_projection_item_icon_0b80de683ed4b333_world",
+        "modern_projection_item_icon_0c3000745e674c0b_world",
+        "modern_projection_item_icon_0c8257628b5b3eae_world",
+        "modern_projection_item_icon_0c901e4f17de2bcd_world",
+        "modern_projection_item_icon_0d0a4598b2a5c516_world",
+        "modern_projection_item_icon_0da7220b3f5809d2_world",
+        "modern_projection_item_icon_0eb1ea87436ddbe1_world",
+        "modern_projection_item_icon_0f7f419f7a0183d2_world",
+        "modern_projection_item_icon_0fd42ff0e12b29b4_world",
+        "modern_projection_item_icon_113ac4abb7fdd72d_world",
+        "modern_projection_item_icon_117a004c30e2cee0_world",
+        "modern_projection_item_icon_133ffbd14a47429f_world",
+        "modern_projection_item_icon_134e38eda20ed146_world",
+        "modern_projection_item_icon_1442104640b72338_world",
+        "modern_projection_item_icon_14aad22a34558aab_world",
+        "modern_projection_item_icon_153583a326320c30_world",
+        "modern_projection_item_icon_15591d905f706a9b_world",
+        "modern_projection_item_icon_156281faceecf4ef_world",
+        "modern_projection_item_icon_165f358064a52c31_world",
+        "modern_projection_item_icon_16864c5fa2f911e5_world",
+        "modern_projection_item_icon_16e18511e790105f_world",
+        "modern_projection_item_icon_1865ee9aa61c520b_world",
+        "modern_projection_item_icon_198201071e622eb1_world",
+        "modern_projection_item_icon_1a6fe3ea179400f7_world",
+        "modern_projection_item_icon_1a9d7a036f3a28f6_world",
+        "modern_projection_item_icon_1bb89e4ae62e906a_world",
+        "modern_projection_item_icon_1bc707eba558cd7a_world",
+        "modern_projection_item_icon_1bf18c1ce2bdd8fa_world",
+        "modern_projection_item_icon_1c16766414bf458c_world",
+        "modern_projection_item_icon_1d17fe0f921676ea_world",
+        "modern_projection_item_icon_1d1a58689763f2c9_world",
+        "modern_projection_item_icon_1d1faeae22cbb8db_world",
+        "modern_projection_item_icon_1dc4a6e6260fd82f_world",
+        "modern_projection_item_icon_1f1ce5f98bd9a932_world",
+        "modern_projection_item_icon_1f6e83e4886892fe_world",
+        "modern_projection_item_icon_1fd1fb4ba18cc1eb_world",
+        "modern_projection_item_icon_1ff542c9eb55759f_world",
+        "modern_projection_item_icon_206d06850fe5572f_world",
+        "modern_projection_item_icon_215cd5f75279a8db_world",
+        "modern_projection_item_icon_21ba6d8c5cc3f255_world",
+        "modern_projection_item_icon_21bb7ede0330a68b_world",
+        "modern_projection_item_icon_21c2b0bfeae4934a_world",
+        "modern_projection_item_icon_21cc4eeaece51288_world",
+        "modern_projection_item_icon_21f126311c36cde0_world",
+        "modern_projection_item_icon_234eae35a5e2fe44_world",
+        "modern_projection_item_icon_247f59e083653835_world",
+        "modern_projection_item_icon_25368208168069e1_world",
+        "modern_projection_item_icon_260f1d9a02674b6b_world",
+        "modern_projection_item_icon_275e0f746f4ae4d8_world",
+        "modern_projection_item_icon_2774bdaa37f577fe_world",
+        "modern_projection_item_icon_28751e79f7d47baf_world",
+        "modern_projection_item_icon_2891a68675fb8212_world",
+        "modern_projection_item_icon_28a1e45fec0a5830_world",
+        "modern_projection_item_icon_28b7a2425072e300_world",
+        "modern_projection_item_icon_28ba166743205fba_world",
+        "modern_projection_item_icon_28e1f9d332b39f30_world",
+        "modern_projection_item_icon_28eea9a2407df794_world",
+        "modern_projection_item_icon_28f4c21ea1496a4e_world",
+        "modern_projection_item_icon_29560d71c5341d28_world",
+        "modern_projection_item_icon_2985f47fe71b7bb7_world",
+        "modern_projection_item_icon_29a6d08de6186a70_world",
+        "modern_projection_item_icon_2a0c4e0e418191f4_world",
+        "modern_projection_item_icon_2a9a7ea151f2c26b_world",
+        "modern_projection_item_icon_2be01854b8c5ce3f_world",
+        "modern_projection_item_icon_2c08e0d0d3121e28_world",
+        "modern_projection_item_icon_2c66119cbcfed074_world",
+        "modern_projection_item_icon_2c6aaff8ee938741_world",
+        "modern_projection_item_icon_2e87b6aefcb4cd51_world",
+        "modern_projection_item_icon_304fffd9b0c6676c_world",
+        "modern_projection_item_icon_319dd8e9498944e4_world",
+        "modern_projection_item_icon_331dbdf958ebe7cd_world",
+        "modern_projection_item_icon_33937596b8e6c77a_world",
+        "modern_projection_item_icon_33eff346d4de6c0c_world",
+        "modern_projection_item_icon_3434c289f64026fd_world",
+        "modern_projection_item_icon_3485712a108b5046_world",
+        "modern_projection_item_icon_349d6384a08314b5_world",
+        "modern_projection_item_icon_34c964fbd7225665_world",
+        "modern_projection_item_icon_35cfd2d1f2ec047b_world",
+        "modern_projection_item_icon_3617e2706d9fb6cb_world",
+        "modern_projection_item_icon_3645607e54301680_world",
+        "modern_projection_item_icon_37341eee562a1f12_world",
+        "modern_projection_item_icon_37a7ef990d373dc9_world",
+        "modern_projection_item_icon_37f6c5ec79ca7385_world",
+        "modern_projection_item_icon_39e166c18cae4955_world",
+        "modern_projection_item_icon_3abaeab0886aafe8_world",
+        "modern_projection_item_icon_3c4153504e7a87b0_world",
+        "modern_projection_item_icon_3da8d416f4e2429c_world",
+        "modern_projection_item_icon_3e4573c27a620375_world",
+        "modern_projection_item_icon_3e8f5bee21fc5e13_world",
+        "modern_projection_item_icon_3ecc66accf2c86bc_world",
+        "modern_projection_item_icon_3f1e878ff3209f52_world",
+        "modern_projection_item_icon_3f732baa87097ab2_world",
+        "modern_projection_item_icon_400ca5634178384b_world",
+        "modern_projection_item_icon_400ff126b53910be_world",
+        "modern_projection_item_icon_40178ffe9c8a8a8b_world",
+        "modern_projection_item_icon_40a664b0f2be81bc_world",
+        "modern_projection_item_icon_40be94eadb8576ad_world",
+        "modern_projection_item_icon_40d0aa03f363b941_world",
+        "modern_projection_item_icon_421ae41d3ba05058_world",
+        "modern_projection_item_icon_42421dafa0c3f411_world",
+        "modern_projection_item_icon_44a68a36655236c5_world",
+        "modern_projection_item_icon_44dccbb07f06bb99_world",
+        "modern_projection_item_icon_452feb403a636242_world",
+        "modern_projection_item_icon_4535af58d78f30c2_world",
+        "modern_projection_item_icon_455b7e24cb99421e_world",
+        "modern_projection_item_icon_459d35ef1209fedc_world",
+        "modern_projection_item_icon_469af7006c7d1fc4_world",
+        "modern_projection_item_icon_4718cd0adf3516d6_world",
+        "modern_projection_item_icon_47f810b4ed3e91e4_world",
+        "modern_projection_item_icon_49116ea8d9244e19_world",
+        "modern_projection_item_icon_49273d96cac85968_world",
+        "modern_projection_item_icon_493e149576bbd484_world",
+        "modern_projection_item_icon_4a094ff57e9b1cd9_world",
+        "modern_projection_item_icon_4a1b0486e62d9500_world",
+        "modern_projection_item_icon_4aebc9f6cee26f6a_world",
+        "modern_projection_item_icon_4b4c85a30400f4e2_world",
+        "modern_projection_item_icon_4b67af61cae63555_world",
+        "modern_projection_item_icon_4ba9b3ef19bb8533_world",
+        "modern_projection_item_icon_4c0a405f584fba1a_world",
+        "modern_projection_item_icon_4cb8cc1492319903_world",
+        "modern_projection_item_icon_4d1267621bbcf044_world",
+        "modern_projection_item_icon_4e44ac3735fe264d_world",
+        "modern_projection_item_icon_4f36bc79138776de_world",
+        "modern_projection_item_icon_514dcbbf507be2d0_world",
+        "modern_projection_item_icon_51731197f96c38fb_world",
+        "modern_projection_item_icon_520df80a2ed8160d_world",
+        "modern_projection_item_icon_5327f4aec6f68e88_world",
+        "modern_projection_item_icon_535a4886173111f4_world",
+        "modern_projection_item_icon_537a6ea2927956aa_world",
+        "modern_projection_item_icon_53db72273ed5a8bb_world",
+        "modern_projection_item_icon_56850d161bb0a072_world",
+        "modern_projection_item_icon_56c28e8a015e2ee1_world",
+        "modern_projection_item_icon_56e291b45b05ec65_world",
+        "modern_projection_item_icon_57344fb64169c8b9_world",
+        "modern_projection_item_icon_58542b701c8cba4e_world",
+        "modern_projection_item_icon_585ec8186cbeec6d_world",
+        "modern_projection_item_icon_5a97f2596af268bf_world",
+        "modern_projection_item_icon_5aef902756dc2fa0_world",
+        "modern_projection_item_icon_5c4e18a8fe3c226e_world",
+        "modern_projection_item_icon_5d39e570387a1730_world",
+        "modern_projection_item_icon_5d83b7473907f332_world",
+        "modern_projection_item_icon_5d8d2ed9ac5db5de_world",
+        "modern_projection_item_icon_5e7ceaee7822c288_world",
+        "modern_projection_item_icon_5ecdd893f8ce7378_world",
+        "modern_projection_item_icon_5f6a503bc24c73b6_world",
+        "modern_projection_item_icon_5f6f3f949e9b928a_world",
+        "modern_projection_item_icon_5fb433e86dc241ed_world",
+        "modern_projection_item_icon_6037e8ca0d1bcf35_world",
+        "modern_projection_item_icon_60d00dea99d2332f_world",
+        "modern_projection_item_icon_60fde56a603170b7_world",
+        "modern_projection_item_icon_61934a2669aace65_world",
+        "modern_projection_item_icon_61fe7faf31be9ef4_world",
+        "modern_projection_item_icon_622831f6bf89e0c8_world",
+        "modern_projection_item_icon_629ab7ed003d5a7f_world",
+        "modern_projection_item_icon_62aacbcb2a19a8bf_world",
+        "modern_projection_item_icon_62fb764af34543c9_world",
+        "modern_projection_item_icon_63c97f7b795158d4_world",
+        "modern_projection_item_icon_6407fa3a3ad9f9a3_world",
+        "modern_projection_item_icon_6485b53b2b87a0b8_world",
+        "modern_projection_item_icon_65238f484decdf7a_world",
+        "modern_projection_item_icon_65a9f9ed431ff3d9_world",
+        "modern_projection_item_icon_65cd2a3771a77d89_world",
+        "modern_projection_item_icon_664f904ca9a0f876_world",
+        "modern_projection_item_icon_66da58b46bd4f281_world",
+        "modern_projection_item_icon_675495afbe03f3c6_world",
+        "modern_projection_item_icon_6794973e15662ffe_world",
+        "modern_projection_item_icon_68aa24e3d70fbee7_world",
+        "modern_projection_item_icon_6926b15126e72416_world",
+        "modern_projection_item_icon_692a3fc4fc1f407e_world",
+        "modern_projection_item_icon_69445de750d9b546_world",
+        "modern_projection_item_icon_69d35e5d9848da2a_world",
+        "modern_projection_item_icon_6a5be9a97a3a709f_world",
+        "modern_projection_item_icon_6a6b6cd60a397ffc_world",
+        "modern_projection_item_icon_6bc8ed19a7da9f42_world",
+        "modern_projection_item_icon_6bdc47e5fdb98266_world",
+        "modern_projection_item_icon_6be8a232d4c3c76d_world",
+        "modern_projection_item_icon_6e57599ca839805e_world",
+        "modern_projection_item_icon_6f209427d6a9e77f_world",
+        "modern_projection_item_icon_6fc2f45889e2275a_world",
+        "modern_projection_item_icon_705b3f00822b0ab9_world",
+        "modern_projection_item_icon_711695c4338b2232_world",
+        "modern_projection_item_icon_71606cee914f1e4a_world",
+        "modern_projection_item_icon_71a338903ac5e505_world",
+        "modern_projection_item_icon_71a9c144b27c81c3_world",
+        "modern_projection_item_icon_726ae40600c9d908_world",
+        "modern_projection_item_icon_727c5d9766bad29e_world",
+        "modern_projection_item_icon_7311e6afbbe845c5_world",
+        "modern_projection_item_icon_74c03fcf853605db_world",
+        "modern_projection_item_icon_74caf3f153068ae4_world",
+        "modern_projection_item_icon_764d8eae2ae89ec2_world",
+        "modern_projection_item_icon_76a7164623a5fc64_world",
+        "modern_projection_item_icon_77cdab903636f76d_world",
+        "modern_projection_item_icon_78b1c7e7a4776026_world",
+        "modern_projection_item_icon_78d18e131005cff7_world",
+        "modern_projection_item_icon_79557b547db13606_world",
+        "modern_projection_item_icon_7981a240396ded78_world",
+        "modern_projection_item_icon_7a0299568be0708d_world",
+        "modern_projection_item_icon_7a1c518733ef7f9e_world",
+        "modern_projection_item_icon_7afc0951ed9768f9_world",
+        "modern_projection_item_icon_7c412fc3400bb05d_world",
+        "modern_projection_item_icon_7c862b68d703e092_world",
+        "modern_projection_item_icon_7c865ce9f6adf321_world",
+        "modern_projection_item_icon_7cd96c1a03a6dfd2_world",
+        "modern_projection_item_icon_7e18e4a1d6fa978f_world",
+        "modern_projection_item_icon_7e2c2f48ce2b21fb_world",
+        "modern_projection_item_icon_7f3e29a6233f5cc1_world",
+        "modern_projection_item_icon_7f9b88b8a64c7e41_world",
+        "modern_projection_item_icon_7f9fa461a23f4c8d_world",
+        "modern_projection_item_icon_80c306857195b3a1_world",
+        "modern_projection_item_icon_8161a278ea6e04be_world",
+        "modern_projection_item_icon_819e79e69d414a1a_world",
+        "modern_projection_item_icon_82134803d9116380_world",
+        "modern_projection_item_icon_8293e5f33847659e_world",
+        "modern_projection_item_icon_82ea1e8e2ec3864e_world",
+        "modern_projection_item_icon_831b54805c771142_world",
+        "modern_projection_item_icon_84022c8353877999_world",
+        "modern_projection_item_icon_850ef296b4ef0b62_world",
+        "modern_projection_item_icon_85835decf03f3cfb_world",
+        "modern_projection_item_icon_85d51b07b2543844_world",
+        "modern_projection_item_icon_866e427c401a5a76_world",
+        "modern_projection_item_icon_86bc7c7ab8dc021a_world",
+        "modern_projection_item_icon_8725187908516116_world",
+        "modern_projection_item_icon_8793bcae2e8993be_world",
+        "modern_projection_item_icon_87d14409e06d012e_world",
+        "modern_projection_item_icon_89ef1e56d8eb3a20_world",
+        "modern_projection_item_icon_8a2d50be7a7140a5_world",
+        "modern_projection_item_icon_8a4503f81167923f_world",
+        "modern_projection_item_icon_8b22748b47c4968c_world",
+        "modern_projection_item_icon_8b799932b34471de_world",
+        "modern_projection_item_icon_8c1328f0a39e09aa_world",
+        "modern_projection_item_icon_8cab16707059b306_world",
+        "modern_projection_item_icon_8cf01aa6b349d211_world",
+        "modern_projection_item_icon_8d1a1866fd2c2536_world",
+        "modern_projection_item_icon_8d1dbe941a70e3c1_world",
+        "modern_projection_item_icon_8d45a79c62091fcc_world",
+        "modern_projection_item_icon_8d9915412d2de25f_world",
+        "modern_projection_item_icon_8e95070042a12f9b_world",
+        "modern_projection_item_icon_8ef2960c23049db8_world",
+        "modern_projection_item_icon_8fbe82e0aed8b7e5_world",
+        "modern_projection_item_icon_9025f133e0784811_world",
+        "modern_projection_item_icon_903f4b2b312ea6cc_world",
+        "modern_projection_item_icon_91d806928b61a5de_world",
+        "modern_projection_item_icon_920b9607720fb2c8_world",
+        "modern_projection_item_icon_92a11ff81f45890d_world",
+        "modern_projection_item_icon_92c7185d74b083f4_world",
+        "modern_projection_item_icon_936beca8d6330f93_world",
+        "modern_projection_item_icon_93e567e0d499915c_world",
+        "modern_projection_item_icon_93f1299b4eca622e_world",
+        "modern_projection_item_icon_940ac538e72b7a8e_world",
+        "modern_projection_item_icon_94469f6ebd96d0ba_world",
+        "modern_projection_item_icon_94c17d212e664eaf_world",
+        "modern_projection_item_icon_94df2b17e0c874b7_world",
+        "modern_projection_item_icon_953ae86c3f97acfd_world",
+        "modern_projection_item_icon_968713b58178b98c_world",
+        "modern_projection_item_icon_9709cac517e307e4_world",
+        "modern_projection_item_icon_97a16a1dd6302ad5_world",
+        "modern_projection_item_icon_98096be03f3c21fe_world",
+        "modern_projection_item_icon_988382d80564d1fd_world",
+        "modern_projection_item_icon_98a4c556b031a67e_world",
+        "modern_projection_item_icon_99576336880b0e4e_world",
+        "modern_projection_item_icon_99603cfe24d295f6_world",
+        "modern_projection_item_icon_996f80148a690958_world",
+        "modern_projection_item_icon_9a416904187432e6_world",
+        "modern_projection_item_icon_9a6b66473b83631d_world",
+        "modern_projection_item_icon_9ca09d70f2f27339_world",
+        "modern_projection_item_icon_9dcfbb9415c5573b_world",
+        "modern_projection_item_icon_9df2941b37946d9e_world",
+        "modern_projection_item_icon_9e1f4444ee985eb2_world",
+        "modern_projection_item_icon_9eec5bfe63e14cc1_world",
+        "modern_projection_item_icon_9f17e7675168815d_world",
+        "modern_projection_item_icon_a15f7bc9ba7f1e43_world",
+        "modern_projection_item_icon_a244ad9554b36ad3_world",
+        "modern_projection_item_icon_a320eaf0a9ec727a_world",
+        "modern_projection_item_icon_a4ae04085ded9622_world",
+        "modern_projection_item_icon_a5158f99d824dbc7_world",
+        "modern_projection_item_icon_a61e196728943385_world",
+        "modern_projection_item_icon_a6c49a1da5108006_world",
+        "modern_projection_item_icon_a6c77c295ed55b53_world",
+        "modern_projection_item_icon_a6fb810c978025b1_world",
+        "modern_projection_item_icon_a71cb9687496c14c_world",
+        "modern_projection_item_icon_a879abbc1651995a_world",
+        "modern_projection_item_icon_a9ede727a42d6966_world",
+        "modern_projection_item_icon_aa158721022891ee_world",
+        "modern_projection_item_icon_aa1c6ff73e24c7a6_world",
+        "modern_projection_item_icon_aa85db78fad5c803_world",
+        "modern_projection_item_icon_ab7300bb4014d828_world",
+        "modern_projection_item_icon_ac01f501160435d6_world",
+        "modern_projection_item_icon_ac79af59a993ce5e_world",
+        "modern_projection_item_icon_ac9922c79c1a25be_world",
+        "modern_projection_item_icon_aca7b47c5f05e00c_world",
+        "modern_projection_item_icon_acb1c638b4d02d42_world",
+        "modern_projection_item_icon_adddbf3dfd7f9298_world",
+        "modern_projection_item_icon_ae06506e0546cf47_world",
+        "modern_projection_item_icon_ae81418f42a0673e_world",
+        "modern_projection_item_icon_ae9d23a349a69b01_world",
+        "modern_projection_item_icon_af0f711c51bb28d6_world",
+        "modern_projection_item_icon_af16a9937de0faa0_world",
+        "modern_projection_item_icon_b0453d93788c97f4_world",
+        "modern_projection_item_icon_b06f28686ec32215_world",
+        "modern_projection_item_icon_b12cba79508ac468_world",
+        "modern_projection_item_icon_b24c99d439528818_world",
+        "modern_projection_item_icon_b3216fa9ecf53eb4_world",
+        "modern_projection_item_icon_b373b589d432cddd_world",
+        "modern_projection_item_icon_b4cf387017eb0622_world",
+        "modern_projection_item_icon_b5a94197aa27def0_world",
+        "modern_projection_item_icon_b65ca1f336576ed3_world",
+        "modern_projection_item_icon_b6f5b0ee84f3caff_world",
+        "modern_projection_item_icon_b77020fb3a82e51e_world",
+        "modern_projection_item_icon_b7f0a7d00706d2e7_world",
+        "modern_projection_item_icon_b82f965ee935fc1f_world",
+        "modern_projection_item_icon_b947bac079d2aa33_world",
+        "modern_projection_item_icon_b9b91654de0c96ca_world",
+        "modern_projection_item_icon_ba2e494c6ff75cb2_world",
+        "modern_projection_item_icon_ba3bbb0b011cb6f3_world",
+        "modern_projection_item_icon_bb699890cdf30138_world",
+        "modern_projection_item_icon_bbc973103fcc6f4b_world",
+        "modern_projection_item_icon_bbe7ded749758c78_world",
+        "modern_projection_item_icon_bd4158190b012f8d_world",
+        "modern_projection_item_icon_bd9a15f88247fb07_world",
+        "modern_projection_item_icon_bd9eb83ab91cb441_world",
+        "modern_projection_item_icon_be8ff7cd3a21b041_world",
+        "modern_projection_item_icon_c237d749ccdfa628_world",
+        "modern_projection_item_icon_c3a2679bef9bc656_world",
+        "modern_projection_item_icon_c3f71304377daf81_world",
+        "modern_projection_item_icon_c41e02d939844654_world",
+        "modern_projection_item_icon_c42f014667648d69_world",
+        "modern_projection_item_icon_c49a0822da172a80_world",
+        "modern_projection_item_icon_c49def2ce4ef0156_world",
+        "modern_projection_item_icon_c5359f3d3f89a644_world",
+        "modern_projection_item_icon_c5a8b1bd4529bfd3_world",
+        "modern_projection_item_icon_c606b57bf25c3e10_world",
+        "modern_projection_item_icon_c612fd8377e4107b_world",
+        "modern_projection_item_icon_c6181a9ac8b5451d_world",
+        "modern_projection_item_icon_c6af3cceccb3fc94_world",
+        "modern_projection_item_icon_c6af9c807088f61f_world",
+        "modern_projection_item_icon_c853556b549b85fb_world",
+        "modern_projection_item_icon_c86ad2c930d16404_world",
+        "modern_projection_item_icon_c99f8652436498d8_world",
+        "modern_projection_item_icon_c9e3947bb2f48d6e_world",
+        "modern_projection_item_icon_cbfbdcb9647158f9_world",
+        "modern_projection_item_icon_cc5a38300db57a27_world",
+        "modern_projection_item_icon_cd0e6d9abe49e2e5_world",
+        "modern_projection_item_icon_cd24755c4faecafb_world",
+        "modern_projection_item_icon_cf0aaacc630fa75d_world",
+        "modern_projection_item_icon_cf1b621f30b256be_world",
+        "modern_projection_item_icon_cf75a6e96b2d3e06_world",
+        "modern_projection_item_icon_cfca7228fafbca03_world",
+        "modern_projection_item_icon_d0aeaac17614c32e_world",
+        "modern_projection_item_icon_d0ce0f1fd989c8ce_world",
+        "modern_projection_item_icon_d19ff5bff710ac9e_world",
+        "modern_projection_item_icon_d1c1bab69b30a5a3_world",
+        "modern_projection_item_icon_d1d9dd7964c0d235_world",
+        "modern_projection_item_icon_d1ea846c563282bb_world",
+        "modern_projection_item_icon_d20776e046d026b3_world",
+        "modern_projection_item_icon_d2cb5782d5d0b641_world",
+        "modern_projection_item_icon_d2d3185f424e97dc_world",
+        "modern_projection_item_icon_d39033cde2cf5c7f_world",
+        "modern_projection_item_icon_d4ffc3b093c037a7_world",
+        "modern_projection_item_icon_d5f238d0e2b5746f_world",
+        "modern_projection_item_icon_d7449eb7ee952630_world",
+        "modern_projection_item_icon_d8702968887c9bfd_world",
+        "modern_projection_item_icon_d99f4eacf8140543_world",
+        "modern_projection_item_icon_d9b71b31a4066030_world",
+        "modern_projection_item_icon_d9cc6d7967cd5400_world",
+        "modern_projection_item_icon_d9dba7ce03204959_world",
+        "modern_projection_item_icon_da439cc05cfdf0fa_world",
+        "modern_projection_item_icon_db2526eb0ab51816_world",
+        "modern_projection_item_icon_db6cf31056964740_world",
+        "modern_projection_item_icon_dbd79fe07d222138_world",
+        "modern_projection_item_icon_dc00f917735155a0_world",
+        "modern_projection_item_icon_ddb5188fc7696532_world",
+        "modern_projection_item_icon_ddbb2772604bca75_world",
+        "modern_projection_item_icon_ddbc3019cd89c974_world",
+        "modern_projection_item_icon_df6db4bb08503a5a_world",
+        "modern_projection_item_icon_df71bce07198d9be_world",
+        "modern_projection_item_icon_dfc68ae5a92091aa_world",
+        "modern_projection_item_icon_dfd5757657c0e744_world",
+        "modern_projection_item_icon_e1f9b00ff418854a_world",
+        "modern_projection_item_icon_e2d115e632ed0d61_world",
+        "modern_projection_item_icon_e2d56eb3540cb04d_world",
+        "modern_projection_item_icon_e3ba3ccfba4bf9ba_world",
+        "modern_projection_item_icon_e3fea35b542c1eeb_world",
+        "modern_projection_item_icon_e4688a7275dee3f2_world",
+        "modern_projection_item_icon_e47b6db44eb33ee3_world",
+        "modern_projection_item_icon_e47c217af2290c0b_world",
+        "modern_projection_item_icon_e5fe8cdea0f77b4b_world",
+        "modern_projection_item_icon_e6339126b344e38b_world",
+        "modern_projection_item_icon_e63b4fcb6d4da4a9_world",
+        "modern_projection_item_icon_e655b0f964c21c5a_world",
+        "modern_projection_item_icon_e693920da53440c3_world",
+        "modern_projection_item_icon_e70f056020448ee2_world",
+        "modern_projection_item_icon_e7655190d91f58d6_world",
+        "modern_projection_item_icon_e7aa073d57c0fc16_world",
+        "modern_projection_item_icon_e95904094b3f542e_world",
+        "modern_projection_item_icon_ea0304ed720f0a65_world",
+        "modern_projection_item_icon_eb670bf4a7fe4a42_world",
+        "modern_projection_item_icon_eb8ab4253dc3b250_world",
+        "modern_projection_item_icon_ec8de55067ad02a5_world",
+        "modern_projection_item_icon_ecc9fb25a3092ea1_world",
+        "modern_projection_item_icon_ed1fa033e9f46514_world",
+        "modern_projection_item_icon_ed328ebd03604a26_world",
+        "modern_projection_item_icon_edb61ef4c414304e_world",
+        "modern_projection_item_icon_ee8fa7a1d396dd55_world",
+        "modern_projection_item_icon_ee996c97b6913ff1_world",
+        "modern_projection_item_icon_ef0ec8c12f320303_world",
+        "modern_projection_item_icon_f00fef632b7f7ab9_world",
+        "modern_projection_item_icon_f09afaf40ff0a6a6_world",
+        "modern_projection_item_icon_f16b47a32e8e45d8_world",
+        "modern_projection_item_icon_f1be2e661762e97a_world",
+        "modern_projection_item_icon_f1cfbcacfd55e795_world",
+        "modern_projection_item_icon_f394c5607d440efd_world",
+        "modern_projection_item_icon_f3b4ad6ba0f93dec_world",
+        "modern_projection_item_icon_f495ec716d480d2e_world",
+        "modern_projection_item_icon_f51223d176d92a54_world",
+        "modern_projection_item_icon_f54f4bca4eeac183_world",
+        "modern_projection_item_icon_f57df50042517a3a_world",
+        "modern_projection_item_icon_f675c6e488c15b6e_world",
+        "modern_projection_item_icon_f69a2d510ee138cf_world",
+        "modern_projection_item_icon_f6db3532e8106d95_world",
+        "modern_projection_item_icon_f6f6eb86633c3694_world",
+        "modern_projection_item_icon_f7c745fea9ce73a3_world",
+        "modern_projection_item_icon_f8d15cc3eba6a45a_world",
+        "modern_projection_item_icon_f984d17c518981ab_world",
+        "modern_projection_item_icon_fabef2be8a46bc9f_world",
+        "modern_projection_item_icon_fafc1ad43a62d941_world",
+        "modern_projection_item_icon_fb142138b01ab74f_world",
+        "modern_projection_item_icon_fb957c15376df685_world",
+        "modern_projection_item_icon_fbdefff611da7007_world",
+        "modern_projection_item_icon_fd43b8ab19b1406d_world",
+        "modern_projection_item_icon_fda69b942c7ca09c_world",
+        "modern_projection_item_icon_fe608c68d2465d42_world",
+        "modern_projection_item_icon_feaa5bc6e332f994_world",
+        "modern_projection_item_icon_ff6d34c58d6c81c1_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_item_sprite_minecraft_diamond_sword_0": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_item_sprite_minecraft_diamond_sword_0"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_item_sprite_minecraft_diamond_sword_0"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_item_sprite_minecraft_diamond_sword_0_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_item_sprite_minecraft_diamond_sword_0_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_item_sprite_minecraft_diamond_sword_0_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_top": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_top"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_top"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_top_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_top_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_top_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_top_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_top_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_top_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_top_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_top_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_top_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_flowing_water_grey_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_flowing_water_grey_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_flowing_water_grey_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_top"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_top"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_top_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_top_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_top_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_top_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_top_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_top_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_top_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_flowing_water_grey_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_flowing_water_grey_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_flowing_water_grey_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_still_water_grey": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_still_water_grey"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_still_water_grey"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_still_water_grey_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_still_water_grey_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_still_water_grey_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_still_water_grey_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_still_water_grey_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_product_still_water_grey_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_product_still_water_grey_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_product_still_water_grey_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableDepthWrite",
+        "InvertCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_still_water_grey": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_still_water_grey"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_still_water_grey"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_still_water_grey_frozen": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_still_water_grey_frozen"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_still_water_grey_frozen"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_still_water_grey_frozen_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_still_water_grey_frozen_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_still_water_grey_frozen_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_liquid_still_water_grey_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_liquid_still_water_grey_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_liquid_still_water_grey_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_outline": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_outline"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_portal_end_gateway": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_portal_end_gateway"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_portal_end_gateway"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_portal_end_gateway_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_portal_end_gateway_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_portal_end_gateway_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_portal_end_portal": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_portal_end_portal"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_portal_end_portal"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_portal_end_portal_world": {
+      "ancestors": [
+        "entity_for_skeleton",
+        "entity_for_skeleton_alpha",
+        "modern_projection_portal_end_portal_world"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [
+        "modern_projection_portal_end_portal_world"
+      ],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_staff_aura": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_staff_aura"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_aura_glow": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_staff_aura",
+        "modern_projection_staff_aura_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_gem": {
+      "ancestors": [
+        "entity_static",
+        "entity",
+        "entity_nocull",
+        "entity_alphatest",
+        "modern_projection_staff_gem"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_gem_violet": {
+      "ancestors": [
+        "entity_static",
+        "entity",
+        "entity_nocull",
+        "entity_alphatest",
+        "modern_projection_staff_gem",
+        "modern_projection_staff_gem_violet"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_grip": {
+      "ancestors": [
+        "entity_static",
+        "entity",
+        "entity_nocull",
+        "entity_alphatest",
+        "modern_projection_staff_gem",
+        "modern_projection_staff_grip"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_grip_violet": {
+      "ancestors": [
+        "entity_static",
+        "entity",
+        "entity_nocull",
+        "entity_alphatest",
+        "modern_projection_staff_gem",
+        "modern_projection_staff_grip",
+        "modern_projection_staff_grip_violet"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_staff_motes": {
+      "ancestors": [
+        "entity_static",
+        "entity",
+        "entity_nocull",
+        "entity_alphatest",
+        "modern_projection_staff_gem",
+        "modern_projection_staff_motes"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_strike_native_glow": {
+      "ancestors": [
+        "particles_base",
+        "modern_projection_strike_native_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_survey_glow": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_stars",
+        "modern_projection_survey_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_survey_guide": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_guide"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_survey_native_glow": {
+      "ancestors": [
+        "particles_base",
+        "modern_projection_survey_native_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "modern_projection_survey_stars": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_stars"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_survey_strike": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_stars",
+        "modern_projection_survey_strike"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_survey_strike_glow": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_stars",
+        "modern_projection_survey_glow",
+        "modern_projection_survey_strike_glow"
+      ],
+      "depth_test": true,
+      "depth_write": false,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "modern_projection_survey_wire": {
+      "ancestors": [
+        "entity_static",
+        "modern_projection_survey_wire"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "DisableCulling"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "netease_block_as_entity_mesh": {
+      "ancestors": [
+        "netease_block_as_entity_mesh"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_entity_transparency": {
+      "ancestors": [
+        "entity_static_netease",
+        "entity_nocull_netease",
+        "entity_alphatest_netease",
+        "netease_block_as_entity_transparency"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableCulling",
+        "EnableAlphaToCoverage"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static_netease",
+          "variant": "skinning_color"
+        }
+      ]
+    },
+    "netease_block_as_mesh_alpha_seasons": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_alpha_seasons"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite",
+        "DisableCulling",
+        "EnableAlphaToCoverage"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_blend": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_blend"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_blend_alphatest_seasons": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_alpha_seasons",
+        "netease_block_as_mesh_blend_alphatest_seasons"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite",
+        "DisableCulling",
+        "EnableAlphaToCoverage"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_blend_enable_transparency": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_blend",
+        "netease_block_as_mesh_blend_enable_transparency"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_blend_far": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_blend",
+        "netease_block_as_mesh_blend_far"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_blend_no_culling": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_blend",
+        "netease_block_as_mesh_blend_no_culling"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite",
+        "DisableCulling"
+      ],
+      "variant_state_overrides": []
+    },
+    "netease_block_as_mesh_opaque_seasons": {
+      "ancestors": [
+        "netease_block_as_entity_mesh",
+        "netease_block_as_mesh_opaque_seasons"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending",
+        "DisableAlphaWrite"
+      ],
+      "variant_state_overrides": []
+    },
+    "sign": {
+      "ancestors": [
+        "entity_static",
+        "sign"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending"
+      ],
+      "variant_state_overrides": [
+        {
+          "changes": {
+            "+states": [
+              "Blending"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_color"
+        },
+        {
+          "changes": {
+            "+states": [
+              "DisableCulling"
+            ]
+          },
+          "material": "entity_static",
+          "variant": "skinning_alphatest"
+        }
+      ]
+    },
+    "sign_text": {
+      "ancestors": [
+        "sign_text"
+      ],
+      "depth_test": true,
+      "depth_write": true,
+      "registered_models": [],
+      "states": [
+        "Blending"
+      ],
+      "variant_state_overrides": []
+    }
+  },
+  "schema_version": 1,
+  "scope": "Base material states; texture alpha, render order and actual visibility require runtime evidence.",
+  "sources": {
+    "native/resource_packs/vanilla/materials/cameraFacingSprite.material": "13c951ccc1d6c8eb2fab8091550e3d9760f5300b2c4e797b4474d236b327370f",
+    "native/resource_packs/vanilla/materials/entity.material": "5a3b5b0c6ae46e439ad26df811dfb657a8da229bcc5850a723bca579ebd788ac",
+    "native/resource_packs/vanilla/materials/fancy.material": "8ef0b94b4d110dc12dcb7203d6449d5d3dc4c6f126c9db18e5959c64ce8f92ab",
+    "native/resource_packs/vanilla/materials/gameface.material": "0b8af84b49a7a7812061e41d071f0d733580cf18ba2918f9362db25bf1de2761",
+    "native/resource_packs/vanilla/materials/hologram.material": "09d1467bc1c487e5d9c8449779e23d46d7f89202cb6b7b565b47b54d89b6d115",
+    "native/resource_packs/vanilla/materials/particles.material": "5e91579ede59fba20f79d63c948480744089ba0e1a8e5521f7ca4ceccc92e54e",
+    "native/resource_packs/vanilla/materials/portal.material": "e0c87e1c4c746aac17cf0f69c045bbb9fe4425eda9fe23127ef91dfb2bd0f160",
+    "native/resource_packs/vanilla/materials/sad.material": "080477d66dab165c676c7d857cf3fa00d3fba896f330fb09d182fd89a4aea510",
+    "native/resource_packs/vanilla/materials/shadows.material": "544df1859920f38bb7da554e81f30fd45fbca6047fd1db556c5a78d47c4f41b5",
+    "native/resource_packs/vanilla/materials/sky.material": "ea940ced09b5ff3a1f8dc8328c328a5f201786f841e6cf498ba160a0bebb05e1",
+    "native/resource_packs/vanilla/materials/terrain.material": "8dd498320e68d499375aec785cc1bf373addf3399a7667fa95e05760384dbad8",
+    "native/resource_packs/vanilla/materials/ui.material": "a3ccbc438eebafb7325548a7c3fa49de8574bfccd69a64bfd916e942c3167045",
+    "native/resource_packs/vanilla/materials/ui3D.material": "a435c5c08a509116b937fd281caab5f3037081b9711d25af7700dd5750c538c9",
+    "native/resource_packs/vanilla/materials/wireframe.material": "07d011069ec89a433a790477b241249a9a957f4372336afc0a051d889256d9e7",
+    "native/resource_packs/vanilla_netease/materials/ccui.material": "1da56108731ea78e58ff35949638f60687f8902d0dbe0ec0dd917fb262bcf0da",
+    "native/resource_packs/vanilla_netease/materials/entity.material": "9571db83b63816c002c2d8e94ce502810151a47420a4c9e4f15970e9938c5863",
+    "native/resource_packs/vanilla_netease/materials/particles.material": "52fefe4e3a8b5ab92803b5dc97224ab4112a1c164b319b7bb135f71ae1450dfd",
+    "native/resource_packs/vanilla_netease/materials/particles_netease.material": "90de8ecc21b5b1d4867af2597825ac100b85e738b211af045f7140d4be1cfb01",
+    "native/resource_packs/vanilla_netease/materials/postprocess.material": "db18feb194845f81b9413da1b9b394a9e26f3fddc6533b999a54813935523241",
+    "native/resource_packs/vanilla_netease/materials/sfx.material": "04037c06e05dec2dd8ef883993af637fd24a2502f604afe8fb3247c7e87e0520",
+    "native/resource_packs/vanilla_netease/materials/sky.material": "2b4171ad89b27f810298c7008b0de7bff3cf8155b777bc2d8f6892e9655b0c26",
+    "native/resource_packs/vanilla_netease/materials/terrain.material": "9c481e542404f4a1fecbc5ddec3e7073e5e36a3e9edfd149180ecc9eb2bafb66",
+    "native/resource_packs/vanilla_netease/materials/ui.material": "c537a0d72d79a2b644f7bb016cedb63498d29fa82552a36d16d4bcfd110b4240",
+    "native/resource_packs/vanilla_netease/materials/ui3D.material": "ef70908bb78e70d10d5bb39d0917e2d8daf35155e62f3543637c0cf800a1d0a0",
+    "project/resource_pack/materials/entity.material": "3283b761c7ba2aaac8a7bc32577c2ebcc2fabf8ee722f9dd9eff5e4371781d9d",
+    "project/resource_pack/materials/particles.material": "b5374b5fe5926d0ab24df6e2b2fb12200c7e6ce3d929b9c54c401eef59e7ecd2",
+    "project/resource_pack/materials/terrain.material": "b20079f22bb9272d036f1ca4c1c148ab2a0a9c05ad0cf894b644db93ebd5971b",
+    "project/resource_pack/materials/ui3D.material": "b7ff548d5e4ca3c5c559a1aeb74004c110317f127f677224335ccc8dce4b46bb"
+  },
+  "unresolved": {}
+}

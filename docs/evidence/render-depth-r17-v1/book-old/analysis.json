@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "failures": [],
+  "scope": "Frozen opaque surface interior; no product admission.",
+  "case": "enchanting_table",
+  "mask_kind": "cover",
+  "region": [
+    920,
+    495,
+    1065,
+    635
+  ],
+  "pixel_threshold": 8,
+  "source": {
+    "fixture": "test.dynamic.special",
+    "case": "enchanting_table",
+    "source_actor": {
+      "__modern_projection_actor__": 1,
+      "nbt": {
+        "id": {
+          "__type__": 8,
+          "__value__": "EnchantTable"
+        },
+        "isMovable": {
+          "__type__": 1,
+          "__value__": 1
+        },
+        "rott": {
+          "__type__": 5,
+          "__value__": 0.0
+        },
+        "x": {
+          "__type__": 3,
+          "__value__": 3
+        },
+        "y": {
+          "__type__": 3,
+          "__value__": 3
+        },
+        "z": {
+          "__type__": 3,
+          "__value__": 3
+        }
+      },
+      "render": {}
+    },
+    "native_actor": {},
+    "material": [
+      "minecraft:enchanting_table",
+      0
+    ],
+    "position": [
+      3,
+      3,
+      3
+    ]
+  },
+  "report_sha256": "53d2e370494d55793453aee98ba72b949b07163ba37d53d3f7c40e81a2e6188d",
+  "capture_sha256": {
+    "enchanting_table_off_air_back": "d851884bd71c778f50d2b6930fb9cf04377eeb929825a1748036a4df4acbaa78",
+    "enchanting_table_off_air_back_repeat": "242470436fbb944812faeb4339ef48981e9d41f80eb351fc8fbc1f27b55c32eb",
+    "enchanting_table_off_leaves_back": "ad1a64ded65150277e11ad01c06f579a80046cbdc08be6e60365615f84ec0fd5",
+    "enchanting_table_off_stone_back": "cf74e3667d58789bc494bfaa5569e8f76a06a10fc2df7e4a32b63c64411dd426",
+    "enchanting_table_off_glass_back": "568b473b6ff16f071bcb8f343b03686ecce4a482a70bd869c03591bd87e52898",
+    "enchanting_table_on_air_back": "6a2766bb5fb344da1097d51fe3913fdb5fde46d1291dc79df22fa3959fa7941f",
+    "enchanting_table_on_air_back_repeat": "9f4374df2b944a2c0bc6def67427095f7ad2f7f93bd7f76c8ed4fd8ea4652c50",
+    "enchanting_table_on_leaves_back": "88b7eda23071a03782cf75e001aa606937c0367973c1ddb782ceab2f8ba596d4",
+    "enchanting_table_on_stone_back": "2fa37433f2959fa9ed7fb8f7582f4c501dc60cc2cfaf21192afee06193c35f74",
+    "enchanting_table_on_glass_back": "b089e747e179c02ea5f799d0f228178e5962a0c5a5f205c9688777f78022df94"
+  },
+  "crop_sha256": {
+    "enchanting_table_off_air_back.png": "b7d416c4d68b8a7e6434d3e206be80e60182d369017d2da213fe035732a63c51",
+    "enchanting_table_off_air_back_repeat.png": "b7d416c4d68b8a7e6434d3e206be80e60182d369017d2da213fe035732a63c51",
+    "enchanting_table_off_leaves_back.png": "8a0d455ea4ae0f3280ce048268a800eb59eb31cc922e423fcb109e1577a547ee",
+    "enchanting_table_off_stone_back.png": "5b2e6c05d324821bea087a8b7c67d76220523bf5dcdb0f01a1f4cc8ac4d1d9c9",
+    "enchanting_table_off_glass_back.png": "57ecd958affbd29f3bd1bec8b840cf8c8f95f4b8308f55dad74be85adb39e4ee",
+    "enchanting_table_on_air_back.png": "66137fff345d677e456601431dc523a118f4ab3205df4b380f88b3ceebe74ec9",
+    "enchanting_table_on_air_back_repeat.png": "348ec12fb6526f525b0f6b98b5e688186c82e1bb35380087dbe22a95bf0751c7",
+    "enchanting_table_on_leaves_back.png": "01bc290f98c8bdaf788067cfdcdffa321c8b1a8a11e1b7ce0312f93aa78ad2fc",
+    "enchanting_table_on_stone_back.png": "a6131bf262c9b4df88197db9215478a08d63908f0c63e858ced91e82dc582e33",
+    "enchanting_table_on_glass_back.png": "e9f29a7dc1bf7f7d5317aa78efb20eeb664bc2b24bdc4a4fbff6d748086c7e46"
+  },
+  "results": {
+    "off": {
+      "mask_pixels": 12930,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 21,
+          "maximum_channel_difference": 109,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 21,
+          "maximum_channel_difference": 166,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        },
+        "glass": {
+          "pixels": 21,
+          "maximum_channel_difference": 166,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:glass",
+              0
+            ]
+          }
+        }
+      }
+    },
+    "on": {
+      "mask_pixels": 11891,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        },
+        "glass": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": 28.0,
+              "hitPosY": 80.75316619873047,
+              "hitPosZ": -31.500001907348633,
+              "type": "Block",
+              "x": 28,
+              "y": 80,
+              "z": -32
+            },
+            "material": [
+              "minecraft:glass",
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

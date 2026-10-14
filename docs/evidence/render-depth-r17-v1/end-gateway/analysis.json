@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "failures": [],
+  "scope": "Frozen opaque surface interior; no product admission.",
+  "case": "end_gateway",
+  "mask_kind": "rectangle",
+  "region": [
+    900,
+    450,
+    1080,
+    690
+  ],
+  "pixel_threshold": 8,
+  "source": {
+    "fixture": "test.dynamic.portals",
+    "case": "end_gateway"
+  },
+  "report_sha256": "430aec668450f9632aa52a7b71fd9770a1fa1f2ca7465906ab877f5f78dc2e27",
+  "capture_sha256": {
+    "end_gateway_off_air_back": "11a2b8cad2487a8be46ad73095f028e713c42e68365b9978caefcdc68648cf72",
+    "end_gateway_off_air_back_repeat": "0216ae59d7a7d05c8e8a5b769f7bbed1d05254940cc3e6f4a47525845a82e8fa",
+    "end_gateway_off_leaves_back": "f6391d8435f773b3f6fd0f2bfeae66fdf9dfb1670039a88bfcbb6f63b372663f",
+    "end_gateway_off_stone_back": "9a9761fc8ded10cc516b2be62797e05d16853ab85799423fb3ce29c63328fd97",
+    "end_gateway_off_glass_back": "fc3b526b095b28001ca70a80a2ecd2927b08b4c43a6464591cee8da3944ce795",
+    "end_gateway_on_air_back": "3b33ad310d87f7b570dc9be30c7266d08fbc0a18581f44259f6b827ac0423904",
+    "end_gateway_on_air_back_repeat": "e7ca65bd425156ce4444d9ab335d76da400bae933bdc4beda767f274d003e6be",
+    "end_gateway_on_leaves_back": "2c1c5a4f09946cb535af7dbf76b79929c16f493efcb566b0f7db0d42e326e466",
+    "end_gateway_on_stone_back": "ba90ae46a4fe76255026333b94b7a2970d3ee0adddfb1945922845db7de7a56c",
+    "end_gateway_on_glass_back": "8bbb1a85cb5273fccf2aeac2605e997a2b630d52b9ee8cd5387ce5e7190e7570"
+  },
+  "crop_sha256": {
+    "end_gateway_off_air_back.png": "0cb27b08013a3de40bde5fbd401c5fb4a37f38e858cc59bebd7823b9caad3f40",
+    "end_gateway_off_air_back_repeat.png": "0cb27b08013a3de40bde5fbd401c5fb4a37f38e858cc59bebd7823b9caad3f40",
+    "end_gateway_off_leaves_back.png": "dc7b1bdd2804226a4c7784739540c232c4880922098a96ac41b512a842021e56",
+    "end_gateway_off_stone_back.png": "def58e26e6855d9cd8d5999078e03c784a3a68f92a9cac65ffb0f7a446e93098",
+    "end_gateway_off_glass_back.png": "def58e26e6855d9cd8d5999078e03c784a3a68f92a9cac65ffb0f7a446e93098",
+    "end_gateway_on_air_back.png": "8f6b23b3b9ab57e84223feebe8e23b55bfd11923f96e770e029693edfee8b2a3",
+    "end_gateway_on_air_back_repeat.png": "8f6b23b3b9ab57e84223feebe8e23b55bfd11923f96e770e029693edfee8b2a3",
+    "end_gateway_on_leaves_back.png": "8f6b23b3b9ab57e84223feebe8e23b55bfd11923f96e770e029693edfee8b2a3",
+    "end_gateway_on_stone_back.png": "8f6b23b3b9ab57e84223feebe8e23b55bfd11923f96e770e029693edfee8b2a3",
+    "end_gateway_on_glass_back.png": "8f6b23b3b9ab57e84223feebe8e23b55bfd11923f96e770e029693edfee8b2a3"
+  },
+  "results": {
+    "off": {
+      "mask_pixels": 43200,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 250,
+          "maximum_channel_difference": 194,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 231,
+          "maximum_channel_difference": 194,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        },
+        "glass": {
+          "pixels": 231,
+          "maximum_channel_difference": 194,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:glass",
+              0
+            ]
+          }
+        }
+      }
+    },
+    "on": {
+      "mask_pixels": 43200,
+      "repeat": {
+        "pixels": 0,
+        "maximum_channel_difference": 0
+      },
+      "backdrops": {
+        "leaves": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:oak_leaves",
+              2
+            ]
+          }
+        },
+        "stone": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:stone",
+              0
+            ]
+          }
+        },
+        "glass": {
+          "pixels": 0,
+          "maximum_channel_difference": 0,
+          "selected": {
+            "hit": {
+              "face": 4,
+              "hitPosX": -137.0,
+              "hitPosY": 78.94338989257812,
+              "hitPosZ": 491.5,
+              "type": "Block",
+              "x": -137,
+              "y": 78,
+              "z": 491
+            },
+            "material": [
+              "minecraft:glass",
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}
