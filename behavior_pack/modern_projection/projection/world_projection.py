@@ -22,6 +22,8 @@ class WorldProjection(object):
         self.item_profile = getattr(s, 'item_profile', None)
         self.native_render_profile = getattr(s, 'native_render_profile', None)
         self.cauldron_profile = getattr(s, 'cauldron_profile', None)
+        self.portal_profile = getattr(s, 'portal_profile', None)
+        self.spawner_profile = getattr(s, 'spawner_profile', None)
         self.liquid_profile = getattr(s, 'liquid_profile', None)
         from .occupancy import ProjectionOccupancy
         self.occupancy = ProjectionOccupancy(bridge, origin, self.document) if self.missing else None
@@ -56,6 +58,11 @@ class WorldProjection(object):
             dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
             companions.append(CauldronProjection(bridge, self.document, origin, self.cauldron_profile,
                                                  dimension, self.hidden, self.layer))
+        if self.portal_profile is not None:
+            from .portal_projection import PortalProjection
+            dimension = bridge.factory.CreateGame(bridge.level).GetCurrentDimension()
+            companions.append(PortalProjection(bridge, self.document, origin, self.portal_profile,
+                                               dimension, self.hidden, self.layer))
         if len(companions) == 1:
             self.liquid = companions[0]
         elif companions:
@@ -109,7 +116,9 @@ class WorldProjection(object):
                                       item_profile=self.item_profile,
                                       native_render_profile=getattr(self, 'native_render_profile', None),
                                       cauldron_profile=getattr(self, 'cauldron_profile', None),
-                                      liquid_profile=getattr(self, 'liquid_profile', None))
+                                      liquid_profile=getattr(self, 'liquid_profile', None),
+                                      spawner_profile=getattr(self, 'spawner_profile', None),
+                                      portal_profile=getattr(self, 'portal_profile', None))
         for unused in builder.prepare():
             yield None
         self.prepared = builder.data

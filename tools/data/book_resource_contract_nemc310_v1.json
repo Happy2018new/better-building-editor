@@ -1,0 +1,106 @@
+{
+  "engine_version": "3.10.0.420447",
+  "limits": [
+    "Project book geometry using native artwork; no proximity reaction or page text."
+  ],
+  "materials": {
+    "modern_projection_book_enchanting_table:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table.vertex"
+    },
+    "modern_projection_book_enchanting_table_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table_world.vertex"
+    },
+    "modern_projection_book_lectern:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_book_lectern.vertex"
+    },
+    "modern_projection_book_lectern_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_book_lectern_world.vertex"
+    }
+  },
+  "models": {
+    "modern_projection_book_enchanting_table": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_book_enchanting_table",
+      "mesh": "modern_projection/book/enchanting_table_mesh.json",
+      "skeleton": "modern_projection/book/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/book/native_book"
+      }
+    },
+    "modern_projection_book_enchanting_table_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_book_enchanting_table_world",
+      "mesh": "modern_projection/book/enchanting_table_mesh.json",
+      "skeleton": "modern_projection/book/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/book/native_book"
+      }
+    },
+    "modern_projection_book_lectern": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_book_lectern",
+      "mesh": "modern_projection/book/lectern_mesh.json",
+      "skeleton": "modern_projection/book/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/book/native_book"
+      }
+    },
+    "modern_projection_book_lectern_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_book_lectern_world",
+      "mesh": "modern_projection/book/lectern_mesh.json",
+      "skeleton": "modern_projection/book/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/book/native_book"
+      }
+    }
+  },
+  "native_texture_sha256": "e8d23533b48976b578098db767e2c8161a31fa5d7b22bf576bf531b1bc7f000f",
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "df03d8fe435c50891b4091fb469268205d30e28293b3b86b2c0dde674760a669",
+    "resource_pack/models/modern_projection/book/enchanting_table_mesh.json": "49685740df8c6ba2a93d600696831dec86557c3a8f5281d869a14e72d74614f0",
+    "resource_pack/models/modern_projection/book/lectern_mesh.json": "b547f6cdbbbb3def7a58dc60101908a71ee5b81915a0555ba63d90284c4f08a7",
+    "resource_pack/models/modern_projection/book/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/models/netease_models.json": "3a209d6ab4990742b8ff661882f2ba0aebb7b7d224587d6fef989eb863adc286",
+    "resource_pack/shaders/glsl/modern_projection_book_enchanting_table.vertex": "ace181096d904e055fc74e0da8e317d4d52c4275fd59092e7ddd3f51d4a756de",
+    "resource_pack/shaders/glsl/modern_projection_book_enchanting_table_world.vertex": "a9d234afbe9a291065a2ccccceaf02f4eefac435bcea140477bc0f16df8b08c5",
+    "resource_pack/shaders/glsl/modern_projection_book_geometry.fragment": "9e056d0664608b0a8fdddb2f07e31ddedb21fc707a9acfb03635497fc9caa44d",
+    "resource_pack/shaders/glsl/modern_projection_book_lectern.vertex": "4c1da29dd3337064dbe5f98046110df85c85eaedd9503106aa381a21c5e41e8c",
+    "resource_pack/shaders/glsl/modern_projection_book_lectern_world.vertex": "071ca39f4ee3d6b1ebfc2505d287efe8d44af183f6202a56207ac52ed1feb3f0",
+    "resource_pack/textures/models/modern_projection/book/native_book.png": "e8d23533b48976b578098db767e2c8161a31fa5d7b22bf576bf531b1bc7f000f"
+  },
+  "product_qualified": false,
+  "schema_version": 1
+}

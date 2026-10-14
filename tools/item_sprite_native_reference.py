@@ -44,10 +44,10 @@ for row in rows:
  assert adapter.write(support,('minecraft:stone',0))
  sys._item_native_reference['changed'].append(position)
  assert items.SetInvItemNum(slot,0)
- assert items.SpawnItemToPlayerInv({'itemName':'minecraft:frame','auxValue':0,'count':1},players[0],slot)
- assert player_info.PlayerUseItemToPos(support,item_type,slot,2)
+ assert items.SpawnItemToPlayerInv({'itemName':row.get('frame_name','minecraft:frame'),'auxValue':0,'count':1},players[0],slot)
+ assert player_info.PlayerUseItemToPos(support,item_type,slot,row.get('face',2))
  actual=adapter.read(position)
- assert actual[0]=='minecraft:frame'
+ assert actual[0]==row.get('frame_name','minecraft:frame')
  row['placed_material']=actual
  row['placed_block']=adapter.info.GetBlockNew(position,adapter.dimension)
 assert items.SetInvItemNum(slot,0)
@@ -74,8 +74,11 @@ for row in rows:
   if row['mode']=='enchanted':
    assert items.AddEnchantToInvItem(slot,9,3)
   assert tuple(map(tuple,items.GetInvItemEnchantData(slot) or ()))==(((9,3),) if row['mode']=='enchanted' else ())
-  assert player_info.PlayerUseItemToPos(position,item_type,slot,2)
+  assert player_info.PlayerUseItemToPos(position,item_type,slot,row.get('face',2))
   row['item_write_route']='native inventory PlayerUseItemToPos only; no subsequent frame setters'
+  if row['rotation']:
+   assert frames.SetFrameRotation(position,adapter.dimension,row['rotation'])
+   row['rotation_write_route']='native SetFrameRotation after item insertion'
 assert items.SetInvItemNum(slot,0)
 observed=[]
 for row in rows:
@@ -83,7 +86,7 @@ for row in rows:
  item=frames.GetFrameItem(position,adapter.dimension)
  nbt=adapter.info.GetBlockEntityData(adapter.dimension,position)
  root=root_payload(nbt)
- assert root is not None and scalar(root,'id')=='ItemFrame'
+ assert root is not None and scalar(root,'id')==('GlowItemFrame' if row.get('frame_name')=='minecraft:glow_frame' else 'ItemFrame')
  typed_item=root_payload(root.get(field_key(root,'Item')))
  if row['mode']=='empty':
   assert item is None and (typed_item is None or not scalar(typed_item,'Count'))
@@ -119,8 +122,8 @@ assert rot.SetRot((0.,0.))
 for row in saved['rows']:
  if row['mode']!='empty':
   assert items.SetInvItemNum(saved['slot'],0)
-  assert items.SpawnItemToPlayerInv({'itemName':'minecraft:frame','auxValue':0,'count':1},players[0],saved['slot'])
-  assert info.PlayerUseItemToPos(tuple(row['support']),api.GetMinecraftEnum().ItemPosType.INVENTORY,saved['slot'],2)
+  assert items.SpawnItemToPlayerInv({'itemName':row.get('frame_name','minecraft:frame'),'auxValue':0,'count':1},players[0],saved['slot'])
+  assert info.PlayerUseItemToPos(tuple(row['support']),api.GetMinecraftEnum().ItemPosType.INVENTORY,saved['slot'],row.get('face',2))
 assert items.SetInvItemNum(saved['slot'],0)
 assert rot.SetRot(saved['rotation'])
 _result=True

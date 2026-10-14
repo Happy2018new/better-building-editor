@@ -12,6 +12,7 @@ from .plant_proxy_data import STATIC_PLANT_PROXIES
 from .centered_plant_data import CENTERED_PLANT_PROXIES, CENTERED_PLANT_MAX_Y
 from .static_frame_item import INTERNAL_FRAME_ITEMS, frame_item_proxy
 from .native_appearance import FRAME_NAMES
+from .spawner_marker_data import MARKERS as SPAWNER_MARKERS
 from .plant_position import (plant_render, position_sensitive,
                              render_origin as validate_render_origin)
 
@@ -55,6 +56,7 @@ INTERNAL_RENDER_BLOCKS = frozenset(list(LEAF_PROXIES.values()) + list(PLANT_PROX
                                  list(STATIC_PLANT_PROXIES.values()) +
                                  list(INTERNAL_BLOCKS) +
                                  list(INTERNAL_FRAME_ITEMS) +
+                                 list(SPAWNER_MARKERS.values()) +
                                  ['modern_projection:preview_grid', 'modern_projection:preview_outline'])
 
 
@@ -177,7 +179,8 @@ def _append_frame_items(common, actors, logical, overlay_base, item_profile=None
 
 def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE,
                     inferred_bed_colors=None, render_origin=(0, 0, 0), item_profile=None,
-                    native_render_profile=None, cauldron_profile=None, biome='plains', liquid_profile=None):
+                    native_render_profile=None, cauldron_profile=None, biome='plains', liquid_profile=None,
+                    spawner_profile=None, portal_profile=None):
     """Copy and canonicalize both native layers and actor payloads."""
     validate_plant_source()
     render_origin = validate_render_origin(render_origin)
@@ -208,6 +211,13 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     extra, extra_states = suppress(extra, extra_states, liquid_names)
     if liquid_names:
         normalize_palette_layers(common, common_states, extra, extra_states)
+    portal_names = frozenset()
+    if portal_profile is not None:
+        from .portal_profile import PORTAL_NAMES, suppress as suppress_portals
+        portal_names = frozenset(getattr(portal_profile, 'supported_names', ())) & PORTAL_NAMES
+        common, common_states = suppress_portals(common, common_states, portal_profile)
+        extra, extra_states = suppress_portals(extra, extra_states, portal_profile)
+        normalize_palette_layers(common, common_states, extra, extra_states)
     if cauldron_profile is not None:
         from .cauldron_render_plan import prepare_shells
         common, common_states = prepare_shells(common, common_states, source.get('actor', {}),
@@ -218,6 +228,12 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
                                       overlay_base, item_profile, source.get('common', {}))
     if item_volume is not None:
         volume = item_volume
+    if spawner_profile is not None:
+        from .spawner_marker import append_markers
+        marker_volume = append_markers(common, source.get('actor', {}), source.get('volume'),
+                                       overlay_base, spawner_profile)
+        if marker_volume is not None:
+            volume = marker_volume
     common, static_actors = prepare_static_entities(common, source.get('actor', {}), source.get('volume'),
                                                    inferred_chest_parts, inferred_bed_colors,
                                                    native_render_profile)
@@ -232,6 +248,8 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
     materials = dict((index, value) for value, positions in common.items() for index in positions)
     for name, entries in source.get('actor', {}).items():
         normalized_name = name.decode('utf8') if isinstance(name, bytes) else name
+        if normalized_name in portal_names:
+            continue
         rendered = {}
         for index, payload in entries.items():
             if (normalized_name, index) in static_actors:
@@ -250,6 +268,10 @@ def prepare_palette(source, inferred_chest_parts=None, overlay_base=OVERLAY_BASE
         data['_cauldron_profile'] = cauldron_profile.identity
     if liquid_names:
         data['_liquid_render_profile'] = tuple(sorted(liquid_names))
+    if spawner_profile is not None:
+        data['_spawner_profile'] = spawner_profile.identity
+    if portal_profile is not None:
+        data['_portal_profile'] = portal_profile.identity
     if volume is not None:
         data['volume'] = volume
     return data

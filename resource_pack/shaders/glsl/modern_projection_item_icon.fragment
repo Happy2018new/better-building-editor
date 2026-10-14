@@ -1,0 +1,32 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformPerFrameConstants.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
+uniform sampler2D TEXTURE_0;
+uniform sampler2D TEXTURE_1;
+varying highp vec2 itemUv;
+varying highp float itemVisible;
+varying highp float itemEnchanted;
+varying highp float itemClip;
+void main() {
+    if(itemVisible<0.5 || itemClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    vec4 texel=texture2D(TEXTURE_0,itemUv);
+    if(texel.a<0.5) discard;
+    vec3 rgb=texel.rgb;
+    if(itemEnchanted>0.5) {
+        vec2 centered=itemUv-vec2(0.5);
+        float clock=mod(TIME,210.0);
+        vec2 firstUv=mat2(0.866025403784439,-0.5,0.5,0.866025403784439)*centered*0.5;
+        vec2 secondUv=mat2(0.866025403784439,0.5,-0.5,0.866025403784439)*centered*0.5;
+        float first=texture2D(TEXTURE_1,fract(firstUv+vec2(clock*0.2,0.0))).r;
+        float second=texture2D(TEXTURE_1,fract(secondUv-vec2(clock*0.1,0.0))).r;
+        vec3 glint=vec3(0.38,0.19,0.61)*(first+second);
+        rgb=clamp(rgb+glint*glint,0.0,1.0);
+    }
+    float alpha=EXTRA_VECTOR4.w*texel.a;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    gl_FragColor=vec4(rgb,alpha);
+}

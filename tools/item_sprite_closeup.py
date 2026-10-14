@@ -35,12 +35,16 @@ _result={'source_fixture':IDENTITY,'source_pair':pair,'positions':positions,'siz
 
 
 def run(check, client, session, report, state_source, camera_source, output, wgc, save, native_reference=False,
-        native_player_near=False):
+        native_player_near=False, compact=False):
     folder = output/'closeup'
     folder.mkdir()
+    positions = {'plain': (1,2,2), 'enchanted': (2,2,2), 'empty': (3,2,2)} if compact else POSITIONS
+    editor_pose = (180.,0.,5.) if compact else EDITOR_POSE
+    load = LOAD.replace('Document((11,5,5)', 'Document((5,5,5)') if compact else LOAD
     closeup = {'schema': 1, 'completed': False, 'captures': [], 'frames_per_route': FRAMES,
                'minimum_duration_seconds': 7., 'minimum_body_side_pixels': 48,
-               'declared_editor_pose': EDITOR_POSE, 'cleanup_errors': [], 'routes': ['editor', 'world']}
+               'declared_editor_pose': editor_pose, 'compact':compact,
+               'cleanup_errors': [], 'routes': ['editor', 'world']}
     report['closeup'] = closeup
     saved = False
     wrote = False
@@ -76,7 +80,8 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         start = time.monotonic()
         image = capture(session['session_file'], session['owner'], folder/(label+'.png'), wgc)
         after = check.run(camera_source)
-        assert camera_matches(camera, closeup['world_camera']) and camera_matches(after, closeup['world_camera'])
+        assert camera_matches(camera, closeup['world_camera']) and camera_matches(after, closeup['world_camera']), \
+            ('Closeup camera drift',label,camera,after,closeup['world_camera'])
         closeup['captures'].append({'label': label, 'capture': image, 'state': before,
             'camera_before': camera, 'camera_after': after, 'camera_expected': closeup['world_camera'],
             'host_started': start, 'host_finished': time.monotonic()})
@@ -93,8 +98,8 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
             "sys._item_closeup_saved={'editor':s.editor,'origin':s.origin,'opacity':s.opacity,"
             "'grid':s.grid,'missing':s.projection_missing,'outline':s.projection_outline}\n_result=True")
         saved = True
-        closeup['fixture'] = check.run(LOAD % (POSITIONS, EDITOR_POSE))
-        check.wait('exact closeup editor pose', lambda value: value == list(EDITOR_POSE),
+        closeup['fixture'] = check.run(load % (positions, editor_pose))
+        check.wait('exact closeup editor pose', lambda value: value == list(editor_pose),
                    lambda: check.run('_result=list(s.camera_pose)'))
         time.sleep(.7)
         previous = state()
@@ -120,19 +125,20 @@ _result={'active':s.projection_active,'preparing':bool(b.preparing_entity),'orig
         editor_capture('editor_restored')
         world_position = check.run("foot=b.player_origin()\ns.origin=(foot[0]+5,foot[1]+18,foot[2]+5)\n"
             "s.opacity=1.\ns.projection_missing=False\ns.projection_outline=False\nb.project()\n"
-            "_result=tuple(s.origin[axis]+(5,2,2)[axis] for axis in range(3))")
+            "_result=tuple(s.origin[axis]+%r[axis] for axis in range(3))" % (positions['enchanted'],))
         check.wait('closeup world publication', lambda row: row['active'] and not row['preparing']
             and row['slots']==2, lambda: check.run(world_state))
         check.run('navigator.pop()\n_result=True')
         check.wait('closeup workspace closed', lambda row: not row['open'] and not row['transition'], check.navigation)
         closeup['world_camera'] = check.run("cam=b.factory.CreateCamera(b.level)\ncam.DepartCamera()\n"
             "target=tuple(s.origin[axis]+%r[axis] for axis in range(3))\n"
-            "position=tuple(target[axis]+(0.,1.,-8.)[axis] for axis in range(3))\n"
+            "position=tuple(target[axis]+%r[axis] for axis in range(3))\n"
             "rot=api.GetRotFromDir(tuple(target[axis]-position[axis] for axis in range(3)))\n"
             "rotation=(rot[0],rot[1]+180.,0.)\nassert cam.SetCameraPos(position)\n"
             "assert cam.SetCameraRotation(rotation)\n_result={'position':position,'target':target,'rotation':rotation,"
             "'screen':b.factory.CreateGame(b.level).GetScreenSize(),'fov':cam.GetFov()}" %
-            ((4.8,2.5,2.9375) if native_reference else (5.5,2.5,2.9375),))
+            ((2.3,2.5,2.9375) if compact else (4.8,2.5,2.9375) if native_reference else (5.5,2.5,2.9375),
+             (0.,.3,-2.7) if compact else (0.,1.,-8.)))
         check.wait('exact closeup world camera', lambda row: camera_matches(row, closeup['world_camera']),
                    lambda: check.run(camera_source))
         time.sleep(.5)

@@ -32,7 +32,9 @@ def validate_uniforms(uniforms):
         raise ValueError('Item sprite uniforms must be finite float-exact numbers')
     if any(value != int(value) or not 0 <= value < 8192 for value in uniforms[0]):
         raise ValueError('Item codes require address6, facing3, rotation3 and enchantment1')
-    if any(row != (0., 0., 0., 0.) for row in uniforms[1:3]):
+    if any(value != int(value) or not 0 <= value <= 7 for value in uniforms[1]):
+        raise ValueError('Item layout codes must name a versioned family slot')
+    if uniforms[2] != (0., 0., 0., 0.):
         raise ValueError('Reserved item sprite uniforms must stay zero')
     tag, slots, unused_tint, opacity = uniforms[3]
     if (tag != WORLD_TAG and not (tag == int(tag) and 0 <= tag <= 16777215
@@ -43,6 +45,10 @@ def validate_uniforms(uniforms):
     for code in uniforms[0]:
         if code and int(code) // 64 % 8 not in range(6):
             raise ValueError('Item sprite facing is outside the six block faces')
+    for index, layout in enumerate(uniforms[1]):
+        facing = int(uniforms[0][index]) // 64 % 8
+        if index >= slots and layout or 1 <= layout <= 3 and facing not in (2, 3, 4, 5) or layout >= 4 and facing != 1:
+            raise ValueError('Item layout does not match its visible slot or face')
     return uniforms
 
 
@@ -57,15 +63,8 @@ def sprite_content(material, actor, profiles):
     item = frame_item(material, actor)
     if item is None:
         return None
-    name = item['newItemName']
-    if isinstance(name, bytes):
-        name = name.decode('utf8')
-    key = (name, item['newAuxValue'])
-    profile = profiles.get(key)
-    if profile is None:
-        return None
-    # Arbitrary userData can change maps, banners, potions or custom models.
-    if any(field not in ('ench', b'ench') for field in item['userData']):
+    key = sprite_item(item, profiles)
+    if key is None:
         return None
     root = root_payload(entity_nbt(actor))
     rotation = scalar(root, 'ItemRotation')
@@ -81,6 +80,49 @@ def sprite_content(material, actor, profiles):
     return key, facing, rounded % 8, item['isEnchanted']
 
 
+def sprite_item(item, profiles):
+    name = item['newItemName']
+    if isinstance(name, bytes):
+        name = name.decode('utf8')
+    key = (name, item['newAuxValue'])
+    profile = profiles.get(key)
+    if profile is None:
+        return None
+    key = profile.get('resource_key', key)
+    # Arbitrary userData can change maps, banners, potions or custom models.
+    if any(field not in ('ench', b'ench') for field in item['userData']):
+        return None
+    return key
+
+
+def _contents(material, actor, profile):
+    if material[0] in FRAME_NAMES:
+        if 'frame' not in profile.content_families:
+            return ()
+        content = sprite_content(material, actor, profile.items)
+        return () if content is None else (content + (0,),)
+    if getattr(profile, 'engine_version', None) is None:
+        return ()
+    from .visible_item_contents import content_slots
+    slots = content_slots(material, actor, profile.engine_version)
+    if not slots:
+        return ()
+    result = []
+    for slot in slots:
+        if slot.family not in profile.content_families:
+            continue
+        key = sprite_item(slot.item, profile.items)
+        if key is None:
+            continue
+        if slot.family == 'shelf':
+            facing = {'south': 2, 'north': 3, 'east': 4, 'west': 5}[slot.direction]
+            result.append((key, facing, 0, slot.item['isEnchanted'], 1 + slot.index))
+        elif slot.family == 'campfire':
+            rotation = {'south': 0, 'west': 2, 'north': 4, 'east': 6}[slot.direction]
+            result.append((key, 1, rotation, slot.item['isEnchanted'], 4 + slot.index))
+    return tuple(result)
+
+
 def iter_render_steps(document, profile, visible=None, world=False, opacity=1.):
     """Build target-only batches; neighboring frames never leak their contents."""
     if isinstance(opacity, bool) or not isinstance(opacity, integer_types + (float,)) or not 0. <= opacity <= 1.:
@@ -91,28 +133,26 @@ def iter_render_steps(document, profile, visible=None, world=False, opacity=1.):
         if visible is not None and not visible(position):
             continue
         material = foreground(cell)
-        if material[0] not in FRAME_NAMES:
-            continue
-        content = sprite_content(material, actor_data(cell), profile.items)
-        if content is not None:
-            item, facing, rotation, enchanted = content
+        for item, facing, rotation, enchanted, layout in _contents(material, actor_data(cell), profile):
             origin = tuple(axis // 4 * 4 for axis in position)
-            groups.setdefault((origin, item), []).append((position, facing, rotation, enchanted))
+            groups.setdefault((origin, item), []).append((position, facing, rotation, enchanted, layout))
     count = 0
     for (origin, item), rows in sorted(groups.items()):
         for start in range(0, len(rows), SLOTS):
             count += 1
             if count > profile.max_groups:
                 raise ValueError('Item sprite plan exceeds its owned model budget')
-            codes = []
-            for position, facing, rotation, enchanted in sorted(rows)[start:start + SLOTS]:
+            codes, layouts = [], []
+            for position, facing, rotation, enchanted, layout in sorted(rows)[start:start + SLOTS]:
                 x, y, z = tuple(position[axis] - origin[axis] for axis in range(3))
                 code = x + z * 4 + y * 16 + facing * 64 + rotation * 512
                 codes.append(float(code + (4096 if enchanted else 0)))
+                layouts.append(float(layout))
             visible_slots = len(codes)
             codes.extend((0.,) * (SLOTS - visible_slots))
+            layouts.extend((0.,) * (SLOTS - visible_slots))
             # Number of valid slots is encoded in the reserved appearance field.
-            uniforms = (tuple(codes), (0.,) * 4, (0.,) * 4,
+            uniforms = (tuple(codes), tuple(layouts), (0.,) * 4,
                         (WORLD_TAG, float(visible_slots), 0., float(opacity)))
             model = profile.items[item]['world_model' if world else 'ui_model']
             yield SpriteGroup((origin, item, start // SLOTS), model, origin, uniforms)

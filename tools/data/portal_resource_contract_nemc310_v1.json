@@ -1,0 +1,180 @@
+{
+  "clock": "TOTAL_REAL_WORLD_TIME",
+  "end_gateway_faces": 6,
+  "end_portal_height": 0.75,
+  "engine_version": "3.10.0.420447",
+  "limits": [
+    "Finite surfaces only; gateway cooldown and transient activation beam remain pending. No teleportation or particles."
+  ],
+  "materials": {
+    "modern_projection_portal_end_gateway:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry.vertex"
+    },
+    "modern_projection_portal_end_gateway_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry_world.vertex"
+    },
+    "modern_projection_portal_end_portal:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry.vertex"
+    },
+    "modern_projection_portal_end_portal_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry_world.vertex"
+    }
+  },
+  "models": {
+    "modern_projection_portal_end_gateway": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_end_gateway",
+      "mesh": "modern_projection/portal/end_gateway_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/end_sky",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_end_gateway_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_end_gateway_world",
+      "mesh": "modern_projection/portal/end_gateway_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/end_sky",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_end_portal": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_end_portal",
+      "mesh": "modern_projection/portal/end_portal_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/end_sky",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    },
+    "modern_projection_portal_end_portal_world": {
+      "animation": {},
+      "dy_load": true,
+      "material": "modern_projection_portal_end_portal_world",
+      "mesh": "modern_projection/portal/end_portal_mesh.json",
+      "skeleton": "modern_projection/portal/skeleton.json",
+      "texture": {
+        "tex0": "modern_projection/portal/end_sky",
+        "tex1": "modern_projection/portal/end_portal_colors"
+      }
+    }
+  },
+  "native_parity_claimed": false,
+  "output_sha256": {
+    "resource_pack/materials/entity.material": "5b7729c098c613253e8c98a087d1feee28434474378afd3a2d93ea056fa3176c",
+    "resource_pack/models/modern_projection/portal/end_gateway_mesh.json": "f71f8ef105ff824a0a16ffd5a0ceb3181b58c662fa0addce6c11b79baf48a694",
+    "resource_pack/models/modern_projection/portal/end_portal_mesh.json": "f92309ec7b21a28ed0bad8dad5857104a2b90fe6ab4d971e4e5ba0ccd3d9e28b",
+    "resource_pack/models/modern_projection/portal/skeleton.json": "20a966711bc01cf74ced1159e371b07e0ec819dbd538c3514b0ffbe54d31beed",
+    "resource_pack/models/netease_models.json": "ee6016bd567b1350d92a9123fece5672f0140851fa027999c52a32454c15d8f5",
+    "resource_pack/shaders/glsl/modern_projection_portal_geometry.vertex": "0cbe6ecafd949cb0eeda8982ad1e3b3b3b371232d7b1aeaea70220e7db8784d3",
+    "resource_pack/shaders/glsl/modern_projection_portal_geometry_world.vertex": "1681c036af85c74e46ac5454bffbc42923a9107edf511226064ad667995e7118",
+    "resource_pack/shaders/glsl/modern_projection_portal_starfield.fragment": "fb659c6e0471a9afef1ad5e7b5226dac2125b4f2c9f389c0ea761c434af5e98b",
+    "resource_pack/textures/models/modern_projection/portal/end_portal_colors.png": "379f18fb9088106aff248ff49791234053c1fb5593d2086a9448d093b8141479",
+    "resource_pack/textures/models/modern_projection/portal/end_sky.png": "3749aedacd0a9fbf4a9bce802fc2da247c3b2fb52b941d954dc467daf734efb8"
+  },
+  "payload_version": 2,
+  "requires_visual_qualification": true,
+  "schema_version": 1,
+  "style": "native_artwork_layered_starfield_v1",
+  "textures": {
+    "end_portal_colors": {
+      "sha256": "379f18fb9088106aff248ff49791234053c1fb5593d2086a9448d093b8141479",
+      "size": [
+        4,
+        4
+      ],
+      "source": "resource_packs/vanilla/textures/environment/end_portal_colors.png"
+    },
+    "end_sky": {
+      "sha256": "3749aedacd0a9fbf4a9bce802fc2da247c3b2fb52b941d954dc467daf734efb8",
+      "size": [
+        128,
+        128
+      ],
+      "source": "resource_packs/vanilla/textures/environment/end_sky.png"
+    }
+  }
+}

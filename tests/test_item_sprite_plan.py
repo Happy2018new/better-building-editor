@@ -94,7 +94,7 @@ class ItemPlanTests(unittest.TestCase):
     def test_forged_tags_and_invalid_slot_or_facing_are_rejected_before_native_calls(self):
         group=groups(Document((1,1,1),{(0,0,0):make_cell(frame(),nbt=actor())}))[0]
         for row,index,value in ((3,0,39686.),(3,1,0.),(3,1,5.),(3,3,float('nan')),
-                                (0,0,6.*64),(1,0,1.)):
+                                (0,0,6.*64),(1,0,8.),(2,0,1.)):
             bad=[list(row) for row in group.uniforms]
             bad[row][index]=value
             with self.assertRaises(ValueError):

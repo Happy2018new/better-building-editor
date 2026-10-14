@@ -3,8 +3,9 @@
     "boundaries": [
       "3.9 native defaults are the complete identity/field source; this is not a fresh 3.10 NBT dump.",
       "3.10 clean evidence contains raw client actor fields for 14 names only and no animation/pixel qualification.",
-      "MobSpawner and TrialSpawner internal creature rendering is excluded by policy.",
-      "Particles are excluded by policy; visible beam geometry, animated textures and surface content remain inventoried.",
+      "MobSpawner and TrialSpawner internal creature models are excluded; present/empty/unknown configuration markers remain required.",
+      "Particles, education, MovingBlock, activated conduit effects, beacon beams and vault internal-item effects are excluded by current user scope.",
+      "EnchantTable requires an idle book only, without player proximity reactions.",
       "World lava may use official 3.10 rendering; water and cauldron liquid remain custom routes.",
       "CombineBlockPaletteToGeometry official docs exclude end portals, end gateways, miniature blocks and animated custom appearance."
     ],
@@ -1457,7 +1458,13 @@
   "effort_estimate_boundary": {
     "excluded": [
       "particles",
-      "MobSpawner/TrialSpawner internal creatures",
+      "MobSpawner/TrialSpawner internal creature models",
+      "education appearance",
+      "MovingBlock appearance",
+      "activated conduit effects",
+      "beacon beams",
+      "vault internal-item effects",
+      "EnchantTable player proximity reactions",
       "fresh dump update",
       "rotation/mirror table updates"
     ],
@@ -11288,7 +11295,7 @@
       }
     },
     {
-      "appearance_note": "primary/secondary select effects, not stored item meshes. The visible beam is geometry; activation and glass color require world context. Ambient particles are excluded.",
+      "appearance_note": "Keep the native static shell. Activated beam and particles are excluded by the current user scope; primary/secondary and inventory remain preserved data.",
       "aux_samples": {
         "minecraft:beacon": 0
       },
@@ -11296,7 +11303,7 @@
       "block_names": [
         "minecraft:beacon"
       ],
-      "classification": "visible_beam_geometry",
+      "classification": "native_static_or_state_only",
       "default_fields": {
         "primary": {
           "sdk_tag": 3,
@@ -11309,11 +11316,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          2.0,
-          4.0
+          0.25,
+          0.5
         ],
-        "order": 4,
-        "work_item": "world_context_beam_geometry"
+        "order": 0,
+        "work_item": "native_static_acceptance"
       },
       "id": "Beacon",
       "registry_state_summary": {
@@ -11997,7 +12004,7 @@
       }
     },
     {
-      "appearance_note": "These four native education table IDs have no observed extra default appearance fields. Their GUI inventories are not exterior meshes; verify static variants only.",
+      "appearance_note": "Education block appearance is excluded by user scope. Preserve inventory/default evidence as reference, without treating it as an adaptation target.",
       "aux_samples": {
         "minecraft:compound_creator": 0,
         "minecraft:element_constructor": 0,
@@ -12011,15 +12018,15 @@
         "minecraft:lab_table",
         "minecraft:material_reducer"
       ],
-      "classification": "education_static_block_content",
+      "classification": "excluded_education_content",
       "default_fields": {},
       "difficulty": {
         "estimate_person_days": [
-          0.25,
-          0.5
+          0.0,
+          0.0
         ],
         "order": 0,
-        "work_item": "native_static_acceptance"
+        "work_item": "excluded_by_user_scope"
       },
       "id": "ChemistryTable",
       "registry_state_summary": {
@@ -12713,7 +12720,7 @@
       }
     },
     {
-      "appearance_note": "Active changes cage/open core/wind/eye appearance and model motion. Target is gameplay data; absorb/attack particles are excluded. Clean capture covers only an inactive empty actor.",
+      "appearance_note": "Only the inactive static native body is in scope. Activated core, frame, wind, rotation and persistent effects are excluded; Target remains preserved gameplay data.",
       "aux_samples": {
         "minecraft:conduit": 0
       },
@@ -12721,7 +12728,7 @@
       "block_names": [
         "minecraft:conduit"
       ],
-      "classification": "visible_model_animation",
+      "classification": "native_static_or_state_only",
       "default_fields": {
         "Active": {
           "sdk_tag": 1,
@@ -12734,11 +12741,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          2.0,
-          5.0
+          0.25,
+          0.5
         ],
-        "order": 4,
-        "work_item": "model_animation"
+        "order": 0,
+        "work_item": "native_static_acceptance"
       },
       "id": "Conduit",
       "registry_state_summary": {
@@ -13422,7 +13429,7 @@
       }
     },
     {
-      "appearance_note": "The hovering book has visible open/page/rotation model motion. rott is not a complete serialized animation state; enchanting particles are excluded.",
+      "appearance_note": "Implement the always-present idle hovering book and its motion. Player proximity opening/page reactions and particles are excluded; rott alone is not a complete animation state.",
       "aux_samples": {
         "minecraft:enchanting_table": 0
       },
@@ -13430,7 +13437,7 @@
       "block_names": [
         "minecraft:enchanting_table"
       ],
-      "classification": "visible_model_animation",
+      "classification": "visible_idle_book_animation",
       "default_fields": {
         "rott": {
           "sdk_tag": 5,
@@ -13439,11 +13446,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          2.0,
-          5.0
+          1.0,
+          2.5
         ],
         "order": 4,
-        "work_item": "model_animation"
+        "work_item": "shared_book_idle_pose"
       },
       "id": "EnchantTable",
       "registry_state_summary": {
@@ -14984,7 +14991,7 @@
       }
     },
     {
-      "appearance_note": "The cage is a native static/state target. The internal creature is explicitly excluded; spawn parameters are gameplay metadata.",
+      "appearance_note": "Preserve the native cage and show present/empty/unknown configuration badges from exact-version EntityIdentifier data. Internal creature models and particles are excluded; partial NBT must never mean empty.",
       "aux_samples": {
         "minecraft:mob_spawner": 0
       },
@@ -14992,7 +14999,7 @@
       "block_names": [
         "minecraft:mob_spawner"
       ],
-      "classification": "excluded_mob_spawner_internal_creature",
+      "classification": "configured_creature_presence_marker",
       "default_fields": {
         "Delay": {
           "sdk_tag": 2,
@@ -15042,10 +15049,10 @@
       "difficulty": {
         "estimate_person_days": [
           0.25,
-          0.5
+          0.75
         ],
-        "order": 0,
-        "work_item": "native_static_acceptance"
+        "order": 2,
+        "work_item": "shared_configuration_marker"
       },
       "id": "MobSpawner",
       "registry_state_summary": {
@@ -15065,7 +15072,7 @@
       }
     },
     {
-      "appearance_note": "movingBlock/movingBlockExtra contain transient nested front/liquid data tied to a piston origin. This is not a stable ordinary block; native default renderer material verification failed.",
+      "appearance_note": "Appearance adaptation is excluded by user scope. Preserve movingBlock/movingBlockExtra and all transient metadata as data; do not claim an exterior qualification.",
       "aux_samples": {
         "minecraft:moving_block": 0
       },
@@ -15073,7 +15080,7 @@
       "block_names": [
         "minecraft:moving_block"
       ],
-      "classification": "transient_moving_nested_block",
+      "classification": "excluded_moving_block",
       "default_fields": {
         "expanding": {
           "sdk_tag": 1,
@@ -15132,11 +15139,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          4.0,
-          8.0
+          0.0,
+          0.0
         ],
-        "order": 5,
-        "work_item": "transient_nested_geometry"
+        "order": 0,
+        "work_item": "excluded_by_user_scope"
       },
       "id": "MovingBlock",
       "registry_state_summary": {
@@ -17750,7 +17757,7 @@
       }
     },
     {
-      "appearance_note": "trial_spawner_state/ominous choose exterior and animated textures. Internal creature and particles are explicitly excluded. Reward ejection is transient entity gameplay; no full NBT content qualification.",
+      "appearance_note": "Native states choose the shell; show a present/empty/unknown configuration badge from observed spawn_data and selected normal/ominous configuration. current_mobs is not configuration. Internal creature models and particles are excluded.",
       "aux_samples": {
         "minecraft:trial_spawner": 0
       },
@@ -17758,7 +17765,7 @@
       "block_names": [
         "minecraft:trial_spawner"
       ],
-      "classification": "state_driven_animated_texture",
+      "classification": "configured_creature_presence_marker",
       "default_fields": {
         "cooldown_end_at": {
           "sdk_tag": 4,
@@ -17859,11 +17866,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          0.5,
-          1.0
+          0.25,
+          0.75
         ],
-        "order": 1,
-        "work_item": "native_state_texture_acceptance"
+        "order": 2,
+        "work_item": "shared_configuration_marker"
       },
       "id": "TrialSpawner",
       "registry_state_summary": {
@@ -17896,7 +17903,7 @@
       }
     },
     {
-      "appearance_note": "vault_state/ominous choose the surface. A cycling display item and shutter/reward phase may be visible; default config/data do not qualify nondefault display-item or model animation support. Particles are excluded.",
+      "appearance_note": "Native vault_state/ominous choose the shell. Internal display-item effects and particles are excluded by user scope; visible shell/state qualification remains separate.",
       "aux_samples": {
         "minecraft:vault": 0
       },
@@ -17904,7 +17911,7 @@
       "block_names": [
         "minecraft:vault"
       ],
-      "classification": "visible_state_effect_and_animation",
+      "classification": "state_driven_animated_texture",
       "default_fields": {
         "config": {
           "nested": {
@@ -17963,11 +17970,11 @@
       },
       "difficulty": {
         "estimate_person_days": [
-          2.0,
-          5.0
+          0.5,
+          1.0
         ],
-        "order": 4,
-        "work_item": "special_display_or_model_animation"
+        "order": 1,
+        "work_item": "native_state_texture_acceptance"
       },
       "id": "Vault",
       "registry_state_summary": {

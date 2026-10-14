@@ -15,6 +15,8 @@ from water_capture_contract import camera_matches, calibrated_viewport_matches, 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'behavior_pack/modern_projection'))
 from projection.camera import OrbitCamera
+from projection import block_registry
+from projection.cell import decode, foreground
 
 LIMITS = {'rgb_delta': 8, 'minimum_water_pixels': 24, 'minimum_mask_iou': .80,
           'maximum_boundary_pixels': 6, 'minimum_contribution_pixels': 8,
@@ -22,6 +24,12 @@ LIMITS = {'rgb_delta': 8, 'minimum_water_pixels': 24, 'minimum_mask_iou': .80,
 TRANSPARENCY_REGIONS = {
     'body': ((3.43, 3.18, 4.), (3.57, 3.18, 4.), (3.57, 3.50, 4.), (3.43, 3.50, 4.)),
     'rear': ((3.10, 3.35, 4.), (3.28, 3.35, 4.), (3.28, 3.55, 4.), (3.10, 3.55, 4.)),
+}
+PARTIAL_BODY_REGIONS = {
+    'body': ((3.18, 3.50, 3.25), (3.35, 3.50, 3.25),
+             (3.35, 3.50, 3.65), (3.18, 3.50, 3.65)),
+    'rear': ((3.10, 3.67, 4.), (3.28, 3.67, 4.),
+             (3.28, 3.78, 4.), (3.10, 3.78, 4.)),
 }
 FACE_INDICES = ((4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6),
                 (3, 0, 4, 7), (1, 2, 6, 5), (3, 2, 1, 0))
@@ -76,11 +84,92 @@ def project(points, shape, row, source, size):
 
 
 def expected_mask(row, source, size):
+    if row['case'].startswith('neighbor_'):
+        return unoccluded_neighbor_mask(row, source, size)
     image = Image.new('L', size)
     draw = ImageDraw.Draw(image)
     for shape, polygon in water_polygons(row['ready']['shapes']):
         draw.polygon(project(polygon, shape, row, source, size), fill=255)
     return np.asarray(image) > 0
+
+
+def fixture_solid_boxes(row):
+    """Opaque geometry in the fixed public neighbor controls, not a block parser."""
+    for position, encoded in row['source']['cells']:
+        material = foreground(decode(encoded))
+        name = material[0]
+        if name in ('minecraft:stone', 'minecraft:gold_block'):
+            local = ((0., 0., 0., 1., 1., 1.),)
+        elif name == 'minecraft:oak_slab':
+            states = block_registry.states(material)
+            if states.get('minecraft:vertical_half', states.get('vertical_half')) not in ('bottom', None):
+                raise ValueError('Neighbor oracle requires the public bottom slab')
+            local = ((0., 0., 0., 1., .5, 1.),)
+        elif name == 'minecraft:oak_stairs':
+            states = block_registry.states(material)
+            if states.get('weirdo_direction') != 0 or states.get('upside_down_bit') is not False:
+                raise ValueError('Neighbor oracle requires the public upright east stair')
+            local = ((0., 0., 0., 1., .5, 1.), (.5, .5, 0., 1., 1., 1.))
+        else:
+            continue
+        for box in local:
+            yield tuple(box[axis] + position[axis % 3] for axis in range(6))
+
+
+def raster_depth(buffer, points, depths, perspective):
+    for indices in ((0, 1, 2), (0, 2, 3)):
+        triangle = np.asarray([points[index] for index in indices])
+        if not np.isfinite(triangle).all():
+            raise ValueError('Neighbor triangle lies outside the projectable camera')
+        left, top = np.floor(triangle.min(axis=0)).astype(int)
+        right, bottom = np.ceil(triangle.max(axis=0)).astype(int)
+        left, right = max(0, left), min(buffer.shape[1] - 1, right)
+        top, bottom = max(0, top), min(buffer.shape[0] - 1, bottom)
+        if left > right or top > bottom:
+            continue
+        a, b, c = triangle
+        denominator = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1])
+        if abs(denominator) < 1e-9:
+            continue
+        x, y = np.meshgrid(np.arange(left, right + 1) + .5, np.arange(top, bottom + 1) + .5)
+        first = ((b[1] - c[1]) * (x - c[0]) + (c[0] - b[0]) * (y - c[1])) / denominator
+        second = ((c[1] - a[1]) * (x - c[0]) + (a[0] - c[0]) * (y - c[1])) / denominator
+        third = 1. - first - second
+        inside = (first >= -1e-7) & (second >= -1e-7) & (third >= -1e-7)
+        z = np.asarray([depths[index] for index in indices])
+        depth = (1. / (first / z[0] + second / z[1] + third / z[2]) if perspective
+                 else first * z[0] + second * z[1] + third * z[2])
+        selected = buffer[top:bottom + 1, left:right + 1]
+        np.minimum(selected, np.where(inside, depth, np.inf), out=selected)
+
+
+def unoccluded_neighbor_mask(row, source, size):
+    """Independent depth rasterization keeps opaque neighbors in front of water."""
+    water = np.full((size[1], size[0]), np.inf)
+    solid = np.full_like(water, np.inf)
+    world = row['route'] != 'editor'
+    if world:
+        camera = row['camera']
+        eye = np.asarray(camera['position']) - np.asarray(row['ready']['origin'])
+        direction = np.asarray(camera['target']) - np.asarray(camera['position'])
+        direction /= np.linalg.norm(direction)
+    else:
+        eye = np.zeros(3)
+        direction = -np.asarray(OrbitCamera(*row['ready']['camera_pose']).basis()[2])
+
+    def draw(buffer, polygon, shape):
+        depths = [float(np.dot(np.asarray(point) - eye, direction)) for point in polygon]
+        raster_depth(buffer, project(polygon, shape, row, source, size), depths, world)
+
+    shapes = row['ready']['shapes']
+    for shape, polygon in water_polygons(shapes):
+        draw(water, polygon, shape)
+    for x0, y0, z0, x1, y1, z1 in fixture_solid_boxes(row):
+        corners = ((x0, y0, z0), (x1, y0, z0), (x1, y0, z1), (x0, y0, z1),
+                   (x0, y1, z0), (x1, y1, z0), (x1, y1, z1), (x0, y1, z1))
+        for face in FACE_INDICES:
+            draw(solid, [corners[index] for index in face], shapes[0])
+    return np.isfinite(water) & (water <= solid + 1e-5)
 
 
 def region_mask(row, source, size, points):
@@ -236,6 +325,24 @@ def analyze(path):
         if later in images and not source['frozen']:
             interior = np.asarray(Image.fromarray((expected * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(5))) > 0
             output['animation'][label] = contribution(images[label], images[later], interior, LIMITS['temporal_delta'])
+        holdout = source.get('alpha_controls', {}).get(label)
+        if holdout:
+            from analyze_liquid_transparency import alpha_context
+            phase_labels = ('0', '0_25', '0_45', '0_75', '1', 'default')
+            phases = holdout.get('phases', {})
+            complete = all(name in phases and phases[name].get('capture_label') in images for name in phase_labels)
+            alpha_result = output['alpha_controls'][label] = {'complete': complete, 'passed': False}
+            if complete:
+                context = alpha_context(holdout['baseline'], row['route'] != 'editor')
+                unchanged = all(alpha_context(phases[name]['ready'], row['route'] != 'editor') == context
+                                for name in phase_labels)
+                measured = fixed_alpha_regions(
+                    {name: images[phases[name]['capture_label']] for name in phase_labels},
+                    {name: region_mask(row, source, size, points) for name, points in
+                     (PARTIAL_BODY_REGIONS if row['case'] in ('wet_oak_slab', 'wet_oak_stairs')
+                      else TRANSPARENCY_REGIONS).items()})
+                alpha_result.update(measured, geometry_unchanged=unchanged)
+                alpha_result['passed'] = measured['passed'] and unchanged and source.get('frozen') is True
         if row['case'] != 'wet_oak_fence':
             continue
         required = {name: label[:-3] + name for name in ('dry', 'liquid_only', 'water_only', 'rearless', 'empty')}
@@ -253,23 +360,8 @@ def analyze(path):
             result['regions'][name]['underlying_control_pixels'] = int(underlying.sum())
         result['passed'] = (result['phase_controlled'] and result['water_pixels'] >= LIMITS['minimum_water_pixels']
                             and all(value['passed'] for value in result['regions'].values()))
-        holdout = source.get('alpha_controls', {}).get(label)
         if holdout:
-            from analyze_liquid_transparency import alpha_context
-            phase_labels = ('0', '0_25', '0_45', '0_75', '1', 'default')
-            phases = holdout.get('phases', {})
-            complete = all(name in phases and phases[name].get('capture_label') in images for name in phase_labels)
-            alpha_result = output['alpha_controls'][label] = {'complete': complete, 'passed': False}
-            if complete:
-                context = alpha_context(holdout['baseline'], row['route'] != 'editor')
-                unchanged = all(alpha_context(phases[name]['ready'], row['route'] != 'editor') == context
-                                for name in phase_labels)
-                measured = fixed_alpha_regions(
-                    {name: images[phases[name]['capture_label']] for name in phase_labels},
-                    {name: region_mask(row, source, size, points) for name, points in TRANSPARENCY_REGIONS.items()})
-                alpha_result.update(measured, geometry_unchanged=unchanged)
-                alpha_result['passed'] = measured['passed'] and unchanged and result['phase_controlled']
-            result['passed'] = result['passed'] and alpha_result['passed']
+            result['passed'] = result['passed'] and output['alpha_controls'][label]['passed']
     output['observed_product_gates'] = {
         'geometry': bool(output['geometry']) and all(row['passed'] for row in output['geometry'].values()),
         'transparency': bool(output['transparency']) and all(row['passed'] for row in output['transparency'].values()),

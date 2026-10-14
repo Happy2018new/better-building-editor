@@ -3,7 +3,9 @@ from . import liquid_product_qualification_data as qualification
 from .liquid_render_target_data import TARGET_ENGINE_VERSION
 
 REQUIRED_GATES = frozenset(('editor', 'projection_full', 'projection_missing', 'transparency',
-                            'geometry', 'animation', 'biome', 'lifecycle'))
+                            'geometry', 'animation', 'biome', 'lifecycle', 'side_uv',
+                            'visibility', 'neighbors', 'occupancy', 'budgets', 'default_path',
+                            'transparent_overlap', 'public_gallery'))
 
 
 def candidate_profile(frozen=False):
@@ -25,7 +27,7 @@ def production_profile(engine_version=None):
     from . import liquid_product_resource_data as resources, liquid_product_shape_data as rules
     from . import liquid_product_owner_data as owners
     evidence = qualification.QUALIFICATION_SHA256
-    if (qualification.SCHEMA_VERSION != 1
+    if (qualification.SCHEMA_VERSION != 2
             or qualification.QUALIFICATION_ENGINE_VERSION != TARGET_ENGINE_VERSION
             or not isinstance(evidence, str) or len(evidence) != 64
             or any(value not in '0123456789abcdef' for value in evidence)

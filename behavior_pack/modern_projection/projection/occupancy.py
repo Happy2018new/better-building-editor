@@ -36,6 +36,8 @@ class ProjectionOccupancy(object):
         self.item_profile = getattr(bridge.session, 'item_profile', None)
         self.native_render_profile = getattr(bridge.session, 'native_render_profile', None)
         self.cauldron_profile = getattr(bridge.session, 'cauldron_profile', None)
+        self.spawner_profile = getattr(bridge.session, 'spawner_profile', None)
+        self.portal_profile = getattr(bridge.session, 'portal_profile', None)
         self.liquid_profile = getattr(bridge.session, 'liquid_profile', None)
         self.info = bridge.factory.CreateBlockInfo(bridge.level)
         self.camera = bridge.factory.CreateCamera(bridge.level)
@@ -280,7 +282,9 @@ class ProjectionOccupancy(object):
                                       item_profile=self.item_profile,
                                       native_render_profile=self.native_render_profile,
                                       cauldron_profile=self.cauldron_profile,
-                                      liquid_profile=self.liquid_profile)
+                                      liquid_profile=self.liquid_profile,
+                                      spawner_profile=self.spawner_profile,
+                                      portal_profile=self.portal_profile)
         for unused in builder.prepare():
             yield True
         self.prepared = builder.data

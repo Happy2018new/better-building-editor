@@ -78,6 +78,7 @@ def glint_metrics(images, mask, times):
     yy, xx = np.nonzero(mask)
     width = max(1, int(xx.max()-xx.min()+1))
     highlights = luma-luma.min(axis=0)
+    visible_coverage = np.mean(np.max(selected-selected.min(axis=0),axis=2)>16.,axis=1)
     centers = []
     for row in highlights:
         eligible = row > 8.
@@ -90,6 +91,7 @@ def glint_metrics(images, mask, times):
             'luma_range_p50_p90_max': [float(value) for value in np.percentile(luma_range, (50,90,100))],
             'motion_fraction_rgb_gt2': float(np.mean(rgb_range > 2)),
             'motion_fraction_rgb_gt8': float(np.mean(rgb_range > 8)),
+            'visible_highlight_fraction_p10_p50_p90': [float(value) for value in np.percentile(visible_coverage,(10,50,90))],
             'mean_body_luma_p50_p90': [float(value) for value in np.percentile(luma.mean(axis=1), (50,90))],
             'highlight_centroid_body_widths_per_second': speeds,
             'speed_limitations': 'Sparse frame centroid displacement; not continuous phase velocity'}
@@ -124,7 +126,7 @@ def native_comparison(source, rows, texture, spec, size, output):
         calibration = None if route == 'editor' else source['camera_calibration']['data']
         times = [row['capture']['frame']['frame_qpc_100ns']/10000000. for row in sequence]
         measurements, crops = {}, []
-        for mode,position in POSITIONS.items():
+        for mode,position in closeup['fixture']['positions'].items():
             expected = expected_mask(position,first,texture,spec['frame_pose'],size,calibration)
             bounds = mask_row(expected)['bounds']
             crop = (max(0,bounds[0]-32),max(0,bounds[1]-32),min(size[0],bounds[2]+32),min(size[1],bounds[3]+32))
@@ -152,6 +154,31 @@ def native_comparison(source, rows, texture, spec, size, output):
         route:{mode:native_body_measurement(actual_masks[(route,mode)],actual_masks[('native',mode)])
                for mode in ('plain','enchanted')}
         for route in ('world','world_missing')}
+    glint_limits = {'minimum_native_rgb_range_ratio': .8, 'minimum_native_luma_range_ratio': .8,
+                    'minimum_native_visible_coverage_ratio': .7, 'minimum_native_centroid_speed_ratio': .5,
+                    'maximum_native_centroid_speed_ratio': 3., 'minimum_body_extent_pixels': 150}
+    result['glint_visibility_limits'] = glint_limits
+    reference_metrics = native['items']['enchanted']['glint']
+    def median_speed(metrics):
+        speeds = metrics['highlight_centroid_body_widths_per_second']
+        return float(np.median(speeds)) if speeds else 0.
+    result['glint_visibility_comparison'] = {}
+    for route in ('editor','world','world_missing'):
+        metrics = result['routes'][route]['items']['enchanted']['glint']
+        ratios = {'rgb_range':metrics['rgb_range_p50_p90_max'][1]/max(1.,reference_metrics['rgb_range_p50_p90_max'][1]),
+                  'luma_range':metrics['luma_range_p50_p90_max'][1]/max(1.,reference_metrics['luma_range_p50_p90_max'][1]),
+                  'visible_coverage':metrics['visible_highlight_fraction_p10_p50_p90'][1]/max(.01,reference_metrics['visible_highlight_fraction_p10_p50_p90'][1]),
+                  'centroid_speed':median_speed(metrics)/max(.001,median_speed(reference_metrics))}
+        items = result['routes'][route]['items']
+        passed = bool(result['reference_valid'] and result['routes'][route]['duration']['passed']
+            and min(items['enchanted']['extent_pixels'])>=glint_limits['minimum_body_extent_pixels']
+            and all(item['temporal']['passed'] for item in items.values())
+            and ratios['rgb_range']>=glint_limits['minimum_native_rgb_range_ratio']
+            and ratios['luma_range']>=glint_limits['minimum_native_luma_range_ratio']
+            and ratios['visible_coverage']>=glint_limits['minimum_native_visible_coverage_ratio']
+            and glint_limits['minimum_native_centroid_speed_ratio']<=ratios['centroid_speed']<=glint_limits['maximum_native_centroid_speed_ratio'])
+        result['glint_visibility_comparison'][route] = {'ratios_to_real_native':ratios,'passed':passed}
+    result['native_glint_accepted'] = all(row['passed'] for row in result['glint_visibility_comparison'].values())
     return result
 
 

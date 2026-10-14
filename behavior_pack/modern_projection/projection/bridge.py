@@ -40,7 +40,7 @@ def _native_palette(data):
     """Convert SDK strings without copying the potentially large integer lists."""
     result = {}
     for key, value in data.items():
-        if key in ('_native_render_profile', '_cauldron_profile', '_liquid_render_profile'):
+        if key in ('_native_render_profile', '_cauldron_profile', '_liquid_render_profile', '_spawner_profile', '_portal_profile'):
             continue
         if key in ('common', 'extra'):
             result[native(key)] = dict((_native_tree(material), indices)
@@ -422,7 +422,9 @@ class ClientBridge(object):
                                            item_profile=getattr(self.session, 'item_profile', None),
                                            native_render_profile=preview_profile,
                                            cauldron_profile=getattr(self.session, 'cauldron_profile', None),
-                                           liquid_profile=getattr(self.session, 'liquid_profile', None))
+                                           liquid_profile=getattr(self.session, 'liquid_profile', None),
+                                           spawner_profile=getattr(self.session, 'spawner_profile', None),
+                                           portal_profile=getattr(self.session, 'portal_profile', None))
         else:
             from .geometry_palette import prepare_palette
             biome = getattr(document, 'biome', None)
@@ -436,7 +438,9 @@ class ClientBridge(object):
                                    native_render_profile=preview_profile,
                                    cauldron_profile=getattr(self.session, 'cauldron_profile', None),
                                    biome=biome,
-                                   liquid_profile=getattr(self.session, 'liquid_profile', None))
+                                   liquid_profile=getattr(self.session, 'liquid_profile', None),
+                                   spawner_profile=getattr(self.session, 'spawner_profile', None),
+                                   portal_profile=getattr(self.session, 'portal_profile', None))
         if '_context_batches' in data:
             if not hasattr(self, 'context_models'):
                 self.context_models = {}

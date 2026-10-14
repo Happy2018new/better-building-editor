@@ -5,7 +5,7 @@ from . import block_registry as registry
 from .cell import AIR, background, foreground, make_cell
 
 METADATA = ('test.layers.water_style', 'layers', '\u6c34\u9762\u4e0e\u900f\u660e\u5ea6',
-            (40, 8, 40), 'minecraft:water')
+            (40, 8, 50), 'minecraft:water')
 ISOLATED_SIZE = (10, 8, 10)
 FOCUS = (3, 3, 3)
 
@@ -46,6 +46,11 @@ def _rows():
         rows.append({'id': identity, 'shape': shape, 'body': None})
     for name in ('oak_fence', 'glass_pane', 'oak_slab', 'oak_stairs'):
         rows.append({'id': 'wet_' + name, 'shape': (((0, 0, 0), 0),), 'body': name})
+    for name in ('oak_slab', 'oak_stairs', 'glass_pane', 'stone'):
+        rows.append({'id': 'neighbor_' + name, 'shape': (((0, 0, 0), 0),),
+                     'body': None, 'neighbors': (((0, 0, 1), name),)})
+    rows.append({'id': 'transparent_overlap',
+                 'shape': (((0, 0, 0), 0), ((0, 0, 2), 0)), 'body': None})
     return tuple(dict(row, anchor=(4 + index % 4 * 9, 3, 4 + index // 4 * 9))
                  for index, row in enumerate(rows))
 
@@ -76,6 +81,9 @@ def _cells(row):
         values[(0, 0, 0)] = make_cell(_material(row['body']), _water())
         # Two cells back leaves the fluid's direct neighbor samples unchanged.
         values[(0, 0, -2)] = _material('gold_block')
+    for offset, name in row.get('neighbors', ()):
+        values[offset] = _material(name)
+        values[(offset[0], offset[1] - 1, offset[2])] = _material('stone')
     return values
 
 
@@ -92,6 +100,19 @@ def source_document(identity, control='wet'):
     """Extract exact public gallery cells; controls preserve supports and rear blocks."""
     from .debug_blueprints import build
     from .model import Document
+    if identity == 'gallery':
+        if control not in ('wet', 'dry'):
+            raise ValueError('The public water gallery has only wet/dry controls')
+        result = build(METADATA[0])
+        if control == 'dry':
+            for pos, value in list(result.blocks.items()):
+                front, back = foreground(value), background(value)
+                if front[0] in ('minecraft:water', 'minecraft:flowing_water'):
+                    front = AIR
+                if back[0] in ('minecraft:water', 'minecraft:flowing_water'):
+                    back = AIR
+                result.set_cell(pos, make_cell(front, back))
+        return result
     row = next((item for item in CASES if item['id'] == identity), None)
     if row is None or control not in VISUAL_CASE['controls']:
         raise ValueError('Unknown product-water case/control: ' + str((identity, control)))

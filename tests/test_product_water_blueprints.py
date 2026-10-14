@@ -15,7 +15,7 @@ class ProductWaterBlueprintTests(unittest.TestCase):
         self.assertIn(METADATA, BLUEPRINTS)
         self.assertEqual(METADATA[0], VISUAL_CASES['water_style']['fixture'])
         gallery = build(METADATA[0])
-        self.assertEqual(14, len(CASES))
+        self.assertEqual(19, len(CASES))
         for row in CASES:
             source = source_document(row['id'])
             for pos, value in source.blocks.items():
@@ -54,6 +54,38 @@ class ProductWaterBlueprintTests(unittest.TestCase):
         for identity, control in (('missing', 'wet'), ('source', 'missing')):
             with self.assertRaises(ValueError):
                 source_document(identity, control)
+
+    def test_neighbor_controls_preserve_the_native_partial_solid_and_support(self):
+        for name in ('oak_slab', 'oak_stairs', 'glass_pane', 'stone'):
+            wet = source_document('neighbor_' + name)
+            dry = source_document('neighbor_' + name, 'dry')
+            neighbor = (FOCUS[0], FOCUS[1], FOCUS[2] + 1)
+            support = (FOCUS[0], FOCUS[1] - 1, FOCUS[2] + 1)
+            self.assertEqual('minecraft:' + name, foreground(wet.get(neighbor))[0])
+            self.assertEqual(wet.get(neighbor), dry.get(neighbor))
+            self.assertEqual('minecraft:stone', foreground(wet.get(support))[0])
+            self.assertEqual(AIR, dry.get(FOCUS))
+
+    def test_two_separated_transparent_cells_are_public_snapshot_water(self):
+        document = source_document('transparent_overlap')
+        cells = [pos for pos, value in document.blocks.items()
+                 if foreground(value)[0] == 'minecraft:water']
+        self.assertEqual([(3, 3, 3), (3, 3, 5)], sorted(cells))
+
+    def test_gallery_dry_control_removes_both_water_layers_and_preserves_every_body(self):
+        wet, dry = source_document('gallery'), source_document('gallery', 'dry')
+        self.assertEqual(METADATA[3], wet.size)
+        self.assertEqual(wet.size, dry.size)
+        water_count = 0
+        for pos, value in wet.blocks.items():
+            before, after = foreground(value), foreground(dry.get(pos))
+            water_count += int(before[0] == 'minecraft:water')
+            water_count += int(background(value)[0] == 'minecraft:water')
+            self.assertEqual(AIR if before[0] == 'minecraft:water' else before, after)
+            self.assertEqual(AIR, background(dry.get(pos)))
+        self.assertGreater(water_count, len(CASES))
+        with self.assertRaises(ValueError):
+            source_document('gallery', 'liquid_only')
 
 
 if __name__ == '__main__':

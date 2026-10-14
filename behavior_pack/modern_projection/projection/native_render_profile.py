@@ -9,8 +9,9 @@ import math
 from .cell import integer_types, text_type
 from .nbt_spatial import root_payload, scalar
 from .visible_actor import render_actor
+from . import banner_render_contract
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 RUNTIME_VERSION = '3.10.0.420447'
 OBSERVED_NAMES = frozenset(('minecraft:chest', 'minecraft:copper_chest',
                             'minecraft:ender_chest', 'minecraft:bed',
@@ -98,7 +99,8 @@ class NativeRenderProfile(_Profile):
     @property
     def identity(self):
         return (SCHEMA_VERSION, RUNTIME_VERSION, tuple(sorted(self.model_local)),
-                tuple(sorted(self.context)), tuple(sorted(self.scene_names)))
+                tuple(sorted(self.context)), tuple(sorted(self.scene_names)),
+                banner_render_contract.identity())
 
     def coordinate_mode(self, material, actor):
         name = material[0]
@@ -143,12 +145,14 @@ def production_profile(runtime_version):
     Beds remain proxies: the captured single head actor does not establish
     independent head/foot geometry under partial occupancy. Empty shulker
     data and missing head meshes likewise do not establish a route. Native
-    Chest and banner UI depth differ from terrain; editor native routes remain
-    restricted. Banner admission covers static pose and patterns, not waving.
+    Chest UI depth differs from terrain. Banner editor admission additionally
+    requires its measured family contract. Banner admission covers static pose
+    and patterns, not waving.
     """
     if runtime_version != RUNTIME_VERSION:
         return None
     return NativeRenderProfile(model_local=(
         'minecraft:chest', 'minecraft:copper_chest', 'minecraft:ender_chest',
         'minecraft:standing_banner', 'minecraft:wall_banner'),
-        context=('minecraft:flower_pot',), scene_names=('minecraft:flower_pot',))
+        context=('minecraft:flower_pot',), scene_names=('minecraft:flower_pot',) +
+        banner_render_contract.production_names(runtime_version))

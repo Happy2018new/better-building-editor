@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "completed": true,
+  "cleanup_errors": [],
+  "resource_contract": {
+    "layout_version": 1,
+    "resource_sha256": "80a8658765b75d2453f4bbb0a42c9e52f4b2b5c35ebcee3253c637846376f0c7"
+  },
+  "launch_sources_sha256": "c6e2f208e4a8217c8e7dc3dad8c0de23f198e1b916ac40ab37e874ec65a6f9a4",
+  "source_unchanged": true,
+  "engine": "3.10.0.420447",
+  "production_qualified": false,
+  "native_glint_accepted": false,
+  "glint_visibility_comparison": {
+    "editor": {
+      "ratios_to_real_native": {
+        "rgb_range": 0.6632653061224489,
+        "luma_range": 1.1432668526022212,
+        "visible_coverage": 0.5657519005035968,
+        "centroid_speed": 0.24959974459136725
+      },
+      "passed": false
+    },
+    "world": {
+      "ratios_to_real_native": {
+        "rgb_range": 0.6632653061224489,
+        "luma_range": 1.1432668526022218,
+        "visible_coverage": 0.5469838757270779,
+        "centroid_speed": 0.2385911646348171
+      },
+      "passed": false
+    },
+    "world_missing": {
+      "ratios_to_real_native": {
+        "rgb_range": 0.6632653061224489,
+        "luma_range": 1.13394376326545,
+        "visible_coverage": 0.5295730139532479,
+        "centroid_speed": 0.21372201065509291
+      },
+      "passed": false
+    }
+  }
+}

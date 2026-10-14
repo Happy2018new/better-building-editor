@@ -11,7 +11,7 @@ from projection.cell import AIR, actor_data, foreground
 from projection.debug_appearance_blueprints import observations
 from projection.debug_blueprints import build, entries
 from projection.debug_item_blueprints import (IDENTITY, PAIRS, VISUAL_CASE,
-    ORIENTATION_IDENTITY, ORIENTATION_CASES, ORIENTATION_VISUAL_CASE)
+    ORIENTATION_IDENTITY, ORIENTATION_CASES, ORIENTATION_VISUAL_CASE, orientation_document)
 from projection.item_sprite_plan import sprite_content, iter_render_steps
 from projection.item_sprite_profile import candidate_profile
 from projection.entity_overlays import frame_item
@@ -118,6 +118,20 @@ class ItemBlueprintTests(unittest.TestCase):
         self.assertEqual(192,sum(int(group.uniforms[3][1]) for group in groups))
         self.assertLessEqual(len(groups),candidate_profile().max_groups)
         self.assertEqual(document.blocks,build(ORIENTATION_IDENTITY).blocks)
+
+    def test_orientation_closeups_preserve_faces_rotations_and_native_item_tags(self):
+        source=build(ORIENTATION_IDENTITY)
+        for case in ORIENTATION_CASES:
+            closeup=orientation_document(case['id'])
+            targets=((3,3,2),(3,3,5)) if case['facing'] in (4,5) else ((2,3,3),(5,3,3))
+            for mode,target in zip(('plain','enchanted'),targets):
+                before=source.get(case[mode])
+                after=closeup.get(target)
+                self.assertEqual(foreground(before),foreground(after))
+                self.assertEqual(self.item(source,case[mode]),self.item(closeup,target))
+                root=root_payload(entity_nbt(actor_data(after)))
+                self.assertEqual(case['rotation_degrees'],scalar(root,'ItemRotation'))
+                self.assertEqual(target,tuple(scalar(root,axis) for axis in ('x','y','z')))
 
 
 if __name__ == '__main__':

@@ -19,6 +19,7 @@ from analyze_item_sprite_product import (analyze, body_measurement, expected_mas
 from item_sprite_capture_contract import (camera_matches, paired_layout_matches,
                                           scene_layout, snapshot_digest)
 from analyze_item_sprite_closeup import elapsed_sequence, glint_metrics, native_body_measurement
+from analyze_visible_items_r16 import empty_body_measurement, target
 from projection.camera import OrbitCamera
 from projection.debug_blueprints import build
 from projection.debug_item_blueprints import IDENTITY, PAIRS
@@ -44,6 +45,15 @@ class ItemPixelTests(unittest.TestCase):
         extra = self.body.copy()
         extra[10:18, 10:18] = (25, 70, 100)
         self.assertFalse(body_measurement(extra, self.baseline, self.mask)['passed'])
+
+    def test_empty_frame_body_is_a_negative_control(self):
+        self.assertTrue(empty_body_measurement(self.baseline, self.baseline, self.mask)['passed'])
+        self.assertFalse(empty_body_measurement(self.body, self.baseline, self.mask)['passed'])
+
+    def test_netease_camera_yaw_matches_actual_positive_x_side_view(self):
+        for yaw,direction in ((0,(0,0,-1)),(90,(1,0,0)),(180,(0,0,1)),(-90,(-1,0,0))):
+            result=target({'position':(4,5,6),'rotation':(0,yaw,0)})
+            np.testing.assert_allclose(result,np.add((4,5,6),direction),atol=1e-8)
 
     def test_only_enchanted_content_may_animate_and_the_highlight_must_stay_in_the_body(self):
         moving = self.body.copy()
@@ -197,6 +207,10 @@ class ItemCaptureContracts(unittest.TestCase):
     def test_muting_keeps_native_pose_while_position_or_model_changes_invalidate_pairs(self):
         first, second = self.scene(), self.scene()
         second['banks'][0]['visible'] = [False, False]
+        self.assertTrue(paired_layout_matches(first, second))
+        second['banks'][0]['doll_positions'][0][0] += .00015
+        second['banks'][0]['doll_sizes'][0][1] += .00015
+        second['banks'][0]['poses'][0][0] += .00000007
         self.assertTrue(paired_layout_matches(first, second))
         second['banks'][0]['doll_positions'][0][0] += 1.
         self.assertFalse(paired_layout_matches(first, second))

@@ -1,0 +1,27 @@
+{
+  "block_scale": 0.64,
+  "engine_version": "3.10.0.420447",
+  "family": [
+    "minecraft:standing_banner",
+    "minecraft:wall_banner"
+  ],
+  "materials": {
+    "banner": {
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex"
+    },
+    "banner_pole:banner": {
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment",
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex"
+    }
+  },
+  "measurement_sha256": "3c281616d98fb18c81475e8e3c5dec2db4a7a714205fbc2949716fa272b3bdf2",
+  "native_fragment_sha256": "be9220d3f76e25b72155b704026f44f6332cf558e217963af2e2985f127d9aa8",
+  "native_vertex_sha256": "3e75b319a523ac2d05720816bff1614ee34b6d6d2a46e7e0311fb1781d4c8197",
+  "schema_version": 1,
+  "source_sha256": {
+    "resource_pack/shaders/glsl/modern_projection_native_preview_banner.fragment": "4f4842911fedc5e9552de62b897c1549745cb4e5bcd22684468075a0b487025b",
+    "resource_pack/shaders/glsl/modern_projection_native_preview_banner.vertex": "137ea11c5aad76d04c2ecf25387af34046dacf8518668b6e39047f8e3ece0207"
+  },
+  "view_origin": 450.0
+}

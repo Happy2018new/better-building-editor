@@ -1,0 +1,56 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroid.h"
+varying highp float nativePreviewClip;
+#include "uniformShaderConstants.h"
+
+LAYOUT_BINDING(0) uniform sampler2D TEXTURE_0;
+uniform highp vec4 EXTRA_ACTOR_UNIFORM4;
+
+#if __VERSION__ >= 300
+_centroid varying vec4 uv;
+#else
+varying vec4 uv;
+#endif
+
+#ifdef ENABLE_FOG
+varying vec4 fogColor;
+#endif
+
+#ifdef ENABLE_LIGHT
+varying vec4 light;
+#endif
+
+#ifndef DISABLE_TINTING
+varying vec4 color;
+#endif
+
+void main()
+{
+    if(nativePreviewClip>=0.0) discard;
+    bool projection = abs(EXTRA_ACTOR_UNIFORM4.x-19487.0) < 0.25 &&
+                      abs(EXTRA_ACTOR_UNIFORM4.z) > 0.5;
+    if(projection && (EXTRA_ACTOR_UNIFORM4.z < 0.0 ||
+                      EXTRA_ACTOR_UNIFORM4.w <= 0.0)) discard;
+    vec4 diffuse = texture2D(TEXTURE_0, uv.xy);
+    vec4 base = texture2D(TEXTURE_0, uv.zw);
+
+#ifndef DISABLE_TINTING
+    base.a = mix(diffuse.r * diffuse.a, diffuse.a, color.a);
+    base.rgb *= color.rgb;
+#endif
+
+#ifdef ENABLE_LIGHT
+    base.rgb *= light.rgb;
+#endif
+
+#ifdef ENABLE_FOG
+    base.rgb = mix(base.rgb, fogColor.rgb, fogColor.a);
+#endif
+
+#ifdef UI_ENTITY
+    base.a *= HUD_OPACITY;
+#endif
+    if(projection) base.a *= clamp(EXTRA_ACTOR_UNIFORM4.w,0.0,1.0);
+    gl_FragColor = base;
+}

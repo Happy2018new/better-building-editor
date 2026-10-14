@@ -44,14 +44,14 @@ class ProductLiquidProfileTests(unittest.TestCase):
     def test_qualification_requires_all_routes_and_exact_rules_resources_style(self):
         from projection import liquid_product_resource_data as resources
         from projection import liquid_product_owner_data as owners
-        good = {'SCHEMA_VERSION': 1, 'PRODUCT_QUALIFIED': True, 'QUALIFICATION_SHA256': '1' * 64,
+        good = {'SCHEMA_VERSION': 2, 'PRODUCT_QUALIFIED': True, 'QUALIFICATION_SHA256': '1' * 64,
                 'QUALIFICATION_ENGINE_VERSION': deployment.TARGET_ENGINE_VERSION,
                 'QUALIFICATION_RESOURCE_CONTRACT_SHA256': resources.PRODUCT_RESOURCE_CONTRACT_SHA256,
                 'QUALIFICATION_RULES_SHA256': rules.PRODUCT_RULES_SHA256,
                 'QUALIFICATION_STYLE_VERSION': rules.PRODUCT_STYLE_VERSION,
                 'QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256': owners.IMPLEMENTATION_CONTRACT_SHA256,
                 'GATES': dict((name, True) for name in deployment.REQUIRED_GATES)}
-        for field, invalid in (('SCHEMA_VERSION', 2), ('QUALIFICATION_SHA256', None),
+        for field, invalid in (('SCHEMA_VERSION', 1), ('QUALIFICATION_SHA256', None),
                                ('QUALIFICATION_ENGINE_VERSION', '3.9.0.401155'),
                                ('QUALIFICATION_RESOURCE_CONTRACT_SHA256', '0' * 64),
                                ('QUALIFICATION_IMPLEMENTATION_CONTRACT_SHA256', '0' * 64),

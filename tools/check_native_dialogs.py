@@ -5,13 +5,12 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / '.agents/skills/pyreact-debugging/scripts'))
-sys.path.insert(1, str(Path(__file__).resolve().parent / 'pyreact_legacy'))
-import capture_screen as capture
+import _window as capture
 
 
 def assertion_dialogs():
     dialogs = []
-    for window in capture._list_windows():
+    for window in capture._list_windows_windows():
         if 'assert' not in window['title'].lower():
             continue
         item = dict(window)

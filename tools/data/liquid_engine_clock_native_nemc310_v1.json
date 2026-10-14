@@ -1,0 +1,126 @@
+{
+  "completed": true,
+  "restored": true,
+  "source_unchanged": true,
+  "cleanup_errors": [],
+  "source_contract_sha256": "9881031b7cb7696deb069c87c1f99db28e6da0fee11712b0294b2c9db728bed5",
+  "product_acceptance_claimed": false,
+  "schema_version": 1,
+  "game_version": "NEMC 3.10.0.420447",
+  "clock_uniform": "TOTAL_REAL_WORLD_TIME",
+  "clock_direction": 1,
+  "diagnostic": "R=mod(TOTAL_REAL_WORLD_TIME,8)/8,G=.25,B=1,A=1; no atlas samples",
+  "clock": {
+    "passed": true,
+    "clock_direction": 1,
+    "red_differences": [
+      1,
+      0,
+      3,
+      4,
+      3,
+      4,
+      3,
+      4,
+      3,
+      4,
+      4,
+      3
+    ],
+    "red_per_second": 31.595754092352283,
+    "changed_pairs": 11,
+    "support_pixels_range": [
+      12584,
+      12584
+    ],
+    "samples": [
+      {
+        "red": 89,
+        "qpc": 617167907510,
+        "support_pixels": 12584,
+        "png_sha256": "c2b42b39cb8eb1f3d7ea40558363941a8131fea55e0defbba73aff2c7977ea0b"
+      },
+      {
+        "red": 90,
+        "qpc": 617168089315,
+        "support_pixels": 12584,
+        "png_sha256": "e574bd512985a938b46fd5516ddaf29200d9dfe2a4c57db50f326c7e192c926e"
+      },
+      {
+        "red": 90,
+        "qpc": 617168271135,
+        "support_pixels": 12584,
+        "png_sha256": "87bf94908a2c8b7f15beea23a4adbfad126744a38f6e3a3b90aa4d988a312284"
+      },
+      {
+        "red": 93,
+        "qpc": 617169240841,
+        "support_pixels": 12584,
+        "png_sha256": "934efaafd9123dce767c1e182a7fd7e1816faecdbf81e554d509309e8856bc32"
+      },
+      {
+        "red": 97,
+        "qpc": 617170331706,
+        "support_pixels": 12584,
+        "png_sha256": "8c1022dd5b6787b35229286e30e08dfe62746a2ad672c27b8675daecaac3c610"
+      },
+      {
+        "red": 100,
+        "qpc": 617171422564,
+        "support_pixels": 12584,
+        "png_sha256": "9bc4245da9b01c1bf98874dc835c6240ac079a3aec2cdfe628f563eae6b08aad"
+      },
+      {
+        "red": 104,
+        "qpc": 617172513474,
+        "support_pixels": 12584,
+        "png_sha256": "4ff600f20ff4770a011a00fe0929c3bbcd6d374099503891a996aa2c5b16c6eb"
+      },
+      {
+        "red": 107,
+        "qpc": 617173604426,
+        "support_pixels": 12584,
+        "png_sha256": "0dda0e5a124933d984b7b468a48004ebccc928fdb9925c7196daa5b11888ec57"
+      },
+      {
+        "red": 111,
+        "qpc": 617174755960,
+        "support_pixels": 12584,
+        "png_sha256": "bf80cbfdab3abac8b476d4803e7322e7933617d0bfdac3bdf9e4815ab1538bf1"
+      },
+      {
+        "red": 114,
+        "qpc": 617175846919,
+        "support_pixels": 12584,
+        "png_sha256": "1636e5b0451595be33bc6352e632f2554c36a2e6e4ed84a4c0a7d097f29597dd"
+      },
+      {
+        "red": 118,
+        "qpc": 617176937821,
+        "support_pixels": 12584,
+        "png_sha256": "5e19c2b0581554d43fef520e9ac51d8a8fe91c43d92a090bbe19e80eeaf514d7"
+      },
+      {
+        "red": 122,
+        "qpc": 617178149983,
+        "support_pixels": 12584,
+        "png_sha256": "e1e5b865a046a6249ee9300b1e71da38178e523823c22e7174b2d6464527d6f4"
+      },
+      {
+        "red": 125,
+        "qpc": 617179301446,
+        "support_pixels": 12584,
+        "png_sha256": "7df0c34489b27b58f6d378090464662910499567adb30ee35fa13d55015aeb77"
+      }
+    ],
+    "helper_sha256": "82361ce558efc40dbde5bb272cb309f6cd68fa7c79e9087a6d3089f49443c0f6",
+    "capture_temporal_complete": true
+  },
+  "capture_temporal_complete": true,
+  "runtime_executable": "D:\\MCStudioDownload\\game\\MinecraftPE_Netease\\3.10.0.420447\\Minecraft.Windows.exe",
+  "runtime_executable_sha256": "9be281dbe08bc591336680d5a50f94d87f3c57ee75b3afcb3cabdf03347e0269",
+  "source_report": "docs/evidence/water-clock-nemc310-r15-v1/clock310-v2.json",
+  "source_report_sha256": "15e0740a0eaa9673ddc662d061a29ffe693a8a680f2cab92626022256c1a9c32",
+  "session_id": "d4ae080d88bb4e7aa1da4b671a0a5154",
+  "artifact_index": "docs/evidence/water-clock-nemc310-r15-v1/artifact-index.json"
+}

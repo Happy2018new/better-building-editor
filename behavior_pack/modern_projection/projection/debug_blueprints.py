@@ -19,10 +19,18 @@ from .debug_product_water_blueprints import METADATA as WATER_STYLE_METADATA, VI
 from .debug_item_blueprints import METADATA as ITEM_METADATA, VISUAL_CASE as ITEM_VISUAL_CASE
 from .debug_item_blueprints import (ORIENTATION_METADATA as ITEM_ORIENTATION_METADATA,
                                     ORIENTATION_VISUAL_CASE as ITEM_ORIENTATION_VISUAL_CASE)
+from .debug_item_blueprints import (CATALOGUE_METADATA as ITEM_CATALOGUE_METADATA,
+                                    CATALOGUE_CASES as ITEM_CATALOGUE_CASES,
+                                    CATALOGUE_VISUAL_CASES as ITEM_CATALOGUE_VISUAL_CASES)
+from .debug_item_blueprints import (SLOT_METADATA as ITEM_SLOT_METADATA,
+                                    SLOT_VISUAL_CASE as ITEM_SLOT_VISUAL_CASE)
 from .debug_action_blueprints import METADATA as ACTION_METADATA, ACTION_MATRIX
 from .debug_botanical_blueprints import METADATA as BOTANICAL_METADATA, VISUAL_CASE as BOTANICAL_VISUAL_CASE
 from .debug_product_connections import METADATA as PRODUCT_METADATA, VISUAL_CASE as PRODUCT_VISUAL_CASE
 from .debug_cauldron_blueprints import METADATA as CAULDRON_METADATA, VISUAL_CASE as CAULDRON_VISUAL_CASE
+from .debug_banner_blueprints import METADATA as BANNER_METADATA, VISUAL_CASE as BANNER_VISUAL_CASE
+from .debug_spawner_blueprints import METADATA as SPAWNER_METADATA, VISUAL_CASE as SPAWNER_VISUAL_CASE
+from .debug_portal_blueprints import METADATA as PORTAL_METADATA, VISUAL_CASE as PORTAL_VISUAL_CASE
 from .debug_compatibility_blueprints import (METADATA as COMPATIBILITY_METADATA,
                                             VISUAL_CASES as COMPATIBILITY_VISUAL_CASES)
 
@@ -43,7 +51,11 @@ BLUEPRINTS = (
     ('test.entities.appearances', 'entities', '方块实体 · 非默认外观', (40, 12, 44), 'minecraft:skeleton_skull'),
     ITEM_METADATA,
     ITEM_ORIENTATION_METADATA,
+    ITEM_SLOT_METADATA,
     CAULDRON_METADATA,
+    BANNER_METADATA,
+    SPAWNER_METADATA,
+    PORTAL_METADATA,
     ('test.registry.vanilla', 'registry', '原版方块全览', (64, 64, 64), 'minecraft:stone'),
     SIGN_METADATA,
     WATER_METADATA,
@@ -54,14 +66,18 @@ BLUEPRINTS = (
     ACTION_METADATA,
     BOTANICAL_METADATA,
     PRODUCT_METADATA,
-) + COMPATIBILITY_METADATA
+) + COMPATIBILITY_METADATA + ITEM_CATALOGUE_METADATA
 VISUAL_CASES = {
     'neighbor_actions': ACTION_MATRIX,
     'product_connections': PRODUCT_VISUAL_CASE,
     'botanical_neighbors': BOTANICAL_VISUAL_CASE,
     'item_contents': ITEM_VISUAL_CASE,
     'item_orientations': ITEM_ORIENTATION_VISUAL_CASE,
+    'visible_item_slots': ITEM_SLOT_VISUAL_CASE,
     'cauldron_contents': CAULDRON_VISUAL_CASE,
+    'banner_patterns': BANNER_VISUAL_CASE,
+    'spawner_presence': SPAWNER_VISUAL_CASE,
+    'portal_surfaces': PORTAL_VISUAL_CASE,
     'water_behaviors': WATER_VISUAL_CASE,
     'pure_liquids': LIQUID_VISUAL_CASE,
     'water_style': WATER_STYLE_VISUAL_CASE,
@@ -134,6 +150,7 @@ VISUAL_CASES = {
     },
 }
 VISUAL_CASES.update(COMPATIBILITY_VISUAL_CASES)
+VISUAL_CASES.update(ITEM_CATALOGUE_VISUAL_CASES)
 
 
 def entries(category=None):
@@ -357,6 +374,21 @@ def build(identity):
                 'test.groups.parts': _groups, 'test.connections.context': _connections,
                 'test.transforms.directions': _directions, 'test.registry.vanilla': _vanilla}
     if metadata[1] == 'entities':
+        if identity == PORTAL_METADATA[0]:
+            from .debug_portal_blueprints import populate
+            return populate(fixture)
+        if identity == ITEM_SLOT_METADATA[0]:
+            from .debug_item_blueprints import populate_slots
+            return populate_slots(fixture)
+        if identity == SPAWNER_METADATA[0]:
+            from .debug_spawner_blueprints import populate
+            return populate(fixture)
+        if identity in ITEM_CATALOGUE_CASES:
+            from .debug_item_blueprints import populate_catalogue
+            return populate_catalogue(fixture, identity)
+        if identity == BANNER_METADATA[0]:
+            from .debug_banner_blueprints import populate
+            return populate(fixture)
         if identity == CAULDRON_METADATA[0]:
             from .debug_cauldron_blueprints import populate
             return populate(fixture)

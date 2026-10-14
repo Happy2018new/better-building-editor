@@ -4,6 +4,14 @@
     "netease_block_as_entity_transparency": {
       "fragmentShader": "shaders/glsl/modern_projection_native_actor.fragment"
     },
+    "banner": {
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment"
+    },
+    "banner_pole:banner": {
+      "vertexShader": "shaders/glsl/modern_projection_native_preview_banner.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_native_preview_banner.fragment"
+    },
     "sign:entity_static": {
       "vertexShader": "shaders/glsl/modern_projection_sign_body.vertex",
       "fragmentShader": "shaders/glsl/modern_projection_sign_body.fragment",
@@ -621,6 +629,174 @@
         }
       ],
       "vertexShader": "shaders/glsl/modern_projection_cauldron_geometry_world.vertex"
+    },
+    "modern_projection_item_icon:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_item_icon.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_item_icon.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_item_icon_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_item_icon_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_item_icon.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    },
+    "modern_projection_portal_end_gateway:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry.vertex"
+    },
+    "modern_projection_portal_end_gateway_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry_world.vertex"
+    },
+    "modern_projection_portal_end_portal:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry.vertex"
+    },
+    "modern_projection_portal_end_portal_world:entity_for_skeleton_alpha": {
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendDst": "OneMinusSrcAlpha",
+      "blendSrc": "SourceAlpha",
+      "fragmentShader": "shaders/glsl/modern_projection_portal_starfield.fragment",
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ],
+      "vertexShader": "shaders/glsl/modern_projection_portal_geometry_world.vertex"
+    },
+    "modern_projection_book_enchanting_table:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_book_enchanting_table_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_book_enchanting_table_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_book_lectern:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_book_lectern.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+    },
+    "modern_projection_book_lectern_world:entity_for_skeleton_alpha": {
+      "vertexShader": "shaders/glsl/modern_projection_book_lectern_world.vertex",
+      "fragmentShader": "shaders/glsl/modern_projection_book_geometry.fragment",
+      "+states": [
+        "Blending",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
     }
   }
 }

@@ -224,6 +224,34 @@ class BitmapResourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             generator.silhouette_cubes(image, {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 1.})
 
+    def test_extruded_sides_follow_texel_boundaries_without_internal_walls(self):
+        neighbors = {'west': (-1,0), 'east': (1,0), 'up': (0,-1), 'down': (0,1)}
+        pose = {'size_pixels': 8., 'thickness_pixels': .5, 'front_z_pixels': 15.}
+        for occupied in ({(1,0)}, {(0,0),(1,0)}, {(0,0),(0,1)}, {(0,0),(2,1)}):
+            image = Image.new('RGBA', (3,2))
+            for x,y in occupied:
+                image.putpixel((x,y),(255,255,255,255))
+            cubes = generator.silhouette_cubes(image,pose)
+            actual = set()
+            scale = pose['size_pixels']/3.
+            for cube in cubes[1:]:
+                for face,uv in cube['uv'].items():
+                    x,y = uv['uv']
+                    actual.add((x,y,face))
+                    origin = cube['origin']
+                    self.assertAlmostEqual(-12.+x*scale,origin[0])
+                    self.assertAlmostEqual(8.-scale+(1-y)*scale,origin[1])
+                    self.assertEqual((15.,.5),(origin[2],cube['size'][2]))
+                    if face in ('west','east'):
+                        surface = origin[0] + (cube['size'][0] if face=='east' else 0.)
+                        self.assertAlmostEqual(-12.+(x+(face=='east'))*scale,surface)
+                    else:
+                        surface = origin[1] + (cube['size'][1] if face=='up' else 0.)
+                        self.assertAlmostEqual(8.-scale+(1-y+(face=='up'))*scale,surface)
+            expected = {(x,y,face) for x,y in occupied for face,(dx,dy) in neighbors.items()
+                        if (x+dx,y+dy) not in occupied}
+            self.assertEqual(expected,actual)
+
 
 if __name__ == '__main__':
     unittest.main()

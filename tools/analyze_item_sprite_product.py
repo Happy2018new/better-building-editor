@@ -41,6 +41,8 @@ def item_polygons(position, texture, pose, rotation=0., facing=2):
     """Project opaque source bitmap pixels at the declared frame support plane."""
     alpha = np.asarray(texture.convert('RGBA'))[:, :, 3]
     size, z = pose['size_pixels']/16., pose['front_z_pixels']/16.-.5
+    rotation *= pose.get('rotation_sign',1.)
+    rotation += pose.get('upward_base_rotation_degrees',0.) if facing == 1 else 0.
     sine, cosine = math.sin(math.radians(rotation)), math.cos(math.radians(rotation))
     def point(u, v):
         x, y = (u/texture.width-.5)*size, (.5-v/texture.height)*size

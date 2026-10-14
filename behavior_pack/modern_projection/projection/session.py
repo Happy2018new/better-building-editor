@@ -41,13 +41,19 @@ class Session(object):
         self.item_error = ''
         self.item_preview = self.item_controls = None
         from .item_sprite_profile import production_profile as item_production_profile
-        self.item_profile = item_production_profile()
+        self.item_profile = item_production_profile(getattr(bridge, 'engine_version', None))
         from .native_render_profile import production_profile as native_production_profile
         self.native_render_profile = native_production_profile(getattr(bridge, 'engine_version', None))
         from .cauldron_deployment import production_profile as cauldron_production_profile
         self.cauldron_profile = cauldron_production_profile(getattr(bridge, 'engine_version', None))
+        from .spawner_marker import production_profile as spawner_production_profile
+        self.spawner_profile = spawner_production_profile(getattr(bridge, 'engine_version', None))
         self.cauldron_error = ''
         self.cauldron_preview = self.cauldron_controls = None
+        from .portal_profile import production_profile as portal_production_profile
+        self.portal_profile = portal_production_profile(getattr(bridge, 'engine_version', None))
+        self.portal_error = ''
+        self.portal_preview = self.portal_controls = None
         self.camera_yaw = 35.
         self.camera_pitch = 25.
         self.zoom = 1.
@@ -614,7 +620,9 @@ class Session(object):
                 self.editor.layer if self.solo_layer or self.section else -1, self.section,
                 id(getattr(self, 'item_profile', None)),
                 profile_identity(self.native_render_profile),
-                getattr(self.cauldron_profile, 'identity', None), liquid_identity(self.liquid_profile))
+                getattr(self.cauldron_profile, 'identity', None), liquid_identity(self.liquid_profile),
+                getattr(getattr(self, 'spawner_profile', None), 'identity', None),
+                getattr(getattr(self, 'portal_profile', None), 'identity', None))
 
     def preview_has_content(self):
         return any(self.tiles.parts[key]['count'] for key in self.tiles.slots

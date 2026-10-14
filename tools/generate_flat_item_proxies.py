@@ -103,7 +103,7 @@ def silhouette_cubes(image, pose):
                      'south': {'uv': [width, 0], 'uv_size': [-width, height]}}}]
     for x, y in sorted(occupied):
         faces = {}
-        for face, neighbor in (('west', (x + 1, y)), ('east', (x - 1, y)),
+        for face, neighbor in (('west', (x - 1, y)), ('east', (x + 1, y)),
                                ('up', (x, y - 1)), ('down', (x, y + 1))):
             if neighbor not in occupied:
                 faces[face] = {'uv': [x, y], 'uv_size': [1, 1]}

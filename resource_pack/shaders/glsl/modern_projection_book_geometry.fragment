@@ -1,0 +1,19 @@
+// __multiversion__
+precision highp float;
+#include "fragmentVersionCentroidUV.h"
+#include "uniformExtraVectorConstants.h"
+#include "uniformShaderConstants.h"
+#include "uniformWorldConstants.h"
+uniform sampler2D TEXTURE_0;
+varying highp vec2 bookUv;
+varying highp float bookVisible;
+varying highp float bookClip;
+varying highp float bookLight;
+void main() {
+    if(bookVisible<0.5 || bookClip>0.0 || EXTRA_VECTOR4.w<=0.0) discard;
+    vec4 texel=texture2D(TEXTURE_0,bookUv);
+    float alpha=texel.a*EXTRA_VECTOR4.w;
+    if(abs(PROJ[3][3])>0.5) alpha*=CURRENT_COLOR.a;
+    if(alpha<=0.0) discard;
+    gl_FragColor=vec4(texel.rgb*bookLight,alpha);
+}

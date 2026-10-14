@@ -78,4 +78,20 @@ def scene_layout(state):
 
 def paired_layout_matches(positive, negative):
     first, second = scene_layout(positive), scene_layout(negative)
-    return first is not None and first == second
+    if first is None or second is None:
+        return False
+    if any(first[key] != second[key] for key in ('camera_pose','camera_pan','camera_depth','screen_size')):
+        return False
+    if len(first['item_layout']) != len(second['item_layout']):
+        return False
+    for left,right in zip(first['item_layout'],second['item_layout']):
+        if any(left[key] != right[key] for key in ('key','front','ids')):
+            return False
+        for key,tolerance in (('doll_positions',.001),('doll_sizes',.001),('poses',.000001)):
+            for a,b in zip(left[key],right[key]):
+                if a is None or b is None:
+                    if a != b:
+                        return False
+                elif len(a)!=len(b) or any(abs(x-y)>tolerance for x,y in zip(a,b)):
+                    return False
+    return True

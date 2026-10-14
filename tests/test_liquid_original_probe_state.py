@@ -13,6 +13,8 @@ sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(ROOT / 'behavior_pack'))
 import probe_liquid_original_sides as probe
 from modern_projection.projection.cell import AIR, encode, make_cell
+from modern_projection.projection.liquid_projection import LiquidProjection
+from modern_projection.projection.projection_companions import ProjectionCompanions
 
 
 class ProjectionStateTests(unittest.TestCase):
@@ -44,7 +46,8 @@ class ProjectionStateTests(unittest.TestCase):
         group=group_type((0,0,0),('water',('texture','template')),((0,0,0,0),)*4)
         renderer=SimpleNamespace(active={'water':{'model_id':2,'group':group,'visible':True}},
             staging=[],retired=[],cleanup_errors=[])
-        liquid=SimpleNamespace(renderer=renderer,ready=True,error=None,document=document)
+        liquid=object.__new__(LiquidProjection)
+        liquid.renderer=renderer;liquid.ready=True;liquid.error=None;liquid.document=document
         work=SimpleNamespace(ready=False,serial=1,document=document,error=None,liquid=liquid,
             shader=SimpleNamespace(uniforms=[],parts=[]))
         b.projection_work=work;s.projection_active=True
@@ -56,6 +59,17 @@ class ProjectionStateTests(unittest.TestCase):
         published=snapshot()
         self.assertEqual(1,len(published['groups']))
         self.assertTrue(probe.workspace.world_ready(published))
+        nonwater=SimpleNamespace(renderer=renderer,ready=True,error=None,document=document)
+        companions=ProjectionCompanions((nonwater,liquid))
+        b.projection_liquid=work.liquid=companions
+        combined=snapshot()
+        self.assertEqual(published['groups'],combined['groups'])
+        self.assertTrue(probe.workspace.world_ready(combined))
+        b.projection_liquid=work.liquid=ProjectionCompanions((nonwater,))
+        unrelated=snapshot()
+        self.assertEqual([],unrelated['groups'])
+        self.assertFalse(probe.workspace.world_ready(unrelated))
+        b.projection_liquid=work.liquid=companions
         work.error='publication failed'
         with self.assertRaisesRegex(RuntimeError,'publication failed'):
             probe.workspace.world_ready(snapshot())

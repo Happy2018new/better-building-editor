@@ -84,7 +84,7 @@ class NativeRenderProfileTests(unittest.TestCase):
             self.assertEqual('model_local', profile.coordinate_mode((name, 0), CAPTURES[name]['actor']))
             production = production_profile(RUNTIME_VERSION)
             self.assertEqual('model_local', production.coordinate_mode((name, 0), actor))
-            self.assertIsNone(for_preview(production).coordinate_mode((name, 0), actor))
+            self.assertEqual('model_local', for_preview(production).coordinate_mode((name, 0), actor))
             for field in actor:
                 missing = dict(actor)
                 del missing[field]

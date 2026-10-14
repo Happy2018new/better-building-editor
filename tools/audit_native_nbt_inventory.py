@@ -84,10 +84,10 @@ def typed_fields(nbt):
 
 
 def classify(entity_id):
-    if entity_id == "MobSpawner":
-        return "excluded_mob_spawner_internal_creature"
+    if entity_id in ("MobSpawner", "TrialSpawner"):
+        return "configured_creature_presence_marker"
     if entity_id == "MovingBlock":
-        return "transient_moving_nested_block"
+        return "excluded_moving_block"
     if entity_id == "PistonArm":
         return "transient_piston_animation"
     if entity_id in ("EndPortal", "EndGateway"):
@@ -111,8 +111,12 @@ def classify(entity_id):
                      "Crafter", "EnderChest"):
         return "container_static_shell_open_state_only"
     if entity_id == "Beacon":
-        return "visible_beam_geometry"
-    if entity_id in ("Conduit", "Bell", "EnchantTable"):
+        return "native_static_or_state_only"
+    if entity_id == "Conduit":
+        return "native_static_or_state_only"
+    if entity_id == "EnchantTable":
+        return "visible_idle_book_animation"
+    if entity_id == "Bell":
         return "visible_model_animation"
     if entity_id == "Campfire":
         return "visible_cooking_items_and_animated_texture"
@@ -121,10 +125,8 @@ def classify(entity_id):
         return "state_driven_animated_texture"
     if entity_id in ("Cauldron",):
         return "visible_liquid_custom_route"
-    if entity_id == "TrialSpawner":
-        return "state_driven_animated_texture"
     if entity_id == "Vault":
-        return "visible_state_effect_and_animation"
+        return "state_driven_animated_texture"
     if entity_id in ("CopperGolemStatue",):
         return "visible_copper_variant_and_pose"
     if entity_id == "Lectern":
@@ -132,7 +134,7 @@ def classify(entity_id):
     if entity_id in ("CommandBlock", "JigsawBlock", "StructureBlock"):
         return "editor_metadata_or_overlay_not_mesh_content"
     if entity_id in ("ChemistryTable",):
-        return "education_static_block_content"
+        return "excluded_education_content"
     if entity_id in ("BrushableBlock",):
         return "transient_brushing_and_hidden_loot"
     if entity_id in ("NetherReactor",):
@@ -144,7 +146,7 @@ def classify(entity_id):
 APPEARANCE_NOTES = {
     "Banner": "Base, Type and nondefault Patterns alter the visible textile; native pose fields do not qualify waving animation.",
     "Barrel": "Contents are hidden. Facing and open_bit select the shell appearance; do not draw stored Items.",
-    "Beacon": "primary/secondary select effects, not stored item meshes. The visible beam is geometry; activation and glass color require world context. Ambient particles are excluded.",
+    "Beacon": "Keep the native static shell. Activated beam and particles are excluded by the current user scope; primary/secondary and inventory remain preserved data.",
     "Bed": "color alters the paired bed textile; direction/head_piece_bit/occupied_bit live in states. Two-cell reconstruction and boundary context matter.",
     "Beehive": "Stored bees and spawn timers are hidden. Facing/honey_level select the block surface. Bees leaving the hive are entity gameplay, not NBT mesh content.",
     "Bell": "Direction and attachment select the static bell; Ringing/Ticks are a transient swing. Resonance particles are excluded.",
@@ -154,11 +156,11 @@ APPEARANCE_NOTES = {
     "CalibratedSculkSensor": "sculk_sensor_phase selects visible tendril texture state; VibrationListener is gameplay metadata. Vibration particles are excluded.",
     "Campfire": "extinguished controls visible fire texture. Up to four cooking items are surface content, although empty default NBT only exposes ItemTime1..4. Smoke/sparks are excluded.",
     "Cauldron": "cauldron_liquid/fill_level and PotionId/PotionType alter the visible fill. All cauldron liquid, including lava, keeps the custom route; stored Items are not a general item overlay.",
-    "ChemistryTable": "These four native education table IDs have no observed extra default appearance fields. Their GUI inventories are not exterior meshes; verify static variants only.",
+    "ChemistryTable": "Education block appearance is excluded by user scope. Preserve inventory/default evidence as reference, without treating it as an adaptation target.",
     "Chest": "Items are hidden. Single/double pairing, direction, copper oxidation and lid openness alter the exterior. Native clean capture contains chest actor fields, not a lid-animation qualification.",
     "ChiseledBookshelf": "books_stored (0..63) selects six occupied-slot texture bits. Stored books need not become separate item meshes; native state reconstruction is the primary route.",
     "CommandBlock": "Command/output/timing metadata is not a permanent mesh overlay. Type and conditional/direction states choose the shell.",
-    "Conduit": "Active changes cage/open core/wind/eye appearance and model motion. Target is gameplay data; absorb/attack particles are excluded. Clean capture covers only an inactive empty actor.",
+    "Conduit": "Only the inactive static native body is in scope. Activated core, frame, wind, rotation and persistent effects are excluded; Target remains preserved gameplay data.",
     "CopperGolemStatue": "Eight oxidation/wax names plus Pose and cardinal direction choose the visible statue. The default clean capture does not cover all poses or transition behavior.",
     "Crafter": "Inventory and disabled_slots are hidden/GUI content. orientation/crafting/triggered_bit select visible block state; no general stored-item overlay.",
     "CraftingTable": "Native NBT identity is observed, but its empty default adds no exterior content; static block acceptance only.",
@@ -167,7 +169,7 @@ APPEARANCE_NOTES = {
     "DecoratedPot": "Nondefault sherds select four visible face patterns. Stored item is hidden inside the pot; animation is a transient wobble. Do not display the whole inventory.",
     "Dispenser": "Items are hidden; facing and triggered state choose the exterior. No inventory item overlay.",
     "Dropper": "Items are hidden; facing and triggered state choose the exterior. No inventory item overlay.",
-    "EnchantTable": "The hovering book has visible open/page/rotation model motion. rott is not a complete serialized animation state; enchanting particles are excluded.",
+    "EnchantTable": "Implement the always-present idle hovering book and its motion. Player proximity opening/page reactions and particles are excluded; rott alone is not a complete animation state.",
     "EndGateway": "Official Combine docs exclude this type. Portal surface and gateway beam geometry need a separate route; Age/ExitPortal are not ordinary item content.",
     "EndPortal": "Official Combine docs exclude this type. The animated portal surface needs a separate route; no default visible NBT inventory.",
     "EnderChest": "Contents are hidden and player-specific. Exterior lid openness is visible; purple particles are excluded.",
@@ -181,8 +183,8 @@ APPEARANCE_NOTES = {
     "Jukebox": "A stored disc is internal content; playback gameplay and note particles are excluded. Default block shell has no extra visible NBT content.",
     "Lectern": "A nondefault Book is visible as a book on the stand; page/open pose may matter. Empty default NBT does not establish book reconstruction or animation support.",
     "Lodestone": "Binding metadata does not add an exterior mesh; static block acceptance only.",
-    "MobSpawner": "The cage is a native static/state target. The internal creature is explicitly excluded; spawn parameters are gameplay metadata.",
-    "MovingBlock": "movingBlock/movingBlockExtra contain transient nested front/liquid data tied to a piston origin. This is not a stable ordinary block; native default renderer material verification failed.",
+    "MobSpawner": "Preserve the native cage and show present/empty/unknown configuration badges from exact-version EntityIdentifier data. Internal creature models and particles are excluded; partial NBT must never mean empty.",
+    "MovingBlock": "Appearance adaptation is excluded by user scope. Preserve movingBlock/movingBlockExtra and all transient metadata as data; do not claim an exterior qualification.",
     "Music": "note is audible gameplay metadata. Note particles are excluded; no extra exterior item or text layer.",
     "NetherReactor": "Legacy Progress/IsInitialized/HasFinished behavior has no verified additional exterior pose. Keep a static baseline and classify legacy activation as unknown.",
     "PistonArm": "Progress/LastProgress/State/NewState animate a moving arm; AttachedBlocks/BreakBlocks affect transient context. Closed default geometry is distinct from movement support.",
@@ -197,8 +199,8 @@ APPEARANCE_NOTES = {
     "Smoker": "Items and timers are hidden. Lit/unlit shell is a state/name variant; no inventory item overlay.",
     "SporeBlossom": "With particles excluded, the static blossom has no observed visible NBT content or separate adaptation target.",
     "StructureBlock": "showBoundingBox/offset/size configure an editor visualization; structure metadata is not block mesh content. A structure bounding box is a separate editor feature.",
-    "TrialSpawner": "trial_spawner_state/ominous choose exterior and animated textures. Internal creature and particles are explicitly excluded. Reward ejection is transient entity gameplay; no full NBT content qualification.",
-    "Vault": "vault_state/ominous choose the surface. A cycling display item and shutter/reward phase may be visible; default config/data do not qualify nondefault display-item or model animation support. Particles are excluded.",
+    "TrialSpawner": "Native states choose the shell; show a present/empty/unknown configuration badge from observed spawn_data and selected normal/ominous configuration. current_mobs is not configuration. Internal creature models and particles are excluded.",
+    "Vault": "Native vault_state/ominous choose the shell. Internal display-item effects and particles are excluded by user scope; visible shell/state qualification remains separate.",
 }
 
 
@@ -207,7 +209,10 @@ DIFFICULTY = {
     "education_static_block_content": (0, "native_static_acceptance", [0.25, 0.5]),
     "legacy_education_state": (0, "native_static_acceptance", [0.25, 0.5]),
     "editor_metadata_or_overlay_not_mesh_content": (0, "native_static_acceptance", [0.25, 0.5]),
-    "excluded_mob_spawner_internal_creature": (0, "native_static_acceptance", [0.25, 0.5]),
+    "excluded_moving_block": (0, "excluded_by_user_scope", [0.0, 0.0]),
+    "excluded_education_content": (0, "excluded_by_user_scope", [0.0, 0.0]),
+    "configured_creature_presence_marker": (2, "shared_configuration_marker", [0.25, 0.75]),
+    "visible_idle_book_animation": (4, "shared_book_idle_pose", [1.0, 2.5]),
     "container_static_shell_open_state_only": (1, "native_state_and_optional_lid", [0.5, 1.5]),
     "state_driven_slot_occupancy": (1, "native_state_acceptance", [0.25, 0.75]),
     "state_driven_animated_texture": (1, "native_state_texture_acceptance", [0.5, 1.0]),
@@ -567,8 +572,9 @@ def build_inventory():
             "boundaries": [
                 "3.9 native defaults are the complete identity/field source; this is not a fresh 3.10 NBT dump.",
                 "3.10 clean evidence contains raw client actor fields for 14 names only and no animation/pixel qualification.",
-                "MobSpawner and TrialSpawner internal creature rendering is excluded by policy.",
-                "Particles are excluded by policy; visible beam geometry, animated textures and surface content remain inventoried.",
+                "MobSpawner and TrialSpawner internal creature models are excluded; present/empty/unknown configuration markers remain required.",
+                "Particles, education, MovingBlock, activated conduit effects, beacon beams and vault internal-item effects are excluded by current user scope.",
+                "EnchantTable requires an idle book only, without player proximity reactions.",
                 "World lava may use official 3.10 rendering; water and cauldron liquid remain custom routes.",
                 "CombineBlockPaletteToGeometry official docs exclude end portals, end gateways, miniature blocks and animated custom appearance.",
             ],
@@ -588,7 +594,7 @@ def build_inventory():
             "unit": "person-days of one engineer after access to working native fixtures",
             "purpose": "ordering and conditional planning, not a measured schedule or completed implementation",
             "not_additive": "Ranges are per representative family; shared item rendering, animation scheduling, palette context and native capture costs must be counted once, not per wood/color/oxidation name.",
-            "excluded": ["particles", "MobSpawner/TrialSpawner internal creatures", "fresh dump update", "rotation/mirror table updates"],
+            "excluded": ["particles", "MobSpawner/TrialSpawner internal creature models", "education appearance", "MovingBlock appearance", "activated conduit effects", "beacon beams", "vault internal-item effects", "EnchantTable player proximity reactions", "fresh dump update", "rotation/mirror table updates"],
             "uncertainty": "Empty defaults and installed assets do not qualify populated contents or animation. Native static success can reduce work; missing native support can increase these estimates.",
         },
     }

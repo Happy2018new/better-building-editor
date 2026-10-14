@@ -181,12 +181,15 @@ def prepare_context_palette(source, targets, render_origin=(0, 0, 0), item_profi
 class ContextPaletteBuilder(object):
     """Read snapshot chunks directly and yield between small preparation units."""
     def __init__(self, document, targets, render_origin=(0, 0, 0), item_profile=None,
-                 native_render_profile=None, cauldron_profile=None, liquid_profile=None):
+                 native_render_profile=None, cauldron_profile=None, liquid_profile=None,
+                 spawner_profile=None, portal_profile=None):
         self.document, self.targets = document, targets
         self.item_profile = item_profile
         self.native_render_profile = native_render_profile
         self.cauldron_profile = cauldron_profile
         self.liquid_profile = liquid_profile
+        self.spawner_profile = spawner_profile
+        self.portal_profile = portal_profile
         from .liquid_render_ownership import identity
         self.liquid_identity = identity(liquid_profile)
         self.render_origin = validate_render_origin(render_origin)
@@ -267,7 +270,8 @@ class ContextPaletteBuilder(object):
                                    item_profile=self.item_profile,
                                    native_render_profile=self.native_render_profile,
                                    cauldron_profile=self.cauldron_profile, biome=self.document.biome,
-                                   liquid_profile=self.liquid_profile)
+                                   liquid_profile=self.liquid_profile, spawner_profile=self.spawner_profile,
+                                   portal_profile=self.portal_profile)
         cells, overlays = _cells(rendered, (1, 1, 1))
         result = (cells.get(0), overlays.get(0), rendered['states'], rendered['extraStates'])
         self.cache[cache_key] = result
@@ -430,6 +434,10 @@ class ContextBatchBuilder(ContextPaletteBuilder):
                     palette['_cauldron_profile'] = self.cauldron_profile.identity
                 if self.liquid_identity:
                     palette['_liquid_render_profile'] = self.liquid_identity
+                if self.spawner_profile is not None:
+                    palette['_spawner_profile'] = self.spawner_profile.identity
+                if self.portal_profile is not None:
+                    palette['_portal_profile'] = self.portal_profile.identity
                 for key, layer, records in (('states', 'common', self.states),
                                              ('extraStates', 'extra', self.extra_states)):
                     palette[key] = dict((value, records[value]) for value in palette[layer]
@@ -448,11 +456,13 @@ class ContextBatchBuilder(ContextPaletteBuilder):
 
 
 def prepare_context_batches(document, targets, render_origin=(0, 0, 0), item_profile=None,
-                            native_render_profile=None, cauldron_profile=None, liquid_profile=None):
+                            native_render_profile=None, cauldron_profile=None, liquid_profile=None,
+                            spawner_profile=None, portal_profile=None):
     builder = ContextBatchBuilder(document, targets, render_origin=render_origin,
                                   item_profile=item_profile,
                                   native_render_profile=native_render_profile,
-                                  cauldron_profile=cauldron_profile, liquid_profile=liquid_profile)
+                                  cauldron_profile=cauldron_profile, liquid_profile=liquid_profile,
+                                  spawner_profile=spawner_profile, portal_profile=portal_profile)
     for unused in builder.prepare():
         pass
     return builder.data

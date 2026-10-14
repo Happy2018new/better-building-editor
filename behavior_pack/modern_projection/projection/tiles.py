@@ -311,6 +311,8 @@ class TiledPreview(object):
                 id(getattr(self.session, 'item_profile', None)),
                 profile_identity(getattr(self.session, 'native_render_profile', None)),
                 getattr(getattr(self.session, 'cauldron_profile', None), 'identity', None),
+                getattr(getattr(self.session, 'spawner_profile', None), 'identity', None),
+                getattr(getattr(self.session, 'portal_profile', None), 'identity', None),
                 liquid_identity(getattr(self.session, 'liquid_profile', None)))
         part = self.parts.get(key)
         if part is not None and data == part['data']:

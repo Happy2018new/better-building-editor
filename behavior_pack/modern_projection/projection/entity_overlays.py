@@ -32,7 +32,12 @@ def frame_item(material, actor):
     if root is None or scalar(root, 'id') not in FRAME_IDS:
         return None
     item = root_payload(root.get(field_key(root, 'Item')))
-    if item is None:
+    return native_item(item)
+
+
+def native_item(item):
+    """Decode the observed shared item compound without rewriting typed tags."""
+    if not isinstance(item, dict):
         return None
     name, damage, count = scalar(item, 'Name'), scalar(item, 'Damage'), scalar(item, 'Count')
     if (_tag(item, 'Name', 8) is None or not isinstance(name, (bytes, text_type)) or

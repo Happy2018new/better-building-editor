@@ -189,5 +189,56 @@ behavior_pack/modern_projection/projection/session.py -text whitespace=cr-at-eol
 tools/data/spawner_configuration_nemc_3.10.0.420447.json -text whitespace=cr-at-eol
 docs/evidence/spawner-product-r16/** -text -diff whitespace=cr-at-eol
 docs/evidence/banner-product-r16/** -text -diff whitespace=cr-at-eol
+# Measured item resources and runtime captures retain the bytes used by their contracts.
+tools/data/item_icon_catalog_nemc_3.10.0.420447.json -text whitespace=cr-at-eol
+tools/data/item_icon_registrations_nemc_3.10.0.420447.json -text whitespace=cr-at-eol
+tools/data/native_visible_item_slots_nemc_3.10.0.420447.json -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/item_icon_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/item_sprite_profile.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/item_sprite_plan.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/visible_item_contents.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/visible_item_slot_data.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_item_blueprints.py -text whitespace=cr-at-eol
+resource_pack/models/modern_projection/item_icons/** -text whitespace=cr-at-eol
+resource_pack/textures/models/modern_projection/item_icons/** -text
+resource_pack/shaders/glsl/modern_projection_item_icon* -text whitespace=cr-at-eol
+tools/generate_item_icon_catalog.py -text whitespace=cr-at-eol
+tools/generate_visible_item_slot_data.py -text whitespace=cr-at-eol
+tools/item_sprite_closeup.py -text whitespace=cr-at-eol
+tools/item_sprite_native_reference.py -text whitespace=cr-at-eol
+tools/item_sprite_capture_contract.py -text whitespace=cr-at-eol
+tools/run_visible_items_r16.py -text whitespace=cr-at-eol
+tools/analyze_visible_items_r16.py -text whitespace=cr-at-eol
+tools/analyze_item_sprite_product.py -text whitespace=cr-at-eol
+tools/analyze_item_sprite_closeup.py -text whitespace=cr-at-eol
+tools/verify_item_icon_shaders.py -text whitespace=cr-at-eol
+docs/evidence/visible-items-product-r16/glint-review-v2/** -text -diff whitespace=cr-at-eol
 docs/evidence/portal-product-r16/** -text -diff whitespace=cr-at-eol
 docs/evidence/shelf-native-r16/** -text -diff whitespace=cr-at-eol
+# These shared renderers were qualified with their existing CRLF source bytes.
+behavior_pack/modern_projection/projection/entity_render.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_render.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/liquid_viewport.py -text whitespace=cr-at-eol
+# Versioned family generators and their outputs retain reproducible source bytes.
+behavior_pack/modern_projection/projection/banner_*.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/book_*.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/portal_*.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_banner_blueprints.py -text whitespace=cr-at-eol
+behavior_pack/modern_projection/projection/debug_portal_blueprints.py -text whitespace=cr-at-eol
+resource_pack/models/modern_projection/book/** -text whitespace=cr-at-eol
+resource_pack/models/modern_projection/portal/** -text whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_book_* -text whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_portal_* -text whitespace=cr-at-eol
+resource_pack/shaders/glsl/modern_projection_native_preview_banner* -text whitespace=cr-at-eol
+tools/data/banner_render_contract_nemc310_v1.json -text whitespace=cr-at-eol
+tools/data/book_resource_contract_nemc310_v1.json -text whitespace=cr-at-eol
+tools/data/portal_resource_contract_nemc310_v1.json -text whitespace=cr-at-eol
+# Preserve indentation-only template lines in the frozen generated vertices.
+resource_pack/shaders/glsl/modern_projection_book_*.vertex -text whitespace=cr-at-eol,-blank-at-eol
+resource_pack/shaders/glsl/modern_projection_portal_geometry*.vertex -text whitespace=cr-at-eol,-blank-at-eol
+# Side-face correction regenerates both legacy and measured item silhouettes.
+behavior_pack/modern_projection/projection/item_sprite_data.py -text whitespace=cr-at-eol
+resource_pack/models/modern_projection/item_sprite/** -text whitespace=cr-at-eol
+resource_pack/models/netease_block/preview_item_minecraft_diamond_sword_0_*.json -text whitespace=cr-at-eol
+tools/generate_flat_item_proxies.py -text whitespace=cr-at-eol
+docs/evidence/visible-items-product-r16/sides-review-v1/** -text -diff whitespace=cr-at-eol
