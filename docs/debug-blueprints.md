@@ -21,10 +21,10 @@ targets. Categories are separate pages within the test tab.
 | `test.entities.signs` | `entities` | 16 × 8 × 10 | Observed two-sided standing and hanging sign text, colour and glow |
 | `test.connections.context` | `connections` | 32 × 12 × 32 | Closed rail loop, sloping rails, walls, fence/gate, panes/bars, eight stair corners and ordinary/copper double chests |
 | `test.transforms.directions` | `transforms` | 32 × 12 × 32 | Stair facing, log axes, six dispenser faces, lever facing, all ten rail shapes, six Shulker faces and door hinges |
-| `test.entities.classic` | `entities` | 40 × 10 × 36 | Classic native entity associations |
+| `test.entities.classic` | `entities` | 40 × 10 × 36 | Classic native entity associations, including `end_portal` and `end_gateway` representatives |
 | `test.entities.mechanisms` | `entities` | 32 × 10 × 28 | Structure/logic and utility entity associations |
 | `test.entities.recent` | `entities` | 32 × 10 × 28 | Recent entity associations available in the current registry |
-| `test.registry.vanilla` | `registry` | 64 × 64 × 64 | Every vanilla block type in the current inventory catalogue, with complete grouped parts |
+| `test.registry.vanilla` | `registry` | 64 × 64 × 64 | Every vanilla block type in the current inventory catalogue, including `portal`, with complete grouped parts |
 
 The grey/white floor has grid lines every four cells. Cyan and magenta plinths
 provide a visible placement reference. The fixtures are regular editor documents
@@ -116,6 +116,19 @@ All coordinates are local to the document, with X/Y/Z in editor order.
   between plinth centres and eight cells between levels. Its order is the
   sorted native catalogue order, so a registry update produces a deterministic
   new gallery.
+
+The table above is the stable core navigation list. The runtime also exposes
+the extension identities `test.layers.liquids`, `test.layers.water_style`,
+`test.layers.water_behaviors`, `test.entities.item_orientations`,
+`test.entities.pottery`, `test.connections.botanical`,
+`test.connections.dripstone`, `test.connections.static`,
+`test.connections.extended`, `test.connections.actions`, and
+`test.connections.product`. These are valid editor fixtures, but a
+registry/gallery entry or a buildable document is not by itself a projection
+or animation acceptance. Portal coverage is deliberately split: `portal` is
+in the vanilla registry gallery, while `end_portal` and `end_gateway` are
+represented on the classic entity page; all three still need a dedicated
+visual acceptance case.
 
 In automatic edit mode, erasing a wet fence removes the fence first and leaves
 ordinary foreground water. Erasing covered snow removes the snow first and

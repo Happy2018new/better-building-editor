@@ -1,0 +1,5548 @@
+{
+  "at": "2026-10-13T17:23:43.218474+00:00",
+  "client": false,
+  "code_sha256": "ed0f240e4af4bf29b22890dd813ee39ae4accd56c2c671e8ed369efaf2aec0ec",
+  "pixel_acceptance": false,
+  "result": {
+    "commands": [
+      [
+        "/gamerule domobspawning false",
+        true
+      ],
+      [
+        "/gamerule randomtickspeed 0",
+        true
+      ],
+      [
+        "/time set noon",
+        true
+      ],
+      [
+        "/weather clear",
+        true
+      ]
+    ],
+    "journal_count": 442,
+    "origin": [
+      -8,
+      -60,
+      8
+    ],
+    "rows": [
+      {
+        "id": "water_fill_0",
+        "index": 0,
+        "local": [
+          1,
+          0,
+          1
+        ],
+        "pos": [
+          -7,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 0
+        },
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "water_fill_1",
+        "index": 1,
+        "local": [
+          3,
+          0,
+          1
+        ],
+        "pos": [
+          -5,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 1
+        },
+        "write": {
+          "actual": {
+            "aux": 1,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 1,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 1
+          }
+        }
+      },
+      {
+        "id": "water_fill_2",
+        "index": 2,
+        "local": [
+          5,
+          0,
+          1
+        ],
+        "pos": [
+          -3,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 2
+        },
+        "write": {
+          "actual": {
+            "aux": 2,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 2,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 2
+          }
+        }
+      },
+      {
+        "id": "water_fill_3",
+        "index": 3,
+        "local": [
+          7,
+          0,
+          1
+        ],
+        "pos": [
+          -1,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 3
+        },
+        "write": {
+          "actual": {
+            "aux": 3,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 3,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 3
+          }
+        }
+      },
+      {
+        "id": "water_fill_4",
+        "index": 4,
+        "local": [
+          9,
+          0,
+          1
+        ],
+        "pos": [
+          1,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 4
+        },
+        "write": {
+          "actual": {
+            "aux": 4,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 4,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 4
+          }
+        }
+      },
+      {
+        "id": "water_fill_5",
+        "index": 5,
+        "local": [
+          11,
+          0,
+          1
+        ],
+        "pos": [
+          3,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 5
+        },
+        "write": {
+          "actual": {
+            "aux": 5,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 5,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 5
+          }
+        }
+      },
+      {
+        "id": "water_fill_6",
+        "index": 6,
+        "local": [
+          13,
+          0,
+          1
+        ],
+        "pos": [
+          5,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "water",
+          "fill_level": 6
+        },
+        "write": {
+          "actual": {
+            "aux": 6,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 6,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 6
+          }
+        }
+      },
+      {
+        "id": "lava_fill_0",
+        "index": 7,
+        "local": [
+          15,
+          0,
+          1
+        ],
+        "pos": [
+          7,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 0
+        },
+        "write": {
+          "actual": {
+            "aux": 8,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 8,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "lava_fill_1",
+        "index": 8,
+        "local": [
+          17,
+          0,
+          1
+        ],
+        "pos": [
+          9,
+          -60,
+          9
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 1
+        },
+        "write": {
+          "actual": {
+            "aux": 9,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 9
+            }
+          },
+          "requested_aux": 9,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 1
+          }
+        }
+      },
+      {
+        "id": "lava_fill_2",
+        "index": 9,
+        "local": [
+          1,
+          0,
+          3
+        ],
+        "pos": [
+          -7,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 2
+        },
+        "write": {
+          "actual": {
+            "aux": 10,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 10,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 2
+          }
+        }
+      },
+      {
+        "id": "lava_fill_3",
+        "index": 10,
+        "local": [
+          3,
+          0,
+          3
+        ],
+        "pos": [
+          -5,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 3
+        },
+        "write": {
+          "actual": {
+            "aux": 11,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 11,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 3
+          }
+        }
+      },
+      {
+        "id": "lava_fill_4",
+        "index": 11,
+        "local": [
+          5,
+          0,
+          3
+        ],
+        "pos": [
+          -3,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 4
+        },
+        "write": {
+          "actual": {
+            "aux": 12,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 12,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 4
+          }
+        }
+      },
+      {
+        "id": "lava_fill_5",
+        "index": 12,
+        "local": [
+          7,
+          0,
+          3
+        ],
+        "pos": [
+          -1,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 5
+        },
+        "write": {
+          "actual": {
+            "aux": 13,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 13,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 5
+          }
+        }
+      },
+      {
+        "id": "lava_fill_6",
+        "index": 13,
+        "local": [
+          9,
+          0,
+          3
+        ],
+        "pos": [
+          1,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "lava",
+          "fill_level": 6
+        },
+        "write": {
+          "actual": {
+            "aux": 14,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 14,
+          "states": {
+            "cauldron_liquid": "lava",
+            "fill_level": 6
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_0",
+        "index": 14,
+        "local": [
+          11,
+          0,
+          3
+        ],
+        "pos": [
+          3,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 0
+        },
+        "write": {
+          "actual": {
+            "aux": 16,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 16,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_1",
+        "index": 15,
+        "local": [
+          13,
+          0,
+          3
+        ],
+        "pos": [
+          5,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 1
+        },
+        "write": {
+          "actual": {
+            "aux": 17,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 17,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 1
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_2",
+        "index": 16,
+        "local": [
+          15,
+          0,
+          3
+        ],
+        "pos": [
+          7,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 2
+        },
+        "write": {
+          "actual": {
+            "aux": 18,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 18,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 2
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_3",
+        "index": 17,
+        "local": [
+          17,
+          0,
+          3
+        ],
+        "pos": [
+          9,
+          -60,
+          11
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 3
+        },
+        "write": {
+          "actual": {
+            "aux": 19,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 11
+            }
+          },
+          "requested_aux": 19,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 3
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_4",
+        "index": 18,
+        "local": [
+          1,
+          0,
+          5
+        ],
+        "pos": [
+          -7,
+          -60,
+          13
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 4
+        },
+        "write": {
+          "actual": {
+            "aux": 20,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 20,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 4
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_5",
+        "index": 19,
+        "local": [
+          3,
+          0,
+          5
+        ],
+        "pos": [
+          -5,
+          -60,
+          13
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 5
+        },
+        "write": {
+          "actual": {
+            "aux": 21,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 21,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 5
+          }
+        }
+      },
+      {
+        "id": "powder_snow_fill_6",
+        "index": 20,
+        "local": [
+          5,
+          0,
+          5
+        ],
+        "pos": [
+          -3,
+          -60,
+          13
+        ],
+        "states": {
+          "cauldron_liquid": "powder_snow",
+          "fill_level": 6
+        },
+        "write": {
+          "actual": {
+            "aux": 22,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 22,
+          "states": {
+            "cauldron_liquid": "powder_snow",
+            "fill_level": 6
+          }
+        }
+      },
+      {
+        "id": "native_water_bucket",
+        "index": 21,
+        "local": [
+          7,
+          0,
+          5
+        ],
+        "pos": [
+          -1,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "water_bucket"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "native_lava_bucket",
+        "index": 22,
+        "local": [
+          9,
+          0,
+          5
+        ],
+        "pos": [
+          1,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "lava_bucket"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "native_powder_snow_bucket",
+        "index": 23,
+        "local": [
+          11,
+          0,
+          5
+        ],
+        "pos": [
+          3,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "powder_snow_bucket"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_0",
+        "index": 24,
+        "local": [
+          13,
+          0,
+          5
+        ],
+        "pos": [
+          5,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "potion"
+          },
+          {
+            "aux": 0,
+            "name": "potion"
+          },
+          {
+            "aux": 0,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_1",
+        "index": 25,
+        "local": [
+          15,
+          0,
+          5
+        ],
+        "pos": [
+          7,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 1,
+            "name": "potion"
+          },
+          {
+            "aux": 1,
+            "name": "potion"
+          },
+          {
+            "aux": 1,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_2",
+        "index": 26,
+        "local": [
+          17,
+          0,
+          5
+        ],
+        "pos": [
+          9,
+          -60,
+          13
+        ],
+        "use": [
+          {
+            "aux": 2,
+            "name": "potion"
+          },
+          {
+            "aux": 2,
+            "name": "potion"
+          },
+          {
+            "aux": 2,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 13
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_3",
+        "index": 27,
+        "local": [
+          1,
+          0,
+          7
+        ],
+        "pos": [
+          -7,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 3,
+            "name": "potion"
+          },
+          {
+            "aux": 3,
+            "name": "potion"
+          },
+          {
+            "aux": 3,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_4",
+        "index": 28,
+        "local": [
+          3,
+          0,
+          7
+        ],
+        "pos": [
+          -5,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 4,
+            "name": "potion"
+          },
+          {
+            "aux": 4,
+            "name": "potion"
+          },
+          {
+            "aux": 4,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_5",
+        "index": 29,
+        "local": [
+          5,
+          0,
+          7
+        ],
+        "pos": [
+          -3,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 5,
+            "name": "potion"
+          },
+          {
+            "aux": 5,
+            "name": "potion"
+          },
+          {
+            "aux": 5,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_6",
+        "index": 30,
+        "local": [
+          7,
+          0,
+          7
+        ],
+        "pos": [
+          -1,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 6,
+            "name": "potion"
+          },
+          {
+            "aux": 6,
+            "name": "potion"
+          },
+          {
+            "aux": 6,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_7",
+        "index": 31,
+        "local": [
+          9,
+          0,
+          7
+        ],
+        "pos": [
+          1,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 7,
+            "name": "potion"
+          },
+          {
+            "aux": 7,
+            "name": "potion"
+          },
+          {
+            "aux": 7,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_8",
+        "index": 32,
+        "local": [
+          11,
+          0,
+          7
+        ],
+        "pos": [
+          3,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 8,
+            "name": "potion"
+          },
+          {
+            "aux": 8,
+            "name": "potion"
+          },
+          {
+            "aux": 8,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_9",
+        "index": 33,
+        "local": [
+          13,
+          0,
+          7
+        ],
+        "pos": [
+          5,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 9,
+            "name": "potion"
+          },
+          {
+            "aux": 9,
+            "name": "potion"
+          },
+          {
+            "aux": 9,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_10",
+        "index": 34,
+        "local": [
+          15,
+          0,
+          7
+        ],
+        "pos": [
+          7,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 10,
+            "name": "potion"
+          },
+          {
+            "aux": 10,
+            "name": "potion"
+          },
+          {
+            "aux": 10,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_11",
+        "index": 35,
+        "local": [
+          17,
+          0,
+          7
+        ],
+        "pos": [
+          9,
+          -60,
+          15
+        ],
+        "use": [
+          {
+            "aux": 11,
+            "name": "potion"
+          },
+          {
+            "aux": 11,
+            "name": "potion"
+          },
+          {
+            "aux": 11,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 15
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_12",
+        "index": 36,
+        "local": [
+          1,
+          0,
+          9
+        ],
+        "pos": [
+          -7,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 12,
+            "name": "potion"
+          },
+          {
+            "aux": 12,
+            "name": "potion"
+          },
+          {
+            "aux": 12,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_13",
+        "index": 37,
+        "local": [
+          3,
+          0,
+          9
+        ],
+        "pos": [
+          -5,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 13,
+            "name": "potion"
+          },
+          {
+            "aux": 13,
+            "name": "potion"
+          },
+          {
+            "aux": 13,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_14",
+        "index": 38,
+        "local": [
+          5,
+          0,
+          9
+        ],
+        "pos": [
+          -3,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 14,
+            "name": "potion"
+          },
+          {
+            "aux": 14,
+            "name": "potion"
+          },
+          {
+            "aux": 14,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_15",
+        "index": 39,
+        "local": [
+          7,
+          0,
+          9
+        ],
+        "pos": [
+          -1,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 15,
+            "name": "potion"
+          },
+          {
+            "aux": 15,
+            "name": "potion"
+          },
+          {
+            "aux": 15,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_16",
+        "index": 40,
+        "local": [
+          9,
+          0,
+          9
+        ],
+        "pos": [
+          1,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 16,
+            "name": "potion"
+          },
+          {
+            "aux": 16,
+            "name": "potion"
+          },
+          {
+            "aux": 16,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_17",
+        "index": 41,
+        "local": [
+          11,
+          0,
+          9
+        ],
+        "pos": [
+          3,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 17,
+            "name": "potion"
+          },
+          {
+            "aux": 17,
+            "name": "potion"
+          },
+          {
+            "aux": 17,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_18",
+        "index": 42,
+        "local": [
+          13,
+          0,
+          9
+        ],
+        "pos": [
+          5,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 18,
+            "name": "potion"
+          },
+          {
+            "aux": 18,
+            "name": "potion"
+          },
+          {
+            "aux": 18,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_19",
+        "index": 43,
+        "local": [
+          15,
+          0,
+          9
+        ],
+        "pos": [
+          7,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 19,
+            "name": "potion"
+          },
+          {
+            "aux": 19,
+            "name": "potion"
+          },
+          {
+            "aux": 19,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_20",
+        "index": 44,
+        "local": [
+          17,
+          0,
+          9
+        ],
+        "pos": [
+          9,
+          -60,
+          17
+        ],
+        "use": [
+          {
+            "aux": 20,
+            "name": "potion"
+          },
+          {
+            "aux": 20,
+            "name": "potion"
+          },
+          {
+            "aux": 20,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 17
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_21",
+        "index": 45,
+        "local": [
+          1,
+          0,
+          11
+        ],
+        "pos": [
+          -7,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 21,
+            "name": "potion"
+          },
+          {
+            "aux": 21,
+            "name": "potion"
+          },
+          {
+            "aux": 21,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_22",
+        "index": 46,
+        "local": [
+          3,
+          0,
+          11
+        ],
+        "pos": [
+          -5,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 22,
+            "name": "potion"
+          },
+          {
+            "aux": 22,
+            "name": "potion"
+          },
+          {
+            "aux": 22,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_23",
+        "index": 47,
+        "local": [
+          5,
+          0,
+          11
+        ],
+        "pos": [
+          -3,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 23,
+            "name": "potion"
+          },
+          {
+            "aux": 23,
+            "name": "potion"
+          },
+          {
+            "aux": 23,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_24",
+        "index": 48,
+        "local": [
+          7,
+          0,
+          11
+        ],
+        "pos": [
+          -1,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 24,
+            "name": "potion"
+          },
+          {
+            "aux": 24,
+            "name": "potion"
+          },
+          {
+            "aux": 24,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_25",
+        "index": 49,
+        "local": [
+          9,
+          0,
+          11
+        ],
+        "pos": [
+          1,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 25,
+            "name": "potion"
+          },
+          {
+            "aux": 25,
+            "name": "potion"
+          },
+          {
+            "aux": 25,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_26",
+        "index": 50,
+        "local": [
+          11,
+          0,
+          11
+        ],
+        "pos": [
+          3,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 26,
+            "name": "potion"
+          },
+          {
+            "aux": 26,
+            "name": "potion"
+          },
+          {
+            "aux": 26,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_27",
+        "index": 51,
+        "local": [
+          13,
+          0,
+          11
+        ],
+        "pos": [
+          5,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 27,
+            "name": "potion"
+          },
+          {
+            "aux": 27,
+            "name": "potion"
+          },
+          {
+            "aux": 27,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_28",
+        "index": 52,
+        "local": [
+          15,
+          0,
+          11
+        ],
+        "pos": [
+          7,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 28,
+            "name": "potion"
+          },
+          {
+            "aux": 28,
+            "name": "potion"
+          },
+          {
+            "aux": 28,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_29",
+        "index": 53,
+        "local": [
+          17,
+          0,
+          11
+        ],
+        "pos": [
+          9,
+          -60,
+          19
+        ],
+        "use": [
+          {
+            "aux": 29,
+            "name": "potion"
+          },
+          {
+            "aux": 29,
+            "name": "potion"
+          },
+          {
+            "aux": 29,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 19
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_30",
+        "index": 54,
+        "local": [
+          1,
+          0,
+          13
+        ],
+        "pos": [
+          -7,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 30,
+            "name": "potion"
+          },
+          {
+            "aux": 30,
+            "name": "potion"
+          },
+          {
+            "aux": 30,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_31",
+        "index": 55,
+        "local": [
+          3,
+          0,
+          13
+        ],
+        "pos": [
+          -5,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 31,
+            "name": "potion"
+          },
+          {
+            "aux": 31,
+            "name": "potion"
+          },
+          {
+            "aux": 31,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_32",
+        "index": 56,
+        "local": [
+          5,
+          0,
+          13
+        ],
+        "pos": [
+          -3,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 32,
+            "name": "potion"
+          },
+          {
+            "aux": 32,
+            "name": "potion"
+          },
+          {
+            "aux": 32,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_33",
+        "index": 57,
+        "local": [
+          7,
+          0,
+          13
+        ],
+        "pos": [
+          -1,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 33,
+            "name": "potion"
+          },
+          {
+            "aux": 33,
+            "name": "potion"
+          },
+          {
+            "aux": 33,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_34",
+        "index": 58,
+        "local": [
+          9,
+          0,
+          13
+        ],
+        "pos": [
+          1,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 34,
+            "name": "potion"
+          },
+          {
+            "aux": 34,
+            "name": "potion"
+          },
+          {
+            "aux": 34,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_35",
+        "index": 59,
+        "local": [
+          11,
+          0,
+          13
+        ],
+        "pos": [
+          3,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 35,
+            "name": "potion"
+          },
+          {
+            "aux": 35,
+            "name": "potion"
+          },
+          {
+            "aux": 35,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_36",
+        "index": 60,
+        "local": [
+          13,
+          0,
+          13
+        ],
+        "pos": [
+          5,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 36,
+            "name": "potion"
+          },
+          {
+            "aux": 36,
+            "name": "potion"
+          },
+          {
+            "aux": 36,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_37",
+        "index": 61,
+        "local": [
+          15,
+          0,
+          13
+        ],
+        "pos": [
+          7,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 37,
+            "name": "potion"
+          },
+          {
+            "aux": 37,
+            "name": "potion"
+          },
+          {
+            "aux": 37,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_38",
+        "index": 62,
+        "local": [
+          17,
+          0,
+          13
+        ],
+        "pos": [
+          9,
+          -60,
+          21
+        ],
+        "use": [
+          {
+            "aux": 38,
+            "name": "potion"
+          },
+          {
+            "aux": 38,
+            "name": "potion"
+          },
+          {
+            "aux": 38,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 21
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_39",
+        "index": 63,
+        "local": [
+          1,
+          0,
+          15
+        ],
+        "pos": [
+          -7,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 39,
+            "name": "potion"
+          },
+          {
+            "aux": 39,
+            "name": "potion"
+          },
+          {
+            "aux": 39,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_40",
+        "index": 64,
+        "local": [
+          3,
+          0,
+          15
+        ],
+        "pos": [
+          -5,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 40,
+            "name": "potion"
+          },
+          {
+            "aux": 40,
+            "name": "potion"
+          },
+          {
+            "aux": 40,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_41",
+        "index": 65,
+        "local": [
+          5,
+          0,
+          15
+        ],
+        "pos": [
+          -3,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 41,
+            "name": "potion"
+          },
+          {
+            "aux": 41,
+            "name": "potion"
+          },
+          {
+            "aux": 41,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_42",
+        "index": 66,
+        "local": [
+          7,
+          0,
+          15
+        ],
+        "pos": [
+          -1,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 42,
+            "name": "potion"
+          },
+          {
+            "aux": 42,
+            "name": "potion"
+          },
+          {
+            "aux": 42,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_43",
+        "index": 67,
+        "local": [
+          9,
+          0,
+          15
+        ],
+        "pos": [
+          1,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 43,
+            "name": "potion"
+          },
+          {
+            "aux": 43,
+            "name": "potion"
+          },
+          {
+            "aux": 43,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_44",
+        "index": 68,
+        "local": [
+          11,
+          0,
+          15
+        ],
+        "pos": [
+          3,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 44,
+            "name": "potion"
+          },
+          {
+            "aux": 44,
+            "name": "potion"
+          },
+          {
+            "aux": 44,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_45",
+        "index": 69,
+        "local": [
+          13,
+          0,
+          15
+        ],
+        "pos": [
+          5,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 45,
+            "name": "potion"
+          },
+          {
+            "aux": 45,
+            "name": "potion"
+          },
+          {
+            "aux": 45,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "potion_46",
+        "index": 70,
+        "local": [
+          15,
+          0,
+          15
+        ],
+        "pos": [
+          7,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 46,
+            "name": "potion"
+          },
+          {
+            "aux": 46,
+            "name": "potion"
+          },
+          {
+            "aux": 46,
+            "name": "potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "dyed_red",
+        "index": 71,
+        "local": [
+          17,
+          0,
+          15
+        ],
+        "pos": [
+          9,
+          -60,
+          23
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "water_bucket"
+          },
+          {
+            "aux": 0,
+            "name": "red_dye"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 23
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "dyed_red_blue",
+        "index": 72,
+        "local": [
+          1,
+          0,
+          17
+        ],
+        "pos": [
+          -7,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 0,
+            "name": "water_bucket"
+          },
+          {
+            "aux": 0,
+            "name": "red_dye"
+          },
+          {
+            "aux": 0,
+            "name": "blue_dye"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "splash_potion_43",
+        "index": 73,
+        "local": [
+          3,
+          0,
+          17
+        ],
+        "pos": [
+          -5,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 43,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 43,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 43,
+            "name": "splash_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "splash_potion_44",
+        "index": 74,
+        "local": [
+          5,
+          0,
+          17
+        ],
+        "pos": [
+          -3,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 44,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 44,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 44,
+            "name": "splash_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "splash_potion_45",
+        "index": 75,
+        "local": [
+          7,
+          0,
+          17
+        ],
+        "pos": [
+          -1,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 45,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 45,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 45,
+            "name": "splash_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": -1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "splash_potion_46",
+        "index": 76,
+        "local": [
+          9,
+          0,
+          17
+        ],
+        "pos": [
+          1,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 46,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 46,
+            "name": "splash_potion"
+          },
+          {
+            "aux": 46,
+            "name": "splash_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 1
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "lingering_potion_43",
+        "index": 77,
+        "local": [
+          11,
+          0,
+          17
+        ],
+        "pos": [
+          3,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 43,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 43,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 43,
+            "name": "lingering_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 3
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "lingering_potion_44",
+        "index": 78,
+        "local": [
+          13,
+          0,
+          17
+        ],
+        "pos": [
+          5,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 44,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 44,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 44,
+            "name": "lingering_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 5
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "lingering_potion_45",
+        "index": 79,
+        "local": [
+          15,
+          0,
+          17
+        ],
+        "pos": [
+          7,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 45,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 45,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 45,
+            "name": "lingering_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 7
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      },
+      {
+        "id": "lingering_potion_46",
+        "index": 80,
+        "local": [
+          17,
+          0,
+          17
+        ],
+        "pos": [
+          9,
+          -60,
+          25
+        ],
+        "use": [
+          {
+            "aux": 46,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 46,
+            "name": "lingering_potion"
+          },
+          {
+            "aux": 46,
+            "name": "lingering_potion"
+          }
+        ],
+        "write": {
+          "actual": {
+            "aux": 0,
+            "name": "minecraft:cauldron"
+          },
+          "changed": true,
+          "nbt": {
+            "Items": [],
+            "PotionId": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "PotionType": {
+              "__type__": 2,
+              "__value__": -1
+            },
+            "id": {
+              "__type__": 8,
+              "__value__": "Cauldron"
+            },
+            "isMovable": {
+              "__type__": 1,
+              "__value__": 1
+            },
+            "x": {
+              "__type__": 3,
+              "__value__": 9
+            },
+            "y": {
+              "__type__": 3,
+              "__value__": -60
+            },
+            "z": {
+              "__type__": 3,
+              "__value__": 25
+            }
+          },
+          "requested_aux": 0,
+          "states": {
+            "cauldron_liquid": "water",
+            "fill_level": 0
+          }
+        }
+      }
+    ],
+    "runtime": "1.21.130.0"
+  }
+}

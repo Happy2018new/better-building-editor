@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "audit": "item-content-r15-310",
+  "source": "45ea87f90af74e9f83fb6c21534538c77d35c04a",
+  "engine_version": "3.10.0.420447",
+  "minecraft_version": "1.21.130.0",
+  "owner": "item-product-r15-310",
+  "evidence_dir": ".runtime/item-product-r15-310",
+  "game_pid": 43244,
+  "capture_policy": "Windows.Graphics.Capture; no activation; user foreground unchanged",
+  "production_qualification": false,
+  "editor": {
+    "fixture": "test.entities.item_contents",
+    "routes": ["editor"],
+    "groups": 4,
+    "ordinary_item_visible": true,
+    "enchanted_item_visible": true,
+    "empty_frame_negative": true,
+    "enchantment_roi_changed_pixels": {
+      "editor_temporal_1_to_2": 1021,
+      "editor_temporal_2_to_19": 1022
+    },
+    "ordinary_roi_changed_pixels": 0,
+    "hidden_clear_restore": true,
+    "cutaway_restore": true,
+    "captures": [
+      "editor_temporal_0.png",
+      "editor_temporal_1.png",
+      "editor_temporal_2.png",
+      "editor_19.png",
+      "editor_items_hidden.png",
+      "editor_cutaway.png",
+      "editor_cutaway_restored.png"
+    ]
+  },
+  "projection": {
+    "full": {
+      "groups": 4,
+      "enchanted_roi_changed_pixels": {
+        "world_0_to_1": 918,
+        "world_1_to_2": 919
+      },
+      "captures": ["world_0.png", "world_1.png", "world_2.png", "world_19.png"]
+    },
+    "missing": {
+      "groups": 4,
+      "occupied_cell_groups": 3,
+      "captures": ["world_missing_0.png", "world_missing_1.png", "world_missing_2.png", "world_missing_19.png"]
+    },
+    "hidden_clear_restore": true,
+    "world_cell_restored": true
+  },
+  "native_reference": {
+    "placement": "PlayerUseItemToPos on real frame blocks in a private world",
+    "rows": ["plain", "enchanted", "empty"],
+    "typed_nbt_readback": true,
+    "enchanted_tag": {"id": 9, "lvl": 3},
+    "empty_frame_negative": true,
+    "enchantment_roi_changed_pixels": {"native_1_to_19": 1015},
+    "first_interval_changed_pixels": 0,
+    "restored": true,
+    "captures": ["native_before_fill.png", "native_0.png", "native_1.png", "native_19.png"]
+  },
+  "not_verified_by_this_audit": [
+    "Shelf with real slot contents",
+    "Campfire with cooking items",
+    "Lectern with a written book",
+    "BrushableBlock with hidden item/progress",
+    "Vault with visible content"
+  ],
+  "notes": [
+    "Native frame actor payload is not the source of displayed item contents; the project item overlay remains necessary.",
+    "Native reference first interval was unchanged; retain the full 20-frame burst and do not infer that the native glint is static.",
+    "An unrelated pet toast NoneType traceback was present in the final log and did not affect the item captures.",
+    "Particle effects and mob-spawner inner mobs were outside this audit."
+  ]
+}

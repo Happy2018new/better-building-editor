@@ -77,6 +77,11 @@ targets, manifests, UUIDs and file hashes are preserved under
 The 36-case shared fixture is
 `tools/data/nemc_clean_projection_fixture_r14.json`, final SHA256
 `381e951a01d141d4948776775d0e2e02c21788a0c88a346e426ecd6f84c3fba9`.
+The currently checked-in fixture file has SHA256
+`75a1d13561deeca7747a40b40fc6798d150615d7a530f7b894b0cdfb7b5795bf`, so it
+does not reproduce that archived clean capture byte-for-byte. Until the two
+sources are reconciled, this report's PNGs and raw receipts remain tied to the
+archived hash above; the current fixture must not be presented as their input.
 Each world resolves semantic block states independently and uses native item
 interactions for banners, flower pots, frames and cauldron filling. Sign
 front/back text is written through the native typed block-entity interface.
@@ -127,19 +132,22 @@ stop, relaunch, branch merge, or push.
 Its actor records establish the following structural capabilities; they do
 not establish complete pixel or animation behavior.
 
-| Family | Observed 3.10 Actor Fields | Migration Boundary |
+| Family | 3.10 native status | Observed 3.10 Actor Fields | Migration Boundary |
 | --- | --- | --- |
-| Standing / wall banners | Base, Type, direction, pattern count, bs/ts pattern/color fields | Preserve native actor data; do not replace supported appearance with a 3.9 proxy. Waving is not qualified. |
-| Standing / wall / hanging signs | Two-sided real text, color, glow, geometry/pose fields | Native text/style data is present. Preserve unknown fields and native pose rather than reseeding a 3.9 template. |
-| Flower pots | Empty actor or `flowerPotPlant=minecraft:poppy` | Official planted appearance data is present. Decorated-pot sherds are a separate family and were not exercised here. |
-| Copper chests | Copper type, pair flags, direction, openness | Native shell/pair appearance is available; inventory contents remain typed NBT, and live opening is not established. |
-| Copper golem statues | Copper type, waxed flag, pose, direction | Native static appearance data is present. |
-| Ordinary chest | Pair flags, direction, openness | Native renderer fields are present; preserve actual fields and qualify pose before retiring other adapters. |
-| Frame: empty / normal / enchanted sword | All three actor entries are empty dictionaries | Real Item and enchant NBT exists on the source, but the serializer lacks displayed-item fields. Keep item-content fallback. Shelf was not exercised. |
-| Purple shulker box | Empty dictionary | Color follows block name; this capture does not establish NBT-facing or opening support. Keep unqualified pose fallback. |
-| Bell / conduit | Bell attachment/direction; empty conduit record | Official support is documented. Dynamic movement and active-state visuals are not qualified. |
-| Water / falling water / lava / wet fence / cauldron | Native primary/extra water, depths and cauldron fill state | The user requires custom fluid adaptation despite official conversion support. Remove fluid contribution from the official route to avoid duplicate rendering. |
-| Fire | Native fire cell | Official support is documented and accepted as a migration route by the user; full dynamic behavior still needs targeted validation. |
+| Standing / wall banners | `NATIVE` | Base, Type, direction, pattern count, bs/ts pattern/color fields | Preserve native actor data; do not replace supported appearance with a 3.9 proxy. Waving is not qualified. |
+| Standing / wall / hanging signs | `NATIVE` | Two-sided real text, color, glow, geometry/pose fields | Native text/style data is present. Preserve unknown fields and native pose rather than reseeding a 3.9 template. |
+| Flower pots | `NATIVE` | Empty actor or `flowerPotPlant=minecraft:poppy` | Official planted appearance data is present. Decorated-pot sherds are a separate family and were not exercised here. |
+| Copper chests | `NATIVE` | Copper type, pair flags, direction, openness | Native shell/pair appearance is available; inventory contents remain typed NBT, and live opening is not established. |
+| Copper golem statues | `NATIVE` | Copper type, waxed flag, pose, direction | Native static appearance data is present. |
+| Ordinary chest | `NATIVE-PARTIAL` | Pair flags, direction, openness | Native renderer fields are present; preserve actual fields and qualify pose before retiring other adapters. |
+| Frame: empty / normal / enchanted sword | `NATIVE-PARTIAL` | All three actor entries are empty dictionaries | Real Item and enchant NBT exists on the source, but the serializer lacks displayed-item fields. Keep item-content fallback. Shelf was not exercised. |
+| Purple shulker box | `NATIVE-PARTIAL` | Empty dictionary | Color follows block name; this capture does not establish NBT-facing or opening support. Keep unqualified pose fallback. |
+| Bell | `NATIVE` | Bell attachment/direction | Official support is documented; dynamic movement still needs qualification. |
+| Conduit | `NATIVE-PARTIAL` | Empty conduit record | Official support is documented and the family is on the native route, but active-state model, rotation and animation are not qualified. |
+| Water / falling water / lava / wet fence / cauldron | `CUSTOM` | Native primary/extra water, depths and cauldron fill state | The user requires custom water and cauldron-liquid adaptation despite official conversion support. Remove fluid contribution from the official route to avoid duplicate rendering. World lava may remain native only where the product path passes. |
+| Fire | `NATIVE-PARTIAL` | Native fire cell | Official support is documented and accepted as a migration route by the user; full dynamic behavior still needs targeted validation. |
+| `portal` | `NATIVE-PARTIAL` | Not included in this clean actor sample | Ordinary Nether portal may use the native transparent/flipbook route, but axis, depth and animation still require a dedicated sample. |
+| `end_portal` / `end_gateway` | `CUSTOM` | Combine documentation explicitly excludes both types | Implement dedicated dynamic surface/beam geometry; no claim of native Combine support and no portal behavior simulation. |
 
 The official custom-block-entity limitation is explicit: conversion currently
 uses a default pose without animation. This does not establish that every
